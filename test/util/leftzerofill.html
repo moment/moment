@@ -1,0 +1,46 @@
+<script src="../vendor/JSLitmus.js"></script>
+
+<script>
+
+	function leftZeroFill1(number, targetLength) {
+		var output = number + '';
+		while (output.length < targetLength) {
+			output = '0' + output;
+		}
+		return output;
+	};
+	
+	function leftZeroFill2(number, targetLength) {
+        if ((number = number + "").length < targetLength) {
+            return new Array((++targetLength) - number.length).join("0") + number;
+        } else {
+            return number;
+        }
+    }
+
+	JSLitmus.test('leftZeroFill 1 1e2, 2', function() {
+		leftZeroFill1(Math.floor(Math.random() * 1e2) ,2);
+	});
+	JSLitmus.test('leftZeroFill 2 1e2, 2', function() {
+		leftZeroFill2(Math.floor(Math.random() * 1e2) ,2);
+	});
+	JSLitmus.test('leftZeroFill 1 1e5, 5', function() {
+		leftZeroFill1(Math.floor(Math.random() * 1e5) ,5);
+	});
+	JSLitmus.test('leftZeroFill 2 1e5, 5', function() {
+		leftZeroFill2(Math.floor(Math.random() * 1e5) ,5);
+	});
+	JSLitmus.test('leftZeroFill 1 1e9, 9', function() {
+		leftZeroFill1(Math.floor(Math.random() * 1e9) ,9);
+	});
+	JSLitmus.test('leftZeroFill 2 1e9, 9', function() {
+		leftZeroFill2(Math.floor(Math.random() * 1e9) ,9);
+	});
+	JSLitmus.test('leftZeroFill 1 1e30, 30', function() {
+		leftZeroFill1(Math.floor(Math.random() * 1e30) ,30);
+	});
+	JSLitmus.test('leftZeroFill 2 1e30, 30', function() {
+		leftZeroFill2(Math.floor(Math.random() * 1e30) ,30);
+	});
+	
+</script>

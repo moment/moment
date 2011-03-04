@@ -1,0 +1,53 @@
+<script src="../vendor/JSLitmus.js"></script>
+
+<script>
+
+	function bitwiseOrFloor(number) {
+		return number | 0;
+	};
+	
+	function parseIntFloor(number) {
+		return parseInt(number);
+	};
+	
+	function MathFloor(number) {
+		return Math.floor(number);
+	};
+
+	function bitwiseOrRound(number) {
+		return number + .5 | 0;
+	};
+	
+	function parseIntRound(number) {
+		return parseInt(number + .5);
+	};
+	
+	function MathRound(number) {
+		return Math.round(number);
+	};
+	
+	JSLitmus.test('bitwiseOrFloor', function() {
+		bitwiseOrFloor(Math.random()*10);
+	});
+	
+	JSLitmus.test('parseIntFloor', function() {
+		parseIntFloor(Math.random()*10);
+	});
+	
+	JSLitmus.test('MathFloor', function() {
+		MathFloor(Math.random()*10);
+	});
+	
+	JSLitmus.test('bitwiseOrRound', function() {
+		bitwiseOrRound(Math.random()*10);
+	});
+	
+	JSLitmus.test('parseIntRound', function() {
+		parseIntRound(Math.random()*10);
+	});
+	
+	JSLitmus.test('MathRound', function() {
+		MathRound(Math.random()*10);
+	});
+	
+</script>
