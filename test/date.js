@@ -10,7 +10,7 @@ $(document).ready(function() {
 	equal(dateTest.humanize("M Mo MM MMMM MMM"), "2 2nd 02 February Feb");
 	equal(dateTest.humanize("YYYY YY"), "2010 10");
 	equal(dateTest.humanize("D Do DD"), "14 14th 14");
-	equal(dateTest.humanize("d do dd dddd ddd"), "0 0th 00 Sunday Sun");
+	equal(dateTest.humanize("d do dddd ddd"), "0 0th Sunday Sun");
 	equal(dateTest.humanize("DDD DDDo DDDD"), "45 45th 045");
 	equal(dateTest.humanize("w wo ww"), "8 8th 08");
 	equal(dateTest.humanize("h hh"), "3 03");

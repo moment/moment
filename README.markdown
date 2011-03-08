@@ -16,223 +16,168 @@ Date.prototype.humanize(format)
 Date.humanize returns a human readable string for a Date based on the format string that was passed in.
 
     var date = new Date(2010, 1, 14, 15, 25, 50, 125);
-    date.humanize("w, l D1 Y, h:m2:s2 a"); // "Sunday, February 14th 2010, 3:25:50 pm"
-    date.humanize("w1, hA"); // "Sun, 3PM"
+    date.humanize("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
+    date.humanize("ddd, hA"); // "Sun, 3PM"
 
-The formats are created by creating a string of replacable characters with optional flags.
-
-For numerical outputs, appending 1 will add an ordinal, appending 2 will zero fill, and appending 3 will both zero fill and add an ordinal.
-
-For string outputs, appending 1 will return a 3 character shortening of the string.
+The formats are created by creating a string of replacable characters.
 
 ### Month
 <table>
     <tr>
         <th>Input</th>
-        <td>L</td>
-        <td>L1</td>
-        <td>L2</td>
-        <td>L3</td>
+        <th>Output</th>
     </tr>
     <tr>
-        <th>Output</th>
+    	<td colspan="2" align="center">Month</td>
+    </tr>
+    <tr>
+        <td>M</td>
         <td>1 2 ... 11 12</td>
+    </tr>
+    <tr>
+        <td>Mo</td>
         <td>1st 2nd ... 11th 12th</td>
+    </tr>
+    <tr>
+        <td>MM</td>
         <td>01 02 ... 11 12</td>
-        <td>01st 02nd ... 11th 12th</td>
-    </tr>
-</table>
-The string month names use lowercase L
-<table>
-    <tr>
-        <th>Input</th>
-        <td>l</td>
-        <td>l1</td>
     </tr>
     <tr>
-        <th>Output</th>
-        <td>January February ... November December</td>
+        <td>MMM</td>
         <td>Jan Feb ... Nov Dec</td>
     </tr>
-</table>
-
-### Day of Month
-<table>
     <tr>
-        <th>Input</th>
-        <td>D</td>
-        <td>D1</td>
-        <td>D2</td>
-        <td>D3</td>
+        <td>MMMM</td>
+        <td>January February ... November December</td>
     </tr>
     <tr>
-        <th>Output</th>
-        <td>1 2 ... 30 31</td>
+    	<td colspan="2" align="center">Day of Month</td>
+    </tr>
+    <tr>
+        <td>D</td>
+        <td>1 2 ... 30 30</td>
+    </tr>
+    <tr>
+        <td>Do</td>
         <td>1st 2nd ... 30th 31st</td>
+    </tr>
+    <tr>
+        <td>DD</td>
         <td>01 02 ... 30 31</td>
-        <td>01st 02nd ... 30th 31st</td>
-    </tr>
-</table>
-
-### Day of Year
-<table>
-    <tr>
-        <th>Input</th>
-        <td>D</td>
-        <td>D1</td>
-        <td>D2</td>
-        <td>D3</td>
     </tr>
     <tr>
-        <th>Output</th>
+    	<td colspan="2" align="center">Day of Year</td>
+    </tr>
+    <tr>
+        <td>DDD</td>
         <td>1 2 ... 364 365</td>
+    </tr>
+    <tr>
+        <td>DDDo</td>
         <td>1st 2nd ... 364th 365th</td>
+    </tr>
+    <tr>
+        <td>DDDD</td>
         <td>001 002 ... 364 365</td>
-        <td>001st 002nd ... 364th 365th</td>
-    </tr>
-</table>
-
-### Weekday
-<table>
-    <tr>
-        <th>Input</th>
-        <td>W</td>
-        <td>W1</td>
-        <td>W2</td>
-        <td>W3</td>
     </tr>
     <tr>
-        <th>Output</th>
-        <td>1 2 ... 6 7</td>
-        <td>1st 2nd ... 6th 7th</td>
-        <td>1 2 ... 6 7</td>
-        <td>1st 2nd ... 6th 7th</td>
-    </tr>
-</table>
-<table>
-    <tr>
-        <th>Input</th>
-        <td>w</td>
-        <td>w1</td>
+    	<td colspan="2" align="center">Day of Week</td>
     </tr>
     <tr>
-        <th>Output</th>
-        <td>Sunday Monday ... Friday Saturday</td>
+        <td>d</td>
+        <td>0 1 ... 5 6</td>
+    </tr>
+    <tr>
+        <td>do</td>
+        <td>0th 1st ... 5th 6th</td>
+    </tr>
+    <tr>
+        <td>ddd</td>
         <td>Sun Mon ... Fri Sat</td>
     </tr>
-</table>
-
-### Week of Year
-<table>
     <tr>
-        <th>Input</th>
-        <td>K</td>
-        <td>K1</td>
-        <td>K2</td>
-        <td>K3</td>
+        <td>dddd</td>
+        <td>Sunday Monday ... Friday Saturday</td>
     </tr>
     <tr>
-        <th>Output</th>
+    	<td colspan="2" align="center">Week of Year</td>
+    </tr>
+    <tr>
+        <td>w</td>
         <td>1 2 ... 52 53</td>
+    </tr>
+    <tr>
+        <td>wo</td>
         <td>1st 2nd ... 52nd 53rd</td>
+    </tr>
+    <tr>
+        <td>ww</td>
         <td>01 02 ... 52 53</td>
-        <td>01st 02nd ... 52nd 53rd</td>
-    </tr>
-</table>
-
-### Year
-Returns the 4 digit year for `Y`, and the last 2 digits for `Y1`. 
-<table>
-    <tr>
-        <th>Input</th>
-        <td>Y</td>
-        <td>Y1</td>
     </tr>
     <tr>
-        <th>Output</th>
-        <td>1970 1971 ... 2029 2030</td>
+    	<td colspan="2" align="center">Year</td>
+    </tr>
+    <tr>
+        <td>YY</td>
         <td>70 71 ... 29 30</td>
     </tr>
-</table>
-
-### AM/PM
-Returns uppercase `AM || PM` for uppercase `A` and lowercase `am || pm` for lowercase `a`. 
-<table>
     <tr>
-        <th>Input</th>
-        <td>A</td>
-        <td>a</td>
+        <td>YYYY</td>
+        <td>1970 1971 ... 2029 2030</td>
     </tr>
     <tr>
-        <th>Output</th>
+    	<td colspan="2" align="center">AM/PM</td>
+    </tr>
+    <tr>
+        <td>A</td>
         <td>AM PM</td>
+    </tr>
+    <tr>
+        <td>a</td>
         <td>am pm</td>
     </tr>
-</table>
-
-### Hour
-Returns 24 hour for uppercase `H` and 12 hour for lowercase `h`.
-<table>
     <tr>
-        <th>Input</th>
+    	<td colspan="2" align="center">Hour</td>
+    </tr>
+    <tr>
         <td>H</td>
-        <td>H1</td>
-        <td>H2</td>
-        <td>H3</td>
-        <td>h</td>
-        <td>h1</td>
-        <td>h2</td>
-        <td>h3</td>
-    </tr>
-    <tr>
-        <th>Output</th>
         <td>0 1 ... 22 23</td>
-        <td>0th 1st ... 22nd 23rd</td>
+    </tr>
+    <tr>
+        <td>HH</td>
         <td>00 01 ... 22 23</td>
-        <td>00th 01st ... 22nd 23rd</td>
+    </tr>
+    <tr>
+        <td>h</td>
         <td>1 2 ... 11 12</td>
-        <td>1st 2nd ... 11th 12th</td>
+    </tr>
+    <tr>
+        <td>hh</td>
         <td>01 02 ... 11 12</td>
-        <td>01st 02nd ... 11th 12th</td>
     </tr>
-</table>
-
-### Minute
-<table>
     <tr>
-        <th>Input</th>
+    	<td colspan="2" align="center">Minute</td>
+    </tr>
+    <tr>
         <td>m</td>
-        <td>m1</td>
-        <td>m2</td>
-        <td>m3</td>
-    </tr>
-    <tr>
-        <th>Output</th>
         <td>0 1 ... 58 59</td>
-        <td>0th 1st ... 58th 59th</td>
-        <td>00 01 ... 58 59</td>
-        <td>00th 01st ... 58th 59th</td>
     </tr>
-</table>
-
-### Second
-<table>
     <tr>
-        <th>Input</th>
+        <td>mm</td>
+        <td>00 01 ... 58 59</td>
+    </tr>
+    <tr>
+    	<td colspan="2" align="center">Second</td>
+    </tr>
+    <tr>
         <td>s</td>
-        <td>s1</td>
-        <td>s2</td>
-        <td>s3</td>
+        <td>0 1 ... 58 59</td>
     </tr>
     <tr>
-        <th>Output</th>
-        <td>0 1 ... 58 59</td>
-        <td>0th 1st ... 58th 59th</td>
+        <td>ss</td>
         <td>00 01 ... 58 59</td>
-        <td>00th 01st ... 58th 59th</td>
     </tr>
 </table>
-
 
 Underscore mixin functions
 ==========================
