@@ -19,5 +19,23 @@ $(document).ready(function() {
 	equal(dateTest.humanize("s ss"), "50 50");
 	equal(dateTest.humanize("a A"), "pm PM");
   });
+  
+  test("add", function() {
+	var dateTest = new Date(2010, 1, 14, 15, 25, 50, 125);
+    expect(5);
+	equal(dateTest.humanize("MMMM Do YYYY, h:mm:ss a"), "February 14th 2010, 3:25:50 pm");
+    
+    dateTest.add({ms:200,s:10,m:10,h:2,d:3,M:2,y:3});
+	equal(dateTest.humanize("MMMM Do YYYY, h:mm:ss a"), "April 17th 2013, 5:36:00 pm");
+    
+    dateTest.add({w:1});
+    equal(dateTest.humanize("MMMM Do YYYY, h:mm:ss a"), "April 24th 2013, 5:36:00 pm");
+    
+	dateTest = new Date(2010, 0, 31);
+    equal(dateTest.humanize("MMMM Do YYYY"), "January 31st 2010");
+    
+    dateTest.add({M:1});
+    equal(dateTest.humanize("MMMM Do YYYY"), "February 28th 2010");
+  });
 
 });
