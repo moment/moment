@@ -250,17 +250,17 @@ object with the paremeters you wish to overwrite.
 		timeago = {
 			future: "in %s",
 			past: "%s ago",
-			S: "less than a minute",
-			m: "about a minute",
-			M: "%d minutes",
-			h: "about an hour",
-			H: "about %d hours",
-			d: "a day",
-			D: "%d days",
-			l: "about a month",
-			L: "%d months",
-			y: "about a year",
-			Y: "%d years"
+            ss: "less than a minute",
+            m: "about a minute",
+            mm: "%d minutes",
+            h: "about an hour",
+            hh: "about %d hours",
+            d: "a day",
+            dd: "%d days",
+            M: "about a month",
+            MM: "%d months",
+            y: "about a year",
+            yy: "%d years"
 		}
     });
 
