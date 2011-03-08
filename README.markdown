@@ -287,17 +287,17 @@ A function that returns a string to be appended to the number passed in.
 	{
         future: "in %s",
         past: "%s ago",
-        S: "less than a minute",
+        ss: "less than a minute",
         m: "about a minute",
-        M: "%d minutes",
+        mm: "%d minutes",
         h: "about an hour",
-        H: "about %d hours",
+        hh: "about %d hours",
         d: "a day",
-        D: "%d days",
-        l: "about a month",
-        L: "%d months",
+        dd: "%d days",
+        M: "about a month",
+        MM: "%d months",
         y: "about a year",
-        Y: "%d years"
+        yy: "%d years"
     }
 
 The strings used in _.fromnow() and _.relativetime().
