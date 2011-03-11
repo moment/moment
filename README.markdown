@@ -306,11 +306,20 @@ The strings used in _.fromnow() and _.relativetime().
 
 For the values for _.relativetime(), a lowercase character refers to the singular, and an uppercase character refers to the plural.
 
-Roadmap
--------
+Thanks
+------
+
+The folks over at [date.js](http://code.google.com/p/datejs/).
+
+[Ryan McGeary](http://ryan.mcgeary.org/) for his work on the [jQuery timeago plugin](http://timeago.yarp.com/).
 
 Changelog
 ---------
+
+### 0.2.1
+
+Changed date names to be a more pseudo standardized 'dddd, MMMM Do YYYY, h:mm:ss a'.
+Added `Date.prototype` functions `add`, `subtract`, `isdst`, and `isleapyear`.
 
 ### 0.2.0
 
