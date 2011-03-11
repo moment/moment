@@ -41,4 +41,8 @@
 		return _.msapart(1000, 1000);
 	});
 	
+	JSLitmus.test('date1.isleapyear()', function() {
+		return date1.isleapyear();
+	});
+    
 })();
