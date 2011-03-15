@@ -5,40 +5,43 @@
 		rt1 = 1000 * 60 * 60 * 24 * 365 * 5,
 		rt2 = 1000 * 30;
 
-	JSLitmus.test('Date.humanize => Sunday, February 14th 2010, 3:25:50 pm', function() {
-		return date1.humanize("w, l D1 Y, h:m2:s2 a");
-	});
-	
-	JSLitmus.test('Date.humanize => Sun, 3PM', function() {
-		return date1.humanize("w1, hA");
-	});
-	
-	JSLitmus.test('_.fromnow(1000 * 30, 0)', function() {
-		return _.fromnow(1000, 0);
+	JSLitmus.test('_.relativeTime(1000 * 30)', function() {
+		return _.relativeTime(rt2);
 	});
 
-	JSLitmus.test('_.relativetime(1000 * 30)', function() {
-		return _.relativetime(rt2);
+	JSLitmus.test('_.relativeTime(1000 * 60 * 60 * 24 * 365 * 5)', function() {
+		return _.relativeTime(rt1);
 	});
 
-	JSLitmus.test('_.relativetime(1000 * 60 * 60 * 24 * 365 * 5)', function() {
-		return _.relativetime(rt1);
+	JSLitmus.test('_.msApart(1000)', function() {
+		return _.msApart(1000);
 	});
 
-	JSLitmus.test('_.msapart(1000)', function() {
-		return _.msapart(1000);
+	JSLitmus.test('_.msApart(date1, date2)', function() {
+		return _.msApart(date1, date2);
 	});
 
-	JSLitmus.test('_.msapart(date1, date2)', function() {
-		return _.msapart(date1, date2);
+	JSLitmus.test('_.msApart(date1, 1000)', function() {
+		return _.msApart(date1, 1000);
 	});
 
-	JSLitmus.test('_.msapart(date1, 1000)', function() {
-		return _.msapart(date1, 1000);
+	JSLitmus.test('_.msApart(1000, 1000)', function() {
+		return _.msApart(1000, 1000);
 	});
-
-	JSLitmus.test('_.msapart(1000, 1000)', function() {
-		return _.msapart(1000, 1000);
+    
+	JSLitmus.test('_.date(date1)', function() {
+		return _.date(date1);
 	});
-	
+	JSLitmus.test('_.date([2010, 2, 6, 15, 25, 50, 125])', function() {
+		return _.date([2010, 2, 6, 15, 25, 50, 125]);
+	});
+	JSLitmus.test('_.date(100000)', function() {
+		return _.date(100000);
+	});
+	JSLitmus.test('_.date("Mon, 25 Dec 1995 13:30:00 GMT")', function() {
+		return _.date("Mon, 25 Dec 1995 13:30:00 GMT");
+	});
+	JSLitmus.test('_.date()', function() {
+		return _.date();
+	});
 })();
