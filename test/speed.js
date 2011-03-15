@@ -4,10 +4,6 @@
 		date2 = new Date(1000),
 		rt1 = 1000 * 60 * 60 * 24 * 365 * 5,
 		rt2 = 1000 * 30;
-	
-	JSLitmus.test('_.fromnow(1000 * 30, 0)', function() {
-		return _.fromnow(1000, 0);
-	});
 
 	JSLitmus.test('_.relativeTime(1000 * 30)', function() {
 		return _.relativeTime(rt2);
