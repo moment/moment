@@ -5,30 +5,14 @@
 		rt1 = 1000 * 60 * 60 * 24 * 365 * 5,
 		rt2 = 1000 * 30;
 
-	JSLitmus.test('_.relativeTime(1000 * 30)', function() {
-		return _.relativeTime(rt2);
+	JSLitmus.test('_.date().relative(1000 * 30)', function() {
+		return _.date().relative(rt2);
 	});
 
-	JSLitmus.test('_.relativeTime(1000 * 60 * 60 * 24 * 365 * 5)', function() {
-		return _.relativeTime(rt1);
+	JSLitmus.test('_.date().relative(1000 * 60 * 60 * 24 * 365 * 5)', function() {
+		return _.date().relative(rt1);
 	});
 
-	JSLitmus.test('_.msApart(1000)', function() {
-		return _.msApart(1000);
-	});
-
-	JSLitmus.test('_.msApart(date1, date2)', function() {
-		return _.msApart(date1, date2);
-	});
-
-	JSLitmus.test('_.msApart(date1, 1000)', function() {
-		return _.msApart(date1, 1000);
-	});
-
-	JSLitmus.test('_.msApart(1000, 1000)', function() {
-		return _.msApart(1000, 1000);
-	});
-    
 	JSLitmus.test('_.date(date1)', function() {
 		return _.date(date1);
 	});
