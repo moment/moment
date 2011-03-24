@@ -12,6 +12,11 @@ In addition to the date creation and manipulation functions, there are a few fun
     _.date(new Date(2010, 1, 14, 15, 25, 50, 125)).format("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
     _.date(new Date(2010, 1, 14, 15, 25, 50, 125)).fromNow(); // "20 days ago"
 
+#### Filesize
+
+minified 3.73k  
+
+gzipped 1.6k
 
 _.date() 
 ========
