@@ -46,17 +46,18 @@ $(function() {
     });
 
     test("_.date().relative()", 11, function() {
-        equal(_.date().relative(1000 * 30), "seconds");
-        equal(_.date().relative(1000 * 60), "a minute");
-        equal(_.date().relative(1000 * 60 * 5), "5 minutes");
-        equal(_.date().relative(1000 * 60 * 60), "an hour");
-        equal(_.date().relative(1000 * 60 * 60 * 5), "5 hours");
-        equal(_.date().relative(1000 * 60 * 60 * 24), "a day");
-        equal(_.date().relative(1000 * 60 * 60 * 24 * 5), "5 days");
-        equal(_.date().relative(1000 * 60 * 60 * 24 * 30), "a month");
-        equal(_.date().relative(1000 * 60 * 60 * 24 * 30 * 5), "5 months");
-        equal(_.date().relative(1000 * 60 * 60 * 24 * 30 * 12), "a year");
-        equal(_.date().relative(1000 * 60 * 60 * 24 * 365 * 5), "5 years");
+        var start = _.date([2007, 1, 28]);
+        equal(start.from(_.date([2007, 1, 28]).add({s:30}), true), "seconds");
+        equal(start.from(_.date([2007, 1, 28]).add({s:60}), true), "a minute");
+        equal(start.from(_.date([2007, 1, 28]).add({m:5}), true), "5 minutes");
+        equal(start.from(_.date([2007, 1, 28]).add({h:1}), true), "an hour");
+        equal(start.from(_.date([2007, 1, 28]).add({h:5}), true), "5 hours");
+        equal(start.from(_.date([2007, 1, 28]).add({d:1}), true), "a day");
+        equal(start.from(_.date([2007, 1, 28]).add({d:5}), true), "5 days");
+        equal(start.from(_.date([2007, 1, 28]).add({M:1}), true), "a month");
+        equal(start.from(_.date([2007, 1, 28]).add({M:5}), true), "5 months");
+        equal(start.from(_.date([2007, 1, 28]).add({y:1}), true), "a year");
+        equal(start.from(_.date([2007, 1, 28]).add({y:5}), true), "5 years");
     });
     
     test("_.fromNow()", 2, function() {
