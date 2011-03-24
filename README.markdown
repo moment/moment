@@ -9,14 +9,26 @@ It adds utility functions for working with Date objects without extending `Date.
 
 In addition to the date creation and manipulation functions, there are a few functions for displaying a date in human readable formats.
 
-    _.formatDate(new Date(2010, 1, 14, 15, 25, 50, 125), "dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
-    _.fromNow(new Date(2010, 1, 14, 15, 25, 50, 125)); // "20 days ago"
+    _.date(new Date(2010, 1, 14, 15, 25, 50, 125)).format("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
+    _.date(new Date(2010, 1, 14, 15, 25, 50, 125)).fromNow(); // "20 days ago"
 
 
-Date Input Options 
-==================
+_.date() 
+========
 
-Wherever the `dateInput` parameter is specified in the functions below, you can pass any of the following data types in.
+The library works by creating a date wrapper object using _.date().
+
+To create that wrapper, you can pass any of the following data types in.
+
+
+
+Date 
+----
+`new Date(2010, 1, 14, 15, 25, 50, 125)`
+
+Any valid `Date` object. For more information on `Date` objects, see [the JavaScript Date documentation at MDN](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date)
+
+
 
 Array
 ------
@@ -28,11 +40,7 @@ The array should mirror the parameters passed into [Date.UTC()](https://develope
 
 Any value past the year is optional, and will default to the lowest possible number.
 
-Date 
-----
-`new Date(2010, 1, 14, 15, 25, 50, 125)`
 
-Any valid `Date` object. For more information on `Date` objects, see [the JavaScript Date documentation at MDN](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date)
 
 String
 ------
@@ -40,11 +48,15 @@ String
  
 A string that can be parsed by [Date.parse()](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/parse).
 
+
+
 Number
 ------
 `1300291340510`
 
 An integer value representing the number of milliseconds since 1 January 1970 00:00:00 UTC.
+
+
 
 undefined
 ---------
@@ -54,22 +66,43 @@ If no value is passed to a 'dateInput' parameter, it will default to the current
 
     _.date() === new Date()
 
-Chaining 
-========    
+    
+    
+_.now(asTimestamp)
+==================
 
-You can chain functions by using the underscore `chain()` and `value()` functions.
+Returns the current date. 
 
-    _([2010, 1, 14, 15, 25, 50, 125]).chain().date().addTime({ms:200,s:10,m:10,h:2,d:3,M:2,y:3}).formatDate("MMMM Do YYYY, h:mm:ss a").value() // "April 17th 2013, 5:36:00 pm"
+Pass `true` to return a UNIX timestamp, otherwise it will return an `_.date()` object.   
 
-Date Functions
-==============
 
-_.addTime(dateInput, timeToAdd) `:Date`
---------------------------------------
 
-Returns `dateInput` plus the time in the `timeToAdd` object. 
+_.isLeapYear(number)
+====================
 
-The `timeToAdd` object should have key value pairs as shown below.
+Returns `true` if the year is a leap year, `false` if it is not
+
+Pass the year number to this function. To check for a leap year on a `_.date()` object, use `_.date().isLeapYear()`
+
+Examples :
+
+    _.isLeapYear(2000) // true
+    _.isLeapYear(2001) // false
+    _.isLeapYear(2100) // false
+
+
+
+_.date() Functions
+==================
+
+
+
+_.date().add(object)
+--------------------
+
+Adds time per the object passed in.
+
+The object should have key value pairs as shown below.
 
     {
         ms:200, // milliseconds
@@ -93,20 +126,29 @@ If the day of the month on the original date is greater than the number of days 
 Example:
     
     _.date([2010, 0, 31]) // January 31
-    _.addTime([2010, 0, 31], {M:1}) // February 28
+    _.date([2010, 0, 31]).add({M:1}) // February 28
 
-_.date(dateInput) `:Date`
+    
+    
+_.date().subtract(object)
 -------------------------
 
-Returns a `Date` based on the dateInput parameters specified above.
+Functions the same as `_.date().add()`, only using subtraction instead of addition.
 
-_.formatDate(dateInput, string) `:String`
------------------------------------------
+Example:
+    
+    _.date([2010, 1, 28]) // February 28
+    _.date([2010, 1, 28]).subtract({M:1}) // January 28
+  
 
-`_.formatDate()` returns a human readable string for a Date based on the format string that was passed in.
+  
+_.date().format(string)
+-----------------------
 
-    _.formatDate(new Date(2010, 1, 14, 15, 25, 50, 125), "dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
-    _.formatDate(new Date(2010, 1, 14, 15, 25, 50, 125), "ddd, hA"); // "Sun, 3PM"
+Returns a human readable string based on the format string that was passed in.
+
+    _.date(new Date(2010, 1, 14, 15, 25, 50, 125)).format("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
+    _.date(new Date(2010, 1, 14, 15, 25, 50, 125)).format("ddd, hA"); // "Sun, 3PM"
 
 The formats are created by creating a string of replacable characters.
 
@@ -267,90 +309,56 @@ The formats are created by creating a string of replacable characters.
         <td>00 01 ... 58 59</td>
     </tr>
 </table>
-   
-_.fromNow(dateInput1, [dateInput2]) `:String`
----------------------------------------------
 
-Returns a string as time from now.
 
-`dateInput2` is optional, and if left out will default to _.now(true).
 
-The base strings can be customized with `_.customizeDate()`.
+_.date().from(date, withoutSuffix:boolean, asMilliseconds:boolean)
+------------------------------------------------------------------
 
-Examples:
+Returns a string as relative time ('minutes ago', '5 months ago', etc).
 
-	_.fromNow(new Date(2010, 1, 1), new Date(2010, 1, 2)); // "about a day ago"
-	_.fromNow(new Date(2010, 1, 1, 0, 0, 0), new Date(2010, 1, 1, 0, 0, 30)); // "less than a minute ago"
-	_.fromNow(new Date(2010, 1, 1, 0, 0, 30), new Date(2010, 1, 1, 0, 0, 0)); // "in less than a minute"
+You can pass anything that you would pass to _.date() as the first parameter, or a _.date() object.
 
-_.isLeapYear(dateInputOrYear) `:Boolean`
-----------------------------------------
+    _.date([2007, 0, 29]).from(_.date([2007, 0, 28])) // "a day ago");
+    
+You can pass `true` as the second parameter to return without the prefixes and suffixes.
+
+    _.date([2007, 0, 29]).from(_.date([2007, 0, 28]), true) // "a day");
+    
+You can pass `true` as the third parameter to return as milliseconds. 
+The number of milliseconds returned will be positive if the date passed 
+in is later than the first date, and negative if the date passed in is earlier.
+
+    _.date([2007, 0, 29]).from(_.date([2007, 0, 28]), true , true) // -86400000);
+    _.date([2007, 0, 27]).from(_.date([2007, 0, 28]), true , true) // 86400000);
+
+The base strings for this function can be customized with `_.date().customize()`.
+
+
+
+_.date().fromNow(withoutSuffix:boolean, asMilliseconds:boolean)
+---------------------------------------------------------------
+
+A shortcut for _.date().from(_.now(), withoutSuffix:boolean, asMilliseconds:boolean)
+
+    
+_.date().isLeapYear()
+---------------------
 
 Returns `true` if the year is a leap year, `false` if it is not
 
-You can pass any value specified by the dateInput formats above, *OR* you can pass a number less than 10,000 to check a specific year without converting to a `Date`.
 
-Examples :
-
-    _.isLeapYear(2000) // true
-    _.isLeapYear(2001) // false
-    _.isLeapYear([2100, 0, 1]) // false
-
-_.msApart(dateInput1, [dateInput2]) `:Number`
----------------------------------------------
-
-Returns the number of milliseconds between `dateInput1` and `dateInput2`. If `dateInput1` is before `dateInput2`, it will return a negative value.
-
-`dateInput2` is optional, and if left out will default to _.now(true).
-
-_.now(asTimestamp) `:Date`
--------------------------
-
-Returns the current date. 
-
-Pass `true` to return a UNIX timestamp, otherwise it will return a `Date` object.
-
-_.relativeTime(dateInput) `:String`
------------------------------------
-
-Returns a string as relative time. 
-
-The base strings can be customized with `_.customizedate()`.
-
-Examples:
-
-    _.relativeTime(1000 * 30); // "less than a minute"
-	_.relativeTime(1000 * 60); // "about a minute"
-	_.relativeTime(1000 * 60 * 5); // "5 minutes"
-	_.relativeTime(1000 * 60 * 60); // "about an hour"
-	_.relativeTime(1000 * 60 * 60 * 5); // "about 5 hours"
-	_.relativeTime(1000 * 60 * 60 * 24); // "a day"
-	_.relativeTime(1000 * 60 * 60 * 24 * 5); // "5 days"
-	_.relativeTime(1000 * 60 * 60 * 24 * 30); // "about a month"
-	_.relativeTime(1000 * 60 * 60 * 24 * 30 * 5); // "5 months"
-	_.relativeTime(1000 * 60 * 60 * 24 * 30 * 12); // "about a year"
-	_.relativeTime(1000 * 60 * 60 * 24 * 365 * 5); // "5 years"
-
-_.subtractTime(dateInput1, timeToSubtract) `:Date`
---------------------------------------------------
-
-Functions the same as `_.addTime()`, only using subtraction instead of addition.
-
-Example:
-    
-    _.date([2010, 1, 28]) // February 28
-    _.subtractTime([2010, 1, 28], {M:1}) // January 28
  
 118N and Customization
 ======================
 
-To customize the wording of `_.formatDate()`, `_.relativeTime()`, and `_.fromNow()`, you can use the `_.customizeDate()` function, passing in an 
+To customize the wording of `_.date().format()` and `_.date().from()` you can use the `_.date().customize()` function, passing in an 
 object with the parameters you wish to overwrite.
     
-_.customizeDate(object)
------------------------
+_.date().customize(object)
+--------------------------
 
-    _.customizeDate({
+    _.date().customize({
         weekdays:["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
         weekdaysShort:["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
         months:["January", "February", "March", "April", "May", "June", "July", 
@@ -411,30 +419,34 @@ A function that returns a string to be appended to the number passed in.
         future: "in %s",
         past: "%s ago",
         ss: "less than a minute",
-        m: "about a minute",
-        mm: "%d minutes",
+        m: "about a minute", // note: lowercase
+        mm: "%d minutes", // note: lowercase
         h: "about an hour",
         hh: "about %d hours",
         d: "a day",
         dd: "%d days",
-        M: "about a month",
-        MM: "%d months",
+        M: "about a month", // note: uppercase
+        MM: "%d months", // note: uppercase
         y: "about a year",
         yy: "%d years"
     }
 
-The strings used in `_.fromNow()` and `_.relativeTime()`.
+The strings used in `_.date().from()`.
 
-`future` and `past` are used in _.fromNow(), the rest are used in _.relativeTime().
+`future` and `past` are used as the suffixes/prefixes.
 
-For the values for _.relativeTime(), a lowercase character refers to the singular, and an uppercase character refers to the plural.
+For all these values, a single character refers to the singular, and an double character refers to the plural.
 
 Tests
 -----
 
+There are a bunch of tests in the test/ folder. Check them out. If you think some tests are missing, open an issue, and I'll add it.
+
 ### Speed tests
 [Floor vs bitwiseor vs parseint](http://jsperf.com/floor-vs-bitwise-or-vs-parseint)
+
 [Switch/case vs object of functions lookup](http://jsperf.com/object-of-functions-vs-switch)
+
 [Left zero filling](http://jsperf.com/left-zero-filling)
 
 Thanks to...
@@ -442,10 +454,16 @@ Thanks to...
 
 The folks over at [date.js](http://code.google.com/p/datejs/).
 
+Everyone who helped with [php.js date](http://phpjs.org/functions/date:380).
+
 [Ryan McGeary](http://ryan.mcgeary.org/) for his work on the [jQuery timeago plugin](http://timeago.yarp.com/).
 
 Changelog
 ---------
+
+### 0.3.1
+
+Cleaned up the namespace. Moved all date manipulation and display functions to the _.date() object. 
 
 ### 0.3.0
 
