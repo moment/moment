@@ -12,32 +12,38 @@ In addition to the date creation and manipulation functions, there are a few fun
     _.date(new Date(2010, 1, 14, 15, 25, 50, 125)).format("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
     _.date(new Date(2010, 1, 14, 15, 25, 50, 125)).fromNow(); // "20 days ago"
 
-#### Filesize
-
-minified 3.73k  
-
-gzipped 1.6k
+### Filesize
+<table>
+    <tr>
+        <th>minified</th>
+        <th>gzipped</th>
+    </tr>
+    <tr>
+    	<td>3.73k</td>
+    	<td>1.6k</td>
+    </tr>
+</table>
 
 _.date() 
 ========
 
-The library works by creating a date wrapper object using _.date().
+The library works by creating a `_Date` date wrapper object using _.date().
 
 To create that wrapper, you can pass any of the following data types in.
 
 
 
-Date 
-----
-`new Date(2010, 1, 14, 15, 25, 50, 125)`
+### Date 
+
+    _.date(new Date(2010, 1, 14, 15, 25, 50, 125))
 
 Any valid `Date` object. For more information on `Date` objects, see [the JavaScript Date documentation at MDN](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date)
 
 
 
-Array
-------
-`[2010, 1, 14, 15, 25, 50, 125]`
+### Array
+
+    _.date([2010, 1, 14, 15, 25, 50, 125])
 
 The array should mirror the parameters passed into [Date.UTC()](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/UTC).
 
@@ -47,43 +53,47 @@ Any value past the year is optional, and will default to the lowest possible num
 
 
 
-String
-------
-`"Dec 25, 1995"`
+### String
+
+    _.date("Dec 25, 1995")
  
 A string that can be parsed by [Date.parse()](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/parse).
 
 
 
-Number
-------
-`1300291340510`
+### Number
+
+    _.date(1300291340510)
 
 An integer value representing the number of milliseconds since 1 January 1970 00:00:00 UTC.
 
 
 
-undefined
----------
-`undefined`
+### undefined
+
+    _.date()
 
 If no value is passed to a 'dateInput' parameter, it will default to the current time using `new Date()`.
 
-    _.date() === new Date()
+    _.date() === _.date(new Date())
 
     
     
-_.now(asTimestamp)
-==================
+_.now()
+=======
+
+    _.now(asTimestamp)
 
 Returns the current date. 
 
-Pass `true` to return a UNIX timestamp, otherwise it will return an `_.date()` object.   
+Pass `true` to return a UNIX timestamp, otherwise it is just a shortcut to `_.date(new Date())`.   
 
 
 
-_.isLeapYear(number)
-====================
+_.isLeapYear()
+==============
+
+    _.isLeapYear(number)
 
 Returns `true` if the year is a leap year, `false` if it is not
 
@@ -97,13 +107,15 @@ Examples :
 
 
 
-_.date() Functions
-==================
+_Date Functions
+===============
 
 
 
-_.date().add(object)
---------------------
+_Date.add()
+-----------
+
+    _.date().add(object)
 
 Adds time per the object passed in.
 
@@ -135,8 +147,10 @@ Example:
 
     
     
-_.date().subtract(object)
--------------------------
+_Date.subtract()
+----------------
+
+    _.date().subtract(object)
 
 Functions the same as `_.date().add()`, only using subtraction instead of addition.
 
@@ -147,8 +161,10 @@ Example:
   
 
   
-_.date().format(string)
------------------------
+_Date.format()
+--------------
+
+    _Date.format(string)
 
 Returns a human readable string based on the format string that was passed in.
 
@@ -317,8 +333,10 @@ The formats are created by creating a string of replacable characters.
 
 
 
-_.date().from(date, withoutSuffix:boolean, asMilliseconds:boolean)
-------------------------------------------------------------------
+_Date.from()
+------------
+
+    _Date.from(date, withoutSuffix:boolean, asMilliseconds:boolean)
 
 Returns a string as relative time ('minutes ago', '5 months ago', etc).
 
@@ -341,14 +359,16 @@ The base strings for this function can be customized with `_.date().customize()`
 
 
 
-_.date().fromNow(withoutSuffix:boolean, asMilliseconds:boolean)
----------------------------------------------------------------
+_Date.fromNow()
+---------------
 
-A shortcut for _.date().from(_.now(), withoutSuffix:boolean, asMilliseconds:boolean)
+    _Date.fromNow(withoutSuffix:boolean, asMilliseconds:boolean)
+
+A shortcut for `_.date().from(_.now(), withoutSuffix:boolean, asMilliseconds:boolean)`
 
     
-_.date().isLeapYear()
----------------------
+_Date.isLeapYear()
+------------------
 
 Returns `true` if the year is a leap year, `false` if it is not
 
