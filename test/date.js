@@ -15,7 +15,7 @@ $(function() {
         deepEqual(_.date(), _.now(), "_.now returns wrapped date");
     });
 
-    test("_.date().format()", 14, function() {
+    test("_.date().format()", 15, function() {
         var dateTest = new Date(2010, 1, 14, 15, 25, 50, 125);
         var _date = _.date(dateTest);
         
@@ -32,6 +32,7 @@ $(function() {
         equal(_date.format("m mm"), "25 25");
         equal(_date.format("s ss"), "50 50");
         equal(_date.format("a A"), "pm PM");
+        equal(_date.format("z zz"), "PST Pacific Standard Time");
         equal(_date.format("t\\he DDDo \\d\\ay of t\\he ye\\ar"), "the 45th day of the year");
     });
 
@@ -46,16 +47,16 @@ $(function() {
 
     test("_.date().from() -- suffixless", 11, function() {
         var start = _.date([2007, 1, 28]);
-        equal(start.from(_.date([2007, 1, 28]).add({s:30}), true), "less than a minute");
-        equal(start.from(_.date([2007, 1, 28]).add({s:60}), true), "about a minute");
+        equal(start.from(_.date([2007, 1, 28]).add({s:30}), true), "seconds");
+        equal(start.from(_.date([2007, 1, 28]).add({s:60}), true), "a minute");
         equal(start.from(_.date([2007, 1, 28]).add({m:5}), true), "5 minutes");
-        equal(start.from(_.date([2007, 1, 28]).add({h:1}), true), "about an hour");
-        equal(start.from(_.date([2007, 1, 28]).add({h:5}), true), "about 5 hours");
+        equal(start.from(_.date([2007, 1, 28]).add({h:1}), true), "an hour");
+        equal(start.from(_.date([2007, 1, 28]).add({h:5}), true), "5 hours");
         equal(start.from(_.date([2007, 1, 28]).add({d:1}), true), "a day");
         equal(start.from(_.date([2007, 1, 28]).add({d:5}), true), "5 days");
-        equal(start.from(_.date([2007, 1, 28]).add({M:1}), true), "about a month");
+        equal(start.from(_.date([2007, 1, 28]).add({M:1}), true), "a month");
         equal(start.from(_.date([2007, 1, 28]).add({M:5}), true), "5 months");
-        equal(start.from(_.date([2007, 1, 28]).add({y:1}), true), "about a year");
+        equal(start.from(_.date([2007, 1, 28]).add({y:1}), true), "a year");
         equal(start.from(_.date([2007, 1, 28]).add({y:5}), true), "5 years");
     });
 
@@ -71,12 +72,12 @@ $(function() {
     });
 
     test("_.date().from() -- with suffix", 2, function() {
-        equal(_.date(30000).from(0), "in less than a minute");
-        equal(_.date(0).from(30000), "less than a minute ago");
+        equal(_.date(30000).from(0), "in seconds");
+        equal(_.date(0).from(30000), "seconds ago");
     });
     
     test("_.date().fromNow()", 2, function() {
-        equal(_.now().add({s:30}).fromNow(), "in less than a minute");
+        equal(_.now().add({s:30}).fromNow(), "in seconds");
         equal(_.now().add({d:5}).fromNow(), "in 5 days");
     });
 
