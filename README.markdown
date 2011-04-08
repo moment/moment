@@ -21,8 +21,8 @@ In addition to the date creation and manipulation functions, there are a few fun
         <th>gzipped</th>
     </tr>
     <tr>
-    	<td>3.58 kb</td>
-    	<td>1.6 kb</td>
+    	<td>3.51 kb</td>
+    	<td>1.59 kb</td>
     </tr>
 </table>
 
