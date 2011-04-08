@@ -3,6 +3,8 @@ Underscore.date
 
 Author: Tim Wood
 
+Version: 0.3.2
+
 Underscore.date is a JavaScript Date utility library built on top of [Underscore.js](http://documentcloud.github.com/underscore/)
 
 It adds utility functions for working with Date objects without extending `Date.prototype`.
@@ -12,15 +14,15 @@ In addition to the date creation and manipulation functions, there are a few fun
     _.date(new Date(2010, 1, 14, 15, 25, 50, 125)).format("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
     _.date(new Date(2010, 1, 14, 15, 25, 50, 125)).fromNow(); // "20 days ago"
 
-### Filesize
+### Filesize : 1.6 kb minified + gzipped
 <table>
     <tr>
         <th>minified</th>
         <th>gzipped</th>
     </tr>
     <tr>
-    	<td>3.73k</td>
-    	<td>1.6k</td>
+    	<td>3.58 kb</td>
+    	<td>1.6 kb</td>
     </tr>
 </table>
 
@@ -340,12 +342,14 @@ The formats are created by creating a string of replacable characters.
         <td>zz</td>
         <td>
             Eastern Standard Time ... Pacific Standard Time<br/><br/>
+            <small>
             NOTE: Internet Explorer uses a different implementation of 
             Date.toString(), so we are unable to retrieve the full string 
-            of the timezone, and will fall back to `z`.<br/><br/>
+            of the timezone, and will fall back to 'z'.<br/><br/>
             So:<br/>
             Firefox, Chrome, Safari, etc. == 'Eastern Standard Time'<br/>
             Internet Explorer, etc. == 'EST'
+            </small>
         </td>
     </tr>
 </table>
@@ -487,7 +491,7 @@ Tests
 There are a bunch of tests in the test/ folder. Check them out. If you think some tests are missing, open an issue, and I'll add it.
 
 ### Speed tests
-[Floor vs bitwiseor vs parseint](http://jsperf.com/floor-vs-bitwise-or-vs-parseint)
+[Floor vs bitwiseor vs bitwisenor vs parseint](http://jsperf.com/floor-vs-bitwise-or-vs-parseint/4)
 
 [Switch/case vs object of functions lookup](http://jsperf.com/object-of-functions-vs-switch)
 
