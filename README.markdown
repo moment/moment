@@ -509,6 +509,10 @@ Everyone who helped with [php.js date](http://phpjs.org/functions/date:380).
 Changelog
 ---------
 
+### 0.3.2
+
+Added `'z'` and `'zz'` to `_.date().format()`. Cleaned up some redundant code to trim off some bytes.
+
 ### 0.3.1
 
 Cleaned up the namespace. Moved all date manipulation and display functions to the _.date() object. 
