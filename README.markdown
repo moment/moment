@@ -329,6 +329,25 @@ The formats are created by creating a string of replacable characters.
         <td>ss</td>
         <td>00 01 ... 58 59</td>
     </tr>
+    <tr>
+    	<td colspan="2"><b>Timezone</b></td>
+    </tr>
+    <tr>
+        <td>z</td>
+        <td>EST CST ... MST PST</td>
+    </tr>
+    <tr>
+        <td>zz</td>
+        <td>
+            Eastern Standard Time ... Pacific Standard Time<br/><br/>
+            NOTE: Internet Explorer uses a different implementation of 
+            Date.toString(), so we are unable to retrieve the full string 
+            of the timezone, and will fall back to `z`.<br/><br/>
+            So:<br/>
+            Firefox, Chrome, Safari, etc. == 'Eastern Standard Time'<br/>
+            Internet Explorer, etc. == 'EST'
+        </td>
+    </tr>
 </table>
 
 
