@@ -332,7 +332,7 @@
         root._.mixin(_date);
     // Or define it
     } else {
-        root._ = _date;
+        root._date = _date;
     }
     
 }());
