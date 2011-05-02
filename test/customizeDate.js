@@ -1,5 +1,7 @@
 $(function() {
 
+    _ = _date;
+
     module("Customize");
     
     _.date().customize({

@@ -1,5 +1,7 @@
 (function() {
 
+    _ = _date;
+    
 	var date1 = new Date(2010, 2, 6, 15, 25, 50, 125),
 		date2 = new Date(1000),
 		rt1 = 1000 * 60 * 60 * 24 * 365 * 5,

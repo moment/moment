@@ -1,18 +1,20 @@
 $(function() {
 
+    _ = _date;
+    
     module("Customize");
     
     _.date().customize({
         months : ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
         weekdays : ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"],
         relativeTime : {
-            future: "%s from now",
-            past: "%s ago",
-            s: "moments",
-            M: "a month",
-            MM: "%d months",
-            y: "a year",
-            yy: "%d years"
+            future: "test %s from now",
+            past: "test %s ago",
+            s: "test moments",
+            M: "test a month",
+            MM: "test %d months",
+            y: "test a year",
+            yy: "test %d years"
         },
         ordinal : function(number) {
             return 'o';
@@ -39,22 +41,22 @@ $(function() {
 
     test("_.date().relative()", 11, function() {
         var start = _.date([2007, 1, 28]);
-        equal(start.from(_.date([2007, 1, 28]).add({s:30}), true), "moments");
+        equal(start.from(_.date([2007, 1, 28]).add({s:30}), true), "test moments");
         equal(start.from(_.date([2007, 1, 28]).add({s:60}), true), "a minute");
         equal(start.from(_.date([2007, 1, 28]).add({m:5}), true), "5 minutes");
         equal(start.from(_.date([2007, 1, 28]).add({h:1}), true), "an hour");
         equal(start.from(_.date([2007, 1, 28]).add({h:5}), true), "5 hours");
         equal(start.from(_.date([2007, 1, 28]).add({d:1}), true), "a day");
         equal(start.from(_.date([2007, 1, 28]).add({d:5}), true), "5 days");
-        equal(start.from(_.date([2007, 1, 28]).add({M:1}), true), "a month");
-        equal(start.from(_.date([2007, 1, 28]).add({M:5}), true), "5 months");
-        equal(start.from(_.date([2007, 1, 28]).add({y:1}), true), "a year");
-        equal(start.from(_.date([2007, 1, 28]).add({y:5}), true), "5 years");
+        equal(start.from(_.date([2007, 1, 28]).add({M:1}), true), "test a month");
+        equal(start.from(_.date([2007, 1, 28]).add({M:5}), true), "test 5 months");
+        equal(start.from(_.date([2007, 1, 28]).add({y:1}), true), "test a year");
+        equal(start.from(_.date([2007, 1, 28]).add({y:5}), true), "test 5 years");
     });
     
     test("_.fromNow()", 2, function() {
-        equal(_.date(30000).from(0), "moments from now");
-        equal(_.date(0).from(30000), "moments ago");
+        equal(_.date(30000).from(0), "test test moments from now");
+        equal(_.date(0).from(30000), "test test moments ago");
     });
 
 });

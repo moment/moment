@@ -1,0 +1,25 @@
+{
+  "name": "underscore.date",
+  "version": "0.4.0",
+  "description": "Underscore.date is a JavaScript Date utility library built on top of Underscore.js",
+  "homepage": "https://github.com/timrwood/underscore.date",
+  "author": "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
+  "keywords": [
+    "underscore",
+    "date"
+  ],
+  "main": "./underscore.date",
+  "engines": {
+    "node": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/timrwood/underscore.date.git"
+  },
+  "bugs": {
+    "url": "https://github.com/timrwood/underscore.date/issues"
+  },
+  "licenses" : [
+    { "type" : "MIT" }
+  ]
+}

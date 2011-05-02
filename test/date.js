@@ -1,13 +1,15 @@
 $(function() {
 
+    _ = _date;
+    
     module("Date");
     
     test("_.date()", 6, function() {
-        ok(_.isDate(_.date([2010, 1, 12]).date), "[2010, 1, 12]");
-        ok(_.isDate(_.date([2010, 1, 12, 1]).date), "[2010, 1, 12, 1]");
-        ok(_.isDate(_.date().date), "undefined");
-        ok(_.isDate(_.date("Aug 9, 1995").date), "Aug 9, 1995");
-        ok(_.isDate(_.date("Mon, 25 Dec 1995 13:30:00 GMT").date), "Mon, 25 Dec 1995 13:30:00 GMT");
+        ok(_.date([2010, 1, 12]).date instanceof Date, "[2010, 1, 12]");
+        ok(_.date([2010, 1, 12, 1]).date instanceof Date, "[2010, 1, 12, 1]");
+        ok(_.date().date instanceof Date, "undefined");
+        ok(_.date("Aug 9, 1995").date instanceof Date, "Aug 9, 1995");
+        ok(_.date("Mon, 25 Dec 1995 13:30:00 GMT").date instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
         deepEqual(_.date(new Date(2010, 1, 14, 15, 25, 50, 125)), _.date([2010, 1, 14, 15, 25, 50, 125]), "constructing with array === constructing with new Date()");
     });
     
@@ -37,9 +39,9 @@ $(function() {
     });
 
     test("_.date().add() + _.date().subtract()", 5, function() {
-        equal(_([2010, 1, 14, 15, 25, 50, 125]).date().add({ms:200,s:10,m:10,h:2,d:3,M:2,y:3}).format("MMMM Do YYYY, h:mm:ss a"), "April 17th 2013, 5:36:00 pm");
-        equal(_([2010, 0, 31]).date().format("MMMM Do YYYY"), "January 31st 2010");
-        equal(_([2010, 0, 31]).date().add({M:1}).format("MMMM Do YYYY"), "February 28th 2010");
+        equal(_.date([2010, 1, 14, 15, 25, 50, 125]).add({ms:200,s:10,m:10,h:2,d:3,M:2,y:3}).format("MMMM Do YYYY, h:mm:ss a"), "April 17th 2013, 5:36:00 pm");
+        equal(_.date([2010, 0, 31]).format("MMMM Do YYYY"), "January 31st 2010");
+        equal(_.date([2010, 0, 31]).add({M:1}).format("MMMM Do YYYY"), "February 28th 2010");
         equal(_.date([2007, 1, 28]).format("MMMM Do YYYY"), "February 28th 2007");
         equal(_.date([2007, 1, 28]).subtract({M:1}).format("MMMM Do YYYY"), "January 28th 2007");
     });
