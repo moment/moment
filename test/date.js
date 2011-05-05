@@ -13,6 +13,31 @@ $(function() {
         deepEqual(_.date(new Date(2010, 1, 14, 15, 25, 50, 125)), _.date([2010, 1, 14, 15, 25, 50, 125]), "constructing with array === constructing with new Date()");
     });
     
+    var stringTests = [
+        ['MM-DD-YYYY', '12-02-1999'],
+        ['DD-MM-YYYY', '12-02-1999'],
+        ['DD/MM/YYYY', '12/02/1999'],
+        ['DD_MM_YYYY', '12_02_1999'],
+        ['DD:MM:YYYY', '12:02:1999'],
+        ['D-M-YY', '2-2-99'],
+        ['YY', '99'],
+        ['DDD-YYYY', '300-1999'],
+        ['DD-MM-YYYY h:m:s', '12-02-1999 2:45:10'],
+        ['DD-MM-YYYY h:m:s a', '12-02-1999 2:45:10 am'],
+        ['DD-MM-YYYY h:m:s a', '12-02-1999 2:45:10 pm']
+    ];
+    
+    test("_.date() with string format", stringTests.length, function() {
+        for (var i = 0; i < stringTests.length; i++) {
+            equal(_.date(stringTests[i][1], stringTests[i][0]).format(stringTests[i][0]), stringTests[i][1]);
+        }
+    });
+    
+    test("_.date() with string format", 2, function() {
+        equal(_.date('71', 'YY').format('YYYY'), '1971');
+        equal(_.date('69', 'YY').format('YYYY'), '2069');
+    });
+    
     test("_.now()", 1, function() {
         deepEqual(_.date(), _.now(), "_.now returns wrapped date");
     });

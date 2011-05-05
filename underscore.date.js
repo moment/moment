@@ -96,7 +96,7 @@
         return input === undefined ? new Date() :
             input instanceof _Date ? input.date :
             input instanceof Date ? input : 
-            isArray(input) && input.length > 2 ? dateFromArray(input) :
+            isArray(input) ? dateFromArray(input) :
             new Date(input);
     }
     
@@ -311,9 +311,96 @@
         }
     };
     
+    function makeDateFromStringAndFormat(string, format) {
+        var array = [0],
+            charactersToPutInArray = /[0-9a-zA-Z]+/g,
+            inputParts = [],
+            formatParts = [],
+            i,
+            isPm;
+        
+        // function to convert string input to date
+        function addTime(format, input) {
+            switch (format) {
+                // MONTH
+                case 'M' :
+                    // fall through to MM
+                case 'MM' :
+                    array[1] = ~~input - 1;
+                    break;
+                // DAY OF MONTH
+                case 'D' : 
+                    // fall through to DDDD
+                case 'DD' : 
+                    // fall through to DDDD
+                case 'DDD' :
+                    // fall through to DDDD
+                case 'DDDD' :
+                    array[2] = ~~input;
+                    break;
+                // YEAR
+                case 'YY' : 
+                    input = ~~input;
+                    array[0] = input + (input > 70 ? 1900 : 2000);
+                    break;
+                case 'YYYY' : 
+                    array[0] = ~~input;
+                    break;
+                // AM / PM
+                case 'a' : 
+                    // fall through to A
+                case 'A' :
+                    isPm = (input.toLowerCase() === 'pm');
+                    break;
+                // 24 HOUR 
+                case 'H' : 
+                    // fall through to hh
+                case 'HH' : 
+                    // fall through to hh
+                case 'h' : 
+                    // fall through to hh
+                case 'hh' : 
+                    array[3] = ~~input;
+                    break;
+                // MINUTE
+                case 'm' : 
+                    // fall through to mm
+                case 'mm' : 
+                    array[4] = ~~input;
+                    break;
+                // SECOND
+                case 's' : 
+                    // fall through to ss
+                case 'ss' : 
+                    array[5] = ~~input;
+                    break;
+            }
+        }
+        
+        // add input parts to array
+        string.replace(charactersToPutInArray, function(input) {
+            inputParts.push(input);
+        });
+        // add format parts to array
+        format.replace(charactersToPutInArray, function(input) {
+            formatParts.push(input);
+        });
+        
+        for (i = 0; i < formatParts.length; i++) {
+            addTime(formatParts[i], inputParts[i]);
+        }
+        
+        // handle am pm
+        if (isPm && array[3] < 12) {
+            array[3] += 12;
+        }
+        
+        return new _Date(array);
+    }
+    
     _date = {
-        date : function(input) {
-            return new _Date(input);
+        date : function(input, format) {
+            return format ? makeDateFromStringAndFormat(input, format) : new _Date(input);
         },
         now : function(asTimestamp) {
             return asTimestamp ? new Date().getTime() : _date.date();
