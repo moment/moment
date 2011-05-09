@@ -594,6 +594,10 @@ Everyone who helped with [php.js date](http://phpjs.org/functions/date:380).
 Changelog
 ---------
 
+### 0.4.1 
+
+Added date input formats for input strings.
+
 ### 0.4.0 
 
 Added underscore.date to npm. Removed dependancies on underscore.
