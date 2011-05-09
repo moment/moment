@@ -3,7 +3,7 @@ Underscore.date
 
 Author: Tim Wood
 
-Version: 0.4.0
+Version: 0.4.1
 
 Underscore.date is a JavaScript Date utility library built on top of [Underscore.js](http://documentcloud.github.com/underscore/)
 
@@ -15,15 +15,15 @@ In addition to the date creation and manipulation functions, there are a few fun
     _date.date(someday).format("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
     _date.date(someday).fromNow(); // "20 days ago"
 
-### Filesize : 1.7 kb minified + gzipped
+### Filesize : 1.92 kb minified + gzipped
 <table>
     <tr>
         <th>minified</th>
         <th>gzipped</th>
     </tr>
     <tr>
-    	<td>3.81 kb</td>
-    	<td>1.7 kb</td>
+    	<td>4.31 kb</td>
+    	<td>1.92 kb</td>
     </tr>
 </table>
 
@@ -75,14 +75,6 @@ Any value past the year is optional, and will default to the lowest possible num
 
 
 
-### String
-
-    _date.date("Dec 25, 1995")
- 
-A string that can be parsed by [Date.parse()](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/parse).
-
-
-
 ### Number
 
     _date.date(1300291340510)
@@ -99,6 +91,69 @@ If no value is passed to a 'dateInput' parameter, it will default to the current
 
     _date.date() === _date.date(new Date())
 
+
+
+### String
+
+    _date.date("Dec 25, 1995")
+ 
+A string that can be parsed by [Date.parse()](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/parse).
+
+
+
+### String with format
+
+    _date.date("12-25-1995", "MM-DD-YYYY")
+ 
+If both arguments are strings, the second string will be used as the format to parse the first string.
+
+The format parts are similar to the formats from _date.date().format()
+
+**Important:** Parsing a string with a format is by far the slowest method of creating a date. 
+If you have the ability to change the input, it is much faster (~15x) to use Unix timestamps.
+
+<table>
+    <tr>
+        <th>Input</th>
+        <th>Output</th>
+    </tr>
+    <tr>
+        <td>M or MM</td>
+        <td>Month</td>
+    </tr>
+    <tr>
+        <td>D or DD</td>
+        <td>Day of month</td>
+    </tr>
+    <tr>
+        <td>DDD or DDDD</td>
+        <td>Day of year</td>
+    </tr>
+    <tr>
+        <td>YY</td>
+        <td>2 digit year (if greater than 70, will return 1900's, else 2000's)</td>
+    </tr>
+    <tr>
+        <td>YYYY</td>
+        <td>4 digit year</td>
+    </tr>
+    <tr>
+        <td>a or A</td>
+        <td>AM/PM</td>
+    </tr>
+    <tr>
+        <td>H, HH, h, or hh</td>
+        <td>24 hour (for 12 hour time, use in conjunction with a or A)</td>
+    </tr>
+    <tr>
+        <td>m or mm</td>
+        <td>Minutes</td>
+    </tr>
+    <tr>
+        <td>s or ss</td>
+        <td>Seconds</td>
+    </tr>
+</table>
     
     
 _date.now()
@@ -195,14 +250,14 @@ Returns a human readable string based on the format string that was passed in.
 
 The formats are created by creating a string of replacable characters.
 
-### Month
 <table>
     <tr>
         <th>Input</th>
         <th>Output</th>
     </tr>
     <tr>
-    	<td colspan="2"><b>Month</b></td>
+    	<td><b>Month</b></td>
+        <td></td>
     </tr>
     <tr>
         <td>M</td>
@@ -225,7 +280,8 @@ The formats are created by creating a string of replacable characters.
         <td>January February ... November December</td>
     </tr>
     <tr>
-    	<td colspan="2"><b>Day of Month</b></td>
+    	<td><b>Day&nbsp;of&nbsp;Month</b></td>
+        <td></td>
     </tr>
     <tr>
         <td>D</td>
@@ -240,7 +296,8 @@ The formats are created by creating a string of replacable characters.
         <td>01 02 ... 30 31</td>
     </tr>
     <tr>
-    	<td colspan="2"><b>Day of Year</b></td>
+    	<td><b>Day&nbsp;of&nbsp;Year</b></td>
+        <td></td>
     </tr>
     <tr>
         <td>DDD</td>
@@ -255,7 +312,8 @@ The formats are created by creating a string of replacable characters.
         <td>001 002 ... 364 365</td>
     </tr>
     <tr>
-    	<td colspan="2"><b>Day of Week</b></td>
+    	<td><b>Day&nbsp;of&nbsp;Week</b></td>
+        <td></td>
     </tr>
     <tr>
         <td>d</td>
@@ -274,7 +332,8 @@ The formats are created by creating a string of replacable characters.
         <td>Sunday Monday ... Friday Saturday</td>
     </tr>
     <tr>
-    	<td colspan="2"><b>Week of Year</b></td>
+    	<td><b>Week&nbsp;of&nbsp;Year</b></td>
+        <td></td>
     </tr>
     <tr>
         <td>w</td>
@@ -289,7 +348,8 @@ The formats are created by creating a string of replacable characters.
         <td>01 02 ... 52 53</td>
     </tr>
     <tr>
-    	<td colspan="2"><b>Year</b></td>
+    	<td><b>Year</b></td>
+        <td></td>
     </tr>
     <tr>
         <td>YY</td>
@@ -300,7 +360,8 @@ The formats are created by creating a string of replacable characters.
         <td>1970 1971 ... 2029 2030</td>
     </tr>
     <tr>
-    	<td colspan="2"><b>AM/PM</b></td>
+    	<td><b>AM/PM</b></td>
+        <td></td>
     </tr>
     <tr>
         <td>A</td>
@@ -311,7 +372,8 @@ The formats are created by creating a string of replacable characters.
         <td>am pm</td>
     </tr>
     <tr>
-    	<td colspan="2"><b>Hour</b></td>
+    	<td><b>Hour</b></td>
+        <td></td>
     </tr>
     <tr>
         <td>H</td>
@@ -330,7 +392,8 @@ The formats are created by creating a string of replacable characters.
         <td>01 02 ... 11 12</td>
     </tr>
     <tr>
-    	<td colspan="2"><b>Minute</b></td>
+    	<td><b>Minute</b></td>
+        <td></td>
     </tr>
     <tr>
         <td>m</td>
@@ -341,7 +404,8 @@ The formats are created by creating a string of replacable characters.
         <td>00 01 ... 58 59</td>
     </tr>
     <tr>
-    	<td colspan="2"><b>Second</b></td>
+    	<td><b>Second</b></td>
+        <td></td>
     </tr>
     <tr>
         <td>s</td>
@@ -352,7 +416,8 @@ The formats are created by creating a string of replacable characters.
         <td>00 01 ... 58 59</td>
     </tr>
     <tr>
-    	<td colspan="2"><b>Timezone</b></td>
+    	<td><b>Timezone</b></td>
+        <td></td>
     </tr>
     <tr>
         <td>z</td>

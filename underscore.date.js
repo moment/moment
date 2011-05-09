@@ -3,7 +3,7 @@
 // (c) 2011 Tim Wood
 // Underscore.date is freely distributable under the terms of the MIT license.
 //
-// Version 0.4.0
+// Version 0.4.1
 
 (function (undefined) {
     // Establish the root object, "window" in the browser, or "global" on the server.
