@@ -5,46 +5,35 @@ Author: Tim Wood
 
 Version: 0.5.0
 
-Note: There are some api changes that will break your code when upgrading from 0.4.1 to 0.5.0. Read about the changes at TODO:Add Link
+*Note:* There are some api changes that will break your code when upgrading from 0.4.1 to 0.5.0. Read about the changes at TODO:Add Link
 
-Underscore.date is a JavaScript Date library that manipulates and formats dates without extending the Date prototype.
+Underscore.date is a javascript date library that helps create, manipulate, and format dates without extending the `Date` prototype.
 
-It adds utility functions for working with Date objects without extending `Date.prototype`.
+### 1.82 kb (min + gzip)
 
-In addition to the date creation and manipulation functions, there are a few functions for displaying a date in human readable formats.
+Where to use it
+===============
 
-    var someday = new Date(2010, 1, 14, 15, 25, 50, 125);
-    _date(someday).format("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
-    _date(someday).fromNow(); // "20 days ago"
+### Node.js
 
-### Filesize : 1.82 kb minified + gzipped
-<table>
-    <tr>
-        <th>minified</th>
-        <th>gzipped</th>
-    </tr>
-    <tr>
-    	<td>4.21 kb</td>
-    	<td>1.82 kb</td>
-    </tr>
-</table>
-
-Node.js
-=======
+Install with npm
 
     npm install underscore.date
     
 Usage
 
     var _date = require('underscore.date');
-    console.log(_date.date('September 9 1999').fromNow());
+    console.log(_date('September 9 1999').fromNow());
 
-Underscore mixin
-================
+### In the browser    
 
-If underscore exists, `_date` will mix itself into the underscore namespace, so you can do this:
+    _date('September 9 1999').fromNow()
 
-    _.date('September 9 1999').fromNow()
+#### With underscore
+
+If underscore
+
+    _date('September 9 1999').fromNow()
     
 Otherwise, you should use `_date`.
     
