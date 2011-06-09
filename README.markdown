@@ -3,27 +3,29 @@ Underscore.date
 
 Author: Tim Wood
 
-Version: 0.4.1
+Version: 0.5.0
 
-Underscore.date is a JavaScript Date utility library built on top of [Underscore.js](http://documentcloud.github.com/underscore/)
+Note: There are some api changes that will break your code when upgrading from 0.4.1 to 0.5.0. Read about the changes at TODO:Add Link
+
+Underscore.date is a JavaScript Date library that manipulates and formats dates without extending the Date prototype.
 
 It adds utility functions for working with Date objects without extending `Date.prototype`.
 
 In addition to the date creation and manipulation functions, there are a few functions for displaying a date in human readable formats.
 
     var someday = new Date(2010, 1, 14, 15, 25, 50, 125);
-    _date.date(someday).format("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
-    _date.date(someday).fromNow(); // "20 days ago"
+    _date(someday).format("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
+    _date(someday).fromNow(); // "20 days ago"
 
-### Filesize : 1.92 kb minified + gzipped
+### Filesize : 1.82 kb minified + gzipped
 <table>
     <tr>
         <th>minified</th>
         <th>gzipped</th>
     </tr>
     <tr>
-    	<td>4.31 kb</td>
-    	<td>1.92 kb</td>
+    	<td>4.21 kb</td>
+    	<td>1.82 kb</td>
     </tr>
 </table>
 
@@ -593,6 +595,10 @@ Everyone who helped with [php.js date](http://phpjs.org/functions/date:380).
 
 Changelog
 ---------
+
+### 0.4.1 
+
+Added date input formats for input strings.
 
 ### 0.4.0 
 
