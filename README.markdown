@@ -1,13 +1,13 @@
 Underscore.date
 ===============
 
+Underscore.date is a javascript date library that helps create, manipulate, and format dates without extending the `Date` prototype.
+
 Author: Tim Wood
 
 Version: 0.5.0
 
 **Note:** There are some api changes that will break your code when upgrading from 0.4.1 to 0.5.0. Read about the changes in the changelog at the bottom of the page.
-
-Underscore.date is a javascript date library that helps create, manipulate, and format dates without extending the `Date` prototype.
 
 ### 1.82 kb (min + gzip)
 
@@ -63,9 +63,9 @@ Any valid `Date` object. For more information on `Date` objects, see [the JavaSc
 
     _date([2010, 1, 14, 15, 25, 50, 125])
 
-The array should mirror the parameters passed into [Date.UTC()](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/UTC).
+An array mirroring the parameters passed into [Date.UTC()](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/UTC).
 
-`[year, month, date, hours, minutes, seconds, milliseconds]`
+`[year, month = 0, date = 1, hours = 0, minutes = 0, seconds = 0, milliseconds = 0]`
 
 Any value past the year is optional, and will default to the lowest possible number.
 
@@ -94,7 +94,7 @@ A string that can be parsed by [Date.parse()](https://developer.mozilla.org/en/J
 
     _date("12-25-1995", "MM-DD-YYYY")
  
-If both arguments are strings, the second string will be used as the format to parse the first string.
+A string and a format string. The second string will be used as the format to parse the first string.
 
 The format parts are similar to the formats from _date().format()
 
@@ -196,7 +196,7 @@ Functions the same as `_date.add()`, only using subtraction instead of addition.
 
 Example:
     
-    _date([2010, 1, 28]) // February 28
+    _date([2010, 1, 28])                 // February 28
     _date([2010, 1, 28]).subtract({M:1}) // January 28
   
 
@@ -208,8 +208,9 @@ _date.format()
 
 Returns a human readable string based on the format string that was passed in.
 
-    _date(new Date(2010, 1, 14, 15, 25, 50, 125)).format("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
-    _date(new Date(2010, 1, 14, 15, 25, 50, 125)).format("ddd, hA");                       // "Sun, 3PM"
+    var dateToFormat = new Date(2010, 1, 14, 15, 25, 50, 125);
+    _date(dateToFormat).format("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
+    _date(dateToFormat).format("ddd, hA");                       // "Sun, 3PM"
 
 The formats are created by creating a string of replacable characters.
 
@@ -435,7 +436,9 @@ _date.fromNow()
 
     _date.fromNow(withoutSuffix:boolean, asMilliseconds:boolean)
 
-A shortcut for `_date.from(_date(), withoutSuffix:boolean, asMilliseconds:boolean)`. Retuns the time from now.
+Retuns the time from now.
+ 
+A shortcut for `_date.from(_date(), withoutSuffix:boolean, asMilliseconds:boolean)`.
 
     
 _date.isLeapYear()
