@@ -3,7 +3,7 @@
 // (c) 2011 Tim Wood
 // Underscore.date is freely distributable under the terms of the MIT license.
 //
-// Version 0.4.1
+// Version 0.5.0
 
 (function (undefined) {
 

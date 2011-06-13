@@ -553,6 +553,11 @@ Everyone who helped with [php.js date](http://phpjs.org/functions/date:380).
 
 [Ryan McGeary](http://ryan.mcgeary.org/) for his work on the [jQuery timeago plugin](http://timeago.yarp.com/).
 
+License
+=======
+
+Underscore.date is freely distributable under the terms of the MIT license.
+
 Changelog
 =========
 
