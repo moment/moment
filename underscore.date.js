@@ -3,39 +3,12 @@
 // (c) 2011 Tim Wood
 // Underscore.date is freely distributable under the terms of the MIT license.
 //
-// Version 0.4.1
+// Version 0.5.0
 
 (function (undefined) {
-    // Establish the root object, "window" in the browser, or "global" on the server.
-    var root = this, 
-        _date,
-        wordsMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-        wordsMonthsShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        wordsWeekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        wordsWeekdaysShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-        wordsTimeAgo = {
-            future: "in %s",
-            past: "%s ago",
-            s: "seconds",
-            m: "a minute",
-            mm: "%d minutes",
-            h: "an hour",
-            hh: "%d hours",
-            d: "a day",
-            dd: "%d days",
-            M: "a month",
-            MM: "%d months",
-            y: "a year",
-            yy: "%d years"
-        },
-        createOrdinal = function (number) {
-            var b = number % 10;
-            return (~~ (number % 100 / 10) === 1) ? 'th' : 
-                (b === 1) ? 'st' : 
-                (b === 2) ? 'nd' : 
-                (b === 3) ? 'rd' : 'th';
-        };
-    
+
+    var _date;
+
     // left zero fill a number
     // see http://jsperf.com/left-zero-filling for performance comparison
     function leftZeroFill(number, targetLength) {
@@ -47,9 +20,8 @@
     }
     
     // helper function for _.addTime and _.subtractTime
-    function dateAddRemove(_this, input, adding) {
-        var self = _this.date,
-            ms = (input.ms || 0) +
+    function dateAddRemove(date, input, adding) {
+        var ms = (input.ms || 0) +
             (input.s  || 0) * 1e3 + // 1000
             (input.m  || 0) * 6e4 + // 1000 * 60
             (input.h  || 0) * 36e5 + // 1000 * 60 * 60
@@ -59,15 +31,20 @@
             (input.y || 0) * 12,
             currentDate;
         if (ms) {
-            self.setMilliseconds(self.getMilliseconds() + ms * adding);
+            date.setMilliseconds(date.getMilliseconds() + ms * adding);
         }
         if (M) {
-            currentDate = self.getDate();
-            self.setDate(1);
-            self.setMonth(self.getMonth() + M * adding);
-            self.setDate(Math.min(new Date(self.getFullYear(), self.getMonth() + 1, 0).getDate(), currentDate)); 
+            currentDate = date.getDate();
+            date.setDate(1);
+            date.setMonth(date.getMonth() + M * adding);
+            date.setDate(Math.min(new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate(), currentDate)); 
         }
-        return _this;
+        return date;
+    }
+    
+    // check if is an array
+    function isArray(input) {
+        return Object.prototype.toString.call(input) === '[object Array]';
     }
     
     // convert an array to a date.
@@ -78,40 +55,149 @@
         return new Date(input[0], input[1] || 0, input[2] || 1, input[3] || 0, input[4] || 0, input[5] || 0, input[6] || 0);
     }
     
-    // check if is an array
-    function isArray(input) {
-        return Object.prototype.toString.call(input) === '[object Array]';
+    // date from string and format string
+    function makeDateFromStringAndFormat(string, format) {
+        var inArray = [0],
+            charactersToPutInArray = /[0-9a-zA-Z]+/g,
+            inputParts = [],
+            formatParts = [],
+            i,
+            isPm;
+        
+        // function to convert string input to date
+        function addTime(format, input) {
+            switch (format) {
+            // MONTH
+            case 'M' :
+                // fall through to MM
+            case 'MM' :
+                inArray[1] = ~~input - 1;
+                break;
+            // DAY OF MONTH
+            case 'D' : 
+                // fall through to DDDD
+            case 'DD' : 
+                // fall through to DDDD
+            case 'DDD' :
+                // fall through to DDDD
+            case 'DDDD' :
+                inArray[2] = ~~input;
+                break;
+            // YEAR
+            case 'YY' : 
+                input = ~~input;
+                inArray[0] = input + (input > 70 ? 1900 : 2000);
+                break;
+            case 'YYYY' : 
+                inArray[0] = ~~input;
+                break;
+            // AM / PM
+            case 'a' : 
+                // fall through to A
+            case 'A' :
+                isPm = (input.toLowerCase() === 'pm');
+                break;
+            // 24 HOUR 
+            case 'H' : 
+                // fall through to hh
+            case 'HH' : 
+                // fall through to hh
+            case 'h' : 
+                // fall through to hh
+            case 'hh' : 
+                inArray[3] = ~~input;
+                break;
+            // MINUTE
+            case 'm' : 
+                // fall through to mm
+            case 'mm' : 
+                inArray[4] = ~~input;
+                break;
+            // SECOND
+            case 's' : 
+                // fall through to ss
+            case 'ss' : 
+                inArray[5] = ~~input;
+                break;
+            }
+        }
+        
+        // add input parts to array
+        string.replace(charactersToPutInArray, function (input) {
+            inputParts.push(input);
+        });
+        
+        // add format parts to array
+        format.replace(charactersToPutInArray, function (input) {
+            formatParts.push(input);
+        });
+        
+        for (i = 0; i < formatParts.length; i++) {
+            addTime(formatParts[i], inputParts[i]);
+        }
+        
+        // handle am pm
+        if (isPm && inArray[3] < 12) {
+            inArray[3] += 12;
+        }
+        
+        return dateFromArray(inArray);
     }
     
-    // convert any input to a date
-    //
-    // undefined = _.now()
-    // date = date
-    // array = new Date(array)
-    // number = new Date(number)
-    // string = new Date(string)
-    function makeInputDate(input) {
-        return input === undefined ? new Date() :
-            input.date instanceof Date ? input.date :
-            input instanceof Date ? input : 
-            isArray(input) ? dateFromArray(input) :
-            new Date(input);
+    // UnderscoreDate prototype object
+    function UnderscoreDate(input, format) {
+        if (input && input.date instanceof Date) {
+            this.date = input.date;
+        } else if (format) {
+            this.date = makeDateFromStringAndFormat(input, format);
+        } else {
+            this.date = input === undefined ? new Date() :
+                input instanceof Date ? input : 
+                isArray(input) ? dateFromArray(input) :
+                new Date(input);
+        }
     }
+    
+    _date = function (input, format) {
+        return new UnderscoreDate(input, format);
+    };
+    
+    
+    _date.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    _date.monthsShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    _date.weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    _date.weekdaysShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    _date.relativeTime = {
+        future: "in %s",
+        past: "%s ago",
+        s: "seconds",
+        m: "a minute",
+        mm: "%d minutes",
+        h: "an hour",
+        hh: "%d hours",
+        d: "a day",
+        dd: "%d days",
+        M: "a month",
+        MM: "%d months",
+        y: "a year",
+        yy: "%d years"
+    };
+    _date.ordinal = function (number) {
+        var b = number % 10;
+        return (~~ (number % 100 / 10) === 1) ? 'th' : 
+            (b === 1) ? 'st' : 
+            (b === 2) ? 'nd' : 
+            (b === 3) ? 'rd' : 'th';
+    };
     
     // convert any input to milliseconds
-    //
-    // undefined = _.now()
-    // number = number
-    // date = date.gettime()
-    // array = new Date(array).getTime()
-    // string = new Date(string).getTime()
     function makeInputMilliseconds(input) {
-        return isNaN(input) ? makeInputDate(input).getTime() : input;
+        return isNaN(input) ? new UnderscoreDate(input).date.getTime() : input;
     }
     
-    // helper function for _.relativeTime
+    // helper function for _date.from() and _date.fromNow()
     function substituteTimeAgo(string, number) {
-        return wordsTimeAgo[string].replace(/%d/i, number || 1);
+        return _date.relativeTime[string].replace(/%d/i, number || 1);
     }
     
     function msApart(time, now) {
@@ -137,13 +223,11 @@
             substituteTimeAgo('yy', ~~ years);
     }
     
-    // UnderscoreDate prototype object
-    function UnderscoreDate(input) {
-        this.date = makeInputDate(input);
-        return this;
-    }
-    
     UnderscoreDate.prototype = {
+        
+        valueOf : function () {
+            return this.date.getTime();
+        },
         
         format : function (inputString) {
             // shortcuts to this and getting time functions
@@ -173,18 +257,18 @@
                 case 'M' : 
                     return currentMonth + 1;
                 case 'Mo' : 
-                    return (currentMonth + 1) + createOrdinal(currentMonth + 1);
+                    return (currentMonth + 1) + _date.ordinal(currentMonth + 1);
                 case 'MM' :
                     return leftZeroFill(currentMonth + 1, 2);
                 case 'MMM' : 
-                    return wordsMonthsShort[currentMonth];
+                    return _date.monthsShort[currentMonth];
                 case 'MMMM' : 
-                    return wordsMonths[currentMonth];
+                    return _date.months[currentMonth];
                 // DAY OF MONTH
                 case 'D' : 
                     return currentDate;
                 case 'Do' : 
-                    return currentDate + createOrdinal(currentDate);
+                    return currentDate + _date.ordinal(currentDate);
                 case 'DD' : 
                     return leftZeroFill(currentDate, 2);
                 // DAY OF YEAR
@@ -194,18 +278,18 @@
                     return ~~ (((a - b) / 864e5) + 1.5);
                 case 'DDDo' : 
                     a = replaceFunction('DDD');
-                    return a + createOrdinal(a);
+                    return a + _date.ordinal(a);
                 case 'DDDD' :
                     return leftZeroFill(replaceFunction('DDD'), 3);
                 // WEEKDAY
                 case 'd' :
                     return currentDay;
                 case 'do' : 
-                    return currentDay + createOrdinal(currentDay);
+                    return currentDay + _date.ordinal(currentDay);
                 case 'ddd' : 
-                    return wordsWeekdaysShort[currentDay];
+                    return _date.weekdaysShort[currentDay];
                 case 'dddd' : 
-                    return wordsWeekdays[currentDay];
+                    return _date.weekdays[currentDay];
                 // WEEK OF YEAR
                 case 'w' : 
                     a = new Date(currentYear, currentMonth, currentDate - currentDay + 5);
@@ -213,7 +297,7 @@
                     return ~~ ((a - b) / 864e5 / 7 + 1.5);
                 case 'wo' : 
                     a = replaceFunction('w');
-                    return a + createOrdinal(a);
+                    return a + _date.ordinal(a);
                 case 'ww' : 
                     return leftZeroFill(replaceFunction('w'), 2);
                 // YEAR
@@ -262,163 +346,50 @@
             }
             return inputString.replace(charactersToReplace, replaceFunction);
         },
+        
+        
         add : function (input) {
-            return dateAddRemove(this, input, 1);
+            this.date = dateAddRemove(this.date, input, 1);
+            return this;
         },
+        
+        
         subtract : function (input) {
-            return dateAddRemove(this, input, -1);
+            this.date = dateAddRemove(this.date, input, -1);
+            return this;
         },
-        customize : function (input) {
-            var inputOrdinal = input.ordinal,
-                inputRelativeTime = input.relativeTime,
-                key;
-            if (input.weekdays) {
-                wordsWeekdays = input.weekdays;
-            }
-            if (input.weekdaysShort) {
-                wordsWeekdaysShort = input.weekdaysShort;
-            }
-            if (input.months) {
-                wordsMonths = input.months;
-            }
-            if (input.monthsShort) {
-                wordsMonthsShort = input.monthsShort;
-            }
-            if (inputRelativeTime) {
-                for (key in inputRelativeTime) {
-                    if (inputRelativeTime.hasOwnProperty(key)) {
-                        wordsTimeAgo[key] = inputRelativeTime[key];
-                    }
-                }
-            }
-            if (inputOrdinal && inputOrdinal instanceof Function) {
-                createOrdinal = inputOrdinal;
-            }
-        },
+        
+        
         from : function (time, withoutSuffix, asMilliseconds) {
             var difference = msApart(this.date, time),
-                string = difference < 0 ? wordsTimeAgo.past : wordsTimeAgo.future;
+                string = difference < 0 ? _date.relativeTime.past : _date.relativeTime.future;
             return asMilliseconds ? difference : 
                 withoutSuffix ? relativeTime(difference) :
                 string.replace(/%s/i, relativeTime(difference));
         },
+        
+        
         fromNow : function (withoutSuffix, asMilliseconds) {
-            return this.from(_date.now(), withoutSuffix, asMilliseconds);
+            return this.from(new UnderscoreDate(), withoutSuffix, asMilliseconds);
         },
+        
+        
         isLeapYear : function () {
-            return _date.isLeapYear(this.date.getFullYear());
-        }
-    };
-    
-    function makeDateFromStringAndFormat(string, format) {
-        var array = [0],
-            charactersToPutInArray = /[0-9a-zA-Z]+/g,
-            inputParts = [],
-            formatParts = [],
-            i,
-            isPm;
-        
-        // function to convert string input to date
-        function addTime(format, input) {
-            switch (format) {
-            // MONTH
-            case 'M' :
-                // fall through to MM
-            case 'MM' :
-                array[1] = ~~input - 1;
-                break;
-            // DAY OF MONTH
-            case 'D' : 
-                // fall through to DDDD
-            case 'DD' : 
-                // fall through to DDDD
-            case 'DDD' :
-                // fall through to DDDD
-            case 'DDDD' :
-                array[2] = ~~input;
-                break;
-            // YEAR
-            case 'YY' : 
-                input = ~~input;
-                array[0] = input + (input > 70 ? 1900 : 2000);
-                break;
-            case 'YYYY' : 
-                array[0] = ~~input;
-                break;
-            // AM / PM
-            case 'a' : 
-                // fall through to A
-            case 'A' :
-                isPm = (input.toLowerCase() === 'pm');
-                break;
-            // 24 HOUR 
-            case 'H' : 
-                // fall through to hh
-            case 'HH' : 
-                // fall through to hh
-            case 'h' : 
-                // fall through to hh
-            case 'hh' : 
-                array[3] = ~~input;
-                break;
-            // MINUTE
-            case 'm' : 
-                // fall through to mm
-            case 'mm' : 
-                array[4] = ~~input;
-                break;
-            // SECOND
-            case 's' : 
-                // fall through to ss
-            case 'ss' : 
-                array[5] = ~~input;
-                break;
-            }
-        }
-        
-        // add input parts to array
-        string.replace(charactersToPutInArray, function (input) {
-            inputParts.push(input);
-        });
-        // add format parts to array
-        format.replace(charactersToPutInArray, function (input) {
-            formatParts.push(input);
-        });
-        
-        for (i = 0; i < formatParts.length; i++) {
-            addTime(formatParts[i], inputParts[i]);
-        }
-        
-        // handle am pm
-        if (isPm && array[3] < 12) {
-            array[3] += 12;
-        }
-        
-        return new UnderscoreDate(array);
-    }
-    
-    _date = {
-        date : function (input, format) {
-            return format ? makeDateFromStringAndFormat(input, format) : new UnderscoreDate(input);
-        },
-        now : function (asTimestamp) {
-            return asTimestamp ? new Date().getTime() : _date.date();
-        },
-        isLeapYear : function (year) {
+            var year = this.date.getFullYear();
             return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
         }
     };
     
     // CommonJS module is defined
-    if (typeof window === 'undefined' && typeof module !== 'undefined') {
+    if (window === undefined && module !== undefined) {
         // Export module
         module.exports = _date;
     // Integrate with Underscore.js
-    } else if (root._ !== undefined) {
-        root._.mixin(_date);
-    // Or define it
     } else {
-        root._date = _date;
+        if (this._ !== undefined) {
+            this._.mixin(_date);
+        }
+        this._date = _date;
     }
     
 }());
