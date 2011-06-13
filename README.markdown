@@ -5,7 +5,7 @@ Author: Tim Wood
 
 Version: 0.5.0
 
-*Note:* There are some api changes that will break your code when upgrading from 0.4.1 to 0.5.0. Read about the changes at TODO:Add Link
+**Note:** There are some api changes that will break your code when upgrading from 0.4.1 to 0.5.0. Read about the changes in the changelog at the bottom of the page.
 
 Underscore.date is a javascript date library that helps create, manipulate, and format dates without extending the `Date` prototype.
 
@@ -19,44 +19,49 @@ Where to use it
 Install with npm
 
     npm install underscore.date
-    
+
 Usage
 
     var _date = require('underscore.date');
     console.log(_date('September 9 1999').fromNow());
 
-### In the browser    
+### In the browser
 
-    _date('September 9 1999').fromNow()
+If underscore exists, underscore.date will mix itself into the underscore namespace, so you can use as you would use an underscore function.
 
-#### With underscore
-
-If underscore
-
-    _date('September 9 1999').fromNow()
+    _.date('September 9 1999').fromNow();
     
 Otherwise, you should use `_date`.
+
+    _date('September 9 1999').fromNow();
     
-_date.date() 
-============
+_date() 
+=======
 
-The library works by creating a `_date.date()` date wrapper object using _date.date().
+The library works by creating a `_date()` wrapper object. To create that wrapper, you can pass any of the following data types in.
 
-To create that wrapper, you can pass any of the following data types in.
+
+
+### Number
+
+    _date(1300291340510)
+
+An integer value representing the number of milliseconds since 1 January 1970 00:00:00 UTC.
 
 
 
 ### Date 
 
-    _date.date(new Date(2010, 1, 14, 15, 25, 50, 125))
+    _date(new Date(2010, 1, 14, 15, 25, 50, 125))
 
 Any valid `Date` object. For more information on `Date` objects, see [the JavaScript Date documentation at MDN](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date)
 
 
 
+
 ### Array
 
-    _date.date([2010, 1, 14, 15, 25, 50, 125])
+    _date([2010, 1, 14, 15, 25, 50, 125])
 
 The array should mirror the parameters passed into [Date.UTC()](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/UTC).
 
@@ -66,27 +71,20 @@ Any value past the year is optional, and will default to the lowest possible num
 
 
 
-### Number
-
-    _date.date(1300291340510)
-
-An integer value representing the number of milliseconds since 1 January 1970 00:00:00 UTC.
-
-
-
 ### undefined
 
-    _date.date()
+    _date()
 
 If no value is passed to a 'dateInput' parameter, it will default to the current time using `new Date()`.
 
-    _date.date() === _date.date(new Date())
+    _date() === _date(new Date())
+
 
 
 
 ### String
 
-    _date.date("Dec 25, 1995")
+    _date("Dec 25, 1995")
  
 A string that can be parsed by [Date.parse()](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/parse).
 
@@ -94,14 +92,16 @@ A string that can be parsed by [Date.parse()](https://developer.mozilla.org/en/J
 
 ### String with format
 
-    _date.date("12-25-1995", "MM-DD-YYYY")
+    _date("12-25-1995", "MM-DD-YYYY")
  
 If both arguments are strings, the second string will be used as the format to parse the first string.
 
-The format parts are similar to the formats from _date.date().format()
+The format parts are similar to the formats from _date().format()
 
 **Important:** Parsing a string with a format is by far the slowest method of creating a date. 
 If you have the ability to change the input, it is much faster (~15x) to use Unix timestamps.
+
+
 
 <table>
     <tr>
@@ -147,62 +147,35 @@ If you have the ability to change the input, it is much faster (~15x) to use Uni
 </table>
     
     
-_date.now()
-===========
+_date Prototype
+===============
 
-    _date.now(asTimestamp)
-
-Returns the current date. 
-
-Pass `true` to return a UNIX timestamp, otherwise it is just a shortcut to `_date.date(new Date())`.   
+`underscore.date` contains a number of utility functions for manipulating and formatting dates.
 
 
-
-_date.isLeapYear()
-==================
-
-    _date.isLeapYear(number)
-
-Returns `true` if the year is a leap year, `false` if it is not
-
-Pass the year number to this function. To check for a leap year on a `_date.date()` object, use `_date.date().isLeapYear()`
-
-Examples :
-
-    _date.isLeapYear(2000) // true
-    _date.isLeapYear(2001) // false
-    _date.isLeapYear(2100) // false
-
-
-
-_date.date() Functions
-======================
-
-
-
-_date.date().add()
+_date.add()
 -----------
 
-    _date.date().add(object)
+    _date.add(object)
 
 Adds time per the object passed in.
 
 The object should have key value pairs as shown below.
 
     {
-        ms:200, // milliseconds
-        s:10, // seconds
-        m:10, // minutes (note: lowercase)
-        h:2, // hours
-        d:3, // days
-        M:2, // months (note: uppercase)
-        y:3 // years
+        ms : 200, // milliseconds
+        s : 10,   // seconds
+        m : 10,   // minutes (note: lowercase)
+        h : 2,    // hours
+        d : 3,    // days
+        M : 2,    // months (note: uppercase)
+        y : 3     // years
     }
 
 All the parameters are optional. Also, there are no upper limits for the values, so you can overload any of the parameters.
 
-    {ms:1000000} // a million milliseconds
-    {d:360} // 360 days
+    { ms : 1000000 } // a million milliseconds
+    { d : 360 }      // 360 days
 
 ### Special considerations for months and years
 
@@ -210,34 +183,33 @@ If the day of the month on the original date is greater than the number of days 
 
 Example:
     
-    _date.date([2010, 0, 31]) // January 31
-    _date.date([2010, 0, 31]).add({M:1}) // February 28
-
+    _date([2010, 0, 31])              // January 31
+    _date([2010, 0, 31]).add({M : 1}) // February 28
     
     
-_date.date().subtract()
+_date.subtract()
 ----------------
 
-    _date.date().subtract(object)
+    _date.subtract(object)
 
-Functions the same as `_date.date().add()`, only using subtraction instead of addition.
+Functions the same as `_date.add()`, only using subtraction instead of addition.
 
 Example:
     
-    _date.date([2010, 1, 28]) // February 28
-    _date.date([2010, 1, 28]).subtract({M:1}) // January 28
+    _date([2010, 1, 28]) // February 28
+    _date([2010, 1, 28]).subtract({M:1}) // January 28
   
 
   
-_date.date().format()
+_date.format()
 --------------
 
-    _date.date().format(string)
+    _date.format(string)
 
 Returns a human readable string based on the format string that was passed in.
 
-    _date.date(new Date(2010, 1, 14, 15, 25, 50, 125)).format("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
-    _date.date(new Date(2010, 1, 14, 15, 25, 50, 125)).format("ddd, hA"); // "Sun, 3PM"
+    _date(new Date(2010, 1, 14, 15, 25, 50, 125)).format("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
+    _date(new Date(2010, 1, 14, 15, 25, 50, 125)).format("ddd, hA");                       // "Sun, 3PM"
 
 The formats are created by creating a string of replacable characters.
 
@@ -432,137 +404,133 @@ The formats are created by creating a string of replacable characters.
 
 
 
-_date.date().from()
+_date.from()
 ------------
 
-    _date.date().from(date, withoutSuffix:boolean, asMilliseconds:boolean)
+    _date.from(date, withoutSuffix:boolean, asMilliseconds:boolean)
 
 Returns a string as relative time ('minutes ago', '5 months ago', etc).
 
-You can pass anything that you would pass to _date.date() as the first parameter, or a _date.date() object.
+You can pass anything that you would pass to _date() as the first parameter, or a `_date()` object.
 
-    _date.date([2007, 0, 29]).from(_date.date([2007, 0, 28])) // "a day ago");
+    _date([2007, 0, 29]).from(_date([2007, 0, 28])) // "a day ago"
     
 You can pass `true` as the second parameter to return without the prefixes and suffixes.
 
-    _date.date([2007, 0, 29]).from(_date.date([2007, 0, 28]), true) // "a day");
+    _date([2007, 0, 29]).from(_date([2007, 0, 28]), true) // "a day"
     
 You can pass `true` as the third parameter to return as milliseconds. 
 The number of milliseconds returned will be positive if the date passed 
 in is later than the first date, and negative if the date passed in is earlier.
 
-    _date.date([2007, 0, 29]).from(_date.date([2007, 0, 28]), true , true) // -86400000);
-    _date.date([2007, 0, 27]).from(_date.date([2007, 0, 28]), true , true) // 86400000);
+    _date([2007, 0, 29]).from(_date([2007, 0, 28]), true , true) // -86400000);
+    _date([2007, 0, 27]).from(_date([2007, 0, 28]), true , true) // 86400000);
 
-The base strings for this function can be customized with `_date.date().customize()`.
+The base strings for this function can be customized with `_date.relativeTime`.
 
 
 
-_date.date().fromNow()
+_date.fromNow()
 ---------------
 
-    _date.date().fromNow(withoutSuffix:boolean, asMilliseconds:boolean)
+    _date.fromNow(withoutSuffix:boolean, asMilliseconds:boolean)
 
-A shortcut for `_date.date().from(_date.now(), withoutSuffix:boolean, asMilliseconds:boolean)`
+A shortcut for `_date.from(_date(), withoutSuffix:boolean, asMilliseconds:boolean)`. Retuns the time from now.
 
     
-_date.date().isLeapYear()
+_date.isLeapYear()
 ------------------
 
 Returns `true` if the year is a leap year, `false` if it is not
 
+Examples :
+
+    _date([2000]).isLeapYear() // true
+    _date([2001]).isLeapYear() // false
+    _date([2100]).isLeapYear() // false
 
  
 Localization and Customization
 ==============================
 
-To customize the wording of `_date.date().format()` and `_date.date().from()` you can use the `_date.date().customize()` function, passing in an 
-object with the parameters you wish to overwrite.
-    
-_date.date().customize(object)
---------------------------
+To customize the wording of `_date.format()` and `_date.from()`, the strings are exposed through the _date object. You can modify these however you see fit.
 
-    _date.date().customize({
-        weekdays:["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        weekdaysShort:["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-        months:["January", "February", "March", "April", "May", "June", "July", 
-            "August", "September", "October", "November", "December"],
-        monthsShort:["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        ordinal:function(number){
-            return (Math.floor(number / 10) === 1) ? 'th' :
-				(number % 10 === 1) ? 'st' :
-				(number % 10 === 2) ? 'nd' :
-				(number % 10 === 3) ? 'rd' : 'th';
-        },
-		timeago : {
-			future: "in %s",
-			past: "%s ago",
-            ss: "less than a minute",
-            m: "about a minute",
-            mm: "%d minutes",
-            h: "about an hour",
-            hh: "about %d hours",
-            d: "a day",
-            dd: "%d days",
-            M: "about a month",
-            MM: "%d months",
-            y: "about a year",
-            yy: "%d years"
-		}
-    });
+Examples :
 
-### weekdays
-    ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-An array of day names, starting with Sunday. 
+    _date.relativeTime.future = "%s from now";
+    _date.relativeTime.past = "%s in the past";
 
-### weekdaysShort
-    ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-An array of abbreviated day names, starting with Sunday. 
+_date.relativeTime
+------------------
 
-### months
-    ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-An array of the names of the months, starting with January.
-
-### monthsShort
-    ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-An array of the abbreviated names of the months, starting with January.
-
-### ordinal
-    function(number){
-        return (Math.floor(number / 10) === 1) ? 'th' :
-			(number % 10 === 1) ? 'st' :
-			(number % 10 === 2) ? 'nd' :
-			(number % 10 === 3) ? 'rd' : 'th';
-    }
-A function that returns a string to be appended to the number passed in.
-[More information on ordinal numbers](http://en.wikipedia.org/wiki/Ordinal_number_%28linguistics%29)
-
-### timeago
-
-	{
+    _date.relativeTime = {
         future: "in %s",
         past: "%s ago",
-        ss: "less than a minute",
-        m: "about a minute", // note: lowercase
-        mm: "%d minutes", // note: lowercase
-        h: "about an hour",
-        hh: "about %d hours",
+        s: "seconds",
+        m: "a minute",
+        mm: "%d minutes",
+        h: "an hour",
+        hh: "%d hours",
         d: "a day",
         dd: "%d days",
-        M: "about a month", // note: uppercase
-        MM: "%d months", // note: uppercase
-        y: "about a year",
+        M: "a month",
+        MM: "%d months",
+        y: "a year",
         yy: "%d years"
-    }
+    };
 
-The strings used in `_date.date().from()`.
+The strings used in `_date.from()`.
 
 `future` and `past` are used as the suffixes/prefixes.
 
 For all these values, a single character refers to the singular, and an double character refers to the plural.
 
+_date.weekdays
+--------------
+
+    _date.weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    
+An array of day names, starting with Sunday. 
+
+_date.weekdaysShort
+-------------------
+
+    _date.weekdaysShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    
+An array of abbreviated day names, starting with Sunday. 
+
+_date.months
+------------
+
+    _date.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    
+An array of the names of the months, starting with January.
+
+_date.monthsShort
+-----------------
+
+    _date.monthsShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    
+An array of the abbreviated names of the months, starting with January.
+
+_date.ordinal
+-------------
+
+    _date.ordinal = function (number) {
+        var b = number % 10;
+        return (~~ (number % 100 / 10) === 1) ? 'th' : 
+            (b === 1) ? 'st' : 
+            (b === 2) ? 'nd' : 
+            (b === 3) ? 'rd' : 'th';
+    };
+    
+A function that returns a string to be appended to the number passed in.
+[More information on ordinal numbers](http://en.wikipedia.org/wiki/Ordinal_number_%28linguistics%29)
+
+
+
 Tests
------
+=====
 
 There are a bunch of tests in the test/ folder. Check them out. If you think some tests are missing, open an issue, and I'll add it.
 
@@ -574,7 +542,7 @@ There are a bunch of tests in the test/ folder. Check them out. If you think som
 [Left zero filling](http://jsperf.com/left-zero-filling)
 
 Thanks to...
-------------
+============
 
 The folks over at [date.js](http://code.google.com/p/datejs/).
 
@@ -583,7 +551,14 @@ Everyone who helped with [php.js date](http://phpjs.org/functions/date:380).
 [Ryan McGeary](http://ryan.mcgeary.org/) for his work on the [jQuery timeago plugin](http://timeago.yarp.com/).
 
 Changelog
----------
+=========
+
+### 0.5.0
+
+Dropped the redundant `_date.date()` in favor of `_date()`.
+Removed `_date.now()`, as it is a duplicate of `_date()` with no parameters.
+Removed `_date.isLeapYear(yearNuumber)`. Use `_date([yearNumber]).isLeapYear()` instead.
+Exposed customization options through the `_date.relativeTime`, `_date.weekdays`, `_date.weekdaysShort`, `_date.months`, `_date.monthsShort`, and `_date.ordinal` variables instead of the `_date.customize()` function.
 
 ### 0.4.1 
 

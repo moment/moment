@@ -385,10 +385,10 @@
         // Export module
         module.exports = _date;
     // Integrate with Underscore.js
-    } else if (this._ !== undefined) {
-        this._.mixin(_date);
-    // Or define it
     } else {
+        if (this._ !== undefined) {
+            this._.mixin(_date);
+        }
         this._date = _date;
     }
     
