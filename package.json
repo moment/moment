@@ -1,7 +1,7 @@
 {
   "name": "underscore.date",
-  "version": "0.5.0",
-  "description": "Underscore.date is a JavaScript Date utility library built on top of Underscore.js",
+  "version": "0.5.1",
+  "description": "Underscore.date is a javascript date library that helps create, manipulate, and format dates without extending the `Date` prototype.",
   "homepage": "https://github.com/timrwood/underscore.date",
   "author": "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
   "keywords": [
