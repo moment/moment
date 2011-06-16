@@ -109,4 +109,13 @@ $(function() {
         equal(_date([2008, 0, 1]).isLeapYear(), true);
         equal(_date([2000, 0, 1]).isLeapYear(), true);
     });
+    
+    test("underscore mixin", 6, function() {
+        ok(_.date([2010, 1, 12]).date instanceof Date, "[2010, 1, 12]");
+        ok(_.date([2010, 1, 12, 1]).date instanceof Date, "[2010, 1, 12, 1]");
+        ok(_.date().date instanceof Date, "undefined");
+        ok(_.date("Aug 9, 1995").date instanceof Date, "Aug 9, 1995");
+        ok(_.date("Mon, 25 Dec 1995 13:30:00 GMT").date instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
+        deepEqual(_.date(new Date(2010, 1, 14, 15, 25, 50, 125)), _.date([2010, 1, 14, 15, 25, 50, 125]), "constructing with array === constructing with new Date()");
+    });
 });
