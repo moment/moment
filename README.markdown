@@ -561,16 +561,16 @@ Underscore.date is freely distributable under the terms of the MIT license.
 Changelog
 =========
 
+### 0.5.1 
+
+Buxfix for [issue 5](https://github.com/timrwood/underscore.date/pull/5).
+
 ### 0.5.0
 
 Dropped the redundant `_date.date()` in favor of `_date()`.
 Removed `_date.now()`, as it is a duplicate of `_date()` with no parameters.
 Removed `_date.isLeapYear(yearNuumber)`. Use `_date([yearNumber]).isLeapYear()` instead.
 Exposed customization options through the `_date.relativeTime`, `_date.weekdays`, `_date.weekdaysShort`, `_date.months`, `_date.monthsShort`, and `_date.ordinal` variables instead of the `_date.customize()` function.
-
-### 0.4.1 
-
-Added date input formats for input strings.
 
 ### 0.4.1 
 
