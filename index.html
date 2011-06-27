@@ -10,13 +10,7 @@
         <a class="fork-me" href="http://github.com/timrwood/underscore.date">Fork me on Github</a>
 
         <div id="container">
-            <div class="download">
-                <a href="http://github.com/timrwood/underscore.date/zipball/master">
-                </a>
-                <a href="http://github.com/timrwood/underscore.date/tarball/master">
-                </a>
-            </div>
-            <h1>
+            <h1 class="logo">
                 <a href="http://github.com/timrwood/underscore.date">underscore.date</a>
                 <span class="small">by <a href="http://github.com/timrwood">timrwood</a></span>
             </h1>
@@ -159,29 +153,26 @@ console.log(_date('September 9 1999').fromNow());</code></pre>
 
             <h2>_date.add()</h2>
 
-            <pre><code>_date.add(object)
-            </code></pre>
+            <pre><code>_date.add(object)</code></pre>
 
             <p>Adds time per the object passed in.</p>
 
             <p>The object should have key value pairs as shown below.</p>
 
             <pre><code>{
-                ms : 200, // milliseconds
-                s : 10,   // seconds
-                m : 10,   // minutes (note: lowercase)
-                h : 2,    // hours
-                d : 3,    // days
-                M : 2,    // months (note: uppercase)
-                y : 3     // years
-            }
-            </code></pre>
+    ms : 200, // milliseconds
+    s : 10,   // seconds
+    m : 10,   // minutes (note: lowercase)
+    h : 2,    // hours
+    d : 3,    // days
+    M : 2,    // months (note: uppercase)
+    y : 3     // years
+}</code></pre>
 
             <p>All the parameters are optional. Also, there are no upper limits for the values, so you can overload any of the parameters.</p>
 
             <pre><code>{ ms : 1000000 } // a million milliseconds
-{ d : 360 }      // 360 days
-            </code></pre>
+{ d : 360 }      // 360 days</code></pre>
 
             <h3>Special considerations for months and years</h3>
 
@@ -190,33 +181,30 @@ console.log(_date('September 9 1999').fromNow());</code></pre>
             <p>Example:</p>
 
             <pre><code>_date([2010, 0, 31])              // January 31
-_date([2010, 0, 31]).add({M : 1}) // February 28
-            </code></pre>
+_date([2010, 0, 31]).add({M : 1}) // February 28</code></pre>
 
             <h2>_date.subtract()</h2>
 
-            <pre><code>_date.subtract(object)
-            </code></pre>
+            <pre><code>_date.subtract(object)</code></pre>
 
             <p>Functions the same as <code>_date.add()</code>, only using subtraction instead of addition.</p>
 
             <p>Example:</p>
 
             <pre><code>_date([2010, 1, 28])                 // February 28
-_date([2010, 1, 28]).subtract({M:1}) // January 28
-            </code></pre>
+_date([2010, 1, 28]).subtract({M:1}) // January 28</code></pre>
 
             <h2>_date.format()</h2>
 
-            <pre><code>_date.format(string)
-            </code></pre>
+            <pre><code>_date.format(string)</code></pre>
 
             <p>Returns a human readable string based on the format string that was passed in.</p>
 
             <pre><code>var dateToFormat = new Date(2010, 1, 14, 15, 25, 50, 125);
-_date(dateToFormat).format("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
-_date(dateToFormat).format("ddd, hA");                       // "Sun, 3PM"
-            </code></pre>
+_date(dateToFormat).format("dddd, MMMM Do YYYY, h:mm:ss a"); 
+    // "Sunday, February 14th 2010, 3:25:50 pm"
+_date(dateToFormat).format("ddd, hA");                       
+    // "Sun, 3PM"</code></pre>
 
             <p>The formats are created by creating a string of replacable characters.</p>
 
@@ -408,35 +396,30 @@ _date(dateToFormat).format("ddd, hA");                       // "Sun, 3PM"
                 </tr>
             </tbody></table><h2>_date.from()</h2>
 
-            <pre><code>_date.from(date, withoutSuffix:boolean, asMilliseconds:boolean)
-            </code></pre>
+            <pre><code>_date.from(date, withoutSuffix:boolean, asMilliseconds:boolean)</code></pre>
 
             <p>Returns a string as relative time ('minutes ago', '5 months ago', etc).</p>
 
             <p>You can pass anything that you would pass to _date() as the first parameter, or a <code>_date()</code> object.</p>
 
-            <pre><code>_date([2007, 0, 29]).from(_date([2007, 0, 28])) // "a day ago"
-            </code></pre>
+            <pre><code>_date([2007, 0, 29]).from(_date([2007, 0, 28])) // "a day ago"</code></pre>
 
             <p>You can pass <code>true</code> as the second parameter to return without the prefixes and suffixes.</p>
 
-            <pre><code>_date([2007, 0, 29]).from(_date([2007, 0, 28]), true) // "a day"
-            </code></pre>
+            <pre><code>_date([2007, 0, 29]).from(_date([2007, 0, 28]), true) // "a day"</code></pre>
 
             <p>You can pass <code>true</code> as the third parameter to return as milliseconds. 
             The number of milliseconds returned will be positive if the date passed 
             in is later than the first date, and negative if the date passed in is earlier.</p>
 
             <pre><code>_date([2007, 0, 29]).from(_date([2007, 0, 28]), true , true) // -86400000);
-_date([2007, 0, 27]).from(_date([2007, 0, 28]), true , true) // 86400000);
-            </code></pre>
+_date([2007, 0, 27]).from(_date([2007, 0, 28]), true , true) // 86400000);</code></pre>
 
             <p>The base strings for this function can be customized with <code>_date.relativeTime</code>.</p>
 
             <h2>_date.fromNow()</h2>
 
-            <pre><code>_date.fromNow(withoutSuffix:boolean, asMilliseconds:boolean)
-            </code></pre>
+            <pre><code>_date.fromNow(withoutSuffix:boolean, asMilliseconds:boolean)</code></pre>
 
             <p>Retuns the time from now.</p>
 
@@ -450,8 +433,7 @@ _date([2007, 0, 27]).from(_date([2007, 0, 28]), true , true) // 86400000);
 
             <pre><code>_date([2000]).isLeapYear() // true
 _date([2001]).isLeapYear() // false
-_date([2100]).isLeapYear() // false
-            </code></pre>
+_date([2100]).isLeapYear() // false</code></pre>
 
             <h2>Localization and Customization</h2>
 
@@ -460,27 +442,25 @@ _date([2100]).isLeapYear() // false
             <p>Examples :</p>
 
             <pre><code>_date.relativeTime.future = "%s from now";
-            _date.relativeTime.past = "%s in the past";
-            </code></pre>
+_date.relativeTime.past = "%s in the past";</code></pre>
 
             <h3>_date.relativeTime</h3>
 
             <pre><code>_date.relativeTime = {
-future: "in %s",
-past: "%s ago",
-s: "seconds",
-m: "a minute",
-mm: "%d minutes",
-h: "an hour",
-hh: "%d hours",
-d: "a day",
-dd: "%d days",
-M: "a month",
-MM: "%d months",
-y: "a year",
-yy: "%d years"
-};
-            </code></pre>
+    future: "in %s",
+    past: "%s ago",
+    s: "seconds",
+    m: "a minute",
+    mm: "%d minutes",
+    h: "an hour",
+    hh: "%d hours",
+    d: "a day",
+    dd: "%d days",
+    M: "a month",
+    MM: "%d months",
+    y: "a year",
+    yy: "%d years"
+};</code></pre>
 
             <p>The strings used in <code>_date.from()</code>.</p>
 
@@ -490,29 +470,28 @@ yy: "%d years"
 
             <h3>_date.weekdays</h3>
 
-            <pre><code>_date.weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-            </code></pre>
+            <pre><code>_date.weekdays = ["Sunday", "Monday", "Tuesday", 
+"Wednesday", "Thursday", "Friday", "Saturday"];</code></pre>
 
             <p>An array of day names, starting with Sunday. </p>
 
             <h3>_date.weekdaysShort</h3>
 
-            <pre><code>_date.weekdaysShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-            </code></pre>
+            <pre><code>_date.weekdaysShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];</code></pre>
 
             <p>An array of abbreviated day names, starting with Sunday. </p>
 
             <h3>_date.months</h3>
 
-            <pre><code>_date.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            </code></pre>
+            <pre><code>_date.months = ["January", "February", "March", "April", "May", 
+"June", "July", "August", "September", "October", "November", "December"];</code></pre>
 
             <p>An array of the names of the months, starting with January.</p>
 
             <h3>_date.monthsShort</h3>
 
-            <pre><code>_date.monthsShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-            </code></pre>
+            <pre><code>_date.monthsShort = ["Jan", "Feb", "Mar", "Apr", "May", 
+"Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];</code></pre>
 
             <p>An array of the abbreviated names of the months, starting with January.</p>
 
@@ -524,8 +503,7 @@ return (~~ (number % 100 / 10) === 1) ? 'th' :
     (b === 1) ? 'st' : 
     (b === 2) ? 'nd' : 
     (b === 3) ? 'rd' : 'th';
-};
-            </code></pre>
+};</code></pre>
 
             <p>A function that returns a string to be appended to the number passed in.
             <a href="http://en.wikipedia.org/wiki/Ordinal_number_%28linguistics%29">More information on ordinal numbers</a></p>

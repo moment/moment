@@ -71,16 +71,21 @@ pre, code { font-size:18px; line-height:1.5em; font-family:Consolas, "Courier Ne
 
 pre { background:rgba(255, 255, 255, .2); display:block; border:1px solid #313749; padding:10px 20px; margin-bottom:20px; }
 
+p code { background:rgba(255, 255, 255, .2); padding:0 5px; }
+
 table { margin-bottom:20px; } 
 
-th { padding:5px 10px; }
-td { border-top:1px solid #313749; padding:5px 10px; }
+th { font-size:21px; padding:10px 20px; }
+td { border-top:1px solid #313749; padding:5px 20px; }
 td + td { background:rgba(255, 255, 255, .2); }
+
+b, strong { font-weight:bold; }
 
 /*
  * special
  */
 
+.logo { padding:180px 0 20px; background:url(logo.png) 50% 30px no-repeat; text-align:center; border-bottom:#313749 10px solid; }
 .fork-me { position:absolute; top:0; right:0; text-indent:-9999px; width:149px; height:149px; display:block; background:url(fork.png); }
 
 /**
@@ -88,3 +93,4 @@ td + td { background:rgba(255, 255, 255, .2); }
  */
 
 #container { margin:0 auto; width:960px; padding-top:100px; text-align:left; }
+.footer { text-align:center; padding:50px 0 200px; }
