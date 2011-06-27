@@ -69,7 +69,7 @@ body, p { font-size:18px; line-height:1.5em; margin-bottom:20px; font-family:"Ho
 
 pre, code { font-size:18px; line-height:1.5em; font-family:Consolas, "Courier New", Courier, monospace; }
 
-pre { background:rgba(255, 255, 255, .2); display:block; border:1px solid #313749; padding:10px 20px; margin-bottom:20px; }
+pre { background:rgba(255, 255, 255, .2); display:block; border:1px solid #313749; padding:10px 20px; margin-bottom:20px; white-space:pre; white-space:pre-wrap; word-wrap:break-word; }
 
 p code { background:rgba(255, 255, 255, .2); padding:0 5px; }
 
@@ -92,5 +92,10 @@ b, strong { font-weight:bold; }
  * layout
  */
 
+ 
 #container { margin:0 auto; width:960px; padding-top:100px; text-align:left; }
 .footer { text-align:center; padding:50px 0 200px; }
+
+@media screen and (max-width:1000px) {
+  #container { width:auto; margin:0 20px; }
+}
