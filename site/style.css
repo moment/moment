@@ -1,0 +1,90 @@
+/**
+ * html5doctor.com Reset Stylesheet (Eric Meyer's Reset Reloaded + HTML5 baseline)
+ * v1.6.1 2010-09-17 | Authors: Eric Meyer & Richard Clark
+ * html5doctor.com/html-5-reset-stylesheet/
+ */
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+blockquote, q { quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after { content: ""; content: none; }
+
+ins { background-color: #ff9; color: #000; text-decoration: none; }
+
+mark { background-color: #ff9; color: #000; font-style: italic; font-weight: bold; }
+
+del { text-decoration: line-through; }
+
+abbr[title], dfn[title] { border-bottom: 1px dotted; cursor: help; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+
+hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
+
+input, select { vertical-align: middle; }
+
+/**
+ * base styles
+ */
+ 
+ 
+html { background:#AFBAC4 url(bg.png); text-align:center; color:#313749; }
+
+a { color:#09489A; }
+
+h1, h2, h3, h4, h5, h6, th { font-family:Oswald, sans-serif; line-height:1.5em; margin-bottom:20px; text-shadow:1px 1px 0 rgba(255, 255, 255, .4); }
+
+h1 { font-size:48px; padding-top:10px; border-top:#313749 5px solid; }
+h2 { font-size:36px; padding-top:10px; border-top:#313749 2px solid; }
+h3 { font-size:24px; padding-top:10px; border-top:#313749 1px dashed; }
+h4 { font-size:21px; }
+h5 { font-size:18px; }
+h6 { font-size:16px; }
+
+h1 a { color:#fff; text-shadow:1px 1px 0 rgba(0, 0, 0, .4); }
+
+body, p { font-size:18px; line-height:1.5em; margin-bottom:20px; font-family:"Hoefler Text", Constantia, Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif; } 
+
+pre, code { font-size:18px; line-height:1.5em; font-family:Consolas, "Courier New", Courier, monospace; }
+
+pre { background:rgba(255, 255, 255, .2); display:block; border:1px solid #313749; padding:10px 20px; margin-bottom:20px; }
+
+table { margin-bottom:20px; } 
+
+th { padding:5px 10px; }
+td { border-top:1px solid #313749; padding:5px 10px; }
+td + td { background:rgba(255, 255, 255, .2); }
+
+/*
+ * special
+ */
+
+.fork-me { position:absolute; top:0; right:0; text-indent:-9999px; width:149px; height:149px; display:block; background:url(fork.png); }
+
+/**
+ * layout
+ */
+
+#container { margin:0 auto; width:960px; padding-top:100px; text-align:left; }
