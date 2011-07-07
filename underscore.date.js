@@ -381,7 +381,7 @@
     };
     
     // CommonJS module is defined
-    if (window === undefined && module !== undefined) {
+    if (typeof window === 'undefined' && typeof module !== 'undefined') {
         // Export module
         module.exports = _date;
     // Integrate with Underscore.js
