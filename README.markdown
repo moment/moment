@@ -5,7 +5,7 @@ Underscore.date is a javascript date library that helps create, manipulate, and 
 
 Author: Tim Wood
 
-Version: 0.5.1
+Version: 0.5.2
 
 **Note:** There are some api changes that will break your code when upgrading from 0.4.1 to 0.5.0. Read about the changes in the changelog at the bottom of the page.
 
@@ -429,6 +429,70 @@ in is later than the first date, and negative if the date passed in is earlier.
 
 The base strings for this function can be customized with `_date.relativeTime`.
 
+The breakdown of which string is displayed when is outlined in the table below.
+
+<table>
+    <tr>
+        <th>Range</th>
+        <th>Key</th>
+        <th>Sample Output</th>
+    </tr>
+    <tr>
+    	<td>0 to 45 seconds</td>
+    	<td>s</td>
+        <td>seconds ago</td>
+    </tr>
+    <tr>
+        <td>45 to 90 seconds</td>
+    	<td>m</td>
+        <td>a minute ago</td>
+    </tr>
+    <tr>
+        <td>90 seconds to 45 minutes</td>
+    	<td>mm</td>
+        <td>2 minutes ago ... 45 minutes ago</td>
+    </tr>
+    <tr>
+        <td>45 to 90 minutes</td>
+    	<td>h</td>
+        <td>an hour ago</td>
+    </tr>
+    <tr>
+        <td>90 minutes to 22 hours </td>
+    	<td>hh</td>
+        <td>2 hours ago ... 22 hours ago</td>
+    </tr>
+    <tr>
+        <td>22 to 36 hours</td>
+    	<td>d</td>
+        <td>a day ago</td>
+    </tr>
+    <tr>
+        <td>36 hours to 25 days</td>
+    	<td>dd</td>
+        <td>2 days ago ... 25 days ago</td>
+    </tr>
+    <tr>
+        <td>25 to 45 days</td>
+    	<td>M</td>
+        <td>a month ago</td>
+    </tr>
+    <tr>
+        <td>45 to 345 days</td>
+    	<td>MM</td>
+        <td>2 months ago ... 11 months ago</td>
+    </tr>
+    <tr>
+        <td>345 to 547 days (1.5 years)</td>
+    	<td>y</td>
+        <td>a year ago</td>
+    </tr>
+    <tr>
+        <td>548 days+</td>
+    	<td>yy</td>
+        <td>2 years ago ... 20 years ago</td>
+    </tr>
+</table>
 
 
 _date.fromNow()
@@ -537,6 +601,12 @@ Tests
 
 There are a bunch of tests in the test/ folder. Check them out. If you think some tests are missing, open an issue, and I'll add it.
 
+### Unit tests
+
+[Underscore.date unit tests](http://timrwood.github.com/underscore.date/test/test.html)
+
+[Underscore.date customization tests](http://timrwood.github.com/underscore.date/test/customize.html)
+
 ### Speed tests
 [Floor vs bitwiseor vs bitwisenor vs parseint](http://jsperf.com/floor-vs-bitwise-or-vs-parseint/4)
 
@@ -560,6 +630,10 @@ Underscore.date is freely distributable under the terms of the MIT license.
 
 Changelog
 =========
+
+### 0.5.2 
+
+Buxfix for [issue 8](https://github.com/timrwood/underscore.date/pull/8) and [issue 9](https://github.com/timrwood/underscore.date/pull/9).
 
 ### 0.5.1 
 

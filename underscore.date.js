@@ -3,11 +3,12 @@
 // (c) 2011 Tim Wood
 // Underscore.date is freely distributable under the terms of the MIT license.
 //
-// Version 0.5.1
+// Version 0.5.2
 
 (function (undefined) {
 
-    var _date;
+    var _date,
+        round = Math.round;
 
     // left zero fill a number
     // see http://jsperf.com/left-zero-filling for performance comparison
@@ -210,17 +211,17 @@
             hours = minutes / 60,
             days = hours / 24,
             years = days / 365;
-        return seconds < 45 && substituteTimeAgo('s', ~~ seconds) ||
-            seconds < 90 && substituteTimeAgo('m') ||
-            minutes < 45 && substituteTimeAgo('mm', ~~ minutes) ||
-            minutes < 90 && substituteTimeAgo('h') ||
-            hours < 24 && substituteTimeAgo('hh', ~~ hours) ||
-            hours < 48 && substituteTimeAgo('d') ||
-            days < 25 && substituteTimeAgo('dd', ~~ days) ||
+        return seconds < 45 && substituteTimeAgo('s', round(seconds)) ||
+            round(minutes) === 1 && substituteTimeAgo('m') ||
+            minutes < 45 && substituteTimeAgo('mm', round(minutes)) ||
+            round(hours) === 1 && substituteTimeAgo('h') ||
+            hours < 22 && substituteTimeAgo('hh', round(hours)) ||
+            round(days) === 1 && substituteTimeAgo('d') ||
+            days < 25 && substituteTimeAgo('dd', round(days)) ||
             days < 45 && substituteTimeAgo('M') ||
-            days < 350 && substituteTimeAgo('MM', ~~ ((days + 15) / 30)) ||
-            years < 2 && substituteTimeAgo('y') ||
-            substituteTimeAgo('yy', ~~ years);
+            days < 345 && substituteTimeAgo('MM', round(days / 30)) ||
+            round(years) === 1 && substituteTimeAgo('y') ||
+            substituteTimeAgo('yy', round(years));
     }
     
     UnderscoreDate.prototype = {
@@ -381,7 +382,7 @@
     };
     
     // CommonJS module is defined
-    if (window === undefined && module !== undefined) {
+    if (typeof window === 'undefined' && typeof module !== 'undefined') {
         // Export module
         module.exports = _date;
     // Integrate with Underscore.js

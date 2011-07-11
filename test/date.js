@@ -66,17 +66,36 @@ $(function() {
     });
 
 
-    test("_date().from() -- suffixless", 11, function() {
+    test("_date().from() -- suffixless", 30, function() {
         var start = _date([2007, 1, 28]);
-        equal(start.from(_date([2007, 1, 28]).add({s:30}), true), "seconds");
-        equal(start.from(_date([2007, 1, 28]).add({s:60}), true), "a minute");
-        equal(start.from(_date([2007, 1, 28]).add({m:5}), true), "5 minutes");
-        equal(start.from(_date([2007, 1, 28]).add({h:1}), true), "an hour");
+        equal(start.from(_date([2007, 1, 28]).add({s:44}), true), "seconds");
+        equal(start.from(_date([2007, 1, 28]).add({s:45}), true), "a minute");
+        equal(start.from(_date([2007, 1, 28]).add({s:89}), true), "a minute");
+        equal(start.from(_date([2007, 1, 28]).add({s:90}), true), "2 minutes");
+        equal(start.from(_date([2007, 1, 28]).add({m:44}), true), "44 minutes");
+        equal(start.from(_date([2007, 1, 28]).add({m:45}), true), "an hour");
+        equal(start.from(_date([2007, 1, 28]).add({m:89}), true), "an hour");
+        equal(start.from(_date([2007, 1, 28]).add({m:90}), true), "2 hours");
         equal(start.from(_date([2007, 1, 28]).add({h:5}), true), "5 hours");
+        equal(start.from(_date([2007, 1, 28]).add({h:21}), true), "21 hours");
+        equal(start.from(_date([2007, 1, 28]).add({h:22}), true), "a day");
+        equal(start.from(_date([2007, 1, 28]).add({h:35}), true), "a day");
+        equal(start.from(_date([2007, 1, 28]).add({h:36}), true), "2 days");
         equal(start.from(_date([2007, 1, 28]).add({d:1}), true), "a day");
         equal(start.from(_date([2007, 1, 28]).add({d:5}), true), "5 days");
+        equal(start.from(_date([2007, 1, 28]).add({d:25}), true), "25 days");
+        equal(start.from(_date([2007, 1, 28]).add({d:26}), true), "a month");
+        equal(start.from(_date([2007, 1, 28]).add({d:30}), true), "a month");
+        equal(start.from(_date([2007, 1, 28]).add({d:45}), true), "a month");
+        equal(start.from(_date([2007, 1, 28]).add({d:46}), true), "2 months");
+        equal(start.from(_date([2007, 1, 28]).add({d:75}), true), "2 months");
+        equal(start.from(_date([2007, 1, 28]).add({d:76}), true), "3 months");
         equal(start.from(_date([2007, 1, 28]).add({M:1}), true), "a month");
         equal(start.from(_date([2007, 1, 28]).add({M:5}), true), "5 months");
+        equal(start.from(_date([2007, 1, 28]).add({d:344}), true), "11 months");
+        equal(start.from(_date([2007, 1, 28]).add({d:345}), true), "a year");
+        equal(start.from(_date([2007, 1, 28]).add({d:547}), true), "a year");
+        equal(start.from(_date([2007, 1, 28]).add({d:548}), true), "2 years");
         equal(start.from(_date([2007, 1, 28]).add({y:1}), true), "a year");
         equal(start.from(_date([2007, 1, 28]).add({y:5}), true), "5 years");
     });
