@@ -50,30 +50,30 @@ input, select { vertical-align: middle; }
  */
  
  
-html { background:#AFBAC4 url(bg.png); text-align:center; color:#313749; }
+html { background:#AFBAC4 url(bg.png); text-align:center; color:#445; }
 
 a { color:#09489A; }
 
 h1, h2, h3, h4, h5, h6, th { font-family:Oswald, sans-serif; line-height:1.5em; margin-bottom:20px; text-shadow:1px 1px 0 rgba(255, 255, 255, .4); }
 
-h1 { font-size:48px; padding-top:10px; border-top:#313749 5px solid; }
-h2 { font-size:36px; padding-top:10px; border-top:#313749 2px solid; }
-h3 { font-size:24px; padding-top:10px; border-top:#313749 1px dashed; }
+h1 { font-size:48px; padding-top:40px; }
+h2 { font-size:36px; padding-top:20px; }
+h3 { font-size:24px; padding-top:10px; }
 h4 { font-size:21px; }
 h5 { font-size:18px; }
 h6 { font-size:16px; }
 
-h1 a { color:#fff; text-shadow:1px 1px 0 rgba(0, 0, 0, .4); }
+h1 a { color:#445; }
 
 body, p { font-size:18px; line-height:1.5em; margin-bottom:20px; font-family:"Hoefler Text", Constantia, Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif; } 
 
 pre, code { font-size:18px; line-height:1.5em; font-family:Consolas, "Courier New", Courier, monospace; }
 
-pre { background:rgba(255, 255, 255, .2); display:block; border:1px solid #313749; padding:10px 20px; margin-bottom:20px; white-space:pre; white-space:pre-wrap; word-wrap:break-word; }
+pre { background:rgba(0, 0, 0, .05); display:block; padding:10px 20px; margin-bottom:20px; white-space:pre; white-space:pre-wrap; word-wrap:break-word; }
 
-p code { background:rgba(255, 255, 255, .2); padding:0 5px; }
+p code { background:rgba(0, 0, 0, .05); padding:0 5px; }
 
-table { margin-bottom:20px; } 
+table { margin-bottom:20px; width:100%; } 
 
 th { font-size:21px; padding:10px 20px; }
 td { border-top:1px solid #313749; padding:5px 20px; }
@@ -85,7 +85,7 @@ b, strong { font-weight:bold; }
  * special
  */
 
-.logo { padding:180px 0 20px; background:url(logo.png) 50% 30px no-repeat; text-align:center; border-bottom:#313749 10px solid; }
+.logo { text-align:center; border-bottom:#313749 10px solid; }
 .fork-me { position:absolute; top:0; right:0; text-indent:-9999px; width:149px; height:149px; display:block; background:url(fork.png); }
 
 /**
@@ -93,9 +93,6 @@ b, strong { font-weight:bold; }
  */
 
  
-#container { margin:0 auto; width:960px; padding-top:100px; text-align:left; }
+#container { background:url(bg-body.png); margin:0 auto; width:960px; padding:20px 40px; text-align:left; }
 .footer { text-align:center; padding:50px 0 200px; }
 
-@media screen and (max-width:1000px) {
-  #container { width:auto; margin:0 20px; }
-}
