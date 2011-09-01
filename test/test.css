@@ -1,0 +1,238 @@
+/**
+ * html5doctor.com Reset Stylesheet (Eric Meyer's Reset Reloaded + HTML5 baseline)
+ * v1.6.1 2010-09-17 | Authors: Eric Meyer & Richard Clark
+ * html5doctor.com/html-5-reset-stylesheet/
+ */
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+blockquote, q { quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after { content: ""; content: none; }
+
+ins { background-color: #ff9; color: #000; text-decoration: none; }
+
+mark { background-color: #ff9; color: #000; font-style: italic; font-weight: bold; }
+
+del { text-decoration: line-through; }
+
+abbr[title], dfn[title] { border-bottom: 1px dotted; cursor: help; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+
+hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
+
+input, select { vertical-align: middle; }
+
+/**
+ * base styles
+ */
+ 
+ 
+html { background:#AFBAC4 url(../site/bg.png); text-align:center; color:#445; }
+
+a { color:#09489A; }
+
+h1, h2, h3, h4, h5, h6, th { font-family:Oswald, sans-serif; line-height:1.5em; margin-bottom:20px; text-shadow:1px 1px 0 rgba(255, 255, 255, .4); }
+
+h1 { font-size:48px; padding-top:40px; }
+h2 { font-size:36px; padding-top:20px; }
+h3 { font-size:24px; padding-top:10px; }
+h4 { font-size:21px; }
+h5 { font-size:18px; }
+h6 { font-size:16px; }
+
+h1 a { color:#445; }
+
+body, p { font-size:18px; line-height:1.5em; font-family:"Hoefler Text", Constantia, Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif; } 
+p { margin-bottom:20px; } 
+
+pre, code { font-size:18px; line-height:1.5em; font-family:Consolas, "Courier New", Courier, monospace; }
+
+pre { background:rgba(0, 0, 0, .05); display:block; padding:5px 10px; white-space:pre; white-space:pre-wrap; word-wrap:break-word; }
+
+p code { background:rgba(0, 0, 0, .05); padding:0 5px; }
+
+table { margin-bottom:20px; width:100%; } 
+
+th { font-size:21px; padding:10px 20px; }
+td + td { background:rgba(255, 255, 255, .2); }
+
+b, strong { font-weight:bold; }
+
+
+/*
+ * special
+ */
+
+.logo { text-align:center; border-bottom:#313749 10px solid; }
+
+
+/**
+ * layout
+ */
+
+
+#container { background:url(../site/bg-body.png); margin:0 auto; width:960px; padding:20px 40px; text-align:left; }
+.footer { text-align:center; padding:50px 0 200px; }
+
+
+/** Header */
+
+
+#qunit-banner {
+	height:20px;
+}
+
+#qunit-testrunner-toolbar {
+	padding: 0.5em 0 0.5em 2em;
+	color: #5E740B;
+	background-color: #eee;
+}
+
+
+/** Tests: Pass/Fail */
+
+#qunit-tests {
+	list-style-position: inside;
+  padding-bottom:20px;
+  border-bottom:#313749 10px solid;
+  margin-bottom:20px;
+}
+
+#qunit-tests li {
+	padding:5px 10px;
+	list-style-position: inside;
+}
+
+#qunit-tests th, 
+#qunit-tests pre { font-size:14px; }
+
+#qunit-tests.hidepass li.pass {
+	display: none;
+}
+
+#qunit-tests li strong {
+	cursor: pointer;
+}
+
+#qunit-tests ol {
+	margin-top: 0.5em;
+	padding: 0.5em;
+	background-color: #fff;
+}
+
+#qunit-tests table {
+	border-collapse: collapse;
+	margin-top: .2em;
+}
+
+#qunit-tests th {
+	text-align: right;
+	vertical-align: top;
+	padding: 0 .5em 0 0;
+}
+
+#qunit-tests td {
+	vertical-align: top;
+}
+
+#qunit-tests pre {
+	margin: 0;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+#qunit-tests del {
+	background-color: #e0f2be;
+	color: #374e0c;
+	text-decoration: none;
+}
+
+#qunit-tests ins {
+	background-color: #ffcaca;
+	color: #500;
+	text-decoration: none;
+}
+
+/*** Test Counts */
+
+#qunit-tests b.counts                       { color: black; }
+#qunit-tests b.passed                       { color: #5E740B; }
+#qunit-tests b.failed                       { color: #710909; }
+
+#qunit-tests li li {
+	margin: 0.5em;
+	padding: 0.4em 0.5em 0.4em 0.5em;
+	background-color: #fff;
+	border-bottom: none;
+	list-style-position: inside;
+}
+
+/*** Passing Styles */
+
+#qunit-tests li li.pass {
+	color: #5E740B;
+	background-color: #fff;
+	border-left: 26px solid #C6E746;
+}
+
+#qunit-tests .pass                          { color: #528CE0; }
+#qunit-tests .pass .test-name               { color: #366097; }
+ 
+#qunit-tests .pass .test-actual,
+#qunit-tests .pass .test-expected           { color: #999999; }
+
+#qunit-banner.qunit-pass                    { background-color: #C6E746; }
+
+/*** Failing Styles */
+
+#qunit-tests li li.fail {
+	color: #710909;
+	background-color: #fff;
+	border-left: 26px solid #EE5757;
+}
+
+#qunit-tests .fail                          { color: #000000; background-color: #EE5757; }
+#qunit-tests .fail .test-name,
+#qunit-tests .fail .module-name             { color: #000000; }
+
+#qunit-tests .fail .test-actual             { color: #EE5757; }
+#qunit-tests .fail .test-expected           { color: green;   }
+
+#qunit-banner.qunit-fail                    { background-color: #EE5757; }
+
+
+/** Result */
+
+.test-expected th { width:100px; }
+
+
+/** Fixture */
+
+#qunit-fixture {
+	position: absolute;
+	top: -10000px;
+	left: -10000px;
+}

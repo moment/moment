@@ -1,7 +1,12 @@
-var date = new Date();
+var date = new Date(),
+    new_date = _date();
 
 JSLitmus.test('create from date', function() {
     return _date(date);
+});
+
+JSLitmus.test('create from _date', function() {
+    return _date(new_date);
 });
 
 JSLitmus.test('create from undefined', function() {
