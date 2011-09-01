@@ -9,7 +9,7 @@ Version: 0.5.2
 
 **Note:** There are some api changes that will break your code when upgrading from 0.4.1 to 0.5.0. Read about the changes in the changelog at the bottom of the page.
 
-### 1.82 kb (min + gzip)
+### 1.8 kb (min + gzip)
 
 Where to use it
 ===============
@@ -599,13 +599,14 @@ A function that returns a string to be appended to the number passed in.
 Tests
 =====
 
-There are a bunch of tests in the test/ folder. Check them out. If you think some tests are missing, open an issue, and I'll add it.
-
 ### Unit tests
 
 [Underscore.date unit tests](http://timrwood.github.com/underscore.date/test/test.html)
 
-[Underscore.date customization tests](http://timrwood.github.com/underscore.date/test/customize.html)
+[Underscore.date performance tests](http://jsperf.com/underscore-date)
+
+The unit tests can also be run in node by running `node test.js` on the root folder.
+
 
 ### Speed tests
 [Floor vs bitwiseor vs bitwisenor vs parseint](http://jsperf.com/floor-vs-bitwise-or-vs-parseint/4)
