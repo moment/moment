@@ -4,7 +4,7 @@
 
 var _date, _;
 if (typeof window === 'undefined') {
-    _date = require('underscore.date');
+    _date = require('../underscore.date.js');
     module = QUnit.module;
     _ = { date : _date };
 }
@@ -69,6 +69,12 @@ test("string with format", 11, function() {
     for (i = 0; i < a.length; i++) {
         equal(_date(a[i][1], a[i][0]).format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
     }
+});
+
+test("string with array of formats", 3, function() {
+    equal(_date('13-02-1999', ['MM-DD-YYYY', 'DD-MM-YYYY']).format('MM DD YYYY'), '02 13 1999', 'switching month and day');
+    equal(_date('02-13-1999', ['MM/DD/YYYY', 'YYYY-MM-DD', 'MM-DD-YYYY']).format('MM DD YYYY'), '02 13 1999', 'year last');
+    equal(_date('1999-02-13', ['MM/DD/YYYY', 'YYYY-MM-DD', 'MM-DD-YYYY']).format('MM DD YYYY'), '02 13 1999', 'year first');
 });
 
 test("string with format - years", 2, function() {

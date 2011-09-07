@@ -56,6 +56,122 @@
         return new Date(input[0], input[1] || 0, input[2] || 1, input[3] || 0, input[4] || 0, input[5] || 0, input[6] || 0);
     }
 
+    // format date using native date object
+    function formatDate(date, inputString) {
+        var currentMonth = date.getMonth(),
+            currentDate = date.getDate(),
+            currentYear = date.getFullYear(),
+            currentDay = date.getDay(),
+            currentHours = date.getHours(),
+            currentMinutes = date.getMinutes(),
+            currentSeconds = date.getSeconds(),
+            currentString = date.toString(),
+            charactersToReplace = /(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?)/g,
+            nonuppercaseLetters = /[^A-Z]/g;
+        // check if the character is a format
+        // return formatted string or non string.
+        //
+        // uses switch/case instead of an object of named functions (like http://phpjs.org/functions/date:380)
+        // for minification and performance
+        // see http://jsperf.com/object-of-functions-vs-switch for performance comparison
+        function replaceFunction(input) {
+            // create a couple variables to be used later inside one of the cases.
+            var a, b;
+            switch (input) {
+                // MONTH
+            case 'M' :
+                return currentMonth + 1;
+            case 'Mo' :
+                return (currentMonth + 1) + _date.ordinal(currentMonth + 1);
+            case 'MM' :
+                return leftZeroFill(currentMonth + 1, 2);
+            case 'MMM' :
+                return _date.monthsShort[currentMonth];
+            case 'MMMM' :
+                return _date.months[currentMonth];
+            // DAY OF MONTH
+            case 'D' :
+                return currentDate;
+            case 'Do' :
+                return currentDate + _date.ordinal(currentDate);
+            case 'DD' :
+                return leftZeroFill(currentDate, 2);
+            // DAY OF YEAR
+            case 'DDD' :
+                a = new Date(currentYear, currentMonth, currentDate);
+                b = new Date(currentYear, 0, 1);
+                return ~~ (((a - b) / 864e5) + 1.5);
+            case 'DDDo' :
+                a = replaceFunction('DDD');
+                return a + _date.ordinal(a);
+            case 'DDDD' :
+                return leftZeroFill(replaceFunction('DDD'), 3);
+            // WEEKDAY
+            case 'd' :
+                return currentDay;
+            case 'do' :
+                return currentDay + _date.ordinal(currentDay);
+            case 'ddd' :
+                return _date.weekdaysShort[currentDay];
+            case 'dddd' :
+                return _date.weekdays[currentDay];
+            // WEEK OF YEAR
+            case 'w' :
+                a = new Date(currentYear, currentMonth, currentDate - currentDay + 5);
+                b = new Date(a.getFullYear(), 0, 4);
+                return ~~ ((a - b) / 864e5 / 7 + 1.5);
+            case 'wo' :
+                a = replaceFunction('w');
+                return a + _date.ordinal(a);
+            case 'ww' :
+                return leftZeroFill(replaceFunction('w'), 2);
+            // YEAR
+            case 'YY' :
+                return (currentYear + '').slice(-2);
+            case 'YYYY' :
+                return currentYear;
+            // AM / PM
+            case 'a' :
+                return currentHours > 11 ? 'pm' : 'am';
+            case 'A' :
+                return currentHours > 11 ? 'PM' : 'AM';
+            // 24 HOUR
+            case 'H' :
+                return currentHours;
+            case 'HH' :
+                return leftZeroFill(currentHours, 2);
+            // 12 HOUR
+            case 'h' :
+                return currentHours % 12 || 12;
+            case 'hh' :
+                return leftZeroFill(currentHours % 12 || 12, 2);
+            // MINUTE
+            case 'm' :
+                return currentMinutes;
+            case 'mm' :
+                return leftZeroFill(currentMinutes, 2);
+            // SECOND
+            case 's' :
+                return currentSeconds;
+            case 'ss' :
+                return leftZeroFill(currentSeconds, 2);
+            // TIMEZONE
+            case 'z' :
+                return replaceFunction('zz').replace(nonuppercaseLetters, '');
+            case 'zz' :
+                a = currentString.indexOf('(');
+                if (a > -1) {
+                    return currentString.slice(a + 1, currentString.indexOf(')'));
+                }
+                return currentString.slice(currentString.indexOf(':')).replace(nonuppercaseLetters, '');
+            // DEFAULT
+            default :
+                return input.replace("\\", "");
+            }
+        }
+        return inputString.replace(charactersToReplace, replaceFunction);
+    }
+
     // date from string and format string
     function makeDateFromStringAndFormat(string, format) {
         var inArray = [0],
@@ -132,6 +248,41 @@
         return dateFromArray(inArray);
     }
 
+    // compare two arrays, return the number of differences
+    function compareArrays(array1, array2) {
+        var len = Math.min(array1.length, array2.length),
+            lengthDiff = Math.abs(array1.length - array2.length),
+            diffs = 0,
+            i;
+        for (i = 0; i < len; i++) {
+            if (~~array1[i] !== ~~array2[i]) {
+                diffs++;
+            }
+        }
+        return diffs + lengthDiff;
+    }
+
+    // date from string and array of format strings
+    function makeDateFromStringAndArray(string, formats) {
+        var output,
+            charactersToPutInArray = /[0-9a-zA-Z]+/g,
+            inputParts = string.match(charactersToPutInArray),
+            scores = [],
+            scoreToBeat = 99,
+            i,
+            curDate,
+            curScore;
+        for (i = 0; i < formats.length; i++) {
+            curDate = makeDateFromStringAndFormat(string, formats[i]);
+            curScore = compareArrays(inputParts, formatDate(curDate, formats[i]).match(charactersToPutInArray));
+            if (curScore < scoreToBeat) {
+                scoreToBeat = curScore;
+                output = curDate;
+            }
+        }
+        return output;
+    }
+
     // UnderscoreDate prototype object
     function UnderscoreDate(input, format) {
         // parse UnderscoreDate object
@@ -139,7 +290,11 @@
             this.date = input.date;
         // parse string and format
         } else if (format) {
-            this.date = makeDateFromStringAndFormat(input, format);
+            if (isArray(format)) {
+                this.date = makeDateFromStringAndArray(input, format);
+            } else {
+                this.date = makeDateFromStringAndFormat(input, format);
+            }
         // parse everything else
         } else {
             this.date = input === undefined ? new Date() :
@@ -220,121 +375,7 @@
         },
 
         format : function (inputString) {
-            // shortcuts to this and getting time functions
-            // done to save bytes in minification
-            var date = this.date,
-                currentMonth = date.getMonth(),
-                currentDate = date.getDate(),
-                currentYear = date.getFullYear(),
-                currentDay = date.getDay(),
-                currentHours = date.getHours(),
-                currentMinutes = date.getMinutes(),
-                currentSeconds = date.getSeconds(),
-                currentString = date.toString(),
-                charactersToReplace = /(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?)/g,
-                nonuppercaseLetters = /[^A-Z]/g;
-            // check if the character is a format
-            // return formatted string or non string.
-            //
-            // uses switch/case instead of an object of named functions (like http://phpjs.org/functions/date:380)
-            // for minification and performance
-            // see http://jsperf.com/object-of-functions-vs-switch for performance comparison
-            function replaceFunction(input) {
-                // create a couple variables to be used later inside one of the cases.
-                var a, b;
-                switch (input) {
-                    // MONTH
-                case 'M' :
-                    return currentMonth + 1;
-                case 'Mo' :
-                    return (currentMonth + 1) + _date.ordinal(currentMonth + 1);
-                case 'MM' :
-                    return leftZeroFill(currentMonth + 1, 2);
-                case 'MMM' :
-                    return _date.monthsShort[currentMonth];
-                case 'MMMM' :
-                    return _date.months[currentMonth];
-                // DAY OF MONTH
-                case 'D' :
-                    return currentDate;
-                case 'Do' :
-                    return currentDate + _date.ordinal(currentDate);
-                case 'DD' :
-                    return leftZeroFill(currentDate, 2);
-                // DAY OF YEAR
-                case 'DDD' :
-                    a = new Date(currentYear, currentMonth, currentDate);
-                    b = new Date(currentYear, 0, 1);
-                    return ~~ (((a - b) / 864e5) + 1.5);
-                case 'DDDo' :
-                    a = replaceFunction('DDD');
-                    return a + _date.ordinal(a);
-                case 'DDDD' :
-                    return leftZeroFill(replaceFunction('DDD'), 3);
-                // WEEKDAY
-                case 'd' :
-                    return currentDay;
-                case 'do' :
-                    return currentDay + _date.ordinal(currentDay);
-                case 'ddd' :
-                    return _date.weekdaysShort[currentDay];
-                case 'dddd' :
-                    return _date.weekdays[currentDay];
-                // WEEK OF YEAR
-                case 'w' :
-                    a = new Date(currentYear, currentMonth, currentDate - currentDay + 5);
-                    b = new Date(a.getFullYear(), 0, 4);
-                    return ~~ ((a - b) / 864e5 / 7 + 1.5);
-                case 'wo' :
-                    a = replaceFunction('w');
-                    return a + _date.ordinal(a);
-                case 'ww' :
-                    return leftZeroFill(replaceFunction('w'), 2);
-                // YEAR
-                case 'YY' :
-                    return (currentYear + '').slice(-2);
-                case 'YYYY' :
-                    return currentYear;
-                // AM / PM
-                case 'a' :
-                    return currentHours > 11 ? 'pm' : 'am';
-                case 'A' :
-                    return currentHours > 11 ? 'PM' : 'AM';
-                // 24 HOUR
-                case 'H' :
-                    return currentHours;
-                case 'HH' :
-                    return leftZeroFill(currentHours, 2);
-                // 12 HOUR
-                case 'h' :
-                    return currentHours % 12 || 12;
-                case 'hh' :
-                    return leftZeroFill(currentHours % 12 || 12, 2);
-                // MINUTE
-                case 'm' :
-                    return currentMinutes;
-                case 'mm' :
-                    return leftZeroFill(currentMinutes, 2);
-                // SECOND
-                case 's' :
-                    return currentSeconds;
-                case 'ss' :
-                    return leftZeroFill(currentSeconds, 2);
-                // TIMEZONE
-                case 'z' :
-                    return replaceFunction('zz').replace(nonuppercaseLetters, '');
-                case 'zz' :
-                    a = currentString.indexOf('(');
-                    if (a > -1) {
-                        return currentString.slice(a + 1, currentString.indexOf(')'));
-                    }
-                    return currentString.slice(currentString.indexOf(':')).replace(nonuppercaseLetters, '');
-                // DEFAULT
-                default :
-                    return input.replace("\\", "");
-                }
-            }
-            return inputString.replace(charactersToReplace, replaceFunction);
+            return formatDate(this.date, inputString);
         },
 
         add : function (input) {
