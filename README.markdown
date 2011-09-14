@@ -521,6 +521,11 @@ Localization and Customization
 ==============================
 
 To customize the wording of `_date.format()` and `_date.from()`, the strings are exposed through the _date object. You can modify these however you see fit.
+Or, put in the beginnin of your project, 
+
+    require('./underscore.date.languages').portuguese();
+
+Portuguese was the language choose in this example.
 
 Examples :
 
