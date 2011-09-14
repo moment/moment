@@ -8,7 +8,9 @@
 (function (undefined) {
 
     var _date,
-        round = Math.round;
+        round = Math.round,
+        languages = {},
+        paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|relativeTime|ordinal'.split('|');
 
     // left zero fill a number
     // see http://jsperf.com/left-zero-filling for performance comparison
@@ -156,12 +158,12 @@
             case 'ss' :
                 return leftZeroFill(currentSeconds, 2);
             // TIMEZONE
-            case 'z' :
-                return replaceFunction('zz').replace(nonuppercaseLetters, '');
             case 'zz' :
+                // depreciating 'zz' fall through to 'z'
+            case 'z' :
                 a = currentString.indexOf('(');
                 if (a > -1) {
-                    return currentString.slice(a + 1, currentString.indexOf(')'));
+                    return currentString.slice(a + 1, currentString.indexOf(')')).replace(nonuppercaseLetters, '');
                 }
                 return currentString.slice(currentString.indexOf(':')).replace(nonuppercaseLetters, '');
             // DEFAULT
@@ -308,32 +310,49 @@
         return new UnderscoreDate(input, format);
     };
 
-    _date.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    _date.monthsShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    _date.weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    _date.weekdaysShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    _date.relativeTime = {
-        future: "in %s",
-        past: "%s ago",
-        s: "seconds",
-        m: "a minute",
-        mm: "%d minutes",
-        h: "an hour",
-        hh: "%d hours",
-        d: "a day",
-        dd: "%d days",
-        M: "a month",
-        MM: "%d months",
-        y: "a year",
-        yy: "%d years"
-    };
-    _date.ordinal = function (number) {
-        var b = number % 10;
-        return (~~ (number % 100 / 10) === 1) ? 'th' :
-            (b === 1) ? 'st' :
-            (b === 2) ? 'nd' :
-            (b === 3) ? 'rd' : 'th';
-    };
+    // language switching and caching
+    _date.lang = function (key, values) {
+        var i, param;
+        if (values) {
+            languages[key] = values;
+        }
+        if (languages[key]) {
+            for (i = 0; i < paramsToParse.length; i++) {
+                param = paramsToParse[i];
+                _date[param] = languages[key][param] || _date[param];
+            }
+        }
+    }
+
+    // set default language
+    _date.lang('en', {
+        months : ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        monthsShort : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        weekdays : ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        weekdaysShort : ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        relativeTime : {
+            future: "in %s",
+            past: "%s ago",
+            s: "seconds",
+            m: "a minute",
+            mm: "%d minutes",
+            h: "an hour",
+            hh: "%d hours",
+            d: "a day",
+            dd: "%d days",
+            M: "a month",
+            MM: "%d months",
+            y: "a year",
+            yy: "%d years"
+        },
+        ordinal : function (number) {
+            var b = number % 10;
+            return (~~ (number % 100 / 10) === 1) ? 'th' :
+                (b === 1) ? 'st' :
+                (b === 2) ? 'nd' :
+                (b === 3) ? 'rd' : 'th';
+        }
+    });
 
     // convert any input to milliseconds
     function makeInputMilliseconds(input) {

@@ -101,7 +101,7 @@ test("format", 15, function() {
             ['m mm',                               '25 25'],
             ['s ss',                               '50 50'],
             ['a A',                                'pm PM'],
-            ['z zz',                               'PST Pacific Standard Time'],
+            ['z zz',                               'PST PST'],
             ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45th day of the year']
         ],
         b = _date(new Date(2010, 1, 14, 15, 25, 50, 125)),
@@ -243,7 +243,7 @@ test("format", 9, function() {
         ],
         b = _date(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
-    
+
     _date.months = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
     _date.monthsShort = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
     _date.weekdays = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
@@ -322,4 +322,118 @@ test("from future past", 2, function() {
     equal(_date(0).from(30000), "seconds testing b", 'past');
     
     _date.relativeTime = backup;
+});
+
+
+module('lang');
+
+test("format", 48, function() {
+    var date = _date(new Date(2010, 1, 14, 15, 25, 50, 125)),
+        en = [
+            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Sunday, February 14th 2010, 3:25:50 pm'],
+            ['ddd, hA',                            'Sun, 3PM'],
+            ['M Mo MM MMMM MMM',                   '2 2nd 02 February Feb'],
+            ['D Do DD',                            '14 14th 14'],
+            ['d do dddd ddd',                      '0 0th Sunday Sun'],
+            ['DDD DDDo DDDD',                      '45 45th 045'],
+            ['w wo ww',                            '8 8th 08'],
+            ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45th day of the year']
+        ],
+        es = [
+            ['dddd, MMMM Do YYYY, h:mm:ss a',      'domingo, febrero 14o 2010, 3:25:50 pm'],
+            ['ddd, hA',                            'dom, 3PM'],
+            ['M Mo MM MMMM MMM',                   '2 2o 02 febrero feb'],
+            ['D Do DD',                            '14 14o 14'],
+            ['d do dddd ddd',                      '0 0o domingo dom'],
+            ['DDD DDDo DDDD',                      '45 45o 045'],
+            ['w wo ww',                            '8 8o 08'],
+            ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45o day of the year']
+        ],
+        esFrom = [
+            [{s:-30}, false, "seconds! testing a", "future"],
+            [{s:30}, false, "seconds! testing b", "past"],
+            [{s:30}, true, "seconds!", "seconds"],
+            [{s:60}, true, "a minute!", "minute"],
+            [{m:5}, true, "5 minutes!", "minutes"],
+            [{h:1}, true, "an hour!", "hour"],
+            [{h:5}, true, "5 hours!", "hours"],
+            [{d:1}, true, "a day!", "day"],
+            [{d:5}, true, "5 days!", "days"],
+            [{M:1}, true, "a month!", "month"],
+            [{M:5}, true, "5 months!", "months"],
+            [{y:1}, true, "a year!", "year"],
+            [{y:5}, true, "5 years!", "years"]
+        ],
+        enFrom = [
+            [{s:-30}, false, "in seconds", "future"],
+            [{s:30}, false, "seconds ago", "past"],
+            [{s:30}, true, "seconds", "seconds"],
+            [{s:60}, true, "a minute", "minute"],
+            [{m:5}, true, "5 minutes", "minutes"],
+            [{h:1}, true, "an hour", "hour"],
+            [{h:5}, true, "5 hours", "hours"],
+            [{d:1}, true, "a day", "day"],
+            [{d:5}, true, "5 days", "days"],
+            [{M:1}, true, "a month", "month"],
+            [{M:5}, true, "5 months", "months"],
+            [{y:1}, true, "a year", "year"],
+            [{y:5}, true, "5 years", "years"]
+        ],
+        i;
+
+    function testLang(formatArray, fromArray) {
+        var start = [2007, 1, 28];
+        for (i = 0; i < formatArray.length; i++) {
+            equal(date.format(formatArray[i][0]), formatArray[i][1], formatArray[i][0] + ' ---> ' + formatArray[i][1]);
+        }
+
+        for (i = 0; i < formatArray.length; i++) {
+            equal(_date(start).from(_date(start).add(fromArray[i][0]), fromArray[i][1]), fromArray[i][2], fromArray[i][3]);
+        }
+    }
+
+    // switch to es
+    _date.lang('es', {
+        months : ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
+        monthsShort : ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
+        weekdays : ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"],
+        weekdaysShort : ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
+        ordinal : function() {
+            return 'o';
+        },
+        relativeTime : {
+            future: "%s testing a",
+            past: "%s testing b",
+            s: "seconds!",
+            m: "a minute!",
+            mm: "%d minutes!",
+            h: "an hour!",
+            hh: "%d hours!",
+            d: "a day!",
+            dd: "%d days!",
+            M: "a month!",
+            MM: "%d months!",
+            y: "a year!",
+            yy: "%d years!"
+        }
+    });
+
+
+    // test es
+    testLang(es, esFrom);
+
+    // switch to en
+    _date.lang('en');
+
+    // test en
+    testLang(en, enFrom);
+
+    // switch to es
+    _date.lang('es');
+
+    // test es
+    testLang(es, esFrom);
+
+    // switch back to en to prevent other tests from failing
+    _date.lang('en');
 });
