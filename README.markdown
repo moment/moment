@@ -527,6 +527,13 @@ Examples :
     _date.relativeTime.future = "%s from now";
     _date.relativeTime.past = "%s in the past";
 
+
+Or, put in the beginnin of your project, (the path to this file is inside the project. Point to them.)
+
+    require('./underscore.date.languages').portuguese();
+
+Portuguese was the language choose in this example.
+
 _date.relativeTime
 ------------------
 
