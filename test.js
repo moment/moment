@@ -1,6 +1,6 @@
 var testrunner = require('qunit');
 
-testrunner.options.coverage = false;
+testrunner.options.errorsOnly = true;
 
 testrunner.run({
     code: "./underscore.date.js",

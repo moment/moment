@@ -3,7 +3,7 @@
 // (c) 2011 Tim Wood
 // Underscore.date is freely distributable under the terms of the MIT license.
 //
-// Version 0.5.2
+// Version 0.6.0
 
 (function (undefined) {
 
@@ -322,7 +322,7 @@
                 _date[param] = languages[key][param] || _date[param];
             }
         }
-    }
+    };
 
     // set default language
     _date.lang('en', {

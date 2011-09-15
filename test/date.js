@@ -437,3 +437,59 @@ test("format", 48, function() {
     // switch back to en to prevent other tests from failing
     _date.lang('en');
 });
+
+function nodeLangSetup() {
+    var testLang = require('../underscore.date.lang/test.js');
+    _date.lang(testLang.key, testLang.data);
+    _date.lang('en');
+}
+
+if (typeof window === 'undefined') {
+    nodeLangSetup();
+}
+
+test("loaded module", 16, function() {
+    var date = _date(new Date(2010, 1, 14, 15, 25, 50, 125)),
+        test = [
+            ['dddd, MMMM Do YYYY, h:mm:ss a',      'a.test, 2.test 14ordinal 2010, 3:25:50 pm'],
+            ['ddd, hA',                            'a.t, 3PM'],
+            ['M Mo MM MMMM MMM',                   '2 2ordinal 02 2.test 2.t'],
+            ['D Do DD',                            '14 14ordinal 14'],
+            ['d do dddd ddd',                      '0 0ordinal a.test a.t'],
+            ['DDD DDDo DDDD',                      '45 45ordinal 045'],
+            ['w wo ww',                            '8 8ordinal 08'],
+            ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45ordinal day of the year']
+        ],
+        testFrom = [
+            [{s:-30}, false, "s future", "future"],
+            [{s:30},  false, "s past", "past"],
+            [{s:30},  true, "s", "seconds"],
+            [{s:60},  true, "m", "minute"],
+            [{m:5},   true, "5 mm", "minutes"],
+            [{h:1},   true, "h", "hour"],
+            [{h:5},   true, "5 hh", "hours"],
+            [{d:1},   true, "d", "day"],
+            [{d:5},   true, "5 dd", "days"],
+            [{M:1},   true, "M", "month"],
+            [{M:5},   true, "5 MM", "months"],
+            [{y:1},   true, "y", "year"],
+            [{y:5},   true, "5 yy", "years"]
+        ],
+        i;
+
+    function testLang(formatArray, fromArray) {
+        var start = [2007, 1, 28];
+        for (i = 0; i < formatArray.length; i++) {
+            equal(date.format(formatArray[i][0]), formatArray[i][1], formatArray[i][0] + ' ---> ' + formatArray[i][1]);
+        }
+
+        for (i = 0; i < formatArray.length; i++) {
+            equal(_date(start).from(_date(start).add(fromArray[i][0]), fromArray[i][1]), fromArray[i][2], fromArray[i][3]);
+        }
+    }
+
+    _date.lang('test');
+
+    // test 'test'
+    testLang(test, testFrom);
+});
