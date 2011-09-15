@@ -576,10 +576,10 @@ call `_date.lang('otherlang', { months : [] ... })`.
 Once a language has been cached, you can simply call the key to retrieve it from the cache. This allows for easily switching
 between multiple languages.
 
-   _date.lang('pt');
-   _date(1316116057189).fromNow() // uma hora atrás
-   _date.lang('en');
-   _date(1316116057189).fromNow() // an hour ago
+    _date.lang('pt');
+    _date(1316116057189).fromNow() // uma hora atrás
+    _date.lang('en');
+    _date(1316116057189).fromNow() // an hour ago
 
 There are languages in the `./underderscore.date.lang/` folder. You can `require()` them or add them to your page in the browser.
 
@@ -595,6 +595,9 @@ There are languages in the `./underderscore.date.lang/` folder. You can `require
 
 NOTE: The language should be included after underscore.date, and will automatically switch to that language.
 To switch back to english, just use `_date.lang('en')` as that language is provided by default.
+
+Ad Hoc customization
+--------------------
 
 If you want to customize the wording of `_date.format()` and `_date.from()`, but don't want to create an entire language object,
 the strings are exposed through the _date object. You can modify these however you see fit. However, calls to `_date.lang` will overwrite them.
