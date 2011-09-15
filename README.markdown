@@ -101,6 +101,8 @@ The format parts are similar to the formats from _date().format()
 **Important:** Parsing a string with a format is by far the slowest method of creating a date. 
 If you have the ability to change the input, it is much faster (~15x) to use Unix timestamps.
 
+NOTE: The parser ignores non-alphanumeric characters, so both `_date("12-25-1995", "MM-DD-YYYY")` and
+`_date("12\25\1995", "MM-DD-YYYY")` will return the same thing.
 
 
 <table>
@@ -145,8 +147,24 @@ If you have the ability to change the input, it is much faster (~15x) to use Uni
         <td>Seconds</td>
     </tr>
 </table>
-    
-    
+
+
+### String with array of formats
+
+    _date("12-25-1995", ["MM-DD-YYYY", "YYYY-MM-DD"])
+
+A list of format strings to try to parse the input string.
+
+This will find the format that is closest to the input formats. This is fundamentally problematic in cases like the following.
+
+    _date("05-06-1995", ["MM-DD-YYYY", "DD-MM-YYYY"]) // June 5th or May 6th?
+
+Ideally, you should stick to one input format for creating dates.
+
+**Important:** THIS IS SLOW. This should only be used as a last line of defense. Check out the comparisons at
+http://jsperf.com/underscore-date/2 if you don't believe me. It's the one on the bar graph that you can't even see, that's
+how slow it is.
+
 _date Prototype
 ===============
 
@@ -520,19 +538,71 @@ Examples :
 Localization and Customization
 ==============================
 
-To customize the wording of `_date.format()` and `_date.from()`, the strings are exposed through the _date object. You can modify these however you see fit.
+_date.lang()
+------------
+
+Add or switch a language.
+
+To add a language, pass in the language key and the language constants. _date will cache the language based on the key for reuse.
+
+    _date.lang('pt', {
+        months : ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+        monthsShort : ["Jan", "Feb", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+        weekdays : ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"],
+        weekdaysShort : ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+        relativeTime : {
+            future: "em %s",
+            past: "%s atrás",
+            s: "segundos",
+            m: "um minuto",
+            mm: "%d minutos",
+            h: "uma hora",
+            hh: "%d horas",
+            d: "um dia",
+            dd: "%d dias",
+            M: "um mês",
+            MM: "%d meses",
+            y: "um ano",
+            yy: "%d anos"
+        },
+        ordinal : function (number) {
+            return 'º';
+        },
+    }
+
+Once a language has been set, all `_date.format` and `_date.from` calls will use that language. To change to another language,
+call `_date.lang('otherlang', { months : [] ... })`.
+
+Once a language has been cached, you can simply call the key to retrieve it from the cache. This allows for easily switching
+between multiple languages.
+
+   _date.lang('pt');
+   _date(1316116057189).fromNow() // uma hora atrás
+   _date.lang('en');
+   _date(1316116057189).fromNow() // an hour ago
+
+There are languages in the `./underderscore.date.lang/` folder. You can `require()` them or add them to your page in the browser.
+
+### Node
+
+    var _date = require('underscore.date.js')
+    var testLang = require('underscore.date.lang/test.js');
+    _date.lang(testLang.key, testLang.data);
+
+### Browser
+
+    <script src="underderscore.date.lang/leet.js"></script>
+
+NOTE: The language should be included after underscore.date, and will automatically switch to that language.
+To switch back to english, just use `_date.lang('en')` as that language is provided by default.
+
+If you want to customize the wording of `_date.format()` and `_date.from()`, but don't want to create an entire language object,
+the strings are exposed through the _date object. You can modify these however you see fit. However, calls to `_date.lang` will overwrite them.
 
 Examples :
 
     _date.relativeTime.future = "%s from now";
     _date.relativeTime.past = "%s in the past";
-
-
-Or, put in the beginnin of your project, (the path to this file is inside the project. Point to them.)
-
-    require('./underscore.date.languages').portuguese();
-
-Portuguese was the language choose in this example.
 
 _date.relativeTime
 ------------------
