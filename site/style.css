@@ -96,3 +96,6 @@ b, strong { font-weight:bold; }
 #container { background:url(bg-body.png); margin:0 auto; width:960px; padding:20px 40px; text-align:left; }
 .footer { text-align:center; padding:50px 0 200px; }
 
+.col-1 { width:460px; margin-right:20px; float:left; }
+
+.clearfix { display:block; clear:both; visibility:hidden; line-height:0; height:0; }
