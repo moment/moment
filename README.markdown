@@ -712,6 +712,12 @@ Underscore.date is freely distributable under the terms of the MIT license.
 Changelog
 =========
 
+### 0.6.0
+
+Added _date.lang() support.
+Added support for passing multiple formats to try to parse a date. _date("07-10-1986", ["MM-DD-YYYY", "YYYY-MM-DD"]);
+Made parse from string and single format 25% faster.
+
 ### 0.5.2 
 
 Buxfix for [issue 8](https://github.com/timrwood/underscore.date/pull/8) and [issue 9](https://github.com/timrwood/underscore.date/pull/9).
