@@ -587,7 +587,7 @@ There are languages in the `./underderscore.date.lang/` folder. You can `require
 
     var _date = require('underscore.date.js')
     var testLang = require('underscore.date.lang/test.js');
-    _date.lang(testLang.key, testLang.data);
+    _date.lang(testLang.abbr, testLang.lang);
 
 ### Browser
 
