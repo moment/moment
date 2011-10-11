@@ -320,6 +320,33 @@
         }
     };
 
+    _date.lang('fr', {
+	months : ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"],
+	monthsShort : ["Jan", "Fev", "Mar", "Avr", "Mai", "Jui", "Jui", "Aou", "Sep", "Oct", "Nov", "Dec"],
+	weekdays : ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+	weekdaysShort : ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+	relativeTime : {
+            future: "in %s",
+            past: "il y a %s",
+            s: "seconde",
+            ss: "secondes",
+            m: "une minute",
+            mm: "%d minutes",
+            h: "une heure",
+            hh: "%d heures",
+            d: "un jour",
+            dd: "%d jours",
+            M: "un mois",
+            MM: "%d mois",
+            y: "une année",
+            yy: "%d années"
+	},
+	ordinal : function (number) {
+            var b = number % 10;
+            return (~~ (number % 100 / 10) === 1) ? 'er' : 'ème';
+	}
+    });
+
     // set default language
     _date.lang('en', {
         months : ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
@@ -329,7 +356,8 @@
         relativeTime : {
             future: "in %s",
             past: "%s ago",
-            s: "seconds",
+            s: "second",
+            ss: "seconds",
             m: "a minute",
             mm: "%d minutes",
             h: "an hour",
@@ -370,7 +398,8 @@
             hours = minutes / 60,
             days = hours / 24,
             years = days / 365;
-        return seconds < 45 && substituteTimeAgo('s', round(seconds)) ||
+        return seconds <= 1 && substituteTimeAgo('s', round(seconds)) ||
+	    seconds < 45 && substituteTimeAgo('ss', round(seconds)) ||
             round(minutes) === 1 && substituteTimeAgo('m') ||
             minutes < 45 && substituteTimeAgo('mm', round(minutes)) ||
             round(hours) === 1 && substituteTimeAgo('h') ||
