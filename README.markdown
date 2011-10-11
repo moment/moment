@@ -5,7 +5,7 @@ Underscore.date is a javascript date library that helps create, manipulate, and 
 
 Author: Tim Wood
 
-Version: 0.6.0
+Version: 0.6.1
 
 **Note:** There are some api changes that will break your code when upgrading from 0.4.1 to 0.5.0. Read about the changes in the changelog at the bottom of the page.
 
@@ -711,6 +711,10 @@ Underscore.date is freely distributable under the terms of the MIT license.
 
 Changelog
 =========
+
+### 0.6.1
+
+Added Portuguese, Italian, and French language support
 
 ### 0.6.0
 

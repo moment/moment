@@ -3,7 +3,7 @@
 // (c) 2011 Tim Wood
 // Underscore.date is freely distributable under the terms of the MIT license.
 //
-// Version 0.6.0
+// Version 0.6.1
 
 (function (undefined) {
 
@@ -322,24 +322,24 @@
 
     // set default language
     _date.lang('en', {
-        months : ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-        monthsShort : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        weekdays : ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        weekdaysShort : ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        months : "January_February_March_April_May_June_July_August_September_October_November_December".split("_"),
+        monthsShort : "Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"),
+        weekdays : "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),
+        weekdaysShort : "Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),
         relativeTime : {
-            future: "in %s",
-            past: "%s ago",
-            s: "seconds",
-            m: "a minute",
-            mm: "%d minutes",
-            h: "an hour",
-            hh: "%d hours",
-            d: "a day",
-            dd: "%d days",
-            M: "a month",
-            MM: "%d months",
-            y: "a year",
-            yy: "%d years"
+            future : "in %s",
+            past : "%s ago",
+            s : "seconds",
+            m : "a minute",
+            mm : "%d minutes",
+            h : "an hour",
+            hh : "%d hours",
+            d : "a day",
+            dd : "%d days",
+            M : "a month",
+            MM : "%d months",
+            y : "a year",
+            yy : "%d years"
         },
         ordinal : function (number) {
             var b = number % 10;
