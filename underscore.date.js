@@ -374,7 +374,8 @@
             substituteTimeAgo('yy', round(years));
     }
 
-    UnderscoreDate.prototype = {
+    // shortcut for prototype
+    _date.fn = UnderscoreDate.prototype = {
 
         valueOf : function () {
             return this.date.getTime();
