@@ -350,18 +350,9 @@
         }
     });
 
-    // convert any input to milliseconds
-    function makeInputMilliseconds(input) {
-        return isNaN(input) ? new UnderscoreDate(input).date.getTime() : input;
-    }
-
     // helper function for _date.from() and _date.fromNow()
     function substituteTimeAgo(string, number) {
         return _date.relativeTime[string].replace(/%d/i, number || 1);
-    }
-
-    function msApart(time, now) {
-        return makeInputMilliseconds(time) - makeInputMilliseconds(now);
     }
 
     function relativeTime(milliseconds) {
@@ -403,16 +394,19 @@
             return this;
         },
 
-        from : function (time, withoutSuffix, asMilliseconds) {
-            var difference = msApart(this.date, time),
-                string = difference < 0 ? _date.relativeTime.past : _date.relativeTime.future;
-            return asMilliseconds ? difference :
-                withoutSuffix ? relativeTime(difference) :
-                string.replace(/%s/i, relativeTime(difference));
+        diff : function (input, format) {
+            return this.date - _date(input, format).date;
         },
 
-        fromNow : function (withoutSuffix, asMilliseconds) {
-            return this.from(new UnderscoreDate(), withoutSuffix, asMilliseconds);
+        from : function (time, withoutSuffix) {
+            var difference = this.diff(time),
+                string = difference < 0 ? _date.relativeTime.past : _date.relativeTime.future,
+                output = relativeTime(difference)
+            return withoutSuffix ? output : string.replace(/%s/i, output);
+        },
+
+        fromNow : function (withoutSuffix) {
+            return this.from(new UnderscoreDate(), withoutSuffix);
         },
 
         isLeapYear : function () {

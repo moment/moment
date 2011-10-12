@@ -172,18 +172,6 @@ test("from", 30, function() {
 });
 
 
-test("milliseconds", 5, function() {
-    equal(_date(1000).from(0, true, true), 1000, "1 second - 0 = 1000");
-    equal(_date(1000).from(500, false, true), 500, "1 second - .5 second = -500");
-    equal(_date(0).from(1000, false, true), -1000, "0 - 1 second = -1000");
-    equal(_date(new Date(1000)).from(1000, false, true), 0, "1 second - 1 second = 0");
-    var oneHourDate = new Date(),
-    nowDate = new Date();
-    oneHourDate.setHours(oneHourDate.getHours() + 1);
-    equal(_date(oneHourDate).from(nowDate, false, true), 60 * 60 * 1000, "1 hour from now = 360000");
-});
-
-
 test("suffix", 2, function() {
     equal(_date(30000).from(0), "in seconds", "prefix");
     equal(_date(0).from(30000), "seconds ago", "suffix");
@@ -195,6 +183,20 @@ test("fromNow", 2, function() {
     equal(_date().add({d:5}).fromNow(), "in 5 days", "in 5 days");
 });
 
+
+module("diff");
+
+
+test("diff", 5, function() {
+    equal(_date(1000).diff(0), 1000, "1 second - 0 = 1000");
+    equal(_date(1000).diff(500), 500, "1 second - .5 second = -500");
+    equal(_date(0).diff(1000), -1000, "0 - 1 second = -1000");
+    equal(_date(new Date(1000)).diff(1000), 0, "1 second - 1 second = 0");
+    var oneHourDate = new Date(),
+    nowDate = new Date();
+    oneHourDate.setHours(oneHourDate.getHours() + 1);
+    equal(_date(oneHourDate).diff(nowDate), 60 * 60 * 1000, "1 hour from now = 360000");
+});
 
 module("leap year");
 
@@ -492,4 +494,7 @@ test("loaded module", 16, function() {
 
     // test 'test'
     testLang(test, testFrom);
+    
+    // switch back to en to prevent other tests from failing
+    _date.lang('en');
 });
