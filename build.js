@@ -34,7 +34,9 @@ var JSHINT_CONFIG = {
     "strict": false,
     "white": true
 };
-var LANGS = "fr it pt".split(" ");
+var LANG_MINIFY = "fr it pt".split(" ");
+var LANG_TEST = "en".split(" ");
+var LANG_PREFIX = "var _date;if (typeof window === 'undefined') {_date = require('../underscore.date.js');module = QUnit.module;}";
 
 
 /*********************************************
@@ -102,7 +104,7 @@ function hint(source, name) {
 
 
 /*********************************************
-    Lang
+    Lang Minify
 *********************************************/
 
 
@@ -111,10 +113,10 @@ function hint(source, name) {
         i,
         failures = 0,
         source;
-    for (i = 0; i < LANGS.length; i++) {
-        source = fs.readFileSync('./lang/' + LANGS[i] + '.js', 'utf8');
-        if (hint(source, 'lang/' + LANGS[i])) {
-            minifyToFile(source, 'lang/' + LANGS[i]);
+    for (i = 0; i < LANG_MINIFY.length; i++) {
+        source = fs.readFileSync('./lang/' + LANG_MINIFY[i] + '.js', 'utf8');
+        if (hint(source, 'lang/' + LANG_MINIFY[i])) {
+            minifyToFile(source, 'lang/' + LANG_MINIFY[i]);
             allSource += source;
         } else {
             failures ++;
@@ -123,6 +125,20 @@ function hint(source, name) {
     if (failures === 0) {
         minifyToFile(allSource, 'lang/all');
     }
+})();
+
+
+/*********************************************
+    Lang Tests
+*********************************************/
+
+
+(function(){
+    var source = LANG_PREFIX;
+    for (i = 0; i < LANG_TEST.length; i++) {
+        source += fs.readFileSync('./test/lang/' + LANG_TEST[i] + '.js', 'utf8');
+    }
+    makeFile('./test/lang.js', source);
 })();
 
 
