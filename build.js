@@ -2,7 +2,13 @@ var fs     = require('fs'),
     uglify = require('uglify-js'),
     jshint = require('jshint');
 
-var config = {
+
+/*********************************************
+    Constants
+*********************************************/
+
+
+var JSHINT_CONFIG = {
     "node" : true,
     "es5" : true,
     "browser" : true,
@@ -27,24 +33,51 @@ var config = {
     "sub": true,
     "strict": false,
     "white": true
-}
-    
+};
+var LANGS = "fr it pt".split(" ");
+
+
+/*********************************************
+    Helpers
+*********************************************/
+
+/*
+ * function to minify a string and write to a file
+ *
+ * @param {String} source The source JS
+ * @param {String} dest The file destination
+ */
 function makeFile(filename, contents) {
     fs.writeFileSync(filename, contents);
     console.log(filename + " saved");
 }
 
-function minify() {
-    var output = fs.readFileSync('./underscore.date.js', 'utf8'), 
-        ast, 
+/*********************************************
+    Uglify
+*********************************************/
+
+/*
+ * function to minify a string and write to a file
+ *
+ * @param {String} source The source JS
+ * @param {String} dest The file destination
+ */
+function minifyToFile(source, dest) {
+    var ast, 
         ugly;
-    ast  = uglify.parser.parse(output);
+    ast  = uglify.parser.parse(source);
     ast  = uglify.uglify.ast_mangle(ast);
     ast  = uglify.uglify.ast_squeeze(ast);
     ugly = uglify.uglify.gen_code(ast);
-        
-    makeFile('./underscore.date.min.js', ugly);
+
+    makeFile('./' + dest + '.min.js', ugly);
 }
+
+
+/*********************************************
+    JSHint
+*********************************************/
+
 
 function logError(error) {
     console.log('==== ' + error.id + ' ' + error.line + ':' + error.character);
@@ -52,18 +85,55 @@ function logError(error) {
     console.log('     ' + error.evidence);
 }
 
-(function(){
-    var source = fs.readFileSync('./underscore.date.js', 'utf8');
+function hint(source, name) {
+    var passed = jshint.JSHINT(source, JSHINT_CONFIG);
 
-    var passed = jshint.JSHINT(source, config);
-	
     if (passed) {
-        console.log(' passed jshint ');
-        minify();
+        console.log(name + ' passed jshint ');
+        return true;
     } else {
         console.log('============================================');
-        console.log(' failed jshint ');
+        console.log(name + ' failed jshint ');
         jshint.JSHINT.errors.forEach(logError);
         console.log('============================================');
+        return false;
+    }
+}
+
+
+/*********************************************
+    Lang
+*********************************************/
+
+
+(function(){
+    var allSource = '',
+        i,
+        failures = 0,
+        source;
+    for (i = 0; i < LANGS.length; i++) {
+        source = fs.readFileSync('./lang/' + LANGS[i] + '.js', 'utf8');
+        if (hint(source, 'lang/' + LANGS[i])) {
+            minifyToFile(source, 'lang/' + LANGS[i]);
+            allSource += source;
+        } else {
+            failures ++;
+        }
+    }
+    if (failures === 0) {
+        minifyToFile(allSource, 'lang/all');
+    }
+})();
+
+
+/*********************************************
+    Main
+*********************************************/
+
+
+(function(){
+    var source = fs.readFileSync('./underscore.date.js', 'utf8');
+    if (hint(source, 'underscore.date')) {
+        minifyToFile(source, 'underscore.date');
     }
 })();

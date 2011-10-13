@@ -19,7 +19,7 @@
                 y : "une année",
                 yy : "%d années"
             },
-            ordinal : function(number) {
+            ordinal : function (number) {
                 return (~~ (number % 100 / 10) === 1) ? 'er' : 'ème';
             }
         };
