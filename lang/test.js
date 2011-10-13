@@ -21,16 +21,15 @@
             },
             ordinal : function (number) {
                 return 'ordinal';
-            },
-        },
-        key = 'test';
+            }
+        };
 
     // Node
     if (typeof module !== 'undefined') {
-        module.exports = {data : data, key : key};
+        module.exports = data;
     }
     // Browser
     if (typeof window !== 'undefined' && this._date && this._date.lang) {
-        this._date.lang(key, data);
+        this._date.lang('test', data);
     }
 }());

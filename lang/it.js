@@ -22,15 +22,14 @@
             ordinal: function () {
                 return 'º';
             }
-        },
-        abbr = 'it';
+        };
 
     // Node
     if (typeof module !== 'undefined') {
-        module.exports = {lang : lang, abbr : abbr};
+        module.exports = lang;
     }
     // Browser
     if (typeof window !== 'undefined' && this._date && this._date.lang) {
-        this._date.lang(abbr, lang);
+        this._date.lang('it', lang);
     }
 }());

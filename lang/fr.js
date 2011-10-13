@@ -20,18 +20,16 @@
                 yy : "%d années"
             },
             ordinal : function(number) {
-                var b = num % 10;
                 return (~~ (number % 100 / 10) === 1) ? 'er' : 'ème';
             }
-        },
-        abbr = 'fr';
+        };
 
     // Node
     if (typeof module !== 'undefined') {
-        module.exports = {lang : lang, abbr : abbr};
+        module.exports = lang;
     }
     // Browser
     if (typeof window !== 'undefined' && this._date && this._date.lang) {
-        this._date.lang(abbr, lang);
+        this._date.lang('fr', lang);
     }
 }());

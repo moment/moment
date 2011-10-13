@@ -40,8 +40,6 @@ test("date", 1, function() {
     ok(_date(new Date())._d instanceof Date, "new Date()");
 });
 
-console.log(_date(1000).valueOf())
-
 test("_date", 2, function() {
     ok(_date(_date())._d instanceof Date, "_date(_date())");
     ok(_date(_date(_date()))._d instanceof Date, "_date(_date(_date()))");
@@ -307,7 +305,7 @@ test("format", 9, function() {
     _date.weekdaysShort = ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"];
     _date.ordinal = function() {
         return 'o';
-    }
+    };
     
     for (i = 0; i < a.length; i++) {
         equal(b.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
@@ -494,16 +492,6 @@ test("format", 48, function() {
     // switch back to en to prevent other tests from failing
     _date.lang('en');
 });
-
-function nodeLangSetup() {
-    var testLang = require('../underscore.date.lang/test.js');
-    _date.lang(testLang.key, testLang.data);
-    _date.lang('en');
-}
-
-if (typeof window === 'undefined') {
-    nodeLangSetup();
-}
 
 test("loaded module", 16, function() {
     var date = _date(new Date(2010, 1, 14, 15, 25, 50, 125)),

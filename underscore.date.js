@@ -10,6 +10,7 @@
     var _date,
         round = Math.round,
         languages = {},
+        isNode = (typeof window === 'undefined' && typeof module !== 'undefined'),
         paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|relativeTime|ordinal'.split('|'),
         i,
         shortcuts = 'Month|Date|Hours|Minutes|Seconds'.split('|');
@@ -310,7 +311,7 @@
 
     // language switching and caching
     _date.lang = function (key, values) {
-        var i, param;
+        var i, param, req;
         if (values) {
             languages[key] = values;
         }
@@ -318,6 +319,11 @@
             for (i = 0; i < paramsToParse.length; i++) {
                 param = paramsToParse[i];
                 _date[param] = languages[key][param] || _date[param];
+            }
+        } else {
+            if (isNode) {
+                req = require('./lang/' + key);
+                _date.lang(key, req);
             }
         }
     };
@@ -444,11 +450,10 @@
     };
 
     // CommonJS module is defined
-    if (typeof window === 'undefined' && typeof module !== 'undefined') {
-        // Export module
+    if (isNode) {
         module.exports = _date;
-    // Integrate with Underscore.js
     } else {
+        // Integrate with Underscore.js if it exists
         if (this._ !== undefined && this._.mixin !== undefined) {
             this._.mixin({date : _date});
         }
