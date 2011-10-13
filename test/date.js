@@ -19,35 +19,42 @@ module("create");
 
 
 test("array", 8, function() {
-    ok(_date([2010]).date instanceof Date, "[2010]");
-    ok(_date([2010, 1]).date instanceof Date, "[2010, 1]");
-    ok(_date([2010, 1, 12]).date instanceof Date, "[2010, 1, 12]");
-    ok(_date([2010, 1, 12, 1]).date instanceof Date, "[2010, 1, 12, 1]");
-    ok(_date([2010, 1, 12, 1, 1]).date instanceof Date, "[2010, 1, 12, 1, 1]");
-    ok(_date([2010, 1, 12, 1, 1, 1]).date instanceof Date, "[2010, 1, 12, 1, 1, 1]");
-    ok(_date([2010, 1, 12, 1, 1, 1, 1]).date instanceof Date, "[2010, 1, 12, 1, 1, 1, 1]");
+    ok(_date([2010])._d instanceof Date, "[2010]");
+    ok(_date([2010, 1])._d instanceof Date, "[2010, 1]");
+    ok(_date([2010, 1, 12])._d instanceof Date, "[2010, 1, 12]");
+    ok(_date([2010, 1, 12, 1])._d instanceof Date, "[2010, 1, 12, 1]");
+    ok(_date([2010, 1, 12, 1, 1])._d instanceof Date, "[2010, 1, 12, 1, 1]");
+    ok(_date([2010, 1, 12, 1, 1, 1])._d instanceof Date, "[2010, 1, 12, 1, 1, 1]");
+    ok(_date([2010, 1, 12, 1, 1, 1, 1])._d instanceof Date, "[2010, 1, 12, 1, 1, 1, 1]");
     deepEqual(_date(new Date(2010, 1, 14, 15, 25, 50, 125)), _date([2010, 1, 14, 15, 25, 50, 125]), "constructing with array === constructing with new Date()");
 });
 
 
-test("date", 1, function() {
-    ok(_date(new Date()).date instanceof Date, "new Date()");
+test("number", 2, function() {
+    ok(_date(1000)._d instanceof Date, "1000");
+    ok((_date(1000).valueOf() === 1000), "testing valueOf");
 });
 
 
+test("date", 1, function() {
+    ok(_date(new Date())._d instanceof Date, "new Date()");
+});
+
+console.log(_date(1000).valueOf())
+
 test("_date", 2, function() {
-    ok(_date(_date()).date instanceof Date, "_date(_date())");
-    ok(_date(_date(_date())).date instanceof Date, "_date(_date(_date()))");
+    ok(_date(_date())._d instanceof Date, "_date(_date())");
+    ok(_date(_date(_date()))._d instanceof Date, "_date(_date(_date()))");
 });
 
 test("undefined", 1, function() {
-    ok(_date().date instanceof Date, "undefined");
+    ok(_date()._d instanceof Date, "undefined");
 });
 
 
 test("string without format", 2, function() {
-    ok(_date("Aug 9, 1995").date instanceof Date, "Aug 9, 1995");
-    ok(_date("Mon, 25 Dec 1995 13:30:00 GMT").date instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
+    ok(_date("Aug 9, 1995")._d instanceof Date, "Aug 9, 1995");
+    ok(_date("Mon, 25 Dec 1995 13:30:00 GMT")._d instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
 });
 
 
@@ -201,8 +208,7 @@ test("diff", 5, function() {
 module("leap year");
 
 
-test("leap year", function() {
-    expect(4);
+test("leap year", 4, function() {
     equal(_date([2010, 0, 1]).isLeapYear(), false, '2010');
     equal(_date([2100, 0, 1]).isLeapYear(), false, '2100');
     equal(_date([2008, 0, 1]).isLeapYear(), true, '2008');
@@ -210,15 +216,64 @@ test("leap year", function() {
 });
 
 
+module("getters and setters");
+
+
+test("getters", 7, function() {
+    var a = _date([2011, 9, 12, 6, 7, 8]);
+    equal(a.year(), 2011, 'year');
+    equal(a.month(), 9, 'month');
+    equal(a.date(), 12, 'date');
+    equal(a.day(), 3, 'day');
+    equal(a.hours(), 6, 'hour');
+    equal(a.minutes(), 7, 'minute');
+    equal(a.seconds(), 8, 'second');
+});
+
+
+test("setters", 7, function() {
+    var a = _date();
+    a.year(2011);
+    a.month(9);
+    a.date(12);
+    a.hours(6);
+    a.minutes(7);
+    a.seconds(8);
+    equal(a.year(), 2011, 'year');
+    equal(a.month(), 9, 'month');
+    equal(a.date(), 12, 'date');
+    equal(a.day(), 3, 'day');
+    equal(a.hours(), 6, 'hour');
+    equal(a.minutes(), 7, 'minute');
+    equal(a.seconds(), 8, 'second');
+});
+
+test("chaining setters", 7, function() {
+    var a = _date();
+    a.year(2011)
+     .month(9)
+     .date(12)
+     .hours(6)
+     .minutes(7)
+     .seconds(8);
+    equal(a.year(), 2011, 'year');
+    equal(a.month(), 9, 'month');
+    equal(a.date(), 12, 'date');
+    equal(a.day(), 3, 'day');
+    equal(a.hours(), 6, 'hour');
+    equal(a.minutes(), 7, 'minute');
+    equal(a.seconds(), 8, 'second');
+});
+
 module("underscore mixin");
 
 
 test("underscore mixin", 6, function() {
-    ok(_.date([2010, 1, 12]).date instanceof Date, "[2010, 1, 12]");
-    ok(_.date([2010, 1, 12, 1]).date instanceof Date, "[2010, 1, 12, 1]");
-    ok(_.date().date instanceof Date, "undefined");
-    ok(_.date("Aug 9, 1995").date instanceof Date, "Aug 9, 1995");
-    ok(_.date("Mon, 25 Dec 1995 13:30:00 GMT").date instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
+    ok(_.date([2010, 1, 12])._d instanceof Date, "[2010, 1, 12]");
+    ok(_.date([2010, 1, 12, 1])._d instanceof Date, "[2010, 1, 12, 1]");
+    ok(_.date()._d instanceof Date, "undefined");
+    ok(_.date("Aug 9, 1995")._d instanceof Date, "Aug 9, 1995");
+    ok(_.date("Mon, 25 Dec 1995 13:30:00 GMT")._d instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
     deepEqual(_.date(new Date(2010, 1, 14, 15, 25, 50, 125)), _.date([2010, 1, 14, 15, 25, 50, 125]), "constructing with array === constructing with new Date()");
 });
 

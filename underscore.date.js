@@ -5,12 +5,14 @@
 //
 // Version 0.6.1
 
-(function (undefined) {
+(function (Date, undefined) {
 
     var _date,
         round = Math.round,
         languages = {},
-        paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|relativeTime|ordinal'.split('|');
+        paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|relativeTime|ordinal'.split('|'),
+        i,
+        shortcuts = 'Month|Date|Hours|Minutes|Seconds'.split('|');
 
     // left zero fill a number
     // see http://jsperf.com/left-zero-filling for performance comparison
@@ -284,18 +286,18 @@
     // UnderscoreDate prototype object
     function UnderscoreDate(input, format) {
         // parse UnderscoreDate object
-        if (input && input.date instanceof Date) {
-            this.date = input.date;
+        if (input && input._d instanceof Date) {
+            this._d = input._d;
         // parse string and format
         } else if (format) {
             if (isArray(format)) {
-                this.date = makeDateFromStringAndArray(input, format);
+                this._d = makeDateFromStringAndArray(input, format);
             } else {
-                this.date = makeDateFromStringAndFormat(input, format);
+                this._d = makeDateFromStringAndFormat(input, format);
             }
         // parse everything else
         } else {
-            this.date = input === undefined ? new Date() :
+            this._d = input === undefined ? new Date() :
                 input instanceof Date ? input :
                 isArray(input) ? dateFromArray(input) :
                 new Date(input);
@@ -378,31 +380,31 @@
     _date.fn = UnderscoreDate.prototype = {
 
         valueOf : function () {
-            return this.date.getTime();
+            return +this._d;
         },
 
         format : function (inputString) {
-            return formatDate(this.date, inputString);
+            return formatDate(this._d, inputString);
         },
 
         add : function (input) {
-            this.date = dateAddRemove(this.date, input, 1);
+            this._d = dateAddRemove(this._d, input, 1);
             return this;
         },
 
         subtract : function (input) {
-            this.date = dateAddRemove(this.date, input, -1);
+            this._d = dateAddRemove(this._d, input, -1);
             return this;
         },
 
         diff : function (input, format) {
-            return this.date - _date(input, format).date;
+            return this._d - _date(input, format)._d;
         },
 
         from : function (time, withoutSuffix) {
             var difference = this.diff(time),
                 string = difference < 0 ? _date.relativeTime.past : _date.relativeTime.future,
-                output = relativeTime(difference)
+                output = relativeTime(difference);
             return withoutSuffix ? output : string.replace(/%s/i, output);
         },
 
@@ -411,9 +413,34 @@
         },
 
         isLeapYear : function () {
-            var year = this.date.getFullYear();
+            var year = this._d.getFullYear();
             return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
         }
+    };
+
+    // helper for adding shortcuts
+    function makeShortcut(name, key) {
+        _date.fn[name] = function (input) {
+            if (input) {
+                this._d['set' + key](input);
+                return this;
+            } else {
+                return this._d['get' + key]();
+            }
+        };
+    }
+
+    // loop through and add shortcuts
+    for (i = 0; i < shortcuts.length; i ++) {
+        makeShortcut(shortcuts[i].toLowerCase(), shortcuts[i]);
+    }
+
+    // add shortcut for year (uses different syntax than the getter/setter 'year' == 'FullYear')
+    makeShortcut('year', 'FullYear');
+
+    // add shortcut for day (no setter)
+    _date.fn.day = function () {
+        return this._d.getDay();
     };
 
     // CommonJS module is defined
@@ -428,4 +455,4 @@
         this._date = _date;
     }
 
-}());
+})(Date);
