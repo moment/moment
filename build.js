@@ -1,6 +1,7 @@
 var fs     = require('fs'),
     uglify = require('uglify-js'),
-    jshint = require('jshint');
+    jshint = require('jshint'),
+    gzip   = require('gzip');
 
 
 /*********************************************
@@ -52,8 +53,12 @@ var MINIFY_COMMENT = '/* underscore.date | version : ' + VERSION + ' | author : 
  * @param {String} dest The file destination
  */
 function makeFile(filename, contents) {
-    fs.writeFileSync(filename, contents);
-    console.log(filename + " saved");
+    fs.writeFile(filename, contents, 'utf8', function(err) {
+        console.log('saved : ' + filename);
+        gzip(contents, function(err, data) {
+            console.log('size : ' + filename + ' ' + contents.length + ' b (' + data.length + ' b)');
+        });
+    });
 }
 
 /*********************************************
@@ -93,7 +98,7 @@ function hint(source, name) {
     var passed = jshint.JSHINT(source, JSHINT_CONFIG);
 
     if (passed) {
-        console.log(name + ' passed jshint ');
+        console.log('jshinted : ' + name);
         return true;
     } else {
         console.log('============================================');
