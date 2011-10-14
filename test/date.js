@@ -19,40 +19,40 @@ module("create");
 
 
 test("array", 8, function() {
-    ok(_date([2010])._d instanceof Date, "[2010]");
-    ok(_date([2010, 1])._d instanceof Date, "[2010, 1]");
-    ok(_date([2010, 1, 12])._d instanceof Date, "[2010, 1, 12]");
-    ok(_date([2010, 1, 12, 1])._d instanceof Date, "[2010, 1, 12, 1]");
-    ok(_date([2010, 1, 12, 1, 1])._d instanceof Date, "[2010, 1, 12, 1, 1]");
-    ok(_date([2010, 1, 12, 1, 1, 1])._d instanceof Date, "[2010, 1, 12, 1, 1, 1]");
-    ok(_date([2010, 1, 12, 1, 1, 1, 1])._d instanceof Date, "[2010, 1, 12, 1, 1, 1, 1]");
+    ok(_date([2010]).native() instanceof Date, "[2010]");
+    ok(_date([2010, 1]).native() instanceof Date, "[2010, 1]");
+    ok(_date([2010, 1, 12]).native() instanceof Date, "[2010, 1, 12]");
+    ok(_date([2010, 1, 12, 1]).native() instanceof Date, "[2010, 1, 12, 1]");
+    ok(_date([2010, 1, 12, 1, 1]).native() instanceof Date, "[2010, 1, 12, 1, 1]");
+    ok(_date([2010, 1, 12, 1, 1, 1]).native() instanceof Date, "[2010, 1, 12, 1, 1, 1]");
+    ok(_date([2010, 1, 12, 1, 1, 1, 1]).native() instanceof Date, "[2010, 1, 12, 1, 1, 1, 1]");
     deepEqual(_date(new Date(2010, 1, 14, 15, 25, 50, 125)), _date([2010, 1, 14, 15, 25, 50, 125]), "constructing with array === constructing with new Date()");
 });
 
 
 test("number", 2, function() {
-    ok(_date(1000)._d instanceof Date, "1000");
+    ok(_date(1000).native() instanceof Date, "1000");
     ok((_date(1000).valueOf() === 1000), "testing valueOf");
 });
 
 
 test("date", 1, function() {
-    ok(_date(new Date())._d instanceof Date, "new Date()");
+    ok(_date(new Date()).native() instanceof Date, "new Date()");
 });
 
 test("_date", 2, function() {
-    ok(_date(_date())._d instanceof Date, "_date(_date())");
-    ok(_date(_date(_date()))._d instanceof Date, "_date(_date(_date()))");
+    ok(_date(_date()).native() instanceof Date, "_date(_date())");
+    ok(_date(_date(_date())).native() instanceof Date, "_date(_date(_date()))");
 });
 
 test("undefined", 1, function() {
-    ok(_date()._d instanceof Date, "undefined");
+    ok(_date().native() instanceof Date, "undefined");
 });
 
 
 test("string without format", 2, function() {
-    ok(_date("Aug 9, 1995")._d instanceof Date, "Aug 9, 1995");
-    ok(_date("Mon, 25 Dec 1995 13:30:00 GMT")._d instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
+    ok(_date("Aug 9, 1995").native() instanceof Date, "Aug 9, 1995");
+    ok(_date("Mon, 25 Dec 1995 13:30:00 GMT").native() instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
 });
 
 
@@ -250,11 +250,11 @@ module("underscore mixin");
 
 
 test("underscore mixin", 6, function() {
-    ok(_.date([2010, 1, 12])._d instanceof Date, "[2010, 1, 12]");
-    ok(_.date([2010, 1, 12, 1])._d instanceof Date, "[2010, 1, 12, 1]");
-    ok(_.date()._d instanceof Date, "undefined");
-    ok(_.date("Aug 9, 1995")._d instanceof Date, "Aug 9, 1995");
-    ok(_.date("Mon, 25 Dec 1995 13:30:00 GMT")._d instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
+    ok(_.date([2010, 1, 12]).native() instanceof Date, "[2010, 1, 12]");
+    ok(_.date([2010, 1, 12, 1]).native() instanceof Date, "[2010, 1, 12, 1]");
+    ok(_.date().native() instanceof Date, "undefined");
+    ok(_.date("Aug 9, 1995").native() instanceof Date, "Aug 9, 1995");
+    ok(_.date("Mon, 25 Dec 1995 13:30:00 GMT").native() instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
     deepEqual(_.date(new Date(2010, 1, 14, 15, 25, 50, 125)), _.date([2010, 1, 14, 15, 25, 50, 125]), "constructing with array === constructing with new Date()");
 });
 
