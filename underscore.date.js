@@ -26,16 +26,21 @@
     }
 
     // helper function for _.addTime and _.subtractTime
-    function dateAddRemove(date, input, adding) {
-        var ms = (input.ms || 0) +
-            (input.s  || 0) * 1e3 + // 1000
-            (input.m  || 0) * 6e4 + // 1000 * 60
-            (input.h  || 0) * 36e5 + // 1000 * 60 * 60
-            (input.d  || 0) * 864e5 + // 1000 * 60 * 60 * 24
-            (input.w  || 0) * 6048e5, // 1000 * 60 * 60 * 24 * 7
-            M = (input.M || 0) +
-            (input.y || 0) * 12,
-            currentDate;
+    function dateAddRemove(date, _input, adding, val) {
+        var isString = (typeof _input === 'string'),
+            input = isString ? {} : _input,
+            ms, M, currentDate;
+        if (isString && val) {
+            input[_input] = val;
+        }
+        ms = (input.ms || input.milliseconds || 0) +
+            (input.s || input.seconds || 0) * 1e3 + // 1000
+            (input.m || input.minutes || 0) * 6e4 + // 1000 * 60
+            (input.h || input.hours || 0) * 36e5 + // 1000 * 60 * 60
+            (input.d || input.days || 0) * 864e5 + // 1000 * 60 * 60 * 24
+            (input.w || input.weeks || 0) * 6048e5; // 1000 * 60 * 60 * 24 * 7
+        M = (input.M || input.months || 0) +
+            (input.y || input.years || 0) * 12;
         if (ms) {
             date.setMilliseconds(date.getMilliseconds() + ms * adding);
         }
@@ -393,13 +398,13 @@
             return formatDate(this._d, inputString);
         },
 
-        add : function (input) {
-            this._d = dateAddRemove(this._d, input, 1);
+        add : function (input, val) {
+            this._d = dateAddRemove(this._d, input, 1, val);
             return this;
         },
 
-        subtract : function (input) {
-            this._d = dateAddRemove(this._d, input, -1);
+        subtract : function (input, val) {
+            this._d = dateAddRemove(this._d, input, -1, val);
             return this;
         },
 

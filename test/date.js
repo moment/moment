@@ -91,7 +91,7 @@ test("string with format - years", 2, function() {
 module("add and subtract");
 
 
-test("add and subtract", 11, function() {
+test("add and subtract short", 11, function() {
     var a = _date();
     a.year(2011);
     a.month(9);
@@ -117,6 +117,59 @@ test("add and subtract", 11, function() {
     equal(c.date(), 28, 'subtract month, feb 28th to jan 28th');
 });
 
+test("add and subtract long", 7, function() {
+    var a = _date();
+    a.year(2011);
+    a.month(9);
+    a.date(12);
+    a.hours(6);
+    a.minutes(7);
+    a.seconds(8);
+
+    equal(a.add({milliseconds:1000}).seconds(), 9, 'Add milliseconds');
+    equal(a.add({seconds:1}).seconds(), 10, 'Add seconds');
+    equal(a.add({minutes:1}).minutes(), 8, 'Add minutes');
+    equal(a.add({hours:1}).hours(), 7, 'Add hours');
+    equal(a.add({days:1}).date(), 13, 'Add date');
+    equal(a.add({months:1}).month(), 10, 'Add month');
+    equal(a.add({years:1}).year(), 2012, 'Add year');
+});
+
+test("add and subtract string short", 7, function() {
+    var a = _date();
+    a.year(2011);
+    a.month(9);
+    a.date(12);
+    a.hours(6);
+    a.minutes(7);
+    a.seconds(8);
+
+    equal(a.add('milliseconds', 1000).seconds(), 9, 'Add milliseconds');
+    equal(a.add('seconds', 1).seconds(), 10, 'Add seconds');
+    equal(a.add('minutes', 1).minutes(), 8, 'Add minutes');
+    equal(a.add('hours', 1).hours(), 7, 'Add hours');
+    equal(a.add('days', 1).date(), 13, 'Add date');
+    equal(a.add('months', 1).month(), 10, 'Add month');
+    equal(a.add('years', 1).year(), 2012, 'Add year');
+});
+
+test("add and subtract string short", 7, function() {
+    var a = _date();
+    a.year(2011);
+    a.month(9);
+    a.date(12);
+    a.hours(6);
+    a.minutes(7);
+    a.seconds(8);
+
+    equal(a.add('ms', 1000).seconds(), 9, 'Add milliseconds');
+    equal(a.add('s', 1).seconds(), 10, 'Add seconds');
+    equal(a.add('m', 1).minutes(), 8, 'Add minutes');
+    equal(a.add('h', 1).hours(), 7, 'Add hours');
+    equal(a.add('d', 1).date(), 13, 'Add date');
+    equal(a.add('M', 1).month(), 10, 'Add month');
+    equal(a.add('y', 1).year(), 2012, 'Add year');
+});
 
 module("diff");
 
