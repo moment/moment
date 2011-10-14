@@ -37,6 +37,8 @@ var JSHINT_CONFIG = {
 var LANG_MINIFY = "fr it pt".split(" ");
 var LANG_TEST = "en fr pt".split(" ");
 var LANG_PREFIX = "var _date;if (typeof window === 'undefined') {_date = require('../underscore.date.js');module = QUnit.module;}";
+var VERSION = '0.6.1';
+var MINIFY_COMMENT = '/* underscore.date | version : ' + VERSION + ' | author : Tim Wood | license : MIT */\n';
 
 
 /*********************************************
@@ -64,7 +66,7 @@ function makeFile(filename, contents) {
  * @param {String} source The source JS
  * @param {String} dest The file destination
  */
-function minifyToFile(source, dest) {
+function minifyToFile(source, dest, prefix) {
     var ast, 
         ugly;
     ast  = uglify.parser.parse(source);
@@ -72,7 +74,7 @@ function minifyToFile(source, dest) {
     ast  = uglify.uglify.ast_squeeze(ast);
     ugly = uglify.uglify.gen_code(ast);
 
-    makeFile('./' + dest + '.min.js', ugly);
+    makeFile('./' + dest + '.min.js', (prefix || '') + ugly);
 }
 
 
@@ -150,6 +152,6 @@ function hint(source, name) {
 (function(){
     var source = fs.readFileSync('./underscore.date.js', 'utf8');
     if (hint(source, 'underscore.date')) {
-        minifyToFile(source, 'underscore.date');
+        minifyToFile(source, 'underscore.date', MINIFY_COMMENT);
     }
 })();
