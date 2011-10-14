@@ -36,7 +36,7 @@ var JSHINT_CONFIG = {
     "white": true
 };
 var LANG_MINIFY = "fr it pt".split(" ");
-var LANG_TEST = "en fr pt".split(" ");
+var LANG_TEST = "en fr it pt".split(" ");
 var LANG_PREFIX = "var _date;if (typeof window === 'undefined') {_date = require('../underscore.date.js');module = QUnit.module;}";
 var VERSION = '0.6.1';
 var MINIFY_COMMENT = '/* underscore.date | version : ' + VERSION + ' | author : Tim Wood | license : MIT */\n';
