@@ -35,7 +35,7 @@ var JSHINT_CONFIG = {
     "white": true
 };
 var LANG_MINIFY = "fr it pt".split(" ");
-var LANG_TEST = "en pt".split(" ");
+var LANG_TEST = "en fr pt".split(" ");
 var LANG_PREFIX = "var _date;if (typeof window === 'undefined') {_date = require('../underscore.date.js');module = QUnit.module;}";
 
 
