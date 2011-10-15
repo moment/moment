@@ -63,6 +63,41 @@
             </ul>
         </nav>
         <div id="container">
+            <a name="/get-it"></a>
+            <h1>Where to get it</h1>
+            <a name="/get-it/github"></a>
+            <h2>Github</h2>
+            <p>
+                <a href="http://github.com/timrwood/moment/moment.js">Development Version (0.7.0)</a> 20k Source + Comments
+            </p>
+            <p>
+                <a href="http://github.com/timrwood/moment/moment.min.js">Production Version (0.7.0)</a> 2.2k Minified + Gzipped.
+            </p>
+            <p>You can also clone the project with <a href="http://git-scm.com">Git</a> by running:
+<pre>$ git clone git://github.com/timrwood/moment</pre>
+            </p>
+            <a name="/get-it/npm"></a>
+            <h2>npm</h2>
+            <pre>npm install moment</pre>
+            <a name="/use-it"></a>
+            <h1>Where to use it</h1>
+            <p>Moment was designed to work in both the browser and in NodeJS. All code will work in both environments. All unit tests are run in both environments.</p>
+            <a name="/use-it/node"></a>
+            <h2>In NodeJS</h2>
+            <p>
+<pre>
+var moment = require('moment');
+moment().add('hours', 1).fromNow(); // "1 hour ago"
+</pre>
+            </p>
+            <a name="/use-it/browser"></a>
+            <h2>In the browser</h2>
+            <p>
+<pre>
+&lt;script src="moment.js"&gt;&lt;/script&gt;
+moment().add('hours', 1).fromNow(); // "1 hour ago"
+</pre>
+            </p>
         </div>
     </body>
 </html>
