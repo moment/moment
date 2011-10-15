@@ -1,15 +1,13 @@
-Underscore.date
-===============
+Moment
+======
 
-Underscore.date is a javascript date library that helps create, manipulate, and format dates without extending the `Date` prototype.
+Moment is a javascript date library that helps create, manipulate, and format dates without extending the `Date` prototype.
 
 Author: Tim Wood
 
-Version: 0.6.1
+Version: 0.7.0
 
-**Note:** There are some api changes that will break your code when upgrading from 0.4.1 to 0.5.0. Read about the changes in the changelog at the bottom of the page.
-
-### 1.8 kb (min + gzip)
+### 2.2 kb (min + gzip)
 
 Where to use it
 ===============
@@ -707,10 +705,17 @@ Everyone who helped with [php.js date](http://phpjs.org/functions/date:380).
 License
 =======
 
-Underscore.date is freely distributable under the terms of the MIT license.
+Moment is freely distributable under the terms of the MIT license.
 
 Changelog
 =========
+
+### 0.7.0
+
+Added convenience methods for getting and setting date parts
+Added better support for `moment.add()`
+Added better lang support in node
+Renamed library from underscore.date to moment
 
 ### 0.6.1
 
