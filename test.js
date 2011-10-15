@@ -3,11 +3,11 @@ var testrunner = require('qunit');
 testrunner.options.errorsOnly = true;
 
 testrunner.run({
-    code: "./underscore.date.js",
+    code: "./moment.js",
     tests: ["./test/date.js", "./test/lang.js"]
 });
 
 testrunner.run({
-    code: "./underscore.date.min.js",
+    code: "./moment.min.js",
     tests: ["./test/date.js", "./test/lang.js"]
 });

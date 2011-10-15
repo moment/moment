@@ -37,9 +37,9 @@ var JSHINT_CONFIG = {
 };
 var LANG_MINIFY = "fr it pt".split(" ");
 var LANG_TEST = "en fr it pt".split(" ");
-var LANG_PREFIX = "var _date;if (typeof window === 'undefined') {_date = require('../underscore.date.js');module = QUnit.module;}";
-var VERSION = '0.6.1';
-var MINIFY_COMMENT = '/* underscore.date | version : ' + VERSION + ' | author : Tim Wood | license : MIT */\n';
+var LANG_PREFIX = "var moment;if (typeof window === 'undefined') {moment = require('../moment.js');module = QUnit.module;}";
+var VERSION = '0.7.0';
+var MINIFY_COMMENT = '/* moment | version : ' + VERSION + ' | author : Tim Wood | license : MIT */\n';
 
 
 /*********************************************
@@ -155,8 +155,8 @@ function hint(source, name) {
 
 
 (function(){
-    var source = fs.readFileSync('./underscore.date.js', 'utf8');
-    if (hint(source, 'underscore.date')) {
-        minifyToFile(source, 'underscore.date', MINIFY_COMMENT);
+    var source = fs.readFileSync('./moment.js', 'utf8');
+    if (hint(source, 'moment')) {
+        minifyToFile(source, 'moment', MINIFY_COMMENT);
     }
 })();

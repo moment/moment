@@ -2,11 +2,10 @@
   Node
  *************************************************/
 
-var _date, _;
+var moment;
 if (typeof window === 'undefined') {
-    _date = require('../underscore.date.js');
+    moment = require('../moment');
     module = QUnit.module;
-    _ = { date : _date };
 }
 
 
@@ -19,40 +18,40 @@ module("create");
 
 
 test("array", 8, function() {
-    ok(_date([2010]).native() instanceof Date, "[2010]");
-    ok(_date([2010, 1]).native() instanceof Date, "[2010, 1]");
-    ok(_date([2010, 1, 12]).native() instanceof Date, "[2010, 1, 12]");
-    ok(_date([2010, 1, 12, 1]).native() instanceof Date, "[2010, 1, 12, 1]");
-    ok(_date([2010, 1, 12, 1, 1]).native() instanceof Date, "[2010, 1, 12, 1, 1]");
-    ok(_date([2010, 1, 12, 1, 1, 1]).native() instanceof Date, "[2010, 1, 12, 1, 1, 1]");
-    ok(_date([2010, 1, 12, 1, 1, 1, 1]).native() instanceof Date, "[2010, 1, 12, 1, 1, 1, 1]");
-    deepEqual(_date(new Date(2010, 1, 14, 15, 25, 50, 125)), _date([2010, 1, 14, 15, 25, 50, 125]), "constructing with array === constructing with new Date()");
+    ok(moment([2010]).native() instanceof Date, "[2010]");
+    ok(moment([2010, 1]).native() instanceof Date, "[2010, 1]");
+    ok(moment([2010, 1, 12]).native() instanceof Date, "[2010, 1, 12]");
+    ok(moment([2010, 1, 12, 1]).native() instanceof Date, "[2010, 1, 12, 1]");
+    ok(moment([2010, 1, 12, 1, 1]).native() instanceof Date, "[2010, 1, 12, 1, 1]");
+    ok(moment([2010, 1, 12, 1, 1, 1]).native() instanceof Date, "[2010, 1, 12, 1, 1, 1]");
+    ok(moment([2010, 1, 12, 1, 1, 1, 1]).native() instanceof Date, "[2010, 1, 12, 1, 1, 1, 1]");
+    deepEqual(moment(new Date(2010, 1, 14, 15, 25, 50, 125)), moment([2010, 1, 14, 15, 25, 50, 125]), "constructing with array === constructing with new Date()");
 });
 
 
 test("number", 2, function() {
-    ok(_date(1000).native() instanceof Date, "1000");
-    ok((_date(1000).valueOf() === 1000), "testing valueOf");
+    ok(moment(1000).native() instanceof Date, "1000");
+    ok((moment(1000).valueOf() === 1000), "testing valueOf");
 });
 
 
 test("date", 1, function() {
-    ok(_date(new Date()).native() instanceof Date, "new Date()");
+    ok(moment(new Date()).native() instanceof Date, "new Date()");
 });
 
-test("_date", 2, function() {
-    ok(_date(_date()).native() instanceof Date, "_date(_date())");
-    ok(_date(_date(_date())).native() instanceof Date, "_date(_date(_date()))");
+test("moment", 2, function() {
+    ok(moment(moment()).native() instanceof Date, "moment(moment())");
+    ok(moment(moment(moment())).native() instanceof Date, "moment(moment(moment()))");
 });
 
 test("undefined", 1, function() {
-    ok(_date().native() instanceof Date, "undefined");
+    ok(moment().native() instanceof Date, "undefined");
 });
 
 
 test("string without format", 2, function() {
-    ok(_date("Aug 9, 1995").native() instanceof Date, "Aug 9, 1995");
-    ok(_date("Mon, 25 Dec 1995 13:30:00 GMT").native() instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
+    ok(moment("Aug 9, 1995").native() instanceof Date, "Aug 9, 1995");
+    ok(moment("Mon, 25 Dec 1995 13:30:00 GMT").native() instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
 });
 
 
@@ -72,19 +71,19 @@ test("string with format", 11, function() {
         ],
         i;
     for (i = 0; i < a.length; i++) {
-        equal(_date(a[i][1], a[i][0]).format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
+        equal(moment(a[i][1], a[i][0]).format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
     }
 });
 
 test("string with array of formats", 3, function() {
-    equal(_date('13-02-1999', ['MM-DD-YYYY', 'DD-MM-YYYY']).format('MM DD YYYY'), '02 13 1999', 'switching month and day');
-    equal(_date('02-13-1999', ['MM/DD/YYYY', 'YYYY-MM-DD', 'MM-DD-YYYY']).format('MM DD YYYY'), '02 13 1999', 'year last');
-    equal(_date('1999-02-13', ['MM/DD/YYYY', 'YYYY-MM-DD', 'MM-DD-YYYY']).format('MM DD YYYY'), '02 13 1999', 'year first');
+    equal(moment('13-02-1999', ['MM-DD-YYYY', 'DD-MM-YYYY']).format('MM DD YYYY'), '02 13 1999', 'switching month and day');
+    equal(moment('02-13-1999', ['MM/DD/YYYY', 'YYYY-MM-DD', 'MM-DD-YYYY']).format('MM DD YYYY'), '02 13 1999', 'year last');
+    equal(moment('1999-02-13', ['MM/DD/YYYY', 'YYYY-MM-DD', 'MM-DD-YYYY']).format('MM DD YYYY'), '02 13 1999', 'year first');
 });
 
 test("string with format - years", 2, function() {
-    equal(_date('71', 'YY').format('YYYY'), '1971', '71 > 1971');
-    equal(_date('69', 'YY').format('YYYY'), '2069', '69 > 2069');
+    equal(moment('71', 'YY').format('YYYY'), '1971', '71 > 1971');
+    equal(moment('69', 'YY').format('YYYY'), '2069', '69 > 2069');
 });
 
 
@@ -92,7 +91,7 @@ module("add and subtract");
 
 
 test("add and subtract short", 11, function() {
-    var a = _date();
+    var a = moment();
     a.year(2011);
     a.month(9);
     a.date(12);
@@ -108,8 +107,8 @@ test("add and subtract short", 11, function() {
     equal(a.add({M:1}).month(), 10, 'Add month');
     equal(a.add({y:1}).year(), 2012, 'Add year');
 
-    var b = _date([2010, 0, 31]).add({M:1});
-    var c = _date([2010, 1, 28]).subtract({M:1});
+    var b = moment([2010, 0, 31]).add({M:1});
+    var c = moment([2010, 1, 28]).subtract({M:1});
 
     equal(b.month(), 1, 'add month, jan 31st to feb 28th');
     equal(b.date(), 28, 'add month, jan 31st to feb 28th');
@@ -118,7 +117,7 @@ test("add and subtract short", 11, function() {
 });
 
 test("add and subtract long", 7, function() {
-    var a = _date();
+    var a = moment();
     a.year(2011);
     a.month(9);
     a.date(12);
@@ -136,7 +135,7 @@ test("add and subtract long", 7, function() {
 });
 
 test("add and subtract string short", 7, function() {
-    var a = _date();
+    var a = moment();
     a.year(2011);
     a.month(9);
     a.date(12);
@@ -154,7 +153,7 @@ test("add and subtract string short", 7, function() {
 });
 
 test("add and subtract string short", 7, function() {
-    var a = _date();
+    var a = moment();
     a.year(2011);
     a.month(9);
     a.date(12);
@@ -175,14 +174,14 @@ module("diff");
 
 
 test("diff", 5, function() {
-    equal(_date(1000).diff(0), 1000, "1 second - 0 = 1000");
-    equal(_date(1000).diff(500), 500, "1 second - .5 second = -500");
-    equal(_date(0).diff(1000), -1000, "0 - 1 second = -1000");
-    equal(_date(new Date(1000)).diff(1000), 0, "1 second - 1 second = 0");
+    equal(moment(1000).diff(0), 1000, "1 second - 0 = 1000");
+    equal(moment(1000).diff(500), 500, "1 second - .5 second = -500");
+    equal(moment(0).diff(1000), -1000, "0 - 1 second = -1000");
+    equal(moment(new Date(1000)).diff(1000), 0, "1 second - 1 second = 0");
     var oneHourDate = new Date(),
     nowDate = new Date();
     oneHourDate.setHours(oneHourDate.getHours() + 1);
-    equal(_date(oneHourDate).diff(nowDate), 60 * 60 * 1000, "1 hour from now = 360000");
+    equal(moment(oneHourDate).diff(nowDate), 60 * 60 * 1000, "1 hour from now = 360000");
 });
 
 
@@ -190,10 +189,10 @@ module("leap year");
 
 
 test("leap year", 4, function() {
-    equal(_date([2010, 0, 1]).isLeapYear(), false, '2010');
-    equal(_date([2100, 0, 1]).isLeapYear(), false, '2100');
-    equal(_date([2008, 0, 1]).isLeapYear(), true, '2008');
-    equal(_date([2000, 0, 1]).isLeapYear(), true, '2000');
+    equal(moment([2010, 0, 1]).isLeapYear(), false, '2010');
+    equal(moment([2100, 0, 1]).isLeapYear(), false, '2100');
+    equal(moment([2008, 0, 1]).isLeapYear(), true, '2008');
+    equal(moment([2000, 0, 1]).isLeapYear(), true, '2000');
 });
 
 
@@ -201,7 +200,7 @@ module("getters and setters");
 
 
 test("getters", 7, function() {
-    var a = _date([2011, 9, 12, 6, 7, 8]);
+    var a = moment([2011, 9, 12, 6, 7, 8]);
     equal(a.year(), 2011, 'year');
     equal(a.month(), 9, 'month');
     equal(a.date(), 12, 'date');
@@ -212,7 +211,7 @@ test("getters", 7, function() {
 });
 
 test("setters", 7, function() {
-    var a = _date();
+    var a = moment();
     a.year(2011);
     a.month(9);
     a.date(12);
@@ -229,7 +228,7 @@ test("setters", 7, function() {
 });
 
 test("chaining setters", 7, function() {
-    var a = _date();
+    var a = moment();
     a.year(2011)
      .month(9)
      .date(12)
@@ -243,18 +242,5 @@ test("chaining setters", 7, function() {
     equal(a.hours(), 6, 'hour');
     equal(a.minutes(), 7, 'minute');
     equal(a.seconds(), 8, 'second');
-});
-
-
-module("underscore mixin");
-
-
-test("underscore mixin", 6, function() {
-    ok(_.date([2010, 1, 12]).native() instanceof Date, "[2010, 1, 12]");
-    ok(_.date([2010, 1, 12, 1]).native() instanceof Date, "[2010, 1, 12, 1]");
-    ok(_.date().native() instanceof Date, "undefined");
-    ok(_.date("Aug 9, 1995").native() instanceof Date, "Aug 9, 1995");
-    ok(_.date("Mon, 25 Dec 1995 13:30:00 GMT").native() instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
-    deepEqual(_.date(new Date(2010, 1, 14, 15, 25, 50, 125)), _.date([2010, 1, 14, 15, 25, 50, 125]), "constructing with array === constructing with new Date()");
 });
 

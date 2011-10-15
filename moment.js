@@ -7,7 +7,7 @@
 
 (function (Date, undefined) {
 
-    var _date,
+    var moment,
         round = Math.round,
         languages = {},
         isNode = (typeof window === 'undefined' && typeof module !== 'undefined'),
@@ -92,18 +92,18 @@
             case 'M' :
                 return currentMonth + 1;
             case 'Mo' :
-                return (currentMonth + 1) + _date.ordinal(currentMonth + 1);
+                return (currentMonth + 1) + moment.ordinal(currentMonth + 1);
             case 'MM' :
                 return leftZeroFill(currentMonth + 1, 2);
             case 'MMM' :
-                return _date.monthsShort[currentMonth];
+                return moment.monthsShort[currentMonth];
             case 'MMMM' :
-                return _date.months[currentMonth];
+                return moment.months[currentMonth];
             // DAY OF MONTH
             case 'D' :
                 return currentDate;
             case 'Do' :
-                return currentDate + _date.ordinal(currentDate);
+                return currentDate + moment.ordinal(currentDate);
             case 'DD' :
                 return leftZeroFill(currentDate, 2);
             // DAY OF YEAR
@@ -113,18 +113,18 @@
                 return ~~ (((a - b) / 864e5) + 1.5);
             case 'DDDo' :
                 a = replaceFunction('DDD');
-                return a + _date.ordinal(a);
+                return a + moment.ordinal(a);
             case 'DDDD' :
                 return leftZeroFill(replaceFunction('DDD'), 3);
             // WEEKDAY
             case 'd' :
                 return currentDay;
             case 'do' :
-                return currentDay + _date.ordinal(currentDay);
+                return currentDay + moment.ordinal(currentDay);
             case 'ddd' :
-                return _date.weekdaysShort[currentDay];
+                return moment.weekdaysShort[currentDay];
             case 'dddd' :
-                return _date.weekdays[currentDay];
+                return moment.weekdays[currentDay];
             // WEEK OF YEAR
             case 'w' :
                 a = new Date(currentYear, currentMonth, currentDate - currentDay + 5);
@@ -132,7 +132,7 @@
                 return ~~ ((a - b) / 864e5 / 7 + 1.5);
             case 'wo' :
                 a = replaceFunction('w');
-                return a + _date.ordinal(a);
+                return a + moment.ordinal(a);
             case 'ww' :
                 return leftZeroFill(replaceFunction('w'), 2);
             // YEAR
@@ -289,33 +289,35 @@
         return output;
     }
 
-    // UnderscoreDate prototype object
-    function UnderscoreDate(input, format) {
+    // Moment prototype object
+    function Moment(date) {
+        this._d = date;
+    }
+
+    moment = function (input, format) {
+        var date;
         // parse UnderscoreDate object
         if (input && input._d instanceof Date) {
-            this._d = input._d;
+            date = input._d;
         // parse string and format
         } else if (format) {
             if (isArray(format)) {
-                this._d = makeDateFromStringAndArray(input, format);
+                date = makeDateFromStringAndArray(input, format);
             } else {
-                this._d = makeDateFromStringAndFormat(input, format);
+                date = makeDateFromStringAndFormat(input, format);
             }
         // parse everything else
         } else {
-            this._d = input === undefined ? new Date() :
+            date = input === undefined ? new Date() :
                 input instanceof Date ? input :
                 isArray(input) ? dateFromArray(input) :
                 new Date(input);
         }
-    }
-
-    _date = function (input, format) {
-        return new UnderscoreDate(input, format);
+        return new Moment(date);
     };
 
     // language switching and caching
-    _date.lang = function (key, values) {
+    moment.lang = function (key, values) {
         var i, param, req;
         if (values) {
             languages[key] = values;
@@ -323,18 +325,20 @@
         if (languages[key]) {
             for (i = 0; i < paramsToParse.length; i++) {
                 param = paramsToParse[i];
-                _date[param] = languages[key][param] || _date[param];
+                moment[param] = languages[key][param] || moment[param];
             }
         } else {
             if (isNode) {
                 req = require('./lang/' + key);
-                _date.lang(key, req);
+                console.log(req);
+                moment.lang(key, req);
             }
         }
+        console.log(languages);
     };
 
     // set default language
-    _date.lang('en', {
+    moment.lang('en', {
         months : "January_February_March_April_May_June_July_August_September_October_November_December".split("_"),
         monthsShort : "Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"),
         weekdays : "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),
@@ -365,7 +369,7 @@
 
     // helper function for _date.from() and _date.fromNow()
     function substituteTimeAgo(string, number) {
-        return _date.relativeTime[string].replace(/%d/i, number || 1);
+        return moment.relativeTime[string].replace(/%d/i, number || 1);
     }
 
     function relativeTime(milliseconds) {
@@ -388,7 +392,7 @@
     }
 
     // shortcut for prototype
-    _date.fn = UnderscoreDate.prototype = {
+    moment.fn = Moment.prototype = {
 
         valueOf : function () {
             return +this._d;
@@ -413,18 +417,18 @@
         },
 
         diff : function (input, format) {
-            return this._d - _date(input, format)._d;
+            return this._d - moment(input, format)._d;
         },
 
         from : function (time, withoutSuffix) {
             var difference = this.diff(time),
-                string = difference < 0 ? _date.relativeTime.past : _date.relativeTime.future,
+                string = difference < 0 ? moment.relativeTime.past : moment.relativeTime.future,
                 output = relativeTime(difference);
             return withoutSuffix ? output : string.replace(/%s/i, output);
         },
 
         fromNow : function (withoutSuffix) {
-            return this.from(new UnderscoreDate(), withoutSuffix);
+            return this.from(moment(), withoutSuffix);
         },
 
         isLeapYear : function () {
@@ -435,7 +439,7 @@
 
     // helper for adding shortcuts
     function makeShortcut(name, key) {
-        _date.fn[name] = function (input) {
+        moment.fn[name] = function (input) {
             if (input) {
                 this._d['set' + key](input);
                 return this;
@@ -454,19 +458,15 @@
     makeShortcut('year', 'FullYear');
 
     // add shortcut for day (no setter)
-    _date.fn.day = function () {
+    moment.fn.day = function () {
         return this._d.getDay();
     };
 
     // CommonJS module is defined
     if (isNode) {
-        module.exports = _date;
+        module.exports = moment;
     } else {
-        // Integrate with Underscore.js if it exists
-        if (this._ !== undefined && this._.mixin !== undefined) {
-            this._.mixin({date : _date});
-        }
-        this._date = _date;
+        this.moment = moment;
     }
 
 })(Date);

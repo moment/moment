@@ -29,7 +29,7 @@
         module.exports = lang;
     }
     // Browser
-    if (typeof window !== 'undefined' && this._date && this._date.lang) {
-        this._date.lang('pt', lang);
+    if (typeof window !== 'undefined' && this.moment && this.moment.lang) {
+        this.moment.lang('pt', lang);
     }
 }());
