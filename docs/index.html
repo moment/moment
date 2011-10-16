@@ -98,6 +98,282 @@ moment().add('hours', 1).fromNow(); // "1 hour ago"
 moment().add('hours', 1).fromNow(); // "1 hour ago"
 </pre>
             </p>
+            <a name="/parsing"></a>
+            <h1>Parsing</h1>
+            <p>Instead of modifying the native <code>Date.prototype</code>, Moment.js creates a wrapper for the <code>Date</code> object</p>
+            <p>To get this wrapper object, simply call <code>moment()</code> with one of the supported input types</p>
+            <a name="/parsing/date"></a>
+            <h2>Javascript Date Object</h2>
+            <p>A native Javascript Date object.</p>
+            <p>
+<pre>
+var day = new Date(2011, 9, 16);
+var dayWrapper = moment(day);
+
+var otherDay = moment(new Date(2020, 3, 7));
+</pre>
+            </p>
+            <p>This is the fastest way to get a Moment.js wrapper.</p>
+            <a name="/parsing/unix"></a>
+            <h2>Unix Timestamp</h2>
+            <p>An integer value representing the number of milliseconds since 1 January 1970 00:00:00 UTC.</p>
+            <p>
+<pre>
+var day = moment(1318781876406);
+</pre>
+            </p>
+            <a name="/parsing/string"></a>
+            <h2>String</h2>
+            <p>A string that can be parsed by <code>Date.parse</code>.</p>
+            <p>
+<pre>
+var day = moment("Dec 25, 1995");
+</pre>
+            </p>
+            <p>Browser support for this is somewhat inconsistent. If you are not getting consistent results, you can try using String + Format</p>
+            <a name="/parsing/string+format"></a>
+            <h2>String + Format</h2>
+            <p>An input string and a format string</p>
+            <p>
+<pre>
+var day = moment("12-25-1995", "MM-DD-YYYY");
+</pre>
+            </p>
+            <p>The format parsing tokens are similar to the tokens for <code>moment.fn.format</code>.</p>
+            <p>The parser ignores non-alphanumeric characters, so both <code>moment("12-25-1995", "MM-DD-YYYY")</code> and 
+                <code>moment("12\25\1995", "MM-DD-YYYY")</code> will return the same thing.
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Input</th>
+                        <th>Output</th>
+                    </tr>
+                    <tr>
+                        <td>M or MM</td>
+                        <td>Month</td>
+                    </tr>
+                    <tr>
+                        <td>D or DD</td>
+                        <td>Day of month</td>
+                    </tr>
+                    <tr>
+                        <td>DDD or DDDD</td>
+                        <td>Day of year</td>
+                    </tr>
+                    <tr>
+                        <td>YY</td>
+                        <td>2 digit year (if greater than 70, will return 1900's, else 2000's)</td>
+                    </tr>
+                    <tr>
+                        <td>YYYY</td>
+                        <td>4 digit year</td>
+                    </tr>
+                    <tr>
+                        <td>a or A</td>
+                        <td>AM/PM</td>
+                    </tr>
+                    <tr>
+                        <td>H, HH, h, or hh</td>
+                        <td>24 hour (for 12 hour time, use in conjunction with a or A)</td>
+                    </tr>
+                    <tr>
+                        <td>m or mm</td>
+                        <td>Minutes</td>
+                    </tr>
+                    <tr>
+                        <td>s or ss</td>
+                        <td>Seconds</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Important:</strong> Parsing a string with a format is by far the slowest method of creating a date. If you have the ability to change the input, it is much faster (~15x) to use Unix timestamps.</p>
+            <a name="/parsing/string+formats"></a>
+            <h2>String + Formats</h2>
+            <p>An input string and an array of format strings.</p>
+            <p>This is the same as String + Format, only it will try to match the input to multiple formats.</p>
+            <p>
+<pre>
+var day = moment("12-25-1995", ["MM-DD-YYYY", "YYYY-MM-DD"]);
+</pre>
+            </p>
+            <p>This approach is fundamentally problematic in cases like the following.</p>
+            <p>
+<pre>
+var day = moment("05-06-1995", ["MM-DD-YYYY", "DD-MM-YYYY"]); // June 5th or May 6th?
+</pre>
+            </p>
+            <p><strong>Important:</strong> THIS IS SLOW. This should only be used as a last line of defense.</p>
+            <a name="/parsing/now"></a>
+            <h2>Now</h2>
+            <p>To get the current time, just call <code>moment()</code> with no parameters.</p>
+            <p>
+<pre>
+var now = moment();
+</pre>
+            </p>
+            <p>This is essentially the same as calling <code>moment(new Date())</code>.</p>
+            <a name="/parsing/array"></a>
+            <h2>Javascript Array</h2>
+            <p>An array mirroring the parameters passed into 
+                <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/UTC">Date.UTC()</a>.
+            </p>
+            <p>
+<pre>
+// [year, month = 0, date = 1, hours = 0, minutes = 0, seconds = 0, milliseconds = 0]
+var day = moment([2010, 1, 14, 15, 25, 50, 125]); // February 14th, 3:25:50.125 PM
+</pre>
+            </p>
+            <p>Any value past the year is optional, and will default to the lowest possible number.</p>
+            <p>
+<pre>
+var day = moment([2010]); // January 1st
+var day = moment([2010, 6]); // July 1st
+var day = moment([2010, 6, 10]); // July 10th
+</pre>
+            </p>
+            <a name="/manipulation"></a>
+            <h1>Manipulation</h1>
+            <p>Once you have a Moment.js wrapper object, you may want to manipulate it in some way. There are a number of <code>moment.fn</code> methods to help with this.</p>
+            <p>All manipulation methods are chainable, so you can do crazy things like this.</p>
+            <p>
+<pre>
+moment().add('days', 7).subtract('months', 1).year(2009).hours(0).minutes(0).seconds(0);
+</pre>
+            </p>
+            <a name="/manipulation/add"></a>
+            <h2>Adding Time</h2>
+            <p>This is a pretty robust function for adding time to an existing date. To add time, pass the key of what time you want to add, and the amount you want to add.</p>
+            <p>
+<pre>
+moment().add('days', 7);
+</pre>
+            </p>
+            <p>There are some shorthand keys as well if you're into that whole brevity thing.</p>
+            <p>
+<pre>
+moment().add('d', 7);
+</pre>
+        </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Key</th>
+                        <th>Shorthand</th>
+                    </tr>
+                    <tr>
+                        <td>years</td>
+                        <td>y</td>
+                    </tr>
+                    <tr>
+                        <td>months</td>
+                        <td>M</td>
+                    </tr>
+                    <tr>
+                        <td>days</td>
+                        <td>d</td>
+                    </tr>
+                    <tr>
+                        <td>hours</td>
+                        <td>h</td>
+                    </tr>
+                    <tr>
+                        <td>minutes</td>
+                        <td>m</td>
+                    </tr>
+                    <tr>
+                        <td>seconds</td>
+                        <td>s</td>
+                    </tr>
+                    <tr>
+                        <td>milliseconds</td>
+                        <td>ms</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>If you want to add multiple different keys at the same time, you can pass them in as an object literal.</p>
+            <p>
+<pre>
+moment().add('days', 7).add('months', 1); // with chaining
+moment().add({days:7,months:1}); // with object literal
+</pre>
+            </p>
+            <p>There are no upper limits for the amounts, so you can overload any of the parameters.</p>
+            <p>
+<pre>
+moment().add('milliseconds', 1000000); // a million milliseconds
+moment().add('days', 360); // 360 days
+</pre>
+            </p>
+            <h3>Special considerations for months and years</h3>
+            <p>If the day of the month on the original date is greater than the number 
+                of days in the final month, the day of the month will change to the last 
+                day in the final month.</p>
+            <p>Example:</p>
+            <p>
+<pre>
+moment([2010, 0, 31]);                  // January 31
+moment([2010, 0, 31]).add('months', 1); // February 28
+</pre>
+            </p>
+            <a name="/manipulation/subtract"></a>
+            <h2>Subtracting Time</h2>
+            <p>This is exactly the same as <code>moment.fn.add</code>, only instead of adding time, it subtracts time.</p>
+            <p>
+<pre>
+moment().subtract('days', 7);
+</pre>
+            </p>
+            <a name="/manipulation/seconds"></a>
+            <h2>Seconds</h2>
+            <p>There are a number of shortcut getter and setter functions. Much like in jQuery, calling the function without paremeters causes it to function as a getter, and calling with a parameter causes it to function as a setter.</p>
+            <p>These map to the corresponding function on the native <code>Date</code> object.</p>
+            <p>
+<pre>
+moment().seconds(30) === new Date().setSeconds(30);
+moment().seconds() === new Date().getSeconds();
+</pre>
+            </p>
+            <a name="/manipulation/minutes"></a>
+            <h2>Minutes</h2>
+            <p>
+<pre>
+moment().minutes(30); // set the minutes to 30
+moment().minutes(); // get the minutes value
+</pre>
+            </p>
+            <a name="/manipulation/hours"></a>
+            <h2>Hours</h2>
+            <p>
+<pre>
+moment().hours(12); // set the hours to 12
+moment().hours(); // get the hours value
+</pre>
+            </p>
+            <a name="/manipulation/day"></a>
+            <h2>Day</h2>
+            <p>
+<pre>
+moment().day(5); // set the day to 5
+moment().day(); // get the day value
+</pre>
+            </p>
+            <a name="/manipulation/month"></a>
+            <h2>Month</h2>
+            <p>
+<pre>
+moment().month(5); // set the month to June
+moment().month(); // get the month value
+</pre>
+            </p>
+            <a name="/manipulation/year"></a>
+            <h2>Year</h2>
+            <p>
+<pre>
+moment().year(1984); // set the year to 1984
+moment().year(); // get the year value
+</pre>
+            </p>
         </div>
     </body>
 </html>
