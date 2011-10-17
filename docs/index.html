@@ -73,6 +73,9 @@
             </ul>
         </div>
         <div id="docs">
+            <h1>Moment.js</h1>
+            <p>A lightweight javascript date library for parsing, manipulating, and formatting dates.</p>
+            <p>It doesn't modify the native <code>Date.prototype</code> so it's safe to drop into any project.</p>
             <a name="/get-it"></a>
             <h1>Where to get it</h1>
             <a name="/get-it/github"></a>
@@ -699,9 +702,7 @@ a.diff(b) // 86400000
             <p>To get the native Date object that Moment.js wraps, use <code>moment.fn.native</code>.</p>
             <p>
 <pre>
-var a = moment([2007, 0, 29]);
-var b = moment([2007, 0, 28]);
-a.diff(b) // 86400000
+moment([2007, 0, 29]).native(); // returns native Date object
 </pre>
             </p>
             <a name="/display/valueOf"></a>
