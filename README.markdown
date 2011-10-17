@@ -9,7 +9,7 @@ Version: 1.0.0
 
 ### 2.2 kb (min + gzip)
 
-    npm install underscore.date
+    npm install moment
 
 Documentation
 =============
