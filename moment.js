@@ -330,11 +330,9 @@
         } else {
             if (isNode) {
                 req = require('./lang/' + key);
-                console.log(req);
                 moment.lang(key, req);
             }
         }
-        console.log(languages);
     };
 
     // set default language
