@@ -159,4 +159,7 @@ function hint(source, name) {
     if (hint(source, 'moment')) {
         minifyToFile(source, 'moment', MINIFY_COMMENT);
     }
+    gzip(source, function(err, data) {
+        console.log('size : ./moment.js ' + source.length + ' b (' + data.length + ' b)');
+    });
 })();
