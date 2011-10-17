@@ -163,3 +163,15 @@ function hint(source, name) {
         console.log('size : ./moment.js ' + source.length + ' b (' + data.length + ' b)');
     });
 })();
+
+
+/*********************************************
+    Docs
+*********************************************/
+
+
+(function(){
+    var snippet = fs.readFileSync('./docs/snippet.js', 'utf8');
+    var docs = fs.readFileSync('./docs/docs.js', 'utf8');
+    minifyToFile(snippet + docs, 'docs/docs');
+})();
