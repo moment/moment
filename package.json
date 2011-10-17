@@ -1,25 +1,27 @@
 {
-  "name": "underscore.date",
-  "version": "0.6.1",
-  "description": "Underscore.date is a javascript date library that helps create, manipulate, and format dates without extending the `Date` prototype.",
-  "homepage": "https://github.com/timrwood/underscore.date",
-  "author": "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
-  "keywords": [
-    "underscore",
-    "date"
-  ],
-  "main": "./underscore.date",
-  "engines": {
-    "node": "*"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/timrwood/underscore.date.git"
-  },
-  "bugs": {
-    "url": "https://github.com/timrwood/underscore.date/issues"
-  },
-  "licenses" : [
-    { "type" : "MIT" }
-  ]
+    "name": "moment",
+    "version": "1.0.0",
+    "description": "Moment.js is a javascript date library that helps create, manipulate, and format dates without extending the `Date` prototype.",
+    "homepage": "https://github.com/timrwood/moment",
+    "author": "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
+    "keywords": [
+        "moment",
+        "date"
+    ],
+    "main": "./moment",
+    "engines": {
+        "node": "*"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/timrwood/moment.git"
+    },
+    "bugs": {
+        "url": "https://github.com/timrwood/moment/issues"
+    },
+    "licenses" : [
+        {
+            "type" : "MIT"
+        }
+    ]
 }

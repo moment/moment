@@ -339,7 +339,6 @@ moment().seconds() === new Date().getSeconds();
             <p>
 <pre>
 moment().minutes(30); // set the minutes to 30
-moment().minutes(); // get the minutes value
 </pre>
             </p>
             <a name="/manipulation/hours"></a>
@@ -347,7 +346,6 @@ moment().minutes(); // get the minutes value
             <p>
 <pre>
 moment().hours(12); // set the hours to 12
-moment().hours(); // get the hours value
 </pre>
             </p>
             <a name="/manipulation/day"></a>
@@ -355,7 +353,6 @@ moment().hours(); // get the hours value
             <p>
 <pre>
 moment().day(5); // set the day to 5
-moment().day(); // get the day value
 </pre>
             </p>
             <a name="/manipulation/month"></a>
@@ -363,7 +360,6 @@ moment().day(); // get the day value
             <p>
 <pre>
 moment().month(5); // set the month to June
-moment().month(); // get the month value
 </pre>
             </p>
             <a name="/manipulation/year"></a>
@@ -371,7 +367,291 @@ moment().month(); // get the month value
             <p>
 <pre>
 moment().year(1984); // set the year to 1984
-moment().year(); // get the year value
+</pre>
+            </p>
+            <a name="/display"></a>
+            <h1>Display</h1>
+            <p>Once parsing and manipulation are done, you need some way to display the moment. Moment.js offers many ways of doing that.</p>
+            <a name="/display/format"></a>
+            <h1>Formatted Date</h1>
+            <p>The most robust display option is <code>moment.fn.format</code>. It takes a string of tokens and replaces them with their corresponding values from the Date object.</p>
+            <p>
+<pre>
+var date = new Date(2010, 1, 14, 15, 25, 50, 125);
+moment(date).format("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
+moment(date).format("ddd, hA");                       // "Sun, 3PM"
+</pre>
+            </p>
+            <table>
+                <tr>
+                    <th>Token</th>
+                    <th>Output</th>
+                </tr>
+                <tr>
+                    <td><b>Month</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>M</td>
+                    <td>1 2 ... 11 12</td>
+                </tr>
+                <tr>
+                    <td>Mo</td>
+                    <td>1st 2nd ... 11th 12th</td>
+                </tr>
+                <tr>
+                    <td>MM</td>
+                    <td>01 02 ... 11 12</td>
+                </tr>
+                <tr>
+                    <td>MMM</td>
+                    <td>Jan Feb ... Nov Dec</td>
+                </tr>
+                <tr>
+                    <td>MMMM</td>
+                    <td>January February ... November December</td>
+                </tr>
+                <tr>
+                    <td><b>Day&nbsp;of&nbsp;Month</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>D</td>
+                    <td>1 2 ... 30 30</td>
+                </tr>
+                <tr>
+                    <td>Do</td>
+                    <td>1st 2nd ... 30th 31st</td>
+                </tr>
+                <tr>
+                    <td>DD</td>
+                    <td>01 02 ... 30 31</td>
+                </tr>
+                <tr>
+                    <td><b>Day&nbsp;of&nbsp;Year</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>DDD</td>
+                    <td>1 2 ... 364 365</td>
+                </tr>
+                <tr>
+                    <td>DDDo</td>
+                    <td>1st 2nd ... 364th 365th</td>
+                </tr>
+                <tr>
+                    <td>DDDD</td>
+                    <td>001 002 ... 364 365</td>
+                </tr>
+                <tr>
+                    <td><b>Day&nbsp;of&nbsp;Week</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>d</td>
+                    <td>0 1 ... 5 6</td>
+                </tr>
+                <tr>
+                    <td>do</td>
+                    <td>0th 1st ... 5th 6th</td>
+                </tr>
+                <tr>
+                    <td>ddd</td>
+                    <td>Sun Mon ... Fri Sat</td>
+                </tr>
+                <tr>
+                    <td>dddd</td>
+                    <td>Sunday Monday ... Friday Saturday</td>
+                </tr>
+                <tr>
+                    <td><b>Week&nbsp;of&nbsp;Year</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>w</td>
+                    <td>1 2 ... 52 53</td>
+                </tr>
+                <tr>
+                    <td>wo</td>
+                    <td>1st 2nd ... 52nd 53rd</td>
+                </tr>
+                <tr>
+                    <td>ww</td>
+                    <td>01 02 ... 52 53</td>
+                </tr>
+                <tr>
+                    <td><b>Year</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>YY</td>
+                    <td>70 71 ... 29 30</td>
+                </tr>
+                <tr>
+                    <td>YYYY</td>
+                    <td>1970 1971 ... 2029 2030</td>
+                </tr>
+                <tr>
+                    <td><b>AM/PM</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>A</td>
+                    <td>AM PM</td>
+                </tr>
+                <tr>
+                    <td>a</td>
+                    <td>am pm</td>
+                </tr>
+                <tr>
+                    <td><b>Hour</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>H</td>
+                    <td>0 1 ... 22 23</td>
+                </tr>
+                <tr>
+                    <td>HH</td>
+                    <td>00 01 ... 22 23</td>
+                </tr>
+                <tr>
+                    <td>h</td>
+                    <td>1 2 ... 11 12</td>
+                </tr>
+                <tr>
+                    <td>hh</td>
+                    <td>01 02 ... 11 12</td>
+                </tr>
+                <tr>
+                    <td><b>Minute</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>m</td>
+                    <td>0 1 ... 58 59</td>
+                </tr>
+                <tr>
+                    <td>mm</td>
+                    <td>00 01 ... 58 59</td>
+                </tr>
+                <tr>
+                    <td><b>Second</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>s</td>
+                    <td>0 1 ... 58 59</td>
+                </tr>
+                <tr>
+                    <td>ss</td>
+                    <td>00 01 ... 58 59</td>
+                </tr>
+                <tr>
+                    <td><b>Timezone</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>z</td>
+                    <td>EST CST ... MST PST</td>
+                </tr>
+            </table>
+            <a name="/display/from"></a>
+            <h1>Time from another moment</h1>
+            <p>Another common way of displaying time, sometimes called timeago, is handled by <code>moment.fn.from</code>.</p>
+            <p>
+<pre>
+var a = moment([2007, 0, 29]);
+var b = moment([2007, 0, 28]);
+a.from(b) // "a day ago"
+</pre>
+            </p>
+            <p>If you pass <code>true</code> as the second parameter, you can get the value without the suffix. This is useful wherever you need to have a human readable length of time.</p>
+            <p>
+<pre>
+var start = moment([2007, 0, 5]);
+var end = moment([2007, 0, 10]);
+start.from(end); // "in 5 days"
+start.from(end, true); // "5 days"
+</pre>
+            </p>
+            <p>The base strings are customized by <code>moment.lang</code> or by modifying the values directly using <code>moment.relativeTime</code>.</p>
+            <p>The breakdown of which string is displayed when is outlined in the table below.</p>
+            <table>
+                <tr>
+                    <th>Range</th>
+                    <th>Key</th>
+                    <th>Sample Output</th>
+                </tr>
+                <tr>
+                    <td>0 to 45 seconds</td>
+                    <td>s</td>
+                    <td>seconds ago</td>
+                </tr>
+                <tr>
+                    <td>45 to 90 seconds</td>
+                    <td>m</td>
+                    <td>a minute ago</td>
+                </tr>
+                <tr>
+                    <td>90 seconds to 45 minutes</td>
+                    <td>mm</td>
+                    <td>2 minutes ago ... 45 minutes ago</td>
+                </tr>
+                <tr>
+                    <td>45 to 90 minutes</td>
+                    <td>h</td>
+                    <td>an hour ago</td>
+                </tr>
+                <tr>
+                    <td>90 minutes to 22 hours </td>
+                    <td>hh</td>
+                    <td>2 hours ago ... 22 hours ago</td>
+                </tr>
+                <tr>
+                    <td>22 to 36 hours</td>
+                    <td>d</td>
+                    <td>a day ago</td>
+                </tr>
+                <tr>
+                    <td>36 hours to 25 days</td>
+                    <td>dd</td>
+                    <td>2 days ago ... 25 days ago</td>
+                </tr>
+                <tr>
+                    <td>25 to 45 days</td>
+                    <td>M</td>
+                    <td>a month ago</td>
+                </tr>
+                <tr>
+                    <td>45 to 345 days</td>
+                    <td>MM</td>
+                    <td>2 months ago ... 11 months ago</td>
+                </tr>
+                <tr>
+                    <td>345 to 547 days (1.5 years)</td>
+                    <td>y</td>
+                    <td>a year ago</td>
+                </tr>
+                <tr>
+                    <td>548 days+</td>
+                    <td>yy</td>
+                    <td>2 years ago ... 20 years ago</td>
+                </tr>
+            </table>
+            <a name="/display/fromNow"></a>
+            <h1>Time from now</h1>
+            <p>This is just a map to <code>moment.fn.from(new Date())</code></p>
+            <p>
+<pre>
+moment([2007, 0, 29]).fromNow(); // 4 years ago
+</pre>
+            </p>
+            <p>Like <code>moment.fn.from</code>, if you pass <code>true</code> as the second parameter, you can get the value without the suffix.</p>
+            <p>
+<pre>
+moment([2007, 0, 29]).fromNow(); // 4 years ago
+moment([2007, 0, 29]).fromNow(true); // 4 years
 </pre>
             </p>
         </div>
