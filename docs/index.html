@@ -44,9 +44,9 @@
                 <li><a href="#/display/format">Formatted date</a></li>
                 <li><a href="#/display/from">Time from another moment</a></li>
                 <li><a href="#/display/fromNow">Time from now</a></li>
+                <li><a href="#/display/diff">Difference</a></li>
                 <li><a href="#/display/native">Native Date</a></li>
-                <li><a href="#/display/valueOf">valueOf</a></li>
-                <li><a href="#/display/diff">Diff</a></li>
+                <li><a href="#/display/valueOf">Value</a></li>
                 <li><a href="#/display/seconds">Seconds</a></li>
                 <li><a href="#/display/minutes">Minutes</a></li>
                 <li><a href="#/display/hours">Hours</a></li>
@@ -60,6 +60,16 @@
                 <li><a href="#/i18n/lang">Changing languages</a></li>
                 <li><a href="#/i18n/node">Loading languages in NodeJS</a></li>
                 <li><a href="#/i18n/browser">Loading languages in the browser</a></li>
+                <li><a href="#/i18n/add">Adding your language to Moment.js</a></li>
+            </ul>
+            <h1><a href="#/custom">Customization</a></h1>
+            <ul>
+                <li><a href="#/custom/months">Month Names</a></li>
+                <li><a href="#/custom/monthsShort">Month Abbreviations</a></li>
+                <li><a href="#/custom/weekdays">Weekday Names</a></li>
+                <li><a href="#/custom/weekdaysShort">Weekday Abbreviations</a></li>
+                <li><a href="#/custom/relativeTime">Relative Time</a></li>
+                <li><a href="#/custom/ordinal">Ordinal</a></li>
             </ul>
         </div>
         <div id="docs">
@@ -68,10 +78,10 @@
             <a name="/get-it/github"></a>
             <h2>Github</h2>
             <p>
-                <a href="http://github.com/timrwood/moment/moment.js">Development Version (0.7.0)</a> 20k Source + Comments
+                <a href="http://github.com/timrwood/moment/moment.js">Development Version (1.0.0)</a> 20k Source + Comments
             </p>
             <p>
-                <a href="http://github.com/timrwood/moment/moment.min.js">Production Version (0.7.0)</a> 2.2k Minified + Gzipped.
+                <a href="http://github.com/timrwood/moment/moment.min.js">Production Version (1.0.0)</a> 2.2k Minified + Gzipped.
             </p>
             <p>You can also clone the project with <a href="http://git-scm.com">Git</a> by running:
 <pre>$ git clone git://github.com/timrwood/moment</pre>
@@ -94,13 +104,14 @@ moment().add('hours', 1).fromNow(); // "1 hour ago"
             <h2>In the browser</h2>
             <p>
 <pre>
-&lt;script src="moment.js"&gt;&lt;/script&gt;
+&lt;script src="moment.min.js"&gt;&lt;/script&gt;
 moment().add('hours', 1).fromNow(); // "1 hour ago"
 </pre>
             </p>
             <a name="/parsing"></a>
             <h1>Parsing</h1>
-            <p>Instead of modifying the native <code>Date.prototype</code>, Moment.js creates a wrapper for the <code>Date</code> object</p>
+            <p>Instead of modifying the native <code>Date.prototype</code>, Moment.js creates a wrapper for the <code>Date</code> object.</p>
+            <p>Note: The Moment.js prototype is exposed through <code>moment.fn</code>. If you want to add your own functions, that is where you would put them.</p>
             <p>To get this wrapper object, simply call <code>moment()</code> with one of the supported input types</p>
             <a name="/parsing/date"></a>
             <h2>Javascript Date Object</h2>
@@ -373,7 +384,7 @@ moment().year(1984); // set the year to 1984
             <h1>Display</h1>
             <p>Once parsing and manipulation are done, you need some way to display the moment. Moment.js offers many ways of doing that.</p>
             <a name="/display/format"></a>
-            <h1>Formatted Date</h1>
+            <h2>Formatted Date</h2>
             <p>The most robust display option is <code>moment.fn.format</code>. It takes a string of tokens and replaces them with their corresponding values from the Date object.</p>
             <p>
 <pre>
@@ -557,7 +568,7 @@ moment(date).format("ddd, hA");                       // "Sun, 3PM"
                 </tr>
             </table>
             <a name="/display/from"></a>
-            <h1>Time from another moment</h1>
+            <h2>Time from another moment</h2>
             <p>Another common way of displaying time, sometimes called timeago, is handled by <code>moment.fn.from</code>.</p>
             <p>
 <pre>
@@ -566,12 +577,31 @@ var b = moment([2007, 0, 28]);
 a.from(b) // "a day ago"
 </pre>
             </p>
+            <p>The first parameter is anything you can pass to <code>moment()</code> or a Moment.js object.</p>
+            <p>
+<pre>
+var a = moment([2007, 0, 29]);
+var b = moment([2007, 0, 28]);
+a.from(b);                     // "a day ago"
+a.from([2007, 0, 28]);         // "a day ago"
+a.from(new Date(2007, 0, 28)); // "a day ago"
+a.from("1-28-2007");           // "a day ago"
+</pre>
+            </p>
+            <p>NOTE: Because it only accepts one parameter to pass in the date info, if you need to use String + Format or String + Formats, you should create a Moment.js object first and then call <code>moment.fn.from</code></p>
+            <p>
+<pre>
+var a = moment();
+var b = moment("10-10-1900", "MM-DD-YYYY");
+a.from(b);
+</pre>
+            </p>
             <p>If you pass <code>true</code> as the second parameter, you can get the value without the suffix. This is useful wherever you need to have a human readable length of time.</p>
             <p>
 <pre>
 var start = moment([2007, 0, 5]);
 var end = moment([2007, 0, 10]);
-start.from(end); // "in 5 days"
+start.from(end);       // "in 5 days"
 start.from(end, true); // "5 days"
 </pre>
             </p>
@@ -640,7 +670,7 @@ start.from(end, true); // "5 days"
                 </tr>
             </table>
             <a name="/display/fromNow"></a>
-            <h1>Time from now</h1>
+            <h2>Time from now</h2>
             <p>This is just a map to <code>moment.fn.from(new Date())</code></p>
             <p>
 <pre>
@@ -650,10 +680,250 @@ moment([2007, 0, 29]).fromNow(); // 4 years ago
             <p>Like <code>moment.fn.from</code>, if you pass <code>true</code> as the second parameter, you can get the value without the suffix.</p>
             <p>
 <pre>
-moment([2007, 0, 29]).fromNow(); // 4 years ago
+moment([2007, 0, 29]).fromNow();     // 4 years ago
 moment([2007, 0, 29]).fromNow(true); // 4 years
 </pre>
             </p>
+            <a name="/display/diff"></a>
+            <h2>Difference</h2>
+            <p>To get the difference in milliseconds, use <code>moment.fn.diff</code> like you would use <code>moment.fn.from</code>.</p>
+            <p>
+<pre>
+var a = moment([2007, 0, 29]);
+var b = moment([2007, 0, 28]);
+a.diff(b) // 86400000
+</pre>
+            </p>
+            <a name="/display/native"></a>
+            <h2>Native Date</h2>
+            <p>To get the native Date object that Moment.js wraps, use <code>moment.fn.native</code>.</p>
+            <p>
+<pre>
+var a = moment([2007, 0, 29]);
+var b = moment([2007, 0, 28]);
+a.diff(b) // 86400000
+</pre>
+            </p>
+            <a name="/display/valueOf"></a>
+            <h2>Value</h2>
+            <p><code>moment.fn.valueOf</code> simply outputs the unix timestamp.</p>
+            <p>
+<pre>
+moment(1318874398806).valueOf(); // 1318874398806
+</pre>
+            </p>
+            <a name="/display/seconds"></a>
+            <h2>Seconds</h2>
+            <p>These are the getters mentioned in the <a href="#/manipulation/seconds">Manipulation</a> section above.</p>
+            <p>These map to the corresponding function on the native <code>Date</code> object.</p>
+            <p>
+<pre>
+moment().seconds() === new Date().getSeconds();
+</pre>
+            </p>
+            <a name="/display/minutes"></a>
+            <h2>Minutes</h2>
+            <p>
+<pre>
+moment().minutes(); // get the minutes
+</pre>
+            </p>
+            <a name="/display/hours"></a>
+            <h2>Hours</h2>
+            <p>
+<pre>
+moment().hours(); // get the hours
+</pre>
+            </p>
+            <a name="/display/day"></a>
+            <h2>Day</h2>
+            <p>
+<pre>
+moment().day(); // get the day 
+</pre>
+            </p>
+            <a name="/display/month"></a>
+            <h2>Month</h2>
+            <p>
+<pre>
+moment().month(); // get the month
+</pre>
+            </p>
+            <a name="/display/year"></a>
+            <h2>Year</h2>
+            <p>
+<pre>
+moment().year(); // get the year
+</pre>
+            </p>
+            <a name="/display/leapyear"></a>
+            <h2>Leap Year</h2>
+            <p><code>moment.fn.isLeapYear</code> returns true if that year is a leap year, and false if it is not.</p>
+            <p>
+<pre>
+moment([2000]).isLeapYear() // true
+moment([2001]).isLeapYear() // false
+moment([2100]).isLeapYear() // false
+</pre>
+            </p>
+            <a name="/i18n"></a>
+            <h1>I18N</h1>
+            <p>Moment.js has pretty robust support for internationalization. You can load multiple languages onto the same instance and easily switch between them.</p>
+            <a name="/i18n/lang"></a>
+            <h2>Changing languages</h2>
+            <p>By default, Moment.js comes with English language strings. If you need other languages, you can load them into Moment.js for later use.</p>
+            <p>To load a language, pass the key and the string values to <code>moment.lang</code>.</p>
+            <p>Note: More details on each of the parts of the language bundle can be found in the <a href="#/custom">customization</a> section.</p>
+            <p>
+<pre>
+moment.lang('fr', {
+    months : "Janvier_Février_Mars_Avril_Mai_Juin_Juillet_Aout_Septembre_Octobre_Novembre_Décembre".split("_"),
+    monthsShort : "Jan_Fev_Mar_Avr_Mai_Juin_Juil_Aou_Sep_Oct_Nov_Dec".split("_"),
+    weekdays : "Dimanche_Lundi_Mardi_Mercredi_Jeudi_Vendredi_Samedi".split("_"),
+    weekdaysShort : "Dim_Lun_Mar_Mer_Jeu_Ven_Sam".split("_"),
+    relativeTime : {
+        future : "in %s",
+        past : "il y a %s",
+        s : "secondes",
+        m : "une minute",
+        mm : "%d minutes",
+        h : "une heure",
+        hh : "%d heures",
+        d : "un jour",
+        dd : "%d jours",
+        M : "un mois",
+        MM : "%d mois",
+        y : "une année",
+        yy : "%d années"
+    },
+    ordinal : function (number) {
+        return (~~ (number % 100 / 10) === 1) ? 'er' : 'ème';
+    }
+});
+</pre>
+            </p>
+            <p>Once you load a language, it becomes the active language. To change active languages, simply call <code>moment.lang</code> with the key of a loaded language.</p>
+            <p>
+<pre>
+moment.lang('fr');
+moment(1316116057189).fromNow() // il y a une heure
+moment.lang('en');
+moment(1316116057189).fromNow() // an hour ago
+</pre>
+            </p>
+            <a name="/i18n/node"></a>
+            <h2>Loading languages in NodeJS</h2>
+            <p>Loading languages in NodeJS is super easy. If there is a language file in <code>moment/lang/</code> named after that key, the first call to <code>moment.lang</code> will load it.</p>
+            <p>
+<pre>
+var moment = require('moment');
+moment.lang('fr');
+moment(1316116057189).fromNow(); // il y a une heure
+</pre>
+            </p>
+            <p>Right now, there is only support for English, French, Italian, and Portuguese. If you want your language supported, create a pull request or send me an email with the <a href="#/i18n/add">required files</a>.</p>
+            <a name="/i18n/browser"></a>
+            <h2>Loading languages in the browser</h2>
+            <p>Loading languages in the browser just requires you to include the language files.</p>
+            <p>
+<pre>
+&lt;script src="moment.min.js"&gt;&lt;/script&gt;
+&lt;script src="lang/fr.js"&gt;&lt;/script&gt;
+&lt;script src="lang/pt.js"&gt;&lt;/script&gt;
+</pre>
+            </p>
+            <p>There are minified versions of each of these languages. There is also a minified version of all of the languages bundled together.</p>
+            <p>
+<pre>
+&lt;script src="moment.min.js"&gt;&lt;/script&gt;
+&lt;script src="lang/all.min.js"&gt;&lt;/script&gt;
+</pre>
+            </p>
+            <p>Ideally, you would bundle all the files you need into one file to minimize http requests.</p>
+            <p>
+<pre>
+&lt;script src="moment-fr-it.min.js"&gt;&lt;/script&gt;
+</pre>
+            </p>
+            <a name="/i18n/add"></a>
+            <h2>Adding your language to Moment.js</h2>
+            <p>To add your language to Moment.js, submit a pull request with both a language file and a test file. You can find examples in <code>moment/lang/fr.js</code> and <code>moment/test/lang/fr.js</code></p>
+            <p>To run the tests, do <code>node build</code>.</p>
+            <p>If there are no errors building, then do <code>node test</code> or open <code>moment/test/index.html</code>.</p>
+            <p>If all the tests pass, submit that pull request, and thank you for contributing!</p>
+            <a name="/custom"></a>
+            <h1>Customization</h1>
+            <p>If you don't need i18n support, you can manually override the customization values. However, any calls to <code>moment.lang</code> will override them. It is probably safer to create a language for your specific customizations than to override these values manually.</p>
+            <a name="/custom/months"></a>
+            <h2>Month Names</h2>
+            <p><code>moment.months</code> should be an array of the month names.</p>
+            <p>
+<pre>
+moment.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+</pre>
+            </p>
+            <a name="/custom/monthsShort"></a>
+            <h2>Month Abbreviations</h2>
+            <p><code>moment.monthsShort</code> should be an array of the month abbreviations.</p>
+            <p>
+<pre>
+moment.monthsShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+</pre>
+            </p>
+            <a name="/custom/weekdays"></a>
+            <h2>Weekday Names</h2>
+            <p><code>moment.weekdays</code> should be an array of the weekdays names.</p>
+            <p>
+<pre>
+moment.weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+</pre>
+            </p>
+            <a name="/custom/weekdaysShort"></a>
+            <h2>Weekday Abbreviations</h2>
+            <p><code>moment.weekdaysShort</code> should be an array of the weekdays abbreviations.</p>
+            <p>
+<pre>
+moment.weekdaysShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+</pre>
+            </p>
+            <a name="/custom/relativeTime"></a>
+            <h2>Relative Time</h2>
+            <p><code>moment.relativeTime</code> should be an object of the replacement strings for <code>moment.fn.from</code>.</p>
+            <p>
+<pre>
+moment.relativeTime = {
+    future: "in %s",
+    past: "%s ago",
+    s: "seconds",
+    m: "a minute",
+    mm: "%d minutes",
+    h: "an hour",
+    hh: "%d hours",
+    d: "a day",
+    dd: "%d days",
+    M: "a month",
+    MM: "%d months",
+    y: "a year",
+    yy: "%d years"
+};
+</pre>
+            </p>
+            <p><code>future</code> refers to the prefix/suffix for future dates, and <code>past</code> refers to the prefix/suffix for past dates. For all others, a single character refers to the singular, and an double character refers to the plural.</p>
+            <a name="/custom/ordinal"></a>
+            <h2>Ordinal</h2>
+            <p><code>moment.ordinal</code> should be a function that returns the ordinal for a given number.</p>
+            <p>
+<pre>
+moment.ordinal = function (number) {
+    var b = number % 10;
+    return (~~ (number % 100 / 10) === 1) ? 'th' : 
+        (b === 1) ? 'st' : 
+        (b === 2) ? 'nd' : 
+        (b === 3) ? 'rd' : 'th';
+};
+</pre>
+            </p>
+            <p>For more information on ordinal numbers, see <a href="http://en.wikipedia.org/wiki/Ordinal_number_%28linguistics%29">wikipedia</a></p>
         </div>
     </body>
 </html>

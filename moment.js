@@ -1,9 +1,9 @@
-// Underscore.date
+// Moment.js
 //
 // (c) 2011 Tim Wood
-// Underscore.date is freely distributable under the terms of the MIT license.
+// Moment.js is freely distributable under the terms of the MIT license.
 //
-// Version 0.6.1
+// Version 1.0.0
 
 (function (Date, undefined) {
 
