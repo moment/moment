@@ -10,7 +10,7 @@
     var moment,
         round = Math.round,
         languages = {},
-        isNode = (typeof window === 'undefined' && typeof module !== 'undefined'),
+        isNode = (typeof module !== 'undefined'),
         paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|relativeTime|ordinal'.split('|'),
         i,
         shortcuts = 'Month|Date|Hours|Minutes|Seconds'.split('|');
