@@ -5,16 +5,24 @@ Moment.js is a javascript date library that helps create, manipulate, and format
 
 Author: Tim Wood
 
-Version: 1.0.0
+Version: 1.0.1
 
-### 2.2 kb (min + gzip)
+2.2 kb (min + gzip)
+
+Get it with npm
+===============
 
     npm install moment
 
 Documentation
 =============
 
-Read the documentation at [momentjs.com/docs](http://momentjs.com/docs).
+Read the documentation at [momentjs.com/docs/](http://momentjs.com/docs/).
+
+Unit Tests
+==========
+
+Run the unit tests at [momentjs.com/test/](http://momentjs.com/test/).
 
 Thanks to...
 ============
@@ -33,11 +41,20 @@ Moment.js is freely distributable under the terms of the MIT license.
 Changelog
 =========
 
+### 1.0.1
+
+Added `moment.version` to get the current version.
+
+Removed `window !== undefined` when checking if module exists to support browserify. #25
+
 ### 1.0.0
 
-Added convenience methods for getting and setting date parts
-Added better support for `moment.add()`
-Added better lang support in node
+Added convenience methods for getting and setting date parts.
+
+Added better support for `moment.add()`.
+
+Added better lang support in NodeJS.
+
 Renamed library from underscore.date to Moment.js
 
 ### 0.6.1
