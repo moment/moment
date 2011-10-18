@@ -10,7 +10,7 @@
     var moment,
         round = Math.round,
         languages = {},
-        isNode = (typeof module !== 'undefined'),
+        hasModule = (typeof module !== 'undefined'),
         paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|relativeTime|ordinal'.split('|'),
         i,
         shortcuts = 'Month|Date|Hours|Minutes|Seconds'.split('|');
@@ -328,7 +328,7 @@
                 moment[param] = languages[key][param] || moment[param];
             }
         } else {
-            if (isNode) {
+            if (hasModule) {
                 req = require('./lang/' + key);
                 moment.lang(key, req);
             }
@@ -461,10 +461,11 @@
     };
 
     // CommonJS module is defined
-    if (isNode) {
+    if (hasModule) {
         module.exports = moment;
-    } else {
-        this.moment = moment;
+    }
+    if (typeof window !== 'undefined') {
+        window.moment = moment;
     }
 
 })(Date);
