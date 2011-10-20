@@ -5,7 +5,7 @@
             weekdays : "Dimanche_Lundi_Mardi_Mercredi_Jeudi_Vendredi_Samedi".split("_"),
             weekdaysShort : "Dim_Lun_Mar_Mer_Jeu_Ven_Sam".split("_"),
             relativeTime : {
-                future : "in %s",
+                future : "dans %s",
                 past : "il y a %s",
                 s : "quelques secondes",
                 m : "une minute",
