@@ -386,7 +386,7 @@
             round(hours) === 1 && substituteTimeAgo('h') ||
             hours < 22 && substituteTimeAgo('hh', round(hours)) ||
             round(days) === 1 && substituteTimeAgo('d') ||
-            days < 25 && substituteTimeAgo('dd', round(days)) ||
+            days <= 25 && substituteTimeAgo('dd', round(days)) ||
             days < 45 && substituteTimeAgo('M') ||
             days < 345 && substituteTimeAgo('MM', round(days / 30)) ||
             round(years) === 1 && substituteTimeAgo('y') ||
