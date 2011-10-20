@@ -90,7 +90,7 @@ test("format week", 7, function() {
 test("from", 30, function() {
     moment.lang('fr');
     var start = moment([2007, 1, 28]);
-    equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "secondes",    "44 seconds = seconds");
+    equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "quelques secondes", "44 seconds = a few seconds");
     equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "une minute",   "45 seconds = a minute");
     equal(start.from(moment([2007, 1, 28]).add({s:89}), true),  "une minute",   "89 seconds = a minute");
     equal(start.from(moment([2007, 1, 28]).add({s:90}), true),  "2 minutes",  "90 seconds = 2 minutes");
@@ -124,12 +124,12 @@ test("from", 30, function() {
 
 test("suffix", 2, function() {
     moment.lang('fr');
-    equal(moment(30000).from(0), "in secondes", "prefix");
-    equal(moment(0).from(30000), "il y a secondes", "suffix");
+    equal(moment(30000).from(0), "dans quelques secondes", "prefix");
+    equal(moment(0).from(30000), "il y a quelques secondes", "suffix");
 });
 
 test("fromNow", 2, function() {
     moment.lang('fr');
-    equal(moment().add({s:30}).fromNow(), "in secondes", "in seconds");
-    equal(moment().add({d:5}).fromNow(), "in 5 jours", "in 5 days");
+    equal(moment().add({s:30}).fromNow(), "dans quelques secondes", "in a few seconds");
+    equal(moment().add({d:5}).fromNow(), "dans 5 jours", "in 5 days");
 });
