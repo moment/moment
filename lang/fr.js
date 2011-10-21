@@ -4,6 +4,14 @@
             monthsShort : "Jan_Fev_Mar_Avr_Mai_Juin_Juil_Aou_Sep_Oct_Nov_Dec".split("_"),
             weekdays : "Dimanche_Lundi_Mardi_Mercredi_Jeudi_Vendredi_Samedi".split("_"),
             weekdaysShort : "Dim_Lun_Mar_Mer_Jeu_Ven_Sam".split("_"),
+            // based on this article on writing dates in french:
+            // http://www.btb.gc.ca/btb.php?lang=fra&cont=868
+            longDateFormat : { 
+                L : "DD/MM/YYYY",
+                LL : "D MMMM YYYY",
+                LLL : "D MMMM YYYY HH:mm",
+                LLLL : "dddd, D MMMM YYYY HH:mm"
+            },
             relativeTime : {
                 future : "dans %s",
                 past : "il y a %s",

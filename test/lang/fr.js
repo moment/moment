@@ -5,7 +5,7 @@
 
 module("lang:fr");
 
-test("format", 15, function() {
+test("format", 19, function() {
     moment.lang('fr');
     var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss a',      'Dimanche, Février 14er 2010, 3:25:50 pm'],
@@ -22,7 +22,11 @@ test("format", 15, function() {
             ['s ss',                               '50 50'],
             ['a A',                                'pm PM'],
             ['z zz',                               'PST PST'],
-            ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45ème day of the year']
+            ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45ème day of the year'],
+            ['L',                                  '14/02/2010'],
+            ['LL',                                 '14 Février 2010'],
+            ['LLL',                                '14 Février 2010 15:25'],
+            ['LLLL',                               'Dimanche, 14 Février 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
