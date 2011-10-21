@@ -4,6 +4,12 @@
             monthsShort : "Jan_Feb_Mar_Abr_Mai_Jun_Jul_Ago_Set_Out_Nov_Dez".split("_"),
             weekdays : "Domingo_Segunda-feira_Terça-feira_Quarta-feira_Quinta-feira_Sexta-feira_Sábado".split("_"),
             weekdaysShort : "Dom_Seg_Ter_Qua_Qui_Sex_Sáb".split("_"),
+            longDateFormat : { 
+                L : "DD/MM/YYYY",
+                LL : "D \\de MMMM \\de YYYY",
+                LLL : "D \\de MMMM \\de YYYY HH:mm",
+                LLLL : "dddd, D \\de MMMM \\de YYYY HH:mm"
+            },
             relativeTime : {
                 future : "em %s",
                 past : "%s atrás",

@@ -4,6 +4,13 @@
             monthsShort : "Gen_Feb_Mar_Apr_Mag_Giu_Lug_Ago_Set_Ott_Nov_Dic".split("_"),
             weekdays : "Domenica_Lunedi_Martedi_Mercoledi_Giovedi_Venerdi_Sabato".split("_"),
             weekdaysShort : "Dom_Lun_Mar_Mer_Gio_Ven_Sab".split("_"),
+            // copied from french, needs revision from italian speakers
+            longDateFormat : { 
+                L : "DD/MM/YYYY",
+                LL : "D MMMM YYYY",
+                LLL : "D MMMM YYYY HH:mm",
+                LLLL : "dddd, D MMMM YYYY HH:mm"
+            },
             relativeTime : {
                 future : "in %s",
                 past : "%s fa",

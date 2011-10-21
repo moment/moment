@@ -5,7 +5,7 @@
 
 module("lang:en");
 
-test("format", 15, function() {
+test("format", 19, function() {
     moment.lang('en');
     var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss a',      'Sunday, February 14th 2010, 3:25:50 pm'],
@@ -22,7 +22,11 @@ test("format", 15, function() {
             ['s ss',                               '50 50'],
             ['a A',                                'pm PM'],
             ['z zz',                               'PST PST'],
-            ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45th day of the year']
+            ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45th day of the year'],
+            ['L',                                  '02/14/2010'],
+            ['LL',                                 'February 14 2010'],
+            ['LLL',                                'February 14 2010 3:25 PM'],
+            ['LLLL',                               'Sunday, February 14 2010 3:25 PM']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -133,3 +137,4 @@ test("fromNow", 2, function() {
     equal(moment().add({s:30}).fromNow(), "in a few seconds", "in a few seconds");
     equal(moment().add({d:5}).fromNow(), "in 5 days", "in 5 days");
 });
+
