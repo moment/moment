@@ -5,7 +5,7 @@ var moment;if (typeof window === 'undefined') {moment = require('../moment.js');
 
 module("lang:en");
 
-test("format", 15, function() {
+test("format", 19, function() {
     moment.lang('en');
     var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss a',      'Sunday, February 14th 2010, 3:25:50 pm'],
@@ -22,7 +22,11 @@ test("format", 15, function() {
             ['s ss',                               '50 50'],
             ['a A',                                'pm PM'],
             ['z zz',                               'PST PST'],
-            ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45th day of the year']
+            ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45th day of the year'],
+            ['L',                                  '02/14/2010'],
+            ['LL',                                 'February 14 2010'],
+            ['LLL',                                'February 14 2010 3:25 PM'],
+            ['LLLL',                               'Sunday, February 14 2010 3:25 PM']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -134,13 +138,14 @@ test("fromNow", 2, function() {
     equal(moment().add({d:5}).fromNow(), "in 5 days", "in 5 days");
 });
 
+
 /**************************************************
   French
  *************************************************/
 
 module("lang:fr");
 
-test("format", 15, function() {
+test("format", 19, function() {
     moment.lang('fr');
     var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss a',      'Dimanche, Février 14er 2010, 3:25:50 pm'],
@@ -157,7 +162,11 @@ test("format", 15, function() {
             ['s ss',                               '50 50'],
             ['a A',                                'pm PM'],
             ['z zz',                               'PST PST'],
-            ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45ème day of the year']
+            ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45ème day of the year'],
+            ['L',                                  '14/02/2010'],
+            ['LL',                                 '14 Février 2010'],
+            ['LLL',                                '14 Février 2010 15:25'],
+            ['LLLL',                               'Dimanche, 14 Février 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -268,13 +277,14 @@ test("fromNow", 2, function() {
     equal(moment().add({s:30}).fromNow(), "dans quelques secondes", "in a few seconds");
     equal(moment().add({d:5}).fromNow(), "dans 5 jours", "in 5 days");
 });
+
 /**************************************************
   Italian
  *************************************************/
 
 module("lang:it");
 
-test("format", 15, function() {
+test("format", 19, function() {
     moment.lang('it');
     var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss a',      'Domenica, Febbraio 14º 2010, 3:25:50 pm'],
@@ -291,7 +301,11 @@ test("format", 15, function() {
             ['s ss',                               '50 50'],
             ['a A',                                'pm PM'],
             ['z zz',                               'PST PST'],
-            ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45º day of the year']
+            ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45º day of the year'],
+            ['L',                                  '14/02/2010'],
+            ['LL',                                 '14 Febbraio 2010'],
+            ['LLL',                                '14 Febbraio 2010 15:25'],
+            ['LLLL',                               'Domenica, 14 Febbraio 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -409,7 +423,7 @@ test("fromNow", 2, function() {
 
 module("lang:pt");
 
-test("format", 15, function() {
+test("format", 19, function() {
     moment.lang('pt');
     var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss a',      'Domingo, Fevereiro 14º 2010, 3:25:50 pm'],
@@ -426,7 +440,11 @@ test("format", 15, function() {
             ['s ss',                               '50 50'],
             ['a A',                                'pm PM'],
             ['z zz',                               'PST PST'],
-            ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45º day of the year']
+            ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45º day of the year'],
+            ['L',                                  '14/02/2010'],
+            ['LL',                                 '14 de Fevereiro de 2010'],
+            ['LLL',                                '14 de Fevereiro de 2010 15:25'],
+            ['LLLL',                               'Domingo, 14 de Fevereiro de 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;

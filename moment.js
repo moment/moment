@@ -11,7 +11,7 @@
         round = Math.round,
         languages = {},
         hasModule = (typeof module !== 'undefined'),
-        paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|relativeTime|ordinal'.split('|'),
+        paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|longDateFormat|relativeTime|ordinal'.split('|'),
         i,
         VERSION = "1.0.1",
         shortcuts = 'Month|Date|Hours|Minutes|Seconds'.split('|');
@@ -76,7 +76,7 @@
             currentHours = date.getHours(),
             currentMinutes = date.getMinutes(),
             currentSeconds = date.getSeconds(),
-            charactersToReplace = /(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?)/g,
+            charactersToReplace = /(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|L?L?L?L?)/g,
             nonuppercaseLetters = /[^A-Z]/g,
             timezoneRegex = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g;
         // check if the character is a format
@@ -171,6 +171,12 @@
                 // depreciating 'zz' fall through to 'z'
             case 'z' :
                 return (date.toString().match(timezoneRegex) || [''])[0].replace(nonuppercaseLetters, '');
+            // LONG DATES
+            case 'L' :
+            case 'LL' :
+            case 'LLL' :
+            case 'LLLL' :
+                return formatDate(date, moment.longDateFormat[input]);
             // DEFAULT
             default :
                 return input.replace("\\", "");
@@ -345,6 +351,12 @@
         monthsShort : "Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"),
         weekdays : "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),
         weekdaysShort : "Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),
+        longDateFormat : { 
+            L : "MM/DD/YYYY",
+            LL : "MMMM D YYYY",
+            LLL : "MMMM D YYYY h:mm A",
+            LLLL : "dddd, MMMM D YYYY h:mm A"
+        },
         relativeTime : {
             future : "in %s",
             past : "%s ago",

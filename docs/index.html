@@ -569,6 +569,26 @@ moment(date).format("ddd, hA");                       // "Sun, 3PM"
                     <td>z</td>
                     <td>EST CST ... MST PST</td>
                 </tr>
+                <tr>
+                    <td><b>Long date</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>L</td>
+                    <td>07/10/1986</td>
+                </tr>
+                <tr>
+                    <td>LL</td>
+                    <td>July 10 1986</td>
+                </tr>
+                <tr>
+                    <td>LLL</td>
+                    <td>July 10 1986 8:30 PM</td>
+                </tr>
+                <tr>
+                    <td>LLLL</td>
+                    <td>Saturday, July 10 1986 8:30 PM</td>
+                </tr>
             </table>
             <a name="/display/from"></a>
             <h2>Time from another moment</h2>
@@ -782,6 +802,12 @@ moment.lang('fr', {
     monthsShort : "Jan_Fev_Mar_Avr_Mai_Juin_Juil_Aou_Sep_Oct_Nov_Dec".split("_"),
     weekdays : "Dimanche_Lundi_Mardi_Mercredi_Jeudi_Vendredi_Samedi".split("_"),
     weekdaysShort : "Dim_Lun_Mar_Mer_Jeu_Ven_Sam".split("_"),
+    longDateFormat : { 
+        L : "DD/MM/YYYY",
+        LL : "D MMMM YYYY",
+        LLL : "D MMMM YYYY HH:mm",
+        LLLL : "dddd, D MMMM YYYY HH:mm"
+    },
     relativeTime : {
         future : "in %s",
         past : "il y a %s",
@@ -885,6 +911,18 @@ moment.weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Frid
             <p>
 <pre>
 moment.weekdaysShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+</pre>
+            <a name="/custom/longDateFormats"></a>
+            <h2>Long Date Formats</h2>
+            <p><code>moment.longDateFormat</code> should be an object containing a key/value pair for each long date format (L, LL, LLL, LLLL).</p>
+            <p>
+<pre>
+moment.longDateFormat = { 
+    L: "MM/DD/YYYY",
+    LL: "MMMM D YYYY",
+    LLL: "MMMM D YYYY h:mm A",
+    LLLL: "dddd, MMMM D YYYY h:mm A"
+};
 </pre>
             </p>
             <a name="/custom/relativeTime"></a>
