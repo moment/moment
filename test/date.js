@@ -12,7 +12,7 @@ if (typeof window === 'undefined') {
 /**************************************************
   Tests
  *************************************************/
- 
+
 
 module("create");
 
@@ -225,6 +225,14 @@ test("setters", 7, function() {
     equal(a.hours(), 6, 'hour');
     equal(a.minutes(), 7, 'minute');
     equal(a.seconds(), 8, 'second');
+});
+
+test("setters - falsey values", 1, function() {
+    var a = moment();
+    // ensure minutes wasn't coincidentally 0 already
+    a.minutes(1);
+    a.minutes(0);
+    equal(a.minutes(), 0, 'falsey value');
 });
 
 test("chaining setters", 7, function() {
