@@ -3,7 +3,7 @@
 // (c) 2011 Tim Wood
 // Moment.js is freely distributable under the terms of the MIT license.
 //
-// Version 1.0.1
+// Version 1.1.0
 
 (function (Date, undefined) {
 
@@ -13,7 +13,7 @@
         hasModule = (typeof module !== 'undefined'),
         paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|longDateFormat|relativeTime|ordinal'.split('|'),
         i,
-        VERSION = "1.0.1",
+        VERSION = "1.1.0",
         shortcuts = 'Month|Date|Hours|Minutes|Seconds'.split('|');
 
     // left zero fill a number
@@ -76,7 +76,7 @@
             currentHours = date.getHours(),
             currentMinutes = date.getMinutes(),
             currentSeconds = date.getSeconds(),
-            charactersToReplace = /(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|L?L?L?L?)/g,
+            charactersToReplace = /(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|LL?L?L?)/g,
             nonuppercaseLetters = /[^A-Z]/g,
             timezoneRegex = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g;
         // check if the character is a format
