@@ -454,7 +454,7 @@
     // helper for adding shortcuts
     function makeShortcut(name, key) {
         moment.fn[name] = function (input) {
-            if (input) {
+            if (input != null) {
                 this._d['set' + key](input);
                 return this;
             } else {
