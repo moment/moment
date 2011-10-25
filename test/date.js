@@ -90,7 +90,7 @@ test("string with format - years", 2, function() {
 module("add and subtract");
 
 
-test("add and subtract short", 11, function() {
+test("add and subtract short", 12, function() {
     var a = moment();
     a.year(2011);
     a.month(9);
@@ -104,6 +104,7 @@ test("add and subtract short", 11, function() {
     equal(a.add({m:1}).minutes(), 8, 'Add minutes');
     equal(a.add({h:1}).hours(), 7, 'Add hours');
     equal(a.add({d:1}).date(), 13, 'Add date');
+    equal(a.add({w:1}).date(), 20, 'Add week');
     equal(a.add({M:1}).month(), 10, 'Add month');
     equal(a.add({y:1}).year(), 2012, 'Add year');
 
@@ -116,7 +117,7 @@ test("add and subtract short", 11, function() {
     equal(c.date(), 28, 'subtract month, feb 28th to jan 28th');
 });
 
-test("add and subtract long", 7, function() {
+test("add and subtract long", 8, function() {
     var a = moment();
     a.year(2011);
     a.month(9);
@@ -130,11 +131,12 @@ test("add and subtract long", 7, function() {
     equal(a.add({minutes:1}).minutes(), 8, 'Add minutes');
     equal(a.add({hours:1}).hours(), 7, 'Add hours');
     equal(a.add({days:1}).date(), 13, 'Add date');
+    equal(a.add({weeks:1}).date(), 20, 'Add week');
     equal(a.add({months:1}).month(), 10, 'Add month');
     equal(a.add({years:1}).year(), 2012, 'Add year');
 });
 
-test("add and subtract string short", 7, function() {
+test("add and subtract string short", 8, function() {
     var a = moment();
     a.year(2011);
     a.month(9);
@@ -148,11 +150,12 @@ test("add and subtract string short", 7, function() {
     equal(a.add('minutes', 1).minutes(), 8, 'Add minutes');
     equal(a.add('hours', 1).hours(), 7, 'Add hours');
     equal(a.add('days', 1).date(), 13, 'Add date');
+    equal(a.add('weeks', 1).date(), 20, 'Add week');
     equal(a.add('months', 1).month(), 10, 'Add month');
     equal(a.add('years', 1).year(), 2012, 'Add year');
 });
 
-test("add and subtract string short", 7, function() {
+test("add and subtract string short", 8, function() {
     var a = moment();
     a.year(2011);
     a.month(9);
@@ -166,6 +169,7 @@ test("add and subtract string short", 7, function() {
     equal(a.add('m', 1).minutes(), 8, 'Add minutes');
     equal(a.add('h', 1).hours(), 7, 'Add hours');
     equal(a.add('d', 1).date(), 13, 'Add date');
+    equal(a.add('w', 1).date(), 20, 'Add week');
     equal(a.add('M', 1).month(), 10, 'Add month');
     equal(a.add('y', 1).year(), 2012, 'Add year');
 });
@@ -184,21 +188,25 @@ test("diff", 5, function() {
     equal(moment(oneHourDate).diff(nowDate), 60 * 60 * 1000, "1 hour from now = 360000");
 });
 
-test("diff key after", 7, function() {
+test("diff key after", 9, function() {
     equal(moment([2010]).diff([2011], 'years'), -1, "year diff");
     equal(moment([2010]).diff([2011, 6], 'years', true), -1.5, "year diff, float");
     equal(moment([2010]).diff([2010, 2], 'months'), -2, "month diff");
+    equal(moment([2010]).diff([2010, 0, 7], 'weeks'), -1, "week diff");
+    equal(moment([2010]).diff([2010, 0, 21], 'weeks'), -3, "week diff");
     equal(moment([2010]).diff([2010, 0, 4], 'days'), -3, "day diff");
     equal(moment([2010]).diff([2010, 0, 1, 4], 'hours'), -4, "hour diff");
     equal(moment([2010]).diff([2010, 0, 1, 0, 5], 'minutes'), -5, "minute diff");
     equal(moment([2010]).diff([2010, 0, 1, 0, 0, 6], 'seconds'), -6, "second diff");
 });
 
-test("diff key before", 7, function() {
+test("diff key before", 9, function() {
     equal(moment([2011]).diff([2010], 'years'), 1, "year diff");
     equal(moment([2011, 6]).diff([2010], 'years', true), 1.5, "year diff, float");
     equal(moment([2010, 2]).diff([2010], 'months'), 2, "month diff");
     equal(moment([2010, 0, 4]).diff([2010], 'days'), 3, "day diff");
+    equal(moment([2010, 0, 7]).diff([2010], 'weeks'), 1, "week diff");
+    equal(moment([2010, 0, 21]).diff([2010], 'weeks'), 3, "week diff");
     equal(moment([2010, 0, 1, 4]).diff([2010], 'hours'), 4, "hour diff");
     equal(moment([2010, 0, 1, 0, 5]).diff([2010], 'minutes'), 5, "minute diff");
     equal(moment([2010, 0, 1, 0, 0, 6]).diff([2010], 'seconds'), 6, "second diff");
