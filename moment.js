@@ -78,7 +78,8 @@
             currentSeconds = date.getSeconds(),
             charactersToReplace = /(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|LL?L?L?)/g,
             nonuppercaseLetters = /[^A-Z]/g,
-            timezoneRegex = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g;
+            timezoneRegex = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g,
+            ordinal = moment.ordinal;
         // check if the character is a format
         // return formatted string or non string.
         //
@@ -93,7 +94,7 @@
             case 'M' :
                 return currentMonth + 1;
             case 'Mo' :
-                return (currentMonth + 1) + moment.ordinal(currentMonth + 1);
+                return (currentMonth + 1) + ordinal(currentMonth + 1);
             case 'MM' :
                 return leftZeroFill(currentMonth + 1, 2);
             case 'MMM' :
@@ -104,7 +105,7 @@
             case 'D' :
                 return currentDate;
             case 'Do' :
-                return currentDate + moment.ordinal(currentDate);
+                return currentDate + ordinal(currentDate);
             case 'DD' :
                 return leftZeroFill(currentDate, 2);
             // DAY OF YEAR
@@ -114,14 +115,14 @@
                 return ~~ (((a - b) / 864e5) + 1.5);
             case 'DDDo' :
                 a = replaceFunction('DDD');
-                return a + moment.ordinal(a);
+                return a + ordinal(a);
             case 'DDDD' :
                 return leftZeroFill(replaceFunction('DDD'), 3);
             // WEEKDAY
             case 'd' :
                 return currentDay;
             case 'do' :
-                return currentDay + moment.ordinal(currentDay);
+                return currentDay + ordinal(currentDay);
             case 'ddd' :
                 return moment.weekdaysShort[currentDay];
             case 'dddd' :
@@ -133,12 +134,12 @@
                 return ~~ ((a - b) / 864e5 / 7 + 1.5);
             case 'wo' :
                 a = replaceFunction('w');
-                return a + moment.ordinal(a);
+                return a + ordinal(a);
             case 'ww' :
                 return leftZeroFill(replaceFunction('w'), 2);
             // YEAR
             case 'YY' :
-                return (currentYear + '').slice(-2);
+                return currentYear % 100;
             case 'YYYY' :
                 return currentYear;
             // AM / PM
@@ -454,9 +455,9 @@
 
         from : function (time, withoutSuffix) {
             var difference = this.diff(time),
-                string = difference < 0 ? moment.relativeTime.past : moment.relativeTime.future,
+                rel = moment.relativeTime,
                 output = relativeTime(difference);
-            return withoutSuffix ? output : string.replace(/%s/i, output);
+            return withoutSuffix ? output : (difference < 0 ? rel.past : rel.future).replace(/%s/i, output);
         },
 
         fromNow : function (withoutSuffix) {
