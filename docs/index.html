@@ -285,6 +285,10 @@ moment().add('d', 7);
                         <td>M</td>
                     </tr>
                     <tr>
+                        <td>weeks</td>
+                        <td>w</td>
+                    </tr>
+                    <tr>
                         <td>days</td>
                         <td>d</td>
                     </tr>
@@ -716,6 +720,24 @@ moment([2007, 0, 29]).fromNow(true); // 4 years
 var a = moment([2007, 0, 29]);
 var b = moment([2007, 0, 28]);
 a.diff(b) // 86400000
+</pre>
+            </p>
+            <p>To get the difference in another unit of measurement, pass that measurement as the second argument.</p>
+            <p>
+<pre>
+var a = moment([2007, 0, 29]);
+var b = moment([2007, 0, 28]);
+a.diff(b, 'days') // 1
+</pre>
+            </p>
+            <p>The supported measurements are <code>"years", "months", "weeks", "days", "hours", "minutes", and "seconds"</code></p>
+            <p>By default, <code>moment.fn.diff</code> will return a rounded number. If you want the floating point number, pass <code>true</code> as the third argument.</p>
+            <p>
+<pre>
+var a = moment([2007, 0]);
+var b = moment([2008, 5]);
+a.diff(b, 'years')       // 1
+a.diff(b, 'years', true) // 1.5
 </pre>
             </p>
             <a name="/display/native"></a>
