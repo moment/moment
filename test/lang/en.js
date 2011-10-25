@@ -114,7 +114,7 @@ test("from", 30, function() {
     equal(start.from(moment([2007, 1, 28]).add({d:30}), true),  "a month",       "30 days = a month");
     equal(start.from(moment([2007, 1, 28]).add({d:45}), true),  "a month",       "45 days = a month");
     equal(start.from(moment([2007, 1, 28]).add({d:46}), true),  "2 months",      "46 days = 2 months");
-    equal(start.from(moment([2007, 1, 28]).add({d:75}), true),  "2 months",      "75 days = 2 months");
+    equal(start.from(moment([2007, 1, 28]).add({d:74}), true),  "2 months",      "75 days = 2 months");
     equal(start.from(moment([2007, 1, 28]).add({d:76}), true),  "3 months",      "76 days = 3 months");
     equal(start.from(moment([2007, 1, 28]).add({M:1}), true),   "a month",       "1 month = a month");
     equal(start.from(moment([2007, 1, 28]).add({M:5}), true),   "5 months",      "5 months = 5 months");

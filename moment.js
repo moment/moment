@@ -43,7 +43,7 @@
         M = (input.M || input.months || 0) +
             (input.y || input.years || 0) * 12;
         if (ms) {
-            date.setMilliseconds(date.getMilliseconds() + ms * adding);
+            date.setTime(+date + ms * adding);
         }
         if (M) {
             currentDate = date.getDate();
@@ -400,7 +400,7 @@
             hours < 22 && substituteTimeAgo('hh', round(hours)) ||
             round(days) === 1 && substituteTimeAgo('d') ||
             days <= 25 && substituteTimeAgo('dd', round(days)) ||
-            days < 45 && substituteTimeAgo('M') ||
+            days <= 45 && substituteTimeAgo('M') ||
             days < 345 && substituteTimeAgo('MM', round(days / 30)) ||
             round(years) === 1 && substituteTimeAgo('y') ||
             substituteTimeAgo('yy', round(years));
