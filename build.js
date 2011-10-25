@@ -18,6 +18,7 @@ var JSHINT_CONFIG = {
     "debug": false,
     "devel": false,
     "eqeqeq": true,
+    "eqnull": true,
     "evil": false,
     "forin": false,
     "immed": false,

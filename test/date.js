@@ -184,6 +184,33 @@ test("diff", 5, function() {
     equal(moment(oneHourDate).diff(nowDate), 60 * 60 * 1000, "1 hour from now = 360000");
 });
 
+test("diff key after", 7, function() {
+    equal(moment([2010]).diff([2011], 'years'), -1, "year diff");
+    equal(moment([2010]).diff([2011, 6], 'years', true), -1.5, "year diff, float");
+    equal(moment([2010]).diff([2010, 2], 'months'), -2, "month diff");
+    equal(moment([2010]).diff([2010, 0, 4], 'days'), -3, "day diff");
+    equal(moment([2010]).diff([2010, 0, 1, 4], 'hours'), -4, "hour diff");
+    equal(moment([2010]).diff([2010, 0, 1, 0, 5], 'minutes'), -5, "minute diff");
+    equal(moment([2010]).diff([2010, 0, 1, 0, 0, 6], 'seconds'), -6, "second diff");
+});
+
+test("diff key before", 7, function() {
+    equal(moment([2011]).diff([2010], 'years'), 1, "year diff");
+    equal(moment([2011, 6]).diff([2010], 'years', true), 1.5, "year diff, float");
+    equal(moment([2010, 2]).diff([2010], 'months'), 2, "month diff");
+    equal(moment([2010, 0, 4]).diff([2010], 'days'), 3, "day diff");
+    equal(moment([2010, 0, 1, 4]).diff([2010], 'hours'), 4, "hour diff");
+    equal(moment([2010, 0, 1, 0, 5]).diff([2010], 'minutes'), 5, "minute diff");
+    equal(moment([2010, 0, 1, 0, 0, 6]).diff([2010], 'seconds'), 6, "second diff");
+});
+
+test("diff overflow", 4, function() {
+    equal(moment([2011]).diff([2010], 'months'), 12, "month diff");
+    equal(moment([2010, 0, 2]).diff([2010], 'hours'), 24, "hour diff");
+    equal(moment([2010, 0, 1, 2]).diff([2010], 'minutes'), 120, "minute diff");
+    equal(moment([2010, 0, 1, 0, 4]).diff([2010], 'seconds'), 240, "second diff");
+});
+
 
 module("leap year");
 

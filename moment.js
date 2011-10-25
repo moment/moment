@@ -430,8 +430,26 @@
             return this;
         },
 
-        diff : function (input, format) {
-            return this._d - moment(input, format)._d;
+        diff : function (input, val, float) {
+            var inputMoment = moment(input),
+                diff = this._d - inputMoment._d, 
+                year = this.year() - inputMoment.year(), 
+                month = this.month() - inputMoment.month(), 
+                day = this.day() - inputMoment.day(),
+                output;
+            if (val === 'months') {
+                output = year * 12 + month + day / 30;
+            } else if (val === 'years') {
+                output = year + month / 12;
+            } else {
+                output = val === 'seconds' ? diff / 1e3 : // 1000
+                    val === 'minutes' ? diff / 6e4 : // 1000 * 60
+                    val === 'hours' ? diff / 36e5 : // 1000 * 60 * 60
+                    val === 'days' ? diff / 864e5 : // 1000 * 60 * 60 * 24
+                    val === 'weeks' ? diff / 6048e5 : // 1000 * 60 * 60 * 24 * 7
+                    val === 'days' ? diff / 3600 : diff;
+            }
+            return float ? output : round(output);
         },
 
         from : function (time, withoutSuffix) {
