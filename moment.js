@@ -76,7 +76,7 @@
             currentHours = date.getHours(),
             currentMinutes = date.getMinutes(),
             currentSeconds = date.getSeconds(),
-            charactersToReplace = /(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?)/g,
+            charactersToReplace = /(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|U|u)/g,
             nonuppercaseLetters = /[^A-Z]/g,
             timezoneRegex = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g;
         // check if the character is a format
@@ -172,6 +172,10 @@
             case 'z' :
                 return (date.toString().match(timezoneRegex) || [''])[0].replace(nonuppercaseLetters, '');
             // DEFAULT
+            case 'U':
+                return Math.floor(date.getTime() / 1000);
+            case 'u':
+                return date.getTime();
             default :
                 return input.replace("\\", "");
             }
