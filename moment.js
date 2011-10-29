@@ -400,7 +400,7 @@
             return +this._d;
         },
 
-        native : function () {
+        'native' : function () {
             return this._d;
         },
 
