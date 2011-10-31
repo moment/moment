@@ -76,7 +76,7 @@
             currentHours = date.getHours(),
             currentMinutes = date.getMinutes(),
             currentSeconds = date.getSeconds(),
-            charactersToReplace = /(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?)/g,
+            charactersToReplace = /(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|tt|TT|hh?|HH?|mm?|ss?|zz?)/g,
             nonuppercaseLetters = /[^A-Z]/g,
             timezoneRegex = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g;
         // check if the character is a format
@@ -141,11 +141,15 @@
                 return (currentYear + '').slice(-2);
             case 'YYYY' :
                 return currentYear;
-            // AM / PM
-            case 'a' :
-                return currentHours > 11 ? 'pm' : 'am';
-            case 'A' :
-                return currentHours > 11 ? 'PM' : 'AM';
+			// AM / PM
+			case 'a' :
+					return currentHours > 11 ? 'pm' : 'am';
+			case 'tt' :
+					return currentHours > 11 ? 'pm' : 'am';
+			case 'A' :
+					return currentHours > 11 ? 'PM' : 'AM';
+			case 'TT' :
+					return currentHours > 11 ? 'PM' : 'AM';
             // 24 HOUR
             case 'H' :
                 return currentHours;
@@ -177,6 +181,11 @@
             }
         }
         return inputString.replace(charactersToReplace, replaceFunction);
+    }
+
+    // format date using native date object and a mask
+    function formatMaskedDate(date, mask) {
+        return formatDate(date, moment.masks[mask]);
     }
 
     // date from string and format string
@@ -221,6 +230,11 @@
             case 'A' :
                 isPm = (input.toLowerCase() === 'pm');
                 break;
+			case 'tt' :
+				// fall through to A
+			case 'TT' :
+				isPm = (input.toLowerCase() === 'pm');
+				break;
             // 24 HOUR
             case 'H' :
                 // fall through to hh
@@ -320,6 +334,22 @@
     // version number
     moment.version = VERSION;
 
+	moment.masks = {
+		"default":      "ddd mmm dd yyyy HH:MM:ss",
+		shortDate:      "m/d/yy",
+		mediumDate:     "mmm d, yyyy",
+		longDate:       "mmmm d, yyyy",
+		fullDate:       "dddd, mmmm d, yyyy",
+		shortTime:      "h:MM TT",
+		mediumTime:     "h:MM:ss TT",
+		longTime:       "h:MM:ss TT Z",
+		isoDate:        "yyyy-mm-dd",
+		isoTime:        "HH:MM:ss",
+		isoDateTime:    "yyyy-mm-dd'T'HH:MM:ss",
+		isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'",
+		dateAtTime:     "mmm dS @ h:MMtt"
+	};
+
     // language switching and caching
     moment.lang = function (key, values) {
         var i, param, req;
@@ -404,9 +434,18 @@
             return this._d;
         },
 
+		// same as native
+		toDate : function () {
+			return this._d;
+		},
+
         format : function (inputString) {
             return formatDate(this._d, inputString);
         },
+
+		mask : function (mask) {
+			return formatMaskedDate(this._d, mask);
+		},
 
         add : function (input, val) {
             this._d = dateAddRemove(this._d, input, 1, val);
