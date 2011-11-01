@@ -363,34 +363,34 @@ block content
       pre moment().add('milliseconds', 1000000); // a million milliseconds \n
         | moment().add('days', 360); // 360 days
       h4 Special considerations for months and years
-            <p>If the day of the month on the original date is greater than the number 
-                of days in the final month, the day of the month will change to the last 
-                day in the final month.</p>
-            <p>Example:</p>
-            <p>
-<pre>
-moment([2010, 0, 31]);                  // January 31
-moment([2010, 0, 31]).add('months', 1); // February 28
-</pre>
-            </p>
-            <a name="/manipulation/subtract"></a>
-            <h2>Subtracting Time</h2>
-            <p>This is exactly the same as <code>moment.fn.add</code>, only instead of adding time, it subtracts time.</p>
-            <p>
-<pre>
-moment().subtract('days', 7);
-</pre>
-            </p>
-            <a name="/manipulation/seconds"></a>
-            <h2>Seconds</h2>
-            <p>There are a number of shortcut getter and setter functions. Much like in jQuery, calling the function without paremeters causes it to function as a getter, and calling with a parameter causes it to function as a setter.</p>
-            <p>These map to the corresponding function on the native <code>Date</code> object.</p>
-            <p>
-<pre>
-moment().seconds(30) === new Date().setSeconds(30);
-moment().seconds() === new Date().getSeconds();
-</pre>
-            </p>
+      p If the day of the month on the original date is greater than the number of days in the final month, 
+        | the day of the month will change to the last day in the final month.
+      p Example:
+      pre moment([2010, 0, 31]);                  // January 31 \n
+        | moment([2010, 0, 31]).add('months', 1); // February 28
+
+
+      a(name="/manipulation/subtract")
+      h2
+        span Subtracting Time
+      p This is exactly the same as 
+        code moment.fn.add
+        | , only instead of adding time, it subtracts time.
+      pre moment().subtract('days', 7);
+
+
+      a(name="/manipulation/seconds")
+      h3
+        span Seconds
+      p There are a number of shortcut getter and setter functions. 
+        | Much like in jQuery, calling the function without paremeters causes it to function as a getter, 
+        | and calling with a parameter causes it to function as a setter.
+      p These map to the corresponding function on the native 
+        code Date
+        | object.
+      pre moment().seconds(30) === new Date().setSeconds(30);\n
+        | moment().seconds() === new Date().getSeconds();
+
             <a name="/manipulation/minutes"></a>
             <h2>Minutes</h2>
             <p>
