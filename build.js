@@ -2,7 +2,8 @@ var fs     = require('fs'),
     uglify = require('uglify-js'),
     jshint = require('jshint'),
     gzip   = require('gzip'),
-    jade = require('jade');
+    jade = require('jade'),
+    clean = require('clean-css');
 
 
 /*********************************************
@@ -151,9 +152,9 @@ function hint(source, name) {
 (function(){
     var source = LANG_PREFIX;
     for (i = 0; i < LANG_TEST.length; i++) {
-        source += fs.readFileSync('./site/test/lang/' + LANG_TEST[i] + '.js', 'utf8');
+        source += fs.readFileSync('./lang/test/' + LANG_TEST[i] + '.js', 'utf8');
     }
-    makeFile('./site/test/lang.js', source);
+    makeFile('./sitesrc/js/lang-tests.js', source);
 })();
 
 
@@ -199,6 +200,13 @@ function hint(source, name) {
     minifyToFile(moment + fr + snippet + home, 'site/js/home');
 })();
 
+(function(){
+    var q = fs.readFileSync('./sitesrc/js/qunit.js', 'utf8');
+    var u = fs.readFileSync('./sitesrc/js/unit-tests.js', 'utf8');
+    var l = fs.readFileSync('./sitesrc/js/lang-tests.js', 'utf8');
+    minifyToFile(q + u + l, 'site/js/test');
+})();
+
 
 /*********************************************
     Jade
@@ -224,10 +232,23 @@ function jadeToHtml(jadePath, htmlPath) {
     });
 }
 
-function makeDocs(minsize, srcsize) {
+function makeDocs() {
     if (SRCSIZE === 0 || MINSIZE === 0) {
         return;
     }
     jadeToHtml('./sitesrc/home.jade', './site/index.html');
     jadeToHtml('./sitesrc/docs.jade', './site/docs/index.html');
+    jadeToHtml('./sitesrc/test.jade', './site/test/index.html');
 }
+
+
+/*********************************************
+    CSS
+*********************************************/
+
+
+(function(){
+    fs.readFile('./sitesrc/css/style.css', 'utf8', function(err, data){
+        makeFile('./site/css/style.css', clean.process(data));
+    });
+})();
