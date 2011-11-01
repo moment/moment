@@ -7,7 +7,9 @@ testrunner.run({
     tests: ["./test/date.js", "./test/lang.js"]
 });
 
+/*
 testrunner.run({
     code: "./moment.min.js",
     tests: ["./test/date.js", "./test/lang.js"]
 });
+*/

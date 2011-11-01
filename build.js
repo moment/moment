@@ -1,7 +1,8 @@
 var fs     = require('fs'),
     uglify = require('uglify-js'),
     jshint = require('jshint'),
-    gzip   = require('gzip');
+    gzip   = require('gzip'),
+    jade = require('jade');
 
 
 /*********************************************
@@ -41,6 +42,8 @@ var LANG_TEST = "en fr it pt".split(" ");
 var LANG_PREFIX = "var moment;if (typeof window === 'undefined') {moment = require('../moment.js');module = QUnit.module;}";
 var VERSION = '1.1.0';
 var MINIFY_COMMENT = '/* Moment.js | version : ' + VERSION + ' | author : Tim Wood | license : MIT */\n';
+var MINSIZE = 0;
+var SRCSIZE = 0;
 
 
 /*********************************************
@@ -72,7 +75,7 @@ function makeFile(filename, contents) {
  * @param {String} source The source JS
  * @param {String} dest The file destination
  */
-function minifyToFile(source, dest, prefix) {
+function minifyToFile(source, dest, prefix, callback) {
     var ast, 
         ugly;
     ast  = uglify.parser.parse(source);
@@ -81,6 +84,10 @@ function minifyToFile(source, dest, prefix) {
     ugly = uglify.uglify.gen_code(ast);
 
     makeFile('./' + dest + '.min.js', (prefix || '') + ugly);
+
+    if (callback) {
+        callback((prefix || '') + ugly);
+    }
 }
 
 
@@ -144,9 +151,9 @@ function hint(source, name) {
 (function(){
     var source = LANG_PREFIX;
     for (i = 0; i < LANG_TEST.length; i++) {
-        source += fs.readFileSync('./test/lang/' + LANG_TEST[i] + '.js', 'utf8');
+        source += fs.readFileSync('./site/test/lang/' + LANG_TEST[i] + '.js', 'utf8');
     }
-    makeFile('./test/lang.js', source);
+    makeFile('./site/test/lang.js', source);
 })();
 
 
@@ -158,21 +165,68 @@ function hint(source, name) {
 (function(){
     var source = fs.readFileSync('./moment.js', 'utf8');
     if (hint(source, 'moment')) {
-        minifyToFile(source, 'moment', MINIFY_COMMENT);
+        minifyToFile(source, 'moment', MINIFY_COMMENT, function(src){
+            gzip(src, function(err, data) {
+                MINSIZE = data.length;
+                makeDocs();
+            });
+        });
     }
     gzip(source, function(err, data) {
+        SRCSIZE = source.length;
+        makeDocs();
         console.log('size : ./moment.js ' + source.length + ' b (' + data.length + ' b)');
     });
 })();
 
 
 /*********************************************
-    Docs
+    JS
 *********************************************/
 
 
 (function(){
-    var snippet = fs.readFileSync('./docs/snippet.js', 'utf8');
-    var docs = fs.readFileSync('./docs/docs.js', 'utf8');
-    minifyToFile(snippet + docs, 'docs/docs');
+    var snippet = fs.readFileSync('./sitesrc/js/snippet.js', 'utf8');
+    var docs = fs.readFileSync('./sitesrc/js/docs.js', 'utf8');
+    minifyToFile(snippet + docs, 'site/js/docs');
 })();
+
+(function(){
+    var moment = fs.readFileSync('./moment.js', 'utf8');
+    var fr = fs.readFileSync('./lang/fr.js', 'utf8');
+    var snippet = fs.readFileSync('./sitesrc/js/snippet.js', 'utf8');
+    var home = fs.readFileSync('./sitesrc/js/home.js', 'utf8');
+    minifyToFile(moment + fr + snippet + home, 'site/js/home');
+})();
+
+
+/*********************************************
+    Jade
+*********************************************/
+
+
+function toKb(input){
+    var num = Math.round(input / 100) / 10;
+    return num + 'kb';
+}
+
+function jadeToHtml(jadePath, htmlPath) {
+    var args = {
+        version : VERSION,
+        minsize : toKb(MINSIZE),
+        srcsize : toKb(SRCSIZE)
+    };
+    var snippet = fs.readFile(jadePath, 'utf8', function(err, data){
+        var compile = jade.compile(data, {
+            filename : 'sitesrc/html.jade'
+        });
+        makeFile(htmlPath, compile(args));
+    });
+}
+
+function makeDocs(minsize, srcsize) {
+    if (SRCSIZE === 0 || MINSIZE === 0) {
+        return;
+    }
+    jadeToHtml('./sitesrc/index.jade', './site/index.html');
+}

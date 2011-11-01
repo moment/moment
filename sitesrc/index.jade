@@ -1,0 +1,44 @@
+extends html
+
+block styles
+  link(rel="stylesheet", href="css/style.css")
+
+block scripts
+  script(src="js/home.min.js")
+
+block content
+  #home
+    h2 Moment.js
+    h3 A lightweight javascript date library for parsing, manipulating, and formatting dates.
+    .col1
+      h4 
+        span Get it
+      pre npm install moment
+      a.btn.cupid-green(href="https://raw.github.com/timrwood/moment/master/moment.min.js") 
+        strong Production 
+        span.version= 'Version ' + version
+        span.filesize= minsize + ' minified &amp; gzipped'
+      a.btn.minimal(href="https://raw.github.com/timrwood/moment/master/moment.js") 
+        strong Development 
+        span.version= 'Version ' + version
+        span.filesize= srcsize + ' full source + comments'
+    .col2
+      h4 
+        span Use it
+      pre.js var now = moment();\n
+        | console.log(now.format('dddd, MMMM Do YYYY, h:mm:ss a'));
+      h5
+        span#js-format-now 
+      pre.js var aWhileAgo = moment([2011, 10, 31]);\n
+        | console.log(aWhileAgo.fromNow());
+      h5
+        span#js-from-now
+      pre.js var now = moment().add('days', 9);\n
+        | console.log(now.format('dddd, MMMM Do YYYY'));
+      h5
+        span#js-add
+      pre.js var now = moment();\n
+        | moment.lang('fr')
+        | console.log(now.format('dddd, MMMM Do YYYY, h:mm:ss a'));
+      h5
+        span#js-lang
