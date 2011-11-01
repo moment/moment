@@ -140,33 +140,42 @@ b, strong { font-weight:bold; }
 
 
 /****************
+    Docs Nav
+****************/
+
+
+#docnav { width:220px; padding:10px 10px 100px; position:fixed; top:60px; bottom:0; left:0; overflow-x:hidden; overflow-y:scroll; text-align:left; }
+#docnav h2 { height:18px; border-bottom:6px solid #ddd; margin:0 0 20px; text-align:center; }
+#docnav h2 span { background:#eee; padding:0 10px; line-height:18px; font-size:18px; }
+#docnav h2 a { text-decoration:none; color:#333; }
+#docnav li a { color:#445; display:block; padding:2px 10px; border-radius:4px; cursor:pointer; }
+#docnav li a:hover { background:rgba(0, 0, 0, .1); }
+#docnav li { list-style:none; font-size:12px; }
+
+
+/****************
+    Scrollbar
+****************/
+
+
+#docs::-webkit-scrollbar,
+#docnav::-webkit-scrollbar { height:8px; width:8px; }
+#docs::-webkit-scrollbar-track-piece,
+#docnav::-webkit-scrollbar-track-piece { margin:10px; border-radius:4px; }
+#docs::-webkit-scrollbar-thumb:vertical,
+#docnav::-webkit-scrollbar-thumb:vertical{ height:25px; background-color:#bbb; -webkit-border-radius:4px; }
+#docs:hover::-webkit-scrollbar-thumb:vertical,
+#docnav:hover::-webkit-scrollbar-thumb:vertical{ background-color:#666; }
+
+
+/****************
     Docs
 ****************/
 
 
-#docnav { width:220px; padding:10px 10px 100px; position:fixed; top:0; bottom:0; left:0; overflow-x:hidden; overflow-y:scroll; text-align:left; background:rgba(0, 0, 0, .2); border-right:1px solid #fff; }
-#docs { padding:0 100px 0 300px; text-align:left; }
-
-.ca { text-align:center; }
-.br { margin:50px; border:1px dashed #fff; border-width:1px 0; border-top-color:#313749; height:0; line-height:0; }
-#container { background:url(bg-body.png); margin:0 auto; width:920px; padding:20px 60px 100px; text-align:left; }
-.footer { text-align:center; padding:50px 0 200px; }
-
-.col-1 { width:420px; padding:0 20px; float:left; }
-
-.clearfix { display:block; clear:both; visibility:hidden; line-height:0; height:0; }
-
-#docnav::-webkit-scrollbar{ height:8px; width:8px; }
-#docnav::-webkit-scrollbar-track-piece { margin:10px; border-radius:4px; }
-#docnav::-webkit-scrollbar-thumb:vertical{ height:25px; background-color:#666; -webkit-border-radius:4px; }
-#docnav h1 { font-size:24px; padding-top:10px; text-shadow:none; }
-#docnav h2 { font-size:18px; padding-top:10px; text-shadow:none; }
-#docnav h1 a,
-#docnav h2 a { text-decoration:none; }
-#docnav a { color:#445; display:block; padding:2px 10px; border-radius:4px; cursor:pointer; }
-#docnav a:hover { background:rgba(0, 0, 0, .1); }
-#docnav li { list-style:none; font-size:12px; }
-
+#docs { padding:0 100px 0 40px; position:fixed; top:60px; bottom:0; right:10px; left:242px; overflow-x:hidden; overflow-y:scroll; text-align:left; background:url(../img/gradient.gif) 0 0 repeat-y; }
+#docs h3 { height:14px; border-bottom:6px solid #ddd; margin:0 0 20px; padding:0 20px; }
+#docs h3 span { background:#eee; padding:0 10px; line-height:24px; font-size:24px; }
 
 /**********************
     Typical Styles

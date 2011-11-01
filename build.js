@@ -228,5 +228,6 @@ function makeDocs(minsize, srcsize) {
     if (SRCSIZE === 0 || MINSIZE === 0) {
         return;
     }
-    jadeToHtml('./sitesrc/index.jade', './site/index.html');
+    jadeToHtml('./sitesrc/home.jade', './site/index.html');
+    jadeToHtml('./sitesrc/docs.jade', './site/docs/index.html');
 }
