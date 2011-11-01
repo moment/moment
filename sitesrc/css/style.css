@@ -111,7 +111,7 @@ b, strong { font-weight:bold; }
 #nav { height:60px; width:960px; margin:0 auto; text-align:left; }
 #navwrap ul { padding:10px 0; height:40px; }
 #navwrap li { line-height:40px; height:40px; margin-right:10px; float:left; list-style:none; }
-#navwrap li a { display:block; color:#fff; font-size:18px; font-family:Oswald, sans-serif; padding:0 10px; background:#333; border-radius:3px; text-decoration:none; }
+#navwrap li a { display:block; font-size:18px; font-family:Oswald, sans-serif; text-decoration:none; }
 
 
 /****************
@@ -343,6 +343,49 @@ b, strong { font-weight:bold; }
     -ms-box-shadow: inset 0 0 8px 4px #548c29, 0 1px 0 0 #eeeeee;
     -o-box-shadow: inset 0 0 8px 4px #548c29, 0 1px 0 0 #eeeeee;
     box-shadow: inset 0 0 8px 4px #548c29, 0 1px 0 0 #eeeeee; 
+}
+.btn.clean-gray {
+    background-color: #eeeeee;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#eeeeee), to(#cccccc));
+    background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
+    background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+    background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
+    background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
+    background-image: linear-gradient(top, #eeeeee, #cccccc);
+    border: 1px solid #ccc;
+    border-bottom: 1px solid #bbb;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    color: #333;
+    line-height: 1;
+    padding: 8px 10px;
+    text-align: center;
+    text-shadow: 0 1px 0 #eee;
+}
+.btn.clean-gray:hover {
+    background-color: #dddddd;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#dddddd), to(#bbbbbb));
+    background-image: -webkit-linear-gradient(top, #dddddd, #bbbbbb);
+    background-image: -moz-linear-gradient(top, #dddddd, #bbbbbb);
+    background-image: -ms-linear-gradient(top, #dddddd, #bbbbbb);
+    background-image: -o-linear-gradient(top, #dddddd, #bbbbbb);
+    background-image: linear-gradient(top, #dddddd, #bbbbbb);
+    border: 1px solid #bbb;
+    border-bottom: 1px solid #999;
+    cursor: pointer;
+    text-shadow: 0 1px 0 #ddd;
+}
+.btn.clean-gray:active {
+    border: 1px solid #aaa;
+    border-bottom: 1px solid #888;
+    -webkit-box-shadow: inset 0 0 5px 2px #aaaaaa;
+    -moz-box-shadow: inset 0 0 5px 2px #aaaaaa;
+    -ms-box-shadow: inset 0 0 5px 2px #aaaaaa;
+    -o-box-shadow: inset 0 0 5px 2px #aaaaaa;
+    box-shadow: inset 0 0 5px 2px #aaaaaa;
 }
 
 
