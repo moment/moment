@@ -87,6 +87,8 @@ block content
         li
           a(href="#/display/date") Date
         li
+          a(href="#/display/day") Day
+        li
           a(href="#/display/month") Month
         li
           a(href="#/display/year") Year
@@ -402,7 +404,7 @@ block content
 
       a(name="/manipulation/date")
       h3
-        span Day
+        span Date
       pre moment().date(5); // set the date to 5
 
 
@@ -764,7 +766,13 @@ block content
       a(name="/display/date")
       h3
         span Date
-      pre moment().date(); // get the date 
+      pre moment().date(); // get the date (0 - 31)
+
+
+      a(name="/display/day")
+      h3
+        span Day
+      pre moment().day(); // get the day (0 - 6)
 
 
       a(name="/display/month")
