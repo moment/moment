@@ -69,9 +69,9 @@ p { margin-bottom:20px; }
 
 pre, code { font-size:14px; line-height:1.5em; font-family:Consolas, "Courier New", Courier, monospace; }
 
-pre { background:rgba(0, 0, 0, .05); display:block; padding:10px 20px; margin-bottom:20px; white-space:pre; white-space:pre-wrap; word-wrap:break-word; }
+pre { background:#ddd; display:block; border:1px solid #ccc; padding:5px 10px; margin-bottom:20px; white-space:pre; white-space:pre-wrap; word-wrap:break-word; border-radius:2px; }
 
-p code { background:rgba(0, 0, 0, .05); padding:0 5px; }
+p code { background:#ddd; padding:3px; border-radius:2px; }
 
 table { margin-bottom:20px; width:100%; } 
 
@@ -81,12 +81,14 @@ td + td { background:rgba(255, 255, 255, .2); }
 
 b, strong { font-weight:bold; }
 
-/*
- * special
- */
 
-.logo { text-align:center; border-bottom:#313749 10px solid; margin:0 -41px; }
-.fork-me { position:absolute; top:0; right:0; text-indent:-9999px; width:149px; height:149px; display:block; background:url(fork.png); }
+/****************
+    Special
+****************/
+
+
+.footer { height:100px; }
+
 
 /****************
     Nav
@@ -109,7 +111,7 @@ b, strong { font-weight:bold; }
 #nav { height:60px; width:960px; margin:0 auto; text-align:left; }
 #navwrap ul { padding:10px 0; height:40px; }
 #navwrap li { line-height:40px; height:40px; margin-right:10px; float:left; list-style:none; }
-#navwrap li a { display:block; color:#fff; font-size:20px; font-family:Oswald, sans-serif; padding:0 10px; background:#333; border-radius:3px; text-decoration:none; }
+#navwrap li a { display:block; color:#fff; font-size:18px; font-family:Oswald, sans-serif; padding:0 10px; background:#333; border-radius:3px; text-decoration:none; }
 
 
 /****************
@@ -174,7 +176,9 @@ b, strong { font-weight:bold; }
 
 
 #docs { padding:0 100px 0 40px; position:fixed; top:60px; bottom:0; right:10px; left:242px; overflow-x:hidden; overflow-y:scroll; text-align:left; background:url(../img/gradient.gif) 0 0 repeat-y; }
-#docs h3 { height:14px; border-bottom:6px solid #ddd; margin:0 0 20px; padding:0 20px; }
+#docs h2 { height:20px; border-bottom:6px solid #bbb; margin:0 0 40px; padding:20px 20px 0; }
+#docs h2 span { background:#eee; padding:0 10px; line-height:36px; font-size:36px; }
+#docs h3 { height:14px; border-bottom:6px solid #e6e6e6; margin:0 0 40px; padding:20px 20px 0; }
 #docs h3 span { background:#eee; padding:0 10px; line-height:24px; font-size:24px; }
 
 /**********************

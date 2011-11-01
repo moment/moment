@@ -4,7 +4,7 @@ block styles
   link(rel="stylesheet", href="../css/style.css")
 
 block scripts
-  script(src="js/home.min.js")
+  script(src="../js/docs.min.js")
 
 block content
     #docnav
@@ -17,8 +17,8 @@ block content
         li
           a(href="#/get-it/npm") npm
       h2
-        a(href="#/get-it")
-          span Get it
+        a(href="#/use-it")
+          span Use it
       ul
         li
           a(href="#/use-it/node") In NodeJS
@@ -123,11 +123,8 @@ block content
         li
           a(href="#/custom/ordinal") Ordinal
     #docs
-      h1 Moment.js
+      h1 Moment.js Documentation
       p A lightweight javascript date library for parsing, manipulating, and formatting dates.
-      p It doesn't modify the native 
-        code Date.prototype
-        | so it's safe to drop into any project.
 
 
       a(name="/get-it")
@@ -172,7 +169,7 @@ block content
       a(name="/use-it/browser")
       h3
         span In the browser
-      pre <script src="moment.min.js"></script>\n
+      pre &lt;script src="moment.min.js">&lt;/script>\n
         | moment().add('hours', 1).fromNow(); // "1 hour ago"
 
 
@@ -197,9 +194,8 @@ block content
         span Javascript Date Object
       p A native Javascript Date object.
       pre var day = new Date(2011, 9, 16);\n
-        | var dayWrapper = moment(day); \n
-        | \n
-        | var otherDay = moment(new Date(2020, 3, 7));
+        | var dayWrapper = moment(day); 
+      pre var otherDay = moment(new Date(2020, 3, 7));
       p This is the fastest way to get a Moment.js wrapper.
 
 
@@ -301,11 +297,11 @@ block content
         span Javascript Array
       p An array mirroring the parameters passed into 
         a(href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/UTC") Date.UTC()
-      pre // [year, month = 0, date = 1, hours = 0, minutes = 0, seconds = 0, milliseconds = 0] \n
+      pre [year, month = 0, date = 1, hours = 0, minutes = 0, seconds = 0, milliseconds = 0] 
         | var day = moment([2010, 1, 14, 15, 25, 50, 125]); // February 14th, 3:25:50.125 PM
       p Any value past the year is optional, and will default to the lowest possible number.
       pre var day = moment([2010]); // January 1st \n
-        | var day = moment([2010, 6]); // July 1st \n
+        | var day = moment([2010, 6]); // July 1st 
         | var day = moment([2010, 6, 10]); // July 10th
 
 
@@ -371,7 +367,7 @@ block content
 
 
       a(name="/manipulation/subtract")
-      h2
+      h3
         span Subtracting Time
       p This is exactly the same as 
         code moment.fn.add
@@ -435,7 +431,7 @@ block content
         code moment.fn.format
         | . It takes a string of tokens and replaces them with their corresponding values from the Date object.
       pre var date = new Date(2010, 1, 14, 15, 25, 50, 125);\n
-        | moment(date).format("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"\n
+        | moment(date).format("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
         | moment(date).format("ddd, hA");                       // "Sun, 3PM"
       table
         tbody
@@ -600,30 +596,30 @@ block content
         code moment.fn.from
         | .
       pre var a = moment([2007, 0, 29]);\n
-        | var b = moment([2007, 0, 28]);\n 
+        | var b = moment([2007, 0, 28]);
         | a.from(b) // "a day ago"
       p The first parameter is anything you can pass to 
         code moment()
         | or a Moment.js object.
       pre var a = moment([2007, 0, 29]);\n
-        | var b = moment([2007, 0, 28]);\n
-        | a.from(b);                     // "a day ago"\n
-        | a.from([2007, 0, 28]);         // "a day ago"\n
-        | a.from(new Date(2007, 0, 28)); // "a day ago"\n
-        | a.from("1-28-2007");           // "a day ago"\n
+        | var b = moment([2007, 0, 28]);
+        | a.from(b);                     // "a day ago"
+        | a.from([2007, 0, 28]);         // "a day ago"
+        | a.from(new Date(2007, 0, 28)); // "a day ago"
+        | a.from("1-28-2007");           // "a day ago"
       p NOTE: Because it only accepts one parameter to pass in the date info, 
         | if you need to use String + Format or String + Formats, you should create a Moment.js 
         | object first and then call 
         code moment.fn.from
       pre var a = moment();\n
-        | var b = moment("10-10-1900", "MM-DD-YYYY");\n
+        | var b = moment("10-10-1900", "MM-DD-YYYY");
         | a.from(b);
       p If you pass 
         code true
         | as the second parameter, you can get the value without the suffix. This is useful wherever you need to have a human readable length of time.
       pre var start = moment([2007, 0, 5]);\n
-        | var end = moment([2007, 0, 10]);\n
-        | start.from(end);       // "in 5 days"\n
+        | var end = moment([2007, 0, 10]);
+        | start.from(end);       // "in 5 days"
         | start.from(end, true); // "5 days"
       p The base strings are customized by 
         code moment.lang
@@ -704,11 +700,11 @@ block content
         span Difference
             <p>To get the difference in milliseconds, use <code>moment.fn.diff</code> like you would use <code>moment.fn.from</code>.</p>
       pre var a = moment([2007, 0, 29]);\n
-        | var b = moment([2007, 0, 28]);\n
+        | var b = moment([2007, 0, 28]);
         | a.diff(b) // 86400000
       p To get the difference in another unit of measurement, pass that measurement as the second argument.
       pre var a = moment([2007, 0, 29]);\n
-        | var b = moment([2007, 0, 28]);\n
+        | var b = moment([2007, 0, 28]);
         | a.diff(b, 'days') // 1
       p The supported measurements are 
         code "years", "months", "weeks", "days", "hours", "minutes", and "seconds"
@@ -718,8 +714,8 @@ block content
         code true
         | as the third argument.
       pre var a = moment([2007, 0]);\n
-        | var b = moment([2008, 5]);\n
-        | a.diff(b, 'years')       // 1\n
+        | var b = moment([2008, 5]);
+        | a.diff(b, 'years')       // 1
         | a.diff(b, 'years', true) // 1.5
 
 
@@ -811,34 +807,34 @@ block content
         a(href="#/custom") customization
         |  section.
       pre moment.lang('fr', {\n
-        |     months : "Janvier_Février_Mars_Avril_Mai_Juin_Juillet_Aout_Septembre_Octobre_Novembre_Décembre".split("_"),\n
-        |     monthsShort : "Jan_Fev_Mar_Avr_Mai_Juin_Juil_Aou_Sep_Oct_Nov_Dec".split("_"),\n
-        |     weekdays : "Dimanche_Lundi_Mardi_Mercredi_Jeudi_Vendredi_Samedi".split("_"),\n
-        |     weekdaysShort : "Dim_Lun_Mar_Mer_Jeu_Ven_Sam".split("_"),\n
-        |     longDateFormat : { \n
-        |         L : "DD/MM/YYYY",\n
-        |         LL : "D MMMM YYYY",\n
-        |         LLL : "D MMMM YYYY HH:mm",\n
-        |         LLLL : "dddd, D MMMM YYYY HH:mm"\n
-        |     },\n
-        |     relativeTime : {\n
-        |         future : "in %s",\n
-        |         past : "il y a %s",\n
-        |         s : "secondes",\n
-        |         m : "une minute",\n
-        |         mm : "%d minutes",\n
-        |         h : "une heure",\n
-        |         hh : "%d heures",\n
-        |         d : "un jour",\n
-        |         dd : "%d jours",\n
-        |         M : "un mois",\n
-        |         MM : "%d mois",\n
-        |         y : "une année",\n
-        |         yy : "%d années"\n
-        |     },\n
-        |     ordinal : function (number) {\n
-        |         return (~~ (number % 100 / 10) === 1) ? 'er' : 'ème';\n
-        |     }\n
+        |     months : "Janvier_Février_Mars_Avril_Mai_Juin_Juillet_Aout_Septembre_Octobre_Novembre_Décembre".split("_"),
+        |     monthsShort : "Jan_Fev_Mar_Avr_Mai_Juin_Juil_Aou_Sep_Oct_Nov_Dec".split("_"),
+        |     weekdays : "Dimanche_Lundi_Mardi_Mercredi_Jeudi_Vendredi_Samedi".split("_"),
+        |     weekdaysShort : "Dim_Lun_Mar_Mer_Jeu_Ven_Sam".split("_"),
+        |     longDateFormat : { 
+        |         L : "DD/MM/YYYY",
+        |         LL : "D MMMM YYYY",
+        |         LLL : "D MMMM YYYY HH:mm",
+        |         LLLL : "dddd, D MMMM YYYY HH:mm"
+        |     },
+        |     relativeTime : {
+        |         future : "in %s",
+        |         past : "il y a %s",
+        |         s : "secondes",
+        |         m : "une minute",
+        |         mm : "%d minutes",
+        |         h : "une heure",
+        |         hh : "%d heures",
+        |         d : "un jour",
+        |         dd : "%d jours",
+        |         M : "un mois",
+        |         MM : "%d mois",
+        |         y : "une année",
+        |         yy : "%d années"
+        |     },
+        |     ordinal : function (number) {
+        |         return (~~ (number % 100 / 10) === 1) ? 'er' : 'ème';
+        |     }
         | });
       p Once you load a language, it becomes the active language. To change active languages, simply call 
         code moment.lang
@@ -847,119 +843,159 @@ block content
         | moment(1316116057189).fromNow() // il y a une heure
         | moment.lang('en');
         | moment(1316116057189).fromNow() // an hour ago
-</pre>
-            </p>
+
+
       a(name="/i18n/node")
       h3
         span Loading languages in NodeJS
-            <p>Loading languages in NodeJS is super easy. If there is a language file in <code>moment/lang/</code> named after that key, the first call to <code>moment.lang</code> will load it.</p>
-      pre var moment = require('moment');
-moment.lang('fr');
-moment(1316116057189).fromNow(); // il y a une heure
-</pre>
-            </p>
-            <p>Right now, there is only support for English, French, Italian, and Portuguese. If you want your language supported, create a pull request or send me an email with the <a href="#/i18n/add">required files</a>.</p>
+      p Loading languages in NodeJS is super easy. If there is a language file in 
+        code moment/lang/
+        | named after that key, the first call to 
+        code moment.lang
+        | will load it.
+      pre var moment = require('moment');\n
+        | moment.lang('fr');\n
+        | moment(1316116057189).fromNow(); // il y a une heure
+      p Right now, there is only support for English, French, Italian, and Portuguese. 
+        | If you want your language supported, create a pull request or send me an email with the 
+        a(href="#/i18n/add") required files
+        | .
+
+
       a(name="/i18n/browser")
       h3
         span Loading languages in the browser
-            <p>Loading languages in the browser just requires you to include the language files.</p>
-      pre &lt;script src="moment.min.js"&gt;&lt;/script&gt;
-&lt;script src="lang/fr.js"&gt;&lt;/script&gt;
-&lt;script src="lang/pt.js"&gt;&lt;/script&gt;
-</pre>
-            </p>
-            <p>There are minified versions of each of these languages. There is also a minified version of all of the languages bundled together.</p>
-      pre &lt;script src="moment.min.js"&gt;&lt;/script&gt;
-&lt;script src="lang/all.min.js"&gt;&lt;/script&gt;
-</pre>
-            </p>
-            <p>Ideally, you would bundle all the files you need into one file to minimize http requests.</p>
-      pre &lt;script src="moment-fr-it.min.js"&gt;&lt;/script&gt;
-</pre>
-            </p>
+      p Loading languages in the browser just requires you to include the language files.
+      pre &lt;script src="moment.min.js">&lt;/script>\n
+        | &lt;script src="lang/fr.js">&lt;/script>
+        | &lt;script src="lang/pt.js">&lt;/script>
+      p There are minified versions of each of these languages. There is also a minified version of all of the languages bundled together.
+      pre &lt;script src="moment.min.js">&lt;/script>
+        | &lt;script src="lang/all.min.js">&lt;/script>
+      p Ideally, you would bundle all the files you need into one file to minimize http requests.
+      pre &lt;script src="moment-fr-it.min.js">&lt;/script>
+
+
       a(name="/i18n/add")
       h3
         span Adding your language to Moment.js
-            <p>To add your language to Moment.js, submit a pull request with both a language file and a test file. You can find examples in <code>moment/lang/fr.js</code> and <code>moment/test/lang/fr.js</code></p>
-            <p>To run the tests, do <code>node build</code>.</p>
-            <p>If there are no errors building, then do <code>node test</code> or open <code>moment/test/index.html</code>.</p>
-            <p>If all the tests pass, submit that pull request, and thank you for contributing!</p>
+      p To add your language to Moment.js, submit a pull request with both a language file and a test file. You can find examples in 
+        code moment/lang/fr.js
+        | and 
+        code moment/test/lang/fr.js
+      p To run the tests, do 
+        code node build
+        | .
+      p If there are no errors building, then do 
+        code node test
+        | or open 
+        code moment/test/index.html
+        | .
+      p If all the tests pass, submit that pull request, and thank you for contributing!
+
+
       a(name="/custom")
-            <h1>Customization
-            <p>If you don't need i18n support, you can manually override the customization values. However, any calls to <code>moment.lang</code> will override them. It is probably safer to create a language for your specific customizations than to override these values manually.</p>
+      h2
+        span Customization
+      p If you don't need i18n support, you can manually override the customization values. 
+        | However, any calls to 
+        code moment.lang
+        | will override them. It is probably safer to create a language for your specific customizations than to override these values manually.
+
+
       a(name="/custom/months")
       h3
         span Month Names
-            <p><code>moment.months</code> should be an array of the month names.</p>
+      p 
+        code moment.months
+        | should be an array of the month names.
       pre moment.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-</pre>
-            </p>
+
+
       a(name="/custom/monthsShort")
       h3
         span Month Abbreviations
-            <p><code>moment.monthsShort</code> should be an array of the month abbreviations.</p>
+      p
+        code moment.monthsShort
+        | should be an array of the month abbreviations.
       pre moment.monthsShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-</pre>
-            </p>
+
+
       a(name="/custom/weekdays")
       h3
         span Weekday Names
-            <p><code>moment.weekdays</code> should be an array of the weekdays names.</p>
+      p
+        code moment.weekdays
+        | should be an array of the weekdays names.
       pre moment.weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-</pre>
-            </p>
+
+
       a(name="/custom/weekdaysShort")
       h3
         span Weekday Abbreviations
-            <p><code>moment.weekdaysShort</code> should be an array of the weekdays abbreviations.</p>
+      p
+        code moment.weekdaysShort
+        | should be an array of the weekdays abbreviations.
       pre moment.weekdaysShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-</pre>
+
+
       a(name="/custom/longDateFormats")
       h3
         span Long Date Formats
-            <p><code>moment.longDateFormat</code> should be an object containing a key/value pair for each long date format (L, LL, LLL, LLLL).</p>
-      pre moment.longDateFormat = { 
-    L: "MM/DD/YYYY",
-    LL: "MMMM D YYYY",
-    LLL: "MMMM D YYYY h:mm A",
-    LLLL: "dddd, MMMM D YYYY h:mm A"
-};
-</pre>
-            </p>
+      p
+        code moment.longDateFormat
+        | should be an object containing a key/value pair for each long date format (L, LL, LLL, LLLL).
+      pre moment.longDateFormat = { \n
+        |     L: "MM/DD/YYYY",
+        |     LL: "MMMM D YYYY",
+        |     LLL: "MMMM D YYYY h:mm A",
+        |     LLLL: "dddd, MMMM D YYYY h:mm A"
+        | };
+
+
       a(name="/custom/relativeTime")
       h3
         span Relative Time
-            <p><code>moment.relativeTime</code> should be an object of the replacement strings for <code>moment.fn.from</code>.</p>
-      pre moment.relativeTime = {
-    future: "in %s",
-    past: "%s ago",
-    s: "seconds",
-    m: "a minute",
-    mm: "%d minutes",
-    h: "an hour",
-    hh: "%d hours",
-    d: "a day",
-    dd: "%d days",
-    M: "a month",
-    MM: "%d months",
-    y: "a year",
-    yy: "%d years"
-};
-</pre>
-            </p>
-            <p><code>future</code> refers to the prefix/suffix for future dates, and <code>past</code> refers to the prefix/suffix for past dates. For all others, a single character refers to the singular, and an double character refers to the plural.</p>
+      p
+        code moment.relativeTime
+        | should be an object of the replacement strings for 
+        code moment.fn.from
+        | .
+      pre moment.relativeTime = {\n
+        |     future: "in %s",
+        |     past: "%s ago",
+        |     s: "seconds",
+        |     m: "a minute",
+        |     mm: "%d minutes",
+        |     h: "an hour",
+        |     hh: "%d hours",
+        |     d: "a day",
+        |     dd: "%d days",
+        |     M: "a month",
+        |     MM: "%d months",
+        |     y: "a year",
+        |     yy: "%d years"
+        | };
+      p
+        code future
+        | refers to the prefix/suffix for future dates, and 
+        code past
+        | refers to the prefix/suffix for past dates. For all others, a single character refers to the singular, and an double character refers to the plural.
+
+
       a(name="/custom/ordinal")
       h3
         span Ordinal
-            <p><code>moment.ordinal</code> should be a function that returns the ordinal for a given number.</p>
-      pre moment.ordinal = function (number) {
-    var b = number % 10;
-    return (~~ (number % 100 / 10) === 1) ? 'th' : 
-        (b === 1) ? 'st' : 
-        (b === 2) ? 'nd' : 
-        (b === 3) ? 'rd' : 'th';
-};
-</pre>
-            </p>
-            <p>For more information on ordinal numbers, see <a href="http://en.wikipedia.org/wiki/Ordinal_number_%28linguistics%29">wikipedia</a></p>
-        </div>*/
+      p
+        code moment.ordinal
+        | should be a function that returns the ordinal for a given number.
+      pre moment.ordinal = function (number) {\n
+        |     var b = number % 10;
+        |     return (~~ (number % 100 / 10) === 1) ? 'th' : 
+        |         (b === 1) ? 'st' : 
+        |         (b === 2) ? 'nd' : 
+        |         (b === 3) ? 'rd' : 'th';
+        | };
+      p For more information on ordinal numbers, see 
+        a(href="http://en.wikipedia.org/wiki/Ordinal_number_%28linguistics%29") wikipedia
+      .footer
