@@ -40,7 +40,7 @@ var JSHINT_CONFIG = {
 };
 var LANG_MINIFY = "fr it pt".split(" ");
 var LANG_TEST = "en fr it pt".split(" ");
-var LANG_PREFIX = "var moment;if (typeof window === 'undefined') {moment = require('../moment.js');module = QUnit.module;}";
+var LANG_PREFIX = "var moment;if (typeof window === 'undefined') {moment = require('../../moment.js');module = QUnit.module;}";
 var VERSION = '1.1.0';
 var MINIFY_COMMENT = '/* Moment.js | version : ' + VERSION + ' | author : Tim Wood | license : MIT */\n';
 var MINSIZE = 0;
@@ -57,12 +57,15 @@ var SRCSIZE = 0;
  * @param {String} source The source JS
  * @param {String} dest The file destination
  */
-function makeFile(filename, contents) {
+function makeFile(filename, contents, callback) {
     fs.writeFile(filename, contents, 'utf8', function(err) {
         console.log('saved : ' + filename);
         gzip(contents, function(err, data) {
             console.log('size : ' + filename + ' ' + contents.length + ' b (' + data.length + ' b)');
         });
+        if (callback) {
+            callback();
+        }
     });
 }
 
@@ -154,7 +157,9 @@ function hint(source, name) {
     for (i = 0; i < LANG_TEST.length; i++) {
         source += fs.readFileSync('./lang/test/' + LANG_TEST[i] + '.js', 'utf8');
     }
-    makeFile('./sitesrc/js/lang-tests.js', source);
+    makeFile('./sitesrc/js/lang-tests.js', source, function(){
+        makeUnitTests();
+    });
 })();
 
 
@@ -200,12 +205,12 @@ function hint(source, name) {
     minifyToFile(moment + fr + snippet + home, 'site/js/home');
 })();
 
-(function(){
+function makeUnitTests(){
     var q = fs.readFileSync('./sitesrc/js/qunit.js', 'utf8');
     var u = fs.readFileSync('./sitesrc/js/unit-tests.js', 'utf8');
     var l = fs.readFileSync('./sitesrc/js/lang-tests.js', 'utf8');
     minifyToFile(q + u + l, 'site/js/test');
-})();
+}
 
 
 /*********************************************

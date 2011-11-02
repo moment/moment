@@ -21,3 +21,11 @@ html
       block content
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js")
     block scripts
+    script
+      window._gaq = [['_setAccount','UA-10641787-5'],['_trackPageview'],['_trackPageLoadTime']];
+      (function(d, c) {
+        var ga = d.createElement(c); ga.async = true;
+        ga.src = "http://www.google-analytics.com/ga.js";
+        var s = d.getElementsByTagName(c)[0]; 
+        s.parentNode.insertBefore(ga, s);
+      })(document, 'script');
