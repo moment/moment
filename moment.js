@@ -457,7 +457,7 @@
             var difference = this.diff(time),
                 rel = moment.relativeTime,
                 output = relativeTime(difference);
-            return withoutSuffix ? output : (difference < 0 ? rel.past : rel.future).replace(/%s/i, output);
+            return withoutSuffix ? output : (difference <= 0 ? rel.past : rel.future).replace(/%s/i, output);
         },
 
         fromNow : function (withoutSuffix) {
