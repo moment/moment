@@ -1,7 +1,7 @@
 (function () {
     var lang = {
             months : "Janvier_Février_Mars_Avril_Mai_Juin_Juillet_Aout_Septembre_Octobre_Novembre_Décembre".split("_"),
-            monthsShort : "Jan_Fev_Mar_Avr_Mai_Juin_Juil_Aou_Sep_Oct_Nov_Dec".split("_"),
+            monthsShort : "Jan_Fév_Mar_Avr_Mai_Juin_Juil_Aou_Sep_Oct_Nov_Dec".split("_"),
             weekdays : "Dimanche_Lundi_Mardi_Mercredi_Jeudi_Vendredi_Samedi".split("_"),
             weekdaysShort : "Dim_Lun_Mar_Mer_Jeu_Ven_Sam".split("_"),
             // based on this article on writing dates in french:
