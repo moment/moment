@@ -4,7 +4,7 @@
 
 var moment;
 if (typeof window === 'undefined') {
-    moment = require('../moment');
+    moment = require('../../moment');
     module = QUnit.module;
 }
 

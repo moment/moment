@@ -1,0 +1,31 @@
+!!! 5
+html
+  head
+    meta(charset="utf-8")
+    link(href="http://fonts.googleapis.com/css?family=Oswald", rel="stylesheet")
+    block styles
+  body
+    #navwrap
+      #nav
+        h1 Moment.js
+        ul
+          li
+            a.btn.clean-gray(href="/") Home
+          li
+            a.btn.clean-gray(href="/docs/") Documentation
+          li
+            a.btn.clean-gray(href="/test/") Unit Tests
+          li
+            a.btn.clean-gray(href="https://github.com/timrwood/moment") Github
+    #content
+      block content
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js")
+    block scripts
+    script
+      window._gaq = [['_setAccount','UA-10641787-5'],['_trackPageview'],['_trackPageLoadTime']];
+      (function(d, c) {
+        var ga = d.createElement(c); ga.async = true;
+        ga.src = "http://www.google-analytics.com/ga.js";
+        var s = d.getElementsByTagName(c)[0]; 
+        s.parentNode.insertBefore(ga, s);
+      })(document, 'script');

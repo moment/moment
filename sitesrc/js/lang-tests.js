@@ -1,4 +1,4 @@
-var moment;if (typeof window === 'undefined') {moment = require('../moment.js');module = QUnit.module;}
+var moment;if (typeof window === 'undefined') {moment = require('../../moment.js');module = QUnit.module;}
 /**************************************************
   English
  *************************************************/

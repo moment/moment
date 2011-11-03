@@ -1,0 +1,17 @@
+extends html
+
+block styles
+  link(rel="stylesheet", href="../css/style.css")
+  title Moment.js Unit Test Suite
+
+block scripts
+  script(src="../../moment.js")
+  script(src="../../lang/all.min.js")
+  script(src="../js/test.min.js")
+
+block content
+  #test
+    h1 Moment.js unit test suite
+    h2#qunit-banner
+    h4#qunit-userAgent
+    ol#qunit-tests
