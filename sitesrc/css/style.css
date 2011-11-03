@@ -181,6 +181,15 @@ b, strong { font-weight:bold; }
 #docs h3 { height:14px; border-bottom:6px solid #e6e6e6; margin:0 0 40px; padding:20px 20px 0; }
 #docs h3 span { background:#eee; padding:0 10px; line-height:24px; font-size:24px; }
 
+
+/****************
+    Test
+****************/
+
+
+#test { margin:0 auto; width:960px; text-align:left; }
+
+
 /**********************
     Typical Styles
 **********************/
@@ -402,39 +411,14 @@ b, strong { font-weight:bold; }
     Q Unit Pass/Fail
 ****************/
 
-#qunit-tests {
-    list-style-position: inside;
-  padding-bottom:20px;
-  border-bottom:#313749 10px solid;
-  margin-bottom:20px;
-}
-
-#qunit-tests li {
-    padding:5px 10px;
-    list-style-position: inside;
-}
-
+#qunit-tests { list-style-position:inside; padding-bottom:20px; border-bottom:#313749 10px solid; margin-bottom:20px; }
+#qunit-tests li { padding:5px 10px; list-style-position:inside; }
 #qunit-tests th, 
 #qunit-tests pre { font-size:14px; }
-
-#qunit-tests.hidepass li.pass {
-    display: none;
-}
-
-#qunit-tests li strong {
-    cursor: pointer;
-}
-
-#qunit-tests ol {
-    margin-top: 0.5em;
-    padding: 0.5em;
-    background-color: #fff;
-}
-
-#qunit-tests table {
-    border-collapse: collapse;
-    margin-top: .2em;
-}
+#qunit-tests.hidepass li.pass { display:none; }
+#qunit-tests li strong { cursor:pointer; }
+#qunit-tests ol { margin-top:0.5em; padding:0.5em; background-color:#fff; }
+#qunit-tests table { border-collapse:collapse; margin-top:.2em; }
 
 #qunit-tests th {
     text-align: right;
@@ -485,13 +469,10 @@ b, strong { font-weight:bold; }
     border-left: 26px solid #C6E746;
 }
 
-#qunit-tests .pass                          { color: #528CE0; }
-#qunit-tests .pass .test-name               { color: #366097; }
- 
+#qunit-tests .pass .test-name { color:#666; }
 #qunit-tests .pass .test-actual,
-#qunit-tests .pass .test-expected           { color: #999999; }
-
-#qunit-banner.qunit-pass                    { background-color: #C6E746; }
+#qunit-tests .pass .test-expected { color:#999; }
+#qunit-tests .pass b.failed { color:#ccc; }
 
 /*** Failing Styles */
 

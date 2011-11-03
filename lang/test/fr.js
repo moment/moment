@@ -10,7 +10,7 @@ test("format", 19, function() {
     var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss a',      'Dimanche, Février 14er 2010, 3:25:50 pm'],
             ['ddd, hA',                            'Dim, 3PM'],
-            ['M Mo MM MMMM MMM',                   '2 2ème 02 Février Fev'],
+            ['M Mo MM MMMM MMM',                   '2 2ème 02 Février Fév'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14er 14'],
             ['d do dddd ddd',                      '0 0ème Dimanche Dim'],
@@ -75,7 +75,7 @@ test("format ordinal", 31, function() {
 
 test("format month", 12, function() {
     moment.lang('fr');
-    var expected = 'Janvier Jan_Février Fev_Mars Mar_Avril Avr_Mai Mai_Juin Juin_Juillet Juil_Aout Aou_Septembre Sep_Octobre Oct_Novembre Nov_Décembre Dec'.split("_");
+    var expected = 'Janvier Jan_Février Fév_Mars Mar_Avril Avr_Mai Mai_Juin Juin_Juillet Juil_Aout Aou_Septembre Sep_Octobre Oct_Novembre Nov_Décembre Dec'.split("_");
     var i;
     for (i = 0; i < expected.length; i++) {
         equal(moment([2011, i, 0]).format('MMMM MMM'), expected[i], expected[i]);

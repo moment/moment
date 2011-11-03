@@ -132,6 +132,13 @@ test("suffix", 2, function() {
     equal(moment(0).from(30000), "a few seconds ago", "suffix");
 });
 
+
+test("now from now", 1, function() {
+    moment.lang('en');
+    equal(moment().fromNow(), "a few seconds ago",  "now from now should display as in the past");
+});
+
+
 test("fromNow", 2, function() {
     moment.lang('en');
     equal(moment().add({s:30}).fromNow(), "in a few seconds", "in a few seconds");

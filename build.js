@@ -143,6 +143,7 @@ function hint(source, name) {
     }
     if (failures === 0) {
         minifyToFile(allSource, 'lang/all');
+        minifyToFile(allSource, 'site/js/lang-all');
     }
 })();
 
@@ -177,6 +178,7 @@ function hint(source, name) {
                 makeDocs();
             });
         });
+        minifyToFile(source, 'site/js/moment', MINIFY_COMMENT);
     }
     gzip(source, function(err, data) {
         SRCSIZE = source.length;
