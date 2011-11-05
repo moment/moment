@@ -1,16 +1,14 @@
 (function () {
     var lang = {
-            months : "Janvier_Février_Mars_Avril_Mai_Juin_Juillet_Aout_Septembre_Octobre_Novembre_Décembre".split("_"),
-            monthsShort : "Jan_Fév_Mar_Avr_Mai_Juin_Juil_Aou_Sep_Oct_Nov_Dec".split("_"),
-            weekdays : "Dimanche_Lundi_Mardi_Mercredi_Jeudi_Vendredi_Samedi".split("_"),
-            weekdaysShort : "Dim_Lun_Mar_Mer_Jeu_Ven_Sam".split("_"),
-            // based on this article on writing dates in french:
-            // http://www.btb.gc.ca/btb.php?lang=fra&cont=868
-            longDateFormat : { 
+            months : "janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre".split("_"),
+            monthsShort : "janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.".split("_"),
+            weekdays : "dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi".split("_"),
+            weekdaysShort : "dim._lun._mar._mer._jeu._ven._sam.".split("_"),
+            longDateFormat : {
                 L : "DD/MM/YYYY",
                 LL : "D MMMM YYYY",
                 LLL : "D MMMM YYYY HH:mm",
-                LLLL : "dddd, D MMMM YYYY HH:mm"
+                LLLL : "dddd D MMMM YYYY HH:mm"
             },
             relativeTime : {
                 future : "dans %s",
@@ -28,7 +26,7 @@
                 yy : "%d années"
             },
             ordinal : function (number) {
-                return (~~ (number % 100 / 10) === 1) ? 'er' : 'ème';
+                return number === 1 ? 'er' : 'ème';
             }
         };
 

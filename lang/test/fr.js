@@ -8,12 +8,12 @@ module("lang:fr");
 test("format", 19, function() {
     moment.lang('fr');
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Dimanche, Février 14er 2010, 3:25:50 pm'],
-            ['ddd, hA',                            'Dim, 3PM'],
-            ['M Mo MM MMMM MMM',                   '2 2ème 02 Février Fév'],
+            ['dddd, MMMM Do YYYY, h:mm:ss a',      'dimanche, février 14ème 2010, 3:25:50 pm'],
+            ['ddd, hA',                            'dim., 3PM'],
+            ['M Mo MM MMMM MMM',                   '2 2ème 02 février févr.'],
             ['YYYY YY',                            '2010 10'],
-            ['D Do DD',                            '14 14er 14'],
-            ['d do dddd ddd',                      '0 0ème Dimanche Dim'],
+            ['D Do DD',                            '14 14ème 14'],
+            ['d do dddd ddd',                      '0 0ème dimanche dim.'],
             ['DDD DDDo DDDD',                      '45 45ème 045'],
             ['w wo ww',                            '8 8ème 08'],
             ['h hh',                               '3 03'],
@@ -24,9 +24,9 @@ test("format", 19, function() {
             ['z zz',                               'PST PST'],
             ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45ème day of the year'],
             ['L',                                  '14/02/2010'],
-            ['LL',                                 '14 Février 2010'],
-            ['LLL',                                '14 Février 2010 15:25'],
-            ['LLLL',                               'Dimanche, 14 Février 2010 15:25']
+            ['LL',                                 '14 février 2010'],
+            ['LLL',                                '14 février 2010 15:25'],
+            ['LLLL',                               'dimanche 14 février 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -37,7 +37,7 @@ test("format", 19, function() {
 
 test("format ordinal", 31, function() {
     moment.lang('fr');
-    equal(moment([2011, 0, 1]).format('DDDo'), '1ème', '1ème');
+    equal(moment([2011, 0, 1]).format('DDDo'), '1er', '1er');
     equal(moment([2011, 0, 2]).format('DDDo'), '2ème', '2ème');
     equal(moment([2011, 0, 3]).format('DDDo'), '3ème', '3ème');
     equal(moment([2011, 0, 4]).format('DDDo'), '4ème', '4ème');
@@ -46,17 +46,17 @@ test("format ordinal", 31, function() {
     equal(moment([2011, 0, 7]).format('DDDo'), '7ème', '7ème');
     equal(moment([2011, 0, 8]).format('DDDo'), '8ème', '8ème');
     equal(moment([2011, 0, 9]).format('DDDo'), '9ème', '9ème');
-    equal(moment([2011, 0, 10]).format('DDDo'), '10er', '10er');
+    equal(moment([2011, 0, 10]).format('DDDo'), '10ème', '10ème');
 
-    equal(moment([2011, 0, 11]).format('DDDo'), '11er', '11er');
-    equal(moment([2011, 0, 12]).format('DDDo'), '12er', '12er');
-    equal(moment([2011, 0, 13]).format('DDDo'), '13er', '13er');
-    equal(moment([2011, 0, 14]).format('DDDo'), '14er', '14er');
-    equal(moment([2011, 0, 15]).format('DDDo'), '15er', '15er');
-    equal(moment([2011, 0, 16]).format('DDDo'), '16er', '16er');
-    equal(moment([2011, 0, 17]).format('DDDo'), '17er', '17er');
-    equal(moment([2011, 0, 18]).format('DDDo'), '18er', '18er');
-    equal(moment([2011, 0, 19]).format('DDDo'), '19er', '19er');
+    equal(moment([2011, 0, 11]).format('DDDo'), '11ème', '11ème');
+    equal(moment([2011, 0, 12]).format('DDDo'), '12ème', '12ème');
+    equal(moment([2011, 0, 13]).format('DDDo'), '13ème', '13ème');
+    equal(moment([2011, 0, 14]).format('DDDo'), '14ème', '14ème');
+    equal(moment([2011, 0, 15]).format('DDDo'), '15ème', '15ème');
+    equal(moment([2011, 0, 16]).format('DDDo'), '16ème', '16ème');
+    equal(moment([2011, 0, 17]).format('DDDo'), '17ème', '17ème');
+    equal(moment([2011, 0, 18]).format('DDDo'), '18ème', '18ème');
+    equal(moment([2011, 0, 19]).format('DDDo'), '19ème', '19ème');
     equal(moment([2011, 0, 20]).format('DDDo'), '20ème', '20ème');
 
     equal(moment([2011, 0, 21]).format('DDDo'), '21ème', '21ème');
@@ -75,7 +75,7 @@ test("format ordinal", 31, function() {
 
 test("format month", 12, function() {
     moment.lang('fr');
-    var expected = 'Janvier Jan_Février Fév_Mars Mar_Avril Avr_Mai Mai_Juin Juin_Juillet Juil_Aout Aou_Septembre Sep_Octobre Oct_Novembre Nov_Décembre Dec'.split("_");
+    var expected = 'janvier janv._février févr._mars mars_avril avr._mai mai_juin juin_juillet juil._août août_septembre sept._octobre oct._novembre nov._décembre déc.'.split("_");
     var i;
     for (i = 0; i < expected.length; i++) {
         equal(moment([2011, i, 0]).format('MMMM MMM'), expected[i], expected[i]);
@@ -84,7 +84,7 @@ test("format month", 12, function() {
 
 test("format week", 7, function() {
     moment.lang('fr');
-    var expected = 'Dimanche Dim_Lundi Lun_Mardi Mar_Mercredi Mer_Jeudi Jeu_Vendredi Ven_Samedi Sam'.split("_");
+    var expected = 'dimanche dim._lundi lun._mardi mar._mercredi mer._jeudi jeu._vendredi ven._samedi sam.'.split("_");
     var i;
     for (i = 0; i < expected.length; i++) {
         equal(moment([2011, 0, 2 + i]).format('dddd ddd'), expected[i], expected[i]);
