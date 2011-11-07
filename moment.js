@@ -139,7 +139,7 @@
                 return leftZeroFill(replaceFunction('w'), 2);
             // YEAR
             case 'YY' :
-                return currentYear % 100;
+                return leftZeroFill(currentYear % 100, 2);
             case 'YYYY' :
                 return currentYear;
             // AM / PM
