@@ -287,9 +287,3 @@ test("chaining setters", 7, function() {
     equal(a.seconds(), 8, 'second');
 });
 
-test("YY format", function() {
-    var a = moment();
-    a.year(2009);
-    equal(a.format('YY'), '09', 'zero-filled year');
-});
-
