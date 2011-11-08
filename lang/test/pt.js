@@ -5,7 +5,7 @@
 
 module("lang:pt");
 
-test("format", 19, function() {
+test("format", 18, function() {
     moment.lang('pt');
     var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss a',      'Domingo, Fevereiro 14º 2010, 3:25:50 pm'],
@@ -21,7 +21,6 @@ test("format", 19, function() {
             ['m mm',                               '25 25'],
             ['s ss',                               '50 50'],
             ['a A',                                'pm PM'],
-            ['z zz',                               'PST PST'],
             ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45º day of the year'],
             ['L',                                  '14/02/2010'],
             ['LL',                                 '14 de Fevereiro de 2010'],
@@ -33,6 +32,17 @@ test("format", 19, function() {
     for (i = 0; i < a.length; i++) {
         equal(b.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
     }
+});
+
+test("format YY", 1, function() {
+    var b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
+    equal(b.format('YY'), '09', 'YY ---> 09');
+});
+
+test("format timezone", 2, function() {
+    var b = moment(new Date(2010, 1, 14, 15, 25, 50, 125));
+    ok(b.format('z').match(/^[A-Z]{3,4}$/), 'z ---> Something like "PST"');
+    ok(b.format('zz').match(/^[A-Z]{3,4}$/), 'zz ---> Something like "PST"');
 });
 
 test("format ordinal", 31, function() {
