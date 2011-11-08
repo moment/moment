@@ -43,9 +43,9 @@ Changelog
 
 ### 1.1.0
 
-Fixed bug #31.
+Added `moment.fn.format` localized masks. 'L LL LLL LLLL' [issue 29](https://github.com/timrwood/moment/pull/29)
 
-Added `moment.fn.format` localized masks. 'L LL LLL LLLL' #29
+Fixed [issue 31](https://github.com/timrwood/moment/pull/31).
 
 ### 1.0.1
 
