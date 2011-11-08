@@ -41,6 +41,12 @@ Moment.js is freely distributable under the terms of the MIT license.
 Changelog
 =========
 
+### 1.1.0
+
+Fixed bug #31.
+
+Added `moment.fn.format` localized masks. 'L LL LLL LLLL' #29
+
 ### 1.0.1
 
 Added `moment.version` to get the current version.
