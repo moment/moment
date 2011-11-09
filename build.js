@@ -40,7 +40,8 @@ var JSHINT_CONFIG = {
 };
 var LANG_MINIFY = "fr it pt".split(" ");
 var LANG_TEST = "en fr it pt".split(" ");
-var LANG_PREFIX = "var moment;if (typeof window === 'undefined') {moment = require('../../moment.js');module = QUnit.module;}";
+var LANG_PREFIX = "(function() { var moment; if (typeof window === 'undefined') { moment = require('../../moment'); module = QUnit.module; } else { moment = window.moment; }";
+var LANG_SUFFIX = "})();"
 var VERSION = '1.1.0';
 var MINIFY_COMMENT = '/* Moment.js | version : ' + VERSION + ' | author : Tim Wood | license : MIT */\n';
 var MINSIZE = 0;
@@ -158,6 +159,7 @@ function hint(source, name) {
     for (i = 0; i < LANG_TEST.length; i++) {
         source += fs.readFileSync('./lang/test/' + LANG_TEST[i] + '.js', 'utf8');
     }
+    source += LANG_SUFFIX;
     makeFile('./sitesrc/js/lang-tests.js', source, function(){
         makeUnitTests();
     });
