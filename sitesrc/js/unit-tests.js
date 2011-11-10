@@ -55,19 +55,21 @@ test("string without format", 2, function() {
 });
 
 
-test("string with format", 11, function() {
+test("string with format", 13, function() {
     var a = [
-            ['MM-DD-YYYY',         '12-02-1999'],
-            ['DD-MM-YYYY',         '12-02-1999'],
-            ['DD/MM/YYYY',         '12/02/1999'],
-            ['DD_MM_YYYY',         '12_02_1999'],
-            ['DD:MM:YYYY',         '12:02:1999'],
-            ['D-M-YY',             '2-2-99'],
-            ['YY',                 '99'],
-            ['DDD-YYYY',           '300-1999'],
-            ['DD-MM-YYYY h:m:s',   '12-02-1999 2:45:10'],
-            ['DD-MM-YYYY h:m:s a', '12-02-1999 2:45:10 am'],
-            ['DD-MM-YYYY h:m:s a', '12-02-1999 2:45:10 pm']
+            ['MM-DD-YYYY',          '12-02-1999'],
+            ['DD-MM-YYYY',          '12-02-1999'],
+            ['DD/MM/YYYY',          '12/02/1999'],
+            ['DD_MM_YYYY',          '12_02_1999'],
+            ['DD:MM:YYYY',          '12:02:1999'],
+            ['D-M-YY',              '2-2-99'],
+            ['YY',                  '99'],
+            ['DDD-YYYY',            '300-1999'],
+            ['DD-MM-YYYY h:m:s',    '12-02-1999 2:45:10'],
+            ['DD-MM-YYYY h:m:s a',  '12-02-1999 2:45:10 am'],
+            ['DD-MM-YYYY h:m:s a',  '12-02-1999 2:45:10 pm'],
+            ['YYYY-MM-DDTHH:mm:ss', '2011-11-11T11:11:11'],
+            ['MM-DD-YYYY \\M',          '12-02-1999 M']
         ],
         i;
     for (i = 0; i < a.length; i++) {

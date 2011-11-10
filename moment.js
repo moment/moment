@@ -189,9 +189,10 @@
     // date from string and format string
     function makeDateFromStringAndFormat(string, format) {
         var inArray = [0],
-            charactersToPutInArray = /[0-9a-zA-Z]+/g,
-            inputParts = string.match(charactersToPutInArray),
-            formatParts = format.match(charactersToPutInArray),
+            tokenCharacters = /(\\)?(MM?|DD?D?D?|YYYY|YY|a|A|hh?|HH?|mm?|ss?)/g,
+            inputCharacters = /(\\)?([0-9]+|am|pm)/gi,
+            inputParts = string.match(inputCharacters),
+            formatParts = format.match(tokenCharacters),
             i,
             isPm;
 
@@ -279,8 +280,8 @@
     // date from string and array of format strings
     function makeDateFromStringAndArray(string, formats) {
         var output,
-            charactersToPutInArray = /[0-9a-zA-Z]+/g,
-            inputParts = string.match(charactersToPutInArray),
+            inputCharacters = /(\\)?([0-9]+|am|pm)/gi,
+            inputParts = string.match(inputCharacters),
             scores = [],
             scoreToBeat = 99,
             i,
@@ -288,7 +289,7 @@
             curScore;
         for (i = 0; i < formats.length; i++) {
             curDate = makeDateFromStringAndFormat(string, formats[i]);
-            curScore = compareArrays(inputParts, formatDate(curDate, formats[i]).match(charactersToPutInArray));
+            curScore = compareArrays(inputParts, formatDate(curDate, formats[i]).match(inputCharacters));
             if (curScore < scoreToBeat) {
                 scoreToBeat = curScore;
                 output = curDate;
