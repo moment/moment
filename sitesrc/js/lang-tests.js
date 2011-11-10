@@ -1,4 +1,4 @@
-var moment;if (typeof window === 'undefined') {moment = require('../../moment.js');module = QUnit.module;}
+(function() { var moment; if (typeof window === 'undefined') { moment = require('../../moment'); module = QUnit.module; } else { moment = window.moment; }
 /**************************************************
   English
  *************************************************/
@@ -759,3 +759,4 @@ test("fromNow", 2, function() {
     equal(moment().add({d:5}).fromNow(), "en 5 días", "en 5 días");
 });
 
+})();
