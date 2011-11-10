@@ -38,8 +38,8 @@ var JSHINT_CONFIG = {
     "strict": false,
     "white": true
 };
-var LANG_MINIFY = "fr it pt".split(" ");
-var LANG_TEST = "en fr it pt".split(" ");
+var LANG_MINIFY = "fr it pt es".split(" ");
+var LANG_TEST = "en fr it pt es".split(" ");
 var LANG_PREFIX = "var moment;if (typeof window === 'undefined') {moment = require('../../moment.js');module = QUnit.module;}";
 var VERSION = '1.1.0';
 var MINIFY_COMMENT = '/* Moment.js | version : ' + VERSION + ' | author : Tim Wood | license : MIT */\n';
