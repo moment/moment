@@ -1,13 +1,15 @@
+(function() {
+
 /**************************************************
   Node
  *************************************************/
 
 var moment;
-if (typeof window === 'undefined') {
-    moment = require('../../moment');
-    module = QUnit.module;
+if (typeof window === 'undefined') { moment = require('../../moment');
+  module = QUnit.module;
+} else {
+  moment = window.moment;
 }
-
 
 /**************************************************
   Tests
@@ -287,5 +289,7 @@ test("chaining setters", 7, function() {
     equal(a.hours(), 6, 'hour');
     equal(a.minutes(), 7, 'minute');
     equal(a.seconds(), 8, 'second');
+});
+
 });
 
