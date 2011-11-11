@@ -1,0 +1,948 @@
+info it worked if it ends with ok
+verbose cli [ 'node', '/usr/local/bin/npm', 'update', '-g' ]
+info using npm@1.0.1rc5
+info using node@v0.4.3
+verbose config file /Users/jens/.npmrc
+verbose config file /usr/local/etc/npmrc
+info outdated_ about to getDeps /usr/local/lib
+info readdir [ 'npm' ]
+info getDeps next [ {}, undefined ]
+info asyncMapped over dir [ 'npm' ]
+info getDeps next [ {}, { npm: '*' } ]
+info back from getDeps [ '/usr/local/lib', null, { npm: '*' } ]
+info outdated_ [ '/usr/local/lib', 'npm', '*' ]
+info about to check [ 'npm', '*' ]
+verbose cache add [ 'npm', '*' ]
+info addNamed [ 'npm', '*' ]
+verbose addNamed [ null, '' ]
+silly testEngine { name: 'npm',
+silly testEngine   description: 'A package manager for node',
+silly testEngine   keywords: 
+silly testEngine    [ 'package manager',
+silly testEngine      'modules',
+silly testEngine      'install',
+silly testEngine      'package.json' ],
+silly testEngine   version: '1.0.1rc5',
+silly testEngine   tag: 'rc',
+silly testEngine   homepage: 'http://npmjs.org/',
+silly testEngine   author: 
+silly testEngine    { name: 'Isaac Z. Schlueter',
+silly testEngine      email: 'i@izs.me',
+silly testEngine      url: 'http://blog.izs.me' },
+silly testEngine   contributors: 
+silly testEngine    [ { name: 'Steve Steiner',
+silly testEngine        email: 'ssteinerX@gmail.com',
+silly testEngine        url: 'http://websaucesoftware.com/blog/' },
+silly testEngine      { name: 'Mikeal Rogers',
+silly testEngine        email: 'mikeal.rogers@gmail.com',
+silly testEngine        url: 'http://www.mikealrogers.com/' },
+silly testEngine      { name: 'Aaron Blohowiak',
+silly testEngine        email: 'aaron.blohowiak@gmail.com',
+silly testEngine        url: 'http://aaronblohowiak.com/' },
+silly testEngine      { name: 'Martyn Smith',
+silly testEngine        email: 'martyn@dollyfish.net.nz',
+silly testEngine        url: 'http://dollyfish.net.nz/' },
+silly testEngine      { name: 'Mathias Pettersson',
+silly testEngine        email: 'mape@mape.me',
+silly testEngine        url: 'http://mape.me/' },
+silly testEngine      { name: 'Brian Hammond',
+silly testEngine        email: 'brian@fictorial.com',
+silly testEngine        url: 'http://fictorial.com/' },
+silly testEngine      { name: 'Charlie Robbins',
+silly testEngine        email: 'charlie.robbins@gmail.com',
+silly testEngine        url: 'http://www.charlierobbins.com/' },
+silly testEngine      { name: 'Francisco Treacy',
+silly testEngine        email: 'francisco.treacy@gmail.com',
+silly testEngine        url: 'http://franciscotreacy.com/' },
+silly testEngine      { name: 'Cliffano Subagio',
+silly testEngine        email: 'cliffano@gmail.com',
+silly testEngine        url: 'http://blog.cliffano.com/' },
+silly testEngine      { name: 'Christian Eager',
+silly testEngine        email: 'christian.eager@nokia.com',
+silly testEngine        url: 'http://perpenduum.com' },
+silly testEngine      { name: 'Dav Glass',
+silly testEngine        email: 'davglass@gmail.com',
+silly testEngine        url: 'http://blog.davglass.com' },
+silly testEngine      { name: 'Alex K. Wolfe',
+silly testEngine        email: 'alexkwolfe@gmail.com' },
+silly testEngine      { name: 'James Sanders',
+silly testEngine        email: 'jimmyjazz14@gmail.com',
+silly testEngine        url: 'http://james-sanders.com/' },
+silly testEngine      { name: 'Reid Burke',
+silly testEngine        email: 'me@reidburke.com',
+silly testEngine        url: 'http://reidburke.com/' },
+silly testEngine      { name: 'Arlo Breault',
+silly testEngine        email: 'arlolra@gmail.com',
+silly testEngine        url: 'http://thoughtherder.com/' },
+silly testEngine      { name: 'Timo Derstappen',
+silly testEngine        email: 'teemow@gmail.com',
+silly testEngine        url: 'http://teemow.com' },
+silly testEngine      { name: 'Bradley Meck',
+silly testEngine        email: 'bradley.meck@gmail.com' },
+silly testEngine      { name: 'Bart Teeuwisse',
+silly testEngine        email: 'bart.teeuwisse@thecodemill.biz',
+silly testEngine        url: 'http://thecodemill.biz/' },
+silly testEngine      { name: 'Ben Noordhuis',
+silly testEngine        email: 'info@bnoordhuis.nl',
+silly testEngine        url: 'http://bnoordhuis.nl/' },
+silly testEngine      { name: 'Tor Valamo',
+silly testEngine        email: 'tor.valamo@gmail.com',
+silly testEngine        url: 'http://www.magnimedia.no/' },
+silly testEngine      { name: 'Whyme.Lyu',
+silly testEngine        email: '5longluna@gmail.com',
+silly testEngine        url: 'http://whyme.kuantu.com/' },
+silly testEngine      { name: 'Olivier Melcher',
+silly testEngine        email: 'olivier.melcher@gmail.com' },
+silly testEngine      { name: 'Tomaž Muraus',
+silly testEngine        email: 'kami@k5-storitve.net',
+silly testEngine        url: 'http://www.tomaz-muraus.info' },
+silly testEngine      { name: 'Evan Meagher',
+silly testEngine        email: 'evan.meagher@gmail.com',
+silly testEngine        url: 'http://evanmeagher.net/' },
+silly testEngine      { name: 'Orlando Vazquez',
+silly testEngine        email: 'ovazquez@gmail.com',
+silly testEngine        url: 'http://2wycked.net/' },
+silly testEngine      { name: 'George Miroshnykov',
+silly testEngine        email: 'gmiroshnykov@lohika.com' },
+silly testEngine      { name: 'Geoff Flarity',
+silly testEngine        url: 'http://ca.linkedin.com/pub/geoff-flarity/a/536/43a' } ],
+silly testEngine   repository: 
+silly testEngine    { type: 'git',
+silly testEngine      url: 'git://github.com/isaacs/npm.git' },
+silly testEngine   bugs: 
+silly testEngine    { email: 'npm-@googlegroups.com',
+silly testEngine      url: 'http://github.com/isaacs/npm/issues' },
+silly testEngine   directories: 
+silly testEngine    { doc: './doc',
+silly testEngine      man: './man1',
+silly testEngine      lib: './lib',
+silly testEngine      bin: './bin' },
+silly testEngine   main: 'npm',
+silly testEngine   bin: { npm: './bin/npm.js' },
+silly testEngine   dependencies: { semver: '1', abbrev: '1', nopt: '1' },
+silly testEngine   bundleDependencies: [ 'semver', 'abbrev', 'nopt' ],
+silly testEngine   devDependencies: { ronn: '' },
+silly testEngine   engines: { node: '0.4 || 0.5', npm: '1' },
+silly testEngine   scripts: { test: 'make test' },
+silly testEngine   licenses: 
+silly testEngine    [ { type: 'MIT',
+silly testEngine        url: 'http://github.com/isaacs/npm/raw/master/LICENSE' } ],
+silly testEngine   _id: 'npm@1.0.1rc5',
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   man: 
+silly testEngine    [ 'man1/author.1',
+silly testEngine      'man1/adduser.1',
+silly testEngine      'man1/bin.1',
+silly testEngine      'man1/build.1',
+silly testEngine      'man1/cache.1',
+silly testEngine      'man1/changelog.1',
+silly testEngine      'man1/coding-style.1',
+silly testEngine      'man1/completion.1',
+silly testEngine      'man1/config.1',
+silly testEngine      'man1/deprecate.1',
+silly testEngine      'man1/developers.1',
+silly testEngine      'man1/docs.1',
+silly testEngine      'man1/edit.1',
+silly testEngine      'man1/explore.1',
+silly testEngine      'man1/faq.1',
+silly testEngine      'man1/find.1',
+silly testEngine      'man1/folders.1',
+silly testEngine      'man1/get.1',
+silly testEngine      'man1/init.1',
+silly testEngine      'man1/install.1',
+silly testEngine      'man1/json.1',
+silly testEngine      'man1/link.1',
+silly testEngine      'man1/list.1',
+silly testEngine      'man1/ln.1',
+silly testEngine      'man1/ls.1',
+silly testEngine      'man1/npm.1',
+silly testEngine      'man1/outdated.1',
+silly testEngine      'man1/owner.1',
+silly testEngine      'man1/prefix.1',
+silly testEngine      'man1/prune.1',
+silly testEngine      'man1/publish.1',
+silly testEngine      'man1/rebuild.1',
+silly testEngine      'man1/registry.1',
+silly testEngine      'man1/restart.1',
+silly testEngine      'man1/rm.1',
+silly testEngine      'man1/root.1',
+silly testEngine      'man1/run-script.1',
+silly testEngine      'man1/scripts.1',
+silly testEngine      'man1/search.1',
+silly testEngine      'man1/set.1',
+silly testEngine      'man1/start.1',
+silly testEngine      'man1/stop.1',
+silly testEngine      'man1/tag.1',
+silly testEngine      'man1/test.1',
+silly testEngine      'man1/uninstall.1',
+silly testEngine      'man1/unpublish.1',
+silly testEngine      'man1/update.1',
+silly testEngine      'man1/version.1',
+silly testEngine      'man1/view.1' ] }
+verbose caching /usr/local/lib/node_modules/npm/package.json
+verbose loadDefaults npm@1.0.1rc5
+info validateDep npm back from readJson
+info validateDep next [ 'npm', '*', '1.0.1rc5', undefined, true, undefined ]
+info waiting for latest
+verbose GET npm
+verbose raw, before any munging npm
+verbose url resolving [ 'http://registry.npmjs.org/', './npm' ]
+verbose url resolved http://registry.npmjs.org/npm
+verbose url parsed { protocol: 'http:',
+verbose url parsed   slashes: true,
+verbose url parsed   host: 'registry.npmjs.org',
+verbose url parsed   hostname: 'registry.npmjs.org',
+verbose url parsed   pathname: '/npm',
+verbose url parsed   href: 'http://registry.npmjs.org/npm' }
+verbose etag "9NVZ300TJWURELKV9JYRVUNXM"
+verbose response http://registry.npmjs.org/npm
+silly get cb [ 304,
+silly get cb   { server: 'CouchDB/1.1.0 (Erlang OTP/R14B04)',
+silly get cb     etag: '"9NVZ300TJWURELKV9JYRVUNXM"',
+silly get cb     date: 'Fri, 11 Nov 2011 18:44:59 GMT',
+silly get cb     'content-length': '0' } ]
+verbose etag npm from cache
+verbose GET npm/1.0.105
+verbose raw, before any munging npm/1.0.105
+verbose url resolving [ 'http://registry.npmjs.org/', './npm/1.0.105' ]
+verbose url resolved http://registry.npmjs.org/npm/1.0.105
+verbose url parsed { protocol: 'http:',
+verbose url parsed   slashes: true,
+verbose url parsed   host: 'registry.npmjs.org',
+verbose url parsed   hostname: 'registry.npmjs.org',
+verbose url parsed   pathname: '/npm/1.0.105',
+verbose url parsed   href: 'http://registry.npmjs.org/npm/1.0.105' }
+verbose etag "9NVZ300TJWURELKV9JYRVUNXM"
+verbose response http://registry.npmjs.org/npm/1.0.105
+silly get cb [ 304,
+silly get cb   { server: 'CouchDB/1.1.0 (Erlang OTP/R14B04)',
+silly get cb     etag: '"9NVZ300TJWURELKV9JYRVUNXM"',
+silly get cb     date: 'Fri, 11 Nov 2011 18:45:02 GMT',
+silly get cb     'content-length': '0' } ]
+verbose etag npm/1.0.105 from cache
+verbose bin dist [ '0.4-darwin-11.2.0',
+verbose bin dist   { shasum: '782bfbd77b093d4fa70f1eee7d47537fc1796c81',
+verbose bin dist     tarball: 'http://registry.npmjs.org/npm/-/npm-1.0.105.tgz' } ]
+verbose addRemoteTarball [ 'http://registry.npmjs.org/npm/-/npm-1.0.105.tgz',
+verbose addRemoteTarball   '782bfbd77b093d4fa70f1eee7d47537fc1796c81' ]
+verbose mkdir done: /tmp/npm-1321037102928/1321037102928-0.3251126913819462
+info fetch http://registry.npmjs.org/npm/-/npm-1.0.105.tgz
+verbose fetch to /tmp/npm-1321037102928/1321037102928-0.3251126913819462/tmp.tgz
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+info shasum 782bfbd77b093d4fa70f1eee7d47537fc1796c81
+info shasum /tmp/npm-1321037102928/1321037102928-0.3251126913819462/tmp.tgz
+verbose mkdir done: /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/___package.npm
+verbose unpack_ uid, gid [ 0, 0 ]
+verbose unpackTarget /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package
+verbose success gzip "--decompress" "--stdout" "/tmp/npm-1321037102928/1321037102928-0.3251126913819462/tmp.tgz"
+verbose success tar "-mvxpf" "-" "--no-same-owner" "-C" "/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/___package.npm"
+verbose gunzed /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/___package.npm/package
+verbose rm'ed /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package
+verbose renamed [ '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/___package.npm/package',
+verbose renamed   '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package' ]
+verbose rm'ed /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/___package.npm
+silly testEngine { name: 'npm',
+silly testEngine   description: 'A package manager for node',
+silly testEngine   keywords: 
+silly testEngine    [ 'package manager',
+silly testEngine      'modules',
+silly testEngine      'install',
+silly testEngine      'package.json' ],
+silly testEngine   version: '1.0.105',
+silly testEngine   preferGlobal: true,
+silly testEngine   config: { publishtest: false },
+silly testEngine   homepage: 'http://npmjs.org/',
+silly testEngine   author: 
+silly testEngine    { name: 'Isaac Z. Schlueter',
+silly testEngine      email: 'i@izs.me',
+silly testEngine      url: 'http://blog.izs.me' },
+silly testEngine   repository: 
+silly testEngine    { type: 'git',
+silly testEngine      url: 'git://github.com/isaacs/npm.git' },
+silly testEngine   bugs: 
+silly testEngine    { email: 'npm-@googlegroups.com',
+silly testEngine      url: 'http://github.com/isaacs/npm/issues' },
+silly testEngine   directories: 
+silly testEngine    { doc: './doc',
+silly testEngine      man: './man',
+silly testEngine      lib: './lib',
+silly testEngine      bin: './bin' },
+silly testEngine   main: './lib/npm.js',
+silly testEngine   bin: 
+silly testEngine    { npm: './bin/npm-cli.js',
+silly testEngine      npm_g: './bin/npm-cli.js',
+silly testEngine      'npm-g': './bin/npm-cli.js' },
+silly testEngine   dependencies: 
+silly testEngine    { semver: '1',
+silly testEngine      ini: '1',
+silly testEngine      slide: '1',
+silly testEngine      abbrev: '1',
+silly testEngine      'graceful-fs': '1',
+silly testEngine      minimatch: '0',
+silly testEngine      nopt: '1',
+silly testEngine      'node-uuid': '1.2',
+silly testEngine      'proto-list': '1',
+silly testEngine      rimraf: '1',
+silly testEngine      request: '~2.1.1',
+silly testEngine      which: '1' },
+silly testEngine   bundleDependencies: 
+silly testEngine    [ 'slide',
+silly testEngine      'ini',
+silly testEngine      'semver',
+silly testEngine      'abbrev',
+silly testEngine      'graceful-fs',
+silly testEngine      'minimatch',
+silly testEngine      'nopt',
+silly testEngine      'node-uuid',
+silly testEngine      'rimraf',
+silly testEngine      'request',
+silly testEngine      'proto-list',
+silly testEngine      'which' ],
+silly testEngine   devDependencies: { ronn: 'https://github.com/isaacs/ronnjs/tarball/master' },
+silly testEngine   engines: { node: '0.4 || 0.5 || 0.6', npm: '1' },
+silly testEngine   scripts: 
+silly testEngine    { test: './test/run',
+silly testEngine      prepublish: 'make -j4 doc',
+silly testEngine      dumpconf: 'env | grep npm | sort | uniq' },
+silly testEngine   licenses: 
+silly testEngine    [ { type: 'MIT +no-false-attribs',
+silly testEngine        url: 'http://github.com/isaacs/npm/raw/master/LICENSE' } ],
+silly testEngine   _id: 'npm@1.0.105',
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   man: 
+silly testEngine    [ 'man/man1/adduser.1',
+silly testEngine      'man/man1/author.1',
+silly testEngine      'man/man1/bin.1',
+silly testEngine      'man/man1/bugs.1',
+silly testEngine      'man/man1/build.1',
+silly testEngine      'man/man1/bundle.1',
+silly testEngine      'man/man1/cache.1',
+silly testEngine      'man/man1/changelog.1',
+silly testEngine      'man/man1/coding-style.1',
+silly testEngine      'man/man1/completion.1',
+silly testEngine      'man/man1/config.1',
+silly testEngine      'man/man1/deprecate.1',
+silly testEngine      'man/man1/developers.1',
+silly testEngine      'man/man1/docs.1',
+silly testEngine      'man/man1/edit.1',
+silly testEngine      'man/man1/explore.1',
+silly testEngine      'man/man1/faq.1',
+silly testEngine      'man/man1/find.1',
+silly testEngine      'man/man1/folders.1',
+silly testEngine      'man/man1/get.1',
+silly testEngine      'man/man1/global.1',
+silly testEngine      'man/man1/help-search.1',
+silly testEngine      'man/man1/help.1',
+silly testEngine      'man/man1/home.1',
+silly testEngine      'man/man1/index.1',
+silly testEngine      'man/man1/init.1',
+silly testEngine      'man/man1/install.1',
+silly testEngine      'man/man1/json.1',
+silly testEngine      'man/man1/link.1',
+silly testEngine      'man/man1/list.1',
+silly testEngine      'man/man1/ln.1',
+silly testEngine      'man/man1/ls.1',
+silly testEngine      'man/man1/npm.1',
+silly testEngine      'man/man1/outdated.1',
+silly testEngine      'man/man1/owner.1',
+silly testEngine      'man/man1/pack.1',
+silly testEngine      'man/man1/prefix.1',
+silly testEngine      'man/man1/prune.1',
+silly testEngine      'man/man1/publish.1',
+silly testEngine      'man/man1/README.1',
+silly testEngine      'man/man1/rebuild.1',
+silly testEngine      'man/man1/registry.1',
+silly testEngine      'man/man1/removing-npm.1',
+silly testEngine      'man/man1/restart.1',
+silly testEngine      'man/man1/rm.1',
+silly testEngine      'man/man1/root.1',
+silly testEngine      'man/man1/run-script.1',
+silly testEngine      'man/man1/scripts.1',
+silly testEngine      'man/man1/search.1',
+silly testEngine      'man/man1/semver.1',
+silly testEngine      'man/man1/set.1',
+silly testEngine      'man/man1/star.1',
+silly testEngine      'man/man1/start.1',
+silly testEngine      'man/man1/stop.1',
+silly testEngine      'man/man1/submodule.1',
+silly testEngine      'man/man1/tag.1',
+silly testEngine      'man/man1/test.1',
+silly testEngine      'man/man1/uninstall.1',
+silly testEngine      'man/man1/unpublish.1',
+silly testEngine      'man/man1/update.1',
+silly testEngine      'man/man1/version.1',
+silly testEngine      'man/man1/view.1',
+silly testEngine      'man/man1/whoami.1',
+silly testEngine      'man/man3/author.3',
+silly testEngine      'man/man3/bin.3',
+silly testEngine      'man/man3/bugs.3',
+silly testEngine      'man/man3/commands.3',
+silly testEngine      'man/man3/config.3',
+silly testEngine      'man/man3/deprecate.3',
+silly testEngine      'man/man3/docs.3',
+silly testEngine      'man/man3/edit.3',
+silly testEngine      'man/man3/explore.3',
+silly testEngine      'man/man3/find.3',
+silly testEngine      'man/man3/get.3',
+silly testEngine      'man/man3/help-search.3',
+silly testEngine      'man/man3/home.3',
+silly testEngine      'man/man3/init.3',
+silly testEngine      'man/man3/install.3',
+silly testEngine      'man/man3/link.3',
+silly testEngine      'man/man3/list.3',
+silly testEngine      'man/man3/ln.3',
+silly testEngine      'man/man3/load.3',
+silly testEngine      'man/man3/ls.3',
+silly testEngine      'man/man3/npm.3',
+silly testEngine      'man/man3/outdated.3',
+silly testEngine      'man/man3/owner.3',
+silly testEngine      'man/man3/pack.3',
+silly testEngine      'man/man3/prefix.3',
+silly testEngine      'man/man3/prune.3',
+silly testEngine      'man/man3/publish.3',
+silly testEngine      'man/man3/rebuild.3',
+silly testEngine      'man/man3/restart.3',
+silly testEngine      'man/man3/rm.3',
+silly testEngine      'man/man3/root.3',
+silly testEngine      'man/man3/run-script.3',
+silly testEngine      'man/man3/search.3',
+silly testEngine      'man/man3/set.3',
+silly testEngine      'man/man3/start.3',
+silly testEngine      'man/man3/stop.3',
+silly testEngine      'man/man3/submodule.3',
+silly testEngine      'man/man3/tag.3',
+silly testEngine      'man/man3/test.3',
+silly testEngine      'man/man3/uninstall.3',
+silly testEngine      'man/man3/unpublish.3',
+silly testEngine      'man/man3/update.3',
+silly testEngine      'man/man3/version.3',
+silly testEngine      'man/man3/view.3',
+silly testEngine      'man/man3/whoami.3' ],
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/package.json
+verbose loadDefaults npm@1.0.105
+verbose tarball contents [ 'package' ]
+verbose from cache /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/package.json
+verbose pack /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package /Users/jens/.npm/npm/1.0.105/package.tgz
+verbose from cache /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/package.json
+silly testEngine { name: 'abbrev',
+silly testEngine   version: '1.0.3',
+silly testEngine   description: 'Like ruby\'s abbrev module, but in js',
+silly testEngine   author: { name: 'Isaac Z. Schlueter', email: 'i@izs.me' },
+silly testEngine   main: './lib/abbrev.js',
+silly testEngine   scripts: { test: 'node lib/abbrev.js' },
+silly testEngine   repository: 
+silly testEngine    { type: 'git',
+silly testEngine      url: 'git://github.com/isaacs/abbrev-js.git' },
+silly testEngine   dependencies: {},
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'abbrev@1.0.3',
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/abbrev' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/abbrev/package.json
+verbose loadDefaults abbrev@1.0.3
+silly testEngine { author: 
+silly testEngine    { name: 'Isaac Z. Schlueter',
+silly testEngine      email: 'i@izs.me',
+silly testEngine      url: 'http://blog.izs.me' },
+silly testEngine   name: 'graceful-fs',
+silly testEngine   description: 'fs with incremental backoff on EMFILE',
+silly testEngine   version: '1.0.1',
+silly testEngine   repository: 
+silly testEngine    { type: 'git',
+silly testEngine      url: 'git://github.com/isaacs/node-graceful-fs.git' },
+silly testEngine   main: 'graceful-fs.js',
+silly testEngine   engines: { node: '0.4 || 0.5 || 0.6' },
+silly testEngine   dependencies: {},
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'graceful-fs@1.0.1',
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/graceful-fs' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/graceful-fs/package.json
+verbose loadDefaults graceful-fs@1.0.1
+silly testEngine { author: 
+silly testEngine    { name: 'Isaac Z. Schlueter',
+silly testEngine      email: 'i@izs.me',
+silly testEngine      url: 'http://blog.izs.me/' },
+silly testEngine   name: 'ini',
+silly testEngine   description: 'An ini encoder/decoder for node',
+silly testEngine   version: '1.0.1',
+silly testEngine   repository: 
+silly testEngine    { type: 'git',
+silly testEngine      url: 'git://github.com/isaacs/ini.git' },
+silly testEngine   main: 'ini.js',
+silly testEngine   scripts: { test: 'tap test/*.js' },
+silly testEngine   engines: { node: '*' },
+silly testEngine   dependencies: {},
+silly testEngine   devDependencies: { tap: '~0.0.9' },
+silly testEngine   _id: 'ini@1.0.1',
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/ini' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/ini/package.json
+verbose loadDefaults ini@1.0.1
+silly testEngine { author: 
+silly testEngine    { name: 'Isaac Z. Schlueter',
+silly testEngine      email: 'i@izs.me',
+silly testEngine      url: 'http://blog.izs.me' },
+silly testEngine   name: 'minimatch',
+silly testEngine   description: 'a glob matcher in javascript',
+silly testEngine   version: '0.0.4',
+silly testEngine   repository: 
+silly testEngine    { type: 'git',
+silly testEngine      url: 'git://github.com/isaacs/minimatch.git' },
+silly testEngine   main: 'minimatch.js',
+silly testEngine   scripts: { test: 'tap test' },
+silly testEngine   engines: { node: '*' },
+silly testEngine   bundleDependencies: [ 'lru-cache' ],
+silly testEngine   dependencies: { 'lru-cache': '~1.0.2' },
+silly testEngine   devDependencies: { tap: '~0.0.5' },
+silly testEngine   licenses: 
+silly testEngine    [ { type: 'MIT',
+silly testEngine        url: 'http://github.com/isaacs/minimatch/raw/master/LICENSE' } ],
+silly testEngine   _id: 'minimatch@0.0.4',
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/minimatch' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/minimatch/package.json
+verbose loadDefaults minimatch@0.0.4
+silly testEngine { name: 'node-uuid',
+silly testEngine   description: 'Simple, fast generation of RFC4122(v4) UUIDs.',
+silly testEngine   url: 'http://github.com/broofa/node-uuid',
+silly testEngine   keywords: [ 'uuid', 'guid', 'rfc4122' ],
+silly testEngine   author: { name: 'Robert Kieffer', email: 'robert@broofa.com' },
+silly testEngine   contributors: [],
+silly testEngine   dependencies: {},
+silly testEngine   lib: '.',
+silly testEngine   main: './uuid.js',
+silly testEngine   version: '1.2.0',
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'node-uuid@1.2.0',
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/node-uuid' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/node-uuid/package.json
+verbose loadDefaults node-uuid@1.2.0
+silly testEngine { name: 'nopt',
+silly testEngine   version: '1.0.10',
+silly testEngine   description: 'Option parsing for Node, supporting types, shorthands, etc. Used by npm.',
+silly testEngine   author: 
+silly testEngine    { name: 'Isaac Z. Schlueter',
+silly testEngine      email: 'i@izs.me',
+silly testEngine      url: 'http://blog.izs.me/' },
+silly testEngine   main: 'lib/nopt.js',
+silly testEngine   scripts: { test: 'node lib/nopt.js' },
+silly testEngine   repository: 
+silly testEngine    { type: 'git',
+silly testEngine      url: 'git://github.com/isaacs/nopt.git' },
+silly testEngine   bin: { nopt: './bin/nopt.js' },
+silly testEngine   license: 
+silly testEngine    { type: 'MIT',
+silly testEngine      url: 'https://github.com/isaacs/nopt/raw/master/LICENSE' },
+silly testEngine   dependencies: { abbrev: '1' },
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'nopt@1.0.10',
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/nopt' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/nopt/package.json
+verbose loadDefaults nopt@1.0.10
+silly testEngine { name: 'proto-list',
+silly testEngine   version: '1.0.0',
+silly testEngine   description: 'A utility for managing a prototype chain',
+silly testEngine   main: './proto-list.js',
+silly testEngine   author: 
+silly testEngine    { name: 'Isaac Z. Schlueter',
+silly testEngine      email: 'i@izs.me',
+silly testEngine      url: 'http://blog.izs.me/' },
+silly testEngine   scripts: { test: 'node proto-list.js' },
+silly testEngine   repository: 
+silly testEngine    { type: 'git',
+silly testEngine      url: 'git://github.com/isaacs/proto-list.git' },
+silly testEngine   license: 
+silly testEngine    { type: 'MIT',
+silly testEngine      url: 'https://github.com/isaacs/proto-list/blob/master/LICENSE' },
+silly testEngine   devDependencies: { tap: '0' },
+silly testEngine   dependencies: {},
+silly testEngine   _id: 'proto-list@1.0.0',
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/proto-list' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/proto-list/package.json
+verbose loadDefaults proto-list@1.0.0
+silly testEngine { name: 'request',
+silly testEngine   description: 'Simplified HTTP request client.',
+silly testEngine   tags: [ 'http', 'simple', 'util', 'utility' ],
+silly testEngine   version: '2.1.1',
+silly testEngine   author: 
+silly testEngine    { name: 'Mikeal Rogers',
+silly testEngine      email: 'mikeal.rogers@gmail.com' },
+silly testEngine   repository: 
+silly testEngine    { type: 'git',
+silly testEngine      url: 'git://github.com/mikeal/request.git' },
+silly testEngine   bugs: { url: 'http://github.com/mikeal/request/issues' },
+silly testEngine   engines: [ 'node >= 0.3.6', node: ' >= 0.3.6' ],
+silly testEngine   main: './main',
+silly testEngine   scripts: { test: 'bash tests/run.sh' },
+silly testEngine   dependencies: {},
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'request@2.1.1',
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/request' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/request/package.json
+verbose loadDefaults request@2.1.1
+silly testEngine { name: 'rimraf',
+silly testEngine   version: '1.0.8',
+silly testEngine   main: 'rimraf.js',
+silly testEngine   description: 'A deep deletion module for node (like `rm -rf`)',
+silly testEngine   author: 
+silly testEngine    { name: 'Isaac Z. Schlueter',
+silly testEngine      email: 'i@izs.me',
+silly testEngine      url: 'http://blog.izs.me/' },
+silly testEngine   license: 
+silly testEngine    { type: 'MIT',
+silly testEngine      url: 'https://github.com/isaacs/rimraf/raw/master/LICENSE' },
+silly testEngine   repository: 
+silly testEngine    { type: 'git',
+silly testEngine      url: 'git://github.com/isaacs/rimraf.git' },
+silly testEngine   scripts: { test: 'cd test && bash run.sh' },
+silly testEngine   dependencies: {},
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'rimraf@1.0.8',
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/rimraf' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/rimraf/package.json
+verbose loadDefaults rimraf@1.0.8
+silly testEngine { name: 'semver',
+silly testEngine   version: '1.0.10',
+silly testEngine   description: 'The semantic version parser used by npm.',
+silly testEngine   main: 'semver.js',
+silly testEngine   scripts: { test: 'tap semver.js' },
+silly testEngine   devDependencies: { tap: '0.x >=0.0.4' },
+silly testEngine   license: 
+silly testEngine    { type: 'MIT',
+silly testEngine      url: 'https://github.com/isaacs/semver/raw/master/LICENSE' },
+silly testEngine   repository: 
+silly testEngine    { type: 'git',
+silly testEngine      url: 'git://github.com/isaacs/node-semver.git' },
+silly testEngine   bin: { semver: './bin/semver' },
+silly testEngine   dependencies: {},
+silly testEngine   _id: 'semver@1.0.10',
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/semver' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/semver/package.json
+verbose loadDefaults semver@1.0.10
+silly testEngine { name: 'slide',
+silly testEngine   version: '1.1.3',
+silly testEngine   author: 
+silly testEngine    { name: 'Isaac Z. Schlueter',
+silly testEngine      email: 'i@izs.me',
+silly testEngine      url: 'http://blog.izs.me/' },
+silly testEngine   contributors: 
+silly testEngine    [ { name: 'S. Sriram',
+silly testEngine        email: 'ssriram@gmail.com',
+silly testEngine        url: 'http://www.565labs.com' } ],
+silly testEngine   description: 'A flow control lib small enough to fit on in a slide presentation. Derived live at Oak.JS',
+silly testEngine   main: './lib/slide.js',
+silly testEngine   dependencies: {},
+silly testEngine   devDependencies: {},
+silly testEngine   engines: { node: '*' },
+silly testEngine   repository: 
+silly testEngine    { type: 'git',
+silly testEngine      url: 'git://github.com/isaacs/slide-flow-control.git' },
+silly testEngine   _id: 'slide@1.1.3',
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/slide' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/slide/package.json
+verbose loadDefaults slide@1.1.3
+silly testEngine { author: 
+silly testEngine    { name: 'Isaac Z. Schlueter',
+silly testEngine      email: 'i@izs.me',
+silly testEngine      url: 'http://blog.izs.me' },
+silly testEngine   name: 'which',
+silly testEngine   description: 'Like which(1) unix command. Find the first instance of an executable in the PATH.',
+silly testEngine   version: '1.0.2',
+silly testEngine   repository: 
+silly testEngine    { type: 'git',
+silly testEngine      url: 'git://github.com/isaacs/node-which.git' },
+silly testEngine   main: 'which.js',
+silly testEngine   bin: { which: './bin/which' },
+silly testEngine   engines: { node: '*' },
+silly testEngine   dependencies: {},
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'which@1.0.2',
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/which' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/node_modules/which/package.json
+verbose loadDefaults which@1.0.2
+silly testEngine { name: 'bundletest',
+silly testEngine   version: '1.0.0',
+silly testEngine   dependencies: { bundletest: '*' },
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'bundletest@1.0.0',
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/disabled/bundlerecurs' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/disabled/bundlerecurs/package.json
+verbose loadDefaults bundletest@1.0.0
+silly testEngine { name: 'failer',
+silly testEngine   version: '9999.999.99',
+silly testEngine   dependencies: { base64: '*' },
+silly testEngine   scripts: { preinstall: 'exit 1' },
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'failer@9999.999.99',
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/disabled/failer' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/disabled/failer/package.json
+verbose loadDefaults failer@9999.999.99
+silly testEngine { name: 'fast',
+silly testEngine   description: 'does nothing, and not very fast',
+silly testEngine   version: '1.2.3',
+silly testEngine   scripts: 
+silly testEngine    { preinstall: 'sleep 1 && echo fast 1 $(date +%s) && echo fast 2',
+silly testEngine      install: 'sleep 1 && echo fast 2 $(date +%s) && echo fast 3',
+silly testEngine      postinstall: 'sleep 1 && echo fast 3 $(date +%s) && echo fast 4' },
+silly testEngine   dependencies: {},
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'fast@1.2.3',
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/disabled/fast' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/disabled/fast/package.json
+verbose loadDefaults fast@1.2.3
+silly testEngine { name: 'package-config',
+silly testEngine   version: '1.2.3',
+silly testEngine   config: { foo: 'bar' },
+silly testEngine   scripts: { test: './test.js' },
+silly testEngine   dependencies: {},
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'package-config@1.2.3',
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/disabled/package-config' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/disabled/package-config/package.json
+verbose loadDefaults package-config@1.2.3
+silly testEngine { name: 'slow',
+silly testEngine   description: 'just like fast, but even slower',
+silly testEngine   version: '1.2.3',
+silly testEngine   scripts: 
+silly testEngine    { preinstall: 'sleep 1 && echo slow 1 $(date +%s) && sleep 1 && echo slow 2 $(date +%s)',
+silly testEngine      install: 'sleep 1 && echo slow 2 $(date +%s) && sleep 1 && echo slow 3 $(date +%s)',
+silly testEngine      postinstall: 'sleep 1 && echo slow 3 $(date +%s) && sleep 1 && echo slow 4 $(date +%s)' },
+silly testEngine   dependencies: {},
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'slow@1.2.3',
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/disabled/slow' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/disabled/slow/package.json
+verbose loadDefaults slow@1.2.3
+silly testEngine { name: 'startstop',
+silly testEngine   version: '1.2.3',
+silly testEngine   scripts: { start: 'echo \'start\'', stop: 'echo \'stop\'' },
+silly testEngine   dependencies: {},
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'startstop@1.2.3',
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/disabled/startstop' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/disabled/startstop/package.json
+verbose loadDefaults startstop@1.2.3
+silly testEngine { name: 'npm-test-blerg',
+silly testEngine   version: '0.0.0',
+silly testEngine   scripts: { test: 'node test.js' },
+silly testEngine   dependencies: {},
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'npm-test-blerg@0.0.0',
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/packages/npm-test-blerg' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/packages/npm-test-blerg/package.json
+verbose loadDefaults npm-test-blerg@0.0.0
+silly testEngine { name: 'npm-test-env-reader',
+silly testEngine   version: '1.2.3',
+silly testEngine   scripts: 
+silly testEngine    { install: './test.sh',
+silly testEngine      preinstall: './test.sh',
+silly testEngine      preuninstall: './test.sh',
+silly testEngine      postuninstall: './test.sh',
+silly testEngine      test: './test.sh',
+silly testEngine      stop: './test.sh',
+silly testEngine      start: './test.sh',
+silly testEngine      restart: './test.sh',
+silly testEngine      foo: './test.sh' },
+silly testEngine   dependencies: {},
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'npm-test-env-reader@1.2.3',
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/packages/npm-test-env-reader' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/packages/npm-test-env-reader/package.json
+verbose loadDefaults npm-test-env-reader@1.2.3
+silly testEngine { name: 'npm-test-missing-bindir',
+silly testEngine   version: '0.0.0',
+silly testEngine   scripts: { test: 'node test.js' },
+silly testEngine   directories: { bin: './not-found' },
+silly testEngine   dependencies: {},
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'npm-test-missing-bindir@0.0.0',
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   bin: {} }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/packages/npm-test-missing-bindir/package.json
+verbose loadDefaults npm-test-missing-bindir@0.0.0
+verbose npm-test-missing-bindir@0.0.0 linking default bins
+silly testEngine { name: 'npm-test-private',
+silly testEngine   version: '9.9.9-9',
+silly testEngine   homepage: 'http://www.youtube.com/watch?v=1MLry6Cn_D4',
+silly testEngine   private: 'true',
+silly testEngine   dependencies: {},
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'npm-test-private@9.9.9-9',
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/packages/npm-test-private' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/packages/npm-test-private/package.json
+verbose loadDefaults npm-test-private@9.9.9-9
+silly testEngine { name: 'npm-test-test-package',
+silly testEngine   author: { name: 'Testy McMock' },
+silly testEngine   version: '1.2.3-99-b',
+silly testEngine   description: 'This is a test package used for debugging. It has some random data and that\'s all.',
+silly testEngine   dependencies: {},
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'npm-test-test-package@1.2.3-99-b',
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/packages/npm-test-test-package' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/packages/npm-test-test-package/package.json
+verbose loadDefaults npm-test-test-package@1.2.3-99-b
+silly testEngine { name: 'npm-test-url-dep',
+silly testEngine   version: '1.2.3',
+silly testEngine   dependencies: { dnode: 'https://github.com/substack/dnode/tarball/master' },
+silly testEngine   devDependencies: {},
+silly testEngine   _id: 'npm-test-url-dep@1.2.3',
+silly testEngine   engines: { node: '*' },
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.1rc5',
+silly testEngine   _nodeVersion: 'v0.4.3',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/packages/npm-test-url-dep' }
+verbose caching /tmp/npm-1321037102928/1321037102928-0.3251126913819462/contents/package/test/packages/npm-test-url-dep/package.json
+verbose loadDefaults npm-test-url-dep@1.2.3
+ERR! { stack: [Getter/Setter],
+ERR!   arguments: [ 'filter', undefined ],
+ERR!   type: 'non_object_property_call',
+ERR!   message: [Getter/Setter] }
+ERR! Report this *entire* log at:
+ERR!     <http://github.com/isaacs/npm/issues>
+ERR! or email it to:
+ERR!     <npm-@googlegroups.com>
+ERR! 
+ERR! System Darwin 11.2.0
+ERR! command "node" "/usr/local/bin/npm" "update" "-g"
+verbose exit [ 1, true ]
