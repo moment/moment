@@ -138,11 +138,11 @@ block content
       a(name="/get-it/github")
       h3
         span Github
-      a.btn.cupid-green(href="https://raw.github.com/timrwood/moment/master/moment.min.js") 
+      a.btn.cupid-green(href="https://raw.github.com/timrwood/moment/" + version + "/moment.min.js") 
         strong Production 
         span.version= 'Version ' + version
         span.filesize= minsize + ' minified &amp; gzipped'
-      a.btn.minimal(href="https://raw.github.com/timrwood/moment/master/moment.js") 
+      a.btn.minimal(href="https://raw.github.com/timrwood/moment/" + version + "/moment.js") 
         strong Development 
         span.version= 'Version ' + version
         span.filesize= srcsize + ' full source + comments'
