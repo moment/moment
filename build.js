@@ -38,8 +38,8 @@ var JSHINT_CONFIG = {
     "strict": false,
     "white": true
 };
-var LANG_MINIFY = "fr it pt es".split(" ");
-var LANG_TEST = "en fr it pt es".split(" ");
+var LANG_MINIFY = "fr it pt es nl".split(" ");
+var LANG_TEST = "en fr it pt es nl".split(" ");
 var LANG_PREFIX = "(function() { var moment; if (typeof window === 'undefined') { moment = require('../../moment'); module = QUnit.module; } else { moment = window.moment; }";
 var LANG_SUFFIX = "})();";
 var VERSION = '1.1.0';
