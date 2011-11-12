@@ -1,13 +1,13 @@
 extends html
 
 block styles
-  link(rel="stylesheet", href="../css/style.css")
+  link(rel="stylesheet", href="../css/style.css?_=" + builddate)
   title Moment.js Unit Test Suite
 
 block scripts
-  script(src="../js/moment.min.js")
-  script(src="../js/lang-all.min.js")
-  script(src="../js/test.min.js")
+  script(src="../js/moment.min.js?_=" + builddate)
+  script(src="../js/lang-all.min.js?_=" + builddate)
+  script(src="../js/test.min.js?_=" + builddate)
 
 block content
   #test

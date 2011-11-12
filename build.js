@@ -3,7 +3,8 @@ var fs     = require('fs'),
     jshint = require('jshint'),
     gzip   = require('gzip'),
     jade = require('jade'),
-    clean = require('clean-css');
+    clean = require('clean-css'),
+    moment = require('./moment');
 
 
 /*********************************************
@@ -38,14 +39,15 @@ var JSHINT_CONFIG = {
     "strict": false,
     "white": true
 };
-var LANG_MINIFY = "fr it pt es nl de".split(" ");
-var LANG_TEST = "en fr it pt es nl de".split(" ");
+var LANG_MINIFY = "fr it pt es nl de sv pl".split(" ");
+var LANG_TEST = "en fr it pt es nl de sv pl".split(" ");
 var LANG_PREFIX = "(function() { var moment; if (typeof window === 'undefined') { moment = require('../../moment'); module = QUnit.module; } else { moment = window.moment; }";
 var LANG_SUFFIX = "})();";
 var VERSION = '1.1.1';
 var MINIFY_COMMENT = '/* Moment.js | version : ' + VERSION + ' | author : Tim Wood | license : MIT */\n';
 var MINSIZE = 0;
 var SRCSIZE = 0;
+var BUILD_DATE = moment().format('YYMMDD_HHmmss');
 
 
 /*********************************************
@@ -135,15 +137,15 @@ function hint(source, name) {
         source;
     for (i = 0; i < LANG_MINIFY.length; i++) {
         source = fs.readFileSync('./lang/' + LANG_MINIFY[i] + '.js', 'utf8');
-        if (hint(source, 'lang/' + LANG_MINIFY[i])) {
-            minifyToFile(source, 'lang/' + LANG_MINIFY[i]);
+        if (hint(source, 'lang/min/' + LANG_MINIFY[i])) {
+            minifyToFile(source, 'lang/min/' + LANG_MINIFY[i]);
             allSource += source;
         } else {
             failures ++;
         }
     }
     if (failures === 0) {
-        minifyToFile(allSource, 'lang/all');
+        minifyToFile(allSource, 'lang/min/all');
         minifyToFile(allSource, 'site/js/lang-all');
     }
 })();
@@ -213,7 +215,7 @@ function makeUnitTests(){
     var q = fs.readFileSync('./sitesrc/js/qunit.js', 'utf8');
     var u = fs.readFileSync('./sitesrc/js/unit-tests.js', 'utf8');
     var l = fs.readFileSync('./sitesrc/js/lang-tests.js', 'utf8');
-    minifyToFile(q + u + l, 'site/js/test');
+    makeFile('site/js/test.min.js', q + u + l);
 }
 
 
@@ -231,7 +233,8 @@ function jadeToHtml(jadePath, htmlPath) {
     var args = {
         version : VERSION,
         minsize : toKb(MINSIZE),
-        srcsize : toKb(SRCSIZE)
+        srcsize : toKb(SRCSIZE),
+        builddate : BUILD_DATE
     };
     var snippet = fs.readFile(jadePath, 'utf8', function(err, data){
         var compile = jade.compile(data, {

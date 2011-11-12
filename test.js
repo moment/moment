@@ -1,6 +1,7 @@
 var testrunner = require('qunit');
 
 testrunner.options.errorsOnly = true;
+testrunner.options.coverage = false;
 
 testrunner.run({
     code: "./moment.js",

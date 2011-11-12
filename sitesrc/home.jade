@@ -1,11 +1,11 @@
 extends html
 
 block styles
-  link(rel="stylesheet", href="css/style.css")
+  link(rel="stylesheet", href="css/style.css?_=" + builddate)
   title Moment.js - A lightweight javascript date library
 
 block scripts
-  script(src="js/home.min.js")
+  script(src="js/home.min.js?_=" + builddate)
 
 block content
   #home
