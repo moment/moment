@@ -305,7 +305,7 @@
 
     moment = function (input, format) {
 		if (input === null) {
-			return null
+			return null;
 		}
         var date;
         // parse UnderscoreDate object
