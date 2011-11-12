@@ -105,13 +105,13 @@ test("from", 30, function() {
     moment.lang('pl');
     var start = moment([2007, 1, 28]);
     equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "kilka sekund",  "44 seconds = a few seconds");
-    equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "minutę",        "45 seconds = a minute");
-    equal(start.from(moment([2007, 1, 28]).add({s:89}), true),  "minutę",        "89 seconds = a minute");
-    equal(start.from(moment([2007, 1, 28]).add({s:90}), true),  "2 minut",       "90 seconds = 2 minutes");
-    equal(start.from(moment([2007, 1, 28]).add({m:44}), true),  "44 minut",      "44 minutes = 44 minutes");
-    equal(start.from(moment([2007, 1, 28]).add({m:45}), true),  "godzinę",       "45 minutes = an hour");
-    equal(start.from(moment([2007, 1, 28]).add({m:89}), true),  "godzinę",       "89 minutes = an hour");
-    equal(start.from(moment([2007, 1, 28]).add({m:90}), true),  "2 godzin",      "90 minutes = 2 hours");
+    equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "minuta",        "45 seconds = a minute");
+    equal(start.from(moment([2007, 1, 28]).add({s:89}), true),  "minuta",        "89 seconds = a minute");
+    equal(start.from(moment([2007, 1, 28]).add({s:90}), true),  "2 minuty",      "90 seconds = 2 minutes");
+    equal(start.from(moment([2007, 1, 28]).add({m:44}), true),  "44 minuty",     "44 minutes = 44 minutes");
+    equal(start.from(moment([2007, 1, 28]).add({m:45}), true),  "godzina",       "45 minutes = an hour");
+    equal(start.from(moment([2007, 1, 28]).add({m:89}), true),  "godzina",       "89 minutes = an hour");
+    equal(start.from(moment([2007, 1, 28]).add({m:90}), true),  "2 godziny",     "90 minutes = 2 hours");
     equal(start.from(moment([2007, 1, 28]).add({h:5}), true),   "5 godzin",      "5 hours = 5 hours");
     equal(start.from(moment([2007, 1, 28]).add({h:21}), true),  "21 godzin",     "21 hours = 21 hours");
     equal(start.from(moment([2007, 1, 28]).add({h:22}), true),  "1 dzień",       "22 hours = a day");
@@ -123,15 +123,15 @@ test("from", 30, function() {
     equal(start.from(moment([2007, 1, 28]).add({d:26}), true),  "miesiąc",       "26 days = a month");
     equal(start.from(moment([2007, 1, 28]).add({d:30}), true),  "miesiąc",       "30 days = a month");
     equal(start.from(moment([2007, 1, 28]).add({d:45}), true),  "miesiąc",       "45 days = a month");
-    equal(start.from(moment([2007, 1, 28]).add({d:46}), true),  "2 miesięcy",    "46 days = 2 months");
-    equal(start.from(moment([2007, 1, 28]).add({d:74}), true),  "2 miesięcy",    "75 days = 2 months");
-    equal(start.from(moment([2007, 1, 28]).add({d:76}), true),  "3 miesięcy",    "76 days = 3 months");
+    equal(start.from(moment([2007, 1, 28]).add({d:46}), true),  "2 miesiące",    "46 days = 2 months");
+    equal(start.from(moment([2007, 1, 28]).add({d:74}), true),  "2 miesiące",    "75 days = 2 months");
+    equal(start.from(moment([2007, 1, 28]).add({d:76}), true),  "3 miesiące",    "76 days = 3 months");
     equal(start.from(moment([2007, 1, 28]).add({M:1}), true),   "miesiąc",       "1 month = a month");
     equal(start.from(moment([2007, 1, 28]).add({M:5}), true),   "5 miesięcy",    "5 months = 5 months");
     equal(start.from(moment([2007, 1, 28]).add({d:344}), true), "11 miesięcy",   "344 days = 11 months");
     equal(start.from(moment([2007, 1, 28]).add({d:345}), true), "rok",           "345 days = a year");
     equal(start.from(moment([2007, 1, 28]).add({d:547}), true), "rok",           "547 days = a year");
-    equal(start.from(moment([2007, 1, 28]).add({d:548}), true), "2 lat",         "548 days = 2 years");
+    equal(start.from(moment([2007, 1, 28]).add({d:548}), true), "2 lata",        "548 days = 2 years");
     equal(start.from(moment([2007, 1, 28]).add({y:1}), true),   "rok",           "1 year = a year");
     equal(start.from(moment([2007, 1, 28]).add({y:5}), true),   "5 lat",         "5 years = 5 years");
 });
@@ -149,9 +149,10 @@ test("now from now", 1, function() {
 });
 
 
-test("fromNow", 2, function() {
+test("fromNow", 3, function() {
     moment.lang('pl');
     equal(moment().add({s:30}).fromNow(), "za kilka sekund", "in a few seconds");
+    equal(moment().add({h:1}).fromNow(), "za godzinę", "in an hour");
     equal(moment().add({d:5}).fromNow(), "za 5 dni", "in 5 days");
 });
 

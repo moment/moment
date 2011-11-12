@@ -384,27 +384,28 @@
     });
 
     // helper function for _date.from() and _date.fromNow()
-    function substituteTimeAgo(string, number) {
-        return moment.relativeTime[string].replace(/%d/i, number || 1);
+    function substituteTimeAgo(string, number, withoutSuffix) {
+        var rt = moment.relativeTime[string];
+        return (typeof rt === 'function') ? rt(number || 1, !!withoutSuffix) : rt.replace(/%d/i, number || 1);
     }
 
-    function relativeTime(milliseconds) {
+    function relativeTime(milliseconds, withoutSuffix) {
         var seconds = Math.abs(milliseconds) / 1000,
             minutes = seconds / 60,
             hours = minutes / 60,
             days = hours / 24,
             years = days / 365;
-        return seconds < 45 && substituteTimeAgo('s', round(seconds)) ||
-            round(minutes) === 1 && substituteTimeAgo('m') ||
-            minutes < 45 && substituteTimeAgo('mm', round(minutes)) ||
-            round(hours) === 1 && substituteTimeAgo('h') ||
-            hours < 22 && substituteTimeAgo('hh', round(hours)) ||
-            round(days) === 1 && substituteTimeAgo('d') ||
-            days <= 25 && substituteTimeAgo('dd', round(days)) ||
-            days <= 45 && substituteTimeAgo('M') ||
-            days < 345 && substituteTimeAgo('MM', round(days / 30)) ||
-            round(years) === 1 && substituteTimeAgo('y') ||
-            substituteTimeAgo('yy', round(years));
+        return seconds < 45 && substituteTimeAgo('s', round(seconds), withoutSuffix) ||
+            round(minutes) === 1 && substituteTimeAgo('m', 1, withoutSuffix) ||
+            minutes < 45 && substituteTimeAgo('mm', round(minutes), withoutSuffix) ||
+            round(hours) === 1 && substituteTimeAgo('h', 1, withoutSuffix) ||
+            hours < 22 && substituteTimeAgo('hh', round(hours), withoutSuffix) ||
+            round(days) === 1 && substituteTimeAgo('d', 1, withoutSuffix) ||
+            days <= 25 && substituteTimeAgo('dd', round(days), withoutSuffix) ||
+            days <= 45 && substituteTimeAgo('M', 1, withoutSuffix) ||
+            days < 345 && substituteTimeAgo('MM', round(days / 30), withoutSuffix) ||
+            round(years) === 1 && substituteTimeAgo('y', 1, withoutSuffix) ||
+            substituteTimeAgo('yy', round(years), withoutSuffix);
     }
 
     // shortcut for prototype
@@ -457,7 +458,7 @@
         from : function (time, withoutSuffix) {
             var difference = this.diff(time),
                 rel = moment.relativeTime,
-                output = relativeTime(difference);
+                output = relativeTime(difference, withoutSuffix);
             return withoutSuffix ? output : (difference <= 0 ? rel.past : rel.future).replace(/%s/i, output);
         },
 
