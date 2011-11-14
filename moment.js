@@ -439,7 +439,7 @@
             return this;
         },
 
-        diff : function (input, val, float) {
+        diff : function (input, val, asFloat) {
             var inputMoment = moment(input),
                 diff = this._d - inputMoment._d, 
                 year = this.year() - inputMoment.year(), 
@@ -458,7 +458,7 @@
                     val === 'weeks' ? diff / 6048e5 : // 1000 * 60 * 60 * 24 * 7
                     val === 'days' ? diff / 3600 : diff;
             }
-            return float ? output : round(output);
+            return asFloat ? output : round(output);
         },
 
         from : function (time, withoutSuffix) {
