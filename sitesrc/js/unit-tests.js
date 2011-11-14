@@ -292,5 +292,20 @@ test("chaining setters", 7, function() {
     equal(a.seconds(), 8, 'second');
 });
 
+
+module("format");
+
+
+test("format YY", 1, function() {
+    var b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
+    equal(b.format('YY'), '09', 'YY ---> 09');
+});
+
+test("format timezone", 2, function() {
+    var b = moment(new Date(2010, 1, 14, 15, 25, 50, 125));
+    ok(b.format('z').match(/^[A-Z]{3,5}$/), b.format('z') + ' ---> Something like "PST"');
+    ok(b.format('zz').match(/^[A-Z]{3,5}$/), b.format('zz') + ' ---> Something like "PST"');
+});
+
 })();
 
