@@ -304,13 +304,13 @@
     }
 
     moment = function (input, format) {
-		if (input === null) {
-			return null;
-		}
+        if (input === null) {
+            return null;
+        }
         var date;
         // parse UnderscoreDate object
         if (input && input._d instanceof Date) {
-            date = input._d;
+            date = new Date(+input._d);
         // parse string and format
         } else if (format) {
             if (isArray(format)) {
@@ -416,6 +416,10 @@
 
     // shortcut for prototype
     moment.fn = Moment.prototype = {
+
+        clone : function () {
+            return moment(this);
+        },
 
         valueOf : function () {
             return +this._d;
