@@ -1,19 +1,21 @@
 (function () {
-    var singular = function (ws, a, b) {
-        return ws ? a : b;
+    var plural = function (n) { 
+        return (n % 10 < 5) && (n % 10 > 1) && (~~(n / 10) !== 1);
     },
-    plural = function (n, a, b) { 
-        return ((n % 10 < 5) && (n % 10 > 1) && (~~(n / 10) !== 1)) ? n + ' ' + a : n + ' ' + b;
-    },
-    singularf = function (a, b) {
-        return function (n, ws) {
-            return singular(ws, a, b);
-        };
-    },
-    pluralf = function (a, b) {
-        return function (n) {
-            return plural(n, a, b);
-        };
+    
+    translate = function(number, withoutSuffix, key) {
+      var result = number+" ";
+      
+      switch(key) {
+        case 'm':  result  = withoutSuffix  ? 'minuta'   : 'minutę'; break;
+        case 'mm': result += plural(number) ? 'minuty'   : 'minut';  break;
+        case 'h':  result  = withoutSuffix  ? 'godzina'  : 'godzinę'; break;
+        case 'hh': result += plural(number) ? 'godziny'  : 'godzin'; break;
+        case 'MM': result += plural(number) ? 'miesiące' : 'miesięcy'; break;
+        case 'yy': result += plural(number) ? 'lata'     : 'lat'; break;
+      }
+      
+      return result;
     },
   
     lang = {
@@ -31,16 +33,16 @@
             future : "za %s",
             past : "%s temu",
             s : "kilka sekund",
-            m : singularf('minuta', 'minutę'),
-            mm : pluralf('minuty', 'minut'),
-            h : singularf('godzina', 'godzinę'),
-            hh : pluralf('godziny', 'godzin'),
+            m : translate,
+            mm : translate,
+            h : translate,
+            hh : translate,
             d : "1 dzień",
             dd : '%d dni',
             M : "miesiąc",
-            MM : pluralf('miesiące', 'miesięcy'),
+            MM : translate,
             y : "rok",
-            yy : pluralf('lata', 'lat')
+            yy : translate
         },
         ordinal : function (number) {
             return '.';
