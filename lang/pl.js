@@ -3,19 +3,22 @@
         return (n % 10 < 5) && (n % 10 > 1) && (~~(n / 10) !== 1);
     },
     
-    translate = function(number, withoutSuffix, key) {
-      var result = number+" ";
-      
-      switch(key) {
-        case 'm':  result  = withoutSuffix  ? 'minuta'   : 'minutę'; break;
-        case 'mm': result += plural(number) ? 'minuty'   : 'minut';  break;
-        case 'h':  result  = withoutSuffix  ? 'godzina'  : 'godzinę'; break;
-        case 'hh': result += plural(number) ? 'godziny'  : 'godzin'; break;
-        case 'MM': result += plural(number) ? 'miesiące' : 'miesięcy'; break;
-        case 'yy': result += plural(number) ? 'lata'     : 'lat'; break;
-      }
-      
-      return result;
+    translate = function (number, withoutSuffix, key) {
+        var result = number + " ";
+        switch (key) {
+        case 'm': 
+            return withoutSuffix ? 'minuta' : 'minutę';
+        case 'mm': 
+            return result + (plural(number) ? 'minuty' : 'minut');
+        case 'h': 
+            return withoutSuffix  ? 'godzina'  : 'godzinę';
+        case 'hh': 
+            return result + (plural(number) ? 'godziny' : 'godzin');
+        case 'MM': 
+            return result + (plural(number) ? 'miesiące' : 'miesięcy');
+        case 'yy': 
+            return result + (plural(number) ? 'lata' : 'lat');
+        }
     },
   
     lang = {
