@@ -967,9 +967,9 @@ block content
         span Relative Time
       p
         code moment.relativeTime
-        | should be an object of the replacement strings for 
+        |  should be an object of the replacement strings for 
         code moment.fn.from
-        | . The functions should return the correct string for a given number.
+        | .
       pre moment.relativeTime = {\n
         |     future: "in %s",
         |     past: "%s ago",
@@ -987,9 +987,26 @@ block content
         | };
       p
         code future
-        | refers to the prefix/suffix for future dates, and 
+        |  refers to the prefix/suffix for future dates, and 
         code past
-        | refers to the prefix/suffix for past dates. For all others, a single character refers to the singular, and an double character refers to the plural.
+        |  refers to the prefix/suffix for past dates. For all others, a single character refers to the singular, and an double character refers to the plural.
+      p If a language requires additional processing for a token, It can set the token as a function with the following signature. 
+        | The function should return a string.
+      pre function(number, withoutSuffix, key) {\n
+        |     return string;
+        | }
+      p The 
+        code key
+        |  variable refers to the replacement key in the 
+        code relativeTime 
+        |  object. (eg. 's', 'm', 'mm', 'h', etc.)
+      p The 
+        code number
+        |  variable refers to the number of units for that key. For 'm', the number is the number of minutes, etc.
+      p The 
+        code withoutSuffix
+        |  variable will be true if the token will be displayed without a suffix, and false if it will be displayed with a suffix. 
+        | (The reason for the inverted logic is because the default behavior is to display with the suffix.)
 
 
       a(name="/custom/ordinal")
