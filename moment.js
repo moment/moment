@@ -11,7 +11,7 @@
         round = Math.round,
         languages = {},
         hasModule = (typeof module !== 'undefined'),
-        paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|longDateFormat|relativeTime|ordinal'.split('|'),
+        paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|longDateFormat|relativeTime|ordinal|meridiem'.split('|'),
         i,
         VERSION = "1.1.1",
         shortcuts = 'Month|Date|Hours|Minutes|Seconds'.split('|');
@@ -79,7 +79,8 @@
             charactersToReplace = /(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|LL?L?L?)/g,
             nonuppercaseLetters = /[^A-Z]/g,
             timezoneRegex = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g,
-            ordinal = moment.ordinal;
+            ordinal = moment.ordinal,
+            meridiem = moment.meridiem;
         // check if the character is a format
         // return formatted string or non string.
         //
@@ -144,9 +145,9 @@
                 return currentYear;
             // AM / PM
             case 'a' :
-                return currentHours > 11 ? 'pm' : 'am';
+                return currentHours > 11 ? meridiem.pm : meridiem.am;
             case 'A' :
-                return currentHours > 11 ? 'PM' : 'AM';
+                return currentHours > 11 ? meridiem.PM : meridiem.AM;
             // 24 HOUR
             case 'H' :
                 return currentHours;
@@ -361,6 +362,12 @@
             LL : "MMMM D YYYY",
             LLL : "MMMM D YYYY h:mm A",
             LLLL : "dddd, MMMM D YYYY h:mm A"
+        },
+        meridian : {
+            AM : 'AM',
+            am : 'am',
+            PM : 'PM',
+            pm : 'pm'
         },
         relativeTime : {
             future : "in %s",

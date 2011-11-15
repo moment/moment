@@ -124,6 +124,8 @@ block content
         li
           a(href="#/custom/relativeTime") Relative Time
         li
+          a(href="#/custom/meridiem") AM/PM
+        li
           a(href="#/custom/ordinal") Ordinal
     #docs
       h1 Moment.js Documentation
@@ -1009,12 +1011,25 @@ block content
         | (The reason for the inverted logic is because the default behavior is to display with the suffix.)
 
 
+      a(name="/custom/meridiem")
+      h3
+        span AM/PM
+      p
+        code moment.meridiem
+        |  should be a map of upper and lowercase versions of am/pm.
+      pre moment.meridiem = {\n
+        |     am : 'am',
+        |     AM : 'AM',
+        |     pm : 'pm',
+        |     PM : 'PM'
+        | };
+
       a(name="/custom/ordinal")
       h3
         span Ordinal
       p
         code moment.ordinal
-        | should be a function that returns the ordinal for a given number.
+        |  should be a function that returns the ordinal for a given number.
       pre moment.ordinal = function (number) {\n
         |     var b = number % 10;
         |     return (~~ (number % 100 / 10) === 1) ? 'th' : 

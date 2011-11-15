@@ -10,6 +10,12 @@
                 LLL : "D. MMMM YYYY HH:mm U\\hr",
                 LLLL : "dddd, D. MMMM YYYY HH:mm U\\hr"
             },
+            meridiem : {
+                AM : 'AM',
+                am : 'am',
+                PM : 'PM',
+                pm : 'pm'
+            },
             relativeTime : {
                 future : "in %s",
                 past : "vor %s",

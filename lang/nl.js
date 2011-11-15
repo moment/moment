@@ -10,6 +10,12 @@
                 LLL : "MMMM D YYYY HH:mm",
                 LLLL : "dddd, D MMMM YYYY HH:mm"
             },
+            meridiem : {
+                AM : 'AM',
+                am : 'am',
+                PM : 'PM',
+                pm : 'pm'
+            },
             relativeTime : {
                 future : "over %s",
                 past : "%s geleden",
