@@ -13,24 +13,20 @@
             relativeTime : {
                 future : "%s 후",
                 past : "%s 전",
-                s : "방금",
-                m : "몇 분",
+                s : "%d초",
+                m : "일분",
                 mm : "%d분",
                 h : "한 시간",
                 hh : "%d시간",
                 d : "하루",
                 dd : "%d일",
-                M : "한 달",
+                M : "한달",
                 MM : "%d달",
-                y : "일 년",
+                y : "일년",
                 yy : "%d년"
             },
             ordinal : function (number) {
-                var b = number % 10;
-                return (~~ (number % 100 / 10) === 1) ? '일' :
-                    (b === 1) ? '일' :
-                    (b === 2) ? '일' :
-                    (b === 3) ? '일' : '일';
+		return '일';
             }
         };
 
