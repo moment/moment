@@ -39,8 +39,8 @@ var JSHINT_CONFIG = {
     "strict": false,
     "white": true
 };
-var LANG_MINIFY = "fr it pt es nl de sv pl nb".split(" ");
-var LANG_TEST = "en fr it pt es nl de sv pl nb".split(" ");
+var LANG_MINIFY = "de es fr it nb nl pl pt ru sv".split(" ");
+var LANG_TEST = "de en es fr it nb nl pl pt ru sv".split(" ");
 var LANG_PREFIX = "(function() { var moment; if (typeof window === 'undefined') { moment = require('../../moment'); module = QUnit.module; } else { moment = window.moment; }";
 var LANG_SUFFIX = "})();";
 var VERSION = '1.1.1';
