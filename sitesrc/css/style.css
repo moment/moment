@@ -146,7 +146,7 @@ b, strong { font-weight:bold; }
 ****************/
 
 
-#docnav { width:220px; padding:10px 10px 100px; position:fixed; top:60px; bottom:0; left:0; overflow-x:hidden; overflow-y:scroll; text-align:left; }
+#docnav { width:220px; padding:10px 10px 100px; position:fixed; top:60px; bottom:0; left:0; overflow-x:hidden; overflow-y:scroll; -webkit-overflow-scrolling:touch; text-align:left; }
 #docnav h2 { height:18px; border-bottom:6px solid #ddd; margin:0 0 20px; text-align:center; }
 #docnav h2 span { background:#eee; padding:0 10px; line-height:18px; font-size:18px; }
 #docnav h2 a { text-decoration:none; color:#333; }
@@ -175,7 +175,7 @@ b, strong { font-weight:bold; }
 ****************/
 
 
-#docs { padding:0 100px 0 40px; position:fixed; top:60px; bottom:0; right:10px; left:242px; overflow-x:hidden; overflow-y:scroll; text-align:left; background:url(../img/gradient.gif) 0 0 repeat-y; }
+#docs { padding:0 100px 0 40px; position:fixed; top:60px; bottom:0; right:10px; left:242px; overflow-x:hidden; overflow-y:scroll; text-align:left; background:url(../img/gradient.gif) 0 0 repeat-y; -webkit-overflow-scrolling:touch; }
 #docs h2 { height:20px; border-bottom:6px solid #bbb; margin:0 0 40px; padding:20px 20px 0; }
 #docs h2 span { background:#eee; padding:0 10px; line-height:36px; font-size:36px; }
 #docs h3 { height:14px; border-bottom:6px solid #e6e6e6; margin:0 0 40px; padding:20px 20px 0; }
