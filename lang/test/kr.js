@@ -8,24 +8,24 @@ module("lang:kr");
 test("format", 18, function() {
     moment.lang('kr');
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Sunday, February 14th 2010, 3:25:50 pm'],
-            ['ddd, hA',                            'Sun, 3PM'],
-            ['M Mo MM MMMM MMM',                   '2 2nd 02 February Feb'],
+            ['YYYY년 MMMM Do dddd a h:mm:ss',      '2010년 2월 14일 일요일 오후 3:25:50'],
+            ['ddd A h',                            '일 오후 3'],
+            ['M Mo MM MMMM MMM',                   '2 2일 02 2월 2월'],
             ['YYYY YY',                            '2010 10'],
-            ['D Do DD',                            '14 14th 14'],
-            ['d do dddd ddd',                      '0 0th Sunday Sun'],
-            ['DDD DDDo DDDD',                      '45 45th 045'],
-            ['w wo ww',                            '8 8th 08'],
+            ['D Do DD',                            '14 14일 14'],
+            ['d do dddd ddd',                      '0 0일 일요일 일'],
+            ['DDD DDDo DDDD',                      '45 45일 045'],
+            ['w wo ww',                            '8 8일 08'],
             ['h hh',                               '3 03'],
             ['H HH',                               '15 15'],
             ['m mm',                               '25 25'],
             ['s ss',                               '50 50'],
-            ['a A',                                'pm PM'],
-            ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45th day of the year'],
-            ['L',                                  '02/14/2010'],
-            ['LL',                                 'February 14 2010'],
-            ['LLL',                                'February 14 2010 3:25 PM'],
-            ['LLLL',                               'Sunday, February 14 2010 3:25 PM']
+            ['a A',                                '오후 오후'],
+            ['일년 중 DDDo째 되는 날', '일년 중 45일째 되는 날'],
+            ['L',                                  '2010.02.14'],
+            ['LL',                                 '2010년 2월 14일'],
+            ['LLL',                                '2010년 2월 14일 오후 3시 25분'],
+            ['LLLL',                               '2010년 2월 14일 일요일 오후 3시 25분']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -91,44 +91,44 @@ test("format week", 7, function() {
 });
 
 test("from", 30, function() {
-    moment.lang('en');
+    moment.lang('kr');
     var start = moment([2007, 1, 28]);
-    equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "a few seconds", "44 seconds = a few seconds");
-    equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "a minute",      "45 seconds = a minute");
-    equal(start.from(moment([2007, 1, 28]).add({s:89}), true),  "a minute",      "89 seconds = a minute");
-    equal(start.from(moment([2007, 1, 28]).add({s:90}), true),  "2 minutes",     "90 seconds = 2 minutes");
-    equal(start.from(moment([2007, 1, 28]).add({m:44}), true),  "44 minutes",    "44 minutes = 44 minutes");
-    equal(start.from(moment([2007, 1, 28]).add({m:45}), true),  "an hour",       "45 minutes = an hour");
-    equal(start.from(moment([2007, 1, 28]).add({m:89}), true),  "an hour",       "89 minutes = an hour");
-    equal(start.from(moment([2007, 1, 28]).add({m:90}), true),  "2 hours",       "90 minutes = 2 hours");
-    equal(start.from(moment([2007, 1, 28]).add({h:5}), true),   "5 hours",       "5 hours = 5 hours");
-    equal(start.from(moment([2007, 1, 28]).add({h:21}), true),  "21 hours",      "21 hours = 21 hours");
-    equal(start.from(moment([2007, 1, 28]).add({h:22}), true),  "a day",         "22 hours = a day");
-    equal(start.from(moment([2007, 1, 28]).add({h:35}), true),  "a day",         "35 hours = a day");
-    equal(start.from(moment([2007, 1, 28]).add({h:36}), true),  "2 days",        "36 hours = 2 days");
-    equal(start.from(moment([2007, 1, 28]).add({d:1}), true),   "a day",         "1 day = a day");
-    equal(start.from(moment([2007, 1, 28]).add({d:5}), true),   "5 days",        "5 days = 5 days");
-    equal(start.from(moment([2007, 1, 28]).add({d:25}), true),  "25 days",       "25 days = 25 days");
-    equal(start.from(moment([2007, 1, 28]).add({d:26}), true),  "a month",       "26 days = a month");
-    equal(start.from(moment([2007, 1, 28]).add({d:30}), true),  "a month",       "30 days = a month");
-    equal(start.from(moment([2007, 1, 28]).add({d:45}), true),  "a month",       "45 days = a month");
-    equal(start.from(moment([2007, 1, 28]).add({d:46}), true),  "2 months",      "46 days = 2 months");
-    equal(start.from(moment([2007, 1, 28]).add({d:74}), true),  "2 months",      "75 days = 2 months");
-    equal(start.from(moment([2007, 1, 28]).add({d:76}), true),  "3 months",      "76 days = 3 months");
-    equal(start.from(moment([2007, 1, 28]).add({M:1}), true),   "a month",       "1 month = a month");
-    equal(start.from(moment([2007, 1, 28]).add({M:5}), true),   "5 months",      "5 months = 5 months");
-    equal(start.from(moment([2007, 1, 28]).add({d:344}), true), "11 months",     "344 days = 11 months");
-    equal(start.from(moment([2007, 1, 28]).add({d:345}), true), "a year",        "345 days = a year");
-    equal(start.from(moment([2007, 1, 28]).add({d:547}), true), "a year",        "547 days = a year");
-    equal(start.from(moment([2007, 1, 28]).add({d:548}), true), "2 years",       "548 days = 2 years");
-    equal(start.from(moment([2007, 1, 28]).add({y:1}), true),   "a year",        "1 year = a year");
-    equal(start.from(moment([2007, 1, 28]).add({y:5}), true),   "5 years",       "5 years = 5 years");
+    equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "몇초", "44초 = 몇초");
+    equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "일분",      "45초 = 일분");
+    equal(start.from(moment([2007, 1, 28]).add({s:89}), true),  "일분",      "89초 = 일분");
+    equal(start.from(moment([2007, 1, 28]).add({s:90}), true),  "2분",     "90초 = 2분");
+    equal(start.from(moment([2007, 1, 28]).add({m:44}), true),  "44분",    "44분 = 44분");
+    equal(start.from(moment([2007, 1, 28]).add({m:45}), true),  "한시간",       "45분 = 한시간");
+    equal(start.from(moment([2007, 1, 28]).add({m:89}), true),  "한시간",       "89분 = 한시간");
+    equal(start.from(moment([2007, 1, 28]).add({m:90}), true),  "2시간",       "90분 = 2시간");
+    equal(start.from(moment([2007, 1, 28]).add({h:5}), true),   "5시간",       "5시간 = 5시간");
+    equal(start.from(moment([2007, 1, 28]).add({h:21}), true),  "21시간",      "21시간 = 21시간");
+    equal(start.from(moment([2007, 1, 28]).add({h:22}), true),  "하루",         "22시간 = 하루");
+    equal(start.from(moment([2007, 1, 28]).add({h:35}), true),  "하루",         "35시간 = 하루");
+    equal(start.from(moment([2007, 1, 28]).add({h:36}), true),  "2일",        "36시간 = 2일");
+    equal(start.from(moment([2007, 1, 28]).add({d:1}), true),   "하루",         "하루 = 하루");
+    equal(start.from(moment([2007, 1, 28]).add({d:5}), true),   "5일",        "5일 = 5일");
+    equal(start.from(moment([2007, 1, 28]).add({d:25}), true),  "25일",       "25일 = 25일");
+    equal(start.from(moment([2007, 1, 28]).add({d:26}), true),  "한달",       "26일 = 한달");
+    equal(start.from(moment([2007, 1, 28]).add({d:30}), true),  "한달",       "30일 = 한달");
+    equal(start.from(moment([2007, 1, 28]).add({d:45}), true),  "한달",       "45일 = 한달");
+    equal(start.from(moment([2007, 1, 28]).add({d:46}), true),  "2달",      "46일 = 2달");
+    equal(start.from(moment([2007, 1, 28]).add({d:74}), true),  "2달",      "75일 = 2달");
+    equal(start.from(moment([2007, 1, 28]).add({d:76}), true),  "3달",      "76일 = 3달");
+    equal(start.from(moment([2007, 1, 28]).add({M:1}), true),   "한달",       "1달 = 한달");
+    equal(start.from(moment([2007, 1, 28]).add({M:5}), true),   "5달",      "5달 = 5달");
+    equal(start.from(moment([2007, 1, 28]).add({d:344}), true), "11달",     "344일 = 11달");
+    equal(start.from(moment([2007, 1, 28]).add({d:345}), true), "일년",        "345일 = 일년");
+    equal(start.from(moment([2007, 1, 28]).add({d:547}), true), "일년",        "547일 = 일년");
+    equal(start.from(moment([2007, 1, 28]).add({d:548}), true), "2년",       "548일 = 2년");
+    equal(start.from(moment([2007, 1, 28]).add({y:1}), true),   "일년",        "일년 = 일년");
+    equal(start.from(moment([2007, 1, 28]).add({y:5}), true),   "5년",       "5년 = 5년");
 });
 
 test("suffix", 2, function() {
-    moment.lang('en');
-    equal(moment(30000).from(0), "in a few seconds",  "prefix");
-    equal(moment(0).from(30000), "a few seconds ago", "suffix");
+    moment.lang('kr');
+    equal(moment(30000).from(0), "몇초 후",  "prefix");
+    equal(moment(0).from(30000), "몇초 전", "suffix");
 });
 
 

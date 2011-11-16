@@ -7,16 +7,23 @@
             longDateFormat : {
                 L : "YYYY.MM.DD",
                 LL : "YYYY년 MMMM D일",
-                LLL : "YYYY년 MMMM D일 HH시 mm분",
-                LLLL : "YYYY년 MMMM D일 dddd HH시 mm분"
+                LLL : "YYYY년 MMMM D일 A h시 mm분",
+                LLLL : "YYYY년 MMMM D일 dddd A h시 mm분"
             },
+			meridiem : {
+				AM : '오전',
+				am : '오전',
+				PM : '오후',
+				pm : '오후'
+			},
             relativeTime : {
                 future : "%s 후",
                 past : "%s 전",
-                s : "%d초",
+                s : "몇초",
+                ss : "%d초",
                 m : "일분",
                 mm : "%d분",
-                h : "한 시간",
+                h : "한시간",
                 hh : "%d시간",
                 d : "하루",
                 dd : "%d일",
@@ -26,7 +33,7 @@
                 yy : "%d년"
             },
             ordinal : function (number) {
-		return '일';
+                return '일';
             }
         };
 
