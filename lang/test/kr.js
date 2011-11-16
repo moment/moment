@@ -133,14 +133,14 @@ test("suffix", 2, function() {
 
 
 test("now from now", 1, function() {
-    moment.lang('en');
-    equal(moment().fromNow(), "a few seconds ago",  "now from now should display as in the past");
+    moment.lang('kr');
+    equal(moment().fromNow(), "몇초 전",  "now from now should display as in the past");
 });
 
 
 test("fromNow", 2, function() {
-    moment.lang('en');
-    equal(moment().add({s:30}).fromNow(), "in a few seconds", "in a few seconds");
-    equal(moment().add({d:5}).fromNow(), "in 5 days", "in 5 days");
+    moment.lang('kr');
+    equal(moment().add({s:30}).fromNow(), "몇초 후", "in a few seconds");
+    equal(moment().add({d:5}).fromNow(), "5일 후", "in 5 days");
 });
 
