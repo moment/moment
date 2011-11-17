@@ -363,7 +363,7 @@
             LLL : "MMMM D YYYY h:mm A",
             LLLL : "dddd, MMMM D YYYY h:mm A"
         },
-        meridian : {
+        meridiem : {
             AM : 'AM',
             am : 'am',
             PM : 'PM',
