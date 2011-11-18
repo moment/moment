@@ -1,28 +1,18 @@
 Moment.js
 =========
 
-Moment.js is a javascript date library that helps create, manipulate, and format dates without extending the `Date` prototype.
+A lightweight javascript date library for parsing, manipulating, and formatting dates.
 
-Author: Tim Wood
-
-Version: 1.0.1
-
-2.2 kb (min + gzip)
+### Check it out at [momentjs.com](http://momentjs.com).
 
 Get it with npm
 ===============
 
     npm install moment
 
-Documentation
-=============
+### Read the documentation at [momentjs.com/docs/](http://momentjs.com/docs/).
 
-Read the documentation at [momentjs.com/docs/](http://momentjs.com/docs/).
-
-Unit Tests
-==========
-
-Run the unit tests at [momentjs.com/test/](http://momentjs.com/test/).
+### Run the unit tests at [momentjs.com/test/](http://momentjs.com/test/).
 
 Thanks to...
 ============
