@@ -3,7 +3,7 @@
 // (c) 2011 Tim Wood
 // Moment.js is freely distributable under the terms of the MIT license.
 //
-// Version 1.1.1
+// Version 1.1.2
 
 (function (Date, undefined) {
 
@@ -13,7 +13,7 @@
         hasModule = (typeof module !== 'undefined'),
         paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|longDateFormat|relativeTime|ordinal|meridiem'.split('|'),
         i,
-        VERSION = "1.1.1",
+        VERSION = "1.1.2",
         shortcuts = 'Month|Date|Hours|Minutes|Seconds'.split('|');
 
     // left zero fill a number

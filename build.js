@@ -43,7 +43,7 @@ var LANG_MINIFY = "de es fr it kr nb nl pl pt ru sv".split(" ");
 var LANG_TEST = "de en es fr it kr nb nl pl pt ru sv".split(" ");
 var LANG_PREFIX = "(function() { var moment; if (typeof window === 'undefined') { moment = require('../../moment'); module = QUnit.module; } else { moment = window.moment; }";
 var LANG_SUFFIX = "})();";
-var VERSION = '1.1.1';
+var VERSION = '1.1.2';
 var MINIFY_COMMENT = '/* Moment.js | version : ' + VERSION + ' | author : Tim Wood | license : MIT */\n';
 var MINSIZE = 0;
 var SRCSIZE = 0;
