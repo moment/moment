@@ -1021,9 +1021,9 @@ test("format", 18, function() {
             ['a A',                                'pm PM'],
             ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45ste day of the year'],
             ['L',                                  '14-02-2010'],
-            ['LL',                                 'februari 14 2010'],
-            ['LLL',                                'februari 14 2010 15:25'],
-            ['LLLL',                               'zondag, 14 februari 2010 15:25']
+            ['LL',                                 '14 februari 2010'],
+            ['LLL',                                '14 februari 2010 15:25'],
+            ['LLLL',                               'zondag 14 februari 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -1092,15 +1092,15 @@ test("from", 30, function() {
     moment.lang('nl');
     var start = moment([2007, 1, 28]);
     equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "een paar seconden", "44 seconds = a few seconds");
-    equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "één minuutje",      "45 seconds = a minute");
-    equal(start.from(moment([2007, 1, 28]).add({s:89}), true),  "één minuutje",      "89 seconds = a minute");
+    equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "één minuut",      "45 seconds = a minute");
+    equal(start.from(moment([2007, 1, 28]).add({s:89}), true),  "één minuut",      "89 seconds = a minute");
     equal(start.from(moment([2007, 1, 28]).add({s:90}), true),  "2 minuten",     "90 seconds = 2 minutes");
     equal(start.from(moment([2007, 1, 28]).add({m:44}), true),  "44 minuten",    "44 minutes = 44 minutes");
     equal(start.from(moment([2007, 1, 28]).add({m:45}), true),  "één uur",       "45 minutes = an hour");
     equal(start.from(moment([2007, 1, 28]).add({m:89}), true),  "één uur",       "89 minutes = an hour");
-    equal(start.from(moment([2007, 1, 28]).add({m:90}), true),  "2 uren",       "90 minutes = 2 hours");
-    equal(start.from(moment([2007, 1, 28]).add({h:5}), true),   "5 uren",       "5 hours = 5 hours");
-    equal(start.from(moment([2007, 1, 28]).add({h:21}), true),  "21 uren",      "21 hours = 21 hours");
+    equal(start.from(moment([2007, 1, 28]).add({m:90}), true),  "2 uur",       "90 minutes = 2 hours");
+    equal(start.from(moment([2007, 1, 28]).add({h:5}), true),   "5 uur",       "5 hours = 5 hours");
+    equal(start.from(moment([2007, 1, 28]).add({h:21}), true),  "21 uur",      "21 hours = 21 hours");
     equal(start.from(moment([2007, 1, 28]).add({h:22}), true),  "één dag",         "22 hours = a day");
     equal(start.from(moment([2007, 1, 28]).add({h:35}), true),  "één dag",         "35 hours = a day");
     equal(start.from(moment([2007, 1, 28]).add({h:36}), true),  "2 dagen",        "36 hours = 2 days");
@@ -1118,9 +1118,9 @@ test("from", 30, function() {
     equal(start.from(moment([2007, 1, 28]).add({d:344}), true), "11 maanden",     "344 days = 11 months");
     equal(start.from(moment([2007, 1, 28]).add({d:345}), true), "één jaar",        "345 days = a year");
     equal(start.from(moment([2007, 1, 28]).add({d:547}), true), "één jaar",        "547 days = a year");
-    equal(start.from(moment([2007, 1, 28]).add({d:548}), true), "2 jaren",       "548 days = 2 years");
+    equal(start.from(moment([2007, 1, 28]).add({d:548}), true), "2 jaar",       "548 days = 2 years");
     equal(start.from(moment([2007, 1, 28]).add({y:1}), true),   "één jaar",        "1 year = a year");
-    equal(start.from(moment([2007, 1, 28]).add({y:5}), true),   "5 jaren",       "5 years = 5 years");
+    equal(start.from(moment([2007, 1, 28]).add({y:5}), true),   "5 jaar",       "5 years = 5 years");
 });
 
 test("suffix", 2, function() {
