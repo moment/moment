@@ -6,9 +6,9 @@
             weekdaysShort : "zo._ma._di._wo._do._vr._za.".split("_"),
             longDateFormat : { 
                 L : "DD-MM-YYYY",
-                LL : "MMMM D YYYY",
-                LLL : "MMMM D YYYY HH:mm",
-                LLLL : "dddd, D MMMM YYYY HH:mm"
+                LL : "D MMMM YYYY",
+                LLL : "D MMMM YYYY HH:mm",
+                LLLL : "dddd D MMMM YYYY HH:mm"
             },
             meridiem : {
                 AM : 'AM',
@@ -20,16 +20,16 @@
                 future : "over %s",
                 past : "%s geleden",
                 s : "een paar seconden",
-                m : "één minuutje",
+                m : "één minuut",
                 mm : "%d minuten",
                 h : "één uur",
-                hh : "%d uren",
+                hh : "%d uur",
                 d : "één dag",
                 dd : "%d dagen",
                 M : "één maand",
                 MM : "%d maanden",
                 y : "één jaar",
-                yy : "%d jaren"
+                yy : "%d jaar"
             },
             ordinal : function (number) {
                 return (number === 1 || number === 8 || number >= 20) ? 'ste' : 'de';
