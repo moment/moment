@@ -488,13 +488,12 @@
         },
 
         isLeapYear : function () {
-            var year = this._d.getFullYear();
+            var year = this.year();
             return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
         },
 
-        isDST : function() {
-            var dayOne = new Date(this._d.getFullYear(), 0, 1, 0, 0, 0);
-            return this._d.getTimezoneOffset() !== dayOne.getTimezoneOffset();
+        isDST : function () {
+            return this.zone() !== moment([this.year()]).zone();
         }
     };
 
@@ -510,7 +509,7 @@
         };
     }
 
-    // loop through and add shortcuts
+    // loop through and add shortcuts (Month, Date, Hours, Minutes, Seconds)
     for (i = 0; i < shortcuts.length; i ++) {
         makeShortcut(shortcuts[i].toLowerCase(), shortcuts[i]);
     }
