@@ -523,6 +523,11 @@
         return this._d.getDay();
     };
 
+    // add shortcut for timezone offset (no setter)
+    moment.fn.zone = function () {
+        return this._d.getTimezoneOffset();
+    };
+
     // CommonJS module is defined
     if (hasModule) {
         module.exports = moment;
