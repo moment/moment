@@ -322,5 +322,13 @@ test("format timezone", 2, function() {
     ok(b.format('zz').match(/^[A-Z]{3,5}$/), b.format('zz') + ' ---> Something like "PST"');
 });
 
+test("isDST", 2, function() {
+    // In the US 2011 March 13 is Daylight Savings Day
+    var a = moment(new Date(2011, 2, 12, 0, 0, 0)),
+      b = moment(new Date(2011, 2, 14, 0, 0, 0));
+    ok(!a.isDST(), '2011 March 12 is not DST');
+    ok(b.isDST(), '2011 March 14 is DST');
+});
+
 })();
 
