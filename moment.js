@@ -490,6 +490,11 @@
         isLeapYear : function () {
             var year = this._d.getFullYear();
             return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+        },
+
+        isDST : function() {
+            var dayOne = new Date(this._d.getFullYear(), 0, 1, 0, 0, 0);
+            return this._d.getTimezoneOffset() !== dayOne.getTimezoneOffset();
         }
     };
 
