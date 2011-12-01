@@ -180,6 +180,7 @@ b, strong { font-weight:bold; }
 #docs h2 span { background:#eee; padding:0 10px; line-height:36px; font-size:36px; }
 #docs h3 { height:14px; border-bottom:6px solid #e6e6e6; margin:0 0 40px; padding:20px 20px 0; }
 #docs h3 span { background:#eee; padding:0 10px; line-height:24px; font-size:24px; }
+#docs h4 { margin-bottom:10px; }
 
 
 /****************
