@@ -84,6 +84,27 @@ test("string with format", 17, function() {
     }
 });
 
+test("string with format (timezone)", 8, function() {
+    equal(moment('5 +0700', 'H ZZ').native().getUTCHours(), 12, 'parse hours "5 +0700" ---> "H ZZ"');
+    equal(moment('5 +07:00', 'H Z').native().getUTCHours(), 12, 'parse hours "5 +07:00" ---> "H Z"');
+    equal(moment('5 +0730', 'H ZZ').native().getUTCMinutes(), 30, 'parse hours "5 +0730" ---> "H ZZ"');
+    equal(moment('5 +07:30', 'H Z').native().getUTCMinutes(), 30, 'parse hours "5 +07:30" ---> "H Z"');
+    equal(moment('5 -0100', 'H ZZ').native().getUTCHours(), 4, 'parse hours "5 -0100" ---> "H ZZ"');
+    equal(moment('5 -01:00', 'H Z').native().getUTCHours(), 4, 'parse hours "5 -01:00" ---> "H Z"');
+    equal(moment('5 -0130', 'H ZZ').native().getUTCMinutes(), 30, 'parse hours "5 -0130" ---> "H ZZ"');
+    equal(moment('5 -01:30', 'H Z').native().getUTCMinutes(), 30, 'parse hours "5 -01:30" ---> "H Z"');
+});
+
+test("string with format (timezone offset)", 3, function() {
+    var a = new Date(Date.UTC(2011, 0, 1, 1));
+    var b = moment('2011 1 1 0 +01:00', 'YYYY MM DD HH Z');
+    equal(a.getHours(), b.hours(), 'date created with utc == parsed string with timezone offset');
+    equal(+a, +b, 'date created with utc == parsed string with timezone offset');
+    var c = moment('2011 2 1 10 +05:00', 'YYYY MM DD HH Z');
+    var d = moment('2011 2 1 8 +07:00', 'YYYY MM DD HH Z');
+    equal(c.hours(), d.hours(), '10 am central time == 8 am pacific time');
+});
+
 test("string with array of formats", 3, function() {
     equal(moment('13-02-1999', ['MM-DD-YYYY', 'DD-MM-YYYY']).format('MM DD YYYY'), '02 13 1999', 'switching month and day');
     equal(moment('02-13-1999', ['MM/DD/YYYY', 'YYYY-MM-DD', 'MM-DD-YYYY']).format('MM DD YYYY'), '02 13 1999', 'year last');
@@ -320,16 +341,18 @@ test("format YY", 1, function() {
     equal(b.format('YY'), '09', 'YY ---> 09');
 });
 
-test("format timezone", 2, function() {
+test("format timezone", 4, function() {
     var b = moment(new Date(2010, 1, 14, 15, 25, 50, 125));
     ok(b.format('z').match(/^[A-Z]{3,5}$/), b.format('z') + ' ---> Something like "PST"');
     ok(b.format('zz').match(/^[A-Z]{3,5}$/), b.format('zz') + ' ---> Something like "PST"');
+    ok(b.format('Z').match(/^[\+\-]\d\d:\d\d$/), b.format('Z') + ' ---> Something like "+07:30"');
+    ok(b.format('ZZ').match(/^[\+\-]\d{4}$/), b.format('ZZ') + ' ---> Something like "+0700"');
 });
 
 test("isDST", 2, function() {
     // In the US 2011 March 13 is Daylight Savings Day
     var a = moment(new Date(2011, 2, 12, 0, 0, 0)),
-      b = moment(new Date(2011, 2, 14, 0, 0, 0));
+        b = moment(new Date(2011, 2, 14, 0, 0, 0));
     ok(!a.isDST(), '2011 March 12 is not DST');
     ok(b.isDST(), '2011 March 14 is DST');
 });

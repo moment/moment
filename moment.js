@@ -76,7 +76,8 @@
             currentHours = date.getHours(),
             currentMinutes = date.getMinutes(),
             currentSeconds = date.getSeconds(),
-            charactersToReplace = /(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|LL?L?L?)/g,
+            currentZone = date.getTimezoneOffset(),
+            charactersToReplace = /(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|ZZ?|LL?L?L?)/g,
             nonuppercaseLetters = /[^A-Z]/g,
             timezoneRegex = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g,
             ordinal = moment.ordinal,
@@ -173,6 +174,10 @@
                 // depreciating 'zz' fall through to 'z'
             case 'z' :
                 return (date.toString().match(timezoneRegex) || [''])[0].replace(nonuppercaseLetters, '');
+            case 'Z' :
+                return (currentZone > 0 ? '+' : '-') + leftZeroFill(~~(currentZone / 60), 2) + ':' + leftZeroFill(~~(currentZone % 60), 2);
+            case 'ZZ' :
+                return (currentZone > 0 ? '+' : '-') + leftZeroFill(~~(10 * currentZone / 6), 4);
             // LONG DATES
             case 'L' :
             case 'LL' :
@@ -189,9 +194,13 @@
 
     // date from string and format string
     function makeDateFromStringAndFormat(string, format) {
-        var inArray = [0],
-            tokenCharacters = /(\\)?(MM?|DD?D?D?|YYYY|YY|a|A|hh?|HH?|mm?|ss?)/g,
-            inputCharacters = /(\\)?([0-9]+|am|pm)/gi,
+        var inArray = [0, 0, 1, 0, 0, 0, 0],
+            timezoneHours = 0,
+            timezoneMinutes = 0,
+            isUsingUTC = false,
+            tokenCharacters = /(\\)?(MM?|DD?D?D?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|ZZ?)/g,
+            inputCharacters = /(\\)?([0-9]+|am|pm|([\+\-]\d\d:?\d\d))/gi,
+            timezoneParseRegex = /([\+\-]|\d\d)/gi,
             inputParts = string.match(inputCharacters),
             formatParts = format.match(tokenCharacters),
             i,
@@ -199,6 +208,7 @@
 
         // function to convert string input to date
         function addTime(format, input) {
+            var a;
             switch (format) {
             // MONTH
             case 'M' :
@@ -222,7 +232,7 @@
                 inArray[0] = input + (input > 70 ? 1900 : 2000);
                 break;
             case 'YYYY' :
-                inArray[0] = ~~input;
+                inArray[0] = ~~Math.abs(input);
                 break;
             // AM / PM
             case 'a' :
@@ -252,6 +262,24 @@
             case 'ss' :
                 inArray[5] = ~~input;
                 break;
+            // TIMEZONE
+            case 'Z' :
+                // fall through to ZZ
+            case 'ZZ' :
+                isUsingUTC = true;
+                a = input.match(timezoneParseRegex);
+                if (a[1]) {
+                    timezoneHours = ~~a[1];
+                }
+                if (a[2]) {
+                    timezoneMinutes = ~~a[2];
+                }
+                // reverse offsets
+                if (a[0] === '-') {
+                    timezoneHours = -timezoneHours;
+                    timezoneMinutes = -timezoneMinutes;
+                }
+                break;
             }
         }
         for (i = 0; i < formatParts.length; i++) {
@@ -265,7 +293,11 @@
         if (! isPm && inArray[3] === 12) {
             inArray[3] = 0;
         }
-        return dateFromArray(inArray);
+        // handle timezone
+        inArray[3] += timezoneHours;
+        inArray[4] += timezoneMinutes;
+        // return
+        return isUsingUTC ? new Date(Date.UTC.apply({}, inArray)) : dateFromArray(inArray);
     }
 
     // compare two arrays, return the number of differences
@@ -285,7 +317,7 @@
     // date from string and array of format strings
     function makeDateFromStringAndArray(string, formats) {
         var output,
-            inputCharacters = /(\\)?([0-9]+|am|pm)/gi,
+            inputCharacters = /(\\)?([0-9]+|am|pm|([\+\-]\d\d:?\d\d))/gi,
             inputParts = string.match(inputCharacters),
             scores = [],
             scoreToBeat = 99,
@@ -438,6 +470,10 @@
 
         'native' : function () {
             return this._d;
+        },
+
+        toString : function () {
+            return this._d.toString();
         },
 
         format : function (inputString) {
