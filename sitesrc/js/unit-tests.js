@@ -357,5 +357,10 @@ test("isDST", 2, function() {
     ok(b.isDST(), '2011 March 14 is DST');
 });
 
+test("zone", 2, function() {
+    ok(moment().zone() % 30 === 0, 'moment.fn.zone should be a multiple of 30 (was ' + moment().zone() + ')');
+    equal(moment().zone(), new Date().getTimezoneOffset(), 'zone should equal getTimezoneOffset');
+});
+
 })();
 
