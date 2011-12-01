@@ -388,6 +388,15 @@ block content
       p Example:
       pre moment([2010, 0, 31]);                  // January 31 \n
         | moment([2010, 0, 31]).add('months', 1); // February 28
+      p There are also special considerations to keep in mind when adding time that crosses over Daylight Savings Time.
+        | If you are adding years, months, weeks, or days, the original hour will always match the added hour.
+      pre var m = moment(new Date(2011, 2, 12, 5, 0, 0)); // the day before DST in the US\n
+        | m.hours(); // 5
+        | m.add('days', 1).hours(); // 5
+      p If you are adding hours, minutes, seconds, or milliseconds, the assumption is that you want precision to the hour, and will result in a different hour.
+      pre var m = moment(new Date(2011, 2, 12, 5, 0, 0)); // the day before DST in the US\n
+        | m.hours(); // 5
+        | m.add('hours', 24).hours(); // 6
 
 
       a(name="/manipulation/subtract")
@@ -904,7 +913,7 @@ block content
       p Once you load a language, it becomes the active language. To change active languages, simply call 
         code moment.lang
         | with the key of a loaded language.
-      pre moment.lang('fr');
+      pre moment.lang('fr');\n
         | moment(1316116057189).fromNow() // il y a une heure
         | moment.lang('en');
         | moment(1316116057189).fromNow() // an hour ago
@@ -919,7 +928,7 @@ block content
         code moment.lang
         | will load it.
       pre var moment = require('moment');\n
-        | moment.lang('fr');\n
+        | moment.lang('fr');
         | moment(1316116057189).fromNow(); // il y a une heure
       p Right now, there is only support for English, French, Italian, and Portuguese. 
         | If you want your language supported, create a pull request or send me an email with the 
