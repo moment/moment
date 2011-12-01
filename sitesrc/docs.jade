@@ -97,6 +97,8 @@ block content
           a(href="#/display/leapyear") Leap Year
         li
           a(href="#/display/zone") Timezone Offset
+        li
+          a(href="#/display/dst") Daylight Savings Time
       h2
         a(href="#/i18n")
           span I18N
@@ -835,6 +837,16 @@ block content
       h3
         span Timezone Offset
       pre moment().zone(); // get the timezone offset in minutes (60, 120, 240, etc.)
+
+
+      a(name="/display/dst")
+      h3
+        span Daylight Savings Time
+      p
+        code moment.fn.isLeapYear
+        |  checks if the current moment is in daylight savings time or not.
+      pre moment([2011, 2, 12]).isDST(); // false, March 12 2011 is not DST\n
+        | moment([2011, 2, 14]).isDST(); // true, March 14 2011 is DST
 
 
       a(name="/i18n")
