@@ -95,6 +95,8 @@ block content
           a(href="#/display/year") Year
         li
           a(href="#/display/leapyear") Leap Year
+        li
+          a(href="#/display/zone") Timezone Offset
       h2
         a(href="#/i18n")
           span I18N
@@ -827,6 +829,12 @@ block content
       pre moment([2000]).isLeapYear() // true\n
         | moment([2001]).isLeapYear() // false\n
         | moment([2100]).isLeapYear() // false
+
+
+      a(name="/display/zone")
+      h3
+        span Timezone Offset
+      pre moment().zone(); // get the timezone offset in minutes (60, 120, 240, etc.)
 
 
       a(name="/i18n")
