@@ -3,10 +3,10 @@
   English
  *************************************************/
 
-module("lang:en");
+module("lang:en-gb");
 
 test("format", 18, function() {
-    moment.lang('en');
+    moment.lang('en-gb');
     var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss a',      'Sunday, February 14th 2010, 3:25:50 pm'],
             ['ddd, hA',                            'Sun, 3PM'],
@@ -22,10 +22,10 @@ test("format", 18, function() {
             ['s ss',                               '50 50'],
             ['a A',                                'pm PM'],
             ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45th day of the year'],
-            ['L',                                  '02/14/2010'],
-            ['LL',                                 'February 14 2010'],
-            ['LLL',                                'February 14 2010 3:25 PM'],
-            ['LLLL',                               'Sunday, February 14 2010 3:25 PM']
+            ['L',                                  '14/02/2010'],
+            ['LL',                                 '14 February 2010'],
+            ['LLL',                                '14 February 2010 3:25 PM'],
+            ['LLLL',                               'Sunday, 14 February 2010 3:25 PM']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -35,7 +35,7 @@ test("format", 18, function() {
 });
 
 test("format ordinal", 31, function() {
-    moment.lang('en');
+    moment.lang('en-gb');
     equal(moment([2011, 0, 1]).format('DDDo'), '1st', '1st');
     equal(moment([2011, 0, 2]).format('DDDo'), '2nd', '2nd');
     equal(moment([2011, 0, 3]).format('DDDo'), '3rd', '3rd');
@@ -73,7 +73,7 @@ test("format ordinal", 31, function() {
 });
 
 test("format month", 12, function() {
-    moment.lang('en');
+    moment.lang('en-gb');
     var expected = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sep_October Oct_November Nov_December Dec'.split("_");
     var i;
     for (i = 0; i < expected.length; i++) {
@@ -82,7 +82,7 @@ test("format month", 12, function() {
 });
 
 test("format week", 7, function() {
-    moment.lang('en');
+    moment.lang('en-gb');
     var expected = 'Sunday Sun_Monday Mon_Tuesday Tue_Wednesday Wed_Thursday Thu_Friday Fri_Saturday Sat'.split("_");
     var i;
     for (i = 0; i < expected.length; i++) {
@@ -91,7 +91,7 @@ test("format week", 7, function() {
 });
 
 test("from", 30, function() {
-    moment.lang('en');
+    moment.lang('en-gb');
     var start = moment([2007, 1, 28]);
     equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "a few seconds", "44 seconds = a few seconds");
     equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "a minute",      "45 seconds = a minute");
@@ -126,20 +126,20 @@ test("from", 30, function() {
 });
 
 test("suffix", 2, function() {
-    moment.lang('en');
+    moment.lang('en-gb');
     equal(moment(30000).from(0), "in a few seconds",  "prefix");
     equal(moment(0).from(30000), "a few seconds ago", "suffix");
 });
 
 
 test("now from now", 1, function() {
-    moment.lang('en');
+    moment.lang('en-gb');
     equal(moment().fromNow(), "a few seconds ago",  "now from now should display as in the past");
 });
 
 
 test("fromNow", 2, function() {
-    moment.lang('en');
+    moment.lang('en-gb');
     equal(moment().add({s:30}).fromNow(), "in a few seconds", "in a few seconds");
     equal(moment().add({d:5}).fromNow(), "in 5 days", "in 5 days");
 });
