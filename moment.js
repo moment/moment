@@ -476,6 +476,10 @@
             return this._d.toString();
         },
 
+        toDate : function () {
+            return this._d;
+        },
+
         format : function (inputString) {
             return formatDate(this._d, inputString);
         },
