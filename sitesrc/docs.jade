@@ -266,6 +266,18 @@ block content
           tr
             td s or ss
             td Seconds
+          tr
+            td Z or ZZ
+            td Timezone offset as 
+              code +0700
+              |  or 
+              code +07:30
+      p Unless you specify a timezone offset, parsing a string will create a date in the current timezone.
+      p A workaround to parse a string in UTC is to append 
+        code "+0000"
+        |  to the end of your input string, and add 
+        code "ZZ"
+        | to the end of your format string.
       p
         strong Important:
         | Parsing a string with a format is by far the slowest method of creating a date. 
@@ -301,13 +313,16 @@ block content
       h3
         span Javascript Array
       p An array mirroring the parameters passed into 
-        a(href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/UTC") Date.UTC()
-      pre [year, month = 0, date = 1, hours = 0, minutes = 0, seconds = 0, milliseconds = 0] 
+        a(href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date") new Date()
+      pre [year, month = 0, date = 1, hours = 0, minutes = 0, seconds = 0, milliseconds = 0] \n
         | var day = moment([2010, 1, 14, 15, 25, 50, 125]); // February 14th, 3:25:50.125 PM
       p Any value past the year is optional, and will default to the lowest possible number.
       pre var day = moment([2010]); // January 1st \n
         | var day = moment([2010, 6]); // July 1st 
         | var day = moment([2010, 6, 10]); // July 10th
+      p Construction with an array will create a date in the current timezone. To create a date from an array at UTC, you can use the following.
+      pre var array = [2010, 1, 14, 15, 25, 50, 125];
+        | var day = moment(Date.UTC.apply({}, array));
 
 
       a(name="/manipulation")
