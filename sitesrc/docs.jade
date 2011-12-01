@@ -290,7 +290,7 @@ block content
       p An input string and an array of format strings.
       p This is the same as String + Format, only it will try to match the input to multiple formats.
       pre var day = moment("12-25-1995", ["MM-DD-YYYY", "YYYY-MM-DD"]);
-      p This approach is fundamentally problematic in cases like the following.
+      p This approach is fundamentally problematic in cases like the following, where there is a difference in big, medium, or little endian date formats.
       pre var day = moment("05-06-1995", ["MM-DD-YYYY", "DD-MM-YYYY"]); // June 5th or May 6th?
       p
         strong Important:
@@ -300,7 +300,7 @@ block content
       a(name="/parsing/now")
       h3
         span Now
-      p To get the current time, just call 
+      p To get the current date and time, just call 
         code moment()
         | with no parameters.
       pre var now = moment();
@@ -593,7 +593,7 @@ block content
               b Timezone
             td
           tr
-            td z
+            td z or zz (lowercase)
             td EST CST ... MST PST
           tr
             td Z
