@@ -565,7 +565,7 @@
             }
 
             if (yyy) {
-                return moment.relativeDate[yyy].replace('%weekday', this.format('dddd')).replace('%time', this.format('HH:MM'));
+                return moment.relativeDate[yyy].replace('%weekday', this.format('dddd')).replace('%time', this.format('HH:mm'));
             }
 
             return this.format('L');
