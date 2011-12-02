@@ -11,7 +11,7 @@
         round = Math.round,
         languages = {},
         hasModule = (typeof module !== 'undefined'),
-        paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|longDateFormat|relativeTime|ordinal|meridiem'.split('|'),
+        paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|longDateFormat|relativeDate|relativeTime|ordinal|meridiem'.split('|'),
         i,
         VERSION = "1.1.2",
         shortcuts = 'Month|Date|Hours|Minutes|Seconds'.split('|');
@@ -405,6 +405,13 @@
             PM : 'PM',
             pm : 'pm'
         },
+        relativeDate : {
+            today: 'Today at %time',
+            tomorrow: 'Tomorrow at %time',
+            next: 'next %weekday at %time', // e.g. next Friday
+            yesterday: 'Yesterday at %time',
+            last: 'last %weekday at %time' // e.g. last Sunday
+        },
         relativeTime : {
             future : "in %s",
             past : "%s ago",
@@ -525,6 +532,43 @@
 
         fromNow : function (withoutSuffix) {
             return this.from(moment(), withoutSuffix);
+        },
+
+        xxx : function () {
+            var format = 'YYYY DDDD',
+                unixTimestamp = this.valueOf(),
+                yyy, nextWeek, lastWeek;
+
+            switch (this.format(format)) {
+            case moment().format(format):
+                yyy = 'today';
+                break;
+            case moment().add('days', 1).format(format):
+                yyy = 'tomorrow';
+                break;
+            case moment().subtract('days', 1).format(format):
+                yyy = 'yesterday';
+                break;
+            }
+
+            if ('undefined' === typeof yyy) {
+                nextWeek = moment().add('weeks', 1).hours(23).minutes(59).seconds(59);
+                lastWeek = moment().subtract('weeks', 1).hours(0).minutes(0).seconds(0);
+
+                if (nextWeek.valueOf() > unixTimestamp && lastWeek.valueOf() < unixTimestamp) {
+                    if (moment().valueOf() < unixTimestamp) {
+                        yyy = 'next';
+                    } else {
+                        yyy = 'last';
+                    }
+                }
+            }
+
+            if (yyy) {
+                return moment.relativeDate[yyy].replace('%weekday', this.format('dddd')).replace('%time', this.format('HH:MM'));
+            }
+
+            return this.format('L');
         },
 
         isLeapYear : function () {
