@@ -16,6 +16,13 @@
                 PM : 'PM',
                 pm : 'pm'
             },
+            relativeDate : {
+                today: "Ajourd'hui à %time",
+                tomorrow: 'Demain à %time',
+                next: '%weekday à %time',
+                yesterday: 'Hier à %time',
+                last: '%weekday denier à %time'
+            },
             relativeTime : {
                 future : "dans %s",
                 past : "il y a %s",
