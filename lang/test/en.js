@@ -144,13 +144,13 @@ test("fromNow", 2, function() {
     equal(moment().add({d:5}).fromNow(), "in 5 days", "in 5 days");
 });
 
-test("xxx", 14, function() {
+test("relativeDate", 14, function() {
     var getTodayAtTwo, prefixDay;
-    
+
     getTodayAtTwo = function () {
         return moment().hours(2).minutes(0).seconds(0);
     };
-    
+
     prefixDay = function (moment, string, nextOrLast) {
         if(typeof nextOrLast == "undefined") {
             nextOrLast = '';
@@ -166,33 +166,56 @@ test("xxx", 14, function() {
                     nextOrLast = '';
             }
         }
-        
-        return nextOrLast + moment.format('ddd') + string;
-    };
-    
-    moment.lang('en');
-    equal(getTodayAtTwo().xxx(), "Today at 02:00", "today at the same time");
-    equal(getTodayAtTwo().add({ m: 25 }).xxx(), "Today at 02:25", "Now plus 25 min");
-    equal(getTodayAtTwo().add({ h: 1 }).xxx(), "Today at 03:00", "Now plus 1 hour");
-    equal(getTodayAtTwo().add({ d: 1 }).xxx(), "Tomorrow at 02:00", "tomorrow at the same time");
-    equal(getTodayAtTwo().subtract({ h: 1 }).xxx(), "Today at 01:00", "Now minus 1 hour");
-    equal(getTodayAtTwo().subtract({ d: 1 }).xxx(), "Yesterday at 02:00", "yesterday at the same time");
-    
-    var nextTomorrow = getTodayAtTwo().add({ d: 2 });
-    equal(nextTomorrow.xxx(), prefixDay(nextTomorrow, " at 02:00"), "now - 2days at the same time");
-    
-    var previousYesterday = getTodayAtTwo().subtract({ d: 2 });
-    equal(previousYesterday.xxx(), prefixDay(previousYesterday, " at 02:00"), "now - 2days yesterday at the same time");
-    
-    // Next / Last week
-    equal(getTodayAtTwo().add({ w: 1 }).xxx(), prefixDay(getTodayAtTwo().add({ w: 1 }), "", "next"), "next week at the same time");
-    equal(getTodayAtTwo().add({ w: 1, d: 1 }).xxx(), prefixDay(getTodayAtTwo().add({ w: 1, d: 1 }), "", "next"), "next week at the same time");
-    equal(getTodayAtTwo().subtract({ w: 1 }).xxx(), prefixDay(getTodayAtTwo().add({ w: 1 }), "", "last"), "next week at the same time");
-    equal(getTodayAtTwo().subtract({ w: 1, d: 1 }).xxx(), prefixDay(getTodayAtTwo().add({ w: 1, d: 1 }), "", "last"), "next week at the same time");
 
-    
+        return nextOrLast + moment.format('dddd') + string;
+    };
+
+    moment.lang('en');
+    equal(getTodayAtTwo().relativeDate(), "Today at 02:00", "today at the same time");
+    equal(getTodayAtTwo().add({ m: 25 }).relativeDate(), "Today at 02:25", "Now plus 25 min");
+    equal(getTodayAtTwo().add({ h: 1 }).relativeDate(), "Today at 03:00", "Now plus 1 hour");
+    equal(getTodayAtTwo().add({ d: 1 }).relativeDate(), "Tomorrow at 02:00", "tomorrow at the same time");
+    equal(getTodayAtTwo().subtract({ h: 1 }).relativeDate(), "Today at 01:00", "Now minus 1 hour");
+    equal(getTodayAtTwo().subtract({ d: 1 }).relativeDate(), "Yesterday at 02:00", "yesterday at the same time");
+
+    var nextTomorrow = getTodayAtTwo().add({ d: 2 });
+    equal(nextTomorrow.relativeDate(), prefixDay(nextTomorrow, " at 02:00"), "now + 2days at the same time");
+
+    var previousYesterday = getTodayAtTwo().subtract({ d: 2 });
+    equal(previousYesterday.relativeDate(), prefixDay(previousYesterday, " at 02:00", "last"), "now - 2days at the same time");
+
+    // Next / Last week
+    equal(
+        getTodayAtTwo().add({ w: 1 }).relativeDate(),
+        prefixDay(getTodayAtTwo().add({ w: 1 }), " at 02:00"),
+        "next week at the same time"
+    );
+    equal(
+        getTodayAtTwo().add({ w: 1, d: 1 }).relativeDate(),
+        getTodayAtTwo().add({ w: 1, d: 1 }).format('L'),
+        "in a week plus one day at the same time"
+    );
+    equal(
+        getTodayAtTwo().subtract({ w: 1 }).relativeDate(),
+        prefixDay(getTodayAtTwo().add({ w: 1 }), " at 02:00", "last"),
+        "last week at the same time"
+    );
+    equal(
+        getTodayAtTwo().subtract({ w: 1, d: 1 }).relativeDate(),
+        getTodayAtTwo().subtract({ w: 1, d: 1 }).format('L'),
+        "one week and a day ago at the same time"
+    );
+
     // More than 2 weeks
-    equal(getTodayAtTwo().add({ w: 2 }).xxx(), getTodayAtTwo().add({ w: 2 }).format('L'), "in 2 weeks at the same time");
-    equal(getTodayAtTwo().subtract({ w: 2 }).xxx(), getTodayAtTwo().subtract({ w: 2 }).format('L'), "before 2 weeks at the same time");
-    
+    equal(
+        getTodayAtTwo().add({ w: 2 }).relativeDate(),
+        getTodayAtTwo().add({ w: 2 }).format('L'),
+        "in 2 weeks at the same time"
+    );
+    equal(
+        getTodayAtTwo().subtract({ w: 2 }).relativeDate(),
+        getTodayAtTwo().subtract({ w: 2 }).format('L'),
+        "before 2 weeks at the same time"
+    );
+
 })
