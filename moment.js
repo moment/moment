@@ -408,9 +408,9 @@
         relativeDate : {
             today: 'Today at %time',
             tomorrow: 'Tomorrow at %time',
-            next: 'next %weekday at %time', // e.g. next Friday
+            next: '%weekday at %time', // e.g. Friday at 13:45
             yesterday: 'Yesterday at %time',
-            last: 'last %weekday at %time' // e.g. last Sunday
+            last: 'last %weekday at %time' // e.g. last Sunday at 13:45
         },
         relativeTime : {
             future : "in %s",
@@ -534,38 +534,38 @@
             return this.from(moment(), withoutSuffix);
         },
 
-        xxx : function () {
+        relativeDate : function () {
             var format = 'YYYY DDDD',
                 unixTimestamp = this.valueOf(),
-                yyy, nextWeek, lastWeek;
+                arrayKey, nextWeek, lastWeek;
 
             switch (this.format(format)) {
             case moment().format(format):
-                yyy = 'today';
+                arrayKey = 'today';
                 break;
             case moment().add('days', 1).format(format):
-                yyy = 'tomorrow';
+                arrayKey = 'tomorrow';
                 break;
             case moment().subtract('days', 1).format(format):
-                yyy = 'yesterday';
+                arrayKey = 'yesterday';
                 break;
             }
 
-            if ('undefined' === typeof yyy) {
+            if ('undefined' === typeof arrayKey) {
                 nextWeek = moment().add('weeks', 1).hours(23).minutes(59).seconds(59);
                 lastWeek = moment().subtract('weeks', 1).hours(0).minutes(0).seconds(0);
 
                 if (nextWeek.valueOf() > unixTimestamp && lastWeek.valueOf() < unixTimestamp) {
                     if (moment().valueOf() < unixTimestamp) {
-                        yyy = 'next';
+                        arrayKey = 'next';
                     } else {
-                        yyy = 'last';
+                        arrayKey = 'last';
                     }
                 }
             }
 
-            if (yyy) {
-                return moment.relativeDate[yyy].replace('%weekday', this.format('dddd')).replace('%time', this.format('HH:mm'));
+            if (arrayKey) {
+                return moment.relativeDate[arrayKey].replace('%weekday', this.format('dddd')).replace('%time', this.format('HH:mm'));
             }
 
             return this.format('L');
