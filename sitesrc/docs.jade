@@ -636,6 +636,11 @@ block content
       p To compare moment.js date formatting speeds against other libraries, check out 
         a(href="http://jsperf.com/date-formatting") http://jsperf.com/date-formatting
         |  .
+      p Note: Baron Schwartz wrote a pretty cool date formatter that caches formatting functions to avoid expensive regex or string splitting. It's so much faster than any of the other libraries, that it's best to compare it on its own, rather than pollute the "best of the uncompiled" formatting libs.
+      p Here's the 
+        a(href="http://jsperf.com/momentjs-vs-xaprb") moment.js vs xaprb
+        |  performance tests, and here is the
+        a(href="http://www.xaprb.com/blog/2005/12/12/javascript-closures-for-runtime-efficiency/") article describing his methods.
 
 
       a(name="/display/from")
