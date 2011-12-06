@@ -325,7 +325,7 @@ block content
         | var day = moment([2010, 6]); // July 1st 
         | var day = moment([2010, 6, 10]); // July 10th
       p Construction with an array will create a date in the current timezone. To create a date from an array at UTC, you can use the following.
-      pre var array = [2010, 1, 14, 15, 25, 50, 125];
+      pre var array = [2010, 1, 14, 15, 25, 50, 125];\n
         | var day = moment(Date.UTC.apply({}, array));
 
 
