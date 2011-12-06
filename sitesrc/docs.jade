@@ -846,7 +846,7 @@ block content
         code moment.fn.isLeapYear
         | returns true if that year is a leap year, and false if it is not.
       pre moment([2000]).isLeapYear() // true\n
-        | moment([2001]).isLeapYear() // false\n
+        | moment([2001]).isLeapYear() // false
         | moment([2100]).isLeapYear() // false
 
 
@@ -860,7 +860,7 @@ block content
       h3
         span Daylight Savings Time
       p
-        code moment.fn.isLeapYear
+        code moment.fn.isDST
         |  checks if the current moment is in daylight savings time or not.
       pre moment([2011, 2, 12]).isDST(); // false, March 12 2011 is not DST\n
         | moment([2011, 2, 14]).isDST(); // true, March 14 2011 is DST
