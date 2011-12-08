@@ -5,10 +5,11 @@
             weekdays : "воскресенье_понедельник_вторник_среда_четверг_пятница_суббота".split("_"),
             weekdaysShort : "вск_пнд_втр_срд_чтв_птн_суб".split("_"),
             longDateFormat : {
+                XXXX : "HH:mm",
                 L : "DD-MM-YYYY",
                 LL : "D MMMM YYYY",
-                LLL : "D MMMM YYYY HH:mm",
-                LLLL : "dddd, D MMMM YYYY HH:mm"
+                LLL : "D MMMM YYYY XXXX",
+                LLLL : "dddd, D MMMM YYYY XXXX"
             }, // It needs checking (adding) russian plurals and cases.
             relativeTime : {
                 future : "через %s",

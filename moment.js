@@ -183,7 +183,7 @@
             case 'LL' :
             case 'LLL' :
             case 'LLLL' :
-            case 'XXXX':
+            case 'XXXX' :
                 return formatDate(date, moment.longDateFormat[input]);
             // DEFAULT
             default :
@@ -395,7 +395,7 @@
         weekdays : "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),
         weekdaysShort : "Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),
         longDateFormat : { 
-            XXXX: "h:mm A",
+            XXXX : "h:mm A",
             L : "MM/DD/YYYY",
             LL : "MMMM D YYYY",
             LLL : "MMMM D YYYY XXXX",
