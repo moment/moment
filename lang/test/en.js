@@ -171,23 +171,23 @@ test("relativeDate", 14, function() {
     };
 
     moment.lang('en');
-    equal(getTodayAtTwo().relativeDate(), "Today at 02:00", "today at the same time");
-    equal(getTodayAtTwo().add({ m: 25 }).relativeDate(), "Today at 02:25", "Now plus 25 min");
-    equal(getTodayAtTwo().add({ h: 1 }).relativeDate(), "Today at 03:00", "Now plus 1 hour");
-    equal(getTodayAtTwo().add({ d: 1 }).relativeDate(), "Tomorrow at 02:00", "tomorrow at the same time");
-    equal(getTodayAtTwo().subtract({ h: 1 }).relativeDate(), "Today at 01:00", "Now minus 1 hour");
-    equal(getTodayAtTwo().subtract({ d: 1 }).relativeDate(), "Yesterday at 02:00", "yesterday at the same time");
+    equal(getTodayAtTwo().relativeDate(), "Today at 2:00 AM", "today at the same time");
+    equal(getTodayAtTwo().add({ m: 25 }).relativeDate(), "Today at 2:25 AM", "Now plus 25 min");
+    equal(getTodayAtTwo().add({ h: 1 }).relativeDate(), "Today at 3:00 AM", "Now plus 1 hour");
+    equal(getTodayAtTwo().add({ d: 1 }).relativeDate(), "Tomorrow at 2:00 AM", "tomorrow at the same time");
+    equal(getTodayAtTwo().subtract({ h: 1 }).relativeDate(), "Today at 1:00 AM", "Now minus 1 hour");
+    equal(getTodayAtTwo().subtract({ d: 1 }).relativeDate(), "Yesterday at 2:00 AM", "yesterday at the same time");
 
     var nextTomorrow = getTodayAtTwo().add({ d: 2 });
-    equal(nextTomorrow.relativeDate(), prefixDay(nextTomorrow, " at 02:00"), "now + 2days at the same time");
+    equal(nextTomorrow.relativeDate(), prefixDay(nextTomorrow, " at 2:00 AM"), "now + 2days at the same time");
 
     var previousYesterday = getTodayAtTwo().subtract({ d: 2 });
-    equal(previousYesterday.relativeDate(), prefixDay(previousYesterday, " at 02:00", "last"), "now - 2days at the same time");
+    equal(previousYesterday.relativeDate(), prefixDay(previousYesterday, " at 2:00 AM", "last"), "now - 2days at the same time");
 
     // Next / Last week
     equal(
         getTodayAtTwo().add({ w: 1 }).relativeDate(),
-        prefixDay(getTodayAtTwo().add({ w: 1 }), " at 02:00"),
+        prefixDay(getTodayAtTwo().add({ w: 1 }), " at 2:00 AM"),
         "next week at the same time"
     );
     equal(
@@ -197,7 +197,7 @@ test("relativeDate", 14, function() {
     );
     equal(
         getTodayAtTwo().subtract({ w: 1 }).relativeDate(),
-        prefixDay(getTodayAtTwo().add({ w: 1 }), " at 02:00", "last"),
+        prefixDay(getTodayAtTwo().add({ w: 1 }), " at 2:00 AM", "last"),
         "last week at the same time"
     );
     equal(
