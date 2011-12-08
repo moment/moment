@@ -144,7 +144,7 @@ test("fromNow", 2, function() {
     equal(moment().add({d:5}).fromNow(), "in 5 days", "in 5 days");
 });
 
-test("relativeDate", 14, function() {
+test("relativeDate", 15, function() {
     var getTodayAtTwo, prefixDay;
 
     getTodayAtTwo = function () {
@@ -217,5 +217,12 @@ test("relativeDate", 14, function() {
         getTodayAtTwo().subtract({ w: 2 }).format('L'),
         "before 2 weeks at the same time"
     );
-
+    
+    moment.relativeDate.else = 'LLL';
+    equal(
+        getTodayAtTwo().subtract({ w: 2 }).relativeDate(),
+        getTodayAtTwo().subtract({ w: 2 }).format('LLL'),
+        "before 2 weeks at the same time with custom format"
+    );
+    delete moment.relativeDate.else;
 })

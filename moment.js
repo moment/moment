@@ -570,7 +570,7 @@
                 return moment.relativeDate[arrayKey].replace('%weekday', this.format('dddd')).replace('%time', this.format('XXXX'));
             }
 
-            return this.format('L');
+            return this.format(moment.relativeDate.else || 'L');
         },
 
         isLeapYear : function () {
