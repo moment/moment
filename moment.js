@@ -77,7 +77,7 @@
             currentMinutes = date.getMinutes(),
             currentSeconds = date.getSeconds(),
             currentZone = date.getTimezoneOffset(),
-            charactersToReplace = /(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|ZZ?|LL?L?L?)/g,
+            charactersToReplace = /(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|ZZ?|LL?L?L?|XXXX)/g,
             nonuppercaseLetters = /[^A-Z]/g,
             timezoneRegex = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g,
             ordinal = moment.ordinal,
@@ -183,6 +183,7 @@
             case 'LL' :
             case 'LLL' :
             case 'LLLL' :
+            case 'XXXX':
                 return formatDate(date, moment.longDateFormat[input]);
             // DEFAULT
             default :
@@ -394,10 +395,11 @@
         weekdays : "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),
         weekdaysShort : "Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),
         longDateFormat : { 
+            XXXX: "h:mm A",
             L : "MM/DD/YYYY",
             LL : "MMMM D YYYY",
-            LLL : "MMMM D YYYY h:mm A",
-            LLLL : "dddd, MMMM D YYYY h:mm A"
+            LLL : "MMMM D YYYY XXXX",
+            LLLL : "dddd, MMMM D YYYY XXXX"
         },
         meridiem : {
             AM : 'AM',
@@ -565,7 +567,7 @@
             }
 
             if (arrayKey) {
-                return moment.relativeDate[arrayKey].replace('%weekday', this.format('dddd')).replace('%time', this.format('HH:mm'));
+                return moment.relativeDate[arrayKey].replace('%weekday', this.format('dddd')).replace('%time', this.format('XXXX'));
             }
 
             return this.format('L');
