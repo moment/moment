@@ -228,7 +228,11 @@ test("adding across DST", 3, function(){
     b.add('hours', 24);
     c.add('months', 1);
     equal(a.hours(), 5, 'adding days over DST difference should result in the same hour');
-    equal(b.hours(), 6, 'adding hours over DST difference should result in a different hour');
+    if (b.isDST()) {
+        equal(b.hours(), 6, 'adding hours over DST difference should result in a different hour');
+    } else {
+        equal(b.hours(), 5, 'adding hours over DST difference should result in a same hour if the timezone does not have daylight savings time');
+    }
     equal(c.hours(), 5, 'adding months over DST difference should result in the same hour');
 });
 
@@ -366,8 +370,8 @@ test("isDST", 2, function() {
     // In the US 2011 March 13 is Daylight Savings Day
     var a = moment(new Date(2011, 2, 12, 0, 0, 0)),
         b = moment(new Date(2011, 2, 14, 0, 0, 0));
-    ok(!a.isDST(), '2011 March 12 is not DST');
-    ok(b.isDST(), '2011 March 14 is DST');
+    ok(!a.isDST(), 'March 12 2011 is not DST');
+    ok(b.isDST(), 'March 14 2011 is DST (Note: this unit test should fail if your timezone does not have Daylight Savings Time)');
 });
 
 test("zone", 2, function() {
