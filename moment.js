@@ -293,7 +293,7 @@
             inArray[3] += 12;
         }
         // if is 12 am, change hours to 0
-        if (! isPm && inArray[3] === 12) {
+        if (isPm === false && inArray[3] === 12) {
             inArray[3] = 0;
         }
         // handle timezone
