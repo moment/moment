@@ -539,7 +539,8 @@
         relativeDate : function () {
             var format = 'YYYY DDDD',
                 unixTimestamp = this.valueOf(),
-                arrayKey, nextWeek, lastWeek;
+                arrayKey, nextWeek, lastWeek,
+                relativeDateFormat;
 
             switch (this.format(format)) {
             case moment().format(format):
@@ -566,8 +567,13 @@
                 }
             }
 
-            if (arrayKey) {
-                return moment.relativeDate[arrayKey].replace('%weekday', this.format('dddd')).replace('%time', this.format('LT'));
+            if (arrayKey && moment.relativeDate[arrayKey]) {
+                relativeDateFormat = moment.relativeDate[arrayKey];
+
+                if ('function' === typeof relativeDateFormat) {
+                    relativeDateFormat = relativeDateFormat.call(this);
+                }
+                return relativeDateFormat.replace('%weekday', this.format('dddd')).replace('%time', this.format('LT'));
             }
 
             return this.format(moment.relativeDate.else || 'L');
