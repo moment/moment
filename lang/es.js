@@ -17,6 +17,23 @@
                 PM : 'PM',
                 pm : 'pm'
             },
+            relativeDate : {
+                today: function () {
+                    return 'hoy a la' + ((this.hours() !== 1) ? 's' : '') + ' %time';
+                },
+                tomorrow: function () {
+                    return 'mañana a la' + ((this.hours() !== 1) ? 's' : '') + ' %time';
+                },
+                next: function () {
+                    return '%weekday a la' + ((this.hours() !== 1) ? 's' : '') + ' %time';
+                },
+                yesterday: function () {
+                    return 'ayer a la' + ((this.hours() !== 1) ? 's' : '') + ' %time';
+                },
+                last: function () {
+                    return 'el %weekday pasado a la' + ((this.hours() !== 1) ? 's' : '') + ' %time';
+                }
+            },
             relativeTime : {
                 future : "en %s",
                 past : "hace %s",

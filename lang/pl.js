@@ -39,6 +39,13 @@
             PM : 'PM',
             pm : 'pm'
         },
+        relativeDate : {
+            today: 'Dziś o %time',
+            tomorrow: 'Jutro o %time',
+            next: 'W %weekday o %time', // e.g. Friday at 13:45
+            yesterday: 'Wczoraj o %time',
+            last: 'W zeszły/łą %weekday o %time' // e.g. last Sunday at 13:45
+        },
         relativeTime : {
             future : "za %s",
             past : "%s temu",

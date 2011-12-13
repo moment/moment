@@ -17,6 +17,13 @@
                 PM : 'PM',
                 pm : 'pm'
             },
+            relativeDate : {
+                today: 'Vandaag om %time',
+                tomorrow: 'Morgen om %time',
+                next: '%weekday om %time', // e.g. Friday at 13:45
+                yesterday: 'Gisteren om %time',
+                last: 'afgelopen %weekday om %time' // e.g. last Sunday at 13:45
+            },
             relativeTime : {
                 future : "over %s",
                 past : "%s geleden",

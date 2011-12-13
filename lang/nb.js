@@ -17,6 +17,13 @@
                 PM : 'PM',
                 pm : 'pm'
             },
+            relativeDate : {
+                today: 'I dag klokken %time',
+                tomorrow: 'I morgen klokken %time',
+                next: '%weekday klokken %time',
+                yesterday: 'I går klokken %time',
+                last: 'Forrige %weekday klokken %time'
+            },
             relativeTime : {
                 future : "om %s",
                 past : "for %s siden",

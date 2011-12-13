@@ -17,6 +17,23 @@
                 PM : 'PM',
                 pm : 'pm'
             },
+            relativeDate : {
+                today: 'Hoje às %time',
+                tomorrow: 'Amanhã às %time',
+                next: '%weekday às %time',
+                yesterday: 'Ontem às %time',
+                last: function () {
+                    var weekday = parseInt(this.format('d'), 10);
+
+                    if (weekday < 5) {
+                        // Mo - Fr
+                        return 'Última %weekday às %time';
+                    } else {
+                        // Sa + Su
+                        return 'Último %weekday às %time';
+                    }
+                }
+            },
             relativeTime : {
                 future : "em %s",
                 past : "%s atrás",
