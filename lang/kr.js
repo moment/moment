@@ -5,11 +5,11 @@
             weekdays : "일요일_월요일_화요일_수요일_목요일_금요일_토요일".split("_"),
             weekdaysShort : "일_월_화_수_목_금_토".split("_"),
             longDateFormat : {
-                XXXX : "A h시 mm분",
+                LT : "A h시 mm분",
                 L : "YYYY.MM.DD",
                 LL : "YYYY년 MMMM D일",
-                LLL : "YYYY년 MMMM D일 XXXX",
-                LLLL : "YYYY년 MMMM D일 dddd XXXX"
+                LLL : "YYYY년 MMMM D일 LT",
+                LLLL : "YYYY년 MMMM D일 dddd LT"
             },
 			meridiem : {
 				AM : '오전',

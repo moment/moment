@@ -5,11 +5,11 @@
             weekdays : "Domingo_Lunes_Martes_Miércoles_Jueves_Viernes_Sábado".split("_"),
             weekdaysShort : "Dom._Lun._Mar._Mié._Jue._Vie._Sáb.".split("_"),
             longDateFormat : {
-                XXXX : "HH:mm",
+                LT : "HH:mm",
                 L : "DD/MM/YYYY",
                 LL : "D MMMM YYYY",
-                LLL : "D MMMM YYYY XXXX",
-                LLLL : "dddd D MMMM YYYY XXXX"
+                LLL : "D MMMM YYYY LT",
+                LLLL : "dddd D MMMM YYYY LT"
             },
             meridiem : {
                 AM : 'AM',

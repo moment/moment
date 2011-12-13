@@ -27,11 +27,11 @@
         weekdays : "niedziela_poniedziałek_wtorek_środa_czwartek_piątek_sobota".split("_"),
         weekdaysShort : "nie_pon_wt_śr_czw_pt_sb".split("_"),
         longDateFormat : {
-            XXXX : "HH:mm",
+            LT : "HH:mm",
             L : "DD-MM-YYYY",
             LL : "D MMMM YYYY",
-            LLL : "D MMMM YYYY XXXX",
-            LLLL : "dddd, D MMMM YYYY XXXX"
+            LLL : "D MMMM YYYY LT",
+            LLLL : "dddd, D MMMM YYYY LT"
         },
         meridiem : {
             AM : 'AM',
