@@ -325,7 +325,7 @@ block content
         | var day = moment([2010, 6]); // July 1st 
         | var day = moment([2010, 6, 10]); // July 10th
       p Construction with an array will create a date in the current timezone. To create a date from an array at UTC, you can use the following.
-      pre var array = [2010, 1, 14, 15, 25, 50, 125];
+      pre var array = [2010, 1, 14, 15, 25, 50, 125];\n
         | var day = moment(Date.UTC.apply({}, array));
 
 
@@ -388,6 +388,15 @@ block content
       p Example:
       pre moment([2010, 0, 31]);                  // January 31 \n
         | moment([2010, 0, 31]).add('months', 1); // February 28
+      p There are also special considerations to keep in mind when adding time that crosses over Daylight Savings Time.
+        | If you are adding years, months, weeks, or days, the original hour will always match the added hour.
+      pre var m = moment(new Date(2011, 2, 12, 5, 0, 0)); // the day before DST in the US\n
+        | m.hours(); // 5
+        | m.add('days', 1).hours(); // 5
+      p If you are adding hours, minutes, seconds, or milliseconds, the assumption is that you want precision to the hour, and will result in a different hour.
+      pre var m = moment(new Date(2011, 2, 12, 5, 0, 0)); // the day before DST in the US\n
+        | m.hours(); // 5
+        | m.add('hours', 24).hours(); // 6
 
 
       a(name="/manipulation/subtract")
@@ -624,6 +633,14 @@ block content
       p While these date formats are very similar to LDML date formats, there are a few minor differences regarding day of month, day of year, and day of week.
       p For a breakdown of a few different date formatting tokens, see 
         a(href="https://docs.google.com/spreadsheet/ccc?key=0AtgZluze7WMJdDBOLUZfSFIzenIwOHNjaWZoeGFqbWc&hl=en_US#gid=0") this chart of date formatting tokens.
+      p To compare moment.js date formatting speeds against other libraries, check out 
+        a(href="http://jsperf.com/date-formatting") http://jsperf.com/date-formatting
+        |  .
+      p Note: Baron Schwartz wrote a pretty cool date formatter that caches formatting functions to avoid expensive regex or string splitting. It's so much faster than any of the other libraries, that it's best to compare it on its own, rather than pollute the "best of the uncompiled" formatting libs.
+      p Here's the 
+        a(href="http://jsperf.com/momentjs-vs-xaprb") moment.js vs xaprb
+        |  performance tests, and here is the
+        a(href="http://www.xaprb.com/blog/2005/12/12/javascript-closures-for-runtime-efficiency/") article describing his methods.
 
 
       a(name="/display/from")
@@ -829,7 +846,7 @@ block content
         code moment.fn.isLeapYear
         | returns true if that year is a leap year, and false if it is not.
       pre moment([2000]).isLeapYear() // true\n
-        | moment([2001]).isLeapYear() // false\n
+        | moment([2001]).isLeapYear() // false
         | moment([2100]).isLeapYear() // false
 
 
@@ -843,7 +860,7 @@ block content
       h3
         span Daylight Savings Time
       p
-        code moment.fn.isLeapYear
+        code moment.fn.isDST
         |  checks if the current moment is in daylight savings time or not.
       pre moment([2011, 2, 12]).isDST(); // false, March 12 2011 is not DST\n
         | moment([2011, 2, 14]).isDST(); // true, March 14 2011 is DST
@@ -904,7 +921,7 @@ block content
       p Once you load a language, it becomes the active language. To change active languages, simply call 
         code moment.lang
         | with the key of a loaded language.
-      pre moment.lang('fr');
+      pre moment.lang('fr');\n
         | moment(1316116057189).fromNow() // il y a une heure
         | moment.lang('en');
         | moment(1316116057189).fromNow() // an hour ago
@@ -919,7 +936,7 @@ block content
         code moment.lang
         | will load it.
       pre var moment = require('moment');\n
-        | moment.lang('fr');\n
+        | moment.lang('fr');
         | moment(1316116057189).fromNow(); // il y a une heure
       p Right now, there is only support for English, French, Italian, and Portuguese. 
         | If you want your language supported, create a pull request or send me an email with the 

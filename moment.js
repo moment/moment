@@ -3,7 +3,7 @@
 // (c) 2011 Tim Wood
 // Moment.js is freely distributable under the terms of the MIT license.
 //
-// Version 1.1.2
+// Version 1.2.0
 
 (function (Date, undefined) {
 
@@ -13,7 +13,7 @@
         hasModule = (typeof module !== 'undefined'),
         paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|longDateFormat|relativeDate|relativeTime|ordinal|meridiem'.split('|'),
         i,
-        VERSION = "1.1.2",
+        VERSION = "1.2.0",
         shortcuts = 'Month|Date|Hours|Minutes|Seconds'.split('|');
 
     // left zero fill a number
@@ -30,20 +30,23 @@
     function dateAddRemove(date, _input, adding, val) {
         var isString = (typeof _input === 'string'),
             input = isString ? {} : _input,
-            ms, M, currentDate;
+            ms, d, M, currentDate;
         if (isString && val) {
             input[_input] = val;
         }
         ms = (input.ms || input.milliseconds || 0) +
             (input.s || input.seconds || 0) * 1e3 + // 1000
             (input.m || input.minutes || 0) * 6e4 + // 1000 * 60
-            (input.h || input.hours || 0) * 36e5 + // 1000 * 60 * 60
-            (input.d || input.days || 0) * 864e5 + // 1000 * 60 * 60 * 24
-            (input.w || input.weeks || 0) * 6048e5; // 1000 * 60 * 60 * 24 * 7
+            (input.h || input.hours || 0) * 36e5; // 1000 * 60 * 60
+        d = (input.d || input.days || 0) +
+            (input.w || input.weeks || 0) * 7;
         M = (input.M || input.months || 0) +
             (input.y || input.years || 0) * 12;
         if (ms) {
             date.setTime(+date + ms * adding);
+        }
+        if (d) {
+            date.setDate(date.getDate() + d * adding);
         }
         if (M) {
             currentDate = date.getDate();
@@ -291,7 +294,7 @@
             inArray[3] += 12;
         }
         // if is 12 am, change hours to 0
-        if (! isPm && inArray[3] === 12) {
+        if (isPm === false && inArray[3] === 12) {
             inArray[3] = 0;
         }
         // handle timezone
