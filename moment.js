@@ -14,7 +14,7 @@
         paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|longDateFormat|relativeTime|ordinal|meridiem'.split('|'),
         i,
         VERSION = "1.2.0",
-        shortcuts = 'Month|Date|Hours|Minutes|Seconds'.split('|');
+        shortcuts = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|');
 
     // left zero fill a number
     // see http://jsperf.com/left-zero-filling for performance comparison
@@ -552,7 +552,7 @@
         };
     }
 
-    // loop through and add shortcuts (Month, Date, Hours, Minutes, Seconds)
+    // loop through and add shortcuts (Month, Date, Hours, Minutes, Seconds, Milliseconds)
     for (i = 0; i < shortcuts.length; i ++) {
         makeShortcut(shortcuts[i].toLowerCase(), shortcuts[i]);
     }
