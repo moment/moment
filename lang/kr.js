@@ -17,6 +17,13 @@
 				PM : '오후',
 				pm : '오후'
 			},
+            relativeDate : {
+                today: '오늘 %time',
+                tomorrow: '내일 %time',
+                next: '%weekday %time',
+                yesterday: '어제 %time',
+                last: '지난주 %weekday %time'
+            },
             relativeTime : {
                 future : "%s 후",
                 past : "%s 전",
