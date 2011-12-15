@@ -5,16 +5,24 @@
             weekdays : "søndag_mandag_tirsdag_onsdag_torsdag_fredag_lørdag".split("_"),
             weekdaysShort : "søn_man_tir_ons_tor_fre_lør".split("_"),
             longDateFormat : {
+                LT : "HH:mm",
                 L : "YYYY-MM-DD",
                 LL : "D MMMM YYYY",
-                LLL : "D MMMM YYYY HH:mm",
-                LLLL : "dddd D MMMM YYYY HH:mm"
+                LLL : "D MMMM YYYY LT",
+                LLLL : "dddd D MMMM YYYY LT"
             },
             meridiem : {
                 AM : 'AM',
                 am : 'am',
                 PM : 'PM',
                 pm : 'pm'
+            },
+            relativeDate : {
+                today: 'I dag klokken %time',
+                tomorrow: 'I morgen klokken %time',
+                next: '%weekday klokken %time',
+                yesterday: 'I går klokken %time',
+                last: 'Forrige %weekday klokken %time'
             },
             relativeTime : {
                 future : "om %s",
