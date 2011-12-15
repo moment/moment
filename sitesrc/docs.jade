@@ -52,6 +52,8 @@ block content
         li
           a(href="#/manipulation/subtract") Subtract
         li
+          a(href="#/manipulation/milliseconds") Milliseconds
+        li
           a(href="#/manipulation/seconds") Seconds
         li
           a(href="#/manipulation/minutes") Minutes
@@ -79,6 +81,8 @@ block content
           a(href="#/display/native") Native Date
         li
           a(href="#/display/valueOf") Value
+        li
+          a(href="#/display/milliseconds") Milliseconds
         li
           a(href="#/display/seconds") Seconds
         li
@@ -408,17 +412,23 @@ block content
       pre moment().subtract('days', 7);
 
 
-      a(name="/manipulation/seconds")
+      a(name="/manipulation/milliseconds")
       h3
-        span Seconds
+        span Milliseconds
       p There are a number of shortcut getter and setter functions. 
         | Much like in jQuery, calling the function without paremeters causes it to function as a getter, 
         | and calling with a parameter causes it to function as a setter.
       p These map to the corresponding function on the native 
         code Date
         | object.
-      pre moment().seconds(30) === new Date().setSeconds(30);\n
-        | moment().seconds() === new Date().getSeconds();
+      pre moment().milliseconds(30) === new Date().setMilliseconds(30);\n
+        | moment().milliseconds() === new Date().getMilliseconds();
+
+
+      a(name="/manipulation/seconds")
+      h3
+        span Seconds
+      pre moment().seconds(30); // set the seconds to 30
 
 
       a(name="/manipulation/minutes")
@@ -791,16 +801,22 @@ block content
       pre moment(1318874398806).valueOf(); // 1318874398806
 
 
-      a(name="/display/seconds")
+      a(name="/display/milliseconds")
       h3
-        span Seconds
+        span Milliseconds
       p These are the getters mentioned in the 
-        a(href="#/manipulation/seconds") Manipulation
+        a(href="#/manipulation/milliseconds") Manipulation
         | section above.
       p These map to the corresponding function on the native 
         code Date
         | object.
-      pre moment().seconds() === new Date().getSeconds();
+      pre moment().milliseconds() === new Date().getMilliseconds();
+
+
+      a(name="/display/seconds")
+      h3
+        span Seconds
+      pre moment().minutes(); // get the seconds
 
 
       a(name="/display/minutes")

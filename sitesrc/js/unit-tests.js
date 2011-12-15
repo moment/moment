@@ -144,9 +144,10 @@ test("add and subtract short", 12, function() {
     a.hours(6);
     a.minutes(7);
     a.seconds(8);
+    a.milliseconds(500);
 
-    equal(a.add({ms:1000}).seconds(), 9, 'Add milliseconds');
-    equal(a.add({s:1}).seconds(), 10, 'Add seconds');
+    equal(a.add({ms:50}).milliseconds(), 550, 'Add milliseconds');
+    equal(a.add({s:1}).seconds(), 9, 'Add seconds');
     equal(a.add({m:1}).minutes(), 8, 'Add minutes');
     equal(a.add({h:1}).hours(), 7, 'Add hours');
     equal(a.add({d:1}).date(), 13, 'Add date');
@@ -171,9 +172,10 @@ test("add and subtract long", 8, function() {
     a.hours(6);
     a.minutes(7);
     a.seconds(8);
+    a.milliseconds(500);
 
-    equal(a.add({milliseconds:1000}).seconds(), 9, 'Add milliseconds');
-    equal(a.add({seconds:1}).seconds(), 10, 'Add seconds');
+    equal(a.add({milliseconds:50}).milliseconds(), 550, 'Add milliseconds');
+    equal(a.add({seconds:1}).seconds(), 9, 'Add seconds');
     equal(a.add({minutes:1}).minutes(), 8, 'Add minutes');
     equal(a.add({hours:1}).hours(), 7, 'Add hours');
     equal(a.add({days:1}).date(), 13, 'Add date');
@@ -190,9 +192,10 @@ test("add and subtract string short", 8, function() {
     a.hours(6);
     a.minutes(7);
     a.seconds(8);
+    a.milliseconds(500);
 
-    equal(a.add('milliseconds', 1000).seconds(), 9, 'Add milliseconds');
-    equal(a.add('seconds', 1).seconds(), 10, 'Add seconds');
+    equal(a.add('milliseconds', 50).milliseconds(), 550, 'Add milliseconds');
+    equal(a.add('seconds', 1).seconds(), 9, 'Add seconds');
     equal(a.add('minutes', 1).minutes(), 8, 'Add minutes');
     equal(a.add('hours', 1).hours(), 7, 'Add hours');
     equal(a.add('days', 1).date(), 13, 'Add date');
@@ -209,9 +212,10 @@ test("add and subtract string short", 8, function() {
     a.hours(6);
     a.minutes(7);
     a.seconds(8);
+    a.milliseconds(500);
 
-    equal(a.add('ms', 1000).seconds(), 9, 'Add milliseconds');
-    equal(a.add('s', 1).seconds(), 10, 'Add seconds');
+    equal(a.add('ms', 50).milliseconds(), 550, 'Add milliseconds');
+    equal(a.add('s', 1).seconds(), 9, 'Add seconds');
     equal(a.add('m', 1).minutes(), 8, 'Add minutes');
     equal(a.add('h', 1).hours(), 7, 'Add hours');
     equal(a.add('d', 1).date(), 13, 'Add date');
@@ -296,8 +300,8 @@ test("leap year", 4, function() {
 module("getters and setters");
 
 
-test("getters", 7, function() {
-    var a = moment([2011, 9, 12, 6, 7, 8]);
+test("getters", 8, function() {
+    var a = moment([2011, 9, 12, 6, 7, 8, 9]);
     equal(a.year(), 2011, 'year');
     equal(a.month(), 9, 'month');
     equal(a.date(), 12, 'date');
@@ -305,9 +309,10 @@ test("getters", 7, function() {
     equal(a.hours(), 6, 'hour');
     equal(a.minutes(), 7, 'minute');
     equal(a.seconds(), 8, 'second');
+    equal(a.milliseconds(), 9, 'milliseconds');
 });
 
-test("setters", 7, function() {
+test("setters", 8, function() {
     var a = moment();
     a.year(2011);
     a.month(9);
@@ -315,6 +320,7 @@ test("setters", 7, function() {
     a.hours(6);
     a.minutes(7);
     a.seconds(8);
+    a.milliseconds(9);
     equal(a.year(), 2011, 'year');
     equal(a.month(), 9, 'month');
     equal(a.date(), 12, 'date');
@@ -322,6 +328,7 @@ test("setters", 7, function() {
     equal(a.hours(), 6, 'hour');
     equal(a.minutes(), 7, 'minute');
     equal(a.seconds(), 8, 'second');
+    equal(a.milliseconds(), 9, 'milliseconds');
 });
 
 test("setters - falsey values", 1, function() {
