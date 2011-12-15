@@ -11,7 +11,7 @@
         round = Math.round,
         languages = {},
         hasModule = (typeof module !== 'undefined'),
-        paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|longDateFormat|relativeTime|ordinal|meridiem'.split('|'),
+        paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|longDateFormat|relativeDate|relativeTime|ordinal|meridiem'.split('|'),
         i,
         VERSION = "1.2.0",
         shortcuts = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|');
@@ -80,7 +80,7 @@
             currentMinutes = date.getMinutes(),
             currentSeconds = date.getSeconds(),
             currentZone = date.getTimezoneOffset(),
-            charactersToReplace = /(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|ZZ?|LL?L?L?)/g,
+            charactersToReplace = /(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|ZZ?|LT|LL?L?L?)/g,
             nonuppercaseLetters = /[^A-Z]/g,
             timezoneRegex = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g,
             ordinal = moment.ordinal,
@@ -186,6 +186,7 @@
             case 'LL' :
             case 'LLL' :
             case 'LLLL' :
+            case 'LT' :
                 return formatDate(date, moment.longDateFormat[input]);
             // DEFAULT
             default :
@@ -397,16 +398,24 @@
         weekdays : "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),
         weekdaysShort : "Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),
         longDateFormat : { 
+            LT : "h:mm A",
             L : "MM/DD/YYYY",
             LL : "MMMM D YYYY",
-            LLL : "MMMM D YYYY h:mm A",
-            LLLL : "dddd, MMMM D YYYY h:mm A"
+            LLL : "MMMM D YYYY LT",
+            LLLL : "dddd, MMMM D YYYY LT"
         },
         meridiem : {
             AM : 'AM',
             am : 'am',
             PM : 'PM',
             pm : 'pm'
+        },
+        relativeDate : {
+            today: 'Today at %time',
+            tomorrow: 'Tomorrow at %time',
+            next: '%weekday at %time', // e.g. Friday at 13:45
+            yesterday: 'Yesterday at %time',
+            last: 'last %weekday at %time' // e.g. last Sunday at 13:45
         },
         relativeTime : {
             future : "in %s",
@@ -528,6 +537,49 @@
 
         fromNow : function (withoutSuffix) {
             return this.from(moment(), withoutSuffix);
+        },
+
+        relativeDate : function () {
+            var format = 'YYYY DDDD',
+                unixTimestamp = this.valueOf(),
+                arrayKey, nextWeek, lastWeek,
+                relativeDateFormat;
+
+            switch (this.format(format)) {
+            case moment().format(format):
+                arrayKey = 'today';
+                break;
+            case moment().add('days', 1).format(format):
+                arrayKey = 'tomorrow';
+                break;
+            case moment().subtract('days', 1).format(format):
+                arrayKey = 'yesterday';
+                break;
+            }
+
+            if ('undefined' === typeof arrayKey) {
+                nextWeek = moment().add('weeks', 1).hours(23).minutes(59).seconds(59);
+                lastWeek = moment().subtract('weeks', 1).hours(0).minutes(0).seconds(0);
+
+                if (nextWeek.valueOf() > unixTimestamp && lastWeek.valueOf() < unixTimestamp) {
+                    if (moment().valueOf() < unixTimestamp) {
+                        arrayKey = 'next';
+                    } else {
+                        arrayKey = 'last';
+                    }
+                }
+            }
+
+            if (arrayKey && moment.relativeDate[arrayKey]) {
+                relativeDateFormat = moment.relativeDate[arrayKey];
+
+                if ('function' === typeof relativeDateFormat) {
+                    relativeDateFormat = relativeDateFormat.call(this);
+                }
+                return relativeDateFormat.replace('%weekday', this.format('dddd')).replace('%time', this.format('LT'));
+            }
+
+            return this.format(moment.relativeDate.else || 'L');
         },
 
         isLeapYear : function () {

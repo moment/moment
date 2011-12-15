@@ -5,16 +5,34 @@
             weekdays : "Domingo_Lunes_Martes_Miércoles_Jueves_Viernes_Sábado".split("_"),
             weekdaysShort : "Dom._Lun._Mar._Mié._Jue._Vie._Sáb.".split("_"),
             longDateFormat : {
+                LT : "HH:mm",
                 L : "DD/MM/YYYY",
                 LL : "D MMMM YYYY",
-                LLL : "D MMMM YYYY HH:mm",
-                LLLL : "dddd D MMMM YYYY HH:mm"
+                LLL : "D MMMM YYYY LT",
+                LLLL : "dddd D MMMM YYYY LT"
             },
             meridiem : {
                 AM : 'AM',
                 am : 'am',
                 PM : 'PM',
                 pm : 'pm'
+            },
+            relativeDate : {
+                today: function () {
+                    return 'hoy a la' + ((this.hours() !== 1) ? 's' : '') + ' %time';
+                },
+                tomorrow: function () {
+                    return 'mañana a la' + ((this.hours() !== 1) ? 's' : '') + ' %time';
+                },
+                next: function () {
+                    return '%weekday a la' + ((this.hours() !== 1) ? 's' : '') + ' %time';
+                },
+                yesterday: function () {
+                    return 'ayer a la' + ((this.hours() !== 1) ? 's' : '') + ' %time';
+                },
+                last: function () {
+                    return 'el %weekday pasado a la' + ((this.hours() !== 1) ? 's' : '') + ' %time';
+                }
             },
             relativeTime : {
                 future : "en %s",

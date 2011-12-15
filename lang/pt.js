@@ -5,16 +5,34 @@
             weekdays : "Domingo_Segunda-feira_Terça-feira_Quarta-feira_Quinta-feira_Sexta-feira_Sábado".split("_"),
             weekdaysShort : "Dom_Seg_Ter_Qua_Qui_Sex_Sáb".split("_"),
             longDateFormat : { 
+                LT : "HH:mm",
                 L : "DD/MM/YYYY",
                 LL : "D \\de MMMM \\de YYYY",
-                LLL : "D \\de MMMM \\de YYYY HH:mm",
-                LLLL : "dddd, D \\de MMMM \\de YYYY HH:mm"
+                LLL : "D \\de MMMM \\de YYYY LT",
+                LLLL : "dddd, D \\de MMMM \\de YYYY LT"
             },
             meridiem : {
                 AM : 'AM',
                 am : 'am',
                 PM : 'PM',
                 pm : 'pm'
+            },
+            relativeDate : {
+                today: 'Hoje às %time',
+                tomorrow: 'Amanhã às %time',
+                next: '%weekday às %time',
+                yesterday: 'Ontem às %time',
+                last: function () {
+                    var weekday = parseInt(this.format('d'), 10);
+
+                    if (weekday < 5) {
+                        // Mo - Fr
+                        return 'Última %weekday às %time';
+                    } else {
+                        // Sa + Su
+                        return 'Último %weekday às %time';
+                    }
+                }
             },
             relativeTime : {
                 future : "em %s",

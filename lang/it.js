@@ -5,16 +5,24 @@
             weekdays : "Domenica_Lunedi_Martedi_Mercoledi_Giovedi_Venerdi_Sabato".split("_"),
             weekdaysShort : "Dom_Lun_Mar_Mer_Gio_Ven_Sab".split("_"),
             longDateFormat : { 
+                LT : "HH:mm",
                 L : "DD/MM/YYYY",
                 LL : "D MMMM YYYY",
-                LLL : "D MMMM YYYY HH:mm",
-                LLLL : "dddd, D MMMM YYYY HH:mm"
+                LLL : "D MMMM YYYY LT",
+                LLLL : "dddd, D MMMM YYYY LT"
             },
             meridiem : {
                 AM : 'AM',
                 am : 'am',
                 PM : 'PM',
                 pm : 'pm'
+            },
+            relativeDate : {
+                today: 'Oggi alle %time',
+                tomorrow: 'Domani alle %time',
+                next: '%weekday alle %time',
+                yesterday: 'Ieri alle %time',
+                last: 'lo scorso %weekday alle %time'
             },
             relativeTime : {
                 future : "in %s",

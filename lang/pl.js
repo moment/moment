@@ -27,16 +27,24 @@
         weekdays : "niedziela_poniedziałek_wtorek_środa_czwartek_piątek_sobota".split("_"),
         weekdaysShort : "nie_pon_wt_śr_czw_pt_sb".split("_"),
         longDateFormat : {
+            LT : "HH:mm",
             L : "DD-MM-YYYY",
             LL : "D MMMM YYYY",
-            LLL : "D MMMM YYYY HH:mm",
-            LLLL : "dddd, D MMMM YYYY HH:mm"
+            LLL : "D MMMM YYYY LT",
+            LLLL : "dddd, D MMMM YYYY LT"
         },
         meridiem : {
             AM : 'AM',
             am : 'am',
             PM : 'PM',
             pm : 'pm'
+        },
+        relativeDate : {
+            today: 'Dziś o %time',
+            tomorrow: 'Jutro o %time',
+            next: 'W %weekday o %time', // e.g. Friday at 13:45
+            yesterday: 'Wczoraj o %time',
+            last: 'W zeszły/łą %weekday o %time' // e.g. last Sunday at 13:45
         },
         relativeTime : {
             future : "za %s",
