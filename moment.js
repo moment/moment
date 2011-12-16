@@ -11,7 +11,7 @@
         round = Math.round,
         languages = {},
         hasModule = (typeof module !== 'undefined'),
-        paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|longDateFormat|relativeDate|relativeTime|ordinal|meridiem'.split('|'),
+        paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|'),
         i,
         VERSION = "1.2.0",
         shortcuts = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|');
@@ -410,12 +410,13 @@
             PM : 'PM',
             pm : 'pm'
         },
-        relativeDate : {
-            today: 'Today at %time',
-            tomorrow: 'Tomorrow at %time',
-            next: '%weekday at %time', // e.g. Friday at 13:45
-            yesterday: 'Yesterday at %time',
-            last: 'last %weekday at %time' // e.g. last Sunday at 13:45
+        calendar : {
+            sameDay : '[Today at] LT',
+            nextDay : '[Tomorrow at] LT',
+            nextWeek : 'dddd [at] LT',
+            lastDay : '[Yesterday at] LT',
+            lastWeek : '[last] dddd [at] LT',
+            sameElse : 'L'
         },
         relativeTime : {
             future : "in %s",
@@ -539,47 +540,18 @@
             return this.from(moment(), withoutSuffix);
         },
 
-        relativeDate : function () {
-            var format = 'YYYY DDDD',
-                unixTimestamp = this.valueOf(),
-                arrayKey, nextWeek, lastWeek,
-                relativeDateFormat;
-
-            switch (this.format(format)) {
-            case moment().format(format):
-                arrayKey = 'today';
-                break;
-            case moment().add('days', 1).format(format):
-                arrayKey = 'tomorrow';
-                break;
-            case moment().subtract('days', 1).format(format):
-                arrayKey = 'yesterday';
-                break;
-            }
-
-            if ('undefined' === typeof arrayKey) {
-                nextWeek = moment().add('weeks', 1).hours(23).minutes(59).seconds(59);
-                lastWeek = moment().subtract('weeks', 1).hours(0).minutes(0).seconds(0);
-
-                if (nextWeek.valueOf() > unixTimestamp && lastWeek.valueOf() < unixTimestamp) {
-                    if (moment().valueOf() < unixTimestamp) {
-                        arrayKey = 'next';
-                    } else {
-                        arrayKey = 'last';
-                    }
-                }
-            }
-
-            if (arrayKey && moment.relativeDate[arrayKey]) {
-                relativeDateFormat = moment.relativeDate[arrayKey];
-
-                if ('function' === typeof relativeDateFormat) {
-                    relativeDateFormat = relativeDateFormat.call(this);
-                }
-                return relativeDateFormat.replace('%weekday', this.format('dddd')).replace('%time', this.format('LT'));
-            }
-
-            return this.format(moment.relativeDate.else || 'L');
+        calendar : function () {
+            var todayAtZeroHour = moment().hours(0).minutes(0).seconds(0).milliseconds(0),
+                diff = this.diff(todayAtZeroHour, 'days', true),
+                calendar = moment.calendar,
+                allElse = calendar.sameElse,
+                format = diff < -6 ? allElse : 
+                diff < -1 ? calendar.lastWeek :
+                diff < 0 ? calendar.lastDay :
+                diff < 1 ? calendar.sameDay :
+                diff < 2 ? calendar.nextDay :
+                diff < 7 ? calendar.nextWeek : allElse;
+            return this.format(typeof format === 'function' ? format.apply(this) : format);
         },
 
         isLeapYear : function () {
