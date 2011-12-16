@@ -80,7 +80,7 @@
             currentMinutes = date.getMinutes(),
             currentSeconds = date.getSeconds(),
             currentZone = date.getTimezoneOffset(),
-            charactersToReplace = /(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|ZZ?|LT|LL?L?L?)/g,
+            charactersToReplace = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|ZZ?|LT|LL?L?L?)/g,
             nonuppercaseLetters = /[^A-Z]/g,
             timezoneRegex = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g,
             ordinal = moment.ordinal,
@@ -190,7 +190,7 @@
                 return formatDate(date, moment.longDateFormat[input]);
             // DEFAULT
             default :
-                return input.replace("\\", "");
+                return input.replace(/(^\[)|(\\)|\]$/g, "");
             }
         }
         return inputString.replace(charactersToReplace, replaceFunction);
