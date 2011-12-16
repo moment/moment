@@ -17,12 +17,13 @@
                 PM : 'PM',
                 pm : 'pm'
             },
-            relativeDate : {
-                today: 'Oggi alle %time',
-                tomorrow: 'Domani alle %time',
-                next: '%weekday alle %time',
-                yesterday: 'Ieri alle %time',
-                last: 'lo scorso %weekday alle %time'
+            calendar : {
+                sameDay: '[Oggi alle] LT',
+                nextDay: '[Domani alle] LT',
+                nextWeek: 'dddd [alle] LT',
+                lastDay: '[Ieri alle] LT',
+                lastWeek: '[lo scorso] dddd [alle] LT',
+                sameElse: 'L'
             },
             relativeTime : {
                 future : "in %s",

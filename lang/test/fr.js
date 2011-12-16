@@ -136,3 +136,61 @@ test("fromNow", 2, function() {
     equal(moment().add({s:30}).fromNow(), "dans quelques secondes", "in a few seconds");
     equal(moment().add({d:5}).fromNow(), "dans 5 jours", "in 5 days");
 });
+
+
+test("same day", 6, function() {
+    moment.lang('fr');
+
+    var a = moment().hours(2).minutes(0).seconds(0);
+
+    equal(moment(a).calendar(),                     "Ajourd'hui à 02:00",     "today at the same time");
+    equal(moment(a).add({ m: 25 }).calendar(),      "Ajourd'hui à 02:25",     "Now plus 25 min");
+    equal(moment(a).add({ h: 1 }).calendar(),       "Ajourd'hui à 03:00",     "Now plus 1 hour");
+    equal(moment(a).add({ d: 1 }).calendar(),       "Demain à 02:00",         "tomorrow at the same time");
+    equal(moment(a).subtract({ h: 1 }).calendar(),  "Ajourd'hui à 01:00",     "Now minus 1 hour");
+    equal(moment(a).subtract({ d: 1 }).calendar(),  "Hier à 02:00",           "yesterday at the same time");
+});
+
+test("same next week", 15, function() {
+    moment.lang('fr');
+
+    var i;
+    var m;
+
+    for (i = 2; i < 7; i++) {
+        m = moment().add({ d: i });
+        equal(m.calendar(),       m.format('dddd [à] LT'),  "Today + " + i + " days current time");
+        m.hours(0).minutes(0).seconds(0).milliseconds(0);
+        equal(m.calendar(),       m.format('dddd [à] LT'),  "Today + " + i + " days beginning of day");
+        m.hours(23).minutes(59).seconds(59).milliseconds(999);
+        equal(m.calendar(),       m.format('dddd [à] LT'),  "Today + " + i + " days end of day");
+    }
+});
+
+test("same last week", 15, function() {
+    moment.lang('fr');
+
+    for (i = 2; i < 7; i++) {
+        m = moment().subtract({ d: i });
+        equal(m.calendar(),       m.format('dddd [denier à] LT'),  "Today - " + i + " days current time");
+        m.hours(0).minutes(0).seconds(0).milliseconds(0);
+        equal(m.calendar(),       m.format('dddd [denier à] LT'),  "Today - " + i + " days beginning of day");
+        m.hours(23).minutes(59).seconds(59).milliseconds(999);
+        equal(m.calendar(),       m.format('dddd [denier à] LT'),  "Today - " + i + " days end of day");
+    }
+});
+
+test("same all else", 4, function() {
+    moment.lang('fr');
+    var weeksAgo = moment().subtract({ w: 1 });
+    var weeksFromNow = moment().add({ w: 1 });
+    
+    equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
+    equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
+
+    weeksAgo = moment().subtract({ w: 2 });
+    weeksFromNow = moment().add({ w: 2 });
+    
+    equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
+    equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
+});

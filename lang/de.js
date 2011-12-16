@@ -5,7 +5,7 @@
             weekdays : "Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag".split("_"),
             weekdaysShort : "So._Mo._Di._Mi._Do._Fr._Sa.".split("_"),
             longDateFormat : {
-                LT: "HH:mm U\\hr",
+                LT: "H:mm U\\hr",
                 L : "DD.MM.YYYY",
                 LL : "D. MMMM YYYY",
                 LLL : "D. MMMM YYYY LT",
@@ -17,12 +17,13 @@
                 PM : 'PM',
                 pm : 'pm'
             },
-            relativeDate : {
-                today: "Heute um %time",
-                tomorrow: 'Morgen um %time',
-                next: '%weekday um %time',
-                yesterday: 'Gestern um %time',
-                last: 'letzten %weekday um %time'
+            calendar : {
+                sameDay: "[Heute um] LT",
+                sameElse: "L",
+                nextDay: '[Morgen um] LT',
+                nextWeek: 'dddd [um] LT',
+                lastDay: '[Gestern um] LT',
+                lastWeek: '[letzten] dddd [um] LT'
             },
             relativeTime : {
                 future : "in %s",

@@ -144,85 +144,59 @@ test("fromNow", 2, function() {
     equal(moment().add({d:5}).fromNow(), "in 5 days", "in 5 days");
 });
 
-test("relativeDate", 15, function() {
-    var getTodayAtTwo, prefixDay;
-
-    getTodayAtTwo = function () {
-        return moment().hours(2).minutes(0).seconds(0);
-    };
-
-    prefixDay = function (moment, string, nextOrLast) {
-        if(typeof nextOrLast == "undefined") {
-            nextOrLast = '';
-        } else {
-            switch(nextOrLast) {
-                case 'next':
-                    nextOrLast = "next ";
-                    break;
-                case 'last':
-                    nextOrLast = "last ";
-                    break;
-                default:
-                    nextOrLast = '';
-            }
-        }
-
-        return nextOrLast + moment.format('dddd') + string;
-    };
-
+test("calendar day", 6, function() {
     moment.lang('en');
-    equal(getTodayAtTwo().relativeDate(), "Today at 2:00 AM", "today at the same time");
-    equal(getTodayAtTwo().add({ m: 25 }).relativeDate(), "Today at 2:25 AM", "Now plus 25 min");
-    equal(getTodayAtTwo().add({ h: 1 }).relativeDate(), "Today at 3:00 AM", "Now plus 1 hour");
-    equal(getTodayAtTwo().add({ d: 1 }).relativeDate(), "Tomorrow at 2:00 AM", "tomorrow at the same time");
-    equal(getTodayAtTwo().subtract({ h: 1 }).relativeDate(), "Today at 1:00 AM", "Now minus 1 hour");
-    equal(getTodayAtTwo().subtract({ d: 1 }).relativeDate(), "Yesterday at 2:00 AM", "yesterday at the same time");
 
-    var nextTomorrow = getTodayAtTwo().add({ d: 2 });
-    equal(nextTomorrow.relativeDate(), prefixDay(nextTomorrow, " at 2:00 AM"), "now + 2days at the same time");
+    var a = moment().hours(2).minutes(0).seconds(0);
 
-    var previousYesterday = getTodayAtTwo().subtract({ d: 2 });
-    equal(previousYesterday.relativeDate(), prefixDay(previousYesterday, " at 2:00 AM", "last"), "now - 2days at the same time");
+    equal(moment(a).calendar(),                     "Today at 2:00 AM",     "today at the same time");
+    equal(moment(a).add({ m: 25 }).calendar(),      "Today at 2:25 AM",     "Now plus 25 min");
+    equal(moment(a).add({ h: 1 }).calendar(),       "Today at 3:00 AM",     "Now plus 1 hour");
+    equal(moment(a).add({ d: 1 }).calendar(),       "Tomorrow at 2:00 AM",  "tomorrow at the same time");
+    equal(moment(a).subtract({ h: 1 }).calendar(),  "Today at 1:00 AM",     "Now minus 1 hour");
+    equal(moment(a).subtract({ d: 1 }).calendar(),  "Yesterday at 2:00 AM", "yesterday at the same time");
+});
 
-    // Next / Last week
-    equal(
-        getTodayAtTwo().add({ w: 1 }).relativeDate(),
-        prefixDay(getTodayAtTwo().add({ w: 1 }), " at 2:00 AM"),
-        "next week at the same time"
-    );
-    equal(
-        getTodayAtTwo().add({ w: 1, d: 1 }).relativeDate(),
-        getTodayAtTwo().add({ w: 1, d: 1 }).format('L'),
-        "in a week plus one day at the same time"
-    );
-    equal(
-        getTodayAtTwo().subtract({ w: 1 }).relativeDate(),
-        prefixDay(getTodayAtTwo().add({ w: 1 }), " at 2:00 AM", "last"),
-        "last week at the same time"
-    );
-    equal(
-        getTodayAtTwo().subtract({ w: 1, d: 1 }).relativeDate(),
-        getTodayAtTwo().subtract({ w: 1, d: 1 }).format('L'),
-        "one week and a day ago at the same time"
-    );
+test("calendar next week", 15, function() {
+    moment.lang('en');
 
-    // More than 2 weeks
-    equal(
-        getTodayAtTwo().add({ w: 2 }).relativeDate(),
-        getTodayAtTwo().add({ w: 2 }).format('L'),
-        "in 2 weeks at the same time"
-    );
-    equal(
-        getTodayAtTwo().subtract({ w: 2 }).relativeDate(),
-        getTodayAtTwo().subtract({ w: 2 }).format('L'),
-        "before 2 weeks at the same time"
-    );
+    var i;
+    var m;
+
+    for (i = 2; i < 7; i++) {
+        m = moment().add({ d: i });
+        equal(m.calendar(),       m.format('dddd [at] LT'),  "Today + " + i + " days current time");
+        m.hours(0).minutes(0).seconds(0).milliseconds(0);
+        equal(m.calendar(),       m.format('dddd [at] LT'),  "Today + " + i + " days beginning of day");
+        m.hours(23).minutes(59).seconds(59).milliseconds(999);
+        equal(m.calendar(),       m.format('dddd [at] LT'),  "Today + " + i + " days end of day");
+    }
+});
+
+test("calendar last week", 15, function() {
+    moment.lang('en');
+
+    for (i = 2; i < 7; i++) {
+        m = moment().subtract({ d: i });
+        equal(m.calendar(),       m.format('[last] dddd [at] LT'),  "Today - " + i + " days current time");
+        m.hours(0).minutes(0).seconds(0).milliseconds(0);
+        equal(m.calendar(),       m.format('[last] dddd [at] LT'),  "Today - " + i + " days beginning of day");
+        m.hours(23).minutes(59).seconds(59).milliseconds(999);
+        equal(m.calendar(),       m.format('[last] dddd [at] LT'),  "Today - " + i + " days end of day");
+    }
+});
+
+test("calendar all else", 4, function() {
+    moment.lang('en');
+    var weeksAgo = moment().subtract({ w: 1 });
+    var weeksFromNow = moment().add({ w: 1 });
     
-    moment.relativeDate.else = 'LLL';
-    equal(
-        getTodayAtTwo().subtract({ w: 2 }).relativeDate(),
-        getTodayAtTwo().subtract({ w: 2 }).format('LLL'),
-        "before 2 weeks at the same time with custom format"
-    );
-    delete moment.relativeDate.else;
-})
+    equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
+    equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
+
+    weeksAgo = moment().subtract({ w: 2 });
+    weeksFromNow = moment().add({ w: 2 });
+    
+    equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
+    equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
+});

@@ -136,3 +136,81 @@ test("fromNow", 2, function() {
     equal(moment().add({s:30}).fromNow(), "через несколько секунд", "in seconds");
     equal(moment().add({d:5}).fromNow(), "через 5 дней", "in 5 days");
 });
+
+
+test("calendar day", 6, function() {
+    moment.lang('ru');
+
+    var a = moment().hours(2).minutes(0).seconds(0);
+
+    equal(moment(a).calendar(),                     "Сегодня в 02:00",     "today at the same time");
+    equal(moment(a).add({ m: 25 }).calendar(),      "Сегодня в 02:25",     "Now plus 25 min");
+    equal(moment(a).add({ h: 1 }).calendar(),       "Сегодня в 03:00",     "Now plus 1 hour");
+    equal(moment(a).add({ d: 1 }).calendar(),       "Завтра в 02:00",      "tomorrow at the same time");
+    equal(moment(a).subtract({ h: 1 }).calendar(),  "Сегодня в 01:00",     "Now minus 1 hour");
+    equal(moment(a).subtract({ d: 1 }).calendar(),  "Вчера в 02:00",       "yesterday at the same time");
+});
+
+test("calendar next week", 15, function() {
+    moment.lang('ru');
+
+    var i;
+    var m;
+
+    function makeFormat(d) {
+        return d.day() === 1 ? '[Во] dddd [в] LT' : '[В] dddd [в] LT';
+    }
+
+    for (i = 2; i < 7; i++) {
+        m = moment().add({ d: i });
+        equal(m.calendar(),       m.format(makeFormat(m)),  "Today + " + i + " days current time");
+        m.hours(0).minutes(0).seconds(0).milliseconds(0);
+        equal(m.calendar(),       m.format(makeFormat(m)),  "Today + " + i + " days beginning of day");
+        m.hours(23).minutes(59).seconds(59).milliseconds(999);
+        equal(m.calendar(),       m.format(makeFormat(m)),  "Today + " + i + " days end of day");
+    }
+});
+
+test("calendar last week", 15, function() {
+    moment.lang('ru');
+
+    var i;
+    var m;
+
+    function makeFormat(d) {
+        switch (d.day()) {
+        case 0:
+        case 1:
+        case 3:
+            return '[В прошлый] dddd [в] LT';
+        case 6:
+            return '[В прошлое] dddd [в] LT';
+        default:
+            return '[В прошлую] dddd [в] LT';
+        }
+    }
+
+    for (i = 2; i < 7; i++) {
+        m = moment().subtract({ d: i });
+        equal(m.calendar(),       m.format(makeFormat(m)),  "Today - " + i + " days current time");
+        m.hours(0).minutes(0).seconds(0).milliseconds(0);
+        equal(m.calendar(),       m.format(makeFormat(m)),  "Today - " + i + " days beginning of day");
+        m.hours(23).minutes(59).seconds(59).milliseconds(999);
+        equal(m.calendar(),       m.format(makeFormat(m)),  "Today - " + i + " days end of day");
+    }
+});
+
+test("calendar all else", 4, function() {
+    moment.lang('ru');
+    var weeksAgo = moment().subtract({ w: 1 });
+    var weeksFromNow = moment().add({ w: 1 });
+    
+    equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
+    equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
+
+    weeksAgo = moment().subtract({ w: 2 });
+    weeksFromNow = moment().add({ w: 2 });
+    
+    equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
+    equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
+});

@@ -8,7 +8,7 @@ module("lang:da");
 test("format", 18, function() {
     moment.lang('da');
     var a = [
-            ['dddd \den MMMM Do YYYY, h:mm:ss a',  'Søndag den Februar 14. 2010, 3:25:50 pm'],
+            ['dddd \\den MMMM Do YYYY, h:mm:ss a', 'Søndag den Februar 14. 2010, 3:25:50 pm'],
             ['ddd hA',                             'Søn 3PM'],
             ['M Mo MM MMMM MMM',                   '2 2. 02 Februar Feb'],
             ['YYYY YY',                            '2010 10'],

@@ -11,44 +11,26 @@
                 LLL : "D MMMM YYYY LT",
                 LLLL : "dddd, D MMMM YYYY LT"
             }, 
-            relativeDate : {
-                today: 'Сегодня в %time',
-                tomorrow: 'Завтра в %time',
-                next: function () {
-                    var nextArray, weekday;
-
-                    weekday = parseInt(this.format('d'), 10);
-
-                    nextArray = [
-                        'В понедельник в %time',
-                        'Во вторник в %time',
-                        'В среду в %time',
-                        'В четверг в %time',
-                        'В пятницу в %time',
-                        'В субботу в %time',
-                        'В воскресенье в %time'
-                    ];
-
-                    return nextArray[weekday];
+            calendar : {
+                sameDay: '[Сегодня в] LT',
+                nextDay: '[Завтра в] LT',
+                lastDay: '[Вчера в] LT',
+                nextWeek: function () {
+                    return this.day() === 1 ? '[Во] dddd [в] LT' : '[В] dddd [в] LT';
                 },
-                yesterday: 'Вчера в %time',
-                last: function () {
-                    var lastArray, weekday;
-
-                    weekday = parseInt(this.format('d'), 10);
-
-                    lastArray = [
-                        'В прошлый понедельник в %time',
-                        'В прошлый вторник в %time',
-                        'В прошлую среду в %time',
-                        'В прошлый четверг в %time',
-                        'В прошлую пятницу в %time',
-                        'В прошлую субботу в %time',
-                        'В прошлое воскресенье в %time'
-                    ];
-
-                    return lastArray[weekday];
-                }
+                lastWeek: function () {
+                    switch (this.day()) {
+                    case 0:
+                    case 1:
+                    case 3:
+                        return '[В прошлый] dddd [в] LT';
+                    case 6:
+                        return '[В прошлое] dddd [в] LT';
+                    default:
+                        return '[В прошлую] dddd [в] LT';
+                    }
+                },
+                sameElse: 'L'
             },
             // It needs checking (adding) russian plurals and cases.
             relativeTime : {

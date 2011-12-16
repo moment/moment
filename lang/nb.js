@@ -17,12 +17,13 @@
                 PM : 'PM',
                 pm : 'pm'
             },
-            relativeDate : {
-                today: 'I dag klokken %time',
-                tomorrow: 'I morgen klokken %time',
-                next: '%weekday klokken %time',
-                yesterday: 'I går klokken %time',
-                last: 'Forrige %weekday klokken %time'
+            calendar : {
+                sameDay: '[I dag klokken] LT',
+                nextDay: '[I morgen klokken] LT',
+                nextWeek: 'dddd [klokken] LT',
+                lastDay: '[I går klokken] LT',
+                lastWeek: '[Forrige] dddd [klokken] LT',
+                sameElse: 'L'
             },
             relativeTime : {
                 future : "om %s",

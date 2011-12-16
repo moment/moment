@@ -5,7 +5,7 @@
             weekdays : "Domingo_Lunes_Martes_Miércoles_Jueves_Viernes_Sábado".split("_"),
             weekdaysShort : "Dom._Lun._Mar._Mié._Jue._Vie._Sáb.".split("_"),
             longDateFormat : {
-                LT : "HH:mm",
+                LT : "H:mm",
                 L : "DD/MM/YYYY",
                 LL : "D MMMM YYYY",
                 LLL : "D MMMM YYYY LT",
@@ -17,22 +17,23 @@
                 PM : 'PM',
                 pm : 'pm'
             },
-            relativeDate : {
-                today: function () {
-                    return 'hoy a la' + ((this.hours() !== 1) ? 's' : '') + ' %time';
+            calendar : {
+                sameDay : function () {
+                    return '[hoy a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
                 },
-                tomorrow: function () {
-                    return 'mañana a la' + ((this.hours() !== 1) ? 's' : '') + ' %time';
+                nextDay : function () {
+                    return '[mañana a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
                 },
-                next: function () {
-                    return '%weekday a la' + ((this.hours() !== 1) ? 's' : '') + ' %time';
+                nextWeek : function () {
+                    return 'dddd [a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
                 },
-                yesterday: function () {
-                    return 'ayer a la' + ((this.hours() !== 1) ? 's' : '') + ' %time';
+                lastDay : function () {
+                    return '[ayer a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
                 },
-                last: function () {
-                    return 'el %weekday pasado a la' + ((this.hours() !== 1) ? 's' : '') + ' %time';
-                }
+                lastWeek : function () {
+                    return '[el] dddd [pasado a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+                },
+                sameElse : 'L'
             },
             relativeTime : {
                 future : "en %s",

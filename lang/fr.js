@@ -17,12 +17,13 @@
                 PM : 'PM',
                 pm : 'pm'
             },
-            relativeDate : {
-                today: "Ajourd'hui à %time",
-                tomorrow: 'Demain à %time',
-                next: '%weekday à %time',
-                yesterday: 'Hier à %time',
-                last: '%weekday denier à %time'
+            calendar : {
+                sameDay: "[Ajourd'hui à] LT",
+                nextDay: '[Demain à] LT',
+                nextWeek: 'dddd [à] LT',
+                lastDay: '[Hier à] LT',
+                lastWeek: 'dddd [denier à] LT',
+                sameElse: 'L'
             },
             relativeTime : {
                 future : "dans %s",

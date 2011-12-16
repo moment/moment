@@ -17,22 +17,17 @@
                 PM : 'PM',
                 pm : 'pm'
             },
-            relativeDate : {
-                today: 'Hoje às %time',
-                tomorrow: 'Amanhã às %time',
-                next: '%weekday às %time',
-                yesterday: 'Ontem às %time',
-                last: function () {
-                    var weekday = parseInt(this.format('d'), 10);
-
-                    if (weekday < 5) {
-                        // Mo - Fr
-                        return 'Última %weekday às %time';
-                    } else {
-                        // Sa + Su
-                        return 'Último %weekday às %time';
-                    }
-                }
+            calendar : {
+                sameDay: '[Hoje às] LT',
+                nextDay: '[Amanhã às] LT',
+                nextWeek: 'dddd [às] LT',
+                lastDay: '[Ontem às] LT',
+                lastWeek: function () {
+                    return (this.day() === 0 || this.day() === 6) ? 
+                        '[Último] dddd [às] LT' : // Saturday + Sunday
+                        '[Última] dddd [às] LT'; // Monday - Friday
+                },
+                sameElse: 'L'
             },
             relativeTime : {
                 future : "em %s",

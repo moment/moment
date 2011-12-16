@@ -17,12 +17,13 @@
 				PM : '오후',
 				pm : '오후'
 			},
-            relativeDate : {
-                today: '오늘 %time',
-                tomorrow: '내일 %time',
-                next: '%weekday %time',
-                yesterday: '어제 %time',
-                last: '지난주 %weekday %time'
+            calendar : {
+                sameDay : '오늘 LT',
+                nextDay : '내일 LT',
+                nextWeek : 'dddd LT',
+                lastDay : '어제 LT',
+                lastWeek : '지난주 dddd LT',
+                sameElse : 'L'
             },
             relativeTime : {
                 future : "%s 후",

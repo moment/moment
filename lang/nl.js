@@ -17,12 +17,13 @@
                 PM : 'PM',
                 pm : 'pm'
             },
-            relativeDate : {
-                today: 'Vandaag om %time',
-                tomorrow: 'Morgen om %time',
-                next: '%weekday om %time', // e.g. Friday at 13:45
-                yesterday: 'Gisteren om %time',
-                last: 'afgelopen %weekday om %time' // e.g. last Sunday at 13:45
+            calendar : {
+                sameDay: '[Vandaag om] LT',
+                nextDay: '[Morgen om] LT',
+                nextWeek: 'dddd [om] LT',
+                lastDay: '[Gisteren om] LT',
+                lastWeek: '[afgelopen] dddd [om] LT',
+                sameElse: 'L'
             },
             relativeTime : {
                 future : "over %s",
