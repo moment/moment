@@ -423,35 +423,41 @@ block content
         | object.
       pre moment().milliseconds(30) === new Date().setMilliseconds(30);\n
         | moment().milliseconds() === new Date().getMilliseconds();
+      p Accepts numbers from 0 to 999
 
 
       a(name="/manipulation/seconds")
       h3
         span Seconds
+      p Accepts numbers from 0 to 59
       pre moment().seconds(30); // set the seconds to 30
 
 
       a(name="/manipulation/minutes")
       h3
         span Minutes
+      p Accepts numbers from 0 to 59
       pre moment().minutes(30); // set the minutes to 30
 
 
       a(name="/manipulation/hours")
       h3
         span Hours
+      p Accepts numbers from 0 to 23
       pre moment().hours(12); // set the hours to 12
 
 
       a(name="/manipulation/date")
       h3
         span Date
+      p Accepts numbers from 1 to 31
       pre moment().date(5); // set the date to 5
 
 
       a(name="/manipulation/month")
       h3
         span Month
+      p Accepts numbers from 0 to 11
       pre moment().month(5); // set the month to June
 
 
@@ -811,48 +817,49 @@ block content
         code Date
         | object.
       pre moment().milliseconds() === new Date().getMilliseconds();
+      pre moment().milliseconds(); // get the milliseconds (0 - 999)
 
 
       a(name="/display/seconds")
       h3
         span Seconds
-      pre moment().minutes(); // get the seconds
+      pre moment().minutes(); // get the seconds (0 - 59)
 
 
       a(name="/display/minutes")
       h3
         span Minutes
-      pre moment().minutes(); // get the minutes
+      pre moment().minutes(); // get the minutes (0 - 59)
 
 
       a(name="/display/hours")
       h3
         span Hours
-      pre moment().hours(); // get the hours
+      pre moment().hours(); // get the hours (0 - 23)
 
 
       a(name="/display/date")
       h3
         span Date
-      pre moment().date(); // get the date (0 - 31)
+      pre moment().date(); // get the date of the month (1 - 31)
 
 
       a(name="/display/day")
       h3
         span Day
-      pre moment().day(); // get the day (0 - 6)
+      pre moment().day(); // get the day of the week (0 - 6)
 
 
       a(name="/display/month")
       h3
         span Month
-      pre moment().month(); // get the month
+      pre moment().month(); // get the month (0 - 11)
 
 
       a(name="/display/year")
       h3
         span Year
-      pre moment().year(); // get the year
+      pre moment().year(); // get the four digit year
 
 
       a(name="/display/leapyear")
