@@ -646,6 +646,10 @@ block content
           tr
             td LLLL
             td Saturday, July 10 1986 8:30 PM
+      p To escape characters in format strings, you can use a backslash before any character. NOTE: if you are using a string literal, you will need to escape the backslash, hence the double backslash below.
+      pre moment().format('\\\\L'); // outputs 'L'
+      p To escape multiple characters, you can wrap the characters in square brackets.
+      pre moment().format('[today] DDDD'); // 'today Sunday'
       p While these date formats are very similar to LDML date formats, there are a few minor differences regarding day of month, day of year, and day of week.
       p For a breakdown of a few different date formatting tokens, see 
         a(href="https://docs.google.com/spreadsheet/ccc?key=0AtgZluze7WMJdDBOLUZfSFIzenIwOHNjaWZoeGFqbWc&hl=en_US#gid=0") this chart of date formatting tokens.
