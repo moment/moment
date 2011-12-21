@@ -49,6 +49,18 @@ var MINSIZE = 0;
 var SRCSIZE = 0;
 var BUILD_DATE = moment().format('YYMMDD_HHmmss');
 
+var cacheBusting = false;
+
+
+process.argv.forEach(function(val, index, array) {
+    switch (val) {
+        case 'r':
+            cacheBusting = true;
+            break;
+        default :
+            break;
+    }
+});
 
 /*********************************************
     Helpers
@@ -234,7 +246,7 @@ function jadeToHtml(jadePath, htmlPath) {
         version : VERSION,
         minsize : toKb(MINSIZE),
         srcsize : toKb(SRCSIZE),
-        builddate : BUILD_DATE
+        builddate : cacheBusting ? BUILD_DATE : 'nocachebuster'
     };
     var snippet = fs.readFile(jadePath, 'utf8', function(err, data){
         var compile = jade.compile(data, {
