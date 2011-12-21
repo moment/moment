@@ -76,6 +76,8 @@ block content
         li
           a(href="#/display/fromNow") Time from now
         li
+          a(href="#/display/calendar") Calendar time
+        li
           a(href="#/display/diff") Difference
         li
           a(href="#/display/native") Native Date
@@ -133,6 +135,8 @@ block content
           a(href="#/custom/relativeTime") Relative Time
         li
           a(href="#/custom/meridiem") AM/PM
+        li
+          a(href="#/custom/calendar") Calendar
         li
           a(href="#/custom/ordinal") Ordinal
     #docs
@@ -635,6 +639,9 @@ block content
               b Localized date format
             td
           tr
+            td LT
+            td 8:30 PM
+          tr
             td L
             td 07/10/1986
           tr
@@ -769,10 +776,49 @@ block content
         | moment([2007, 0, 29]).fromNow(true); // 4 years
 
 
+      a(name="/display/calendar")
+      h3
+        span Calendar time
+      p Calendar time is displays time relative to now, but slightly differently than 
+        code moment.fn.from
+        | .
+      p 
+        code moment.fn.calendar
+        |  will format a date with different strings depending on how close to today the date is.
+      table
+        tr
+          td Last week
+          td Last Monday 2:30 AM
+        tr
+          td The day before
+          td Yesterday 2:30 AM
+        tr
+          td The same day
+          td Today 2:30 AM
+        tr
+          td The next day
+          td Tomorrow 2:30 AM
+        tr
+          td The next week
+          td Sunday 2:30 AM
+        tr
+          td Everything else
+          td 7/10/2011
+      p These strings are localized, and can be customized with 
+        a(href="#/custom/calendar") moment.calendar
+        |  or 
+        a(href="#/i18n/lang") moment.lang
+        | .
+
+
       a(name="/display/diff")
       h3
         span Difference
-            <p>To get the difference in milliseconds, use <code>moment.fn.diff</code> like you would use <code>moment.fn.from</code>.</p>
+      p To get the difference in milliseconds, use 
+        code moment.fn.diff
+        |  like you would use 
+        code moment.fn.from
+        | .
       pre var a = moment([2007, 0, 29]);\n
         | var b = moment([2007, 0, 28]);
         | a.diff(b) // 86400000
@@ -925,6 +971,14 @@ block content
         |         am : 'am',
         |         PM : 'PM',
         |         pm : 'pm'
+        |     },
+        |     calendar : {
+        |         sameDay: "[Ajourd'hui à] LT",
+        |         nextDay: '[Demain à] LT',
+        |         nextWeek: 'dddd [à] LT',
+        |         lastDay: '[Hier à] LT',
+        |         lastWeek: 'dddd [denier à] LT',
+        |         sameElse: 'L'
         |     },
         |     relativeTime : {
         |         future : "in %s",
@@ -1121,6 +1175,23 @@ block content
         |     pm : 'pm',
         |     PM : 'PM'
         | };
+
+
+      a(name="/custom/calendar")
+      h3
+        span Calendar
+      p
+        code moment.calendar
+        |  should have the following formatting strings.
+      pre moment.meridiem = {\n
+        |     lastDay : '[Yesterday at] LT',
+        |     sameDay : '[Today at] LT',
+        |     nextDay : '[Tomorrow at] LT',
+        |     lastWeek : '[last] dddd [at] LT',
+        |     nextWeek : 'dddd [at] LT',
+        |     sameElse : 'L'
+        | };
+
 
       a(name="/custom/ordinal")
       h3
