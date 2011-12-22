@@ -16,6 +16,14 @@
                 PM : 'PM',
                 pm : 'pm'
             },
+            calendar : {
+                sameDay : '[I dag kl.] LT',
+                nextDay : '[I morgen kl.] LT',
+                nextWeek : 'dddd [kl.] LT',
+                lastDay : '[I går kl.] LT',
+                lastWeek : '[sidste] dddd [kl] LT',
+                sameElse : 'L'
+            },
             relativeTime : {
                 future : "om %s",
                 past : "%s siden",
