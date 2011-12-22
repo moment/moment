@@ -357,6 +357,35 @@ test("chaining setters", 7, function() {
     equal(a.seconds(), 8, 'second');
 });
 
+test("day setter", 18, function() {
+    var a = moment([2011, 0, 15]);
+    equal(moment(a).day(0).date(), 9, 'set from saturday to sunday');
+    equal(moment(a).day(6).date(), 15, 'set from saturday to saturday');
+    equal(moment(a).day(3).date(), 12, 'set from saturday to wednesday');
+
+    a = moment([2011, 0, 9]);
+    equal(moment(a).day(0).date(), 9, 'set from sunday to sunday');
+    equal(moment(a).day(6).date(), 15, 'set from sunday to saturday');
+    equal(moment(a).day(3).date(), 12, 'set from sunday to wednesday');
+
+    a = moment([2011, 0, 12]);
+    equal(moment(a).day(0).date(), 9, 'set from wednesday to sunday');
+    equal(moment(a).day(6).date(), 15, 'set from wednesday to saturday');
+    equal(moment(a).day(3).date(), 12, 'set from wednesday to wednesday');
+
+    equal(moment(a).day(-7).date(), 2, 'set from wednesday to last sunday');
+    equal(moment(a).day(-1).date(), 8, 'set from wednesday to last saturday');
+    equal(moment(a).day(-4).date(), 5, 'set from wednesday to last wednesday');
+
+    equal(moment(a).day(7).date(), 16, 'set from wednesday to next sunday');
+    equal(moment(a).day(13).date(), 22, 'set from wednesday to next saturday');
+    equal(moment(a).day(10).date(), 19, 'set from wednesday to next wednesday');
+
+    equal(moment(a).day(14).date(), 23, 'set from wednesday to second next sunday');
+    equal(moment(a).day(20).date(), 29, 'set from wednesday to second next saturday');
+    equal(moment(a).day(17).date(), 26, 'set from wednesday to second next wednesday');
+});
+
 
 module("format");
 

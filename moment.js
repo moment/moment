@@ -561,6 +561,12 @@
 
         isDST : function () {
             return this.zone() !== moment([this.year()]).zone();
+        },
+
+        day : function (input) {
+            var day = this._d.getDay();
+            return input == null ? day :
+                this.add({ d : input - day });
         }
     };
 
@@ -583,11 +589,6 @@
 
     // add shortcut for year (uses different syntax than the getter/setter 'year' == 'FullYear')
     makeShortcut('year', 'FullYear');
-
-    // add shortcut for day (no setter)
-    moment.fn.day = function () {
-        return this._d.getDay();
-    };
 
     // add shortcut for timezone offset (no setter)
     moment.fn.zone = function () {
