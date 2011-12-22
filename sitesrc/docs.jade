@@ -62,6 +62,8 @@ block content
         li
           a(href="#/manipulation/date") Date
         li
+          a(href="#/manipulation/day") Day
+        li
           a(href="#/manipulation/month") Month
         li
           a(href="#/manipulation/year") Year
@@ -456,6 +458,25 @@ block content
         span Date
       p Accepts numbers from 1 to 31
       pre moment().date(5); // set the date to 5
+      p NOTE: 
+        code moment.fn.date
+        |  is used to set the date of the month, and 
+        code moment.fn.day
+        |  is used to set the day of the week.
+
+
+      a(name="/manipulation/day")
+      h3
+        span Day
+      pre moment().day(5); // set the day of the week to Friday
+      p This method can be used to set the day of the week, Sunday being 0 and Saturday being 6.
+      p 
+        code moment.fn.day
+        |  can also be overloaded to set to a weekday of the previous week, next week, or a week any distance from the moment.
+      pre moment().day(-7); // set to last Sunday (0 - 7) \n
+        | moment().day(7); // set to next Sunday (0 + 7)
+        | moment().day(10); // set to next Wednesday (3 + 7)
+        | moment().day(24); // set to 3 Wednesdays from now (3 + 7 + 7 + 7)
 
 
       a(name="/manipulation/month")
