@@ -414,7 +414,7 @@
         monthsShort : "Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"),
         weekdays : "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),
         weekdaysShort : "Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),
-        longDateFormat : { 
+        longDateFormat : {
             LT : "h:mm A",
             L : "MM/DD/YYYY",
             LL : "MMMM D YYYY",
@@ -462,8 +462,8 @@
     // helper function for _date.from() and _date.fromNow()
     function substituteTimeAgo(string, number, withoutSuffix) {
         var rt = moment.relativeTime[string];
-        return (typeof rt === 'function') ? 
-            rt(number || 1, !!withoutSuffix, string) : 
+        return (typeof rt === 'function') ?
+            rt(number || 1, !!withoutSuffix, string) :
             rt.replace(/%d/i, number || 1);
     }
 
@@ -526,9 +526,9 @@
 
         diff : function (input, val, asFloat) {
             var inputMoment = moment(input),
-                diff = this._d - inputMoment._d, 
-                year = this.year() - inputMoment.year(), 
-                month = this.month() - inputMoment.month(), 
+                diff = this._d - inputMoment._d,
+                year = this.year() - inputMoment.year(),
+                month = this.month() - inputMoment.month(),
                 day = this.day() - inputMoment.day(),
                 output;
             if (val === 'months') {
@@ -558,11 +558,12 @@
         },
 
         calendar : function () {
-            var todayAtZeroHour = moment().hours(0).minutes(0).seconds(0).milliseconds(0),
+            var today = moment(),
+                todayAtZeroHour = moment([today.year(), today.month(), today.date()]),
                 diff = this.diff(todayAtZeroHour, 'days', true),
                 calendar = moment.calendar,
                 allElse = calendar.sameElse,
-                format = diff < -6 ? allElse : 
+                format = diff < -6 ? allElse :
                 diff < -1 ? calendar.lastWeek :
                 diff < 0 ? calendar.lastDay :
                 diff < 1 ? calendar.sameDay :
