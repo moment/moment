@@ -22,6 +22,11 @@
         VERSION = "1.2.0",
         shortcuts = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|');
 
+    // Moment prototype object
+    function Moment(date) {
+        this._d = date;
+    }
+
     // left zero fill a number
     // see http://jsperf.com/left-zero-filling for performance comparison
     function leftZeroFill(number, targetLength) {
@@ -78,14 +83,15 @@
 
     // format date using native date object
     function formatDate(date, inputString) {
-        var currentMonth = date.getMonth(),
-            currentDate = date.getDate(),
-            currentYear = date.getFullYear(),
-            currentDay = date.getDay(),
-            currentHours = date.getHours(),
-            currentMinutes = date.getMinutes(),
-            currentSeconds = date.getSeconds(),
-            currentZone = date.getTimezoneOffset(),
+        var m = new Moment(date),
+            currentMonth = m.month(),
+            currentDate = m.date(),
+            currentYear = m.year(),
+            currentDay = m.day(),
+            currentHours = m.hours(),
+            currentMinutes = m.minutes(),
+            currentSeconds = m.seconds(),
+            currentZone = m.zone(),
             ordinal = moment.ordinal,
             meridiem = moment.meridiem;
         // check if the character is a format
@@ -348,11 +354,6 @@
             }
         }
         return output;
-    }
-
-    // Moment prototype object
-    function Moment(date) {
-        this._d = date;
     }
 
     moment = function (input, format) {
