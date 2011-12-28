@@ -76,7 +76,13 @@ function makeFile(filename, contents, callback) {
     fs.writeFile(filename, contents, 'utf8', function(err) {
         console.log('saved : ' + filename);
         gzip(contents, function(err, data) {
+            if (filename === './moment.min.js') {
+                console.log(' ------------------------');
+            }
             console.log('size : ' + filename + ' ' + contents.length + ' b (' + data.length + ' b)');
+            if (filename === './moment.min.js') {
+                console.log(' ------------------------');
+            }
         });
         if (callback) {
             callback();
@@ -95,7 +101,7 @@ function makeFile(filename, contents, callback) {
  * @param {String} dest The file destination
  */
 function minifyToFile(source, dest, prefix, callback) {
-    var ast, 
+    var ast,
         ugly;
     ast  = uglify.parser.parse(source);
     ast  = uglify.uglify.ast_mangle(ast);
