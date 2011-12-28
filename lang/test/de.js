@@ -5,6 +5,26 @@
 
 module("lang:de");
 
+test("parse", 96, function() {
+    moment.lang('de');
+    var tests = 'Januar Jan._Februar Febr._März Mrz._April Apr._Mai Mai_Juni Jun._Juli Jul._August Aug._September Sept._Oktober Okt._November Nov._Dezember Dez.'.split("_");
+    var i;
+    function equalTest(input, mmm, i) {
+        equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
+    }
+    for (i = 0; i < 12; i++) {
+        tests[i] = tests[i].split(' ');
+        equalTest(tests[i][0], 'MMM', i);
+        equalTest(tests[i][1], 'MMM', i);
+        equalTest(tests[i][0], 'MMMM', i);
+        equalTest(tests[i][1], 'MMMM', i);
+        equalTest(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
+        equalTest(tests[i][1].toLocaleLowerCase(), 'MMMM', i);
+        equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
+        equalTest(tests[i][1].toLocaleUpperCase(), 'MMMM', i);
+    }
+});
+
 test("format", 18, function() {
     moment.lang('de');
     var a = [

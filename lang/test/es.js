@@ -5,32 +5,23 @@
 
 module("lang:es");
 
-test("format", 18, function() {
+test("parse", 96, function() {
     moment.lang('es');
-    var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Domingo, Febrero 14º 2010, 3:25:50 pm'],
-            ['ddd, hA',                            'Dom., 3PM'],
-            ['M Mo MM MMMM MMM',                   '2 2º 02 Febrero Feb.'],
-            ['YYYY YY',                            '2010 10'],
-            ['D Do DD',                            '14 14º 14'],
-            ['d do dddd ddd',                      '0 0º Domingo Dom.'],
-            ['DDD DDDo DDDD',                      '45 45º 045'],
-            ['w wo ww',                            '8 8º 08'],
-            ['h hh',                               '3 03'],
-            ['H HH',                               '15 15'],
-            ['m mm',                               '25 25'],
-            ['s ss',                               '50 50'],
-            ['a A',                                'pm PM'],
-            ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45º day of the year'],
-            ['L',                                  '14/02/2010'],
-            ['LL',                                 '14 Febrero 2010'],
-            ['LLL',                                '14 Febrero 2010 15:25'],
-            ['LLLL',                               'Domingo 14 Febrero 2010 15:25']
-        ],
-        b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
-        i;
-    for (i = 0; i < a.length; i++) {
-        equal(b.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
+    var tests = 'Enero Ene._Febrero Feb._Marzo Mar._Abril Abr._Mayo May._Junio Jun._Julio Jul._Agosto Ago._Septiembre Sep._Octubre Oct._Noviembre Nov._Diciembre Dic.'.split("_");
+    var i;
+    function equalTest(input, mmm, i) {
+        equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
+    }
+    for (i = 0; i < 12; i++) {
+        tests[i] = tests[i].split(' ');
+        equalTest(tests[i][0], 'MMM', i);
+        equalTest(tests[i][1], 'MMM', i);
+        equalTest(tests[i][0], 'MMMM', i);
+        equalTest(tests[i][1], 'MMMM', i);
+        equalTest(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
+        equalTest(tests[i][1].toLocaleLowerCase(), 'MMMM', i);
+        equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
+        equalTest(tests[i][1].toLocaleUpperCase(), 'MMMM', i);
     }
 });
 
