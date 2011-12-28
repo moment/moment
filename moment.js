@@ -11,7 +11,7 @@
         round = Math.round,
         languages = {},
         hasModule = (typeof module !== 'undefined'),
-        paramsToParse = 'months|monthsShort|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|'),
+        paramsToParse = 'months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|'),
         i,
         VERSION = "1.2.0",
         shortcuts = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|');
@@ -202,11 +202,12 @@
             timezoneHours = 0,
             timezoneMinutes = 0,
             isUsingUTC = false,
-            tokenCharacters = /(\\)?(MM?|DD?D?D?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|ZZ?)/g,
+            tokenCharacters = /(\\)?(MM?M?M?|DD?D?D?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|ZZ?)/g,
             inputCharacters = /(\\)?([0-9]+|am|pm|([\+\-]\d\d:?\d\d))/gi,
             timezoneParseRegex = /([\+\-]|\d\d)/gi,
             inputParts = string.match(inputCharacters),
             formatParts = format.match(tokenCharacters),
+            monthRegex = moment.monthsParse,
             i,
             isPm;
 
@@ -219,6 +220,17 @@
                 // fall through to MM
             case 'MM' :
                 inArray[1] = ~~input - 1;
+                break;
+            case 'MMM' :
+                // fall through to MMMM
+            case 'MMMM' :
+                for (a = 0; a < 12; a++) {
+                    if (monthRegex[i].test(input)) {
+                        console.log('found it');
+                        inArray[1] = a;
+                        break;
+                    }
+                }
                 break;
             // DAY OF MONTH
             case 'D' :
@@ -377,6 +389,12 @@
         var i, param, req;
         if (values) {
             languages[key] = values;
+            if (!values.monthsParse) {
+                languages[key].monthsParse = [];
+                for (i = 0; i < 12; i++) {
+                    languages[key].monthsParse[i] = new RegExp(values.months[i] + '|' + values.monthsShort[i], 'i');
+                }
+            }
         }
         if (languages[key]) {
             for (i = 0; i < paramsToParse.length; i++) {
