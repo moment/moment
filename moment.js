@@ -213,7 +213,6 @@
             isUsingUTC = false,
             inputParts = string.match(inputCharacters),
             formatParts = format.match(tokenCharacters),
-            monthRegex = moment.monthsParse,
             i,
             isPm;
 
@@ -231,8 +230,7 @@
                 // fall through to MMMM
             case 'MMMM' :
                 for (a = 0; a < 12; a++) {
-                    if (monthRegex[i].test(input)) {
-                        console.log('found it');
+                    if (moment.monthsParse[a].test(input)) {
                         inArray[1] = a;
                         break;
                     }
@@ -386,15 +384,16 @@
 
     // language switching and caching
     moment.lang = function (key, values) {
-        var i, param, req;
+        var i,
+            param,
+            req,
+            parse = [];
         if (values) {
-            languages[key] = values;
-            if (!values.monthsParse) {
-                languages[key].monthsParse = [];
-                for (i = 0; i < 12; i++) {
-                    languages[key].monthsParse[i] = new RegExp(values.months[i] + '|' + values.monthsShort[i], 'i');
-                }
+            for (i = 0; i < 12; i++) {
+                parse[i] = new RegExp('^' + values.months[i] + '|^' + values.monthsShort[i].replace('.', ''), 'i');
             }
+            values.monthsParse = values.monthsParse || parse;
+            languages[key] = values;
         }
         if (languages[key]) {
             for (i = 0; i < paramsToParse.length; i++) {
