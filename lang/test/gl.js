@@ -1,12 +1,12 @@
 
 /**************************************************
-  Spanish
+  Galego
  *************************************************/
 
-module("lang:es-gl");
+module("lang:gl");
 
 test("parse", 96, function() {
-    moment.lang('es-gl');
+    moment.lang('gl');
     var tests = "Xaneiro Xan._Febreiro Feb._Marzo Mar._Abril Abr._Maio Mai._Xuño Xuñ._Xullo Xul._Agosto Ago._Setembro Set._Octubro Out._Novembro Nov._Decembro Dec.".split("_");
 
     var i;
@@ -65,7 +65,7 @@ test("format ordinal", 31, function() {
 });
 
 test("format month", 12, function() {
-    moment.lang('es-gl');
+    moment.lang('gl');
     var expected = "Xaneiro Xan._Febreiro Feb._Marzo Mar._Abril Abr._Maio Mai._Xuño Xuñ._Xullo Xul._Agosto Ago._Setembro Set._Octubro Out._Novembro Nov._Decembro Dec.".split("_");
     var i;
     for (i = 0; i < expected.length; i++) {
@@ -74,7 +74,7 @@ test("format month", 12, function() {
 });
 
 test("format week", 7, function() {
-    moment.lang('es-gl');
+    moment.lang('gl');
     var expected = "Domingo Dom._Luns Lun._Martes Mar._Mércores Mér._Xoves Xov._Venres Ven._Sábado Sáb.".split("_");
 
     var i;
@@ -84,7 +84,7 @@ test("format week", 7, function() {
 });
 
 test("from", 30, function() {
-    moment.lang('es-gl');
+    moment.lang('gl');
     var start = moment([2007, 1, 28]);
 
     equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "uns segundo", "44 seconds = a few seconds");
@@ -120,27 +120,27 @@ test("from", 30, function() {
 });
 
 test("suffix", 2, function() {
-    moment.lang('es-gl');
+    moment.lang('gl');
     equal(moment(30000).from(0), "en uns segundo",  "prefix");
     equal(moment(0).from(30000), "fai uns segundo", "suffix");
 });
 
 
 test("now from now", 1, function() {
-    moment.lang('es-gl');
+    moment.lang('gl');
     equal(moment().fromNow(), "fai uns segundo",  "now from now should display as in the past");
 });
 
 
 test("fromNow", 2, function() {
-    moment.lang('es-gl');
+    moment.lang('gl');
     equal(moment().add({s:30}).fromNow(), "en uns segundo", "en unos segundos");
     equal(moment().add({d:5}).fromNow(), "en 5 días", "en 5 días");
 });
 
 
 test("calendar day", 7, function() {
-    moment.lang('es-gl');
+    moment.lang('gl');
 
     var a = moment().hours(2).minutes(0).seconds(0);
 
@@ -154,7 +154,7 @@ test("calendar day", 7, function() {
 });
 
 test("calendar next week", 15, function() {
-    moment.lang('es-gl');
+    moment.lang('gl');
 
     var i;
     var m;
@@ -170,7 +170,7 @@ test("calendar next week", 15, function() {
 });
 
 test("calendar last week", 15, function() {
-    moment.lang('es-gl');
+    moment.lang('gl');
 
     for (i = 2; i < 7; i++) {
         m = moment().subtract({ d: i });
@@ -183,7 +183,7 @@ test("calendar last week", 15, function() {
 });
 
 test("calendar all else", 4, function() {
-    moment.lang('es-gl');
+    moment.lang('gl');
     var weeksAgo = moment().subtract({ w: 1 });
     var weeksFromNow = moment().add({ w: 1 });
 

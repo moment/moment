@@ -61,6 +61,6 @@
     }
     // Browser
     if (typeof window !== 'undefined' && this.moment && this.moment.lang) {
-        this.moment.lang('es-gl', lang);
+        this.moment.lang('gl', lang);
     }
 }());
