@@ -13,6 +13,7 @@
         hasModule = (typeof module !== 'undefined'),
         paramsToParse = 'months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|'),
         i,
+        jsonRegex = /\/?Date\((\d+)((?:\-|\+)\d+)?\)\/?/i,
         charactersToReplace = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|ZZ?|LT|LL?L?L?)/g,
         nonuppercaseLetters = /[^A-Z]/g,
         timezoneRegex = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g,
@@ -358,7 +359,7 @@
         if (input === null) {
             return null;
         }
-        var date;
+        var date, matched;
         // parse UnderscoreDate object
         if (input && input._d instanceof Date) {
             date = new Date(+input._d);
@@ -369,6 +370,9 @@
             } else {
                 date = makeDateFromStringAndFormat(input, format);
             }
+        // evaluate it as a JSON-encoded date
+        } else if (matched = jsonRegex.exec(input)) {
+            date = new Date(parseInt(matched[1]));
         // parse everything else
         } else {
             date = input === undefined ? new Date() :
