@@ -31,6 +31,34 @@ Moment.js is freely distributable under the terms of the MIT license.
 Changelog
 =========
 
+### 1.3.0 [See milestone](https://github.com/timrwood/moment/issues?milestone=7&state=closed)
+
+Added support for parsing month names in the current language.
+
+Added escape blocks for parsing tokens.
+
+Added `moment.fn.calendar` to format strings like 'Today 2:30 PM', 'Tomorrow 1:25 AM', and 'Last Sunday 4:30 AM'.
+
+Added `moment.fn.day` as a setter.
+
+Various bugfixes
+
+### 1.2.0 [See milestone](https://github.com/timrwood/moment/issues?milestone=4&state=closed)
+
+Added timezones to parser and formatter.
+
+Added `moment.fn.isDST`.
+
+Added `moment.fn.zone` to get the timezone offset in minutes.
+
+### 1.1.2 [See milestone](https://github.com/timrwood/moment/issues?milestone=6&state=closed)
+
+Various bugfixes
+
+### 1.1.1 [See milestone](https://github.com/timrwood/moment/issues?milestone=5&state=closed)
+
+Added time specific diffs (months, days, hours, etc)
+
 ### 1.1.0
 
 Added `moment.fn.format` localized masks. 'L LL LLL LLLL' [issue 29](https://github.com/timrwood/moment/pull/29)
