@@ -58,7 +58,7 @@ test("string without format", 2, function() {
 });
 
 
-test("string with format", 18, function() {
+test("string with format", 19, function() {
     moment.lang('en');
     var a = [
             ['MM-DD-YYYY',          '12-02-1999'],
@@ -78,7 +78,8 @@ test("string with format", 18, function() {
             ['h:mm a',              '12:30 am'],
             ['HH:mm',               '12:00'],
             ['YYYY-MM-DDTHH:mm:ss', '2011-11-11T11:11:11'],
-            ['MM-DD-YYYY \\M',      '12-02-1999 M']
+            ['MM-DD-YYYY \\M',      '12-02-1999 M'],
+            ['ddd MMM DD HH:mm:ss YYYY', 'Tue Apr 07 22:52:51 2009']
         ],
         i;
     for (i = 0; i < a.length; i++) {
