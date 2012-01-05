@@ -255,13 +255,21 @@ block content
             th Output
           tr
             td M or MM
-            td Month
+            td Month Number (1 - 12)
+          tr
+            td M or MM
+            td Month Name (In currently language set by 
+              code moment.lang()
+              | )
           tr
             td D or DD
             td Day of month
           tr
             td DDD or DDDD
             td Day of year
+          tr
+            td d, dd, ddd, or dddd
+            td Day of week (NOTE: these tokens are not used to create the date, as there are 4-5 weeks in a month, and it would be impossible to get the date based off the day of the week)
           tr
             td YY
             td 2 digit year (if greater than 70, will return 1900's, else 2000's)
