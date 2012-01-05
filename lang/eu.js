@@ -5,16 +5,25 @@
             weekdays : "igandea_astelehena_asteartea_asteazkena_osteguna_ostirala_larunbata".split("_"),
             weekdaysShort : "ig._al._ar._az._og._ol._lr.".split("_"),
             longDateFormat : {
+                LT : "HH:mm",
                 L : "YYYY-MM-DD",
-                LL : "YYYYko MMMMren D\\a",
-                LLL : "YYYYko MMMMren D\\a HH:mm",
-                LLLL : "dddd, YYYYko MMMMren D\\a HH:mm"
+                LL : "YYYYko MMMMren D[a]",
+                LLL : "YYYYko MMMMren D[a] LT",
+                LLLL : "dddd, YYYYko MMMMren D[a] LT"
             },
             meridiem : {
                 AM : 'AM',
                 am : 'am',
                 PM : 'PM',
                 pm : 'pm'
+            },
+            calendar : {
+                sameDay : '[gaur] LT[etan]',
+                nextDay : '[bihar] LT[etan]',
+                nextWeek : 'dddd LT[etan]',
+                lastDay : '[atzo] LT[etan]',
+                lastWeek : '[aurreko] dddd LT[etan]',
+                sameElse : 'L'
             },
             relativeTime : {
                 future : "%s barru",
