@@ -585,6 +585,14 @@
             var day = this._d.getDay();
             return input == null ? day :
                 this.add({ d : input - day });
+        },
+
+        datePart: function () {
+            return this.clone()
+                .hours(0)
+                .minutes(0)
+                .seconds(0)
+                .milliseconds(0);
         }
     };
 
