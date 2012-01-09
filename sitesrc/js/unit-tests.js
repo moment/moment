@@ -426,5 +426,17 @@ test("zone", 2, function() {
     equal(moment().zone(), new Date().getTimezoneOffset(), 'zone should equal getTimezoneOffset');
 });
 
+module("datePart");
+
+test("datePart", 6, function(){
+    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).datePart();
+    equal(m.year(), 2011, "keep the year");
+    equal(m.month(), 1, "keep the month");
+    equal(m.date(), 2, "keep the day");
+    equal(m.hours(), 0, "strip out the hours"); 
+    equal(m.minutes(), 0, "strip out the minutes"); 
+    equal(m.seconds(), 0, "strip out the seconds"); 
+});
+
 })();
 

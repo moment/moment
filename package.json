@@ -23,5 +23,12 @@
         {
             "type" : "MIT"
         }
+    ],
+    "dev-dependencies" : [
+        "uglify-js",
+        "jshint",
+        "gzip",
+        "jade",
+        "clean-css"
     ]
 }
