@@ -5,6 +5,8 @@
 //
 // Version 1.3.0
 
+/*global define:false */
+
 (function (Date, undefined) {
 
     var moment,
@@ -359,8 +361,9 @@
         if (input === null) {
             return null;
         }
-        var date, matched;
-        // parse UnderscoreDate object
+        var date,
+            matched;
+        // parse Moment object
         if (input && input._d instanceof Date) {
             date = new Date(+input._d);
         // parse string and format
@@ -371,11 +374,10 @@
                 date = makeDateFromStringAndFormat(input, format);
             }
         // evaluate it as a JSON-encoded date
-        } else if (matched = jsonRegex.exec(input)) {
-            date = new Date(parseInt(matched[1]));
-        // parse everything else
         } else {
+            matched = jsonRegex.exec(input);
             date = input === undefined ? new Date() :
+                matched ? new Date(+matched[1]) :
                 input instanceof Date ? input :
                 isArray(input) ? dateFromArray(input) :
                 new Date(input);
@@ -545,7 +547,7 @@
                     val === 'hours' ? diff / 36e5 : // 1000 * 60 * 60
                     val === 'days' ? diff / 864e5 : // 1000 * 60 * 60 * 24
                     val === 'weeks' ? diff / 6048e5 : // 1000 * 60 * 60 * 24 * 7
-                    val === 'days' ? diff / 3600 : diff;
+                    diff;
             }
             return asFloat ? output : round(output);
         },
@@ -625,7 +627,7 @@
         window.moment = moment;
     }
     if (typeof define === "function" && define.amd) {
-    	define( "moment", [], function () {
+        define("moment", [], function () {
             return moment;
         });
     }
