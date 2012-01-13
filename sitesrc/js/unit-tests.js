@@ -246,6 +246,26 @@ test("adding across DST", 3, function(){
     equal(c.hours(), 5, 'adding months over DST difference should result in the same hour');
 });
 
+
+test("added and subtracted", 4, function() {
+    var a = moment();
+    a.year(2011);
+    a.month(9);
+    a.date(12);
+    a.hours(6);
+    a.minutes(7);
+    a.seconds(8);
+    a.milliseconds(500);
+    
+    backup = moment(a)
+
+    equal(a.added({minutes:1}).minutes(), 8, 'Adding with added should return modified object');
+    equal(a.valueOf(), backup.valueOf(), 'Adding with "added" should not affect object');
+    
+    equal(a.subtracted({hours:1}).hours(), 5, 'Subtracting with subtracted should return modified object');
+    equal(a.valueOf(), backup.valueOf(), 'Subtracting with "subtracted" should not affect object');
+});
+
 module("diff");
 
 
