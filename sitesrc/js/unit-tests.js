@@ -57,6 +57,12 @@ test("string without format", 2, function() {
     ok(moment("Mon, 25 Dec 1995 13:30:00 GMT").native() instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
 });
 
+test("string without format - json", 4, function() {
+    ok(moment("Date(1325132654000)").valueOf() === 1325132654000, "Date(1325132654000)");
+    ok(moment("/Date(1325132654000)/").valueOf() === 1325132654000, "/Date(1325132654000)/");
+    ok(moment("/Date(1325132654000+0700)/").valueOf() === 1325132654000, "/Date(1325132654000+0700)/");
+    ok(moment("/Date(1325132654000-0700)/").valueOf() === 1325132654000, "/Date(1325132654000-0700)/");
+});
 
 test("string with format", 23, function() {
     moment.lang('en');
