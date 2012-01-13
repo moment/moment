@@ -624,5 +624,9 @@
     if (typeof window !== 'undefined') {
         window.moment = moment;
     }
-
+    if (typeof define === "function" && define.amd) {
+    	define( "moment", [], function () {
+            return moment;
+        });
+    }
 })(Date);
