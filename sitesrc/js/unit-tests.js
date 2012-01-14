@@ -436,5 +436,32 @@ test("zone", 2, function() {
     equal(moment().zone(), new Date().getTimezoneOffset(), 'zone should equal getTimezoneOffset');
 });
 
+module("sod");
+
+test("sod", 7, function(){
+    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).sod();
+    equal(m.year(), 2011, "keep the year");
+    equal(m.month(), 1, "keep the month");
+    equal(m.date(), 2, "keep the day");
+    equal(m.hours(), 0, "strip out the hours"); 
+    equal(m.minutes(), 0, "strip out the minutes"); 
+    equal(m.seconds(), 0, "strip out the seconds"); 
+    equal(m.milliseconds(), 0, "strip out the milliseconds"); 
+});
+
+module("eod");
+
+test("eod", 7, function(){
+    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).eod();
+    equal(m.year(), 2011, "keep the year");
+    equal(m.month(), 1, "keep the month");
+    equal(m.date(), 2, "keep the day");
+    equal(m.hours(), 23, "set the hours"); 
+    equal(m.minutes(), 59, "set the minutes"); 
+    equal(m.seconds(), 59, "set the seconds"); 
+    equal(m.milliseconds(), 999, "set the seconds");
+});
+
+
 })();
 
