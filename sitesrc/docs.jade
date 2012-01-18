@@ -67,6 +67,10 @@ block content
           a(href="#/manipulation/month") Month
         li
           a(href="#/manipulation/year") Year
+        li
+          a(href="#/manipulation/sod") Start of Day
+        li
+          a(href="#/manipulation/eod") End of Day
       h2
         a(href="#/display")
           span Display
@@ -501,6 +505,16 @@ block content
       h3
         span Year
       pre moment().year(1984); // set the year to 1984
+
+      a(name="/manipulation/sod")
+      h3
+        span Start of Day
+      pre moment().sod(); // set the time to last midnight
+
+      a(name="/manipulation/eod")
+      h3
+        span End of Day
+      pre moment().eod(); // set the time to 11:59:59.999 pm tonight
 
 
       a(name="/display")
