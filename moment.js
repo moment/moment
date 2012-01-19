@@ -564,9 +564,7 @@
         },
 
         calendar : function () {
-            var today = moment(),
-                todayAtZeroHour = moment([today.year(), today.month(), today.date()]),
-                diff = this.diff(todayAtZeroHour, 'days', true),
+            var diff = this.diff(moment().sod(), 'days', true),
                 calendar = moment.calendar,
                 allElse = calendar.sameElse,
                 format = diff < -6 ? allElse :
@@ -602,11 +600,11 @@
         },
 
         eod: function () {
-            return this.clone()
-                .hours(23)
-                .minutes(59)
-                .seconds(59)
-                .milliseconds(999);
+            // end of day = start of day plus 1 day, minus 1 millisecond
+            return this.sod().add({
+                d : 1,
+                ms : -1
+            });
         }
     };
 
