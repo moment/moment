@@ -265,9 +265,12 @@
                 break;
             // 24 HOUR
             case 'H' :
-                // fall through to hh
+                // fall through to HH
             case 'HH' :
-                // fall through to hh
+    			isPm = ~~input >= 12 ? true : false;
+				inArray[3] = ~~input;
+				break;
+			// 12 HOUR
             case 'h' :
                 // fall through to hh
             case 'hh' :
