@@ -94,7 +94,7 @@
             currentHours = m.hours(),
             currentMinutes = m.minutes(),
             currentSeconds = m.seconds(),
-            currentZone = m.zone(),
+            currentZone = -m.zone(),
             ordinal = moment.ordinal,
             meridiem = moment.meridiem;
         // check if the character is a format
@@ -298,7 +298,7 @@
                     timezoneMinutes = ~~a[2];
                 }
                 // reverse offsets
-                if (a[0] === '-') {
+                if (a[0] === '+') {
                     timezoneHours = -timezoneHours;
                     timezoneMinutes = -timezoneMinutes;
                 }

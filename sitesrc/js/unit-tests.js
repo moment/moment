@@ -98,23 +98,23 @@ test("string with format", 23, function() {
 });
 
 test("string with format (timezone)", 8, function() {
-    equal(moment('5 +0700', 'H ZZ').native().getUTCHours(), 12, 'parse hours "5 +0700" ---> "H ZZ"');
-    equal(moment('5 +07:00', 'H Z').native().getUTCHours(), 12, 'parse hours "5 +07:00" ---> "H Z"');
-    equal(moment('5 +0730', 'H ZZ').native().getUTCMinutes(), 30, 'parse hours "5 +0730" ---> "H ZZ"');
-    equal(moment('5 +07:30', 'H Z').native().getUTCMinutes(), 30, 'parse hours "5 +07:30" ---> "H Z"');
-    equal(moment('5 -0100', 'H ZZ').native().getUTCHours(), 4, 'parse hours "5 -0100" ---> "H ZZ"');
-    equal(moment('5 -01:00', 'H Z').native().getUTCHours(), 4, 'parse hours "5 -01:00" ---> "H Z"');
-    equal(moment('5 -0130', 'H ZZ').native().getUTCMinutes(), 30, 'parse hours "5 -0130" ---> "H ZZ"');
-    equal(moment('5 -01:30', 'H Z').native().getUTCMinutes(), 30, 'parse hours "5 -01:30" ---> "H Z"');
+    equal(moment('5 -0700', 'H ZZ').native().getUTCHours(), 12, 'parse hours "5 -0700" ---> "H ZZ"');
+    equal(moment('5 -07:00', 'H Z').native().getUTCHours(), 12, 'parse hours "5 -07:00" ---> "H Z"');
+    equal(moment('5 -0730', 'H ZZ').native().getUTCMinutes(), 30, 'parse hours "5 -0730" ---> "H ZZ"');
+    equal(moment('5 -07:30', 'H Z').native().getUTCMinutes(), 30, 'parse hours "5 -07:30" ---> "H Z"');
+    equal(moment('5 +0100', 'H ZZ').native().getUTCHours(), 4, 'parse hours "5 +0100" ---> "H ZZ"');
+    equal(moment('5 +01:00', 'H Z').native().getUTCHours(), 4, 'parse hours "5 +01:00" ---> "H Z"');
+    equal(moment('5 +0130', 'H ZZ').native().getUTCMinutes(), 30, 'parse hours "5 +0130" ---> "H ZZ"');
+    equal(moment('5 +01:30', 'H Z').native().getUTCMinutes(), 30, 'parse hours "5 +01:30" ---> "H Z"');
 });
 
 test("string with format (timezone offset)", 3, function() {
     var a = new Date(Date.UTC(2011, 0, 1, 1));
-    var b = moment('2011 1 1 0 +01:00', 'YYYY MM DD HH Z');
+    var b = moment('2011 1 1 0 -01:00', 'YYYY MM DD HH Z');
     equal(a.getHours(), b.hours(), 'date created with utc == parsed string with timezone offset');
     equal(+a, +b, 'date created with utc == parsed string with timezone offset');
-    var c = moment('2011 2 1 10 +05:00', 'YYYY MM DD HH Z');
-    var d = moment('2011 2 1 8 +07:00', 'YYYY MM DD HH Z');
+    var c = moment('2011 2 1 10 -05:00', 'YYYY MM DD HH Z');
+    var d = moment('2011 2 1 8 -07:00', 'YYYY MM DD HH Z');
     equal(c.hours(), d.hours(), '10 am central time == 8 am pacific time');
 });
 
@@ -431,7 +431,16 @@ test("isDST", 2, function() {
     ok(b.isDST(), 'March 14 2011 is DST (Note: this unit test should fail if your timezone does not have Daylight Savings Time)');
 });
 
-test("zone", 2, function() {
+test("zone", 3, function() {
+    if (moment().zone() > 0) {
+        ok(moment().format('ZZ').indexOf('-') > -1, 'When the zone() offset is greater than 0, the ISO offset should be less than zero');
+    }
+    if (moment().zone() < 0) {
+        ok(moment().format('ZZ').indexOf('+') > -1, 'When the zone() offset is less than 0, the ISO offset should be greater than zero');
+    }
+    if (moment().zone() == 0) {
+        ok(moment().format('ZZ').indexOf('+') > -1, 'When the zone() offset is equal to 0, the ISO offset should be positive zero');
+    }
     ok(moment().zone() % 30 === 0, 'moment.fn.zone should be a multiple of 30 (was ' + moment().zone() + ')');
     equal(moment().zone(), new Date().getTimezoneOffset(), 'zone should equal getTimezoneOffset');
 });
