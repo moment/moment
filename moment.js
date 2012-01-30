@@ -529,6 +529,16 @@
             this._d = dateAddRemove(this._d, input, -1, val);
             return this;
         },
+        
+        added : function (input, val) {
+            var clone = moment(this);
+            return clone.add(input, val);
+        },
+        
+        subtracted : function (input, val) {
+            var clone = moment(this);
+            return clone.subtract(input, val);
+        },
 
         diff : function (input, val, asFloat) {
             var inputMoment = moment(input),

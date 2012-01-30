@@ -52,6 +52,10 @@ block content
         li
           a(href="#/manipulation/subtract") Subtract
         li
+          a(href="#/manipulation/added") Added
+        li
+          a(href="#/manipulation/subtract") Subtracted
+        li
           a(href="#/manipulation/milliseconds") Milliseconds
         li
           a(href="#/manipulation/seconds") Seconds
@@ -431,6 +435,23 @@ block content
         code moment.fn.add
         | , only instead of adding time, it subtracts time.
       pre moment().subtract('days', 7);
+      
+      
+      a(name="/manipulation/added")
+      h3
+        span Adding Time without modifying object
+      p This is exactly the same as 
+        code moment.fn.add
+        | , only instead of modifying the object, it creates a new modified object and returns it.
+      pre moment().added('days', 3); // gets a new object representing 3 days from now
+
+      a(name="/manipulation/subtracted")
+      h3
+        span Subtracting Time without modifying object
+      p This is exactly the same as 
+        code moment.fn.added
+        | , only instead of adding time, it subtracts time and returns a new modified object, leaving the original object intact.
+      pre moment().subtracted('days', 5); // gets a new object representing 5 days before now
 
 
       a(name="/manipulation/milliseconds")
