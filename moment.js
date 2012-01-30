@@ -535,10 +535,10 @@
                 diff = this._d - inputMoment._d,
                 year = this.year() - inputMoment.year(),
                 month = this.month() - inputMoment.month(),
-                day = this.day() - inputMoment.day(),
+                date = this.date() - inputMoment.date(),
                 output;
             if (val === 'months') {
-                output = year * 12 + month + day / 30;
+                output = year * 12 + month + date / 30;
             } else if (val === 'years') {
                 output = year + month / 12;
             } else {
