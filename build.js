@@ -200,6 +200,7 @@ function hint(source, name) {
                 makeDocs();
             });
         });
+        makeFile('site/js/moment.js', source);
         minifyToFile(source, 'site/js/moment', MINIFY_COMMENT);
     }
     gzip(source, function(err, data) {
