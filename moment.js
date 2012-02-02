@@ -46,7 +46,7 @@
             input = isString ? {} : _input,
             ms, d, M, currentDate;
         if (isString && val) {
-            input[_input] = val;
+            input[_input] = +val;
         }
         ms = (input.ms || input.milliseconds || 0) +
             (input.s || input.seconds || 0) * 1e3 + // 1000
