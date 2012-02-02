@@ -297,6 +297,11 @@ test("diff month", 1, function() {
     equal(moment([2011, 0, 31]).diff([2011, 2, 1], 'months'), -1, "month diff");
 });
 
+test("diff across DST", 2, function() {
+    equal(moment([2012, 2, 24]).diff([2012, 2, 10], 'weeks', true), 2, "diff weeks across DST");
+    equal(moment([2012, 2, 24]).diff([2012, 2, 10], 'days', true), 14, "diff weeks across DST");
+});
+
 test("diff overflow", 4, function() {
     equal(moment([2011]).diff([2010], 'months'), 12, "month diff");
     equal(moment([2010, 0, 2]).diff([2010], 'hours'), 24, "hour diff");
