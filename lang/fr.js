@@ -22,7 +22,7 @@
                 nextDay: '[Demain à] LT',
                 nextWeek: 'dddd [à] LT',
                 lastDay: '[Hier à] LT',
-                lastWeek: 'dddd [denier à] LT',
+                lastWeek: 'dddd [dernier à] LT',
                 sameElse: 'L'
             },
             relativeTime : {
