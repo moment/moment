@@ -290,15 +290,15 @@
                 // fall through to ZZ
             case 'ZZ' :
                 isUsingUTC = true;
-                a = input.match(timezoneParseRegex);
-                if (a[1]) {
+                a = (input || '').match(timezoneParseRegex);
+                if (a && a[1]) {
                     timezoneHours = ~~a[1];
                 }
-                if (a[2]) {
+                if (a && a[2]) {
                     timezoneMinutes = ~~a[2];
                 }
                 // reverse offsets
-                if (a[0] === '+') {
+                if (a && a[0] === '+') {
                     timezoneHours = -timezoneHours;
                     timezoneMinutes = -timezoneMinutes;
                 }

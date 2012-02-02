@@ -430,6 +430,11 @@ test("format timezone", 4, function() {
     ok(b.format('ZZ').match(/^[\+\-]\d{4}$/), b.format('ZZ') + ' ---> Something like "+0700"');
 });
 
+test("format multiple with zone", 1, function() {
+    var b = moment('2012-10-08 -1200', ['YYYY ZZ', 'YYYY-MM-DD ZZ']);
+    equals(b.format('YYYY-MM'), '2012-10', 'Parsing multiple formats should not crash with different sized formats');
+});
+
 test("isDST", 2, function() {
     // In the US 2011 March 13 is Daylight Savings Day
     var a = moment(new Date(2011, 2, 12, 0, 0, 0)),
