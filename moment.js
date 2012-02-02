@@ -538,7 +538,6 @@
                 month = this.month() - inputMoment.month(),
                 date = this.date() - inputMoment.date(),
                 output;
-
             if (val === 'months') {
                 output = year * 12 + month + date / 30;
             } else if (val === 'years') {
