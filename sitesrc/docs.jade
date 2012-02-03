@@ -43,6 +43,8 @@ block content
           a(href="#/parsing/now") Now
         li
           a(href="#/parsing/array") Javascript Array
+        li
+          a(href="#/parsing/clone") Cloning
       h2
         a(href="#/manipulation")
           span Manipulation
@@ -354,14 +356,36 @@ block content
         | var day = moment(Date.UTC.apply({}, array));
 
 
+      a(name="/parsing/clone")
+      h3
+        span Cloning
+      p All moments are mutable. If you want a clone of a moment, you can do so explicitly or implicitly.
+        code moment()
+      pre var a = moment([2012]);\n
+        | var b = moment(a);
+        | b.year(); // 2012
+      p Additionally, you can call 
+        code moment.fn.clone
+        |  to clone a moment.
+      pre var a = moment([2012]);\n
+        | var b = a.clone();
+        | a.year(2000);
+        | b.year(); // 2012
+
+
       a(name="/manipulation")
       h2
         span Manipulation
       p Once you have a Moment.js wrapper object, you may want to manipulate it in some way. There are a number of 
         code moment.fn
-        | methods to help with this.
+        |  methods to help with this.
       p All manipulation methods are chainable, so you can do crazy things like this.
       pre moment().add('days', 7).subtract('months', 1).year(2009).hours(0).minutes(0).seconds(0);
+      p It should be noted that moments are mutable. Calling any of the manipulation methods will change the original moment.
+      p If you want to create a copy and manipulate it, you should use 
+        code moment.fn.clone
+        |  before manipulating the moment. 
+        a(href="#/parsing/clone") More info on cloning.
 
 
       a(name="/manipulation/add")
