@@ -90,7 +90,7 @@ block content
         li
           a(href="#/display/diff") Difference
         li
-          a(href="#/display/native") Native Date
+          a(href="#/display/toDate") Native Javascript Date
         li
           a(href="#/display/valueOf") Value
         li
@@ -943,20 +943,26 @@ block content
         | a.diff(b, 'years', true) // 1.5
 
 
+      a(name="/display/toDate")
       a(name="/display/native")
       h3
-        span Native Date
+        span Native Javascript Date
       p To get the native Date object that Moment.js wraps, use 
-        code moment.fn.native
+        code moment.fn.toDate
         | .
-      pre moment([2007, 0, 29]).native(); // returns native Date object
+      pre moment([2007, 0, 29]).toDate(); // returns native Date object
+      p Note: 
+        code moment.fn.native
+        |  has been replaced by 
+        code moment.fn.toDate
+        |  and will be depreciated in the future.
 
 
       a(name="/display/valueOf")
       h3
         span Value
       p
-        code moment.fn.valueOf
+        code moment.fn.valueOf 
         | simply outputs the unix timestamp.
       pre moment(1318874398806).valueOf(); // 1318874398806
 
