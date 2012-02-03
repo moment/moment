@@ -537,11 +537,16 @@ block content
       h3
         span Start of Day
       pre moment().sod(); // set the time to last midnight
+      p This is essentially the same as the following.
+      pre moment().hours(0).minutes(0).seconds(0).milliseconds(0);
+
 
       a(name="/manipulation/eod")
       h3
         span End of Day
       pre moment().eod(); // set the time to 11:59:59.999 pm tonight
+      p This is essentially the same as the following.
+      pre moment().hours(23).minutes(59).seconds(59).milliseconds(999);
 
 
       a(name="/display")
