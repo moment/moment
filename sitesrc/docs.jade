@@ -149,6 +149,12 @@ block content
           a(href="#/custom/calendar") Calendar
         li
           a(href="#/custom/ordinal") Ordinal
+      h2
+        a(href="#/plugins")
+          span Plugins
+      ul
+        li
+          a(href="#/plugins/strftime") strftime
     #docs
       h1 Moment.js Documentation
       p A lightweight javascript date library for parsing, manipulating, and formatting dates.
@@ -759,6 +765,13 @@ block content
         a(href="http://jsperf.com/momentjs-vs-xaprb") moment.js vs xaprb
         |  performance tests, and here is the
         a(href="http://www.xaprb.com/blog/2005/12/12/javascript-closures-for-runtime-efficiency/") article describing his methods.
+      p If you are more comfortable working with strftime instead of LDML-like parsing tokens, you can use Ben Oakes' plugin 
+        code moment-strftime
+        |  .
+      p It is available on npm.
+      pre npm install moment-strftime
+      p The repository is located at 
+        a(href="https://github.com/benjaminoakes/moment-strftime") benjaminoakes/moment-strftime
 
 
       a(name="/display/from")
@@ -1299,4 +1312,24 @@ block content
         | };
       p For more information on ordinal numbers, see 
         a(href="http://en.wikipedia.org/wiki/Ordinal_number_%28linguistics%29") wikipedia
+
+
+      a(name="/plugins")
+      h2
+        span Plugins
+      p Some people have made plugins for moment.js that may be useful to you.
+
+
+      a(name="/plugins/strftime")
+      h3
+        span strftime
+      p If you are more comfortable working with strftime instead of LDML-like parsing tokens, you can use Ben Oakes' plugin 
+        code moment-strftime
+        |  .
+      p It is available on npm.
+      pre npm install moment-strftime
+      p The repository is located at 
+        a(href="https://github.com/benjaminoakes/moment-strftime") benjaminoakes/moment-strftime
+
+
       .footer
