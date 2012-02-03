@@ -360,9 +360,12 @@ block content
       h3
         span Cloning
       p All moments are mutable. If you want a clone of a moment, you can do so explicitly or implicitly.
+      p Calling 
         code moment()
+        |  on a moment will clone it.
       pre var a = moment([2012]);\n
         | var b = moment(a);
+        | a.year(2000);
         | b.year(); // 2012
       p Additionally, you can call 
         code moment.fn.clone
