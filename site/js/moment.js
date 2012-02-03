@@ -583,7 +583,8 @@
         },
 
         isDST : function () {
-            return this.zone() !== moment([this.year()]).zone();
+            return (this.zone() < moment([this.year()]).zone() || 
+                this.zone() < moment([this.year(), 5]).zone());
         },
 
         day : function (input) {
