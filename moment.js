@@ -3,7 +3,7 @@
 // (c) 2011 Tim Wood
 // Moment.js is freely distributable under the terms of the MIT license.
 //
-// Version 1.3.0
+// Version 1.4.0
 
 /*global define:false */
 
@@ -22,7 +22,7 @@
         tokenCharacters = /(\\)?(MM?M?M?|dd?d?d|DD?D?D?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|ZZ?|T)/g,
         inputCharacters = /(\\)?([0-9]+|([a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+|([\+\-]\d\d:?\d\d))/gi,
         timezoneParseRegex = /([\+\-]|\d\d)/gi,
-        VERSION = "1.3.0",
+        VERSION = "1.4.0",
         shortcuts = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|');
 
     // Moment prototype object
