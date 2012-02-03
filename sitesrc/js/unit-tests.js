@@ -243,11 +243,12 @@ test("adding across DST", 3, function(){
     var a = moment(new Date(2011, 2, 12, 5, 0, 0));
     var b = moment(new Date(2011, 2, 12, 5, 0, 0));
     var c = moment(new Date(2011, 2, 12, 5, 0, 0));
+    var d = moment(new Date(2011, 2, 12, 5, 0, 0));
     a.add('days', 1);
     b.add('hours', 24);
     c.add('months', 1);
     equal(a.hours(), 5, 'adding days over DST difference should result in the same hour');
-    if (b.isDST()) {
+    if (b.isDST() && !d.isDST()) {
         equal(b.hours(), 6, 'adding hours over DST difference should result in a different hour');
     } else {
         equal(b.hours(), 5, 'adding hours over DST difference should result in a same hour if the timezone does not have daylight savings time');
@@ -441,11 +442,26 @@ test("format multiple with zone", 1, function() {
 });
 
 test("isDST", 2, function() {
-    // In the US 2011 March 13 is Daylight Savings Day
-    var a = moment(new Date(2011, 2, 12, 0, 0, 0)),
-        b = moment(new Date(2011, 2, 14, 0, 0, 0));
-    ok(!a.isDST(), 'March 12 2011 is not DST');
-    ok(b.isDST(), 'March 14 2011 is DST (Note: this unit test should fail if your timezone does not have Daylight Savings Time)');
+    var janOffset = new Date(2011, 0, 1).getTimezoneOffset(),
+        julOffset = new Date(2011, 6, 1).getTimezoneOffset(),
+        janIsDst = janOffset < julOffset,
+        julIsDst = julOffset < janOffset,
+        jan1 = moment([2011]),
+        jul1 = moment([2011, 6]);
+
+    if (janIsDst && julIsDst) {
+        ok(0, 'January and July cannot both be in DST');
+        ok(0, 'January and July cannot both be in DST');
+    } else if (janIsDst) {
+        ok(jan1.isDST(), 'January 1 is DST');
+        ok(!jul1.isDST(), 'July 1 is not DST');
+    } else if (julIsDst) {
+        ok(!jan1.isDST(), 'January 1 is not DST');
+        ok(jul1.isDST(), 'July 1 is DST');
+    } else {
+        ok(!jan1.isDST(), 'January 1 is not DST');
+        ok(!jul1.isDST(), 'July 1 is not DST');
+    }
 });
 
 test("zone", 3, function() {
