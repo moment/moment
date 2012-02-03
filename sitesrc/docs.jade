@@ -44,6 +44,8 @@ block content
         li
           a(href="#/parsing/array") Javascript Array
         li
+          a(href="#/parsing/asp-net") ASP.NET json dates
+        li
           a(href="#/parsing/clone") Cloning
       h2
         a(href="#/manipulation")
@@ -354,6 +356,17 @@ block content
       p Construction with an array will create a date in the current timezone. To create a date from an array at UTC, you can use the following.
       pre var array = [2010, 1, 14, 15, 25, 50, 125];\n
         | var day = moment(Date.UTC.apply({}, array));
+
+
+      a(name="/parsing/asp-net")
+      h3
+        span ASP.NET style json dates
+      p ASP.NET returns dates in json in the following formats. 
+        code /Date(1198908717056)/
+        |  or 
+        code /Date(1198908717056-0700)/
+      p If a string that matches this format is passed in, it will be parsed correctly.
+      pre moment("/Date(1198908717056-0700)/").valueOf(); // 1198908717056
 
 
       a(name="/parsing/clone")
