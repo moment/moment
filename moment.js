@@ -1,11 +1,8 @@
-// Moment.js
-//
-// (c) 2011 Tim Wood
-// Moment.js is freely distributable under the terms of the MIT license.
-//
-// Version 1.4.0
-
-/*global define:false */
+// moment.js
+// version : 1.4.0
+// author : Tim Wood
+// license : MIT
+// momentjs.com
 
 (function (Date, undefined) {
 

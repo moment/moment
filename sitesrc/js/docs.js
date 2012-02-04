@@ -1,1 +1,0 @@
-$("pre").snippet("javascript", {style:"typical",showNum:false});

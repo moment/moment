@@ -29,7 +29,7 @@
                 past : "%s siden",
                 s : "få sekunder",
                 m : "minut",
-                mm : "minutter",
+                mm : "%d minutter",
                 h : "time",
                 hh : "%d timer",
                 d : "dag",
