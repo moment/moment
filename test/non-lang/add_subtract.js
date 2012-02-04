@@ -123,4 +123,4 @@ exports.add_subtract = {
         test.equal(c.hours(), 5, 'adding months over DST difference should result in the same hour');
         test.done();
     }
-}
+};

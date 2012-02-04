@@ -82,4 +82,4 @@ exports.format = {
         test.equal(moment().zone(), new Date().getTimezoneOffset(), 'zone should equal getTimezoneOffset');
         test.done();
     }
-}
+};

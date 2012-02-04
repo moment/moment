@@ -150,4 +150,4 @@ exports.create = {
         test.equal(momentA.month(), 5, "Calling moment() on a moment will create a clone");
         test.done();
     },
-}
+};

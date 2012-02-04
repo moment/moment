@@ -69,4 +69,4 @@ exports.diff = {
         test.equal(moment([2010, 0, 1, 0, 4]).diff([2010], 'seconds'), 240, "second diff");
         test.done();
     }
-}
+};

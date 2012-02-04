@@ -28,4 +28,4 @@ exports.eod_sod = {
         test.equal(m.milliseconds(), 999, "set the seconds");
         test.done();
     }
-}
+};
