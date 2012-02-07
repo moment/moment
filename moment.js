@@ -10,7 +10,7 @@
         round = Math.round,
         languages = {},
         hasModule = (typeof module !== 'undefined'),
-        paramsToParse = 'months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|'),
+        paramsToParse = 'months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|calendarWithoutTime|relativeTime|ordinal|meridiem'.split('|'),
         i,
         jsonRegex = /^\/?Date\((\d+)/i,
         charactersToReplace = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|ZZ?|LT|LL?L?L?)/g,
@@ -438,6 +438,14 @@
             lastWeek : '[last] dddd [at] LT',
             sameElse : 'L'
         },
+        calendarWithoutTime : {
+            sameDay : '[Today]',
+            nextDay : '[Tomorrow]',
+            nextWeek : 'dddd',
+            lastDay : '[Yesterday]',
+            lastWeek : '[last] dddd',
+            sameElse : 'L'
+        },
         relativeTime : {
             future : "in %s",
             past : "%s ago",
@@ -561,9 +569,9 @@
             return this.from(moment(), withoutSuffix);
         },
 
-        calendar : function () {
+        calendar : function (withoutTime) {
             var diff = this.diff(moment().sod(), 'days', true),
-                calendar = moment.calendar,
+                calendar = withoutTime ? moment.calendarWithoutTime : moment.calendar,
                 allElse = calendar.sameElse,
                 format = diff < -6 ? allElse :
                 diff < -1 ? calendar.lastWeek :
