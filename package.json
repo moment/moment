@@ -8,7 +8,7 @@
         "moment",
         "date"
     ],
-    "main": "./moment",
+    "main": "./moment.js",
     "engines": {
         "node": "*"
     },
@@ -24,13 +24,13 @@
             "type" : "MIT"
         }
     ],
-    "dev-dependencies" : [
-        "uglify-js",
-        "jshint",
-        "gzip",
-        "jade",
-        "clean-css",
-        "qunit",
-        "bunker"
-    ]
+    "dev-dependencies" : {
+        "uglify-js" : "latest",
+        "jshint"    : "latest",
+        "gzip"      : "latest",
+        "jade"      : "latest",
+        "clean-css" : "latest",
+        "qunit"     : "latest",
+        "bunker"    : "latest"
+    }
 }
