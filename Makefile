@@ -1,9 +1,5 @@
 LANG_ALL = $(wildcard lang/*.js)
 MIN_LANG_ALL = $(addprefix min/,$(LANG_ALL))
-LANGTESTS = $(wildcard test/lang/*.js)
-TEST_ALL = test/prefix/prefix.js test/non-lang-tests.js test/lang/*.js test/prefix/suffix.js 
-
-MIN_DIR = min/
 
 
 .PHONY: all
@@ -30,7 +26,7 @@ min/lang/%: lang/%
 	node_modules/.bin/uglifyjs -o $@ $<
 
 min/lang-all.min.js: $(LANG_ALL)
-	cat $(LANG_ALL) | node_modules/.bin/uglifyjs -o $@
+	cat $^ | node_modules/.bin/uglifyjs -o $@
 
 .PHONY: langs
 langs: min/lang/ $(MIN_LANG_ALL) min/lang-all.min.js
