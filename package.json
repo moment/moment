@@ -24,13 +24,9 @@
             "type" : "MIT"
         }
     ],
-    "dev-dependencies" : {
-        "uglify-js" : "latest",
+    "devDependencies" : {
         "jshint"    : "latest",
-        "gzip"      : "latest",
-        "jade"      : "latest",
-        "clean-css" : "latest",
-        "qunit"     : "latest",
-        "bunker"    : "latest"
+        "uglify-js" : "latest",
+        "nodeunit"     : "latest"
     }
 }
