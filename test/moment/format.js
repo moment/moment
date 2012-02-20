@@ -81,5 +81,12 @@ exports.format = {
         test.ok(moment().zone() % 30 === 0, 'moment.fn.zone should be a multiple of 30 (was ' + moment().zone() + ')');
         test.equal(moment().zone(), new Date().getTimezoneOffset(), 'zone should equal getTimezoneOffset');
         test.done();
+    },
+
+    "default format" : function(test) {
+        test.expect(1);
+        var isoRegex = /\d{4}.\d\d.\d\dT\d\d.\d\d.\d\d[\+\-]\d\d:\d\d/;
+        test.ok(isoRegex.exec(moment().format()), "default format (" + moment().format() + ") should match ISO");
+        test.done();
     }
 };

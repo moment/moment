@@ -18,6 +18,7 @@
         timezoneRegex = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g,
         tokenCharacters = /(\\)?(MM?M?M?|dd?d?d|DD?D?D?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|ZZ?|T)/g,
         inputCharacters = /(\\)?([0-9]+|([a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+|([\+\-]\d\d:?\d\d))/gi,
+        isoFormat = 'YYYY-MM-DDTHH:mm:ssZ',
         timezoneParseRegex = /([\+\-]|\d\d)/gi,
         VERSION = "1.4.0",
         shortcuts = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|');
@@ -385,6 +386,9 @@
     // version number
     moment.version = VERSION;
 
+    // default format
+    moment.defaultFormat = isoFormat;
+
     // language switching and caching
     moment.lang = function (key, values) {
         var i,
@@ -514,7 +518,8 @@
         },
 
         format : function (inputString) {
-            return formatDate(this._d, inputString);
+            return inputString ? formatDate(this._d, inputString) :
+                formatDate(this._d, moment.defaultFormat);
         },
 
         add : function (input, val) {
