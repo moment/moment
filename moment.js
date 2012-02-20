@@ -639,6 +639,7 @@
     if (typeof window !== 'undefined') {
         window.moment = moment;
     }
+    /*global define:false */
     if (typeof define === "function" && define.amd) {
         define("moment", [], function () {
             return moment;
