@@ -48,8 +48,9 @@ exports.create = {
     },
 
     "string without format - json" : function(test) {
-        test.expect(4);
+        test.expect(5);
         test.equal(moment("Date(1325132654000)").valueOf(), 1325132654000, "Date(1325132654000)");
+        test.equal(moment("Date(-1325132654000)").valueOf(), -1325132654000, "Date(-1325132654000)");
         test.equal(moment("/Date(1325132654000)/").valueOf(), 1325132654000, "/Date(1325132654000)/");
         test.equal(moment("/Date(1325132654000+0700)/").valueOf(), 1325132654000, "/Date(1325132654000+0700)/");
         test.equal(moment("/Date(1325132654000-0700)/").valueOf(), 1325132654000, "/Date(1325132654000-0700)/");
