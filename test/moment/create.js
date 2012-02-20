@@ -151,4 +151,33 @@ exports.create = {
         test.equal(momentA.month(), 5, "Calling moment() on a moment will create a clone");
         test.done();
     },
+
+    "parsing iso" : function(test) {
+        var offset = moment([2011, 9, 08]).zone();
+        var pad = function(input) {
+            if (input < 10) {
+                return '0' + input;
+            }
+            return '' + input;
+        }
+        var hourOffset = Math.floor(offset / 60);
+        var minOffset = offset - (hourOffset * 60);
+        var tz = (offset > 0) ? '-' + pad(hourOffset) + ':' + pad(minOffset) : '+' + pad(-hourOffset) + ':' + pad(-minOffset);
+        var tz2 = tz.replace(':', '');
+        var formats = [
+            ['2011-10-08',                '2011-10-08T00:00:00' + tz],
+            ['2011-10-08T18',             '2011-10-08T18:00:00' + tz],
+            ['2011-10-08T18:04',          '2011-10-08T18:04:00' + tz],
+            ['2011-10-08T18:04:20',       '2011-10-08T18:04:20' + tz],
+            ['2011-10-08T18:04' + tz,     '2011-10-08T18:04:00' + tz],
+            ['2011-10-08T18:04:20' + tz,  '2011-10-08T18:04:20' + tz],
+            ['2011-10-08T18:04' + tz2,    '2011-10-08T18:04:00' + tz],
+            ['2011-10-08T18:04:20' + tz2, '2011-10-08T18:04:20' + tz],
+        ];
+        test.expect(formats.length);
+        for (var i = 0; i < formats.length; i++) {
+            test.equal(moment(formats[i][0]).format('YYYY-MM-DDTHH:mm:ssZ'), formats[i][1], "moment should be able to parse ISO " + formats[i][0]);
+        }
+        test.done();
+    }
 };
