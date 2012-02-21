@@ -36,12 +36,12 @@
                 d : "一天",
                 dd : "%d天",
                 M : "一個月",
-                MM : "%d月",
+                MM : "%d個月",
                 y : "一年",
                 yy : "%d年"
             },
             ordinal : function (number) {
-                return '.';
+                return '';
             }
         };
 
