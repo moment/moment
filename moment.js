@@ -194,9 +194,9 @@
             case 'z' :
                 return (date.toString().match(timezoneRegex) || [''])[0].replace(nonuppercaseLetters, '');
             case 'Z' :
-                return (currentZone > 0 ? '+' : '-') + leftZeroFill(~~(Math.abs(currentZone) / 60), 2) + ':' + leftZeroFill(~~(Math.abs(currentZone) % 60), 2);
+                return (currentZone < 0 ? '-' : '+') + leftZeroFill(~~(Math.abs(currentZone) / 60), 2) + ':' + leftZeroFill(~~(Math.abs(currentZone) % 60), 2);
             case 'ZZ' :
-                return (currentZone > 0 ? '+' : '-') + leftZeroFill(~~(10 * Math.abs(currentZone) / 6), 4);
+                return (currentZone < 0 ? '-' : '+') + leftZeroFill(~~(10 * Math.abs(currentZone) / 6), 4);
             // LONG DATES
             case 'L' :
             case 'LL' :
