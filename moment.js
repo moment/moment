@@ -556,9 +556,9 @@
             return this;
         },
 
-        formattedDuration : function (input, duration, withoutSuffix) {
-            var start = moment();
-            var end = moment(start).add(input, duration);
+        humanizeDuration : function (input, duration, withoutSuffix) {
+            var start = moment(),
+            end = moment(start).add(input, duration);
             return end.from(start, withoutSuffix);
         },
 
