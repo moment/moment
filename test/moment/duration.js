@@ -8,9 +8,9 @@ var moment = require("../../moment");
 exports.formatted_duration = {
     "a relative-time formatted duration" : function(test) {
         test.expect(2);
-        test.equal(moment().formatted_duration('minutes',2,true), '2 minutes', 'output formatted duration');
-        test.equal(moment().formatted_duration('minutes',2), 'in 2 minutes', 'output formatted duration');
-        test.equal(moment().formatted_duration('minutes',20000), 'in 14 days', 'output formatted duration');
+        test.equal(moment().formattedDuration('minutes',2,true), '2 minutes', 'output formatted duration');
+        test.equal(moment().formattedDuration('minutes',2), 'in 2 minutes', 'output formatted duration');
+        test.equal(moment().formattedDuration('minutes',20000), 'in 14 days', 'output formatted duration');
         test.done();
     }
 };
