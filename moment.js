@@ -637,6 +637,10 @@
 
         zone : function () {
             return this._d.getTimezoneOffset();
+        },
+
+        daysInMonth : function () {
+            return this.clone().month(this.month() + 1).date(0).date();
         }
     };
 
