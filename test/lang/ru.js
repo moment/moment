@@ -122,7 +122,7 @@ exports["lang:ru"] = {
     },
 
     "from" : function(test) {
-        test.expect(30);
+        test.expect(32);
         moment.lang('ru');
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "несколько секунд",    "44 seconds = seconds");
