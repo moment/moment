@@ -179,5 +179,13 @@ exports.create = {
             test.equal(moment(formats[i][0]).format('YYYY-MM-DDTHH:mm:ssZ'), formats[i][1], "moment should be able to parse ISO " + formats[i][0]);
         }
         test.done();
+    },
+
+    "null" : function(test) {
+        test.expect(3);
+        test.equal(moment(''), null, "Calling moment('')");
+        test.equal(moment(null), null, "Calling moment(null)");
+        test.equal(moment('', 'YYYY-MM-DD'), null, "Calling moment('', 'YYYY-MM-DD')");
+        test.done();
     }
 };

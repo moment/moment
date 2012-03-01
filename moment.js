@@ -379,7 +379,7 @@
     }
 
     moment = function (input, format) {
-        if (input === null) {
+        if (input === null || input === '') {
             return null;
         }
         var date,
