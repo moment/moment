@@ -30,8 +30,9 @@
         shortcuts = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|');
 
     // Moment prototype object
-    function Moment(date) {
+    function Moment(date, isUTC) {
         this._d = date;
+        this._isUTC = !!isUTC;
     }
 
     // left zero fill a number
@@ -89,9 +90,8 @@
     }
 
     // format date using native date object
-    function formatDate(date, inputString) {
-        var m = new Moment(date),
-            currentMonth = m.month(),
+    function formatMoment(m, inputString) {
+        var currentMonth = m.month(),
             currentDate = m.date(),
             currentYear = m.year(),
             currentDay = m.day(),
@@ -192,7 +192,7 @@
             case 'zz' :
                 // depreciating 'zz' fall through to 'z'
             case 'z' :
-                return (date.toString().match(timezoneRegex) || [''])[0].replace(nonuppercaseLetters, '');
+                return (m._d.toString().match(timezoneRegex) || [''])[0].replace(nonuppercaseLetters, '');
             case 'Z' :
                 return (currentZone < 0 ? '-' : '+') + leftZeroFill(~~(Math.abs(currentZone) / 60), 2) + ':' + leftZeroFill(~~(Math.abs(currentZone) % 60), 2);
             case 'ZZ' :
@@ -203,7 +203,7 @@
             case 'LLL' :
             case 'LLLL' :
             case 'LT' :
-                return formatDate(date, moment.longDateFormat[input]);
+                return formatMoment(m, moment.longDateFormat[input]);
             // DEFAULT
             default :
                 return input.replace(/(^\[)|(\\)|\]$/g, "");
@@ -353,7 +353,7 @@
             curScore;
         for (i = 0; i < formats.length; i++) {
             curDate = makeDateFromStringAndFormat(string, formats[i]);
-            curScore = compareArrays(inputParts, formatDate(curDate, formats[i]).match(inputCharacters));
+            curScore = compareArrays(inputParts, formatMoment(new Moment(curDate), formats[i]).match(inputCharacters));
             if (curScore < scoreToBeat) {
                 scoreToBeat = curScore;
                 output = curDate;
@@ -405,6 +405,14 @@
                 new Date(input);
         }
         return new Moment(date);
+    };
+
+    // creating with utc
+    moment.utc = function(input, format) {
+        if (isArray(input)) {
+            return new Moment(new Date(Date.UTC.apply({}, input)), true);
+        }
+        return (format && input) ? moment(input + ' 0', format + ' Z').utc() : moment(input).utc();
     };
 
     // version number
@@ -541,9 +549,18 @@
             return this._d;
         },
 
+        utc : function () {
+            this._isUTC = true;
+            return this;
+        },
+
+        local : function () {
+            this._isUTC = false;
+            return this;
+        },
+
         format : function (inputString) {
-            return inputString ? formatDate(this._d, inputString) :
-                formatDate(this._d, moment.defaultFormat);
+            return formatMoment(this, inputString ? inputString : moment.defaultFormat);
         },
 
         add : function (input, val) {
@@ -636,7 +653,7 @@
         },
 
         zone : function () {
-            return this._d.getTimezoneOffset();
+            return this._isUTC ? 0 : this._d.getTimezoneOffset();
         },
 
         daysInMonth : function () {
@@ -647,11 +664,12 @@
     // helper for adding shortcuts
     function makeShortcut(name, key) {
         moment.fn[name] = function (input) {
+            var utc = this._isUTC ? 'UTC' : '';
             if (input != null) {
-                this._d['set' + key](input);
+                this._d['set' + utc + key](input);
                 return this;
             } else {
-                return this._d['get' + key]();
+                return this._d['get' + utc + key]();
             }
         };
     }
