@@ -25,10 +25,14 @@ exports.format = {
         test.expect(4);
 
         var b = moment(new Date(2010, 1, 14, 15, 25, 50, 125));
-        test.ok(b.format('z').match(/^[A-Z]{3,6}$/), b.format('z') + ' ---> Something like "PST"');
-        test.ok(b.format('zz').match(/^[A-Z]{3,6}$/), b.format('zz') + ' ---> Something like "PST"');
-        test.ok(b.format('Z').match(/^[\+\-]\d\d:\d\d$/), b.format('Z') + ' ---> Something like "+07:30"');
-        test.ok(b.format('ZZ').match(/^[\+\-]\d{4}$/), b.format('ZZ') + ' ---> Something like "+0700"');
+        var explanation = 'moment().format("z") = ' + b.format('z') + ' It should be something like "PST"'
+        if (moment().zone() === -60) {
+            explanation += "For UTC+1 this is a known issue, see https://github.com/timrwood/moment/issues/162";
+        }
+        test.ok(b.format('z').match(/^[A-Z]{3,6}$/), explanation);
+        test.ok(b.format('zz').match(/^[A-Z]{3,6}$/), explanation);
+        test.ok(b.format('Z').match(/^[\+\-]\d\d:\d\d$/), b.format('Z') + ' should be something like "+07:30"');
+        test.ok(b.format('ZZ').match(/^[\+\-]\d{4}$/), b.format('ZZ') + ' should be something like "+0700"');
         test.done();
     },
 
