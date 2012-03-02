@@ -378,6 +378,34 @@
         return new Date(string);
     }
 
+    // helper function for _date.from() and _date.fromNow()
+    function substituteTimeAgo(string, number, withoutSuffix) {
+        var rt = moment.relativeTime[string];
+        return (typeof rt === 'function') ?
+            rt(number || 1, !!withoutSuffix, string) :
+            rt.replace(/%d/i, number || 1);
+    }
+
+    function relativeTime(milliseconds, withoutSuffix) {
+        var seconds = round(Math.abs(milliseconds) / 1000),
+            minutes = round(seconds / 60),
+            hours = round(minutes / 60),
+            days = round(hours / 24),
+            years = round(days / 365),
+            args = seconds < 45 && ['s', seconds] ||
+                minutes === 1 && ['m'] ||
+                minutes < 45 && ['mm', minutes] ||
+                hours === 1 && ['h'] ||
+                hours < 22 && ['hh', hours] ||
+                days === 1 && ['d'] ||
+                days <= 25 && ['dd', days] ||
+                days <= 45 && ['M'] ||
+                days < 345 && ['MM', round(days / 30)] ||
+                years === 1 && ['y'] || ['yy', years];
+        args[2] = withoutSuffix;
+        return substituteTimeAgo.apply({}, args);
+    }
+
     moment = function (input, format) {
         if (input === null || input === '') {
             return null;
@@ -408,11 +436,46 @@
     };
 
     // creating with utc
-    moment.utc = function(input, format) {
+    moment.utc = function (input, format) {
         if (isArray(input)) {
             return new Moment(new Date(Date.UTC.apply({}, input)), true);
         }
         return (format && input) ? moment(input + ' 0', format + ' Z').utc() : moment(input).utc();
+    };
+
+    // humanizeDuration
+    moment.humanizeDuration = function (num, type, withSuffix) {
+        var difference = +num,
+            rel = moment.relativeTime,
+            output;
+        switch (type) {
+        case "seconds" :
+            difference *= 1000; // 1000
+            break;
+        case "minutes" :
+            difference *= 60000; // 60 * 1000
+            break;
+        case "hours" :
+            difference *= 3600000; // 60 * 60 * 1000
+            break;
+        case "days" :
+            difference *= 86400000; // 24 * 60 * 60 * 1000
+            break;
+        case "weeks" :
+            difference *= 604800000; // 7 * 24 * 60 * 60 * 1000
+            break;
+        case "months" :
+            difference *= 2592000000; // 30 * 24 * 60 * 60 * 1000
+            break;
+        case "years" :
+            difference *= 31536000000; // 365 * 24 * 60 * 60 * 1000
+            break;
+        default :
+            withSuffix = !!type;
+            break;
+        }
+        output = relativeTime(difference, !withSuffix);
+        return withSuffix ? (difference <= 0 ? rel.past : rel.future).replace(/%s/i, output) : output;
     };
 
     // version number
@@ -498,34 +561,6 @@
         }
     });
 
-    // helper function for _date.from() and _date.fromNow()
-    function substituteTimeAgo(string, number, withoutSuffix) {
-        var rt = moment.relativeTime[string];
-        return (typeof rt === 'function') ?
-            rt(number || 1, !!withoutSuffix, string) :
-            rt.replace(/%d/i, number || 1);
-    }
-
-    function relativeTime(milliseconds, withoutSuffix) {
-        var seconds = round(Math.abs(milliseconds) / 1000),
-            minutes = round(seconds / 60),
-            hours = round(minutes / 60),
-            days = round(hours / 24),
-            years = round(days / 365),
-            args = seconds < 45 && ['s', seconds] ||
-                minutes === 1 && ['m'] ||
-                minutes < 45 && ['mm', minutes] ||
-                hours === 1 && ['h'] ||
-                hours < 22 && ['hh', hours] ||
-                days === 1 && ['d'] ||
-                days <= 25 && ['dd', days] ||
-                days <= 45 && ['M'] ||
-                days < 345 && ['MM', round(days / 30)] ||
-                years === 1 && ['y'] || ['yy', years];
-        args[2] = withoutSuffix;
-        return substituteTimeAgo.apply({}, args);
-    }
-
     // shortcut for prototype
     moment.fn = Moment.prototype = {
 
@@ -597,10 +632,7 @@
         },
 
         from : function (time, withoutSuffix) {
-            var difference = this.diff(time),
-                rel = moment.relativeTime,
-                output = relativeTime(difference, withoutSuffix);
-            return withoutSuffix ? output : (difference <= 0 ? rel.past : rel.future).replace(/%s/i, output);
+            return moment.humanizeDuration(this.diff(time), !withoutSuffix);
         },
 
         fromNow : function (withoutSuffix) {
