@@ -31,6 +31,14 @@ Moment.js is freely distributable under the terms of the MIT license.
 Changelog
 =========
 
+### 1.4.0 [See milestone](https://github.com/timrwood/moment/issues?milestone=8&state=closed)
+
+Added `moment.fn.toDate` as a replacement for `moment.fn.native`.
+
+Added `moment.fn.sod` and `moment.fn.eod` to get the start and end of day.
+
+Various bugfixes.
+
 ### 1.3.0 [See milestone](https://github.com/timrwood/moment/issues?milestone=7&state=closed)
 
 Added support for parsing month names in the current language.
