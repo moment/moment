@@ -573,6 +573,12 @@
             return this;
         },
 
+        humanizeDuration : function (input, duration, withoutSuffix) {
+            var start = moment(),
+            end = moment(start).add(input, duration);
+            return end.from(start, withoutSuffix);
+        },
+
         diff : function (input, val, asFloat) {
             var inputMoment = moment(input),
                 zoneDiff = (this.zone() - inputMoment.zone()) * 6e4,
@@ -626,7 +632,7 @@
         },
 
         isDST : function () {
-            return (this.zone() < moment([this.year()]).zone() || 
+            return (this.zone() < moment([this.year()]).zone() ||
                 this.zone() < moment([this.year(), 5]).zone());
         },
 
