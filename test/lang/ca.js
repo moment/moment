@@ -162,8 +162,8 @@ exports["lang:ca"] = {
         test.equal(moment(a).calendar(),                         "avui a les 2:00",     "today at the same time");
         test.equal(moment(a).add({ m: 25 }).calendar(),          "avui a les 2:25",     "Now plus 25 min");
         test.equal(moment(a).add({ h: 1 }).calendar(),           "avui a les 3:00",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),           "demá a les 2:00",  "tomorrow at the same time");
-        test.equal(moment(a).add({ d: 1, h : -1 }).calendar(),   "demá a la 1:00",   "tomorrow minus 1 hour");
+        test.equal(moment(a).add({ d: 1 }).calendar(),           "demà a les 2:00",  "tomorrow at the same time");
+        test.equal(moment(a).add({ d: 1, h : -1 }).calendar(),   "demà a la 1:00",   "tomorrow minus 1 hour");
         test.equal(moment(a).subtract({ h: 1 }).calendar(),      "avui a la 1:00",      "Now minus 1 hour");
         test.equal(moment(a).subtract({ d: 1 }).calendar(),      "ahir a les 2:00",    "yesterday at the same time");
         test.done();
