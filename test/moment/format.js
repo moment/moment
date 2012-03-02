@@ -78,7 +78,11 @@ exports.format = {
         if (moment().zone() == 0) {
             test.ok(moment().format('ZZ').indexOf('+') > -1, 'When the zone() offset is equal to 0, the ISO offset should be positive zero');
         }
-        test.ok(moment().zone() % 30 === 0, 'moment.fn.zone should be a multiple of 30 (was ' + moment().zone() + ')');
+        if (moment().zone() === 0) {
+           test.equal(moment().zone(), 0, 'moment.fn.zone should be a multiple of 30 (was ' + moment().zone() + ')');
+        } else {
+           test.equal(moment().zone() % 30, 0, 'moment.fn.zone should be a multiple of 30 (was ' + moment().zone() + ')');
+        }
         test.equal(moment().zone(), new Date().getTimezoneOffset(), 'zone should equal getTimezoneOffset');
         test.done();
     },
