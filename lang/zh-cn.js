@@ -51,6 +51,6 @@
     }
     // Browser
     if (typeof window !== 'undefined' && this.moment && this.moment.lang) {
-        this.moment.lang('zh_CN', lang);
+        this.moment.lang('zh-cn', lang);
     }
 }());

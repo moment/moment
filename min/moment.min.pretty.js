@@ -4,8 +4,8 @@
 // license : MIT
 // momentjs.com
 (function(a, b) {
-    function u(a) {
-        this._d = a;
+    function u(a, b) {
+        this._d = a, this._isUTC = !!b;
     }
     function v(a, b) {
         var c = a + "";
@@ -23,76 +23,76 @@
         return new a(b[0], b[1] || 0, b[2] || 1, b[3] || 0, b[4] || 0, b[5] || 0, b[6] || 0);
     }
     function z(b, d) {
-        function s(d) {
-            var e, j;
+        function r(d) {
+            var j, s;
             switch (d) {
               case "M":
-                return f + 1;
+                return e + 1;
               case "Mo":
-                return f + 1 + q(f + 1);
+                return e + 1 + p(e + 1);
               case "MM":
-                return v(f + 1, 2);
+                return v(e + 1, 2);
               case "MMM":
-                return c.monthsShort[f];
+                return c.monthsShort[e];
               case "MMMM":
-                return c.months[f];
+                return c.months[e];
               case "D":
-                return g;
+                return f;
               case "Do":
-                return g + q(g);
+                return f + p(f);
               case "DD":
-                return v(g, 2);
+                return v(f, 2);
               case "DDD":
-                return e = new a(h, f, g), j = new a(h, 0, 1), ~~((e - j) / 864e5 + 1.5);
+                return j = new a(g, e, f), s = new a(g, 0, 1), ~~((j - s) / 864e5 + 1.5);
               case "DDDo":
-                return e = s("DDD"), e + q(e);
+                return j = r("DDD"), j + p(j);
               case "DDDD":
-                return v(s("DDD"), 3);
+                return v(r("DDD"), 3);
               case "d":
-                return i;
-              case "do":
-                return i + q(i);
-              case "ddd":
-                return c.weekdaysShort[i];
-              case "dddd":
-                return c.weekdays[i];
-              case "w":
-                return e = new a(h, f, g - i + 5), j = new a(e.getFullYear(), 0, 4), ~~((e - j) / 864e5 / 7 + 1.5);
-              case "wo":
-                return e = s("w"), e + q(e);
-              case "ww":
-                return v(s("w"), 2);
-              case "YY":
-                return v(h % 100, 2);
-              case "YYYY":
                 return h;
+              case "do":
+                return h + p(h);
+              case "ddd":
+                return c.weekdaysShort[h];
+              case "dddd":
+                return c.weekdays[h];
+              case "w":
+                return j = new a(g, e, f - h + 5), s = new a(j.getFullYear(), 0, 4), ~~((j - s) / 864e5 / 7 + 1.5);
+              case "wo":
+                return j = r("w"), j + p(j);
+              case "ww":
+                return v(r("w"), 2);
+              case "YY":
+                return v(g % 100, 2);
+              case "YYYY":
+                return g;
               case "a":
-                return m > 11 ? r.pm : r.am;
+                return i > 11 ? q.pm : q.am;
               case "A":
-                return m > 11 ? r.PM : r.AM;
+                return i > 11 ? q.PM : q.AM;
               case "H":
-                return m;
+                return i;
               case "HH":
-                return v(m, 2);
+                return v(i, 2);
               case "h":
-                return m % 12 || 12;
+                return i % 12 || 12;
               case "hh":
-                return v(m % 12 || 12, 2);
+                return v(i % 12 || 12, 2);
               case "m":
-                return n;
+                return m;
               case "mm":
-                return v(n, 2);
+                return v(m, 2);
               case "s":
-                return o;
+                return n;
               case "ss":
-                return v(o, 2);
+                return v(n, 2);
               case "zz":
               case "z":
-                return (b.toString().match(l) || [ "" ])[0].replace(k, "");
+                return (b._d.toString().match(l) || [ "" ])[0].replace(k, "");
               case "Z":
-                return (p > 0 ? "+" : "-") + v(~~(Math.abs(p) / 60), 2) + ":" + v(~~(Math.abs(p) % 60), 2);
+                return (o < 0 ? "-" : "+") + v(~~(Math.abs(o) / 60), 2) + ":" + v(~~(Math.abs(o) % 60), 2);
               case "ZZ":
-                return (p > 0 ? "+" : "-") + v(~~(10 * Math.abs(p) / 6), 4);
+                return (o < 0 ? "-" : "+") + v(~~(10 * Math.abs(o) / 6), 4);
               case "L":
               case "LL":
               case "LLL":
@@ -103,8 +103,8 @@
                 return d.replace(/(^\[)|(\\)|\]$/g, "");
             }
         }
-        var e = new u(b), f = e.month(), g = e.date(), h = e.year(), i = e.day(), m = e.hours(), n = e.minutes(), o = e.seconds(), p = -e.zone(), q = c.ordinal, r = c.meridiem;
-        return d.replace(j, s);
+        var e = b.month(), f = b.date(), g = b.year(), h = b.day(), i = b.hours(), m = b.minutes(), n = b.seconds(), o = -b.zone(), p = c.ordinal, q = c.meridiem;
+        return d.replace(j, r);
     }
     function A(b, d) {
         function p(a, b) {
@@ -167,7 +167,7 @@
     }
     function C(a, b) {
         var c, d = a.match(n), e = [], f = 99, g, h, i;
-        for (g = 0; g < b.length; g++) h = A(a, b[g]), i = B(d, z(h, b[g]).match(n)), i < f && (f = i, c = h);
+        for (g = 0; g < b.length; g++) h = A(a, b[g]), i = B(d, z(new u(h), b[g]).match(n)), i < f && (f = i, c = h);
         return c;
     }
     function D(b) {
@@ -191,14 +191,45 @@
     }
     function G(a, b) {
         c.fn[a] = function(a) {
-            return a != null ? (this._d["set" + b](a), this) : this._d["get" + b]();
+            var c = this._isUTC ? "UTC" : "";
+            return a != null ? (this._d["set" + c + b](a), this) : this._d["get" + c + b]();
         };
     }
     var c, d = Math.round, e = {}, f = typeof module != "undefined", g = "months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem".split("|"), h, i = /^\/?Date\((\-?\d+)/i, j = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|ZZ?|LT|LL?L?L?)/g, k = /[^A-Z]/g, l = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g, m = /(\\)?(MM?M?M?|dd?d?d|DD?D?D?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|ZZ?|T)/g, n = /(\\)?([0-9]+|([a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+|([\+\-]\d\d:?\d\d))/gi, o = /\d{4}.\d\d.\d\d(T(\d\d(.\d\d(.\d\d)?)?)?([\+\-]\d\d:?\d\d)?)?/, p = "YYYY-MM-DDTHH:mm:ssZ", q = [ [ "HH:mm:ss", /T\d\d:\d\d:\d\d/ ], [ "HH:mm", /T\d\d:\d\d/ ], [ "HH", /T\d\d/ ] ], r = /([\+\-]|\d\d)/gi, s = "1.4.0", t = "Month|Date|Hours|Minutes|Seconds|Milliseconds".split("|");
     c = function(c, d) {
-        if (c === null) return null;
+        if (c === null || c === "") return null;
         var e, f;
         return c && c._d instanceof a ? e = new a(+c._d) : d ? x(d) ? e = C(c, d) : e = A(c, d) : (f = i.exec(c), e = c === b ? new a : f ? new a(+f[1]) : c instanceof a ? c : x(c) ? y(c) : typeof c == "string" ? D(c) : new a(c)), new u(e);
+    }, c.utc = function(b, d) {
+        return x(b) ? new u(new a(a.UTC.apply({}, b)), !0) : d && b ? c(b + " 0", d + " Z").utc() : c(b).utc();
+    }, c.humanizeDuration = function(a, b, d) {
+        var e = +a, f = c.relativeTime, g;
+        switch (b) {
+          case "seconds":
+            e *= 1e3;
+            break;
+          case "minutes":
+            e *= 6e4;
+            break;
+          case "hours":
+            e *= 36e5;
+            break;
+          case "days":
+            e *= 864e5;
+            break;
+          case "weeks":
+            e *= 6048e5;
+            break;
+          case "months":
+            e *= 2592e6;
+            break;
+          case "years":
+            e *= 31536e6;
+            break;
+          default:
+            d = !!b;
+        }
+        return g = F(e, !d), d ? (e <= 0 ? f.past : f.future).replace(/%s/i, g) : g;
     }, c.version = s, c.defaultFormat = p, c.lang = function(a, b) {
         var d, h, i, j = [];
         if (b) {
@@ -267,8 +298,14 @@
         toDate: function() {
             return this._d;
         },
+        utc: function() {
+            return this._isUTC = !0, this;
+        },
+        local: function() {
+            return this._isUTC = !1, this;
+        },
         format: function(a) {
-            return a ? z(this._d, a) : z(this._d, c.defaultFormat);
+            return z(this, a ? a : c.defaultFormat);
         },
         add: function(a, b) {
             return this._d = w(this._d, a, 1, b), this;
@@ -281,8 +318,7 @@
             return b === "months" ? l = i * 12 + j + k / 30 : b === "years" ? l = i + j / 12 : l = b === "seconds" ? h / 1e3 : b === "minutes" ? h / 6e4 : b === "hours" ? h / 36e5 : b === "days" ? h / 864e5 : b === "weeks" ? h / 6048e5 : h, e ? l : d(l);
         },
         from: function(a, b) {
-            var d = this.diff(a), e = c.relativeTime, f = F(d, b);
-            return b ? f : (d <= 0 ? e.past : e.future).replace(/%s/i, f);
+            return c.humanizeDuration(this.diff(a), !b);
         },
         fromNow: function(a) {
             return this.from(c(), a);
@@ -314,7 +350,10 @@
             });
         },
         zone: function() {
-            return this._d.getTimezoneOffset();
+            return this._isUTC ? 0 : this._d.getTimezoneOffset();
+        },
+        daysInMonth: function() {
+            return this.clone().month(this.month() + 1).date(0).date();
         }
     };
     for (h = 0; h < t.length; h++) G(t[h].toLowerCase(), t[h]);
