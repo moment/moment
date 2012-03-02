@@ -5,6 +5,7 @@
             weekdays : "Søndag_Mandag_Tirsdag_Onsdag_Torsdag_Fredag_Lørdag".split("_"),
             weekdaysShort : "Søn_Man_Tir_Ons_Tor_Fre_Lør".split("_"),
             longDateFormat : {
+                LT : "h:mm A",
                 L : "DD/MM/YYYY",
                 LL : "D MMMM YYYY",
                 LLL : "D MMMM YYYY h:mm A",
