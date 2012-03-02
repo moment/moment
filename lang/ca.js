@@ -22,7 +22,7 @@
                     return '[avui a ' + ((this.hours() !== 1) ? 'les' : 'la') + '] LT';
                 },
                 nextDay : function () {
-                    return '[demá a ' + ((this.hours() !== 1) ? 'les' : 'la') + '] LT';
+                    return '[demà a ' + ((this.hours() !== 1) ? 'les' : 'la') + '] LT';
                 },
                 nextWeek : function () {
                     return 'dddd [a ' + ((this.hours() !== 1) ? 'les' : 'la') + '] LT';
