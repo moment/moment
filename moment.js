@@ -609,26 +609,95 @@
         },
 
         diff : function (input, val, asFloat) {
-            var inputMoment = moment(input),
-                zoneDiff = (this.zone() - inputMoment.zone()) * 6e4,
-                diff = this._d - inputMoment._d - zoneDiff,
-                year = this.year() - inputMoment.year(),
-                month = this.month() - inputMoment.month(),
+            val = val || 'ms';
+            
+            var unitsToReplace = /(\[[^\[]*\])|(\\)?(years|months|weeks|days|hours|minutes|milliseconds|seconds|y|M|w|d|h|ms|m|s)/g,
+                inputMoment = moment(input),
+                diff = this._d - inputMoment._d,
+                months = this.month() - inputMoment.month(),
+                years = this.year() - inputMoment.year(),
                 date = this.date() - inputMoment.date(),
-                output;
-            if (val === 'months') {
-                output = year * 12 + month + date / 30;
-            } else if (val === 'years') {
-                output = year + month / 12;
-            } else {
-                output = val === 'seconds' ? diff / 1e3 : // 1000
-                    val === 'minutes' ? diff / 6e4 : // 1000 * 60
-                    val === 'hours' ? diff / 36e5 : // 1000 * 60 * 60
-                    val === 'days' ? diff / 864e5 : // 1000 * 60 * 60 * 24
-                    val === 'weeks' ? diff / 6048e5 : // 1000 * 60 * 60 * 24 * 7
-                    diff;
+                sign = 1,
+                value,
+                nextDate,
+                divisor;
+
+            function replaceFunction(input) {
+                // !! If units aren't in decreasing order, it fails
+                
+                switch (input) {
+                case 'years' :
+                case 'y' :
+                    divisor = 315576e5; // 1 year   = 1000 * 60 * 60 * 24 * 365.25 ms
+                    value = years - (months < 0 ? 1 : 0);
+                    nextDate = inputMoment.clone().add('years', value);
+                    diff -= nextDate._d - inputMoment._d;
+                    months -= value * 12;
+                    return sign * value;
+                case 'months' :
+                case 'M' :
+                    divisor = 26298e5;  // 1 month  = 1000 * 60 * 60 * 24 * 365.25 / 12 ms
+                    value = months + years * 12 - (date < 0 ? 1 : 0);
+                    nextDate = inputMoment.clone().add('months', value);
+                    diff -= nextDate._d - inputMoment._d;
+                    if (inputMoment.isDST() !== nextDate.isDST()) {
+                        diff += nextDate.isDST() ? -36e5 : 36e5;   // !! DST isn't always 1 hour http://www.timeanddate.com/time/dst/
+                    }
+                    return sign * value;
+                case 'weeks' :
+                case 'w' :
+                    divisor = 6048e5;   // 1 week   = 1000 * 60 * 60 * 24 * 7 ms
+                    break;
+                case 'days' :
+                case 'd' :
+                    divisor = 864e5;    // 1 day    = 1000 * 60 * 60 * 24 ms
+                    break;
+                case 'hours' :
+                case 'h' :
+                    divisor = 36e5;     // 1 hour   = 1000 * 60 * 60 ms
+                    break;
+                case 'minutes' :
+                case 'm' :
+                    divisor = 6e4;      // 1 minute = 1000 * 60 ms
+                    break;
+                case 'seconds' :
+                case 's' :
+                    divisor = 1e3;      // 1 second = 1000 ms
+                    break;
+                case 'milliseconds' :
+                case 'ms' :
+                    divisor = 1;        // 1 ms     = 1 ms
+                    break;
+                default :
+                    return input.replace(/(^\[)|(\\)|\]$/g, "");
+                }
+                
+                value = Math.floor(diff / divisor);
+                diff -= value * divisor;
+                return sign * value;
             }
-            return asFloat ? output : round(output);
+                
+            if (diff < 0) {
+                inputMoment = this;
+                diff = -diff;
+                months = -months;
+                years = -years;
+                date = -date;
+                sign = -1;
+            }
+            
+            val = val.replace(unitsToReplace, replaceFunction);
+            
+            if (asFloat) {
+                if (divisor === 315576e5) {
+                    'M'.replace(unitsToReplace, replaceFunction);
+                    val = val.replace(new RegExp('(.*)' + (sign * years)), '$1' + (sign * (years + value / 12) + diff / divisor));
+                } else {
+                    val = val.replace(new RegExp('(.*)' + value), '$1' + (value + diff / divisor));
+                }
+            }
+            
+            return isNaN(+val) ? val : +val;
         },
 
         from : function (time, withoutSuffix) {
