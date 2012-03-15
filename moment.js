@@ -561,6 +561,11 @@
         }
     });
 
+    // compare moment object
+    moment.isMoment = function (obj) {
+        return obj instanceof Moment;
+    };
+
     // shortcut for prototype
     moment.fn = Moment.prototype = {
 
