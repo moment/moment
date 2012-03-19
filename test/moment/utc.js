@@ -12,12 +12,12 @@ exports.utc = {
 
         // local
         m.local();
-        if (moment().zone() > 180) {
+        if (m.zone() > 180) {
             test.equal(m.date(), 1, "the day should be correct for utc");
         } else {
             test.equal(m.date(), 2, "the day should be correct for utc");
         }
-        var expected = (24 + 3 - Math.floor(moment().zone() / 60)) % 24;
+        var expected = (24 + 3 - Math.floor(m.zone() / 60)) % 24;
         test.equal(m.hours(), expected, "the hours (" + m.hours() + ") should be correct for utc");
         test.equal(moment().utc().zone(), 0, "timezone in utc should always be zero");
         test.done();
