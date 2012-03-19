@@ -1,5 +1,5 @@
 // moment.js
-// version : 1.4.0
+// version : 1.5.0
 // author : Tim Wood
 // license : MIT
 // momentjs.com
@@ -26,7 +26,7 @@
             ['HH', /T\d\d/]
         ],
         timezoneParseRegex = /([\+\-]|\d\d)/gi,
-        VERSION = "1.4.0",
+        VERSION = "1.5.0",
         shortcuts = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|');
 
     // Moment prototype object

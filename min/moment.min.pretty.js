@@ -1,5 +1,5 @@
 // moment.js
-// version : 1.4.0
+// version : 1.5.0
 // author : Tim Wood
 // license : MIT
 // momentjs.com
@@ -195,7 +195,7 @@
             return a != null ? (this._d["set" + c + b](a), this) : this._d["get" + c + b]();
         };
     }
-    var c, d = Math.round, e = {}, f = typeof module != "undefined", g = "months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem".split("|"), h, i = /^\/?Date\((\-?\d+)/i, j = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|ZZ?|LT|LL?L?L?)/g, k = /[^A-Z]/g, l = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g, m = /(\\)?(MM?M?M?|dd?d?d|DD?D?D?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|ZZ?|T)/g, n = /(\\)?([0-9]+|([a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+|([\+\-]\d\d:?\d\d))/gi, o = /\d{4}.\d\d.\d\d(T(\d\d(.\d\d(.\d\d)?)?)?([\+\-]\d\d:?\d\d)?)?/, p = "YYYY-MM-DDTHH:mm:ssZ", q = [ [ "HH:mm:ss", /T\d\d:\d\d:\d\d/ ], [ "HH:mm", /T\d\d:\d\d/ ], [ "HH", /T\d\d/ ] ], r = /([\+\-]|\d\d)/gi, s = "1.4.0", t = "Month|Date|Hours|Minutes|Seconds|Milliseconds".split("|");
+    var c, d = Math.round, e = {}, f = typeof module != "undefined", g = "months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem".split("|"), h, i = /^\/?Date\((\-?\d+)/i, j = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|ZZ?|LT|LL?L?L?)/g, k = /[^A-Z]/g, l = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g, m = /(\\)?(MM?M?M?|dd?d?d|DD?D?D?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|ZZ?|T)/g, n = /(\\)?([0-9]+|([a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+|([\+\-]\d\d:?\d\d))/gi, o = /\d{4}.\d\d.\d\d(T(\d\d(.\d\d(.\d\d)?)?)?([\+\-]\d\d:?\d\d)?)?/, p = "YYYY-MM-DDTHH:mm:ssZ", q = [ [ "HH:mm:ss", /T\d\d:\d\d:\d\d/ ], [ "HH:mm", /T\d\d:\d\d/ ], [ "HH", /T\d\d/ ] ], r = /([\+\-]|\d\d)/gi, s = "1.5.0", t = "Month|Date|Hours|Minutes|Seconds|Milliseconds".split("|");
     c = function(c, d) {
         if (c === null || c === "") return null;
         var e, f;
@@ -282,7 +282,9 @@
             var b = a % 10;
             return ~~(a % 100 / 10) === 1 ? "th" : b === 1 ? "st" : b === 2 ? "nd" : b === 3 ? "rd" : "th";
         }
-    }), c.fn = u.prototype = {
+    }), c.isMoment = function(a) {
+        return a instanceof u;
+    }, c.fn = u.prototype = {
         clone: function() {
             return c(this);
         },
