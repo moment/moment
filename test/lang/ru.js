@@ -199,7 +199,7 @@ exports["lang:ru"] = {
         var m;
 
         function makeFormat(d) {
-            return d.day() === 1 ? '[Во] dddd [в] LT' : '[В] dddd [в] LT';
+            return d.day() === 2 ? '[Во] dddd [в] LT' : '[В] dddd [в] LT';
         }
 
         for (i = 2; i < 7; i++) {
@@ -223,12 +223,14 @@ exports["lang:ru"] = {
         function makeFormat(d) {
             switch (d.day()) {
             case 0:
-            case 1:
-            case 3:
-                return '[В прошлый] dddd [в] LT';
-            case 6:
                 return '[В прошлое] dddd [в] LT';
-            default:
+            case 1:
+            case 2:
+            case 4:
+                return '[В прошлый] dddd [в] LT';
+            case 3:
+            case 5:
+            case 6:
                 return '[В прошлую] dddd [в] LT';
             }
         }
