@@ -668,7 +668,7 @@
         },
 
         day : function (input) {
-            var day = this._d.getDay();
+            var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
             return input == null ? day :
                 this.add({ d : input - day });
         },
