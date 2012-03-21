@@ -444,7 +444,7 @@
     };
 
     // creating with unix timestamp (in seconds)
-    moment.unix = function(input) {
+    moment.unix = function (input) {
         return moment(input * 1000);
     };
 
