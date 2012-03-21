@@ -167,7 +167,7 @@ exports.create = {
             }
             return '' + input;
         }
-        var hourOffset = Math.floor(offset / 60);
+        var hourOffset = (offset > 0) ? Math.floor(offset / 60) : Math.ceil(offset / 60);
         var minOffset = offset - (hourOffset * 60);
         var tz = (offset > 0) ? '-' + pad(hourOffset) + ':' + pad(minOffset) : '+' + pad(-hourOffset) + ':' + pad(-minOffset);
         var tz2 = tz.replace(':', '');
