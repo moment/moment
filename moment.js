@@ -443,6 +443,11 @@
         return (format && input) ? moment(input + ' 0', format + ' Z').utc() : moment(input).utc();
     };
 
+    // creating with unix timestamp (in seconds)
+    moment.unix = function(input) {
+        return moment(input * 1000);
+    };
+
     // humanizeDuration
     moment.humanizeDuration = function (num, type, withSuffix) {
         var difference = +num,
