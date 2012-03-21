@@ -600,7 +600,7 @@
         },
 
         unixValueOf : function () {
-            return parseInt(this.valueOf() / 1000, 10);
+            return round(this.valueOf() / 1000);
         },
 
         local : function () {
