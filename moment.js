@@ -599,6 +599,10 @@
             return this;
         },
 
+        unixValueOf : function () {
+            return parseInt(this.valueOf() / 1000, 10);
+        },
+
         local : function () {
             this._isUTC = false;
             return this;
