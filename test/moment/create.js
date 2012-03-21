@@ -47,6 +47,13 @@ exports.create = {
         test.done();
     },
 
+    "string from Date.toString" : function(test) {
+        test.expect(1);
+        var str = (new Date()).toString();
+        test.equal(moment(str).toString(), str, "Parsing a string from Date.prototype.toString should match moment.fn.toString");
+        test.done();
+    },
+
     "string without format - json" : function(test) {
         test.expect(5);
         test.equal(moment("Date(1325132654000)").valueOf(), 1325132654000, "Date(1325132654000)");
