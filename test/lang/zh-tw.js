@@ -2,7 +2,7 @@ var moment = require("../../moment");
 
 
     /**************************************************
-      Traditional Chineseins
+      Traditional Chinese
      *************************************************/
 
 exports["lang:zh-tw"] = {

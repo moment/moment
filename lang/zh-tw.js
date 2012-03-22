@@ -5,11 +5,11 @@
             weekdays : "星期日_星期一_星期二_星期三_星期四_星期五_星期六".split("_"),
             weekdaysShort : "週日_週一_週二_週三_週四_週五_週六".split("_"),
             longDateFormat : {
-                LT : "h:mm A",
-                L : "DD/MM/YYYY",
-                LL : "D MMMM YYYY",
-                LLL : "D MMMM YYYY LT",
-                LLLL : "dddd, D MMMM YYYY LT"
+                LT : "Ah:mm",
+                L : "YY/MM/DD",
+                LL : "YYYY/MM/DD",
+                LLL : "YYYY年MMoDo LT",
+                LLLL : "YYYY年MMoDodddd LT"
             },
             meridiem : {
                 AM : '上午',
