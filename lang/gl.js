@@ -31,7 +31,7 @@
                     return '[onte ' + ((this.hours() !== 1) ? 'á' : 'a') + '] LT';
                 },
                 lastWeek : function () {
-                    return '[o] dddd [pasado ' + ((this.hours() !== 1) ? 'ás' : '') + '] LT';
+                    return '[o] dddd [pasado ' + ((this.hours() !== 1) ? 'ás' : 'a') + '] LT';
                 },
                 sameElse : 'L'
             },

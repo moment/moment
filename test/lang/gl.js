@@ -217,5 +217,16 @@ exports["lang:gl"] = {
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
     test.done();
+    },
+
+    "regression tests" : function(test) {
+        test.expect(1);
+        moment.lang('gl');
+
+        var lastWeek = moment().subtract({ d: 4 }).hours(1);
+        test.equal(lastWeek.calendar(), lastWeek.format('[o] dddd [pasado a] LT'), "1 o'clock bug");
+        
+
+        test.done();
     }
 };
