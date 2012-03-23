@@ -147,12 +147,12 @@ exports["lang:zh-tw"] = {
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "今天 2:00 上午",     "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "今天 2:25 上午",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "今天 3:00 上午",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "明天 2:00 上午",     "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "今天 1:00 上午",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "昨天 2:00 上午",     "yesterday at the same time");
+        test.equal(moment(a).calendar(),                     "今天 2:00 早上",     "today at the same time");
+        test.equal(moment(a).add({ m: 25 }).calendar(),      "今天 2:25 早上",     "Now plus 25 min");
+        test.equal(moment(a).add({ h: 1 }).calendar(),       "今天 3:00 早上",     "Now plus 1 hour");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "明天 2:00 早上",     "tomorrow at the same time");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "今天 1:00 早上",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "昨天 2:00 早上",     "yesterday at the same time");
         test.done();
     },
 
@@ -204,5 +204,24 @@ exports["lang:zh-tw"] = {
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),      "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
     test.done();
+    },
+
+    "meridiem" : function(test) {
+        test.expect(10);
+        moment.lang('zh-cn');
+
+        test.equal(moment([2011, 2, 23,  0, 0]).format('a'), "早上", "morning");
+        test.equal(moment([2011, 2, 23,  9, 0]).format('a'), "上午", "before noon");
+        test.equal(moment([2011, 2, 23, 12, 0]).format('a'), "中午", "noon");
+        test.equal(moment([2011, 2, 23, 13, 0]).format('a'), "下午", "after noon");
+        test.equal(moment([2011, 2, 23, 18, 0]).format('a'), "晚上", "night");
+
+        test.equal(moment([2011, 2, 23,  0, 0]).format('A'), "早上", "morning");
+        test.equal(moment([2011, 2, 23,  9, 0]).format('A'), "上午", "before noon");
+        test.equal(moment([2011, 2, 23, 12, 0]).format('A'), "中午", "noon");
+        test.equal(moment([2011, 2, 23, 13, 0]).format('A'), "下午", "afternoon");
+        test.equal(moment([2011, 2, 23, 18, 0]).format('A'), "晚上", "night");
+
+        test.done();
     }
 };
