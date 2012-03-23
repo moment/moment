@@ -55,12 +55,6 @@
                 LLL : "Do MMMMt\\a YYYY, klo LT",
                 LLLL : "dddd, Do MMMMt\\a YYYY, klo LT"
             },
-            meridiem : {
-                AM : 'AM',
-                am : 'am',
-                PM : 'PM',
-                pm : 'pm'
-            },
             calendar : {
                 sameDay : '[tänään] [klo] LT',
                 nextDay : '[huomenna] [klo] LT',

@@ -165,9 +165,9 @@
                 return currentYear;
             // AM / PM
             case 'a' :
-                return currentHours > 11 ? meridiem.pm : meridiem.am;
+                return meridiem ? meridiem(currentHours, currentMinutes, false) : (currentHours > 11 ? 'pm' : 'am');
             case 'A' :
-                return currentHours > 11 ? meridiem.PM : meridiem.AM;
+                return meridiem ? meridiem(currentHours, currentMinutes, true) : (currentHours > 11 ? 'PM' : 'AM');
             // 24 HOUR
             case 'H' :
                 return currentHours;
@@ -501,7 +501,7 @@
         if (languages[key]) {
             for (i = 0; i < paramsToParse.length; i++) {
                 param = paramsToParse[i];
-                moment[param] = languages[key][param] || moment[param];
+                moment[param] = languages[key][param] || languages.en[param];
             }
         } else {
             if (hasModule) {
@@ -524,12 +524,7 @@
             LLL : "MMMM D YYYY LT",
             LLLL : "dddd, MMMM D YYYY LT"
         },
-        meridiem : {
-            AM : 'AM',
-            am : 'am',
-            PM : 'PM',
-            pm : 'pm'
-        },
+        meridiem : false,
         calendar : {
             sameDay : '[Today at] LT',
             nextDay : '[Tomorrow at] LT',
