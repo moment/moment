@@ -11,12 +11,9 @@
                 LLL : "YYYY년 MMMM D일 LT",
                 LLLL : "YYYY년 MMMM D일 dddd LT"
             },
-			meridiem : {
-				AM : '오전',
-				am : '오전',
-				PM : '오후',
-				pm : '오후'
-			},
+            meridiem : function (hour, minute, upperCase) {
+              return hour > 11 ? '오후' : '오전' ;
+            },
             calendar : {
                 sameDay : '오늘 LT',
                 nextDay : '내일 LT',

@@ -11,12 +11,6 @@
                 LLL : "D \\de MMMM \\de YYYY LT",
                 LLLL : "dddd, D \\de MMMM \\de YYYY LT"
             },
-            meridiem : {
-                AM : 'AM',
-                am : 'am',
-                PM : 'PM',
-                pm : 'pm'
-            },
             calendar : {
                 sameDay: '[Hoje às] LT',
                 nextDay: '[Amanhã às] LT',
