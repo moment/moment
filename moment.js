@@ -379,14 +379,14 @@
     }
 
     // helper function for _date.from() and _date.fromNow()
-    function substituteTimeAgo(string, number, withoutSuffix) {
+    function substituteTimeAgo(string, number, withoutSuffix, isFuture) {
         var rt = moment.relativeTime[string];
         return (typeof rt === 'function') ?
-            rt(number || 1, !!withoutSuffix, string) :
+            rt(number || 1, !!withoutSuffix, string, isFuture) :
             rt.replace(/%d/i, number || 1);
     }
 
-    function relativeTime(milliseconds, withoutSuffix) {
+    function relativeTime(milliseconds, withoutSuffix, isFuture) {
         var seconds = round(Math.abs(milliseconds) / 1000),
             minutes = round(seconds / 60),
             hours = round(minutes / 60),
@@ -403,6 +403,7 @@
                 days < 345 && ['MM', round(days / 30)] ||
                 years === 1 && ['y'] || ['yy', years];
         args[2] = withoutSuffix;
+        args[3] = isFuture;
         return substituteTimeAgo.apply({}, args);
     }
 
@@ -474,8 +475,9 @@
             withSuffix = !!type;
             break;
         }
-        output = relativeTime(difference, !withSuffix);
-        return withSuffix ? (difference <= 0 ? rel.past : rel.future).replace(/%s/i, output) : output;
+        var isFuture = difference <= 0 ? false : true;
+        output = relativeTime(difference, !withSuffix, isFuture);
+        return withSuffix ? (!isFuture ? rel.past : rel.future).replace(/%s/i, output) : output;
     };
 
     // version number
@@ -663,7 +665,7 @@
         },
 
         isDST : function () {
-            return (this.zone() < moment([this.year()]).zone() || 
+            return (this.zone() < moment([this.year()]).zone() ||
                 this.zone() < moment([this.year(), 5]).zone());
         },
 
