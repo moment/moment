@@ -1,6 +1,6 @@
 (function () {
     var numbers_past = ['nolla', 'yksi', 'kaksi', 'kolme', 'neljä', 'viisi',
-                        'kuusi', 'seitsämän', 'kahdeksan', 'yhdeksän'];
+                        'kuusi', 'seitsemän', 'kahdeksan', 'yhdeksän'];
     var numbers_future = ['nolla', 'yhden', 'kahden', 'kolmen', 'neljän', 'viiden',
                           'kuuden', numbers_past[7], numbers_past[8], numbers_past[9]];
 
