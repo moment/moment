@@ -13,7 +13,7 @@
         paramsToParse = 'months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|'),
         i,
         jsonRegex = /^\/?Date\((\-?\d+)/i,
-        charactersToReplace = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|ZZ?|LT|LL?L?L?)/g,
+        charactersToReplace = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|LT|LL?L?L?)/g,
         nonuppercaseLetters = /[^A-Z]/g,
         timezoneRegex = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g,
         tokenCharacters = /(\\)?(MM?M?M?|dd?d?d|DD?D?D?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|ZZ?|T)/g,
@@ -99,6 +99,7 @@
             currentMinutes = m.minutes(),
             currentSeconds = m.seconds(),
             currentZone = -m.zone(),
+            currentMilliseconds = m.milliseconds(),
             ordinal = moment.ordinal,
             meridiem = moment.meridiem;
         // check if the character is a format
@@ -188,6 +189,12 @@
                 return currentSeconds;
             case 'ss' :
                 return leftZeroFill(currentSeconds, 2);
+            case 'S' :
+                return ~~ (currentMilliseconds / 100);
+            case 'SS' :
+                return leftZeroFill(~~(currentMilliseconds / 10), 2);
+            case 'SSS' :
+                return leftZeroFill(currentMilliseconds, 3);
             // TIMEZONE
             case 'zz' :
                 // depreciating 'zz' fall through to 'z'
