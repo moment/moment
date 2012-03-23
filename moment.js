@@ -165,9 +165,9 @@
                 return currentYear;
             // AM / PM
             case 'a' :
-                return currentHours > 11 ? meridiem.pm : meridiem.am;
+                return meridiem.lower ? meridiem.lower(currentHours, currentMinutes) : (currentHours > 11 ? meridiem.pm : meridiem.am);
             case 'A' :
-                return currentHours > 11 ? meridiem.PM : meridiem.AM;
+                return meridiem.upper ? meridiem.upper(currentHours, currentMinutes) : (currentHours > 11 ? meridiem.PM : meridiem.AM);
             // 24 HOUR
             case 'H' :
                 return currentHours;

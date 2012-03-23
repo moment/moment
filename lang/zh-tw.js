@@ -12,10 +12,19 @@
                 LLLL : "dddd, D MMMM YYYY LT"
             },
             meridiem : {
-                AM : '上午',
-                am : '上午',
-                PM : '下午',
-                pm : '下午'
+                lower : function (hour, minute) {
+                    if (hour < 9) {
+                        return "早上";
+                    } else if (hour < 11 && minute < 30) {
+                        return "上午";
+                    } else if (hour < 13 && minute < 30) {
+                        return "中午";
+                    } else if (hour < 18) {
+                        return "下午";
+                    } else {
+                        return "晚上";
+                    }
+                }
             },
             calendar : {
                 sameDay : '[今天] LT',
@@ -44,6 +53,8 @@
                 return '';
             }
         };
+
+    lang.meridiem.upper = lang.meridiem.lower;
 
     // Node
     if (typeof module !== 'undefined') {
