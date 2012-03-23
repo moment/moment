@@ -5,11 +5,11 @@
             weekdays : "星期日_星期一_星期二_星期三_星期四_星期五_星期六".split("_"),
             weekdaysShort : "周日_周一_周二_周三_周四_周五_周六".split("_"),
             longDateFormat : {
-                LT : "h:mm A",
-                L : "DD/MM/YYYY",
-                LL : "D MMMM YYYY",
-                LLL : "D MMMM YYYY LT",
-                LLLL : "dddd, D MMMM YYYY LT"
+                LT : "Ah点mm",
+                L : "YYYY年MMMMD日",
+                LL : "YYYY年MMMMD日",
+                LLL : "YYYY年MMMMD日LT",
+                LLLL : "YYYY年MMMMD日ddddLT"
             },
             meridiem : {
                 AM : '上午',
@@ -18,11 +18,11 @@
                 pm : '下午'
             },
             calendar : {
-                sameDay : '[今天] LT',
-                nextDay : '[明天] LT',
-                nextWeek : '[下]dddd LT', 
-                lastDay : '[昨天] LT',
-                lastWeek : '[上]dddd LT', 
+                sameDay : '[今天]LT',
+                nextDay : '[明天]LT',
+                nextWeek : '[下]ddddLT', 
+                lastDay : '[昨天]LT',
+                lastWeek : '[上]ddddLT', 
                 sameElse : 'L'
             },
             relativeTime : {
