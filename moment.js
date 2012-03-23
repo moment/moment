@@ -386,7 +386,7 @@
             rt.replace(/%d/i, number || 1);
     }
 
-    function relativeTime(milliseconds, withoutSuffix, isFuture) {
+    function relativeTime(milliseconds, withoutSuffix) {
         var seconds = round(Math.abs(milliseconds) / 1000),
             minutes = round(seconds / 60),
             hours = round(minutes / 60),
@@ -403,7 +403,7 @@
                 days < 345 && ['MM', round(days / 30)] ||
                 years === 1 && ['y'] || ['yy', years];
         args[2] = withoutSuffix;
-        args[3] = isFuture;
+        args[3] = milliseconds > 0;
         return substituteTimeAgo.apply({}, args);
     }
 
@@ -475,9 +475,8 @@
             withSuffix = !!type;
             break;
         }
-        var isFuture = difference <= 0 ? false : true;
-        output = relativeTime(difference, !withSuffix, isFuture);
-        return withSuffix ? (!isFuture ? rel.past : rel.future).replace(/%s/i, output) : output;
+        output = relativeTime(difference, !withSuffix);
+        return withSuffix ? (difference <= 0 ? rel.past : rel.future).replace(/%s/i, output) : output;
     };
 
     // version number
