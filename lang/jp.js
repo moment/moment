@@ -6,10 +6,10 @@
             weekdaysShort : "日_月_火_水_木_金_土".split("_"),
             longDateFormat : {
                 LT : "Ah:mm",
-                L : "YY/MM/DD",
-                LL : "YYYY/MM/DD",
-                LLL : "YYYY年MoDo LT",
-                LLLL : "YYYY年MoDodddd LT"
+                L : "YYYY/MM/DD",
+                LL : "YYYY年M月D日",
+                LLL : "YYYY年M月D日 LT",
+                LLLL : "YYYY年M月D日 dddd LT"
             },
             meridiem : {
                 AM : '午前',
@@ -26,7 +26,7 @@
                 sameElse : 'L'
             },
             relativeTime : {
-                future : "%後",
+                future : "%s後",
                 past : "%s前",
                 s : "数秒",
                 m : "1分",
@@ -36,7 +36,7 @@
                 d : "1日",
                 dd : "%d日",
                 M : "1ヶ月",
-                MM : "%ヶ月",
+                MM : "%dヶ月",
                 y : "1年",
                 yy : "%d年"
             },

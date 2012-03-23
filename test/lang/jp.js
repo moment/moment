@@ -9,7 +9,7 @@ exports["lang:jp"] = {
     "parse" : function(test) {
         test.expect(96);
         moment.lang('jp');
-        var tests = '一月 一月_二月 二月_三月 三月_四月 四月_五月 五月_六月 六月_七月 七月_八月 八月_九月 九月_十月 十月_十一月 十一月_十二月 十二月'.split("_");
+        var tests = '1月 1月_2月 2月_3月 3月_4月 4月_5月 5月_6月 6月_7月 7月_8月 8月_9月 9月_10月 10月_11月 11月_12月 12月'.split("_");
         var i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
@@ -32,9 +32,9 @@ exports["lang:jp"] = {
         test.expect(18);
         moment.lang('jp');
         var a = [
-                ['dddd, MMMM Do YYYY, a h:mm:ss',      '日曜日, 二月 14 2010, 午後 3:25:50'],
+                ['dddd, MMMM Do YYYY, a h:mm:ss',      '日曜日, 2月 14 2010, 午後 3:25:50'],
                 ['ddd, Ah',                            '日, 午後3'],
-                ['M Mo MM MMMM MMM',                   '2 2 02 二月 二月'],
+                ['M Mo MM MMMM MMM',                   '2 2 02 2月 2月'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14 14'],
                 ['d do dddd ddd',                      '0 0 日曜日 日'],
@@ -46,10 +46,10 @@ exports["lang:jp"] = {
                 ['s ss',                               '50 50'],
                 ['a A',                                '午後 午後'],
                 ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45 day of the year'],
-                ['L',                                  '14/02/2010'],
-                ['LL',                                 '14 二月 2010'],
-                ['LLL',                                '14 二月 2010 3:25 午後'],
-                ['LLLL',                               '日曜日, 14 二月 2010 3:25 午後']
+                ['L',                                  '2010/02/14'],
+                ['LL',                                 '2010年2月14日'],
+                ['LLL',                                '2010年2月14日 午後3:25'],
+                ['LLLL',                               '2010年2月14日 日曜日 午後3:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -62,7 +62,7 @@ exports["lang:jp"] = {
     "format month" : function(test) {
         test.expect(12);
         moment.lang('jp');
-        var expected = '一月 一月_二月 二月_三月 三月_四月 四月_五月 五月_六月 六月_七月 七月_八月 八月_九月 九月_十月 十月_十一月 十一月_十二月 十二月'.split("_");
+        var expected = '1月 1月_2月 2月_3月 3月_4月 4月_5月 5月_6月 6月_7月 7月_8月 8月_9月 9月_10月 10月_11月 11月_12月 12月'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 0]).format('MMMM MMM'), expected[i], expected[i]);
@@ -147,12 +147,12 @@ exports["lang:jp"] = {
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "今日 2:00 午前",     "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "今日 2:25 午前",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "今日 3:00 午前",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "明日 2:00 午前",     "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "今日 1:00 午前",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "昨日 2:00 午前",     "yesterday at the same time");
+        test.equal(moment(a).calendar(),                     "今日 午前2:00",     "today at the same time");
+        test.equal(moment(a).add({ m: 25 }).calendar(),      "今日 午前2:25",     "Now plus 25 min");
+        test.equal(moment(a).add({ h: 1 }).calendar(),       "今日 午前3:00",     "Now plus 1 hour");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "明日 午前2:00",     "tomorrow at the same time");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "今日 午前1:00",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "昨日 午前2:00",     "yesterday at the same time");
         test.done();
     },
 
