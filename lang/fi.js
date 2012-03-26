@@ -9,6 +9,9 @@
         switch (key) {
         case 's':
             return isFuture ? 'muutaman sekunnin' : 'muutama sekunti';
+        case 'ss':
+            result = isFuture ? 'sekunnin' : 'sekuntia';
+            break;
         case 'm':
             return isFuture ? 'minuutin' : 'minuutti';
         case 'mm':
