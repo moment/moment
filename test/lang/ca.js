@@ -133,8 +133,8 @@ exports["lang:ca"] = {
     "suffix" : function(test) {
         test.expect(2);
         moment.lang('ca');
-        test.equal(moment(30000).from(0), "en uns segons",  "prefix");
-        test.equal(moment(0).from(30000), "fa uns segons", "suffix");
+        test.equal(moment(3000).from(0), "en uns segons",  "prefix");
+        test.equal(moment(0).from(3000), "fa uns segons", "suffix");
         test.done();
     },
 

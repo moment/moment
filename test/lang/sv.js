@@ -161,8 +161,8 @@ exports["lang:sv"] = {
     "suffix" : function(test) {
         test.expect(2);
         moment.lang('sv');
-        test.equal(moment(30000).from(0), "om några sekunder",  "prefix");
-        test.equal(moment(0).from(30000), "för några sekunder sen", "suffix");
+        test.equal(moment(3000).from(0), "om några sekunder",  "prefix");
+        test.equal(moment(0).from(3000), "för några sekunder sen", "suffix");
         test.done();
     },
 
@@ -176,7 +176,7 @@ exports["lang:sv"] = {
     "fromNow" : function(test) {
         test.expect(2);
         moment.lang('sv');
-        test.equal(moment().add({s:30}).fromNow(), "om några sekunder", "in a few seconds");
+        test.equal(moment().add({s:3}).fromNow(), "om några sekunder", "in a few seconds");
         test.equal(moment().add({d:5}).fromNow(), "om 5 dagar", "in 5 days");
         test.done();
     },

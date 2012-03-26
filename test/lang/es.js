@@ -130,8 +130,8 @@ exports["lang:es"] = {
     "suffix" : function(test) {
         test.expect(2);
         moment.lang('es');
-        test.equal(moment(30000).from(0), "en unos segundos",  "prefix");
-        test.equal(moment(0).from(30000), "hace unos segundos", "suffix");
+        test.equal(moment(3000).from(0), "en unos segundos",  "prefix");
+        test.equal(moment(0).from(3000), "hace unos segundos", "suffix");
         test.done();
     },
 
@@ -145,7 +145,7 @@ exports["lang:es"] = {
     "fromNow" : function(test) {
         test.expect(2);
         moment.lang('es');
-        test.equal(moment().add({s:30}).fromNow(), "en unos segundos", "en unos segundos");
+        test.equal(moment().add({s:3}).fromNow(), "en unos segundos", "en unos segundos");
         test.equal(moment().add({d:5}).fromNow(), "en 5 días", "en 5 días");
         test.done();
     },

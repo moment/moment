@@ -161,8 +161,8 @@ exports["lang:nl"] = {
     "suffix" : function(test) {
         test.expect(2);
         moment.lang('nl');
-        test.equal(moment(30000).from(0), "over een paar seconden",  "prefix");
-        test.equal(moment(0).from(30000), "een paar seconden geleden", "suffix");
+        test.equal(moment(3000).from(0), "over een paar seconden",  "prefix");
+        test.equal(moment(0).from(3000), "een paar seconden geleden", "suffix");
         test.done();
     },
 
@@ -176,7 +176,7 @@ exports["lang:nl"] = {
     "fromNow" : function(test) {
         test.expect(2);
         moment.lang('nl');
-        test.equal(moment().add({s:30}).fromNow(), "over een paar seconden", "in a few seconds");
+        test.equal(moment().add({s:3}).fromNow(), "over een paar seconden", "in a few seconds");
         test.equal(moment().add({d:5}).fromNow(), "over 5 dagen", "in 5 days");
         test.done();
     },

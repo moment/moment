@@ -161,15 +161,15 @@ exports["lang:pt"] = {
     "suffix" : function(test) {
         test.expect(2);
         moment.lang('pt');
-        test.equal(moment(30000).from(0), "em segundos", "prefix");
-        test.equal(moment(0).from(30000), "segundos atrás", "suffix");
+        test.equal(moment(3000).from(0), "em segundos", "prefix");
+        test.equal(moment(0).from(3000), "segundos atrás", "suffix");
         test.done();
     },
 
     "fromNow" : function(test) {
         test.expect(2);
         moment.lang('pt');
-        test.equal(moment().add({s:30}).fromNow(), "em segundos", "in seconds");
+        test.equal(moment().add({s:3}).fromNow(), "em segundos", "in seconds");
         test.equal(moment().add({d:5}).fromNow(), "em 5 dias", "in 5 days");
         test.done();
     },
