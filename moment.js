@@ -399,7 +399,8 @@
             hours = round(minutes / 60),
             days = round(hours / 24),
             years = round(days / 365),
-            args = seconds < 45 && ['s', seconds] ||
+            args = seconds < 10 && ['s', seconds] ||
+                seconds < 55 && ['ss', seconds] ||
                 minutes === 1 && ['m'] ||
                 minutes < 45 && ['mm', minutes] ||
                 hours === 1 && ['h'] ||
@@ -544,6 +545,7 @@
             future : "in %s",
             past : "%s ago",
             s : "a few seconds",
+            ss : "%d seconds",
             m : "a minute",
             mm : "%d minutes",
             h : "an hour",
