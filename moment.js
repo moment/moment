@@ -451,6 +451,11 @@
         return (format && input) ? moment(input + ' 0', format + ' Z').utc() : moment(input).utc();
     };
 
+    // creating with unix timestamp (in seconds)
+    moment.unix = function (input) {
+        return moment(input * 1000);
+    };
+
     // humanizeDuration
     moment.humanizeDuration = function (num, type, withSuffix) {
         var difference = +num,
@@ -595,6 +600,10 @@
         utc : function () {
             this._isUTC = true;
             return this;
+        },
+
+        unixValueOf : function () {
+            return round(this.valueOf() / 1000);
         },
 
         local : function () {
