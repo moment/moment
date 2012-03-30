@@ -585,6 +585,10 @@
             return +this._d;
         },
 
+        unix : function () {
+            return Math.floor(+this._d / 1000);
+        },
+
         'native' : function () {
             return this._d;
         },
@@ -600,10 +604,6 @@
         utc : function () {
             this._isUTC = true;
             return this;
-        },
-
-        unixValueOf : function () {
-            return round(this.valueOf() / 1000);
         },
 
         local : function () {

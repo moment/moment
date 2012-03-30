@@ -21,6 +21,19 @@ exports.create = {
         test.done();
     },
 
+    "unix" : function(test) {
+        test.expect(8);
+        test.equal(moment.unix(1).valueOf(), 1000, "1 unix timestamp == 1000 Date.valueOf");
+        test.equal(moment(1000).unix(), 1, "1000 Date.valueOf == 1 unix timestamp");
+        test.equal(moment.unix(1000).valueOf(), 1000000, "1000 unix timestamp == 1000000 Date.valueOf");
+        test.equal(moment(1500).unix(), 1, "1500 Date.valueOf == 1 unix timestamp");
+        test.equal(moment(1900).unix(), 1, "1900 Date.valueOf == 1 unix timestamp");
+        test.equal(moment(2100).unix(), 2, "2100 Date.valueOf == 2 unix timestamp");
+        test.equal(moment(1333129333524).unix(), 1333129333, "1333129333524 Date.valueOf == 1333129333 unix timestamp");
+        test.equal(moment(1333129333524000).unix(), 1333129333524, "1333129333524000 Date.valueOf == 1333129333524 unix timestamp");
+        test.done();
+    },
+
     "date" : function(test) {
         test.expect(1);
         test.ok(moment(new Date()).toDate() instanceof Date, "new Date()");
