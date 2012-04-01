@@ -13,14 +13,20 @@
         paramsToParse = 'months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|'),
         i,
         jsonRegex = /^\/?Date\((\-?\d+)/i,
-        charactersToReplace = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|LT|LL?L?L?)/g,
+        charactersToReplace = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|zz?|S{1,6}|ZZ?|LT|LL?L?L?)/g,
         nonuppercaseLetters = /[^A-Z]/g,
         timezoneRegex = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g,
-        tokenCharacters = /(\\)?(MM?M?M?|dd?d?d|DD?D?D?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|ZZ?|T)/g,
+        tokenCharacters = /(\\)?(MM?M?M?|dd?d?d|DD?D?D?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|S{1,6}|ZZ?|T)/g,
         inputCharacters = /(\\)?([0-9]+|([a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+|([\+\-]\d\d:?\d\d))/gi,
         isoRegex = /^\s*\d{4}-\d\d-\d\d(T(\d\d(:\d\d(:\d\d)?)?)?([\+\-]\d\d:?\d\d)?)?/,
         isoFormat = 'YYYY-MM-DDTHH:mm:ssZ',
         isoTimes = [
+            ['HH:mm:ss.SSSSSS', /T\d\d:\d\d:\d\d\.\d{6}/],
+            ['HH:mm:ss.SSSSS', /T\d\d:\d\d:\d\d\.\d{5}/],
+            ['HH:mm:ss.SSSS', /T\d\d:\d\d:\d\d\.\d{4}/],
+            ['HH:mm:ss.SSS', /T\d\d:\d\d:\d\d\.\d{3}/],
+            ['HH:mm:ss.SS', /T\d\d:\d\d:\d\d\.\d{2}/],
+            ['HH:mm:ss.S', /T\d\d:\d\d:\d\d\.\d/],
             ['HH:mm:ss', /T\d\d:\d\d:\d\d/],
             ['HH:mm', /T\d\d:\d\d/],
             ['HH', /T\d\d/]
@@ -189,12 +195,16 @@
                 return currentSeconds;
             case 'ss' :
                 return leftZeroFill(currentSeconds, 2);
+            // PARTIAL SECOND
             case 'S' :
-                return ~~ (currentMilliseconds / 100);
+                return currentMilliseconds.toString().substring(0, 1);
             case 'SS' :
-                return leftZeroFill(~~(currentMilliseconds / 10), 2);
+                return currentMilliseconds.toString().substring(0, 2);
             case 'SSS' :
-                return leftZeroFill(currentMilliseconds, 3);
+            case 'SSSS' :
+            case 'SSSSS' :
+            case 'SSSSSS' :
+                return currentMilliseconds;
             // TIMEZONE
             case 'zz' :
                 // depreciating 'zz' fall through to 'z'
@@ -297,6 +307,31 @@
             case 'ss' :
                 inArray[5] = ~~input;
                 break;
+            // MILLISECOND
+            case 'S' :
+                inArray[6] += input * 100;
+                break;
+            case 'SS' :
+                inArray[6] += input * 10;
+                break;
+            case 'SSS' :
+            case 'SSSS' :
+            case 'SSSSS' :
+            case 'SSSSSS' :
+                if (input < 1000) {
+                    inArray[6] += input * 1;
+                }
+                else if (input < 10000) {
+                    inArray[6] += input * 0.1;
+                }
+                else if (input < 100000) {
+                    inArray[6] += input * 0.01;
+                }
+                else if (input < 1000000) {
+                    inArray[6] += input * 0.001;
+                }
+
+                break;
             // TIMEZONE
             case 'Z' :
                 // fall through to ZZ
@@ -317,6 +352,7 @@
                 break;
             }
         }
+
         for (i = 0; i < len; i++) {
             addTime(formatParts[i], inputParts[i]);
         }
@@ -331,6 +367,7 @@
         // handle timezone
         inArray[3] += timezoneHours;
         inArray[4] += timezoneMinutes;
+
         // return
         return isUsingUTC ? new Date(Date.UTC.apply({}, inArray)) : dateFromArray(inArray);
     }
@@ -374,12 +411,13 @@
         var format = 'YYYY-MM-DDT',
             i;
         if (isoRegex.exec(string)) {
-            for (i = 0; i < 3; i++) {
+            for (i = 0; i < 9; i++) {
                 if (isoTimes[i][1].exec(string)) {
                     format += isoTimes[i][0];
                     break;
                 }
             }
+
             return makeDateFromStringAndFormat(string, format + 'Z');
         }
         return new Date(string);

@@ -78,7 +78,7 @@ exports.create = {
     },
 
     "string with format" : function(test) {
-        test.expect(23);
+        test.expect(26);
         moment.lang('en');
         var a = [
                 ['MM-DD-YYYY',          '12-02-1999'],
@@ -103,12 +103,49 @@ exports.create = {
                 ['HH:mm:ss',            '12:00:00'],
                 ['HH:mm:ss',            '12:30:00'],
                 ['HH:mm:ss',            '00:00:00'],
-                ['HH:mm:ss',            '00:30:00']
+                ['HH:mm:ss',            '00:30:00'],
+                ['HH:mm:ss S',          '00:30:00 1'],
+                ['HH:mm:ss SS',         '00:30:00 10'],
+                ['HH:mm:ss SSS',        '00:30:00 100']
             ],
             i;
         for (i = 0; i < a.length; i++) {
             test.equal(moment(a[i][1], a[i][0]).format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
         }
+        test.done();
+    },
+
+    "string with format, partial seconds" : function(test) {
+        test.expect(7);
+        moment.lang('en');
+
+        var tests = [
+            // format,                      input date,                     output date
+            ['YYYY-MM-DDTHH:mm:ss.S',       '2012-03-30T10:10:01',          '2012-03-30T10:10:01.0' ],
+            ['YYYY-MM-DDTHH:mm:ss.S',       '2012-03-30T10:10:01.1',        '2012-03-30T10:10:01.1' ],
+            ['YYYY-MM-DDTHH:mm:ss.SS',      '2012-03-30T10:10:01.12',       '2012-03-30T10:10:01.12' ],
+            ['YYYY-MM-DDTHH:mm:ss.SSS',     '2012-03-30T10:10:01.123',      '2012-03-30T10:10:01.123' ],
+            // expect that additional precision gets trimmed due to limitations of native Date object
+            ['YYYY-MM-DDTHH:mm:ss.SSSS',    '2012-03-30T10:10:01.1234',     '2012-03-30T10:10:01.123' ],
+            ['YYYY-MM-DDTHH:mm:ss.SSSSS',   '2012-03-30T10:10:01.12345',    '2012-03-30T10:10:01.123' ],
+            ['YYYY-MM-DDTHH:mm:ss.SSSSSS',  '2012-03-30T10:10:01.123456',   '2012-03-30T10:10:01.123' ]
+        ]
+
+        for (i = 0; i < tests.length; i++) {
+            test.equal(moment(tests[i][1], tests[i][0]).format(tests[i][0]), tests[i][2], tests[i][1] + ' ---> ' + tests[i][2]);
+        }
+
+        test.done();
+    },
+
+    "string without format (milliseconds)" : function(test) {
+        test.equal(moment('2012-03-30T10:10:01').format('YYYY-MM-DDTHH:mm:ss.S'), '2012-03-30T10:10:01.0');
+        test.equal(moment('2012-03-30T10:10:01.1').format('YYYY-MM-DDTHH:mm:ss.S'), '2012-03-30T10:10:01.1');
+        test.equal(moment('2012-03-30T10:10:01.12').format('YYYY-MM-DDTHH:mm:ss.SS'), '2012-03-30T10:10:01.12');
+        test.equal(moment('2012-03-30T10:10:01.123').format('YYYY-MM-DDTHH:mm:ss.SSS'), '2012-03-30T10:10:01.123');
+        test.equal(moment('2012-03-30T10:10:01.1234').format('YYYY-MM-DDTHH:mm:ss.SSSS'), '2012-03-30T10:10:01.123');
+        test.equal(moment('2012-03-30T10:10:01.12345').format('YYYY-MM-DDTHH:mm:ss.SSSSS'), '2012-03-30T10:10:01.123');
+        test.equal(moment('2012-03-30T10:10:01.123456').format('YYYY-MM-DDTHH:mm:ss.SSSSSS'), '2012-03-30T10:10:01.123');
         test.done();
     },
 
