@@ -125,8 +125,8 @@ exports["lang:de"] = {
         test.expect(30);
         moment.lang('de');
         var start = moment([2007, 1, 28]);
-        test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "ein paar Sekunden",  "44 seconds = a few seconds");
-        test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "einer Minute",       "45 seconds = a minute");
+        test.equal(start.from(moment([2007, 1, 28]).add({s:9}), true),  "ein paar Sekunden",  "9 seconds = a few seconds");
+        test.equal(start.from(moment([2007, 1, 28]).add({s:56}), true),  "einer Minute",       "56 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s:89}), true),  "einer Minute",       "89 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s:90}), true),  "2 Minuten",          "90 seconds = 2 minutes");
         test.equal(start.from(moment([2007, 1, 28]).add({m:44}), true),  "44 Minuten",         "44 minutes = 44 minutes");
@@ -161,15 +161,15 @@ exports["lang:de"] = {
     "suffix" : function(test) {
         test.expect(2);
         moment.lang('de');
-        test.equal(moment(30000).from(0), "in ein paar Sekunden", "prefix");
-        test.equal(moment(0).from(30000), "vor ein paar Sekunden", "suffix");
+        test.equal(moment(3000).from(0), "in ein paar Sekunden", "prefix");
+        test.equal(moment(0).from(3000), "vor ein paar Sekunden", "suffix");
         test.done();
     },
 
     "fromNow" : function(test) {
         test.expect(2);
         moment.lang('de');
-        test.equal(moment().add({s:30}).fromNow(), "in ein paar Sekunden", "in a few seconds");
+        test.equal(moment().add({s:3}).fromNow(), "in ein paar Sekunden", "in a few seconds");
         test.equal(moment().add({d:5}).fromNow(), "in 5 Tagen", "in 5 days");
         test.done();
     },

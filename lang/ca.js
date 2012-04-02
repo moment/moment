@@ -33,6 +33,7 @@
                 future : "en %s",
                 past : "fa %s",
                 s : "uns segons",
+                ss : "%d segons",
                 m : "un minut",
                 mm : "%d minuts",
                 h : "una hora",

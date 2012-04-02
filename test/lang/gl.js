@@ -133,8 +133,8 @@ exports["lang:gl"] = {
     "suffix" : function(test) {
         test.expect(2);
         moment.lang('gl');
-        test.equal(moment(30000).from(0), "en uns segundo",  "prefix");
-        test.equal(moment(0).from(30000), "fai uns segundo", "suffix");
+        test.equal(moment(3000).from(0), "en uns segundo",  "prefix");
+        test.equal(moment(0).from(3000), "fai uns segundo", "suffix");
         test.done();
     },
 
@@ -148,7 +148,7 @@ exports["lang:gl"] = {
     "fromNow" : function(test) {
         test.expect(2);
         moment.lang('gl');
-        test.equal(moment().add({s:30}).fromNow(), "en uns segundo", "en unos segundos");
+        test.equal(moment().add({s:3}).fromNow(), "en uns segundo", "en unos segundos");
         test.equal(moment().add({d:5}).fromNow(), "en 5 días", "en 5 días");
         test.done();
     },

@@ -161,8 +161,8 @@ exports["lang:eu"] = {
     "suffix" : function(test) {
         test.expect(2);
         moment.lang('eu');
-        test.equal(moment(30000).from(0), "segundo batzuk barru",  "prefix");
-        test.equal(moment(0).from(30000), "duela segundo batzuk", "suffix");
+        test.equal(moment(3000).from(0), "segundo batzuk barru",  "prefix");
+        test.equal(moment(0).from(3000), "duela segundo batzuk", "suffix");
         test.done();
     },
 
@@ -176,7 +176,7 @@ exports["lang:eu"] = {
     "fromNow" : function(test) {
         test.expect(2);
         moment.lang('eu');
-        test.equal(moment().add({s:30}).fromNow(), "segundo batzuk barru", "in seconds");
+        test.equal(moment().add({s:3}).fromNow(), "segundo batzuk barru", "in seconds");
         test.equal(moment().add({d:5}).fromNow(), "5 egun barru", "in 5 days");
         test.done();
     },

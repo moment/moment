@@ -161,8 +161,8 @@ exports["lang:pl"] = {
     "suffix" : function(test) {
         test.expect(2);
         moment.lang('pl');
-        test.equal(moment(30000).from(0), "za kilka sekund",  "prefix");
-        test.equal(moment(0).from(30000), "kilka sekund temu", "suffix");
+        test.equal(moment(3000).from(0), "za kilka sekund",  "prefix");
+        test.equal(moment(0).from(3000), "kilka sekund temu", "suffix");
         test.done();
     },
 
@@ -176,7 +176,7 @@ exports["lang:pl"] = {
     "fromNow" : function(test) {
         test.expect(3);
         moment.lang('pl');
-        test.equal(moment().add({s:30}).fromNow(), "za kilka sekund", "in a few seconds");
+        test.equal(moment().add({s:3}).fromNow(), "za kilka sekund", "in a few seconds");
         test.equal(moment().add({h:1}).fromNow(), "za godzinę", "in an hour");
         test.equal(moment().add({d:5}).fromNow(), "za 5 dni", "in 5 days");
         test.done();

@@ -161,8 +161,8 @@ exports["lang:da"] = {
     "suffix" : function(test) {
         test.expect(2);
         moment.lang('da');
-        test.equal(moment(30000).from(0), "om få sekunder",  "prefix");
-        test.equal(moment(0).from(30000), "få sekunder siden", "suffix");
+        test.equal(moment(3000).from(0), "om få sekunder",  "prefix");
+        test.equal(moment(0).from(3000), "få sekunder siden", "suffix");
         test.done();
     },
 

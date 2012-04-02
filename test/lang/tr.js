@@ -161,8 +161,8 @@ exports["lang:tr"] = {
     "suffix" : function(test) {
         test.expect(2);
         moment.lang('tr');
-        test.equal(moment(30000).from(0), "birkaç saniye sonra",  "prefix");
-        test.equal(moment(0).from(30000), "birkaç saniye önce", "suffix");
+        test.equal(moment(3000).from(0), "birkaç saniye sonra",  "prefix");
+        test.equal(moment(0).from(3000), "birkaç saniye önce", "suffix");
         test.done();
     },
 
@@ -176,7 +176,7 @@ exports["lang:tr"] = {
     "fromNow" : function(test) {
         test.expect(2);
         moment.lang('tr');
-        test.equal(moment().add({s:30}).fromNow(), "birkaç saniye sonra", "in a few seconds");
+        test.equal(moment().add({s:3}).fromNow(), "birkaç saniye sonra", "in a few seconds");
         test.equal(moment().add({d:5}).fromNow(), "5 gün sonra", "in 5 days");
         test.done();
     },

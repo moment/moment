@@ -2,10 +2,11 @@ var moment = require("../../moment");
 
 exports.humanize_duration = {
     "humanize duration" : function(test) {
-        test.expect(32);
+        test.expect(33);
         moment.lang('en');
-        test.equal(moment.humanizeDuration(44, "seconds"),  "a few seconds", "44 seconds = a few seconds");
-        test.equal(moment.humanizeDuration(45, "seconds"),  "a minute",      "45 seconds = a minute");
+        test.equal(moment.humanizeDuration(9, "seconds"),   "a few seconds", "9 seconds = a few seconds");
+        test.equal(moment.humanizeDuration(44, "seconds"),  "44 seconds",    "44 seconds = 44 seconds");
+        test.equal(moment.humanizeDuration(55, "seconds"),  "a minute",      "55 seconds = a minute");
         test.equal(moment.humanizeDuration(89, "seconds"),  "a minute",      "89 seconds = a minute");
         test.equal(moment.humanizeDuration(90, "seconds"),  "2 minutes",     "90 seconds = 2 minutes");
         test.equal(moment.humanizeDuration(44, "minutes"),  "44 minutes",    "44 minutes = 44 minutes");
@@ -42,8 +43,8 @@ exports.humanize_duration = {
     "humanize duration with suffix" : function(test) {
         test.expect(2);
         moment.lang('en');
-        test.equal(moment.humanizeDuration(44, "seconds", true),  "in a few seconds", "44 seconds = a few seconds");
-        test.equal(moment.humanizeDuration(-44, "seconds", true),  "a few seconds ago", "44 seconds = a few seconds");
+        test.equal(moment.humanizeDuration(9, "seconds", true),  "in a few seconds", "9 seconds = a few seconds");
+        test.equal(moment.humanizeDuration(-9, "seconds", true),  "a few seconds ago", "9 seconds = a few seconds");
         test.done();
     }
 };

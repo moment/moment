@@ -23,6 +23,7 @@
                 future : "in %s",
                 past : "vor %s",
                 s : "ein paar Sekunden",
+                ss : "%d Sekunden",
                 m : "einer Minute",
                 mm : "%d Minuten",
                 h : "einer Stunde",

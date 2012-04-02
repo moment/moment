@@ -125,8 +125,8 @@ exports["lang:fi"] = {
         test.expect(30);
         moment.lang('fi');
         var start = moment([2007, 1, 28]);
-        test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "muutama sekunti", "44 seconds = few seconds");
-        test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "minuutti",      "45 seconds = a minute");
+        test.equal(start.from(moment([2007, 1, 28]).add({s:9}), true),  "muutama sekunti", "9 seconds = few seconds");
+        test.equal(start.from(moment([2007, 1, 28]).add({s:56}), true),  "minuutti",      "56 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s:89}), true),  "minuutti",      "89 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s:90}), true),  "kaksi minuuttia",     "90 seconds = 2 minutes");
         test.equal(start.from(moment([2007, 1, 28]).add({m:44}), true),  "44 minuuttia",    "44 minutes = 44 minutes");
@@ -161,8 +161,8 @@ exports["lang:fi"] = {
     "suffix" : function(test) {
         test.expect(2);
         moment.lang('fi');
-        test.equal(moment(30000).from(0), "muutaman sekunnin päästä",  "prefix");
-        test.equal(moment(0).from(30000), "muutama sekunti sitten", "suffix");
+        test.equal(moment(3000).from(0), "muutaman sekunnin päästä",  "prefix");
+        test.equal(moment(0).from(3000), "muutama sekunti sitten", "suffix");
         test.done();
     },
 
@@ -176,7 +176,7 @@ exports["lang:fi"] = {
     "fromNow" : function(test) {
         test.expect(2);
         moment.lang('fi');
-        test.equal(moment().add({s:30}).fromNow(), "muutaman sekunnin päästä", "in a few seconds");
+        test.equal(moment().add({s:9}).fromNow(), "muutaman sekunnin päästä", "in a few seconds");
         test.equal(moment().add({d:5}).fromNow(), "viiden päivän päästä", "in 5 days");
         test.done();
     },

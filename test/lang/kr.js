@@ -139,8 +139,8 @@ exports["lang:kr"] = {
     "suffix" : function(test) {
         test.expect(2);
         moment.lang('kr');
-        test.equal(moment(30000).from(0), "몇초 후",  "prefix");
-        test.equal(moment(0).from(30000), "몇초 전", "suffix");
+        test.equal(moment(3000).from(0), "몇초 후",  "prefix");
+        test.equal(moment(0).from(3000), "몇초 전", "suffix");
         test.done();
     },
 
@@ -154,7 +154,7 @@ exports["lang:kr"] = {
     "fromNow" : function(test) {
         test.expect(2);
         moment.lang('kr');
-        test.equal(moment().add({s:30}).fromNow(), "몇초 후", "in a few seconds");
+        test.equal(moment().add({s:3}).fromNow(), "몇초 후", "in a few seconds");
         test.equal(moment().add({d:5}).fromNow(), "5일 후", "in 5 days");
         test.done();
     },

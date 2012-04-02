@@ -161,8 +161,8 @@ exports["lang:nb"] = {
     "suffix" : function(test) {
         test.expect(2);
         moment.lang('nb');
-        test.equal(moment(30000).from(0), "om noen sekunder",  "prefix");
-        test.equal(moment(0).from(30000), "for noen sekunder siden", "suffix");
+        test.equal(moment(3000).from(0), "om noen sekunder",  "prefix");
+        test.equal(moment(0).from(3000), "for noen sekunder siden", "suffix");
         test.done();
     },
 
@@ -176,7 +176,7 @@ exports["lang:nb"] = {
     "fromNow" : function(test) {
         test.expect(2);
         moment.lang('nb');
-        test.equal(moment().add({s:30}).fromNow(), "om noen sekunder", "in a few seconds");
+        test.equal(moment().add({s:3}).fromNow(), "om noen sekunder", "in a few seconds");
         test.equal(moment().add({d:5}).fromNow(), "om 5 dager", "in 5 days");
         test.done();
     },

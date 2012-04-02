@@ -163,15 +163,15 @@ exports["lang:ru"] = {
     "suffix" : function(test) {
         test.expect(2);
         moment.lang('ru');
-        test.equal(moment(30000).from(0), "через несколько секунд", "prefix");
-        test.equal(moment(0).from(30000), "несколько секунд назад", "suffix");
+        test.equal(moment(3000).from(0), "через несколько секунд", "prefix");
+        test.equal(moment(0).from(3000), "несколько секунд назад", "suffix");
         test.done();
     },
 
     "fromNow" : function(test) {
         test.expect(2);
         moment.lang('ru');
-        test.equal(moment().add({s:30}).fromNow(), "через несколько секунд", "in seconds");
+        test.equal(moment().add({s:3}).fromNow(), "через несколько секунд", "in seconds");
         test.equal(moment().add({d:5}).fromNow(), "через 5 дней", "in 5 days");
         test.done();
     },
