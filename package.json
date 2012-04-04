@@ -6,7 +6,8 @@
     "author": "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
     "keywords": [
         "moment",
-        "date"
+        "date",
+        "ender"
     ],
     "main": "./moment.js",
     "engines": {
@@ -28,5 +29,6 @@
         "jshint"    : "latest",
         "uglify-js" : "latest",
         "nodeunit"     : "latest"
-    }
+    },
+    "ender": "./ender.js"
 }

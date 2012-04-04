@@ -735,7 +735,8 @@
     if (hasModule) {
         module.exports = moment;
     }
-    if (typeof window !== 'undefined') {
+    /*global ender:false */
+    if (typeof window !== 'undefined' && typeof ender === 'undefined') {
         window.moment = moment;
     }
     /*global define:false */
