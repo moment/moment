@@ -11,12 +11,6 @@
                 LLL : "D MMMM YYYY LT",
                 LLLL : "dddd D MMMM YYYY LT"
             },
-            meridiem : {
-                AM : 'AM',
-                am : 'am',
-                PM : 'PM',
-                pm : 'pm'
-            },
             calendar : {
                 sameDay : function () {
                     return '[hoxe ' + ((this.hours() !== 1) ? 'ás' : 'a') + '] LT';
@@ -31,7 +25,7 @@
                     return '[onte ' + ((this.hours() !== 1) ? 'á' : 'a') + '] LT';
                 },
                 lastWeek : function () {
-                    return '[o] dddd [pasado ' + ((this.hours() !== 1) ? 'ás' : '') + '] LT';
+                    return '[o] dddd [pasado ' + ((this.hours() !== 1) ? 'ás' : 'a') + '] LT';
                 },
                 sameElse : 'L'
             },

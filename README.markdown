@@ -14,6 +14,24 @@ Get it with npm
 
 ### Run the unit tests at [momentjs.com/test/](http://momentjs.com/test/).
 
+
+Contributing
+============
+
+To contribute, fork the library and install these npm packages.
+
+    npm install jshint uglify-js nodeunit
+
+You can add tests to the files in `/test/moment` or add a new test file if you are adding a new feature.
+
+To run the tests, do `make test` to run all tests, `make test-moment` to test the core library, and `make test-lang` to test all the languages.
+
+To check the filesize, you can use `make size`.
+
+To minify all the files, use `make moment` to minify moment, `make langs` to minify all the lang files, or just `make` to minfy everything.
+
+If your code passes the unit tests (including the ones you wrote), submit a pull request.
+
 Thanks to...
 ============
 

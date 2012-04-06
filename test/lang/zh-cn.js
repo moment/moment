@@ -46,10 +46,10 @@ exports["lang:zh-cn"] = {
                 ['s ss',                               '50 50'],
                 ['a A',                                '下午 下午'],
                 ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45 day of the year'],
-                ['L',                                  '14/02/2010'],
-                ['LL',                                 '14 二月 2010'],
-                ['LLL',                                '14 二月 2010 3:25 下午'],
-                ['LLLL',                               '星期日, 14 二月 2010 3:25 下午']
+                ['L',                                  '2010年二月14日'],
+                ['LL',                                 '2010年二月14日'],
+                ['LLL',                                '2010年二月14日下午3点25'],
+                ['LLLL',                               '2010年二月14日星期日下午3点25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -147,12 +147,12 @@ exports["lang:zh-cn"] = {
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "今天 2:00 上午",     "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "今天 2:25 上午",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "今天 3:00 上午",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "明天 2:00 上午",     "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "今天 1:00 上午",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "昨天 2:00 上午",     "yesterday at the same time");
+        test.equal(moment(a).calendar(),                     "今天早上2点00",     "today at the same time");
+        test.equal(moment(a).add({ m: 25 }).calendar(),      "今天早上2点25",     "Now plus 25 min");
+        test.equal(moment(a).add({ h: 1 }).calendar(),       "今天早上3点00",     "Now plus 1 hour");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "明天早上2点00",     "tomorrow at the same time");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "今天早上1点00",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "昨天早上2点00",     "yesterday at the same time");
         test.done();
     },
 
@@ -165,11 +165,11 @@ exports["lang:zh-cn"] = {
 
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
-            test.equal(m.calendar(),       m.format('[下]dddd LT'),  "Today + " + i + " days current time");
+            test.equal(m.calendar(),       m.format('[下]ddddLT'),  "Today + " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('[下]dddd LT'),  "Today + " + i + " days beginning of day");
+            test.equal(m.calendar(),       m.format('[下]ddddLT'),  "Today + " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('[下]dddd LT'),  "Today + " + i + " days end of day");
+            test.equal(m.calendar(),       m.format('[下]ddddLT'),  "Today + " + i + " days end of day");
         }
         test.done();
     },
@@ -180,11 +180,11 @@ exports["lang:zh-cn"] = {
 
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
-            test.equal(m.calendar(),       m.format('[上]dddd LT'),  "Today - " + i + " days current time");
+            test.equal(m.calendar(),       m.format('[上]ddddLT'),  "Today - " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('[上]dddd LT'),  "Today - " + i + " days beginning of day");
+            test.equal(m.calendar(),       m.format('[上]ddddLT'),  "Today - " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('[上]dddd LT'),  "Today - " + i + " days end of day");
+            test.equal(m.calendar(),       m.format('[上]ddddLT'),  "Today - " + i + " days end of day");
         }
         test.done();
     },
@@ -203,6 +203,25 @@ exports["lang:zh-cn"] = {
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),      "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
-    test.done();
+        test.done();
+    },
+
+    "meridiem" : function(test) {
+        test.expect(10);
+        moment.lang('zh-cn');
+
+        test.equal(moment([2011, 2, 23,  0, 0]).format('a'), "早上", "morning");
+        test.equal(moment([2011, 2, 23,  9, 0]).format('a'), "上午", "before noon");
+        test.equal(moment([2011, 2, 23, 12, 0]).format('a'), "中午", "noon");
+        test.equal(moment([2011, 2, 23, 13, 0]).format('a'), "下午", "after noon");
+        test.equal(moment([2011, 2, 23, 18, 0]).format('a'), "晚上", "night");
+
+        test.equal(moment([2011, 2, 23,  0, 0]).format('A'), "早上", "morning");
+        test.equal(moment([2011, 2, 23,  9, 0]).format('A'), "上午", "before noon");
+        test.equal(moment([2011, 2, 23, 12, 0]).format('A'), "中午", "noon");
+        test.equal(moment([2011, 2, 23, 13, 0]).format('A'), "下午", "afternoon");
+        test.equal(moment([2011, 2, 23, 18, 0]).format('A'), "晚上", "night");
+
+        test.done();
     }
 };

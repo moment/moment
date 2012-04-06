@@ -2,23 +2,27 @@ var moment = require("../../moment");
 
 exports.utc = {
     "utc and local" : function(test) {
-        test.expect(5);
+        test.expect(7);
 
         var m = moment(Date.UTC(2011, 1, 2, 3, 4, 5, 6));
         m.utc();
         // utc
         test.equal(m.date(), 2, "the day should be correct for utc");
+        test.equal(m.day(), 3, "the date should be correct for utc");
         test.equal(m.hours(), 3, "the hours should be correct for utc");
 
         // local
         m.local();
         if (m.zone() > 180) {
-            test.equal(m.date(), 1, "the day should be correct for utc");
+            test.equal(m.date(), 1, "the date should be correct for local");
+            test.equal(m.day(), 2, "the day should be correct for local");
         } else {
-            test.equal(m.date(), 2, "the day should be correct for utc");
+            test.equal(m.date(), 2, "the date should be correct for local");
+            test.equal(m.day(), 3, "the day should be correct for local");
         }
-        var expected = (24 + 3 - Math.floor(m.zone() / 60)) % 24;
-        test.equal(m.hours(), expected, "the hours (" + m.hours() + ") should be correct for utc");
+        var zone = (m.zone() > 0) ? Math.floor(m.zone() / 60) : Math.ceil(m.zone() / 60);
+        var expected = (24 + 3 - zone) % 24;
+        test.equal(m.hours(), expected, "the hours (" + m.hours() + ") should be correct for local");
         test.equal(moment().utc().zone(), 0, "timezone in utc should always be zero");
         test.done();
     },

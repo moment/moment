@@ -11,12 +11,6 @@
                 LLL : "D MMMM YYYY LT",
                 LLLL : "dddd D MMMM YYYY LT"
             },
-            meridiem : {
-                AM : 'AM',
-                am : 'am',
-                PM : 'PM',
-                pm : 'pm'
-            },
             calendar : {
                 sameDay : function () {
                     return '[avui a ' + ((this.hours() !== 1) ? 'les' : 'la') + '] LT';

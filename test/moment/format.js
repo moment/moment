@@ -21,6 +21,19 @@ exports.format = {
         test.done();
     },
 
+    "format milliseconds" : function(test) {
+        test.expect(6);
+        var b = moment(new Date(2009, 1, 14, 15, 25, 50, 123));
+        test.equal(b.format('S'), '1', 'Deciseconds');
+        test.equal(b.format('SS'), '12', 'Centiseconds');
+        test.equal(b.format('SSS'), '123', 'Milliseconds');
+        b.milliseconds(789);
+        test.equal(b.format('S'), '7', 'Deciseconds');
+        test.equal(b.format('SS'), '78', 'Centiseconds');
+        test.equal(b.format('SSS'), '789', 'Milliseconds');
+        test.done();
+    },
+
     "format timezone" : function(test) {
         test.expect(4);
 

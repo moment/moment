@@ -5,7 +5,7 @@ exports.is_moment = {
         test.expect(11);
 
         var MyObj = function() {};
-        MyObj.prototype.native = function() {
+        MyObj.prototype.toDate = function() {
             return new Date();
         }
 

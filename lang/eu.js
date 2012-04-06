@@ -11,12 +11,6 @@
                 LLL : "YYYYko MMMMren D[a] LT",
                 LLLL : "dddd, YYYYko MMMMren D[a] LT"
             },
-            meridiem : {
-                AM : 'AM',
-                am : 'am',
-                PM : 'PM',
-                pm : 'pm'
-            },
             calendar : {
                 sameDay : '[gaur] LT[etan]',
                 nextDay : '[bihar] LT[etan]',
