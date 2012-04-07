@@ -4,6 +4,8 @@ exports.humanize_duration = {
     "humanize duration" : function(test) {
         test.expect(32);
         moment.lang('en');
+        // this syntax is deprecated.
+        // see moment.duration instead.
         test.equal(moment.humanizeDuration(44, "seconds"),  "a few seconds", "44 seconds = a few seconds");
         test.equal(moment.humanizeDuration(45, "seconds"),  "a minute",      "45 seconds = a minute");
         test.equal(moment.humanizeDuration(89, "seconds"),  "a minute",      "89 seconds = a minute");

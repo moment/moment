@@ -35,6 +35,18 @@
         this._isUTC = !!isUTC;
     }
 
+    // Duration Constructor
+    function Duration(duration) {
+        this.years = duration.years || duration.y || 0;
+        this.months = duration.months || duration.M || 0;
+        this.weeks = duration.weeks || duration.w || 0;
+        this.days = duration.days || duration.d || 0;
+        this.hours = duration.hours || duration.h || 0;
+        this.minutes = duration.minutes || duration.m || 0;
+        this.seconds = duration.seconds || duration.s || 0;
+        this.milliseconds = duration.milliseconds || duration.ms || 0;
+    }
+
     // left zero fill a number
     // see http://jsperf.com/left-zero-filling for performance comparison
     function leftZeroFill(number, targetLength) {
@@ -456,39 +468,27 @@
         return moment(input * 1000);
     };
 
-    // humanizeDuration
-    moment.humanizeDuration = function (num, type, withSuffix) {
-        var difference = +num,
-            rel = moment.relativeTime,
-            output;
-        switch (type) {
-        case "seconds" :
-            difference *= 1000; // 1000
-            break;
-        case "minutes" :
-            difference *= 60000; // 60 * 1000
-            break;
-        case "hours" :
-            difference *= 3600000; // 60 * 60 * 1000
-            break;
-        case "days" :
-            difference *= 86400000; // 24 * 60 * 60 * 1000
-            break;
-        case "weeks" :
-            difference *= 604800000; // 7 * 24 * 60 * 60 * 1000
-            break;
-        case "months" :
-            difference *= 2592000000; // 30 * 24 * 60 * 60 * 1000
-            break;
-        case "years" :
-            difference *= 31536000000; // 365 * 24 * 60 * 60 * 1000
-            break;
-        default :
-            withSuffix = !!type;
-            break;
+    // duration
+    moment.duration = function (input, key) {
+        var isNumber = (typeof input === 'number'),
+            duration = isNumber ? {} : input;
+
+        if (isNumber) {
+            if (key) {
+                duration[key] = input;
+            } else {
+                duration.milliseconds = input;
+            }
         }
-        output = relativeTime(difference, !withSuffix);
-        return withSuffix ? (difference <= 0 ? rel.past : rel.future).replace(/%s/i, output) : output;
+
+        return new Duration(duration);
+    };
+
+    // humanizeDuration
+    // This method is deprecated in favor of the new Duration object.  Please
+    // see the moment.duration method.
+    moment.humanizeDuration = function (num, type, withSuffix) {
+        return moment.duration(num, type).humanize(withSuffix);
     };
 
     // version number
@@ -649,7 +649,7 @@
         },
 
         from : function (time, withoutSuffix) {
-            return moment.humanizeDuration(this.diff(time), !withoutSuffix);
+            return moment.duration(this.diff(time)).humanize(!withoutSuffix);
         },
 
         fromNow : function (withoutSuffix) {
@@ -709,6 +709,32 @@
             return this.clone().month(this.month() + 1).date(0).date();
         }
     };
+
+    moment.duration.fn = Duration.prototype = {
+        valueOf : function () {
+            return this.milliseconds + 
+                (this.seconds * 1000) + // 1000
+                (this.minutes * 60000) + // 60 * 1000
+                (this.hours   * 3600000) + // 60 * 60 * 1000
+                (this.days    * 86400000) + // 24 * 60 * 60 * 1000
+                (this.weeks   * 604800000) + // 7 * 24 * 60 * 60 * 1000
+                (this.months  * 2592000000) + // 30 * 24 * 60 * 60 * 1000
+                (this.years   * 31536000000); // 365 * 24 * 60 * 60 * 1000
+        },
+
+        humanize : function (withSuffix) {
+            var difference = +this,
+                rel = moment.relativeTime,
+                output = relativeTime(difference, !withSuffix);
+
+            if (withSuffix) {
+                output = (difference <= 0 ? rel.past : rel.future).replace(/%s/i, output);
+            }
+
+            return output;
+        }
+    };
+
 
     // helper for adding shortcuts
     function makeShortcut(name, key) {
