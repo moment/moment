@@ -3,60 +3,47 @@ var moment = require("../../moment");
 exports.create = {
     "array" : function(test) {
         test.expect(8);
-        test.ok(moment([2010]).toDate() instanceof Date, "[2010]");
-        test.ok(moment([2010, 1]).toDate() instanceof Date, "[2010, 1]");
-        test.ok(moment([2010, 1, 12]).toDate() instanceof Date, "[2010, 1, 12]");
-        test.ok(moment([2010, 1, 12, 1]).toDate() instanceof Date, "[2010, 1, 12, 1]");
-        test.ok(moment([2010, 1, 12, 1, 1]).toDate() instanceof Date, "[2010, 1, 12, 1, 1]");
-        test.ok(moment([2010, 1, 12, 1, 1, 1]).toDate() instanceof Date, "[2010, 1, 12, 1, 1, 1]");
-        test.ok(moment([2010, 1, 12, 1, 1, 1, 1]).toDate() instanceof Date, "[2010, 1, 12, 1, 1, 1, 1]");
+        test.ok(moment([2010]).native() instanceof Date, "[2010]");
+        test.ok(moment([2010, 1]).native() instanceof Date, "[2010, 1]");
+        test.ok(moment([2010, 1, 12]).native() instanceof Date, "[2010, 1, 12]");
+        test.ok(moment([2010, 1, 12, 1]).native() instanceof Date, "[2010, 1, 12, 1]");
+        test.ok(moment([2010, 1, 12, 1, 1]).native() instanceof Date, "[2010, 1, 12, 1, 1]");
+        test.ok(moment([2010, 1, 12, 1, 1, 1]).native() instanceof Date, "[2010, 1, 12, 1, 1, 1]");
+        test.ok(moment([2010, 1, 12, 1, 1, 1, 1]).native() instanceof Date, "[2010, 1, 12, 1, 1, 1, 1]");
         test.deepEqual(moment(new Date(2010, 1, 14, 15, 25, 50, 125)), moment([2010, 1, 14, 15, 25, 50, 125]), "constructing with array === constructing with new Date()");
         test.done();
     },
 
     "number" : function(test) {
         test.expect(2);
-        test.ok(moment(1000).toDate() instanceof Date, "1000");
+        test.ok(moment(1000).native() instanceof Date, "1000");
         test.ok((moment(1000).valueOf() === 1000), "testing valueOf");
-        test.done();
-    },
-
-    "unix" : function(test) {
-        test.expect(8);
-        test.equal(moment.unix(1).valueOf(), 1000, "1 unix timestamp == 1000 Date.valueOf");
-        test.equal(moment(1000).unix(), 1, "1000 Date.valueOf == 1 unix timestamp");
-        test.equal(moment.unix(1000).valueOf(), 1000000, "1000 unix timestamp == 1000000 Date.valueOf");
-        test.equal(moment(1500).unix(), 1, "1500 Date.valueOf == 1 unix timestamp");
-        test.equal(moment(1900).unix(), 1, "1900 Date.valueOf == 1 unix timestamp");
-        test.equal(moment(2100).unix(), 2, "2100 Date.valueOf == 2 unix timestamp");
-        test.equal(moment(1333129333524).unix(), 1333129333, "1333129333524 Date.valueOf == 1333129333 unix timestamp");
-        test.equal(moment(1333129333524000).unix(), 1333129333524, "1333129333524000 Date.valueOf == 1333129333524 unix timestamp");
         test.done();
     },
 
     "date" : function(test) {
         test.expect(1);
-        test.ok(moment(new Date()).toDate() instanceof Date, "new Date()");
+        test.ok(moment(new Date()).native() instanceof Date, "new Date()");
         test.done();
     },
 
     "moment" : function(test) {
         test.expect(2);
-        test.ok(moment(moment()).toDate() instanceof Date, "moment(moment())");
-        test.ok(moment(moment(moment())).toDate() instanceof Date, "moment(moment(moment()))");
+        test.ok(moment(moment()).native() instanceof Date, "moment(moment())");
+        test.ok(moment(moment(moment())).native() instanceof Date, "moment(moment(moment()))");
         test.done();
     },
 
     "undefined" : function(test) {
         test.expect(1);
-        test.ok(moment().toDate() instanceof Date, "undefined");
+        test.ok(moment().native() instanceof Date, "undefined");
         test.done();
     },
 
     "string without format" : function(test) {
         test.expect(2);
-        test.ok(moment("Aug 9, 1995").toDate() instanceof Date, "Aug 9, 1995");
-        test.ok(moment("Mon, 25 Dec 1995 13:30:00 GMT").toDate() instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
+        test.ok(moment("Aug 9, 1995").native() instanceof Date, "Aug 9, 1995");
+        test.ok(moment("Mon, 25 Dec 1995 13:30:00 GMT").native() instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
         test.done();
     },
 
@@ -114,14 +101,14 @@ exports.create = {
 
     "string with format (timezone)" : function(test) {
         test.expect(8);
-        test.equal(moment('5 -0700', 'H ZZ').toDate().getUTCHours(), 12, 'parse hours "5 -0700" ---> "H ZZ"');
-        test.equal(moment('5 -07:00', 'H Z').toDate().getUTCHours(), 12, 'parse hours "5 -07:00" ---> "H Z"');
-        test.equal(moment('5 -0730', 'H ZZ').toDate().getUTCMinutes(), 30, 'parse hours "5 -0730" ---> "H ZZ"');
-        test.equal(moment('5 -07:30', 'H Z').toDate().getUTCMinutes(), 30, 'parse hours "5 -07:30" ---> "H Z"');
-        test.equal(moment('5 +0100', 'H ZZ').toDate().getUTCHours(), 4, 'parse hours "5 +0100" ---> "H ZZ"');
-        test.equal(moment('5 +01:00', 'H Z').toDate().getUTCHours(), 4, 'parse hours "5 +01:00" ---> "H Z"');
-        test.equal(moment('5 +0130', 'H ZZ').toDate().getUTCMinutes(), 30, 'parse hours "5 +0130" ---> "H ZZ"');
-        test.equal(moment('5 +01:30', 'H Z').toDate().getUTCMinutes(), 30, 'parse hours "5 +01:30" ---> "H Z"');
+        test.equal(moment('5 -0700', 'H ZZ').native().getUTCHours(), 12, 'parse hours "5 -0700" ---> "H ZZ"');
+        test.equal(moment('5 -07:00', 'H Z').native().getUTCHours(), 12, 'parse hours "5 -07:00" ---> "H Z"');
+        test.equal(moment('5 -0730', 'H ZZ').native().getUTCMinutes(), 30, 'parse hours "5 -0730" ---> "H ZZ"');
+        test.equal(moment('5 -07:30', 'H Z').native().getUTCMinutes(), 30, 'parse hours "5 -07:30" ---> "H Z"');
+        test.equal(moment('5 +0100', 'H ZZ').native().getUTCHours(), 4, 'parse hours "5 +0100" ---> "H ZZ"');
+        test.equal(moment('5 +01:00', 'H Z').native().getUTCHours(), 4, 'parse hours "5 +01:00" ---> "H Z"');
+        test.equal(moment('5 +0130', 'H ZZ').native().getUTCMinutes(), 30, 'parse hours "5 +0130" ---> "H ZZ"');
+        test.equal(moment('5 +01:30', 'H Z').native().getUTCMinutes(), 30, 'parse hours "5 +01:30" ---> "H Z"');
         test.done();
     },
 
@@ -180,7 +167,7 @@ exports.create = {
             }
             return '' + input;
         }
-        var hourOffset = (offset > 0) ? Math.floor(offset / 60) : Math.ceil(offset / 60);
+        var hourOffset = Math.floor(offset / 60);
         var minOffset = offset - (hourOffset * 60);
         var tz = (offset > 0) ? '-' + pad(hourOffset) + ':' + pad(minOffset) : '+' + pad(-hourOffset) + ':' + pad(-minOffset);
         var tz2 = tz.replace(':', '');
