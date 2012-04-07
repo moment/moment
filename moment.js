@@ -60,19 +60,22 @@
     // helper function for _.addTime and _.subtractTime
     function dateAddRemove(date, _input, adding, val) {
         var isString = (typeof _input === 'string'),
-            input = isString ? {} : _input,
-            ms, d, M, currentDate;
-        if (isString && val) {
-            input[_input] = +val;
+            input, ms, d, M, currentDate;
+
+        if (isString) {
+            input = moment.duration(+val, _input);
+        } else {
+            input = moment.duration(_input);
         }
-        ms = (input.ms || input.milliseconds || 0) +
-            (input.s || input.seconds || 0) * 1e3 + // 1000
-            (input.m || input.minutes || 0) * 6e4 + // 1000 * 60
-            (input.h || input.hours || 0) * 36e5; // 1000 * 60 * 60
-        d = (input.d || input.days || 0) +
-            (input.w || input.weeks || 0) * 7;
-        M = (input.M || input.months || 0) +
-            (input.y || input.years || 0) * 12;
+
+        ms = input.milliseconds +
+            (input.seconds) * 1e3 + // 1000
+            (input.minutes) * 6e4 + // 1000 * 60
+            (input.hours) * 36e5; // 1000 * 60 * 60
+        d = (input.days) +
+            (input.weeks) * 7;
+        M = (input.months) +
+            (input.years) * 12;
         if (ms) {
             date.setTime(+date + ms * adding);
         }
