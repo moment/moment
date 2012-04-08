@@ -26,7 +26,7 @@
             ['HH', /T\d\d/]
         ],
         timezoneParseRegex = /([\+\-]|\d\d)/gi,
-        VERSION = "1.5.0",
+        VERSION = "1.6.0",
         shortcuts = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|');
 
     // Moment prototype object
