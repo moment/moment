@@ -8,25 +8,54 @@
 
     var moment,
         round = Math.round,
-        languages = {},
-        hasModule = (typeof module !== 'undefined'),
-        paramsToParse = 'months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|'),
         i,
+        // internal storage for language config files
+        languages = {},
+
+        // check for nodeJS
+        hasModule = (typeof module !== 'undefined'),
+
+        // parameters to check for on the lang config
+        paramsToParse = 'months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|'),
+
+        // ASP.NET json date format regex
         jsonRegex = /^\/?Date\((\-?\d+)/i,
+
+        // format tokens
         charactersToReplace = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|LT|LL?L?L?)/g,
+        
+        // regexes for format z, zz
         nonuppercaseLetters = /[^A-Z]/g,
         timezoneRegex = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g,
+
+        // parsing tokens
         tokenCharacters = /(\\)?(MM?M?M?|dd?d?d|DD?D?D?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|ZZ?|T)/g,
         inputCharacters = /(\\)?([0-9]{1,2}[\u6708\uC6D4]|[0-9]+|([a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+|([\+\-]\d\d:?\d\d))/gi,
+        
+        // parsing token regexes
+        parseTokenFourDigits = /[0-9]{4}/, // 0000 - 9999
+        parseTokenTwoDigits = /[0-9]{2}/, // 00 - 99
+        parseTokenOneOrTwoDigits = /[0-9]{1,2}/, // 0 - 99
+        parseTokenWord = /[0-9a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+/i, // any word characters or numbers
+        parseTokenTimezone = /[\+\-]\d\d:?\d\d/i, // +00:00 -00:00 +0000 -0000
+
+        // preliminary iso regex 
+        // 0000-00-00 + T + 00 or 00:00 or 00:00:00 + +00:00 or +0000
         isoRegex = /^\s*\d{4}-\d\d-\d\d(T(\d\d(:\d\d(:\d\d)?)?)?([\+\-]\d\d:?\d\d)?)?/,
         isoFormat = 'YYYY-MM-DDTHH:mm:ssZ',
+
+        // iso time formats and regexes
         isoTimes = [
             ['HH:mm:ss', /T\d\d:\d\d:\d\d/],
             ['HH:mm', /T\d\d:\d\d/],
             ['HH', /T\d\d/]
         ],
+
+        // timezone chunker "+10:00" > ["10", "00"] or "-1530" > ["-15", "30"]
         timezoneParseRegex = /([\+\-]|\d\d)/gi,
         VERSION = "1.5.0",
+
+        // getter and setter names
         shortcuts = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|');
 
     // Moment prototype object
@@ -217,6 +246,41 @@
             }
         }
         return inputString.replace(charactersToReplace, replaceFunction);
+    }
+
+    // get the regex to find the next token
+    function getParseRegexForToken(token) {
+        switch (token) {
+        case 'YYYY':
+            return parseTokenFourDigits;
+        case 'MM':
+        case 'DD':
+        case 'dd':
+        case 'YY':
+        case 'HH':
+        case 'hh':
+        case 'mm':
+        case 'ss':
+            return parseTokenTwoDigits;
+        case 'M':
+        case 'D':
+        case 'd':
+        case 'H':
+        case 'h':
+        case 'm':
+        case 's':
+            return parseTokenOneOrTwoDigits;
+        case 'MMM':
+        case 'MMMM':
+        case 'ddd':
+        case 'dddd':
+        case 'a':
+        case 'A':
+            return parseTokenWord;
+        case 'Z':
+        case 'ZZ':
+            return parseTokenTimezone;
+        }
     }
 
     // date from string and format string

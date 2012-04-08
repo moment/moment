@@ -112,6 +112,23 @@ exports.create = {
         test.done();
     },
 
+    "string with format no separators" : function(test) {
+        moment.lang('en');
+        var a = [
+                ['MMDDYYYY',          '12021999'],
+                ['DDMMYYYY',          '12021999'],
+                ['YYYYMMDD',          '19991202']
+            ],i;
+
+        test.expect(a.length);
+
+        for (i = 0; i < a.length; i++) {
+            test.equal(moment(a[i][1], a[i][0]).format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
+        }
+        
+        test.done();
+    },
+
     "string with format (timezone)" : function(test) {
         test.expect(8);
         test.equal(moment('5 -0700', 'H ZZ').toDate().getUTCHours(), 12, 'parse hours "5 -0700" ---> "H ZZ"');
