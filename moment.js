@@ -36,8 +36,11 @@
         parseTokenFourDigits = /[0-9]{4}/, // 0000 - 9999
         parseTokenTwoDigits = /[0-9]{2}/, // 00 - 99
         parseTokenOneOrTwoDigits = /[0-9]{1,2}/, // 0 - 99
+        parseTokenThreeDigits = /[0-9]{3}/, // 000 - 999
+        parseTokenOneToThreeDigits = /[0-9]{1,3}/, // 0 - 999
         parseTokenWord = /[0-9a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+/i, // any word characters or numbers
         parseTokenTimezone = /[\+\-]\d\d:?\d\d/i, // +00:00 -00:00 +0000 -0000
+        parseTokenT = /T/i, // T (ISO seperator)
 
         // preliminary iso regex 
         // 0000-00-00 + T + 00 or 00:00 or 00:00:00 + +00:00 or +0000
@@ -253,23 +256,10 @@
         switch (token) {
         case 'YYYY':
             return parseTokenFourDigits;
-        case 'MM':
-        case 'DD':
-        case 'dd':
-        case 'YY':
-        case 'HH':
-        case 'hh':
-        case 'mm':
-        case 'ss':
-            return parseTokenTwoDigits;
-        case 'M':
-        case 'D':
-        case 'd':
-        case 'H':
-        case 'h':
-        case 'm':
-        case 's':
-            return parseTokenOneOrTwoDigits;
+        case 'DDD':
+            return parseTokenOneToThreeDigits;
+        case 'DDDD':
+            return parseTokenThreeDigits;
         case 'MMM':
         case 'MMMM':
         case 'ddd':
@@ -280,6 +270,26 @@
         case 'Z':
         case 'ZZ':
             return parseTokenTimezone;
+        case 'T':
+            return parseTokenT;
+        case 'MM':
+        case 'DD':
+        case 'dd':
+        case 'YY':
+        case 'HH':
+        case 'hh':
+        case 'mm':
+        case 'ss':
+        case 'M':
+        case 'D':
+        case 'd':
+        case 'H':
+        case 'h':
+        case 'm':
+        case 's':
+            return parseTokenOneOrTwoDigits;
+        default :
+            return new RegExp(token.replace('\\', ''));
         }
     }
 
@@ -289,24 +299,22 @@
             timezoneHours = 0,
             timezoneMinutes = 0,
             isUsingUTC = false,
-            inputParts = string.match(inputCharacters),
             formatParts = format.match(tokenCharacters),
-            len = Math.min(inputParts.length, formatParts.length),
             i,
-            isPm;
+            isPm,
+            formatA;
 
         // function to convert string input to date
-        function addTime(format, input) {
-            var a;
+        function addTime(format, _input) {
+            var a, input = _input[0];
+            //console.log('addTime', format, input);
             switch (format) {
             // MONTH
-            case 'M' :
-                // fall through to MM
+            case 'M' : // fall through to MM
             case 'MM' :
                 inArray[1] = ~~input - 1;
                 break;
-            case 'MMM' :
-                // fall through to MMMM
+            case 'MMM' : // fall through to MMMM
             case 'MMMM' :
                 for (a = 0; a < 12; a++) {
                     if (moment.monthsParse[a].test(input)) {
@@ -316,12 +324,9 @@
                 }
                 break;
             // DAY OF MONTH
-            case 'D' :
-                // fall through to DDDD
-            case 'DD' :
-                // fall through to DDDD
-            case 'DDD' :
-                // fall through to DDDD
+            case 'D' : // fall through to DDDD
+            case 'DD' : // fall through to DDDD
+            case 'DDD' : // fall through to DDDD
             case 'DDDD' :
                 inArray[2] = ~~input;
                 break;
@@ -334,36 +339,29 @@
                 inArray[0] = ~~Math.abs(input);
                 break;
             // AM / PM
-            case 'a' :
-                // fall through to A
+            case 'a' : // fall through to A
             case 'A' :
                 isPm = (input.toLowerCase() === 'pm');
                 break;
             // 24 HOUR
-            case 'H' :
-                // fall through to hh
-            case 'HH' :
-                // fall through to hh
-            case 'h' :
-                // fall through to hh
+            case 'H' : // fall through to hh
+            case 'HH' : // fall through to hh
+            case 'h' : // fall through to hh
             case 'hh' :
                 inArray[3] = ~~input;
                 break;
             // MINUTE
-            case 'm' :
-                // fall through to mm
+            case 'm' : // fall through to mm
             case 'mm' :
                 inArray[4] = ~~input;
                 break;
             // SECOND
-            case 's' :
-                // fall through to ss
+            case 's' : // fall through to ss
             case 'ss' :
                 inArray[5] = ~~input;
                 break;
             // TIMEZONE
-            case 'Z' :
-                // fall through to ZZ
+            case 'Z' : // fall through to ZZ
             case 'ZZ' :
                 isUsingUTC = true;
                 a = (input || '').match(timezoneParseRegex);
@@ -381,8 +379,13 @@
                 break;
             }
         }
-        for (i = 0; i < len; i++) {
-            addTime(formatParts[i], inputParts[i]);
+
+        for (i = 0; i < formatParts.length; i++) {
+            formatA = getParseRegexForToken(formatParts[i]).exec(string) || [0];
+            string = string.replace(getParseRegexForToken(formatParts[i]), '');
+            addTime(formatParts[i], formatA);
+            //console.log('string = ' + string);
+            //addTime(formatParts[i], inputParts[i]);
         }
         // handle am pm
         if (isPm && inArray[3] < 12) {
@@ -444,7 +447,9 @@
                     break;
                 }
             }
-            return makeDateFromStringAndFormat(string, format + 'Z');
+            return parseTokenTimezone.exec(string) ? 
+                makeDateFromStringAndFormat(string, format + ' Z') :
+                makeDateFromStringAndFormat(string, format);
         }
         return new Date(string);
     }
@@ -512,7 +517,7 @@
         if (isArray(input)) {
             return new Moment(new Date(Date.UTC.apply({}, input)), true);
         }
-        return (format && input) ? moment(input + ' 0', format + ' Z').utc() : moment(input).utc();
+        return (format && input) ? moment(input + ' +00:00', format + ' Z').utc() : moment(input).utc();
     };
 
     // creating with unix timestamp (in seconds)
