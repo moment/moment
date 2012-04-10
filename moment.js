@@ -293,113 +293,110 @@
         }
     }
 
+    // function to convert string input to date
+    function addTimeToArrayFromToken(token, input, datePartArray, config) {
+        var a;
+        //console.log('addTime', format, input);
+        switch (token) {
+        // MONTH
+        case 'M' : // fall through to MM
+        case 'MM' :
+            datePartArray[1] = ~~input - 1;
+            break;
+        case 'MMM' : // fall through to MMMM
+        case 'MMMM' :
+            for (a = 0; a < 12; a++) {
+                if (moment.monthsParse[a].test(input)) {
+                    datePartArray[1] = a;
+                    break;
+                }
+            }
+            break;
+        // DAY OF MONTH
+        case 'D' : // fall through to DDDD
+        case 'DD' : // fall through to DDDD
+        case 'DDD' : // fall through to DDDD
+        case 'DDDD' :
+            datePartArray[2] = ~~input;
+            break;
+        // YEAR
+        case 'YY' :
+            input = ~~input;
+            datePartArray[0] = input + (input > 70 ? 1900 : 2000);
+            break;
+        case 'YYYY' :
+            datePartArray[0] = ~~Math.abs(input);
+            break;
+        // AM / PM
+        case 'a' : // fall through to A
+        case 'A' :
+            config.isPm = (input.toLowerCase() === 'pm');
+            break;
+        // 24 HOUR
+        case 'H' : // fall through to hh
+        case 'HH' : // fall through to hh
+        case 'h' : // fall through to hh
+        case 'hh' :
+            datePartArray[3] = ~~input;
+            break;
+        // MINUTE
+        case 'm' : // fall through to mm
+        case 'mm' :
+            datePartArray[4] = ~~input;
+            break;
+        // SECOND
+        case 's' : // fall through to ss
+        case 'ss' :
+            datePartArray[5] = ~~input;
+            break;
+        // TIMEZONE
+        case 'Z' : // fall through to ZZ
+        case 'ZZ' :
+            config.isUTC = true;
+            a = (input + '').match(timezoneParseRegex);
+            if (a && a[1]) {
+                config.tzh = ~~a[1];
+            }
+            if (a && a[2]) {
+                config.tzm = ~~a[2];
+            }
+            // reverse offsets
+            if (a && a[0] === '+') {
+                config.tzh = -config.tzh;
+                config.tzm = -config.tzm;
+            }
+            break;
+        }
+    }
+
     // date from string and format string
     function makeDateFromStringAndFormat(string, format) {
-        var inArray = [0, 0, 1, 0, 0, 0, 0],
-            timezoneHours = 0,
-            timezoneMinutes = 0,
-            isUsingUTC = false,
-            formatParts = format.match(tokenCharacters),
-            i,
-            isPm,
-            formatA;
+        var datePartArray = [0, 0, 1, 0, 0, 0, 0],
+            config = {
+                tzh : 0, // timezone hour offset
+                tzm : 0  // timezone minute offset
+            },
+            tokens = format.match(tokenCharacters),
+            i, parsedInput;
 
-        // function to convert string input to date
-        function addTime(format, _input) {
-            var a, input = _input[0];
-            //console.log('addTime', format, input);
-            switch (format) {
-            // MONTH
-            case 'M' : // fall through to MM
-            case 'MM' :
-                inArray[1] = ~~input - 1;
-                break;
-            case 'MMM' : // fall through to MMMM
-            case 'MMMM' :
-                for (a = 0; a < 12; a++) {
-                    if (moment.monthsParse[a].test(input)) {
-                        inArray[1] = a;
-                        break;
-                    }
-                }
-                break;
-            // DAY OF MONTH
-            case 'D' : // fall through to DDDD
-            case 'DD' : // fall through to DDDD
-            case 'DDD' : // fall through to DDDD
-            case 'DDDD' :
-                inArray[2] = ~~input;
-                break;
-            // YEAR
-            case 'YY' :
-                input = ~~input;
-                inArray[0] = input + (input > 70 ? 1900 : 2000);
-                break;
-            case 'YYYY' :
-                inArray[0] = ~~Math.abs(input);
-                break;
-            // AM / PM
-            case 'a' : // fall through to A
-            case 'A' :
-                isPm = (input.toLowerCase() === 'pm');
-                break;
-            // 24 HOUR
-            case 'H' : // fall through to hh
-            case 'HH' : // fall through to hh
-            case 'h' : // fall through to hh
-            case 'hh' :
-                inArray[3] = ~~input;
-                break;
-            // MINUTE
-            case 'm' : // fall through to mm
-            case 'mm' :
-                inArray[4] = ~~input;
-                break;
-            // SECOND
-            case 's' : // fall through to ss
-            case 'ss' :
-                inArray[5] = ~~input;
-                break;
-            // TIMEZONE
-            case 'Z' : // fall through to ZZ
-            case 'ZZ' :
-                isUsingUTC = true;
-                a = (input || '').match(timezoneParseRegex);
-                if (a && a[1]) {
-                    timezoneHours = ~~a[1];
-                }
-                if (a && a[2]) {
-                    timezoneMinutes = ~~a[2];
-                }
-                // reverse offsets
-                if (a && a[0] === '+') {
-                    timezoneHours = -timezoneHours;
-                    timezoneMinutes = -timezoneMinutes;
-                }
-                break;
-            }
-        }
-
-        for (i = 0; i < formatParts.length; i++) {
-            formatA = getParseRegexForToken(formatParts[i]).exec(string) || [0];
-            string = string.replace(getParseRegexForToken(formatParts[i]), '');
-            addTime(formatParts[i], formatA);
-            //console.log('string = ' + string);
-            //addTime(formatParts[i], inputParts[i]);
+        for (i = 0; i < tokens.length; i++) {
+            parsedInput = (getParseRegexForToken(tokens[i]).exec(string) || [0])[0];
+            string = string.replace(getParseRegexForToken(tokens[i]), '');
+            addTimeToArrayFromToken(tokens[i], parsedInput, datePartArray, config);
         }
         // handle am pm
-        if (isPm && inArray[3] < 12) {
-            inArray[3] += 12;
+        if (config.isPm && datePartArray[3] < 12) {
+            datePartArray[3] += 12;
         }
         // if is 12 am, change hours to 0
-        if (isPm === false && inArray[3] === 12) {
-            inArray[3] = 0;
+        if (config.isPm === false && datePartArray[3] === 12) {
+            datePartArray[3] = 0;
         }
         // handle timezone
-        inArray[3] += timezoneHours;
-        inArray[4] += timezoneMinutes;
+        datePartArray[3] += config.tzh;
+        datePartArray[4] += config.tzm;
         // return
-        return isUsingUTC ? new Date(Date.UTC.apply({}, inArray)) : dateFromArray(inArray);
+        return config.isUTC ? new Date(Date.UTC.apply({}, datePartArray)) : dateFromArray(datePartArray);
     }
 
     // compare two arrays, return the number of differences
