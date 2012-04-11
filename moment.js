@@ -9,6 +9,7 @@
     var moment,
         round = Math.round,
         languages = {},
+        currentLanguage = 'en',
         hasModule = (typeof module !== 'undefined'),
         paramsToParse = 'months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|'),
         i,
@@ -503,6 +504,9 @@
             param,
             req,
             parse = [];
+        if (!key) {
+            return currentLanguage;
+        }
         if (values) {
             for (i = 0; i < 12; i++) {
                 parse[i] = new RegExp('^' + values.months[i] + '|^' + values.monthsShort[i].replace('.', ''), 'i');
@@ -515,6 +519,7 @@
                 param = paramsToParse[i];
                 moment[param] = languages[key][param] || languages.en[param];
             }
+            currentLanguage = key;
         } else {
             if (hasModule) {
                 req = require('./lang/' + key);
