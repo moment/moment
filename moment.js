@@ -7,28 +7,60 @@
 (function (Date, undefined) {
 
     var moment,
-        round = Math.round,
+        VERSION = "1.5.0",
+        round = Math.round, i,
+        // internal storage for language config files
         languages = {},
         currentLanguage = 'en',
+
+        // check for nodeJS
         hasModule = (typeof module !== 'undefined'),
-        paramsToParse = 'months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|'),
-        i,
-        jsonRegex = /^\/?Date\((\-?\d+)/i,
-        charactersToReplace = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|LT|LL?L?L?)/g,
+
+        // parameters to check for on the lang config
+        langConfigProperties = 'months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|'),
+
+        // ASP.NET json date format regex
+        aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
+
+        // format tokens
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|LT|LL?L?L?)/g,
+        
+        // regexes for format z, zz
+        // TODO: When we drop support for z and zz, remove these variables
         nonuppercaseLetters = /[^A-Z]/g,
         timezoneRegex = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g,
-        tokenCharacters = /(\\)?(MM?M?M?|dd?d?d|DD?D?D?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|ZZ?|T)/g,
-        inputCharacters = /(\\)?([0-9]{1,2}[\u6708\uC6D4]|[0-9]+|([a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+|([\+\-]\d\d:?\d\d))/gi,
+
+        // parsing tokens
+        parseMultipleFormatChunker = /([0-9a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)/gi,
+
+        // parsing token regexes
+        parseTokenOneDigit = /\d/, // 0 - 9
+        parseTokenOneOrTwoDigits = /\d\d?/, // 0 - 99
+        parseTokenOneToThreeDigits = /\d{1,3}/, // 0 - 999
+        parseTokenTwoDigits = /\d\d/, // 00 - 99
+        parseTokenThreeDigits = /\d{3}/, // 000 - 999
+        parseTokenFourDigits = /\d{4}/, // 0000 - 9999
+        parseTokenWord = /[0-9a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+/i, // any word characters or numbers
+        parseTokenTimezone = /[\+\-]\d\d:?\d\d/i, // +00:00 -00:00 +0000 -0000
+        parseTokenT = /T/i, // T (ISO seperator)
+
+        // preliminary iso regex 
+        // 0000-00-00 + T + 00 or 00:00 or 00:00:00 + +00:00 or +0000
         isoRegex = /^\s*\d{4}-\d\d-\d\d(T(\d\d(:\d\d(:\d\d)?)?)?([\+\-]\d\d:?\d\d)?)?/,
         isoFormat = 'YYYY-MM-DDTHH:mm:ssZ',
+
+        // iso time formats and regexes
         isoTimes = [
             ['HH:mm:ss', /T\d\d:\d\d:\d\d/],
             ['HH:mm', /T\d\d:\d\d/],
             ['HH', /T\d\d/]
         ],
-        timezoneParseRegex = /([\+\-]|\d\d)/gi,
-        VERSION = "1.5.0",
-        shortcuts = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|');
+
+        // timezone chunker "+10:00" > ["10", "00"] or "-1530" > ["-15", "30"]
+        parseTimezoneChunker = /([\+\-]|\d\d)/gi,
+
+        // getter and setter names
+        proxyGettersAndSetters = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|');
 
     // Moment prototype object
     function Moment(date, isUTC) {
@@ -217,123 +249,170 @@
                 return input.replace(/(^\[)|(\\)|\]$/g, "");
             }
         }
-        return inputString.replace(charactersToReplace, replaceFunction);
+        return inputString.replace(formattingTokens, replaceFunction);
+    }
+
+    // get the regex to find the next token
+    function getParseRegexForToken(token) {
+        switch (token) {
+        case 'S':
+            return parseTokenOneDigit;
+        case 'SS':
+            return parseTokenTwoDigits;
+        case 'SSS':
+        case 'DDDD':
+            return parseTokenThreeDigits;
+        case 'YYYY':
+            return parseTokenFourDigits;
+        case 'DDD':
+            return parseTokenOneToThreeDigits;
+        case 'MMM':
+        case 'MMMM':
+        case 'ddd':
+        case 'dddd':
+        case 'a':
+        case 'A':
+            return parseTokenWord;
+        case 'Z':
+        case 'ZZ':
+            return parseTokenTimezone;
+        case 'T':
+            return parseTokenT;
+        case 'MM':
+        case 'DD':
+        case 'dd':
+        case 'YY':
+        case 'HH':
+        case 'hh':
+        case 'mm':
+        case 'ss':
+        case 'M':
+        case 'D':
+        case 'd':
+        case 'H':
+        case 'h':
+        case 'm':
+        case 's':
+            return parseTokenOneOrTwoDigits;
+        default :
+            return new RegExp(token.replace('\\', ''));
+        }
+    }
+
+    // function to convert string input to date
+    function addTimeToArrayFromToken(token, input, datePartArray, config) {
+        var a;
+        //console.log('addTime', format, input);
+        switch (token) {
+        // MONTH
+        case 'M' : // fall through to MM
+        case 'MM' :
+            datePartArray[1] = ~~input - 1;
+            break;
+        case 'MMM' : // fall through to MMMM
+        case 'MMMM' :
+            for (a = 0; a < 12; a++) {
+                if (moment.monthsParse[a].test(input)) {
+                    datePartArray[1] = a;
+                    break;
+                }
+            }
+            break;
+        // DAY OF MONTH
+        case 'D' : // fall through to DDDD
+        case 'DD' : // fall through to DDDD
+        case 'DDD' : // fall through to DDDD
+        case 'DDDD' :
+            datePartArray[2] = ~~input;
+            break;
+        // YEAR
+        case 'YY' :
+            input = ~~input;
+            datePartArray[0] = input + (input > 70 ? 1900 : 2000);
+            break;
+        case 'YYYY' :
+            datePartArray[0] = ~~Math.abs(input);
+            break;
+        // AM / PM
+        case 'a' : // fall through to A
+        case 'A' :
+            config.isPm = (input.toLowerCase() === 'pm');
+            break;
+        // 24 HOUR
+        case 'H' : // fall through to hh
+        case 'HH' : // fall through to hh
+        case 'h' : // fall through to hh
+        case 'hh' :
+            datePartArray[3] = ~~input;
+            break;
+        // MINUTE
+        case 'm' : // fall through to mm
+        case 'mm' :
+            datePartArray[4] = ~~input;
+            break;
+        // SECOND
+        case 's' : // fall through to ss
+        case 'ss' :
+            datePartArray[5] = ~~input;
+            break;
+        // MILLISECOND
+        case 'S' :
+            datePartArray[6] = ~~input * 100;
+            break;
+        case 'SS' :
+            datePartArray[6] = ~~input * 10;
+            break;
+        case 'SSS' :
+            datePartArray[6] = ~~input;
+            break;
+        // TIMEZONE
+        case 'Z' : // fall through to ZZ
+        case 'ZZ' :
+            config.isUTC = true;
+            a = (input + '').match(parseTimezoneChunker);
+            if (a && a[1]) {
+                config.tzh = ~~a[1];
+            }
+            if (a && a[2]) {
+                config.tzm = ~~a[2];
+            }
+            // reverse offsets
+            if (a && a[0] === '+') {
+                config.tzh = -config.tzh;
+                config.tzm = -config.tzm;
+            }
+            break;
+        }
     }
 
     // date from string and format string
     function makeDateFromStringAndFormat(string, format) {
-        var inArray = [0, 0, 1, 0, 0, 0, 0],
-            timezoneHours = 0,
-            timezoneMinutes = 0,
-            isUsingUTC = false,
-            inputParts = string.match(inputCharacters),
-            formatParts = format.match(tokenCharacters),
-            len = Math.min(inputParts.length, formatParts.length),
-            i,
-            isPm;
+        var datePartArray = [0, 0, 1, 0, 0, 0, 0],
+            config = {
+                tzh : 0, // timezone hour offset
+                tzm : 0  // timezone minute offset
+            },
+            tokens = format.match(formattingTokens),
+            i, parsedInput;
 
-        // function to convert string input to date
-        function addTime(format, input) {
-            var a;
-            switch (format) {
-            // MONTH
-            case 'M' :
-                // fall through to MM
-            case 'MM' :
-                inArray[1] = ~~input - 1;
-                break;
-            case 'MMM' :
-                // fall through to MMMM
-            case 'MMMM' :
-                for (a = 0; a < 12; a++) {
-                    if (moment.monthsParse[a].test(input)) {
-                        inArray[1] = a;
-                        break;
-                    }
-                }
-                break;
-            // DAY OF MONTH
-            case 'D' :
-                // fall through to DDDD
-            case 'DD' :
-                // fall through to DDDD
-            case 'DDD' :
-                // fall through to DDDD
-            case 'DDDD' :
-                inArray[2] = ~~input;
-                break;
-            // YEAR
-            case 'YY' :
-                input = ~~input;
-                inArray[0] = input + (input > 70 ? 1900 : 2000);
-                break;
-            case 'YYYY' :
-                inArray[0] = ~~Math.abs(input);
-                break;
-            // AM / PM
-            case 'a' :
-                // fall through to A
-            case 'A' :
-                isPm = (input.toLowerCase() === 'pm');
-                break;
-            // 24 HOUR
-            case 'H' :
-                // fall through to hh
-            case 'HH' :
-                // fall through to hh
-            case 'h' :
-                // fall through to hh
-            case 'hh' :
-                inArray[3] = ~~input;
-                break;
-            // MINUTE
-            case 'm' :
-                // fall through to mm
-            case 'mm' :
-                inArray[4] = ~~input;
-                break;
-            // SECOND
-            case 's' :
-                // fall through to ss
-            case 'ss' :
-                inArray[5] = ~~input;
-                break;
-            // TIMEZONE
-            case 'Z' :
-                // fall through to ZZ
-            case 'ZZ' :
-                isUsingUTC = true;
-                a = (input || '').match(timezoneParseRegex);
-                if (a && a[1]) {
-                    timezoneHours = ~~a[1];
-                }
-                if (a && a[2]) {
-                    timezoneMinutes = ~~a[2];
-                }
-                // reverse offsets
-                if (a && a[0] === '+') {
-                    timezoneHours = -timezoneHours;
-                    timezoneMinutes = -timezoneMinutes;
-                }
-                break;
-            }
-        }
-        for (i = 0; i < len; i++) {
-            addTime(formatParts[i], inputParts[i]);
+        for (i = 0; i < tokens.length; i++) {
+            parsedInput = (getParseRegexForToken(tokens[i]).exec(string) || [0])[0];
+            string = string.replace(getParseRegexForToken(tokens[i]), '');
+            addTimeToArrayFromToken(tokens[i], parsedInput, datePartArray, config);
         }
         // handle am pm
-        if (isPm && inArray[3] < 12) {
-            inArray[3] += 12;
+        if (config.isPm && datePartArray[3] < 12) {
+            datePartArray[3] += 12;
         }
         // if is 12 am, change hours to 0
-        if (isPm === false && inArray[3] === 12) {
-            inArray[3] = 0;
+        if (config.isPm === false && datePartArray[3] === 12) {
+            datePartArray[3] = 0;
         }
         // handle timezone
-        inArray[3] += timezoneHours;
-        inArray[4] += timezoneMinutes;
+        datePartArray[3] += config.tzh;
+        datePartArray[4] += config.tzm;
         // return
-        return isUsingUTC ? new Date(Date.UTC.apply({}, inArray)) : dateFromArray(inArray);
+        return config.isUTC ? new Date(Date.UTC.apply({}, datePartArray)) : dateFromArray(datePartArray);
     }
 
     // compare two arrays, return the number of differences
@@ -353,18 +432,19 @@
     // date from string and array of format strings
     function makeDateFromStringAndArray(string, formats) {
         var output,
-            inputParts = string.match(inputCharacters),
-            scores = [],
+            inputParts = string.match(parseMultipleFormatChunker),
+            formattedInputParts,
             scoreToBeat = 99,
             i,
-            curDate,
-            curScore;
+            currentDate,
+            currentScore;
         for (i = 0; i < formats.length; i++) {
-            curDate = makeDateFromStringAndFormat(string, formats[i]);
-            curScore = compareArrays(inputParts, formatMoment(new Moment(curDate), formats[i]).match(inputCharacters));
-            if (curScore < scoreToBeat) {
-                scoreToBeat = curScore;
-                output = curDate;
+            currentDate = makeDateFromStringAndFormat(string, formats[i]);
+            formattedInputParts = formatMoment(new Moment(currentDate), formats[i]).match(parseMultipleFormatChunker);
+            currentScore = compareArrays(inputParts, formattedInputParts);
+            if (currentScore < scoreToBeat) {
+                scoreToBeat = currentScore;
+                output = currentDate;
             }
         }
         return output;
@@ -381,12 +461,14 @@
                     break;
                 }
             }
-            return makeDateFromStringAndFormat(string, format + 'Z');
+            return parseTokenTimezone.exec(string) ? 
+                makeDateFromStringAndFormat(string, format + ' Z') :
+                makeDateFromStringAndFormat(string, format);
         }
         return new Date(string);
     }
 
-    // helper function for _date.from() and _date.fromNow()
+    // helper function for moment.fn.from, moment.fn.fromNow, and moment.duration.fn.humanize
     function substituteTimeAgo(string, number, withoutSuffix, isFuture) {
         var rt = moment.relativeTime[string];
         return (typeof rt === 'function') ?
@@ -433,7 +515,7 @@
             }
         // evaluate it as a JSON-encoded date
         } else {
-            matched = jsonRegex.exec(input);
+            matched = aspNetJsonRegex.exec(input);
             date = input === undefined ? new Date() :
                 matched ? new Date(+matched[1]) :
                 input instanceof Date ? input :
@@ -449,7 +531,7 @@
         if (isArray(input)) {
             return new Moment(new Date(Date.UTC.apply({}, input)), true);
         }
-        return (format && input) ? moment(input + ' 0', format + ' Z').utc() : moment(input).utc();
+        return (format && input) ? moment(input + ' +00:00', format + ' Z').utc() : moment(input).utc();
     };
 
     // creating with unix timestamp (in seconds)
@@ -500,9 +582,7 @@
 
     // language switching and caching
     moment.lang = function (key, values) {
-        var i,
-            param,
-            req,
+        var i, req,
             parse = [];
         if (!key) {
             return currentLanguage;
@@ -515,9 +595,9 @@
             languages[key] = values;
         }
         if (languages[key]) {
-            for (i = 0; i < paramsToParse.length; i++) {
-                param = paramsToParse[i];
-                moment[param] = languages[key][param] || languages.en[param];
+            for (i = 0; i < langConfigProperties.length; i++) {
+                moment[langConfigProperties[i]] = languages[key][langConfigProperties[i]] || 
+                    languages.en[langConfigProperties[i]];
             }
             currentLanguage = key;
         } else {
@@ -716,7 +796,7 @@
     };
 
     // helper for adding shortcuts
-    function makeShortcut(name, key) {
+    function makeGetterAndSetter(name, key) {
         moment.fn[name] = function (input) {
             var utc = this._isUTC ? 'UTC' : '';
             if (input != null) {
@@ -729,12 +809,12 @@
     }
 
     // loop through and add shortcuts (Month, Date, Hours, Minutes, Seconds, Milliseconds)
-    for (i = 0; i < shortcuts.length; i ++) {
-        makeShortcut(shortcuts[i].toLowerCase(), shortcuts[i]);
+    for (i = 0; i < proxyGettersAndSetters.length; i ++) {
+        makeGetterAndSetter(proxyGettersAndSetters[i].toLowerCase(), proxyGettersAndSetters[i]);
     }
 
     // add shortcut for year (uses different syntax than the getter/setter 'year' == 'FullYear')
-    makeShortcut('year', 'FullYear');
+    makeGetterAndSetter('year', 'FullYear');
 
     // CommonJS module is defined
     if (hasModule) {
