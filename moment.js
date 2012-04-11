@@ -255,12 +255,17 @@
     // get the regex to find the next token
     function getParseRegexForToken(token) {
         switch (token) {
+        case 'S':
+            return parseTokenOneDigit;
+        case 'SS':
+            return parseTokenTwoDigits;
+        case 'SSS':
+        case 'DDDD':
+            return parseTokenThreeDigits;
         case 'YYYY':
             return parseTokenFourDigits;
         case 'DDD':
             return parseTokenOneToThreeDigits;
-        case 'DDDD':
-            return parseTokenThreeDigits;
         case 'MMM':
         case 'MMMM':
         case 'ddd':
@@ -349,6 +354,16 @@
         case 's' : // fall through to ss
         case 'ss' :
             datePartArray[5] = ~~input;
+            break;
+        // MILLISECOND
+        case 'S' :
+            datePartArray[6] = ~~input * 100;
+            break;
+        case 'SS' :
+            datePartArray[6] = ~~input * 10;
+            break;
+        case 'SSS' :
+            datePartArray[6] = ~~input;
             break;
         // TIMEZONE
         case 'Z' : // fall through to ZZ
