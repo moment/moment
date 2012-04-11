@@ -7,8 +7,8 @@
 (function (Date, undefined) {
 
     var moment,
-        round = Math.round,
-        i,
+        VERSION = "1.5.0",
+        round = Math.round, i,
         // internal storage for language config files
         languages = {},
 
@@ -16,22 +16,22 @@
         hasModule = (typeof module !== 'undefined'),
 
         // parameters to check for on the lang config
-        paramsToParse = 'months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|'),
+        langConfigProperties = 'months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|'),
 
         // ASP.NET json date format regex
-        jsonRegex = /^\/?Date\((\-?\d+)/i,
+        aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
 
         // format tokens
-        charactersToReplace = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|LT|LL?L?L?)/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|LT|LL?L?L?)/g,
         
         // regexes for format z, zz
         nonuppercaseLetters = /[^A-Z]/g,
         timezoneRegex = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g,
 
         // parsing tokens
-        tokenCharacters = /(\\)?(MM?M?M?|dd?d?d|DD?D?D?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|ZZ?|T)/g,
-        inputCharacters = /(\\)?([0-9]{1,2}[\u6708\uC6D4]|[0-9]+|([a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+|([\+\-]\d\d:?\d\d))/gi,
-        
+        parsingTokens = /(\\)?(MM?M?M?|dd?d?d|DD?D?D?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|ZZ?|T)/g,
+        parseMultipleFormatChunker = /([0-9a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)/gi,
+
         // parsing token regexes
         parseTokenOneDigit = /\d/, // 0 - 9
         parseTokenOneOrTwoDigits = /\d\d?/, // 0 - 99
@@ -56,11 +56,10 @@
         ],
 
         // timezone chunker "+10:00" > ["10", "00"] or "-1530" > ["-15", "30"]
-        timezoneParseRegex = /([\+\-]|\d\d)/gi,
-        VERSION = "1.5.0",
+        parseTimezoneChunker = /([\+\-]|\d\d)/gi,
 
         // getter and setter names
-        shortcuts = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|');
+        proxyGettersAndSetters = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|');
 
     // Moment prototype object
     function Moment(date, isUTC) {
@@ -249,7 +248,7 @@
                 return input.replace(/(^\[)|(\\)|\]$/g, "");
             }
         }
-        return inputString.replace(charactersToReplace, replaceFunction);
+        return inputString.replace(formattingTokens, replaceFunction);
     }
 
     // get the regex to find the next token
@@ -354,7 +353,7 @@
         case 'Z' : // fall through to ZZ
         case 'ZZ' :
             config.isUTC = true;
-            a = (input + '').match(timezoneParseRegex);
+            a = (input + '').match(parseTimezoneChunker);
             if (a && a[1]) {
                 config.tzh = ~~a[1];
             }
@@ -377,7 +376,7 @@
                 tzh : 0, // timezone hour offset
                 tzm : 0  // timezone minute offset
             },
-            tokens = format.match(tokenCharacters),
+            tokens = format.match(parsingTokens),
             i, parsedInput;
 
         for (i = 0; i < tokens.length; i++) {
@@ -417,8 +416,8 @@
     // date from string and array of format strings
     function makeDateFromStringAndArray(string, formats) {
         var output,
-            inputParts = string.match(inputCharacters),
             scores = [],
+            inputParts = string.match(parseMultipleFormatChunker),
             scoreToBeat = 99,
             i,
             curDate,
@@ -452,7 +451,7 @@
         return new Date(string);
     }
 
-    // helper function for _date.from() and _date.fromNow()
+    // helper function for moment.fn.from, moment.fn.fromNow, and moment.duration.fn.humanize
     function substituteTimeAgo(string, number, withoutSuffix, isFuture) {
         var rt = moment.relativeTime[string];
         return (typeof rt === 'function') ?
@@ -499,7 +498,7 @@
             }
         // evaluate it as a JSON-encoded date
         } else {
-            matched = jsonRegex.exec(input);
+            matched = aspNetJsonRegex.exec(input);
             date = input === undefined ? new Date() :
                 matched ? new Date(+matched[1]) :
                 input instanceof Date ? input :
@@ -566,9 +565,7 @@
 
     // language switching and caching
     moment.lang = function (key, values) {
-        var i,
-            param,
-            req,
+        var i, req,
             parse = [];
         if (values) {
             for (i = 0; i < 12; i++) {
@@ -578,9 +575,9 @@
             languages[key] = values;
         }
         if (languages[key]) {
-            for (i = 0; i < paramsToParse.length; i++) {
-                param = paramsToParse[i];
-                moment[param] = languages[key][param] || languages.en[param];
+            for (i = 0; i < langConfigProperties.length; i++) {
+                moment[langConfigProperties[i]] = languages[key][langConfigProperties[i]] || 
+                    languages.en[langConfigProperties[i]];
             }
         } else {
             if (hasModule) {
@@ -778,7 +775,7 @@
     };
 
     // helper for adding shortcuts
-    function makeShortcut(name, key) {
+    function makeGetterAndSetter(name, key) {
         moment.fn[name] = function (input) {
             var utc = this._isUTC ? 'UTC' : '';
             if (input != null) {
@@ -791,12 +788,12 @@
     }
 
     // loop through and add shortcuts (Month, Date, Hours, Minutes, Seconds, Milliseconds)
-    for (i = 0; i < shortcuts.length; i ++) {
-        makeShortcut(shortcuts[i].toLowerCase(), shortcuts[i]);
+    for (i = 0; i < proxyGettersAndSetters.length; i ++) {
+        makeGetterAndSetter(proxyGettersAndSetters[i].toLowerCase(), proxyGettersAndSetters[i]);
     }
 
     // add shortcut for year (uses different syntax than the getter/setter 'year' == 'FullYear')
-    makeShortcut('year', 'FullYear');
+    makeGetterAndSetter('year', 'FullYear');
 
     // CommonJS module is defined
     if (hasModule) {
