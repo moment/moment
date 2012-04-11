@@ -78,7 +78,6 @@ exports.create = {
     },
 
     "string with format" : function(test) {
-        test.expect(23);
         moment.lang('en');
         var a = [
                 ['MM-DD-YYYY',          '12-02-1999'],
@@ -103,9 +102,16 @@ exports.create = {
                 ['HH:mm:ss',            '12:00:00'],
                 ['HH:mm:ss',            '12:30:00'],
                 ['HH:mm:ss',            '00:00:00'],
-                ['HH:mm:ss',            '00:30:00']
+                ['HH:mm:ss S',          '00:30:00 1'],
+                ['HH:mm:ss SS',         '00:30:00 12'],
+                ['HH:mm:ss SSS',        '00:30:00 123'],
+                ['HH:mm:ss S',          '00:30:00 7'],
+                ['HH:mm:ss SS',         '00:30:00 78'],
+                ['HH:mm:ss SSS',        '00:30:00 789']
             ],
             i;
+        
+        test.expect(a.length);
         for (i = 0; i < a.length; i++) {
             test.equal(moment(a[i][1], a[i][0]).format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
         }
