@@ -33,11 +33,12 @@
         inputCharacters = /(\\)?([0-9]{1,2}[\u6708\uC6D4]|[0-9]+|([a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+|([\+\-]\d\d:?\d\d))/gi,
         
         // parsing token regexes
-        parseTokenFourDigits = /[0-9]{4}/, // 0000 - 9999
-        parseTokenTwoDigits = /[0-9]{2}/, // 00 - 99
-        parseTokenOneOrTwoDigits = /[0-9]{1,2}/, // 0 - 99
-        parseTokenThreeDigits = /[0-9]{3}/, // 000 - 999
-        parseTokenOneToThreeDigits = /[0-9]{1,3}/, // 0 - 999
+        parseTokenOneDigit = /\d/, // 0 - 9
+        parseTokenOneOrTwoDigits = /\d\d?/, // 0 - 99
+        parseTokenOneToThreeDigits = /\d{1,3}/, // 0 - 999
+        parseTokenTwoDigits = /\d\d/, // 00 - 99
+        parseTokenThreeDigits = /\d{3}/, // 000 - 999
+        parseTokenFourDigits = /\d{4}/, // 0000 - 9999
         parseTokenWord = /[0-9a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+/i, // any word characters or numbers
         parseTokenTimezone = /[\+\-]\d\d:?\d\d/i, // +00:00 -00:00 +0000 -0000
         parseTokenT = /T/i, // T (ISO seperator)
