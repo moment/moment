@@ -674,10 +674,6 @@
             return Math.floor(+this._d / 1000);
         },
 
-        'native' : function () {
-            return this._d;
-        },
-
         toString : function () {
             return this._d.toString();
         },
