@@ -432,18 +432,19 @@
     // date from string and array of format strings
     function makeDateFromStringAndArray(string, formats) {
         var output,
-            scores = [],
             inputParts = string.match(parseMultipleFormatChunker),
+            formattedInputParts,
             scoreToBeat = 99,
             i,
-            curDate,
-            curScore;
+            currentDate,
+            currentScore;
         for (i = 0; i < formats.length; i++) {
-            curDate = makeDateFromStringAndFormat(string, formats[i]);
-            curScore = compareArrays(inputParts, formatMoment(new Moment(curDate), formats[i]).match(inputCharacters));
-            if (curScore < scoreToBeat) {
-                scoreToBeat = curScore;
-                output = curDate;
+            currentDate = makeDateFromStringAndFormat(string, formats[i]);
+            formattedInputParts = formatMoment(new Moment(currentDate), formats[i]).match(parseMultipleFormatChunker);
+            currentScore = compareArrays(inputParts, formattedInputParts);
+            if (currentScore < scoreToBeat) {
+                scoreToBeat = currentScore;
+                output = currentDate;
             }
         }
         return output;
