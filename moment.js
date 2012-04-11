@@ -24,11 +24,6 @@
 
         // format tokens
         formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|LT|LL?L?L?)/g,
-        
-        // regexes for format z, zz
-        // TODO: When we drop support for z and zz, remove these variables
-        nonuppercaseLetters = /[^A-Z]/g,
-        timezoneRegex = /\([A-Za-z ]+\)|:[0-9]{2} [A-Z]{3} /g,
 
         // parsing tokens
         parseMultipleFormatChunker = /([0-9a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)/gi,
@@ -229,10 +224,6 @@
             case 'SSS' :
                 return leftZeroFill(currentMilliseconds, 3);
             // TIMEZONE
-            case 'zz' :
-                // depreciating 'zz' fall through to 'z'
-            case 'z' :
-                return (m._d.toString().match(timezoneRegex) || [''])[0].replace(nonuppercaseLetters, '');
             case 'Z' :
                 return (currentZone < 0 ? '-' : '+') + leftZeroFill(~~(Math.abs(currentZone) / 60), 2) + ':' + leftZeroFill(~~(Math.abs(currentZone) % 60), 2);
             case 'ZZ' :
