@@ -2,14 +2,14 @@ var moment = require("../../moment");
 
 
     /**************************************************
-      Traditional Chineseins
+      Simplified Chinese
      *************************************************/
 
 exports["lang:zh-cn"] = {
     "parse" : function(test) {
         test.expect(96);
         moment.lang('zh-cn');
-        var tests = '一月 一月_二月 二月_三月 三月_四月 四月_五月 五月_六月 六月_七月 七月_八月 八月_九月 九月_十月 十月_十一月 十一月_十二月 十二月'.split("_");
+        var tests = '一月 1月_二月 2月_三月 3月_四月 4月_五月 5月_六月 6月_七月 7月_八月 8月_九月 9月_十月 10月_十一月 11月_十二月 12月'.split("_");
         var i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
@@ -34,7 +34,7 @@ exports["lang:zh-cn"] = {
         var a = [
                 ['dddd, MMMM Do YYYY, a h:mm:ss',      '星期日, 二月 14 2010, 下午 3:25:50'],
                 ['ddd, Ah',                            '周日, 下午3'],
-                ['M Mo MM MMMM MMM',                   '2 2 02 二月 二月'],
+                ['M Mo MM MMMM MMM',                   '2 2 02 二月 2月'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14 14'],
                 ['d do dddd ddd',                      '0 0 星期日 周日'],
@@ -46,10 +46,10 @@ exports["lang:zh-cn"] = {
                 ['s ss',                               '50 50'],
                 ['a A',                                '下午 下午'],
                 ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45 day of the year'],
-                ['L',                                  '2010年二月14日'],
-                ['LL',                                 '2010年二月14日'],
-                ['LLL',                                '2010年二月14日下午3点25'],
-                ['LLLL',                               '2010年二月14日星期日下午3点25']
+                ['L',                                  '2010年2月14日'],
+                ['LL',                                 '2010年2月14日'],
+                ['LLL',                                '2010年2月14日下午3点25'],
+                ['LLLL',                               '2010年2月14日星期日下午3点25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -62,7 +62,7 @@ exports["lang:zh-cn"] = {
     "format month" : function(test) {
         test.expect(12);
         moment.lang('zh-cn');
-        var expected = '一月 一月_二月 二月_三月 三月_四月 四月_五月 五月_六月 六月_七月 七月_八月 八月_九月 九月_十月 十月_十一月 十一月_十二月 十二月'.split("_");
+        var expected = '一月 1月_二月 2月_三月 3月_四月 4月_五月 5月_六月 6月_七月 7月_八月 8月_九月 9月_十月 10月_十一月 11月_十二月 12月'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 0]).format('MMMM MMM'), expected[i], expected[i]);
