@@ -27,7 +27,8 @@
         ],
         timezoneParseRegex = /([\+\-]|\d\d)/gi,
         VERSION = "1.5.0",
-        shortcuts = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|');
+        shortcuts = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|'),
+        durationGetters = 'years|months|weeks|days|hours|minutes|seconds|milliseconds'.split('|');
 
     // Moment prototype object
     function Moment(date, isUTC) {
@@ -37,14 +38,15 @@
 
     // Duration Constructor
     function Duration(duration) {
-        this.years = duration.years || duration.y || 0;
-        this.months = duration.months || duration.M || 0;
-        this.weeks = duration.weeks || duration.w || 0;
-        this.days = duration.days || duration.d || 0;
-        this.hours = duration.hours || duration.h || 0;
-        this.minutes = duration.minutes || duration.m || 0;
-        this.seconds = duration.seconds || duration.s || 0;
-        this.milliseconds = duration.milliseconds || duration.ms || 0;
+        var data = this._data = {};
+        data.years = duration.years || duration.y || 0;
+        data.months = duration.months || duration.M || 0;
+        data.weeks = duration.weeks || duration.w || 0;
+        data.days = duration.days || duration.d || 0;
+        data.hours = duration.hours || duration.h || 0;
+        data.minutes = duration.minutes || duration.m || 0;
+        data.seconds = duration.seconds || duration.s || 0;
+        data.milliseconds = duration.milliseconds || duration.ms || 0;
     }
 
     // left zero fill a number
@@ -68,14 +70,14 @@
             input = moment.duration(_input);
         }
 
-        ms = input.milliseconds +
-            (input.seconds) * 1e3 + // 1000
-            (input.minutes) * 6e4 + // 1000 * 60
-            (input.hours) * 36e5; // 1000 * 60 * 60
-        d = (input.days) +
-            (input.weeks) * 7;
-        M = (input.months) +
-            (input.years) * 12;
+        ms = input.milliseconds() +
+            (input.seconds()) * 1e3 + // 1000
+            (input.minutes()) * 6e4 + // 1000 * 60
+            (input.hours()) * 36e5; // 1000 * 60 * 60
+        d = (input.days()) +
+            (input.weeks()) * 7;
+        M = (input.months()) +
+            (input.years()) * 12;
         if (ms) {
             date.setTime(+date + ms * adding);
         }
@@ -713,32 +715,6 @@
         }
     };
 
-    moment.duration.fn = Duration.prototype = {
-        valueOf : function () {
-            return this.milliseconds + 
-                (this.seconds * 1000) + // 1000
-                (this.minutes * 60000) + // 60 * 1000
-                (this.hours   * 3600000) + // 60 * 60 * 1000
-                (this.days    * 86400000) + // 24 * 60 * 60 * 1000
-                (this.weeks   * 604800000) + // 7 * 24 * 60 * 60 * 1000
-                (this.months  * 2592000000) + // 30 * 24 * 60 * 60 * 1000
-                (this.years   * 31536000000); // 365 * 24 * 60 * 60 * 1000
-        },
-
-        humanize : function (withSuffix) {
-            var difference = +this,
-                rel = moment.relativeTime,
-                output = relativeTime(difference, !withSuffix);
-
-            if (withSuffix) {
-                output = (difference <= 0 ? rel.past : rel.future).replace(/%s/i, output);
-            }
-
-            return output;
-        }
-    };
-
-
     // helper for adding shortcuts
     function makeShortcut(name, key) {
         moment.fn[name] = function (input) {
@@ -759,6 +735,41 @@
 
     // add shortcut for year (uses different syntax than the getter/setter 'year' == 'FullYear')
     makeShortcut('year', 'FullYear');
+
+    moment.duration.fn = Duration.prototype = {
+        valueOf : function () {
+            return this._data.milliseconds + 
+                (this._data.seconds * 1000) + // 1000
+                (this._data.minutes * 60000) + // 60 * 1000
+                (this._data.hours   * 3600000) + // 60 * 60 * 1000
+                (this._data.days    * 86400000) + // 24 * 60 * 60 * 1000
+                (this._data.weeks   * 604800000) + // 7 * 24 * 60 * 60 * 1000
+                (this._data.months  * 2592000000) + // 30 * 24 * 60 * 60 * 1000
+                (this._data.years   * 31536000000); // 365 * 24 * 60 * 60 * 1000
+        },
+
+        humanize : function (withSuffix) {
+            var difference = +this,
+                rel = moment.relativeTime,
+                output = relativeTime(difference, !withSuffix);
+
+            if (withSuffix) {
+                output = (difference <= 0 ? rel.past : rel.future).replace(/%s/i, output);
+            }
+
+            return output;
+        }
+    };
+
+    function makeDurationGetter(name) {
+        moment.duration.fn[name] = function () {
+            return this._data[name];
+        };
+    }
+
+    for (i = 0; i < durationGetters.length; i++) {
+        makeDurationGetter(durationGetters[i]);
+    }
 
     // CommonJS module is defined
     if (hasModule) {
