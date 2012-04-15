@@ -5,7 +5,7 @@ exports.duration = {
         var d = moment.duration({
             years: 2,
             months: 3,
-            weeks: 4,
+            weeks: 2,
             days: 1,
             hours: 8,
             minutes: 9,
@@ -16,8 +16,8 @@ exports.duration = {
         test.expect(8);
         test.equal(d.years(), 2, "years");
         test.equal(d.months(), 3, "months");
-        test.equal(d.weeks(), 4, "weeks");
-        test.equal(d.days(), 1, "days");
+        test.equal(d.weeks(), 2, "weeks");
+        test.equal(d.days(), 15, "days"); // two weeks + 1 day
         test.equal(d.hours(), 8, "hours");
         test.equal(d.minutes(), 9, "minutes");
         test.equal(d.seconds(), 20, "seconds");
@@ -127,6 +127,54 @@ exports.duration = {
         moment.lang('en');
         test.equal(moment.duration({seconds:  44}).humanize(true),  "in a few seconds", "44 seconds = a few seconds");
         test.equal(moment.duration({seconds: -44}).humanize(true),  "a few seconds ago", "44 seconds = a few seconds");
+        test.done();
+    },
+
+    "bubble value up" : function(test) {
+        test.expect(5);
+        test.equal(moment.duration({milliseconds: 61001}).milliseconds(), 1, "61001 milliseconds has 1 millisecond left over");
+        test.equal(moment.duration({milliseconds: 61001}).seconds(),      1, "61001 milliseconds has 1 second left over");
+        test.equal(moment.duration({milliseconds: 61001}).minutes(),      1, "61001 milliseconds has 1 minute left over");
+
+        test.equal(moment.duration({minutes: 350}).minutes(), 50, "350 minutes has 50 minutes left over");
+        test.equal(moment.duration({minutes: 350}).hours(),   5,  "350 minutes has 5 hours left over");
+        test.done();
+    },
+
+    "clipping" : function(test) {
+        test.expect(18);
+        test.equal(moment.duration({months: 11}).months(), 11, "11 months is 11 months");
+        test.equal(moment.duration({months: 11}).years(),  0,  "11 months makes no year");
+        test.equal(moment.duration({months: 12}).months(), 0,  "12 months is 0 months left over");
+        test.equal(moment.duration({months: 12}).years(),  1,  "12 months makes 1 year");
+        test.equal(moment.duration({months: 13}).months(), 1,  "13 months is 1 month left over");
+        test.equal(moment.duration({months: 13}).years(),  1,  "13 months makes 1 year");
+
+        test.equal(moment.duration({days: 29}).days(),   29, "29 days is 29 days");
+        test.equal(moment.duration({days: 29}).months(), 0,  "29 days makes no month");
+        test.equal(moment.duration({days: 30}).days(),   0,  "30 days is 0 days left over");
+        test.equal(moment.duration({days: 30}).months(), 1,  "30 days is a month");
+        test.equal(moment.duration({days: 31}).days(),   1,  "31 days is 1 day left over");
+        test.equal(moment.duration({days: 31}).months(), 1,  "31 days is a month");
+
+        test.equal(moment.duration({hours: 23}).hours(), 23, "23 hours is 23 hours");
+        test.equal(moment.duration({hours: 23}).days(),  0,  "23 hours makes no day");
+        test.equal(moment.duration({hours: 24}).hours(), 0,  "24 hours is 0 hours left over");
+        test.equal(moment.duration({hours: 24}).days(),  1,  "24 hours makes 1 day");
+        test.equal(moment.duration({hours: 25}).hours(), 1,  "25 hours is 1 hour left over");
+        test.equal(moment.duration({hours: 25}).days(),  1,  "25 hours makes 1 day");
+        test.done();
+    },
+
+    "effective equivalency" : function(test) {
+        test.expect(7);
+        test.deepEqual(moment.duration({seconds: 1})._data,  moment.duration({milliseconds: 1000})._data, "1 second is the same as 1000 milliseconds");
+        test.deepEqual(moment.duration({seconds: 60})._data, moment.duration({minutes: 1})._data,         "1 minute is the same as 60 seconds");
+        test.deepEqual(moment.duration({minutes: 60})._data, moment.duration({hours: 1})._data,           "1 hour is the same as 60 minutes");
+        test.deepEqual(moment.duration({hours: 24})._data,   moment.duration({days: 1})._data,            "1 day is the same as 24 hours");
+        test.deepEqual(moment.duration({days: 7})._data,     moment.duration({weeks: 1})._data,           "1 week is the same as 7 days");
+        test.deepEqual(moment.duration({days: 30})._data,    moment.duration({months: 1})._data,          "1 month is the same as 30 days");
+        test.deepEqual(moment.duration({months: 12})._data,  moment.duration({years: 1})._data,           "1 years is the same as 12 months");
         test.done();
     },
 

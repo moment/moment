@@ -28,7 +28,7 @@
         timezoneParseRegex = /([\+\-]|\d\d)/gi,
         VERSION = "1.5.0",
         shortcuts = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|'),
-        durationGetters = 'years|months|weeks|days|hours|minutes|seconds|milliseconds'.split('|');
+        durationGetters = 'years|months|days|hours|minutes|seconds|milliseconds'.split('|');
 
     // Moment prototype object
     function Moment(date, isUTC) {
@@ -36,17 +36,64 @@
         this._isUTC = !!isUTC;
     }
 
+    function absRound(number) {
+        if (number < 0) {
+            return Math.ceil(number);
+        } else {
+            return Math.floor(number);
+        }
+    }
+
     // Duration Constructor
     function Duration(duration) {
-        var data = this._data = {};
-        data.years = duration.years || duration.y || 0;
-        data.months = duration.months || duration.M || 0;
-        data.weeks = duration.weeks || duration.w || 0;
-        data.days = duration.days || duration.d || 0;
-        data.hours = duration.hours || duration.h || 0;
-        data.minutes = duration.minutes || duration.m || 0;
-        data.seconds = duration.seconds || duration.s || 0;
-        data.milliseconds = duration.milliseconds || duration.ms || 0;
+        var data = this._data = {},
+            years = duration.years || duration.y || 0,
+            months = duration.months || duration.M || 0, 
+            weeks = duration.weeks || duration.w || 0,
+            days = duration.days || duration.d || 0,
+            hours = duration.hours || duration.h || 0,
+            minutes = duration.minutes || duration.m || 0,
+            seconds = duration.seconds || duration.s || 0,
+            milliseconds = duration.milliseconds || duration.ms || 0;
+
+        // representation for dateAddRemove
+        this._milliseconds = milliseconds +
+            seconds * 1e3 + // 1000
+            minutes * 6e4 + // 1000 * 60
+            hours * 36e5; // 1000 * 60 * 60
+        // Because of dateAddRemove treats 24 hours as different from a
+        // day when working around DST, we need to store them separately
+        this._days = days +
+            weeks * 7;
+        // It is impossible translate months into days without knowing
+        // which months you are are talking about, so we have to store
+        // it separately.
+        this._months = months +
+            years * 12;
+            
+        // The following code bubbles up values, see the tests for
+        // examples of what that means.
+        data.milliseconds = milliseconds % 1000;
+        seconds += absRound(milliseconds / 1000);
+
+        data.seconds = seconds % 60;
+        minutes += absRound(seconds / 60);
+
+        data.minutes = minutes % 60;
+        hours += absRound(minutes / 60);
+
+        data.hours = hours % 24;
+        days += absRound(hours / 24);
+
+        days += weeks * 7;
+        data.days = days % 30;
+        
+        months += absRound(days / 30);
+
+        data.months = months % 12;
+        years += absRound(months / 12);
+
+        data.years = years;
     }
 
     // left zero fill a number
@@ -70,14 +117,10 @@
             input = moment.duration(_input);
         }
 
-        ms = input.milliseconds() +
-            (input.seconds()) * 1e3 + // 1000
-            (input.minutes()) * 6e4 + // 1000 * 60
-            (input.hours()) * 36e5; // 1000 * 60 * 60
-        d = (input.days()) +
-            (input.weeks()) * 7;
-        M = (input.months()) +
-            (input.years()) * 12;
+        ms = input._milliseconds;
+        d = input._days;
+        M = input._months;
+
         if (ms) {
             date.setTime(+date + ms * adding);
         }
@@ -743,15 +786,14 @@
     makeShortcut('year', 'FullYear');
 
     moment.duration.fn = Duration.prototype = {
+        weeks : function () {
+            return absRound(this.days() / 7);
+        },
+
         valueOf : function () {
-            return this._data.milliseconds + 
-                (this._data.seconds * 1000) + // 1000
-                (this._data.minutes * 60000) + // 60 * 1000
-                (this._data.hours   * 3600000) + // 60 * 60 * 1000
-                (this._data.days    * 86400000) + // 24 * 60 * 60 * 1000
-                (this._data.weeks   * 604800000) + // 7 * 24 * 60 * 60 * 1000
-                (this._data.months  * 2592000000) + // 30 * 24 * 60 * 60 * 1000
-                (this._data.years   * 31536000000); // 365 * 24 * 60 * 60 * 1000
+            return this._milliseconds +
+              this._days * 864e5 +
+              this._months * 2592e6;
         },
 
         humanize : function (withSuffix) {
