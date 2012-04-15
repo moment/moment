@@ -475,8 +475,9 @@
 
     // duration
     moment.duration = function (input, key) {
-        var isNumber = (typeof input === 'number'),
-            duration = isNumber ? {} : input;
+        var isDuration = moment.isDuration(input),
+            isNumber = (typeof input === 'number'),
+            duration = (isDuration ? input._data : (isNumber ? {} : input));
 
         if (isNumber) {
             if (key) {
@@ -577,6 +578,11 @@
     // compare moment object
     moment.isMoment = function (obj) {
         return obj instanceof Moment;
+    };
+
+    // for typechecking Duration objects
+    moment.isDuration = function (obj) {
+        return obj instanceof Duration;
     };
 
     // shortcut for prototype

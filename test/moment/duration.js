@@ -65,6 +65,25 @@ exports.duration = {
         test.done();
     },
 
+    "instantiation from another duration" : function(test) {
+        var simple = moment.duration(1234),
+            complicated = moment.duration({
+                years: 2,
+                months: 3,
+                weeks: 4,
+                days: 1,
+                hours: 8,
+                minutes: 9,
+                seconds: 20,
+                milliseconds: 12
+            });
+
+        test.expect(2);
+        test.deepEqual(moment.duration(simple), simple, "simple clones are equal");
+        test.deepEqual(moment.duration(complicated), complicated, "complicated clones are equal");
+        test.done();
+    },
+
     "humanize" : function(test) {
         test.expect(32);
         moment.lang('en');
@@ -108,6 +127,14 @@ exports.duration = {
         moment.lang('en');
         test.equal(moment.duration({seconds:  44}).humanize(true),  "in a few seconds", "44 seconds = a few seconds");
         test.equal(moment.duration({seconds: -44}).humanize(true),  "a few seconds ago", "44 seconds = a few seconds");
+        test.done();
+    },
+
+    "isDuration" : function(test) {
+        test.expect(3);
+        test.ok(moment.isDuration(moment.duration(12345678)), "correctly says true");
+        test.ok(!moment.isDuration(moment()), "moment object is not a duration");
+        test.ok(!moment.isDuration({milliseconds: 1}), "plain object is not a duration");
         test.done();
     }
 };
