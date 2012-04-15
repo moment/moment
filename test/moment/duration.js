@@ -14,13 +14,13 @@ exports.duration = {
         });
 
         test.expect(8);
-        test.equal(d.years(), 2, "years");
-        test.equal(d.months(), 3, "months");
-        test.equal(d.weeks(), 2, "weeks");
-        test.equal(d.days(), 15, "days"); // two weeks + 1 day
-        test.equal(d.hours(), 8, "hours");
-        test.equal(d.minutes(), 9, "minutes");
-        test.equal(d.seconds(), 20, "seconds");
+        test.equal(d.years(),        2,  "years");
+        test.equal(d.months(),       3,  "months");
+        test.equal(d.weeks(),        2,  "weeks");
+        test.equal(d.days(),         15, "days"); // two weeks + 1 day
+        test.equal(d.hours(),        8,  "hours");
+        test.equal(d.minutes(),      9,  "minutes");
+        test.equal(d.seconds(),      20, "seconds");
         test.equal(d.milliseconds(), 12, "milliseconds");
         test.done();
     },
@@ -175,6 +175,30 @@ exports.duration = {
         test.deepEqual(moment.duration({days: 7})._data,     moment.duration({weeks: 1})._data,           "1 week is the same as 7 days");
         test.deepEqual(moment.duration({days: 30})._data,    moment.duration({months: 1})._data,          "1 month is the same as 30 days");
         test.deepEqual(moment.duration({months: 12})._data,  moment.duration({years: 1})._data,           "1 years is the same as 12 months");
+        test.done();
+    },
+
+    "asGetters" : function(test) {
+        var d = moment.duration({
+            years: 2,
+            months: 3,
+            weeks: 2,
+            days: 1,
+            hours: 8,
+            minutes: 9,
+            seconds: 20,
+            milliseconds: 12
+        });
+
+        test.expect(8);
+        test.equal(Math.round(d.asYears() * 100) / 100,   2.26,        "years");
+        test.equal(Math.round(d.asMonths() * 100) / 100,  27.51,       "months");
+        test.equal(Math.round(d.asWeeks() * 100) / 100,   117.91,      "weeks");
+        test.equal(Math.round(d.asDays() * 100) / 100,    825.34,      "days");
+        test.equal(Math.round(d.asHours() * 100) / 100,   19808.16,    "hours");
+        test.equal(Math.round(d.asMinutes() * 100) / 100, 1188489.33,  "minutes");
+        test.equal(Math.round(d.asSeconds() * 100) / 100, 71309360.01, "seconds");
+        test.equal(d.asMilliseconds(),                    71309360012, "milliseconds");
         test.done();
     },
 
