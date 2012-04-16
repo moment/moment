@@ -27,8 +27,8 @@ exports.eod_sod = {
         test.equal(m.seconds(), 59, "set the seconds"); 
         test.equal(m.milliseconds(), 999, "set the seconds");
 
-	var m2 = moment.utc(new Date(2011, 1, 2, 3, 4, 5, 6));
-	test.equal(m2.eod(), m2.hours(23).minutes(59).seconds(59).milliseconds(999));
+        var m2 = moment.utc(new Date(2011, 1, 2, 3, 4, 5, 6));
+        test.equal(m2.eod(), m2.hours(23).minutes(59).seconds(59).milliseconds(999));
 
         test.done();
     }
