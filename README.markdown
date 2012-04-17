@@ -1,18 +1,25 @@
-Moment.js
-=========
+[Moment.js](http://momentjs.com)
+================================
 
 A lightweight javascript date library for parsing, manipulating, and formatting dates.
 
-### Check it out at [momentjs.com](http://momentjs.com).
+### [Check out the website](http://momentjs.com)
 
-Get it with npm
-===============
+### [Read the documentation](http://momentjs.com/docs/)
 
-    npm install moment
+### [Run the unit tests](http://momentjs.com/test/)
 
-### Read the documentation at [momentjs.com/docs/](http://momentjs.com/docs/).
 
-### Run the unit tests at [momentjs.com/test/](http://momentjs.com/test/).
+Upgrading to 1.6.0
+==================
+
+There are a few things being deprecated in the 1.6.0 release.
+
+1. The format tokens `z` and `zz` (timezone abbreviations like EST CST MST etc) will no longer be supported. Due to inconsistent browser support, we are unable to consistently produce this value. See [this issue](https://github.com/timrwood/moment/issues/162) for more background.
+
+2. The method `moment.fn.native` is deprecated in favor of `moment.fn.toDate`. There continue to be issues with Google Closure Compiler throwing errors when using `native`, even in valid instances.
+
+3. The way to customize am/pm strings is being changed. This would only affect you if you created a custom language file. For more information, see [this issue](https://github.com/timrwood/moment/pull/222).
 
 
 Contributing
@@ -32,19 +39,18 @@ To minify all the files, use `make moment` to minify moment, `make langs` to min
 
 If your code passes the unit tests (including the ones you wrote), submit a pull request.
 
-Thanks to...
-============
+Submitting pull requests
+========================
 
-The folks over at [date.js](http://code.google.com/p/datejs/).
+Moment.js now uses [git-flow](https://github.com/nvie/gitflow). If you're not familiar with git-flow, please read up on it, you'll be glad you did.
 
-Everyone who helped with [php.js date](http://phpjs.org/functions/date:380).
+When submitting new features, please create a new feature branch using `git flow feature start <name>` and submit the pull request to the `develop` branch.
 
-[Ryan McGeary](http://ryan.mcgeary.org/) for his work on the [jQuery timeago plugin](http://timeago.yarp.com/).
+Pull requests for enhancements for features should be submitted to the `develop` branch as well.
 
-License
-=======
+When submitting a bugfix, please check if there is an existing bugfix branch. If the latest stable version is `1.5.0`, the bugfix branch would be `hotfix/1.5.1`. All pull requests for bug fixes should be on a `hotfix` branch, unless the bug fix depends on a new feature.
 
-Moment.js is freely distributable under the terms of the MIT license.
+The `master` branch should always have the latest stable version. When bugfix or minor releases are needed, the develop/hotfix branch will be merged into master and released.
 
 Changelog
 =========
@@ -166,3 +172,18 @@ Changed date format from php date format to custom format.
 ### 0.1.0
 
 Initial release
+
+License
+=======
+
+Moment.js is freely distributable under the terms of the MIT license.
+
+Copyright (c) 2011-2012 Tim Wood
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
