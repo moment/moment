@@ -757,7 +757,7 @@
         },
 
         diff : function (input, val, asFloat) {
-            var inputMoment = moment(input),
+            var inputMoment = this._isUTC ? moment(input).utc() : moment(input).local(),
                 zoneDiff = (this.zone() - inputMoment.zone()) * 6e4,
                 diff = this._d - inputMoment._d - zoneDiff,
                 year = this.year() - inputMoment.year(),
@@ -767,7 +767,7 @@
             if (val === 'months') {
                 output = year * 12 + month + date / 30;
             } else if (val === 'years') {
-                output = year + month / 12;
+                output = year + (month + date / 30) / 12;
             } else {
                 output = val === 'seconds' ? diff / 1e3 : // 1000
                     val === 'minutes' ? diff / 6e4 : // 1000 * 60

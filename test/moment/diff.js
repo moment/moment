@@ -68,5 +68,27 @@ exports.diff = {
         test.equal(moment([2010, 0, 1, 2]).diff([2010], 'minutes'), 120, "minute diff");
         test.equal(moment([2010, 0, 1, 0, 4]).diff([2010], 'seconds'), 240, "second diff");
         test.done();
+    },
+
+    "diff between utc and local" : function(test) {
+        test.expect(7);
+
+        test.equal(moment([2011]).utc().diff([2010], 'years'), 1, "year diff");
+        test.equal(moment([2010, 2]).utc().diff([2010], 'months'), 2, "month diff");
+        test.equal(moment([2010, 0, 4]).utc().diff([2010], 'days'), 3, "day diff");
+        test.equal(moment([2010, 0, 21]).utc().diff([2010], 'weeks'), 3, "week diff");
+        test.equal(moment([2010, 0, 1, 4]).utc().diff([2010], 'hours'), 4, "hour diff");
+        test.equal(moment([2010, 0, 1, 0, 5]).utc().diff([2010], 'minutes'), 5, "minute diff");
+        test.equal(moment([2010, 0, 1, 0, 0, 6]).utc().diff([2010], 'seconds'), 6, "second diff");
+
+        test.done();
+    },
+
+    "year diffs include dates" : function(test) {
+        test.expect(1);
+
+        test.ok(moment([2012, 1, 19]).diff(moment([2002, 1, 20]), 'years', true) < 10, "year diff should include date of month");
+
+        test.done();
     }
 };

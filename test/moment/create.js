@@ -195,6 +195,21 @@ exports.create = {
         test.done();
     },
 
+    "cloning carrying over utc mode" : function(test) {
+        test.expect(8);
+
+        test.equal(moment().local().clone()._isUTC, false, "An explicit cloned local moment should have _isUTC == false");
+        test.equal(moment().utc().clone()._isUTC, true, "An cloned utc moment should have _isUTC == true");
+        test.equal(moment().clone()._isUTC, false, "An explicit cloned local moment should have _isUTC == false");
+        test.equal(moment.utc().clone()._isUTC, true, "An explicit cloned utc moment should have _isUTC == true");
+        test.equal(moment(moment().local())._isUTC, false, "An implicit cloned local moment should have _isUTC == false");
+        test.equal(moment(moment().utc())._isUTC, true, "An implicit cloned utc moment should have _isUTC == true");
+        test.equal(moment(moment())._isUTC, false, "An implicit cloned local moment should have _isUTC == false");
+        test.equal(moment(moment.utc())._isUTC, true, "An implicit cloned utc moment should have _isUTC == true");
+
+        test.done();
+    },
+
     "parsing iso" : function(test) {
         var offset = moment([2011, 9, 08]).zone();
         var pad = function(input) {
