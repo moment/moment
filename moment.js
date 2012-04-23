@@ -817,43 +817,32 @@
         },
 
         startOf: function (val) {
-            if (val === 'years') {
-                return this.clone()
-                    .month(0)
-                    .date(1)
-                    .hours(0)
-                    .minutes(0)
-                    .seconds(0)
-                    .milliseconds(0);
-            } else if (val === 'months') {
-                return this.clone()
-                    .date(1)
-                    .hours(0)
-                    .minutes(0)
-                    .seconds(0)
-                    .milliseconds(0);
-            } else if (val === 'days') {
-                return this.clone()
-                    .hours(0)
-                    .minutes(0)
-                    .seconds(0)
-                    .milliseconds(0);
-            } else if (val === 'hours') {
-                return this.clone()
-                    .minutes(0)
-                    .seconds(0)
-                    .milliseconds(0);
-            } else if (val === 'minutes') {
-                return this.clone()
-                    .seconds(0)
-                    .milliseconds(0);
-            } else if (val === 'seconds') {
-                return this.clone()
-                    .milliseconds(0);
+            var output = this.clone();
+            // the following switch intentionally omits break keywords
+            // to utilize falling through the cases.
+            switch (val) {
+            case 'years':
+                output.month(0);
+                /* falls through */
+            case 'months':
+                output.date(1);
+                /* falls through */
+            case 'days':
+                output.hours(0);
+                /* falls through */
+            case 'hours':
+                output.minutes(0);
+                /* falls through */
+            case 'minutes':
+                output.seconds(0);
+                /* falls through */
+            case 'seconds':
+                output.milliseconds(0);
+                /* falls through */
             }
-            return this.clone();
+            return output;
         },
-        
+                
         endOf: function (val) {
             return this.startOf(val).add(val, 1).subtract('milliseconds', 1);
         },
