@@ -816,20 +816,55 @@
                 this.add({ d : input - day });
         },
 
+        startOf: function (val) {
+            if (val === 'years') {
+                return this.clone()
+                    .month(0)
+                    .date(1)
+                    .hours(0)
+                    .minutes(0)
+                    .seconds(0)
+                    .milliseconds(0);
+            } else if (val === 'months') {
+                return this.clone()
+                    .date(1)
+                    .hours(0)
+                    .minutes(0)
+                    .seconds(0)
+                    .milliseconds(0);
+            } else if (val === 'days') {
+                return this.clone()
+                    .hours(0)
+                    .minutes(0)
+                    .seconds(0)
+                    .milliseconds(0);
+            } else if (val === 'hours') {
+                return this.clone()
+                    .minutes(0)
+                    .seconds(0)
+                    .milliseconds(0);
+            } else if (val === 'minutes') {
+                return this.clone()
+                    .seconds(0)
+                    .milliseconds(0);
+            } else if (val === 'seconds') {
+                return this.clone()
+                    .milliseconds(0);
+            }
+            return this.clone();
+        },
+        
+        endOf: function (val) {
+            return this.startOf(val).add(val, 1).subtract('milliseconds', 1);
+        },
+        
         sod: function () {
-            return this.clone()
-                .hours(0)
-                .minutes(0)
-                .seconds(0)
-                .milliseconds(0);
+            return this.startOf('days');
         },
 
         eod: function () {
             // end of day = start of day plus 1 day, minus 1 millisecond
-            return this.sod().add({
-                d : 1,
-                ms : -1
-            });
+            return this.endOf('days');
         },
 
         zone : function () {
