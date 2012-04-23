@@ -145,33 +145,24 @@
     }
 
     // helper function for _.addTime and _.subtractTime
-    function dateAddRemove(date, _input, adding, val) {
-        var isString = (typeof _input === 'string'),
-            input, ms, d, M, currentDate;
-
-        if (isString) {
-            input = moment.duration(+val, _input);
-        } else {
-            input = moment.duration(_input);
-        }
-
-        ms = input._milliseconds;
-        d = input._days;
-        M = input._months;
+    function addOrSubtractDurationFromMoment(mom, duration, isAdding) {
+        var ms = duration._milliseconds,
+            d = duration._days,
+            M = duration._months,
+            currentDate;
 
         if (ms) {
-            date.setTime(+date + ms * adding);
+            mom._d.setTime(+mom + ms * isAdding);
         }
         if (d) {
-            date.setDate(date.getDate() + d * adding);
+            mom.date(mom.date() + d * isAdding);
         }
         if (M) {
-            currentDate = date.getDate();
-            date.setDate(1);
-            date.setMonth(date.getMonth() + M * adding);
-            date.setDate(Math.min(new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate(), currentDate));
+            currentDate = mom.date();
+            mom.date(1)
+                .month(mom.month() + M * isAdding)
+                .date(Math.min(currentDate, mom.daysInMonth()));
         }
-        return date;
     }
 
     // check if is an array
@@ -754,12 +745,14 @@
         },
 
         add : function (input, val) {
-            this._d = dateAddRemove(this._d, input, 1, val);
+            var dur = val ? moment.duration(+val, input) : moment.duration(input);
+            addOrSubtractDurationFromMoment(this, dur, 1);
             return this;
         },
 
         subtract : function (input, val) {
-            this._d = dateAddRemove(this._d, input, -1, val);
+            var dur = val ? moment.duration(+val, input) : moment.duration(input);
+            addOrSubtractDurationFromMoment(this, dur, -1);
             return this;
         },
 
