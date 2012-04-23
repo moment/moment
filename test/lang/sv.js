@@ -220,11 +220,11 @@ exports["lang:sv"] = {
     
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
-            test.equal(m.calendar(),       m.format('[Förra] dddd [en klockan] LT'),  "Today - " + i + " days current time");
+            test.equal(m.calendar(),       m.format('[Förra] dddd[en klockan] LT'),  "Today - " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('[Förra] dddd [en klockan] LT'),  "Today - " + i + " days beginning of day");
+            test.equal(m.calendar(),       m.format('[Förra] dddd[en klockan] LT'),  "Today - " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('[Förra] dddd [en klockan] LT'),  "Today - " + i + " days end of day");
+            test.equal(m.calendar(),       m.format('[Förra] dddd[en klockan] LT'),  "Today - " + i + " days end of day");
         }
         test.done();
     },
