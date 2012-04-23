@@ -55,12 +55,83 @@
         parseTimezoneChunker = /([\+\-]|\d\d)/gi,
 
         // getter and setter names
-        proxyGettersAndSetters = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|');
+        proxyGettersAndSetters = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|'),
+        durationGetters = 'years|months|days|hours|minutes|seconds|milliseconds'.split('|'),
+        unitMillisecondFactors = {
+            'Milliseconds' : 1,
+            'Seconds' : 1e3,
+            'Minutes' : 6e4,
+            'Hours' : 36e5,
+            'Days' : 864e5,
+            'Weeks' : 6048e5,
+            'Months' : 2592e6,
+            'Years' : 31536e6
+        };
 
     // Moment prototype object
     function Moment(date, isUTC) {
         this._d = date;
         this._isUTC = !!isUTC;
+    }
+
+    function absRound(number) {
+        if (number < 0) {
+            return Math.ceil(number);
+        } else {
+            return Math.floor(number);
+        }
+    }
+
+    // Duration Constructor
+    function Duration(duration) {
+        var data = this._data = {},
+            years = duration.years || duration.y || 0,
+            months = duration.months || duration.M || 0, 
+            weeks = duration.weeks || duration.w || 0,
+            days = duration.days || duration.d || 0,
+            hours = duration.hours || duration.h || 0,
+            minutes = duration.minutes || duration.m || 0,
+            seconds = duration.seconds || duration.s || 0,
+            milliseconds = duration.milliseconds || duration.ms || 0;
+
+        // representation for dateAddRemove
+        this._milliseconds = milliseconds +
+            seconds * 1e3 + // 1000
+            minutes * 6e4 + // 1000 * 60
+            hours * 36e5; // 1000 * 60 * 60
+        // Because of dateAddRemove treats 24 hours as different from a
+        // day when working around DST, we need to store them separately
+        this._days = days +
+            weeks * 7;
+        // It is impossible translate months into days without knowing
+        // which months you are are talking about, so we have to store
+        // it separately.
+        this._months = months +
+            years * 12;
+            
+        // The following code bubbles up values, see the tests for
+        // examples of what that means.
+        data.milliseconds = milliseconds % 1000;
+        seconds += absRound(milliseconds / 1000);
+
+        data.seconds = seconds % 60;
+        minutes += absRound(seconds / 60);
+
+        data.minutes = minutes % 60;
+        hours += absRound(minutes / 60);
+
+        data.hours = hours % 24;
+        days += absRound(hours / 24);
+
+        days += weeks * 7;
+        data.days = days % 30;
+        
+        months += absRound(days / 30);
+
+        data.months = months % 12;
+        years += absRound(months / 12);
+
+        data.years = years;
     }
 
     // left zero fill a number
@@ -76,19 +147,18 @@
     // helper function for _.addTime and _.subtractTime
     function dateAddRemove(date, _input, adding, val) {
         var isString = (typeof _input === 'string'),
-            input = isString ? {} : _input,
-            ms, d, M, currentDate;
-        if (isString && val) {
-            input[_input] = +val;
+            input, ms, d, M, currentDate;
+
+        if (isString) {
+            input = moment.duration(+val, _input);
+        } else {
+            input = moment.duration(_input);
         }
-        ms = (input.ms || input.milliseconds || 0) +
-            (input.s || input.seconds || 0) * 1e3 + // 1000
-            (input.m || input.minutes || 0) * 6e4 + // 1000 * 60
-            (input.h || input.hours || 0) * 36e5; // 1000 * 60 * 60
-        d = (input.d || input.days || 0) +
-            (input.w || input.weeks || 0) * 7;
-        M = (input.M || input.months || 0) +
-            (input.y || input.years || 0) * 12;
+
+        ms = input._milliseconds;
+        d = input._days;
+        M = input._months;
+
         if (ms) {
             date.setTime(+date + ms * adding);
         }
@@ -493,10 +563,12 @@
             return null;
         }
         var date,
-            matched;
+            matched,
+            isUTC;
         // parse Moment object
-        if (input && input._d instanceof Date) {
+        if (moment.isMoment(input)) {
             date = new Date(+input._d);
+            isUTC = input._isUTC;
         // parse string and format
         } else if (format) {
             if (isArray(format)) {
@@ -514,7 +586,7 @@
                 typeof input === 'string' ? makeDateFromString(input) :
                 new Date(input);
         }
-        return new Moment(date);
+        return new Moment(date, isUTC);
     };
 
     // creating with utc
@@ -530,39 +602,28 @@
         return moment(input * 1000);
     };
 
-    // humanizeDuration
-    moment.humanizeDuration = function (num, type, withSuffix) {
-        var difference = +num,
-            rel = moment.relativeTime,
-            output;
-        switch (type) {
-        case "seconds" :
-            difference *= 1000; // 1000
-            break;
-        case "minutes" :
-            difference *= 60000; // 60 * 1000
-            break;
-        case "hours" :
-            difference *= 3600000; // 60 * 60 * 1000
-            break;
-        case "days" :
-            difference *= 86400000; // 24 * 60 * 60 * 1000
-            break;
-        case "weeks" :
-            difference *= 604800000; // 7 * 24 * 60 * 60 * 1000
-            break;
-        case "months" :
-            difference *= 2592000000; // 30 * 24 * 60 * 60 * 1000
-            break;
-        case "years" :
-            difference *= 31536000000; // 365 * 24 * 60 * 60 * 1000
-            break;
-        default :
-            withSuffix = !!type;
-            break;
+    // duration
+    moment.duration = function (input, key) {
+        var isDuration = moment.isDuration(input),
+            isNumber = (typeof input === 'number'),
+            duration = (isDuration ? input._data : (isNumber ? {} : input));
+
+        if (isNumber) {
+            if (key) {
+                duration[key] = input;
+            } else {
+                duration.milliseconds = input;
+            }
         }
-        output = relativeTime(difference, !withSuffix);
-        return withSuffix ? (difference <= 0 ? rel.past : rel.future).replace(/%s/i, output) : output;
+
+        return new Duration(duration);
+    };
+
+    // humanizeDuration
+    // This method is deprecated in favor of the new Duration object.  Please
+    // see the moment.duration method.
+    moment.humanizeDuration = function (num, type, withSuffix) {
+        return moment.duration(num, type).humanize(withSuffix);
     };
 
     // version number
@@ -650,6 +711,11 @@
         return obj instanceof Moment;
     };
 
+    // for typechecking Duration objects
+    moment.isDuration = function (obj) {
+        return obj instanceof Duration;
+    };
+
     // shortcut for prototype
     moment.fn = Moment.prototype = {
 
@@ -721,7 +787,7 @@
         },
 
         from : function (time, withoutSuffix) {
-            return moment.humanizeDuration(this.diff(time), !withoutSuffix);
+            return moment.duration(this.diff(time)).humanize(!withoutSuffix);
         },
 
         fromNow : function (withoutSuffix) {
@@ -802,6 +868,52 @@
 
     // add shortcut for year (uses different syntax than the getter/setter 'year' == 'FullYear')
     makeGetterAndSetter('year', 'FullYear');
+
+    moment.duration.fn = Duration.prototype = {
+        weeks : function () {
+            return absRound(this.days() / 7);
+        },
+
+        valueOf : function () {
+            return this._milliseconds +
+              this._days * 864e5 +
+              this._months * 2592e6;
+        },
+
+        humanize : function (withSuffix) {
+            var difference = +this,
+                rel = moment.relativeTime,
+                output = relativeTime(difference, !withSuffix);
+
+            if (withSuffix) {
+                output = (difference <= 0 ? rel.past : rel.future).replace(/%s/i, output);
+            }
+
+            return output;
+        }
+    };
+
+    function makeDurationGetter(name) {
+        moment.duration.fn[name] = function () {
+            return this._data[name];
+        };
+    }
+
+    function makeDurationAsGetter(name, factor) {
+        moment.duration.fn['as' + name] = function () {
+            return +this / factor;
+        };
+    }
+
+    for (i = 0; i < durationGetters.length; i++) {
+        makeDurationGetter(durationGetters[i]);
+    }
+
+    for (i in unitMillisecondFactors) {
+        if (unitMillisecondFactors.hasOwnProperty(i)) {
+            makeDurationAsGetter(i, unitMillisecondFactors[i]);
+        }
+    }
 
     // CommonJS module is defined
     if (hasModule) {

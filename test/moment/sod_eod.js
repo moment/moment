@@ -33,7 +33,7 @@ exports.eod_sod = {
         test.expect(1);
 
         var m2 = moment.utc(new Date(2011, 1, 2, 3, 4, 5, 6));
-        test.equal(m2.eod(), m2.hours(23).minutes(59).seconds(59).milliseconds(999));
+        test.equal(m2.eod().valueOf(), m2.hours(23).minutes(59).seconds(59).milliseconds(999).valueOf(), "Eod should equal manual hours/mins/seconds");
         
         test.done();
     }
