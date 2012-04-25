@@ -585,7 +585,9 @@
         if (isArray(input)) {
             return new Moment(new Date(Date.UTC.apply({}, input)), true);
         }
-        return (format && input) ? moment(input + ' +00:00', format + ' Z').utc() : moment(input).utc();
+        return (format && input) ?
+            moment(input + ' +0000', format + ' Z').utc() :
+            moment(parseTokenTimezone.exec(input) ? input : input + '+0000').utc();
     };
 
     // creating with unix timestamp (in seconds)

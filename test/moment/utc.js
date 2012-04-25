@@ -43,5 +43,19 @@ exports.utc = {
         test.equal(m.hours(), 3, "the hours should be correct for utc parsing iso");
 
         test.done();
+    },
+
+    "creating with utc without timezone" : function(test) {
+        test.expect(4);
+
+        var m = moment.utc("2012-01-02T08:20:00");
+        test.equal(m.date(), 2, "the day should be correct for utc parse without timezone");
+        test.equal(m.hours(), 8, "the hours should be correct for utc parse without timezone");
+
+        m = moment.utc("2012-01-02T08:20:00+09:00");
+        test.equal(m.date(), 1, "the day should be correct for utc parse with timezone");
+        test.equal(m.hours(), 23, "the hours should be correct for utc parse with timezone");
+
+        test.done();
     }
 };
