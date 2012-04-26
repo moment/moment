@@ -65,7 +65,6 @@ exports.create = {
     },
 
     "string with format" : function(test) {
-        test.expect(23);
         moment.lang('en');
         var a = [
                 ['MM-DD-YYYY',          '12-02-1999'],
@@ -90,12 +89,36 @@ exports.create = {
                 ['HH:mm:ss',            '12:00:00'],
                 ['HH:mm:ss',            '12:30:00'],
                 ['HH:mm:ss',            '00:00:00'],
-                ['HH:mm:ss',            '00:30:00']
+                ['HH:mm:ss S',          '00:30:00 1'],
+                ['HH:mm:ss SS',         '00:30:00 12'],
+                ['HH:mm:ss SSS',        '00:30:00 123'],
+                ['HH:mm:ss S',          '00:30:00 7'],
+                ['HH:mm:ss SS',         '00:30:00 78'],
+                ['HH:mm:ss SSS',        '00:30:00 789']
             ],
             i;
+        
+        test.expect(a.length);
         for (i = 0; i < a.length; i++) {
             test.equal(moment(a[i][1], a[i][0]).format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
         }
+        test.done();
+    },
+
+    "string with format no separators" : function(test) {
+        moment.lang('en');
+        var a = [
+                ['MMDDYYYY',          '12021999'],
+                ['DDMMYYYY',          '12021999'],
+                ['YYYYMMDD',          '19991202']
+            ],i;
+
+        test.expect(a.length);
+
+        for (i = 0; i < a.length; i++) {
+            test.equal(moment(a[i][1], a[i][0]).format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
+        }
+        
         test.done();
     },
 
@@ -156,6 +179,21 @@ exports.create = {
         momentA.month(5);
         test.equal(momentB.month(), 10, "Calling moment() on a moment will create a clone");
         test.equal(momentA.month(), 5, "Calling moment() on a moment will create a clone");
+        test.done();
+    },
+
+    "cloning carrying over utc mode" : function(test) {
+        test.expect(8);
+
+        test.equal(moment().local().clone()._isUTC, false, "An explicit cloned local moment should have _isUTC == false");
+        test.equal(moment().utc().clone()._isUTC, true, "An cloned utc moment should have _isUTC == true");
+        test.equal(moment().clone()._isUTC, false, "An explicit cloned local moment should have _isUTC == false");
+        test.equal(moment.utc().clone()._isUTC, true, "An explicit cloned utc moment should have _isUTC == true");
+        test.equal(moment(moment().local())._isUTC, false, "An implicit cloned local moment should have _isUTC == false");
+        test.equal(moment(moment().utc())._isUTC, true, "An implicit cloned utc moment should have _isUTC == true");
+        test.equal(moment(moment())._isUTC, false, "An implicit cloned local moment should have _isUTC == false");
+        test.equal(moment(moment.utc())._isUTC, true, "An implicit cloned utc moment should have _isUTC == true");
+
         test.done();
     },
 

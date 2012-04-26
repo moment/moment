@@ -44,6 +44,10 @@ size: moment langs
 	gzip -l min/moment.min.gzip.js.gz
 	rm min/moment.min.gzip.js.gz
 
+.PHONY: size-history
+size-history: moment
+	node test/filesize-history.js
+
 
 .PHONY: test hint test-moment test-lang
 test: hint test-moment test-lang
