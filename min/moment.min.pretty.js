@@ -1,5 +1,5 @@
 // moment.js
-// version : 1.5.0
+// version : 1.6.0
 // author : Tim Wood
 // license : MIT
 // momentjs.com
@@ -272,7 +272,7 @@
             return +this / b;
         };
     }
-    var c, d = "1.5.0", e = Math.round, f, g = {}, h = "en", i = typeof module != "undefined", j = "months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem".split("|"), k = /^\/?Date\((\-?\d+)/i, l = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|LT|LL?L?L?)/g, m = /([0-9a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)/gi, n = /\d/, o = /\d\d?/, p = /\d{1,3}/, q = /\d\d/, r = /\d{3}/, s = /\d{4}/, t = /[0-9a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+/i, u = /[\+\-]\d\d:?\d\d/i, v = /T/i, w = /^\s*\d{4}-\d\d-\d\d(T(\d\d(:\d\d(:\d\d)?)?)?([\+\-]\d\d:?\d\d)?)?/, x = "YYYY-MM-DDTHH:mm:ssZ", y = [ [ "HH:mm:ss", /T\d\d:\d\d:\d\d/ ], [ "HH:mm", /T\d\d:\d\d/ ], [ "HH", /T\d\d/ ] ], z = /([\+\-]|\d\d)/gi, A = "Month|Date|Hours|Minutes|Seconds|Milliseconds".split("|"), B = "years|months|days|hours|minutes|seconds|milliseconds".split("|"), C = {
+    var c, d = "1.6.0", e = Math.round, f, g = {}, h = "en", i = typeof module != "undefined", j = "months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem".split("|"), k = /^\/?Date\((\-?\d+)/i, l = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|LT|LL?L?L?)/g, m = /([0-9a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)/gi, n = /\d/, o = /\d\d?/, p = /\d{1,3}/, q = /\d\d/, r = /\d{3}/, s = /\d{4}/, t = /[0-9a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+/i, u = /[\+\-]\d\d:?\d\d/i, v = /T/i, w = /^\s*\d{4}-\d\d-\d\d(T(\d\d(:\d\d(:\d\d)?)?)?([\+\-]\d\d:?\d\d)?)?/, x = "YYYY-MM-DDTHH:mm:ssZ", y = [ [ "HH:mm:ss", /T\d\d:\d\d:\d\d/ ], [ "HH:mm", /T\d\d:\d\d/ ], [ "HH", /T\d\d/ ] ], z = /([\+\-]|\d\d)/gi, A = "Month|Date|Hours|Minutes|Seconds|Milliseconds".split("|"), B = "years|months|days|hours|minutes|seconds|milliseconds".split("|"), C = {
         Milliseconds: 1,
         Seconds: 1e3,
         Minutes: 6e4,
