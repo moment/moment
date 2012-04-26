@@ -94,15 +94,15 @@
               case "ss":
                 return G(k, 2);
               case "S":
-                return ~~(n / 100);
+                return ~~(m / 100);
               case "SS":
-                return G(~~(n / 10), 2);
+                return G(~~(m / 10), 2);
               case "SSS":
-                return G(n, 3);
+                return G(m, 3);
               case "Z":
-                return (m < 0 ? "-" : "+") + G(~~(Math.abs(m) / 60), 2) + ":" + G(~~(Math.abs(m) % 60), 2);
+                return (n < 0 ? "-" : "+") + G(~~(Math.abs(n) / 60), 2) + ":" + G(~~(Math.abs(n) % 60), 2);
               case "ZZ":
-                return (m < 0 ? "-" : "+") + G(~~(10 * Math.abs(m) / 6), 4);
+                return (n < 0 ? "-" : "+") + G(~~(10 * Math.abs(n) / 6), 4);
               case "L":
               case "LL":
               case "LLL":
@@ -113,7 +113,7 @@
                 return d.replace(/(^\[)|(\\)|\]$/g, "");
             }
         }
-        var e = b.month(), f = b.date(), g = b.year(), h = b.day(), i = b.hours(), j = b.minutes(), k = b.seconds(), m = -b.zone(), n = b.milliseconds(), o = c.ordinal, p = c.meridiem;
+        var e = b.month(), f = b.date(), g = b.year(), h = b.day(), i = b.hours(), j = b.minutes(), k = b.seconds(), m = b.milliseconds(), n = -b.zone(), o = c.ordinal, p = c.meridiem;
         return d.replace(l, q);
     }
     function L(a) {

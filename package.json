@@ -30,5 +30,8 @@
         "uglify-js" : "latest",
         "nodeunit"     : "latest"
     },
+    "scripts": {
+        "test": "nodeunit ./test/moment ./test/lang"
+    },
     "ender": "./ender.js"
 }

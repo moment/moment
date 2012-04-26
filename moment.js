@@ -187,6 +187,7 @@
             currentHours = m.hours(),
             currentMinutes = m.minutes(),
             currentSeconds = m.seconds(),
+            currentMilliseconds = m.milliseconds(),
             currentZone = -m.zone(),
             ordinal = moment.ordinal,
             meridiem = moment.meridiem;
@@ -254,9 +255,9 @@
                 return currentYear;
             // AM / PM
             case 'a' :
-                return currentHours > 11 ? meridiem.pm : meridiem.am;
+                return meridiem ? meridiem(currentHours, currentMinutes, false) : (currentHours > 11 ? 'pm' : 'am');
             case 'A' :
-                return currentHours > 11 ? meridiem.PM : meridiem.AM;
+                return meridiem ? meridiem(currentHours, currentMinutes, true) : (currentHours > 11 ? 'PM' : 'AM');
             // 24 HOUR
             case 'H' :
                 return currentHours;
@@ -277,6 +278,13 @@
                 return currentSeconds;
             case 'ss' :
                 return leftZeroFill(currentSeconds, 2);
+            // MILLISECONDS
+            case 'S' :
+                return ~~ (currentMilliseconds / 100);
+            case 'SS' :
+                return leftZeroFill(~~(currentMilliseconds / 10), 2);
+            case 'SSS' :
+                return leftZeroFill(currentMilliseconds, 3);
             // TIMEZONE
             case 'Z' :
                 return (currentZone < 0 ? '-' : '+') + leftZeroFill(~~(Math.abs(currentZone) / 60), 2) + ':' + leftZeroFill(~~(Math.abs(currentZone) % 60), 2);
@@ -517,7 +525,7 @@
     function substituteTimeAgo(string, number, withoutSuffix, isFuture) {
         var rt = moment.relativeTime[string];
         return (typeof rt === 'function') ?
-            rt(number || 1, !!withoutSuffix, string) :
+            rt(number || 1, !!withoutSuffix, string, isFuture) :
             rt.replace(/%d/i, number || 1);
     }
 
@@ -538,6 +546,7 @@
                 days < 345 && ['MM', round(days / 30)] ||
                 years === 1 && ['y'] || ['yy', years];
         args[2] = withoutSuffix;
+        args[3] = milliseconds > 0;
         return substituteTimeAgo.apply({}, args);
     }
 
@@ -658,12 +667,7 @@
             LLL : "MMMM D YYYY LT",
             LLLL : "dddd, MMMM D YYYY LT"
         },
-        meridiem : {
-            AM : 'AM',
-            am : 'am',
-            PM : 'PM',
-            pm : 'pm'
-        },
+        meridiem : false,
         calendar : {
             sameDay : '[Today at] LT',
             nextDay : '[Tomorrow at] LT',
@@ -716,7 +720,6 @@
         valueOf : function () {
             return +this._d;
         },
-
 
         unix : function () {
             return Math.floor(+this._d / 1000);
