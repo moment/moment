@@ -55,6 +55,27 @@ The `master` branch should always have the latest stable version. When bugfix or
 Changelog
 =========
 
+
+### 1.6.0 [See discussion](https://github.com/timrwood/moment/pull/268)
+
+Added Durations.
+
+Revamped parser to support parsing non-separated strings (YYYYMMDD vs YYYY-MM-DD).
+
+Added support for millisecond parsing and formatting tokens (S SS SSS)
+
+Added a getter for `moment.lang()`
+
+Various bugfixes.
+
+### 1.5.0 [See milestone](https://github.com/timrwood/moment/issues?milestone=10&page=1&state=closed)
+
+Added UTC mode.
+
+Added automatic ISO8601 parsing.
+
+Various bugfixes.
+
 ### 1.4.0 [See milestone](https://github.com/timrwood/moment/issues?milestone=8&state=closed)
 
 Added `moment.fn.toDate` as a replacement for `moment.fn.native`.
