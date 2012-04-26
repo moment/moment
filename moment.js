@@ -819,20 +819,44 @@
                 this.add({ d : input - day });
         },
 
+        startOf: function (val) {
+            var output = this.clone();
+            // the following switch intentionally omits break keywords
+            // to utilize falling through the cases.
+            switch (val) {
+            case 'years':
+                output.month(0);
+                /* falls through */
+            case 'months':
+                output.date(1);
+                /* falls through */
+            case 'days':
+                output.hours(0);
+                /* falls through */
+            case 'hours':
+                output.minutes(0);
+                /* falls through */
+            case 'minutes':
+                output.seconds(0);
+                /* falls through */
+            case 'seconds':
+                output.milliseconds(0);
+                /* falls through */
+            }
+            return output;
+        },
+                
+        endOf: function (val) {
+            return this.startOf(val).add(val, 1).subtract('milliseconds', 1);
+        },
+        
         sod: function () {
-            return this.clone()
-                .hours(0)
-                .minutes(0)
-                .seconds(0)
-                .milliseconds(0);
+            return this.startOf('days');
         },
 
         eod: function () {
             // end of day = start of day plus 1 day, minus 1 millisecond
-            return this.sod().add({
-                d : 1,
-                ms : -1
-            });
+            return this.endOf('days');
         },
 
         zone : function () {
