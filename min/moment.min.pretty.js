@@ -410,14 +410,32 @@
                 d: a - b
             });
         },
+        startOf: function(a) {
+            var b = this.clone();
+            switch (a) {
+              case "year":
+                b.month(0);
+              case "month":
+                b.date(1);
+              case "day":
+                b.hours(0);
+              case "hour":
+                b.minutes(0);
+              case "minute":
+                b.seconds(0);
+              case "second":
+                b.milliseconds(0);
+            }
+            return b;
+        },
+        endOf: function(a) {
+            return this.startOf(a).add(a + "s", 1).subtract("milliseconds", 1);
+        },
         sod: function() {
-            return this.clone().hours(0).minutes(0).seconds(0).milliseconds(0);
+            return this.startOf("day");
         },
         eod: function() {
-            return this.sod().add({
-                d: 1,
-                ms: -1
-            });
+            return this.endOf("day");
         },
         zone: function() {
             return this._isUTC ? 0 : this._d.getTimezoneOffset();

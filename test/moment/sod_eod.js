@@ -41,7 +41,7 @@ exports.eod_sod = {
     "start of year" : function(test) {
         test.expect(7);
 
-        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('years');
+        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('year');
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 0, "strip out the month");
         test.equal(m.date(), 1, "strip out the day");
@@ -55,7 +55,7 @@ exports.eod_sod = {
     "end of year" : function(test) {
         test.expect(7);
 
-        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('years');
+        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('year');
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 11, "set the month");
         test.equal(m.date(), 31, "set the day");
@@ -69,7 +69,7 @@ exports.eod_sod = {
     "start of month" : function(test) {
         test.expect(7);
 
-        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('months');
+        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('month');
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 1, "strip out the day");
@@ -83,7 +83,7 @@ exports.eod_sod = {
     "end of month" : function(test) {
         test.expect(7);
 
-        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('months');
+        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('month');
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 28, "set the day");
@@ -97,7 +97,7 @@ exports.eod_sod = {
     "start of day" : function(test) {
         test.expect(7);
 
-        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('days');
+        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('day');
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 2, "keep the day");
@@ -111,7 +111,7 @@ exports.eod_sod = {
     "end of day" : function(test) {
         test.expect(7);
 
-        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('days');
+        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('day');
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 2, "keep the day");
@@ -125,7 +125,7 @@ exports.eod_sod = {
     "start of hour" : function(test) {
         test.expect(7);
 
-        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('hours');
+        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('hour');
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 2, "keep the day");
@@ -139,7 +139,7 @@ exports.eod_sod = {
     "end of hour" : function(test) {
         test.expect(7);
 
-        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('hours');
+        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('hour');
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 2, "keep the day");
@@ -153,7 +153,7 @@ exports.eod_sod = {
     "start of minute" : function(test) {
         test.expect(7);
 
-        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('minutes');
+        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('minute');
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 2, "keep the day");
@@ -167,7 +167,7 @@ exports.eod_sod = {
     "end of minute" : function(test) {
         test.expect(7);
 
-        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('minutes');
+        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('minute');
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 2, "keep the day");
@@ -181,7 +181,7 @@ exports.eod_sod = {
     "start of second" : function(test) {
         test.expect(7);
 
-        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('seconds');
+        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('second');
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 2, "keep the day");
@@ -195,7 +195,7 @@ exports.eod_sod = {
     "end of second" : function(test) {
         test.expect(7);
 
-        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('seconds');
+        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('second');
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 2, "keep the day");

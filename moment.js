@@ -824,22 +824,22 @@
             // the following switch intentionally omits break keywords
             // to utilize falling through the cases.
             switch (val) {
-            case 'years':
+            case 'year':
                 output.month(0);
                 /* falls through */
-            case 'months':
+            case 'month':
                 output.date(1);
                 /* falls through */
-            case 'days':
+            case 'day':
                 output.hours(0);
                 /* falls through */
-            case 'hours':
+            case 'hour':
                 output.minutes(0);
                 /* falls through */
-            case 'minutes':
+            case 'minute':
                 output.seconds(0);
                 /* falls through */
-            case 'seconds':
+            case 'second':
                 output.milliseconds(0);
                 /* falls through */
             }
@@ -847,16 +847,16 @@
         },
                 
         endOf: function (val) {
-            return this.startOf(val).add(val, 1).subtract('milliseconds', 1);
+            return this.startOf(val).add(val + 's', 1).subtract('milliseconds', 1);
         },
         
         sod: function () {
-            return this.startOf('days');
+            return this.startOf('day');
         },
 
         eod: function () {
             // end of day = start of day plus 1 day, minus 1 millisecond
-            return this.endOf('days');
+            return this.endOf('day');
         },
 
         zone : function () {
