@@ -588,7 +588,7 @@
         }
         return (format && input) ?
             moment(input + ' +0000', format + ' Z').utc() :
-            moment(parseTokenTimezone.exec(input) ? input : input + '+0000').utc();
+            moment(input && !parseTokenTimezone.exec(input) ? input + '+0000' : input).utc();
     };
 
     // creating with unix timestamp (in seconds)
