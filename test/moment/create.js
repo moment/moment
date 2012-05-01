@@ -64,6 +64,17 @@ exports.create = {
         test.done();
     },
 
+    "string with format dropped am/pm bug" : function(test) {
+        moment.lang('en');
+        test.expect(3);
+        
+        test.equal(moment('05/1/2012', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
+        test.equal(moment('05/1/2012 12:25:00 am', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
+        test.equal(moment('05/1/2012 12:25:00 pm', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
+
+        test.done();
+    },
+
     "string with format" : function(test) {
         moment.lang('en');
         var a = [

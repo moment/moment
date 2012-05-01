@@ -392,7 +392,7 @@
         // AM / PM
         case 'a' : // fall through to A
         case 'A' :
-            config.isPm = (input.toLowerCase() === 'pm');
+            config.isPm = ((input + '').toLowerCase() === 'pm');
             break;
         // 24 HOUR
         case 'H' : // fall through to hh
