@@ -205,24 +205,51 @@ exports.create = {
             }
             return '' + input;
         }
-        var hourOffset = Math.floor(offset / 60);
+        var hourOffset = (offset > 0) ? Math.floor(offset / 60) : Math.ceil(offset / 60);
         var minOffset = offset - (hourOffset * 60);
         var tz = (offset > 0) ? '-' + pad(hourOffset) + ':' + pad(minOffset) : '+' + pad(-hourOffset) + ':' + pad(-minOffset);
         var tz2 = tz.replace(':', '');
         var formats = [
-            ['2011-10-08',                '2011-10-08T00:00:00' + tz],
-            ['2011-10-08T18',             '2011-10-08T18:00:00' + tz],
-            ['2011-10-08T18:04',          '2011-10-08T18:04:00' + tz],
-            ['2011-10-08T18:04:20',       '2011-10-08T18:04:20' + tz],
-            ['2011-10-08T18:04' + tz,     '2011-10-08T18:04:00' + tz],
-            ['2011-10-08T18:04:20' + tz,  '2011-10-08T18:04:20' + tz],
-            ['2011-10-08T18:04' + tz2,    '2011-10-08T18:04:00' + tz],
-            ['2011-10-08T18:04:20' + tz2, '2011-10-08T18:04:20' + tz],
+            ['2011-10-08',                    '2011-10-08T00:00:00.000' + tz],
+            ['2011-10-08T18',                 '2011-10-08T18:00:00.000' + tz],
+            ['2011-10-08T18:04',              '2011-10-08T18:04:00.000' + tz],
+            ['2011-10-08T18:04:20',           '2011-10-08T18:04:20.000' + tz],
+            ['2011-10-08T18:04' + tz,         '2011-10-08T18:04:00.000' + tz],
+            ['2011-10-08T18:04:20' + tz,      '2011-10-08T18:04:20.000' + tz],
+            ['2011-10-08T18:04' + tz2,        '2011-10-08T18:04:00.000' + tz],
+            ['2011-10-08T18:04:20' + tz2,     '2011-10-08T18:04:20.000' + tz],
+            ['2011-10-08T18:04:20.1' + tz2,   '2011-10-08T18:04:20.100' + tz],
+            ['2011-10-08T18:04:20.11' + tz2,  '2011-10-08T18:04:20.110' + tz],
+            ['2011-10-08T18:04:20.111' + tz2, '2011-10-08T18:04:20.111' + tz]
         ];
         test.expect(formats.length);
         for (var i = 0; i < formats.length; i++) {
-            test.equal(moment(formats[i][0]).format('YYYY-MM-DDTHH:mm:ssZ'), formats[i][1], "moment should be able to parse ISO " + formats[i][0]);
+            test.equal(formats[i][1], moment(formats[i][0]).format('YYYY-MM-DDTHH:mm:ss.SSSZ'), "moment should be able to parse ISO " + formats[i][0]);
         }
+        test.done();
+    },
+
+    "parsing iso Z timezone" : function(test) {
+        var i,
+            formats = [
+            ['2011-10-08T18:04Z',             '2011-10-08T18:04:00.000+00:00'],
+            ['2011-10-08T18:04:20Z',          '2011-10-08T18:04:20.000+00:00'],
+            ['2011-10-08T18:04:20.111Z',      '2011-10-08T18:04:20.111+00:00']
+        ];
+        test.expect(formats.length);
+        for (i = 0; i < formats.length; i++) {
+            test.equal(moment.utc(formats[i][0]).format('YYYY-MM-DDTHH:mm:ss.SSSZ'), formats[i][1], "moment should be able to parse ISO " + formats[i][0]);
+        }
+        test.done();
+    },
+
+    "parsing iso Z timezone into local" : function(test) {
+        test.expect(1);
+
+        var m = moment('2011-10-08T18:04:20.111Z');
+
+        test.equal(m.utc().format('YYYY-MM-DDTHH:mm:ss.SSS'), '2011-10-08T18:04:20.111', "moment should be able to parse ISO 2011-10-08T18:04:20.111Z");
+        
         test.done();
     },
 

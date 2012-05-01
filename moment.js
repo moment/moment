@@ -36,16 +36,19 @@
         parseTokenThreeDigits = /\d{3}/, // 000 - 999
         parseTokenFourDigits = /\d{4}/, // 0000 - 9999
         parseTokenWord = /[0-9a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+/i, // any word characters or numbers
-        parseTokenTimezone = /[\+\-]\d\d:?\d\d/i, // +00:00 -00:00 +0000 -0000
+        parseTokenTimezone = /Z|[\+\-]\d\d:?\d\d/i, // +00:00 -00:00 +0000 -0000 or Z
         parseTokenT = /T/i, // T (ISO seperator)
 
         // preliminary iso regex 
-        // 0000-00-00 + T + 00 or 00:00 or 00:00:00 + +00:00 or +0000
-        isoRegex = /^\s*\d{4}-\d\d-\d\d(T(\d\d(:\d\d(:\d\d)?)?)?([\+\-]\d\d:?\d\d)?)?/,
+        // 0000-00-00 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000
+        isoRegex = /^\s*\d{4}-\d\d-\d\d(T(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?/,
         isoFormat = 'YYYY-MM-DDTHH:mm:ssZ',
 
         // iso time formats and regexes
         isoTimes = [
+            ['HH:mm:ss.SSS', /T\d\d:\d\d:\d\d\.\d\d\d/],
+            ['HH:mm:ss.SS', /T\d\d:\d\d:\d\d\.\d\d/],
+            ['HH:mm:ss.S', /T\d\d:\d\d:\d\d\.\d/],
             ['HH:mm:ss', /T\d\d:\d\d:\d\d/],
             ['HH:mm', /T\d\d:\d\d/],
             ['HH', /T\d\d/]
@@ -508,7 +511,7 @@
         var format = 'YYYY-MM-DDT',
             i;
         if (isoRegex.exec(string)) {
-            for (i = 0; i < 3; i++) {
+            for (i = 0; i < 6; i++) {
                 if (isoTimes[i][1].exec(string)) {
                     format += isoTimes[i][0];
                     break;
