@@ -404,7 +404,7 @@
             });
         },
         sod: function() {
-            return this.clone().hours(0).minutes(0).seconds(0).milliseconds(0);
+            return c(this).hours(0).minutes(0).seconds(0).milliseconds(0);
         },
         eod: function() {
             return this.sod().add({
@@ -416,7 +416,7 @@
             return this._isUTC ? 0 : this._d.getTimezoneOffset();
         },
         daysInMonth: function() {
-            return this.clone().month(this.month() + 1).date(0).date();
+            return c(this).month(this.month() + 1).date(0).date();
         }
     };
     for (f = 0; f < y.length; f++) Q(y[f].toLowerCase(), y[f]);

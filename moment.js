@@ -811,7 +811,7 @@
         },
 
         sod: function () {
-            return this.clone()
+            return moment(this)
                 .hours(0)
                 .minutes(0)
                 .seconds(0)
@@ -831,7 +831,7 @@
         },
 
         daysInMonth : function () {
-            return this.clone().month(this.month() + 1).date(0).date();
+            return moment(this).month(this.month() + 1).date(0).date();
         }
     };
 
