@@ -363,7 +363,7 @@
         // MONTH
         case 'M' : // fall through to MM
         case 'MM' :
-            datePartArray[1] = ~~input - 1;
+            datePartArray[1] = (input == null) ? 0 : ~~input - 1;
             break;
         case 'MMM' : // fall through to MMMM
         case 'MMMM' :
@@ -452,7 +452,7 @@
             i, parsedInput;
 
         for (i = 0; i < tokens.length; i++) {
-            parsedInput = (getParseRegexForToken(tokens[i]).exec(string) || [0])[0];
+            parsedInput = (getParseRegexForToken(tokens[i]).exec(string) || [])[0];
             string = string.replace(getParseRegexForToken(tokens[i]), '');
             addTimeToArrayFromToken(tokens[i], parsedInput, datePartArray, config);
         }
@@ -488,7 +488,7 @@
     // date from string and array of format strings
     function makeDateFromStringAndArray(string, formats) {
         var output,
-            inputParts = string.match(parseMultipleFormatChunker),
+            inputParts = string.match(parseMultipleFormatChunker) || [],
             formattedInputParts,
             scoreToBeat = 99,
             i,
@@ -496,7 +496,7 @@
             currentScore;
         for (i = 0; i < formats.length; i++) {
             currentDate = makeDateFromStringAndFormat(string, formats[i]);
-            formattedInputParts = formatMoment(new Moment(currentDate), formats[i]).match(parseMultipleFormatChunker);
+            formattedInputParts = formatMoment(new Moment(currentDate), formats[i]).match(parseMultipleFormatChunker) || [];
             currentScore = compareArrays(inputParts, formattedInputParts);
             if (currentScore < scoreToBeat) {
                 scoreToBeat = currentScore;

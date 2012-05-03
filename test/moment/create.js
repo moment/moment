@@ -75,6 +75,16 @@ exports.create = {
         test.done();
     },
 
+    "empty string with formats" : function(test) {
+        test.expect(3);
+        
+        test.equal(moment(' ', 'MM').format('YYYY-MM-DD HH:mm:ss'), '1900-01-01 00:00:00', 'should not break if input is an empty string');
+        test.equal(moment(' ', 'DD').format('YYYY-MM-DD HH:mm:ss'), '1900-01-01 00:00:00', 'should not break if input is an empty string');
+        test.equal(moment(' ', ['MM', "DD"]).format('YYYY-MM-DD HH:mm:ss'), '1900-01-01 00:00:00', 'should not break if input is an empty string');
+        
+        test.done();
+    },
+
     "string with format" : function(test) {
         moment.lang('en');
         var a = [
