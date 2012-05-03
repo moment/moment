@@ -166,7 +166,7 @@
         switch (a) {
           case "M":
           case "MM":
-            d[1] = ~~b - 1;
+            d[1] = b == null ? 0 : ~~b - 1;
             break;
           case "MMM":
           case "MMMM":
@@ -189,7 +189,7 @@
             break;
           case "a":
           case "A":
-            e.isPm = b.toLowerCase() === "pm";
+            e.isPm = (b + "").toLowerCase() === "pm";
             break;
           case "H":
           case "HH":
@@ -224,7 +224,7 @@
             tzh: 0,
             tzm: 0
         }, f = c.match(l), g, h;
-        for (g = 0; g < f.length; g++) h = (L(f[g]).exec(b) || [ 0 ])[0], b = b.replace(L(f[g]), ""), M(f[g], h, d, e);
+        for (g = 0; g < f.length; g++) h = (L(f[g]).exec(b) || [])[0], b = b.replace(L(f[g]), ""), M(f[g], h, d, e);
         return e.isPm && d[3] < 12 && (d[3] += 12), e.isPm === !1 && d[3] === 12 && (d[3] = 0), d[3] += e.tzh, d[4] += e.tzm, e.isUTC ? new a(a.UTC.apply({}, d)) : J(d);
     }
     function O(a, b) {
@@ -233,8 +233,8 @@
         return e + d;
     }
     function P(a, b) {
-        var c, d = a.match(m), e, f = 99, g, h, i;
-        for (g = 0; g < b.length; g++) h = N(a, b[g]), e = K(new D(h), b[g]).match(m), i = O(d, e), i < f && (f = i, c = h);
+        var c, d = a.match(m) || [], e, f = 99, g, h, i;
+        for (g = 0; g < b.length; g++) h = N(a, b[g]), e = K(new D(h), b[g]).match(m) || [], i = O(d, e), i < f && (f = i, c = h);
         return c;
     }
     function Q(b) {
@@ -272,7 +272,7 @@
             return +this / b;
         };
     }
-    var c, d = "1.6.1", e = Math.round, f, g = {}, h = "en", i = typeof module != "undefined", j = "months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem".split("|"), k = /^\/?Date\((\-?\d+)/i, l = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|LT|LL?L?L?)/g, m = /([0-9a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)/gi, n = /\d/, o = /\d\d?/, p = /\d{1,3}/, q = /\d\d/, r = /\d{3}/, s = /\d{4}/, t = /[0-9a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+/i, u = /[\+\-]\d\d:?\d\d/i, v = /T/i, w = /^\s*\d{4}-\d\d-\d\d(T(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?/, x = "YYYY-MM-DDTHH:mm:ssZ", y = [ [ "HH:mm:ss.SSS", /T\d\d:\d\d:\d\d\.\d\d\d/ ], [ "HH:mm:ss.SS", /T\d\d:\d\d:\d\d\.\d\d/ ], [ "HH:mm:ss.S", /T\d\d:\d\d:\d\d\.\d/ ], [ "HH:mm:ss", /T\d\d:\d\d:\d\d/ ], [ "HH:mm", /T\d\d:\d\d/ ], [ "HH", /T\d\d/ ] ], z = /([\+\-]|\d\d)/gi, A = "Month|Date|Hours|Minutes|Seconds|Milliseconds".split("|"), B = "years|months|days|hours|minutes|seconds|milliseconds".split("|"), C = {
+    var c, d = "1.6.1", e = Math.round, f, g = {}, h = "en", i = typeof module != "undefined", j = "months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem".split("|"), k = /^\/?Date\((\-?\d+)/i, l = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|LT|LL?L?L?)/g, m = /([0-9a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)/gi, n = /\d/, o = /\d\d?/, p = /\d{1,3}/, q = /\d\d/, r = /\d{3}/, s = /\d{4}/, t = /[0-9a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+/i, u = /Z|[\+\-]\d\d:?\d\d/i, v = /T/i, w = /^\s*\d{4}-\d\d-\d\d(T(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?/, x = "YYYY-MM-DDTHH:mm:ssZ", y = [ [ "HH:mm:ss.SSS", /T\d\d:\d\d:\d\d\.\d\d\d/ ], [ "HH:mm:ss.SS", /T\d\d:\d\d:\d\d\.\d\d/ ], [ "HH:mm:ss.S", /T\d\d:\d\d:\d\d\.\d/ ], [ "HH:mm:ss", /T\d\d:\d\d:\d\d/ ], [ "HH:mm", /T\d\d:\d\d/ ], [ "HH", /T\d\d/ ] ], z = /([\+\-]|\d\d)/gi, A = "Month|Date|Hours|Minutes|Seconds|Milliseconds".split("|"), B = "years|months|days|hours|minutes|seconds|milliseconds".split("|"), C = {
         Milliseconds: 1,
         Seconds: 1e3,
         Minutes: 6e4,
@@ -294,7 +294,7 @@
         var d = c.isDuration(a), e = typeof a == "number", f = d ? a._data : e ? {} : a;
         return e && (b ? f[b] = a : f.milliseconds = a), new F(f);
     }, c.humanizeDuration = function(a, b, d) {
-        return c.duration(a, b).humanize(d);
+        return c.duration(a, b === !0 ? null : b).humanize(b === !0 ? !0 : d);
     }, c.version = d, c.defaultFormat = x, c.lang = function(a, b) {
         var d, e, f = [];
         if (!a) return h;

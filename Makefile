@@ -48,6 +48,9 @@ size: moment langs
 size-history: moment
 	node test/filesize-history.js
 
+size-diff: moment
+	node test/filesize-diff.js
+
 
 .PHONY: test hint test-moment test-lang
 test: hint test-moment test-lang
