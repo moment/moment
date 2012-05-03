@@ -59,14 +59,12 @@
 
         // getter and setter names
         proxyGettersAndSetters = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|'),
-        durationGetters = 'years|months|days|hours|minutes|seconds|milliseconds'.split('|'),
         unitMillisecondFactors = {
             'Milliseconds' : 1,
             'Seconds' : 1e3,
             'Minutes' : 6e4,
             'Hours' : 36e5,
             'Days' : 864e5,
-            'Weeks' : 6048e5,
             'Months' : 2592e6,
             'Years' : 31536e6
         };
@@ -904,15 +902,14 @@
         };
     }
 
-    for (i = 0; i < durationGetters.length; i++) {
-        makeDurationGetter(durationGetters[i]);
-    }
-
     for (i in unitMillisecondFactors) {
         if (unitMillisecondFactors.hasOwnProperty(i)) {
             makeDurationAsGetter(i, unitMillisecondFactors[i]);
+            makeDurationGetter(i.toLowerCase());
         }
     }
+
+    makeDurationAsGetter('Weeks', 6048e5);
 
     // CommonJS module is defined
     if (hasModule) {
