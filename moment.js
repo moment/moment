@@ -29,10 +29,8 @@
         parseMultipleFormatChunker = /([0-9a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)/gi,
 
         // parsing token regexes
-        parseTokenOneDigit = /\d/, // 0 - 9
         parseTokenOneOrTwoDigits = /\d\d?/, // 0 - 99
         parseTokenOneToThreeDigits = /\d{1,3}/, // 0 - 999
-        parseTokenTwoDigits = /\d\d/, // 00 - 99
         parseTokenThreeDigits = /\d{3}/, // 000 - 999
         parseTokenFourDigits = /\d{4}/, // 0000 - 9999
         parseTokenWord = /[0-9a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+/i, // any word characters or numbers
@@ -46,9 +44,7 @@
 
         // iso time formats and regexes
         isoTimes = [
-            ['HH:mm:ss.SSS', /T\d\d:\d\d:\d\d\.\d\d\d/],
-            ['HH:mm:ss.SS', /T\d\d:\d\d:\d\d\.\d\d/],
-            ['HH:mm:ss.S', /T\d\d:\d\d:\d\d\.\d/],
+            ['HH:mm:ss.S', /T\d\d:\d\d:\d\d\.\d{1,3}/],
             ['HH:mm:ss', /T\d\d:\d\d:\d\d/],
             ['HH:mm', /T\d\d:\d\d/],
             ['HH', /T\d\d/]
@@ -309,15 +305,13 @@
     // get the regex to find the next token
     function getParseRegexForToken(token) {
         switch (token) {
-        case 'S':
-            return parseTokenOneDigit;
-        case 'SS':
-            return parseTokenTwoDigits;
-        case 'SSS':
         case 'DDDD':
             return parseTokenThreeDigits;
         case 'YYYY':
             return parseTokenFourDigits;
+        case 'S':
+        case 'SS':
+        case 'SSS':
         case 'DDD':
             return parseTokenOneToThreeDigits;
         case 'MMM':
@@ -411,13 +405,9 @@
             break;
         // MILLISECOND
         case 'S' :
-            datePartArray[6] = ~~input * 100;
-            break;
         case 'SS' :
-            datePartArray[6] = ~~input * 10;
-            break;
         case 'SSS' :
-            datePartArray[6] = ~~input;
+            datePartArray[6] = ~~ (('0.' + input) * 1000);
             break;
         // TIMEZONE
         case 'Z' : // fall through to ZZ
@@ -509,7 +499,7 @@
         var format = 'YYYY-MM-DDT',
             i;
         if (isoRegex.exec(string)) {
-            for (i = 0; i < 6; i++) {
+            for (i = 0; i < 4; i++) {
                 if (isoTimes[i][1].exec(string)) {
                     format += isoTimes[i][0];
                     break;
