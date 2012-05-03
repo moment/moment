@@ -51,6 +51,8 @@ size-history: moment
 
 .PHONY: test hint test-moment test-lang
 test: hint test-moment test-lang
+test-zone:
+	sh ./test/zone.sh
 
 hint:
 	node_modules/.bin/jshint moment.js
