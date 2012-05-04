@@ -864,7 +864,7 @@
         },
 
         daysInMonth : function () {
-            return this.clone().month(this.month() + 1).date(0).date();
+            return moment.utc([this.year(), this.month() + 1, 0]).date();
         }
     };
 
