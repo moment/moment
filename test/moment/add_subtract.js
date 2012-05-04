@@ -117,6 +117,8 @@ exports.add_subtract = {
         test.equal(a.hours(), 5, 'adding days over DST difference should result in the same hour');
         if (b.isDST() && !d.isDST()) {
             test.equal(b.hours(), 6, 'adding hours over DST difference should result in a different hour');
+        } else if (!b.isDST() && d.isDST()) {
+            test.equal(b.hours(), 4, 'adding hours over DST difference should result in a different hour');
         } else {
             test.equal(b.hours(), 5, 'adding hours over DST difference should result in a same hour if the timezone does not have daylight savings time');
         }
