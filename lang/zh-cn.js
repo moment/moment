@@ -33,7 +33,7 @@
                 sameElse : 'L'
             },
             relativeTime : {
-                future : "%s后",
+                future : "%s内",
                 past : "%s前",
                 s : "几秒",
                 m : "1分钟",
