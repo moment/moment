@@ -42,10 +42,11 @@ exports.humanize_duration = {
     },
 
     "humanize duration with suffix" : function(test) {
-        test.expect(2);
+        test.expect(3);
         moment.lang('en');
         test.equal(moment.humanizeDuration(44, "seconds", true),  "in a few seconds", "44 seconds = a few seconds");
         test.equal(moment.humanizeDuration(-44, "seconds", true),  "a few seconds ago", "44 seconds = a few seconds");
+        test.equal(moment.humanizeDuration(44000, true),  "in a few seconds", "44000 milliseconds = a few seconds");
         test.done();
     }
 };
