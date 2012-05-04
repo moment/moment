@@ -1,5 +1,5 @@
 // moment.js
-// version : 1.6.1
+// version : 1.6.2
 // author : Tim Wood
 // license : MIT
 // momentjs.com
@@ -7,7 +7,7 @@
 (function (Date, undefined) {
 
     var moment,
-        VERSION = "1.6.1",
+        VERSION = "1.6.2",
         round = Math.round, i,
         // internal storage for language config files
         languages = {},
@@ -29,23 +29,22 @@
         parseMultipleFormatChunker = /([0-9a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)/gi,
 
         // parsing token regexes
-        parseTokenOneDigit = /\d/, // 0 - 9
         parseTokenOneOrTwoDigits = /\d\d?/, // 0 - 99
         parseTokenOneToThreeDigits = /\d{1,3}/, // 0 - 999
-        parseTokenTwoDigits = /\d\d/, // 00 - 99
         parseTokenThreeDigits = /\d{3}/, // 000 - 999
         parseTokenFourDigits = /\d{4}/, // 0000 - 9999
         parseTokenWord = /[0-9a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+/i, // any word characters or numbers
-        parseTokenTimezone = /[\+\-]\d\d:?\d\d/i, // +00:00 -00:00 +0000 -0000
+        parseTokenTimezone = /Z|[\+\-]\d\d:?\d\d/i, // +00:00 -00:00 +0000 -0000 or Z
         parseTokenT = /T/i, // T (ISO seperator)
 
         // preliminary iso regex 
-        // 0000-00-00 + T + 00 or 00:00 or 00:00:00 + +00:00 or +0000
-        isoRegex = /^\s*\d{4}-\d\d-\d\d(T(\d\d(:\d\d(:\d\d)?)?)?([\+\-]\d\d:?\d\d)?)?/,
+        // 0000-00-00 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000
+        isoRegex = /^\s*\d{4}-\d\d-\d\d(T(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?/,
         isoFormat = 'YYYY-MM-DDTHH:mm:ssZ',
 
         // iso time formats and regexes
         isoTimes = [
+            ['HH:mm:ss.S', /T\d\d:\d\d:\d\d\.\d{1,3}/],
             ['HH:mm:ss', /T\d\d:\d\d:\d\d/],
             ['HH:mm', /T\d\d:\d\d/],
             ['HH', /T\d\d/]
@@ -56,14 +55,12 @@
 
         // getter and setter names
         proxyGettersAndSetters = 'Month|Date|Hours|Minutes|Seconds|Milliseconds'.split('|'),
-        durationGetters = 'years|months|days|hours|minutes|seconds|milliseconds'.split('|'),
         unitMillisecondFactors = {
             'Milliseconds' : 1,
             'Seconds' : 1e3,
             'Minutes' : 6e4,
             'Hours' : 36e5,
             'Days' : 864e5,
-            'Weeks' : 6048e5,
             'Months' : 2592e6,
             'Years' : 31536e6
         };
@@ -308,15 +305,13 @@
     // get the regex to find the next token
     function getParseRegexForToken(token) {
         switch (token) {
-        case 'S':
-            return parseTokenOneDigit;
-        case 'SS':
-            return parseTokenTwoDigits;
-        case 'SSS':
         case 'DDDD':
             return parseTokenThreeDigits;
         case 'YYYY':
             return parseTokenFourDigits;
+        case 'S':
+        case 'SS':
+        case 'SSS':
         case 'DDD':
             return parseTokenOneToThreeDigits;
         case 'MMM':
@@ -360,7 +355,7 @@
         // MONTH
         case 'M' : // fall through to MM
         case 'MM' :
-            datePartArray[1] = ~~input - 1;
+            datePartArray[1] = (input == null) ? 0 : ~~input - 1;
             break;
         case 'MMM' : // fall through to MMMM
         case 'MMMM' :
@@ -389,7 +384,7 @@
         // AM / PM
         case 'a' : // fall through to A
         case 'A' :
-            config.isPm = (input.toLowerCase() === 'pm');
+            config.isPm = ((input + '').toLowerCase() === 'pm');
             break;
         // 24 HOUR
         case 'H' : // fall through to hh
@@ -410,13 +405,9 @@
             break;
         // MILLISECOND
         case 'S' :
-            datePartArray[6] = ~~input * 100;
-            break;
         case 'SS' :
-            datePartArray[6] = ~~input * 10;
-            break;
         case 'SSS' :
-            datePartArray[6] = ~~input;
+            datePartArray[6] = ~~ (('0.' + input) * 1000);
             break;
         // TIMEZONE
         case 'Z' : // fall through to ZZ
@@ -449,7 +440,7 @@
             i, parsedInput;
 
         for (i = 0; i < tokens.length; i++) {
-            parsedInput = (getParseRegexForToken(tokens[i]).exec(string) || [0])[0];
+            parsedInput = (getParseRegexForToken(tokens[i]).exec(string) || [])[0];
             string = string.replace(getParseRegexForToken(tokens[i]), '');
             addTimeToArrayFromToken(tokens[i], parsedInput, datePartArray, config);
         }
@@ -485,7 +476,7 @@
     // date from string and array of format strings
     function makeDateFromStringAndArray(string, formats) {
         var output,
-            inputParts = string.match(parseMultipleFormatChunker),
+            inputParts = string.match(parseMultipleFormatChunker) || [],
             formattedInputParts,
             scoreToBeat = 99,
             i,
@@ -493,7 +484,7 @@
             currentScore;
         for (i = 0; i < formats.length; i++) {
             currentDate = makeDateFromStringAndFormat(string, formats[i]);
-            formattedInputParts = formatMoment(new Moment(currentDate), formats[i]).match(parseMultipleFormatChunker);
+            formattedInputParts = formatMoment(new Moment(currentDate), formats[i]).match(parseMultipleFormatChunker) || [];
             currentScore = compareArrays(inputParts, formattedInputParts);
             if (currentScore < scoreToBeat) {
                 scoreToBeat = currentScore;
@@ -508,7 +499,7 @@
         var format = 'YYYY-MM-DDT',
             i;
         if (isoRegex.exec(string)) {
-            for (i = 0; i < 3; i++) {
+            for (i = 0; i < 4; i++) {
                 if (isoTimes[i][1].exec(string)) {
                     format += isoTimes[i][0];
                     break;
@@ -588,7 +579,7 @@
         }
         return (format && input) ?
             moment(input + ' +0000', format + ' Z').utc() :
-            moment(parseTokenTimezone.exec(input) ? input : input + '+0000').utc();
+            moment(input && !parseTokenTimezone.exec(input) ? input + '+0000' : input).utc();
     };
 
     // creating with unix timestamp (in seconds)
@@ -617,7 +608,7 @@
     // This method is deprecated in favor of the new Duration object.  Please
     // see the moment.duration method.
     moment.humanizeDuration = function (num, type, withSuffix) {
-        return moment.duration(num, type).humanize(withSuffix);
+        return moment.duration(num, type === true ? null : type).humanize(type === true ? true : withSuffix);
     };
 
     // version number
@@ -820,7 +811,7 @@
         },
 
         sod: function () {
-            return this.clone()
+            return moment(this)
                 .hours(0)
                 .minutes(0)
                 .seconds(0)
@@ -840,7 +831,7 @@
         },
 
         daysInMonth : function () {
-            return this.clone().month(this.month() + 1).date(0).date();
+            return moment(this).month(this.month() + 1).date(0).date();
         }
     };
 
@@ -901,15 +892,14 @@
         };
     }
 
-    for (i = 0; i < durationGetters.length; i++) {
-        makeDurationGetter(durationGetters[i]);
-    }
-
     for (i in unitMillisecondFactors) {
         if (unitMillisecondFactors.hasOwnProperty(i)) {
             makeDurationAsGetter(i, unitMillisecondFactors[i]);
+            makeDurationGetter(i.toLowerCase());
         }
     }
+
+    makeDurationAsGetter('Weeks', 6048e5);
 
     // CommonJS module is defined
     if (hasModule) {

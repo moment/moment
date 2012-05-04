@@ -64,6 +64,27 @@ exports.create = {
         test.done();
     },
 
+    "string with format dropped am/pm bug" : function(test) {
+        moment.lang('en');
+        test.expect(3);
+        
+        test.equal(moment('05/1/2012', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
+        test.equal(moment('05/1/2012 12:25:00 am', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
+        test.equal(moment('05/1/2012 12:25:00 pm', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
+
+        test.done();
+    },
+
+    "empty string with formats" : function(test) {
+        test.expect(3);
+        
+        test.equal(moment(' ', 'MM').format('YYYY-MM-DD HH:mm:ss'), '1900-01-01 00:00:00', 'should not break if input is an empty string');
+        test.equal(moment(' ', 'DD').format('YYYY-MM-DD HH:mm:ss'), '1900-01-01 00:00:00', 'should not break if input is an empty string');
+        test.equal(moment(' ', ['MM', "DD"]).format('YYYY-MM-DD HH:mm:ss'), '1900-01-01 00:00:00', 'should not break if input is an empty string');
+        
+        test.done();
+    },
+
     "string with format" : function(test) {
         moment.lang('en');
         var a = [
@@ -205,24 +226,51 @@ exports.create = {
             }
             return '' + input;
         }
-        var hourOffset = Math.floor(offset / 60);
+        var hourOffset = (offset > 0) ? Math.floor(offset / 60) : Math.ceil(offset / 60);
         var minOffset = offset - (hourOffset * 60);
         var tz = (offset > 0) ? '-' + pad(hourOffset) + ':' + pad(minOffset) : '+' + pad(-hourOffset) + ':' + pad(-minOffset);
         var tz2 = tz.replace(':', '');
         var formats = [
-            ['2011-10-08',                '2011-10-08T00:00:00' + tz],
-            ['2011-10-08T18',             '2011-10-08T18:00:00' + tz],
-            ['2011-10-08T18:04',          '2011-10-08T18:04:00' + tz],
-            ['2011-10-08T18:04:20',       '2011-10-08T18:04:20' + tz],
-            ['2011-10-08T18:04' + tz,     '2011-10-08T18:04:00' + tz],
-            ['2011-10-08T18:04:20' + tz,  '2011-10-08T18:04:20' + tz],
-            ['2011-10-08T18:04' + tz2,    '2011-10-08T18:04:00' + tz],
-            ['2011-10-08T18:04:20' + tz2, '2011-10-08T18:04:20' + tz],
+            ['2011-10-08',                    '2011-10-08T00:00:00.000' + tz],
+            ['2011-10-08T18',                 '2011-10-08T18:00:00.000' + tz],
+            ['2011-10-08T18:04',              '2011-10-08T18:04:00.000' + tz],
+            ['2011-10-08T18:04:20',           '2011-10-08T18:04:20.000' + tz],
+            ['2011-10-08T18:04' + tz,         '2011-10-08T18:04:00.000' + tz],
+            ['2011-10-08T18:04:20' + tz,      '2011-10-08T18:04:20.000' + tz],
+            ['2011-10-08T18:04' + tz2,        '2011-10-08T18:04:00.000' + tz],
+            ['2011-10-08T18:04:20' + tz2,     '2011-10-08T18:04:20.000' + tz],
+            ['2011-10-08T18:04:20.1' + tz2,   '2011-10-08T18:04:20.100' + tz],
+            ['2011-10-08T18:04:20.11' + tz2,  '2011-10-08T18:04:20.110' + tz],
+            ['2011-10-08T18:04:20.111' + tz2, '2011-10-08T18:04:20.111' + tz]
         ];
         test.expect(formats.length);
         for (var i = 0; i < formats.length; i++) {
-            test.equal(moment(formats[i][0]).format('YYYY-MM-DDTHH:mm:ssZ'), formats[i][1], "moment should be able to parse ISO " + formats[i][0]);
+            test.equal(formats[i][1], moment(formats[i][0]).format('YYYY-MM-DDTHH:mm:ss.SSSZ'), "moment should be able to parse ISO " + formats[i][0]);
         }
+        test.done();
+    },
+
+    "parsing iso Z timezone" : function(test) {
+        var i,
+            formats = [
+            ['2011-10-08T18:04Z',             '2011-10-08T18:04:00.000+00:00'],
+            ['2011-10-08T18:04:20Z',          '2011-10-08T18:04:20.000+00:00'],
+            ['2011-10-08T18:04:20.111Z',      '2011-10-08T18:04:20.111+00:00']
+        ];
+        test.expect(formats.length);
+        for (i = 0; i < formats.length; i++) {
+            test.equal(moment.utc(formats[i][0]).format('YYYY-MM-DDTHH:mm:ss.SSSZ'), formats[i][1], "moment should be able to parse ISO " + formats[i][0]);
+        }
+        test.done();
+    },
+
+    "parsing iso Z timezone into local" : function(test) {
+        test.expect(1);
+
+        var m = moment('2011-10-08T18:04:20.111Z');
+
+        test.equal(m.utc().format('YYYY-MM-DDTHH:mm:ss.SSS'), '2011-10-08T18:04:20.111', "moment should be able to parse ISO 2011-10-08T18:04:20.111Z");
+        
         test.done();
     },
 
