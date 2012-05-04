@@ -1,5 +1,5 @@
 // moment.js
-// version : 1.6.1
+// version : 1.6.2
 // author : Tim Wood
 // license : MIT
 // momentjs.com
@@ -7,7 +7,7 @@
 (function (Date, undefined) {
 
     var moment,
-        VERSION = "1.6.1",
+        VERSION = "1.6.2",
         round = Math.round, i,
         // internal storage for language config files
         languages = {},
