@@ -1,48 +1,4 @@
 (function () {
-    var numbers_past = ['nolla', 'yksi', 'kaksi', 'kolme', 'neljä', 'viisi',
-                        'kuusi', 'seitsemän', 'kahdeksan', 'yhdeksän'];
-    var numbers_future = ['nolla', 'yhden', 'kahden', 'kolmen', 'neljän', 'viiden',
-                          'kuuden', numbers_past[7], numbers_past[8], numbers_past[9]];
-
-    function translate(number, withoutSuffix, key, isFuture) {
-        var result = "";
-        switch (key) {
-        case 's':
-            return isFuture ? 'muutaman sekunnin' : 'muutama sekunti';
-        case 'm':
-            return isFuture ? 'minuutin' : 'minuutti';
-        case 'mm':
-            result = isFuture ? 'minuutin' : 'minuuttia';
-            break;
-        case 'h':
-            return isFuture ? 'tunnin' : 'tunti';
-        case 'hh':
-            result = isFuture ? 'tunnin' : 'tuntia';
-            break;
-        case 'd':
-            return isFuture ? 'päivän' : 'päivä';
-        case 'dd':
-            result = isFuture ? 'päivän' : 'päivää';
-            break;
-        case 'M':
-            return isFuture ? 'kuukauden' : 'kuukausi';
-        case 'MM':
-            result = isFuture ? 'kuukauden' : 'kuukautta';
-            break;
-        case 'y':
-            return isFuture ? 'vuoden' : 'vuosi';
-        case 'yy':
-            result = isFuture ? 'vuoden' : 'vuotta';
-            break;
-        }
-        result = verbal_number(number, isFuture) + " " + result;
-        return result;
-    }
-
-    function verbal_number(number, isFuture) {
-        return number < 10 ? (isFuture ? numbers_future[number] : numbers_past[number]) : number;
-    }
-
     var lang = {
             months : "кăрлач_нарăс_пуш_ака_май_çĕртме_утă_çурла_авăн_юпа_чӳк_раштав".split("_"),
             monthsShort : "кăр_нар_пуш_ака_май_çĕр_утă_çур_ав_юпа_чӳк_раш".split("_"),
