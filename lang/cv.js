@@ -1,15 +1,59 @@
 (function () {
+    var numbers_past = ['nolla', 'yksi', 'kaksi', 'kolme', 'neljä', 'viisi',
+                        'kuusi', 'seitsemän', 'kahdeksan', 'yhdeksän'];
+    var numbers_future = ['nolla', 'yhden', 'kahden', 'kolmen', 'neljän', 'viiden',
+                          'kuuden', numbers_past[7], numbers_past[8], numbers_past[9]];
+
+    function translate(number, withoutSuffix, key, isFuture) {
+        var result = "";
+        switch (key) {
+        case 's':
+            return isFuture ? 'muutaman sekunnin' : 'muutama sekunti';
+        case 'm':
+            return isFuture ? 'minuutin' : 'minuutti';
+        case 'mm':
+            result = isFuture ? 'minuutin' : 'minuuttia';
+            break;
+        case 'h':
+            return isFuture ? 'tunnin' : 'tunti';
+        case 'hh':
+            result = isFuture ? 'tunnin' : 'tuntia';
+            break;
+        case 'd':
+            return isFuture ? 'päivän' : 'päivä';
+        case 'dd':
+            result = isFuture ? 'päivän' : 'päivää';
+            break;
+        case 'M':
+            return isFuture ? 'kuukauden' : 'kuukausi';
+        case 'MM':
+            result = isFuture ? 'kuukauden' : 'kuukautta';
+            break;
+        case 'y':
+            return isFuture ? 'vuoden' : 'vuosi';
+        case 'yy':
+            result = isFuture ? 'vuoden' : 'vuotta';
+            break;
+        }
+        result = verbal_number(number, isFuture) + " " + result;
+        return result;
+    }
+
+    function verbal_number(number, isFuture) {
+        return number < 10 ? (isFuture ? numbers_future[number] : numbers_past[number]) : number;
+    }
+
     var lang = {
-            months : "кăрлач_нарăс_пуш_ака_çу_çĕртме_утă_çурла_авăн_юпа_чӳк_раштав".split("_"),
-            monthsShort : "кăр_нар_пуш_ака_çу_çĕр_утă_çур_ав_юпа_чӳк_раш".split("_"),
+            months : "кăрлач_нарăс_пуш_ака_май_çĕртме_утă_çурла_авăн_юпа_чӳк_раштав".split("_"),
+            monthsShort : "кăр_нар_пуш_ака_май_çĕр_утă_çур_ав_юпа_чӳк_раш".split("_"),
             weekdays : "вырсарникун_тунтикун_ытларикун_юнкун_кĕçнерникун_эрнекун_шăматкун".split("_"),
             weekdaysShort : "выр_тун_ытл_юн_кĕç_эрн_шăм".split("_"),
             longDateFormat : {
                 LT : "HH:mm",
                 L : "DD-MM-YYYY",
-                LL : "D MMMM YYYY",
-                LLL : "D MMMM YYYY LT",
-                LLLL : "dddd, D MMMM YYYY LT"
+                LL : "YYYY çулхи MMMM уйăхĕн D-мĕшĕ",
+                LLL : "YYYY çулхи MMMM уйăхĕн D-мĕшĕ, LT",
+                LLLL : "dddd, YYYY çулхи MMMM уйăхĕн D-мĕшĕ, LT"
             },
             calendar : {
                 sameDay: '[Паян] LT [сехетре]',
@@ -20,12 +64,12 @@
                 sameElse: 'L'
             },
             relativeTime : {
-                future : "%s ран/рен",
+                future : "%sран",
                 past : "%s каялла",
                 s : "пĕр-ик çеккунт",
                 m : "пĕр минут",
                 mm : "%d минут",
-                h : "en сехет",
+                h : "пĕр сехет",
                 hh : "%d сехет",
                 d : "пĕр кун",
                 dd : "%d кун",
