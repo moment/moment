@@ -121,7 +121,7 @@ exports["lang:zh-cn"] = {
     "suffix" : function(test) {
         test.expect(2);
         moment.lang('zh-cn');
-        test.equal(moment(30000).from(0), "几秒后",  "prefix");
+        test.equal(moment(30000).from(0), "几秒内",  "prefix");
         test.equal(moment(0).from(30000), "几秒前", "suffix");
         test.done();
     },
@@ -136,8 +136,8 @@ exports["lang:zh-cn"] = {
     "fromNow" : function(test) {
         test.expect(2);
         moment.lang('zh-cn');
-        test.equal(moment().add({s:30}).fromNow(), "几秒后", "in a few seconds");
-        test.equal(moment().add({d:5}).fromNow(), "5天后", "in 5 days");
+        test.equal(moment().add({s:30}).fromNow(), "几秒内", "in a few seconds");
+        test.equal(moment().add({d:5}).fromNow(), "5天内", "in 5 days");
         test.done();
     },
 

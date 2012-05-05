@@ -121,7 +121,7 @@ exports["lang:zh-tw"] = {
     "suffix" : function(test) {
         test.expect(2);
         moment.lang('zh-tw');
-        test.equal(moment(30000).from(0), "幾秒後",  "prefix");
+        test.equal(moment(30000).from(0), "幾秒內",  "prefix");
         test.equal(moment(0).from(30000), "幾秒前", "suffix");
         test.done();
     },
@@ -136,8 +136,8 @@ exports["lang:zh-tw"] = {
     "fromNow" : function(test) {
         test.expect(2);
         moment.lang('zh-tw');
-        test.equal(moment().add({s:30}).fromNow(), "幾秒後", "in a few seconds");
-        test.equal(moment().add({d:5}).fromNow(), "5天後", "in 5 days");
+        test.equal(moment().add({s:30}).fromNow(), "幾秒內", "in a few seconds");
+        test.equal(moment().add({d:5}).fromNow(), "5天內", "in 5 days");
         test.done();
     },
 

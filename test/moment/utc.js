@@ -28,7 +28,9 @@ exports.utc = {
     },
 
     "creating with utc" : function(test) {
-        test.expect(6);
+        test.expect(7);
+
+        test.equal(moment.utc().valueOf(), moment().valueOf(), "Calling moment.utc() should default to the current time");
 
         var m = moment.utc([2011, 1, 2, 3, 4, 5, 6]);
         test.equal(m.date(), 2, "the day should be correct for utc array");
@@ -41,6 +43,20 @@ exports.utc = {
         m = moment.utc("2011-02-02T03:04:05+00:00");
         test.equal(m.date(), 2, "the day should be correct for utc parsing iso");
         test.equal(m.hours(), 3, "the hours should be correct for utc parsing iso");
+
+        test.done();
+    },
+
+    "creating with utc without timezone" : function(test) {
+        test.expect(4);
+
+        var m = moment.utc("2012-01-02T08:20:00");
+        test.equal(m.date(), 2, "the day should be correct for utc parse without timezone");
+        test.equal(m.hours(), 8, "the hours should be correct for utc parse without timezone");
+
+        m = moment.utc("2012-01-02T08:20:00+09:00");
+        test.equal(m.date(), 1, "the day should be correct for utc parse with timezone");
+        test.equal(m.hours(), 23, "the hours should be correct for utc parse with timezone");
 
         test.done();
     }
