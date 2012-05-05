@@ -1,0 +1,50 @@
+(function () {
+    var lang = {
+            months : "кăрлач_нарăс_пуш_ака_çу_çĕртме_утă_çурла_авăн_юпа_чӳк_раштав".split("_"),
+            monthsShort : "кăр_нар_пуш_ака_çу_çĕр_утă_çур_ав_юпа_чӳк_раш".split("_"),
+            weekdays : "вырсарникун_тунтикун_ытларикун_юнкун_кĕçнерникун_эрнекун_шăматкун".split("_"),
+            weekdaysShort : "выр_тун_ытл_юн_кĕç_эрн_шăм".split("_"),
+            longDateFormat : {
+                LT : "HH:mm",
+                L : "DD-MM-YYYY",
+                LL : "D MMMM YYYY",
+                LLL : "D MMMM YYYY LT",
+                LLLL : "dddd, D MMMM YYYY LT"
+            },
+            calendar : {
+                sameDay: '[Паян] LT [сехетре]',
+                nextDay: '[Ыран] LT [сехетре]',
+                lastDay: '[Ĕнер] LT [сехетре]',
+                nextWeek: '[Çитес] dddd LT [сехетре]',
+                lastWeek: '[Иртнĕ] dddd LT [сехетре]',
+                sameElse: 'L'
+            },
+            relativeTime : {
+                future : "%s ран/рен",
+                past : "%s каялла",
+                s : "пĕр-ик çеккунт",
+                m : "пĕр минут",
+                mm : "%d минут",
+                h : "en сехет",
+                hh : "%d сехет",
+                d : "пĕр кун",
+                dd : "%d кун",
+                M : "пĕр уйăх",
+                MM : "%d уйăх",
+                y : "пĕр çул",
+                yy : "%d çул"
+            },
+            ordinal : function (number) {
+                return '-мĕш';
+            }
+        };
+
+    // Node
+    if (typeof module !== 'undefined') {
+        module.exports = lang;
+    }
+    // Browser
+    if (typeof window !== 'undefined' && this.moment && this.moment.lang) {
+        this.moment.lang('cv', lang);
+    }
+}());
