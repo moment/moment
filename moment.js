@@ -69,8 +69,8 @@
     function Moment(date, isUTC) {
         this._d = date;
         this._isUTC = !!isUTC;
-        this._a = date.__origin || 0;
-        date.__origin = null;
+        this._a = date._a || null;
+        date._a = null;
     }
 
     function absRound(number) {
@@ -174,10 +174,13 @@
     // note: all values past the year are optional and will default to the lowest possible value.
     // [year, month, day , hour, minute, second, millisecond]
     function dateFromArray(input, asUTC) {
-        input[2] = input[2] || 1;
-        var date = asUTC ? new Date(Date.UTC.apply({}, input)) :
-            new Date(input[0], input[1] || 0, input[2], input[3] || 0, input[4] || 0, input[5] || 0, input[6] || 0);
-        date.__origin = input;
+        var i, date;
+        for (i = 1; i < 8; i++) {
+            input[i] = (input[i] == null) ? (i === 2 ? 1 : 0) : input[i];
+        }
+        date = asUTC ? new Date(Date.UTC.apply({}, input)) :
+            new Date(input[0], input[1], input[2], input[3], input[4], input[5], input[6]);
+        date._a = input;
         return date;
     }
 
@@ -377,7 +380,9 @@
         case 'DD' : // fall through to DDDD
         case 'DDD' : // fall through to DDDD
         case 'DDDD' :
-            datePartArray[2] = ~~input;
+            if (input != null) {
+                datePartArray[2] = ~~input;
+            }
             break;
         // YEAR
         case 'YY' :
@@ -462,7 +467,7 @@
         datePartArray[3] += config.tzh;
         datePartArray[4] += config.tzm;
         // return
-        return config.isUTC ? new Date(Date.UTC.apply({}, datePartArray)) : dateFromArray(datePartArray);
+        return dateFromArray(datePartArray, config.isUTC);
     }
 
     // compare two arrays, return the number of differences
@@ -581,7 +586,7 @@
     // creating with utc
     moment.utc = function (input, format) {
         if (isArray(input)) {
-            return new Moment(new Date(Date.UTC.apply({}, input)), true);
+            return new Moment(dateFromArray(input, true), true);
         }
         return (format && input) ?
             moment(input + ' +0000', format + ' Z').utc() :
