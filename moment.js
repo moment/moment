@@ -69,6 +69,8 @@
     function Moment(date, isUTC) {
         this._d = date;
         this._isUTC = !!isUTC;
+        this._a = date.__origin || 0;
+        date.__origin = null;
     }
 
     function absRound(number) {
@@ -171,8 +173,12 @@
     // the array should mirror the parameters below
     // note: all values past the year are optional and will default to the lowest possible value.
     // [year, month, day , hour, minute, second, millisecond]
-    function dateFromArray(input) {
-        return new Date(input[0], input[1] || 0, input[2] || 1, input[3] || 0, input[4] || 0, input[5] || 0, input[6] || 0);
+    function dateFromArray(input, asUTC) {
+        input[2] = input[2] || 1;
+        var date = asUTC ? new Date(Date.UTC.apply({}, input)) :
+            new Date(input[0], input[1] || 0, input[2], input[3] || 0, input[4] || 0, input[5] || 0, input[6] || 0);
+        date.__origin = input;
+        return date;
     }
 
     // format date using native date object
@@ -722,6 +728,30 @@
 
         toDate : function () {
             return this._d;
+        },
+
+        toArray : function () {
+            var m = this;
+            return [
+                m.year(),
+                m.month(),
+                m.date(),
+                m.hours(),
+                m.minutes(),
+                m.seconds(),
+                m.milliseconds()
+            ];
+        },
+
+        isValid : function () {
+            var i = 0,
+                toArray = this.toArray();
+            for (; this._a && i < 7; i++) {
+                if ((this._a[i] || 0) !== toArray[i]) {
+                    return false;
+                }
+            }
+            return !isNaN(this._d.getTime());
         },
 
         utc : function () {
