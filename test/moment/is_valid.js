@@ -44,5 +44,63 @@ exports.is_valid = {
 
         test.equal(moment('fail').isValid(), false, 'string "fail"');
         test.done();
+    },
+
+    "string iso 8601 fail" : function(test) {
+
+        var tests = [
+            '2010-00-00',
+            '2010-01-00',
+            '2010-01-40',
+            '2010-01-40T24',
+            '2010-01-40T23:60',
+            '2010-01-40T23:59:60',
+            '2010-01-40T23:59:59.9999'
+        ];
+
+        test.expect(tests.length);
+
+        for (var i = 0; i < tests.length; i++) {
+            test.equal(moment(tests[i]).isValid(), false, tests[i] + ' should be invalid');
+        }
+        test.done();
+    },
+
+    "string iso 8601 timezone fail" : function(test) {
+
+        var tests = [
+            '2010-00-00+00:00',
+            '2010-01-00+00:00',
+            '2010-01-40+00:00',
+            '2010-01-40T24+00:00',
+            '2010-01-40T23:60+00:00',
+            '2010-01-40T23:59:60+00:00',
+            '2010-01-40T23:59:59.9999+00:00'
+        ];
+
+        test.expect(tests.length);
+
+        for (var i = 0; i < tests.length; i++) {
+            test.equal(moment(tests[i]).isValid(), false, tests[i] + ' should be invalid');
+        }
+        test.done();
+    },
+
+    "string iso 8601 timezone fail" : function(test) {
+        var tests = [
+            '2010-01-01',
+            '2010-01-30',
+            '2010-01-30T23+00:00',
+            '2010-01-30T23:59+00:00',
+            '2010-01-30T23:59:59+00:00',
+            '2010-01-30T23:59:59.999+00:00'
+        ];
+
+        test.expect(tests.length);
+
+        for (var i = 0; i < tests.length; i++) {
+            test.equal(moment(tests[i]).isValid(), true, tests[i] + ' should be valid');
+        }
+        test.done();
     }
 };

@@ -28,8 +28,8 @@
     }
     function G(b, c) {
         var d, e;
-        for (d = 1; d < 8; d++) b[d] = b[d] == null ? d === 2 ? 1 : 0 : b[d];
-        return e = c ? new a(a.UTC.apply({}, b)) : new a(b[0], b[1], b[2], b[3], b[4], b[5], b[6]), e._a = b, e;
+        for (d = 1; d < 7; d++) b[d] = b[d] == null ? d === 2 ? 1 : 0 : b[d];
+        return b[7] = c, e = c ? new a(a.UTC.apply({}, b)) : new a(b[0], b[1], b[2], b[3], b[4], b[5], b[6]), e._a = b, e;
     }
     function H(b, d) {
         function q(d) {
@@ -366,8 +366,11 @@
             return [ a.year(), a.month(), a.date(), a.hours(), a.minutes(), a.seconds(), a.milliseconds() ];
         },
         isValid: function() {
-            var a = 0, b = this.toArray();
-            for (; this._a && a < 7; a++) if ((this._a[a] || 0) !== b[a]) return !1;
+            var a, b;
+            if (this._a) for (a = 0; a < 7; a++) {
+                b = (this._a[7] ? c.utc(this) : this).toArray();
+                if (this._a[a] !== b[a]) return !1;
+            }
             return !isNaN(this._d.getTime());
         },
         utc: function() {

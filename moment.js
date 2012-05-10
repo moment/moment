@@ -175,9 +175,11 @@
     // [year, month, day , hour, minute, second, millisecond]
     function dateFromArray(input, asUTC) {
         var i, date;
-        for (i = 1; i < 8; i++) {
+        for (i = 1; i < 7; i++) {
             input[i] = (input[i] == null) ? (i === 2 ? 1 : 0) : input[i];
         }
+        // we store whether we used utc or not in the input array
+        input[7] = asUTC;
         date = asUTC ? new Date(Date.UTC.apply({}, input)) :
             new Date(input[0], input[1], input[2], input[3], input[4], input[5], input[6]);
         date._a = input;
@@ -749,11 +751,13 @@
         },
 
         isValid : function () {
-            var i = 0,
-                toArray = this.toArray();
-            for (; this._a && i < 7; i++) {
-                if ((this._a[i] || 0) !== toArray[i]) {
-                    return false;
+            var i, toArray;
+            if (this._a) {
+                for (i = 0; i < 7; i++) {
+                    toArray = (this._a[7] ? moment.utc(this) : this).toArray();
+                    if (this._a[i] !== toArray[i]) {
+                        return false;
+                    }
                 }
             }
             return !isNaN(this._d.getTime());
