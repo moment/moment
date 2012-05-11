@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : galician (gl)
+// author : Juan G. Hurtado : https://github.com/juanghurtado
 (function () {
     var lang = {
             months : "Xaneiro_Febreiro_Marzo_Abril_Maio_Xuño_Xullo_Agosto_Setembro_Octubro_Novembro_Decembro".split("_"),

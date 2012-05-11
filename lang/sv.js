@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : swedish (sv)
+// author : Jens Alm : https://github.com/ulmus
 (function () {
     var lang = {
             months : "januari_februari_mars_april_maj_juni_juli_augusti_september_oktober_november_december".split("_"),

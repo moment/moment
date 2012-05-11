@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : euskara (eu)
+// author : Eneko Illarramendi : https://github.com/eillarra
 (function () {
     var lang = {
             months : "urtarrila_otsaila_martxoa_apirila_maiatza_ekaina_uztaila_abuztua_iraila_urria_azaroa_abendua".split("_"),

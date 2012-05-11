@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : finnish (fi)
+// author : Tarmo Aidantausta : https://github.com/bleadof
 (function () {
     var numbers_past = ['nolla', 'yksi', 'kaksi', 'kolme', 'neljä', 'viisi',
                         'kuusi', 'seitsemän', 'kahdeksan', 'yhdeksän'];

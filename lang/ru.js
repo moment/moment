@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : russian (ru)
+// author : Viktorminator : https://github.com/Viktorminator
 (function () {
 
     var pluralRules = [

@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : catalan (ca)
+// author : Juan G. Hurtado : https://github.com/juanghurtado
 (function () {
     var lang = {
             months : "Gener_Febrer_Març_Abril_Maig_Juny_Juliol_Agost_Setembre_Octubre_Novembre_Desembre".split("_"),

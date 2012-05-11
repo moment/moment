@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : chuvash (cv)
+// author : Anatoly Mironov : https://github.com/mirontoli
 (function () {
     var lang = {
             months : "кăрлач_нарăс_пуш_ака_май_çĕртме_утă_çурла_авăн_юпа_чӳк_раштав".split("_"),

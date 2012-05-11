@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : turkish (tr)
+// author : Erhan Gundogan : https://github.com/erhangundogan
 (function () {
     var lang = {
             months : "Ocak_Şubat_Mart_Nisan_Mayıs_Haziran_Temmuz_Ağustos_Eylül_Ekim_Kasım_Aralık".split("_"),

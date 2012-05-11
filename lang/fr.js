@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : french (fr)
+// author : John Fischer : https://github.com/jfroffice
 (function () {
     var lang = {
             months : "janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre".split("_"),
