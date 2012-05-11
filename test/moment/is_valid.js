@@ -46,7 +46,7 @@ exports.is_valid = {
         test.done();
     },
 
-    "string iso 8601 fail" : function(test) {
+    "invalid string iso 8601" : function(test) {
 
         var tests = [
             '2010-00-00',
@@ -66,7 +66,7 @@ exports.is_valid = {
         test.done();
     },
 
-    "string iso 8601 timezone fail" : function(test) {
+    "invalid string iso 8601 + timezone" : function(test) {
 
         var tests = [
             '2010-00-00+00:00',
@@ -86,7 +86,7 @@ exports.is_valid = {
         test.done();
     },
 
-    "string iso 8601 timezone fail" : function(test) {
+    "valid string iso 8601 + timezone" : function(test) {
         var tests = [
             '2010-01-01',
             '2010-01-30',
