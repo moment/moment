@@ -5,7 +5,7 @@
 // momentjs.com
 (function(a, b) {
     function A(a, b) {
-        this._d = a, this._isUTC = !!b;
+        this._d = a, this._isUTC = !!b, this._a = a._a || null, a._a = null;
     }
     function B(a) {
         return a < 0 ? Math.ceil(a) : Math.floor(a);
@@ -26,8 +26,10 @@
     function F(a) {
         return Object.prototype.toString.call(a) === "[object Array]";
     }
-    function G(b) {
-        return new a(b[0], b[1] || 0, b[2] || 1, b[3] || 0, b[4] || 0, b[5] || 0, b[6] || 0);
+    function G(b, c) {
+        var d, e;
+        for (d = 1; d < 7; d++) b[d] = b[d] == null ? d === 2 ? 1 : 0 : b[d];
+        return b[7] = c, e = c ? new a(a.UTC.apply({}, b)) : new a(b[0], b[1], b[2], b[3], b[4], b[5], b[6]), e._a = b, e;
     }
     function H(b, d) {
         function q(d) {
@@ -177,7 +179,7 @@
           case "DD":
           case "DDD":
           case "DDDD":
-            d[2] = ~~b;
+            b != null && (d[2] = ~~b);
             break;
           case "YY":
             b = ~~b, d[0] = b + (b > 70 ? 1900 : 2e3);
@@ -213,13 +215,13 @@
             e.isUTC = !0, f = (b + "").match(x), f && f[1] && (e.tzh = ~~f[1]), f && f[2] && (e.tzm = ~~f[2]), f && f[0] === "+" && (e.tzh = -e.tzh, e.tzm = -e.tzm);
         }
     }
-    function K(b, c) {
-        var d = [ 0, 0, 1, 0, 0, 0, 0 ], e = {
+    function K(a, b) {
+        var c = [ 0, 0, 1, 0, 0, 0, 0 ], d = {
             tzh: 0,
             tzm: 0
-        }, f = c.match(l), g, h;
-        for (g = 0; g < f.length; g++) h = (I(f[g]).exec(b) || [])[0], b = b.replace(I(f[g]), ""), J(f[g], h, d, e);
-        return e.isPm && d[3] < 12 && (d[3] += 12), e.isPm === !1 && d[3] === 12 && (d[3] = 0), d[3] += e.tzh, d[4] += e.tzm, e.isUTC ? new a(a.UTC.apply({}, d)) : G(d);
+        }, e = b.match(l), f, g;
+        for (f = 0; f < e.length; f++) g = (I(e[f]).exec(a) || [])[0], a = a.replace(I(e[f]), ""), J(e[f], g, c, d);
+        return d.isPm && c[3] < 12 && (c[3] += 12), d.isPm === !1 && c[3] === 12 && (c[3] = 0), c[3] += d.tzh, c[4] += d.tzm, G(c, d.isUTC);
     }
     function L(a, b) {
         var c = Math.min(a.length, b.length), d = Math.abs(a.length - b.length), e = 0, f;
@@ -279,8 +281,8 @@
         if (d === null || d === "") return null;
         var f, g, h;
         return c.isMoment(d) ? (f = new a(+d._d), h = d._isUTC) : e ? F(e) ? f = M(d, e) : f = K(d, e) : (g = k.exec(d), f = d === b ? new a : g ? new a(+g[1]) : d instanceof a ? d : F(d) ? G(d) : typeof d == "string" ? N(d) : new a(d)), new A(f, h);
-    }, c.utc = function(b, d) {
-        return F(b) ? new A(new a(a.UTC.apply({}, b)), !0) : d && b ? c(b + " +0000", d + " Z").utc() : c(b && !s.exec(b) ? b + "+0000" : b).utc();
+    }, c.utc = function(a, b) {
+        return F(a) ? new A(G(a, !0), !0) : b && a ? c(a + " +0000", b + " Z").utc() : c(a && !s.exec(a) ? a + "+0000" : a).utc();
     }, c.unix = function(a) {
         return c(a * 1e3);
     }, c.duration = function(a, b) {
@@ -358,6 +360,18 @@
         },
         toDate: function() {
             return this._d;
+        },
+        toArray: function() {
+            var a = this;
+            return [ a.year(), a.month(), a.date(), a.hours(), a.minutes(), a.seconds(), a.milliseconds() ];
+        },
+        isValid: function() {
+            var a, b;
+            if (this._a) for (a = 0; a < 7; a++) {
+                b = (this._a[7] ? c.utc(this) : this).toArray();
+                if (this._a[a] !== b[a]) return !1;
+            }
+            return !isNaN(this._d.getTime());
         },
         utc: function() {
             return this._isUTC = !0, this;
