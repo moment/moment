@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : icelandic (is)
+// author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 (function () {
     var plural = function (n) {
         if (n % 100 == 11) {

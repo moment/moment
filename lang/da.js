@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : danish (da)
+// author : Ulrik Nielsen : https://github.com/mrbase
 (function () {
     var lang = {
             months : "Januar_Februar_Marts_April_Maj_Juni_Juli_August_September_Oktober_November_December".split("_"),

@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : portuguese (pt)
+// author : Jefferson : https://github.com/jalex79
 (function () {
     var lang = {
             months : "Janeiro_Fevereiro_Março_Abril_Maio_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro".split("_"),

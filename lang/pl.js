@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : polish (pl)
+// author : Rafal Hirsz : https://github.com/evoL
 (function () {
     var plural = function (n) { 
         return (n % 10 < 5) && (n % 10 > 1) && (~~(n / 10) !== 1);

@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : german (de)
+// author : lluchs : https://github.com/lluchs
 (function () {
     var lang = {
             months : "Januar_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember".split("_"),

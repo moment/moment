@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : dutch (nl)
+// author : Joris Röling : https://github.com/jjupiter
 (function () {
     var lang = {
             months : "januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december".split("_"),

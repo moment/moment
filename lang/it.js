@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : italian (it)
+// author : Lorenzo : https://github.com/aliem
 (function () {
     var lang = {
             months : "Gennaio_Febbraio_Marzo_Aprile_Maggio_Giugno_Luglio_Agosto_Settebre_Ottobre_Novembre_Dicembre".split("_"),

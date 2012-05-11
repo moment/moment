@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : spanish (es)
+// author : Julio Napurí : https://github.com/julionc
 (function () {
     var lang = {
             months : "Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre".split("_"),
