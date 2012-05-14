@@ -37,7 +37,7 @@ exports["lang:eu"] = {
                 ['M Mo MM MMMM MMM',                   '2 2. 02 otsaila ots.'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14. 14'],
-                ['d do dddd ddd dd',                   '0 0. igandea ig. Ig'],
+                ['d do dddd ddd dd',                   '0 0. igandea ig. ig'],
                 ['DDD DDDo DDDD',                      '45 45. 045'],
                 ['w wo ww',                            '8 8. 08'],
                 ['h hh',                               '3 03'],
@@ -113,7 +113,7 @@ exports["lang:eu"] = {
     "format week" : function(test) {
         test.expect(7);
         moment.lang('eu');
-        var expected = 'igandea ig. Ig_astelehena al. Al_asteartea ar. Ar_asteazkena az. Az_osteguna og. Og_ostirala ol. Ol_larunbata lr. Lr'.split("_");
+        var expected = 'igandea ig. ig_astelehena al. al_asteartea ar. ar_asteazkena az. az_osteguna og. og_ostirala ol. ol_larunbata lr. lr'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
