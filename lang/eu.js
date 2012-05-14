@@ -7,6 +7,7 @@
             monthsShort : "urt._ots._mar._api._mai._eka._uzt._abu._ira._urr._aza._abe.".split("_"),
             weekdays : "igandea_astelehena_asteartea_asteazkena_osteguna_ostirala_larunbata".split("_"),
             weekdaysShort : "ig._al._ar._az._og._ol._lr.".split("_"),
+            weekdaysMin : "Ig_Al_Ar_Az_Og_Ol_Lr".split("_"),
             longDateFormat : {
                 LT : "HH:mm",
                 L : "YYYY-MM-DD",

@@ -51,6 +51,7 @@
             monthsShort : "tam_hel_maa_huh_tou_kes_hei_elo_syy_lok_mar_jou".split("_"),
             weekdays : "sunnuntai_maanantai_tiistai_keskiviikko_torstai_perjantai_lauantai".split("_"),
             weekdaysShort : "su_ma_ti_ke_to_pe_la".split("_"),
+            weekdaysMin : "Su_Ma_Ti_Ke_To_Pe_La".split("_"),
             longDateFormat : {
                 LT : "HH.mm",
                 L : "DD.MM.YYYY",

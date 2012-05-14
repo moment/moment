@@ -37,7 +37,7 @@ exports["lang:cv"] = {
                 ['M Mo MM MMMM MMM',                   '2 2-мĕш 02 нарăс нар'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14-мĕш 14'],
-                ['d do dddd ddd',                      '0 0-мĕш вырсарникун выр'],
+                ['d do dddd ddd dd',                   '0 0-мĕш вырсарникун выр вр'],
                 ['DDD DDDo DDDD',                      '45 45-мĕш 045'],
                 ['w wo ww',                            '8 8-мĕш 08'],
                 ['h hh',                               '3 03'],
@@ -113,10 +113,10 @@ exports["lang:cv"] = {
     "format week" : function(test) {
         test.expect(7);
         moment.lang('cv');
-        var expected = 'вырсарникун выр_тунтикун тун_ытларикун ытл_юнкун юн_кĕçнерникун кĕç_эрнекун эрн_шăматкун шăм'.split("_");
+        var expected = 'вырсарникун выр вр_тунтикун тун тн_ытларикун ытл ыт_юнкун юн юн_кĕçнерникун кĕç кç_эрнекун эрн эр_шăматкун шăм шм'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd'), expected[i], expected[i]);
+            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
         test.done();
     },
