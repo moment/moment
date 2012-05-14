@@ -7,7 +7,7 @@
             monthsShort : "jan_feb_mar_apr_mai_jun_jul_aug_sep_okt_nov_des".split("_"),
             weekdays : "søndag_mandag_tirsdag_onsdag_torsdag_fredag_lørdag".split("_"),
             weekdaysShort : "søn_man_tir_ons_tor_fre_lør".split("_"),
-            weekdaysMin : "Sø_Ma_Ti_On_To_Fr_Lø".split("_"),
+            weekdaysMin : "sø_ma_ti_on_to_fr_lø".split("_"),
             longDateFormat : {
                 LT : "HH:mm",
                 L : "YYYY-MM-DD",
