@@ -48,8 +48,8 @@ exports["lang:jp"] = {
                 ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45 day of the year'],
                 ['L',                                  '2010/02/14'],
                 ['LL',                                 '2010年2月14日'],
-                ['LLL',                                '2010年2月14日 午後3:25'],
-                ['LLLL',                               '2010年2月14日 日曜日 午後3:25']
+                ['LLL',                                '2010年2月14日午後3時25分'],
+                ['LLLL',                               '2010年2月14日午後3時25分 日曜日']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -147,12 +147,12 @@ exports["lang:jp"] = {
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "今日 午前2:00",     "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "今日 午前2:25",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "今日 午前3:00",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "明日 午前2:00",     "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "今日 午前1:00",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "昨日 午前2:00",     "yesterday at the same time");
+        test.equal(moment(a).calendar(),                     "今日 午前2時0分",     "today at the same time");
+        test.equal(moment(a).add({ m: 25 }).calendar(),      "今日 午前2時25分",     "Now plus 25 min");
+        test.equal(moment(a).add({ h: 1 }).calendar(),       "今日 午前3時0分",     "Now plus 1 hour");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "明日 午前2時0分",     "tomorrow at the same time");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "今日 午前1時0分",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "昨日 午前2時0分",     "yesterday at the same time");
         test.done();
     },
 
