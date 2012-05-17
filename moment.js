@@ -803,7 +803,15 @@
             return (this.zone() < moment([this.year()]).zone() || 
                 this.zone() < moment([this.year(), 5]).zone());
         },
-
+        
+        isPast : function () {
+            return this < moment();
+        },
+        
+        isFuture : function () {
+            return this > moment();
+        },
+        
         day : function (input) {
             var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
             return input == null ? day :

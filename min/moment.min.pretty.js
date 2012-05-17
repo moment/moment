@@ -397,6 +397,12 @@
         isDST: function() {
             return this.zone() < c([ this.year() ]).zone() || this.zone() < c([ this.year(), 5 ]).zone();
         },
+        isPast: function() {
+            return this < c();
+        },
+        isFuture: function() {
+            return this > c();
+        },
         day: function(a) {
             var b = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
             return a == null ? b : this.add({
