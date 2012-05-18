@@ -7,6 +7,7 @@
             monthsShort : "Xan._Feb._Mar._Abr._Mai._Xuñ._Xul._Ago._Set._Out._Nov._Dec.".split("_"),
             weekdays : "Domingo_Luns_Martes_Mércores_Xoves_Venres_Sábado".split("_"),
             weekdaysShort : "Dom._Lun._Mar._Mér._Xov._Ven._Sáb.".split("_"),
+            weekdaysMin : "Do_Lu_Ma_Mé_Xo_Ve_Sá".split("_"),
             longDateFormat : {
                 LT : "H:mm",
                 L : "DD/MM/YYYY",

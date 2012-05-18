@@ -37,7 +37,7 @@ exports["lang:is"] = {
                 ['M Mo MM MMMM MMM',                   '2 2. 02 febrúar feb'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14. 14'],
-                ['d do dddd ddd',                      '0 0. sunnudagur sun'],
+                ['d do dddd ddd dd',                   '0 0. sunnudagur sun Su'],
                 ['DDD DDDo DDDD',                      '45 45. 045'],
                 ['w wo ww',                            '8 8. 08'],
                 ['h hh',                               '3 03'],
@@ -113,10 +113,10 @@ exports["lang:is"] = {
     "format week" : function(test) {
         test.expect(7);
         moment.lang('is');
-        var expected = 'sunnudagur sun_mánudagur mán_þriðjudagur þri_miðvikudagur mið_fimmtudagur fim_föstudagur fös_laugardagur lau'.split("_");
+        var expected = 'sunnudagur sun Su_mánudagur mán Má_þriðjudagur þri Þr_miðvikudagur mið Mi_fimmtudagur fim Fi_föstudagur fös Fö_laugardagur lau La'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd'), expected[i], expected[i]);
+            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
         test.done();
     },

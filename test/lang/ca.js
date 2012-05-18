@@ -84,11 +84,11 @@ exports["lang:ca"] = {
     "format week" : function(test) {
         test.expect(7);
         moment.lang('ca');
-        var expected = "Diumenge Dg._Dilluns Dl._Dimarts Dt._Dimecres Dc._Dijous Dj._Divendres Dv._Dissabte Ds.".split("_");
+        var expected = "Diumenge Dg. Dg_Dilluns Dl. Dl_Dimarts Dt. Dt_Dimecres Dc. Dc_Dijous Dj. Dj_Divendres Dv. Dv_Dissabte Ds. Ds".split("_");
     
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd'), expected[i], expected[i]);
+            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
         test.done();
     },
