@@ -113,7 +113,7 @@ exports["lang:pt"] = {
     "format week" : function(test) {
         test.expect(7);
         moment.lang('pt');
-        var expected = 'Domingo Dom Dom_Segunda-feira Seg Seg_Terça-feira Ter Ter_Quarta-feira Qua Qua_Quinta-feira Qui Qui_Sexta-feira Sex Sex_Sábado Sáb Sáb'.split("_");
+        var expected = 'Domingo Dom Dom_Segunda-feira Seg 2ª_Terça-feira Ter 3ª_Quarta-feira Qua 4ª_Quinta-feira Qui 5ª_Sexta-feira Sex 6ª_Sábado Sáb Sáb'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
