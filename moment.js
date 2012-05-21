@@ -188,6 +188,11 @@
             currentZone = -m.zone(),
             ordinal = moment.ordinal,
             meridiem = moment.meridiem;
+
+        // method to check for callback or array index
+        function getValueFromArray(key, index) {
+            return moment[key].call ? moment[key](m, inputString) : moment[key][index];
+        }
         // check if the character is a format
         // return formatted string or non string.
         //
@@ -206,9 +211,9 @@
             case 'MM' :
                 return leftZeroFill(currentMonth + 1, 2);
             case 'MMM' :
-                return moment.monthsShort[currentMonth];
+                return getValueFromArray('monthsShort', currentMonth);
             case 'MMMM' :
-                return moment.months[currentMonth];
+                return getValueFromArray('months', currentMonth);
             // DAY OF MONTH
             case 'D' :
                 return currentDate;
@@ -232,9 +237,9 @@
             case 'do' :
                 return currentDay + ordinal(currentDay);
             case 'ddd' :
-                return moment.weekdaysShort[currentDay];
+                return getValueFromArray('weekdaysShort', currentDay);
             case 'dddd' :
-                return moment.weekdays[currentDay];
+                return getValueFromArray('weekdays', currentDay);
             // WEEK OF YEAR
             case 'w' :
                 a = new Date(currentYear, currentMonth, currentDate - currentDay + 5);
