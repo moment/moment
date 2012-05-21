@@ -30,8 +30,11 @@
         return new a(b[0], b[1] || 0, b[2] || 1, b[3] || 0, b[4] || 0, b[5] || 0, b[6] || 0);
     }
     function H(b, d) {
-        function q(d) {
-            var l, r;
+        function q(a, e) {
+            return c[a].call ? c[a](b, d) : c[a][e];
+        }
+        function r(d) {
+            var l, s;
             switch (d) {
               case "M":
                 return e + 1;
@@ -40,9 +43,9 @@
               case "MM":
                 return D(e + 1, 2);
               case "MMM":
-                return c.monthsShort[e];
+                return q("monthsShort", e);
               case "MMMM":
-                return c.months[e];
+                return q("months", e);
               case "D":
                 return f;
               case "Do":
@@ -50,25 +53,25 @@
               case "DD":
                 return D(f, 2);
               case "DDD":
-                return l = new a(g, e, f), r = new a(g, 0, 1), ~~((l - r) / 864e5 + 1.5);
+                return l = new a(g, e, f), s = new a(g, 0, 1), ~~((l - s) / 864e5 + 1.5);
               case "DDDo":
-                return l = q("DDD"), l + o(l);
+                return l = r("DDD"), l + o(l);
               case "DDDD":
-                return D(q("DDD"), 3);
+                return D(r("DDD"), 3);
               case "d":
                 return h;
               case "do":
                 return h + o(h);
               case "ddd":
-                return c.weekdaysShort[h];
+                return q("weekdaysShort", h);
               case "dddd":
-                return c.weekdays[h];
+                return q("weekdays", h);
               case "w":
-                return l = new a(g, e, f - h + 5), r = new a(l.getFullYear(), 0, 4), ~~((l - r) / 864e5 / 7 + 1.5);
+                return l = new a(g, e, f - h + 5), s = new a(l.getFullYear(), 0, 4), ~~((l - s) / 864e5 / 7 + 1.5);
               case "wo":
-                return l = q("w"), l + o(l);
+                return l = r("w"), l + o(l);
               case "ww":
-                return D(q("w"), 2);
+                return D(r("w"), 2);
               case "YY":
                 return D(g % 100, 2);
               case "YYYY":
@@ -114,7 +117,7 @@
             }
         }
         var e = b.month(), f = b.date(), g = b.year(), h = b.day(), i = b.hours(), j = b.minutes(), k = b.seconds(), m = b.milliseconds(), n = -b.zone(), o = c.ordinal, p = c.meridiem;
-        return d.replace(l, q);
+        return d.replace(l, r);
     }
     function I(a) {
         switch (a) {
