@@ -37,7 +37,7 @@ exports["lang:tr"] = {
                 ['M Mo MM MMMM MMM',                   '2 2nd 02 Şubat Şub'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14th 14'],
-                ['d do dddd ddd',                      '0 0th Pazar Paz'],
+                ['d do dddd ddd dd',                   '0 0th Pazar Paz Pz'],
                 ['DDD DDDo DDDD',                      '45 45th 045'],
                 ['w wo ww',                            '8 8th 08'],
                 ['h hh',                               '3 03'],
@@ -113,10 +113,10 @@ exports["lang:tr"] = {
     "format week" : function(test) {
         test.expect(7);
         moment.lang('tr');
-        var expected = 'Pazar Paz_Pazartesi Pts_Salı Sal_Çarşamba Çar_Perşembe Per_Cuma Cum_Cumartesi Cts'.split("_");
+        var expected = 'Pazar Paz Pz_Pazartesi Pts Pt_Salı Sal Sa_Çarşamba Çar Ça_Perşembe Per Pe_Cuma Cum Cu_Cumartesi Cts Ct'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd'), expected[i], expected[i]);
+            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
         test.done();
     },
