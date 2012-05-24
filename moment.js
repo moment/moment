@@ -23,7 +23,9 @@
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
 
         // format tokens
-        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|LT|LL?L?L?)/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?)/g,
+        localFormattingTokens = /(LT|LL?L?L?)/g,
+        formattingRemoveEscapes = /(^\[)|(\\)|\]$/g,
 
         // parsing tokens
         parseMultipleFormatChunker = /([0-9a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)/gi,
@@ -66,6 +68,7 @@
         },
 
         // format function strings
+        formatFunctions = {},
         formatFunctionStrings = {
             // a = placeholder
             // b = placeholder
@@ -74,28 +77,23 @@
             // o = ordinal
             // p = pad
             // m = meridiem
-            M    : 't.month()+1',
-            Mo   : '(a=t.month()+1)+o(a)',
-            MM   : 'p(t.month()+1,2)',
+            M    : '(a=t.month()+1)',
             MMM  : 'v("monthsShort",t.month())',
             MMMM : 'v("months",t.month())',
-            D    : 't.date()',
-            Do   : '(a=t.date())+o(a)',
-            DD   : 'p(t.date(),2)',
-            DDD  : 'a=new Date(t.year(),t.month(),t.date()),b=new Date(t.year(),0,1),a=~~(((a-b)/864e5)+1.5)',
-            d    : 't.day()',
-            "do" : '(a=t.day())+o(a)',
+            D    : '(a=t.date())',
+            DDD  : '(a=new Date(t.year(),t.month(),t.date()),b=new Date(t.year(),0,1),a=~~(((a-b)/864e5)+1.5))',
+            d    : '(a=t.day())',
             ddd  : 'v("weekdaysShort",t.day())',
             dddd : 'v("weekdays",t.day())',
-            w    : 'a=new Date(m.year(),m.month(),m.date()-m.day()+5),b=new Date(a.getFullYear(),0,4),a=~~((a-b)/864e5/7+1.5)',
+            w    : '(a=new Date(t.year(),t.month(),t.date()-t.day()+5),b=new Date(a.getFullYear(),0,4),a=~~((a-b)/864e5/7+1.5))',
             YY   : 'p(t.year()%100,2)',
             YYYY : 't.year()',
             a    : 'm?m(t.hours(),t.minutes(),!1):t.hours()>11?"pm":"am"',
             A    : 'm?m(t.hours(),t.minutes(),!0):t.hours()>11?"PM":"AM"',
-            H    : 't.hours()',
-            h    : 't.hours()%12||12',
-            m    : 't.minutes()',
-            s    : 't.seconds()',
+            H    : '(a=t.hours())',
+            h    : '(a=t.hours()%12||12)',
+            m    : '(a=t.minutes())',
+            s    : '(a=t.seconds())',
             S    : '~~(t.milliseconds()/100)',
             SS   : 'p(~~(t.milliseconds()/10),2)',
             SSS  : 'p(t.milliseconds(),3)',
@@ -103,16 +101,18 @@
             ZZ   : '((a=-t.zone())<0?((a=-a),"-"):"+")+p(~~(10*a/6),4)'
         },
 
-        formatFunctions = {};
+        ordinalizeTokens = 'DDD w M D d'.split(' '),
+        paddedTokens = 'M D d H h m s w'.split(' ');
 
-    formatFunctionStrings.DDDo = formatFunctionStrings.DDD + 'o(a)';
+    while (ordinalizeTokens.length) {
+        i = ordinalizeTokens.pop();
+        formatFunctionStrings[i + 'o'] = formatFunctionStrings[i] + '+o(a)';
+    }
+    while (paddedTokens.length) {
+        i = paddedTokens.pop();
+        formatFunctionStrings[i + i] = 'p(' + formatFunctionStrings[i] + ',2)';
+    }
     formatFunctionStrings.DDDD = 'p(' + formatFunctionStrings.DDD + ',3)';
-    formatFunctionStrings.wo   = formatFunctionStrings.w + 'o(a)';
-    formatFunctionStrings.ww   = 'p(' + formatFunctionStrings.w + ',2)';
-    formatFunctionStrings.HH   = 'p(' + formatFunctionStrings.H + ',2)';
-    formatFunctionStrings.hh   = 'p(' + formatFunctionStrings.h + ',2)';
-    formatFunctionStrings.mm   = 'p(' + formatFunctionStrings.m + ',2)';
-    formatFunctionStrings.ss   = 'p(' + formatFunctionStrings.s + ',2)';
 
     // Moment prototype object
     function Moment(date, isUTC) {
@@ -223,17 +223,20 @@
     function dateFromArray(input) {
         return new Date(input[0], input[1] || 0, input[2] || 1, input[3] || 0, input[4] || 0, input[5] || 0, input[6] || 0);
     }
-
-    function getFormatFunctionStringFromToken(token) {
+    
+    function replaceFormatTokens(token) {
         return formatFunctionStrings[token] ? 
             ("'+(" + formatFunctionStrings[token] + ")+'") :
-            token.replace(/(^\[)|(\\)|\]$/g, "");
+            token.replace(formattingRemoveEscapes, "").replace(/\\?'/g, "\\'");
+    }
+
+    function replaceLongDateFormatTokens(input) {
+        return moment.longDateFormat[input] || input;
     }
 
     function makeFormatFunction(format) {
         var output = "var a,b;return '" +
-            format.replace(formattingTokens, getFormatFunctionStringFromToken) +
-            "';",
+            format.replace(formattingTokens, replaceFormatTokens) + "';",
             Fn = Function; // get around jshint
         // a = placeholder
         // b = placeholder
@@ -253,14 +256,20 @@
     }
 
     // format date using native date object
-    function formatMoment(m, inputString) {
-        var func = makeOrGetFormatFunction(inputString);
-
+    function formatMoment(m, format) {
         function getValueFromArray(key, index) {
-            return moment[key].call ? moment[key](m, inputString) : moment[key][index];
+            return moment[key].call ? moment[key](m, format) : moment[key][index];
         }
 
-        return func(m, getValueFromArray, moment.ordinal, leftZeroFill, moment.meridiem);
+        while (localFormattingTokens.test(format)) {
+            format = format.replace(localFormattingTokens, replaceLongDateFormatTokens);
+        }
+
+        if (!formatFunctions[format]) {
+            formatFunctions[format] = makeFormatFunction(format);
+        }
+
+        return formatFunctions[format](m, getValueFromArray, moment.ordinal, leftZeroFill, moment.meridiem);
     }
 
     // get the regex to find the next token
