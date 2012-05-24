@@ -63,7 +63,56 @@
             'Days' : 864e5,
             'Months' : 2592e6,
             'Years' : 31536e6
-        };
+        },
+
+        // format function strings
+        formatFunctionStrings = {
+            // a = placeholder
+            // b = placeholder
+            // t = the current moment being formatted
+            // v = getValueAtKey function
+            // o = ordinal
+            // p = pad
+            // m = meridiem
+            M    : 't.month()+1',
+            Mo   : '(a=t.month()+1)+o(a)',
+            MM   : 'p(t.month()+1,2)',
+            MMM  : 'v("monthsShort",t.month())',
+            MMMM : 'v("months",t.month())',
+            D    : 't.date()',
+            Do   : '(a=t.date())+o(a)',
+            DD   : 'p(t.date(),2)',
+            DDD  : 'a=new Date(t.year(),t.month(),t.date()),b=new Date(t.year(),0,1),a=~~(((a-b)/864e5)+1.5)',
+            d    : 't.day()',
+            "do" : '(a=t.day())+o(a)',
+            ddd  : 'v("weekdaysShort",t.day())',
+            dddd : 'v("weekdays",t.day())',
+            w    : 'a=new Date(m.year(),m.month(),m.date()-m.day()+5),b=new Date(a.getFullYear(),0,4),a=~~((a-b)/864e5/7+1.5)',
+            YY   : 'p(t.year()%100,2)',
+            YYYY : 't.year()',
+            a    : 'm?m(t.hours(),t.minutes(),!1):t.hours()>11?"pm":"am"',
+            A    : 'm?m(t.hours(),t.minutes(),!0):t.hours()>11?"PM":"AM"',
+            H    : 't.hours()',
+            h    : 't.hours()%12||12',
+            m    : 't.minutes()',
+            s    : 't.seconds()',
+            S    : '~~(t.milliseconds()/100)',
+            SS   : 'p(~~(t.milliseconds()/10),2)',
+            SSS  : 'p(t.milliseconds(),3)',
+            Z    : '((a=-t.zone())<0?((a=-a),"-"):"+")+p(~~(a/60),2)+":"+p(~~a%60,2)',
+            ZZ   : '((a=-t.zone())<0?((a=-a),"-"):"+")+p(~~(10*a/6),4)'
+        },
+
+        formatFunctions = {};
+
+    formatFunctionStrings.DDDo = formatFunctionStrings.DDD + 'o(a)';
+    formatFunctionStrings.DDDD = 'p(' + formatFunctionStrings.DDD + ',3)';
+    formatFunctionStrings.wo   = formatFunctionStrings.w + 'o(a)';
+    formatFunctionStrings.ww   = 'p(' + formatFunctionStrings.w + ',2)';
+    formatFunctionStrings.HH   = 'p(' + formatFunctionStrings.H + ',2)';
+    formatFunctionStrings.hh   = 'p(' + formatFunctionStrings.h + ',2)';
+    formatFunctionStrings.mm   = 'p(' + formatFunctionStrings.m + ',2)';
+    formatFunctionStrings.ss   = 'p(' + formatFunctionStrings.s + ',2)';
 
     // Moment prototype object
     function Moment(date, isUTC) {
@@ -175,131 +224,43 @@
         return new Date(input[0], input[1] || 0, input[2] || 1, input[3] || 0, input[4] || 0, input[5] || 0, input[6] || 0);
     }
 
+    function getFormatFunctionStringFromToken(token) {
+        return formatFunctionStrings[token] ? 
+            ("'+(" + formatFunctionStrings[token] + ")+'") :
+            token.replace(/(^\[)|(\\)|\]$/g, "");
+    }
+
+    function makeFormatFunction(format) {
+        var output = "var a,b;return '" +
+            format.replace(formattingTokens, getFormatFunctionStringFromToken) +
+            "';",
+            Fn = Function; // get around jshint
+        // a = placeholder
+        // b = placeholder
+        // t = the current moment being formatted
+        // v = getValueAtKey function
+        // o = ordinal
+        // p = pad
+        // m = meridiem
+        return new Fn('t', 'v', 'o', 'p', 'm', output);
+    }
+
+    function makeOrGetFormatFunction(format) {
+        if (!formatFunctions[format]) {
+            formatFunctions[format] = makeFormatFunction(format);
+        }
+        return formatFunctions[format];
+    }
+
     // format date using native date object
     function formatMoment(m, inputString) {
-        var currentMonth = m.month(),
-            currentDate = m.date(),
-            currentYear = m.year(),
-            currentDay = m.day(),
-            currentHours = m.hours(),
-            currentMinutes = m.minutes(),
-            currentSeconds = m.seconds(),
-            currentMilliseconds = m.milliseconds(),
-            currentZone = -m.zone(),
-            ordinal = moment.ordinal,
-            meridiem = moment.meridiem;
-        // check if the character is a format
-        // return formatted string or non string.
-        //
-        // uses switch/case instead of an object of named functions (like http://phpjs.org/functions/date:380)
-        // for minification and performance
-        // see http://jsperf.com/object-of-functions-vs-switch for performance comparison
-        function replaceFunction(input) {
-            // create a couple variables to be used later inside one of the cases.
-            var a, b;
-            switch (input) {
-                // MONTH
-            case 'M' :
-                return currentMonth + 1;
-            case 'Mo' :
-                return (currentMonth + 1) + ordinal(currentMonth + 1);
-            case 'MM' :
-                return leftZeroFill(currentMonth + 1, 2);
-            case 'MMM' :
-                return moment.monthsShort[currentMonth];
-            case 'MMMM' :
-                return moment.months[currentMonth];
-            // DAY OF MONTH
-            case 'D' :
-                return currentDate;
-            case 'Do' :
-                return currentDate + ordinal(currentDate);
-            case 'DD' :
-                return leftZeroFill(currentDate, 2);
-            // DAY OF YEAR
-            case 'DDD' :
-                a = new Date(currentYear, currentMonth, currentDate);
-                b = new Date(currentYear, 0, 1);
-                return ~~ (((a - b) / 864e5) + 1.5);
-            case 'DDDo' :
-                a = replaceFunction('DDD');
-                return a + ordinal(a);
-            case 'DDDD' :
-                return leftZeroFill(replaceFunction('DDD'), 3);
-            // WEEKDAY
-            case 'd' :
-                return currentDay;
-            case 'do' :
-                return currentDay + ordinal(currentDay);
-            case 'ddd' :
-                return moment.weekdaysShort[currentDay];
-            case 'dddd' :
-                return moment.weekdays[currentDay];
-            // WEEK OF YEAR
-            case 'w' :
-                a = new Date(currentYear, currentMonth, currentDate - currentDay + 5);
-                b = new Date(a.getFullYear(), 0, 4);
-                return ~~ ((a - b) / 864e5 / 7 + 1.5);
-            case 'wo' :
-                a = replaceFunction('w');
-                return a + ordinal(a);
-            case 'ww' :
-                return leftZeroFill(replaceFunction('w'), 2);
-            // YEAR
-            case 'YY' :
-                return leftZeroFill(currentYear % 100, 2);
-            case 'YYYY' :
-                return currentYear;
-            // AM / PM
-            case 'a' :
-                return meridiem ? meridiem(currentHours, currentMinutes, false) : (currentHours > 11 ? 'pm' : 'am');
-            case 'A' :
-                return meridiem ? meridiem(currentHours, currentMinutes, true) : (currentHours > 11 ? 'PM' : 'AM');
-            // 24 HOUR
-            case 'H' :
-                return currentHours;
-            case 'HH' :
-                return leftZeroFill(currentHours, 2);
-            // 12 HOUR
-            case 'h' :
-                return currentHours % 12 || 12;
-            case 'hh' :
-                return leftZeroFill(currentHours % 12 || 12, 2);
-            // MINUTE
-            case 'm' :
-                return currentMinutes;
-            case 'mm' :
-                return leftZeroFill(currentMinutes, 2);
-            // SECOND
-            case 's' :
-                return currentSeconds;
-            case 'ss' :
-                return leftZeroFill(currentSeconds, 2);
-            // MILLISECONDS
-            case 'S' :
-                return ~~ (currentMilliseconds / 100);
-            case 'SS' :
-                return leftZeroFill(~~(currentMilliseconds / 10), 2);
-            case 'SSS' :
-                return leftZeroFill(currentMilliseconds, 3);
-            // TIMEZONE
-            case 'Z' :
-                return (currentZone < 0 ? '-' : '+') + leftZeroFill(~~(Math.abs(currentZone) / 60), 2) + ':' + leftZeroFill(~~(Math.abs(currentZone) % 60), 2);
-            case 'ZZ' :
-                return (currentZone < 0 ? '-' : '+') + leftZeroFill(~~(10 * Math.abs(currentZone) / 6), 4);
-            // LONG DATES
-            case 'L' :
-            case 'LL' :
-            case 'LLL' :
-            case 'LLLL' :
-            case 'LT' :
-                return formatMoment(m, moment.longDateFormat[input]);
-            // DEFAULT
-            default :
-                return input.replace(/(^\[)|(\\)|\]$/g, "");
-            }
+        var func = makeOrGetFormatFunction(inputString);
+
+        function getValueFromArray(key, index) {
+            return moment[key].call ? moment[key](m, inputString) : moment[key][index];
         }
-        return inputString.replace(formattingTokens, replaceFunction);
+
+        return func(m, getValueFromArray, moment.ordinal, leftZeroFill, moment.meridiem);
     }
 
     // get the regex to find the next token
