@@ -37,7 +37,7 @@ exports["lang:jp"] = {
                 ['M Mo MM MMMM MMM',                   '2 2 02 2月 2月'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14 14'],
-                ['d do dddd ddd',                      '0 0 日曜日 日'],
+                ['d do dddd ddd dd',                   '0 0 日曜日 日 日'],
                 ['DDD DDDo DDDD',                      '45 45 045'],
                 ['w wo ww',                            '8 8 08'],
                 ['h hh',                               '3 03'],
@@ -73,10 +73,10 @@ exports["lang:jp"] = {
     "format week" : function(test) {
         test.expect(7);
         moment.lang('jp');
-        var expected = '日曜日 日_月曜日 月_火曜日 火_水曜日 水_木曜日 木_金曜日 金_土曜日 土'.split("_");
+        var expected = '日曜日 日 日_月曜日 月 月_火曜日 火 火_水曜日 水 水_木曜日 木 木_金曜日 金 金_土曜日 土 土'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd'), expected[i], expected[i]);
+            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
         test.done();
     },

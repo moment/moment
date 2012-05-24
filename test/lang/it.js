@@ -37,7 +37,7 @@ exports["lang:it"] = {
                 ['M Mo MM MMMM MMM',                   '2 2º 02 Febbraio Feb'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14º 14'],
-                ['d do dddd ddd',                      '0 0º Domenica Dom'],
+                ['d do dddd ddd dd',                   '0 0º Domenica Dom D'],
                 ['DDD DDDo DDDD',                      '45 45º 045'],
                 ['w wo ww',                            '8 8º 08'],
                 ['h hh',                               '3 03'],
@@ -113,10 +113,10 @@ exports["lang:it"] = {
     "format week" : function(test) {
         test.expect(7);
         moment.lang('it');
-        var expected = 'Domenica Dom_Lunedi Lun_Martedi Mar_Mercoledi Mer_Giovedi Gio_Venerdi Ven_Sabato Sab'.split("_");
+        var expected = 'Domenica Dom D_Lunedi Lun L_Martedi Mar Ma_Mercoledi Mer Me_Giovedi Gio G_Venerdi Ven V_Sabato Sab S'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd'), expected[i], expected[i]);
+            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
         test.done();
     },

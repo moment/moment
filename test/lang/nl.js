@@ -37,7 +37,7 @@ exports["lang:nl"] = {
                 ['M Mo MM MMMM MMM',                   '2 2de 02 februari feb.'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14de 14'],
-                ['d do dddd ddd',                      '0 0de zondag zo.'],
+                ['d do dddd ddd dd',                   '0 0de zondag zo. Zo'],
                 ['DDD DDDo DDDD',                      '45 45ste 045'],
                 ['w wo ww',                            '8 8ste 08'],
                 ['h hh',                               '3 03'],
@@ -113,10 +113,10 @@ exports["lang:nl"] = {
     "format week" : function(test) {
         test.expect(7);
         moment.lang('nl');
-        var expected = 'zondag zo._maandag ma._dinsdag di._woensdag wo._donderdag do._vrijdag vr._zaterdag za.'.split("_");
+        var expected = 'zondag zo. Zo_maandag ma. Ma_dinsdag di. Di_woensdag wo. Wo_donderdag do. Do_vrijdag vr. Vr_zaterdag za. Za'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd'), expected[i], expected[i]);
+            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
         test.done();
     },

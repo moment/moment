@@ -17,13 +17,13 @@
         hasModule = (typeof module !== 'undefined'),
 
         // parameters to check for on the lang config
-        langConfigProperties = 'months|monthsShort|monthsParse|weekdays|weekdaysShort|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|'),
+        langConfigProperties = 'months|monthsShort|monthsParse|weekdays|weekdaysShort|weekdaysMin|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|'),
 
         // ASP.NET json date format regex
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
 
         // format tokens
-        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|LT|LL?L?L?)/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|LT|LL?L?L?)/g,
 
         // parsing tokens
         parseMultipleFormatChunker = /([0-9a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)/gi,
@@ -229,6 +229,8 @@
             // WEEKDAY
             case 'd' :
                 return currentDay;
+            case 'dd' :
+                return moment.weekdaysMin[currentDay];
             case 'do' :
                 return currentDay + ordinal(currentDay);
             case 'ddd' :
@@ -316,6 +318,7 @@
             return parseTokenOneToThreeDigits;
         case 'MMM':
         case 'MMMM':
+        case 'dd':
         case 'ddd':
         case 'dddd':
         case 'a':
@@ -328,7 +331,6 @@
             return parseTokenT;
         case 'MM':
         case 'DD':
-        case 'dd':
         case 'YY':
         case 'HH':
         case 'hh':
@@ -651,6 +653,7 @@
         monthsShort : "Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"),
         weekdays : "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),
         weekdaysShort : "Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),
+        weekdaysMin : "Su_Mo_Tu_We_Th_Fr_Sa".split("_"),
         longDateFormat : {
             LT : "h:mm A",
             L : "MM/DD/YYYY",

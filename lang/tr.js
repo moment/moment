@@ -7,6 +7,7 @@
             monthsShort : "Oca_Şub_Mar_Nis_May_Haz_Tem_Ağu_Eyl_Eki_Kas_Ara".split("_"),
             weekdays : "Pazar_Pazartesi_Salı_Çarşamba_Perşembe_Cuma_Cumartesi".split("_"),
             weekdaysShort : "Paz_Pts_Sal_Çar_Per_Cum_Cts".split("_"),
+            weekdaysMin : "Pz_Pt_Sa_Ça_Pe_Cu_Ct".split("_"),
             longDateFormat : {
                 LT : "HH:mm",
                 L : "DD.MM.YYYY",
