@@ -1,7 +1,7 @@
 {
     "name": "moment",
     "version": "1.6.2",
-    "description": "Moment.js is a javascript date library that helps create, manipulate, and format dates without extending the `Date` prototype.",
+    "description": "Parse, manipulate, and display dates.",
     "homepage": "https://github.com/timrwood/moment",
     "author": "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
     "keywords": [
