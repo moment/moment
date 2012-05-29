@@ -199,41 +199,16 @@ exports["lang:hu"] = {
 
         var i;
         var m;
-
-        m = moment([2012, 4, 27, 18, 22]).add({ d: 2 });
-        test.equal(m.calendar(),       'kedden 18:22-kor',  "Today + 2 days current time");
-        m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        test.equal(m.calendar(),       'kedden 0:00-kor',  "Today + 2 days beginning of day");
-        m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        test.equal(m.calendar(),       'kedden 23:59-kor',  "Today + 2 days end of day");
-
-        m = moment([2012, 4, 27, 18, 22]).add({ d: 3 });
-        test.equal(m.calendar(),       'szerdán 18:22-kor',  "Today + 3 days current time");
-        m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        test.equal(m.calendar(),       'szerdán 0:00-kor',  "Today + 3 days beginning of day");
-        m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        test.equal(m.calendar(),       'szerdán 23:59-kor',  "Today + 3 days end of day");
-
-        m = moment([2012, 4, 27, 18, 22]).add({ d: 4 });
-        test.equal(m.calendar(),       'csütörtökön 18:22-kor',  "Today + 4 days current time");
-        m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        test.equal(m.calendar(),       'csütörtökön 0:00-kor',  "Today + 4 days beginning of day");
-        m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        test.equal(m.calendar(),       'csütörtökön 23:59-kor',  "Today + 4 days end of day");
-
-        m = moment([2012, 4, 27, 18, 22]).add({ d: 5 });
-        test.equal(m.calendar(),       'pénteken 18:22-kor',  "Today + 5 days current time");
-        m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        test.equal(m.calendar(),       'pénteken 0:00-kor',  "Today + 5 days beginning of day");
-        m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        test.equal(m.calendar(),       'pénteken 23:59-kor',  "Today + 5 days end of day");
-
-        m = moment([2012, 4, 27, 18, 22]).add({ d: 6 });
-        test.equal(m.calendar(),       'szombaton 18:22-kor',  "Today + 6 days current time");
-        m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        test.equal(m.calendar(),       'szombaton 0:00-kor',  "Today + 6 days beginning of day");
-        m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        test.equal(m.calendar(),       'szombaton 23:59-kor',  "Today + 6 days end of day");
+        var days = 'vasárnap_hétfőn_kedden_szerdán_csütörtökön_pénteken_szombaton'.split('_');
+        
+        for (i = 2; i < 7; i++) {
+            m = moment().add({ d: i });
+            test.equal(m.calendar(),       m.format('['+days[m.day()]+'] LT[-kor]'),  "today + " + i + " days current time");
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            test.equal(m.calendar(),       m.format('['+days[m.day()]+'] LT[-kor]'),  "today + " + i + " days beginning of day");
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            test.equal(m.calendar(),       m.format('['+days[m.day()]+'] LT[-kor]'),  "today + " + i + " days end of day");
+        }
 
         test.done();
     },
@@ -242,40 +217,16 @@ exports["lang:hu"] = {
         test.expect(15);
         moment.lang('hu');
 
-        m = moment([2012, 4, 27, 18, 22]).subtract({ d: 2 });
-        test.equal(m.calendar(),       'múlt pénteken 18:22-kor',  "Today - 3 days current time");
-        m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        test.equal(m.calendar(),       'múlt pénteken 0:00-kor',  "Today - 3 days beginning of day");
-        m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        test.equal(m.calendar(),       'múlt pénteken 23:59-kor',  "Today - 3 days end of day");
-        
-        m = moment([2012, 4, 27, 18, 22]).subtract({ d: 3 });
-        test.equal(m.calendar(),       'múlt csütörtökön 18:22-kor',  "Today - 4 days current time");
-        m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        test.equal(m.calendar(),       'múlt csütörtökön 0:00-kor',  "Today - 4 days beginning of day");
-        m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        test.equal(m.calendar(),       'múlt csütörtökön 23:59-kor',  "Today - 4 days end of day");
+        var days = 'vasárnap_hétfőn_kedden_szerdán_csütörtökön_pénteken_szombaton'.split('_');
 
-        m = moment([2012, 4, 27, 18, 22]).subtract({ d: 4 });
-        test.equal(m.calendar(),       'múlt szerdán 18:22-kor',  "Today - 5 days current time");
-        m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        test.equal(m.calendar(),       'múlt szerdán 0:00-kor',  "Today - 5 days beginning of day");
-        m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        test.equal(m.calendar(),       'múlt szerdán 23:59-kor',  "Today - 5 days end of day");
-        
-        m = moment([2012, 4, 27, 18, 22]).subtract({ d: 5 });
-        test.equal(m.calendar(),       'múlt kedden 18:22-kor',  "Today - 6 days current time");
-        m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        test.equal(m.calendar(),       'múlt kedden 0:00-kor',  "Today - 6 days beginning of day");
-        m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        test.equal(m.calendar(),       'múlt kedden 23:59-kor',  "Today - 6 days end of day");
-
-        m = moment([2012, 4, 27, 18, 22]).subtract({ d: 6 });
-        test.equal(m.calendar(),       'múlt hétfőn 18:22-kor',  "Today - 6 days current time");
-        m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        test.equal(m.calendar(),       'múlt hétfőn 0:00-kor',  "Today - 6 days beginning of day");
-        m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        test.equal(m.calendar(),       'múlt hétfőn 23:59-kor',  "Today - 6 days end of day");
+        for (var i = 2; i < 7; i++) {
+            var m = moment().subtract({ d: i });
+            test.equal(m.calendar(),       m.format('múlt ['+days[m.day()]+'] LT[-kor]'),  "today - " + i + " days current time");
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            test.equal(m.calendar(),       m.format('múlt ['+days[m.day()]+'] LT[-kor]'),  "today - " + i + " days beginning of day");
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            test.equal(m.calendar(),       m.format('múlt ['+days[m.day()]+'] LT[-kor]'),  "today - " + i + " days end of day");
+        }
         
         test.done();
     },
