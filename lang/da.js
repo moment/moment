@@ -39,7 +39,7 @@
                 yy : "%d år"
             },
             ordinal : function (number) {
-                    return '.';
+                return '.';
             }
         };
 
