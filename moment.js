@@ -6,6 +6,10 @@
 
 (function (Date, undefined) {
 
+    /************************************
+        Constants
+    ************************************/
+
     var moment,
         VERSION = "1.6.2",
         round = Math.round, i,
@@ -69,14 +73,22 @@
 
         // format function strings
         formatFunctions = {},
+
+        /*
+         * This uses new Function() to create an inlined formatting function.
+         * Results are a 3x speed boost
+         * http://jsperf.com/momentjs-cached-format-functions
+         *
+         * These strings are appended into a function using replaceFormatTokens and makeFormatFunction
+         */
         formatFunctionStrings = {
             // a = placeholder
             // b = placeholder
             // t = the current moment being formatted
             // v = getValueAtKey function
-            // o = ordinal
-            // p = pad
-            // m = meridiem
+            // o = moment.ordinal function
+            // p = leftZeroFill function
+            // m = moment.meridiem value or function
             M    : '(a=t.month()+1)',
             MMM  : 'v("monthsShort",t.month())',
             MMMM : 'v("months",t.month())',
@@ -115,18 +127,16 @@
     }
     formatFunctionStrings.DDDD = 'p(' + formatFunctionStrings.DDD + ',3)';
 
+
+    /************************************
+        Constructors
+    ************************************/
+
+
     // Moment prototype object
     function Moment(date, isUTC) {
         this._d = date;
         this._isUTC = !!isUTC;
-    }
-
-    function absRound(number) {
-        if (number < 0) {
-            return Math.ceil(number);
-        } else {
-            return Math.floor(number);
-        }
     }
 
     // Duration Constructor
@@ -181,6 +191,20 @@
         data.years = years;
     }
 
+
+    /************************************
+        Helpers
+    ************************************/
+
+
+    function absRound(number) {
+        if (number < 0) {
+            return Math.ceil(number);
+        } else {
+            return Math.floor(number);
+        }
+    }
+
     // left zero fill a number
     // see http://jsperf.com/left-zero-filling for performance comparison
     function leftZeroFill(number, targetLength) {
@@ -217,6 +241,20 @@
         return Object.prototype.toString.call(input) === '[object Array]';
     }
 
+    // compare two arrays, return the number of differences
+    function compareArrays(array1, array2) {
+        var len = Math.min(array1.length, array2.length),
+            lengthDiff = Math.abs(array1.length - array2.length),
+            diffs = 0,
+            i;
+        for (i = 0; i < len; i++) {
+            if (~~array1[i] !== ~~array2[i]) {
+                diffs++;
+            }
+        }
+        return diffs + lengthDiff;
+    }
+
     // convert an array to a date.
     // the array should mirror the parameters below
     // note: all values past the year are optional and will default to the lowest possible value.
@@ -224,13 +262,21 @@
     function dateFromArray(input) {
         return new Date(input[0], input[1] || 0, input[2] || 1, input[3] || 0, input[4] || 0, input[5] || 0, input[6] || 0);
     }
-    
+
+
+    /************************************
+        Formatting
+    ************************************/
+
+
+    // helper for building inline formatting functions
     function replaceFormatTokens(token) {
         return formatFunctionStrings[token] ? 
             ("'+(" + formatFunctionStrings[token] + ")+'") :
             token.replace(formattingRemoveEscapes, "").replace(/\\?'/g, "\\'");
     }
 
+    // helper for recursing long date formatting tokens
     function replaceLongDateFormatTokens(input) {
         return moment.longDateFormat[input] || input;
     }
@@ -239,13 +285,11 @@
         var output = "var a,b;return '" +
             format.replace(formattingTokens, replaceFormatTokens) + "';",
             Fn = Function; // get around jshint
-        // a = placeholder
-        // b = placeholder
         // t = the current moment being formatted
         // v = getValueAtKey function
-        // o = ordinal
-        // p = pad
-        // m = meridiem
+        // o = moment.ordinal function
+        // p = leftZeroFill function
+        // m = moment.meridiem value or function
         return new Fn('t', 'v', 'o', 'p', 'm', output);
     }
 
@@ -272,6 +316,12 @@
 
         return formatFunctions[format](m, getValueFromArray, moment.ordinal, leftZeroFill, moment.meridiem);
     }
+
+
+    /************************************
+        Parsing
+    ************************************/
+
 
     // get the regex to find the next token
     function getParseRegexForToken(token) {
@@ -430,20 +480,6 @@
         return config.isUTC ? new Date(Date.UTC.apply({}, datePartArray)) : dateFromArray(datePartArray);
     }
 
-    // compare two arrays, return the number of differences
-    function compareArrays(array1, array2) {
-        var len = Math.min(array1.length, array2.length),
-            lengthDiff = Math.abs(array1.length - array2.length),
-            diffs = 0,
-            i;
-        for (i = 0; i < len; i++) {
-            if (~~array1[i] !== ~~array2[i]) {
-                diffs++;
-            }
-        }
-        return diffs + lengthDiff;
-    }
-
     // date from string and array of format strings
     function makeDateFromStringAndArray(string, formats) {
         var output,
@@ -483,6 +519,12 @@
         return new Date(string);
     }
 
+
+    /************************************
+        Relative Time
+    ************************************/
+
+
     // helper function for moment.fn.from, moment.fn.fromNow, and moment.duration.fn.humanize
     function substituteTimeAgo(string, number, withoutSuffix, isFuture) {
         var rt = moment.relativeTime[string];
@@ -511,6 +553,12 @@
         args[3] = milliseconds > 0;
         return substituteTimeAgo.apply({}, args);
     }
+
+
+    /************************************
+        Top Level Functions
+    ************************************/
+
 
     moment = function (input, format) {
         if (input === null || input === '') {
@@ -673,7 +721,12 @@
         return obj instanceof Duration;
     };
 
-    // shortcut for prototype
+
+    /************************************
+        Moment Prototype
+    ************************************/
+
+
     moment.fn = Moment.prototype = {
 
         clone : function () {
@@ -852,6 +905,12 @@
     // add shortcut for year (uses different syntax than the getter/setter 'year' == 'FullYear')
     makeGetterAndSetter('year', 'FullYear');
 
+
+    /************************************
+        Duration Prototype
+    ************************************/
+
+
     moment.duration.fn = Duration.prototype = {
         weeks : function () {
             return absRound(this.days() / 7);
@@ -896,6 +955,12 @@
     }
 
     makeDurationAsGetter('Weeks', 6048e5);
+
+
+    /************************************
+        Exposing Moment
+    ************************************/
+
 
     // CommonJS module is defined
     if (hasModule) {
