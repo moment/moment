@@ -75,7 +75,7 @@
         formatFunctions = {},
 
         /*
-         * This uses new Function() to create an inlined formatting function.
+         * moment.fn.format uses new Function() to create an inlined formatting function.
          * Results are a 3x speed boost
          * http://jsperf.com/momentjs-cached-format-functions
          *
