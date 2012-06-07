@@ -5,11 +5,11 @@
             weekdays : "日曜日_月曜日_火曜日_水曜日_木曜日_金曜日_土曜日".split("_"),
             weekdaysShort : "日_月_火_水_木_金_土".split("_"),
             longDateFormat : {
-                LT : "Ah:mm",
+                LT : "Ah時m分",
                 L : "YYYY/MM/DD",
                 LL : "YYYY年M月D日",
-                LLL : "YYYY年M月D日 LT",
-                LLLL : "YYYY年M月D日 dddd LT"
+                LLL : "YYYY年M月D日LT",
+                LLLL : "YYYY年M月D日LT dddd"
             },
             meridiem : function (hour, minute, isLower) {
                 if (hour < 12) {
