@@ -15,7 +15,7 @@
                 LLL : "YYYY年MMMD日LT",
                 LLLL : "YYYY年MMMD日ddddLT"
             },
-            meridiem : function (hour, minute, isLower) {
+            meridiem : function (hour, minute, isUpper) {
                 if (hour < 9) {
                     return "早上";
                 } else if (hour < 11 && minute < 30) {
