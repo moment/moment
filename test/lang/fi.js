@@ -105,7 +105,7 @@ exports["lang:fi"] = {
         var expected = 'tammikuu tam_helmikuu hel_maaliskuu maa_huhtikuu huh_toukokuu tou_kesäkuu kes_heinäkuu hei_elokuu elo_syyskuu syy_lokakuu lok_marraskuu mar_joulukuu jou'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, i, 0]).format('MMMM MMM'), expected[i], expected[i]);
+            test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
         test.done();
     },

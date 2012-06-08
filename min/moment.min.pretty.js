@@ -5,7 +5,7 @@
 // momentjs.com
 (function(a, b) {
     function G(a, b) {
-        this._d = a, this._isUTC = !!b;
+        this._d = a, this._isUTC = !!b, this._a = a._a || null, a._a = null;
     }
     function H(a) {
         var b = this._data = {}, c = a.years || a.y || 0, d = a.months || a.M || 0, e = a.weeks || a.w || 0, f = a.days || a.d || 0, g = a.hours || a.h || 0, h = a.minutes || a.m || 0, i = a.seconds || a.s || 0, j = a.milliseconds || a.ms || 0;
@@ -31,8 +31,10 @@
         for (f = 0; f < c; f++) ~~a[f] !== ~~b[f] && e++;
         return e + d;
     }
-    function N(b) {
-        return new a(b[0], b[1] || 0, b[2] || 1, b[3] || 0, b[4] || 0, b[5] || 0, b[6] || 0);
+    function N(b, c) {
+        var d, e;
+        for (d = 1; d < 7; d++) b[d] = b[d] == null ? d === 2 ? 1 : 0 : b[d];
+        return b[7] = c, e = c ? new a(a.UTC.apply({}, b)) : new a(b[0], b[1], b[2], b[3], b[4], b[5], b[6]), e._a = b, e;
     }
     function O(a) {
         return D[a] ? "'+(" + D[a] + ")+'" : a.replace(n, "").replace(/\\?'/g, "\\'");
@@ -115,7 +117,7 @@
           case "DD":
           case "DDD":
           case "DDDD":
-            d[2] = ~~b;
+            b != null && (d[2] = ~~b);
             break;
           case "YY":
             b = ~~b, d[0] = b + (b > 70 ? 1900 : 2e3);
@@ -151,13 +153,13 @@
             e.isUTC = !0, f = (b + "").match(z), f && f[1] && (e.tzh = ~~f[1]), f && f[2] && (e.tzm = ~~f[2]), f && f[0] === "+" && (e.tzh = -e.tzh, e.tzm = -e.tzm);
         }
     }
-    function V(b, c) {
-        var d = [ 0, 0, 1, 0, 0, 0, 0 ], e = {
+    function V(a, b) {
+        var c = [ 0, 0, 1, 0, 0, 0, 0 ], d = {
             tzh: 0,
             tzm: 0
-        }, f = c.match(l), g, h;
-        for (g = 0; g < f.length; g++) h = (T(f[g]).exec(b) || [])[0], b = b.replace(T(f[g]), ""), U(f[g], h, d, e);
-        return e.isPm && d[3] < 12 && (d[3] += 12), e.isPm === !1 && d[3] === 12 && (d[3] = 0), d[3] += e.tzh, d[4] += e.tzm, e.isUTC ? new a(a.UTC.apply({}, d)) : N(d);
+        }, e = b.match(l), f, g;
+        for (f = 0; f < e.length; f++) g = (T(e[f]).exec(a) || [])[0], a = a.replace(T(e[f]), ""), U(e[f], g, c, d);
+        return d.isPm && c[3] < 12 && (c[3] += 12), d.isPm === !1 && c[3] === 12 && (c[3] = 0), c[3] += d.tzh, c[4] += d.tzm, N(c, d.isUTC);
     }
     function W(a, b) {
         var c, d = a.match(o) || [], e, f = 99, g, h, i;
@@ -238,8 +240,8 @@
         if (d === null || d === "") return null;
         var f, g, h;
         return c.isMoment(d) ? (f = new a(+d._d), h = d._isUTC) : e ? L(e) ? f = W(d, e) : f = V(d, e) : (g = k.exec(d), f = d === b ? new a : g ? new a(+g[1]) : d instanceof a ? d : L(d) ? N(d) : typeof d == "string" ? X(d) : new a(d)), new G(f, h);
-    }, c.utc = function(b, d) {
-        return L(b) ? new G(new a(a.UTC.apply({}, b)), !0) : d && b ? c(b + " +0000", d + " Z").utc() : c(b && w.exec(b) && !u.exec(b) ? b + "+0000" : b).utc();
+    }, c.utc = function(a, b) {
+        return L(a) ? new G(N(a, !0), !0) : b && a ? c(a + " +0000", b + " Z").utc() : c(a && w.exec(a) && !u.exec(a) ? a + "+0000" : a).utc();
     }, c.unix = function(a) {
         return c(a * 1e3);
     }, c.duration = function(a, b) {
@@ -318,6 +320,14 @@
         },
         toDate: function() {
             return this._d;
+        },
+        toArray: function() {
+            var a = this;
+            return [ a.year(), a.month(), a.date(), a.hours(), a.minutes(), a.seconds(), a.milliseconds(), !!this._isUTC ];
+        },
+        isValid: function() {
+            var a, b;
+            return this._a ? (b = (this._a[7] ? c.utc(this) : this).toArray(), !M(this._a, b)) : !isNaN(this._d.getTime());
         },
         utc: function() {
             return this._isUTC = !0, this;
