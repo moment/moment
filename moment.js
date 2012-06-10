@@ -104,8 +104,8 @@
             w    : '(a=new Date(t.year(),t.month(),t.date()-t.day()+5),b=new Date(a.getFullYear(),0,4),a=~~((a-b)/864e5/7+1.5))',
             YY   : 'p(t.year()%100,2)',
             YYYY : 't.year()',
-            a    : 'm(t.hours(),t.minutes(),!1)',
-            A    : 'm(t.hours(),t.minutes(),!0)',
+            a    : 'm(t.hours(),t.minutes(),!0)',
+            A    : 'm(t.hours(),t.minutes(),!1)',
             H    : 't.hours()',
             h    : 't.hours()%12||12',
             m    : 't.minutes()',
@@ -731,11 +731,11 @@
             LLL : "MMMM D YYYY LT",
             LLLL : "dddd, MMMM D YYYY LT"
         },
-        meridiem : function (hours, minutes, isUpper) {
+        meridiem : function (hours, minutes, isLower) {
             if (hours > 11) {
-                return isUpper ? 'PM' : 'pm';
+                return isLower ? 'pm' : 'PM';
             } else {
-                return isUpper ? 'AM' : 'am';
+                return isLower ? 'am' : 'AM';
             }
         },
         calendar : {
