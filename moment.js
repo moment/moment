@@ -1036,10 +1036,10 @@
             }
 
             return output;
-        }
-    };
+        },
 
-    moment.duration.fn.lang = moment.fn.lang;
+        lang : moment.fn.lang
+    };
 
     function makeDurationGetter(name) {
         moment.duration.fn[name] = function () {
