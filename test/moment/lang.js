@@ -34,6 +34,23 @@ exports.lang = {
         test.done();
     },
 
+    "library langData" : function(test) {
+        test.expect(3);
+
+        // load Spanish
+        moment.lang('es');
+        // load Chinese
+        moment.lang('zh-cn');
+        // set global language
+        moment.lang('en');
+
+        test.equal(moment.langData().months[0], 'January', 'no arguments returns global');
+        test.equal(moment.langData('zh-cn').months[0], '一月', 'a string returns the language based on key');
+        test.equal(moment.langData(moment().lang('es')).months[0], 'Enero', "if you pass in a moment it uses the moment's language");
+
+        test.done();
+    },
+
     "instance lang method" : function(test) {
         test.expect(3);
 

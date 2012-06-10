@@ -280,6 +280,22 @@
         return date;
     }
 
+    // Determines which language definition to use and returns it.
+    //
+    // With no parameters, it will return the global language.  If you
+    // pass in a language key, such as 'en', it will return the
+    // definition for 'en', so long as 'en' has already been loaded using
+    // moment.lang.  If you pass in a moment or duration instance, it
+    // will decide the language based on that, or default to the global
+    // language.
+    function getLangDefinition(m) {
+        var langKey = (typeof m === 'object') && m._lang ||
+                      (typeof m === 'string') && m ||
+                      currentLanguage;
+
+        return languages[langKey];
+    }
+
 
     /************************************
         Formatting
@@ -315,13 +331,6 @@
             formatFunctions[format] = makeFormatFunction(format);
         }
         return formatFunctions[format];
-    }
-
-    // Determines which language definition to use based on a moment instance.
-    // If a moment has the _lang property set on it, it will return that
-    // language; otherwise, it will return the global currentLanguage.
-    function getLangDefinition(m) {
-        return languages[(m && m._lang) || currentLanguage];
     }
 
     // format date using native date object
@@ -769,6 +778,9 @@
                 (b === 3) ? 'rd' : 'th';
         }
     });
+
+    // returns language data
+    moment.langData = getLangDefinition;
 
     // compare moment object
     moment.isMoment = function (obj) {
