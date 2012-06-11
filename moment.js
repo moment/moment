@@ -289,8 +289,8 @@
     // will decide the language based on that, or default to the global
     // language.
     function getLangDefinition(m) {
-        var langKey = (typeof m === 'object') && m._lang ||
-                      (typeof m === 'string') && m ||
+        var langKey = (typeof m === 'string') && m ||
+                      m && m._lang ||
                       currentLanguage;
 
         return languages[langKey];
