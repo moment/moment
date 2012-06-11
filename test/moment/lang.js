@@ -36,12 +36,6 @@ exports.lang = {
 
     "library langData" : function(test) {
         test.expect(3);
-
-        // load Spanish
-        moment.lang('es');
-        // load Chinese
-        moment.lang('zh-cn');
-        // set global language
         moment.lang('en');
 
         test.equal(moment.langData().months[0], 'January', 'no arguments returns global');
@@ -53,11 +47,8 @@ exports.lang = {
 
     "instance lang method" : function(test) {
         test.expect(3);
-
-        // load Spanish
-        moment.lang('es');
-        // set global language
         moment.lang('en');
+
         test.equal(moment([2012, 5, 6]).format('MMMM'), 'June', 'Normally default to global');
         test.equal(moment([2012, 5, 6]).lang('es').format('MMMM'), 'Junio', 'Use the instance specific language');
         test.equal(moment([2012, 5, 6]).format('MMMM'), 'June', 'Using an instance specific language does not affect other moments');
@@ -67,11 +58,8 @@ exports.lang = {
 
     "instance lang persists with manipulation" : function(test) {
         test.expect(3);
-
-        // load Spanish
-        moment.lang('es');
-        // set global language
         moment.lang('en');
+
         test.equal(moment([2012, 5, 6]).lang('es').add({days: 1}).format('MMMM'), 'Junio', 'With addition');
         test.equal(moment([2012, 5, 6]).lang('es').day(0).format('MMMM'), 'Junio', 'With day getter');
         test.equal(moment([2012, 5, 6]).lang('es').eod().format('MMMM'), 'Junio', 'With eod');
@@ -81,11 +69,8 @@ exports.lang = {
 
     "instance lang persists with cloning" : function(test) {
         test.expect(2);
-
-        // load Spanish
-        moment.lang('es');
-        // set global language
         moment.lang('en');
+
         var a = moment([2012, 5, 6]).lang('es'),
             b = a.clone(),
             c = moment(a);
@@ -98,11 +83,8 @@ exports.lang = {
 
     "duration lang method" : function(test) {
         test.expect(3);
-
-        // load Spanish
-        moment.lang('es');
-        // set global language
         moment.lang('en');
+
         test.equal(moment.duration({seconds:  44}).humanize(), 'a few seconds', 'Normally default to global');
         test.equal(moment.duration({seconds:  44}).lang('es').humanize(), 'unos segundos', 'Use the instance specific language');
         test.equal(moment.duration({seconds:  44}).humanize(), 'a few seconds', 'Using an instance specific language does not affect other durations');
@@ -112,11 +94,8 @@ exports.lang = {
 
     "duration lang persists with cloning" : function(test) {
         test.expect(1);
-
-        // load Spanish
-        moment.lang('es');
-        // set global language
         moment.lang('en');
+
         var a = moment.duration({seconds:  44}).lang('es'),
             b = moment.duration(a);
 
@@ -126,10 +105,6 @@ exports.lang = {
 
     "instance lang used with from" : function(test) {
         test.expect(2);
-
-        // load Spanish
-        moment.lang('es');
-        // set global language
         moment.lang('en');
 
         var a = moment([2012, 5, 6]).lang('es'),

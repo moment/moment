@@ -280,6 +280,35 @@
         return date;
     }
 
+    // Loads a language definition into the `languages` cache.  The function
+    // takes a key and optionally values.  If not in the browser and no values
+    // are provided, it will load the language file module.  As a convenience,
+    // this function also returns the language values.
+    function loadLang(key, values) {
+        var i,
+            parse = [];
+
+        if (!values && hasModule) {
+            values = require('./lang/' + key);
+        }
+        
+        for (i = 0; i < langConfigProperties.length; i++) {
+            // If a language definition does not provide a value, inherit
+            // from English
+            values[langConfigProperties[i]] = values[langConfigProperties[i]] ||
+              languages.en[langConfigProperties[i]];
+        }
+
+        for (i = 0; i < 12; i++) {
+            parse[i] = new RegExp('^' + values.months[i] + '|^' + values.monthsShort[i].replace('.', ''), 'i');
+        }
+        values.monthsParse = values.monthsParse || parse;
+
+        languages[key] = values;
+        
+        return values;
+    }
+
     // Determines which language definition to use and returns it.
     //
     // With no parameters, it will return the global language.  If you
@@ -293,7 +322,7 @@
                       m && m._lang ||
                       currentLanguage;
 
-        return languages[langKey];
+        return languages[langKey] || loadLang(langKey);
     }
 
 
@@ -689,27 +718,17 @@
     // default format
     moment.defaultFormat = isoFormat;
 
-    // language switching and caching
+    // This function will load languages and then set the global language.  If
+    // no arguments are passed in, it will simply return the current global
+    // language key.
     moment.lang = function (key, values) {
-        var i, req,
-            parse = [];
+        var i;
+
         if (!key) {
             return currentLanguage;
         }
-        if (values) {
-            for (i = 0; i < langConfigProperties.length; i++) {
-                // If a language definition does not provide a value, inherit
-                // from English
-                values[langConfigProperties[i]] = values[langConfigProperties[i]] ||
-                  languages.en[langConfigProperties[i]];
-            }
-
-            for (i = 0; i < 12; i++) {
-                parse[i] = new RegExp('^' + values.months[i] + '|^' + values.monthsShort[i].replace('.', ''), 'i');
-            }
-            values.monthsParse = values.monthsParse || parse;
-
-            languages[key] = values;
+        if (values || !languages[key]) {
+            loadLang(key, values);
         }
         if (languages[key]) {
             // deprecated, to get the language definition variables, use the
@@ -718,11 +737,6 @@
                 moment[langConfigProperties[i]] = languages[key][langConfigProperties[i]];
             }
             currentLanguage = key;
-        } else {
-            if (hasModule) {
-                req = require('./lang/' + key);
-                moment.lang(key, req);
-            }
         }
     };
 
