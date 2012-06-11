@@ -39,9 +39,11 @@ exports.eod_sod = {
     },
     
     "start of year" : function(test) {
-        test.expect(7);
+	test.expect(8);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('year');
+	var ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('years');
+	test.equal(+m, +ms, "Plural or singular should work");
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 0, "strip out the month");
         test.equal(m.date(), 1, "strip out the day");
@@ -53,9 +55,11 @@ exports.eod_sod = {
     },
     
     "end of year" : function(test) {
-        test.expect(7);
+	test.expect(8);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('year');
+	var ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('years');
+	test.equal(+m, +ms, "Plural or singular should work");
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 11, "set the month");
         test.equal(m.date(), 31, "set the day");
@@ -67,9 +71,11 @@ exports.eod_sod = {
     },
     
     "start of month" : function(test) {
-        test.expect(7);
+	test.expect(8);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('month');
+	var ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('months');
+	test.equal(+m, +ms, "Plural or singular should work");
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 1, "strip out the day");
@@ -81,9 +87,11 @@ exports.eod_sod = {
     },
     
     "end of month" : function(test) {
-        test.expect(7);
+	test.expect(8);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('month');
+	var ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('months');
+	test.equal(+m, +ms, "Plural or singular should work");
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 28, "set the day");
@@ -95,9 +103,11 @@ exports.eod_sod = {
     },
     
     "start of day" : function(test) {
-        test.expect(7);
+	test.expect(8);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('day');
+	var ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('days');
+	test.equal(+m, +ms, "Plural or singular should work");
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 2, "keep the day");
@@ -109,9 +119,11 @@ exports.eod_sod = {
     },
     
     "end of day" : function(test) {
-        test.expect(7);
+	test.expect(8);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('day');
+	var ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('days');
+	test.equal(+m, +ms, "Plural or singular should work");
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 2, "keep the day");
@@ -123,9 +135,11 @@ exports.eod_sod = {
     },
     
     "start of hour" : function(test) {
-        test.expect(7);
+	test.expect(8);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('hour');
+	var ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('hours');
+	test.equal(+m, +ms, "Plural or singular should work");
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 2, "keep the day");
@@ -137,9 +151,11 @@ exports.eod_sod = {
     },
     
     "end of hour" : function(test) {
-        test.expect(7);
+	test.expect(8);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('hour');
+	var ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('hours');
+	test.equal(+m, +ms, "Plural or singular should work");
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 2, "keep the day");
@@ -151,9 +167,11 @@ exports.eod_sod = {
     },
     
     "start of minute" : function(test) {
-        test.expect(7);
+	test.expect(8);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('minute');
+	var ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('minutes');
+	test.equal(+m, +ms, "Plural or singular should work");
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 2, "keep the day");
@@ -165,9 +183,11 @@ exports.eod_sod = {
     },
     
     "end of minute" : function(test) {
-        test.expect(7);
+	test.expect(8);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('minute');
+	var ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('minutes');
+	test.equal(+m, +ms, "Plural or singular should work");
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 2, "keep the day");
@@ -179,9 +199,11 @@ exports.eod_sod = {
     },
     
     "start of second" : function(test) {
-        test.expect(7);
+	test.expect(8);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('second');
+	var ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('seconds');
+	test.equal(+m, +ms, "Plural or singular should work");
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 2, "keep the day");
@@ -193,9 +215,11 @@ exports.eod_sod = {
     },
     
     "end of second" : function(test) {
-        test.expect(7);
+	test.expect(8);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('second');
+	var ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('seconds');
+	test.equal(+m, +ms, "Plural or singular should work");
         test.equal(m.year(), 2011, "keep the year");
         test.equal(m.month(), 1, "keep the month");
         test.equal(m.date(), 2, "keep the day");

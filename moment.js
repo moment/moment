@@ -873,7 +873,7 @@
             var output = this.clone();
             // the following switch intentionally omits break keywords
             // to utilize falling through the cases.
-            switch (val) {
+	    switch (val.replace(/s$/, '')) {
             case 'year':
                 output.month(0);
                 /* falls through */
@@ -897,7 +897,7 @@
         },
                 
         endOf: function (val) {
-            return this.startOf(val).add(val + 's', 1).subtract('milliseconds', 1);
+	    return this.startOf(val).add(val.replace(/s?$/, 's'), 1).subtract('ms', 1);
         },
         
         sod: function () {
