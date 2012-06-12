@@ -18,7 +18,7 @@
         currentLanguage = 'en',
 
         // check for nodeJS
-        hasModule = (typeof module !== 'undefined'),
+        hasModule = (typeof module !== 'undefined' && module.exports),
 
         // Parameters to check for on the lang config.  This list of properties
         // will be inherited from English if not provided in a language
