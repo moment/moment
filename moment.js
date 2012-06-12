@@ -137,12 +137,12 @@
 
 
     // Moment prototype object
-    function Moment(date, isUTC) {
+    function Moment(date, isUTC, lang) {
         this._d = date;
         this._isUTC = !!isUTC;
         this._a = date._a || null;
         date._a = null;
-        this._lang = false;
+        this._lang = lang || false;
     }
 
     // Duration Constructor
@@ -632,13 +632,10 @@
             return null;
         }
         var date,
-            matched,
-            isUTC,
-            ret;
+            matched;
         // parse Moment object
         if (moment.isMoment(input)) {
-            date = new Date(+input._d);
-            isUTC = input._isUTC;
+            return new Moment(new Date(+input._d), input._isUTC, input._lang);
         // parse string and format
         } else if (format) {
             if (isArray(format)) {
@@ -657,13 +654,7 @@
                 new Date(input);
         }
 
-        ret = new Moment(date, isUTC);
-
-        if (moment.isMoment(input)) {
-            ret.lang(input._lang);
-        }
-
-        return ret;
+        return new Moment(date);
     };
 
     // creating with utc
