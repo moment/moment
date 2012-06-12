@@ -114,5 +114,33 @@ exports.lang = {
         test.equal(b.from(a), 'in a day', 'do not preserve language of second moment');
 
         test.done();
+    },
+
+    "month name callback function" : function(test) {
+        test.expect(3);
+
+        function fakeReplace(m, format) {
+            if (/test/.test(format)) {
+                return "test";
+            }
+            if (m.date() === 1) {
+                return "date";
+            }
+            return 'default';
+        }
+
+        moment.lang('made-up', {
+            months : fakeReplace,
+            monthsShort : fakeReplace,
+            weekdays : fakeReplace,
+            weekdaysShort : fakeReplace,
+            weekdaysMin : fakeReplace
+        });
+
+        test.equal(moment().format('[test] dd ddd dddd MMM MMMM'), 'test test test test test test', 'format month name function should be able to access the format string');
+        test.equal(moment([2011, 0, 1]).format('dd ddd dddd MMM MMMM'), 'date date date date date', 'format month name function should be able to access the moment object');
+        test.equal(moment([2011, 0, 2]).format('dd ddd dddd MMM MMMM'), 'default default default default default', 'format month name function should be able to access the moment object');
+
+        test.done();
     }
 };

@@ -285,7 +285,7 @@
     // are provided, it will load the language file module.  As a convenience,
     // this function also returns the language values.
     function loadLang(key, values) {
-        var i,
+        var i, m,
             parse = [];
 
         if (!values && hasModule) {
@@ -300,7 +300,9 @@
         }
 
         for (i = 0; i < 12; i++) {
-            parse[i] = new RegExp('^' + values.months[i] + '|^' + values.monthsShort[i].replace('.', ''), 'i');
+            m = moment([2000, i]);
+            parse[i] = new RegExp('^' + (values.months[i] || values.months(m, '')) + 
+                '|^' + (values.monthsShort[i] || values.monthsShort(m, '')).replace('.', ''), 'i');
         }
         values.monthsParse = values.monthsParse || parse;
 
@@ -731,6 +733,19 @@
         }
     };
 
+    // returns language data
+    moment.langData = getLangDefinition;
+
+    // compare moment object
+    moment.isMoment = function (obj) {
+        return obj instanceof Moment;
+    };
+
+    // for typechecking Duration objects
+    moment.isDuration = function (obj) {
+        return obj instanceof Duration;
+    };
+
     // Set default language, other languages will inherit from English.
     moment.lang('en', {
         months : "January_February_March_April_May_June_July_August_September_October_November_December".split("_"),
@@ -783,19 +798,6 @@
                 (b === 3) ? 'rd' : 'th';
         }
     });
-
-    // returns language data
-    moment.langData = getLangDefinition;
-
-    // compare moment object
-    moment.isMoment = function (obj) {
-        return obj instanceof Moment;
-    };
-
-    // for typechecking Duration objects
-    moment.isDuration = function (obj) {
-        return obj instanceof Duration;
-    };
 
 
     /************************************
