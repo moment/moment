@@ -935,30 +935,29 @@
         },
 
         startOf: function (val) {
-            var output = this.clone();
             // the following switch intentionally omits break keywords
             // to utilize falling through the cases.
             switch (val.replace(/s$/, '')) {
             case 'year':
-                output.month(0);
+                this.month(0);
                 /* falls through */
             case 'month':
-                output.date(1);
+                this.date(1);
                 /* falls through */
             case 'day':
-                output.hours(0);
+                this.hours(0);
                 /* falls through */
             case 'hour':
-                output.minutes(0);
+                this.minutes(0);
                 /* falls through */
             case 'minute':
-                output.seconds(0);
+                this.seconds(0);
                 /* falls through */
             case 'second':
-                output.milliseconds(0);
+                this.milliseconds(0);
                 /* falls through */
             }
-            return output;
+            return this;
         },
 
         endOf: function (val) {
@@ -966,12 +965,12 @@
         },
         
         sod: function () {
-            return this.startOf('day');
+            return this.clone().startOf('day');
         },
 
         eod: function () {
             // end of day = start of day plus 1 day, minus 1 millisecond
-            return this.endOf('day');
+            return this.clone().endOf('day');
         },
 
         zone : function () {
