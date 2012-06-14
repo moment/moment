@@ -5,7 +5,7 @@ exports.diff = {
         test.expect(5);
 
         test.equal(moment(1000).diff(0), 1000, "1 second - 0 = 1000");
-        test.equal(moment(1000).diff(500), 500, "1 second - .5 second = -500");
+        test.equal(moment(1000).diff(500), 500, "1 second - 0.5 seconds = 500");
         test.equal(moment(0).diff(1000), -1000, "0 - 1 second = -1000");
         test.equal(moment(new Date(1000)).diff(1000), 0, "1 second - 1 second = 0");
         var oneHourDate = new Date(),
