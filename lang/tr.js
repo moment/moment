@@ -1,7 +1,33 @@
 // moment.js language configuration
 // language : turkish (tr)
-// author : Erhan Gundogan : https://github.com/erhangundogan
+// authors : Erhan Gundogan : https://github.com/erhangundogan,
+//           Burak Yiğit Kaya: https://github.com/BYK
 (function () {
+    var suffixes = {
+        1: "'inci",
+        5: "'inci",
+        8: "'inci",
+        70: "'inci",
+        80: "'inci",
+
+        2: "'nci",
+        7: "'nci",
+        20: "'nci",
+        50: "'nci",
+
+        3: "'üncü",
+        4: "'üncü",
+        100: "'üncü",
+
+        6: "'ncı",
+
+        9: "'uncu",
+        10: "'uncu",
+        30: "'uncu",
+
+        60: "'ıncı",
+        90: "'ıncı"
+    };
     var lang = {
             months : "Ocak_Şubat_Mart_Nisan_Mayıs_Haziran_Temmuz_Ağustos_Eylül_Ekim_Kasım_Aralık".split("_"),
             monthsShort : "Oca_Şub_Mar_Nis_May_Haz_Tem_Ağu_Eyl_Eki_Kas_Ara".split("_"),
@@ -39,11 +65,15 @@
                 yy : "%d yıl"
             },
             ordinal : function (number) {
-                var b = number % 10;
-                return (~~ (number % 100 / 10) === 1) ? 'th' :
-                    (b === 1) ? 'st' :
-                    (b === 2) ? 'nd' :
-                    (b === 3) ? 'rd' : 'th';
+                if (number === 0) {  // special case for zero
+                    return "'ıncı";
+                }
+
+                var a = number % 10;
+                var b = number % 100 - a;
+                var c = number >= 100 ? 100 : null;
+
+                return suffixes[a] || suffixes[b] || suffixes[c];
             }
         };
 
