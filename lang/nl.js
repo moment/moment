@@ -4,7 +4,7 @@
 (function () {
     var lang = {
             months : "januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december".split("_"),
-            monthsShort : "jan._feb._mar._apr._mei._jun._jul._aug._sep._okt._nov._dec.".split("_"),
+            monthsShort : "jan._feb._mrt._apr._mei_jun._jul._aug._sep._okt._nov._dec.".split("_"),
             weekdays : "zondag_maandag_dinsdag_woensdag_donderdag_vrijdag_zaterdag".split("_"),
             weekdaysShort : "zo._ma._di._wo._do._vr._za.".split("_"),
             weekdaysMin : "Zo_Ma_Di_Wo_Do_Vr_Za".split("_"),
