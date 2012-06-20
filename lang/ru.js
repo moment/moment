@@ -69,7 +69,7 @@
             months : monthsCaseReplace,
             monthsShort : "янв_фев_мар_апр_май_июн_июл_авг_сен_окт_ноя_дек".split("_"),
             weekdays : weekdaysCaseReplace,
-            weekdaysShort : "вск_пнд_втр_срд_чтв_птн_суб".split("_"),
+            weekdaysShort : "вск_пнд_втр_срд_чтв_птн_сбт".split("_"),
             weekdaysMin : "вс_пн_вт_ср_чт_пт_сб".split("_"),
             longDateFormat : {
                 LT : "HH:mm",
