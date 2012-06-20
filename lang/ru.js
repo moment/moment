@@ -74,9 +74,9 @@
             longDateFormat : {
                 LT : "HH:mm",
                 L : "DD-MM-YYYY",
-                LL : "D MMMM YYYY",
-                LLL : "D MMMM YYYY LT",
-                LLLL : "dddd, D MMMM YYYY LT"
+                LL : "D MMMM YYYY г.",
+                LLL : "D MMMM YYYY г., LT",
+                LLLL : "dddd, D MMMM YYYY г., LT"
             },
             calendar : {
                 sameDay: '[Сегодня в] LT',
