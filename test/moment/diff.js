@@ -15,6 +15,16 @@ exports.diff = {
         test.done();
     },
 
+    "diff different signatures" : function(test) {
+        test.expect(3);
+
+        test.equal(moment([2010, 0, 1]).diff(moment([2010, 0, 1, 0, 0, 6])), -6000, "moment vs. momentable");
+        test.equal(moment([2010, 0, 1]).diff(new Date(2010, 0, 1, 0, 0, 6), "seconds"), -6, "moment vs. momentable specifying key");
+        test.equal(moment([2010, 0, 1]).diff([2010, 0, 1, 0, 0, 6], "seconds", true), -6, "moment vs. momentable specifying key and noRound");
+
+        test.done();
+    },
+
     "diff key after" : function(test) {
         test.expect(9);
 
@@ -88,6 +98,16 @@ exports.diff = {
         test.expect(1);
 
         test.ok(moment([2012, 1, 19]).diff(moment([2002, 1, 20]), 'years', true) < 10, "year diff should include date of month");
+
+        test.done();
+    },
+
+    "ensure arithmetic cast" : function(test) {
+        test.expect(1);
+
+        var a = moment([2012]),
+            b = moment([2012, 0, 1, 0, 0, 0, 1]);
+        test.equal(b.diff(a) + 1, 2, "return of diff with no explicit toValue call should still act like a number if treated like one");
 
         test.done();
     }
