@@ -58,7 +58,7 @@
             'accusative': 'воскресенье_понедельник_вторник_среду_четверг_пятницу_субботу'.split('_'),
         },
 
-        nounCase = (/\[ ?[Вв] ?(?:прошлую|следующую)? ?\] ?dddd/i).test(format) ?
+        nounCase = (/\[ ?[Вв] ?(?:прошлую|следующую)? ?\] ?dddd/).test(format) ?
             'accusative' :
             'nominative';
 
