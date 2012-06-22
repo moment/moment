@@ -17,9 +17,6 @@
         languages = {},
         currentLanguage = 'en',
 
-        // Establish the root object, `window` in the browser, or `global` on the server.
-        root = this,
-
         // check for nodeJS
         hasModule = (typeof module !== 'undefined' && module.exports),
 
@@ -1083,7 +1080,8 @@
     }
     /*global ender:false */
     if (typeof ender === 'undefined') {
-        root['moment'] = moment;
+        // here, `this` means `window` in the browser, or `global` on the server
+        this.moment = moment;
     }
     /*global define:false */
     if (typeof define === "function" && define.amd) {
