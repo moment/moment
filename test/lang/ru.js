@@ -110,6 +110,21 @@ exports["lang:ru"] = {
         test.done();
     },
 
+    "format month case" : function(test) {
+        test.expect(24);
+        moment.lang('ru');
+        var months = {
+            'nominative': 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_'),
+            'accusative': 'января_февраля_марта_апреля_мая_июня_июля_августа_сентября_октября_ноября_декабря'.split('_')
+        };
+        var i;
+        for (i = 0; i < 12; i++) {
+            test.equal(moment([2011, i, 1]).format('D MMMM'), '1 ' + months.accusative[i], '1 ' + months.accusative[i]);
+            test.equal(moment([2011, i, 1]).format('MMMM'), months.nominative[i], '1 ' + months.nominative[i]);
+        }
+        test.done();
+    },
+
     "format week" : function(test) {
         test.expect(7);
         moment.lang('ru');
