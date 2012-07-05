@@ -322,9 +322,9 @@
     function getLangDefinition(m) {
         var langKey = (typeof m === 'string') && m ||
                       m && m._lang ||
-                      currentLanguage;
+                      null;
 
-        return languages[langKey] || loadLang(langKey);
+        return langKey ? (languages[langKey] || loadLang(langKey)) : moment;
     }
 
 
@@ -729,6 +729,7 @@
             for (i = 0; i < langConfigProperties.length; i++) {
                 moment[langConfigProperties[i]] = languages[key][langConfigProperties[i]];
             }
+            moment.monthsParse = languages[key].monthsParse;
             currentLanguage = key;
         }
     };
