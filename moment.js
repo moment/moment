@@ -1079,8 +1079,11 @@
         module.exports = moment;
     }
     /*global ender:false */
-    if (typeof window !== 'undefined' && typeof ender === 'undefined') {
-        window.moment = moment;
+    if (typeof ender === 'undefined') {
+        // here, `this` means `window` in the browser, or `global` on the server
+        // add `moment` as a global object via a string identifier,
+        // for Closure Compiler "advanced" mode
+        this['moment'] = moment;
     }
     /*global define:false */
     if (typeof define === "function" && define.amd) {
@@ -1088,4 +1091,4 @@
             return moment;
         });
     }
-})(Date);
+}).call(this, Date);
