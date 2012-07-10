@@ -5,10 +5,10 @@ var moment = require("../../moment");
       French
      *************************************************/
 
-exports["lang:fr"] = {
+exports["lang:fr-ca"] = {
     "parse" : function(test) {
         test.expect(96);
-        moment.lang('fr');
+        moment.lang('fr-ca');
         var tests = 'janvier janv._février févr._mars mars_avril avr._mai mai_juin juin_juillet juil._août août_septembre sept._octobre oct._novembre nov._décembre déc.'.split("_");
         var i;
         function equalTest(input, mmm, i) {
@@ -30,7 +30,7 @@ exports["lang:fr"] = {
 
     "format" : function(test) {
         test.expect(18);
-        moment.lang('fr');
+        moment.lang('fr-ca');
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'dimanche, février 14ème 2010, 3:25:50 pm'],
                 ['ddd, hA',                            'dim., 3PM'],
@@ -46,7 +46,7 @@ exports["lang:fr"] = {
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
                 ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45ème day of the year'],
-                ['L',                                  '14/02/2010'],
+                ['L',                                  '2010-02-14'],
                 ['LL',                                 '14 février 2010'],
                 ['LLL',                                '14 février 2010 15:25'],
                 ['LLLL',                               'dimanche 14 février 2010 15:25']

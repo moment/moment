@@ -5,10 +5,10 @@ var moment = require("../../moment");
       English
      *************************************************/
 
-exports["lang:en-gb"] = {
+exports["lang:en-ca"] = {
     "parse" : function(test) {
         test.expect(96);
-        moment.lang('en-gb');
+        moment.lang('en-ca');
         var tests = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sep_October Oct_November Nov_December Dec'.split("_");
         var i;
         function equalTest(input, mmm, i) {
@@ -30,7 +30,7 @@ exports["lang:en-gb"] = {
 
     "format" : function(test) {
         test.expect(18);
-        moment.lang('en-gb');
+        moment.lang('en-ca');
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'Sunday, February 14th 2010, 3:25:50 pm'],
                 ['ddd, hA',                            'Sun, 3PM'],
@@ -46,10 +46,10 @@ exports["lang:en-gb"] = {
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
                 ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45th day of the year'],
-                ['L',                                  '14/02/2010'],
-                ['LL',                                 '14 February 2010'],
-                ['LLL',                                '14 February 2010 3:25 PM'],
-                ['LLLL',                               'Sunday, 14 February 2010 3:25 PM']
+                ['L',                                  '2010-02-14'],
+                ['LL',                                 '14 February, 2010'],
+                ['LLL',                                '14 February, 2010 3:25 PM'],
+                ['LLLL',                               'Sunday, 14 February, 2010 3:25 PM']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
