@@ -1,9 +1,13 @@
+// moment.js language configuration
+// language : korean (kr)
+// author : Kyungwook, Park : https://github.com/kyungw00k
 (function () {
     var lang = {
             months : "1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월".split("_"),
             monthsShort : "1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월".split("_"),
             weekdays : "일요일_월요일_화요일_수요일_목요일_금요일_토요일".split("_"),
             weekdaysShort : "일_월_화_수_목_금_토".split("_"),
+            weekdaysMin : "일_월_화_수_목_금_토".split("_"),
             longDateFormat : {
                 LT : "A h시 mm분",
                 L : "YYYY.MM.DD",
@@ -44,7 +48,7 @@
         };
 
     // Node
-    if (typeof module !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
         module.exports = lang;
     }
     // Browser

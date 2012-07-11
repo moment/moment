@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : russian (ru)
+// author : Viktorminator : https://github.com/Viktorminator
 (function () {
 
     var pluralRules = [
@@ -41,6 +44,7 @@
             monthsShort : "янв_фев_мар_апр_май_июн_июл_авг_сен_окт_ноя_дек".split("_"),
             weekdays : "воскресенье_понедельник_вторник_среда_четверг_пятница_суббота".split("_"),
             weekdaysShort : "вск_пнд_втр_срд_чтв_птн_суб".split("_"),
+            weekdaysMin : "вс_пн_вт_ср_чт_пт_сб".split("_"),
             longDateFormat : {
                 LT : "HH:mm",
                 L : "DD-MM-YYYY",
@@ -93,7 +97,7 @@
         };
 
     // Node
-    if (typeof module !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
         module.exports = lang;
     }
     // Browser

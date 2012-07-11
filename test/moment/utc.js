@@ -20,7 +20,7 @@ exports.utc = {
             test.equal(m.date(), 2, "the date should be correct for local");
             test.equal(m.day(), 3, "the day should be correct for local");
         }
-        var zone = (m.zone() > 0) ? Math.floor(m.zone() / 60) : Math.ceil(m.zone() / 60);
+        var zone = Math.ceil(m.zone() / 60);
         var expected = (24 + 3 - zone) % 24;
         test.equal(m.hours(), expected, "the hours (" + m.hours() + ") should be correct for local");
         test.equal(moment().utc().zone(), 0, "timezone in utc should always be zero");

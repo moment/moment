@@ -1,9 +1,13 @@
+// moment.js language configuration
+// language : norwegian bokmål (nb)
+// author : Espen Hovlandsdal : https://github.com/rexxars
 (function () {
     var lang = {
             months : "januar_februar_mars_april_mai_juni_juli_august_september_oktober_november_desember".split("_"),
             monthsShort : "jan_feb_mar_apr_mai_jun_jul_aug_sep_okt_nov_des".split("_"),
             weekdays : "søndag_mandag_tirsdag_onsdag_torsdag_fredag_lørdag".split("_"),
             weekdaysShort : "søn_man_tir_ons_tor_fre_lør".split("_"),
+            weekdaysMin : "sø_ma_ti_on_to_fr_lø".split("_"),
             longDateFormat : {
                 LT : "HH:mm",
                 L : "YYYY-MM-DD",
@@ -40,7 +44,7 @@
         };
 
     // Node
-    if (typeof module !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
         module.exports = lang;
     }
     // Browser

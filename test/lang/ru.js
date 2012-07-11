@@ -37,7 +37,7 @@ exports["lang:ru"] = {
                 ['M Mo MM MMMM MMM',                   '2 2. 02 февраль фев'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14. 14'],
-                ['d do dddd ddd',                      '0 0. воскресенье вск'],
+                ['d do dddd ddd dd',                   '0 0. воскресенье вск вс'],
                 ['DDD DDDo DDDD',                      '45 45. 045'],
                 ['w wo ww',                            '8 8. 08'],
                 ['h hh',                               '3 03'],
@@ -105,7 +105,7 @@ exports["lang:ru"] = {
         var expected = 'январь янв_февраль фев_март мар_апрель апр_май май_июнь июн_июль июл_август авг_сентябрь сен_октябрь окт_ноябрь ноя_декабрь дек'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, i, 0]).format('MMMM MMM'), expected[i], expected[i]);
+            test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
         test.done();
     },
@@ -113,10 +113,10 @@ exports["lang:ru"] = {
     "format week" : function(test) {
         test.expect(7);
         moment.lang('ru');
-        var expected = 'воскресенье вск_понедельник пнд_вторник втр_среда срд_четверг чтв_пятница птн_суббота суб'.split("_");
+        var expected = 'воскресенье вск вс_понедельник пнд пн_вторник втр вт_среда срд ср_четверг чтв чт_пятница птн пт_суббота суб сб'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd'), expected[i], expected[i]);
+            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
         test.done();
     },

@@ -1,9 +1,13 @@
+// moment.js language configuration
+// language : danish (da)
+// author : Ulrik Nielsen : https://github.com/mrbase
 (function () {
     var lang = {
             months : "Januar_Februar_Marts_April_Maj_Juni_Juli_August_September_Oktober_November_December".split("_"),
             monthsShort : "Jan_Feb_Mar_Apr_Maj_Jun_Jul_Aug_Sep_Okt_Nov_Dec".split("_"),
             weekdays : "Søndag_Mandag_Tirsdag_Onsdag_Torsdag_Fredag_Lørdag".split("_"),
             weekdaysShort : "Søn_Man_Tir_Ons_Tor_Fre_Lør".split("_"),
+            weekdaysMin : "Sø_Ma_Ti_On_To_Fr_Lø".split("_"),
             longDateFormat : {
                 LT : "h:mm A",
                 L : "DD/MM/YYYY",
@@ -35,12 +39,12 @@
                 yy : "%d år"
             },
             ordinal : function (number) {
-                    return '.';
+                return '.';
             }
         };
 
     // Node
-    if (typeof module !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
         module.exports = lang;
     }
     // Browser

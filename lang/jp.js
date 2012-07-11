@@ -1,15 +1,19 @@
+// moment.js language configuration
+// language : japanese (jp)
+// author : LI Long : https://github.com/baryon
 (function () {
     var lang = {
             months : "1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"),
             monthsShort : "1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"),
             weekdays : "日曜日_月曜日_火曜日_水曜日_木曜日_金曜日_土曜日".split("_"),
             weekdaysShort : "日_月_火_水_木_金_土".split("_"),
+            weekdaysMin : "日_月_火_水_木_金_土".split("_"),
             longDateFormat : {
-                LT : "Ah:mm",
+                LT : "Ah時m分",
                 L : "YYYY/MM/DD",
                 LL : "YYYY年M月D日",
-                LLL : "YYYY年M月D日 LT",
-                LLLL : "YYYY年M月D日 dddd LT"
+                LLL : "YYYY年M月D日LT",
+                LLLL : "YYYY年M月D日LT dddd"
             },
             meridiem : function (hour, minute, isLower) {
                 if (hour < 12) {
@@ -47,7 +51,7 @@
         };
 
     // Node
-    if (typeof module !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
         module.exports = lang;
     }
     // Browser

@@ -36,7 +36,7 @@ exports["lang:kr"] = {
                 ['M Mo MM MMMM MMM',                   '2 2일 02 2월 2월'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14일 14'],
-                ['d do dddd ddd',                      '0 0일 일요일 일'],
+                ['d do dddd ddd dd',                   '0 0일 일요일 일 일'],
                 ['DDD DDDo DDDD',                      '45 45일 045'],
                 ['w wo ww',                            '8 8일 08'],
                 ['h hh',                               '3 03'],
@@ -104,7 +104,7 @@ exports["lang:kr"] = {
         var expected = '1월 1월_2월 2월_3월 3월_4월 4월_5월 5월_6월 6월_7월 7월_8월 8월_9월 9월_10월 10월_11월 11월_12월 12월'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, i, 0]).format('MMMM MMM'), expected[i], expected[i]);
+            test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
         test.done();
     },
@@ -112,10 +112,10 @@ exports["lang:kr"] = {
     "format week" : function(test) {
         test.expect(7);
         moment.lang('kr');
-        var expected = '일요일 일_월요일 월_화요일 화_수요일 수_목요일 목_금요일 금_토요일 토'.split("_");
+        var expected = '일요일 일 일_월요일 월 월_화요일 화 화_수요일 수 수_목요일 목 목_금요일 금 금_토요일 토 토'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd'), expected[i], expected[i]);
+            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
         test.done();
     },
