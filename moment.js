@@ -37,7 +37,7 @@
         parseTokenTimezone = /Z|[\+\-]\d\d:?\d\d/i, // +00:00 -00:00 +0000 -0000 or Z
         parseTokenT = /T/i, // T (ISO seperator)
 
-        // preliminary iso regex 
+        // preliminary iso regex
         // 0000-00-00 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000
         isoRegex = /^\s*\d{4}-\d\d-\d\d(T(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?/,
         isoFormat = 'YYYY-MM-DDTHH:mm:ssZ',
@@ -83,7 +83,7 @@
     function Duration(duration) {
         var data = this._data = {},
             years = duration.years || duration.y || 0,
-            months = duration.months || duration.M || 0, 
+            months = duration.months || duration.M || 0,
             weeks = duration.weeks || duration.w || 0,
             days = duration.days || duration.d || 0,
             hours = duration.hours || duration.h || 0,
@@ -105,7 +105,7 @@
         // it separately.
         this._months = months +
             years * 12;
-            
+
         // The following code bubbles up values, see the tests for
         // examples of what that means.
         data.milliseconds = milliseconds % 1000;
@@ -122,7 +122,7 @@
 
         days += weeks * 7;
         data.days = days % 30;
-        
+
         months += absRound(days / 30);
 
         data.months = months % 12;
@@ -505,7 +505,7 @@
                     break;
                 }
             }
-            return parseTokenTimezone.exec(string) ? 
+            return parseTokenTimezone.exec(string) ?
                 makeDateFromStringAndFormat(string, format + ' Z') :
                 makeDateFromStringAndFormat(string, format);
         }
@@ -548,6 +548,9 @@
         var date,
             matched,
             isUTC;
+        if (input === undefined) {
+            input = moment.mockNow;
+        }
         // parse Moment object
         if (moment.isMoment(input)) {
             date = new Date(+input._d);
@@ -633,7 +636,7 @@
         }
         if (languages[key]) {
             for (i = 0; i < langConfigProperties.length; i++) {
-                moment[langConfigProperties[i]] = languages[key][langConfigProperties[i]] || 
+                moment[langConfigProperties[i]] = languages[key][langConfigProperties[i]] ||
                     languages.en[langConfigProperties[i]];
             }
             currentLanguage = key;
@@ -800,7 +803,7 @@
         },
 
         isDST : function () {
-            return (this.zone() < moment([this.year()]).zone() || 
+            return (this.zone() < moment([this.year()]).zone() ||
                 this.zone() < moment([this.year(), 5]).zone());
         },
 
