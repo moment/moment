@@ -40,6 +40,14 @@ exports.create = {
         test.done();
     },
 
+    "undefined with mockNow": function(test) {
+        test.expect(1);
+        moment.mockNow = moment().subtract('minutes', 5);
+        test.ok(moment().valueOf() === moment.mockNow.valueOf(), "undefined with mockNow");
+        delete moment.mockNow;
+        test.done();
+    },
+
     "string without format" : function(test) {
         test.expect(2);
         test.ok(moment("Aug 9, 1995").toDate() instanceof Date, "Aug 9, 1995");
@@ -67,7 +75,7 @@ exports.create = {
     "string with format dropped am/pm bug" : function(test) {
         moment.lang('en');
         test.expect(3);
-        
+
         test.equal(moment('05/1/2012', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
         test.equal(moment('05/1/2012 12:25:00 am', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
         test.equal(moment('05/1/2012 12:25:00 pm', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
@@ -77,11 +85,11 @@ exports.create = {
 
     "empty string with formats" : function(test) {
         test.expect(3);
-        
+
         test.equal(moment(' ', 'MM').format('YYYY-MM-DD HH:mm:ss'), '1900-01-01 00:00:00', 'should not break if input is an empty string');
         test.equal(moment(' ', 'DD').format('YYYY-MM-DD HH:mm:ss'), '1900-01-01 00:00:00', 'should not break if input is an empty string');
         test.equal(moment(' ', ['MM', "DD"]).format('YYYY-MM-DD HH:mm:ss'), '1900-01-01 00:00:00', 'should not break if input is an empty string');
-        
+
         test.done();
     },
 
@@ -118,7 +126,7 @@ exports.create = {
                 ['HH:mm:ss SSS',        '00:30:00 789']
             ],
             i;
-        
+
         test.expect(a.length);
         for (i = 0; i < a.length; i++) {
             test.equal(moment(a[i][1], a[i][0]).format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
@@ -139,7 +147,7 @@ exports.create = {
         for (i = 0; i < a.length; i++) {
             test.equal(moment(a[i][1], a[i][0]).format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
         }
-        
+
         test.done();
     },
 
@@ -270,7 +278,7 @@ exports.create = {
         var m = moment('2011-10-08T18:04:20.111Z');
 
         test.equal(m.utc().format('YYYY-MM-DDTHH:mm:ss.SSS'), '2011-10-08T18:04:20.111', "moment should be able to parse ISO 2011-10-08T18:04:20.111Z");
-        
+
         test.done();
     },
 
