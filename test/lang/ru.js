@@ -46,10 +46,10 @@ exports["lang:ru"] = {
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
                 ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45. day of the year'],
-                ['L',                                  '14-02-2010'],
-                ['LL',                                 '14 февраль 2010'],
-                ['LLL',                                '14 февраль 2010 15:25'],
-                ['LLLL',                               'воскресенье, 14 февраль 2010 15:25']
+                ['L',                                  '14.02.2010'],
+                ['LL',                                 '14 февраля 2010 г.'],
+                ['LLL',                                '14 февраля 2010 г., 15:25'],
+                ['LLLL',                               'воскресенье, 14 февраля 2010 г., 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -110,10 +110,25 @@ exports["lang:ru"] = {
         test.done();
     },
 
+    "format month case" : function(test) {
+        test.expect(24);
+        moment.lang('ru');
+        var months = {
+            'nominative': 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_'),
+            'accusative': 'января_февраля_марта_апреля_мая_июня_июля_августа_сентября_октября_ноября_декабря'.split('_')
+        };
+        var i;
+        for (i = 0; i < 12; i++) {
+            test.equal(moment([2011, i, 1]).format('D MMMM'), '1 ' + months.accusative[i], '1 ' + months.accusative[i]);
+            test.equal(moment([2011, i, 1]).format('MMMM'), months.nominative[i], '1 ' + months.nominative[i]);
+        }
+        test.done();
+    },
+
     "format week" : function(test) {
         test.expect(7);
         moment.lang('ru');
-        var expected = 'воскресенье вск вс_понедельник пнд пн_вторник втр вт_среда срд ср_четверг чтв чт_пятница птн пт_суббота суб сб'.split("_");
+        var expected = 'воскресенье вск вс_понедельник пнд пн_вторник втр вт_среда срд ср_четверг чтв чт_пятница птн пт_суббота сбт сб'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
