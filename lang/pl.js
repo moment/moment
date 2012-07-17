@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : polish (pl)
+// author : Rafal Hirsz : https://github.com/evoL
 (function () {
     var plural = function (n) { 
         return (n % 10 < 5) && (n % 10 > 1) && (~~(n / 10) !== 1);
@@ -26,6 +29,7 @@
         monthsShort : "sty_lut_mar_kwi_maj_cze_lip_sie_wrz_paź_lis_gru".split("_"),
         weekdays : "niedziela_poniedziałek_wtorek_środa_czwartek_piątek_sobota".split("_"),
         weekdaysShort : "nie_pon_wt_śr_czw_pt_sb".split("_"),
+        weekdaysMin : "N_Pn_Wt_Śr_Cz_Pt_So".split("_"),
         longDateFormat : {
             LT : "HH:mm",
             L : "DD-MM-YYYY",
@@ -62,7 +66,7 @@
     };
 
     // Node
-    if (typeof module !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
         module.exports = lang;
     }
     // Browser
