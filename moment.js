@@ -172,7 +172,21 @@
     // note: all values past the year are optional and will default to the lowest possible value.
     // [year, month, day , hour, minute, second, millisecond]
     function dateFromArray(input) {
-        return new Date(input[0], input[1] || 0, input[2] || 1, input[3] || 0, input[4] || 0, input[5] || 0, input[6] || 0);
+        var date = new Date(0);
+        date.setFullYear(input[0], input[1] || 0, input[2] || 1);
+        date.setHours(input[3] || 0, input[4] || 0, input[5] || 0, input[6] || 0);
+        return date;
+    }
+
+    // convert an array to a UTC date.
+    // the array should mirror the parameters below
+    // note: all values past the year are optional and will default to the lowest possible value.
+    // [year, month, day , hour, minute, second, millisecond]
+    function dateFromArrayUTC(input) {
+        var date = new Date(0);
+        date.setUTCFullYear(input[0], input[1] || 0, input[2] || 1);
+        date.setUTCHours(input[3] || 0, input[4] || 0, input[5] || 0, input[6] || 0);
+        return date;
     }
 
     // format date using native date object
@@ -249,7 +263,7 @@
             case 'YY' :
                 return leftZeroFill(currentYear % 100, 2);
             case 'YYYY' :
-                return currentYear;
+                return leftZeroFill(currentYear, 4);
             // AM / PM
             case 'a' :
                 return meridiem ? meridiem(currentHours, currentMinutes, false) : (currentHours > 11 ? 'pm' : 'am');
@@ -456,7 +470,7 @@
         datePartArray[3] += config.tzh;
         datePartArray[4] += config.tzm;
         // return
-        return config.isUTC ? new Date(Date.UTC.apply({}, datePartArray)) : dateFromArray(datePartArray);
+        return (config.isUTC ? dateFromArrayUTC : dateFromArray)(datePartArray);
     }
 
     // compare two arrays, return the number of differences
