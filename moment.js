@@ -992,7 +992,12 @@
                 this._lang = lang;
                 return this;
             }
+        },
+
+        isSameDay : function (otherMoment) {
+            return this.format("YYYY-MM-DD") === otherMoment.format("YYYY-MM-DD");
         }
+
     };
 
     // helper for adding shortcuts
