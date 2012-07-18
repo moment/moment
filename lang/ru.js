@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : russian (ru)
+// author : Viktorminator : https://github.com/Viktorminator
 (function () {
 
     var pluralRules = [
@@ -36,17 +39,44 @@
         }
     },
 
+    monthsCaseReplace = function (m, format) {
+        var months = {
+            'nominative': 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_'),
+            'accusative': 'января_февраля_марта_апреля_мая_июня_июля_августа_сентября_октября_ноября_декабря'.split('_')
+        },
+
+        nounCase = (/D[oD]? *MMMM?/).test(format) ?
+            'accusative' :
+            'nominative';
+
+        return months[nounCase][m.month()];
+    },
+
+    weekdaysCaseReplace = function (m, format) {
+        var weekdays = {
+            'nominative': 'воскресенье_понедельник_вторник_среда_четверг_пятница_суббота'.split('_'),
+            'accusative': 'воскресенье_понедельник_вторник_среду_четверг_пятницу_субботу'.split('_'),
+        },
+
+        nounCase = (/\[ ?[Вв] ?(?:прошлую|следующую)? ?\] ?dddd/).test(format) ?
+            'accusative' :
+            'nominative';
+
+        return weekdays[nounCase][m.day()];
+    },
+
     lang = {
-            months : "январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь".split("_"),
+            months : monthsCaseReplace,
             monthsShort : "янв_фев_мар_апр_май_июн_июл_авг_сен_окт_ноя_дек".split("_"),
-            weekdays : "воскресенье_понедельник_вторник_среда_четверг_пятница_суббота".split("_"),
-            weekdaysShort : "вск_пнд_втр_срд_чтв_птн_суб".split("_"),
+            weekdays : weekdaysCaseReplace,
+            weekdaysShort : "вск_пнд_втр_срд_чтв_птн_сбт".split("_"),
+            weekdaysMin : "вс_пн_вт_ср_чт_пт_сб".split("_"),
             longDateFormat : {
                 LT : "HH:mm",
-                L : "DD-MM-YYYY",
-                LL : "D MMMM YYYY",
-                LLL : "D MMMM YYYY LT",
-                LLLL : "dddd, D MMMM YYYY LT"
+                L : "DD.MM.YYYY",
+                LL : "D MMMM YYYY г.",
+                LLL : "D MMMM YYYY г., LT",
+                LLLL : "dddd, D MMMM YYYY г., LT"
             },
             calendar : {
                 sameDay: '[Сегодня в] LT',
@@ -93,7 +123,7 @@
         };
 
     // Node
-    if (typeof module !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
         module.exports = lang;
     }
     // Browser

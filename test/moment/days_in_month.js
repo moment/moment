@@ -2,12 +2,17 @@ var moment = require("../../moment");
 
 exports.days_in_month = {
     "days in month" : function(test) {
-        test.expect(12);
-        var months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        test.expect(24);
+        var months = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         for (var i = 0; i < 12; i++) {
-            test.equal(moment([2011, i]).daysInMonth(),
+            test.equal(moment([2012, i]).daysInMonth(),
                        months[i],
-                       moment([2011, i]).format('L') + "should have " + months[i] + " days.")
+                       moment([2012, i]).format('L') + " should have " + months[i] + " days. (beginning of month " + i + ')')
+        }
+        for (var i = 0; i < 12; i++) {
+            test.equal(moment([2012, i, months[i]]).daysInMonth(),
+                       months[i],
+                       moment([2012, i, months[i]]).format('L') + " should have " + months[i] + " days. (end of month " + i + ')')
         }
         test.done();
     },

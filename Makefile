@@ -54,6 +54,8 @@ size-diff: moment
 
 .PHONY: test hint test-moment test-lang
 test: hint test-moment test-lang
+test-zone:
+	node test/zone
 
 hint:
 	node_modules/.bin/jshint moment.js

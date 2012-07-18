@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : icelandic (is)
+// author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 (function () {
     var plural = function (n) {
         if (n % 100 == 11) {
@@ -82,6 +85,7 @@
             monthsShort : "jan_feb_mar_apr_maí_jún_júl_ágú_sep_okt_nóv_des".split("_"),
             weekdays : "sunnudagur_mánudagur_þriðjudagur_miðvikudagur_fimmtudagur_föstudagur_laugardagur".split("_"),
             weekdaysShort : "sun_mán_þri_mið_fim_fös_lau".split("_"),
+            weekdaysMin : "Su_Má_Þr_Mi_Fi_Fö_La".split("_"),
             longDateFormat : {
                 LT : "H:mm",
                 L : "DD/MM/YYYY",
@@ -118,7 +122,7 @@
         };
 
     // Node
-    if (typeof module !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
         module.exports = lang;
     }
     // Browser

@@ -37,7 +37,7 @@ exports["lang:da"] = {
                 ['M Mo MM MMMM MMM',                   '2 2. 02 Februar Feb'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14. 14'],
-                ['d do dddd ddd',                      '0 0. Søndag Søn'],
+                ['d do dddd ddd dd',                   '0 0. Søndag Søn Sø'],
                 ['DDD DDDo DDDD',                      '45 45. 045'],
                 ['w wo ww',                            '8 8. 08'],
                 ['h hh',                               '3 03'],
@@ -105,7 +105,7 @@ exports["lang:da"] = {
         var expected = 'Januar Jan_Februar Feb_Marts Mar_April Apr_Maj Maj_Juni Jun_Juli Jul_August Aug_September Sep_Oktober Okt_November Nov_December Dec'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, i, 0]).format('MMMM MMM'), expected[i], expected[i]);
+            test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
         test.done();
     },
@@ -113,10 +113,10 @@ exports["lang:da"] = {
     "format week" : function(test) {
         test.expect(7);
         moment.lang('da');
-        var expected = 'Søndag Søn_Mandag Man_Tirsdag Tir_Onsdag Ons_Torsdag Tor_Fredag Fre_Lørdag Lør'.split("_");
+        var expected = 'Søndag Søn Sø_Mandag Man Ma_Tirsdag Tir Ti_Onsdag Ons On_Torsdag Tor To_Fredag Fre Fr_Lørdag Lør Lø'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd'), expected[i], expected[i]);
+            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
         test.done();
     },

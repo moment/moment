@@ -1,3 +1,6 @@
+// moment.js language configuration
+// language : finnish (fi)
+// author : Tarmo Aidantausta : https://github.com/bleadof
 (function () {
     var numbers_past = ['nolla', 'yksi', 'kaksi', 'kolme', 'neljä', 'viisi',
                         'kuusi', 'seitsemän', 'kahdeksan', 'yhdeksän'];
@@ -48,6 +51,7 @@
             monthsShort : "tam_hel_maa_huh_tou_kes_hei_elo_syy_lok_mar_jou".split("_"),
             weekdays : "sunnuntai_maanantai_tiistai_keskiviikko_torstai_perjantai_lauantai".split("_"),
             weekdaysShort : "su_ma_ti_ke_to_pe_la".split("_"),
+            weekdaysMin : "su_ma_ti_ke_to_pe_la".split("_"),
             longDateFormat : {
                 LT : "HH.mm",
                 L : "DD.MM.YYYY",
@@ -84,7 +88,7 @@
         };
 
     // Node
-    if (typeof module !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
         module.exports = lang;
     }
     // Browser

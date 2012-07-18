@@ -37,7 +37,7 @@ exports["lang:fi"] = {
                 ['M Mo MM MMMM MMM',                   '2 2. 02 helmikuu hel'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14. 14'],
-                ['d do dddd ddd',                      '0 0. sunnuntai su'],
+                ['d do dddd ddd dd',                   '0 0. sunnuntai su su'],
                 ['DDD DDDo DDDD',                      '45 45. 045'],
                 ['w wo ww',                            '8 8. 08'],
                 ['h hh',                               '3 03'],
@@ -105,7 +105,7 @@ exports["lang:fi"] = {
         var expected = 'tammikuu tam_helmikuu hel_maaliskuu maa_huhtikuu huh_toukokuu tou_kesäkuu kes_heinäkuu hei_elokuu elo_syyskuu syy_lokakuu lok_marraskuu mar_joulukuu jou'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, i, 0]).format('MMMM MMM'), expected[i], expected[i]);
+            test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
         test.done();
     },
@@ -113,10 +113,10 @@ exports["lang:fi"] = {
     "format week" : function(test) {
         test.expect(7);
         moment.lang('fi');
-        var expected = 'sunnuntai su_maanantai ma_tiistai ti_keskiviikko ke_torstai to_perjantai pe_lauantai la'.split("_");
+        var expected = 'sunnuntai su su_maanantai ma ma_tiistai ti ti_keskiviikko ke ke_torstai to to_perjantai pe pe_lauantai la la'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd'), expected[i], expected[i]);
+            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
         test.done();
     },
