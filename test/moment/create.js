@@ -305,11 +305,17 @@ exports.create = {
 
     "six digit years" : function(test) {
         test.expect(5);
-        test.equal(moment([-270000, 0, 1]).format("YYYYY-MM-DD"), "-270000-01-01", "format BC 270,000");
+        test.equal(moment([-270000, 0, 1]).format("YYYYY-MM-DD"), "-270000-01-01", "format BC 270,001");
         test.equal(moment([ 270000, 0, 1]).format("YYYYY-MM-DD"), "270000-01-01", "format AD 270,000");
-        test.equal(moment("-270000-01-01", "YYYYY-MM-DD").toDate().getUTCFullYear(), -270000, "parse BC 270,000");
+        test.equal(moment("-270000-01-01", "YYYYY-MM-DD").toDate().getUTCFullYear(), -270000, "parse BC 270,001");
         test.equal(moment("270000-01-01",  "YYYYY-MM-DD").toDate().getUTCFullYear(), 270000, "parse AD 270,000");
         test.equal(moment("+270000-01-01", "YYYYY-MM-DD").toDate().getUTCFullYear(), 270000, "parse AD +270,000");
+        test.done();
+    },
+
+    "negative four digit years" : function(test) {
+        test.expect(1);
+        test.equal(moment("-1000-01-01", "YYYYY-MM-DD").toDate().getUTCFullYear(), -1000, "parse BC 1,001");
         test.done();
     }
 };
