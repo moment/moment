@@ -103,7 +103,7 @@
             dddd : 'v("weekdays",t.day())',
             w    : '(a=new Date(t.year(),t.month(),t.date()-t.day()+5),b=new Date(a.getFullYear(),0,4),a=~~((a-b)/864e5/7+1.5))',
             YY   : 'p(t.year()%100,2)',
-            YYYY : 't.year()',
+            YYYY : 'p(t.year(),4)',
             a    : 'm(t.hours(),t.minutes(),!0)',
             A    : 'm(t.hours(),t.minutes(),!1)',
             H    : 't.hours()',
@@ -274,8 +274,14 @@
         }
         // we store whether we used utc or not in the input array
         input[7] = asUTC;
-        date = asUTC ? new Date(Date.UTC.apply({}, input)) :
-            new Date(input[0], input[1], input[2], input[3], input[4], input[5], input[6]);
+        date = new Date(0);
+        if (asUTC) {
+            date.setUTCFullYear(input[0], input[1], input[2]);
+            date.setUTCHours(input[3], input[4], input[5], input[6]);
+        } else {
+            date.setFullYear(input[0], input[1], input[2]);
+            date.setHours(input[3], input[4], input[5], input[6]);
+        }
         date._a = input;
         return date;
     }
