@@ -1,7 +1,7 @@
 {
     "name": "moment",
-    "version": "1.6.2",
-    "description": "Parse, validate, manipulate, and display dates.",
+    "version": "1.7.0",
+    "description": "Parse, manipulate, and display dates.",
     "homepage": "http://momentjs.com",
     "author": "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
     "contributors": [

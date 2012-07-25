@@ -1,7 +1,7 @@
 [Moment.js](http://momentjs.com)
 ================================
 
-A lightweight javascript date library for parsing, manipulating, and formatting dates.
+A lightweight javascript date library for parsing, validating, manipulating, and formatting dates.
 
 ### [Check out the website](http://momentjs.com)
 
@@ -55,6 +55,24 @@ The `master` branch should always have the latest stable version. When bugfix or
 Changelog
 =========
 
+
+### 1.7.0 [See discussion](https://github.com/timrwood/moment/issues/288)
+
+Added `moment.fn.endOf()` and `moment.fn.startOf()`.
+
+Added validation via `moment.fn.isValid()`.
+
+Made formatting method 3x faster. http://jsperf.com/momentjs-cached-format-functions
+
+Add support for month/weekday callbacks in `moment.fn.format()`
+
+Added instance specific languages.
+
+Added two letter weekday abbreviations with the formatting token `dd`.
+
+Various language updates.
+
+Various bugfixes.
 
 ### 1.6.0 [See discussion](https://github.com/timrwood/moment/pull/268)
 
