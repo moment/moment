@@ -19,8 +19,8 @@ exports.days_in_month = {
 
     "days in month leap years" : function(test) {
         test.expect(4);
-        test.equal(moment([2010, 1]).daysInMonth(), 28, "Feb 2010 should have 29 days");
-        test.equal(moment([2100, 1]).daysInMonth(), 28, "Feb 2100 should have 29 days");
+        test.equal(moment([2010, 1]).daysInMonth(), 28, "Feb 2010 should have 28 days");
+        test.equal(moment([2100, 1]).daysInMonth(), 28, "Feb 2100 should have 28 days");
         test.equal(moment([2008, 1]).daysInMonth(), 29, "Feb 2008 should have 29 days");
         test.equal(moment([2000, 1]).daysInMonth(), 29, "Feb 2000 should have 29 days");
         test.done();
