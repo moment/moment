@@ -30,7 +30,7 @@
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
 
         // format tokens
-        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?)/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|YYYYY|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|-)/g,
         localFormattingTokens = /(LT|LL?L?L?)/g,
         formattingRemoveEscapes = /(^\[)|(\\)|\]$/g,
 
@@ -42,6 +42,7 @@
         parseTokenOneToThreeDigits = /\d{1,3}/, // 0 - 999
         parseTokenThreeDigits = /\d{3}/, // 000 - 999
         parseTokenFourDigits = /\d{4}/, // 0000 - 9999
+        parseTokenFiveToSixDigits = /[+\-\d]?\d{4,6}/, // -999,999 - 999,999
         parseTokenWord = /[0-9a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+/i, // any word characters or numbers
         parseTokenTimezone = /Z|[\+\-]\d\d:?\d\d/i, // +00:00 -00:00 +0000 -0000 or Z
         parseTokenT = /T/i, // T (ISO seperator)
@@ -103,7 +104,8 @@
             dddd : 'v("weekdays",t.day())',
             w    : '(a=new Date(t.year(),t.month(),t.date()-t.day()+5),b=new Date(a.getFullYear(),0,4),a=~~((a-b)/864e5/7+1.5))',
             YY   : 'p(t.year()%100,2)',
-            YYYY : 't.year()',
+            YYYY : 'p(t.year(),4)',
+            YYYYY: 'p(t.year(),5)',
             a    : 'm(t.hours(),t.minutes(),!0)',
             A    : 'm(t.hours(),t.minutes(),!1)',
             H    : 't.hours()',
@@ -274,8 +276,14 @@
         }
         // we store whether we used utc or not in the input array
         input[7] = asUTC;
-        date = asUTC ? new Date(Date.UTC.apply({}, input)) :
-            new Date(input[0], input[1], input[2], input[3], input[4], input[5], input[6]);
+        date = new Date(0);
+        if (asUTC) {
+            date.setUTCFullYear(input[0], input[1], input[2]);
+            date.setUTCHours(input[3], input[4], input[5], input[6]);
+        } else {
+            date.setFullYear(input[0], input[1], input[2]);
+            date.setHours(input[3], input[4], input[5], input[6]);
+        }
         date._a = input;
         return date;
     }
@@ -396,6 +404,8 @@
             return parseTokenThreeDigits;
         case 'YYYY':
             return parseTokenFourDigits;
+        case 'YYYYY':
+            return parseTokenFiveToSixDigits;
         case 'S':
         case 'SS':
         case 'SSS':
@@ -468,7 +478,8 @@
             datePartArray[0] = input + (input > 70 ? 1900 : 2000);
             break;
         case 'YYYY' :
-            datePartArray[0] = ~~Math.abs(input);
+        case 'YYYYY' :
+            datePartArray[0] = ~~input;
             break;
         // AM / PM
         case 'a' : // fall through to A
