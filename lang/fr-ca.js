@@ -49,6 +49,6 @@
     }
     // Browser
     if (typeof window !== 'undefined' && this.moment && this.moment.lang) {
-        this.moment.lang('fr', lang);
+        this.moment.lang('fr-ca', lang);
     }
 }());

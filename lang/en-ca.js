@@ -53,6 +53,6 @@
     }
     // Browser
     if (typeof window !== 'undefined' && this.moment && this.moment.lang) {
-        this.moment.lang('en-gb', lang);
+        this.moment.lang('en-ca', lang);
     }
 }());
