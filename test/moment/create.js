@@ -171,7 +171,7 @@ exports.create = {
     },
 
     "string with format (timezone offset)" : function(test) {
-        test.expect(3);
+        test.expect(4);
         var a = new Date(Date.UTC(2011, 0, 1, 1));
         var b = moment('2011 1 1 0 -01:00', 'YYYY MM DD HH Z');
         test.equal(a.getHours(), b.hours(), 'date created with utc == parsed string with timezone offset');
@@ -179,6 +179,9 @@ exports.create = {
         var c = moment('2011 2 1 10 -05:00', 'YYYY MM DD HH Z');
         var d = moment('2011 2 1 8 -07:00', 'YYYY MM DD HH Z');
         test.equal(c.hours(), d.hours(), '10 am central time == 8 am pacific time');
+        var e = moment.utc('Fri, 20 Jul 2012 17:15:00', 'ddd, DD MMM YYYY HH:mm:ss');
+        var f = moment.utc('Fri, 20 Jul 2012 10:15:00 -0700', 'ddd, DD MMM YYYY HH:mm:ss ZZ');
+        test.equal(e.hours(), f.hours(), 'parse timezone offset in utc');
         test.done();
     },
 

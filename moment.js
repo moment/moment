@@ -664,9 +664,14 @@
         if (isArray(input)) {
             return new Moment(dateFromArray(input, true), true);
         }
-        return (format && input) ?
-            moment(input + ' +0000', format + ' Z').utc() :
-            moment(input && isoRegex.exec(input) && !parseTokenTimezone.exec(input) ? input + '+0000' : input).utc();
+        // if we don't have a timezone, we need to add one to trigger parsing into utc
+        if (typeof input === 'string' && !parseTokenTimezone.exec(input)) {
+            input += ' +0000';
+            if (format) {
+                format += ' Z';
+            }
+        }
+        return moment(input, format).utc();
     };
 
     // creating with unix timestamp (in seconds)
