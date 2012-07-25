@@ -1,6 +1,6 @@
 // moment.js language configuration
-// language : great britain english (en-gb)
-// author : Chris Gedrim : https://github.com/chrisgedrim
+// language : canadian english (en-ca)
+// author : Jonathan Abourbih : https://github.com/jonbca
 (function () {
     var lang = {
             months : "January_February_March_April_May_June_July_August_September_October_November_December".split("_"),

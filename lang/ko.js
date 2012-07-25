@@ -1,9 +1,6 @@
 // moment.js language configuration
-// language : korean (kr)
+// language : korean (ko)
 // author : Kyungwook, Park : https://github.com/kyungw00k
-
-// This language config was incorrectly named 'kr' instead of 'ko'.
-// In version 2.0.0, this will be deprecated and you should use 'ko' instead.
 (function () {
     var lang = {
             months : "1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월".split("_"),
@@ -56,6 +53,6 @@
     }
     // Browser
     if (typeof window !== 'undefined' && this.moment && this.moment.lang) {
-        this.moment.lang('kr', lang);
+        this.moment.lang('ko', lang);
     }
 }());
