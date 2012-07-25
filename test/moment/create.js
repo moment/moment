@@ -300,10 +300,16 @@ exports.create = {
     },
 
     "first century" : function(test) {
-        test.expect(3);
+        test.expect(9);
         test.equal(moment([0, 0, 1]).format("YYYY-MM-DD"), "0000-01-01", "Year AD 0");
         test.equal(moment([99, 0, 1]).format("YYYY-MM-DD"), "0099-01-01", "Year AD 99");
         test.equal(moment([999, 0, 1]).format("YYYY-MM-DD"), "0999-01-01", "Year AD 999");
+        test.equal(moment('0 1 1', 'YYYY MM DD').format("YYYY-MM-DD"), "0000-01-01", "Year AD 0");
+        test.equal(moment('99 1 1', 'YYYY MM DD').format("YYYY-MM-DD"), "0099-01-01", "Year AD 99");
+        test.equal(moment('999 1 1', 'YYYY MM DD').format("YYYY-MM-DD"), "0999-01-01", "Year AD 999");
+        test.equal(moment('0 1 1', 'YYYYY MM DD').format("YYYYY-MM-DD"), "00000-01-01", "Year AD 0");
+        test.equal(moment('99 1 1', 'YYYYY MM DD').format("YYYYY-MM-DD"), "00099-01-01", "Year AD 99");
+        test.equal(moment('999 1 1', 'YYYYY MM DD').format("YYYYY-MM-DD"), "00999-01-01", "Year AD 999");
         test.done();
     },
 
