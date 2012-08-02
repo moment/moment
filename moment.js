@@ -590,9 +590,109 @@
                 makeDateFromStringAndFormat(string, format + ' Z') :
                 makeDateFromStringAndFormat(string, format);
         }
-        return new Date(string);
+        return makeDateFromNaturalString(string);
     }
 
+    function makeDateFromNaturalString(string) {
+        if (string.match('tod(ay)?')) {
+            return new Date();
+        }
+        if (string.match('tom(orrow)?')) {
+            return moment().add('days', 1).toDate();
+        }
+        if (string.match('yes(terday)?')) {
+            return moment().subtract('days', 1).toDate();
+        }
+
+        var month = false,
+            day = false,
+            year = false,
+            unit = false,
+            is_subtracting,
+            amount,
+            matches,
+            words = string.split(' '),
+            i = words.length,
+            d,
+            a;
+
+        // attempt to match things like last year, 30 seconds ago, next week, etc.
+        matches = string.match(/(year|month|week|day|hour|minute|second)/);
+        if (matches) {
+            unit = matches[1];
+            amount = 1;
+            matches = string.match(/\d+/);
+            if (matches) {
+                amount = matches[0];
+            }
+
+            is_subtracting = false;
+            matches = string.match(/(last|previous| ago)/);
+            if (matches) {
+                is_subtracting = true;
+            }
+
+            if (string.match(/-\d/)) {
+                is_subtracting = true;
+            }
+
+            unit += 's';
+
+            if (is_subtracting) {
+                return moment().subtract(unit, amount).toDate();
+            }
+            return moment().add(unit, amount).toDate();
+        }
+
+        while (i-- && month === false) {
+            for (a = 0; a < 12; a++) {
+                if (getLangDefinition().monthsParse[a].test(words[i])) {
+                    month = a;
+                    words.splice(i, 1);
+                    break;
+                }
+            }
+        }
+
+        i = words.length;
+        while (i--) {
+            matches = words[i].match(/\d\d\d\d/);
+            if (matches) {
+                year = matches[0];
+                words.splice(i, 1);
+                break;
+            }
+        }
+
+        i = words.length;
+        while (i--) {
+            matches = words[i].match(/\d\d?/);
+            if (matches) {
+                day = matches[0];
+                words.splice(i, 1);
+                break;
+            }
+        }
+
+
+        if (month !== false || day !== false || year !== false) {
+            d = new Date();
+            if (month !== false) {
+                d.setMonth(month);
+            }
+
+            if (year !== false) {
+                d.setYear(year);
+            }
+
+            if (day !== false) {
+                d.setMonth(d.getMonth(), day);
+            }
+            return d;
+        }
+
+        return new Date(string);
+    }
 
     /************************************
         Relative Time
