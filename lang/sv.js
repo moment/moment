@@ -1,9 +1,13 @@
+// moment.js language configuration
+// language : swedish (sv)
+// author : Jens Alm : https://github.com/ulmus
 (function () {
     var lang = {
             months : "januari_februari_mars_april_maj_juni_juli_augusti_september_oktober_november_december".split("_"),
             monthsShort : "jan_feb_mar_apr_maj_jun_jul_aug_sep_okt_nov_dec".split("_"),
             weekdays : "söndag_måndag_tisdag_onsdag_torsdag_fredag_lördag".split("_"),
             weekdaysShort : "sön_mån_tis_ons_tor_fre_lör".split("_"),
+            weekdaysMin : "sö_må_ti_on_to_fr_lö".split("_"),
             longDateFormat : {
                 LT : "HH:mm",
                 L : "YYYY-MM-DD",
@@ -44,7 +48,7 @@
         };
 
     // Node
-    if (typeof module !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
         module.exports = lang;
     }
     // Browser

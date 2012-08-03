@@ -1,9 +1,13 @@
+// moment.js language configuration
+// language : spanish (es)
+// author : Julio Napurí : https://github.com/julionc
 (function () {
     var lang = {
             months : "Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre".split("_"),
             monthsShort : "Ene._Feb._Mar._Abr._May._Jun._Jul._Ago._Sep._Oct._Nov._Dic.".split("_"),
             weekdays : "Domingo_Lunes_Martes_Miércoles_Jueves_Viernes_Sábado".split("_"),
             weekdaysShort : "Dom._Lun._Mar._Mié._Jue._Vie._Sáb.".split("_"),
+            weekdaysMin : "Do_Lu_Ma_Mi_Ju_Vi_Sá".split("_"),
             longDateFormat : {
                 LT : "H:mm",
                 L : "DD/MM/YYYY",
@@ -50,7 +54,7 @@
         };
 
     // Node
-    if (typeof module !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
         module.exports = lang;
     }
     // Browser

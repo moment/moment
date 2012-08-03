@@ -37,7 +37,7 @@ exports["lang:zh-tw"] = {
                 ['M Mo MM MMMM MMM',                   '2 2 02 二月 2月'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14 14'],
-                ['d do dddd ddd',                      '0 0 星期日 週日'],
+                ['d do dddd ddd dd',                   '0 0 星期日 週日 日'],
                 ['DDD DDDo DDDD',                      '45 45 045'],
                 ['w wo ww',                            '8 8 08'],
                 ['h hh',                               '3 03'],
@@ -65,7 +65,7 @@ exports["lang:zh-tw"] = {
         var expected = '一月 1月_二月 2月_三月 3月_四月 4月_五月 5月_六月 6月_七月 7月_八月 8月_九月 9月_十月 10月_十一月 11月_十二月 12月'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, i, 0]).format('MMMM MMM'), expected[i], expected[i]);
+            test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
         test.done();
     },
@@ -73,10 +73,10 @@ exports["lang:zh-tw"] = {
     "format week" : function(test) {
         test.expect(7);
         moment.lang('zh-tw');
-        var expected = '星期日 週日_星期一 週一_星期二 週二_星期三 週三_星期四 週四_星期五 週五_星期六 週六'.split("_");
+        var expected = '星期日 週日 日_星期一 週一 一_星期二 週二 二_星期三 週三 三_星期四 週四 四_星期五 週五 五_星期六 週六 六'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd'), expected[i], expected[i]);
+            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
         test.done();
     },

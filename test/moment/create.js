@@ -10,14 +10,28 @@ exports.create = {
         test.ok(moment([2010, 1, 12, 1, 1]).toDate() instanceof Date, "[2010, 1, 12, 1, 1]");
         test.ok(moment([2010, 1, 12, 1, 1, 1]).toDate() instanceof Date, "[2010, 1, 12, 1, 1, 1]");
         test.ok(moment([2010, 1, 12, 1, 1, 1, 1]).toDate() instanceof Date, "[2010, 1, 12, 1, 1, 1, 1]");
-        test.deepEqual(moment(new Date(2010, 1, 14, 15, 25, 50, 125)), moment([2010, 1, 14, 15, 25, 50, 125]), "constructing with array === constructing with new Date()");
+        test.equal(+moment(new Date(2010, 1, 14, 15, 25, 50, 125)), +moment([2010, 1, 14, 15, 25, 50, 125]), "constructing with array === constructing with new Date()");
         test.done();
     },
 
     "number" : function(test) {
-        test.expect(2);
+        test.expect(3);
         test.ok(moment(1000).toDate() instanceof Date, "1000");
         test.ok((moment(1000).valueOf() === 1000), "testing valueOf");
+        test.ok((moment.utc(1000).valueOf() === 1000), "testing valueOf");
+        test.done();
+    },
+
+    "unix" : function(test) {
+        test.expect(8);
+        test.equal(moment.unix(1).valueOf(), 1000, "1 unix timestamp == 1000 Date.valueOf");
+        test.equal(moment(1000).unix(), 1, "1000 Date.valueOf == 1 unix timestamp");
+        test.equal(moment.unix(1000).valueOf(), 1000000, "1000 unix timestamp == 1000000 Date.valueOf");
+        test.equal(moment(1500).unix(), 1, "1500 Date.valueOf == 1 unix timestamp");
+        test.equal(moment(1900).unix(), 1, "1900 Date.valueOf == 1 unix timestamp");
+        test.equal(moment(2100).unix(), 2, "2100 Date.valueOf == 2 unix timestamp");
+        test.equal(moment(1333129333524).unix(), 1333129333, "1333129333524 Date.valueOf == 1333129333 unix timestamp");
+        test.equal(moment(1333129333524000).unix(), 1333129333524, "1333129333524000 Date.valueOf == 1333129333524 unix timestamp");
         test.done();
     },
 
@@ -78,9 +92,9 @@ exports.create = {
     "empty string with formats" : function(test) {
         test.expect(3);
         
-        test.equal(moment(' ', 'MM').format('YYYY-MM-DD HH:mm:ss'), '1900-01-01 00:00:00', 'should not break if input is an empty string');
-        test.equal(moment(' ', 'DD').format('YYYY-MM-DD HH:mm:ss'), '1900-01-01 00:00:00', 'should not break if input is an empty string');
-        test.equal(moment(' ', ['MM', "DD"]).format('YYYY-MM-DD HH:mm:ss'), '1900-01-01 00:00:00', 'should not break if input is an empty string');
+        test.equal(moment(' ', 'MM').format('YYYY-MM-DD HH:mm:ss'), '0000-01-01 00:00:00', 'should not break if input is an empty string');
+        test.equal(moment(' ', 'DD').format('YYYY-MM-DD HH:mm:ss'), '0000-01-01 00:00:00', 'should not break if input is an empty string');
+        test.equal(moment(' ', ['MM', "DD"]).format('YYYY-MM-DD HH:mm:ss'), '0000-01-01 00:00:00', 'should not break if input is an empty string');
         
         test.done();
     },
@@ -157,7 +171,7 @@ exports.create = {
     },
 
     "string with format (timezone offset)" : function(test) {
-        test.expect(3);
+        test.expect(4);
         var a = new Date(Date.UTC(2011, 0, 1, 1));
         var b = moment('2011 1 1 0 -01:00', 'YYYY MM DD HH Z');
         test.equal(a.getHours(), b.hours(), 'date created with utc == parsed string with timezone offset');
@@ -165,6 +179,9 @@ exports.create = {
         var c = moment('2011 2 1 10 -05:00', 'YYYY MM DD HH Z');
         var d = moment('2011 2 1 8 -07:00', 'YYYY MM DD HH Z');
         test.equal(c.hours(), d.hours(), '10 am central time == 8 am pacific time');
+        var e = moment.utc('Fri, 20 Jul 2012 17:15:00', 'ddd, DD MMM YYYY HH:mm:ss');
+        var f = moment.utc('Fri, 20 Jul 2012 10:15:00 -0700', 'ddd, DD MMM YYYY HH:mm:ss ZZ');
+        test.equal(e.hours(), f.hours(), 'parse timezone offset in utc');
         test.done();
     },
 
@@ -279,6 +296,24 @@ exports.create = {
         test.equal(moment(''), null, "Calling moment('')");
         test.equal(moment(null), null, "Calling moment(null)");
         test.equal(moment('', 'YYYY-MM-DD'), null, "Calling moment('', 'YYYY-MM-DD')");
+        test.done();
+    },
+
+    "first century" : function(test) {
+        test.expect(6);
+        test.equal(moment([0, 0, 1]).format("YYYY-MM-DD"), "0000-01-01", "Year AD 0");
+        test.equal(moment([99, 0, 1]).format("YYYY-MM-DD"), "0099-01-01", "Year AD 99");
+        test.equal(moment([999, 0, 1]).format("YYYY-MM-DD"), "0999-01-01", "Year AD 999");
+        test.equal(moment('0 1 1', 'YYYY MM DD').format("YYYY-MM-DD"), "0000-01-01", "Year AD 0");
+        test.equal(moment('99 1 1', 'YYYY MM DD').format("YYYY-MM-DD"), "0099-01-01", "Year AD 99");
+        test.equal(moment('999 1 1', 'YYYY MM DD').format("YYYY-MM-DD"), "0999-01-01", "Year AD 999");
+        test.done();
+    },
+
+    "six digit years" : function(test) {
+        test.expect(2);
+        test.equal(moment([-270000, 0, 1]).format("YYYY-MM-DD"), "-270000-01-01", "format BC 270,000");
+        test.equal(moment([ 270000, 0, 1]).format("YYYY-MM-DD"), "270000-01-01", "format AD 270,000");
         test.done();
     }
 };

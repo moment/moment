@@ -29,32 +29,43 @@ exports["lang:tr"] = {
     },
 
     "format" : function(test) {
-        test.expect(18);
         moment.lang('tr');
         var a = [
-                ['dddd, MMMM Do YYYY, h:mm:ss a',      'Pazar, Şubat 14th 2010, 3:25:50 pm'],
+                ['dddd, MMMM Do YYYY, h:mm:ss a',      'Pazar, Şubat 14\'üncü 2010, 3:25:50 pm'],
                 ['ddd, hA',                            'Paz, 3PM'],
-                ['M Mo MM MMMM MMM',                   '2 2nd 02 Şubat Şub'],
+                ['M Mo MM MMMM MMM',                   '2 2\'nci 02 Şubat Şub'],
                 ['YYYY YY',                            '2010 10'],
-                ['D Do DD',                            '14 14th 14'],
-                ['d do dddd ddd',                      '0 0th Pazar Paz'],
-                ['DDD DDDo DDDD',                      '45 45th 045'],
-                ['w wo ww',                            '8 8th 08'],
+                ['D Do DD',                            '14 14\'üncü 14'],
+                ['d do dddd ddd dd',                   '0 0\'ıncı Pazar Paz Pz'],
+                ['DDD DDDo DDDD',                      '45 45\'inci 045'],
+                ['w wo ww',                            '8 8\'inci 08'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
-                ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45th day of the year'],
+                ['yılın DDDo günü',                    'yılın 45\'inci günü'],
                 ['L',                                  '14.02.2010'],
                 ['LL',                                 '14 Şubat 2010'],
                 ['LLL',                                '14 Şubat 2010 15:25'],
                 ['LLLL',                               'Pazar, 14 Şubat 2010 15:25']
             ],
-            b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
+            DDDo = [
+                [359, '360\'ıncı'],
+                [199, '200\'üncü'],
+                [149, '150\'nci']
+            ],
+            dt = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
+            DDDoDt,
             i;
+        test.expect(a.length + DDDo.length);
+
         for (i = 0; i < a.length; i++) {
-            test.equal(b.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
+            test.equal(dt.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
+        }
+        for (i = 0; i < DDDo.length; i++) {
+            DDDoDt = moment([2010]);
+            test.equal(DDDoDt.add('days', DDDo[i][0]).format('DDDo'), DDDo[i][1], DDDo[i][0] + ' ---> ' + DDDo[i][1]);
         }
         test.done();
     },
@@ -62,40 +73,40 @@ exports["lang:tr"] = {
     "format ordinal" : function(test) {
         test.expect(31);
         moment.lang('tr');
-        test.equal(moment([2011, 0, 1]).format('DDDo'), '1st', '1st');
-        test.equal(moment([2011, 0, 2]).format('DDDo'), '2nd', '2nd');
-        test.equal(moment([2011, 0, 3]).format('DDDo'), '3rd', '3rd');
-        test.equal(moment([2011, 0, 4]).format('DDDo'), '4th', '4th');
-        test.equal(moment([2011, 0, 5]).format('DDDo'), '5th', '5th');
-        test.equal(moment([2011, 0, 6]).format('DDDo'), '6th', '6th');
-        test.equal(moment([2011, 0, 7]).format('DDDo'), '7th', '7th');
-        test.equal(moment([2011, 0, 8]).format('DDDo'), '8th', '8th');
-        test.equal(moment([2011, 0, 9]).format('DDDo'), '9th', '9th');
-        test.equal(moment([2011, 0, 10]).format('DDDo'), '10th', '10th');
+        test.equal(moment([2011, 0, 1]).format('DDDo'), '1\'inci', '1st');
+        test.equal(moment([2011, 0, 2]).format('DDDo'), '2\'nci', '2nd');
+        test.equal(moment([2011, 0, 3]).format('DDDo'), '3\'üncü', '3rd');
+        test.equal(moment([2011, 0, 4]).format('DDDo'), '4\'üncü', '4th');
+        test.equal(moment([2011, 0, 5]).format('DDDo'), '5\'inci', '5th');
+        test.equal(moment([2011, 0, 6]).format('DDDo'), '6\'ncı', '6th');
+        test.equal(moment([2011, 0, 7]).format('DDDo'), '7\'nci', '7th');
+        test.equal(moment([2011, 0, 8]).format('DDDo'), '8\'inci', '8th');
+        test.equal(moment([2011, 0, 9]).format('DDDo'), '9\'uncu', '9th');
+        test.equal(moment([2011, 0, 10]).format('DDDo'), '10\'uncu', '10th');
     
-        test.equal(moment([2011, 0, 11]).format('DDDo'), '11th', '11th');
-        test.equal(moment([2011, 0, 12]).format('DDDo'), '12th', '12th');
-        test.equal(moment([2011, 0, 13]).format('DDDo'), '13th', '13th');
-        test.equal(moment([2011, 0, 14]).format('DDDo'), '14th', '14th');
-        test.equal(moment([2011, 0, 15]).format('DDDo'), '15th', '15th');
-        test.equal(moment([2011, 0, 16]).format('DDDo'), '16th', '16th');
-        test.equal(moment([2011, 0, 17]).format('DDDo'), '17th', '17th');
-        test.equal(moment([2011, 0, 18]).format('DDDo'), '18th', '18th');
-        test.equal(moment([2011, 0, 19]).format('DDDo'), '19th', '19th');
-        test.equal(moment([2011, 0, 20]).format('DDDo'), '20th', '20th');
+        test.equal(moment([2011, 0, 11]).format('DDDo'), '11\'inci', '11th');
+        test.equal(moment([2011, 0, 12]).format('DDDo'), '12\'nci', '12th');
+        test.equal(moment([2011, 0, 13]).format('DDDo'), '13\'üncü', '13th');
+        test.equal(moment([2011, 0, 14]).format('DDDo'), '14\'üncü', '14th');
+        test.equal(moment([2011, 0, 15]).format('DDDo'), '15\'inci', '15th');
+        test.equal(moment([2011, 0, 16]).format('DDDo'), '16\'ncı', '16th');
+        test.equal(moment([2011, 0, 17]).format('DDDo'), '17\'nci', '17th');
+        test.equal(moment([2011, 0, 18]).format('DDDo'), '18\'inci', '18th');
+        test.equal(moment([2011, 0, 19]).format('DDDo'), '19\'uncu', '19th');
+        test.equal(moment([2011, 0, 20]).format('DDDo'), '20\'nci', '20th');
+
+        test.equal(moment([2011, 0, 21]).format('DDDo'), '21\'inci', '21th');
+        test.equal(moment([2011, 0, 22]).format('DDDo'), '22\'nci', '22th');
+        test.equal(moment([2011, 0, 23]).format('DDDo'), '23\'üncü', '23th');
+        test.equal(moment([2011, 0, 24]).format('DDDo'), '24\'üncü', '24th');
+        test.equal(moment([2011, 0, 25]).format('DDDo'), '25\'inci', '25th');
+        test.equal(moment([2011, 0, 26]).format('DDDo'), '26\'ncı', '26th');
+        test.equal(moment([2011, 0, 27]).format('DDDo'), '27\'nci', '27th');
+        test.equal(moment([2011, 0, 28]).format('DDDo'), '28\'inci', '28th');
+        test.equal(moment([2011, 0, 29]).format('DDDo'), '29\'uncu', '29th');
+        test.equal(moment([2011, 0, 30]).format('DDDo'), '30\'uncu', '30th');
     
-        test.equal(moment([2011, 0, 21]).format('DDDo'), '21st', '21st');
-        test.equal(moment([2011, 0, 22]).format('DDDo'), '22nd', '22nd');
-        test.equal(moment([2011, 0, 23]).format('DDDo'), '23rd', '23rd');
-        test.equal(moment([2011, 0, 24]).format('DDDo'), '24th', '24th');
-        test.equal(moment([2011, 0, 25]).format('DDDo'), '25th', '25th');
-        test.equal(moment([2011, 0, 26]).format('DDDo'), '26th', '26th');
-        test.equal(moment([2011, 0, 27]).format('DDDo'), '27th', '27th');
-        test.equal(moment([2011, 0, 28]).format('DDDo'), '28th', '28th');
-        test.equal(moment([2011, 0, 29]).format('DDDo'), '29th', '29th');
-        test.equal(moment([2011, 0, 30]).format('DDDo'), '30th', '30th');
-    
-        test.equal(moment([2011, 0, 31]).format('DDDo'), '31st', '31st');
+        test.equal(moment([2011, 0, 31]).format('DDDo'), '31\'inci', '31st');
         test.done();
     },
 
@@ -105,7 +116,7 @@ exports["lang:tr"] = {
         var expected = 'Ocak Oca_Şubat Şub_Mart Mar_Nisan Nis_Mayıs May_Haziran Haz_Temmuz Tem_Ağustos Ağu_Eylül Eyl_Ekim Eki_Kasım Kas_Aralık Ara'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, i, 0]).format('MMMM MMM'), expected[i], expected[i]);
+            test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
         test.done();
     },
@@ -113,10 +124,10 @@ exports["lang:tr"] = {
     "format week" : function(test) {
         test.expect(7);
         moment.lang('tr');
-        var expected = 'Pazar Paz_Pazartesi Pts_Salı Sal_Çarşamba Çar_Perşembe Per_Cuma Cum_Cumartesi Cts'.split("_");
+        var expected = 'Pazar Paz Pz_Pazartesi Pts Pt_Salı Sal Sa_Çarşamba Çar Ça_Perşembe Per Pe_Cuma Cum Cu_Cumartesi Cts Ct'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd'), expected[i], expected[i]);
+            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
         test.done();
     },
