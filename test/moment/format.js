@@ -10,7 +10,7 @@ exports.format = {
     },
 
     "format escape brackets" : function(test) {
-        test.expect(7);
+        test.expect(9);
 
         var b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
         test.equal(b.format('[day]'), 'day', 'Single bracket');
@@ -20,6 +20,8 @@ exports.format = {
         test.equal(b.format('[[]'), '[', 'Escape open bracket');
         test.equal(b.format('[Last]'), 'Last', 'localized tokens');
         test.equal(b.format('[L] L'), 'L 02/14/2009', 'localized tokens with escaped localized tokens');
+        test.equal(b.format('[L LL LLL LLLL aLa]'), 'L LL LLL LLLL aLa', 'localized tokens with escaped localized tokens');
+        test.equal(b.format('[LLL] LLL'), 'LLL February 14 2009 3:25 PM', 'localized tokens with escaped localized tokens (recursion)');
         test.done();
     },
 

@@ -31,7 +31,7 @@
 
         // format tokens
         formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?)/g,
-        localFormattingTokens = /(LT|LL?L?L?)/g,
+        localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?)/g,
         formattingRemoveEscapes = /(^\[)|(\\)|\]$/g,
 
         // parsing tokens
@@ -372,13 +372,13 @@
 
     // format date using native date object
     function formatMoment(m, format) {
-        var lang = getLangDefinition(m);
+        var lang = getLangDefinition(m), i = 2;
 
         function getValueFromArray(key, index) {
             return lang[key].call ? lang[key](m, format) : lang[key][index];
         }
 
-        while (localFormattingTokens.test(format)) {
+        while (i--) {
             format = format.replace(localFormattingTokens, replaceLongDateFormatTokens);
         }
 
