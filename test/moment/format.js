@@ -19,7 +19,7 @@ exports.format = {
         test.equal(b.format('[[YY]]'), '[YY]', 'Double nested brackets');
         test.equal(b.format('[[]'), '[', 'Escape open bracket');
         test.equal(b.format('[Last]'), 'Last', 'localized tokens');
-        test.equal(b.format('[LLL]'), 'LLL', 'localized tokens');
+        test.equal(b.format('[L] L'), 'L 02/14/2009', 'localized tokens with escaped localized tokens');
         test.done();
     },
 
