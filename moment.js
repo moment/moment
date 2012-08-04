@@ -395,42 +395,76 @@
         }
 
         switch (item) {
+            case "D":
             case "%a":
                 return "ddd";
+            case "l":
             case "%A":
                 return "dddd";
+            case "M":
+            case "%h":
             case "%b":
                 return "MMM";
+            case "F":
             case "%B":
                 return "MMMM";
             case "%c":
                 return "LLLL";
+            case "j":
             case "%d":
-                return "DD";
+                return "D";
+            case "%j":
+                return "DDDD";
+            case "%e":
+                return "Do";
+            case "m":
             case "%m":
                 return "MM";
-            case "%y":
-                return "YY";
-            case "%Y":
-                return "YYYY";
+            case "A":
+            case "%p":
+                return "A";
+            case "a":
+            case "%P":
+                return "a";
+            case "s":
             case "%S":
                 return "ss";
+            case "i":
             case "%M":
                 return "mm";
+            case "H":
             case "%H":
                 return "HH";
             case "%I":
                 return "hh";
+            case "w":
             case "%w":
                 return "d";
+            case "W":
             case "%W":
+            case "%U":
                 return "ww";
             case "%x":
                 return "LL";
             case "%X":
                 return "LT";
+            case "y":
+            case "%g":
+            case "%y":
+                return "YY";
+            case "o":
+            case "Y":
+            case "%G":
+            case "%Y":
+                return "YYYY";
             case "%z":
                 return "ZZ";
+            case "z":
+                return "DDD";
+            case "d":
+                return "DD";
+            case "n":
+                return "M";
             default:
                 return item;
         }
