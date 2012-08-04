@@ -389,11 +389,60 @@
         return formatFunctions[format](m, getValueFromArray, lang.ordinal, leftZeroFill, lang.meridiem);
     }
 
+    function strtimeTranslate(item) {
+        if (item.charAt(0) === "\\" || item.substring(0, 2) === "%%") {
+            return item.replace("\\", "").replace("%%", "%");
+        }
+
+        switch (item) {
+            case "%a":
+                return "ddd";
+            case "%A":
+                return "dddd";
+            case "%b":
+                return "MMM";
+            case "%B":
+                return "MMMM";
+            case "%c":
+                return "LLLL";
+            case "%d":
+                return "DD";
+            case "%m":
+                return "MM";
+            case "%y":
+                return "YY";
+            case "%Y":
+                return "YYYY";
+            case "%S":
+                return "ss";
+            case "%M":
+                return "mm";
+            case "%H":
+                return "HH";
+            case "%I":
+                return "hh";
+            case "%w":
+                return "d";
+            case "%W":
+                return "ww";
+            case "%x":
+                return "LL";
+            case "%X":
+                return "LT";
+            case "%z":
+                return "ZZ";
+            default:
+                return item;
+        }
+    }
+
+    function strftimeFormatMoment(m, format) {
+        return formatMoment(m, format.replace(/(%|\\)?.|%%/g, strtimeTranslate))
+    }
 
     /************************************
         Parsing
     ************************************/
-
 
     // get the regex to find the next token
     function getParseRegexForToken(token) {
@@ -872,6 +921,12 @@
 
         format : function (inputString) {
             return formatMoment(this, inputString ? inputString : moment.defaultFormat);
+        },
+
+        strftime : function (inputString) {
+            // Converts the value of the current Date object to its equivalent string representation
+            // using a PHP/Unix style of date format specifiers.
+            return strftimeFormatMoment(this, inputString);
         },
 
         add : function (input, val) {
