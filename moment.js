@@ -389,11 +389,94 @@
         return formatFunctions[format](m, getValueFromArray, lang.ordinal, leftZeroFill, lang.meridiem);
     }
 
+    function strtimeTranslate(item) {
+        if (item.charAt(0) === "\\" || item.substring(0, 2) === "%%") {
+            return item.replace("\\", "").replace("%%", "%");
+        }
+
+        switch (item) {
+            case "D":
+            case "%a":
+                return "ddd";
+            case "l":
+            case "%A":
+                return "dddd";
+            case "M":
+            case "%h":
+            case "%b":
+                return "MMM";
+            case "F":
+            case "%B":
+                return "MMMM";
+            case "%c":
+                return "LLLL";
+            case "j":
+            case "%d":
+                return "D";
+            case "%j":
+                return "DDDD";
+            case "%e":
+                return "Do";
+            case "m":
+            case "%m":
+                return "MM";
+            case "A":
+            case "%p":
+                return "A";
+            case "a":
+            case "%P":
+                return "a";
+            case "s":
+            case "%S":
+                return "ss";
+            case "i":
+            case "%M":
+                return "mm";
+            case "H":
+            case "%H":
+                return "HH";
+            case "%I":
+                return "hh";
+            case "w":
+            case "%w":
+                return "d";
+            case "W":
+            case "%W":
+            case "%U":
+                return "ww";
+            case "%x":
+                return "LL";
+            case "%X":
+                return "LT";
+            case "y":
+            case "%g":
+            case "%y":
+                return "YY";
+            case "o":
+            case "Y":
+            case "%G":
+            case "%Y":
+                return "YYYY";
+            case "%z":
+                return "ZZ";
+            case "z":
+                return "DDD";
+            case "d":
+                return "DD";
+            case "n":
+                return "M";
+            default:
+                return item;
+        }
+    }
+
+    function strftimeFormatMoment(m, format) {
+        return formatMoment(m, format.replace(/(%|\\)?.|%%/g, strtimeTranslate))
+    }
 
     /************************************
         Parsing
     ************************************/
-
 
     // get the regex to find the next token
     function getParseRegexForToken(token) {
@@ -872,6 +955,12 @@
 
         format : function (inputString) {
             return formatMoment(this, inputString ? inputString : moment.defaultFormat);
+        },
+
+        strftime : function (inputString) {
+            // Converts the value of the current Date object to its equivalent string representation
+            // using a PHP/Unix style of date format specifiers.
+            return strftimeFormatMoment(this, inputString);
         },
 
         add : function (input, val) {
