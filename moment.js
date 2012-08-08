@@ -758,6 +758,9 @@
         return obj instanceof Duration;
     };
 
+    // determine whether moment and duration instances will be immutable
+    moment.immutable = false;
+
     // Set default language, other languages will inherit from English.
     moment.lang('en', {
         months : "January_February_March_April_May_June_July_August_September_October_November_December".split("_"),
@@ -861,13 +864,15 @@
         },
 
         utc : function () {
-            this._isUTC = true;
-            return this;
+            var mom = this.instance();
+            mom._isUTC = true;
+            return mom;
         },
 
         local : function () {
-            this._isUTC = false;
-            return this;
+            var mom = this.instance();
+            mom._isUTC = false;
+            return mom;
         },
 
         format : function (inputString) {
@@ -875,15 +880,17 @@
         },
 
         add : function (input, val) {
-            var dur = val ? moment.duration(+val, input) : moment.duration(input);
-            addOrSubtractDurationFromMoment(this, dur, 1);
-            return this;
+            var mom = this.instance(),
+                dur = val ? moment.duration(+val, input) : moment.duration(input);
+            addOrSubtractDurationFromMoment(mom, dur, 1);
+            return mom;
         },
 
         subtract : function (input, val) {
-            var dur = val ? moment.duration(+val, input) : moment.duration(input);
-            addOrSubtractDurationFromMoment(this, dur, -1);
-            return this;
+            var mom = this.instance(),
+                dur = val ? moment.duration(+val, input) : moment.duration(input);
+            addOrSubtractDurationFromMoment(mom, dur, -1);
+            return mom;
         },
 
         diff : function (input, val, asFloat) {
@@ -943,33 +950,34 @@
         day : function (input) {
             var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
             return input == null ? day :
-                this.add({ d : input - day });
+                this.instance().add({ d : input - day });
         },
 
         startOf: function (val) {
+            var mom = this.instance();
             // the following switch intentionally omits break keywords
             // to utilize falling through the cases.
             switch (val.replace(/s$/, '')) {
             case 'year':
-                this.month(0);
+                mom.month(0);
                 /* falls through */
             case 'month':
-                this.date(1);
+                mom.date(1);
                 /* falls through */
             case 'day':
-                this.hours(0);
+                mom.hours(0);
                 /* falls through */
             case 'hour':
-                this.minutes(0);
+                mom.minutes(0);
                 /* falls through */
             case 'minute':
-                this.seconds(0);
+                mom.seconds(0);
                 /* falls through */
             case 'second':
-                this.milliseconds(0);
+                mom.milliseconds(0);
                 /* falls through */
             }
-            return this;
+            return mom;
         },
 
         endOf: function (val) {
@@ -1000,21 +1008,28 @@
             if (lang === undefined) {
                 return getLangDefinition(this);
             } else {
-                this._lang = lang;
-                return this;
+                var mom = this.instance();
+                mom._lang = lang;
+                return mom;
             }
+        },
+
+        // Returns either this or its clone, depending on whether moment has been globally set as immutable
+        instance : function () {
+            return moment.immutable ? this.clone() : this;
         }
     };
 
     // helper for adding shortcuts
     function makeGetterAndSetter(name, key) {
         moment.fn[name] = function (input) {
-            var utc = this._isUTC ? 'UTC' : '';
+            var utc = this._isUTC ? 'UTC' : '',
+                mom = this.instance();
             if (input != null) {
-                this._d['set' + utc + key](input);
-                return this;
+                mom._d['set' + utc + key](input);
+                return mom;
             } else {
-                return this._d['get' + utc + key]();
+                return mom._d['get' + utc + key]();
             }
         };
     }
@@ -1056,7 +1071,15 @@
             return output;
         },
 
-        lang : moment.fn.lang
+        lang : moment.fn.lang,
+
+        clone : function () {
+            return moment.duration(this);
+        },
+
+        instance : function () {
+            return moment.immutable ? this.clone() : this;
+        }
     };
 
     function makeDurationGetter(name) {
