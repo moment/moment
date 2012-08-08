@@ -1072,14 +1072,12 @@
         },
 
         lang : moment.fn.lang,
+        instance : moment.fn.instance,
 
         clone : function () {
             return moment.duration(this);
-        },
-
-        instance : function () {
-            return moment.immutable ? this.clone() : this;
         }
+
     };
 
     function makeDurationGetter(name) {
