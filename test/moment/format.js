@@ -107,5 +107,13 @@ exports.format = {
         var isoRegex = /\d{4}.\d\d.\d\dT\d\d.\d\d.\d\d[\+\-]\d\d:\d\d/;
         test.ok(isoRegex.exec(moment().format()), "default format (" + moment().format() + ") should match ISO");
         test.done();
+    },
+
+    "escape format" : function(test) {
+        test.expect(3);
+        test.equal(moment().format('\\a'), 'a');
+        test.equal(moment().format('\\e'), 'e');
+        test.equal(moment().format('\\\\L'), 'L');
+        test.done();
     }
 };
