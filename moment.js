@@ -234,13 +234,13 @@
             mom._d.setTime(+mom + ms * isAdding);
         }
         if (d) {
-            mom.date(mom.date() + d * isAdding);
+            mom.date(mom.date() + d * isAdding, true);
         }
         if (M) {
             currentDate = mom.date();
-            mom.date(1)
-                .month(mom.month() + M * isAdding)
-                .date(Math.min(currentDate, mom.daysInMonth()));
+            mom.date(1, true)
+                .month(mom.month() + M * isAdding, true)
+                .date(Math.min(currentDate, mom.daysInMonth()), true);
         }
     }
 
@@ -879,15 +879,15 @@
             return formatMoment(this, inputString ? inputString : moment.defaultFormat);
         },
 
-        add : function (input, val) {
-            var mom = this.instance(),
+        add : function (input, val, mutate) {
+            var mom = this.instance(mutate),
                 dur = val ? moment.duration(+val, input) : moment.duration(input);
             addOrSubtractDurationFromMoment(mom, dur, 1);
             return mom;
         },
 
-        subtract : function (input, val) {
-            var mom = this.instance(),
+        subtract : function (input, val, mutate) {
+            var mom = this.instance(mutate),
                 dur = val ? moment.duration(+val, input) : moment.duration(input);
             addOrSubtractDurationFromMoment(mom, dur, -1);
             return mom;
@@ -950,7 +950,7 @@
         day : function (input) {
             var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
             return input == null ? day :
-                this.instance().add({ d : input - day });
+                this.add({ d : input - day });
         },
 
         startOf: function (val) {
@@ -959,29 +959,29 @@
             // to utilize falling through the cases.
             switch (val.replace(/s$/, '')) {
             case 'year':
-                mom.month(0);
+                mom.month(0, true);
                 /* falls through */
             case 'month':
-                mom.date(1);
+                mom.date(1, true);
                 /* falls through */
             case 'day':
-                mom.hours(0);
+                mom.hours(0, true);
                 /* falls through */
             case 'hour':
-                mom.minutes(0);
+                mom.minutes(0, true);
                 /* falls through */
             case 'minute':
-                mom.seconds(0);
+                mom.seconds(0, true);
                 /* falls through */
             case 'second':
-                mom.milliseconds(0);
+                mom.milliseconds(0, true);
                 /* falls through */
             }
             return mom;
         },
 
         endOf: function (val) {
-            return this.startOf(val).add(val.replace(/s?$/, 's'), 1).subtract('ms', 1);
+            return this.startOf(val).add(val.replace(/s?$/, 's'), 1, true).subtract('ms', 1, true);
         },
         
         sod: function () {
@@ -1015,16 +1015,16 @@
         },
 
         // Returns either this or its clone, depending on whether moment has been globally set as immutable
-        instance : function () {
-            return moment.immutable ? this.clone() : this;
+        instance : function (mutate) {
+            return !mutate && moment.immutable ? this.clone() : this;
         }
     };
 
     // helper for adding shortcuts
     function makeGetterAndSetter(name, key) {
-        moment.fn[name] = function (input) {
+        moment.fn[name] = function (input, mutate) {
             var utc = this._isUTC ? 'UTC' : '',
-                mom = this.instance();
+                mom = this.instance(mutate);
             if (input != null) {
                 mom._d['set' + utc + key](input);
                 return mom;
