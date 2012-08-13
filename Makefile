@@ -23,10 +23,10 @@ min/moment.min.pretty.js: moment.js
 	node_modules/.bin/uglifyjs -b -o $@ $<
 
 min/lang/%: lang/%
-	node_modules/.bin/uglifyjs -o $@ $<
+	node_modules/.bin/uglifyjs --ascii -o $@ $<
 
 min/lang-all.min.js: $(LANG_ALL)
-	cat $^ | node_modules/.bin/uglifyjs -o $@
+	cat $^ | node_modules/.bin/uglifyjs --ascii -o $@
 
 .PHONY: langs
 langs: min/lang/ $(MIN_LANG_ALL) min/lang-all.min.js
