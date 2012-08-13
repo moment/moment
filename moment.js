@@ -372,13 +372,13 @@
 
     // format date using native date object
     function formatMoment(m, format) {
-        var lang = getLangDefinition(m), i = 2;
+        var lang = getLangDefinition(m), i = 5;
 
         function getValueFromArray(key, index) {
             return lang[key].call ? lang[key](m, format) : lang[key][index];
         }
 
-        while (i--) {
+        while (i-- && localFormattingTokens.test(format)) {
             format = format.replace(localFormattingTokens, replaceLongDateFormatTokens);
         }
 
