@@ -174,10 +174,12 @@ exports["lang:cv"] = {
     },
 
     "fromNow" : function(test) {
-        test.expect(2);
+        test.expect(4);
         moment.lang('cv');
         test.equal(moment().add({s:30}).fromNow(), "пĕр-ик çеккунтран", "in a few seconds");
         test.equal(moment().add({d:5}).fromNow(), "5 кунран", "in 5 days");
+        test.equal(moment().add({h:2}).fromNow(), "2 сехетрен", "in 2 hours, the right suffix!");
+        test.equal(moment().add({y:3}).fromNow(), "3 çултан", "in 3 years, the right suffix!");
         test.done();
     },
 
