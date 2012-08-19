@@ -1053,8 +1053,7 @@
             if (withSuffix) {
                 if (typeof fromNow === 'function') {
                     output = fromNow(output);
-                }
-                else {
+                } else {
                     output = fromNow.replace(/%s/i, output);
                 }
             }
