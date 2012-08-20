@@ -100,7 +100,7 @@ module.exports = function (grunt) {
         nodeunit.runFiles([path.join(process.cwd(), "test/moment")], {
             testDone: function (name, assertions) {
                 if (assertions.failures()) {
-                    logFailedTest(zone, name, assertions);
+                    failedTests.push([zone, name, assertions]);
                 }
             },
             done: function (assertions) {
@@ -125,13 +125,17 @@ module.exports = function (grunt) {
     }
 
     function logFailedTest(zone, name, assertions) {
-        grunt.log.error('\nFAILURE: ' + name);
+        grunt.log.writeln("");
+        grunt.log.error(zone + ' failed: ' + name);
         assertions.forEach(function (a) {
+            var e = a.error;
             if (a.failed()) {
-                if (a.error && a.message) {
-                    grunt.log.error('Assertion Message: ' + a.message);
+                if (a.message) {
+                    grunt.log.error(a.message);
                 }
-                grunt.log.error(a.error.stack);
+                if (e && e.actual && e.expected && e.operator) {
+                    grunt.log.error([e.actual, e.operator, e.expected].join(' '));
+                }
             }
         });
     }
@@ -153,6 +157,10 @@ module.exports = function (grunt) {
     }
 
     function logFinalOutput() {
-
+        var i;
+        grunt.log.writeln(failedZoneCount + " failures");
+        for (i = 0; i < failedTests.length; i++) {
+            logFailedTest.apply(null, failedTests[i]);
+        }
     }
 };
