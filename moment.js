@@ -267,13 +267,17 @@
     // the array should mirror the parameters below
     // note: all values past the year are optional and will default to the lowest possible value.
     // [year, month, day , hour, minute, second, millisecond]
-    function dateFromArray(input, asUTC) {
-        var i, date;
-        for (i = 1; i < 7; i++) {
-            input[i] = (input[i] == null) ? (i === 2 ? 1 : 0) : input[i];
+    function dateFromArray(input, asUTC, hoursOffset, minutesOffset) {
+        var i, date, forValid = [];
+        for (i = 0; i < 7; i++) {
+            forValid[i] = input[i] = (input[i] == null) ? (i === 2 ? 1 : 0) : input[i];
         }
         // we store whether we used utc or not in the input array
-        input[7] = asUTC;
+        input[7] = forValid[7] = asUTC;
+        // add the offsets to the time to be parsed so that we can have a clean array
+        // for checking isValid
+        input[3] += hoursOffset || 0;
+        input[4] += minutesOffset || 0;
         date = new Date(0);
         if (asUTC) {
             date.setUTCFullYear(input[0], input[1], input[2]);
@@ -282,7 +286,7 @@
             date.setFullYear(input[0], input[1], input[2]);
             date.setHours(input[3], input[4], input[5], input[6]);
         }
-        date._a = input;
+        date._a = forValid;
         return date;
     }
 
@@ -547,11 +551,8 @@
         if (config.isPm === false && datePartArray[3] === 12) {
             datePartArray[3] = 0;
         }
-        // handle timezone
-        datePartArray[3] += config.tzh;
-        datePartArray[4] += config.tzm;
         // return
-        return dateFromArray(datePartArray, config.isUTC);
+        return dateFromArray(datePartArray, config.isUTC, config.tzh, config.tzm);
     }
 
     // date from string and array of format strings
@@ -855,7 +856,7 @@
 
         isValid : function () {
             if (this._a) {
-                return !compareArrays(this._a, (this._a[7] ? moment.utc(this) : this).toArray());
+                return !compareArrays(this._a, (this._a[7] ? moment.utc(this._a) : moment(this._a)).toArray());
             }
             return !isNaN(this._d.getTime());
         },
