@@ -38,6 +38,7 @@ module.exports = function (grunt) {
 
                     // reset the timezone like nothing ever happened
                     setTimezone(INITIAL_ZONE, function () {
+                        grunt.log.writeln("Resetting timezone back to " + INITIAL_ZONE);
                         done();
                     });
                 });
