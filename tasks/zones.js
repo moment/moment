@@ -5,176 +5,153 @@ var terminal = require('child_process').spawn('bash'),
 
 
 module.exports = function (grunt) {
-    var ZONES;
+    // placeholder for an array of timezones
+    var ALL_ZONES,
+        INITIAL_ZONE,
 
+        failedZones = [],
+        failedTests = [],
 
-    /******************************
-        Get Timezone
-    ******************************/
+        logTableWidths = [4, 0, 12, 12],
 
-    var currentTimezone = '';
-
-    function getTimezone() {
-        var term = require('child_process').spawn('bash');
-
-        term.stdout.on('data', function (data) {
-            currentTimezone = data.toString().replace('Time Zone: ', '');
-            getTimezoneList();
-        });
-
-        term.stdin.write('systemsetup gettimezone');
-        term.stdin.end();
-
-        done = this.async()
-    }
-
-    function getTimezoneList() {
-        var term = require('child_process').spawn('bash'),
-            data = '';
-
-        term.stdout.on('data', function (d) {
-            data += d;
-        });
-
-        term.stdout.on('end', function () {
-            data = data.replace('Time Zones:', '');
-            ZONES = data.match(/\S+/g);
-            // console.log(ZONES);
-            startTests();
-        });
-
-        term.stdin.write('systemsetup listtimezones');
-        term.stdin.end();
-
-    }
-
-
+        failedZoneCount = 0,
+        passedZoneCount = 0;
 
     /******************************
-        Set Timezone
+        Grunt task
     ******************************/
 
-    var currentTimezone = '';
+    grunt.registerTask('zones', 'Run the unit tests in different timezones.', function () {
+        var done = this.async();
+        getCurrentTimezone(function (zone) {
+            // save the initial timezone so we dont break our computers
+            INITIAL_ZONE = zone;
+            getAllTimezones(function (zones) {
+                // store all the timezones
+                ALL_ZONES = zones;
+                setupLoggingTable();
 
-    function setTimezone() {
-        terminal.stdin.write('systemsetup settimezone ' + currentTimezone);
-        terminal.stdin.end();
+                // start running the tests
+                nextTest(function () {
+                    // log the total output
+                    logFinalOutput();
+
+                    // reset the timezone like nothing ever happened
+                    setTimezone(INITIAL_ZONE, function () {
+                        done();
+                    });
+                });
+            });
+        });
+    });
+
+    /******************************
+        Timezones
+    ******************************/
+
+    function getCurrentTimezone(cb) {
+        grunt.utils.spawn({
+            cmd: "systemsetup",
+            args: ["gettimezone"]
+        }, function (err, result, code) {
+            cb(result.stdout.replace('Time Zone: ', ''));
+        });
     }
 
+    function getAllTimezones(cb) {
+        grunt.utils.spawn({
+            cmd: "systemsetup",
+            args: ["listtimezones"]
+        }, function (err, result, code) {
+            var zones = result.stdout.replace('Time Zones:', '');
+            zones = zones.match(/\S+/g);
+            cb(zones);
+        });
+    }
+
+    function setTimezone(zone, cb) {
+        grunt.utils.spawn({
+            cmd: "systemsetup",
+            args: ["settimezone", zone]
+        }, function (err, result, code) {
+            cb();
+        });
+    }
 
     /******************************
         Tests
     ******************************/
 
-
-    var files = ['test/moment'],
-        paths = files.map(function (p) {
-            return path.join(process.cwd(), p);
-        });
-
-    var globalfailures = '';
-
-    var f = 0;
-    var p = 0;
-
-    var done;
-
-    function errorLog(assertion) {
-        if (!assertion.error) {
-            return assertion;
+    function nextTest(cb) {
+        var zone = ALL_ZONES.pop();
+        if (zone) {
+            setTimezone(zone, function () {
+                testZone(zone, function () {
+                    nextTest(cb);
+                });
+            });
+        } else {
+            cb();
         }
-
-        var e = assertion.error;
-        if (e.actual && e.expected) {
-            var actual = util.inspect(e.actual, false, 10).replace(/\n$/, ''),
-                expected = util.inspect(e.expected, false, 10).replace(/\n$/, ''),
-                multiline = (actual.indexOf('\n') !== -1 || expected.indexOf('\n') !== -1),
-                spacing = (multiline ? '\n' : ' ');
-            e._message = e.message;
-            e.stack = (
-                e.name + ':' + spacing +
-                actual + spacing + e.operator + spacing +
-                expected + '\n' +
-                e.stack.split('\n').slice(1).join('\n')
-            );
-        }
-        return assertion;
     }
 
-    var zone = '',
-        nextZone = '';
-
-    function runTestIfNeeded() {
-        if (zone === nextZone) {
-            return;
-        }
-        nextZone = zone;
-
-        nodeunit.runFiles(paths, {
+    function testZone(zone, cb) {
+        nodeunit.runFiles([path.join(process.cwd(), "test/moment")], {
             testDone: function (name, assertions) {
                 if (assertions.failures()) {
-                    console.log('\nFAILURE: ' + name);
-                    assertions.forEach(function (a) {
-                        if (a.failed()) {
-                            a = errorLog(a);
-                            if (a.error && a.message) {
-                                console.log('Assertion Message: ' + a.message);
-                            }
-                            console.log(a.error.stack);
-                        }
-                    });
+                    logFailedTest(zone, name, assertions);
                 }
             },
             done: function (assertions) {
-                if (assertions.failures()) {
-                    grunt.log.error(zone + ' had ' + assertions.failures() + ' failures');
-                    globalfailures += zone + ' had ' + assertions.failures() + ' failures\n';
-                    f++;
-                } else {
-                    grunt.log.ok(zone + ' passed ' + assertions.length + ' tests');
-                    p++;
-                }
-                nextTest();
+                logZone(zone, assertions);
+                cb();
             }
         });
     }
 
-    function runTest(zoned) {
-        zone = zoned;
-        terminal.stdin.write('systemsetup settimezone ' + zone + '\n');
-    }
+    /******************************
+        Logging
+    ******************************/
 
-    terminal.stdout.on('data', function(d) {
-        setTimeout(runTestIfNeeded, 100);
-    });
-
-
-    var i = 0;
-
-    function startTests() {
-        nextTest();
-        //setTimezone();
-    }
-
-    function nextTest() {
-        if (i < ZONES.length) {
-            runTest(ZONES[i]);
-        } else {
-            console.log("----------------------");
-            console.log("----------------------");
-            console.log(globalfailures);
-            console.log("----------------------");
-            console.log("----------------------");
-            console.log("--- Total Failing " + f);
-            console.log("----------------------");
-            console.log("--- Total Passing " + p);
-            console.log("----------------------");
-            console.log("----------------------");
-            setTimezone();
-            done();
+    function setupLoggingTable() {
+        var i,
+            longestZone = 0;
+        for (i = 0; i < ALL_ZONES.length; i++) {
+            longestZone = Math.max(longestZone, ALL_ZONES[i].length + 2);
         }
-        i++;
+        logTableWidths[1] = longestZone;
+        grunt.log.writetableln(logTableWidths, ['', 'Zone', 'Pass', 'Fail']);
     }
 
-    grunt.registerTask('zones', 'Run the unit tests in different timezones.', getTimezone);
+    function logFailedTest(zone, name, assertions) {
+        grunt.log.error('\nFAILURE: ' + name);
+        assertions.forEach(function (a) {
+            if (a.failed()) {
+                if (a.error && a.message) {
+                    grunt.log.error('Assertion Message: ' + a.message);
+                }
+                grunt.log.error(a.error.stack);
+            }
+        });
+    }
+
+    function logZone(zone, assertions) {
+        var failed = assertions.failures(),
+            passed = assertions.length - failed,
+            status = failed ? "XX".red : "OK".green,
+            passMsg = passed + ' passed',
+            failMsg = failed ? (failed + ' failed').red : failed + ' failed';
+
+        grunt.log.writetableln(logTableWidths, [status, zone, passMsg, failMsg]);
+
+        if (failed) {
+            failedZoneCount++;
+        } else {
+            passedZoneCount++;
+        }
+    }
+
+    function logFinalOutput() {
+
+    }
 };
