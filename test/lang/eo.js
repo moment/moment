@@ -2,7 +2,7 @@ var moment = require("../../moment");
 
 
     /**************************************************
-      English
+      Esperanto
      *************************************************/
 
 exports["lang:eo"] = {
@@ -32,8 +32,8 @@ exports["lang:eo"] = {
         test.expect(18);
         moment.lang('eo');
         var a = [
-                ['dddd, MMMM Do YYYY, h:mm:ss a',      'Dimanĉo, februaro 14a 2010, 3:25:50 pm'],
-                ['ddd, hA',                            'Dim, 3PM'],
+                ['dddd, MMMM Do YYYY, h:mm:ss a',      'Dimanĉo, februaro 14a 2010, 3:25:50 p.t.m.'],
+                ['ddd, hA',                            'Dim, 3P.T.M.'],
                 ['M Mo MM MMMM MMM',                   '2 2a 02 februaro feb'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14a 14'],
@@ -44,12 +44,12 @@ exports["lang:eo"] = {
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
-                ['a A',                                'pm PM'],
+                ['a A',                                'p.t.m. P.T.M.'],
                 ['\\l\\a DDDo t\\ago \\d\\e \\l\\a j\\aro', 'la 45a tago de la jaro'],
                 ['L',                                  '2010-02-14'],
                 ['LL',                                 '14-an de februaro, 2010'],
-                ['LLL',                                '14-an de februaro, 2010 3:25 PM'],
-                ['LLLL',                               'Dimanĉo, la 14-an de februaro, 2010 3:25 PM']
+                ['LLL',                                '14-an de februaro, 2010 15:25'],
+                ['LLLL',                               'Dimanĉo, la 14-an de februaro, 2010 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -187,12 +187,12 @@ exports["lang:eo"] = {
     
         var a = moment().hours(2).minutes(0).seconds(0);
     
-        test.equal(moment(a).calendar(),                     "Hodiaŭ je 2:00 AM",     "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "Hodiaŭ je 2:25 AM",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "Hodiaŭ je 3:00 AM",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "Morgaŭ je 2:00 AM",  "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Hodiaŭ je 1:00 AM",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Hieraŭ je 2:00 AM", "yesterday at the same time");
+        test.equal(moment(a).calendar(),                     "Hodiaŭ je 02:00",     "today at the same time");
+        test.equal(moment(a).add({ m: 25 }).calendar(),      "Hodiaŭ je 02:25",     "Now plus 25 min");
+        test.equal(moment(a).add({ h: 1 }).calendar(),       "Hodiaŭ je 03:00",     "Now plus 1 hour");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "Morgaŭ je 02:00",  "tomorrow at the same time");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Hodiaŭ je 01:00",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Hieraŭ je 02:00", "yesterday at the same time");
         test.done();
     },
 
