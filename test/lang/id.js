@@ -32,20 +32,20 @@ exports["lang:id"] = {
         test.expect(18);
         moment.lang('id');
         var a = [
-                ['dddd, MMMM Do YYYY, h:mm:ss a',      'Minggu, Februari 14th 2010, 3:25:50 sore'],
+                ['dddd, MMMM Do YYYY, h:mm:ss a',      'Minggu, Februari 14 2010, 3:25:50 sore'],
                 ['ddd, hA',                            'Min, 3sore'],
-                ['M Mo MM MMMM MMM',                   '2 2nd 02 Februari Feb'],
+                ['M Mo MM MMMM MMM',                   '2 2 02 Februari Feb'],
                 ['YYYY YY',                            '2010 10'],
-                ['D Do DD',                            '14 14th 14'],
-                ['d do dddd ddd dd',                   '0 0th Minggu Min Mg'],
-                ['DDD DDDo DDDD',                      '45 45th 045'],
-                ['w wo ww',                            '8 8th 08'],
+                ['D Do DD',                            '14 14 14'],
+                ['d do dddd ddd dd',                   '0 0 Minggu Min Mg'],
+                ['DDD DDDo DDDD',                      '45 45 045'],
+                ['w wo ww',                            '8 8 08'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                'sore sore'],
-                ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45th day of the year'],
+                ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45 day of the year'],
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 Februari 2010'],
                 ['LLL',                                '14 Februari 2010 pukul 15.25'],
@@ -56,46 +56,6 @@ exports["lang:id"] = {
         for (i = 0; i < a.length; i++) {
             test.equal(b.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
         }
-        test.done();
-    },
-
-    "format ordinal" : function(test) {
-        test.expect(31);
-        moment.lang('id');
-        test.equal(moment([2011, 0, 1]).format('DDDo'), '1st', '1st');
-        test.equal(moment([2011, 0, 2]).format('DDDo'), '2nd', '2nd');
-        test.equal(moment([2011, 0, 3]).format('DDDo'), '3rd', '3rd');
-        test.equal(moment([2011, 0, 4]).format('DDDo'), '4th', '4th');
-        test.equal(moment([2011, 0, 5]).format('DDDo'), '5th', '5th');
-        test.equal(moment([2011, 0, 6]).format('DDDo'), '6th', '6th');
-        test.equal(moment([2011, 0, 7]).format('DDDo'), '7th', '7th');
-        test.equal(moment([2011, 0, 8]).format('DDDo'), '8th', '8th');
-        test.equal(moment([2011, 0, 9]).format('DDDo'), '9th', '9th');
-        test.equal(moment([2011, 0, 10]).format('DDDo'), '10th', '10th');
-    
-        test.equal(moment([2011, 0, 11]).format('DDDo'), '11th', '11th');
-        test.equal(moment([2011, 0, 12]).format('DDDo'), '12th', '12th');
-        test.equal(moment([2011, 0, 13]).format('DDDo'), '13th', '13th');
-        test.equal(moment([2011, 0, 14]).format('DDDo'), '14th', '14th');
-        test.equal(moment([2011, 0, 15]).format('DDDo'), '15th', '15th');
-        test.equal(moment([2011, 0, 16]).format('DDDo'), '16th', '16th');
-        test.equal(moment([2011, 0, 17]).format('DDDo'), '17th', '17th');
-        test.equal(moment([2011, 0, 18]).format('DDDo'), '18th', '18th');
-        test.equal(moment([2011, 0, 19]).format('DDDo'), '19th', '19th');
-        test.equal(moment([2011, 0, 20]).format('DDDo'), '20th', '20th');
-    
-        test.equal(moment([2011, 0, 21]).format('DDDo'), '21st', '21st');
-        test.equal(moment([2011, 0, 22]).format('DDDo'), '22nd', '22nd');
-        test.equal(moment([2011, 0, 23]).format('DDDo'), '23rd', '23rd');
-        test.equal(moment([2011, 0, 24]).format('DDDo'), '24th', '24th');
-        test.equal(moment([2011, 0, 25]).format('DDDo'), '25th', '25th');
-        test.equal(moment([2011, 0, 26]).format('DDDo'), '26th', '26th');
-        test.equal(moment([2011, 0, 27]).format('DDDo'), '27th', '27th');
-        test.equal(moment([2011, 0, 28]).format('DDDo'), '28th', '28th');
-        test.equal(moment([2011, 0, 29]).format('DDDo'), '29th', '29th');
-        test.equal(moment([2011, 0, 30]).format('DDDo'), '30th', '30th');
-    
-        test.equal(moment([2011, 0, 31]).format('DDDo'), '31st', '31st');
         test.done();
     },
 
