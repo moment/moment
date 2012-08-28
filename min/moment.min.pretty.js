@@ -408,7 +408,7 @@
             return this.startOf(e).add(e.replace(/s?$/, "s"), 1).subtract("ms", 1);
         },
         isSame: function(e, t) {
-            return +this.startOf(t) === +n(e).startOf(t);
+            return +this.clone().startOf(t) === +n(e).startOf(t);
         },
         sod: function() {
             return this.clone().startOf("day");

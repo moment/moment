@@ -982,7 +982,7 @@
         },
 
         isSame: function (input, val) {
-            return +this.startOf(val) === +moment(input).startOf(val);
+            return +this.clone().startOf(val) === +moment(input).startOf(val);
         },
 
         sod: function () {
