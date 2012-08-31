@@ -92,22 +92,13 @@ module.exports = function(grunt) {
     grunt.loadTasks("tasks");
 
     // Default task.
-    grunt.registerTask('default', 'test');
-    grunt.registerTask('release', 'test concat mincomment');
+    grunt.registerTask('default', 'lint test');
 
-    function show_copyright(comments) {
-        var ret = "", i, c;
-        for (i = 0; i < comments.length; ++i) {
-            c = comments[i];
-            if (c.type === "comment1") {
-                ret += "//" + c.value + "\n";
-            } else {
-                ret += "/*" + c.value + "*/";
-            }
-        }
-        return ret;
-    }
+    // Task to be run when releasing a new version
+    grunt.registerTask('release', 'lint test concat mincomment');
 
+    // UglifyJS does not support keeping the first line comments unless using the CLI.
+    // This multi-task ensures that the first comments are kept.
     grunt.registerMultiTask('mincomment', 'Minify files with UglifyJS. (with comments)', function () {
         var files = grunt.file.expandFiles(this.file.src),
             max, min,
@@ -134,4 +125,18 @@ module.exports = function(grunt) {
         // ...and report some size information.
         grunt.helper('min_max_info', min, max);
     });
+
+    // Helper for the 'mincomment' multitask
+    function show_copyright(comments) {
+        var ret = "", i, c;
+        for (i = 0; i < comments.length; ++i) {
+            c = comments[i];
+            if (c.type === "comment1") {
+                ret += "//" + c.value + "\n";
+            } else {
+                ret += "/*" + c.value + "*/";
+            }
+        }
+        return ret;
+    }
 };
