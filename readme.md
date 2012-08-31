@@ -3,11 +3,9 @@
 
 A lightweight javascript date library for parsing, validating, manipulating, and formatting dates.
 
-### [Check out the website](http://momentjs.com)
+### [Read the docs](http://momentjs.com/docs/)
 
-### [Read the documentation](http://momentjs.com/docs/)
-
-### [Run the unit tests](http://momentjs.com/test/)
+### [Run the tests](http://momentjs.com/test/)
 
 
 Upgrading to 1.6.0
@@ -25,17 +23,17 @@ There are a few things being deprecated in the 1.6.0 release.
 Contributing
 ============
 
-To contribute, fork the library and install these npm packages.
+To contribute, fork the library and install grunt.
 
-    npm install jshint uglify-js nodeunit
+    npm install grunt -g
 
 You can add tests to the files in `/test/moment` or add a new test file if you are adding a new feature.
 
-To run the tests, do `make test` to run all tests, `make test-moment` to test the core library, and `make test-lang` to test all the languages.
+To run the tests, do `grunt test` to run all tests.
 
-To check the filesize, you can use `make size`.
+To check the filesize, you can use `grunt size`.
 
-To minify all the files, use `make moment` to minify moment, `make langs` to minify all the lang files, or just `make` to minfy everything.
+To minify all the files, use `grunt release`.
 
 If your code passes the unit tests (including the ones you wrote), submit a pull request.
 
@@ -162,11 +160,11 @@ Added _date.lang() support.
 Added support for passing multiple formats to try to parse a date. _date("07-10-1986", ["MM-DD-YYYY", "YYYY-MM-DD"]);
 Made parse from string and single format 25% faster.
 
-### 0.5.2 
+### 0.5.2
 
 Buxfix for [issue 8](https://github.com/timrwood/underscore.date/pull/8) and [issue 9](https://github.com/timrwood/underscore.date/pull/9).
 
-### 0.5.1 
+### 0.5.1
 
 Buxfix for [issue 5](https://github.com/timrwood/underscore.date/pull/5).
 
@@ -177,11 +175,11 @@ Removed `_date.now()`, as it is a duplicate of `_date()` with no parameters.
 Removed `_date.isLeapYear(yearNuumber)`. Use `_date([yearNumber]).isLeapYear()` instead.
 Exposed customization options through the `_date.relativeTime`, `_date.weekdays`, `_date.weekdaysShort`, `_date.months`, `_date.monthsShort`, and `_date.ordinal` variables instead of the `_date.customize()` function.
 
-### 0.4.1 
+### 0.4.1
 
 Added date input formats for input strings.
 
-### 0.4.0 
+### 0.4.0
 
 Added underscore.date to npm. Removed dependancies on underscore.
 
@@ -191,7 +189,7 @@ Added `'z'` and `'zz'` to `_.date().format()`. Cleaned up some redundant code to
 
 ### 0.3.1
 
-Cleaned up the namespace. Moved all date manipulation and display functions to the _.date() object. 
+Cleaned up the namespace. Moved all date manipulation and display functions to the _.date() object.
 
 ### 0.3.0
 
