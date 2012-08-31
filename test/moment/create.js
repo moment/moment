@@ -300,20 +300,32 @@ exports.create = {
     },
 
     "first century" : function(test) {
-        test.expect(6);
+        test.expect(9);
         test.equal(moment([0, 0, 1]).format("YYYY-MM-DD"), "0000-01-01", "Year AD 0");
         test.equal(moment([99, 0, 1]).format("YYYY-MM-DD"), "0099-01-01", "Year AD 99");
         test.equal(moment([999, 0, 1]).format("YYYY-MM-DD"), "0999-01-01", "Year AD 999");
         test.equal(moment('0 1 1', 'YYYY MM DD').format("YYYY-MM-DD"), "0000-01-01", "Year AD 0");
         test.equal(moment('99 1 1', 'YYYY MM DD').format("YYYY-MM-DD"), "0099-01-01", "Year AD 99");
         test.equal(moment('999 1 1', 'YYYY MM DD').format("YYYY-MM-DD"), "0999-01-01", "Year AD 999");
+        test.equal(moment('0 1 1', 'YYYYY MM DD').format("YYYYY-MM-DD"), "00000-01-01", "Year AD 0");
+        test.equal(moment('99 1 1', 'YYYYY MM DD').format("YYYYY-MM-DD"), "00099-01-01", "Year AD 99");
+        test.equal(moment('999 1 1', 'YYYYY MM DD').format("YYYYY-MM-DD"), "00999-01-01", "Year AD 999");
         test.done();
     },
 
     "six digit years" : function(test) {
-        test.expect(2);
-        test.equal(moment([-270000, 0, 1]).format("YYYY-MM-DD"), "-270000-01-01", "format BC 270,000");
-        test.equal(moment([ 270000, 0, 1]).format("YYYY-MM-DD"), "270000-01-01", "format AD 270,000");
+        test.expect(5);
+        test.equal(moment([-270000, 0, 1]).format("YYYYY-MM-DD"), "-270000-01-01", "format BC 270,001");
+        test.equal(moment([ 270000, 0, 1]).format("YYYYY-MM-DD"), "270000-01-01", "format AD 270,000");
+        test.equal(moment("-270000-01-01", "YYYYY-MM-DD").toDate().getUTCFullYear(), -270000, "parse BC 270,001");
+        test.equal(moment("270000-01-01",  "YYYYY-MM-DD").toDate().getUTCFullYear(), 270000, "parse AD 270,000");
+        test.equal(moment("+270000-01-01", "YYYYY-MM-DD").toDate().getUTCFullYear(), 270000, "parse AD +270,000");
+        test.done();
+    },
+
+    "negative four digit years" : function(test) {
+        test.expect(1);
+        test.equal(moment("-1000-01-01", "YYYYY-MM-DD").toDate().getUTCFullYear(), -1000, "parse BC 1,001");
         test.done();
     }
 };
