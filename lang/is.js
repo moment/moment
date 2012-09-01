@@ -3,13 +3,12 @@
 // author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 (function () {
     var plural = function (n) {
-        if (n % 100 == 11) {
+        if (n % 100 === 11) {
             return true;
-        } else if (n % 10 == 1) {
+        } else if (n % 10 === 1) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     },
 
     translate = function (number, withoutSuffix, key, isFuture) {
@@ -24,59 +23,50 @@
                 return result + (withoutSuffix || isFuture ? 'mínútur' : 'mínútum');
             } else if (withoutSuffix) {
                 return result + 'mínúta';
-            } else {
-                return result + 'mínútu';
             }
+            return result + 'mínútu';
         case 'hh':
             if (plural(number)) {
                 return result + (withoutSuffix || isFuture ? 'klukkustundir' : 'klukkustundum');
-            } else {
-                return result + 'klukkustund';
             }
+            return result + 'klukkustund';
         case 'd':
             if (withoutSuffix) {
-                return 'dagur'
-            } else {
-                return isFuture ? 'dag' : 'degi';
+                return 'dagur';
             }
+            return isFuture ? 'dag' : 'degi';
         case 'dd':
             if (plural(number)) {
                 if (withoutSuffix) {
-                    return result + 'dagar'
-                } else {
-                    return result + (isFuture ? 'daga' : 'dögum');
+                    return result + 'dagar';
                 }
+                return result + (isFuture ? 'daga' : 'dögum');
             } else if (withoutSuffix) {
-                return result + 'dagur'
-            } else {
-                return result + (isFuture ? 'dag' : 'degi');
+                return result + 'dagur';
             }
+            return result + (isFuture ? 'dag' : 'degi');
         case 'M':
             if (withoutSuffix) {
-                return 'mánuður'
-            } else {
-                return isFuture ? 'mánuð' : 'mánuði';
+                return 'mánuður';
             }
+            return isFuture ? 'mánuð' : 'mánuði';
         case 'MM':
             if (plural(number)) {
                 if (withoutSuffix) {
-                    return result + 'mánuðir'
-                } else {
-                    return result + (isFuture ? 'mánuði' : 'mánuðum');
+                    return result + 'mánuðir';
                 }
+                return result + (isFuture ? 'mánuði' : 'mánuðum');
             } else if (withoutSuffix) {
                 return result + 'mánuður';
-            } else {
-                return result + (isFuture ? 'mánuð' : 'mánuði');
             }
+            return result + (isFuture ? 'mánuð' : 'mánuði');
         case 'y':
             return withoutSuffix || isFuture ? 'ár' : 'ári';
         case 'yy':
             if (plural(number)) {
                 return result + (withoutSuffix || isFuture ? 'ár' : 'árum');
-            } else {
-                return result + (withoutSuffix || isFuture ? 'ár' : 'ári');
             }
+            return result + (withoutSuffix || isFuture ? 'ár' : 'ári');
         }
     },
 

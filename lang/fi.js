@@ -2,10 +2,10 @@
 // language : finnish (fi)
 // author : Tarmo Aidantausta : https://github.com/bleadof
 (function () {
-    var numbers_past = ['nolla', 'yksi', 'kaksi', 'kolme', 'neljä', 'viisi',
-                        'kuusi', 'seitsemän', 'kahdeksan', 'yhdeksän'];
-    var numbers_future = ['nolla', 'yhden', 'kahden', 'kolmen', 'neljän', 'viiden',
-                          'kuuden', numbers_past[7], numbers_past[8], numbers_past[9]];
+    var numbers_past = 'nolla yksi kaksi kolme neljä viisi kuusi seitsemän kahdeksan yhdeksän'.split(' '),
+        numbers_future = ['nolla', 'yhden', 'kahden', 'kolmen', 'neljän', 'viiden', 'kuuden',
+                          numbers_past[7], numbers_past[8], numbers_past[9]],
+        lang;
 
     function translate(number, withoutSuffix, key, isFuture) {
         var result = "";
@@ -46,46 +46,46 @@
         return number < 10 ? (isFuture ? numbers_future[number] : numbers_past[number]) : number;
     }
 
-    var lang = {
-            months : "tammikuu_helmikuu_maaliskuu_huhtikuu_toukokuu_kesäkuu_heinäkuu_elokuu_syyskuu_lokakuu_marraskuu_joulukuu".split("_"),
-            monthsShort : "tam_hel_maa_huh_tou_kes_hei_elo_syy_lok_mar_jou".split("_"),
-            weekdays : "sunnuntai_maanantai_tiistai_keskiviikko_torstai_perjantai_lauantai".split("_"),
-            weekdaysShort : "su_ma_ti_ke_to_pe_la".split("_"),
-            weekdaysMin : "su_ma_ti_ke_to_pe_la".split("_"),
-            longDateFormat : {
-                LT : "HH.mm",
-                L : "DD.MM.YYYY",
-                LL : "Do MMMMt\\a YYYY",
-                LLL : "Do MMMMt\\a YYYY, klo LT",
-                LLLL : "dddd, Do MMMMt\\a YYYY, klo LT"
-            },
-            calendar : {
-                sameDay : '[tänään] [klo] LT',
-                nextDay : '[huomenna] [klo] LT',
-                nextWeek : 'dddd [klo] LT',
-                lastDay : '[eilen] [klo] LT',
-                lastWeek : '[viime] dddd[na] [klo] LT',
-                sameElse : 'L'
-            },
-            relativeTime : {
-                future : "%s päästä",
-                past : "%s sitten",
-                s : translate,
-                m : translate,
-                mm : translate,
-                h : translate,
-                hh : translate,
-                d : translate,
-                dd : translate,
-                M : translate,
-                MM : translate,
-                y : translate,
-                yy : translate
-            },
-            ordinal : function (number) {
-                return ".";
-            }
-        };
+    lang = {
+        months : "tammikuu_helmikuu_maaliskuu_huhtikuu_toukokuu_kesäkuu_heinäkuu_elokuu_syyskuu_lokakuu_marraskuu_joulukuu".split("_"),
+        monthsShort : "tam_hel_maa_huh_tou_kes_hei_elo_syy_lok_mar_jou".split("_"),
+        weekdays : "sunnuntai_maanantai_tiistai_keskiviikko_torstai_perjantai_lauantai".split("_"),
+        weekdaysShort : "su_ma_ti_ke_to_pe_la".split("_"),
+        weekdaysMin : "su_ma_ti_ke_to_pe_la".split("_"),
+        longDateFormat : {
+            LT : "HH.mm",
+            L : "DD.MM.YYYY",
+            LL : "Do MMMMt\\a YYYY",
+            LLL : "Do MMMMt\\a YYYY, klo LT",
+            LLLL : "dddd, Do MMMMt\\a YYYY, klo LT"
+        },
+        calendar : {
+            sameDay : '[tänään] [klo] LT',
+            nextDay : '[huomenna] [klo] LT',
+            nextWeek : 'dddd [klo] LT',
+            lastDay : '[eilen] [klo] LT',
+            lastWeek : '[viime] dddd[na] [klo] LT',
+            sameElse : 'L'
+        },
+        relativeTime : {
+            future : "%s päästä",
+            past : "%s sitten",
+            s : translate,
+            m : translate,
+            mm : translate,
+            h : translate,
+            hh : translate,
+            d : translate,
+            dd : translate,
+            M : translate,
+            MM : translate,
+            y : translate,
+            yy : translate
+        },
+        ordinal : function (number) {
+            return ".";
+        }
+    };
 
     // Node
     if (typeof module !== 'undefined' && module.exports) {
