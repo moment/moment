@@ -3,16 +3,8 @@
 // author : Henry Kehlmann : https://github.com/madhenry
 (function () {
 
-    function translate(number, withoutSuffix, key, isFuture) {
-        var num = number;
-        
-        switch (key) {
-            case 's':
-                return (isFuture || withoutSuffix) ? 'paari sekundi' : 'paar sekundit';
-            default:
-        }
-        
-        return '';
+    function translateSeconds(number, withoutSuffix, key, isFuture) {
+        return (isFuture || withoutSuffix) ? 'paari sekundi' : 'paar sekundit';
     }
 
     var lang = {
@@ -33,13 +25,13 @@
                 nextDay  : '[Homme,] LT',
                 nextWeek : '[Järgmine] dddd LT',
                 lastDay  : '[Eile,] LT',
-                lastWeek : '[Eelmine] dddd LT', 
+                lastWeek : '[Eelmine] dddd LT',
                 sameElse : 'L'
             },
             relativeTime : {
                 future : "%s pärast",
                 past   : "%s tagasi",
-                s      : translate,
+                s      : translateSeconds,
                 m      : "minut",
                 mm     : "%d minutit",
                 h      : "tund",
