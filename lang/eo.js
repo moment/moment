@@ -11,11 +11,18 @@
             weekdaysShort : "Dim_Lun_Mard_Merk_Ĵaŭ_Ven_Sab".split("_"),
             weekdaysMin : "Di_Lu_Ma_Me_Ĵa_Ve_Sa".split("_"),
             longDateFormat : {
-                LT : "h:mm A",
+                LT : "HH:mm",
                 L : "YYYY-MM-DD",
                 LL : "D-\\an \\de MMMM, YYYY",
                 LLL : "D-\\an \\de MMMM, YYYY LT",
                 LLLL : "dddd, \\l\\a D-\\an \\d\\e MMMM, YYYY LT"
+            },
+            meridiem : function (hours, minutes, isLower) {
+                if (hours > 11) {
+                    return isLower ? 'p.t.m.' : 'P.T.M.';
+                } else {
+                    return isLower ? 'a.t.m.' : 'A.T.M.';
+                }
             },
             calendar : {
                 sameDay : '[Hodiaŭ je] LT',
