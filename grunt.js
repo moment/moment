@@ -80,6 +80,7 @@ module.exports = function(grunt) {
             test : {
                 files : [
                     'moment.js',
+                    'lang/*.js',
                     'test/**/*.js'
                 ],
                 tasks: 'test'
