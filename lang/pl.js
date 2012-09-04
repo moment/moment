@@ -42,7 +42,14 @@
             nextDay: '[Jutro o] LT',
             nextWeek: '[W] dddd [o] LT',
             lastDay: '[Wczoraj o] LT',
-            lastWeek: '[W zeszły/łą] dddd [o] LT',
+            lastWeek: function () {
+                switch (this.day()) {
+                    case 0: return '[W zeszłą niedzielę o] LT'; break;
+                    case 3: return '[W zeszłą środę o] LT'; break;
+                    case 6: return '[W zeszłą sobotę o] LT'; break;
+                    default: return '[W zeszły] dddd [o] LT'; 
+                }
+            },
             sameElse: 'L'
         },
         relativeTime : {
