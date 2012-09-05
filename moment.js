@@ -1048,10 +1048,15 @@
         humanize : function (withSuffix) {
             var difference = +this,
                 rel = this.lang().relativeTime,
-                output = relativeTime(difference, !withSuffix, this.lang());
+                output = relativeTime(difference, !withSuffix, this.lang()),
+                fromNow = difference <= 0 ? rel.past : rel.future;
 
             if (withSuffix) {
-                output = (difference <= 0 ? rel.past : rel.future).replace(/%s/i, output);
+                if (typeof fromNow === 'function') {
+                    output = fromNow(output);
+                } else {
+                    output = fromNow.replace(/%s/i, output);
+                }
             }
 
             return output;
