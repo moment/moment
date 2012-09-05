@@ -141,7 +141,6 @@
         this._d = date;
         this._isUTC = !!isUTC;
         this._a = date._a || null;
-        date._a = null;
         this._lang = lang || false;
     }
 
