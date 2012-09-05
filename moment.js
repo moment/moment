@@ -46,7 +46,7 @@
         parseTokenTimezone = /Z|[\+\-]\d\d:?\d\d/i, // +00:00 -00:00 +0000 -0000 or Z
         parseTokenT = /T/i, // T (ISO seperator)
 
-        // preliminary iso regex 
+        // preliminary iso regex
         // 0000-00-00 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000
         isoRegex = /^\s*\d{4}-\d\d-\d\d(T(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?/,
         isoFormat = 'YYYY-MM-DDTHH:mm:ssZ',
@@ -148,7 +148,7 @@
     function Duration(duration) {
         var data = this._data = {},
             years = duration.years || duration.y || 0,
-            months = duration.months || duration.M || 0, 
+            months = duration.months || duration.M || 0,
             weeks = duration.weeks || duration.w || 0,
             days = duration.days || duration.d || 0,
             hours = duration.hours || duration.h || 0,
@@ -170,7 +170,7 @@
         // it separately.
         this._months = months +
             years * 12;
-            
+
         // The following code bubbles up values, see the tests for
         // examples of what that means.
         data.milliseconds = milliseconds % 1000;
@@ -187,7 +187,7 @@
 
         days += weeks * 7;
         data.days = days % 30;
-        
+
         months += absRound(days / 30);
 
         data.months = months % 12;
@@ -300,7 +300,7 @@
         if (!values && hasModule) {
             values = require('./lang/' + key);
         }
-        
+
         for (i = 0; i < langConfigProperties.length; i++) {
             // If a language definition does not provide a value, inherit
             // from English
@@ -310,13 +310,13 @@
 
         for (i = 0; i < 12; i++) {
             m = moment([2000, i]);
-            parse[i] = new RegExp('^' + (values.months[i] || values.months(m, '')) + 
+            parse[i] = new RegExp('^' + (values.months[i] || values.months(m, '')) +
                 '|^' + (values.monthsShort[i] || values.monthsShort(m, '')).replace('.', ''), 'i');
         }
         values.monthsParse = values.monthsParse || parse;
 
         languages[key] = values;
-        
+
         return values;
     }
 
@@ -344,7 +344,7 @@
 
     // helper for building inline formatting functions
     function replaceFormatTokens(token) {
-        return formatFunctionStrings[token] ? 
+        return formatFunctionStrings[token] ?
             ("'+(" + formatFunctionStrings[token] + ")+'") :
             token.replace(formattingRemoveEscapes, "").replace(/\\?'/g, "\\'");
     }
@@ -586,7 +586,7 @@
                     break;
                 }
             }
-            return parseTokenTimezone.exec(string) ? 
+            return parseTokenTimezone.exec(string) ?
                 makeDateFromStringAndFormat(string, format + ' Z') :
                 makeDateFromStringAndFormat(string, format);
         }
@@ -936,7 +936,7 @@
         },
 
         isDST : function () {
-            return (this.zone() < moment([this.year()]).zone() || 
+            return (this.zone() < moment([this.year()]).zone() ||
                 this.zone() < moment([this.year(), 5]).zone());
         },
 
@@ -975,7 +975,7 @@
         endOf: function (val) {
             return this.startOf(val).add(val.replace(/s?$/, 's'), 1).subtract('ms', 1);
         },
-        
+
         sod: function () {
             return this.clone().startOf('day');
         },
