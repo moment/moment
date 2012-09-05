@@ -539,8 +539,10 @@
 
         for (i = 0; i < tokens.length; i++) {
             parsedInput = (getParseRegexForToken(tokens[i]).exec(string) || [])[0];
-            string = string.replace(getParseRegexForToken(tokens[i]), '');
-            addTimeToArrayFromToken(tokens[i], parsedInput, datePartArray, config);
+            if (parsedInput) {
+                string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
+                addTimeToArrayFromToken(tokens[i], parsedInput, datePartArray, config);
+            }
         }
         // handle am pm
         if (config.isPm && datePartArray[3] < 12) {
