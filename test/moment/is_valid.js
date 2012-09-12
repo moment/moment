@@ -73,6 +73,25 @@ exports.is_valid = {
         test.done();
     },
 
+    "string nonsensical with format" : function (test) {
+        test.expect(2);
+
+        test.equal(moment('fail', "MM-DD-YYYY").isValid(), false, 'string "fail" with format "MM-DD-YYYY"');
+        test.equal(moment("xx-xx-2001", 'DD-MM-YYY').isValid(), false, 'string "xx-xx-2001" with format "MM-DD-YYYY"');
+        test.done();
+    },
+
+    "string with bad month name" : function (test) {
+        test.expect(2);
+
+        moment.lang('en');
+
+        test.equal(moment('01-Nam-2012', 'DD-MMM-YYYY').isValid(), false, '"Nam" is an invalid month');
+        test.equal(moment('01-Aug-2012', 'DD-MMM-YYYY').isValid(), true, '"Aug" is a valid month');
+
+        test.done();
+    },
+
     "invalid string iso 8601" : function (test) {
 
         var tests = [

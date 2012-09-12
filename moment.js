@@ -273,6 +273,10 @@
         }
         // we store whether we used utc or not in the input array
         input[7] = forValid[7] = asUTC;
+        // if the parser flagged the input as invalid, we pass the value along
+        if (input[8] != null) {
+            forValid[8] = input[8];
+        }
         // add the offsets to the time to be parsed so that we can have a clean array
         // for checking isValid
         input[3] += hoursOffset || 0;
@@ -445,8 +449,8 @@
 
     // function to convert string input to date
     function addTimeToArrayFromToken(token, input, datePartArray, config) {
-        var a;
-        //console.log('addTime', format, input);
+        var a, b;
+
         switch (token) {
         // MONTH
         case 'M' : // fall through to MM
@@ -458,8 +462,13 @@
             for (a = 0; a < 12; a++) {
                 if (getLangDefinition().monthsParse[a].test(input)) {
                     datePartArray[1] = a;
+                    b = true;
                     break;
                 }
+            }
+            // if we didn't find a month name, mark the date as invalid.
+            if (!b) {
+                datePartArray[8] = false;
             }
             break;
         // DAY OF MONTH
@@ -473,8 +482,7 @@
             break;
         // YEAR
         case 'YY' :
-            input = ~~input;
-            datePartArray[0] = input + (input > 70 ? 1900 : 2000);
+            datePartArray[0] = ~~input + (~~input > 70 ? 1900 : 2000);
             break;
         case 'YYYY' :
             datePartArray[0] = ~~Math.abs(input);
@@ -525,10 +533,19 @@
             }
             break;
         }
+
+        // if the input is null, the date is not valid
+        if (input == null) {
+            datePartArray[8] = false;
+        }
     }
 
     // date from string and format string
     function makeDateFromStringAndFormat(string, format) {
+        // This array is used to make a Date, either with `new Date` or `Date.UTC`
+        // We store some additional data on the array for validation
+        // datePartArray[7] is true if the Date was created with `Date.UTC` and false if created with `new Date`
+        // datePartArray[8] is false if the Date is invalid, and undefined if the validity is unknown.
         var datePartArray = [0, 0, 1, 0, 0, 0, 0],
             config = {
                 tzh : 0, // timezone hour offset
@@ -542,6 +559,8 @@
             if (parsedInput) {
                 string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
                 addTimeToArrayFromToken(tokens[i], parsedInput, datePartArray, config);
+            } else {
+                addTimeToArrayFromToken(tokens[i], null, datePartArray, config);
             }
         }
         // handle am pm
@@ -857,6 +876,11 @@
 
         isValid : function () {
             if (this._a) {
+                // if the parser finds that the input is invalid, it sets
+                // the eighth item in the input array to false.
+                if (this._a[8] != null) {
+                    return !!this._a[8];
+                }
                 return !compareArrays(this._a, (this._a[7] ? moment.utc(this._a) : moment(this._a)).toArray());
             }
             return !isNaN(this._d.getTime());
