@@ -1,3 +1,8 @@
+Submitting Issues
+=================
+
+If you are submitting a bug with moment, please create a [jsfiddle](http://jsfiddle.net/) demonstrating the issue.
+
 Contributing
 ============
 
