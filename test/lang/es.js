@@ -9,7 +9,7 @@ exports["lang:es"] = {
     "parse" : function(test) {
         test.expect(96);
         moment.lang('es');
-        var tests = 'Enero Ene._Febrero Feb._Marzo Mar._Abril Abr._Mayo May._Junio Jun._Julio Jul._Agosto Ago._Septiembre Sep._Octubre Oct._Noviembre Nov._Diciembre Dic.'.split("_");
+        var tests = 'enero ene._febrero feb._marzo mar._abril abr._mayo may._junio jun._julio jul._agosto ago._septiembre sep._octubre oct._noviembre nov._diciembre dic.'.split("_");
         var i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
@@ -24,6 +24,37 @@ exports["lang:es"] = {
             equalTest(tests[i][1].toLocaleLowerCase(), 'MMMM', i);
             equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
             equalTest(tests[i][1].toLocaleUpperCase(), 'MMMM', i);
+        }
+        test.done();
+    },
+
+    "format" : function(test) {
+        test.expect(18);
+        moment.lang('es');
+        var a = [
+                ['dddd, MMMM Do YYYY, h:mm:ss a',      'domingo, febrero 14º 2010, 3:25:50 pm'],
+                ['ddd, hA',                            'dom., 3PM'],
+                ['M Mo MM MMMM MMM',                   '2 2º 02 febrero feb.'],
+                ['YYYY YY',                            '2010 10'],
+                ['D Do DD',                            '14 14º 14'],
+                ['d do dddd ddd dd',                   '0 0º domingo dom. Do'],
+                ['DDD DDDo DDDD',                      '45 45º 045'],
+                ['w wo ww',                            '8 8º 08'],
+                ['h hh',                               '3 03'],
+                ['H HH',                               '15 15'],
+                ['m mm',                               '25 25'],
+                ['s ss',                               '50 50'],
+                ['a A',                                'pm PM'],
+                ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45º day of the year'],
+                ['L',                                  '14/02/2010'],
+                ['LL',                                 '14 de febrero de 2010'],
+                ['LLL',                                '14 de febrero de 2010 15:25'],
+                ['LLLL',                               'domingo, 14 de febrero de 2010 15:25']
+            ],
+            b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
+            i;
+        for (i = 0; i < a.length; i++) {
+            test.equal(b.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
         }
         test.done();
     },
@@ -71,7 +102,7 @@ exports["lang:es"] = {
     "format month" : function(test) {
         test.expect(12);
         moment.lang('es');
-        var expected = 'Enero Ene._Febrero Feb._Marzo Mar._Abril Abr._Mayo May._Junio Jun._Julio Jul._Agosto Ago._Septiembre Sep._Octubre Oct._Noviembre Nov._Diciembre Dic.'.split("_");
+        var expected = 'enero ene._febrero feb._marzo mar._abril abr._mayo may._junio jun._julio jul._agosto ago._septiembre sep._octubre oct._noviembre nov._diciembre dic.'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
@@ -82,7 +113,7 @@ exports["lang:es"] = {
     "format week" : function(test) {
         test.expect(7);
         moment.lang('es');
-        var expected = 'Domingo Dom. Do_Lunes Lun. Lu_Martes Mar. Ma_Miércoles Mié. Mi_Jueves Jue. Ju_Viernes Vie. Vi_Sábado Sáb. Sá'.split("_");
+        var expected = 'domingo dom. Do_lunes lun. Lu_martes mar. Ma_miércoles mié. Mi_jueves jue. Ju_viernes vie. Vi_sábado sáb. Sá'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
