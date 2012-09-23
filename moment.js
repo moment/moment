@@ -853,6 +853,10 @@
             ];
         },
 
+        toJSON : function () {
+            return this._d.toJSON();
+        },
+
         isValid : function () {
             if (this._a) {
                 return !compareArrays(this._a, (this._a[7] ? moment.utc(this) : this).toArray());
