@@ -81,7 +81,7 @@ exports.create = {
     "string with format dropped am/pm bug" : function(test) {
         moment.lang('en');
         test.expect(3);
-        
+
         test.equal(moment('05/1/2012', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
         test.equal(moment('05/1/2012 12:25:00 am', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
         test.equal(moment('05/1/2012 12:25:00 pm', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
@@ -91,11 +91,11 @@ exports.create = {
 
     "empty string with formats" : function(test) {
         test.expect(3);
-        
+
         test.equal(moment(' ', 'MM').format('YYYY-MM-DD HH:mm:ss'), '0000-01-01 00:00:00', 'should not break if input is an empty string');
         test.equal(moment(' ', 'DD').format('YYYY-MM-DD HH:mm:ss'), '0000-01-01 00:00:00', 'should not break if input is an empty string');
         test.equal(moment(' ', ['MM', "DD"]).format('YYYY-MM-DD HH:mm:ss'), '0000-01-01 00:00:00', 'should not break if input is an empty string');
-        
+
         test.done();
     },
 
@@ -132,7 +132,7 @@ exports.create = {
                 ['HH:mm:ss SSS',        '00:30:00 789']
             ],
             i;
-        
+
         test.expect(a.length);
         for (i = 0; i < a.length; i++) {
             test.equal(moment(a[i][1], a[i][0]).format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
@@ -153,7 +153,7 @@ exports.create = {
         for (i = 0; i < a.length; i++) {
             test.equal(moment(a[i][1], a[i][0]).format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
         }
-        
+
         test.done();
     },
 
@@ -287,7 +287,7 @@ exports.create = {
         var m = moment('2011-10-08T18:04:20.111Z');
 
         test.equal(m.utc().format('YYYY-MM-DDTHH:mm:ss.SSS'), '2011-10-08T18:04:20.111', "moment should be able to parse ISO 2011-10-08T18:04:20.111Z");
-        
+
         test.done();
     },
 
@@ -300,20 +300,36 @@ exports.create = {
     },
 
     "first century" : function(test) {
-        test.expect(6);
+        test.expect(9);
         test.equal(moment([0, 0, 1]).format("YYYY-MM-DD"), "0000-01-01", "Year AD 0");
         test.equal(moment([99, 0, 1]).format("YYYY-MM-DD"), "0099-01-01", "Year AD 99");
         test.equal(moment([999, 0, 1]).format("YYYY-MM-DD"), "0999-01-01", "Year AD 999");
         test.equal(moment('0 1 1', 'YYYY MM DD').format("YYYY-MM-DD"), "0000-01-01", "Year AD 0");
         test.equal(moment('99 1 1', 'YYYY MM DD').format("YYYY-MM-DD"), "0099-01-01", "Year AD 99");
         test.equal(moment('999 1 1', 'YYYY MM DD').format("YYYY-MM-DD"), "0999-01-01", "Year AD 999");
+        test.equal(moment('0 1 1', 'YYYYY MM DD').format("YYYYY-MM-DD"), "00000-01-01", "Year AD 0");
+        test.equal(moment('99 1 1', 'YYYYY MM DD').format("YYYYY-MM-DD"), "00099-01-01", "Year AD 99");
+        test.equal(moment('999 1 1', 'YYYYY MM DD').format("YYYYY-MM-DD"), "00999-01-01", "Year AD 999");
         test.done();
     },
 
     "six digit years" : function(test) {
+        test.expect(8);
+        test.equal(moment([-270000, 0, 1]).format("YYYYY-MM-DD"), "-270000-01-01", "format BC 270,001");
+        test.equal(moment([ 270000, 0, 1]).format("YYYYY-MM-DD"), "270000-01-01", "format AD 270,000");
+        test.equal(moment("-270000-01-01", "YYYYY-MM-DD").toDate().getFullYear(), -270000, "parse BC 270,001");
+        test.equal(moment("270000-01-01",  "YYYYY-MM-DD").toDate().getFullYear(), 270000, "parse AD 270,000");
+        test.equal(moment("+270000-01-01", "YYYYY-MM-DD").toDate().getFullYear(), 270000, "parse AD +270,000");
+        test.equal(moment.utc("-270000-01-01", "YYYYY-MM-DD").toDate().getUTCFullYear(), -270000, "parse utc BC 270,001");
+        test.equal(moment.utc("270000-01-01",  "YYYYY-MM-DD").toDate().getUTCFullYear(), 270000, "parse utc AD 270,000");
+        test.equal(moment.utc("+270000-01-01", "YYYYY-MM-DD").toDate().getUTCFullYear(), 270000, "parse utc AD +270,000");
+        test.done();
+    },
+
+    "negative four digit years" : function(test) {
         test.expect(2);
-        test.equal(moment([-270000, 0, 1]).format("YYYY-MM-DD"), "-270000-01-01", "format BC 270,000");
-        test.equal(moment([ 270000, 0, 1]).format("YYYY-MM-DD"), "270000-01-01", "format AD 270,000");
+        test.equal(moment("-1000-01-01", "YYYYY-MM-DD").toDate().getFullYear(), -1000, "parse BC 1,001");
+        test.equal(moment.utc("-1000-01-01", "YYYYY-MM-DD").toDate().getUTCFullYear(), -1000, "parse utc BC 1,001");
         test.done();
     }
 };

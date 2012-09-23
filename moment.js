@@ -30,9 +30,8 @@
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
 
         // format tokens
-        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?)/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|YYYYY|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|.)/g,
         localFormattingTokens = /(LT|LL?L?L?)/g,
-        formattingRemoveEscapes = /(^\[)|(\\)|\]$/g,
 
         // parsing tokens
         parseMultipleFormatChunker = /([0-9a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)/gi,
@@ -42,11 +41,12 @@
         parseTokenOneToThreeDigits = /\d{1,3}/, // 0 - 999
         parseTokenThreeDigits = /\d{3}/, // 000 - 999
         parseTokenFourDigits = /\d{1,4}/, // 0 - 9999
+        parseTokenSixDigits = /[+\-]?\d{1,6}/, // -999,999 - 999,999
         parseTokenWord = /[0-9a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+/i, // any word characters or numbers
         parseTokenTimezone = /Z|[\+\-]\d\d:?\d\d/i, // +00:00 -00:00 +0000 -0000 or Z
         parseTokenT = /T/i, // T (ISO seperator)
 
-        // preliminary iso regex 
+        // preliminary iso regex
         // 0000-00-00 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000
         isoRegex = /^\s*\d{4}-\d\d-\d\d(T(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?/,
         isoFormat = 'YYYY-MM-DDTHH:mm:ssZ',
@@ -77,58 +77,127 @@
         // format function strings
         formatFunctions = {},
 
-        /*
-         * moment.fn.format uses new Function() to create an inlined formatting function.
-         * Results are a 3x speed boost
-         * http://jsperf.com/momentjs-cached-format-functions
-         *
-         * These strings are appended into a function using replaceFormatTokens and makeFormatFunction
-         */
-        formatFunctionStrings = {
-            // a = placeholder
-            // b = placeholder
-            // t = the current moment being formatted
-            // v = getValueAtKey function
-            // o = language.ordinal function
-            // p = leftZeroFill function
-            // m = language.meridiem value or function
-            M    : '(a=t.month()+1)',
-            MMM  : 'v("monthsShort",t.month())',
-            MMMM : 'v("months",t.month())',
-            D    : '(a=t.date())',
-            DDD  : '(a=new Date(t.year(),t.month(),t.date()),b=new Date(t.year(),0,1),a=~~(((a-b)/864e5)+1.5))',
-            d    : '(a=t.day())',
-            dd   : 'v("weekdaysMin",t.day())',
-            ddd  : 'v("weekdaysShort",t.day())',
-            dddd : 'v("weekdays",t.day())',
-            w    : '(a=new Date(t.year(),t.month(),t.date()-t.day()+5),b=new Date(a.getFullYear(),0,4),a=~~((a-b)/864e5/7+1.5))',
-            YY   : 'p(t.year()%100,2)',
-            YYYY : 'p(t.year(),4)',
-            a    : 'm(t.hours(),t.minutes(),!0)',
-            A    : 'm(t.hours(),t.minutes(),!1)',
-            H    : 't.hours()',
-            h    : 't.hours()%12||12',
-            m    : 't.minutes()',
-            s    : 't.seconds()',
-            S    : '~~(t.milliseconds()/100)',
-            SS   : 'p(~~(t.milliseconds()/10),2)',
-            SSS  : 'p(t.milliseconds(),3)',
-            Z    : '((a=-t.zone())<0?((a=-a),"-"):"+")+p(~~(a/60),2)+":"+p(~~a%60,2)',
-            ZZ   : '((a=-t.zone())<0?((a=-a),"-"):"+")+p(~~(10*a/6),4)'
-        },
-
+        // tokens to ordinalize and pad
         ordinalizeTokens = 'DDD w M D d'.split(' '),
-        paddedTokens = 'M D H h m s w'.split(' ');
+        paddedTokens = 'M D H h m s w'.split(' '),
+
+        formatTokenFunctions = {
+            M    : function () {
+                return this.month() + 1;
+            },
+            MMM  : function (format) {
+                return getValueFromArray("monthsShort", this.month(), this, format);
+            },
+            MMMM : function (format) {
+                return getValueFromArray("months", this.month(), this, format);
+            },
+            D    : function () {
+                return this.date();
+            },
+            DDD  : function () {
+                var a = new Date(this.year(), this.month(), this.date()),
+                    b = new Date(this.year(), 0, 1);
+                return ~~(((a - b) / 864e5) + 1.5);
+            },
+            d    : function () {
+                return this.day();
+            },
+            dd   : function (format) {
+                return getValueFromArray("weekdaysMin", this.day(), this, format);
+            },
+            ddd  : function (format) {
+                return getValueFromArray("weekdaysShort", this.day(), this, format);
+            },
+            dddd : function (format) {
+                return getValueFromArray("weekdays", this.day(), this, format);
+            },
+            w    : function () {
+                var a = new Date(this.year(), this.month(), this.date() - this.day() + 5),
+                    b = new Date(a.getFullYear(), 0, 4);
+                return ~~((a - b) / 864e5 / 7 + 1.5);
+            },
+            YY   : function () {
+                return leftZeroFill(this.year() % 100, 2);
+            },
+            YYYY : function () {
+                return leftZeroFill(this.year(), 4);
+            },
+            YYYYY : function () {
+                return leftZeroFill(this.year(), 5);
+            },
+            a    : function () {
+                return this.lang().meridiem(this.hours(), this.minutes(), true);
+            },
+            A    : function () {
+                return this.lang().meridiem(this.hours(), this.minutes(), false);
+            },
+            H    : function () {
+                return this.hours();
+            },
+            h    : function () {
+                return this.hours() % 12 || 12;
+            },
+            m    : function () {
+                return this.minutes();
+            },
+            s    : function () {
+                return this.seconds();
+            },
+            S    : function () {
+                return ~~(this.milliseconds() / 100);
+            },
+            SS   : function () {
+                return leftZeroFill(~~(this.milliseconds() / 10), 2);
+            },
+            SSS  : function () {
+                return leftZeroFill(this.milliseconds(), 3);
+            },
+            Z    : function () {
+                var a = -this.zone(),
+                    b = "+";
+                if (a < 0) {
+                    a = -a;
+                    b = "-";
+                }
+                return b + leftZeroFill(~~(a / 60), 2) + ":" + leftZeroFill(~~a % 60, 2);
+            },
+            ZZ   : function () {
+                var a = -this.zone(),
+                    b = "+";
+                if (a < 0) {
+                    a = -a;
+                    b = "-";
+                }
+                return b + leftZeroFill(~~(10 * a / 6), 4);
+            }
+        };
+
+    function getValueFromArray(key, index, m, format) {
+        var lang = m.lang();
+        return lang[key].call ? lang[key](m, format) : lang[key][index];
+    }
+
+    function padToken(func, count) {
+        return function (a) {
+            return leftZeroFill(func.call(this, a), count);
+        };
+    }
+    function ordinalizeToken(func) {
+        return function (a) {
+            var b = func.call(this, a);
+            return b + this.lang().ordinal(b);
+        };
+    }
 
     while (ordinalizeTokens.length) {
         i = ordinalizeTokens.pop();
-        formatFunctionStrings[i + 'o'] = formatFunctionStrings[i] + '+o(a)';
+        formatTokenFunctions[i + 'o'] = ordinalizeToken(formatTokenFunctions[i]);
     }
     while (paddedTokens.length) {
         i = paddedTokens.pop();
-        formatFunctionStrings[i + i] = 'p(' + formatFunctionStrings[i] + ',2)';
+        formatTokenFunctions[i + i] = padToken(formatTokenFunctions[i], 2);
     }
-    formatFunctionStrings.DDDD = 'p(' + formatFunctionStrings.DDD + ',3)';
+    formatTokenFunctions.DDDD = padToken(formatTokenFunctions.DDD, 3);
 
 
     /************************************
@@ -149,7 +218,7 @@
     function Duration(duration) {
         var data = this._data = {},
             years = duration.years || duration.y || 0,
-            months = duration.months || duration.M || 0, 
+            months = duration.months || duration.M || 0,
             weeks = duration.weeks || duration.w || 0,
             days = duration.days || duration.d || 0,
             hours = duration.hours || duration.h || 0,
@@ -171,7 +240,7 @@
         // it separately.
         this._months = months +
             years * 12;
-            
+
         // The following code bubbles up values, see the tests for
         // examples of what that means.
         data.milliseconds = milliseconds % 1000;
@@ -188,7 +257,7 @@
 
         days += weeks * 7;
         data.days = days % 30;
-        
+
         months += absRound(days / 30);
 
         data.months = months % 12;
@@ -297,7 +366,7 @@
         if (!values && hasModule) {
             values = require('./lang/' + key);
         }
-        
+
         for (i = 0; i < langConfigProperties.length; i++) {
             // If a language definition does not provide a value, inherit
             // from English
@@ -307,13 +376,13 @@
 
         for (i = 0; i < 12; i++) {
             m = moment([2000, i]);
-            parse[i] = new RegExp('^' + (values.months[i] || values.months(m, '')) + 
+            parse[i] = new RegExp('^' + (values.months[i] || values.months(m, '')) +
                 '|^' + (values.monthsShort[i] || values.monthsShort(m, '')).replace('.', ''), 'i');
         }
         values.monthsParse = values.monthsParse || parse;
 
         languages[key] = values;
-        
+
         return values;
     }
 
@@ -339,45 +408,40 @@
     ************************************/
 
 
-    // helper for building inline formatting functions
-    function replaceFormatTokens(token) {
-        return formatFunctionStrings[token] ? 
-            ("'+(" + formatFunctionStrings[token] + ")+'") :
-            token.replace(formattingRemoveEscapes, "").replace(/\\?'/g, "\\'");
-    }
-
     // helper for recursing long date formatting tokens
     function replaceLongDateFormatTokens(input) {
         return getLangDefinition().longDateFormat[input] || input;
     }
 
-    function makeFormatFunction(format) {
-        var output = "var a,b;return '" +
-            format.replace(formattingTokens, replaceFormatTokens) + "';",
-            Fn = Function; // get around jshint
-        // t = the current moment being formatted
-        // v = getValueAtKey function
-        // o = language.ordinal function
-        // p = leftZeroFill function
-        // m = language.meridiem value or function
-        return new Fn('t', 'v', 'o', 'p', 'm', output);
+    function removeFormattingTokens(input) {
+        if (input.match(/\[.*\]/)) {
+            return input.replace(/^\[|\]$/g, "");
+        }
+        return input.replace(/\\/g, "");
     }
 
-    function makeOrGetFormatFunction(format) {
-        if (!formatFunctions[format]) {
-            formatFunctions[format] = makeFormatFunction(format);
+    function makeFormatFunction(format) {
+        var array = format.match(formattingTokens), i, length;
+
+        for (i = 0, length = array.length; i < length; i++) {
+            if (formatTokenFunctions[array[i]]) {
+                array[i] = formatTokenFunctions[array[i]];
+            } else {
+                array[i] = removeFormattingTokens(array[i]);
+            }
         }
-        return formatFunctions[format];
+
+        return function (mom) {
+            var output = "";
+            for (i = 0; i < length; i++) {
+                output += typeof array[i].call === 'function' ? array[i].call(mom, format) : array[i];
+            }
+            return output;
+        };
     }
 
     // format date using native date object
     function formatMoment(m, format) {
-        var lang = getLangDefinition(m);
-
-        function getValueFromArray(key, index) {
-            return lang[key].call ? lang[key](m, format) : lang[key][index];
-        }
-
         while (localFormattingTokens.test(format)) {
             format = format.replace(localFormattingTokens, replaceLongDateFormatTokens);
         }
@@ -386,7 +450,7 @@
             formatFunctions[format] = makeFormatFunction(format);
         }
 
-        return formatFunctions[format](m, getValueFromArray, lang.ordinal, leftZeroFill, lang.meridiem);
+        return formatFunctions[format](m);
     }
 
 
@@ -402,6 +466,8 @@
             return parseTokenThreeDigits;
         case 'YYYY':
             return parseTokenFourDigits;
+        case 'YYYYY':
+            return parseTokenSixDigits;
         case 'S':
         case 'SS':
         case 'SSS':
@@ -474,7 +540,8 @@
             datePartArray[0] = input + (input > 70 ? 1900 : 2000);
             break;
         case 'YYYY' :
-            datePartArray[0] = ~~Math.abs(input);
+        case 'YYYYY' :
+            datePartArray[0] = ~~input;
             break;
         // AM / PM
         case 'a' : // fall through to A
@@ -586,7 +653,7 @@
                     break;
                 }
             }
-            return parseTokenTimezone.exec(string) ? 
+            return parseTokenTimezone.exec(string) ?
                 makeDateFromStringAndFormat(string, format + ' Z') :
                 makeDateFromStringAndFormat(string, format);
         }
@@ -936,7 +1003,7 @@
         },
 
         isDST : function () {
-            return (this.zone() < moment([this.year()]).zone() || 
+            return (this.zone() < moment([this.year()]).zone() ||
                 this.zone() < moment([this.year(), 5]).zone());
         },
 
@@ -975,7 +1042,11 @@
         endOf: function (val) {
             return this.startOf(val).add(val.replace(/s?$/, 's'), 1).subtract('ms', 1);
         },
-        
+
+        isSame: function (input, val) {
+            return +this.clone().startOf(val) === +moment(input).startOf(val);
+        },
+
         sod: function () {
             return this.clone().startOf('day');
         },

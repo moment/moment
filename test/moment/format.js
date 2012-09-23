@@ -107,5 +107,16 @@ exports.format = {
         var isoRegex = /\d{4}.\d\d.\d\dT\d\d.\d\d.\d\d[\+\-]\d\d:\d\d/;
         test.ok(isoRegex.exec(moment().format()), "default format (" + moment().format() + ") should match ISO");
         test.done();
+    },
+
+    "escaping quotes" : function(test) {
+        test.expect(4);
+        moment.lang('en');
+        var date = moment([2012, 0]);
+        test.equal(date.format('MMM \'YY'), "Jan '12", "Should be able to format with single parenthesis");
+        test.equal(date.format('MMM "YY'),  'Jan "12', "Should be able to format with double parenthesis");
+        test.equal(date.format("MMM 'YY"),  "Jan '12", "Should be able to format with single parenthesis");
+        test.equal(date.format("MMM \"YY"), 'Jan "12', "Should be able to format with double parenthesis");
+        test.done();
     }
 };
