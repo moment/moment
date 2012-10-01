@@ -4,7 +4,7 @@
 // license : MIT
 // momentjs.com
 
-(function (Date, undefined) {
+(function (undefined) {
 
     /************************************
         Constants
@@ -1134,4 +1134,4 @@
             return moment;
         });
     }
-}).call(this, Date);
+}).call(this);
