@@ -1,5 +1,5 @@
 // moment.js
-// version : 1.7.1
+// version : 1.7.2
 // author : Tim Wood
 // license : MIT
 // momentjs.com
@@ -11,7 +11,7 @@
     ************************************/
 
     var moment,
-        VERSION = "1.7.1",
+        VERSION = "1.7.2",
         round = Math.round, i,
         // internal storage for language config files
         languages = {},
@@ -425,11 +425,6 @@
     ************************************/
 
 
-    // helper for recursing long date formatting tokens
-    function replaceLongDateFormatTokens(input) {
-        return getLangDefinition().longDateFormat[input] || input;
-    }
-
     function removeFormattingTokens(input) {
         if (input.match(/\[.*\]/)) {
             return input.replace(/^\[|\]$/g, "");
@@ -460,6 +455,10 @@
     // format date using native date object
     function formatMoment(m, format) {
         var i = 5;
+
+        function replaceLongDateFormatTokens(input) {
+            return m.lang().longDateFormat[input] || input;
+        }
 
         while (i-- && localFormattingTokens.test(format)) {
             format = format.replace(localFormattingTokens, replaceLongDateFormatTokens);
