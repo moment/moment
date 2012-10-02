@@ -156,7 +156,10 @@
                 sameElse: 'L'
             },
             relativeTime : {
-                future : "%sран",
+                future : function (output) {
+                    var affix = /сехет$/i.exec(output) ? "рен" : /çул$/i.exec(output) ? "тан" : "ран";
+                    return output + affix;
+                },
                 past : "%s каялла",
                 s : "пĕр-ик çеккунт",
                 m : "пĕр минут",
@@ -426,11 +429,18 @@
             weekdaysShort : "Dim_Lun_Mard_Merk_Ĵaŭ_Ven_Sab".split("_"),
             weekdaysMin : "Di_Lu_Ma_Me_Ĵa_Ve_Sa".split("_"),
             longDateFormat : {
-                LT : "h:mm A",
+                LT : "HH:mm",
                 L : "YYYY-MM-DD",
                 LL : "D-\\an \\de MMMM, YYYY",
                 LLL : "D-\\an \\de MMMM, YYYY LT",
                 LLLL : "dddd, \\l\\a D-\\an \\d\\e MMMM, YYYY LT"
+            },
+            meridiem : function (hours, minutes, isLower) {
+                if (hours > 11) {
+                    return isLower ? 'p.t.m.' : 'P.T.M.';
+                } else {
+                    return isLower ? 'a.t.m.' : 'A.T.M.';
+                }
             },
             calendar : {
                 sameDay : '[Hodiaŭ je] LT',
@@ -475,17 +485,17 @@
 // author : Julio Napurí : https://github.com/julionc
 (function () {
     var lang = {
-            months : "Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre".split("_"),
-            monthsShort : "Ene._Feb._Mar._Abr._May._Jun._Jul._Ago._Sep._Oct._Nov._Dic.".split("_"),
-            weekdays : "Domingo_Lunes_Martes_Miércoles_Jueves_Viernes_Sábado".split("_"),
-            weekdaysShort : "Dom._Lun._Mar._Mié._Jue._Vie._Sáb.".split("_"),
+            months : "enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre".split("_"),
+            monthsShort : "ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.".split("_"),
+            weekdays : "domingo_lunes_martes_miércoles_jueves_viernes_sábado".split("_"),
+            weekdaysShort : "dom._lun._mar._mié._jue._vie._sáb.".split("_"),
             weekdaysMin : "Do_Lu_Ma_Mi_Ju_Vi_Sá".split("_"),
             longDateFormat : {
                 LT : "H:mm",
                 L : "DD/MM/YYYY",
-                LL : "D MMMM YYYY",
-                LLL : "D MMMM YYYY LT",
-                LLLL : "dddd D MMMM YYYY LT"
+                LL : "D \\de MMMM \\de YYYY",
+                LLL : "D \\de MMMM \\de YYYY LT",
+                LLLL : "dddd, D \\de MMMM \\de YYYY LT"
             },
             calendar : {
                 sameDay : function () {
@@ -1217,7 +1227,7 @@
 // author : Lorenzo : https://github.com/aliem
 (function () {
     var lang = {
-            months : "Gennaio_Febbraio_Marzo_Aprile_Maggio_Giugno_Luglio_Agosto_Settebre_Ottobre_Novembre_Dicembre".split("_"),
+            months : "Gennaio_Febbraio_Marzo_Aprile_Maggio_Giugno_Luglio_Agosto_Settembre_Ottobre_Novembre_Dicembre".split("_"),
             monthsShort : "Gen_Feb_Mar_Apr_Mag_Giu_Lug_Ago_Set_Ott_Nov_Dic".split("_"),
             weekdays : "Domenica_Lunedì_Martedì_Mercoledì_Giovedì_Venerdì_Sabato".split("_"),
             weekdaysShort : "Dom_Lun_Mar_Mer_Gio_Ven_Sab".split("_"),
@@ -1906,6 +1916,62 @@
 }());
 
 // moment.js language configuration
+// language : romanian (ro)
+// author : Vlad Gurdiga : https://github.com/gurdiga
+// author : Valentin Agachi : https://github.com/avaly
+(function () {
+    var lang = {
+            months : "Ianuarie_Februarie_Martie_Aprilie_Mai_Iunie_Iulie_August_Septembrie_Octombrie_Noiembrie_Decembrie".split("_"),
+            monthsShort : "Ian_Feb_Mar_Apr_Mai_Iun_Iul_Aug_Sep_Oct_Noi_Dec".split("_"),
+            weekdays : "Duminică_Luni_Marţi_Miercuri_Joi_Vineri_Sâmbătă".split("_"),
+            weekdaysShort : "Dum_Lun_Mar_Mie_Joi_Vin_Sâm".split("_"),
+            weekdaysMin : "Du_Lu_Ma_Mi_Jo_Vi_Sâ".split("_"),
+            longDateFormat : {
+                LT : "H:mm",
+                L : "DD/MM/YYYY",
+                LL : "D MMMM YYYY",
+                LLL : "D MMMM YYYY H:mm",
+                LLLL : "dddd, D MMMM YYYY H:mm"
+            },
+            calendar : {
+                sameDay: "[azi la] LT",
+                nextDay: '[mâine la] LT',
+                nextWeek: 'dddd [la] LT',
+                lastDay: '[ieri la] LT',
+                lastWeek: '[fosta] dddd [la] LT',
+                sameElse: 'L'
+            },
+            relativeTime : {
+                future : "peste %s",
+                past : "%s în urmă",
+                s : "câteva secunde",
+                m : "un minut",
+                mm : "%d minute",
+                h : "o oră",
+                hh : "%d ore",
+                d : "o zi",
+                dd : "%d zile",
+                M : "o lună",
+                MM : "%d luni",
+                y : "un an",
+                yy : "%d ani"
+            },
+            ordinal : function (number) {
+                return '';
+            }
+        };
+
+    // Node
+    if (typeof module !== 'undefined') {
+        module.exports = lang;
+    }
+    // Browser
+    if (typeof window !== 'undefined' && this.moment && this.moment.lang) {
+        this.moment.lang('ro', lang);
+    }
+}());
+
+// moment.js language configuration
 // language : russian (ru)
 // author : Viktorminator : https://github.com/Viktorminator
 (function () {
@@ -1962,7 +2028,7 @@
     weekdaysCaseReplace = function (m, format) {
         var weekdays = {
             'nominative': 'воскресенье_понедельник_вторник_среда_четверг_пятница_суббота'.split('_'),
-            'accusative': 'воскресенье_понедельник_вторник_среду_четверг_пятницу_субботу'.split('_'),
+            'accusative': 'воскресенье_понедельник_вторник_среду_четверг_пятницу_субботу'.split('_')
         },
 
         nounCase = (/\[ ?[Вв] ?(?:прошлую|следующую)? ?\] ?dddd/).test(format) ?

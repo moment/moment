@@ -1,5 +1,5 @@
 // moment.js
-// version : 1.7.0
+// version : 1.7.1
 // author : Tim Wood
 // license : MIT
 // momentjs.com
@@ -11,7 +11,7 @@
     ************************************/
 
     var moment,
-        VERSION = "1.7.0",
+        VERSION = "1.7.1",
         round = Math.round, i,
         // internal storage for language config files
         languages = {},
@@ -31,7 +31,7 @@
 
         // format tokens
         formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|YYYYY|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|.)/g,
-        localFormattingTokens = /(LT|LL?L?L?)/g,
+        localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?)/g,
 
         // parsing tokens
         parseMultipleFormatChunker = /([0-9a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)/gi,
@@ -210,7 +210,6 @@
         this._d = date;
         this._isUTC = !!isUTC;
         this._a = date._a || null;
-        date._a = null;
         this._lang = lang || false;
     }
 
@@ -336,13 +335,21 @@
     // the array should mirror the parameters below
     // note: all values past the year are optional and will default to the lowest possible value.
     // [year, month, day , hour, minute, second, millisecond]
-    function dateFromArray(input, asUTC) {
-        var i, date;
-        for (i = 1; i < 7; i++) {
-            input[i] = (input[i] == null) ? (i === 2 ? 1 : 0) : input[i];
+    function dateFromArray(input, asUTC, hoursOffset, minutesOffset) {
+        var i, date, forValid = [];
+        for (i = 0; i < 7; i++) {
+            forValid[i] = input[i] = (input[i] == null) ? (i === 2 ? 1 : 0) : input[i];
         }
         // we store whether we used utc or not in the input array
-        input[7] = asUTC;
+        input[7] = forValid[7] = asUTC;
+        // if the parser flagged the input as invalid, we pass the value along
+        if (input[8] != null) {
+            forValid[8] = input[8];
+        }
+        // add the offsets to the time to be parsed so that we can have a clean array
+        // for checking isValid
+        input[3] += hoursOffset || 0;
+        input[4] += minutesOffset || 0;
         date = new Date(0);
         if (asUTC) {
             date.setUTCFullYear(input[0], input[1], input[2]);
@@ -351,7 +358,7 @@
             date.setFullYear(input[0], input[1], input[2]);
             date.setHours(input[3], input[4], input[5], input[6]);
         }
-        date._a = input;
+        date._a = forValid;
         return date;
     }
 
@@ -442,7 +449,9 @@
 
     // format date using native date object
     function formatMoment(m, format) {
-        while (localFormattingTokens.test(format)) {
+        var i = 5;
+
+        while (i-- && localFormattingTokens.test(format)) {
             format = format.replace(localFormattingTokens, replaceLongDateFormatTokens);
         }
 
@@ -508,8 +517,8 @@
 
     // function to convert string input to date
     function addTimeToArrayFromToken(token, input, datePartArray, config) {
-        var a;
-        //console.log('addTime', format, input);
+        var a, b;
+
         switch (token) {
         // MONTH
         case 'M' : // fall through to MM
@@ -521,8 +530,13 @@
             for (a = 0; a < 12; a++) {
                 if (getLangDefinition().monthsParse[a].test(input)) {
                     datePartArray[1] = a;
+                    b = true;
                     break;
                 }
+            }
+            // if we didn't find a month name, mark the date as invalid.
+            if (!b) {
+                datePartArray[8] = false;
             }
             break;
         // DAY OF MONTH
@@ -536,8 +550,7 @@
             break;
         // YEAR
         case 'YY' :
-            input = ~~input;
-            datePartArray[0] = input + (input > 70 ? 1900 : 2000);
+            datePartArray[0] = ~~input + (~~input > 70 ? 1900 : 2000);
             break;
         case 'YYYY' :
         case 'YYYYY' :
@@ -589,10 +602,19 @@
             }
             break;
         }
+
+        // if the input is null, the date is not valid
+        if (input == null) {
+            datePartArray[8] = false;
+        }
     }
 
     // date from string and format string
     function makeDateFromStringAndFormat(string, format) {
+        // This array is used to make a Date, either with `new Date` or `Date.UTC`
+        // We store some additional data on the array for validation
+        // datePartArray[7] is true if the Date was created with `Date.UTC` and false if created with `new Date`
+        // datePartArray[8] is false if the Date is invalid, and undefined if the validity is unknown.
         var datePartArray = [0, 0, 1, 0, 0, 0, 0],
             config = {
                 tzh : 0, // timezone hour offset
@@ -603,8 +625,13 @@
 
         for (i = 0; i < tokens.length; i++) {
             parsedInput = (getParseRegexForToken(tokens[i]).exec(string) || [])[0];
-            string = string.replace(getParseRegexForToken(tokens[i]), '');
-            addTimeToArrayFromToken(tokens[i], parsedInput, datePartArray, config);
+            if (parsedInput) {
+                string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
+            }
+            // don't parse if its not a known token
+            if (formatTokenFunctions[tokens[i]]) {
+                addTimeToArrayFromToken(tokens[i], parsedInput, datePartArray, config);
+            }
         }
         // handle am pm
         if (config.isPm && datePartArray[3] < 12) {
@@ -614,11 +641,8 @@
         if (config.isPm === false && datePartArray[3] === 12) {
             datePartArray[3] = 0;
         }
-        // handle timezone
-        datePartArray[3] += config.tzh;
-        datePartArray[4] += config.tzm;
         // return
-        return dateFromArray(datePartArray, config.isUTC);
+        return dateFromArray(datePartArray, config.isUTC, config.tzh, config.tzm);
     }
 
     // date from string and array of format strings
@@ -922,7 +946,12 @@
 
         isValid : function () {
             if (this._a) {
-                return !compareArrays(this._a, (this._a[7] ? moment.utc(this) : this).toArray());
+                // if the parser finds that the input is invalid, it sets
+                // the eighth item in the input array to false.
+                if (this._a[8] != null) {
+                    return !!this._a[8];
+                }
+                return !compareArrays(this._a, (this._a[7] ? moment.utc(this._a) : moment(this._a)).toArray());
             }
             return !isNaN(this._d.getTime());
         },
@@ -1118,10 +1147,15 @@
         humanize : function (withSuffix) {
             var difference = +this,
                 rel = this.lang().relativeTime,
-                output = relativeTime(difference, !withSuffix, this.lang());
+                output = relativeTime(difference, !withSuffix, this.lang()),
+                fromNow = difference <= 0 ? rel.past : rel.future;
 
             if (withSuffix) {
-                output = (difference <= 0 ? rel.past : rel.future).replace(/%s/i, output);
+                if (typeof fromNow === 'function') {
+                    output = fromNow(output);
+                } else {
+                    output = fromNow.replace(/%s/i, output);
+                }
             }
 
             return output;
