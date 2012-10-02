@@ -24,7 +24,10 @@
                 sameElse: 'L'
             },
             relativeTime : {
-                future : "%sран",
+                future : function (output) {
+                    var affix = /сехет$/i.exec(output) ? "рен" : /çул$/i.exec(output) ? "тан" : "ран";
+                    return output + affix;
+                },
                 past : "%s каялла",
                 s : "пĕр-ик çеккунт",
                 m : "пĕр минут",
