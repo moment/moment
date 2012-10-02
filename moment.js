@@ -206,11 +206,9 @@
 
 
     // Moment prototype object
-    function Moment(date, isUTC, lang) {
-        this._d = date;
-        this._isUTC = !!isUTC;
-        this._a = date._a || null;
-        this._lang = lang || false;
+    function Moment(config) {
+        extend(this, config);
+        this._lang = config._lang || false;
     }
 
     // Duration Constructor
@@ -273,6 +271,13 @@
     ************************************/
 
 
+    function extend(a, b) {
+        for (var i in b) {
+            a[i] = b[i];
+        }
+        return a;
+    }
+
     function absRound(number) {
         if (number < 0) {
             return Math.ceil(number);
@@ -329,37 +334,6 @@
             }
         }
         return diffs + lengthDiff;
-    }
-
-    // convert an array to a date.
-    // the array should mirror the parameters below
-    // note: all values past the year are optional and will default to the lowest possible value.
-    // [year, month, day , hour, minute, second, millisecond]
-    function dateFromArray(input, asUTC, hoursOffset, minutesOffset) {
-        var i, date, forValid = [];
-        for (i = 0; i < 7; i++) {
-            forValid[i] = input[i] = (input[i] == null) ? (i === 2 ? 1 : 0) : input[i];
-        }
-        // we store whether we used utc or not in the input array
-        input[7] = forValid[7] = asUTC;
-        // if the parser flagged the input as invalid, we pass the value along
-        if (input[8] != null) {
-            forValid[8] = input[8];
-        }
-        // add the offsets to the time to be parsed so that we can have a clean array
-        // for checking isValid
-        input[3] += hoursOffset || 0;
-        input[4] += minutesOffset || 0;
-        date = new Date(0);
-        if (asUTC) {
-            date.setUTCFullYear(input[0], input[1], input[2]);
-            date.setUTCHours(input[3], input[4], input[5], input[6]);
-        } else {
-            date.setFullYear(input[0], input[1], input[2]);
-            date.setHours(input[3], input[4], input[5], input[6]);
-        }
-        date._a = forValid;
-        return date;
     }
 
     // Loads a language definition into the `languages` cache.  The function
@@ -516,8 +490,9 @@
     }
 
     // function to convert string input to date
-    function addTimeToArrayFromToken(token, input, datePartArray, config) {
-        var a, b;
+    function addTimeToArrayFromToken(token, input, config) {
+        var a, b,
+            datePartArray = config._a;
 
         switch (token) {
         // MONTH
@@ -536,7 +511,7 @@
             }
             // if we didn't find a month name, mark the date as invalid.
             if (!b) {
-                datePartArray[8] = false;
+                config._isValid = false;
             }
             break;
         // DAY OF MONTH
@@ -559,7 +534,7 @@
         // AM / PM
         case 'a' : // fall through to A
         case 'A' :
-            config.isPm = ((input + '').toLowerCase() === 'pm');
+            config._isPm = ((input + '').toLowerCase() === 'pm');
             break;
         // 24 HOUR
         case 'H' : // fall through to hh
@@ -587,41 +562,64 @@
         // TIMEZONE
         case 'Z' : // fall through to ZZ
         case 'ZZ' :
-            config.isUTC = true;
+            config._useUTC = true;
             a = (input + '').match(parseTimezoneChunker);
             if (a && a[1]) {
-                config.tzh = ~~a[1];
+                config._tzh = ~~a[1];
             }
             if (a && a[2]) {
-                config.tzm = ~~a[2];
+                config._tzm = ~~a[2];
             }
             // reverse offsets
             if (a && a[0] === '+') {
-                config.tzh = -config.tzh;
-                config.tzm = -config.tzm;
+                config._tzh = -config._tzh;
+                config._tzm = -config._tzm;
             }
             break;
         }
 
         // if the input is null, the date is not valid
         if (input == null) {
-            datePartArray[8] = false;
+            config._isValid = false;
         }
     }
 
+    // convert an array to a date.
+    // the array should mirror the parameters below
+    // note: all values past the year are optional and will default to the lowest possible value.
+    // [year, month, day , hour, minute, second, millisecond]
+    function dateFromArray(config) {
+        var i, date, input = [];
+
+        for (i = 0; i < 7; i++) {
+            config._a[i] = input[i] = (config._a[i] == null) ? (i === 2 ? 1 : 0) : config._a[i];
+        }
+
+        // add the offsets to the time to be parsed so that we can have a clean array for checking isValid
+        input[3] += config._tzh || 0;
+        input[4] += config._tzm || 0;
+
+        date = new Date(0);
+
+        if (config._useUTC) {
+            date.setUTCFullYear(input[0], input[1], input[2]);
+            date.setUTCHours(input[3], input[4], input[5], input[6]);
+        } else {
+            date.setFullYear(input[0], input[1], input[2]);
+            date.setHours(input[3], input[4], input[5], input[6]);
+        }
+
+        config._d = date;
+    }
+
     // date from string and format string
-    function makeDateFromStringAndFormat(string, format) {
+    function makeDateFromStringAndFormat(config) {
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
-        // We store some additional data on the array for validation
-        // datePartArray[7] is true if the Date was created with `Date.UTC` and false if created with `new Date`
-        // datePartArray[8] is false if the Date is invalid, and undefined if the validity is unknown.
-        var datePartArray = [0, 0, 1, 0, 0, 0, 0],
-            config = {
-                tzh : 0, // timezone hour offset
-                tzm : 0  // timezone minute offset
-            },
-            tokens = format.match(formattingTokens),
+        var tokens = config._f.match(formattingTokens),
+            string = config._i,
             i, parsedInput;
+
+        config._a = [];
 
         for (i = 0; i < tokens.length; i++) {
             parsedInput = (getParseRegexForToken(tokens[i]).exec(string) || [])[0];
@@ -630,58 +628,91 @@
             }
             // don't parse if its not a known token
             if (formatTokenFunctions[tokens[i]]) {
-                addTimeToArrayFromToken(tokens[i], parsedInput, datePartArray, config);
+                addTimeToArrayFromToken(tokens[i], parsedInput, config);
             }
         }
         // handle am pm
-        if (config.isPm && datePartArray[3] < 12) {
-            datePartArray[3] += 12;
+        if (config._isPm && config._a[3] < 12) {
+            config._a[3] += 12;
         }
         // if is 12 am, change hours to 0
-        if (config.isPm === false && datePartArray[3] === 12) {
-            datePartArray[3] = 0;
+        if (config._isPm === false && config._a[3] === 12) {
+            config._a[3] = 0;
         }
         // return
-        return dateFromArray(datePartArray, config.isUTC, config.tzh, config.tzm);
+        dateFromArray(config);
     }
 
     // date from string and array of format strings
-    function makeDateFromStringAndArray(string, formats) {
-        var output,
-            inputParts = string.match(parseMultipleFormatChunker) || [],
-            formattedInputParts,
+    function makeDateFromStringAndArray(config) {
+        var tempConfig,
+            tempMoment,
+            bestMoment,
+
             scoreToBeat = 99,
             i,
             currentDate,
             currentScore;
-        for (i = 0; i < formats.length; i++) {
-            currentDate = makeDateFromStringAndFormat(string, formats[i]);
-            formattedInputParts = formatMoment(new Moment(currentDate), formats[i]).match(parseMultipleFormatChunker) || [];
-            currentScore = compareArrays(inputParts, formattedInputParts);
+
+        while (config._f.length) {
+            tempConfig = extend({}, config);
+            tempConfig._f = config._f.pop();
+            makeDateFromStringAndFormat(tempConfig);
+            tempMoment = new Moment(tempConfig);
+
+            if (tempMoment.isValid()) {
+                bestMoment = tempMoment;
+                break;
+            }
+
+            currentScore = compareArrays(tempConfig._a, tempMoment.toArray());
+
             if (currentScore < scoreToBeat) {
                 scoreToBeat = currentScore;
-                output = currentDate;
+                bestMoment = tempMoment;
             }
         }
-        return output;
+
+        extend(config, bestMoment);
     }
 
     // date from iso format
-    function makeDateFromString(string) {
-        var format = 'YYYY-MM-DDT',
-            i;
+    function makeDateFromString(config) {
+        var i,
+            string = config._i;
         if (isoRegex.exec(string)) {
+            config._f = 'YYYY-MM-DDT';
             for (i = 0; i < 4; i++) {
                 if (isoTimes[i][1].exec(string)) {
-                    format += isoTimes[i][0];
+                    config._f += isoTimes[i][0];
                     break;
                 }
             }
-            return parseTokenTimezone.exec(string) ?
-                makeDateFromStringAndFormat(string, format + ' Z') :
-                makeDateFromStringAndFormat(string, format);
+            if (parseTokenTimezone.exec(string)) {
+                config._f += " Z";
+            }
+            makeDateFromStringAndFormat(config);
+        } else {
+            config._d = new Date(string);
         }
-        return new Date(string);
+    }
+
+    function makeDateFromInput(config) {
+        var input = config._i,
+            matched = aspNetJsonRegex.exec(input);
+
+        if (input === undefined) {
+            config._d = new Date();
+        } else if (matched) {
+            config._d = new Date(+matched[1]);
+        } else if (typeof input === 'string') {
+            makeDateFromString(config);
+        } else if (isArray(input)) {
+            config._a = input;
+            dateFromArray(config);
+        } else {
+            config._d = input instanceof Date ? input : new Date(input);
+        }
     }
 
 
@@ -730,36 +761,41 @@
         if (input === null || input === '') {
             return null;
         }
-        var date,
-            matched;
-        // parse Moment object
+        var config = {
+            _i : input,
+            _f : format,
+            _isUTC : false
+        };
+
         if (moment.isMoment(input)) {
-            return new Moment(new Date(+input._d), input._isUTC, input._lang);
-        // parse string and format
+            config = extend({}, input);
+            config._d = new Date(+input._d);
         } else if (format) {
             if (isArray(format)) {
-                date = makeDateFromStringAndArray(input, format);
+                makeDateFromStringAndArray(config);
             } else {
-                date = makeDateFromStringAndFormat(input, format);
+                makeDateFromStringAndFormat(config);
             }
-        // evaluate it as a JSON-encoded date
         } else {
-            matched = aspNetJsonRegex.exec(input);
-            date = input === undefined ? new Date() :
-                matched ? new Date(+matched[1]) :
-                input instanceof Date ? input :
-                isArray(input) ? dateFromArray(input) :
-                typeof input === 'string' ? makeDateFromString(input) :
-                new Date(input);
+            makeDateFromInput(config);
         }
 
-        return new Moment(date);
+        return new Moment(config);
     };
 
     // creating with utc
     moment.utc = function (input, format) {
+        var config;
+
         if (isArray(input)) {
-            return new Moment(dateFromArray(input, true), true);
+            config = {
+                _a : input,
+                _useUTC : true,
+                _isUTC : true
+            };
+            dateFromArray(config);
+
+            return new Moment(config);
         }
         // if we don't have a timezone, we need to add one to trigger parsing into utc
         if (typeof input === 'string' && !parseTokenTimezone.exec(input)) {
@@ -768,6 +804,7 @@
                 format += ' Z';
             }
         }
+
         return moment(input, format).utc();
     };
 
@@ -939,21 +976,19 @@
                 m.hours(),
                 m.minutes(),
                 m.seconds(),
-                m.milliseconds(),
-                !!this._isUTC
+                m.milliseconds()
             ];
         },
 
         isValid : function () {
-            if (this._a) {
-                // if the parser finds that the input is invalid, it sets
-                // the eighth item in the input array to false.
-                if (this._a[8] != null) {
-                    return !!this._a[8];
+            if (this._isValid == null) {
+                if (this._a) {
+                    this._isValid = !compareArrays(this._a, (this._isUTC ? moment.utc(this._a) : moment(this._a)).toArray());
+                } else {
+                    this._isValid = !isNaN(this._d.getTime());
                 }
-                return !compareArrays(this._a, (this._a[7] ? moment.utc(this._a) : moment(this._a)).toArray());
             }
-            return !isNaN(this._d.getTime());
+            return !!this._isValid;
         },
 
         utc : function () {
