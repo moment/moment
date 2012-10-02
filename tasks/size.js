@@ -3,7 +3,7 @@ var https = require("https"),
     path = require('path'),
     fs = require('fs');
 
-var stable = '1.7.0',
+var stable = '1.7.1',
     done;
 
 function getVersion(path, cb) {
