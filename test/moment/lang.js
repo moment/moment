@@ -1,7 +1,7 @@
 var moment = require("../../moment");
 
 exports.lang = {
-    "library getter" : function(test) {
+    "library getter" : function (test) {
         test.expect(4);
 
         moment.lang('en');
@@ -19,7 +19,7 @@ exports.lang = {
         test.done();
     },
 
-    "library ensure inheritance" : function(test) {
+    "library ensure inheritance" : function (test) {
         test.expect(2);
 
         moment.lang('made-up', {
@@ -34,7 +34,41 @@ exports.lang = {
         test.done();
     },
 
-    "library langData" : function(test) {
+    "library ensure inheritance LT L LL LLL LLLL" : function (test) {
+        test.expect(5);
+
+        var lang = 'test-inherit-lt';
+
+        moment.lang(lang, {
+            longDateFormat : {
+                LT : "-[LT]-",
+                L : "-[L]-",
+                LL : "-[LL]-",
+                LLL : "-[LLL]-",
+                LLLL : "-[LLLL]-",
+            },
+            calendar : {
+                sameDay : '[sameDay] LT',
+                nextDay : '[nextDay] L',
+                nextWeek : '[nextWeek] LL',
+                lastDay : '[lastDay] LLL',
+                lastWeek : '[lastWeek] LLLL',
+                sameElse : 'L'
+            }
+        });
+
+        moment.lang('es');
+
+        test.equal(moment().lang(lang).calendar(), "sameDay -LT-", "Should use instance lang in LT formatting");
+        test.equal(moment().add('days', 1).lang(lang).calendar(), "nextDay -L-", "Should use instance lang in L formatting");
+        test.equal(moment().add('days', -1).lang(lang).calendar(), "lastDay -LLL-", "Should use instance lang in LL formatting");
+        test.equal(moment().add('days', 4).lang(lang).calendar(), "nextWeek -LL-", "Should use instance lang in LLL formatting");
+        test.equal(moment().add('days', -4).lang(lang).calendar(), "lastWeek -LLLL-", "Should use instance lang in LLLL formatting");
+
+        test.done();
+    },
+
+    "library langData" : function (test) {
         test.expect(3);
         moment.lang('en');
 
@@ -45,7 +79,7 @@ exports.lang = {
         test.done();
     },
 
-    "instance lang method" : function(test) {
+    "instance lang method" : function (test) {
         test.expect(3);
         moment.lang('en');
 
@@ -56,7 +90,7 @@ exports.lang = {
         test.done();
     },
 
-    "instance lang persists with manipulation" : function(test) {
+    "instance lang persists with manipulation" : function (test) {
         test.expect(3);
         moment.lang('en');
 
@@ -67,7 +101,7 @@ exports.lang = {
         test.done();
     },
 
-    "instance lang persists with cloning" : function(test) {
+    "instance lang persists with cloning" : function (test) {
         test.expect(2);
         moment.lang('en');
 
@@ -81,7 +115,7 @@ exports.lang = {
         test.done();
     },
 
-    "duration lang method" : function(test) {
+    "duration lang method" : function (test) {
         test.expect(3);
         moment.lang('en');
 
@@ -92,7 +126,7 @@ exports.lang = {
         test.done();
     },
 
-    "duration lang persists with cloning" : function(test) {
+    "duration lang persists with cloning" : function (test) {
         test.expect(1);
         moment.lang('en');
 
@@ -103,7 +137,7 @@ exports.lang = {
         test.done();
     },
 
-    "instance lang used with from" : function(test) {
+    "instance lang used with from" : function (test) {
         test.expect(2);
         moment.lang('en');
 
@@ -116,7 +150,7 @@ exports.lang = {
         test.done();
     },
 
-    "month name callback function" : function(test) {
+    "month name callback function" : function (test) {
         test.expect(3);
 
         function fakeReplace(m, format) {
@@ -145,7 +179,7 @@ exports.lang = {
     },
 
     // the following tests should be removed after the 2.0.0 release as they will be deprecated
-    "lang accessors on the global object should exist < 2.0.0" : function(test) {
+    "lang accessors on the global object should exist < 2.0.0" : function (test) {
         moment.lang('en');
 
         var a = 'months|monthsShort|monthsParse|weekdays|weekdaysShort|weekdaysMin|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|');
@@ -161,7 +195,7 @@ exports.lang = {
     },
 
     // the following tests should be removed after the 2.0.0 release as they will be deprecated
-    "lang accessors on the global object should change < 2.0.0" : function(test) {
+    "lang accessors on the global object should change < 2.0.0" : function (test) {
         moment.lang('en');
 
         var a = 'months|monthsShort|weekdays|weekdaysShort|weekdaysMin|longDateFormat|calendar|relativeTime|ordinal'.split('|');
@@ -183,7 +217,7 @@ exports.lang = {
         test.done();
     },
 
-    "manip lang accessors on the global object < 2.0.0" : function(test) {
+    "manip lang accessors on the global object < 2.0.0" : function (test) {
         test.expect(1);
         moment.lang('en');
 
