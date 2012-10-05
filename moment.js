@@ -15,16 +15,9 @@
         round = Math.round, i,
         // internal storage for language config files
         languages = {},
-        currentLanguage = 'en',
 
         // check for nodeJS
         hasModule = (typeof module !== 'undefined' && module.exports),
-
-        // Parameters to check for on the lang config.  This list of properties
-        // will be inherited from English if not provided in a language
-        // definition.  monthsParse is also a lang config property, but it
-        // cannot be inherited and as such cannot be enumerated here.
-        langConfigProperties = 'months|monthsShort|weekdays|weekdaysShort|weekdaysMin|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|'),
 
         // ASP.NET json date format regex
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
@@ -86,10 +79,10 @@
                 return this.month() + 1;
             },
             MMM  : function (format) {
-                return getValueFromArray("monthsShort", this.month(), this, format);
+                return this.lang().monthsShort(this, format);
             },
             MMMM : function (format) {
-                return getValueFromArray("months", this.month(), this, format);
+                return this.lang().months(this, format);
             },
             D    : function () {
                 return this.date();
@@ -103,13 +96,13 @@
                 return this.day();
             },
             dd   : function (format) {
-                return getValueFromArray("weekdaysMin", this.day(), this, format);
+                return this.lang().weekdaysMin(this, format);
             },
             ddd  : function (format) {
-                return getValueFromArray("weekdaysShort", this.day(), this, format);
+                return this.lang().weekdaysShort(this, format);
             },
             dddd : function (format) {
-                return getValueFromArray("weekdays", this.day(), this, format);
+                return this.lang().weekdays(this, format);
             },
             w    : function () {
                 var a = new Date(this.year(), this.month(), this.date() - this.day() + 5),
@@ -172,11 +165,6 @@
             }
         };
 
-    function getValueFromArray(key, index, m, format) {
-        var lang = m.lang();
-        return lang[key].call ? lang[key](m, format) : lang[key][index];
-    }
-
     function padToken(func, count) {
         return function (a) {
             return leftZeroFill(func.call(this, a), count);
@@ -204,11 +192,21 @@
         Constructors
     ************************************/
 
+    function Language(config) {
+        var prop, i;
+        for (i in config) {
+            prop = config[i];
+            if (typeof prop === 'function') {
+                this[i] = prop;
+            } else {
+                this['_' + i] = prop;
+            }
+        }
+    }
 
     // Moment prototype object
     function Moment(config) {
         extend(this, config);
-        this._lang = config._lang || false;
     }
 
     // Duration Constructor
@@ -261,8 +259,6 @@
         years += absRound(months / 12);
 
         data.years = years;
-
-        this._lang = false;
     }
 
 
@@ -336,35 +332,136 @@
         return diffs + lengthDiff;
     }
 
+
+    /************************************
+        Languages
+    ************************************/
+
+
+    Language.prototype = {
+        _months : "January_February_March_April_May_June_July_August_September_October_November_December".split("_"),
+        months : function (m) {
+            return this._months[m.month()];
+        },
+
+        _monthsShort : "Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"),
+        monthsShort : function (m) {
+            return this._monthsShort[m.month()];
+        },
+
+        monthsParse : function (monthName) {
+            var i, mom, regex, output;
+
+            if (!this._monthsParse) {
+                this._monthsParse = [];
+            }
+
+            for (i = 0; i < 12; i++) {
+                // make the regex if we don't have it already
+                if (!this._monthsParse[i]) {
+                    mom = moment([2000, i]);
+                    regex = '^' + this.months(mom, '') + '|^' + this.monthsShort(mom, '');
+                    this._monthsParse[i] = new RegExp(regex.replace('.', ''), 'i');
+                }
+                // test the regex
+                if (this._monthsParse[i].test(monthName)) {
+                    return i;
+                }
+            }
+        },
+
+        _weekdays : "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),
+        weekdays : function (m) {
+            return this._weekdays[m.day()];
+        },
+
+        _weekdaysShort : "Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),
+        weekdaysShort : function (m) {
+            return this._weekdaysShort[m.day()];
+        },
+
+        _weekdaysMin : "Su_Mo_Tu_We_Th_Fr_Sa".split("_"),
+        weekdaysMin : function (m) {
+            return this._weekdaysMin[m.day()];
+        },
+
+        _longDateFormat : {
+            LT : "h:mm A",
+            L : "MM/DD/YYYY",
+            LL : "MMMM D YYYY",
+            LLL : "MMMM D YYYY LT",
+            LLLL : "dddd, MMMM D YYYY LT"
+        },
+        longDateFormat : function (key) {
+            var output = this._longDateFormat[key];
+            return output;
+        },
+
+        meridiem : function (hours, minutes, isLower) {
+            if (hours > 11) {
+                return isLower ? 'pm' : 'PM';
+            } else {
+                return isLower ? 'am' : 'AM';
+            }
+        },
+
+        _calendar : {
+            sameDay : '[Today at] LT',
+            nextDay : '[Tomorrow at] LT',
+            nextWeek : 'dddd [at] LT',
+            lastDay : '[Yesterday at] LT',
+            lastWeek : '[last] dddd [at] LT',
+            sameElse : 'L'
+        },
+        calendar : function (key, mom) {
+            var output = this._calendar[key];
+            return typeof output === 'function' ? output.apply(mom) : output;
+        },
+
+        _relativeTime : {
+            future : "in %s",
+            past : "%s ago",
+            s : "a few seconds",
+            m : "a minute",
+            mm : "%d minutes",
+            h : "an hour",
+            hh : "%d hours",
+            d : "a day",
+            dd : "%d days",
+            M : "a month",
+            MM : "%d months",
+            y : "a year",
+            yy : "%d years"
+        },
+        relativeTime : function (number, withoutSuffix, string, isFuture) {
+            var output = this._relativeTime[string];
+            return (typeof output === 'function') ?
+                output(number, withoutSuffix, string, isFuture) :
+                output.replace(/%d/i, number);
+        },
+        pastFuture : function (diff, output) {
+            var format = this._relativeTime[diff > 0 ? 'future' : 'past'];
+            return typeof format === 'function' ? format(output) : format.replace(/%s/i, output);
+        },
+
+        ordinal : function (number) {
+            return '';
+        }
+    };
+
     // Loads a language definition into the `languages` cache.  The function
     // takes a key and optionally values.  If not in the browser and no values
     // are provided, it will load the language file module.  As a convenience,
     // this function also returns the language values.
     function loadLang(key, values) {
-        var i, m,
-            parse = [];
-
         if (!values && hasModule) {
             values = require('./lang/' + key);
         }
 
-        for (i = 0; i < langConfigProperties.length; i++) {
-            // If a language definition does not provide a value, inherit
-            // from English
-            values[langConfigProperties[i]] = values[langConfigProperties[i]] ||
-              languages.en[langConfigProperties[i]];
-        }
+        values.abbr = key;
+        languages[key] = new Language(values);
 
-        for (i = 0; i < 12; i++) {
-            m = moment([2000, i]);
-            parse[i] = new RegExp('^' + (values.months[i] || values.months(m, '')) +
-                '|^' + (values.monthsShort[i] || values.monthsShort(m, '')).replace('.', ''), 'i');
-        }
-        values.monthsParse = values.monthsParse || parse;
-
-        languages[key] = values;
-
-        return values;
+        return languages[key];
     }
 
     // Determines which language definition to use and returns it.
@@ -372,15 +469,12 @@
     // With no parameters, it will return the global language.  If you
     // pass in a language key, such as 'en', it will return the
     // definition for 'en', so long as 'en' has already been loaded using
-    // moment.lang.  If you pass in a moment or duration instance, it
-    // will decide the language based on that, or default to the global
-    // language.
-    function getLangDefinition(m) {
-        var langKey = (typeof m === 'string') && m ||
-                      m && m._lang ||
-                      null;
-
-        return langKey ? (languages[langKey] || loadLang(langKey)) : moment;
+    // moment.lang.
+    function getLangDefinition(key) {
+        if (!key) {
+            return moment.fn._lang;
+        }
+        return languages[key] || loadLang(key);
     }
 
 
@@ -421,7 +515,7 @@
         var i = 5;
 
         function replaceLongDateFormatTokens(input) {
-            return m.lang().longDateFormat[input] || input;
+            return m.lang().longDateFormat(input) || input;
         }
 
         while (i-- && localFormattingTokens.test(format)) {
@@ -501,15 +595,11 @@
             break;
         case 'MMM' : // fall through to MMMM
         case 'MMMM' :
-            for (a = 0; a < 12; a++) {
-                if (getLangDefinition().monthsParse[a].test(input)) {
-                    datePartArray[1] = a;
-                    b = true;
-                    break;
-                }
-            }
+            a = getLangDefinition().monthsParse(input);
             // if we didn't find a month name, mark the date as invalid.
-            if (!b) {
+            if (a != null) {
+                datePartArray[1] = a;
+            } else {
                 config._isValid = false;
             }
             break;
@@ -722,10 +812,7 @@
 
     // helper function for moment.fn.from, moment.fn.fromNow, and moment.duration.fn.humanize
     function substituteTimeAgo(string, number, withoutSuffix, isFuture, lang) {
-        var rt = lang.relativeTime[string];
-        return (typeof rt === 'function') ?
-            rt(number || 1, !!withoutSuffix, string, isFuture) :
-            rt.replace(/%d/i, number || 1);
+        return lang.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
     }
 
     function relativeTime(milliseconds, withoutSuffix, lang) {
@@ -829,7 +916,7 @@
 
         ret = new Duration(duration);
 
-        if (isDuration) {
+        if (isDuration && input.hasOwnProperty('_lang')) {
             ret._lang = input._lang;
         }
 
@@ -856,24 +943,21 @@
         var i;
 
         if (!key) {
-            return currentLanguage;
+            return moment.fn._lang._abbr;
         }
         if (values || !languages[key]) {
             loadLang(key, values);
         }
-        if (languages[key]) {
-            // deprecated, to get the language definition variables, use the
-            // moment.fn.lang method or the getLangDefinition function.
-            for (i = 0; i < langConfigProperties.length; i++) {
-                moment[langConfigProperties[i]] = languages[key][langConfigProperties[i]];
-            }
-            moment.monthsParse = languages[key].monthsParse;
-            currentLanguage = key;
-        }
+        moment.duration.fn._lang = moment.fn._lang = getLangDefinition(key);
     };
 
     // returns language data
-    moment.langData = getLangDefinition;
+    moment.langData = function (key) {
+        if (key && key._lang && key._lang._abbr) {
+            key = key._lang._abbr;
+        }
+        return getLangDefinition(key);
+    };
 
     // compare moment object
     moment.isMoment = function (obj) {
@@ -884,59 +968,6 @@
     moment.isDuration = function (obj) {
         return obj instanceof Duration;
     };
-
-    // Set default language, other languages will inherit from English.
-    moment.lang('en', {
-        months : "January_February_March_April_May_June_July_August_September_October_November_December".split("_"),
-        monthsShort : "Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"),
-        weekdays : "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),
-        weekdaysShort : "Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),
-        weekdaysMin : "Su_Mo_Tu_We_Th_Fr_Sa".split("_"),
-        longDateFormat : {
-            LT : "h:mm A",
-            L : "MM/DD/YYYY",
-            LL : "MMMM D YYYY",
-            LLL : "MMMM D YYYY LT",
-            LLLL : "dddd, MMMM D YYYY LT"
-        },
-        meridiem : function (hours, minutes, isLower) {
-            if (hours > 11) {
-                return isLower ? 'pm' : 'PM';
-            } else {
-                return isLower ? 'am' : 'AM';
-            }
-        },
-        calendar : {
-            sameDay : '[Today at] LT',
-            nextDay : '[Tomorrow at] LT',
-            nextWeek : 'dddd [at] LT',
-            lastDay : '[Yesterday at] LT',
-            lastWeek : '[last] dddd [at] LT',
-            sameElse : 'L'
-        },
-        relativeTime : {
-            future : "in %s",
-            past : "%s ago",
-            s : "a few seconds",
-            m : "a minute",
-            mm : "%d minutes",
-            h : "an hour",
-            hh : "%d hours",
-            d : "a day",
-            dd : "%d days",
-            M : "a month",
-            MM : "%d months",
-            y : "a year",
-            yy : "%d years"
-        },
-        ordinal : function (number) {
-            var b = number % 10;
-            return (~~ (number % 100 / 10) === 1) ? 'th' :
-                (b === 1) ? 'st' :
-                (b === 2) ? 'nd' :
-                (b === 3) ? 'rd' : 'th';
-        }
-    });
 
 
     /************************************
@@ -1040,7 +1071,7 @@
         },
 
         from : function (time, withoutSuffix) {
-            return moment.duration(this.diff(time)).lang(this._lang).humanize(!withoutSuffix);
+            return moment.duration(this.diff(time)).lang(this.lang()._abbr).humanize(!withoutSuffix);
         },
 
         fromNow : function (withoutSuffix) {
@@ -1049,15 +1080,13 @@
 
         calendar : function () {
             var diff = this.diff(moment().sod(), 'days', true),
-                calendar = this.lang().calendar,
-                allElse = calendar.sameElse,
-                format = diff < -6 ? allElse :
-                diff < -1 ? calendar.lastWeek :
-                diff < 0 ? calendar.lastDay :
-                diff < 1 ? calendar.sameDay :
-                diff < 2 ? calendar.nextDay :
-                diff < 7 ? calendar.nextWeek : allElse;
-            return this.format(typeof format === 'function' ? format.apply(this) : format);
+                format = diff < -6 ? 'sameElse' :
+                diff < -1 ? 'lastWeek' :
+                diff < 0 ? 'lastDay' :
+                diff < 1 ? 'sameDay' :
+                diff < 2 ? 'nextDay' :
+                diff < 7 ? 'nextWeek' : 'sameElse';
+            return this.format(this.lang().calendar(format, this));
         },
 
         isLeapYear : function () {
@@ -1130,11 +1159,11 @@
         // If passed a language key, it will set the language for this
         // instance.  Otherwise, it will return the language configuration
         // variables for this instance.
-        lang : function (lang) {
-            if (lang === undefined) {
-                return getLangDefinition(this);
+        lang : function (key) {
+            if (key === undefined) {
+                return this._lang;
             } else {
-                this._lang = lang;
+                this._lang = getLangDefinition(key);
                 return this;
             }
         }
@@ -1180,19 +1209,9 @@
 
         humanize : function (withSuffix) {
             var difference = +this,
-                rel = this.lang().relativeTime,
-                output = relativeTime(difference, !withSuffix, this.lang()),
-                fromNow = difference <= 0 ? rel.past : rel.future;
+                output = relativeTime(difference, !withSuffix, this.lang());
 
-            if (withSuffix) {
-                if (typeof fromNow === 'function') {
-                    output = fromNow(output);
-                } else {
-                    output = fromNow.replace(/%s/i, output);
-                }
-            }
-
-            return output;
+            return withSuffix ? this.lang().pastFuture(difference, output) : output;
         },
 
         lang : moment.fn.lang
@@ -1218,6 +1237,23 @@
     }
 
     makeDurationAsGetter('Weeks', 6048e5);
+
+
+    /************************************
+        Default Lang
+    ************************************/
+
+
+    // Set default language, other languages will inherit from English.
+    moment.lang('en', {
+        ordinal : function (number) {
+            var b = number % 10;
+            return (~~ (number % 100 / 10) === 1) ? 'th' :
+                (b === 1) ? 'st' :
+                (b === 2) ? 'nd' :
+                (b === 3) ? 'rd' : 'th';
+        }
+    });
 
 
     /************************************
