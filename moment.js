@@ -1206,8 +1206,15 @@
     }
     /*global define:false */
     if (typeof define === "function" && define.amd) {
-        define("moment", [], function () {
-            return moment;
-        });
+        if(typeof require != 'undefined') {
+            define(function () {
+                return moment;
+            });
+        }
+        else {
+            define("moment", [], function () {
+                return moment;
+            });
+        }
     }
 }).call(this);
