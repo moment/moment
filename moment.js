@@ -30,7 +30,7 @@
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
 
         // format tokens
-        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|YYYYY|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|.)/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|YYYYY|YYYY|YY|a|A|hh?|HH?|mm?|ss?|cc?|SS?S?|zz?|ZZ?|.)/g,
         localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?)/g,
 
         // parsing tokens
@@ -142,6 +142,12 @@
             },
             s    : function () {
                 return this.seconds();
+            },
+            c    : function () {
+                return '' + parseInt(this.seconds() * (100/60) );
+            },
+            cc   : function () {
+                return leftZeroFill( parseInt(this.seconds() * (100/60) ) , 2);
             },
             S    : function () {
                 return ~~(this.milliseconds() / 100);
@@ -475,6 +481,7 @@
         case 'hh':
         case 'mm':
         case 'ss':
+        case 'cc':
         case 'M':
         case 'D':
         case 'd':
@@ -482,6 +489,7 @@
         case 'h':
         case 'm':
         case 's':
+        case 'c':
             return parseTokenOneOrTwoDigits;
         default :
             return new RegExp(token.replace('\\', ''));

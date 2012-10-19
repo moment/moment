@@ -124,9 +124,10 @@ exports.format = {
         test.done();
     },
     "display with cents" : function(test) {
-        test.expect(1);
-        var time = moment("00:00:30",'HH:mm:ss');
-        test.equal(time.format('ss cc'), '30 50', "Should be able to display cents (1/100 of a minute)");
+        test.expect(3);
+        test.equal(moment("00:00:30",'HH:mm:ss').format('ss cc'), '30 50', "Should be able to display cents (1/100 of a minute)");
+        test.equal(moment("00:00:03",'HH:mm:ss').format('ss cc'), '03 05', "Should be able to display cents (1/100 of a minute)");
+        test.equal(moment("00:00:59",'HH:mm:ss').format('ss cc'), '59 98', "Should be able to display cents (1/100 of a minute)");
         test.done();
     }
 };
