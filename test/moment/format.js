@@ -122,5 +122,11 @@ exports.format = {
         test.equal(date.format("MMM 'YY"),  "Jan '12", "Should be able to format with single parenthesis");
         test.equal(date.format("MMM \"YY"), 'Jan "12', "Should be able to format with double parenthesis");
         test.done();
+    },
+    "display with cents" : function(test) {
+        test.expect(1);
+        var time = moment("00:00:30",'HH:mm:ss');
+        test.equal(time.format('ss cc'), '30 50', "Should be able to display cents (1/100 of a minute)");
+        test.done();
     }
 };
