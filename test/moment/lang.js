@@ -45,7 +45,7 @@ exports.lang = {
                 L : "-[L]-",
                 LL : "-[LL]-",
                 LLL : "-[LLL]-",
-                LLLL : "-[LLLL]-",
+                LLLL : "-[LLLL]-"
             },
             calendar : {
                 sameDay : '[sameDay] LT',
@@ -72,9 +72,11 @@ exports.lang = {
         test.expect(3);
         moment.lang('en');
 
-        test.equal(moment.langData().months[0], 'January', 'no arguments returns global');
-        test.equal(moment.langData('zh-cn').months[0], '一月', 'a string returns the language based on key');
-        test.equal(moment.langData(moment().lang('es')).months[0], 'enero', "if you pass in a moment it uses the moment's language");
+        var jan = moment([2000, 0]);
+
+        test.equal(moment.langData().months(jan), 'January', 'no arguments returns global');
+        test.equal(moment.langData('zh-cn').months(jan), '一月', 'a string returns the language based on key');
+        test.equal(moment.langData(moment().lang('es')).months(jan), 'enero', "if you pass in a moment it uses the moment's language");
 
         test.done();
     },
@@ -178,6 +180,7 @@ exports.lang = {
         test.done();
     },
 
+/*
     // the following tests should be removed after the 2.0.0 release as they will be deprecated
     "lang accessors on the global object should exist < 2.0.0" : function (test) {
         moment.lang('en');
@@ -228,4 +231,5 @@ exports.lang = {
 
         test.done();
     }
+*/
 };
