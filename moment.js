@@ -997,6 +997,10 @@
             return this._d;
         },
 
+        toJSON : function () {
+            return moment.utc(this).format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
+        },
+
         toArray : function () {
             var m = this;
             return [

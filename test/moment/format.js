@@ -124,5 +124,18 @@ exports.format = {
         test.equal(date.format("MMM 'YY"),  "Jan '12", "Should be able to format with single parenthesis");
         test.equal(date.format("MMM \"YY"), 'Jan "12', "Should be able to format with double parenthesis");
         test.done();
+    },
+
+    "toJSON" : function(test) {
+        var supportsJson = typeof JSON !== "undefined" && JSON.stringify && JSON.stringify.call,
+            date = moment.utc("2012-10-09T20:30:40.678");
+
+        test.expect(supportsJson ? 2 : 1);
+
+        test.equal(date.toJSON(), "2012-10-09T20:30:40.678Z", "should output ISO8601 on moment.fn.toJSON");
+        test.equal(JSON.stringify({
+            date : date
+        }), '{"date":"2012-10-09T20:30:40.678Z"}', "should output ISO8601 on JSON.stringify");
+        test.done();
     }
 };
