@@ -1014,6 +1014,10 @@
             ];
         },
 
+        toJSON : function () {
+            return this._d.toJSON();
+        },
+
         isValid : function () {
             if (this._isValid == null) {
                 if (this._a) {
