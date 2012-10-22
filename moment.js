@@ -446,6 +446,14 @@
 
         ordinal : function (number) {
             return '';
+        },
+
+        preparse : function (string) {
+            return string;
+        },
+
+        postformat : function (string) {
+            return string;
         }
     };
 
@@ -848,7 +856,7 @@
             return null;
         }
         var config = {
-            _i : input,
+            _i : typeof input === 'string' ? getLangDefinition().preparse(input) : input,
             _f : format,
             _isUTC : false
         };
@@ -1036,7 +1044,8 @@
         },
 
         format : function (inputString) {
-            return formatMoment(this, inputString ? inputString : moment.defaultFormat);
+            var output = formatMoment(this, inputString || moment.defaultFormat);
+            return this.lang().postformat(output);
         },
 
         add : function (input, val) {
