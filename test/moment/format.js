@@ -12,6 +12,8 @@ exports.format = {
     "format escape brackets" : function(test) {
         test.expect(9);
 
+        moment.lang('en');
+
         var b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
         test.equal(b.format('[day]'), 'day', 'Single bracket');
         test.equal(b.format('[day] YY [YY]'), 'day 09 YY', 'Double bracket');
