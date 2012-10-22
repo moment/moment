@@ -153,7 +153,8 @@ exports.create = {
         var a = [
                 ['MMDDYYYY',          '12021999'],
                 ['DDMMYYYY',          '12021999'],
-                ['YYYYMMDD',          '19991202']
+                ['YYYYMMDD',          '19991202'],
+                ['DDMMMYYYY',         '10Sep2001']
             ],i;
 
         test.expect(a.length);
