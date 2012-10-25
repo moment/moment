@@ -3,11 +3,9 @@
 
 A lightweight javascript date library for parsing, validating, manipulating, and formatting dates.
 
-### [Check out the website](http://momentjs.com)
+### [Read the docs](http://momentjs.com/docs/)
 
-### [Read the documentation](http://momentjs.com/docs/)
-
-### [Run the unit tests](http://momentjs.com/test/)
+### [Run the tests](http://momentjs.com/test/)
 
 
 Upgrading to 1.6.0
@@ -21,36 +19,6 @@ There are a few things being deprecated in the 1.6.0 release.
 
 3. The way to customize am/pm strings is being changed. This would only affect you if you created a custom language file. For more information, see [this issue](https://github.com/timrwood/moment/pull/222).
 
-
-Contributing
-============
-
-To contribute, fork the library and install these npm packages.
-
-    npm install jshint uglify-js nodeunit
-
-You can add tests to the files in `/test/moment` or add a new test file if you are adding a new feature.
-
-To run the tests, do `make test` to run all tests, `make test-moment` to test the core library, and `make test-lang` to test all the languages.
-
-To check the filesize, you can use `make size`.
-
-To minify all the files, use `make moment` to minify moment, `make langs` to minify all the lang files, or just `make` to minfy everything.
-
-If your code passes the unit tests (including the ones you wrote), submit a pull request.
-
-Submitting pull requests
-========================
-
-Moment.js now uses [git-flow](https://github.com/nvie/gitflow). If you're not familiar with git-flow, please read up on it, you'll be glad you did.
-
-When submitting new features, please create a new feature branch using `git flow feature start <name>` and submit the pull request to the `develop` branch.
-
-Pull requests for enhancements for features should be submitted to the `develop` branch as well.
-
-When submitting a bugfix, please check if there is an existing bugfix branch. If the latest stable version is `1.5.0`, the bugfix branch would be `hotfix/1.5.1`. All pull requests for bug fixes should be on a `hotfix` branch, unless the bug fix depends on a new feature.
-
-The `master` branch should always have the latest stable version. When bugfix or minor releases are needed, the develop/hotfix branch will be merged into master and released.
 
 Changelog
 =========
@@ -162,11 +130,11 @@ Added _date.lang() support.
 Added support for passing multiple formats to try to parse a date. _date("07-10-1986", ["MM-DD-YYYY", "YYYY-MM-DD"]);
 Made parse from string and single format 25% faster.
 
-### 0.5.2 
+### 0.5.2
 
 Buxfix for [issue 8](https://github.com/timrwood/underscore.date/pull/8) and [issue 9](https://github.com/timrwood/underscore.date/pull/9).
 
-### 0.5.1 
+### 0.5.1
 
 Buxfix for [issue 5](https://github.com/timrwood/underscore.date/pull/5).
 
@@ -177,11 +145,11 @@ Removed `_date.now()`, as it is a duplicate of `_date()` with no parameters.
 Removed `_date.isLeapYear(yearNuumber)`. Use `_date([yearNumber]).isLeapYear()` instead.
 Exposed customization options through the `_date.relativeTime`, `_date.weekdays`, `_date.weekdaysShort`, `_date.months`, `_date.monthsShort`, and `_date.ordinal` variables instead of the `_date.customize()` function.
 
-### 0.4.1 
+### 0.4.1
 
 Added date input formats for input strings.
 
-### 0.4.0 
+### 0.4.0
 
 Added underscore.date to npm. Removed dependancies on underscore.
 
@@ -191,7 +159,7 @@ Added `'z'` and `'zz'` to `_.date().format()`. Cleaned up some redundant code to
 
 ### 0.3.1
 
-Cleaned up the namespace. Moved all date manipulation and display functions to the _.date() object. 
+Cleaned up the namespace. Moved all date manipulation and display functions to the _.date() object.
 
 ### 0.3.0
 

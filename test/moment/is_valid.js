@@ -49,10 +49,54 @@ exports.is_valid = {
         test.done();
     },
 
+    "string + formats bad date" : function (test) {
+        test.expect(9);
+
+        test.equal(moment('2020-00-00', ['YYYY-MM-DD', 'DD-MM-YYYY']).isValid(), false, 'invalid on all in array');
+        test.equal(moment('2020-00-00', ['DD-MM-YYYY', 'YYYY-MM-DD']).isValid(), false, 'invalid on all in array');
+        test.equal(moment('2020-01-01', ['YYYY-MM-DD', 'DD-MM-YYYY']).isValid(), true, 'valid on first');
+        test.equal(moment('2020-01-01', ['DD-MM-YYYY', 'YYYY-MM-DD']).isValid(), true, 'valid on last');
+        test.equal(moment('2020-01-01', ['YYYY-MM-DD', 'YYYY-DD-MM']).isValid(), true, 'valid on both');
+        test.equal(moment('2020-13-01', ['YYYY-MM-DD', 'YYYY-DD-MM']).isValid(), true, 'valid on last');
+
+        test.equal(moment('12-13-2012', ['DD-MM-YYYY', 'YYYY-MM-DD']).isValid(), false, 'month rollover');
+        test.equal(moment('12-13-2012', ['DD-MM-YYYY', 'DD-MM-YYYY']).isValid(), false, 'month rollover');
+        test.equal(moment('38-12-2012', ['DD-MM-YYYY']).isValid(), false, 'day rollover');
+
+        test.done();
+    },
+
     "string nonsensical" : function (test) {
         test.expect(1);
 
         test.equal(moment('fail').isValid(), false, 'string "fail"');
+        test.done();
+    },
+
+    "string nonsensical with format" : function (test) {
+        test.expect(2);
+
+        test.equal(moment('fail', "MM-DD-YYYY").isValid(), false, 'string "fail" with format "MM-DD-YYYY"');
+        test.equal(moment("xx-xx-2001", 'DD-MM-YYY').isValid(), false, 'string "xx-xx-2001" with format "MM-DD-YYYY"');
+        test.done();
+    },
+
+    "string with bad month name" : function (test) {
+        test.expect(2);
+
+        moment.lang('en');
+
+        test.equal(moment('01-Nam-2012', 'DD-MMM-YYYY').isValid(), false, '"Nam" is an invalid month');
+        test.equal(moment('01-Aug-2012', 'DD-MMM-YYYY').isValid(), true, '"Aug" is a valid month');
+
+        test.done();
+    },
+
+    "string with spaceless format" : function (test) {
+        test.expect(1);
+
+        test.equal(moment('10Sep2001', 'DDMMMYYYY').isValid(), true, "Parsing 10Sep2001 should result in a valid date");
+
         test.done();
     },
 
@@ -104,7 +148,9 @@ exports.is_valid = {
             '2010-01-30T23+00:00',
             '2010-01-30T23:59+00:00',
             '2010-01-30T23:59:59+00:00',
-            '2010-01-30T23:59:59.999+00:00'
+            '2010-01-30T23:59:59.999+00:00',
+            '2010-01-30T23:59:59.999-07:00',
+            '2010-01-30T00:00:00.000+07:00'
         ];
 
         test.expect(tests.length * 2);

@@ -10,7 +10,9 @@ exports.format = {
     },
 
     "format escape brackets" : function(test) {
-        test.expect(5);
+        test.expect(9);
+
+        moment.lang('en');
 
         var b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
         test.equal(b.format('[day]'), 'day', 'Single bracket');
@@ -18,6 +20,10 @@ exports.format = {
         test.equal(b.format('[YY'), '[09', 'Un-ended bracket');
         test.equal(b.format('[[YY]]'), '[YY]', 'Double nested brackets');
         test.equal(b.format('[[]'), '[', 'Escape open bracket');
+        test.equal(b.format('[Last]'), 'Last', 'localized tokens');
+        test.equal(b.format('[L] L'), 'L 02/14/2009', 'localized tokens with escaped localized tokens');
+        test.equal(b.format('[L LL LLL LLLL aLa]'), 'L LL LLL LLLL aLa', 'localized tokens with escaped localized tokens');
+        test.equal(b.format('[LLL] LLL'), 'LLL February 14 2009 3:25 PM', 'localized tokens with escaped localized tokens (recursion)');
         test.done();
     },
 
@@ -106,6 +112,30 @@ exports.format = {
         test.expect(1);
         var isoRegex = /\d{4}.\d\d.\d\dT\d\d.\d\d.\d\d[\+\-]\d\d:\d\d/;
         test.ok(isoRegex.exec(moment().format()), "default format (" + moment().format() + ") should match ISO");
+        test.done();
+    },
+
+    "escaping quotes" : function(test) {
+        test.expect(4);
+        moment.lang('en');
+        var date = moment([2012, 0]);
+        test.equal(date.format('MMM \'YY'), "Jan '12", "Should be able to format with single parenthesis");
+        test.equal(date.format('MMM "YY'),  'Jan "12', "Should be able to format with double parenthesis");
+        test.equal(date.format("MMM 'YY"),  "Jan '12", "Should be able to format with single parenthesis");
+        test.equal(date.format("MMM \"YY"), 'Jan "12', "Should be able to format with double parenthesis");
+        test.done();
+    },
+
+    "toJSON" : function(test) {
+        var supportsJson = typeof JSON !== "undefined" && JSON.stringify && JSON.stringify.call,
+            date = moment.utc("2012-10-09T20:30:40.678");
+
+        test.expect(supportsJson ? 2 : 1);
+
+        test.equal(date.toJSON(), "2012-10-09T20:30:40.678Z", "should output ISO8601 on moment.fn.toJSON");
+        test.equal(JSON.stringify({
+            date : date
+        }), '{"date":"2012-10-09T20:30:40.678Z"}', "should output ISO8601 on JSON.stringify");
         test.done();
     }
 };
