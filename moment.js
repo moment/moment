@@ -850,16 +850,17 @@
         Top Level Functions
     ************************************/
 
+    function makeMoment(config) {
+        var input = config._i,
+            format = config._f;
 
-    moment = function (input, format, altConfigs) {
         if (input === null || input === '') {
             return null;
         }
-        var config = extend({
-            _i : typeof input === 'string' ? getLangDefinition().preparse(input) : input,
-            _f : format,
-            _isUTC : false
-        }, altConfigs || {});
+
+        if (typeof input === 'string') {
+            config._i = input = getLangDefinition().preparse(input);
+        }
 
         if (moment.isMoment(input)) {
             config = extend({}, input);
@@ -875,26 +876,24 @@
         }
 
         return new Moment(config);
+    }
+
+    moment = function (input, format) {
+        return makeMoment({
+            _i : input,
+            _f : format,
+            _isUTC : false
+        });
     };
 
     // creating with utc
     moment.utc = function (input, format) {
-        var config;
-
-        if (isArray(input)) {
-            config = {
-                _a : input,
-                _useUTC : true,
-                _isUTC : true
-            };
-            dateFromArray(config);
-
-            return new Moment(config);
-        }
-
-        return moment(input, format, {
-            _useUTC : true
-        }).utc();
+        return makeMoment({
+            _useUTC : true,
+            _isUTC : true,
+            _i : input,
+            _f : format
+        });
     };
 
     // creating with unix timestamp (in seconds)
