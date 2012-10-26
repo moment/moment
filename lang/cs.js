@@ -14,28 +14,48 @@
         case 'm':  // a minute / in a minute / a minute ago
             return withoutSuffix ? 'minuta' : (isFuture ? 'minutu' : 'minutou');
         case 'mm': // 9 minutes / in 9 minutes / 9 minutes ago
-            if (withoutSuffix || isFuture) return result + (plural(number) ? 'minuty' : 'minut');
-            else return result + 'minutami';
+            if (withoutSuffix || isFuture) {
+                return result + (plural(number) ? 'minuty' : 'minut');
+            } else {
+                return result + 'minutami';
+            }
+            break;
         case 'h':  // an hour / in an hour / an hour ago
             return withoutSuffix ? 'hodina' : (isFuture ? 'hodinu' : 'hodinou');
         case 'hh': // 9 hours / in 9 hours / 9 hours ago
-            if (withoutSuffix || isFuture) return result + (plural(number) ? 'hodiny' : 'hodin');
-            else return result + 'hodinami';
+            if (withoutSuffix || isFuture) {
+                return result + (plural(number) ? 'hodiny' : 'hodin');
+            } else {
+                return result + 'hodinami';
+            }
+            break;
         case 'd':  // a day / in a day / a day ago
             return (withoutSuffix || isFuture) ? 'den' : 'dnem';
         case 'dd': // 9 days / in 9 days / 9 days ago
-            if (withoutSuffix || isFuture) return result + (plural(number) ? 'dny' : 'dní');
-            else return result + 'dny';
+            if (withoutSuffix || isFuture) {
+                return result + (plural(number) ? 'dny' : 'dní');
+            } else {
+                return result + 'dny';
+            }
+            break;
         case 'M':  // a month / in a month / a month ago
             return (withoutSuffix || isFuture) ? 'měsíc' : 'měsícem';
         case 'MM': // 9 months / in 9 months / 9 months ago
-            if (withoutSuffix || isFuture) return result + (plural(number) ? 'měsíce' : 'měsíců');
-            else return result + 'měsíci';
+            if (withoutSuffix || isFuture) {
+                return result + (plural(number) ? 'měsíce' : 'měsíců');
+            } else {
+                return result + 'měsíci';
+            }
+            break;
         case 'y':  // a year / in a year / a year ago
             return (withoutSuffix || isFuture) ? 'rok' : 'rokem';
         case 'yy': // 9 years / in 9 years / 9 years ago
-            if (withoutSuffix || isFuture) return result + (plural(number) ? 'roky' : 'let');
-            else return result + 'lety';
+            if (withoutSuffix || isFuture) {
+                return result + (plural(number) ? 'roky' : 'let');
+            } else {
+                return result + 'lety';
+            }
+            break;
         }
     },
 
@@ -44,8 +64,8 @@
     lang = {
         months : months,
         monthsShort : monthsShort,
-        monthsParse : (function(months, monthsShort) {
-            _monthsParse = [];
+        monthsParse : (function (months, monthsShort) {
+            var i, _monthsParse = [];
             for (i = 0; i < 12; i++) {
                 // use custom parser to solve problem with July (červenec)
                 _monthsParse[i] = new RegExp('^' + months[i] + '$|^' + monthsShort[i] + '$', 'i');
@@ -67,22 +87,36 @@
             nextDay: '[zítra v] LT',
             nextWeek: function () {
                 switch (this.day()) {
-                    case 0: return '[v neděli v] LT'; break;
-                    case 1: case 2: return '[v] dddd [v] LT'; break;
-                    case 3: return '[ve středu v] LT'; break;
-                    case 4: return '[ve čtvrtek v] LT'; break;
-                    case 5: return '[v pátek v] LT'; break;
-                    case 6: return '[v sobotu v] LT'; break;
+                case 0:
+                    return '[v neděli v] LT';
+                case 1:
+                case 2:
+                    return '[v] dddd [v] LT';
+                case 3:
+                    return '[ve středu v] LT';
+                case 4:
+                    return '[ve čtvrtek v] LT';
+                case 5:
+                    return '[v pátek v] LT';
+                case 6:
+                    return '[v sobotu v] LT';
                 }
             },
             lastDay: '[včera v] LT',
             lastWeek: function () {
                 switch (this.day()) {
-                    case 0: return '[minulou neděli v] LT'; break;
-                    case 1: case 2: return '[minulé] dddd [v] LT'; break;
-                    case 3: return '[minulou středu v] LT'; break;
-                    case 4: case 5: return '[minulý] dddd [v] LT'; break;
-                    case 6: return '[minulou sobotu v] LT'; break;
+                case 0:
+                    return '[minulou neděli v] LT';
+                case 1:
+                case 2:
+                    return '[minulé] dddd [v] LT';
+                case 3:
+                    return '[minulou středu v] LT';
+                case 4:
+                case 5:
+                    return '[minulý] dddd [v] LT';
+                case 6:
+                    return '[minulou sobotu v] LT';
                 }
             },
             sameElse: "L"
