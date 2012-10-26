@@ -851,15 +851,15 @@
     ************************************/
 
 
-    moment = function (input, format) {
+    moment = function (input, format, altConfigs) {
         if (input === null || input === '') {
             return null;
         }
-        var config = {
+        var config = extend({
             _i : typeof input === 'string' ? getLangDefinition().preparse(input) : input,
             _f : format,
             _isUTC : false
-        };
+        }, altConfigs || {});
 
         if (moment.isMoment(input)) {
             config = extend({}, input);
@@ -891,15 +891,10 @@
 
             return new Moment(config);
         }
-        // if we don't have a timezone, we need to add one to trigger parsing into utc
-        if (typeof input === 'string' && !parseTokenTimezone.exec(input)) {
-            input += ' +0000';
-            if (format) {
-                format += ' Z';
-            }
-        }
 
-        return moment(input, format).utc();
+        return moment(input, format, {
+            _useUTC : true
+        }).utc();
     };
 
     // creating with unix timestamp (in seconds)
