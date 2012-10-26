@@ -39,9 +39,19 @@
         }
     },
 
+    months = "leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec".split("_"),
+    monthsShort = "led_úno_bře_dub_kvě_čvn_čvc_srp_zář_říj_lis_pro".split("_"),
     lang = {
-        months : "leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec".split("_"),
-        monthsShort : "led_úno_bře_dub_kvě_čvn_čvc_srp_zář_říj_lis_pro".split("_"),
+        months : months,
+        monthsShort : monthsShort,
+        monthsParse : (function(months, monthsShort) {
+            _monthsParse = [];
+            for (i = 0; i < 12; i++) {
+                // use custom parser to solve problem with July (červenec)
+                _monthsParse[i] = new RegExp('^' + months[i] + '$|^' + monthsShort[i] + '$', 'i');
+            }
+            return _monthsParse;
+        }(months, monthsShort)),
         weekdays : "neděle_pondělí_úterý_středa_čtvrtek_pátek_sobota".split("_"),
         weekdaysShort : "ne_po_út_st_čt_pá_so".split("_"),
         weekdaysMin : "ne_po_út_st_čt_pá_so".split("_"),
@@ -55,7 +65,7 @@
         calendar : {
             sameDay: "[dnes v] LT",
             nextDay: '[zítra v] LT',
-            nextWeek: function() {
+            nextWeek: function () {
                 switch (this.day()) {
                     case 0: return '[v neděli v] LT'; break;
                     case 1: case 2: return '[v] dddd [v] LT'; break;
@@ -66,7 +76,7 @@
                 }
             },
             lastDay: '[včera v] LT',
-            lastWeek: function() {
+            lastWeek: function () {
                 switch (this.day()) {
                     case 0: return '[minulou neděli v] LT'; break;
                     case 1: case 2: return '[minulé] dddd [v] LT'; break;

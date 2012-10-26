@@ -14,11 +14,6 @@ exports["lang:cs"] = {
             test.equal(moment(input, mmm).month(), monthIndex, input + ' should be month ' + (monthIndex + 1));
         }
         for (var i = 0; i < 12; i++) {
-            if (i == 5 || i == 6) {
-                console.log(tests[i]);
-                console.log(tests[i].split(' '));
-                console.log(moment(tests[i].split(' ')[0], 'MMM').month());
-            }
             tests[i] = tests[i].split(' ');
             equalTest(tests[i][0], 'MMM', i);
             equalTest(tests[i][1], 'MMM', i);
