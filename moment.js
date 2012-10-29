@@ -1220,7 +1220,11 @@
             var difference = +this,
                 output = relativeTime(difference, !withSuffix, this.lang());
 
-            return withSuffix ? this.lang().pastFuture(difference, output) : output;
+            if (withSuffix) {
+                output = this.lang().pastFuture(difference, output);
+            }
+
+            return this.lang().postformat(output);
         },
 
         lang : moment.fn.lang
