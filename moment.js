@@ -477,6 +477,9 @@
         if (!key) {
             return moment.fn._lang;
         }
+        if (!languages[key] && hasModule) {
+            require('./lang/' + key);
+        }
         return languages[key];
     }
 
@@ -944,8 +947,8 @@
         }
         if (values) {
             loadLang(key, values);
-        } else if (!languages[key] && hasModule) {
-            require('./lang/' + key);
+        } else if (!languages[key]) {
+            getLangDefinition(key);
         }
         moment.duration.fn._lang = moment.fn._lang = getLangDefinition(key);
     };
