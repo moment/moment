@@ -38,7 +38,7 @@ exports["lang:kr"] = {
                 ['D Do DD',                            '14 14일 14'],
                 ['d do dddd ddd dd',                   '0 0일 일요일 일 일'],
                 ['DDD DDDo DDDD',                      '45 45일 045'],
-                ['w wo ww',                            '6 6. 06'],
+                ['w wo ww',                            '6 6일 06'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
