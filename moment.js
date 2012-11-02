@@ -125,9 +125,13 @@
                 return getValueFromArray("weekdays", this.day(), this, format);
             },
             w    : function () {
-                var a = new Date(this.year(), this.month(), this.date() - this.day() + 5),
-                    b = new Date(a.getFullYear(), 0, 4);
-                return ~~((a - b) / 864e5 / 7 + 1.5);
+                var a = new Date(this.year(), this.month(), this.date());
+                var t = getFirstMonday(a.getFullYear());
+                if (a < t) {
+                  t = getFirstMonday(a.getFullYear() - 1);
+                }
+
+                return Math.ceil((a - t) / 864e5 / 7);
             },
             YY   : function () {
                 return leftZeroFill(this.year() % 100, 2);
@@ -185,6 +189,19 @@
     function getValueFromArray(key, index, m, format) {
         var lang = m.lang();
         return lang[key].call ? lang[key](m, format) : lang[key][index];
+    }
+
+    function getFirstMonday(year) {
+        var t = new Date(year, 0, 1); 
+        var d = t.getDay() || 7;
+
+        if (d < 5) {
+            d = 2 - d;
+        } else {
+            d = 9 - d;
+        }
+
+        return t.getTime() + 86400000 * d;
     }
 
     function padToken(func, count) {
