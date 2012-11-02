@@ -126,12 +126,9 @@
             },
             w    : function () {
                 var a = new Date(this.year(), this.month(), this.date());
-                var t = getFirstMonday(a.getFullYear());
-                if (a < t) {
-                  t = getFirstMonday(a.getFullYear() - 1);
-                }
-
-                return Math.ceil((a - t) / 864e5 / 7);
+                a.setHours(0,0,0);
+                a.setDate(a.getDate() + 4 - (a.getDay() || 7));
+                return Math.ceil((1 + (a - (new Date(a.getFullYear(), 0, 1))) / 864e5) / 7);
             },
             YY   : function () {
                 return leftZeroFill(this.year() % 100, 2);
@@ -190,20 +187,6 @@
         var lang = m.lang();
         return lang[key].call ? lang[key](m, format) : lang[key][index];
     }
-
-    function getFirstMonday(year) {
-        var t = new Date(year, 0, 1); 
-        var d = t.getDay() || 7;
-
-        if (d < 5) {
-            d = 2 - d;
-        } else {
-            d = 9 - d;
-        }
-
-        return t.getTime() + 86400000 * d;
-    }
-
     function padToken(func, count) {
         return function (a) {
             return leftZeroFill(func.call(this, a), count);
