@@ -39,7 +39,7 @@ exports["lang:pt-br"] = {
                 ['D Do DD',                            '14 14º 14'],
                 ['d do dddd ddd',                      '0 0º Domingo Dom'],
                 ['DDD DDDo DDDD',                      '45 45º 045'],
-                ['w wo ww',                            '8 8º 08'],
+                ['w wo ww',                            '6 6. 06'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
