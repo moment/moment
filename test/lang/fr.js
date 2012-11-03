@@ -39,7 +39,7 @@ exports["lang:fr"] = {
                 ['D Do DD',                            '14 14ème 14'],
                 ['d do dddd ddd dd',                   '0 0ème dimanche dim. Di'],
                 ['DDD DDDo DDDD',                      '45 45ème 045'],
-                ['w wo ww',                            '8 8ème 08'],
+                ['w wo ww',                            '6 6ème 06'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],

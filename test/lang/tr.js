@@ -38,7 +38,7 @@ exports["lang:tr"] = {
                 ['D Do DD',                            '14 14\'üncü 14'],
                 ['d do dddd ddd dd',                   '0 0\'ıncı Pazar Paz Pz'],
                 ['DDD DDDo DDDD',                      '45 45\'inci 045'],
-                ['w wo ww',                            '8 8\'inci 08'],
+                ['w wo ww',                            '6 6\'ncı 06'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
