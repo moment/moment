@@ -39,7 +39,7 @@ exports["lang:ne"] = {
                 ['D Do DD',                            '१४ १४ १४'],
                 ['d do dddd ddd dd',                   '० ० आइतबार आइत. आइ.'],
                 ['DDD DDDo DDDD',                      '४५ ४५ ०४५'],
-                ['w wo ww',                            '८ ८ ०८'],
+                ['w wo ww',                            '६ ६ ०६'],
                 ['h hh',                               '३ ०३'],
                 ['H HH',                               '१५ १५'],
                 ['m mm',                               '२५ २५'],

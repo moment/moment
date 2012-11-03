@@ -39,7 +39,7 @@ exports["lang:eo"] = {
                 ['D Do DD',                            '14 14a 14'],
                 ['d do dddd ddd dd',                   '0 0a Dimanĉo Dim Di'],
                 ['DDD DDDo DDDD',                      '45 45a 045'],
-                ['w wo ww',                            '8 8a 08'],
+                ['w wo ww',                            '6 6a 06'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
