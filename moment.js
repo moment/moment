@@ -105,9 +105,10 @@
                 return this.lang().weekdays(this, format);
             },
             w    : function () {
-                var a = new Date(this.year(), this.month(), this.date() - this.day() + 5),
-                    b = new Date(a.getFullYear(), 0, 4);
-                return ~~((a - b) / 864e5 / 7 + 1.5);
+                var a = new Date(this.year(), this.month(), this.date());
+                a.setHours(0, 0, 0);
+                a.setDate(a.getDate() + 4 - (a.getDay() || 7));
+                return Math.ceil((1 + (a - (new Date(a.getFullYear(), 0, 1))) / 864e5) / 7);
             },
             YY   : function () {
                 return leftZeroFill(this.year() % 100, 2);
