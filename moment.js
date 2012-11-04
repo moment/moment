@@ -347,6 +347,7 @@
     // [year, month, day , hour, minute, second, millisecond]
     function dateFromArray(input, asUTC, hoursOffset, minutesOffset) {
         var i, date, forValid = [];
+        input = input.slice(0);
         for (i = 0; i < 7; i++) {
             forValid[i] = input[i] = (input[i] == null) ? (i === 2 ? 1 : 0) : input[i];
         }
