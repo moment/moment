@@ -2,63 +2,68 @@
 // language : slovenian (sl)
 // author : Robert Sedovšek : https://github.com/sedovsek
 (function () {
-    translate = function (number, withoutSuffix, key) {
+    var translate = function (number, withoutSuffix, key) {
         var result = number + " ";
         switch (key) {
-            case 'm': 
-                return withoutSuffix  ? 'ena minuta'  : 'eno minuto';
-            case 'mm': 
-                if (number === 1) {
-                    return result + 'minuta'
-                } else if (number === 2) {
-                    return result + 'minuti'
-                } else if ((number === 3) || (number === 4)) {
-                    return result + 'minute' 
-                } else {
-                    return result + 'minut'
-                }
-            case 'h': 
-                return withoutSuffix  ? 'ena ura'  : 'eno uro';
-            case 'hh': 
-                if (number === 1) {
-                    return result + 'ura'
-                } else if (number === 2) {
-                    return result + 'uri'
-                } else if ((number === 3) || (number === 4)) {
-                    return result + 'ure' 
-                } else {
-                    return result + 'ur'
-                }
-            case 'dd': 
-                if (number === 1) {
-                    return result + 'dan'
-                } else {
-                    return result + 'dni'
-                }
-            case 'MM': 
-                if (number === 1) {
-                    return result + 'mesec'
-                } else if (number === 2) {
-                    return result + 'meseca'
-                } else if ((number === 3) || (number === 4)) {
-                    return result + 'mesece' 
-                } else {
-                    return result + 'mesecev'
-                }
-            case 'yy': 
-                if (number === 1) {
-                    return result + 'leto'
-                } else if (number === 2) {
-                    return result + 'leti'
-                } else if ((number === 3) || (number === 4)) {
-                    return result + 'leta' 
-                } else {
-                    return result + 'let'
-                }
+        case 'm':
+            return withoutSuffix ? 'ena minuta' : 'eno minuto';
+        case 'mm':
+            if (number === 1) {
+                result += 'minuta';
+            } else if (number === 2) {
+                result += 'minuti';
+            } else if (number === 3 || number === 4) {
+                result += 'minute';
+            } else {
+                result += 'minut';
+            }
+            return result;
+        case 'h':
+            return withoutSuffix ? 'ena ura' : 'eno uro';
+        case 'hh':
+            if (number === 1) {
+                result += 'ura';
+            } else if (number === 2) {
+                result += 'uri';
+            } else if (number === 3 || number === 4) {
+                result += 'ure';
+            } else {
+                result += 'ur';
+            }
+            return result;
+        case 'dd':
+            if (number === 1) {
+                result += 'dan';
+            } else {
+                result += 'dni';
+            }
+            return result;
+        case 'MM':
+            if (number === 1) {
+                result += 'mesec';
+            } else if (number === 2) {
+                result += 'meseca';
+            } else if (number === 3 || number === 4) {
+                result += 'mesece';
+            } else {
+                result += 'mesecev';
+            }
+            return result;
+        case 'yy':
+            if (number === 1) {
+                result += 'leto';
+            } else if (number === 2) {
+                result += 'leti';
+            } else if (number === 3 || number === 4) {
+                result += 'leta';
+            } else {
+                result += 'let';
+            }
+            return result;
         }
     },
 
-    lang = {
+        lang = {
             months : "januar_februar_marec_april_maj_junij_julij_avgust_september_oktober_november_december".split("_"),
             monthsShort : "jan._feb._mar._apr._maj._jun._jul._avg._sep._okt._nov._dec.".split("_"),
             weekdays : "nedelja_ponedeljek_torek_sreda_četrtek_petek_sobota".split("_"),
@@ -74,35 +79,35 @@
             calendar : {
                 sameDay  : '[danes ob] LT',
                 nextDay  : '[jutri ob] LT',
-                
+
                 nextWeek : function () {
                     switch (this.day()) {
-                        case 0:
-                            return '[v] [nedeljo] [ob] LT';
-                        case 3:
-                            return '[v] [sredo] [ob] LT';
-                        case 6:
-                            return '[v] [soboto] [ob] LT';
-                        case 1:
-                        case 2:
-                        case 4:
-                        case 5:
-                            return '[v] dddd [ob] LT';
-                        }
+                    case 0:
+                        return '[v] [nedeljo] [ob] LT';
+                    case 3:
+                        return '[v] [sredo] [ob] LT';
+                    case 6:
+                        return '[v] [soboto] [ob] LT';
+                    case 1:
+                    case 2:
+                    case 4:
+                    case 5:
+                        return '[v] dddd [ob] LT';
+                    }
                 },
                 lastDay  : '[včeraj ob] LT',
                 lastWeek : function () {
                     switch (this.day()) {
-                        case 0:
-                        case 3:
-                        case 6:
-                            return '[prejšnja] dddd [ob] LT';
-                        case 1:
-                        case 2:
-                        case 4:
-                        case 5:
-                            return '[prejšnji] dddd [ob] LT';
-                        }
+                    case 0:
+                    case 3:
+                    case 6:
+                        return '[prejšnja] dddd [ob] LT';
+                    case 1:
+                    case 2:
+                    case 4:
+                    case 5:
+                        return '[prejšnji] dddd [ob] LT';
+                    }
                 },
                 sameElse : 'L'
             },
