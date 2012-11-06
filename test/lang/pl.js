@@ -219,11 +219,49 @@ exports["lang:pl"] = {
 
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
-            test.equal(m.calendar(),       m.format('[W zeszły/łą] dddd [o] LT'),  "Today - " + i + " days current time");
+            switch (m.day()) {
+            case 0:
+                test.equal(m.calendar(),   m.format('[W zeszłą niedzielę o] LT'),  "Today - " + i + " days current time");
+                break;
+            case 3:
+                test.equal(m.calendar(),   m.format('[W zeszłą środę o] LT'),      "Today - " + i + " days current time");
+                break;
+            case 6:
+                test.equal(m.calendar(),   m.format('[W zeszłą sobotę o] LT'),     "Today - " + i + " days current time");
+                break;
+            default:
+                test.equal(m.calendar(),   m.format('[W zeszły] dddd [o] LT'),     "Today - " + i + " days current time");
+            }
+
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('[W zeszły/łą] dddd [o] LT'),  "Today - " + i + " days beginning of day");
+            switch (m.day()) {
+            case 0:
+                test.equal(m.calendar(),   m.format('[W zeszłą niedzielę o] LT'),  "Today - " + i + " days beginning of day");
+                break;
+            case 3:
+                test.equal(m.calendar(),   m.format('[W zeszłą środę o] LT'),      "Today - " + i + " days beginning of day");
+                break;
+            case 6:
+                test.equal(m.calendar(),   m.format('[W zeszłą sobotę o] LT'),     "Today - " + i + " days beginning of day");
+                break;
+            default:
+                test.equal(m.calendar(),   m.format('[W zeszły] dddd [o] LT'),     "Today - " + i + " days beginning of day");
+            }
+
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('[W zeszły/łą] dddd [o] LT'),  "Today - " + i + " days end of day");
+            switch (m.day()) {
+            case 0:
+                test.equal(m.calendar(),   m.format('[W zeszłą niedzielę o] LT'),  "Today - " + i + " days end of day");
+                break;
+            case 3:
+                test.equal(m.calendar(),   m.format('[W zeszłą środę o] LT'),      "Today - " + i + " days end of day");
+                break;
+            case 6:
+                test.equal(m.calendar(),   m.format('[W zeszłą sobotę o] LT'),     "Today - " + i + " days end of day");
+                break;
+            default:
+                test.equal(m.calendar(),   m.format('[W zeszły] dddd [o] LT'),     "Today - " + i + " days end of day");
+            }
         }
         test.done();
     },
