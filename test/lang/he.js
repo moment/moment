@@ -39,7 +39,7 @@ exports["lang:he"] = {
                 ['D Do DD',                            '14 14 14'],
                 ['d do dddd ddd dd',                   '0 0 ראשון א׳ א'],
                 ['DDD DDDo DDDD',                      '45 45 045'],
-                ['w wo ww',                            '8 8 08'],
+                ['w wo ww',                            '6 6 06'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
@@ -74,7 +74,7 @@ exports["lang:he"] = {
 //        test.equal(moment([2011, 0, 8]).format('DDDo'), '8th', '8th');
 //        test.equal(moment([2011, 0, 9]).format('DDDo'), '9th', '9th');
 //        test.equal(moment([2011, 0, 10]).format('DDDo'), '10th', '10th');
-    
+
 //        test.equal(moment([2011, 0, 11]).format('DDDo'), '11th', '11th');
 //        test.equal(moment([2011, 0, 12]).format('DDDo'), '12th', '12th');
 //        test.equal(moment([2011, 0, 13]).format('DDDo'), '13th', '13th');
@@ -85,7 +85,7 @@ exports["lang:he"] = {
 //        test.equal(moment([2011, 0, 18]).format('DDDo'), '18th', '18th');
 //        test.equal(moment([2011, 0, 19]).format('DDDo'), '19th', '19th');
 //        test.equal(moment([2011, 0, 20]).format('DDDo'), '20th', '20th');
-    
+
 //        test.equal(moment([2011, 0, 21]).format('DDDo'), '21st', '21st');
 //        test.equal(moment([2011, 0, 22]).format('DDDo'), '22nd', '22nd');
 //        test.equal(moment([2011, 0, 23]).format('DDDo'), '23rd', '23rd');
@@ -96,7 +96,7 @@ exports["lang:he"] = {
 //        test.equal(moment([2011, 0, 28]).format('DDDo'), '28th', '28th');
 //        test.equal(moment([2011, 0, 29]).format('DDDo'), '29th', '29th');
 //        test.equal(moment([2011, 0, 30]).format('DDDo'), '30th', '30th');
-    
+
 //        test.equal(moment([2011, 0, 31]).format('DDDo'), '31st', '31st');
         test.done();
     },
@@ -186,9 +186,9 @@ exports["lang:he"] = {
     "calendar day" : function(test) {
         test.expect(6);
         moment.lang('he');
-    
+
         var a = moment().hours(2).minutes(0).seconds(0);
-    
+
         test.equal(moment(a).calendar(),                     "היום ב־02:00",     "today at the same time");
         test.equal(moment(a).add({ m: 25 }).calendar(),      "היום ב־02:25",     "Now plus 25 min");
         test.equal(moment(a).add({ h: 1 }).calendar(),       "היום ב־03:00",     "Now plus 1 hour");
@@ -201,10 +201,10 @@ exports["lang:he"] = {
     "calendar next week" : function(test) {
         test.expect(15);
         moment.lang('he');
-    
+
         var i;
         var m;
-    
+
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('dddd [בשעה] LT'),  "Today + " + i + " days current time");
@@ -219,7 +219,7 @@ exports["lang:he"] = {
     "calendar last week" : function(test) {
         test.expect(15);
         moment.lang('he');
-    
+
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('[ביום] dddd [האחרון בשעה] LT'),  "Today - " + i + " days current time");
@@ -236,13 +236,13 @@ exports["lang:he"] = {
         moment.lang('he');
         var weeksAgo = moment().subtract({ w: 1 });
         var weeksFromNow = moment().add({ w: 1 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
-    
+
         weeksAgo = moment().subtract({ w: 2 });
         weeksFromNow = moment().add({ w: 2 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
     test.done();
