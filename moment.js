@@ -848,6 +848,24 @@
 
 
     /************************************
+        Week of Year
+    ************************************/
+
+
+    function weekOfYear(mom, firstDayOfWeek, firstDayOfYear) {
+        var start = mom.clone().date(1).month(0),
+            dayOfYear = mom.diff(start, 'days') + 1,
+            week = dayOfYear - (firstDayOfWeek + mom.day()) + start.day();
+
+        if (start.day() <= firstDayOfYear) {
+            week += 7;
+        }
+
+        return week / 7 || 53;
+    }
+
+
+    /************************************
         Top Level Functions
     ************************************/
 
@@ -1162,6 +1180,10 @@
 
         daysInMonth : function () {
             return moment.utc([this.year(), this.month() + 1, 0]).date();
+        },
+
+        isoWeek : function () {
+            return weekOfYear(this, 1, 4);
         },
 
         // If passed a language key, it will set the language for this
