@@ -269,6 +269,9 @@ exports["lang:en"] = {
         test.done();
     },
 
+    // Sunday is the first day of the week.
+    // The week that contains Jan 1st is the first week of the year.
+
     "weeks year starting sunday" : function(test) {
         test.expect(5);
 

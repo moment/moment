@@ -461,8 +461,8 @@
             return weekOfYear(mom, this._week.dow, this._week.doy);
         },
         _week : {
-            dow : 0,
-            doy : 6
+            dow : 0, // Sunday is the first day of the week.
+            doy : 6  // The week that contains Jan 1st is the first week of the year.
         }
     };
 
