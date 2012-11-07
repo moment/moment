@@ -92,12 +92,12 @@ exports.utc = {
     "iso weeks year starting friday" : function(test) {
         test.expect(6);
 
-        test.equal(moment([2009, 11, 28]).isoWeek(), 53, "Dec 1 2010 should be iso week 1");
-        test.equal(moment([2010,  0,  1]).isoWeek(), 53, "Jan  1 2010 should be iso week 1");
-        test.equal(moment([2010,  0,  3]).isoWeek(), 53, "Jan  3 2010 should be iso week 1");
-        test.equal(moment([2010,  0,  4]).isoWeek(),  1, "Jan  4 2010 should be iso week 2");
-        test.equal(moment([2010,  0, 10]).isoWeek(),  1, "Jan 10 2010 should be iso week 2");
-        test.equal(moment([2010,  0, 11]).isoWeek(),  2, "Jan 11 2010 should be iso week 3");
+        test.equal(moment([2009, 11, 28]).isoWeek(), 53, "Dec 28 2009 should be iso week 53");
+        test.equal(moment([2010,  0,  1]).isoWeek(), 53, "Jan  1 2010 should be iso week 53");
+        test.equal(moment([2010,  0,  3]).isoWeek(), 53, "Jan  3 2010 should be iso week 53");
+        test.equal(moment([2010,  0,  4]).isoWeek(),  1, "Jan  4 2010 should be iso week 1");
+        test.equal(moment([2010,  0, 10]).isoWeek(),  1, "Jan 10 2010 should be iso week 1");
+        test.equal(moment([2010,  0, 11]).isoWeek(),  2, "Jan 11 2010 should be iso week 2");
 
         test.done();
     },
@@ -105,9 +105,9 @@ exports.utc = {
     "iso weeks year starting saturday" : function(test) {
         test.expect(6);
 
-        test.equal(moment([2011, 11, 27]).isoWeek(), 52, "Dec 27 2011 should be iso week 53");
-        test.equal(moment([2011,  0,  1]).isoWeek(), 52, "Jan  1 2011 should be iso week 53");
-        test.equal(moment([2011,  0,  2]).isoWeek(), 52, "Jan  2 2011 should be iso week 53");
+        test.equal(moment([2010, 11, 27]).isoWeek(), 52, "Dec 27 2010 should be iso week 52");
+        test.equal(moment([2011,  0,  1]).isoWeek(), 52, "Jan  1 2011 should be iso week 52");
+        test.equal(moment([2011,  0,  2]).isoWeek(), 52, "Jan  2 2011 should be iso week 52");
         test.equal(moment([2011,  0,  3]).isoWeek(),  1, "Jan  3 2011 should be iso week 1");
         test.equal(moment([2011,  0,  9]).isoWeek(),  1, "Jan  9 2011 should be iso week 1");
         test.equal(moment([2011,  0, 10]).isoWeek(),  2, "Jan 10 2011 should be iso week 2");
