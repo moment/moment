@@ -88,9 +88,7 @@
                 return this.date();
             },
             DDD  : function () {
-                var a = new Date(this.year(), this.month(), this.date()),
-                    b = new Date(this.year(), 0, 1);
-                return ~~(((a - b) / 864e5) + 1.5);
+                return this.dayOfYear();
             },
             d    : function () {
                 return this.day();
