@@ -458,6 +458,14 @@
 
         postformat : function (string) {
             return string;
+        },
+
+        week : function (mom) {
+            return weekOfYear(mom, this._week.dow, this._week.doy);
+        },
+        _week : {
+            dow : 0,
+            doy : 6
         }
     };
 
@@ -863,21 +871,19 @@
     //                      of this day of the week
     //                      (eg. ISO weeks use thursday (4))
     function weekOfYear(mom, firstDayOfWeek, firstDayOfWeekOfYear) {
-        var daysToDayOfWeek = firstDayOfWeekOfYear - mom.day();
+        var end = firstDayOfWeekOfYear - firstDayOfWeek,
+            daysToDayOfWeek = firstDayOfWeekOfYear - mom.day();
 
-        if (daysToDayOfWeek > 3) {
+
+        if (daysToDayOfWeek > end) {
             daysToDayOfWeek -= 7;
         }
 
-        if (daysToDayOfWeek < -3) {
+        if (daysToDayOfWeek < end - 7) {
             daysToDayOfWeek += 7;
         }
 
-        if (moment(mom).startOf('year').day() > firstDayOfWeekOfYear) {
-            daysToDayOfWeek -= 1;
-        }
-
-        return ~~(moment(mom).add('d', daysToDayOfWeek).dayOfYear() / 7) + 1;
+        return Math.ceil(moment(mom).add('d', daysToDayOfWeek).dayOfYear() / 7);
     }
 
 
@@ -1204,6 +1210,10 @@
 
         isoWeek : function () {
             return weekOfYear(this, 1, 4);
+        },
+
+        week : function () {
+            return this.lang().week(this);
         },
 
         // If passed a language key, it will set the language for this
