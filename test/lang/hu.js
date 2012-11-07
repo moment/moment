@@ -38,7 +38,7 @@ exports["lang:hu"] = {
                 ['D Do DD',                            '14 14. 14'],
                 ['d do dddd ddd',                      '0 0. vasárnap v'],
                 ['DDD DDDo DDDD',                      '45 45. 045'],
-                ['w wo ww',                            '6 6. 06'],
+                ['w wo ww',                            '8 8. 08'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
@@ -200,7 +200,7 @@ exports["lang:hu"] = {
         var i;
         var m;
         var days = 'vasárnap_hétfőn_kedden_szerdán_csütörtökön_pénteken_szombaton'.split('_');
-        
+
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('['+days[m.day()]+'] LT[-kor]'),  "today + " + i + " days current time");
@@ -227,7 +227,7 @@ exports["lang:hu"] = {
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
             test.equal(m.calendar(),       m.format('múlt ['+days[m.day()]+'] LT[-kor]'),  "today - " + i + " days end of day");
         }
-        
+
         test.done();
     },
 

@@ -38,7 +38,7 @@ exports["lang:tr"] = {
                 ['D Do DD',                            '14 14\'üncü 14'],
                 ['d do dddd ddd dd',                   '0 0\'ıncı Pazar Paz Pz'],
                 ['DDD DDDo DDDD',                      '45 45\'inci 045'],
-                ['w wo ww',                            '6 6\'ncı 06'],
+                ['w wo ww',                            '8 8\'inci 08'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
@@ -83,7 +83,7 @@ exports["lang:tr"] = {
         test.equal(moment([2011, 0, 8]).format('DDDo'), '8\'inci', '8th');
         test.equal(moment([2011, 0, 9]).format('DDDo'), '9\'uncu', '9th');
         test.equal(moment([2011, 0, 10]).format('DDDo'), '10\'uncu', '10th');
-    
+
         test.equal(moment([2011, 0, 11]).format('DDDo'), '11\'inci', '11th');
         test.equal(moment([2011, 0, 12]).format('DDDo'), '12\'nci', '12th');
         test.equal(moment([2011, 0, 13]).format('DDDo'), '13\'üncü', '13th');
@@ -105,7 +105,7 @@ exports["lang:tr"] = {
         test.equal(moment([2011, 0, 28]).format('DDDo'), '28\'inci', '28th');
         test.equal(moment([2011, 0, 29]).format('DDDo'), '29\'uncu', '29th');
         test.equal(moment([2011, 0, 30]).format('DDDo'), '30\'uncu', '30th');
-    
+
         test.equal(moment([2011, 0, 31]).format('DDDo'), '31\'inci', '31st');
         test.done();
     },
@@ -195,9 +195,9 @@ exports["lang:tr"] = {
     "calendar day" : function(test) {
         test.expect(6);
         moment.lang('tr');
-    
+
         var a = moment().hours(2).minutes(0).seconds(0);
-    
+
         test.equal(moment(a).calendar(),                     "bugün saat 02:00",     "today at the same time");
         test.equal(moment(a).add({ m: 25 }).calendar(),      "bugün saat 02:25",     "Now plus 25 min");
         test.equal(moment(a).add({ h: 1 }).calendar(),       "bugün saat 03:00",     "Now plus 1 hour");
@@ -210,10 +210,10 @@ exports["lang:tr"] = {
     "calendar next week" : function(test) {
         test.expect(15);
         moment.lang('tr');
-    
+
         var i;
         var m;
-    
+
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('[haftaya] dddd [saat] LT'),  "Today + " + i + " days current time");
@@ -228,7 +228,7 @@ exports["lang:tr"] = {
     "calendar last week" : function(test) {
         test.expect(15);
         moment.lang('tr');
-    
+
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('[geçen hafta] dddd [saat] LT'),  "Today - " + i + " days current time");
@@ -245,13 +245,13 @@ exports["lang:tr"] = {
         moment.lang('tr');
         var weeksAgo = moment().subtract({ w: 1 });
         var weeksFromNow = moment().add({ w: 1 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
-    
+
         weeksAgo = moment().subtract({ w: 2 });
         weeksFromNow = moment().add({ w: 2 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
     test.done();

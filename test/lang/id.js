@@ -39,7 +39,7 @@ exports["lang:id"] = {
                 ['D Do DD',                            '14 14 14'],
                 ['d do dddd ddd dd',                   '0 0 Minggu Min Mg'],
                 ['DDD DDDo DDDD',                      '45 45 045'],
-                ['w wo ww',                            '6 6 06'],
+                ['w wo ww',                            '8 8 08'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
@@ -144,9 +144,9 @@ exports["lang:id"] = {
     "calendar day" : function(test) {
         test.expect(6);
         moment.lang('id');
-    
+
         var a = moment().hours(2).minutes(0).seconds(0);
-    
+
         test.equal(moment(a).calendar(),                     "Hari ini pukul 02.00", "today at the same time");
         test.equal(moment(a).add({ m: 25 }).calendar(),      "Hari ini pukul 02.25", "Now plus 25 min");
         test.equal(moment(a).add({ h: 1 }).calendar(),       "Hari ini pukul 03.00", "Now plus 1 hour");
@@ -159,10 +159,10 @@ exports["lang:id"] = {
     "calendar next week" : function(test) {
         test.expect(15);
         moment.lang('id');
-    
+
         var i;
         var m;
-    
+
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('dddd [pukul] LT'),  "Today + " + i + " days current time");
@@ -177,7 +177,7 @@ exports["lang:id"] = {
     "calendar last week" : function(test) {
         test.expect(15);
         moment.lang('id');
-    
+
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('dddd [lalu pukul] LT'),  "Today - " + i + " days current time");
@@ -194,13 +194,13 @@ exports["lang:id"] = {
         moment.lang('id');
         var weeksAgo = moment().subtract({ w: 1 });
         var weeksFromNow = moment().add({ w: 1 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
-    
+
         weeksAgo = moment().subtract({ w: 2 });
         weeksFromNow = moment().add({ w: 2 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
     test.done();

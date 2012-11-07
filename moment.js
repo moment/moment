@@ -105,10 +105,7 @@
                 return this.lang().weekdays(this, format);
             },
             w    : function () {
-                var a = new Date(this.year(), this.month(), this.date());
-                a.setHours(0, 0, 0);
-                a.setDate(a.getDate() + 4 - (a.getDay() || 7));
-                return Math.ceil((1 + (a - (new Date(a.getFullYear(), 0, 1))) / 864e5) / 7);
+                return this.week();
             },
             W    : function () {
                 return this.isoWeek();

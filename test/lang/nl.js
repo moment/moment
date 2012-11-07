@@ -39,7 +39,7 @@ exports["lang:nl"] = {
                 ['D Do DD',                            '14 14de 14'],
                 ['d do dddd ddd dd',                   '0 0de zondag zo. Zo'],
                 ['DDD DDDo DDDD',                      '45 45ste 045'],
-                ['w wo ww',                            '6 6de 06'],
+                ['w wo ww',                            '8 8ste 08'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
@@ -72,7 +72,7 @@ exports["lang:nl"] = {
         test.equal(moment([2011, 0, 8]).format('DDDo'), '8ste', '8ste');
         test.equal(moment([2011, 0, 9]).format('DDDo'), '9de', '9de');
         test.equal(moment([2011, 0, 10]).format('DDDo'), '10de', '10de');
-    
+
         test.equal(moment([2011, 0, 11]).format('DDDo'), '11de', '11de');
         test.equal(moment([2011, 0, 12]).format('DDDo'), '12de', '12de');
         test.equal(moment([2011, 0, 13]).format('DDDo'), '13de', '13de');
@@ -83,7 +83,7 @@ exports["lang:nl"] = {
         test.equal(moment([2011, 0, 18]).format('DDDo'), '18de', '18de');
         test.equal(moment([2011, 0, 19]).format('DDDo'), '19de', '19de');
         test.equal(moment([2011, 0, 20]).format('DDDo'), '20ste', '20ste');
-    
+
         test.equal(moment([2011, 0, 21]).format('DDDo'), '21ste', '21ste');
         test.equal(moment([2011, 0, 22]).format('DDDo'), '22ste', '22ste');
         test.equal(moment([2011, 0, 23]).format('DDDo'), '23ste', '23ste');
@@ -94,7 +94,7 @@ exports["lang:nl"] = {
         test.equal(moment([2011, 0, 28]).format('DDDo'), '28ste', '28ste');
         test.equal(moment([2011, 0, 29]).format('DDDo'), '29ste', '29ste');
         test.equal(moment([2011, 0, 30]).format('DDDo'), '30ste', '30ste');
-    
+
         test.equal(moment([2011, 0, 31]).format('DDDo'), '31ste', '31ste');
         test.done();
     },
@@ -184,9 +184,9 @@ exports["lang:nl"] = {
     "calendar day" : function(test) {
         test.expect(6);
         moment.lang('nl');
-    
+
         var a = moment().hours(2).minutes(0).seconds(0);
-    
+
         test.equal(moment(a).calendar(),                     "Vandaag om 02:00",     "today at the same time");
         test.equal(moment(a).add({ m: 25 }).calendar(),      "Vandaag om 02:25",     "Now plus 25 min");
         test.equal(moment(a).add({ h: 1 }).calendar(),       "Vandaag om 03:00",     "Now plus 1 hour");
@@ -199,10 +199,10 @@ exports["lang:nl"] = {
     "calendar next week" : function(test) {
         test.expect(15);
         moment.lang('nl');
-    
+
         var i;
         var m;
-    
+
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('dddd [om] LT'),  "Today + " + i + " days current time");
@@ -217,7 +217,7 @@ exports["lang:nl"] = {
     "calendar last week" : function(test) {
         test.expect(15);
         moment.lang('nl');
-    
+
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('[afgelopen] dddd [om] LT'),  "Today - " + i + " days current time");
@@ -234,13 +234,13 @@ exports["lang:nl"] = {
         moment.lang('nl');
         var weeksAgo = moment().subtract({ w: 1 });
         var weeksFromNow = moment().add({ w: 1 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
-    
+
         weeksAgo = moment().subtract({ w: 2 });
         weeksFromNow = moment().add({ w: 2 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
     test.done();
@@ -249,7 +249,7 @@ exports["lang:nl"] = {
     "month abbreviation" : function(test) {
         test.expect(2);
         moment.lang('nl');
-         
+
         test.equal(moment([2012, 5, 23]).format('D-MMM-YYYY'), '23-jun-2012', 'format month abbreviation surrounded by dashes should not include a dot');
         test.equal(moment([2012, 5, 23]).format('D MMM YYYY'), '23 jun. 2012', 'format month abbreviation not surrounded by dashes should include a dot');
 

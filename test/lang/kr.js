@@ -38,7 +38,7 @@ exports["lang:kr"] = {
                 ['D Do DD',                            '14 14일 14'],
                 ['d do dddd ddd dd',                   '0 0일 일요일 일 일'],
                 ['DDD DDDo DDDD',                      '45 45일 045'],
-                ['w wo ww',                            '6 6일 06'],
+                ['w wo ww',                            '8 8일 08'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
@@ -71,7 +71,7 @@ exports["lang:kr"] = {
         test.equal(moment([2011, 0, 8]).format('DDDo'), '8일', '8일');
         test.equal(moment([2011, 0, 9]).format('DDDo'), '9일', '9일');
         test.equal(moment([2011, 0, 10]).format('DDDo'), '10일', '10일');
-    
+
         test.equal(moment([2011, 0, 11]).format('DDDo'), '11일', '11일');
         test.equal(moment([2011, 0, 12]).format('DDDo'), '12일', '12일');
         test.equal(moment([2011, 0, 13]).format('DDDo'), '13일', '13일');
@@ -82,7 +82,7 @@ exports["lang:kr"] = {
         test.equal(moment([2011, 0, 18]).format('DDDo'), '18일', '18일');
         test.equal(moment([2011, 0, 19]).format('DDDo'), '19일', '19일');
         test.equal(moment([2011, 0, 20]).format('DDDo'), '20일', '20일');
-    
+
         test.equal(moment([2011, 0, 21]).format('DDDo'), '21일', '21일');
         test.equal(moment([2011, 0, 22]).format('DDDo'), '22일', '22일');
         test.equal(moment([2011, 0, 23]).format('DDDo'), '23일', '23일');
@@ -93,7 +93,7 @@ exports["lang:kr"] = {
         test.equal(moment([2011, 0, 28]).format('DDDo'), '28일', '28일');
         test.equal(moment([2011, 0, 29]).format('DDDo'), '29일', '29일');
         test.equal(moment([2011, 0, 30]).format('DDDo'), '30일', '30일');
-    
+
         test.equal(moment([2011, 0, 31]).format('DDDo'), '31일', '31일');
         test.done();
     },
@@ -183,9 +183,9 @@ exports["lang:kr"] = {
     "calendar day" : function(test) {
         test.expect(6);
         moment.lang('kr');
-    
+
         var a = moment().hours(2).minutes(0).seconds(0);
-    
+
         test.equal(moment(a).calendar(),                     "오늘 오전 2시 00분",     "today at the same time");
         test.equal(moment(a).add({ m: 25 }).calendar(),      "오늘 오전 2시 25분",     "Now plus 25 min");
         test.equal(moment(a).add({ h: 1 }).calendar(),       "오늘 오전 3시 00분",     "Now plus 1 hour");
@@ -198,10 +198,10 @@ exports["lang:kr"] = {
     "calendar next week" : function(test) {
         test.expect(15);
         moment.lang('kr');
-    
+
         var i;
         var m;
-    
+
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('dddd LT'),  "Today + " + i + " days current time");
@@ -216,7 +216,7 @@ exports["lang:kr"] = {
     "calendar last week" : function(test) {
         test.expect(15);
         moment.lang('kr');
-    
+
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('지난주 dddd LT'),  "Today - " + i + " days current time");
@@ -233,13 +233,13 @@ exports["lang:kr"] = {
         moment.lang('kr');
         var weeksAgo = moment().subtract({ w: 1 });
         var weeksFromNow = moment().add({ w: 1 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
-    
+
         weeksAgo = moment().subtract({ w: 2 });
         weeksFromNow = moment().add({ w: 2 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
     test.done();

@@ -39,7 +39,7 @@ exports["lang:da"] = {
                 ['D Do DD',                            '14 14. 14'],
                 ['d do dddd ddd dd',                   '0 0. Søndag Søn Sø'],
                 ['DDD DDDo DDDD',                      '45 45. 045'],
-                ['w wo ww',                            '6 6. 06'],
+                ['w wo ww',                            '8 8. 08'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
@@ -72,7 +72,7 @@ exports["lang:da"] = {
         test.equal(moment([2011, 0, 8]).format('DDDo'), '8.', '8.');
         test.equal(moment([2011, 0, 9]).format('DDDo'), '9.', '9.');
         test.equal(moment([2011, 0, 10]).format('DDDo'), '10.', '10.');
-    
+
         test.equal(moment([2011, 0, 11]).format('DDDo'), '11.', '11.');
         test.equal(moment([2011, 0, 12]).format('DDDo'), '12.', '12.');
         test.equal(moment([2011, 0, 13]).format('DDDo'), '13.', '13.');
@@ -83,7 +83,7 @@ exports["lang:da"] = {
         test.equal(moment([2011, 0, 18]).format('DDDo'), '18.', '18.');
         test.equal(moment([2011, 0, 19]).format('DDDo'), '19.', '19.');
         test.equal(moment([2011, 0, 20]).format('DDDo'), '20.', '20.');
-    
+
         test.equal(moment([2011, 0, 21]).format('DDDo'), '21.', '21.');
         test.equal(moment([2011, 0, 22]).format('DDDo'), '22.', '22.');
         test.equal(moment([2011, 0, 23]).format('DDDo'), '23.', '23.');
@@ -94,7 +94,7 @@ exports["lang:da"] = {
         test.equal(moment([2011, 0, 28]).format('DDDo'), '28.', '28.');
         test.equal(moment([2011, 0, 29]).format('DDDo'), '29.', '29.');
         test.equal(moment([2011, 0, 30]).format('DDDo'), '30.', '30.');
-    
+
         test.equal(moment([2011, 0, 31]).format('DDDo'), '31.', '31.');
         test.done();
     },

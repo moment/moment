@@ -52,7 +52,7 @@ exports["lang:en"] = {
                 ['D Do DD',                            '14 14th 14'],
                 ['d do dddd ddd dd',                   '0 0th Sunday Sun Su'],
                 ['DDD DDDo DDDD',                      '45 45th 045'],
-                ['w wo ww',                            '6 6th 06'],
+                ['w wo ww',                            '8 8th 08'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
@@ -354,6 +354,18 @@ exports["lang:en"] = {
         test.equal(moment([2011,  0,  2]).week(), 2, "Jan  2 2011 should be week 2");
         test.equal(moment([2011,  0,  8]).week(), 2, "Jan  8 2011 should be week 2");
         test.equal(moment([2011,  0,  9]).week(), 3, "Jan  9 2011 should be week 3");
+
+        test.done();
+    },
+
+    "weeks year starting sunday format" : function(test) {
+        test.expect(5);
+
+        test.equal(moment([2012, 0,  1]).format('w ww wo'), '1 01 1st', "Jan  1 2012 should be week 1");
+        test.equal(moment([2012, 0,  7]).format('w ww wo'), '1 01 1st', "Jan  7 2012 should be week 1");
+        test.equal(moment([2012, 0,  8]).format('w ww wo'), '2 02 2nd', "Jan  8 2012 should be week 2");
+        test.equal(moment([2012, 0, 14]).format('w ww wo'), '2 02 2nd', "Jan 14 2012 should be week 2");
+        test.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3rd', "Jan 15 2012 should be week 3");
 
         test.done();
     }
