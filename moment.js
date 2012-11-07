@@ -23,7 +23,7 @@
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
 
         // format tokens
-        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|YYYYY|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|.)/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|.)/g,
         localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?)/g,
 
         // parsing tokens
@@ -71,8 +71,8 @@
         formatFunctions = {},
 
         // tokens to ordinalize and pad
-        ordinalizeTokens = 'DDD w M D d'.split(' '),
-        paddedTokens = 'M D H h m s w'.split(' '),
+        ordinalizeTokens = 'DDD w W M D d'.split(' '),
+        paddedTokens = 'M D H h m s w W'.split(' '),
 
         formatTokenFunctions = {
             M    : function () {
@@ -109,6 +109,9 @@
                 a.setHours(0, 0, 0);
                 a.setDate(a.getDate() + 4 - (a.getDay() || 7));
                 return Math.ceil((1 + (a - (new Date(a.getFullYear(), 0, 1))) / 864e5) / 7);
+            },
+            W    : function () {
+                return this.isoWeek();
             },
             YY   : function () {
                 return leftZeroFill(this.year() % 100, 2);
