@@ -113,5 +113,17 @@ exports.utc = {
         test.equal(moment([2011,  0, 10]).isoWeek(),  2, "Jan 10 2011 should be iso week 2");
 
         test.done();
+    },
+
+    "iso weeks year starting sunday formatted" : function(test) {
+        test.expect(5);
+
+        test.equal(moment([2012, 0,  1]).format('W WW Wo'), '52 52 52nd', "Jan  1 2012 should be iso week 52");
+        test.equal(moment([2012, 0,  2]).format('W WW Wo'),  '1 01 1st' , "Jan  2 2012 should be iso week 1");
+        test.equal(moment([2012, 0,  8]).format('W WW Wo'),  '1 01 1st' , "Jan  8 2012 should be iso week 1");
+        test.equal(moment([2012, 0,  9]).format('W WW Wo'),  '2 02 2nd' , "Jan  9 2012 should be iso week 2");
+        test.equal(moment([2012, 0, 15]).format('W WW Wo'),  '2 02 2nd' , "Jan 15 2012 should be iso week 2");
+
+        test.done();
     }
 };
