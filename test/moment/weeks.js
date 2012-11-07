@@ -11,6 +11,21 @@ exports.utc = {
         cb();
     },
 
+    "day of year" : function (test) {
+        test.expect(8);
+
+        test.equal(moment([2000,  0,  1]).dayOfYear(),   1, "Jan  1 2000 should be day 1 of the year");
+        test.equal(moment([2000,  1, 28]).dayOfYear(),  59, "Feb 28 2000 should be day 59 of the year");
+        test.equal(moment([2000,  1, 29]).dayOfYear(),  60, "Feb 28 2000 should be day 60 of the year");
+        test.equal(moment([2000, 11, 31]).dayOfYear(), 366, "Dec 31 2000 should be day 366 of the year");
+        test.equal(moment([2001,  0,  1]).dayOfYear(),   1, "Jan  1 2001 should be day 1 of the year");
+        test.equal(moment([2001,  1, 28]).dayOfYear(),  59, "Feb 28 2001 should be day 59 of the year");
+        test.equal(moment([2001,  2,  1]).dayOfYear(),  60, "Mar  1 2001 should be day 60 of the year");
+        test.equal(moment([2001, 11, 31]).dayOfYear(), 365, "Dec 31 2001 should be day 365 of the year");
+
+        test.done();
+    },
+
     "iso weeks year starting sunday" : function(test) {
         test.expect(5);
 
