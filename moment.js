@@ -852,16 +852,29 @@
     ************************************/
 
 
-    function weekOfYear(mom, firstDayOfWeek, firstDayOfYear) {
-        var start = mom.clone().date(1).month(0),
-            dayOfYear = mom.diff(start, 'days') + 1,
-            week = dayOfYear - (firstDayOfWeek + mom.day()) + start.day();
+    // firstDayOfWeek       0 = sun, 6 = sat
+    //                      the day of the week that starts the week
+    //                      (usually sunday or monday)
+    // firstDayOfWeekOfYear 0 = sun, 6 = sat
+    //                      the first week is the week that contains the first
+    //                      of this day of the week
+    //                      (eg. ISO weeks use thursday (4))
+    function weekOfYear(mom, firstDayOfWeek, firstDayOfWeekOfYear) {
+        var daysToDayOfWeek = firstDayOfWeekOfYear - mom.day();
 
-        if (start.day() <= firstDayOfYear) {
-            week += 7;
+        if (daysToDayOfWeek > 3) {
+            daysToDayOfWeek -= 7;
         }
 
-        return week / 7 || 53;
+        if (daysToDayOfWeek < -3) {
+            daysToDayOfWeek += 7;
+        }
+
+        if (moment(mom).startOf('year').day() > firstDayOfWeekOfYear) {
+            daysToDayOfWeek -= 1;
+        }
+
+        return ~~(moment(mom).add('d', daysToDayOfWeek).dayOfYear() / 7) + 1;
     }
 
 
