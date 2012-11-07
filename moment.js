@@ -1182,6 +1182,10 @@
             return moment.utc([this.year(), this.month() + 1, 0]).date();
         },
 
+        dayOfYear : function () {
+            return moment(this).startOf('day').diff(moment(this).startOf('year'), 'days') + 1;
+        },
+
         isoWeek : function () {
             return weekOfYear(this, 1, 4);
         },
