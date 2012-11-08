@@ -1245,8 +1245,10 @@
     // add shortcut for year (uses different syntax than the getter/setter 'year' == 'FullYear')
     makeGetterAndSetter('year', 'FullYear');
 
-    // add days plural method
+    // add plural methods
     moment.fn.days = moment.fn.day;
+    moment.fn.weeks = moment.fn.week;
+    moment.fn.isoWeeks = moment.fn.isoWeek;
 
     /************************************
         Duration Prototype

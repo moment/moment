@@ -125,5 +125,29 @@ exports.utc = {
         test.equal(moment([2012, 0, 15]).format('W WW Wo'),  '2 02 2nd' , "Jan 15 2012 should be iso week 2");
 
         test.done();
+    },
+
+    "weeks plural year starting sunday" : function(test) {
+        test.expect(5);
+
+        test.equal(moment([2012, 0,  1]).weeks(), 1, "Jan  1 2012 should be week 1");
+        test.equal(moment([2012, 0,  7]).weeks(), 1, "Jan  7 2012 should be week 1");
+        test.equal(moment([2012, 0,  8]).weeks(), 2, "Jan  8 2012 should be week 2");
+        test.equal(moment([2012, 0, 14]).weeks(), 2, "Jan 14 2012 should be week 2");
+        test.equal(moment([2012, 0, 15]).weeks(), 3, "Jan 15 2012 should be week 3");
+
+        test.done();
+    },
+
+    "iso weeks plural year starting sunday" : function(test) {
+        test.expect(5);
+
+        test.equal(moment([2012, 0, 1]).isoWeeks(), 52, "Jan  1 2012 should be iso week 52");
+        test.equal(moment([2012, 0, 2]).isoWeeks(),  1, "Jan  2 2012 should be iso week 1");
+        test.equal(moment([2012, 0, 8]).isoWeeks(),  1, "Jan  8 2012 should be iso week 1");
+        test.equal(moment([2012, 0, 9]).isoWeeks(),  2, "Jan  9 2012 should be iso week 2");
+        test.equal(moment([2012, 0, 15]).isoWeeks(), 2, "Jan 15 2012 should be iso week 2");
+
+        test.done();
     }
 };
