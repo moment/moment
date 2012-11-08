@@ -26,6 +26,21 @@ exports.utc = {
         test.done();
     },
 
+    "day of year setters" : function (test) {
+        test.expect(8);
+
+        test.equal(moment([2000,  0,  1]).dayOfYear(200).dayOfYear(), 200, "Setting Jan  1 2000 day of the year to 200 should work");
+        test.equal(moment([2000,  1, 28]).dayOfYear(200).dayOfYear(), 200, "Setting Feb 28 2000 day of the year to 200 should work");
+        test.equal(moment([2000,  1, 29]).dayOfYear(200).dayOfYear(), 200, "Setting Feb 28 2000 day of the year to 200 should work");
+        test.equal(moment([2000, 11, 31]).dayOfYear(200).dayOfYear(), 200, "Setting Dec 31 2000 day of the year to 200 should work");
+        test.equal(moment().dayOfYear(  1).dayOfYear(),   1, "Setting day of the year to 1 should work");
+        test.equal(moment().dayOfYear( 59).dayOfYear(),  59, "Setting day of the year to 59 should work");
+        test.equal(moment().dayOfYear( 60).dayOfYear(),  60, "Setting day of the year to 60 should work");
+        test.equal(moment().dayOfYear(365).dayOfYear(), 365, "Setting day of the year to 365 should work");
+
+        test.done();
+    },
+
     "iso weeks year starting sunday" : function(test) {
         test.expect(5);
 
