@@ -2,28 +2,28 @@
 // language : polish (pl)
 // author : Rafal Hirsz : https://github.com/evoL
 (function () {
-    var plural = function (n) { 
+    var plural = function (n) {
         return (n % 10 < 5) && (n % 10 > 1) && (~~(n / 10) !== 1);
     },
-    
+
     translate = function (number, withoutSuffix, key) {
         var result = number + " ";
         switch (key) {
-        case 'm': 
+        case 'm':
             return withoutSuffix ? 'minuta' : 'minutę';
-        case 'mm': 
+        case 'mm':
             return result + (plural(number) ? 'minuty' : 'minut');
-        case 'h': 
+        case 'h':
             return withoutSuffix  ? 'godzina'  : 'godzinę';
-        case 'hh': 
+        case 'hh':
             return result + (plural(number) ? 'godziny' : 'godzin');
-        case 'MM': 
+        case 'MM':
             return result + (plural(number) ? 'miesiące' : 'miesięcy');
-        case 'yy': 
+        case 'yy':
             return result + (plural(number) ? 'lata' : 'lat');
         }
     },
-  
+
     lang = {
         months : "styczeń_luty_marzec_kwiecień_maj_czerwiec_lipiec_sierpień_wrzesień_październik_listopad_grudzień".split("_"),
         monthsShort : "sty_lut_mar_kwi_maj_cze_lip_sie_wrz_paź_lis_gru".split("_"),
@@ -62,6 +62,10 @@
         },
         ordinal : function (number) {
             return '.';
+        },
+        week : {
+            dow : 1, // Monday is the first day of the week.
+            doy : 4  // The week that contains Jan 4th is the first week of the year.
         }
     };
 
