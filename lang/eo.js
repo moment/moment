@@ -27,9 +27,9 @@
             calendar : {
                 sameDay : '[Hodiaŭ je] LT',
                 nextDay : '[Morgaŭ je] LT',
-                nextWeek : 'dddd [je] LT', 
+                nextWeek : 'dddd [je] LT',
                 lastDay : '[Hieraŭ je] LT',
-                lastWeek : '[pasinta] dddd [je] LT', 
+                lastWeek : '[pasinta] dddd [je] LT',
                 sameElse : 'L'
             },
             relativeTime : {
@@ -49,6 +49,10 @@
             },
             ordinal : function (number) {
                 return "a";
+            },
+            week : {
+                dow : 1, // Monday is the first day of the week.
+                doy : 7  // The week that contains Jan 1st is the first week of the year.
             }
         };
 
