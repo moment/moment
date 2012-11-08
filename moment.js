@@ -1203,12 +1203,14 @@
             return moment(this).startOf('day').diff(moment(this).startOf('year'), 'days') + 1;
         },
 
-        isoWeek : function () {
-            return weekOfYear(this, 1, 4);
+        isoWeek : function (input) {
+            var week = weekOfYear(this, 1, 4);
+            return input == null ? week : this.add("d", (input - week) * 7);
         },
 
-        week : function () {
-            return this.lang().week(this);
+        week : function (input) {
+            var week = this.lang().week(this);
+            return input == null ? week : this.add("d", (input - week) * 7);
         },
 
         // If passed a language key, it will set the language for this

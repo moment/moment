@@ -149,5 +149,42 @@ exports.utc = {
         test.equal(moment([2012, 0, 15]).isoWeeks(), 2, "Jan 15 2012 should be iso week 2");
 
         test.done();
+    },
+
+    "weeks setter" : function(test) {
+        test.expect(5);
+
+        test.equal(moment([2012, 0,  1]).week(30).week(), 30, "Setting Jan 1 2012 to week 30 should work");
+        test.equal(moment([2012, 0,  7]).week(30).week(), 30, "Setting Jan 7 2012 to week 30 should work");
+        test.equal(moment([2012, 0,  8]).week(30).week(), 30, "Setting Jan 8 2012 to week 30 should work");
+        test.equal(moment([2012, 0, 14]).week(30).week(), 30, "Setting Jan 14 2012 to week 30 should work");
+        test.equal(moment([2012, 0, 15]).week(30).week(), 30, "Setting Jan 15 2012 to week 30 should work");
+
+        test.done();
+    },
+
+    "iso weeks setter" : function(test) {
+        test.expect(5);
+
+        test.equal(moment([2012, 0,  1]).isoWeeks(25).isoWeeks(), 25, "Setting Jan  1 2012 to week 25 should work");
+        test.equal(moment([2012, 0,  2]).isoWeeks(24).isoWeeks(), 24, "Setting Jan  2 2012 to week 24 should work");
+        test.equal(moment([2012, 0,  8]).isoWeeks(23).isoWeeks(), 23, "Setting Jan  8 2012 to week 23 should work");
+        test.equal(moment([2012, 0,  9]).isoWeeks(22).isoWeeks(), 22, "Setting Jan  9 2012 to week 22 should work");
+        test.equal(moment([2012, 0, 15]).isoWeeks(21).isoWeeks(), 21, "Setting Jan 15 2012 to week 21 should work");
+
+        test.done();
+    },
+
+    "iso weeks setter day of year" : function(test) {
+        test.expect(6);
+
+        test.equal(moment([2012, 0,  1]).isoWeek(1).dayOfYear(), 9, "Setting Jan  1 2012 to week 1 should be day of year 8");
+        test.equal(moment([2012, 0,  1]).isoWeek(1).year(),   2011, "Setting Jan  1 2012 to week 1 should be year 2011");
+        test.equal(moment([2012, 0,  2]).isoWeek(1).dayOfYear(), 2, "Setting Jan  2 2012 to week 1 should be day of year 2");
+        test.equal(moment([2012, 0,  8]).isoWeek(1).dayOfYear(), 8, "Setting Jan  8 2012 to week 1 should be day of year 8");
+        test.equal(moment([2012, 0,  9]).isoWeek(1).dayOfYear(), 2, "Setting Jan  9 2012 to week 1 should be day of year 2");
+        test.equal(moment([2012, 0, 15]).isoWeek(1).dayOfYear(), 8, "Setting Jan 15 2012 to week 1 should be day of year 8");
+
+        test.done();
     }
 };
