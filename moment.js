@@ -1174,7 +1174,24 @@
                 this._lang = getLangDefinition(key);
                 return this;
             }
+        },
+
+        isFuture : function (time) {
+            return this.diff(time) > 0;
+        },
+
+        isPast : function (time) {
+            return this.diff(time) < 0;
+        },
+
+        isFutureOfNow : function (time) {
+            return this.future(moment());
+        },
+
+        isPastOfNow : function (time) {
+            return this.past(moment());
         }
+
     };
 
     // helper for adding shortcuts
