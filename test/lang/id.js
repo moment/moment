@@ -6,9 +6,18 @@ var moment = require("../../moment");
      *************************************************/
 
 exports["lang:id"] = {
+    setUp: function(cb) {
+        moment.lang('id');
+        cb();
+    },
+
+    tearDown: function(cb) {
+        moment.lang('en');
+        cb();
+    },
+
     "parse" : function(test) {
         test.expect(96);
-        moment.lang('id');
         var tests = 'Januari Jan_Februari Feb_Maret Mar_April Apr_Mei Mei_Juni Jun_Juli Jul_Agustus Ags_September Sep_Oktober Okt_November Nov_Desember Des'.split("_");
         var i;
         function equalTest(input, mmm, i) {
@@ -30,7 +39,6 @@ exports["lang:id"] = {
 
     "format" : function(test) {
         test.expect(18);
-        moment.lang('id');
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'Minggu, Februari 14 2010, 3:25:50 sore'],
                 ['ddd, hA',                            'Min, 3sore'],
@@ -61,7 +69,6 @@ exports["lang:id"] = {
 
     "format month" : function(test) {
         test.expect(12);
-        moment.lang('id');
         var expected = 'Januari Jan_Februari Feb_Maret Mar_April Apr_Mei Mei_Juni Jun_Juli Jul_Agustus Ags_September Sep_Oktober Okt_November Nov_Desember Des'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -72,7 +79,6 @@ exports["lang:id"] = {
 
     "format week" : function(test) {
         test.expect(7);
-        moment.lang('id');
         var expected = 'Minggu Min Mg_Senin Sen Sn_Selasa Sel Sl_Rabu Rab Rb_Kamis Kam Km_Jumat Jum Jm_Sabtu Sab Sb'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -83,7 +89,6 @@ exports["lang:id"] = {
 
     "from" : function(test) {
         test.expect(30);
-        moment.lang('id');
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "beberapa detik", "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "semenit",      "45 seconds = a minute");
@@ -120,7 +125,6 @@ exports["lang:id"] = {
 
     "suffix" : function(test) {
         test.expect(2);
-        moment.lang('id');
         test.equal(moment(30000).from(0), "dalam beberapa detik",  "prefix");
         test.equal(moment(0).from(30000), "beberapa detik yang lalu", "suffix");
         test.done();
@@ -128,14 +132,12 @@ exports["lang:id"] = {
 
     "now from now" : function(test) {
         test.expect(1);
-        moment.lang('id');
         test.equal(moment().fromNow(), "beberapa detik yang lalu",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow" : function(test) {
         test.expect(2);
-        moment.lang('id');
         test.equal(moment().add({s:30}).fromNow(), "dalam beberapa detik", "in a few seconds");
         test.equal(moment().add({d:5}).fromNow(), "dalam 5 hari", "in 5 days");
         test.done();
@@ -143,10 +145,9 @@ exports["lang:id"] = {
 
     "calendar day" : function(test) {
         test.expect(6);
-        moment.lang('id');
-    
+
         var a = moment().hours(2).minutes(0).seconds(0);
-    
+
         test.equal(moment(a).calendar(),                     "Hari ini pukul 02.00", "today at the same time");
         test.equal(moment(a).add({ m: 25 }).calendar(),      "Hari ini pukul 02.25", "Now plus 25 min");
         test.equal(moment(a).add({ h: 1 }).calendar(),       "Hari ini pukul 03.00", "Now plus 1 hour");
@@ -158,11 +159,10 @@ exports["lang:id"] = {
 
     "calendar next week" : function(test) {
         test.expect(15);
-        moment.lang('id');
-    
+
         var i;
         var m;
-    
+
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('dddd [pukul] LT'),  "Today + " + i + " days current time");
@@ -176,8 +176,7 @@ exports["lang:id"] = {
 
     "calendar last week" : function(test) {
         test.expect(15);
-        moment.lang('id');
-    
+
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('dddd [lalu pukul] LT'),  "Today - " + i + " days current time");
@@ -191,16 +190,15 @@ exports["lang:id"] = {
 
     "calendar all else" : function(test) {
         test.expect(4);
-        moment.lang('id');
         var weeksAgo = moment().subtract({ w: 1 });
         var weeksFromNow = moment().add({ w: 1 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
-    
+
         weeksAgo = moment().subtract({ w: 2 });
         weeksFromNow = moment().add({ w: 2 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
     test.done();

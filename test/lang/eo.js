@@ -6,9 +6,18 @@ var moment = require("../../moment");
      *************************************************/
 
 exports["lang:eo"] = {
+    setUp: function(cb) {
+        moment.lang('eo');
+        cb();
+    },
+
+    tearDown: function(cb) {
+        moment.lang('en');
+        cb();
+    },
+
     "parse" : function(test) {
         test.expect(96);
-        moment.lang('eo');
         var tests = 'januaro jan_februaro feb_marto mar_aprilo apr_majo maj_junio jun_julio jul_aŭgusto aŭg_septembro sep_oktobro okt_novembro nov_decembro dec'.split("_");
         var i;
         function equalTest(input, mmm, i) {
@@ -30,7 +39,6 @@ exports["lang:eo"] = {
 
     "format" : function(test) {
         test.expect(18);
-        moment.lang('eo');
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'Dimanĉo, februaro 14a 2010, 3:25:50 p.t.m.'],
                 ['ddd, hA',                            'Dim, 3P.T.M.'],
@@ -61,7 +69,6 @@ exports["lang:eo"] = {
 
     "format ordinal" : function(test) {
         test.expect(31);
-        moment.lang('eo');
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1a', '1a');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2a', '2a');
         test.equal(moment([2011, 0, 3]).format('DDDo'), '3a', '3a');
@@ -72,7 +79,7 @@ exports["lang:eo"] = {
         test.equal(moment([2011, 0, 8]).format('DDDo'), '8a', '8a');
         test.equal(moment([2011, 0, 9]).format('DDDo'), '9a', '9a');
         test.equal(moment([2011, 0, 10]).format('DDDo'), '10a', '10a');
-    
+
         test.equal(moment([2011, 0, 11]).format('DDDo'), '11a', '11a');
         test.equal(moment([2011, 0, 12]).format('DDDo'), '12a', '12a');
         test.equal(moment([2011, 0, 13]).format('DDDo'), '13a', '13a');
@@ -83,7 +90,7 @@ exports["lang:eo"] = {
         test.equal(moment([2011, 0, 18]).format('DDDo'), '18a', '18a');
         test.equal(moment([2011, 0, 19]).format('DDDo'), '19a', '19a');
         test.equal(moment([2011, 0, 20]).format('DDDo'), '20a', '20a');
-    
+
         test.equal(moment([2011, 0, 21]).format('DDDo'), '21a', '21a');
         test.equal(moment([2011, 0, 22]).format('DDDo'), '22a', '22a');
         test.equal(moment([2011, 0, 23]).format('DDDo'), '23a', '23a');
@@ -94,14 +101,13 @@ exports["lang:eo"] = {
         test.equal(moment([2011, 0, 28]).format('DDDo'), '28a', '28a');
         test.equal(moment([2011, 0, 29]).format('DDDo'), '29a', '29a');
         test.equal(moment([2011, 0, 30]).format('DDDo'), '30a', '30a');
-    
+
         test.equal(moment([2011, 0, 31]).format('DDDo'), '31a', '31a');
         test.done();
     },
 
     "format month" : function(test) {
         test.expect(12);
-        moment.lang('eo');
         var expected = 'januaro jan_februaro feb_marto mar_aprilo apr_majo maj_junio jun_julio jul_aŭgusto aŭg_septembro sep_oktobro okt_novembro nov_decembro dec'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -112,7 +118,6 @@ exports["lang:eo"] = {
 
     "format week" : function(test) {
         test.expect(7);
-        moment.lang('eo');
         var expected = 'Dimanĉo Dim Di_Lundo Lun Lu_Mardo Mard Ma_Merkredo Merk Me_Ĵaŭdo Ĵaŭ Ĵa_Vendredo Ven Ve_Sabato Sab Sa'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -123,7 +128,6 @@ exports["lang:eo"] = {
 
     "from" : function(test) {
         test.expect(30);
-        moment.lang('eo');
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "sekundoj", "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "minuto",      "45 seconds = a minute");
@@ -160,7 +164,6 @@ exports["lang:eo"] = {
 
     "suffix" : function(test) {
         test.expect(2);
-        moment.lang('eo');
         test.equal(moment(30000).from(0), "je sekundoj",  "je prefix");
         test.equal(moment(0).from(30000), "antaŭ sekundoj", "antaŭ prefix");
         test.done();
@@ -168,14 +171,12 @@ exports["lang:eo"] = {
 
     "now from now" : function(test) {
         test.expect(1);
-        moment.lang('eo');
         test.equal(moment().fromNow(), "antaŭ sekundoj",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow" : function(test) {
         test.expect(2);
-        moment.lang('eo');
         test.equal(moment().add({s:30}).fromNow(), "je sekundoj", "je sekundoj");
         test.equal(moment().add({d:5}).fromNow(), "je 5 tagoj", "je 5 tagoj");
         test.done();
@@ -183,10 +184,9 @@ exports["lang:eo"] = {
 
     "calendar day" : function(test) {
         test.expect(6);
-        moment.lang('eo');
-    
+
         var a = moment().hours(2).minutes(0).seconds(0);
-    
+
         test.equal(moment(a).calendar(),                     "Hodiaŭ je 02:00",     "today at the same time");
         test.equal(moment(a).add({ m: 25 }).calendar(),      "Hodiaŭ je 02:25",     "Now plus 25 min");
         test.equal(moment(a).add({ h: 1 }).calendar(),       "Hodiaŭ je 03:00",     "Now plus 1 hour");
@@ -198,11 +198,10 @@ exports["lang:eo"] = {
 
     "calendar next week" : function(test) {
         test.expect(15);
-        moment.lang('eo');
-    
+
         var i;
         var m;
-    
+
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('dddd [je] LT'),  "Today + " + i + " days current time");
@@ -216,8 +215,7 @@ exports["lang:eo"] = {
 
     "calendar last week" : function(test) {
         test.expect(15);
-        moment.lang('eo');
-    
+
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('[pasinta] dddd [je] LT'),  "Today - " + i + " days current time");
@@ -231,16 +229,15 @@ exports["lang:eo"] = {
 
     "calendar all else" : function(test) {
         test.expect(4);
-        moment.lang('eo');
         var weeksAgo = moment().subtract({ w: 1 });
         var weeksFromNow = moment().add({ w: 1 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
-    
+
         weeksAgo = moment().subtract({ w: 2 });
         weeksFromNow = moment().add({ w: 2 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
     test.done();

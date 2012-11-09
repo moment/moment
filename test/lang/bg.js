@@ -6,9 +6,18 @@ var moment = require("../../moment");
      *************************************************/
 
 exports["lang:bg"] = {
+    setUp: function(cb) {
+        moment.lang('bg');
+        cb();
+    },
+
+    tearDown: function(cb) {
+        moment.lang('en');
+        cb();
+    },
+
     "parse" : function(test) {
         test.expect(96);
-        moment.lang('bg');
         var tests = 'януари янр_февруари фев_март мар_април апр_май май_юни юни_юли юли_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split("_");
         var i;
         function equalTest(input, mmm, i) {
@@ -30,7 +39,6 @@ exports["lang:bg"] = {
 
     "format" : function(test) {
         test.expect(18);
-        moment.lang('bg');
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'неделя, февруари 14-ти 2010, 3:25:50 pm'],
                 ['ddd, hA',                            'нед, 3PM'],
@@ -61,7 +69,6 @@ exports["lang:bg"] = {
 
     "format ordinal" : function(test) {
         test.expect(31);
-        moment.lang('bg');
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1-ви', '1-ви');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2-ри', '2-ри');
         test.equal(moment([2011, 0, 3]).format('DDDo'), '3-ти', '3-ти');
@@ -101,7 +108,6 @@ exports["lang:bg"] = {
 
     "format month" : function(test) {
         test.expect(12);
-        moment.lang('bg');
         var expected = 'януари янр_февруари фев_март мар_април апр_май май_юни юни_юли юли_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -112,7 +118,6 @@ exports["lang:bg"] = {
 
     "format week" : function(test) {
         test.expect(7);
-        moment.lang('bg');
         var expected = 'неделя нед нд_понеделник пон пн_вторник вто вт_сряда сря ср_четвъртък чет чт_петък пет пт_събота съб сб'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -123,7 +128,6 @@ exports["lang:bg"] = {
 
     "from" : function(test) {
         test.expect(30);
-        moment.lang('bg');
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "няколко секунди", "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "минута",          "45 seconds = a minute");
@@ -160,7 +164,6 @@ exports["lang:bg"] = {
 
     "suffix" : function(test) {
         test.expect(2);
-        moment.lang('bg');
         test.equal(moment(30000).from(0), "след няколко секунди",  "prefix");
         test.equal(moment(0).from(30000), "преди няколко секунди", "suffix");
         test.done();
@@ -168,14 +171,12 @@ exports["lang:bg"] = {
 
     "now from now" : function(test) {
         test.expect(1);
-        moment.lang('bg');
         test.equal(moment().fromNow(), "преди няколко секунди",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow" : function(test) {
         test.expect(2);
-        moment.lang('bg');
         test.equal(moment().add({s:30}).fromNow(), "след няколко секунди", "in a few seconds");
         test.equal(moment().add({d:5}).fromNow(), "след 5 дни", "in 5 days");
         test.done();
@@ -183,7 +184,6 @@ exports["lang:bg"] = {
 
     "calendar day" : function(test) {
         test.expect(6);
-        moment.lang('bg');
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
@@ -198,7 +198,6 @@ exports["lang:bg"] = {
 
     "calendar next week" : function(test) {
         test.expect(15);
-        moment.lang('bg');
 
         var i;
         var m;
@@ -216,7 +215,6 @@ exports["lang:bg"] = {
 
     "calendar last week" : function(test) {
         test.expect(15);
-        moment.lang('bg');
 
         var i;
         var m;
@@ -248,7 +246,6 @@ exports["lang:bg"] = {
 
     "calendar all else" : function(test) {
         test.expect(4);
-        moment.lang('bg');
         var weeksAgo = moment().subtract({ w: 1 });
         var weeksFromNow = moment().add({ w: 1 });
 

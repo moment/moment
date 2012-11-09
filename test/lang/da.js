@@ -6,9 +6,18 @@ var moment = require("../../moment");
      *************************************************/
 
 exports["lang:da"] = {
+    setUp: function(cb) {
+        moment.lang('da');
+        cb();
+    },
+
+    tearDown: function(cb) {
+        moment.lang('en');
+        cb();
+    },
+
     "parse" : function(test) {
         test.expect(96);
-        moment.lang('da');
         var tests = 'Januar Jan_Februar Feb_Marts Mar_April Apr_Maj Maj_Juni Jun_Juli Jul_August Aug_September Sep_Oktober Okt_November Nov_December Dec'.split("_");
         var i;
         function equalTest(input, mmm, i) {
@@ -30,7 +39,6 @@ exports["lang:da"] = {
 
     "format" : function(test) {
         test.expect(18);
-        moment.lang('da');
         var a = [
                 ['dddd \\den MMMM Do YYYY, h:mm:ss a', 'Søndag den Februar 14. 2010, 3:25:50 pm'],
                 ['ddd hA',                             'Søn 3PM'],
@@ -61,7 +69,6 @@ exports["lang:da"] = {
 
     "format ordinal" : function(test) {
         test.expect(31);
-        moment.lang('da');
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1.', '1.');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2.', '2.');
         test.equal(moment([2011, 0, 3]).format('DDDo'), '3.', '3.');
@@ -72,7 +79,7 @@ exports["lang:da"] = {
         test.equal(moment([2011, 0, 8]).format('DDDo'), '8.', '8.');
         test.equal(moment([2011, 0, 9]).format('DDDo'), '9.', '9.');
         test.equal(moment([2011, 0, 10]).format('DDDo'), '10.', '10.');
-    
+
         test.equal(moment([2011, 0, 11]).format('DDDo'), '11.', '11.');
         test.equal(moment([2011, 0, 12]).format('DDDo'), '12.', '12.');
         test.equal(moment([2011, 0, 13]).format('DDDo'), '13.', '13.');
@@ -83,7 +90,7 @@ exports["lang:da"] = {
         test.equal(moment([2011, 0, 18]).format('DDDo'), '18.', '18.');
         test.equal(moment([2011, 0, 19]).format('DDDo'), '19.', '19.');
         test.equal(moment([2011, 0, 20]).format('DDDo'), '20.', '20.');
-    
+
         test.equal(moment([2011, 0, 21]).format('DDDo'), '21.', '21.');
         test.equal(moment([2011, 0, 22]).format('DDDo'), '22.', '22.');
         test.equal(moment([2011, 0, 23]).format('DDDo'), '23.', '23.');
@@ -94,14 +101,13 @@ exports["lang:da"] = {
         test.equal(moment([2011, 0, 28]).format('DDDo'), '28.', '28.');
         test.equal(moment([2011, 0, 29]).format('DDDo'), '29.', '29.');
         test.equal(moment([2011, 0, 30]).format('DDDo'), '30.', '30.');
-    
+
         test.equal(moment([2011, 0, 31]).format('DDDo'), '31.', '31.');
         test.done();
     },
 
     "format month" : function(test) {
         test.expect(12);
-        moment.lang('da');
         var expected = 'Januar Jan_Februar Feb_Marts Mar_April Apr_Maj Maj_Juni Jun_Juli Jul_August Aug_September Sep_Oktober Okt_November Nov_December Dec'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -112,7 +118,6 @@ exports["lang:da"] = {
 
     "format week" : function(test) {
         test.expect(7);
-        moment.lang('da');
         var expected = 'Søndag Søn Sø_Mandag Man Ma_Tirsdag Tir Ti_Onsdag Ons On_Torsdag Tor To_Fredag Fre Fr_Lørdag Lør Lø'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -123,7 +128,6 @@ exports["lang:da"] = {
 
     "from" : function(test) {
         test.expect(30);
-        moment.lang('da');
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "få sekunder", "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "minut",       "45 seconds = a minute");
@@ -160,7 +164,6 @@ exports["lang:da"] = {
 
     "suffix" : function(test) {
         test.expect(2);
-        moment.lang('da');
         test.equal(moment(30000).from(0), "om få sekunder",  "prefix");
         test.equal(moment(0).from(30000), "få sekunder siden", "suffix");
         test.done();
@@ -168,14 +171,12 @@ exports["lang:da"] = {
 
     "now from now" : function(test) {
         test.expect(1);
-        moment.lang('da');
         test.equal(moment().fromNow(), "få sekunder siden",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow" : function(test) {
         test.expect(2);
-        moment.lang('da');
         test.equal(moment().add({s:30}).fromNow(), "om få sekunder", "in a few seconds");
         test.equal(moment().add({d:5}).fromNow(), "om 5 dage", "in 5 days");
     test.done();
