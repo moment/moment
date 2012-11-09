@@ -1190,11 +1190,7 @@
 
         isPastOfNow : function (time) {
             return this.past(moment());
-        },
-
-        fromNow : function (withoutSuffix) {
-            return this.from(moment(), withoutSuffix);
-        },
+        }
 
     };
 
