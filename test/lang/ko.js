@@ -6,9 +6,18 @@ var moment = require("../../moment");
      *************************************************/
 
 exports["lang:kr"] = {
+    setUp: function(cb) {
+        moment.lang('ko');
+        cb();
+    },
+
+    tearDown: function(cb) {
+        moment.lang('en');
+        cb();
+    },
+
     "parse" : function(test) {
         test.expect(96);
-        moment.lang('ko');
         var tests = '1월 1월_2월 2월_3월 3월_4월 4월_5월 5월_6월 6월_7월 7월_8월 8월_9월 9월_10월 10월_11월 11월_12월 12월'.split("_");
         var i;
         function equalTest(input, mmm, i) {
@@ -29,7 +38,6 @@ exports["lang:kr"] = {
     },
     "format" : function(test) {
         test.expect(18);
-        moment.lang('ko');
         var a = [
                 ['YYYY년 MMMM Do dddd a h:mm:ss',      '2010년 2월 14일 일요일 오후 3:25:50'],
                 ['ddd A h',                            '일 오후 3'],
@@ -60,7 +68,6 @@ exports["lang:kr"] = {
 
     "format ordinal" : function(test) {
         test.expect(31);
-        moment.lang('ko');
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1일', '1일');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2일', '2일');
         test.equal(moment([2011, 0, 3]).format('DDDo'), '3일', '3일');
@@ -71,7 +78,7 @@ exports["lang:kr"] = {
         test.equal(moment([2011, 0, 8]).format('DDDo'), '8일', '8일');
         test.equal(moment([2011, 0, 9]).format('DDDo'), '9일', '9일');
         test.equal(moment([2011, 0, 10]).format('DDDo'), '10일', '10일');
-    
+
         test.equal(moment([2011, 0, 11]).format('DDDo'), '11일', '11일');
         test.equal(moment([2011, 0, 12]).format('DDDo'), '12일', '12일');
         test.equal(moment([2011, 0, 13]).format('DDDo'), '13일', '13일');
@@ -82,7 +89,7 @@ exports["lang:kr"] = {
         test.equal(moment([2011, 0, 18]).format('DDDo'), '18일', '18일');
         test.equal(moment([2011, 0, 19]).format('DDDo'), '19일', '19일');
         test.equal(moment([2011, 0, 20]).format('DDDo'), '20일', '20일');
-    
+
         test.equal(moment([2011, 0, 21]).format('DDDo'), '21일', '21일');
         test.equal(moment([2011, 0, 22]).format('DDDo'), '22일', '22일');
         test.equal(moment([2011, 0, 23]).format('DDDo'), '23일', '23일');
@@ -93,14 +100,13 @@ exports["lang:kr"] = {
         test.equal(moment([2011, 0, 28]).format('DDDo'), '28일', '28일');
         test.equal(moment([2011, 0, 29]).format('DDDo'), '29일', '29일');
         test.equal(moment([2011, 0, 30]).format('DDDo'), '30일', '30일');
-    
+
         test.equal(moment([2011, 0, 31]).format('DDDo'), '31일', '31일');
         test.done();
     },
 
     "format month" : function(test) {
         test.expect(12);
-        moment.lang('ko');
         var expected = '1월 1월_2월 2월_3월 3월_4월 4월_5월 5월_6월 6월_7월 7월_8월 8월_9월 9월_10월 10월_11월 11월_12월 12월'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -111,7 +117,6 @@ exports["lang:kr"] = {
 
     "format week" : function(test) {
         test.expect(7);
-        moment.lang('ko');
         var expected = '일요일 일 일_월요일 월 월_화요일 화 화_수요일 수 수_목요일 목 목_금요일 금 금_토요일 토 토'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -122,7 +127,6 @@ exports["lang:kr"] = {
 
     "from" : function(test) {
         test.expect(30);
-        moment.lang('ko');
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "몇초", "44초 = 몇초");
         test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "일분",      "45초 = 일분");
@@ -159,7 +163,6 @@ exports["lang:kr"] = {
 
     "suffix" : function(test) {
         test.expect(2);
-        moment.lang('ko');
         test.equal(moment(30000).from(0), "몇초 후",  "prefix");
         test.equal(moment(0).from(30000), "몇초 전", "suffix");
         test.done();
@@ -167,14 +170,12 @@ exports["lang:kr"] = {
 
     "now from now" : function(test) {
         test.expect(1);
-        moment.lang('ko');
         test.equal(moment().fromNow(), "몇초 전",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow" : function(test) {
         test.expect(2);
-        moment.lang('ko');
         test.equal(moment().add({s:30}).fromNow(), "몇초 후", "in a few seconds");
         test.equal(moment().add({d:5}).fromNow(), "5일 후", "in 5 days");
         test.done();
@@ -182,10 +183,9 @@ exports["lang:kr"] = {
 
     "calendar day" : function(test) {
         test.expect(6);
-        moment.lang('ko');
-    
+
         var a = moment().hours(2).minutes(0).seconds(0);
-    
+
         test.equal(moment(a).calendar(),                     "오늘 오전 2시 00분",     "today at the same time");
         test.equal(moment(a).add({ m: 25 }).calendar(),      "오늘 오전 2시 25분",     "Now plus 25 min");
         test.equal(moment(a).add({ h: 1 }).calendar(),       "오늘 오전 3시 00분",     "Now plus 1 hour");
@@ -197,11 +197,10 @@ exports["lang:kr"] = {
 
     "calendar next week" : function(test) {
         test.expect(15);
-        moment.lang('ko');
-    
+
         var i;
         var m;
-    
+
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('dddd LT'),  "Today + " + i + " days current time");
@@ -215,8 +214,7 @@ exports["lang:kr"] = {
 
     "calendar last week" : function(test) {
         test.expect(15);
-        moment.lang('ko');
-    
+
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('지난주 dddd LT'),  "Today - " + i + " days current time");
@@ -230,16 +228,15 @@ exports["lang:kr"] = {
 
     "calendar all else" : function(test) {
         test.expect(4);
-        moment.lang('ko');
         var weeksAgo = moment().subtract({ w: 1 });
         var weeksFromNow = moment().add({ w: 1 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
-    
+
         weeksAgo = moment().subtract({ w: 2 });
         weeksFromNow = moment().add({ w: 2 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
     test.done();

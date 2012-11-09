@@ -6,9 +6,18 @@ var moment = require("../../moment");
      *************************************************/
 
 exports["lang:lv"] = {
+    setUp: function(cb) {
+        moment.lang('lv');
+        cb();
+    },
+
+    tearDown: function(cb) {
+        moment.lang('en');
+        cb();
+    },
+
     "parse" : function(test) {
         test.expect(96);
-        moment.lang('lv');
         var tests = 'janvāris jan_februāris feb_marts mar_aprīlis apr_maijs mai_jūnijs jūn_jūlijs jūl_augusts aug_septembris sep_oktobris okt_novembris nov_decembris dec'.split("_");
         var i;
         function equalTest(input, mmm, i) {
@@ -30,7 +39,6 @@ exports["lang:lv"] = {
 
     "format" : function(test) {
         test.expect(18);
-        moment.lang('lv');
         var a = [
                 ['dddd, Do MMMM YYYY, h:mm:ss a',      'svētdiena, 14. februāris 2010, 3:25:50 pm'],
                 ['ddd, hA',                            'Sv, 3PM'],
@@ -61,7 +69,6 @@ exports["lang:lv"] = {
 
     "format ordinal" : function(test) {
         test.expect(31);
-        moment.lang('lv');
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1.', '1.');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2.', '2.');
         test.equal(moment([2011, 0, 3]).format('DDDo'), '3.', '3.');
@@ -101,7 +108,6 @@ exports["lang:lv"] = {
 
     "format month" : function(test) {
         test.expect(12);
-        moment.lang('lv');
         var expected = 'janvāris jan_februāris feb_marts mar_aprīlis apr_maijs mai_jūnijs jūn_jūlijs jūl_augusts aug_septembris sep_oktobris okt_novembris nov_decembris dec'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -112,7 +118,6 @@ exports["lang:lv"] = {
 
     "format week" : function(test) {
         test.expect(7);
-        moment.lang('lv');
         var expected = 'svētdiena Sv Sv_pirmdiena P P_otrdiena O O_trešdiena T T_ceturtdiena C C_piektdiena Pk Pk_sestdiena S S'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -123,7 +128,6 @@ exports["lang:lv"] = {
 
     "from" : function(test) {
         test.expect(30);
-        moment.lang('lv');
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "dažas sekundes",    "44 seconds = seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "minūti",      "45 seconds = a minute");
@@ -160,7 +164,6 @@ exports["lang:lv"] = {
 
     "suffix" : function(test) {
         test.expect(2);
-        moment.lang('lv');
         test.equal(moment(30000).from(0), "dažas sekundes vēlāk",  "prefix");
         test.equal(moment(0).from(30000), "dažas sekundes agrāk", "suffix");
         test.done();
@@ -168,14 +171,12 @@ exports["lang:lv"] = {
 
     "now from now" : function(test) {
         test.expect(1);
-        moment.lang('lv');
         test.equal(moment().fromNow(), "dažas sekundes agrāk",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow" : function(test) {
         test.expect(2);
-        moment.lang('lv');
         test.equal(moment().add({s:30}).fromNow(), "dažas sekundes vēlāk", "in seconds");
         test.equal(moment().add({d:5}).fromNow(), "5 dienas vēlāk", "in 5 days");
         test.done();
@@ -183,7 +184,6 @@ exports["lang:lv"] = {
 
     "calendar day" : function(test) {
         test.expect(6);
-        moment.lang('lv');
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
@@ -198,7 +198,6 @@ exports["lang:lv"] = {
 
     "calendar next week" : function(test) {
         test.expect(15);
-        moment.lang('lv');
 
         var i;
         var m;
@@ -216,7 +215,6 @@ exports["lang:lv"] = {
 
     "calendar last week" : function(test) {
         test.expect(15);
-        moment.lang('lv');
 
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
@@ -231,7 +229,6 @@ exports["lang:lv"] = {
 
     "calendar all else" : function(test) {
         test.expect(4);
-        moment.lang('lv');
         var weeksAgo = moment().subtract({ w: 1 });
         var weeksFromNow = moment().add({ w: 1 });
 
