@@ -6,9 +6,18 @@ var moment = require("../../moment");
      *************************************************/
 
 exports["lang:ru"] = {
+    setUp: function(cb) {
+        moment.lang('ru');
+        cb();
+    },
+
+    tearDown: function(cb) {
+        moment.lang('en');
+        cb();
+    },
+
     "parse" : function(test) {
         test.expect(96);
-        moment.lang('ru');
         var tests = 'январь янв_февраль фев_март мар_апрель апр_май май_июнь июн_июль июл_август авг_сентябрь сен_октябрь окт_ноябрь ноя_декабрь дек'.split("_");
         var i;
         function equalTest(input, mmm, i) {
@@ -30,7 +39,6 @@ exports["lang:ru"] = {
 
     "format" : function(test) {
         test.expect(18);
-        moment.lang('ru');
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'воскресенье, февраль 14. 2010, 3:25:50 pm'],
                 ['ddd, hA',                            'вск, 3PM'],
@@ -61,7 +69,6 @@ exports["lang:ru"] = {
 
     "format ordinal" : function(test) {
         test.expect(31);
-        moment.lang('ru');
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1.', '1.');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2.', '2.');
         test.equal(moment([2011, 0, 3]).format('DDDo'), '3.', '3.');
@@ -101,7 +108,6 @@ exports["lang:ru"] = {
 
     "format month" : function(test) {
         test.expect(12);
-        moment.lang('ru');
         var expected = 'январь янв_февраль фев_март мар_апрель апр_май май_июнь июн_июль июл_август авг_сентябрь сен_октябрь окт_ноябрь ноя_декабрь дек'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -112,7 +118,6 @@ exports["lang:ru"] = {
 
     "format month case" : function(test) {
         test.expect(24);
-        moment.lang('ru');
         var months = {
             'nominative': 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_'),
             'accusative': 'января_февраля_марта_апреля_мая_июня_июля_августа_сентября_октября_ноября_декабря'.split('_')
@@ -127,7 +132,6 @@ exports["lang:ru"] = {
 
     "format week" : function(test) {
         test.expect(7);
-        moment.lang('ru');
         var expected = 'воскресенье вск вс_понедельник пнд пн_вторник втр вт_среда срд ср_четверг чтв чт_пятница птн пт_суббота сбт сб'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -138,7 +142,6 @@ exports["lang:ru"] = {
 
     "from" : function(test) {
         test.expect(32);
-        moment.lang('ru');
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "несколько секунд",    "44 seconds = seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "минута",   "45 seconds = a minute");
@@ -177,7 +180,6 @@ exports["lang:ru"] = {
 
     "suffix" : function(test) {
         test.expect(2);
-        moment.lang('ru');
         test.equal(moment(30000).from(0), "через несколько секунд", "prefix");
         test.equal(moment(0).from(30000), "несколько секунд назад", "suffix");
         test.done();
@@ -185,7 +187,6 @@ exports["lang:ru"] = {
 
     "fromNow" : function(test) {
         test.expect(2);
-        moment.lang('ru');
         test.equal(moment().add({s:30}).fromNow(), "через несколько секунд", "in seconds");
         test.equal(moment().add({d:5}).fromNow(), "через 5 дней", "in 5 days");
         test.done();
@@ -193,7 +194,6 @@ exports["lang:ru"] = {
 
     "calendar day" : function(test) {
         test.expect(6);
-        moment.lang('ru');
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
@@ -208,7 +208,6 @@ exports["lang:ru"] = {
 
     "calendar next week" : function(test) {
         test.expect(15);
-        moment.lang('ru');
 
         var i;
         var m;
@@ -230,7 +229,6 @@ exports["lang:ru"] = {
 
     "calendar last week" : function(test) {
         test.expect(15);
-        moment.lang('ru');
 
         var i;
         var m;
@@ -263,7 +261,6 @@ exports["lang:ru"] = {
 
     "calendar all else" : function(test) {
         test.expect(4);
-        moment.lang('ru');
         var weeksAgo = moment().subtract({ w: 1 });
         var weeksFromNow = moment().add({ w: 1 });
 
