@@ -806,7 +806,7 @@
         } else if (typeof input === 'string') {
             makeDateFromString(config);
         } else if (isArray(input)) {
-            config._a = input;
+            config._a = input.slice(0);
             dateFromArray(config);
         } else {
             config._d = input instanceof Date ? input : new Date(input);
