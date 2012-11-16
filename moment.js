@@ -1113,10 +1113,10 @@
                 this.add({ d : input - day });
         },
 
-        startOf: function (val) {
+        startOf: function (units) {
             // the following switch intentionally omits break keywords
             // to utilize falling through the cases.
-            switch (val.replace(/s$/, '')) {
+            switch (units.replace(/s$/, '')) {
             case 'year':
                 this.month(0);
                 /* falls through */
@@ -1139,12 +1139,23 @@
             return this;
         },
 
-        endOf: function (val) {
-            return this.startOf(val).add(val.replace(/s?$/, 's'), 1).subtract('ms', 1);
+        endOf: function (units) {
+            return this.startOf(units).add(units.replace(/s?$/, 's'), 1).subtract('ms', 1);
         },
 
-        isSame: function (input, val) {
-            return +this.clone().startOf(val) === +moment(input).startOf(val);
+        isAfter: function (input, units) {
+            units = typeof units !== 'undefined' ? units : 'millisecond';
+            return +this.clone().startOf(units) > +moment(input).startOf(units);
+        },
+
+        isBefore: function (input, units) {
+            units = typeof units !== 'undefined' ? units : 'millisecond';
+            return +this.clone().startOf(units) < +moment(input).startOf(units);
+        },
+        
+        isSame: function (input, units) {
+            units = typeof units !== 'undefined' ? units : 'millisecond';
+            return +this.clone().startOf(units) === +moment(input).startOf(units);
         },
 
         sod: function () {
