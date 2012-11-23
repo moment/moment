@@ -35,7 +35,7 @@
                 dd : "%d jours",
                 M : "un mois",
                 MM : "%d mois",
-                y : "une année",
+                y : "un an",
                 yy : "%d années"
             },
             ordinal : function (number) {
