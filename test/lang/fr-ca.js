@@ -72,7 +72,7 @@ exports["lang:fr-ca"] = {
         test.equal(moment([2011, 0, 8]).format('DDDo'), '8ème', '8ème');
         test.equal(moment([2011, 0, 9]).format('DDDo'), '9ème', '9ème');
         test.equal(moment([2011, 0, 10]).format('DDDo'), '10ème', '10ème');
-    
+
         test.equal(moment([2011, 0, 11]).format('DDDo'), '11ème', '11ème');
         test.equal(moment([2011, 0, 12]).format('DDDo'), '12ème', '12ème');
         test.equal(moment([2011, 0, 13]).format('DDDo'), '13ème', '13ème');
@@ -83,7 +83,7 @@ exports["lang:fr-ca"] = {
         test.equal(moment([2011, 0, 18]).format('DDDo'), '18ème', '18ème');
         test.equal(moment([2011, 0, 19]).format('DDDo'), '19ème', '19ème');
         test.equal(moment([2011, 0, 20]).format('DDDo'), '20ème', '20ème');
-    
+
         test.equal(moment([2011, 0, 21]).format('DDDo'), '21ème', '21ème');
         test.equal(moment([2011, 0, 22]).format('DDDo'), '22ème', '22ème');
         test.equal(moment([2011, 0, 23]).format('DDDo'), '23ème', '23ème');
@@ -94,7 +94,7 @@ exports["lang:fr-ca"] = {
         test.equal(moment([2011, 0, 28]).format('DDDo'), '28ème', '28ème');
         test.equal(moment([2011, 0, 29]).format('DDDo'), '29ème', '29ème');
         test.equal(moment([2011, 0, 30]).format('DDDo'), '30ème', '30ème');
-    
+
         test.equal(moment([2011, 0, 31]).format('DDDo'), '31ème', '31ème');
         test.done();
     },
@@ -150,11 +150,11 @@ exports["lang:fr-ca"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({M:1}), true),   "un mois",    "1 month = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({M:5}), true),   "5 mois",   "5 months = 5 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d:344}), true), "11 mois",  "344 days = 11 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:345}), true), "une année",     "345 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:547}), true), "une année",     "547 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:548}), true), "2 années",    "548 days = 2 years");
-        test.equal(start.from(moment([2007, 1, 28]).add({y:1}), true),   "une année",     "1 year = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({y:5}), true),   "5 années",    "5 years = 5 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({d:345}), true), "un an",     "345 days = a year");
+        test.equal(start.from(moment([2007, 1, 28]).add({d:547}), true), "un an",     "547 days = a year");
+        test.equal(start.from(moment([2007, 1, 28]).add({d:548}), true), "2 ans",    "548 days = 2 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y:1}), true),   "un an",     "1 year = a year");
+        test.equal(start.from(moment([2007, 1, 28]).add({y:5}), true),   "5 ans",    "5 years = 5 years");
         test.done();
     },
 
@@ -177,9 +177,9 @@ exports["lang:fr-ca"] = {
     "same day" : function(test) {
         test.expect(6);
         moment.lang('fr');
-    
+
         var a = moment().hours(2).minutes(0).seconds(0);
-    
+
         test.equal(moment(a).calendar(),                     "Aujourd'hui à 02:00",    "today at the same time");
         test.equal(moment(a).add({ m: 25 }).calendar(),      "Aujourd'hui à 02:25",    "Now plus 25 min");
         test.equal(moment(a).add({ h: 1 }).calendar(),       "Aujourd'hui à 03:00",    "Now plus 1 hour");
@@ -192,10 +192,10 @@ exports["lang:fr-ca"] = {
     "same next week" : function(test) {
         test.expect(15);
         moment.lang('fr');
-    
+
         var i;
         var m;
-    
+
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('dddd [à] LT'),  "Today + " + i + " days current time");
@@ -210,7 +210,7 @@ exports["lang:fr-ca"] = {
     "same last week" : function(test) {
         test.expect(15);
         moment.lang('fr');
-    
+
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('dddd [dernier à] LT'),  "Today - " + i + " days current time");
@@ -227,13 +227,13 @@ exports["lang:fr-ca"] = {
         moment.lang('fr');
         var weeksAgo = moment().subtract({ w: 1 });
         var weeksFromNow = moment().add({ w: 1 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
-    
+
         weeksAgo = moment().subtract({ w: 2 });
         weeksFromNow = moment().add({ w: 2 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
     test.done();

@@ -35,8 +35,8 @@
                 dd : "%d jours",
                 M : "un mois",
                 MM : "%d mois",
-                y : "une année",
-                yy : "%d années"
+                y : "un an",
+                yy : "%d ans"
             },
             ordinal : function (number) {
                 return number === 1 ? 'er' : 'ème';
