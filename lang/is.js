@@ -114,7 +114,7 @@
                 M : translate,
                 MM : translate,
                 y : translate,
-                yy : translate,
+                yy : translate
             },
             ordinal : function (number) {
                 return '.';
