@@ -55,7 +55,56 @@ exports.add_subtract = {
         test.done();
     },
 
+    "add and subtract long singular" : function(test) {
+        test.expect(8);
+
+        var a = moment();
+        a.year(2011);
+        a.month(9);
+        a.date(12);
+        a.hours(6);
+        a.minutes(7);
+        a.seconds(8);
+        a.milliseconds(500);
+
+        test.equal(a.add({millisecond:50}).milliseconds(), 550, 'Add milliseconds');
+        test.equal(a.add({second:1}).seconds(), 9, 'Add seconds');
+        test.equal(a.add({minute:1}).minutes(), 8, 'Add minutes');
+        test.equal(a.add({hour:1}).hours(), 7, 'Add hours');
+        test.equal(a.add({day:1}).date(), 13, 'Add date');
+        test.equal(a.add({week:1}).date(), 20, 'Add week');
+        test.equal(a.add({month:1}).month(), 10, 'Add month');
+        test.equal(a.add({year:1}).year(), 2012, 'Add year');
+        test.done();
+    },
+
     "add and subtract string long" : function(test) {
+        test.expect(9);
+
+        var a = moment();
+        a.year(2011);
+        a.month(9);
+        a.date(12);
+        a.hours(6);
+        a.minutes(7);
+        a.seconds(8);
+        a.milliseconds(500);
+
+        var b = a.clone();
+
+        test.equal(a.add('millisecond', 50).milliseconds(), 550, 'Add milliseconds');
+        test.equal(a.add('second', 1).seconds(), 9, 'Add seconds');
+        test.equal(a.add('minute', 1).minutes(), 8, 'Add minutes');
+        test.equal(a.add('hour', 1).hours(), 7, 'Add hours');
+        test.equal(a.add('day', 1).date(), 13, 'Add date');
+        test.equal(a.add('week', 1).date(), 20, 'Add week');
+        test.equal(a.add('month', 1).month(), 10, 'Add month');
+        test.equal(a.add('year', 1).year(), 2012, 'Add year');
+        test.equal(b.add('day', '01').date(), 13, 'Add date');
+        test.done();
+    },
+
+    "add and subtract string long singular" : function(test) {
         test.expect(9);
 
         var a = moment();

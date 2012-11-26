@@ -35,12 +35,12 @@
         }
     ],
     "devDependencies" : {
-        "jshint"    : "latest",
         "uglify-js" : "latest",
-        "nodeunit"  : "latest"
+        "nodeunit"  : "latest",
+        "grunt"     : "latest"
     },
     "scripts": {
-        "test": "make test"
+        "test": "grunt"
     },
     "ender": "./ender.js"
 }

@@ -6,9 +6,18 @@ var moment = require("../../moment");
      *************************************************/
 
 exports["lang:zh-cn"] = {
+    setUp: function(cb) {
+        moment.lang('zh-cn');
+        cb();
+    },
+
+    tearDown: function(cb) {
+        moment.lang('en');
+        cb();
+    },
+
     "parse" : function(test) {
         test.expect(96);
-        moment.lang('zh-cn');
         var tests = '一月 1月_二月 2月_三月 3月_四月 4月_五月 5月_六月 6月_七月 7月_八月 8月_九月 9月_十月 10月_十一月 11月_十二月 12月'.split("_");
         var i;
         function equalTest(input, mmm, i) {
@@ -30,7 +39,6 @@ exports["lang:zh-cn"] = {
 
     "format" : function(test) {
         test.expect(18);
-        moment.lang('zh-cn');
         var a = [
                 ['dddd, MMMM Do YYYY, a h:mm:ss',      '星期日, 二月 14 2010, 下午 3:25:50'],
                 ['ddd, Ah',                            '周日, 下午3'],
@@ -39,7 +47,7 @@ exports["lang:zh-cn"] = {
                 ['D Do DD',                            '14 14 14'],
                 ['d do dddd ddd dd',                   '0 0 星期日 周日 日'],
                 ['DDD DDDo DDDD',                      '45 45 045'],
-                ['w wo ww',                            '8 8 08'],
+                ['w wo ww',                            '6 6 06'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
@@ -61,7 +69,6 @@ exports["lang:zh-cn"] = {
 
     "format month" : function(test) {
         test.expect(12);
-        moment.lang('zh-cn');
         var expected = '一月 1月_二月 2月_三月 3月_四月 4月_五月 5月_六月 6月_七月 7月_八月 8月_九月 9月_十月 10月_十一月 11月_十二月 12月'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -72,7 +79,6 @@ exports["lang:zh-cn"] = {
 
     "format week" : function(test) {
         test.expect(7);
-        moment.lang('zh-cn');
         var expected = '星期日 周日 日_星期一 周一 一_星期二 周二 二_星期三 周三 三_星期四 周四 四_星期五 周五 五_星期六 周六 六'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -83,7 +89,6 @@ exports["lang:zh-cn"] = {
 
     "from" : function(test) {
         test.expect(30);
-        moment.lang('zh-cn');
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "几秒",   "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "1分钟", "45 seconds = a minute");
@@ -120,7 +125,6 @@ exports["lang:zh-cn"] = {
 
     "suffix" : function(test) {
         test.expect(2);
-        moment.lang('zh-cn');
         test.equal(moment(30000).from(0), "几秒内",  "prefix");
         test.equal(moment(0).from(30000), "几秒前", "suffix");
         test.done();
@@ -128,14 +132,12 @@ exports["lang:zh-cn"] = {
 
     "now from now" : function(test) {
         test.expect(1);
-        moment.lang('zh-cn');
         test.equal(moment().fromNow(), "几秒前",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow" : function(test) {
         test.expect(2);
-        moment.lang('zh-cn');
         test.equal(moment().add({s:30}).fromNow(), "几秒内", "in a few seconds");
         test.equal(moment().add({d:5}).fromNow(), "5天内", "in 5 days");
         test.done();
@@ -143,7 +145,6 @@ exports["lang:zh-cn"] = {
 
     "calendar day" : function(test) {
         test.expect(6);
-        moment.lang('zh-cn');
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
@@ -158,7 +159,6 @@ exports["lang:zh-cn"] = {
 
     "calendar next week" : function(test) {
         test.expect(15);
-        moment.lang('zh-cn');
 
         var i;
         var m;
@@ -176,7 +176,6 @@ exports["lang:zh-cn"] = {
 
     "calendar last week" : function(test) {
         test.expect(15);
-        moment.lang('zh-cn');
 
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
@@ -191,7 +190,6 @@ exports["lang:zh-cn"] = {
 
     "calendar all else" : function(test) {
         test.expect(4);
-        moment.lang('zh-cn');
         var weeksAgo = moment().subtract({ w: 1 });
         var weeksFromNow = moment().add({ w: 1 });
 
@@ -208,7 +206,6 @@ exports["lang:zh-cn"] = {
 
     "meridiem" : function(test) {
         test.expect(10);
-        moment.lang('zh-cn');
 
         test.equal(moment([2011, 2, 23,  0, 0]).format('a'), "早上", "morning");
         test.equal(moment([2011, 2, 23,  9, 0]).format('a'), "上午", "before noon");

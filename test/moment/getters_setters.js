@@ -16,6 +16,50 @@ exports.getters_setters = {
         test.done();
     },
 
+    "setters plural" : function(test) {
+        test.expect(8);
+
+        var a = moment();
+        a.years(2011);
+        a.months(9);
+        a.dates(12);
+        a.hours(6);
+        a.minutes(7);
+        a.seconds(8);
+        a.milliseconds(9);
+        test.equal(a.years(), 2011, 'years');
+        test.equal(a.months(), 9, 'months');
+        test.equal(a.dates(), 12, 'dates');
+        test.equal(a.days(), 3, 'days');
+        test.equal(a.hours(), 6, 'hours');
+        test.equal(a.minutes(), 7, 'minutes');
+        test.equal(a.seconds(), 8, 'seconds');
+        test.equal(a.milliseconds(), 9, 'milliseconds');
+        test.done();
+    },
+
+    "setters singular" : function(test) {
+        test.expect(8);
+
+        var a = moment();
+        a.year(2011);
+        a.month(9);
+        a.date(12);
+        a.hour(6);
+        a.minute(7);
+        a.second(8);
+        a.millisecond(9);
+        test.equal(a.year(), 2011, 'year');
+        test.equal(a.month(), 9, 'month');
+        test.equal(a.date(), 12, 'date');
+        test.equal(a.day(), 3, 'day');
+        test.equal(a.hour(), 6, 'hour');
+        test.equal(a.minute(), 7, 'minute');
+        test.equal(a.second(), 8, 'second');
+        test.equal(a.millisecond(), 9, 'milliseconds');
+        test.done();
+    },
+
     "setters" : function(test) {
         test.expect(8);
 

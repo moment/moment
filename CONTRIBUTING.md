@@ -6,17 +6,17 @@ If you are submitting a bug with moment, please create a [jsfiddle](http://jsfid
 Contributing
 ============
 
-To contribute, fork the library and install these npm packages.
+To contribute, fork the library and install grunt.
 
-    npm install jshint uglify-js nodeunit
+    npm install grunt -g
 
 You can add tests to the files in `/test/moment` or add a new test file if you are adding a new feature.
 
-To run the tests, do `make test` to run all tests, `make test-moment` to test the core library, and `make test-lang` to test all the languages.
+To run the tests, do `grunt test` to run all tests.
 
-To check the filesize, you can use `make size`.
+To check the filesize, you can use `grunt size`.
 
-To minify all the files, use `make moment` to minify moment, `make langs` to minify all the lang files, or just `make` to minfy everything.
+To minify all the files, use `grunt release`.
 
 If your code passes the unit tests (including the ones you wrote), submit a pull request.
 
@@ -32,3 +32,4 @@ Pull requests for enhancements for features should be submitted to the `develop`
 When submitting a bugfix, please check if there is an existing bugfix branch. If the latest stable version is `1.5.0`, the bugfix branch would be `hotfix/1.5.1`. All pull requests for bug fixes should be on a `hotfix` branch, unless the bug fix depends on a new feature.
 
 The `master` branch should always have the latest stable version. When bugfix or minor releases are needed, the develop/hotfix branch will be merged into master and released.
+

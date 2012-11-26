@@ -12,6 +12,8 @@ exports.format = {
     "format escape brackets" : function(test) {
         test.expect(9);
 
+        moment.lang('en');
+
         var b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
         test.equal(b.format('[day]'), 'day', 'Single bracket');
         test.equal(b.format('[day] YY [YY]'), 'day 09 YY', 'Double bracket');
@@ -110,6 +112,60 @@ exports.format = {
         test.expect(1);
         var isoRegex = /\d{4}.\d\d.\d\dT\d\d.\d\d.\d\d[\+\-]\d\d:\d\d/;
         test.ok(isoRegex.exec(moment().format()), "default format (" + moment().format() + ") should match ISO");
+        test.done();
+    },
+
+    "escaping quotes" : function(test) {
+        test.expect(4);
+        moment.lang('en');
+        var date = moment([2012, 0]);
+        test.equal(date.format('MMM \'YY'), "Jan '12", "Should be able to format with single parenthesis");
+        test.equal(date.format('MMM "YY'),  'Jan "12', "Should be able to format with double parenthesis");
+        test.equal(date.format("MMM 'YY"),  "Jan '12", "Should be able to format with single parenthesis");
+        test.equal(date.format("MMM \"YY"), 'Jan "12', "Should be able to format with double parenthesis");
+        test.done();
+    },
+
+    "toJSON" : function(test) {
+        var supportsJson = typeof JSON !== "undefined" && JSON.stringify && JSON.stringify.call,
+            date = moment.utc("2012-10-09T20:30:40.678");
+
+        test.expect(supportsJson ? 2 : 1);
+
+        test.equal(date.toJSON(), "2012-10-09T20:30:40.678Z", "should output ISO8601 on moment.fn.toJSON");
+        test.equal(JSON.stringify({
+            date : date
+        }), '{"date":"2012-10-09T20:30:40.678Z"}', "should output ISO8601 on JSON.stringify");
+        test.done();
+    },
+
+    "weeks format" : function(test) {
+
+        // http://en.wikipedia.org/wiki/ISO_week_date
+        var cases = {
+            "2005-01-02": "2004-53",
+            "2005-12-31": "2005-52",
+            "2007-01-01": "2007-01",
+            "2007-12-30": "2007-52",
+            "2007-12-31": "2008-01",
+            "2008-01-01": "2008-01",
+            "2008-12-28": "2008-52",
+            "2008-12-29": "2009-01",
+            "2008-12-30": "2009-01",
+            "2008-12-31": "2009-01",
+            "2009-01-01": "2009-01",
+            "2009-12-31": "2009-53",
+            "2010-01-01": "2009-53",
+            "2010-01-02": "2009-53",
+            "2010-01-03": "2009-53",
+        };
+
+        for (var i in cases) {
+            var iso = cases[i].split('-').pop();
+            var the = moment(i).format('ww');
+            test.equal(iso, the, i + ": should be " + iso + ", but " + the);
+        }
+
         test.done();
     }
 };

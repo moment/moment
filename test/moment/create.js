@@ -14,6 +14,14 @@ exports.create = {
         test.done();
     },
 
+    "array copying": function(test) {
+        var importantArray = [2009, 11];
+        test.expect(1);
+        moment(importantArray);
+        test.deepEqual(importantArray, [2009, 11], "initializer should not mutate the original array");
+        test.done();
+    },
+
     "number" : function(test) {
         test.expect(3);
         test.ok(moment(1000).toDate() instanceof Date, "1000");
@@ -153,7 +161,8 @@ exports.create = {
         var a = [
                 ['MMDDYYYY',          '12021999'],
                 ['DDMMYYYY',          '12021999'],
-                ['YYYYMMDD',          '19991202']
+                ['YYYYMMDD',          '19991202'],
+                ['DDMMMYYYY',         '10Sep2001']
             ],i;
 
         test.expect(a.length);
@@ -266,7 +275,17 @@ exports.create = {
             ['2011-10-08T18:04:20' + tz2,     '2011-10-08T18:04:20.000' + tz],
             ['2011-10-08T18:04:20.1' + tz2,   '2011-10-08T18:04:20.100' + tz],
             ['2011-10-08T18:04:20.11' + tz2,  '2011-10-08T18:04:20.110' + tz],
-            ['2011-10-08T18:04:20.111' + tz2, '2011-10-08T18:04:20.111' + tz]
+            ['2011-10-08T18:04:20.111' + tz2, '2011-10-08T18:04:20.111' + tz],
+            ['2011-10-08 18',                 '2011-10-08T18:00:00.000' + tz],
+            ['2011-10-08 18:04',              '2011-10-08T18:04:00.000' + tz],
+            ['2011-10-08 18:04:20',           '2011-10-08T18:04:20.000' + tz],
+            ['2011-10-08 18:04' + tz,         '2011-10-08T18:04:00.000' + tz],
+            ['2011-10-08 18:04:20' + tz,      '2011-10-08T18:04:20.000' + tz],
+            ['2011-10-08 18:04' + tz2,        '2011-10-08T18:04:00.000' + tz],
+            ['2011-10-08 18:04:20' + tz2,     '2011-10-08T18:04:20.000' + tz],
+            ['2011-10-08 18:04:20.1' + tz2,   '2011-10-08T18:04:20.100' + tz],
+            ['2011-10-08 18:04:20.11' + tz2,  '2011-10-08T18:04:20.110' + tz],
+            ['2011-10-08 18:04:20.111' + tz2, '2011-10-08T18:04:20.111' + tz]
         ];
         test.expect(formats.length);
         for (var i = 0; i < formats.length; i++) {
@@ -308,20 +327,36 @@ exports.create = {
     },
 
     "first century" : function(test) {
-        test.expect(6);
+        test.expect(9);
         test.equal(moment([0, 0, 1]).format("YYYY-MM-DD"), "0000-01-01", "Year AD 0");
         test.equal(moment([99, 0, 1]).format("YYYY-MM-DD"), "0099-01-01", "Year AD 99");
         test.equal(moment([999, 0, 1]).format("YYYY-MM-DD"), "0999-01-01", "Year AD 999");
         test.equal(moment('0 1 1', 'YYYY MM DD').format("YYYY-MM-DD"), "0000-01-01", "Year AD 0");
         test.equal(moment('99 1 1', 'YYYY MM DD').format("YYYY-MM-DD"), "0099-01-01", "Year AD 99");
         test.equal(moment('999 1 1', 'YYYY MM DD').format("YYYY-MM-DD"), "0999-01-01", "Year AD 999");
+        test.equal(moment('0 1 1', 'YYYYY MM DD').format("YYYYY-MM-DD"), "00000-01-01", "Year AD 0");
+        test.equal(moment('99 1 1', 'YYYYY MM DD').format("YYYYY-MM-DD"), "00099-01-01", "Year AD 99");
+        test.equal(moment('999 1 1', 'YYYYY MM DD').format("YYYYY-MM-DD"), "00999-01-01", "Year AD 999");
         test.done();
     },
 
     "six digit years" : function(test) {
+        test.expect(8);
+        test.equal(moment([-270000, 0, 1]).format("YYYYY-MM-DD"), "-270000-01-01", "format BC 270,001");
+        test.equal(moment([ 270000, 0, 1]).format("YYYYY-MM-DD"), "270000-01-01", "format AD 270,000");
+        test.equal(moment("-270000-01-01", "YYYYY-MM-DD").toDate().getFullYear(), -270000, "parse BC 270,001");
+        test.equal(moment("270000-01-01",  "YYYYY-MM-DD").toDate().getFullYear(), 270000, "parse AD 270,000");
+        test.equal(moment("+270000-01-01", "YYYYY-MM-DD").toDate().getFullYear(), 270000, "parse AD +270,000");
+        test.equal(moment.utc("-270000-01-01", "YYYYY-MM-DD").toDate().getUTCFullYear(), -270000, "parse utc BC 270,001");
+        test.equal(moment.utc("270000-01-01",  "YYYYY-MM-DD").toDate().getUTCFullYear(), 270000, "parse utc AD 270,000");
+        test.equal(moment.utc("+270000-01-01", "YYYYY-MM-DD").toDate().getUTCFullYear(), 270000, "parse utc AD +270,000");
+        test.done();
+    },
+
+    "negative four digit years" : function(test) {
         test.expect(2);
-        test.equal(moment([-270000, 0, 1]).format("YYYY-MM-DD"), "-270000-01-01", "format BC 270,000");
-        test.equal(moment([ 270000, 0, 1]).format("YYYY-MM-DD"), "270000-01-01", "format AD 270,000");
+        test.equal(moment("-1000-01-01", "YYYYY-MM-DD").toDate().getFullYear(), -1000, "parse BC 1,001");
+        test.equal(moment.utc("-1000-01-01", "YYYYY-MM-DD").toDate().getUTCFullYear(), -1000, "parse utc BC 1,001");
         test.done();
     }
 };

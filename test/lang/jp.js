@@ -6,9 +6,18 @@ var moment = require("../../moment");
      *************************************************/
 
 exports["lang:jp"] = {
+    setUp: function(cb) {
+        moment.lang('jp');
+        cb();
+    },
+
+    tearDown: function(cb) {
+        moment.lang('en');
+        cb();
+    },
+
     "parse" : function(test) {
         test.expect(96);
-        moment.lang('jp');
         var tests = '1月 1月_2月 2月_3月 3月_4月 4月_5月 5月_6月 6月_7月 7月_8月 8月_9月 9月_10月 10月_11月 11月_12月 12月'.split("_");
         var i;
         function equalTest(input, mmm, i) {
@@ -30,7 +39,6 @@ exports["lang:jp"] = {
 
     "format" : function(test) {
         test.expect(18);
-        moment.lang('jp');
         var a = [
                 ['dddd, MMMM Do YYYY, a h:mm:ss',      '日曜日, 2月 14 2010, 午後 3:25:50'],
                 ['ddd, Ah',                            '日, 午後3'],
@@ -39,7 +47,7 @@ exports["lang:jp"] = {
                 ['D Do DD',                            '14 14 14'],
                 ['d do dddd ddd dd',                   '0 0 日曜日 日 日'],
                 ['DDD DDDo DDDD',                      '45 45 045'],
-                ['w wo ww',                            '8 8 08'],
+                ['w wo ww',                            '6 6 06'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
@@ -61,7 +69,6 @@ exports["lang:jp"] = {
 
     "format month" : function(test) {
         test.expect(12);
-        moment.lang('jp');
         var expected = '1月 1月_2月 2月_3月 3月_4月 4月_5月 5月_6月 6月_7月 7月_8月 8月_9月 9月_10月 10月_11月 11月_12月 12月'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -72,7 +79,6 @@ exports["lang:jp"] = {
 
     "format week" : function(test) {
         test.expect(7);
-        moment.lang('jp');
         var expected = '日曜日 日 日_月曜日 月 月_火曜日 火 火_水曜日 水 水_木曜日 木 木_金曜日 金 金_土曜日 土 土'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -83,7 +89,6 @@ exports["lang:jp"] = {
 
     "from" : function(test) {
         test.expect(30);
-        moment.lang('jp');
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "数秒",   "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "1分", "45 seconds = a minute");
@@ -120,7 +125,6 @@ exports["lang:jp"] = {
 
     "suffix" : function(test) {
         test.expect(2);
-        moment.lang('jp');
         test.equal(moment(30000).from(0), "数秒後",  "prefix");
         test.equal(moment(0).from(30000), "数秒前", "suffix");
         test.done();
@@ -128,14 +132,12 @@ exports["lang:jp"] = {
 
     "now from now" : function(test) {
         test.expect(1);
-        moment.lang('jp');
         test.equal(moment().fromNow(), "数秒前",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow" : function(test) {
         test.expect(2);
-        moment.lang('jp');
         test.equal(moment().add({s:30}).fromNow(), "数秒後", "in a few seconds");
         test.equal(moment().add({d:5}).fromNow(), "5日後", "in 5 days");
         test.done();
@@ -143,7 +145,6 @@ exports["lang:jp"] = {
 
     "calendar day" : function(test) {
         test.expect(6);
-        moment.lang('jp');
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
@@ -158,7 +159,6 @@ exports["lang:jp"] = {
 
     "calendar next week" : function(test) {
         test.expect(15);
-        moment.lang('jp');
 
         var i;
         var m;
@@ -176,7 +176,6 @@ exports["lang:jp"] = {
 
     "calendar last week" : function(test) {
         test.expect(15);
-        moment.lang('jp');
 
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
@@ -191,7 +190,6 @@ exports["lang:jp"] = {
 
     "calendar all else" : function(test) {
         test.expect(4);
-        moment.lang('jp');
         var weeksAgo = moment().subtract({ w: 1 });
         var weeksFromNow = moment().add({ w: 1 });
 

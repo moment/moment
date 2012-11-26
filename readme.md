@@ -3,11 +3,9 @@
 
 A lightweight javascript date library for parsing, validating, manipulating, and formatting dates.
 
-### [Check out the website](http://momentjs.com)
+### [Read the docs](http://momentjs.com/docs/)
 
-### [Read the documentation](http://momentjs.com/docs/)
-
-### [Run the unit tests](http://momentjs.com/test/)
+### [Run the tests](http://momentjs.com/test/)
 
 
 Upgrading to 1.6.0
