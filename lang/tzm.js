@@ -1,4 +1,4 @@
-﻿// moment.js language configuration
+// moment.js language configuration
 // language : Morocco Central Atlas Tamaziɣt (tzm)
 // author : Abdel Said : https://github.com/abdelsaid
 (function () {

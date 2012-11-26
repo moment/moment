@@ -1,4 +1,4 @@
-﻿// moment.js language configuration
+// moment.js language configuration
 // language : Arabic (ar)
 // author : Abdel Said : https://github.com/abdelsaid
 (function () {

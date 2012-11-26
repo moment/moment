@@ -1,4 +1,4 @@
-﻿// moment.js language configuration
+// moment.js language configuration
 // language : Moroccan Arabic (ar-ma)
 // author : ElFadili Yassine : https://github.com/ElFadiliY
 // author : Abdel Said : https://github.com/abdelsaid
