@@ -30,13 +30,13 @@ exports["lang:ar"] = {
         moment.lang('ar');
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'الأحد, ﺶﺑﺎﻃ 14 2010, 3:25:50 pm'],
-                ['ddd, hA',                            'الأحد, 3PM'],
+                ['ddd, hA',                            'احد, 3PM'],
                 ['M Mo MM MMMM MMM',                   '2 2 02 ﺶﺑﺎﻃ ﺶﺑﺎﻃ'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14 14'],
-                ['d do dddd ddd dd',                   '0 0 الأحد الأحد الأحد'],
+                ['d do dddd ddd dd',                   '0 0 الأحد احد ح'],
                 ['DDD DDDo DDDD',                      '45 45 045'],
-                ['w wo ww',                            '8 8 08'],
+                ['w wo ww',                            '6 6 06'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
@@ -110,7 +110,7 @@ exports["lang:ar"] = {
     "format week" : function(test) {
         test.expect(7);
         moment.lang('ar');
-        var expected = 'الأحد الأحد الأحد_الإتنين الإتنين الإتنين_الثلاثاء الثلاثاء الثلاثاء_الأربعاء الأربعاء الأربعاء_الخميس الخميس الخميس_الجمعة الجمعة الجمعة_السبت السبت السبت'.split("_");
+        var expected = 'الأحد احد ح_الإتنين اتنين ن_الثلاثاء ثلاثاء ث_الأربعاء اربعاء ر_الخميس خميس خ_الجمعة جمعة ج_السبت سبت س'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
