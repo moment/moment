@@ -30,9 +30,9 @@
             calendar : {
                 sameDay : '[Hari ini pukul] LT',
                 nextDay : '[Besok pukul] LT',
-                nextWeek : 'dddd [pukul] LT', 
+                nextWeek : 'dddd [pukul] LT',
                 lastDay : '[Kemarin pukul] LT',
-                lastWeek : 'dddd [lalu pukul] LT', 
+                lastWeek : 'dddd [lalu pukul] LT',
                 sameElse : 'L'
             },
             relativeTime : {
@@ -52,6 +52,10 @@
             },
             ordinal : function (number) {
                 return '';
+            },
+            week : {
+                dow : 1, // Monday is the first day of the week.
+                doy : 7  // The week that contains Jan 1st is the first week of the year.
             }
         };
 

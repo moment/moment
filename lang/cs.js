@@ -2,10 +2,10 @@
 // language : czech (cs)
 // author : petrbela : https://github.com/petrbela
 (function () {
-    var plural = function (n) { 
+    var plural = function (n) {
         return (n > 1) && (n < 5) && (~~(n / 10) !== 1);
     },
-    
+
     translate = function (number, withoutSuffix, key, isFuture) {
         var result = number + " ";
         switch (key) {
@@ -138,6 +138,10 @@
         },
         ordinal : function (number) {
             return '.';
+        },
+        week : {
+            dow : 1, // Monday is the first day of the week.
+            doy : 4  // The week that contains Jan 4th is the first week of the year.
         }
     };
 

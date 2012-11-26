@@ -18,9 +18,9 @@
             calendar : {
                 sameDay : '[Today at] LT',
                 nextDay : '[Tomorrow at] LT',
-                nextWeek : 'dddd [at] LT', 
+                nextWeek : 'dddd [at] LT',
                 lastDay : '[Yesterday at] LT',
-                lastWeek : '[last] dddd [at] LT', 
+                lastWeek : '[last] dddd [at] LT',
                 sameElse : 'L'
             },
             relativeTime : {
@@ -44,6 +44,10 @@
                     (b === 1) ? 'st' :
                     (b === 2) ? 'nd' :
                     (b === 3) ? 'rd' : 'th';
+            },
+            week : {
+                dow : 1, // Monday is the first day of the week.
+                doy : 4  // The week that contains Jan 4th is the first week of the year.
             }
         };
 

@@ -162,7 +162,7 @@ exports.format = {
 
         for (var i in cases) {
             var iso = cases[i].split('-').pop();
-            var the = moment(i).format('ww');
+            var the = moment(i).format('WW');
             test.equal(iso, the, i + ": should be " + iso + ", but " + the);
         }
 
