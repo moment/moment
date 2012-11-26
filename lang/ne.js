@@ -67,9 +67,9 @@
             calendar : {
                 sameDay : '[आज] LT',
                 nextDay : '[भोली] LT',
-                nextWeek : '[आउँदो] dddd[,] LT', 
+                nextWeek : '[आउँदो] dddd[,] LT',
                 lastDay : '[हिजो] LT',
-                lastWeek : '[गएको] dddd[,] LT', 
+                lastWeek : '[गएको] dddd[,] LT',
                 sameElse : 'L'
             },
             relativeTime : {
@@ -89,6 +89,10 @@
             },
             ordinal : function (number) {
                 return '';
+            },
+            week : {
+                dow : 1, // Monday is the first day of the week.
+                doy : 7  // The week that contains Jan 1st is the first week of the year.
             }
         };
 

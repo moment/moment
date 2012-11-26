@@ -21,7 +21,7 @@
                 nextWeek: 'dddd [às] LT',
                 lastDay: '[Ontem às] LT',
                 lastWeek: function () {
-                    return (this.day() === 0 || this.day() === 6) ? 
+                    return (this.day() === 0 || this.day() === 6) ?
                         '[Último] dddd [às] LT' : // Saturday + Sunday
                         '[Última] dddd [às] LT'; // Monday - Friday
                 },
@@ -44,6 +44,10 @@
             },
             ordinal : function (number) {
                 return 'º';
+            },
+            week : {
+                dow : 1, // Monday is the first day of the week.
+                doy : 4  // The week that contains Jan 4th is the first week of the year.
             }
         };
 
