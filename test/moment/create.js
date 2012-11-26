@@ -14,6 +14,14 @@ exports.create = {
         test.done();
     },
 
+    "array copying": function(test) {
+        var importantArray = [2009, 11];
+        test.expect(1);
+        moment(importantArray);
+        test.deepEqual(importantArray, [2009, 11], "initializer should not mutate the original array");
+        test.done();
+    },
+
     "number" : function(test) {
         test.expect(3);
         test.ok(moment(1000).toDate() instanceof Date, "1000");

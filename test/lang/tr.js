@@ -187,7 +187,6 @@ exports["lang:tr"] = {
 
     "now from now" : function(test) {
         test.expect(1);
-        moment.lang('tr');
         test.equal(moment().fromNow(), "birkaç saniye önce",  "now from now should display as in the past");
         test.done();
     },

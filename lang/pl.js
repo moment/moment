@@ -2,11 +2,11 @@
 // language : polish (pl)
 // author : Rafal Hirsz : https://github.com/evoL
 (function () {
-    var plural = function (n) {
+    function plural(n) {
         return (n % 10 < 5) && (n % 10 > 1) && (~~(n / 10) !== 1);
-    },
+    }
 
-    translate = function (number, withoutSuffix, key) {
+    function translate(number, withoutSuffix, key) {
         var result = number + " ";
         switch (key) {
         case 'm':
@@ -22,9 +22,9 @@
         case 'yy':
             return result + (plural(number) ? 'lata' : 'lat');
         }
-    },
+    }
 
-    lang = {
+    var lang = {
         months : "styczeń_luty_marzec_kwiecień_maj_czerwiec_lipiec_sierpień_wrzesień_październik_listopad_grudzień".split("_"),
         monthsShort : "sty_lut_mar_kwi_maj_cze_lip_sie_wrz_paź_lis_gru".split("_"),
         weekdays : "niedziela_poniedziałek_wtorek_środa_czwartek_piątek_sobota".split("_"),
@@ -42,7 +42,18 @@
             nextDay: '[Jutro o] LT',
             nextWeek: '[W] dddd [o] LT',
             lastDay: '[Wczoraj o] LT',
-            lastWeek: '[W zeszły/łą] dddd [o] LT',
+            lastWeek: function () {
+                switch (this.day()) {
+                case 0:
+                    return '[W zeszłą niedzielę o] LT';
+                case 3:
+                    return '[W zeszłą środę o] LT';
+                case 6:
+                    return '[W zeszłą sobotę o] LT';
+                default:
+                    return '[W zeszły] dddd [o] LT';
+                }
+            },
             sameElse: 'L'
         },
         relativeTime : {

@@ -86,6 +86,7 @@ exports["lang:fr-ca"] = {
         test.equal(moment([2011, 0, 8]).format('DDDo'), '8ème', '8ème');
         test.equal(moment([2011, 0, 9]).format('DDDo'), '9ème', '9ème');
         test.equal(moment([2011, 0, 10]).format('DDDo'), '10ème', '10ème');
+
         test.equal(moment([2011, 0, 11]).format('DDDo'), '11ème', '11ème');
         test.equal(moment([2011, 0, 12]).format('DDDo'), '12ème', '12ème');
         test.equal(moment([2011, 0, 13]).format('DDDo'), '13ème', '13ème');
@@ -96,6 +97,7 @@ exports["lang:fr-ca"] = {
         test.equal(moment([2011, 0, 18]).format('DDDo'), '18ème', '18ème');
         test.equal(moment([2011, 0, 19]).format('DDDo'), '19ème', '19ème');
         test.equal(moment([2011, 0, 20]).format('DDDo'), '20ème', '20ème');
+
         test.equal(moment([2011, 0, 21]).format('DDDo'), '21ème', '21ème');
         test.equal(moment([2011, 0, 22]).format('DDDo'), '22ème', '22ème');
         test.equal(moment([2011, 0, 23]).format('DDDo'), '23ème', '23ème');
@@ -106,6 +108,7 @@ exports["lang:fr-ca"] = {
         test.equal(moment([2011, 0, 28]).format('DDDo'), '28ème', '28ème');
         test.equal(moment([2011, 0, 29]).format('DDDo'), '29ème', '29ème');
         test.equal(moment([2011, 0, 30]).format('DDDo'), '30ème', '30ème');
+
         test.equal(moment([2011, 0, 31]).format('DDDo'), '31ème', '31ème');
 
         test.done();

@@ -9,7 +9,7 @@ exports.diff = {
         test.equal(moment(0).diff(1000), -1000, "0 - 1 second = -1000");
         test.equal(moment(new Date(1000)).diff(1000), 0, "1 second - 1 second = 0");
         var oneHourDate = new Date(),
-        nowDate = new Date();
+        nowDate = new Date(oneHourDate);
         oneHourDate.setHours(oneHourDate.getHours() + 1);
         test.equal(moment(oneHourDate).diff(nowDate), 60 * 60 * 1000, "1 hour from now = 360000");
         test.done();

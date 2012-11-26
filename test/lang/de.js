@@ -215,9 +215,6 @@ exports["lang:de"] = {
     "calendar last week" : function(test) {
         test.expect(15);
 
-        var i;
-        var m;
-
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('[letzten] dddd [um] LT'),  "Today + " + i + " days current time");

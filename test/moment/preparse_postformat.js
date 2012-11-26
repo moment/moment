@@ -42,9 +42,18 @@ var symbolLang = {
 };
 
 exports.preparse_postformat = {
+    setUp: function(cb) {
+        moment.lang('symbol', symbolLang);
+        cb();
+    },
+
+    tearDown: function(cb) {
+        moment.lang('en-gb');
+        cb();
+    },
+
     "transform": function(test) {
         test.expect(3);
-        moment.lang('symbol', symbolLang);
 
         test.equal(moment.utc('@)!@-)*-@&', 'YYYY-MM-DD').unix(), 1346025600, "preparse string + format");
         test.equal(moment.utc('@)!@-)*-@&').unix(), 1346025600, "preparse ISO8601 string");
@@ -55,7 +64,6 @@ exports.preparse_postformat = {
 
     "transform from": function(test) {
         test.expect(3);
-        moment.lang('symbol', symbolLang);
 
         var start = moment([2007, 1, 28]);
 
@@ -68,7 +76,6 @@ exports.preparse_postformat = {
 
     "calendar day" : function(test) {
         test.expect(6);
-        moment.lang('symbol', symbolLang);
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
@@ -78,6 +85,7 @@ exports.preparse_postformat = {
         test.equal(moment(a).add({ d: 1 }).calendar(),       "Tomorrow at @:)) AM",  "tomorrow at the same time");
         test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Today at !:)) AM",     "Now minus 1 hour");
         test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Yesterday at @:)) AM", "yesterday at the same time");
+
         test.done();
     }
 };

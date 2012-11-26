@@ -41,7 +41,6 @@ exports["lang:ca"] = {
 
     "format ordinal" : function(test) {
         test.expect(31);
-
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1º', '1º');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2º', '2º');
         test.equal(moment([2011, 0, 3]).format('DDDo'), '3º', '3º');
@@ -81,7 +80,6 @@ exports["lang:ca"] = {
 
     "format month" : function(test) {
         test.expect(12);
-
         var expected = "Gener Gen._Febrer Febr._Març Mar._Abril Abr._Maig Mai._Juny Jun._Juliol Jul._Agost Ag._Setembre Set._Octubre Oct._Novembre Nov._Desembre Des.".split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -92,7 +90,6 @@ exports["lang:ca"] = {
 
     "format week" : function(test) {
         test.expect(7);
-
         var expected = "Diumenge Dg. Dg_Dilluns Dl. Dl_Dimarts Dt. Dt_Dimecres Dc. Dc_Dijous Dj. Dj_Divendres Dv. Dv_Dissabte Ds. Ds".split("_");
 
         var i;
@@ -104,7 +101,6 @@ exports["lang:ca"] = {
 
     "from" : function(test) {
         test.expect(30);
-
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "uns segons", "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "un minut",      "45 seconds = a minute");
@@ -141,7 +137,6 @@ exports["lang:ca"] = {
 
     "suffix" : function(test) {
         test.expect(2);
-
         test.equal(moment(30000).from(0), "en uns segons",  "prefix");
         test.equal(moment(0).from(30000), "fa uns segons", "suffix");
         test.done();

@@ -18,7 +18,6 @@ exports["lang:cs"] = {
 
     "parse" : function(test) {
         test.expect(96);
-
         var tests = 'leden led_únor úno_březen bře_duben dub_květen kvě_červen čvn_červenec čvc_srpen srp_září zář_říjen říj_listopad lis_prosinec pro'.split("_");
         function equalTest(input, mmm, monthIndex) {
             test.equal(moment(input, mmm).month(), monthIndex, input + ' should be month ' + (monthIndex + 1));
@@ -39,7 +38,6 @@ exports["lang:cs"] = {
 
     "format" : function(test) {
         test.expect(18);
-
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss',  'neděle, únor 14. 2010, 3:25:50'],
                 ['ddd, h',                       'ne, 3'],
@@ -70,7 +68,6 @@ exports["lang:cs"] = {
 
     "format ordinal" : function(test) {
         test.expect(31);
-
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1.', '1.');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2.', '2.');
         test.equal(moment([2011, 0, 3]).format('DDDo'), '3.', '3.');
@@ -110,7 +107,6 @@ exports["lang:cs"] = {
 
     "format month" : function(test) {
         test.expect(12);
-
         var expected = 'leden led_únor úno_březen bře_duben dub_květen kvě_červen čvn_červenec čvc_srpen srp_září zář_říjen říj_listopad lis_prosinec pro'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -121,7 +117,6 @@ exports["lang:cs"] = {
 
     "format week" : function(test) {
         test.expect(7);
-
         var expected = 'neděle ne ne_pondělí po po_úterý út út_středa st st_čtvrtek čt čt_pátek pá pá_sobota so so'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -132,7 +127,6 @@ exports["lang:cs"] = {
 
     "from" : function(test) {
         test.expect(30);
-
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "pár vteřin",  "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "minuta",        "45 seconds = a minute");

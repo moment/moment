@@ -18,7 +18,6 @@ exports["lang:bg"] = {
 
     "parse" : function(test) {
         test.expect(96);
-
         var tests = 'януари янр_февруари фев_март мар_април апр_май май_юни юни_юли юли_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split("_");
         var i;
         function equalTest(input, mmm, i) {
@@ -40,7 +39,6 @@ exports["lang:bg"] = {
 
     "format" : function(test) {
         test.expect(18);
-
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'неделя, февруари 14-ти 2010, 3:25:50 pm'],
                 ['ddd, hA',                            'нед, 3PM'],
@@ -71,7 +69,6 @@ exports["lang:bg"] = {
 
     "format ordinal" : function(test) {
         test.expect(31);
-
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1-ви', '1-ви');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2-ри', '2-ри');
         test.equal(moment([2011, 0, 3]).format('DDDo'), '3-ти', '3-ти');
@@ -111,7 +108,6 @@ exports["lang:bg"] = {
 
     "format month" : function(test) {
         test.expect(12);
-
         var expected = 'януари янр_февруари фев_март мар_април апр_май май_юни юни_юли юли_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -122,7 +118,6 @@ exports["lang:bg"] = {
 
     "format week" : function(test) {
         test.expect(7);
-
         var expected = 'неделя нед нд_понеделник пон пн_вторник вто вт_сряда сря ср_четвъртък чет чт_петък пет пт_събота съб сб'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -133,7 +128,6 @@ exports["lang:bg"] = {
 
     "from" : function(test) {
         test.expect(30);
-
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "няколко секунди", "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "минута",          "45 seconds = a minute");
