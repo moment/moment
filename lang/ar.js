@@ -4,7 +4,7 @@
 (function () {
     var lang = {
             months : "كانون الثاني_ﺶﺑﺎﻃ_آذار_نيسان_أيار_حزيران_تموز_آب_أيلول_تشرين الأول_تشرين الثاني_كانون الأول".split("_"),
-            monthsShort : "كانون الثاني_ﺶﺑﺎﻃ_آذار_نيسان_أيار_حزيران_تموز_آب_أيلول_تشرين الأول_تشرين الثاني_كانون الأول".split("_"), 
+            monthsShort : "كانون الثاني_ﺶﺑﺎﻃ_آذار_نيسان_أيار_حزيران_تموز_آب_أيلول_تشرين الأول_تشرين الثاني_كانون الأول".split("_"),
             weekdays : "الأحد_الإتنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت".split("_"),
             weekdaysShort : "احد_اتنين_ثلاثاء_اربعاء_خميس_جمعة_سبت".split("_"),
             weekdaysMin : "ح_ن_ث_ر_خ_ج_س".split("_"),
@@ -40,6 +40,10 @@
             },
             ordinal : function (number) {
                 return '';
+            },
+            week : {
+                dow : 6, // Saturday is the first day of the week.
+                doy : 12  // The week that contains Jan 1st is the first week of the year.
             }
         };
 
