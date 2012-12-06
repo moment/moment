@@ -8,6 +8,42 @@ exports.format = {
         test.equal(b.format('YY'), '09', 'YY ---> 09');
         test.done();
     },
+    
+    "format Q" : function (test) {
+        test.expect(20);
+        
+        var b;
+        b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
+        test.equal(b.format('Q'), '1', 'Q ---> 1')
+        b = moment(new Date(2009, 4, 14, 15, 25, 50, 125));
+        test.equal(b.format('Q'), '2', 'Q ---> 2')
+        b = moment(new Date(2009, 7, 14, 15, 25, 50, 125));
+        test.equal(b.format('Q'), '3', 'Q ---> 3')
+        b = moment(new Date(2009, 11, 14, 15, 25, 50, 125));
+        test.equal(b.format('Q'), '4', 'Q ---> 4')
+        
+        b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
+        test.equal(b.format('Q Q'), '1 1', 'Parse successive twice with space')
+        test.equal(b.format('Q YY'), '1 09', 'Stop parsing on whitespace')
+        test.equal(b.format('YY Q'), '09 1', 'Parse other, then successive')
+        test.equal(b.format('YY Q YY'), '09 1 09', 'Parse other, then successive, then other')
+        test.equal(b.format('QYY'), '109', 'Parse, then stop, no whitespace')
+        
+        test.equal(b.format('Q[Q]YY'), '1Q09', 'Do not parse bracket-escaped, with trailing other')
+        test.equal(b.format('Q[Q] YY'), '1Q 09', 'Do not parse bracket-escaped, with whitespace and trailing other')
+        test.equal(b.format('[Q]Q'), 'Q1', 'Do not parse bracket-escaped, with trailing parse')
+        test.equal(b.format('QQ[Q]Q'), 'Q1Q1', 'Do not parse bracket-escaped, with path double before, single after')
+        
+        test.equal(b.format('QQ'), 'Q1', 'QQ ---> Q1')
+        test.equal(b.format('Q QQ'), '1 Q1', 'Parse single, then double')
+        test.equal(b.format('QQ YY'), 'Q1 09', 'Stop parsing double on whitespace')
+        test.equal(b.format('QQQ YY'), 'Q11 09', 'Parse double and single w/out whitespace, then other')
+        test.equal(b.format('YY QQ'), '09 Q1', 'Parse other, then double')
+        test.equal(b.format('YY QQ YY'), '09 Q1 09', 'Parse other, then double, then other')
+        test.equal(b.format('QQYY'), 'Q109', 'Parse double, then other, no whitespace')//test.equal(b.format('[QQ]QQ'), 'QQ11', 'Do not parse successive bracket-escaped, with trailing successive parse')
+        
+        test.done();
+    },
 
     "format escape brackets" : function(test) {
         test.expect(9);
