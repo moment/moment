@@ -131,13 +131,13 @@ exports["lang:th"] = {
     "suffix" : function(test) {
         test.expect(2);
         test.equal(moment(30000).from(0), "อีก ไม่กี่วินาที",  "prefix");
-        test.equal(moment(0).from(30000), "ไม่กี่วินาทีที่ผ่านมา", "suffix");
+        test.equal(moment(0).from(30000), "ไม่กี่วินาทีที่แล้ว", "suffix");
         test.done();
     },
 
     "now from now" : function(test) {
         test.expect(1);
-        test.equal(moment().fromNow(), "ไม่กี่วินาทีที่ผ่านมา",  "now from now should display as in the past");
+        test.equal(moment().fromNow(), "ไม่กี่วินาทีที่แล้ว",  "now from now should display as in the past");
         test.done();
     },
 
