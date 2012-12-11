@@ -844,7 +844,7 @@
                 days === 1 && ['d'] ||
                 days <= 25 && ['dd', days] ||
                 days <= 45 && ['M'] ||
-                days < 345 && ['MM', round(days / 30)] ||
+                days < 345 && ['MM', Math.floor(days / 30)] ||
                 years === 1 && ['y'] || ['yy', years];
         args[2] = withoutSuffix;
         args[3] = milliseconds > 0;
