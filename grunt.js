@@ -113,7 +113,7 @@ module.exports = function(grunt) {
 
         // Add the first comments
         // Check for UglifyJS 2.x API
-        if (typeof uglify.tokenizer === 'function') {
+        if (typeof uglifyjs.tokenizer === 'function') {
             tok = uglifyjs.tokenizer(max);
         }
         // Fallback to UglifyJS 1.x API
