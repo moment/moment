@@ -469,13 +469,8 @@
     // are provided, it will load the language file module.  As a convenience,
     // this function also returns the language values.
     function loadLang(key, values) {
-        if (!values && hasModule) {
-            values = require('./lang/' + key);
-        }
-
         values.abbr = key;
         languages[key] = new Language(values);
-
         return languages[key];
     }
 
@@ -489,7 +484,10 @@
         if (!key) {
             return moment.fn._lang;
         }
-        return languages[key] || loadLang(key);
+        if (!languages[key] && hasModule) {
+            require('./lang/' + key);
+        }
+        return languages[key];
     }
 
 
@@ -983,8 +981,10 @@
         if (!key) {
             return moment.fn._lang._abbr;
         }
-        if (values || !languages[key]) {
+        if (values) {
             loadLang(key, values);
+        } else if (!languages[key]) {
+            getLangDefinition(key);
         }
         moment.duration.fn._lang = moment.fn._lang = getLangDefinition(key);
     };
