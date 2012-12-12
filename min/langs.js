@@ -1,5 +1,106 @@
 (function(){
 // moment.js language configuration
+// language : Moroccan Arabic (ar-ma)
+// author : ElFadili Yassine : https://github.com/ElFadiliY
+// author : Abdel Said : https://github.com/abdelsaid
+
+require('../moment').lang('ar-ma', {
+    months : "يناير_فبراير_مارس_أبريل_ماي_يونيو_يوليوز_غشت_شتنبر_أكتوبر_نونبر_دجنبر".split("_"),
+    monthsShort : "يناير_فبراير_مارس_أبريل_ماي_يونيو_يوليوز_غشت_شتنبر_أكتوبر_نونبر_دجنبر".split("_"),
+    weekdays : "الأحد_الإتنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت".split("_"),
+    weekdaysShort : "احد_اتنين_ثلاثاء_اربعاء_خميس_جمعة_سبت".split("_"),
+    weekdaysMin : "ح_ن_ث_ر_خ_ج_س".split("_"),
+    longDateFormat : {
+        LT : "HH:mm",
+        L : "DD/MM/YYYY",
+        LL : "D MMMM YYYY",
+        LLL : "D MMMM YYYY LT",
+        LLLL : "dddd D MMMM YYYY LT"
+    },
+    calendar : {
+        sameDay: "[اليوم على الساعة] LT",
+        nextDay: '[غدا على الساعة] LT',
+        nextWeek: 'dddd [على الساعة] LT',
+        lastDay: '[أمس على الساعة] LT',
+        lastWeek: 'dddd [على الساعة] LT',
+        sameElse: 'L'
+    },
+    relativeTime : {
+        future : "في %s",
+        past : "منذ %s",
+        s : "ثوان",
+        m : "دقيقة",
+        mm : "%d دقائق",
+        h : "ساعة",
+        hh : "%d ساعات",
+        d : "يوم",
+        dd : "%d أيام",
+        M : "شهر",
+        MM : "%d أشهر",
+        y : "سنة",
+        yy : "%d سنوات"
+    },
+    ordinal : function (number) {
+        return '';
+    },
+    week : {
+        dow : 6, // Saturday is the first day of the week.
+        doy : 12  // The week that contains Jan 1st is the first week of the year.
+    }
+});
+})();
+(function(){
+// moment.js language configuration
+// language : Arabic (ar)
+// author : Abdel Said : https://github.com/abdelsaid
+
+require('../moment').lang('ar', {
+    months : "كانون الثاني_ﺶﺑﺎﻃ_آذار_نيسان_أيار_حزيران_تموز_آب_أيلول_تشرين الأول_تشرين الثاني_كانون الأول".split("_"),
+    monthsShort : "كانون الثاني_ﺶﺑﺎﻃ_آذار_نيسان_أيار_حزيران_تموز_آب_أيلول_تشرين الأول_تشرين الثاني_كانون الأول".split("_"),
+    weekdays : "الأحد_الإتنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت".split("_"),
+    weekdaysShort : "احد_اتنين_ثلاثاء_اربعاء_خميس_جمعة_سبت".split("_"),
+    weekdaysMin : "ح_ن_ث_ر_خ_ج_س".split("_"),
+    longDateFormat : {
+        LT : "HH:mm",
+        L : "DD/MM/YYYY",
+        LL : "D MMMM YYYY",
+        LLL : "D MMMM YYYY LT",
+        LLLL : "dddd D MMMM YYYY LT"
+    },
+    calendar : {
+        sameDay: "[اليوم على الساعة] LT",
+        nextDay: '[غدا على الساعة] LT',
+        nextWeek: 'dddd [على الساعة] LT',
+        lastDay: '[أمس على الساعة] LT',
+        lastWeek: 'dddd [على الساعة] LT',
+        sameElse: 'L'
+    },
+    relativeTime : {
+        future : "في %s",
+        past : "منذ %s",
+        s : "ثوان",
+        m : "دقيقة",
+        mm : "%d دقائق",
+        h : "ساعة",
+        hh : "%d ساعات",
+        d : "يوم",
+        dd : "%d أيام",
+        M : "شهر",
+        MM : "%d أشهر",
+        y : "سنة",
+        yy : "%d سنوات"
+    },
+    ordinal : function (number) {
+        return '';
+    },
+    week : {
+        dow : 6, // Saturday is the first day of the week.
+        doy : 12  // The week that contains Jan 1st is the first week of the year.
+    }
+});
+})();
+(function(){
+// moment.js language configuration
 // language : bulgarian (bg)
 // author : Krasen Borisov : https://github.com/kraz
 
@@ -52,7 +153,27 @@ require('../moment').lang('bg', {
         yy : "%d години"
     },
     ordinal : function (number) {
-        return '.';
+        var lastDigit = number % 10,
+            last2Digits = number % 100;
+        if (number === 0) {
+            return '-ев';
+        } else if (last2Digits === 0) {
+            return '-ен';
+        } else if (last2Digits > 10 && last2Digits < 20) {
+            return '-ти';
+        } else if (lastDigit === 1) {
+            return '-ви';
+        } else if (lastDigit === 2) {
+            return '-ри';
+        } else if (lastDigit === 7 || lastDigit === 8) {
+            return '-ми';
+        } else {
+            return '-ти';
+        }
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 7  // The week that contains Jan 1st is the first week of the year.
     }
 });
 })();
@@ -109,6 +230,10 @@ require('../moment').lang('ca', {
     },
     ordinal : function (number) {
         return 'º';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 })();
@@ -254,6 +379,10 @@ require('../moment').lang('cs', {
     },
     ordinal : function (number) {
         return '.';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 })();
@@ -261,6 +390,7 @@ require('../moment').lang('cs', {
 // moment.js language configuration
 // language : chuvash (cv)
 // author : Anatoly Mironov : https://github.com/mirontoli
+
 
 require('../moment').lang('cv', {
     months : "кăрлач_нарăс_пуш_ака_май_çĕртме_утă_çурла_авăн_юпа_чӳк_раштав".split("_"),
@@ -303,6 +433,10 @@ require('../moment').lang('cv', {
     },
     ordinal : function (number) {
         return '-мĕш';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 7  // The week that contains Jan 1st is the first week of the year.
     }
 });
 })();
@@ -349,6 +483,10 @@ require('../moment').lang('da', {
     },
     ordinal : function (number) {
         return '.';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 })();
@@ -395,6 +533,10 @@ require('../moment').lang('de', {
     },
     ordinal : function (number) {
         return '.';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 })();
@@ -495,6 +637,10 @@ require('../moment').lang('en-gb', {
             (b === 1) ? 'st' :
             (b === 2) ? 'nd' :
             (b === 3) ? 'rd' : 'th';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 })();
@@ -550,6 +696,10 @@ require('../moment').lang('eo', {
     },
     ordinal : function (number) {
         return "a";
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 7  // The week that contains Jan 1st is the first week of the year.
     }
 });
 })();
@@ -606,6 +756,10 @@ require('../moment').lang('es', {
     },
     ordinal : function (number) {
         return 'º';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 })();
@@ -656,6 +810,10 @@ require('../moment').lang('et', {
     },
     ordinal : function (number) {
         return '.';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 })();
@@ -664,7 +822,7 @@ require('../moment').lang('et', {
 // language : euskara (eu)
 // author : Eneko Illarramendi : https://github.com/eillarra
 
-require('../moment').lang('eu',  {
+require('../moment').lang('eu', {
     months : "urtarrila_otsaila_martxoa_apirila_maiatza_ekaina_uztaila_abuztua_iraila_urria_azaroa_abendua".split("_"),
     monthsShort : "urt._ots._mar._api._mai._eka._uzt._abu._ira._urr._aza._abe.".split("_"),
     weekdays : "igandea_astelehena_asteartea_asteazkena_osteguna_ostirala_larunbata".split("_"),
@@ -702,6 +860,10 @@ require('../moment').lang('eu',  {
     },
     ordinal : function (number) {
         return '.';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 7  // The week that contains Jan 1st is the first week of the year.
     }
 });
 })();
@@ -791,6 +953,10 @@ require('../moment').lang('fi', {
     },
     ordinal : function (number) {
         return ".";
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 })();
@@ -883,6 +1049,10 @@ require('../moment').lang('fr', {
     },
     ordinal : function (number) {
         return number === 1 ? 'er' : 'ème';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 })();
@@ -939,6 +1109,57 @@ require('../moment').lang('gl', {
     },
     ordinal : function (number) {
         return 'º';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 7  // The week that contains Jan 1st is the first week of the year.
+    }
+});
+})();
+(function(){
+// moment.js language configuration
+// language : Hebrew (he)
+// author : Tomer Cohen : https://github.com/tomer
+// author : Moshe Simantov : https://github.com/DevelopmentIL
+
+require('../moment').lang('he', {
+    months : "ינואר_פברואר_מרץ_אפריל_מאי_יוני_יולי_אוגוסט_ספטמבר_אוקטובר_נובמבר_דצמבר".split("_"),
+    monthsShort : "ינו׳_פבר׳_מרץ_אפר׳_מאי_יוני_יולי_אוג׳_ספט׳_אוק׳_נוב׳_דצמ׳".split("_"),
+    weekdays : "ראשון_שני_שלישי_רביעי_חמישי_שישי_שבת".split("_"),
+    weekdaysShort : "א׳_ב׳_ג׳_ד׳_ה׳_ו׳_ש׳".split("_"),
+    weekdaysMin : "א_ב_ג_ד_ה_ו_ש".split("_"),
+    longDateFormat : {
+        LT : "HH:mm",
+        L : "DD/MM/YYYY",
+        LL : "D [ב]MMMM YYYY",
+        LLL : "D [ב]MMMM YYYY LT",
+        LLLL : "dddd, D [ב]MMMM YYYY LT"
+    },
+    calendar : {
+        sameDay : '[היום ב־]LT',
+        nextDay : '[מחר ב־]LT',
+        nextWeek : 'dddd [בשעה] LT',
+        lastDay : '[אתמול ב־]LT',
+        lastWeek : '[ביום] dddd [האחרון בשעה] LT',
+        sameElse : 'L'
+    },
+    relativeTime : {
+        future : "בעוד %s",
+        past : "לפני %s",
+        s : "מספר שניות",
+        m : "דקה",
+        mm : "%d דקות",
+        h : "שעה",
+        hh : "%d שעות",
+        d : "יום",
+        dd : "%d ימים",
+        M : "חודש",
+        MM : "%d חודשים",
+        y : "שנה",
+        yy : "%d שנים"
+    },
+    ordinal : function (number) {
+        return ''; // Function is not required for the Hebrew language.
     }
 });
 })();
@@ -1026,6 +1247,11 @@ require('../moment').lang('hu', {
     },
     ordinal : function (number) {
         return '.';
+
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 7  // The week that contains Jan 1st is the first week of the year.
     }
 });
 })();
@@ -1084,6 +1310,10 @@ require('../moment').lang('id', {
     },
     ordinal : function (number) {
         return '';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 7  // The week that contains Jan 1st is the first week of the year.
     }
 });
 })();
@@ -1198,6 +1428,10 @@ require('../moment').lang('is', {
     },
     ordinal : function (number) {
         return '.';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 })();
@@ -1244,6 +1478,10 @@ require('../moment').lang('it', {
     },
     ordinal: function () {
         return 'º';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 })();
@@ -1465,12 +1703,12 @@ require('../moment').lang('kr', {
 // author : Kristaps Karlsons : https://github.com/skakri
 
 var units = {
-        'mm': 'minūti_minūtes_minūte_minūtes',
-        'hh': 'stundu_stundas_stunda_stundas',
-        'dd': 'dienu_dienas_diena_dienas',
-        'MM': 'mēnesi_mēnešus_mēnesis_mēneši',
-        'yy': 'gadu_gadus_gads_gadi'
-    };
+    'mm': 'minūti_minūtes_minūte_minūtes',
+    'hh': 'stundu_stundas_stunda_stundas',
+    'dd': 'dienu_dienas_diena_dienas',
+    'MM': 'mēnesi_mēnešus_mēnesis_mēneši',
+    'yy': 'gadu_gadus_gads_gadi'
+};
 
 function format(word, number, withoutSuffix) {
     var forms = word.split('_');
@@ -1523,6 +1761,10 @@ require('../moment').lang('lv', {
     },
     ordinal : function (number) {
         return '.';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 })();
@@ -1569,6 +1811,110 @@ require('../moment').lang('nb', {
     },
     ordinal : function (number) {
         return '.';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
+    }
+});
+})();
+(function(){
+// moment.js language configuration
+// language : nepali/nepalese
+// author : suvash : https://github.com/suvash
+
+var symbolMap = {
+    '1': '१',
+    '2': '२',
+    '3': '३',
+    '4': '४',
+    '5': '५',
+    '6': '६',
+    '7': '७',
+    '8': '८',
+    '9': '९',
+    '0': '०'
+},
+numberMap = {
+    '१': '1',
+    '२': '2',
+    '३': '3',
+    '४': '4',
+    '५': '5',
+    '६': '6',
+    '७': '7',
+    '८': '8',
+    '९': '9',
+    '०': '0'
+};
+
+require('../moment').lang('ne', {
+    months : 'जनवरी_फेब्रुवरी_मार्च_अप्रिल_मई_जुन_जुलाई_अगष्ट_सेप्टेम्बर_अक्टोबर_नोभेम्बर_डिसेम्बर'.split("_"),
+    monthsShort : 'जन._फेब्रु._मार्च_अप्रि._मई_जुन_जुलाई._अग._सेप्ट._अक्टो._नोभे._डिसे.'.split("_"),
+    weekdays : 'आइतबार_सोमबार_मङ्गलबार_बुधबार_बिहिबार_शुक्रबार_शनिबार'.split("_"),
+    weekdaysShort : 'आइत._सोम._मङ्गल._बुध._बिहि._शुक्र._शनि.'.split("_"),
+    weekdaysMin : 'आइ._सो._मङ्_बु._बि._शु._श.'.split("_"),
+    longDateFormat : {
+        LT : "Aको h:mm बजे",
+        L : "DD/MM/YYYY",
+        LL : "D MMMM YYYY",
+        LLL : "D MMMM YYYY, LT",
+        LLLL : "dddd, D MMMM YYYY, LT"
+    },
+    preparse: function (string) {
+        return string.replace(/[१२३४५६७८९०]/g, function (match) {
+            return numberMap[match];
+        });
+    },
+    postformat: function (string) {
+        return string.replace(/\d/g, function (match) {
+            return symbolMap[match];
+        });
+    },
+    meridiem : function (hour, minute, isLower) {
+        if (hour < 3) {
+            return "राती";
+        } else if (hour < 10) {
+            return "बिहान";
+        } else if (hour < 15) {
+            return "दिउँसो";
+        } else if (hour < 18) {
+            return "बेलुका";
+        } else if (hour < 20) {
+            return "साँझ";
+        } else {
+            return "राती";
+        }
+    },
+    calendar : {
+        sameDay : '[आज] LT',
+        nextDay : '[भोली] LT',
+        nextWeek : '[आउँदो] dddd[,] LT',
+        lastDay : '[हिजो] LT',
+        lastWeek : '[गएको] dddd[,] LT',
+        sameElse : 'L'
+    },
+    relativeTime : {
+        future : "%sमा",
+        past : "%s अगाडी",
+        s : "केही समय",
+        m : "एक मिनेट",
+        mm : "%d मिनेट",
+        h : "एक घण्टा",
+        hh : "%d घण्टा",
+        d : "एक दिन",
+        dd : "%d दिन",
+        M : "एक महिना",
+        MM : "%d महिना",
+        y : "एक बर्ष",
+        yy : "%d बर्ष"
+    },
+    ordinal : function (number) {
+        return '';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 7  // The week that contains Jan 1st is the first week of the year.
     }
 });
 })();
@@ -1624,6 +1970,10 @@ require('../moment').lang('nl', {
     },
     ordinal : function (number) {
         return (number === 1 || number === 8 || number >= 20) ? 'ste' : 'de';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 })();
@@ -1672,7 +2022,18 @@ require('../moment').lang('pl', {
         nextDay: '[Jutro o] LT',
         nextWeek: '[W] dddd [o] LT',
         lastDay: '[Wczoraj o] LT',
-        lastWeek: '[W zeszły/łą] dddd [o] LT',
+        lastWeek: function () {
+            switch (this.day()) {
+            case 0:
+                return '[W zeszłą niedzielę o] LT';
+            case 3:
+                return '[W zeszłą środę o] LT';
+            case 6:
+                return '[W zeszłą sobotę o] LT';
+            default:
+                return '[W zeszły] dddd [o] LT';
+            }
+        },
         sameElse: 'L'
     },
     relativeTime : {
@@ -1692,6 +2053,10 @@ require('../moment').lang('pl', {
     },
     ordinal : function (number) {
         return '.';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 })();
@@ -1792,6 +2157,10 @@ require('../moment').lang('pt', {
     },
     ordinal : function (number) {
         return 'º';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 })();
@@ -1839,6 +2208,10 @@ require('../moment').lang('ro', {
     },
     ordinal : function (number) {
         return '';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 7  // The week that contains Jan 1st is the first week of the year.
     }
 });
 })();
@@ -1963,6 +2336,148 @@ require('../moment').lang('ru', {
     },
     ordinal : function (number) {
         return '.';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 7  // The week that contains Jan 1st is the first week of the year.
+    }
+});
+})();
+(function(){
+// moment.js language configuration
+// language : slovenian (sl)
+// author : Robert Sedovšek : https://github.com/sedovsek
+
+function translate(number, withoutSuffix, key) {
+    var result = number + " ";
+    switch (key) {
+    case 'm':
+        return withoutSuffix ? 'ena minuta' : 'eno minuto';
+    case 'mm':
+        if (number === 1) {
+            result += 'minuta';
+        } else if (number === 2) {
+            result += 'minuti';
+        } else if (number === 3 || number === 4) {
+            result += 'minute';
+        } else {
+            result += 'minut';
+        }
+        return result;
+    case 'h':
+        return withoutSuffix ? 'ena ura' : 'eno uro';
+    case 'hh':
+        if (number === 1) {
+            result += 'ura';
+        } else if (number === 2) {
+            result += 'uri';
+        } else if (number === 3 || number === 4) {
+            result += 'ure';
+        } else {
+            result += 'ur';
+        }
+        return result;
+    case 'dd':
+        if (number === 1) {
+            result += 'dan';
+        } else {
+            result += 'dni';
+        }
+        return result;
+    case 'MM':
+        if (number === 1) {
+            result += 'mesec';
+        } else if (number === 2) {
+            result += 'meseca';
+        } else if (number === 3 || number === 4) {
+            result += 'mesece';
+        } else {
+            result += 'mesecev';
+        }
+        return result;
+    case 'yy':
+        if (number === 1) {
+            result += 'leto';
+        } else if (number === 2) {
+            result += 'leti';
+        } else if (number === 3 || number === 4) {
+            result += 'leta';
+        } else {
+            result += 'let';
+        }
+        return result;
+    }
+}
+
+require('../moment').lang('sl', {
+    months : "januar_februar_marec_april_maj_junij_julij_avgust_september_oktober_november_december".split("_"),
+    monthsShort : "jan._feb._mar._apr._maj._jun._jul._avg._sep._okt._nov._dec.".split("_"),
+    weekdays : "nedelja_ponedeljek_torek_sreda_četrtek_petek_sobota".split("_"),
+    weekdaysShort : "ned._pon._tor._sre._čet._pet._sob.".split("_"),
+    weekdaysMin : "ne_po_to_sr_če_pe_so".split("_"),
+    longDateFormat : {
+        LT : "H:mm",
+        L : "DD. MM. YYYY",
+        LL : "D. MMMM YYYY",
+        LLL : "D. MMMM YYYY LT",
+        LLLL : "dddd, D. MMMM YYYY LT"
+    },
+    calendar : {
+        sameDay  : '[danes ob] LT',
+        nextDay  : '[jutri ob] LT',
+
+        nextWeek : function () {
+            switch (this.day()) {
+            case 0:
+                return '[v] [nedeljo] [ob] LT';
+            case 3:
+                return '[v] [sredo] [ob] LT';
+            case 6:
+                return '[v] [soboto] [ob] LT';
+            case 1:
+            case 2:
+            case 4:
+            case 5:
+                return '[v] dddd [ob] LT';
+            }
+        },
+        lastDay  : '[včeraj ob] LT',
+        lastWeek : function () {
+            switch (this.day()) {
+            case 0:
+            case 3:
+            case 6:
+                return '[prejšnja] dddd [ob] LT';
+            case 1:
+            case 2:
+            case 4:
+            case 5:
+                return '[prejšnji] dddd [ob] LT';
+            }
+        },
+        sameElse : 'L'
+    },
+    relativeTime : {
+        future : "čez %s",
+        past   : "%s nazaj",
+        s      : "nekaj sekund",
+        m      : translate,
+        mm     : translate,
+        h      : translate,
+        hh     : translate,
+        d      : "en dan",
+        dd     : translate,
+        M      : "en mesec",
+        MM     : translate,
+        y      : "eno leto",
+        yy     : translate
+    },
+    ordinal : function (number) {
+        return '.';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 7  // The week that contains Jan 1st is the first week of the year.
     }
 });
 })();
@@ -2013,6 +2528,63 @@ require('../moment').lang('sv', {
             (b === 1) ? 'a' :
             (b === 2) ? 'a' :
             (b === 3) ? 'e' : 'e';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
+    }
+});
+})();
+(function(){
+// moment.js language configuration
+// language : thai (th)
+// author : Kridsada Thanabulpong : https://github.com/sirn
+
+require('../moment').lang('th', {
+    months : "มกราคม_กุมภาพันธ์_มีนาคม_เมษายน_พฤษภาคม_มิถุนายน_กรกฎาคม_สิงหาคม_กันยายน_ตุลาคม_พฤศจิกายน_ธันวาคม".split("_"),
+    monthsShort : "มกรา_กุมภา_มีนา_เมษา_พฤษภา_มิถุนา_กรกฎา_สิงหา_กันยา_ตุลา_พฤศจิกา_ธันวา".split("_"),
+    weekdays : "อาทิตย์_จันทร์_อังคาร_พุธ_พฤหัสบดี_ศุกร์_เสาร์".split("_"),
+    weekdaysShort : "อาทิตย์_จันทร์_อังคาร_พุธ_พฤหัส_ศุกร์_เสาร์".split("_"), // yes, three characters difference
+    weekdaysMin : "อา._จ._อ._พ._พฤ._ศ._ส.".split("_"),
+    longDateFormat : {
+        LT : "H นาฬิกา m นาที",
+        L : "YYYY/MM/DD",
+        LL : "D MMMM YYYY",
+        LLL : "D MMMM YYYY เวลา LT",
+        LLLL : "วันddddที่ D MMMM YYYY เวลา LT"
+    },
+    meridiem : function (hour, minute, isLower) {
+        if (hour < 12) {
+            return "ก่อนเที่ยง";
+        } else {
+            return "หลังเที่ยง";
+        }
+    },
+    calendar : {
+        sameDay : '[วันนี้ เวลา] LT',
+        nextDay : '[พรุ่งนี้ เวลา] LT',
+        nextWeek : 'dddd[หน้า เวลา] LT',
+        lastDay : '[เมื่อวานนี้ เวลา] LT',
+        lastWeek : '[วัน]dddd[ที่แล้ว เวลา] LT',
+        sameElse : 'L'
+    },
+    relativeTime : {
+        future : "อีก %s",
+        past : "%sที่แล้ว",
+        s : "ไม่กี่วินาที",
+        m : "1 นาที",
+        mm : "%d นาที",
+        h : "1 ชั่วโมง",
+        hh : "%d ชั่วโมง",
+        d : "1 วัน",
+        dd : "%d วัน",
+        M : "1 เดือน",
+        MM : "%d เดือน",
+        y : "1 ปี",
+        yy : "%d ปี"
+    },
+    ordinal : function (number) {
+        return '';
     }
 });
 })();
@@ -2088,12 +2660,115 @@ require('../moment').lang('tr', {
         if (number === 0) {  // special case for zero
             return "'ıncı";
         }
-
         var a = number % 10,
             b = number % 100 - a,
             c = number >= 100 ? 100 : null;
 
         return suffixes[a] || suffixes[b] || suffixes[c];
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 7  // The week that contains Jan 1st is the first week of the year.
+    }
+});
+})();
+(function(){
+// moment.js language configuration
+// language : Morocco Central Atlas Tamaziɣt in Latin (tzm-la)
+// author : Abdel Said : https://github.com/abdelsaid
+
+require('../moment').lang('tzm-la', {
+    months : "innayr_brˤayrˤ_marˤsˤ_ibrir_mayyw_ywnyw_ywlywz_ɣwšt_šwtanbir_ktˤwbrˤ_nwwanbir_dwjnbir".split("_"),
+    monthsShort : "innayr_brˤayrˤ_marˤsˤ_ibrir_mayyw_ywnyw_ywlywz_ɣwšt_šwtanbir_ktˤwbrˤ_nwwanbir_dwjnbir".split("_"),
+    weekdays : "asamas_aynas_asinas_akras_akwas_asimwas_asiḍyas".split("_"),
+    weekdaysShort : "asamas_aynas_asinas_akras_akwas_asimwas_asiḍyas".split("_"),
+    weekdaysMin : "asamas_aynas_asinas_akras_akwas_asimwas_asiḍyas".split("_"),
+    longDateFormat : {
+        LT : "HH:mm",
+        L : "DD/MM/YYYY",
+        LL : "D MMMM YYYY",
+        LLL : "D MMMM YYYY LT",
+        LLLL : "dddd D MMMM YYYY LT"
+    },
+    calendar : {
+        sameDay: "[asdkh g] LT",
+        nextDay: '[aska g] LT',
+        nextWeek: 'dddd [g] LT',
+        lastDay: '[assant g] LT',
+        lastWeek: 'dddd [g] LT',
+        sameElse: 'L'
+    },
+    relativeTime : {
+        future : "dadkh s yan %s",
+        past : "yan %s",
+        s : "imik",
+        m : "minuḍ",
+        mm : "%d minuḍ",
+        h : "saɛa",
+        hh : "%d tassaɛin",
+        d : "ass",
+        dd : "%d ossan",
+        M : "ayowr",
+        MM : "%d iyyirn",
+        y : "asgas",
+        yy : "%d isgasn"
+    },
+    ordinal : function (number) {
+        return '';
+    },
+    week : {
+        dow : 6, // Saturday is the first day of the week.
+        doy : 12  // The week that contains Jan 1st is the first week of the year.
+    }
+});
+})();
+(function(){
+// moment.js language configuration
+// language : Morocco Central Atlas Tamaziɣt (tzm)
+// author : Abdel Said : https://github.com/abdelsaid
+
+require('../moment').lang('tzm', {
+    months : "ⵉⵏⵏⴰⵢⵔ_ⴱⵕⴰⵢⵕ_ⵎⴰⵕⵚ_ⵉⴱⵔⵉⵔ_ⵎⴰⵢⵢⵓ_ⵢⵓⵏⵢⵓ_ⵢⵓⵍⵢⵓⵣ_ⵖⵓⵛⵜ_ⵛⵓⵜⴰⵏⴱⵉⵔ_ⴽⵟⵓⴱⵕ_ⵏⵓⵡⴰⵏⴱⵉⵔ_ⴷⵓⵊⵏⴱⵉⵔ".split("_"),
+    monthsShort : "ⵉⵏⵏⴰⵢⵔ_ⴱⵕⴰⵢⵕ_ⵎⴰⵕⵚ_ⵉⴱⵔⵉⵔ_ⵎⴰⵢⵢⵓ_ⵢⵓⵏⵢⵓ_ⵢⵓⵍⵢⵓⵣ_ⵖⵓⵛⵜ_ⵛⵓⵜⴰⵏⴱⵉⵔ_ⴽⵟⵓⴱⵕ_ⵏⵓⵡⴰⵏⴱⵉⵔ_ⴷⵓⵊⵏⴱⵉⵔ".split("_"),
+    weekdays : "ⴰⵙⴰⵎⴰⵙ_ⴰⵢⵏⴰⵙ_ⴰⵙⵉⵏⴰⵙ_ⴰⴽⵔⴰⵙ_ⴰⴽⵡⴰⵙ_ⴰⵙⵉⵎⵡⴰⵙ_ⴰⵙⵉⴹⵢⴰⵙ".split("_"),
+    weekdaysShort : "ⴰⵙⴰⵎⴰⵙ_ⴰⵢⵏⴰⵙ_ⴰⵙⵉⵏⴰⵙ_ⴰⴽⵔⴰⵙ_ⴰⴽⵡⴰⵙ_ⴰⵙⵉⵎⵡⴰⵙ_ⴰⵙⵉⴹⵢⴰⵙ".split("_"),
+    weekdaysMin : "ⴰⵙⴰⵎⴰⵙ_ⴰⵢⵏⴰⵙ_ⴰⵙⵉⵏⴰⵙ_ⴰⴽⵔⴰⵙ_ⴰⴽⵡⴰⵙ_ⴰⵙⵉⵎⵡⴰⵙ_ⴰⵙⵉⴹⵢⴰⵙ".split("_"),
+    longDateFormat : {
+        LT : "HH:mm",
+        L : "DD/MM/YYYY",
+        LL : "D MMMM YYYY",
+        LLL : "D MMMM YYYY LT",
+        LLLL : "dddd D MMMM YYYY LT"
+    },
+    calendar : {
+        sameDay: "[ⴰⵙⴷⵅ ⴴ] LT",
+        nextDay: '[ⴰⵙⴽⴰ ⴴ] LT',
+        nextWeek: 'dddd [ⴴ] LT',
+        lastDay: '[ⴰⵚⴰⵏⵜ ⴴ] LT',
+        lastWeek: 'dddd [ⴴ] LT',
+        sameElse: 'L'
+    },
+    relativeTime : {
+        future : "ⴷⴰⴷⵅ ⵙ ⵢⴰⵏ %s",
+        past : "ⵢⴰⵏ %s",
+        s : "ⵉⵎⵉⴽ",
+        m : "ⵎⵉⵏⵓⴺ",
+        mm : "%d ⵎⵉⵏⵓⴺ",
+        h : "ⵙⴰⵄⴰ",
+        hh : "%d ⵜⴰⵙⵙⴰⵄⵉⵏ",
+        d : "ⴰⵙⵙ",
+        dd : "%d oⵙⵙⴰⵏ",
+        M : "ⴰⵢoⵓⵔ",
+        MM : "%d ⵉⵢⵢⵉⵔⵏ",
+        y : "ⴰⵙⴳⴰⵙ",
+        yy : "%d ⵉⵙⴳⴰⵙⵏ"
+    },
+    ordinal : function (number) {
+        return '';
+    },
+    week : {
+        dow : 6, // Saturday is the first day of the week.
+        doy : 12  // The week that contains Jan 1st is the first week of the year.
     }
 });
 })();
