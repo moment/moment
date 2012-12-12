@@ -69,11 +69,14 @@ require('../moment').lang('tr', {
         if (number === 0) {  // special case for zero
             return "'ıncı";
         }
-
         var a = number % 10,
             b = number % 100 - a,
             c = number >= 100 ? 100 : null;
 
         return suffixes[a] || suffixes[b] || suffixes[c];
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 7  // The week that contains Jan 1st is the first week of the year.
     }
 });

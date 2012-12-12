@@ -24,6 +24,14 @@ Changelog
 =========
 
 
+### 1.7.2 [See discussion](https://github.com/timrwood/moment/issues/456)
+
+Bugfix
+
+### 1.7.1 [See discussion](https://github.com/timrwood/moment/issues/384)
+
+Bugfixes
+
 ### 1.7.0 [See discussion](https://github.com/timrwood/moment/issues/288)
 
 Added `moment.fn.endOf()` and `moment.fn.startOf()`.

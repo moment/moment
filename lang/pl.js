@@ -42,7 +42,18 @@ require('../moment').lang('pl', {
         nextDay: '[Jutro o] LT',
         nextWeek: '[W] dddd [o] LT',
         lastDay: '[Wczoraj o] LT',
-        lastWeek: '[W zeszły/łą] dddd [o] LT',
+        lastWeek: function () {
+            switch (this.day()) {
+            case 0:
+                return '[W zeszłą niedzielę o] LT';
+            case 3:
+                return '[W zeszłą środę o] LT';
+            case 6:
+                return '[W zeszłą sobotę o] LT';
+            default:
+                return '[W zeszły] dddd [o] LT';
+            }
+        },
         sameElse: 'L'
     },
     relativeTime : {
@@ -62,5 +73,9 @@ require('../moment').lang('pl', {
     },
     ordinal : function (number) {
         return '.';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });

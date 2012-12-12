@@ -23,7 +23,7 @@
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
 
         // format tokens
-        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|YYYYY|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|.)/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|.)/g,
         localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?)/g,
 
         // parsing tokens
@@ -35,7 +35,7 @@
         parseTokenThreeDigits = /\d{3}/, // 000 - 999
         parseTokenFourDigits = /\d{1,4}/, // 0 - 9999
         parseTokenSixDigits = /[+\-]?\d{1,6}/, // -999,999 - 999,999
-        parseTokenWord = /[0-9]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+/i, // any numbers followed by word characters
+        parseTokenWord = /[0-9]*[a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF]+\s*?[\u0600-\u06FF]+/i, // any word (or two) characters or numbers including two word month in arabic.
         parseTokenTimezone = /Z|[\+\-]\d\d:?\d\d/i, // +00:00 -00:00 +0000 -0000 or Z
         parseTokenT = /T/i, // T (ISO seperator)
 
@@ -71,8 +71,8 @@
         formatFunctions = {},
 
         // tokens to ordinalize and pad
-        ordinalizeTokens = 'DDD w M D d'.split(' '),
-        paddedTokens = 'M D H h m s w'.split(' '),
+        ordinalizeTokens = 'DDD w W M D d'.split(' '),
+        paddedTokens = 'M D H h m s w W'.split(' '),
 
         formatTokenFunctions = {
             M    : function () {
@@ -88,9 +88,7 @@
                 return this.date();
             },
             DDD  : function () {
-                var a = new Date(this.year(), this.month(), this.date()),
-                    b = new Date(this.year(), 0, 1);
-                return ~~(((a - b) / 864e5) + 1.5);
+                return this.dayOfYear();
             },
             d    : function () {
                 return this.day();
@@ -105,9 +103,10 @@
                 return this.lang().weekdays(this, format);
             },
             w    : function () {
-                var a = new Date(this.year(), this.month(), this.date() - this.day() + 5),
-                    b = new Date(a.getFullYear(), 0, 4);
-                return ~~((a - b) / 864e5 / 7 + 1.5);
+                return this.week();
+            },
+            W    : function () {
+                return this.isoWeek();
             },
             YY   : function () {
                 return leftZeroFill(this.year() % 100, 2);
@@ -454,6 +453,14 @@
 
         postformat : function (string) {
             return string;
+        },
+
+        week : function (mom) {
+            return weekOfYear(mom, this._week.dow, this._week.doy);
+        },
+        _week : {
+            dow : 0, // Sunday is the first day of the week.
+            doy : 6  // The week that contains Jan 1st is the first week of the year.
         }
     };
 
@@ -803,7 +810,7 @@
         } else if (typeof input === 'string') {
             makeDateFromString(config);
         } else if (isArray(input)) {
-            config._a = input;
+            config._a = input.slice(0);
             dateFromArray(config);
         } else {
             config._d = input instanceof Date ? input : new Date(input);
@@ -841,6 +848,35 @@
         args[3] = milliseconds > 0;
         args[4] = lang;
         return substituteTimeAgo.apply({}, args);
+    }
+
+
+    /************************************
+        Week of Year
+    ************************************/
+
+
+    // firstDayOfWeek       0 = sun, 6 = sat
+    //                      the day of the week that starts the week
+    //                      (usually sunday or monday)
+    // firstDayOfWeekOfYear 0 = sun, 6 = sat
+    //                      the first week is the week that contains the first
+    //                      of this day of the week
+    //                      (eg. ISO weeks use thursday (4))
+    function weekOfYear(mom, firstDayOfWeek, firstDayOfWeekOfYear) {
+        var end = firstDayOfWeekOfYear - firstDayOfWeek,
+            daysToDayOfWeek = firstDayOfWeekOfYear - mom.day();
+
+
+        if (daysToDayOfWeek > end) {
+            daysToDayOfWeek -= 7;
+        }
+
+        if (daysToDayOfWeek < end - 7) {
+            daysToDayOfWeek += 7;
+        }
+
+        return Math.ceil(moment(mom).add('d', daysToDayOfWeek).dayOfYear() / 7);
     }
 
 
@@ -1112,10 +1148,10 @@
                 this.add({ d : input - day });
         },
 
-        startOf: function (val) {
+        startOf: function (units) {
             // the following switch intentionally omits break keywords
             // to utilize falling through the cases.
-            switch (val.replace(/s$/, '')) {
+            switch (units.replace(/s$/, '')) {
             case 'year':
                 this.month(0);
                 /* falls through */
@@ -1138,12 +1174,23 @@
             return this;
         },
 
-        endOf: function (val) {
-            return this.startOf(val).add(val.replace(/s?$/, 's'), 1).subtract('ms', 1);
+        endOf: function (units) {
+            return this.startOf(units).add(units.replace(/s?$/, 's'), 1).subtract('ms', 1);
         },
 
-        isSame: function (input, val) {
-            return +this.clone().startOf(val) === +moment(input).startOf(val);
+        isAfter: function (input, units) {
+            units = typeof units !== 'undefined' ? units : 'millisecond';
+            return +this.clone().startOf(units) > +moment(input).startOf(units);
+        },
+
+        isBefore: function (input, units) {
+            units = typeof units !== 'undefined' ? units : 'millisecond';
+            return +this.clone().startOf(units) < +moment(input).startOf(units);
+        },
+
+        isSame: function (input, units) {
+            units = typeof units !== 'undefined' ? units : 'millisecond';
+            return +this.clone().startOf(units) === +moment(input).startOf(units);
         },
 
         sod: function () {
@@ -1161,6 +1208,21 @@
 
         daysInMonth : function () {
             return moment.utc([this.year(), this.month() + 1, 0]).date();
+        },
+
+        dayOfYear : function (input) {
+            var dayOfYear = moment(this).startOf('day').diff(moment(this).startOf('year'), 'days') + 1;
+            return input == null ? dayOfYear : this.add("d", (input - dayOfYear));
+        },
+
+        isoWeek : function (input) {
+            var week = weekOfYear(this, 1, 4);
+            return input == null ? week : this.add("d", (input - week) * 7);
+        },
+
+        week : function (input) {
+            var week = this.lang().week(this);
+            return input == null ? week : this.add("d", (input - week) * 7);
         },
 
         // If passed a language key, it will set the language for this
@@ -1197,8 +1259,10 @@
     // add shortcut for year (uses different syntax than the getter/setter 'year' == 'FullYear')
     makeGetterAndSetter('year', 'FullYear');
 
-    // add days plural method
+    // add plural methods
     moment.fn.days = moment.fn.day;
+    moment.fn.weeks = moment.fn.week;
+    moment.fn.isoWeeks = moment.fn.isoWeek;
 
     /************************************
         Duration Prototype

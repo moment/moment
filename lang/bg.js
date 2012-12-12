@@ -51,6 +51,26 @@ require('../moment').lang('bg', {
         yy : "%d години"
     },
     ordinal : function (number) {
-        return '.';
+        var lastDigit = number % 10,
+            last2Digits = number % 100;
+        if (number === 0) {
+            return '-ев';
+        } else if (last2Digits === 0) {
+            return '-ен';
+        } else if (last2Digits > 10 && last2Digits < 20) {
+            return '-ти';
+        } else if (lastDigit === 1) {
+            return '-ви';
+        } else if (lastDigit === 2) {
+            return '-ри';
+        } else if (lastDigit === 7 || lastDigit === 8) {
+            return '-ми';
+        } else {
+            return '-ти';
+        }
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 7  // The week that contains Jan 1st is the first week of the year.
     }
 });

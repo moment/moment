@@ -137,5 +137,35 @@ exports.format = {
             date : date
         }), '{"date":"2012-10-09T20:30:40.678Z"}', "should output ISO8601 on JSON.stringify");
         test.done();
+    },
+
+    "weeks format" : function(test) {
+
+        // http://en.wikipedia.org/wiki/ISO_week_date
+        var cases = {
+            "2005-01-02": "2004-53",
+            "2005-12-31": "2005-52",
+            "2007-01-01": "2007-01",
+            "2007-12-30": "2007-52",
+            "2007-12-31": "2008-01",
+            "2008-01-01": "2008-01",
+            "2008-12-28": "2008-52",
+            "2008-12-29": "2009-01",
+            "2008-12-30": "2009-01",
+            "2008-12-31": "2009-01",
+            "2009-01-01": "2009-01",
+            "2009-12-31": "2009-53",
+            "2010-01-01": "2009-53",
+            "2010-01-02": "2009-53",
+            "2010-01-03": "2009-53",
+        };
+
+        for (var i in cases) {
+            var iso = cases[i].split('-').pop();
+            var the = moment(i).format('WW');
+            test.equal(iso, the, i + ": should be " + iso + ", but " + the);
+        }
+
+        test.done();
     }
 };

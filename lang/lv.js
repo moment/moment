@@ -3,12 +3,12 @@
 // author : Kristaps Karlsons : https://github.com/skakri
 
 var units = {
-        'mm': 'minūti_minūtes_minūte_minūtes',
-        'hh': 'stundu_stundas_stunda_stundas',
-        'dd': 'dienu_dienas_diena_dienas',
-        'MM': 'mēnesi_mēnešus_mēnesis_mēneši',
-        'yy': 'gadu_gadus_gads_gadi'
-    };
+    'mm': 'minūti_minūtes_minūte_minūtes',
+    'hh': 'stundu_stundas_stunda_stundas',
+    'dd': 'dienu_dienas_diena_dienas',
+    'MM': 'mēnesi_mēnešus_mēnesis_mēneši',
+    'yy': 'gadu_gadus_gads_gadi'
+};
 
 function format(word, number, withoutSuffix) {
     var forms = word.split('_');
@@ -61,5 +61,9 @@ require('../moment').lang('lv', {
     },
     ordinal : function (number) {
         return '.';
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });

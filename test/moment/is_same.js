@@ -1,6 +1,30 @@
 var moment = require("../../moment");
 
 exports.is_same = {
+    "is same without units" : function(test) {
+        test.expect(17);
+
+        var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
+    test.equal(m.isSame(moment(new Date(2012, 3, 2, 3, 5, 5, 10))), false, "year is later");
+    test.equal(m.isSame(moment(new Date(2010, 3, 2, 3, 3, 5, 10))), false, "year is earlier");
+    test.equal(m.isSame(moment(new Date(2011, 4, 2, 3, 4, 5, 10))), false, "month is later");
+    test.equal(m.isSame(moment(new Date(2011, 2, 2, 3, 4, 5, 10))), false, "month is earlier");
+    test.equal(m.isSame(moment(new Date(2011, 3, 3, 3, 4, 5, 10))), false, "day is later");
+    test.equal(m.isSame(moment(new Date(2011, 3, 1, 3, 4, 5, 10))), false, "day is earlier");
+    test.equal(m.isSame(moment(new Date(2011, 3, 2, 4, 4, 5, 10))), false, "hour is later");
+    test.equal(m.isSame(moment(new Date(2011, 3, 2, 2, 4, 5, 10))), false, "hour is earlier");
+    test.equal(m.isSame(moment(new Date(2011, 3, 2, 3, 5, 5, 10))), false, "minute is later");
+    test.equal(m.isSame(moment(new Date(2011, 3, 2, 3, 3, 5, 10))), false, "minute is earlier");
+    test.equal(m.isSame(moment(new Date(2011, 3, 2, 3, 4, 6, 10))), false, "second is later");
+    test.equal(m.isSame(moment(new Date(2011, 3, 2, 3, 4, 4, 11))), false, "second is earlier");
+    test.equal(m.isSame(moment(new Date(2011, 3, 2, 3, 4, 5, 10))), true, "millisecond match");
+    test.equal(m.isSame(moment(new Date(2011, 3, 2, 3, 4, 5, 11))), false, "millisecond is later");
+    test.equal(m.isSame(moment(new Date(2011, 3, 2, 3, 4, 5, 9))), false, "millisecond is earlier");
+        test.equal(m.isSame(m), true, "moments are the same as themselves");
+        test.equal(+m, +mCopy, "isSame second should not change moment");
+        test.done();
+    },
+
     "is same year" : function(test) {
         test.expect(9);
 
@@ -109,6 +133,31 @@ exports.is_same = {
         test.equal(m.isSame(moment(new Date(2011, 1, 2, 3, 4, 4, 999)), 'second'), false, "end of previous second");
         test.equal(m.isSame(m, 'second'), true, "same moments are in the same second");
         test.equal(+m, +mCopy, "isSame second should not change moment");
+        test.done();
+    },
+
+    "is same millisecond" : function(test) {
+        test.expect(18);
+
+        var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
+        test.equal(m.isSame(moment(new Date(2011, 3, 2, 3, 4, 5, 10)), 'millisecond'), true, "millisecond match");
+        test.equal(m.isSame(moment(new Date(2011, 3, 2, 3, 4, 5, 10)), 'milliseconds'), true, "plural should work");
+        test.equal(m.isSame(moment(new Date(2012, 3, 2, 3, 4, 5, 10)), 'millisecond'), false, "year is later");
+        test.equal(m.isSame(moment(new Date(2010, 3, 2, 3, 4, 5, 10)), 'millisecond'), false, "year is earlier");
+        test.equal(m.isSame(moment(new Date(2011, 4, 2, 3, 4, 5, 10)), 'millisecond'), false, "month is later");
+        test.equal(m.isSame(moment(new Date(2011, 2, 2, 3, 4, 5, 10)), 'millisecond'), false, "month is earlier");
+        test.equal(m.isSame(moment(new Date(2011, 3, 3, 3, 4, 5, 10)), 'millisecond'), false, "day is later");
+        test.equal(m.isSame(moment(new Date(2011, 3, 1, 1, 4, 5, 10)), 'millisecond'), false, "day is earlier");
+        test.equal(m.isSame(moment(new Date(2011, 3, 2, 4, 4, 5, 10)), 'millisecond'), false, "hour is later");
+        test.equal(m.isSame(moment(new Date(2011, 3, 1, 4, 1, 5, 10)), 'millisecond'), false, "hour is earlier");
+        test.equal(m.isSame(moment(new Date(2011, 3, 2, 3, 5, 5, 10)), 'millisecond'), false, "minute is later");
+        test.equal(m.isSame(moment(new Date(2011, 3, 2, 3, 3, 5, 10)), 'millisecond'), false, "minute is earlier");
+        test.equal(m.isSame(moment(new Date(2011, 3, 2, 3, 4, 6, 10)), 'millisecond'), false, "second is later");
+        test.equal(m.isSame(moment(new Date(2011, 3, 2, 3, 4, 4, 5)), 'millisecond'), false, "second is earlier");
+        test.equal(m.isSame(moment(new Date(2011, 3, 2, 3, 4, 6, 11)), 'millisecond'), false, "millisecond is later");
+        test.equal(m.isSame(moment(new Date(2011, 3, 2, 3, 4, 4, 9)), 'millisecond'), false, "millisecond is earlier");
+        test.equal(m.isSame(m, 'millisecond'), true, "same moments are in the same millisecond");
+        test.equal(+m, +mCopy, "isSame millisecond should not change moment");
         test.done();
     }
 };
