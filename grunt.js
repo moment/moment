@@ -112,7 +112,14 @@ module.exports = function(grunt) {
         max = grunt.helper('concat', files, {separator: this.data.separator});
 
         // Add the first comments
-        tok = uglifyjs.tokenizer(max);
+        // Check for UglifyJS 2.x API
+        if (typeof uglify.tokenizer === 'function') {
+            tok = uglifyjs.tokenizer(max);
+        }
+        // Fallback to UglifyJS 1.x API
+        else {
+            tok = uglifyjs.parser.tokenizer(max);
+        }
         min = show_copyright(tok().comments_before);
 
         // Add the minified source.
