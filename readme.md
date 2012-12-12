@@ -9,6 +9,12 @@ A lightweight javascript date library for parsing, validating, manipulating, and
 
 ### [Run the unit tests](http://momentjs.com/test/)
 
+Travis Build Status
+===================
+
+Develop [![Build Status](https://travis-ci.org/timrwood/moment.png?branch=develop)](https://travis-ci.org/timrwood/moment)
+
+Master [![Build Status](https://travis-ci.org/timrwood/moment.png)](https://travis-ci.org/timrwood/moment)
 
 Upgrading to 1.6.0
 ==================
