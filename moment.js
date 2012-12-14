@@ -23,13 +23,14 @@
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
 
         // format tokens
-        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|.)/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|ET|.)/g,
         localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?)/g,
 
         // parsing tokens
         parseMultipleFormatChunker = /([0-9a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)/gi,
 
         // parsing token regexes
+        parseTokenAtLeastOneDigit = /\d{1,}/,
         parseTokenOneOrTwoDigits = /\d\d?/, // 0 - 99
         parseTokenOneToThreeDigits = /\d{1,3}/, // 0 - 999
         parseTokenThreeDigits = /\d{3}/, // 000 - 999
@@ -161,6 +162,9 @@
                     b = "-";
                 }
                 return b + leftZeroFill(~~(10 * a / 6), 4);
+            },
+            ET   : function () {
+                return this.unix();
             }
         };
 
@@ -551,6 +555,8 @@
     // get the regex to find the next token
     function getParseRegexForToken(token) {
         switch (token) {
+        case 'ET':
+            return parseTokenAtLeastOneDigit;
         case 'DDDD':
             return parseTokenThreeDigits;
         case 'YYYY':
@@ -677,6 +683,11 @@
                 config._tzh = -config._tzh;
                 config._tzm = -config._tzm;
             }
+            break;
+        case 'ET' :
+            datePartArray.splice.apply(datePartArray,
+                                       [0, datePartArray.length]
+                                       .concat(moment.unix(~~input).toArray()));
             break;
         }
 
