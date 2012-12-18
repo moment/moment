@@ -9,11 +9,11 @@
             weekdaysShort : "Søn_Man_Tir_Ons_Tor_Fre_Lør".split("_"),
             weekdaysMin : "Sø_Ma_Ti_On_To_Fr_Lø".split("_"),
             longDateFormat : {
-                LT : "h:mm A",
+                LT : "HH:mm",
                 L : "DD/MM/YYYY",
                 LL : "D MMMM YYYY",
-                LLL : "D MMMM YYYY h:mm A",
-                LLLL : "dddd D. MMMM, YYYY h:mm A"
+                LLL : "D MMMM YYYY LT",
+                LLLL : "dddd D. MMMM, YYYY LT"
             },
             calendar : {
                 sameDay : '[I dag kl.] LT',
@@ -27,15 +27,15 @@
                 future : "om %s",
                 past : "%s siden",
                 s : "få sekunder",
-                m : "minut",
+                m : "et minut",
                 mm : "%d minutter",
-                h : "time",
+                h : "en time",
                 hh : "%d timer",
-                d : "dag",
+                d : "en dag",
                 dd : "%d dage",
-                M : "månede",
+                M : "en måned",
                 MM : "%d måneder",
-                y : "år",
+                y : "et år",
                 yy : "%d år"
             },
             ordinal : function (number) {
