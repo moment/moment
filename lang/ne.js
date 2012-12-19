@@ -34,6 +34,8 @@ require('../moment').lang('ne', {
     weekdaysShort : 'आइत._सोम._मङ्गल._बुध._बिहि._शुक्र._शनि.'.split("_"),
     weekdaysMin : 'आइ._सो._मङ्_बु._बि._शु._श.'.split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "Aको h:mm बजे",
         L : "DD/MM/YYYY",
         LL : "D MMMM YYYY",

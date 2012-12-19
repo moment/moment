@@ -31,6 +31,8 @@ require('../moment').lang('pl', {
     weekdaysShort : "nie_pon_wt_śr_czw_pt_sb".split("_"),
     weekdaysMin : "N_Pn_Wt_Śr_Cz_Pt_So".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "HH:mm",
         L : "DD-MM-YYYY",
         LL : "D MMMM YYYY",

@@ -10,6 +10,8 @@ require('../moment').lang('he', {
     weekdaysShort : "א׳_ב׳_ג׳_ד׳_ה׳_ו׳_ש׳".split("_"),
     weekdaysMin : "א_ב_ג_ד_ה_ו_ש".split("_"),
     longDateFormat : {
+        LN : "D [ב]MMM YYYY",
+        LNN : "D [ב]MMM YYYY",
         LT : "HH:mm",
         L : "DD/MM/YYYY",
         LL : "D [ב]MMMM YYYY",

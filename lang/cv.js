@@ -10,6 +10,8 @@ require('../moment').lang('cv', {
     weekdaysShort : "выр_тун_ытл_юн_кĕç_эрн_шăм".split("_"),
     weekdaysMin : "вр_тн_ыт_юн_кç_эр_шм".split("_"),
     longDateFormat : {
+        LN : "YYYY çулхи MMM уйăхĕн D-мĕшĕ",
+        LNN : "YYYY çулхи MMM уйăхĕн D-мĕшĕ",
         LT : "HH:mm",
         L : "DD-MM-YYYY",
         LL : "YYYY çулхи MMMM уйăхĕн D-мĕшĕ",

@@ -11,6 +11,8 @@ require('../moment').lang('ar-ma', {
     weekdaysShort : "احد_اتنين_ثلاثاء_اربعاء_خميس_جمعة_سبت".split("_"),
     weekdaysMin : "ح_ن_ث_ر_خ_ج_س".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "HH:mm",
         L : "DD/MM/YYYY",
         LL : "D MMMM YYYY",
@@ -61,6 +63,8 @@ require('../moment').lang('ar', {
     weekdaysShort : "احد_اتنين_ثلاثاء_اربعاء_خميس_جمعة_سبت".split("_"),
     weekdaysMin : "ح_ن_ث_ر_خ_ج_س".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "HH:mm",
         L : "DD/MM/YYYY",
         LL : "D MMMM YYYY",
@@ -111,6 +115,8 @@ require('../moment').lang('bg', {
     weekdaysShort : "нед_пон_вто_сря_чет_пет_съб".split("_"),
     weekdaysMin : "нд_пн_вт_ср_чт_пт_сб".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "h:mm",
         L : "D.MM.YYYY",
         LL : "D MMMM YYYY",
@@ -189,6 +195,8 @@ require('../moment').lang('ca', {
     weekdaysShort : "Dg._Dl._Dt._Dc._Dj._Dv._Ds.".split("_"),
     weekdaysMin : "Dg_Dl_Dt_Dc_Dj_Dv_Ds".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "H:mm",
         L : "DD/MM/YYYY",
         LL : "D MMMM YYYY",
@@ -317,6 +325,8 @@ require('../moment').lang('cs', {
     weekdaysShort : "ne_po_út_st_čt_pá_so".split("_"),
     weekdaysMin : "ne_po_út_st_čt_pá_so".split("_"),
     longDateFormat : {
+        LN : "D. MMM",
+        LNN : "D. MMM YYYY",
         LT: "H:mm",
         L : "DD.MM.YYYY",
         LL : "D. MMMM YYYY",
@@ -399,6 +409,8 @@ require('../moment').lang('cv', {
     weekdaysShort : "выр_тун_ытл_юн_кĕç_эрн_шăм".split("_"),
     weekdaysMin : "вр_тн_ыт_юн_кç_эр_шм".split("_"),
     longDateFormat : {
+        LN : "YYYY çулхи MMM уйăхĕн D-мĕшĕ",
+        LNN : "YYYY çулхи MMM уйăхĕн D-мĕшĕ",
         LT : "HH:mm",
         L : "DD-MM-YYYY",
         LL : "YYYY çулхи MMMM уйăхĕн D-мĕшĕ",
@@ -452,6 +464,8 @@ require('../moment').lang('da', {
     weekdaysShort : "Søn_Man_Tir_Ons_Tor_Fre_Lør".split("_"),
     weekdaysMin : "Sø_Ma_Ti_On_To_Fr_Lø".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "h:mm A",
         L : "DD/MM/YYYY",
         LL : "D MMMM YYYY",
@@ -502,6 +516,8 @@ require('../moment').lang('de', {
     weekdaysShort : "So._Mo._Di._Mi._Do._Fr._Sa.".split("_"),
     weekdaysMin : "So_Mo_Di_Mi_Do_Fr_Sa".split("_"),
     longDateFormat : {
+        LN : "D. MMM",
+        LNN : "D. MMM YYYY",
         LT: "H:mm U\\hr",
         L : "DD.MM.YYYY",
         LL : "D. MMMM YYYY",
@@ -552,6 +568,8 @@ require('../moment').lang('en-ca', {
     weekdaysShort : "Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),
     weekdaysMin : "Su_Mo_Tu_We_Th_Fr_Sa".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM, YYYY",
         LT : "h:mm A",
         L : "YYYY-MM-DD",
         LL : "D MMMM, YYYY",
@@ -602,6 +620,8 @@ require('../moment').lang('en-gb', {
     weekdaysShort : "Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),
     weekdaysMin : "Su_Mo_Tu_We_Th_Fr_Sa".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "h:mm A",
         L : "DD/MM/YYYY",
         LL : "D MMMM YYYY",
@@ -658,6 +678,8 @@ require('../moment').lang('eo', {
     weekdaysShort : "Dim_Lun_Mard_Merk_Ĵaŭ_Ven_Sab".split("_"),
     weekdaysMin : "Di_Lu_Ma_Me_Ĵa_Ve_Sa".split("_"),
     longDateFormat : {
+        LN : "D-\\an \\de MMM",
+        LNN : "D-\\an \\de MMM, YYYY",
         LT : "HH:mm",
         L : "YYYY-MM-DD",
         LL : "D-\\an \\de MMMM, YYYY",
@@ -715,6 +737,8 @@ require('../moment').lang('es', {
     weekdaysShort : "dom._lun._mar._mié._jue._vie._sáb.".split("_"),
     weekdaysMin : "Do_Lu_Ma_Mi_Ju_Vi_Sá".split("_"),
     longDateFormat : {
+        LN : "D \\de MMM",
+        LNN : "D \\de MMM \\de YYYY",
         LT : "H:mm",
         L : "DD/MM/YYYY",
         LL : "D \\de MMMM \\de YYYY",
@@ -779,6 +803,8 @@ require('../moment').lang('et', {
     weekdaysShort : "P_E_T_K_N_R_L".split("_"),
     weekdaysMin   : "P_E_T_K_N_R_L".split("_"),
     longDateFormat : {
+        LN   : "D. MMM",
+        LNN  : "D. MMM YYYY",
         LT   : "H:mm",
         L    : "DD.MM.YYYY",
         LL   : "D. MMMM YYYY",
@@ -829,6 +855,8 @@ require('../moment').lang('eu', {
     weekdaysShort : "ig._al._ar._az._og._ol._lr.".split("_"),
     weekdaysMin : "ig_al_ar_az_og_ol_lr".split("_"),
     longDateFormat : {
+        LN : "MMMren D[a]",
+        LNN : "YYYYko MMMren D[a]",
         LT : "HH:mm",
         L : "YYYY-MM-DD",
         LL : "YYYYko MMMMren D[a]",
@@ -922,6 +950,8 @@ require('../moment').lang('fi', {
     weekdaysShort : "su_ma_ti_ke_to_pe_la".split("_"),
     weekdaysMin : "su_ma_ti_ke_to_pe_la".split("_"),
     longDateFormat : {
+        LN : "Do MMMt\\a YYYY",
+        LNN : "Do MMMt\\a YYYY",
         LT : "HH.mm",
         L : "DD.MM.YYYY",
         LL : "Do MMMMt\\a YYYY",
@@ -972,6 +1002,8 @@ require('../moment').lang('fr-ca', {
     weekdaysShort : "dim._lun._mar._mer._jeu._ven._sam.".split("_"),
     weekdaysMin : "Di_Lu_Ma_Me_Je_Ve_Sa".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "HH:mm",
         L : "YYYY-MM-DD",
         LL : "D MMMM YYYY",
@@ -1018,6 +1050,8 @@ require('../moment').lang('fr', {
     weekdaysShort : "dim._lun._mar._mer._jeu._ven._sam.".split("_"),
     weekdaysMin : "Di_Lu_Ma_Me_Je_Ve_Sa".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "HH:mm",
         L : "DD/MM/YYYY",
         LL : "D MMMM YYYY",
@@ -1068,6 +1102,8 @@ require('../moment').lang('gl', {
     weekdaysShort : "Dom._Lun._Mar._Mér._Xov._Ven._Sáb.".split("_"),
     weekdaysMin : "Do_Lu_Ma_Mé_Xo_Ve_Sá".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "H:mm",
         L : "DD/MM/YYYY",
         LL : "D MMMM YYYY",
@@ -1129,6 +1165,8 @@ require('../moment').lang('he', {
     weekdaysShort : "א׳_ב׳_ג׳_ד׳_ה׳_ו׳_ש׳".split("_"),
     weekdaysMin : "א_ב_ג_ד_ה_ו_ש".split("_"),
     longDateFormat : {
+        LN : "D [ב]MMM YYYY",
+        LNN : "D [ב]MMM YYYY",
         LT : "HH:mm",
         L : "DD/MM/YYYY",
         LL : "D [ב]MMMM YYYY",
@@ -1212,6 +1250,8 @@ require('../moment').lang('hu', {
     weekdays : "vasárnap_hétfő_kedd_szerda_csütörtök_péntek_szombat".split("_"),
     weekdaysShort : "v_h_k_sze_cs_p_szo".split("_"),
     longDateFormat : {
+        LN : "YYYY. MMM D.",
+        LNN : "YYYY. MMM D.",
         LT : "H:mm",
         L : "YYYY.MM.DD.",
         LL : "YYYY. MMMM D.",
@@ -1268,6 +1308,8 @@ require('../moment').lang('id', {
     weekdaysShort : "Min_Sen_Sel_Rab_Kam_Jum_Sab".split("_"),
     weekdaysMin : "Mg_Sn_Sl_Rb_Km_Jm_Sb".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "HH.mm",
         L : "DD/MM/YYYY",
         LL : "D MMMM YYYY",
@@ -1397,6 +1439,8 @@ require('../moment').lang('is', {
     weekdaysShort : "sun_mán_þri_mið_fim_fös_lau".split("_"),
     weekdaysMin : "Su_Má_Þr_Mi_Fi_Fö_La".split("_"),
     longDateFormat : {
+        LN : "D. MMM",
+        LNN : "D. MMM YYYY",
         LT : "H:mm",
         L : "DD/MM/YYYY",
         LL : "D. MMMM YYYY",
@@ -1447,6 +1491,8 @@ require('../moment').lang('it', {
     weekdaysShort : "Dom_Lun_Mar_Mer_Gio_Ven_Sab".split("_"),
     weekdaysMin : "D_L_Ma_Me_G_V_S".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "HH:mm",
         L : "DD/MM/YYYY",
         LL : "D MMMM YYYY",
@@ -1497,6 +1543,8 @@ require('../moment').lang('ja', {
     weekdaysShort : "日_月_火_水_木_金_土".split("_"),
     weekdaysMin : "日_月_火_水_木_金_土".split("_"),
     longDateFormat : {
+        LN : "YYYY年M月D日",
+        LNN : "YYYY年M月D日",
         LT : "Ah時m分",
         L : "YYYY/MM/DD",
         LL : "YYYY年M月D日",
@@ -1553,6 +1601,8 @@ require('../moment').lang('jp', {
     weekdaysShort : "日_月_火_水_木_金_土".split("_"),
     weekdaysMin : "日_月_火_水_木_金_土".split("_"),
     longDateFormat : {
+        LN : "YYYY年M月D日",
+        LNN : "YYYY年M月D日",
         LT : "Ah時m分",
         L : "YYYY/MM/DD",
         LL : "YYYY年M月D日",
@@ -1606,6 +1656,8 @@ require('../moment').lang('ko', {
     weekdaysShort : "일_월_화_수_목_금_토".split("_"),
     weekdaysMin : "일_월_화_수_목_금_토".split("_"),
     longDateFormat : {
+        LN : "YYYY년 MMM D일",
+        LNN : "YYYY년 MMM D일",
         LT : "A h시 mm분",
         L : "YYYY.MM.DD",
         LL : "YYYY년 MMMM D일",
@@ -1659,6 +1711,8 @@ require('../moment').lang('kr', {
     weekdaysShort : "일_월_화_수_목_금_토".split("_"),
     weekdaysMin : "일_월_화_수_목_금_토".split("_"),
     longDateFormat : {
+        LN : "YYYY년 MMM D일",
+        LNN : "YYYY년 MMM D일",
         LT : "A h시 mm분",
         L : "YYYY.MM.DD",
         LL : "YYYY년 MMMM D일",
@@ -1730,6 +1784,8 @@ require('../moment').lang('lv', {
     weekdaysShort : "Sv_P_O_T_C_Pk_S".split("_"),
     weekdaysMin : "Sv_P_O_T_C_Pk_S".split("_"),
     longDateFormat : {
+        LN : "YYYY. [gada] D. MMM",
+        LNN : "YYYY. [gada] D. MMM",
         LT : "HH:mm",
         L : "YYYY.MM.DD.",
         LL : "YYYY. [gada] D. MMMM",
@@ -1780,6 +1836,8 @@ require('../moment').lang('nb', {
     weekdaysShort : "søn_man_tir_ons_tor_fre_lør".split("_"),
     weekdaysMin : "sø_ma_ti_on_to_fr_lø".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "HH:mm",
         L : "YYYY-MM-DD",
         LL : "D MMMM YYYY",
@@ -1855,6 +1913,8 @@ require('../moment').lang('ne', {
     weekdaysShort : 'आइत._सोम._मङ्गल._बुध._बिहि._शुक्र._शनि.'.split("_"),
     weekdaysMin : 'आइ._सो._मङ्_बु._बि._शु._श.'.split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "Aको h:mm बजे",
         L : "DD/MM/YYYY",
         LL : "D MMMM YYYY",
@@ -1939,6 +1999,8 @@ require('../moment').lang('nl', {
     weekdaysShort : "zo._ma._di._wo._do._vr._za.".split("_"),
     weekdaysMin : "Zo_Ma_Di_Wo_Do_Vr_Za".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "HH:mm",
         L : "DD-MM-YYYY",
         LL : "D MMMM YYYY",
@@ -2011,6 +2073,8 @@ require('../moment').lang('pl', {
     weekdaysShort : "nie_pon_wt_śr_czw_pt_sb".split("_"),
     weekdaysMin : "N_Pn_Wt_Śr_Cz_Pt_So".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "HH:mm",
         L : "DD-MM-YYYY",
         LL : "D MMMM YYYY",
@@ -2072,6 +2136,8 @@ require('../moment').lang('pt-br', {
     weekdaysShort : "Dom_Seg_Ter_Qua_Qui_Sex_Sáb".split("_"),
     weekdaysMin : "Dom_2ª_3ª_4ª_5ª_6ª_Sáb".split("_"),
     longDateFormat : {
+        LN : "D \\de MMM",
+        LNN : "D \\de MMM \\de YYYY",
         LT : "HH:mm",
         L : "DD/MM/YYYY",
         LL : "D \\de MMMM \\de YYYY",
@@ -2122,6 +2188,8 @@ require('../moment').lang('pt', {
     weekdaysShort : "Dom_Seg_Ter_Qua_Qui_Sex_Sáb".split("_"),
     weekdaysMin : "Dom_2ª_3ª_4ª_5ª_6ª_Sáb".split("_"),
     longDateFormat : {
+        LN : "D \\de MMM",
+        LNN : "D \\de MMM \\de YYYY",
         LT : "HH:mm",
         L : "DD/MM/YYYY",
         LL : "D \\de MMMM \\de YYYY",
@@ -2177,6 +2245,8 @@ require('../moment').lang('ro', {
     weekdaysShort : "Dum_Lun_Mar_Mie_Joi_Vin_Sâm".split("_"),
     weekdaysMin : "Du_Lu_Ma_Mi_Jo_Vi_Sâ".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "H:mm",
         L : "DD/MM/YYYY",
         LL : "D MMMM YYYY",
@@ -2289,6 +2359,8 @@ require('../moment').lang('ru', {
     weekdaysShort : "вск_пнд_втр_срд_чтв_птн_сбт".split("_"),
     weekdaysMin : "вс_пн_вт_ср_чт_пт_сб".split("_"),
     longDateFormat : {
+        LN : "D MMM YYYY г.",
+        LNN : "D MMM YYYY г.",
         LT : "HH:mm",
         L : "DD.MM.YYYY",
         LL : "D MMMM YYYY г.",
@@ -2416,6 +2488,8 @@ require('../moment').lang('sl', {
     weekdaysShort : "ned._pon._tor._sre._čet._pet._sob.".split("_"),
     weekdaysMin : "ne_po_to_sr_če_pe_so".split("_"),
     longDateFormat : {
+        LN : "D. MMM",
+        LNN : "D. MMM YYYY",
         LT : "H:mm",
         L : "DD. MM. YYYY",
         LL : "D. MMMM YYYY",
@@ -2493,6 +2567,8 @@ require('../moment').lang('sv', {
     weekdaysShort : "sön_mån_tis_ons_tor_fre_lör".split("_"),
     weekdaysMin : "sö_må_ti_on_to_fr_lö".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "HH:mm",
         L : "YYYY-MM-DD",
         LL : "D MMMM YYYY",
@@ -2547,6 +2623,8 @@ require('../moment').lang('th', {
     weekdaysShort : "อาทิตย์_จันทร์_อังคาร_พุธ_พฤหัส_ศุกร์_เสาร์".split("_"), // yes, three characters difference
     weekdaysMin : "อา._จ._อ._พ._พฤ._ศ._ส.".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "H นาฬิกา m นาที",
         L : "YYYY/MM/DD",
         LL : "D MMMM YYYY",
@@ -2627,6 +2705,8 @@ require('../moment').lang('tr', {
     weekdaysShort : "Paz_Pts_Sal_Çar_Per_Cum_Cts".split("_"),
     weekdaysMin : "Pz_Pt_Sa_Ça_Pe_Cu_Ct".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "HH:mm",
         L : "DD.MM.YYYY",
         LL : "D MMMM YYYY",
@@ -2684,6 +2764,8 @@ require('../moment').lang('tzm-la', {
     weekdaysShort : "asamas_aynas_asinas_akras_akwas_asimwas_asiḍyas".split("_"),
     weekdaysMin : "asamas_aynas_asinas_akras_akwas_asimwas_asiḍyas".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "HH:mm",
         L : "DD/MM/YYYY",
         LL : "D MMMM YYYY",
@@ -2734,6 +2816,8 @@ require('../moment').lang('tzm', {
     weekdaysShort : "ⴰⵙⴰⵎⴰⵙ_ⴰⵢⵏⴰⵙ_ⴰⵙⵉⵏⴰⵙ_ⴰⴽⵔⴰⵙ_ⴰⴽⵡⴰⵙ_ⴰⵙⵉⵎⵡⴰⵙ_ⴰⵙⵉⴹⵢⴰⵙ".split("_"),
     weekdaysMin : "ⴰⵙⴰⵎⴰⵙ_ⴰⵢⵏⴰⵙ_ⴰⵙⵉⵏⴰⵙ_ⴰⴽⵔⴰⵙ_ⴰⴽⵡⴰⵙ_ⴰⵙⵉⵎⵡⴰⵙ_ⴰⵙⵉⴹⵢⴰⵙ".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "HH:mm",
         L : "DD/MM/YYYY",
         LL : "D MMMM YYYY",
@@ -2784,6 +2868,8 @@ require('../moment').lang('zh-cn', {
     weekdaysShort : "周日_周一_周二_周三_周四_周五_周六".split("_"),
     weekdaysMin : "日_一_二_三_四_五_六".split("_"),
     longDateFormat : {
+        LN : "YYYY年MMMD日",
+        LNN : "YYYY年MMMD日",
         LT : "Ah点mm",
         L : "YYYY年MMMD日",
         LL : "YYYY年MMMD日",
@@ -2843,6 +2929,8 @@ require('../moment').lang('zh-tw', {
     weekdaysShort : "週日_週一_週二_週三_週四_週五_週六".split("_"),
     weekdaysMin : "日_一_二_三_四_五_六".split("_"),
     longDateFormat : {
+        LN : "YYYY年MMMD日",
+        LNN : "YYYY年MMMD日",
         LT : "Ah點mm",
         L : "YYYY年MMMD日",
         LL : "YYYY年MMMD日",

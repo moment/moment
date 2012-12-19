@@ -9,6 +9,8 @@ require('../moment').lang('zh-tw', {
     weekdaysShort : "週日_週一_週二_週三_週四_週五_週六".split("_"),
     weekdaysMin : "日_一_二_三_四_五_六".split("_"),
     longDateFormat : {
+        LN : "YYYY年MMMD日",
+        LNN : "YYYY年MMMD日",
         LT : "Ah點mm",
         L : "YYYY年MMMD日",
         LL : "YYYY年MMMD日",

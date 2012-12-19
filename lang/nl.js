@@ -18,6 +18,8 @@ require('../moment').lang('nl', {
     weekdaysShort : "zo._ma._di._wo._do._vr._za.".split("_"),
     weekdaysMin : "Zo_Ma_Di_Wo_Do_Vr_Za".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "HH:mm",
         L : "DD-MM-YYYY",
         LL : "D MMMM YYYY",

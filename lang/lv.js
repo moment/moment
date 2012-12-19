@@ -30,6 +30,8 @@ require('../moment').lang('lv', {
     weekdaysShort : "Sv_P_O_T_C_Pk_S".split("_"),
     weekdaysMin : "Sv_P_O_T_C_Pk_S".split("_"),
     longDateFormat : {
+        LN : "YYYY. [gada] D. MMM",
+        LNN : "YYYY. [gada] D. MMM",
         LT : "HH:mm",
         L : "YYYY.MM.DD.",
         LL : "YYYY. [gada] D. MMMM",

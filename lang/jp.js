@@ -12,6 +12,8 @@ require('../moment').lang('jp', {
     weekdaysShort : "日_月_火_水_木_金_土".split("_"),
     weekdaysMin : "日_月_火_水_木_金_土".split("_"),
     longDateFormat : {
+        LN : "YYYY年M月D日",
+        LNN : "YYYY年M月D日",
         LT : "Ah時m分",
         L : "YYYY/MM/DD",
         LL : "YYYY年M月D日",

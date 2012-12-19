@@ -71,6 +71,8 @@ require('../moment').lang('ru', {
     weekdaysShort : "вск_пнд_втр_срд_чтв_птн_сбт".split("_"),
     weekdaysMin : "вс_пн_вт_ср_чт_пт_сб".split("_"),
     longDateFormat : {
+        LN : "D MMM YYYY г.",
+        LNN : "D MMM YYYY г.",
         LT : "HH:mm",
         L : "DD.MM.YYYY",
         LL : "D MMMM YYYY г.",

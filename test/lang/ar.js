@@ -26,7 +26,7 @@ exports["lang:ar"] = {
     },
 
     "format" : function(test) {
-        test.expect(18);
+        test.expect(20);
         moment.lang('ar');
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'الأحد, ﺶﺑﺎﻃ 14 2010, 3:25:50 pm'],
@@ -46,7 +46,9 @@ exports["lang:ar"] = {
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 ﺶﺑﺎﻃ 2010'],
                 ['LLL',                                '14 ﺶﺑﺎﻃ 2010 15:25'],
-                ['LLLL',                               'الأحد 14 ﺶﺑﺎﻃ 2010 15:25']
+                ['LLLL',                               'الأحد 14 ﺶﺑﺎﻃ 2010 15:25'],
+                ['LN',                                 '14 ﺶﺑﺎﻃ 2010'],
+                ['LNN',                                '14 ﺶﺑﺎﻃ 2010']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;

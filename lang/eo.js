@@ -11,6 +11,8 @@ require('../moment').lang('eo', {
     weekdaysShort : "Dim_Lun_Mard_Merk_Ĵaŭ_Ven_Sab".split("_"),
     weekdaysMin : "Di_Lu_Ma_Me_Ĵa_Ve_Sa".split("_"),
     longDateFormat : {
+        LN : "D-\\an \\de MMM",
+        LNN : "D-\\an \\de MMM, YYYY",
         LT : "HH:mm",
         L : "YYYY-MM-DD",
         LL : "D-\\an \\de MMMM, YYYY",

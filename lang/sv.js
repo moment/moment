@@ -9,6 +9,8 @@ require('../moment').lang('sv', {
     weekdaysShort : "sön_mån_tis_ons_tor_fre_lör".split("_"),
     weekdaysMin : "sö_må_ti_on_to_fr_lö".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "HH:mm",
         L : "YYYY-MM-DD",
         LL : "D MMMM YYYY",

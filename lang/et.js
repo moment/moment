@@ -13,6 +13,8 @@ require('../moment').lang('et', {
     weekdaysShort : "P_E_T_K_N_R_L".split("_"),
     weekdaysMin   : "P_E_T_K_N_R_L".split("_"),
     longDateFormat : {
+        LN   : "D. MMM",
+        LNN  : "D. MMM YYYY",
         LT   : "H:mm",
         L    : "DD.MM.YYYY",
         LL   : "D. MMMM YYYY",

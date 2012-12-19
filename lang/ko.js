@@ -9,6 +9,8 @@ require('../moment').lang('ko', {
     weekdaysShort : "일_월_화_수_목_금_토".split("_"),
     weekdaysMin : "일_월_화_수_목_금_토".split("_"),
     longDateFormat : {
+        LN : "YYYY년 MMM D일",
+        LNN : "YYYY년 MMM D일",
         LT : "A h시 mm분",
         L : "YYYY.MM.DD",
         LL : "YYYY년 MMMM D일",

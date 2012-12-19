@@ -9,6 +9,8 @@ require('../moment').lang('th', {
     weekdaysShort : "อาทิตย์_จันทร์_อังคาร_พุธ_พฤหัส_ศุกร์_เสาร์".split("_"), // yes, three characters difference
     weekdaysMin : "อา._จ._อ._พ._พฤ._ศ._ส.".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "H นาฬิกา m นาที",
         L : "YYYY/MM/DD",
         LL : "D MMMM YYYY",

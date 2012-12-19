@@ -39,7 +39,7 @@ exports["lang:zh-tw"] = {
     },
 
     "format" : function(test) {
-        test.expect(18);
+        test.expect(20);
 
         var a = [
                 ['dddd, MMMM Do YYYY, a h:mm:ss',      '星期日, 二月 14 2010, 下午 3:25:50'],
@@ -59,7 +59,9 @@ exports["lang:zh-tw"] = {
                 ['L',                                  '2010年2月14日'],
                 ['LL',                                 '2010年2月14日'],
                 ['LLL',                                '2010年2月14日下午3點25'],
-                ['LLLL',                               '2010年2月14日星期日下午3點25']
+                ['LLLL',                               '2010年2月14日星期日下午3點25'],
+                ['LN',                                 '2010年2月14日'],
+                ['LNN',                                '2010年2月14日']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;

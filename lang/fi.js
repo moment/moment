@@ -52,6 +52,8 @@ require('../moment').lang('fi', {
     weekdaysShort : "su_ma_ti_ke_to_pe_la".split("_"),
     weekdaysMin : "su_ma_ti_ke_to_pe_la".split("_"),
     longDateFormat : {
+        LN : "Do MMM YYYY",
+        LNN : "Do MMM YYYY",
         LT : "HH.mm",
         L : "DD.MM.YYYY",
         LL : "Do MMMMt\\a YYYY",

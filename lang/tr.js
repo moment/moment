@@ -36,6 +36,8 @@ require('../moment').lang('tr', {
     weekdaysShort : "Paz_Pts_Sal_Çar_Per_Cum_Cts".split("_"),
     weekdaysMin : "Pz_Pt_Sa_Ça_Pe_Cu_Ct".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "HH:mm",
         L : "DD.MM.YYYY",
         LL : "D MMMM YYYY",
