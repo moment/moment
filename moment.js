@@ -1288,7 +1288,7 @@
     }
     /*global define:false */
     if (typeof define === "function" && define.amd) {
-        define(function () {
+        define("moment", [], function () {
             return moment;
         });
     }
