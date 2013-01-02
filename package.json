@@ -42,5 +42,6 @@
     "scripts": {
         "test": "grunt"
     },
-    "ender": "./ender.js"
+    "ender": "./ender.js",
+    "dojoBuild": "package.js"
 }
