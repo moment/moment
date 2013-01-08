@@ -1149,15 +1149,17 @@
         },
 
         startOf: function (units) {
+            units = units.replace(/s$/, '');
             // the following switch intentionally omits break keywords
             // to utilize falling through the cases.
-            switch (units.replace(/s$/, '')) {
+            switch (units) {
             case 'year':
                 this.month(0);
                 /* falls through */
             case 'month':
                 this.date(1);
                 /* falls through */
+            case 'week':
             case 'day':
                 this.hours(0);
                 /* falls through */
@@ -1171,6 +1173,12 @@
                 this.milliseconds(0);
                 /* falls through */
             }
+
+            // weeks are a special case
+            if (units === 'week') {
+                this.day(0);
+            }
+
             return this;
         },
 
