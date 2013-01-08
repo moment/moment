@@ -1028,7 +1028,7 @@
         },
 
         toString : function () {
-            return this._d.toString();
+            return this.format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ");
         },
 
         toDate : function () {

@@ -167,5 +167,13 @@ exports.format = {
         }
 
         test.done();
+    },
+
+    "toString is just human readable format" : function(test) {
+        test.expect(1);
+
+        var b = moment(new Date(2009, 1, 5, 15, 25, 50, 125));
+        test.equal(b.toString(), b.format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ'));
+        test.done();
     }
 };
