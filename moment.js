@@ -1091,17 +1091,18 @@
         },
 
         diff : function (input, val, asFloat) {
-            var inputMoment = this._isUTC ? moment(input).utc() : moment(input).local(),
-                zoneDiff = (this.zone() - inputMoment.zone()) * 6e4,
-                diff = this._d - inputMoment._d - zoneDiff,
-                year = this.year() - inputMoment.year(),
-                month = this.month() - inputMoment.month(),
-                date = this.date() - inputMoment.date(),
+            var that = this._isUTC ? moment(input).utc() : moment(input).local(),
+                zoneDiff = (this.zone() - that.zone()) * 6e4,
+                diff = (this - that) - zoneDiff,
                 output;
-            if (val === 'months') {
-                output = year * 12 + month + date / 30;
-            } else if (val === 'years') {
-                output = year + (month + date / 30) / 12;
+
+            if (val === 'years' || val === 'months') {
+                output = ((this.year() - that.year()) * 12) + (this.month() - that.month());
+                output += (this - moment(this).startOf('month')) / (864e5 * this.daysInMonth());
+                output -= (that - moment(that).startOf('month')) / (864e5 * that.daysInMonth());
+                if (val === 'years') {
+                    output = output / 12;
+                }
             } else {
                 output = val === 'seconds' ? diff / 1e3 : // 1000
                     val === 'minutes' ? diff / 6e4 : // 1000 * 60
@@ -1211,7 +1212,7 @@
         },
 
         dayOfYear : function (input) {
-            var dayOfYear = moment(this).startOf('day').diff(moment(this).startOf('year'), 'days') + 1;
+            var dayOfYear = round((moment(this).startOf('day') - moment(this).startOf('year')) / 864e5) + 1;
             return input == null ? dayOfYear : this.add("d", (input - dayOfYear));
         },
 
