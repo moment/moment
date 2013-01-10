@@ -2889,4 +2889,6 @@ require('../moment').lang('zh-tw', {
         return '';
     }
 });
+
+require('../moment').lang('en');
 })();
