@@ -1122,7 +1122,7 @@
         },
 
         calendar : function () {
-            var diff = this.diff(moment().sod(), 'days', true),
+            var diff = this.diff(moment().startOf('day'), 'days', true),
                 format = diff < -6 ? 'sameElse' :
                 diff < -1 ? 'lastWeek' :
                 diff < 0 ? 'lastDay' :
@@ -1191,15 +1191,6 @@
         isSame: function (input, units) {
             units = typeof units !== 'undefined' ? units : 'millisecond';
             return +this.clone().startOf(units) === +moment(input).startOf(units);
-        },
-
-        sod: function () {
-            return this.clone().startOf('day');
-        },
-
-        eod: function () {
-            // end of day = start of day plus 1 day, minus 1 millisecond
-            return this.clone().endOf('day');
         },
 
         zone : function () {
