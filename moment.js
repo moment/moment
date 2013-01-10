@@ -959,13 +959,6 @@
         return ret;
     };
 
-    // humanizeDuration
-    // This method is deprecated in favor of the new Duration object.  Please
-    // see the moment.duration method.
-    moment.humanizeDuration = function (num, type, withSuffix) {
-        return moment.duration(num, type === true ? null : type).humanize(type === true ? true : withSuffix);
-    };
-
     // version number
     moment.version = VERSION;
 
