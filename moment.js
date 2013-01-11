@@ -627,7 +627,7 @@
             break;
         // YEAR
         case 'YY' :
-            datePartArray[0] = ~~input + (~~input > 70 ? 1900 : 2000);
+            datePartArray[0] = ~~input + (~~input > 68 ? 1900 : 2000);
             break;
         case 'YYYY' :
         case 'YYYYY' :

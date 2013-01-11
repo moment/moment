@@ -204,9 +204,11 @@ exports.create = {
     },
 
     "string with format - years" : function(test) {
-        test.expect(2);
-        test.equal(moment('71', 'YY').format('YYYY'), '1971', '71 > 1971');
-        test.equal(moment('69', 'YY').format('YYYY'), '2069', '69 > 2069');
+        test.expect(4);
+        test.equal(moment('67', 'YY').format('YYYY'), '2067', '67 > 2067');
+        test.equal(moment('68', 'YY').format('YYYY'), '2068', '68 > 2068');
+        test.equal(moment('69', 'YY').format('YYYY'), '1969', '69 > 1969');
+        test.equal(moment('70', 'YY').format('YYYY'), '1970', '70 > 1970');
         test.done();
     },
 
