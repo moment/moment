@@ -351,5 +351,24 @@ exports.create = {
         test.equal(moment("-1000-01-01", "YYYYY-MM-DD").toDate().getFullYear(), -1000, "parse BC 1,001");
         test.equal(moment.utc("-1000-01-01", "YYYYY-MM-DD").toDate().getUTCFullYear(), -1000, "parse utc BC 1,001");
         test.done();
+    },
+
+    "parsing into a language" : function (test) {
+        test.expect(2);
+
+        moment.lang('parselang', {
+            months : "one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve".split('_'),
+            monthsShort : "one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve".split("_")
+        });
+
+        moment.lang('en');
+
+        test.equal(moment('2012 seven', 'YYYY MMM', 'parselang').month(), 6, "should be able to parse in a specific language");
+
+        moment.lang('parselang');
+
+        test.equal(moment('2012 july', 'YYYY MMM', 'en').month(), 6, "should be able to parse in a specific language");
+
+        test.done();
     }
 };
