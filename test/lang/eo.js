@@ -39,7 +39,7 @@ exports["lang:eo"] = {
     },
 
     "format" : function(test) {
-        test.expect(18);
+        test.expect(20);
 
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'Dimanĉo, februaro 14a 2010, 3:25:50 p.t.m.'],
@@ -59,7 +59,9 @@ exports["lang:eo"] = {
                 ['L',                                  '2010-02-14'],
                 ['LL',                                 '14-an de februaro, 2010'],
                 ['LLL',                                '14-an de februaro, 2010 15:25'],
-                ['LLLL',                               'Dimanĉo, la 14-an de februaro, 2010 15:25']
+                ['LLLL',                               'Dimanĉo, la 14-an de februaro, 2010 15:25'],
+                ['LN',                                 '14-an de feb'],
+                ['LNN',                                '14-an de feb, 2010']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;

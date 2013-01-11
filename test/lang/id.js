@@ -38,7 +38,7 @@ exports["lang:id"] = {
     },
 
     "format" : function(test) {
-        test.expect(18);
+        test.expect(20);
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'Minggu, Februari 14 2010, 3:25:50 sore'],
                 ['ddd, hA',                            'Min, 3sore'],
@@ -57,7 +57,9 @@ exports["lang:id"] = {
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 Februari 2010'],
                 ['LLL',                                '14 Februari 2010 pukul 15.25'],
-                ['LLLL',                               'Minggu, 14 Februari 2010 pukul 15.25']
+                ['LLLL',                               'Minggu, 14 Februari 2010 pukul 15.25'],
+                ['LN',                                 '14 Feb'],
+                ['LNN',                                '14 Feb 2010']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;

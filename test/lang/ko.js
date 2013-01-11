@@ -38,7 +38,7 @@ exports["lang:kr"] = {
         test.done();
     },
     "format" : function(test) {
-        test.expect(18);
+        test.expect(20);
 
         var a = [
                 ['YYYY년 MMMM Do dddd a h:mm:ss',      '2010년 2월 14일 일요일 오후 3:25:50'],
@@ -58,7 +58,9 @@ exports["lang:kr"] = {
                 ['L',                                  '2010.02.14'],
                 ['LL',                                 '2010년 2월 14일'],
                 ['LLL',                                '2010년 2월 14일 오후 3시 25분'],
-                ['LLLL',                               '2010년 2월 14일 일요일 오후 3시 25분']
+                ['LLLL',                               '2010년 2월 14일 일요일 오후 3시 25분'],
+                ['LN',                                 '2010년 2월 14일'],
+                ['LNN',                                '2010년 2월 14일']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;

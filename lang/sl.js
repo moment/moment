@@ -70,6 +70,8 @@ require('../moment').lang('sl', {
     weekdaysShort : "ned._pon._tor._sre._čet._pet._sob.".split("_"),
     weekdaysMin : "ne_po_to_sr_če_pe_so".split("_"),
     longDateFormat : {
+        LN : "D. MMM",
+        LNN : "D. MMM YYYY",
         LT : "H:mm",
         L : "DD. MM. YYYY",
         LL : "D. MMMM YYYY",

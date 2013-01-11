@@ -46,6 +46,8 @@ require('../moment').lang('hu', {
     weekdays : "vasárnap_hétfő_kedd_szerda_csütörtök_péntek_szombat".split("_"),
     weekdaysShort : "v_h_k_sze_cs_p_szo".split("_"),
     longDateFormat : {
+        LN : "YYYY. MMM D.",
+        LNN : "YYYY. MMM D.",
         LT : "H:mm",
         L : "YYYY.MM.DD.",
         LL : "YYYY. MMMM D.",

@@ -9,6 +9,8 @@ require('../moment').lang('bg', {
     weekdaysShort : "нед_пон_вто_сря_чет_пет_съб".split("_"),
     weekdaysMin : "нд_пн_вт_ср_чт_пт_сб".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "h:mm",
         L : "D.MM.YYYY",
         LL : "D MMMM YYYY",

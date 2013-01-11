@@ -9,6 +9,8 @@ require('../moment').lang('nb', {
     weekdaysShort : "søn_man_tir_ons_tor_fre_lør".split("_"),
     weekdaysMin : "sø_ma_ti_on_to_fr_lø".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "HH:mm",
         L : "YYYY-MM-DD",
         LL : "D MMMM YYYY",

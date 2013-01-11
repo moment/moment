@@ -9,6 +9,8 @@ require('../moment').lang('ar', {
     weekdaysShort : "احد_اتنين_ثلاثاء_اربعاء_خميس_جمعة_سبت".split("_"),
     weekdaysMin : "ح_ن_ث_ر_خ_ج_س".split("_"),
     longDateFormat : {
+        LN : "D MMMM YYYY",
+        LNN : "D MMMM YYYY",
         LT : "HH:mm",
         L : "DD/MM/YYYY",
         LL : "D MMMM YYYY",

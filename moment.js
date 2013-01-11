@@ -24,7 +24,7 @@
 
         // format tokens
         formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|.)/g,
-        localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?)/g,
+        localFormattingTokens = /(\[[^\[]*\])|(\\)?(LNN?|LT|LL?L?L?)/g,
 
         // parsing tokens
         parseMultipleFormatChunker = /([0-9a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)/gi,
@@ -385,6 +385,8 @@
         },
 
         _longDateFormat : {
+            LN : "MMM D",
+            LNN : "MMM D, YYYY",
             LT : "h:mm A",
             L : "MM/DD/YYYY",
             LL : "MMMM D YYYY",
@@ -525,7 +527,7 @@
 
     // format date using native date object
     function formatMoment(m, format) {
-        var i = 5;
+        var i = 7;
 
         function replaceLongDateFormatTokens(input) {
             return m.lang().longDateFormat(input) || input;

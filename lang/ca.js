@@ -9,6 +9,8 @@ require('../moment').lang('ca', {
     weekdaysShort : "Dg._Dl._Dt._Dc._Dj._Dv._Ds.".split("_"),
     weekdaysMin : "Dg_Dl_Dt_Dc_Dj_Dv_Ds".split("_"),
     longDateFormat : {
+        LN : "D MMM",
+        LNN : "D MMM YYYY",
         LT : "H:mm",
         L : "DD/MM/YYYY",
         LL : "D MMMM YYYY",
