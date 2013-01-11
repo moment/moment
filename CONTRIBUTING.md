@@ -1,7 +1,17 @@
+All pull requests to the `master` branch will be closed.
+========================================================
+
+Please submit all pull requests to the `develop` branch.
+
+Language translations will not be merged without unit tests.
+============================================================
+
+See [the english unit tests](https://github.com/timrwood/moment/blob/develop/test/lang/en.js) for an example.
+
 Submitting Issues
 =================
 
-If you are submitting a bug with moment, please create a [jsfiddle](http://jsfiddle.net/) demonstrating the issue.
+If you are submitting a bug, please create a [jsfiddle](http://jsfiddle.net/) demonstrating the issue.
 
 Contributing
 ============
