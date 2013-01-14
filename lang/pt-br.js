@@ -42,7 +42,5 @@ require('../moment').lang('pt-br', {
         y : "um ano",
         yy : "%d anos"
     },
-    ordinal : function (number) {
-        return 'º';
-    }
+    ordinal : '%dº'
 });

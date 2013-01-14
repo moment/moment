@@ -38,8 +38,5 @@ require('../moment').lang('he', {
         MM : "%d חודשים",
         y : "שנה",
         yy : "%d שנים"
-    },
-    ordinal : function (number) {
-        return ''; // Function is not required for the Hebrew language.
     }
 });

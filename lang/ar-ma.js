@@ -39,9 +39,6 @@ require('../moment').lang('ar-ma', {
         y : "سنة",
         yy : "%d سنوات"
     },
-    ordinal : function (number) {
-        return '';
-    },
     week : {
         dow : 6, // Saturday is the first day of the week.
         doy : 12  // The week that contains Jan 1st is the first week of the year.

@@ -48,7 +48,7 @@ require('../moment').lang('nl', {
         yy : "%d jaar"
     },
     ordinal : function (number) {
-        return (number === 1 || number === 8 || number >= 20) ? 'ste' : 'de';
+        return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de');
     },
     week : {
         dow : 1, // Monday is the first day of the week.
