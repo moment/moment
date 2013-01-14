@@ -50,8 +50,5 @@ require('../moment').lang('zh-cn', {
         MM : "%d个月",
         y : "1年",
         yy : "%d年"
-    },
-    ordinal : function (number) {
-        return '';
     }
 });

@@ -44,8 +44,5 @@ require('../moment').lang('ja', {
         MM : "%dヶ月",
         y : "1年",
         yy : "%d年"
-    },
-    ordinal : function (number) {
-        return '';
     }
 });

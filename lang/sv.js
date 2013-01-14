@@ -39,11 +39,12 @@ require('../moment').lang('sv', {
         yy : "%d år"
     },
     ordinal : function (number) {
-        var b = number % 10;
-        return (~~ (number % 100 / 10) === 1) ? 'e' :
+        var b = number % 10,
+            output = (~~ (number % 100 / 10) === 1) ? 'e' :
             (b === 1) ? 'a' :
             (b === 2) ? 'a' :
             (b === 3) ? 'e' : 'e';
+        return number + output;
     },
     week : {
         dow : 1, // Monday is the first day of the week.
