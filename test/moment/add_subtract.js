@@ -153,6 +153,29 @@ exports.add_subtract = {
         test.done();
     },
 
+    "add and subtract string short reverse args" : function(test) {
+        test.expect(8);
+
+        var a = moment();
+        a.year(2011);
+        a.month(9);
+        a.date(12);
+        a.hours(6);
+        a.minutes(7);
+        a.seconds(8);
+        a.milliseconds(500);
+
+        test.equal(a.add(50, 'ms').milliseconds(), 550, 'Add milliseconds');
+        test.equal(a.add(1, 's').seconds(), 9, 'Add seconds');
+        test.equal(a.add(1, 'm').minutes(), 8, 'Add minutes');
+        test.equal(a.add(1, 'h').hours(), 7, 'Add hours');
+        test.equal(a.add(1, 'd').date(), 13, 'Add date');
+        test.equal(a.add(1, 'w').date(), 20, 'Add week');
+        test.equal(a.add(1, 'M').month(), 10, 'Add month');
+        test.equal(a.add(1, 'y').year(), 2012, 'Add year');
+        test.done();
+    },
+
     "add across DST" : function(test) {
         test.expect(3);
 

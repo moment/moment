@@ -1079,13 +1079,25 @@
         },
 
         add : function (input, val) {
-            var dur = val ? moment.duration(+val, input) : moment.duration(input);
+            var dur;
+            // switch args to support add('s', 1) and add(1, 's')
+            if (typeof input === 'string') {
+                dur = moment.duration(+val, input);
+            } else {
+                dur = moment.duration(input, val);
+            }
             addOrSubtractDurationFromMoment(this, dur, 1);
             return this;
         },
 
         subtract : function (input, val) {
-            var dur = val ? moment.duration(+val, input) : moment.duration(input);
+            var dur;
+            // switch args to support subtract('s', 1) and subtract(1, 's')
+            if (typeof input === 'string') {
+                dur = moment.duration(+val, input);
+            } else {
+                dur = moment.duration(input, val);
+            }
             addOrSubtractDurationFromMoment(this, dur, -1);
             return this;
         },
