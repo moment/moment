@@ -5,7 +5,8 @@
     "homepage": "http://momentjs.com",
     "author": "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
     "contributors": [
-        "Rocky Meza (http://rockymeza.com)"
+        "Rocky Meza (http://rockymeza.com)",
+        "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)"
     ],
     "keywords": [
         "moment",
