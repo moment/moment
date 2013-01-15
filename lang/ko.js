@@ -42,7 +42,5 @@ require('../moment').lang('ko', {
         y : "일년",
         yy : "%d년"
     },
-    ordinal : function (number) {
-        return '일';
-    }
+    ordinal : '%d일'
 });

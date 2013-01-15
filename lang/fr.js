@@ -39,7 +39,7 @@ require('../moment').lang('fr', {
         yy : "%d années"
     },
     ordinal : function (number) {
-        return number === 1 ? 'er' : 'ème';
+        return number + (number === 1 ? 'er' : 'ème');
     },
     week : {
         dow : 1, // Monday is the first day of the week.

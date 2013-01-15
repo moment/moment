@@ -54,19 +54,19 @@ require('../moment').lang('bg', {
         var lastDigit = number % 10,
             last2Digits = number % 100;
         if (number === 0) {
-            return '-ев';
+            return number + '-ев';
         } else if (last2Digits === 0) {
-            return '-ен';
+            return number + '-ен';
         } else if (last2Digits > 10 && last2Digits < 20) {
-            return '-ти';
+            return number + '-ти';
         } else if (lastDigit === 1) {
-            return '-ви';
+            return number + '-ви';
         } else if (lastDigit === 2) {
-            return '-ри';
+            return number + '-ри';
         } else if (lastDigit === 7 || lastDigit === 8) {
-            return '-ми';
+            return number + '-ми';
         } else {
-            return '-ти';
+            return number + '-ти';
         }
     },
     week : {

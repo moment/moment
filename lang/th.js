@@ -44,8 +44,5 @@ require('../moment').lang('th', {
         MM : "%d เดือน",
         y : "1 ปี",
         yy : "%d ปี"
-    },
-    ordinal : function (number) {
-        return '';
     }
 });

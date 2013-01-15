@@ -67,13 +67,13 @@ require('../moment').lang('tr', {
     },
     ordinal : function (number) {
         if (number === 0) {  // special case for zero
-            return "'ıncı";
+            return number + "'ıncı";
         }
         var a = number % 10,
             b = number % 100 - a,
             c = number >= 100 ? 100 : null;
 
-        return suffixes[a] || suffixes[b] || suffixes[c];
+        return number + (suffixes[a] || suffixes[b] || suffixes[c]);
     },
     week : {
         dow : 1, // Monday is the first day of the week.
