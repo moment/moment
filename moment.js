@@ -191,16 +191,8 @@
         Constructors
     ************************************/
 
-    function Language(config) {
-        var prop, i;
-        for (i in config) {
-            prop = config[i];
-            if (typeof prop === 'function') {
-                this[i] = prop;
-            } else {
-                this['_' + i] = prop;
-            }
-        }
+    function Language() {
+
     }
 
     // Moment prototype object
@@ -338,6 +330,18 @@
 
 
     Language.prototype = {
+        set : function (config) {
+            var prop, i;
+            for (i in config) {
+                prop = config[i];
+                if (typeof prop === 'function') {
+                    this[i] = prop;
+                } else {
+                    this['_' + i] = prop;
+                }
+            }
+        },
+
         _months : "January_February_March_April_May_June_July_August_September_October_November_December".split("_"),
         months : function (m) {
             return this._months[m.month()];
@@ -470,7 +474,10 @@
     // this function also returns the language values.
     function loadLang(key, values) {
         values.abbr = key;
-        languages[key] = new Language(values);
+        if (!languages[key]) {
+            languages[key] = new Language();
+        }
+        languages[key].set(values);
         return languages[key];
     }
 

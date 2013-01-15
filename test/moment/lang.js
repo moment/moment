@@ -180,56 +180,21 @@ exports.lang = {
         test.done();
     },
 
-/*
-    // the following tests should be removed after the 2.0.0 release as they will be deprecated
-    "lang accessors on the global object should exist < 2.0.0" : function (test) {
-        moment.lang('en');
+    "changing parts of a language config" : function (test) {
+        test.expect(2);
 
-        var a = 'months|monthsShort|monthsParse|weekdays|weekdaysShort|weekdaysMin|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|');
-        var i;
+        moment.lang('partial-lang', {
+            months : 'a b c d e f g h i j k l'.split(' ')
+        });
 
-        test.expect(a.length);
+        test.equal(moment([2011, 0, 1]).format('MMMM'), 'a', 'should be able to set language values when creating the language');
 
-        for (i = 0; i < a.length; i++) {
-            test.ok(moment[a[i]], "moment." + a[i] + " should exist");
-        }
+        moment.lang('partial-lang', {
+            monthsShort : 'A B C D E F G H I J K L'.split(' ')
+        });
 
-        test.done();
-    },
-
-    // the following tests should be removed after the 2.0.0 release as they will be deprecated
-    "lang accessors on the global object should change < 2.0.0" : function (test) {
-        moment.lang('en');
-
-        var a = 'months|monthsShort|weekdays|weekdaysShort|weekdaysMin|longDateFormat|calendar|relativeTime|ordinal'.split('|');
-        var i;
-        var en = {};
-
-        test.expect(a.length);
-
-        for (i = 0; i < a.length; i++) {
-            en[a[i]] = moment[a[i]];
-        }
-
-        moment.lang('fr');
-
-        for (i = 0; i < a.length; i++) {
-            test.notDeepEqual(en[a[i]], moment[a[i]], "the " + a[i] + " lang data should change on the global object");
-        }
-
-        test.done();
-    },
-
-    "manip lang accessors on the global object < 2.0.0" : function (test) {
-        test.expect(1);
-        moment.lang('en');
-
-        moment.months = ["test"];
-        test.equal(moment([2011, 0]).format('MMMM'), "test", "Should be able to manipulate the objects on the global object");
-
-        moment.lang('en');
+        test.equal(moment([2011, 0, 1]).format('MMMM MMM'), 'a A', 'should be able to set language values after creating the language');
 
         test.done();
     }
-*/
 };
