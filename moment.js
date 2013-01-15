@@ -615,7 +615,7 @@
             break;
         case 'MMM' : // fall through to MMMM
         case 'MMMM' :
-            a = getLangDefinition().monthsParse(input);
+            a = getLangDefinition(config._l).monthsParse(input);
             // if we didn't find a month name, mark the date as invalid.
             if (a != null) {
                 datePartArray[1] = a;
@@ -919,19 +919,21 @@
         return new Moment(config);
     }
 
-    moment = function (input, format) {
+    moment = function (input, format, lang) {
         return makeMoment({
             _i : input,
             _f : format,
+            _l : lang,
             _isUTC : false
         });
     };
 
     // creating with utc
-    moment.utc = function (input, format) {
+    moment.utc = function (input, format, lang) {
         return makeMoment({
             _useUTC : true,
             _isUTC : true,
+            _l : lang,
             _i : input,
             _f : format
         });
