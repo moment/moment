@@ -1113,25 +1113,23 @@
 
         diff : function (input, val, asFloat) {
             var inputMoment = this._isUTC ? moment(input).utc() : moment(input).local(),
-                zoneDiff = (this.zone() - inputMoment.zone()) * 6e4,
-                diff = this._d - inputMoment._d - zoneDiff,
-                year = this.year() - inputMoment.year(),
-                month = this.month() - inputMoment.month(),
-                date = this.date() - inputMoment.date(),
-                output;
-            if (val === 'months') {
-                output = year * 12 + month + date / 30;
-            } else if (val === 'years') {
-                output = year + (month + date / 30) / 12;
-            } else {
-                output = val === 'seconds' ? diff / 1e3 : // 1000
-                    val === 'minutes' ? diff / 6e4 : // 1000 * 60
-                    val === 'hours' ? diff / 36e5 : // 1000 * 60 * 60
-                    val === 'days' ? diff / 864e5 : // 1000 * 60 * 60 * 24
-                    val === 'weeks' ? diff / 6048e5 : // 1000 * 60 * 60 * 24 * 7
-                    diff;
+                diff = moment.duration({
+                    y: this.year() - inputMoment.year(),
+                    M: this.month() - inputMoment.month(),
+                    d: this.date() - inputMoment.date(),
+                    h: this.hours() - inputMoment.hours(),
+                    m: this.minutes() - inputMoment.minutes(),
+                    s: this.seconds() - inputMoment.seconds(),
+                    ms: this.milliseconds() - inputMoment.milliseconds()
+                });
+
+            if (val) {
+                diff = diff['as' + val.charAt(0).toUpperCase() + val.slice(1)]();
+                if (!asFloat) {
+                    diff = round(diff);
+                }
             }
-            return asFloat ? output : round(output);
+            return diff;
         },
 
         from : function (time, withoutSuffix) {
