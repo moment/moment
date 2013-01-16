@@ -47,6 +47,20 @@ exports.diff = {
         test.done();
     },
 
+    "diff key before singular" : function(test) {
+        test.expect(8);
+
+        test.equal(moment([2011]).diff([2010], 'year'), 1, "year diff singular");
+        test.equal(moment([2010, 2]).diff([2010], 'month'), 2, "month diff singular");
+        test.equal(moment([2010, 0, 4]).diff([2010], 'day'), 3, "day diff singular");
+        test.equal(moment([2010, 0, 7]).diff([2010], 'week'), 1, "week diff singular");
+        test.equal(moment([2010, 0, 21]).diff([2010], 'week'), 3, "week diff singular");
+        test.equal(moment([2010, 0, 1, 4]).diff([2010], 'hour'), 4, "hour diff singular");
+        test.equal(moment([2010, 0, 1, 0, 5]).diff([2010], 'minute'), 5, "minute diff singular");
+        test.equal(moment([2010, 0, 1, 0, 0, 6]).diff([2010], 'second'), 6, "second diff singular");
+        test.done();
+    },
+
     "diff month" : function(test) {
         test.expect(1);
 

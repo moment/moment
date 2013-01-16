@@ -1117,6 +1117,7 @@
                 diff, output;
 
             if (units) {
+                // standardize on singular form
                 units = units.replace(/s$/, '');
             }
 
