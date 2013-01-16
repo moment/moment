@@ -1111,24 +1111,29 @@
             return this;
         },
 
-        diff : function (input, val, asFloat) {
-            var inputMoment = this._isUTC ? moment(input).utc() : moment(input).local(),
-                zoneDiff = (this.zone() - inputMoment.zone()) * 6e4,
-                diff = this._d - inputMoment._d - zoneDiff,
-                year = this.year() - inputMoment.year(),
-                month = this.month() - inputMoment.month(),
-                date = this.date() - inputMoment.date(),
-                output;
-            if (val === 'months') {
-                output = year * 12 + month + date / 30;
-            } else if (val === 'years') {
-                output = year + (month + date / 30) / 12;
+        diff : function (input, units, asFloat) {
+            var that = this._isUTC ? moment(input).utc() : moment(input).local(),
+                zoneDiff = (this.zone() - that.zone()) * 6e4,
+                diff, output;
+
+            if (units) {
+                units = units.replace(/s$/, '');
+            }
+
+            if (units === 'year' || units === 'month') {
+                diff = (this.daysInMonth() + that.daysInMonth()) * 432e5; // 24 * 60 * 60 * 1000 / 2
+                output = ((this.year() - that.year()) * 12) + (this.month() - that.month());
+                output += ((this - moment(this).startOf('month')) - (that - moment(that).startOf('month'))) / diff;
+                if (units === 'year') {
+                    output = output / 12;
+                }
             } else {
-                output = val === 'seconds' ? diff / 1e3 : // 1000
-                    val === 'minutes' ? diff / 6e4 : // 1000 * 60
-                    val === 'hours' ? diff / 36e5 : // 1000 * 60 * 60
-                    val === 'days' ? diff / 864e5 : // 1000 * 60 * 60 * 24
-                    val === 'weeks' ? diff / 6048e5 : // 1000 * 60 * 60 * 24 * 7
+                diff = (this - that) - zoneDiff;
+                output = units === 'second' ? diff / 1e3 : // 1000
+                    units === 'minute' ? diff / 6e4 : // 1000 * 60
+                    units === 'hour' ? diff / 36e5 : // 1000 * 60 * 60
+                    units === 'day' ? diff / 864e5 : // 1000 * 60 * 60 * 24
+                    units === 'week' ? diff / 6048e5 : // 1000 * 60 * 60 * 24 * 7
                     diff;
             }
             return asFloat ? output : round(output);
@@ -1232,7 +1237,7 @@
         },
 
         dayOfYear : function (input) {
-            var dayOfYear = moment(this).startOf('day').diff(moment(this).startOf('year'), 'days') + 1;
+            var dayOfYear = round((moment(this).startOf('day') - moment(this).startOf('year')) / 864e5) + 1;
             return input == null ? dayOfYear : this.add("d", (input - dayOfYear));
         },
 
