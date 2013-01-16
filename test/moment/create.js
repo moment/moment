@@ -138,7 +138,8 @@ exports.create = {
                 ['HH:mm:ss SSS',        '00:30:00 123'],
                 ['HH:mm:ss S',          '00:30:00 7'],
                 ['HH:mm:ss SS',         '00:30:00 78'],
-                ['HH:mm:ss SSS',        '00:30:00 789']
+                ['HH:mm:ss SSS',        '00:30:00 789'],
+                ['X.SSS',               '1234567890.123']
             ],
             i;
 
@@ -146,6 +147,21 @@ exports.create = {
         for (i = 0; i < a.length; i++) {
             test.equal(moment(a[i][1], a[i][0]).format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
         }
+        test.done();
+    },
+
+    "unix timestamp format" : function(test) {
+        var formats = ['X', 'X.S', 'X.SS', 'X.SSS'];
+
+        test.expect(formats.length * 4);
+        for (var i = 0; i < formats.length; i++) {
+            var format = formats[i];
+            test.equal(moment('1234567890',     format).valueOf(), 1234567890 * 1000,       format + " matches timestamp without milliseconds");
+            test.equal(moment('1234567890.1',   format).valueOf(), 1234567890 * 1000 + 100, format + " matches timestamp with deciseconds");
+            test.equal(moment('1234567890.12',  format).valueOf(), 1234567890 * 1000 + 120, format + " matches timestamp with centiseconds");
+            test.equal(moment('1234567890.123', format).valueOf(), 1234567890 * 1000 + 123, format + " matches timestamp with milliseconds");
+        }
+
         test.done();
     },
 

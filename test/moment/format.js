@@ -87,6 +87,18 @@ exports.format = {
         test.done();
     },
 
+    "unix timestamp" : function(test) {
+        test.expect(4);
+
+        var m = moment('1234567890.123', 'X');
+        test.equals(m.format('X'), '1234567890', 'unix timestamp without milliseconds');
+        test.equals(m.format('X.S'), '1234567890.1', 'unix timestamp with deciseconds');
+        test.equals(m.format('X.SS'), '1234567890.12', 'unix timestamp with centiseconds');
+        test.equals(m.format('X.SSS'), '1234567890.123', 'unix timestamp with milliseconds');
+
+        test.done();
+    },
+
     "zone" : function(test) {
         test.expect(3);
 
