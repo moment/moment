@@ -1090,25 +1090,29 @@
             return this;
         },
 
-        diff : function (input, val, asFloat) {
+        diff : function (input, units, asFloat) {
             var that = this._isUTC ? moment(input).utc() : moment(input).local(),
                 zoneDiff = (this.zone() - that.zone()) * 6e4,
-                diff = (this - that) - zoneDiff,
-                output;
+                diff, output;
 
-            if (val === 'years' || val === 'months') {
+            if (units) {
+                units = units.replace(/s$/, '');
+            }
+
+            if (units === 'year' || units === 'month') {
+                diff = (this.daysInMonth() + that.daysInMonth()) * 432e5; // 24 * 60 * 60 * 1000 / 2
                 output = ((this.year() - that.year()) * 12) + (this.month() - that.month());
-                output += (this - moment(this).startOf('month')) / (864e5 * this.daysInMonth());
-                output -= (that - moment(that).startOf('month')) / (864e5 * that.daysInMonth());
-                if (val === 'years') {
+                output += ((this - moment(this).startOf('month')) - (that - moment(that).startOf('month'))) / diff;
+                if (units === 'year') {
                     output = output / 12;
                 }
             } else {
-                output = val === 'seconds' ? diff / 1e3 : // 1000
-                    val === 'minutes' ? diff / 6e4 : // 1000 * 60
-                    val === 'hours' ? diff / 36e5 : // 1000 * 60 * 60
-                    val === 'days' ? diff / 864e5 : // 1000 * 60 * 60 * 24
-                    val === 'weeks' ? diff / 6048e5 : // 1000 * 60 * 60 * 24 * 7
+                diff = (this - that) - zoneDiff;
+                output = units === 'second' ? diff / 1e3 : // 1000
+                    units === 'minute' ? diff / 6e4 : // 1000 * 60
+                    units === 'hour' ? diff / 36e5 : // 1000 * 60 * 60
+                    units === 'day' ? diff / 864e5 : // 1000 * 60 * 60 * 24
+                    units === 'week' ? diff / 6048e5 : // 1000 * 60 * 60 * 24 * 7
                     diff;
             }
             return asFloat ? output : round(output);

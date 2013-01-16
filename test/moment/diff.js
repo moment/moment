@@ -1,7 +1,7 @@
 var moment = require("../../moment");
 
 function equal(test, a, b, message) {
-    test.ok(Math.abs(a - b) < 0.000001, message);
+    test.ok(Math.abs(a - b) < 0.00000001, "(" + a + " === " + b + ") " + message);
 }
 
 exports.diff = {
@@ -94,42 +94,36 @@ exports.diff = {
         test.done();
     },
 
-    "year diffs" : function (test) {
+    "month diffs" : function (test) {
         test.expect(8);
 
-        var elevenMonthsThirtyDays = (11 + 30/31) / 12,
-            thirtyDays = (30/31) / 12,
-            elevenMonthsThirtyHalfDays = (11 + 30.5/31) / 12,
-            thirtyHalfDays = (30.5/31) / 12;
-
-        equal(test, moment([2012, 0, 1]).diff([2012, 11, 31], 'years', true), -elevenMonthsThirtyDays, 'start to end of a leap year');
-        equal(test, moment([2012, 0, 1]).diff([2012, 0, 31], 'years', true), -thirtyDays, '30 days in a leap year');
-        equal(test, moment([2011, 0, 1]).diff([2011, 11, 31], 'years', true), -elevenMonthsThirtyDays, 'start to end of a non-leap year');
-        equal(test, moment([2011, 0, 1]).diff([2011, 0, 31], 'years', true), -thirtyDays, '30 days in a non-leap year');
-        equal(test, moment([2011, 0, 1]).diff([2011, 11, 31, 12], 'years', true), -elevenMonthsThirtyHalfDays, 'start to end of a non-leap year');
-        equal(test, moment([2011, 0, 1]).diff([2011, 0, 31, 12], 'years', true), -thirtyHalfDays, '30.5 days in a non-leap year');
-        equal(test, moment([2011, 0, 1]).diff([2012, 11, 31, 12], 'years', true), -(1 + elevenMonthsThirtyHalfDays), 'spanning two years');
-        equal(test, moment([2011, 0, 1]).diff([2012, 0, 31, 12], 'years', true), -(1 + thirtyHalfDays), '1 year 30.5 days spanning two years');
+        // due to floating point math errors, these tests just need to be accurate within 0.00000001
+        equal(test, moment([2012, 0, 1]).diff([2012, 1, 1], 'months', true), -1, 'Jan 1 to Feb 1 should be 1 month');
+        equal(test, moment([2012, 0, 1]).diff([2012, 0, 1, 12], 'months', true), -0.5/31, 'Jan 1 to Jan 1 noon should be 0.5/31 months');
+        equal(test, moment([2012, 0, 15]).diff([2012, 1, 15], 'months', true), -1, 'Jan 15 to Feb 15 should be 1 month');
+        equal(test, moment([2012, 0, 28]).diff([2012, 1, 28], 'months', true), -1, 'Jan 28 to Feb 28 should be 1 month');
+        equal(test, moment([2012, 0, 31]).diff([2012, 1, 29], 'months', true), -1 + (2/30), 'Jan 31 to Feb 29 should be 1 - (2/30) months');
+        equal(test, moment([2012, 0, 31]).diff([2012, 2, 1], 'months', true), -2 + (30/31), 'Jan 31 to Mar 1 should be 2 - (30/31) months');
+        equal(test, moment([2012, 0, 31]).diff([2012, 2, 1, 12], 'months', true), -2 + (29.5/31), 'Jan 31 to Mar 1 should be 2 - (29.5/31) months');
+        equal(test, moment([2012, 0, 1]).diff([2012, 0, 31], 'months', true), -(30 / 31), 'Jan 1 to Jan 31 should be 30/31 months');
 
         test.done();
     },
 
-    "year diff over new year" : function (test) {
-        test.expect(2);
+    "year diffs" : function (test) {
+        test.expect(10);
 
-        equal(test, moment([2011, 11, 31]).diff([2012, 11, 31], 'years', true), -1, '1 year difference over the new year should correct');
-        equal(test, moment([2011, 11, 31]).diff([2012, 0, 1], 'years', true), -(1/31) / 12, '1 day difference over the new year should correct');
-
-        test.done();
-    },
-
-    "month diffs" : function (test) {
-        test.expect(4);
-
-        equal(test, moment([2012, 0, 1]).diff([2012, 11, 31], 'months', true), -(11 + 30 / 31), '11 month 30 day diff should be 11+30/31 months');
-        equal(test, moment([2012, 0, 1]).diff([2012, 0, 31], 'months', true), -30 / 31, '30 day diff should be 30/31 months');
-        equal(test, moment([2012, 0, 1]).diff([2012, 11, 31, 12], 'months', true), -(11 + 30.5 / 31), '11 month 30.5 day diff should be 11+30.5/31 months');
-        equal(test, moment([2012, 0, 1]).diff([2012, 0, 31, 12], 'months', true), -30.5 / 31, '30.5 day diff should be 30.5/31 months');
+        // due to floating point math errors, these tests just need to be accurate within 0.00000001
+        equal(test, moment([2012, 0, 1]).diff([2013, 0, 1], 'years', true), -1, 'Jan 1 2012 to Jan 1 2013 should be 1 year');
+        equal(test, moment([2012, 1, 28]).diff([2013, 1, 28], 'years', true), -1, 'Feb 28 2012 to Feb 28 2013 should be 1 year');
+        equal(test, moment([2012, 2, 1]).diff([2013, 2, 1], 'years', true), -1, 'Mar 1 2012 to Mar 1 2013 should be 1 year');
+        equal(test, moment([2012, 11, 1]).diff([2013, 11, 1], 'years', true), -1, 'Dec 1 2012 to Dec 1 2013 should be 1 year');
+        equal(test, moment([2012, 11, 31]).diff([2013, 11, 31], 'years', true), -1, 'Dec 31 2012 to Dec 31 2013 should be 1 year');
+        equal(test, moment([2012, 0, 1]).diff([2013, 6, 1], 'years', true), -1.5, 'Jan 1 2012 to Jul 1 2013 should be 1.5 years');
+        equal(test, moment([2012, 0, 31]).diff([2013, 6, 31], 'years', true), -1.5, 'Jan 31 2012 to Jul 31 2013 should be 1.5 years');
+        equal(test, moment([2012, 0, 1]).diff([2013, 0, 1, 12], 'years', true), -1-(0.5/31)/12, 'Jan 1 2012 to Jan 1 2013 noon should be 1+(0.5/31)/12 years');
+        equal(test, moment([2012, 0, 1]).diff([2013, 6, 1, 12], 'years', true), -1.5-(0.5/31)/12, 'Jan 1 2012 to Jul 1 2013 noon should be 1.5+(0.5/31)/12 years');
+        equal(test, moment([2012, 1, 29]).diff([2013, 1, 28], 'years', true), -1 + (1/28.5)/12, 'Feb 29 2012 to Feb 28 2013 should be 1-(1/28.5)/12 years');
 
         test.done();
     }
