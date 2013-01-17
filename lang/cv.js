@@ -12,9 +12,9 @@ require('../moment').lang('cv', {
     longDateFormat : {
         LT : "HH:mm",
         L : "DD-MM-YYYY",
-        LL : "YYYY çулхи MMMM уйăхĕн D-мĕшĕ",
-        LLL : "YYYY çулхи MMMM уйăхĕн D-мĕшĕ, LT",
-        LLLL : "dddd, YYYY çулхи MMMM уйăхĕн D-мĕшĕ, LT"
+        LL : "YYYY [çулхи] MMMM [уйăхĕн] D[-мĕшĕ]",
+        LLL : "YYYY [çулхи] MMMM [уйăхĕн] D[-мĕшĕ], LT",
+        LLLL : "dddd, YYYY [çулхи] MMMM [уйăхĕн] D[-мĕшĕ], LT"
     },
     calendar : {
         sameDay: '[Паян] LT [сехетре]',

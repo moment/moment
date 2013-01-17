@@ -39,27 +39,31 @@ exports["lang:et"] = {
     },
 
     "format" : function(test) {
-        test.expect(18);
+        test.expect(22);
 
         var a = [
                 ['dddd, Do MMMM YYYY, H:mm:ss',      'pühapäev, 14. veebruar 2010, 15:25:50'],
-                ['ddd, h',                            'P, 3'],
-                ['M Mo MM MMMM MMM',                   '2 2. 02 veebruar veebr'],
-                ['YYYY YY',                            '2010 10'],
-                ['D Do DD',                            '14 14. 14'],
-                ['d do dddd ddd dd',                   '0 0. pühapäev P P'],
-                ['DDD DDDo DDDD',                      '45 45. 045'],
-                ['w wo ww',                            '6 6. 06'],
-                ['h hh',                               '3 03'],
-                ['H HH',                               '15 15'],
-                ['m mm',                               '25 25'],
-                ['s ss',                               '50 50'],
-                ['a A',                                'pm PM'],
-                ['\\a\\a\\st\\a DDDo päev', 'aasta 45. päev'],
-                ['L',                                  '14.02.2010'],
-                ['LL',                                 '14. veebruar 2010'],
-                ['LLL',                                '14. veebruar 2010 15:25'],
-                ['LLLL',                               'pühapäev, 14. veebruar 2010 15:25']
+                ['ddd, h',                           'P, 3'],
+                ['M Mo MM MMMM MMM',                 '2 2. 02 veebruar veebr'],
+                ['YYYY YY',                          '2010 10'],
+                ['D Do DD',                          '14 14. 14'],
+                ['d do dddd ddd dd',                 '0 0. pühapäev P P'],
+                ['DDD DDDo DDDD',                    '45 45. 045'],
+                ['w wo ww',                          '6 6. 06'],
+                ['h hh',                             '3 03'],
+                ['H HH',                             '15 15'],
+                ['m mm',                             '25 25'],
+                ['s ss',                             '50 50'],
+                ['a A',                              'pm PM'],
+                ['[aasta] DDDo [päev]',              'aasta 45. päev'],
+                ['L',                                '14.02.2010'],
+                ['LL',                               '14. veebruar 2010'],
+                ['LLL',                              '14. veebruar 2010 15:25'],
+                ['LLLL',                             'pühapäev, 14. veebruar 2010 15:25'],
+                ['l',                                '14.2.2010'],
+                ['ll',                               '14. veebr 2010'],
+                ['lll',                              '14. veebr 2010 15:25'],
+                ['llll',                             'P, 14. veebr 2010 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;

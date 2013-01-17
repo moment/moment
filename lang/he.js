@@ -14,7 +14,11 @@ require('../moment').lang('he', {
         L : "DD/MM/YYYY",
         LL : "D [ב]MMMM YYYY",
         LLL : "D [ב]MMMM YYYY LT",
-        LLLL : "dddd, D [ב]MMMM YYYY LT"
+        LLLL : "dddd, D [ב]MMMM YYYY LT",
+        l : "D/M/YYYY",
+        ll : "D MMM YYYY",
+        lll : "D MMM YYYY LT",
+        llll : "ddd, D MMM YYYY LT"
     },
     calendar : {
         sameDay : '[היום ב־]LT',

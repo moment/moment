@@ -38,7 +38,7 @@ exports["lang:fi"] = {
     },
 
     "format" : function(test) {
-        test.expect(18);
+        test.expect(22);
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'sunnuntai, helmikuu 14. 2010, 3:25:50 pm'],
                 ['ddd, hA',                            'su, 3PM'],
@@ -53,11 +53,15 @@ exports["lang:fi"] = {
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
-                ['vuo\\den DDDo päivä', 'vuoden 45. päivä'],
+                ['vuo\\den DDDo päivä',                'vuoden 45. päivä'],
                 ['L',                                  '14.02.2010'],
                 ['LL',                                 '14. helmikuuta 2010'],
                 ['LLL',                                '14. helmikuuta 2010, klo 15.25'],
-                ['LLLL',                               'sunnuntai, 14. helmikuuta 2010, klo 15.25']
+                ['LLLL',                               'sunnuntai, 14. helmikuuta 2010, klo 15.25'],
+                ['l',                                  '14.2.2010'],
+                ['ll',                                 '14. hel 2010'],
+                ['lll',                                '14. hel 2010, klo 15.25'],
+                ['llll',                               'su, 14. hel 2010, klo 15.25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
