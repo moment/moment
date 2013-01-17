@@ -98,7 +98,7 @@ exports.lang = {
 
         test.equal(moment([2012, 5, 6]).lang('es').add({days: 1}).format('MMMM'), 'junio', 'With addition');
         test.equal(moment([2012, 5, 6]).lang('es').day(0).format('MMMM'), 'junio', 'With day getter');
-        test.equal(moment([2012, 5, 6]).lang('es').eod().format('MMMM'), 'junio', 'With eod');
+        test.equal(moment([2012, 5, 6]).lang('es').endOf('day').format('MMMM'), 'junio', 'With endOf');
 
         test.done();
     },
