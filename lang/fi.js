@@ -54,9 +54,13 @@ require('../moment').lang('fi', {
     longDateFormat : {
         LT : "HH.mm",
         L : "DD.MM.YYYY",
-        LL : "Do MMMMt\\a YYYY",
-        LLL : "Do MMMMt\\a YYYY, klo LT",
-        LLLL : "dddd, Do MMMMt\\a YYYY, klo LT"
+        LL : "Do MMMM[ta] YYYY",
+        LLL : "Do MMMM[ta] YYYY, [klo] LT",
+        LLLL : "dddd, Do MMMM[ta] YYYY, [klo] LT",
+        l : "D.M.YYYY",
+        ll : "Do MMM YYYY",
+        lll : "Do MMM YYYY, [klo] LT",
+        llll : "ddd, Do MMM YYYY, [klo] LT"
     },
     calendar : {
         sameDay : '[tänään] [klo] LT',

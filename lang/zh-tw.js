@@ -13,7 +13,11 @@ require('../moment').lang('zh-tw', {
         L : "YYYY年MMMD日",
         LL : "YYYY年MMMD日",
         LLL : "YYYY年MMMD日LT",
-        LLLL : "YYYY年MMMD日ddddLT"
+        LLLL : "YYYY年MMMD日ddddLT",
+        l : "YYYY年MMMD日",
+        ll : "YYYY年MMMD日",
+        lll : "YYYY年MMMD日LT",
+        llll : "YYYY年MMMD日ddddLT"
     },
     meridiem : function (hour, minute, isLower) {
         if (hour < 9) {

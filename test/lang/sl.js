@@ -39,7 +39,7 @@ exports["lang:sl"] = {
     },
 
     "format" : function(test) {
-        test.expect(18);
+        test.expect(22);
         var a = [
                 ['dddd, Do MMMM YYYY, h:mm:ss a',      'nedelja, 14. februar 2010, 3:25:50 pm'],
                 ['ddd, hA',                            'ned., 3PM'],
@@ -58,7 +58,11 @@ exports["lang:sl"] = {
                 ['L',                                  '14. 02. 2010'],
                 ['LL',                                 '14. februar 2010'],
                 ['LLL',                                '14. februar 2010 15:25'],
-                ['LLLL',                               'nedelja, 14. februar 2010 15:25']
+                ['LLLL',                               'nedelja, 14. februar 2010 15:25'],
+                ['l',                                  '14. 2. 2010'],
+                ['ll',                                 '14. feb. 2010'],
+                ['lll',                                '14. feb. 2010 15:25'],
+                ['llll',                               'ned., 14. feb. 2010 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;

@@ -39,7 +39,7 @@ exports["lang:is"] = {
     },
 
     "format" : function(test) {
-        test.expect(18);
+        test.expect(22);
 
         var a = [
                 ['dddd, Do MMMM YYYY, h:mm:ss a',      'sunnudagur, 14. febrúar 2010, 3:25:50 pm'],
@@ -55,11 +55,15 @@ exports["lang:is"] = {
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
-                ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45. day of the year'],
+                ['[the] DDDo [day of the year]',       'the 45. day of the year'],
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14. febrúar 2010'],
                 ['LLL',                                '14. febrúar 2010 kl. 15:25'],
-                ['LLLL',                               'sunnudagur, 14. febrúar 2010 kl. 15:25']
+                ['LLLL',                               'sunnudagur, 14. febrúar 2010 kl. 15:25'],
+                ['l',                                  '14/2/2010'],
+                ['ll',                                 '14. feb 2010'],
+                ['lll',                                '14. feb 2010 kl. 15:25'],
+                ['llll',                               'sun, 14. feb 2010 kl. 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
