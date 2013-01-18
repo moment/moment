@@ -18,7 +18,7 @@ exports["lang:fi"] = {
 
     "parse" : function(test) {
         test.expect(96);
-        var tests = 'tammikuu tam_helmikuu hel_maaliskuu maa_huhtikuu huh_toukokuu tou_kesäkuu kes_heinäkuu hei_elokuu elo_syyskuu syys_lokakuu lok_marraskuu mar_joulukuu jou'.split("_");
+        var tests = 'tammikuu tammi_helmikuu helmi_maaliskuu maalis_huhtikuu huhti_toukokuu touko_kesäkuu kesä_heinäkuu heinä_elokuu elo_syyskuu syys_lokakuu loka_marraskuu marras_joulukuu joulu'.split("_");
         var i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
@@ -42,7 +42,7 @@ exports["lang:fi"] = {
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'sunnuntai, helmikuu 14. 2010, 3:25:50 pm'],
                 ['ddd, hA',                            'su, 3PM'],
-                ['M Mo MM MMMM MMM',                   '2 2. 02 helmikuu hel'],
+                ['M Mo MM MMMM MMM',                   '2 2. 02 helmikuu helmi'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14. 14'],
                 ['d do dddd ddd dd',                   '0 0. sunnuntai su su'],
@@ -59,9 +59,9 @@ exports["lang:fi"] = {
                 ['LLL',                                '14. helmikuuta 2010, klo 15.25'],
                 ['LLLL',                               'sunnuntai, 14. helmikuuta 2010, klo 15.25'],
                 ['l',                                  '14.2.2010'],
-                ['ll',                                 '14. hel 2010'],
-                ['lll',                                '14. hel 2010, klo 15.25'],
-                ['llll',                               'su, 14. hel 2010, klo 15.25']
+                ['ll',                                 '14. helmi 2010'],
+                ['lll',                                '14. helmi 2010, klo 15.25'],
+                ['llll',                               'su, 14. helmi 2010, klo 15.25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -112,7 +112,7 @@ exports["lang:fi"] = {
 
     "format month" : function(test) {
         test.expect(12);
-        var expected = 'tammikuu tam_helmikuu hel_maaliskuu maa_huhtikuu huh_toukokuu tou_kesäkuu kes_heinäkuu hei_elokuu elo_syyskuu syy_lokakuu lok_marraskuu mar_joulukuu jou'.split("_");
+        var expected = 'tammikuu tammi_helmikuu helmi_maaliskuu maalis_huhtikuu huhti_toukokuu touko_kesäkuu kesä_heinäkuu heinä_elokuu elo_syyskuu syys_lokakuu loka_marraskuu marras_joulukuu joulu'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
