@@ -63,7 +63,7 @@ function weekdaysCaseReplace(m, format) {
     return weekdays[nounCase][m.day()];
 }
 
-require('../moment').lang('ru', {
+require('../moment').lang('uk', {
     months : monthsCaseReplace,
     monthsShort : "січ_лют_бер_кві_тра_чер_лип_сер_вер_жов_лис_гру".split("_"),
     weekdays : weekdaysCaseReplace,
