@@ -38,6 +38,7 @@
         parseTokenWord = /[0-9]*[a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF]+\s*?[\u0600-\u06FF]+/i, // any word (or two) characters or numbers including two word month in arabic.
         parseTokenTimezone = /Z|[\+\-]\d\d:?\d\d/i, // +00:00 -00:00 +0000 -0000 or Z
         parseTokenT = /T/i, // T (ISO seperator)
+        parseTokenTimestampMs = /[\+\-]?\d+(\.\d{1,3})?/, // 123456789 123456789.123
 
         // preliminary iso regex
         // 0000-00-00 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000
@@ -161,6 +162,9 @@
                     b = "-";
                 }
                 return b + leftZeroFill(~~(10 * a / 6), 4);
+            },
+            X    : function() {
+                return this.unix() + '.' + this.milliseconds();
             }
         };
 
@@ -585,6 +589,8 @@
         case 'a':
         case 'A':
             return parseTokenWord;
+        case 'X':
+            return parseTokenTimestampMs;
         case 'Z':
         case 'ZZ':
             return parseTokenTimezone;
@@ -676,6 +682,10 @@
         case 'SSS' :
             datePartArray[6] = ~~ (('0.' + input) * 1000);
             break;
+        // UNIX TIMESTAMP WITH MS
+        case 'X':
+            config._d = new Date(parseFloat(input) * 1000);
+            break;
         // TIMEZONE
         case 'Z' : // fall through to ZZ
         case 'ZZ' :
@@ -707,6 +717,10 @@
     // [year, month, day , hour, minute, second, millisecond]
     function dateFromArray(config) {
         var i, date, input = [];
+
+        if (config._d) {
+            return;
+        }
 
         for (i = 0; i < 7; i++) {
             config._a[i] = input[i] = (config._a[i] == null) ? (i === 2 ? 1 : 0) : config._a[i];
