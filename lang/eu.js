@@ -13,7 +13,11 @@ require('../moment').lang('eu', {
         L : "YYYY-MM-DD",
         LL : "YYYYko MMMMren D[a]",
         LLL : "YYYYko MMMMren D[a] LT",
-        LLLL : "dddd, YYYYko MMMMren D[a] LT"
+        LLLL : "dddd, YYYYko MMMMren D[a] LT",
+        l : "YYYY-M-D",
+        ll : "YYYYko MMM D[a]",
+        lll : "YYYYko MMM D[a] LT",
+        llll : "ddd, YYYYko MMM D[a] LT"
     },
     calendar : {
         sameDay : '[gaur] LT[etan]',

@@ -39,7 +39,7 @@ exports["lang:ro"] = {
     },
 
     "format" : function(test) {
-        test.expect(18);
+        test.expect(22);
 
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss A',  'Duminică, Februarie 14 2010, 3:25:50 PM'],
@@ -55,11 +55,15 @@ exports["lang:ro"] = {
                 ['m mm',                           '25 25'],
                 ['s ss',                           '50 50'],
                 ['a A',                            'pm PM'],
-                ['\\a DDDo\\a zi \\a \\anului',    'a 45a zi a anului'],
+                ['[a] DDDo[a zi a anului]',        'a 45a zi a anului'],
                 ['L',                              '14/02/2010'],
                 ['LL',                             '14 Februarie 2010'],
                 ['LLL',                            '14 Februarie 2010 15:25'],
-                ['LLLL',                           'Duminică, 14 Februarie 2010 15:25']
+                ['LLLL',                           'Duminică, 14 Februarie 2010 15:25'],
+                ['l',                              '14/2/2010'],
+                ['ll',                             '14 Feb 2010'],
+                ['lll',                            '14 Feb 2010 15:25'],
+                ['llll',                           'Dum, 14 Feb 2010 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;

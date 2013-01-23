@@ -42,7 +42,7 @@ exports["lang:pt-br"] = {
     },
 
     "format" : function(test) {
-        test.expect(18);
+        test.expect(22);
 
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'Domingo, Fevereiro 14º 2010, 3:25:50 pm'],
@@ -62,7 +62,11 @@ exports["lang:pt-br"] = {
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 de Fevereiro de 2010'],
                 ['LLL',                                '14 de Fevereiro de 2010 15:25'],
-                ['LLLL',                               'Domingo, 14 de Fevereiro de 2010 15:25']
+                ['LLLL',                               'Domingo, 14 de Fevereiro de 2010 15:25'],
+                ['l',                                  '14/2/2010'],
+                ['ll',                                 '14 de Fev de 2010'],
+                ['lll',                                '14 de Fev de 2010 15:25'],
+                ['llll',                               'Dom, 14 de Fev de 2010 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;

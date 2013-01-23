@@ -38,7 +38,7 @@ exports["lang:hu"] = {
     },
 
     "format" : function(test) {
-        test.expect(16);
+        test.expect(20);
 
         var a = [
                 ['dddd, MMMM Do YYYY, HH:mm:ss',      'vasárnap, február 14. 2010, 15:25:50'],
@@ -52,11 +52,15 @@ exports["lang:hu"] = {
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
-                ['\\az év DDDo n\\apj\\a',           'az év 45. napja'],
+                ['\\az év DDDo n\\apj\\a',             'az év 45. napja'],
                 ['L',                                  '2010.02.14.'],
                 ['LL',                                 '2010. február 14.'],
                 ['LLL',                                '2010. február 14., 15:25'],
-                ['LLLL',                               '2010. február 14., vasárnap 15:25']
+                ['LLLL',                               '2010. február 14., vasárnap 15:25'],
+                ['l',                                  '2010.2.14.'],
+                ['ll',                                 '2010. feb 14.'],
+                ['lll',                                '2010. feb 14., 15:25'],
+                ['llll',                               '2010. feb 14., v 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;

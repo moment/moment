@@ -80,8 +80,8 @@ require('../moment').lang('is', {
         LT : "H:mm",
         L : "DD/MM/YYYY",
         LL : "D. MMMM YYYY",
-        LLL : "D. MMMM YYYY kl. LT",
-        LLLL : "dddd, D. MMMM YYYY kl. LT"
+        LLL : "D. MMMM YYYY [kl.] LT",
+        LLLL : "dddd, D. MMMM YYYY [kl.] LT"
     },
     calendar : {
         sameDay : '[í dag kl.] LT',
