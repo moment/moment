@@ -259,7 +259,9 @@
 
     function extend(a, b) {
         for (var i in b) {
-            a[i] = b[i];
+            if (b.hasOwnProperty(i)) {
+                a[i] = b[i];
+            }
         }
         return a;
     }
