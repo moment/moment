@@ -828,7 +828,7 @@
             config._a = input.slice(0);
             dateFromArray(config);
         } else {
-            config._d = input instanceof Date ? input : new Date(input);
+            config._d = input instanceof Date ? new Date(+input) : new Date(input);
         }
     }
 

@@ -49,6 +49,13 @@ exports.create = {
         test.done();
     },
 
+    "date mutation" : function(test) {
+        test.expect(1);
+        var a = new Date();
+        test.ok(moment(a).toDate() !== a, "the date moment uses should not be the date passed in");
+        test.done();
+    },
+
     "moment" : function(test) {
         test.expect(2);
         test.ok(moment(moment()).toDate() instanceof Date, "moment(moment())");
