@@ -1152,7 +1152,7 @@
                     units === 'week' ? diff / 6048e5 : // 1000 * 60 * 60 * 24 * 7
                     diff;
             }
-            return asFloat ? output : round(output);
+            return asFloat ? output : absRound(output);
         },
 
         from : function (time, withoutSuffix) {

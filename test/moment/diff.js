@@ -20,12 +20,14 @@ exports.diff = {
     },
 
     "diff key after" : function(test) {
-        test.expect(8);
+        test.expect(10);
 
         test.equal(moment([2010]).diff([2011], 'years'), -1, "year diff");
         test.equal(moment([2010]).diff([2010, 2], 'months'), -2, "month diff");
-        test.equal(moment([2010]).diff([2010, 0, 7], 'weeks'), -1, "week diff");
-        test.equal(moment([2010]).diff([2010, 0, 21], 'weeks'), -3, "week diff");
+        test.equal(moment([2010]).diff([2010, 0, 7], 'weeks'), 0, "week diff");
+        test.equal(moment([2010]).diff([2010, 0, 8], 'weeks'), -1, "week diff");
+        test.equal(moment([2010]).diff([2010, 0, 21], 'weeks'), -2, "week diff");
+        test.equal(moment([2010]).diff([2010, 0, 22], 'weeks'), -3, "week diff");
         test.equal(moment([2010]).diff([2010, 0, 4], 'days'), -3, "day diff");
         test.equal(moment([2010]).diff([2010, 0, 1, 4], 'hours'), -4, "hour diff");
         test.equal(moment([2010]).diff([2010, 0, 1, 0, 5], 'minutes'), -5, "minute diff");
@@ -34,13 +36,15 @@ exports.diff = {
     },
 
     "diff key before" : function(test) {
-        test.expect(8);
+        test.expect(10);
 
         test.equal(moment([2011]).diff([2010], 'years'), 1, "year diff");
         test.equal(moment([2010, 2]).diff([2010], 'months'), 2, "month diff");
         test.equal(moment([2010, 0, 4]).diff([2010], 'days'), 3, "day diff");
-        test.equal(moment([2010, 0, 7]).diff([2010], 'weeks'), 1, "week diff");
-        test.equal(moment([2010, 0, 21]).diff([2010], 'weeks'), 3, "week diff");
+        test.equal(moment([2010, 0, 7]).diff([2010], 'weeks'), 0, "week diff");
+        test.equal(moment([2010, 0, 8]).diff([2010], 'weeks'), 1, "week diff");
+        test.equal(moment([2010, 0, 21]).diff([2010], 'weeks'), 2, "week diff");
+        test.equal(moment([2010, 0, 22]).diff([2010], 'weeks'), 3, "week diff");
         test.equal(moment([2010, 0, 1, 4]).diff([2010], 'hours'), 4, "hour diff");
         test.equal(moment([2010, 0, 1, 0, 5]).diff([2010], 'minutes'), 5, "minute diff");
         test.equal(moment([2010, 0, 1, 0, 0, 6]).diff([2010], 'seconds'), 6, "second diff");
@@ -48,13 +52,15 @@ exports.diff = {
     },
 
     "diff key before singular" : function(test) {
-        test.expect(8);
+        test.expect(10);
 
         test.equal(moment([2011]).diff([2010], 'year'), 1, "year diff singular");
         test.equal(moment([2010, 2]).diff([2010], 'month'), 2, "month diff singular");
         test.equal(moment([2010, 0, 4]).diff([2010], 'day'), 3, "day diff singular");
-        test.equal(moment([2010, 0, 7]).diff([2010], 'week'), 1, "week diff singular");
-        test.equal(moment([2010, 0, 21]).diff([2010], 'week'), 3, "week diff singular");
+        test.equal(moment([2010, 0, 7]).diff([2010], 'week'), 0, "week diff singular");
+        test.equal(moment([2010, 0, 8]).diff([2010], 'week'), 1, "week diff singular");
+        test.equal(moment([2010, 0, 21]).diff([2010], 'week'), 2, "week diff singular");
+        test.equal(moment([2010, 0, 22]).diff([2010], 'week'), 3, "week diff singular");
         test.equal(moment([2010, 0, 1, 4]).diff([2010], 'hour'), 4, "hour diff singular");
         test.equal(moment([2010, 0, 1, 0, 5]).diff([2010], 'minute'), 5, "minute diff singular");
         test.equal(moment([2010, 0, 1, 0, 0, 6]).diff([2010], 'second'), 6, "second diff singular");
@@ -92,10 +98,24 @@ exports.diff = {
         test.equal(moment([2011]).utc().diff([2010], 'years'), 1, "year diff");
         test.equal(moment([2010, 2]).utc().diff([2010], 'months'), 2, "month diff");
         test.equal(moment([2010, 0, 4]).utc().diff([2010], 'days'), 3, "day diff");
-        test.equal(moment([2010, 0, 21]).utc().diff([2010], 'weeks'), 3, "week diff");
+        test.equal(moment([2010, 0, 22]).utc().diff([2010], 'weeks'), 3, "week diff");
         test.equal(moment([2010, 0, 1, 4]).utc().diff([2010], 'hours'), 4, "hour diff");
         test.equal(moment([2010, 0, 1, 0, 5]).utc().diff([2010], 'minutes'), 5, "minute diff");
         test.equal(moment([2010, 0, 1, 0, 0, 6]).utc().diff([2010], 'seconds'), 6, "second diff");
+
+        test.done();
+    },
+
+    "diff floored" : function(test) {
+        test.expect(7);
+
+        test.equal(moment([2010, 0, 1, 23]).diff([2010], 'day'), 0, "23 hours = 0 days");
+        test.equal(moment([2010, 0, 1, 23, 59]).diff([2010], 'day'), 0, "23:59 hours = 0 days");
+        test.equal(moment([2010, 0, 1, 24]).diff([2010], 'day'), 1, "24 hours = 1 day");
+        test.equal(moment([2010, 0, 2]).diff([2011, 0, 1], 'year'), 0, "year rounded down");
+        test.equal(moment([2011, 0, 1]).diff([2010, 0, 2], 'year'), 0, "year rounded down");
+        test.equal(moment([2010, 0, 2]).diff([2011, 0, 2], 'year'), -1, "year rounded down");
+        test.equal(moment([2011, 0, 2]).diff([2010, 0, 2], 'year'), 1, "year rounded down");
 
         test.done();
     },
