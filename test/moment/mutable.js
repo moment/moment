@@ -36,11 +36,10 @@ exports.mutable = {
     "non mutable methods" : function (test) {
 
         var nonMutableMethods = {
-            'sod':       function (m){ return m.sod() },
-            'eod':       function (m){ return m.eod() }
+            'clone':       function (m){ return m.clone() }
         };
 
-        test.expect(2);
+        test.expect(1);
 
         for (method in nonMutableMethods){
             if (nonMutableMethods.hasOwnProperty(method)) {
