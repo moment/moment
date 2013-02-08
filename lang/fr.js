@@ -35,8 +35,8 @@ require('../moment').lang('fr', {
         dd : "%d jours",
         M : "un mois",
         MM : "%d mois",
-        y : "une année",
-        yy : "%d années"
+        y : "une an",
+        yy : "%d ans"
     },
     ordinal : function (number) {
         return number + (number === 1 ? 'er' : 'ème');
