@@ -1,11 +1,12 @@
 {
     "name": "moment",
-    "version": "1.7.2",
+    "version": "2.0.0",
     "description": "Parse, manipulate, and display dates.",
     "homepage": "http://momentjs.com",
     "author": "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
     "contributors": [
-        "Rocky Meza (http://rockymeza.com)"
+        "Rocky Meza (http://rockymeza.com)",
+        "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)"
     ],
     "keywords": [
         "moment",
@@ -35,12 +36,13 @@
         }
     ],
     "devDependencies" : {
-        "jshint"    : "latest",
         "uglify-js" : "latest",
-        "nodeunit"  : "latest"
+        "nodeunit"  : "latest",
+        "grunt"     : "latest"
     },
     "scripts": {
-        "test": "make test"
+        "test": "grunt"
     },
-    "ender": "./ender.js"
+    "ender": "./ender.js",
+    "dojoBuild": "package.js"
 }

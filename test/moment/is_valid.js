@@ -92,6 +92,14 @@ exports.is_valid = {
         test.done();
     },
 
+    "string with spaceless format" : function (test) {
+        test.expect(1);
+
+        test.equal(moment('10Sep2001', 'DDMMMYYYY').isValid(), true, "Parsing 10Sep2001 should result in a valid date");
+
+        test.done();
+    },
+
     "invalid string iso 8601" : function (test) {
 
         var tests = [

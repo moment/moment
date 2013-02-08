@@ -1,13 +1,25 @@
-[Moment.js](http://momentjs.com)
-================================
-
 A lightweight javascript date library for parsing, validating, manipulating, and formatting dates.
 
-### [Check out the website](http://momentjs.com)
+# [Documentation](http://momentjs.com/docs/)
 
-### [Read the documentation](http://momentjs.com/docs/)
+Upgrading to 2.0.0
+==================
 
-### [Run the unit tests](http://momentjs.com/test/)
+There are a number of small backwards incompatible changes with version 2.0.0.
+
+[See them and their descriptions here](https://gist.github.com/timrwood/e72f2eef320ed9e37c51#backwards-incompatible-changes)
+
+Changed language ordinal method to return the number + ordinal instead of just the ordinal.
+
+Changed two digit year parsing cutoff to match strptime.
+
+Removed `moment#sod` and `moment#eod` in favor of `moment#startOf` and `moment#endOf`.
+
+Removed `moment.humanizeDuration()` in favor of `moment.duration().humanize()`.
+
+Removed the lang data objects from the top level namespace.
+
+Duplicate `Date` passed to `moment()` instead of referencing it.
 
 Travis Build Status
 ===================
@@ -32,9 +44,49 @@ Changelog
 =========
 
 
+### 2.0.0 [See changelog](https://gist.github.com/timrwood/e72f2eef320ed9e37c51)
+
+Added short form localized tokens.
+
+Added ability to define language a string should be parsed in.
+
+Added support for reversed add/subtract arguments.
+
+Added support for `endOf('week')` and `startOf('week')`.
+
+Fixed the logic for `moment#diff(Moment, 'months')` and `moment#diff(Moment, 'years')`
+
+`moment#diff` now floors instead of rounds.
+
+Normalized `moment#toString`.
+
+Added `isSame`, `isAfter`, and `isBefore` methods.
+
+Added better week support.
+
+Added `moment#toJSON`
+
+Bugfix: Fixed parsing of first century dates
+
+Bugfix: Parsing 10Sep2001 should work as expected
+
+Bugfix: Fixed wierdness with `moment.utc()` parsing.
+
+Changed language ordinal method to return the number + ordinal instead of just the ordinal.
+
+Changed two digit year parsing cutoff to match strptime.
+
+Removed `moment#sod` and `moment#eod` in favor of `moment#startOf` and `moment#endOf`.
+
+Removed `moment.humanizeDuration()` in favor of `moment.duration().humanize()`.
+
+Removed the lang data objects from the top level namespace.
+
+Duplicate `Date` passed to `moment()` instead of referencing it.
+
 ### 1.7.2 [See discussion](https://github.com/timrwood/moment/issues/456)
 
-Bugfix
+Bugfixes
 
 ### 1.7.1 [See discussion](https://github.com/timrwood/moment/issues/384)
 
@@ -148,17 +200,17 @@ Made parse from string and single format 25% faster.
 
 ### 0.5.2
 
-Buxfix for [issue 8](https://github.com/timrwood/underscore.date/pull/8) and [issue 9](https://github.com/timrwood/underscore.date/pull/9).
+Bugfix for [issue 8](https://github.com/timrwood/underscore.date/pull/8) and [issue 9](https://github.com/timrwood/underscore.date/pull/9).
 
 ### 0.5.1
 
-Buxfix for [issue 5](https://github.com/timrwood/underscore.date/pull/5).
+Bugfix for [issue 5](https://github.com/timrwood/underscore.date/pull/5).
 
 ### 0.5.0
 
 Dropped the redundant `_date.date()` in favor of `_date()`.
 Removed `_date.now()`, as it is a duplicate of `_date()` with no parameters.
-Removed `_date.isLeapYear(yearNuumber)`. Use `_date([yearNumber]).isLeapYear()` instead.
+Removed `_date.isLeapYear(yearNumber)`. Use `_date([yearNumber]).isLeapYear()` instead.
 Exposed customization options through the `_date.relativeTime`, `_date.weekdays`, `_date.weekdaysShort`, `_date.months`, `_date.monthsShort`, and `_date.ordinal` variables instead of the `_date.customize()` function.
 
 ### 0.4.1
@@ -167,7 +219,7 @@ Added date input formats for input strings.
 
 ### 0.4.0
 
-Added underscore.date to npm. Removed dependancies on underscore.
+Added underscore.date to npm. Removed dependencies on underscore.
 
 ### 0.3.2
 

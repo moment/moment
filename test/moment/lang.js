@@ -45,7 +45,7 @@ exports.lang = {
                 L : "-[L]-",
                 LL : "-[LL]-",
                 LLL : "-[LLL]-",
-                LLLL : "-[LLLL]-",
+                LLLL : "-[LLLL]-"
             },
             calendar : {
                 sameDay : '[sameDay] LT',
@@ -72,9 +72,11 @@ exports.lang = {
         test.expect(3);
         moment.lang('en');
 
-        test.equal(moment.langData().months[0], 'January', 'no arguments returns global');
-        test.equal(moment.langData('zh-cn').months[0], '一月', 'a string returns the language based on key');
-        test.equal(moment.langData(moment().lang('es')).months[0], 'Enero', "if you pass in a moment it uses the moment's language");
+        var jan = moment([2000, 0]);
+
+        test.equal(moment.langData().months(jan), 'January', 'no arguments returns global');
+        test.equal(moment.langData('zh-cn').months(jan), '一月', 'a string returns the language based on key');
+        test.equal(moment.langData(moment().lang('es')).months(jan), 'enero', "if you pass in a moment it uses the moment's language");
 
         test.done();
     },
@@ -84,7 +86,7 @@ exports.lang = {
         moment.lang('en');
 
         test.equal(moment([2012, 5, 6]).format('MMMM'), 'June', 'Normally default to global');
-        test.equal(moment([2012, 5, 6]).lang('es').format('MMMM'), 'Junio', 'Use the instance specific language');
+        test.equal(moment([2012, 5, 6]).lang('es').format('MMMM'), 'junio', 'Use the instance specific language');
         test.equal(moment([2012, 5, 6]).format('MMMM'), 'June', 'Using an instance specific language does not affect other moments');
 
         test.done();
@@ -94,9 +96,9 @@ exports.lang = {
         test.expect(3);
         moment.lang('en');
 
-        test.equal(moment([2012, 5, 6]).lang('es').add({days: 1}).format('MMMM'), 'Junio', 'With addition');
-        test.equal(moment([2012, 5, 6]).lang('es').day(0).format('MMMM'), 'Junio', 'With day getter');
-        test.equal(moment([2012, 5, 6]).lang('es').eod().format('MMMM'), 'Junio', 'With eod');
+        test.equal(moment([2012, 5, 6]).lang('es').add({days: 1}).format('MMMM'), 'junio', 'With addition');
+        test.equal(moment([2012, 5, 6]).lang('es').day(0).format('MMMM'), 'junio', 'With day getter');
+        test.equal(moment([2012, 5, 6]).lang('es').endOf('day').format('MMMM'), 'junio', 'With endOf');
 
         test.done();
     },
@@ -109,8 +111,8 @@ exports.lang = {
             b = a.clone(),
             c = moment(a);
 
-        test.equal(b.format('MMMM'), 'Junio', 'using moment.fn.clone()');
-        test.equal(b.format('MMMM'), 'Junio', 'using moment()');
+        test.equal(b.format('MMMM'), 'junio', 'using moment.fn.clone()');
+        test.equal(b.format('MMMM'), 'junio', 'using moment()');
 
         test.done();
     },
@@ -178,53 +180,20 @@ exports.lang = {
         test.done();
     },
 
-    // the following tests should be removed after the 2.0.0 release as they will be deprecated
-    "lang accessors on the global object should exist < 2.0.0" : function (test) {
-        moment.lang('en');
+    "changing parts of a language config" : function (test) {
+        test.expect(2);
 
-        var a = 'months|monthsShort|monthsParse|weekdays|weekdaysShort|weekdaysMin|longDateFormat|calendar|relativeTime|ordinal|meridiem'.split('|');
-        var i;
+        moment.lang('partial-lang', {
+            months : 'a b c d e f g h i j k l'.split(' ')
+        });
 
-        test.expect(a.length);
+        test.equal(moment([2011, 0, 1]).format('MMMM'), 'a', 'should be able to set language values when creating the language');
 
-        for (i = 0; i < a.length; i++) {
-            test.ok(moment[a[i]], "moment." + a[i] + " should exist");
-        }
+        moment.lang('partial-lang', {
+            monthsShort : 'A B C D E F G H I J K L'.split(' ')
+        });
 
-        test.done();
-    },
-
-    // the following tests should be removed after the 2.0.0 release as they will be deprecated
-    "lang accessors on the global object should change < 2.0.0" : function (test) {
-        moment.lang('en');
-
-        var a = 'months|monthsShort|weekdays|weekdaysShort|weekdaysMin|longDateFormat|calendar|relativeTime|ordinal'.split('|');
-        var i;
-        var en = {};
-
-        test.expect(a.length);
-
-        for (i = 0; i < a.length; i++) {
-            en[a[i]] = moment[a[i]];
-        }
-
-        moment.lang('fr');
-
-        for (i = 0; i < a.length; i++) {
-            test.notDeepEqual(en[a[i]], moment[a[i]], "the " + a[i] + " lang data should change on the global object");
-        }
-
-        test.done();
-    },
-
-    "manip lang accessors on the global object < 2.0.0" : function (test) {
-        test.expect(1);
-        moment.lang('en');
-
-        moment.months = ["test"];
-        test.equal(moment([2011, 0]).format('MMMM'), "test", "Should be able to manipulate the objects on the global object");
-
-        moment.lang('en');
+        test.equal(moment([2011, 0, 1]).format('MMMM MMM'), 'a A', 'should be able to set language values after creating the language');
 
         test.done();
     }

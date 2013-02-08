@@ -14,6 +14,14 @@ exports.create = {
         test.done();
     },
 
+    "array copying": function(test) {
+        var importantArray = [2009, 11];
+        test.expect(1);
+        moment(importantArray);
+        test.deepEqual(importantArray, [2009, 11], "initializer should not mutate the original array");
+        test.done();
+    },
+
     "number" : function(test) {
         test.expect(3);
         test.ok(moment(1000).toDate() instanceof Date, "1000");
@@ -41,10 +49,24 @@ exports.create = {
         test.done();
     },
 
+    "date mutation" : function(test) {
+        test.expect(1);
+        var a = new Date();
+        test.ok(moment(a).toDate() !== a, "the date moment uses should not be the date passed in");
+        test.done();
+    },
+
     "moment" : function(test) {
         test.expect(2);
         test.ok(moment(moment()).toDate() instanceof Date, "moment(moment())");
         test.ok(moment(moment(moment())).toDate() instanceof Date, "moment(moment(moment()))");
+        test.done();
+    },
+
+    "cloning moment should only copy own properties" : function(test) {
+        test.expect(2);
+        test.ok(!moment().clone().hasOwnProperty('month'), "Should not clone prototype methods");
+        test.ok(!moment().clone().hasOwnProperty('_lang'), "Should not clone prototype objects");
         test.done();
     },
 
@@ -58,13 +80,6 @@ exports.create = {
         test.expect(2);
         test.ok(moment("Aug 9, 1995").toDate() instanceof Date, "Aug 9, 1995");
         test.ok(moment("Mon, 25 Dec 1995 13:30:00 GMT").toDate() instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
-        test.done();
-    },
-
-    "string from Date.toString" : function(test) {
-        test.expect(1);
-        var str = (new Date()).toString();
-        test.equal(moment(str).toString(), str, "Parsing a string from Date.prototype.toString should match moment.fn.toString");
         test.done();
     },
 
@@ -137,7 +152,8 @@ exports.create = {
                 ['HH:mm:ss SSS',        '00:30:00 123'],
                 ['HH:mm:ss S',          '00:30:00 7'],
                 ['HH:mm:ss SS',         '00:30:00 78'],
-                ['HH:mm:ss SSS',        '00:30:00 789']
+                ['HH:mm:ss SSS',        '00:30:00 789'],
+                ['X.SSS',               '1234567890.123']
             ],
             i;
 
@@ -148,12 +164,28 @@ exports.create = {
         test.done();
     },
 
+    "unix timestamp format" : function(test) {
+        var formats = ['X', 'X.S', 'X.SS', 'X.SSS'];
+
+        test.expect(formats.length * 4);
+        for (var i = 0; i < formats.length; i++) {
+            var format = formats[i];
+            test.equal(moment('1234567890',     format).valueOf(), 1234567890 * 1000,       format + " matches timestamp without milliseconds");
+            test.equal(moment('1234567890.1',   format).valueOf(), 1234567890 * 1000 + 100, format + " matches timestamp with deciseconds");
+            test.equal(moment('1234567890.12',  format).valueOf(), 1234567890 * 1000 + 120, format + " matches timestamp with centiseconds");
+            test.equal(moment('1234567890.123', format).valueOf(), 1234567890 * 1000 + 123, format + " matches timestamp with milliseconds");
+        }
+
+        test.done();
+    },
+
     "string with format no separators" : function(test) {
         moment.lang('en');
         var a = [
                 ['MMDDYYYY',          '12021999'],
                 ['DDMMYYYY',          '12021999'],
-                ['YYYYMMDD',          '19991202']
+                ['YYYYMMDD',          '19991202'],
+                ['DDMMMYYYY',         '10Sep2001']
             ],i;
 
         test.expect(a.length);
@@ -202,9 +234,11 @@ exports.create = {
     },
 
     "string with format - years" : function(test) {
-        test.expect(2);
-        test.equal(moment('71', 'YY').format('YYYY'), '1971', '71 > 1971');
-        test.equal(moment('69', 'YY').format('YYYY'), '2069', '69 > 2069');
+        test.expect(4);
+        test.equal(moment('67', 'YY').format('YYYY'), '2067', '67 > 2067');
+        test.equal(moment('68', 'YY').format('YYYY'), '2068', '68 > 2068');
+        test.equal(moment('69', 'YY').format('YYYY'), '1969', '69 > 1969');
+        test.equal(moment('70', 'YY').format('YYYY'), '1970', '70 > 1970');
         test.done();
     },
 
@@ -266,7 +300,17 @@ exports.create = {
             ['2011-10-08T18:04:20' + tz2,     '2011-10-08T18:04:20.000' + tz],
             ['2011-10-08T18:04:20.1' + tz2,   '2011-10-08T18:04:20.100' + tz],
             ['2011-10-08T18:04:20.11' + tz2,  '2011-10-08T18:04:20.110' + tz],
-            ['2011-10-08T18:04:20.111' + tz2, '2011-10-08T18:04:20.111' + tz]
+            ['2011-10-08T18:04:20.111' + tz2, '2011-10-08T18:04:20.111' + tz],
+            ['2011-10-08 18',                 '2011-10-08T18:00:00.000' + tz],
+            ['2011-10-08 18:04',              '2011-10-08T18:04:00.000' + tz],
+            ['2011-10-08 18:04:20',           '2011-10-08T18:04:20.000' + tz],
+            ['2011-10-08 18:04' + tz,         '2011-10-08T18:04:00.000' + tz],
+            ['2011-10-08 18:04:20' + tz,      '2011-10-08T18:04:20.000' + tz],
+            ['2011-10-08 18:04' + tz2,        '2011-10-08T18:04:00.000' + tz],
+            ['2011-10-08 18:04:20' + tz2,     '2011-10-08T18:04:20.000' + tz],
+            ['2011-10-08 18:04:20.1' + tz2,   '2011-10-08T18:04:20.100' + tz],
+            ['2011-10-08 18:04:20.11' + tz2,  '2011-10-08T18:04:20.110' + tz],
+            ['2011-10-08 18:04:20.111' + tz2, '2011-10-08T18:04:20.111' + tz]
         ];
         test.expect(formats.length);
         for (var i = 0; i < formats.length; i++) {
@@ -308,20 +352,55 @@ exports.create = {
     },
 
     "first century" : function(test) {
-        test.expect(6);
+        test.expect(9);
         test.equal(moment([0, 0, 1]).format("YYYY-MM-DD"), "0000-01-01", "Year AD 0");
         test.equal(moment([99, 0, 1]).format("YYYY-MM-DD"), "0099-01-01", "Year AD 99");
         test.equal(moment([999, 0, 1]).format("YYYY-MM-DD"), "0999-01-01", "Year AD 999");
         test.equal(moment('0 1 1', 'YYYY MM DD').format("YYYY-MM-DD"), "0000-01-01", "Year AD 0");
         test.equal(moment('99 1 1', 'YYYY MM DD').format("YYYY-MM-DD"), "0099-01-01", "Year AD 99");
         test.equal(moment('999 1 1', 'YYYY MM DD').format("YYYY-MM-DD"), "0999-01-01", "Year AD 999");
+        test.equal(moment('0 1 1', 'YYYYY MM DD').format("YYYYY-MM-DD"), "00000-01-01", "Year AD 0");
+        test.equal(moment('99 1 1', 'YYYYY MM DD').format("YYYYY-MM-DD"), "00099-01-01", "Year AD 99");
+        test.equal(moment('999 1 1', 'YYYYY MM DD').format("YYYYY-MM-DD"), "00999-01-01", "Year AD 999");
         test.done();
     },
 
     "six digit years" : function(test) {
+        test.expect(8);
+        test.equal(moment([-270000, 0, 1]).format("YYYYY-MM-DD"), "-270000-01-01", "format BC 270,001");
+        test.equal(moment([ 270000, 0, 1]).format("YYYYY-MM-DD"), "270000-01-01", "format AD 270,000");
+        test.equal(moment("-270000-01-01", "YYYYY-MM-DD").toDate().getFullYear(), -270000, "parse BC 270,001");
+        test.equal(moment("270000-01-01",  "YYYYY-MM-DD").toDate().getFullYear(), 270000, "parse AD 270,000");
+        test.equal(moment("+270000-01-01", "YYYYY-MM-DD").toDate().getFullYear(), 270000, "parse AD +270,000");
+        test.equal(moment.utc("-270000-01-01", "YYYYY-MM-DD").toDate().getUTCFullYear(), -270000, "parse utc BC 270,001");
+        test.equal(moment.utc("270000-01-01",  "YYYYY-MM-DD").toDate().getUTCFullYear(), 270000, "parse utc AD 270,000");
+        test.equal(moment.utc("+270000-01-01", "YYYYY-MM-DD").toDate().getUTCFullYear(), 270000, "parse utc AD +270,000");
+        test.done();
+    },
+
+    "negative four digit years" : function(test) {
         test.expect(2);
-        test.equal(moment([-270000, 0, 1]).format("YYYY-MM-DD"), "-270000-01-01", "format BC 270,000");
-        test.equal(moment([ 270000, 0, 1]).format("YYYY-MM-DD"), "270000-01-01", "format AD 270,000");
+        test.equal(moment("-1000-01-01", "YYYYY-MM-DD").toDate().getFullYear(), -1000, "parse BC 1,001");
+        test.equal(moment.utc("-1000-01-01", "YYYYY-MM-DD").toDate().getUTCFullYear(), -1000, "parse utc BC 1,001");
+        test.done();
+    },
+
+    "parsing into a language" : function (test) {
+        test.expect(2);
+
+        moment.lang('parselang', {
+            months : "one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve".split('_'),
+            monthsShort : "one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve".split("_")
+        });
+
+        moment.lang('en');
+
+        test.equal(moment('2012 seven', 'YYYY MMM', 'parselang').month(), 6, "should be able to parse in a specific language");
+
+        moment.lang('parselang');
+
+        test.equal(moment('2012 july', 'YYYY MMM', 'en').month(), 6, "should be able to parse in a specific language");
+
         test.done();
     }
 };

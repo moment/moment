@@ -1,5 +1,9 @@
 var moment = require("../../moment");
 
+function equal(test, a, b, message) {
+    test.ok(Math.abs(a - b) < 0.00000001, "(" + a + " === " + b + ") " + message);
+}
+
 exports.diff = {
     "diff" : function(test) {
         test.expect(5);
@@ -9,20 +13,21 @@ exports.diff = {
         test.equal(moment(0).diff(1000), -1000, "0 - 1 second = -1000");
         test.equal(moment(new Date(1000)).diff(1000), 0, "1 second - 1 second = 0");
         var oneHourDate = new Date(),
-        nowDate = new Date();
+        nowDate = new Date(oneHourDate);
         oneHourDate.setHours(oneHourDate.getHours() + 1);
         test.equal(moment(oneHourDate).diff(nowDate), 60 * 60 * 1000, "1 hour from now = 360000");
         test.done();
     },
 
     "diff key after" : function(test) {
-        test.expect(9);
+        test.expect(10);
 
         test.equal(moment([2010]).diff([2011], 'years'), -1, "year diff");
-        test.equal(moment([2010]).diff([2011, 6], 'years', true), -1.5, "year diff, float");
         test.equal(moment([2010]).diff([2010, 2], 'months'), -2, "month diff");
-        test.equal(moment([2010]).diff([2010, 0, 7], 'weeks'), -1, "week diff");
-        test.equal(moment([2010]).diff([2010, 0, 21], 'weeks'), -3, "week diff");
+        test.equal(moment([2010]).diff([2010, 0, 7], 'weeks'), 0, "week diff");
+        test.equal(moment([2010]).diff([2010, 0, 8], 'weeks'), -1, "week diff");
+        test.equal(moment([2010]).diff([2010, 0, 21], 'weeks'), -2, "week diff");
+        test.equal(moment([2010]).diff([2010, 0, 22], 'weeks'), -3, "week diff");
         test.equal(moment([2010]).diff([2010, 0, 4], 'days'), -3, "day diff");
         test.equal(moment([2010]).diff([2010, 0, 1, 4], 'hours'), -4, "hour diff");
         test.equal(moment([2010]).diff([2010, 0, 1, 0, 5], 'minutes'), -5, "minute diff");
@@ -31,17 +36,34 @@ exports.diff = {
     },
 
     "diff key before" : function(test) {
-        test.expect(9);
+        test.expect(10);
 
         test.equal(moment([2011]).diff([2010], 'years'), 1, "year diff");
-        test.equal(moment([2011, 6]).diff([2010], 'years', true), 1.5, "year diff, float");
         test.equal(moment([2010, 2]).diff([2010], 'months'), 2, "month diff");
         test.equal(moment([2010, 0, 4]).diff([2010], 'days'), 3, "day diff");
-        test.equal(moment([2010, 0, 7]).diff([2010], 'weeks'), 1, "week diff");
-        test.equal(moment([2010, 0, 21]).diff([2010], 'weeks'), 3, "week diff");
+        test.equal(moment([2010, 0, 7]).diff([2010], 'weeks'), 0, "week diff");
+        test.equal(moment([2010, 0, 8]).diff([2010], 'weeks'), 1, "week diff");
+        test.equal(moment([2010, 0, 21]).diff([2010], 'weeks'), 2, "week diff");
+        test.equal(moment([2010, 0, 22]).diff([2010], 'weeks'), 3, "week diff");
         test.equal(moment([2010, 0, 1, 4]).diff([2010], 'hours'), 4, "hour diff");
         test.equal(moment([2010, 0, 1, 0, 5]).diff([2010], 'minutes'), 5, "minute diff");
         test.equal(moment([2010, 0, 1, 0, 0, 6]).diff([2010], 'seconds'), 6, "second diff");
+        test.done();
+    },
+
+    "diff key before singular" : function(test) {
+        test.expect(10);
+
+        test.equal(moment([2011]).diff([2010], 'year'), 1, "year diff singular");
+        test.equal(moment([2010, 2]).diff([2010], 'month'), 2, "month diff singular");
+        test.equal(moment([2010, 0, 4]).diff([2010], 'day'), 3, "day diff singular");
+        test.equal(moment([2010, 0, 7]).diff([2010], 'week'), 0, "week diff singular");
+        test.equal(moment([2010, 0, 8]).diff([2010], 'week'), 1, "week diff singular");
+        test.equal(moment([2010, 0, 21]).diff([2010], 'week'), 2, "week diff singular");
+        test.equal(moment([2010, 0, 22]).diff([2010], 'week'), 3, "week diff singular");
+        test.equal(moment([2010, 0, 1, 4]).diff([2010], 'hour'), 4, "hour diff singular");
+        test.equal(moment([2010, 0, 1, 0, 5]).diff([2010], 'minute'), 5, "minute diff singular");
+        test.equal(moment([2010, 0, 1, 0, 0, 6]).diff([2010], 'second'), 6, "second diff singular");
         test.done();
     },
 
@@ -76,10 +98,24 @@ exports.diff = {
         test.equal(moment([2011]).utc().diff([2010], 'years'), 1, "year diff");
         test.equal(moment([2010, 2]).utc().diff([2010], 'months'), 2, "month diff");
         test.equal(moment([2010, 0, 4]).utc().diff([2010], 'days'), 3, "day diff");
-        test.equal(moment([2010, 0, 21]).utc().diff([2010], 'weeks'), 3, "week diff");
+        test.equal(moment([2010, 0, 22]).utc().diff([2010], 'weeks'), 3, "week diff");
         test.equal(moment([2010, 0, 1, 4]).utc().diff([2010], 'hours'), 4, "hour diff");
         test.equal(moment([2010, 0, 1, 0, 5]).utc().diff([2010], 'minutes'), 5, "minute diff");
         test.equal(moment([2010, 0, 1, 0, 0, 6]).utc().diff([2010], 'seconds'), 6, "second diff");
+
+        test.done();
+    },
+
+    "diff floored" : function(test) {
+        test.expect(7);
+
+        test.equal(moment([2010, 0, 1, 23]).diff([2010], 'day'), 0, "23 hours = 0 days");
+        test.equal(moment([2010, 0, 1, 23, 59]).diff([2010], 'day'), 0, "23:59 hours = 0 days");
+        test.equal(moment([2010, 0, 1, 24]).diff([2010], 'day'), 1, "24 hours = 1 day");
+        test.equal(moment([2010, 0, 2]).diff([2011, 0, 1], 'year'), 0, "year rounded down");
+        test.equal(moment([2011, 0, 1]).diff([2010, 0, 2], 'year'), 0, "year rounded down");
+        test.equal(moment([2010, 0, 2]).diff([2011, 0, 2], 'year'), -1, "year rounded down");
+        test.equal(moment([2011, 0, 2]).diff([2010, 0, 2], 'year'), 1, "year rounded down");
 
         test.done();
     },
@@ -88,6 +124,40 @@ exports.diff = {
         test.expect(1);
 
         test.ok(moment([2012, 1, 19]).diff(moment([2002, 1, 20]), 'years', true) < 10, "year diff should include date of month");
+
+        test.done();
+    },
+
+    "month diffs" : function (test) {
+        test.expect(8);
+
+        // due to floating point math errors, these tests just need to be accurate within 0.00000001
+        equal(test, moment([2012, 0, 1]).diff([2012, 1, 1], 'months', true), -1, 'Jan 1 to Feb 1 should be 1 month');
+        equal(test, moment([2012, 0, 1]).diff([2012, 0, 1, 12], 'months', true), -0.5/31, 'Jan 1 to Jan 1 noon should be 0.5/31 months');
+        equal(test, moment([2012, 0, 15]).diff([2012, 1, 15], 'months', true), -1, 'Jan 15 to Feb 15 should be 1 month');
+        equal(test, moment([2012, 0, 28]).diff([2012, 1, 28], 'months', true), -1, 'Jan 28 to Feb 28 should be 1 month');
+        equal(test, moment([2012, 0, 31]).diff([2012, 1, 29], 'months', true), -1 + (2/30), 'Jan 31 to Feb 29 should be 1 - (2/30) months');
+        equal(test, moment([2012, 0, 31]).diff([2012, 2, 1], 'months', true), -2 + (30/31), 'Jan 31 to Mar 1 should be 2 - (30/31) months');
+        equal(test, moment([2012, 0, 31]).diff([2012, 2, 1, 12], 'months', true), -2 + (29.5/31), 'Jan 31 to Mar 1 should be 2 - (29.5/31) months');
+        equal(test, moment([2012, 0, 1]).diff([2012, 0, 31], 'months', true), -(30 / 31), 'Jan 1 to Jan 31 should be 30/31 months');
+
+        test.done();
+    },
+
+    "year diffs" : function (test) {
+        test.expect(10);
+
+        // due to floating point math errors, these tests just need to be accurate within 0.00000001
+        equal(test, moment([2012, 0, 1]).diff([2013, 0, 1], 'years', true), -1, 'Jan 1 2012 to Jan 1 2013 should be 1 year');
+        equal(test, moment([2012, 1, 28]).diff([2013, 1, 28], 'years', true), -1, 'Feb 28 2012 to Feb 28 2013 should be 1 year');
+        equal(test, moment([2012, 2, 1]).diff([2013, 2, 1], 'years', true), -1, 'Mar 1 2012 to Mar 1 2013 should be 1 year');
+        equal(test, moment([2012, 11, 1]).diff([2013, 11, 1], 'years', true), -1, 'Dec 1 2012 to Dec 1 2013 should be 1 year');
+        equal(test, moment([2012, 11, 31]).diff([2013, 11, 31], 'years', true), -1, 'Dec 31 2012 to Dec 31 2013 should be 1 year');
+        equal(test, moment([2012, 0, 1]).diff([2013, 6, 1], 'years', true), -1.5, 'Jan 1 2012 to Jul 1 2013 should be 1.5 years');
+        equal(test, moment([2012, 0, 31]).diff([2013, 6, 31], 'years', true), -1.5, 'Jan 31 2012 to Jul 31 2013 should be 1.5 years');
+        equal(test, moment([2012, 0, 1]).diff([2013, 0, 1, 12], 'years', true), -1-(0.5/31)/12, 'Jan 1 2012 to Jan 1 2013 noon should be 1+(0.5/31)/12 years');
+        equal(test, moment([2012, 0, 1]).diff([2013, 6, 1, 12], 'years', true), -1.5-(0.5/31)/12, 'Jan 1 2012 to Jul 1 2013 noon should be 1.5+(0.5/31)/12 years');
+        equal(test, moment([2012, 1, 29]).diff([2013, 1, 28], 'years', true), -1 + (1/28.5)/12, 'Feb 29 2012 to Feb 28 2013 should be 1-(1/28.5)/12 years');
 
         test.done();
     }

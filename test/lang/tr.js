@@ -6,9 +6,19 @@ var moment = require("../../moment");
      *************************************************/
 
 exports["lang:tr"] = {
+    setUp : function (cb) {
+        moment.lang('tr');
+        cb();
+    },
+
+    tearDown : function (cb) {
+        moment.lang('en');
+        cb();
+    },
+
     "parse" : function(test) {
         test.expect(96);
-        moment.lang('tr');
+
         var tests = 'Ocak Oca_Şubat Şub_Mart Mar_Nisan Nis_Mayıs May_Haziran Haz_Temmuz Tem_Ağustos Ağu_Eylül Eyl_Ekim Eki_Kasım Kas_Aralık Ara'.split("_");
         var i;
         function equalTest(input, mmm, i) {
@@ -29,7 +39,7 @@ exports["lang:tr"] = {
     },
 
     "format" : function(test) {
-        moment.lang('tr');
+
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'Pazar, Şubat 14\'üncü 2010, 3:25:50 pm'],
                 ['ddd, hA',                            'Paz, 3PM'],
@@ -38,17 +48,21 @@ exports["lang:tr"] = {
                 ['D Do DD',                            '14 14\'üncü 14'],
                 ['d do dddd ddd dd',                   '0 0\'ıncı Pazar Paz Pz'],
                 ['DDD DDDo DDDD',                      '45 45\'inci 045'],
-                ['w wo ww',                            '8 8\'inci 08'],
+                ['w wo ww',                            "7 7'nci 07"],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
-                ['yılın DDDo günü',                    'yılın 45\'inci günü'],
+                ['[yılın] DDDo [günü]',                'yılın 45\'inci günü'],
                 ['L',                                  '14.02.2010'],
                 ['LL',                                 '14 Şubat 2010'],
                 ['LLL',                                '14 Şubat 2010 15:25'],
-                ['LLLL',                               'Pazar, 14 Şubat 2010 15:25']
+                ['LLLL',                               'Pazar, 14 Şubat 2010 15:25'],
+                ['l',                                  '14.2.2010'],
+                ['ll',                                 '14 Şub 2010'],
+                ['lll',                                '14 Şub 2010 15:25'],
+                ['llll',                               'Paz, 14 Şub 2010 15:25']
             ],
             DDDo = [
                 [359, '360\'ıncı'],
@@ -72,7 +86,7 @@ exports["lang:tr"] = {
 
     "format ordinal" : function(test) {
         test.expect(31);
-        moment.lang('tr');
+
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1\'inci', '1st');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2\'nci', '2nd');
         test.equal(moment([2011, 0, 3]).format('DDDo'), '3\'üncü', '3rd');
@@ -83,7 +97,7 @@ exports["lang:tr"] = {
         test.equal(moment([2011, 0, 8]).format('DDDo'), '8\'inci', '8th');
         test.equal(moment([2011, 0, 9]).format('DDDo'), '9\'uncu', '9th');
         test.equal(moment([2011, 0, 10]).format('DDDo'), '10\'uncu', '10th');
-    
+
         test.equal(moment([2011, 0, 11]).format('DDDo'), '11\'inci', '11th');
         test.equal(moment([2011, 0, 12]).format('DDDo'), '12\'nci', '12th');
         test.equal(moment([2011, 0, 13]).format('DDDo'), '13\'üncü', '13th');
@@ -105,14 +119,14 @@ exports["lang:tr"] = {
         test.equal(moment([2011, 0, 28]).format('DDDo'), '28\'inci', '28th');
         test.equal(moment([2011, 0, 29]).format('DDDo'), '29\'uncu', '29th');
         test.equal(moment([2011, 0, 30]).format('DDDo'), '30\'uncu', '30th');
-    
+
         test.equal(moment([2011, 0, 31]).format('DDDo'), '31\'inci', '31st');
         test.done();
     },
 
     "format month" : function(test) {
         test.expect(12);
-        moment.lang('tr');
+
         var expected = 'Ocak Oca_Şubat Şub_Mart Mar_Nisan Nis_Mayıs May_Haziran Haz_Temmuz Tem_Ağustos Ağu_Eylül Eyl_Ekim Eki_Kasım Kas_Aralık Ara'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -123,7 +137,7 @@ exports["lang:tr"] = {
 
     "format week" : function(test) {
         test.expect(7);
-        moment.lang('tr');
+
         var expected = 'Pazar Paz Pz_Pazartesi Pts Pt_Salı Sal Sa_Çarşamba Çar Ça_Perşembe Per Pe_Cuma Cum Cu_Cumartesi Cts Ct'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -134,7 +148,6 @@ exports["lang:tr"] = {
 
     "from" : function(test) {
         test.expect(30);
-        moment.lang('tr');
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "birkaç saniye", "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "bir dakika",      "45 seconds = a minute");
@@ -171,7 +184,6 @@ exports["lang:tr"] = {
 
     "suffix" : function(test) {
         test.expect(2);
-        moment.lang('tr');
         test.equal(moment(30000).from(0), "birkaç saniye sonra",  "prefix");
         test.equal(moment(0).from(30000), "birkaç saniye önce", "suffix");
         test.done();
@@ -179,14 +191,12 @@ exports["lang:tr"] = {
 
     "now from now" : function(test) {
         test.expect(1);
-        moment.lang('tr');
         test.equal(moment().fromNow(), "birkaç saniye önce",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow" : function(test) {
         test.expect(2);
-        moment.lang('tr');
         test.equal(moment().add({s:30}).fromNow(), "birkaç saniye sonra", "in a few seconds");
         test.equal(moment().add({d:5}).fromNow(), "5 gün sonra", "in 5 days");
         test.done();
@@ -194,10 +204,9 @@ exports["lang:tr"] = {
 
     "calendar day" : function(test) {
         test.expect(6);
-        moment.lang('tr');
-    
+
         var a = moment().hours(2).minutes(0).seconds(0);
-    
+
         test.equal(moment(a).calendar(),                     "bugün saat 02:00",     "today at the same time");
         test.equal(moment(a).add({ m: 25 }).calendar(),      "bugün saat 02:25",     "Now plus 25 min");
         test.equal(moment(a).add({ h: 1 }).calendar(),       "bugün saat 03:00",     "Now plus 1 hour");
@@ -209,11 +218,10 @@ exports["lang:tr"] = {
 
     "calendar next week" : function(test) {
         test.expect(15);
-        moment.lang('tr');
-    
+
         var i;
         var m;
-    
+
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('[haftaya] dddd [saat] LT'),  "Today + " + i + " days current time");
@@ -227,8 +235,10 @@ exports["lang:tr"] = {
 
     "calendar last week" : function(test) {
         test.expect(15);
-        moment.lang('tr');
-    
+
+        var i;
+        var m;
+
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('[geçen hafta] dddd [saat] LT'),  "Today - " + i + " days current time");
@@ -242,18 +252,123 @@ exports["lang:tr"] = {
 
     "calendar all else" : function(test) {
         test.expect(4);
-        moment.lang('tr');
+
         var weeksAgo = moment().subtract({ w: 1 });
         var weeksFromNow = moment().add({ w: 1 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
-    
+
         weeksAgo = moment().subtract({ w: 2 });
         weeksFromNow = moment().add({ w: 2 });
-        
+
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
-    test.done();
+
+        test.done();
+    },
+
+    // Monday is the first day of the week.
+    // The week that contains Jan 1st is the first week of the year.
+
+    "weeks year starting sunday" : function(test) {
+        test.expect(5);
+
+        test.equal(moment([2011, 11, 26]).week(), 1, "Dec 26 2011 should be week 1");
+        test.equal(moment([2012,  0,  1]).week(), 1, "Jan  1 2012 should be week 1");
+        test.equal(moment([2012,  0,  2]).week(), 2, "Jan  2 2012 should be week 2");
+        test.equal(moment([2012,  0,  8]).week(), 2, "Jan  8 2012 should be week 2");
+        test.equal(moment([2012,  0,  9]).week(), 3, "Jan  9 2012 should be week 3");
+
+        test.done();
+    },
+
+    "weeks year starting monday" : function(test) {
+        test.expect(5);
+
+        test.equal(moment([2007, 0, 1]).week(),  1, "Jan  1 2007 should be week 1");
+        test.equal(moment([2007, 0, 7]).week(),  1, "Jan  7 2007 should be week 1");
+        test.equal(moment([2007, 0, 8]).week(),  2, "Jan  8 2007 should be week 2");
+        test.equal(moment([2007, 0, 14]).week(), 2, "Jan 14 2007 should be week 2");
+        test.equal(moment([2007, 0, 15]).week(), 3, "Jan 15 2007 should be week 3");
+
+        test.done();
+    },
+
+    "weeks year starting tuesday" : function(test) {
+        test.expect(6);
+
+        test.equal(moment([2007, 11, 31]).week(), 1, "Dec 31 2007 should be week 1");
+        test.equal(moment([2008,  0,  1]).week(), 1, "Jan  1 2008 should be week 1");
+        test.equal(moment([2008,  0,  6]).week(), 1, "Jan  6 2008 should be week 1");
+        test.equal(moment([2008,  0,  7]).week(), 2, "Jan  7 2008 should be week 2");
+        test.equal(moment([2008,  0, 13]).week(), 2, "Jan 13 2008 should be week 2");
+        test.equal(moment([2008,  0, 14]).week(), 3, "Jan 14 2008 should be week 3");
+
+        test.done();
+    },
+
+    "weeks year starting wednesday" : function(test) {
+        test.expect(6);
+
+        test.equal(moment([2002, 11, 30]).week(), 1, "Dec 30 2002 should be week 1");
+        test.equal(moment([2003,  0,  1]).week(), 1, "Jan  1 2003 should be week 1");
+        test.equal(moment([2003,  0,  5]).week(), 1, "Jan  5 2003 should be week 1");
+        test.equal(moment([2003,  0,  6]).week(), 2, "Jan  6 2003 should be week 2");
+        test.equal(moment([2003,  0, 12]).week(), 2, "Jan 12 2003 should be week 2");
+        test.equal(moment([2003,  0, 13]).week(), 3, "Jan 13 2003 should be week 3");
+
+        test.done();
+    },
+
+    "weeks year starting thursday" : function(test) {
+        test.expect(6);
+
+        test.equal(moment([2008, 11, 29]).week(), 1, "Dec 29 2008 should be week 1");
+        test.equal(moment([2009,  0,  1]).week(), 1, "Jan  1 2009 should be week 1");
+        test.equal(moment([2009,  0,  4]).week(), 1, "Jan  4 2009 should be week 1");
+        test.equal(moment([2009,  0,  5]).week(), 2, "Jan  5 2009 should be week 2");
+        test.equal(moment([2009,  0, 11]).week(), 2, "Jan 11 2009 should be week 2");
+        test.equal(moment([2009,  0, 12]).week(), 3, "Jan 12 2009 should be week 3");
+
+        test.done();
+    },
+
+    "weeks year starting friday" : function(test) {
+        test.expect(6);
+
+        test.equal(moment([2009, 11, 28]).week(), 1, "Dec 28 2009 should be week 1");
+        test.equal(moment([2010,  0,  1]).week(), 1, "Jan  1 2010 should be week 1");
+        test.equal(moment([2010,  0,  3]).week(), 1, "Jan  3 2010 should be week 1");
+        test.equal(moment([2010,  0,  4]).week(), 2, "Jan  4 2010 should be week 2");
+        test.equal(moment([2010,  0, 10]).week(), 2, "Jan 10 2010 should be week 2");
+        test.equal(moment([2010,  0, 11]).week(), 3, "Jan 11 2010 should be week 3");
+
+        test.done();
+    },
+
+    "weeks year starting saturday" : function(test) {
+        test.expect(6);
+
+        test.equal(moment([2010, 11, 27]).week(), 1, "Dec 27 2010 should be week 1");
+        test.equal(moment([2011,  0,  1]).week(), 1, "Jan  1 2011 should be week 1");
+        test.equal(moment([2011,  0,  2]).week(), 1, "Jan  2 2011 should be week 1");
+        test.equal(moment([2011,  0,  3]).week(), 2, "Jan  3 2011 should be week 2");
+        test.equal(moment([2011,  0,  9]).week(), 2, "Jan  9 2011 should be week 2");
+        test.equal(moment([2011,  0, 10]).week(), 3, "Jan 10 2011 should be week 3");
+
+        test.done();
+    },
+
+    "weeks year starting sunday formatted" : function(test) {
+        test.expect(5);
+
+        test.equal(moment([2011, 11, 26]).format('w ww wo'), "1 01 1'inci", "Dec 26 2011 should be week 1");
+        test.equal(moment([2012,  0,  1]).format('w ww wo'), "1 01 1'inci", "Jan  1 2012 should be week 1");
+        test.equal(moment([2012,  0,  2]).format('w ww wo'), "2 02 2'nci", "Jan  2 2012 should be week 2");
+        test.equal(moment([2012,  0,  8]).format('w ww wo'), "2 02 2'nci", "Jan  8 2012 should be week 2");
+        test.equal(moment([2012,  0,  9]).format('w ww wo'), "3 03 3'üncü", "Jan  9 2012 should be week 3");
+
+        test.done();
     }
 };

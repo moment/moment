@@ -30,7 +30,11 @@ exports.utc = {
     "creating with utc" : function(test) {
         test.expect(7);
 
-        test.equal(moment.utc().valueOf(), moment().valueOf(), "Calling moment.utc() should default to the current time");
+        var diff = moment.utc().valueOf() - moment().valueOf();
+        diff = Math.abs(diff);
+        // we check the diff rather than equality because sometimes they are off by a millisecond
+
+        test.ok(diff < 5, "Calling moment.utc() should default to the current time");
 
         var m = moment.utc([2011, 1, 2, 3, 4, 5, 6]);
         test.equal(m.date(), 2, "the day should be correct for utc array");

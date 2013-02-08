@@ -2,7 +2,7 @@ var moment = require("../../moment");
 
 exports.mutable = {
     "manipulation methods" : function (test) {
-        
+
         var mutableMethods = {
             'year':          function (m){ return m.year(2011); },
             'month':         function (m){ return m.month(1); },
@@ -24,8 +24,8 @@ exports.mutable = {
 
         for (method in mutableMethods) {
             if (mutableMethods.hasOwnProperty(method)) {
-                var d = new Date();
-                var d2 = mutableMethods[method](moment(d)).toDate();
+                var d = moment();
+                var d2 = mutableMethods[method](d);
                 test.equal(d, d2, method + "() should be mutable");
             }
         }
@@ -34,13 +34,12 @@ exports.mutable = {
     },
 
     "non mutable methods" : function (test) {
-        
+
         var nonMutableMethods = {
-            'sod':       function (m){ return m.sod() },
-            'eod':       function (m){ return m.eod() }
+            'clone':       function (m){ return m.clone() }
         };
 
-        test.expect(2);
+        test.expect(1);
 
         for (method in nonMutableMethods){
             if (nonMutableMethods.hasOwnProperty(method)) {
