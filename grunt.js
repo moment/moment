@@ -4,10 +4,6 @@ var fs = require('fs'),
 module.exports = function(grunt) {
 
     var minLangs = {
-        moment: {
-            src: ['moment.js'],
-            dest: 'min/moment.min.js'
-        },
         langs: {
             src: ['min/langs.js'],
             dest: 'min/langs.min.js'
