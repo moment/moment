@@ -40,9 +40,6 @@ require('../moment').lang('ar-ma', {
         y : "سنة",
         yy : "%d سنوات"
     },
-    ordinal : function (number) {
-        return '';
-    },
     week : {
         dow : 6, // Saturday is the first day of the week.
         doy : 12  // The week that contains Jan 1st is the first week of the year.
@@ -89,9 +86,6 @@ require('../moment').lang('ar', {
         MM : "%d أشهر",
         y : "سنة",
         yy : "%d سنوات"
-    },
-    ordinal : function (number) {
-        return '';
     },
     week : {
         dow : 6, // Saturday is the first day of the week.
@@ -156,19 +150,19 @@ require('../moment').lang('bg', {
         var lastDigit = number % 10,
             last2Digits = number % 100;
         if (number === 0) {
-            return '-ев';
+            return number + '-ев';
         } else if (last2Digits === 0) {
-            return '-ен';
+            return number + '-ен';
         } else if (last2Digits > 10 && last2Digits < 20) {
-            return '-ти';
+            return number + '-ти';
         } else if (lastDigit === 1) {
-            return '-ви';
+            return number + '-ви';
         } else if (lastDigit === 2) {
-            return '-ри';
+            return number + '-ри';
         } else if (lastDigit === 7 || lastDigit === 8) {
-            return '-ми';
+            return number + '-ми';
         } else {
-            return '-ти';
+            return number + '-ти';
         }
     },
     week : {
@@ -228,9 +222,7 @@ require('../moment').lang('ca', {
         y : "un any",
         yy : "%d anys"
     },
-    ordinal : function (number) {
-        return 'º';
-    },
+    ordinal : '%dº',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -377,9 +369,7 @@ require('../moment').lang('cs', {
         y : translate,
         yy : translate
     },
-    ordinal : function (number) {
-        return '.';
-    },
+    ordinal : '%d.',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -401,9 +391,9 @@ require('../moment').lang('cv', {
     longDateFormat : {
         LT : "HH:mm",
         L : "DD-MM-YYYY",
-        LL : "YYYY çулхи MMMM уйăхĕн D-мĕшĕ",
-        LLL : "YYYY çулхи MMMM уйăхĕн D-мĕшĕ, LT",
-        LLLL : "dddd, YYYY çулхи MMMM уйăхĕн D-мĕшĕ, LT"
+        LL : "YYYY [çулхи] MMMM [уйăхĕн] D[-мĕшĕ]",
+        LLL : "YYYY [çулхи] MMMM [уйăхĕн] D[-мĕшĕ], LT",
+        LLLL : "dddd, YYYY [çулхи] MMMM [уйăхĕн] D[-мĕшĕ], LT"
     },
     calendar : {
         sameDay: '[Паян] LT [сехетре]',
@@ -431,9 +421,7 @@ require('../moment').lang('cv', {
         y : "пĕр çул",
         yy : "%d çул"
     },
-    ordinal : function (number) {
-        return '-мĕш';
-    },
+    ordinal : '%d-мĕш',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
@@ -481,9 +469,7 @@ require('../moment').lang('da', {
         y : "år",
         yy : "%d år"
     },
-    ordinal : function (number) {
-        return '.';
-    },
+    ordinal : '%d.',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -531,9 +517,7 @@ require('../moment').lang('de', {
         y : "einem Jahr",
         yy : "%d Jahren"
     },
-    ordinal : function (number) {
-        return '.';
-    },
+    ordinal : '%d.',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -582,11 +566,12 @@ require('../moment').lang('en-ca', {
         yy : "%d years"
     },
     ordinal : function (number) {
-        var b = number % 10;
-        return (~~ (number % 100 / 10) === 1) ? 'th' :
+        var b = number % 10,
+            output = (~~ (number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
             (b === 2) ? 'nd' :
             (b === 3) ? 'rd' : 'th';
+        return number + output;
     }
 });
 })();
@@ -632,11 +617,12 @@ require('../moment').lang('en-gb', {
         yy : "%d years"
     },
     ordinal : function (number) {
-        var b = number % 10;
-        return (~~ (number % 100 / 10) === 1) ? 'th' :
+        var b = number % 10,
+            output = (~~ (number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
             (b === 2) ? 'nd' :
             (b === 3) ? 'rd' : 'th';
+        return number + output;
     },
     week : {
         dow : 1, // Monday is the first day of the week.
@@ -694,9 +680,7 @@ require('../moment').lang('eo', {
         y : "jaro",
         yy : "%d jaroj"
     },
-    ordinal : function (number) {
-        return "a";
-    },
+    ordinal : "%da",
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
@@ -754,9 +738,7 @@ require('../moment').lang('es', {
         y : "un año",
         yy : "%d años"
     },
-    ordinal : function (number) {
-        return 'º';
-    },
+    ordinal : '%dº',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -808,9 +790,7 @@ require('../moment').lang('et', {
         y      : "aasta",
         yy     : "%d aastat"
     },
-    ordinal : function (number) {
-        return '.';
-    },
+    ordinal : '%d.',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -833,7 +813,11 @@ require('../moment').lang('eu', {
         L : "YYYY-MM-DD",
         LL : "YYYYko MMMMren D[a]",
         LLL : "YYYYko MMMMren D[a] LT",
-        LLLL : "dddd, YYYYko MMMMren D[a] LT"
+        LLLL : "dddd, YYYYko MMMMren D[a] LT",
+        l : "YYYY-M-D",
+        ll : "YYYYko MMM D[a]",
+        lll : "YYYYko MMM D[a] LT",
+        llll : "ddd, YYYYko MMM D[a] LT"
     },
     calendar : {
         sameDay : '[gaur] LT[etan]',
@@ -858,9 +842,7 @@ require('../moment').lang('eu', {
         y : "urte bat",
         yy : "%d urte"
     },
-    ordinal : function (number) {
-        return '.';
-    },
+    ordinal : '%d.',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
@@ -924,9 +906,13 @@ require('../moment').lang('fi', {
     longDateFormat : {
         LT : "HH.mm",
         L : "DD.MM.YYYY",
-        LL : "Do MMMMt\\a YYYY",
-        LLL : "Do MMMMt\\a YYYY, klo LT",
-        LLLL : "dddd, Do MMMMt\\a YYYY, klo LT"
+        LL : "Do MMMM[ta] YYYY",
+        LLL : "Do MMMM[ta] YYYY, [klo] LT",
+        LLLL : "dddd, Do MMMM[ta] YYYY, [klo] LT",
+        l : "D.M.YYYY",
+        ll : "Do MMM YYYY",
+        lll : "Do MMM YYYY, [klo] LT",
+        llll : "ddd, Do MMM YYYY, [klo] LT"
     },
     calendar : {
         sameDay : '[tänään] [klo] LT',
@@ -951,9 +937,7 @@ require('../moment').lang('fi', {
         y : translate,
         yy : translate
     },
-    ordinal : function (number) {
-        return ".";
-    },
+    ordinal : "%d.",
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -998,11 +982,11 @@ require('../moment').lang('fr-ca', {
         dd : "%d jours",
         M : "un mois",
         MM : "%d mois",
-        y : "une année",
-        yy : "%d années"
+        y : "un an",
+        yy : "%d ans"
     },
     ordinal : function (number) {
-        return number === 1 ? 'er' : 'ème';
+        return number + (number === 1 ? 'er' : 'ème');
     }
 });
 })();
@@ -1044,11 +1028,11 @@ require('../moment').lang('fr', {
         dd : "%d jours",
         M : "un mois",
         MM : "%d mois",
-        y : "une année",
-        yy : "%d années"
+        y : "un an",
+        yy : "%d ans"
     },
     ordinal : function (number) {
-        return number === 1 ? 'er' : 'ème';
+        return number + (number === 1 ? 'er' : 'ème');
     },
     week : {
         dow : 1, // Monday is the first day of the week.
@@ -1107,9 +1091,7 @@ require('../moment').lang('gl', {
         y : "un ano",
         yy : "%d anos"
     },
-    ordinal : function (number) {
-        return 'º';
-    },
+    ordinal : '%dº',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
@@ -1133,7 +1115,11 @@ require('../moment').lang('he', {
         L : "DD/MM/YYYY",
         LL : "D [ב]MMMM YYYY",
         LLL : "D [ב]MMMM YYYY LT",
-        LLLL : "dddd, D [ב]MMMM YYYY LT"
+        LLLL : "dddd, D [ב]MMMM YYYY LT",
+        l : "D/M/YYYY",
+        ll : "D MMM YYYY",
+        lll : "D MMM YYYY LT",
+        llll : "ddd, D MMM YYYY LT"
     },
     calendar : {
         sameDay : '[היום ב־]LT',
@@ -1157,9 +1143,6 @@ require('../moment').lang('he', {
         MM : "%d חודשים",
         y : "שנה",
         yy : "%d שנים"
-    },
-    ordinal : function (number) {
-        return ''; // Function is not required for the Hebrew language.
     }
 });
 })();
@@ -1245,10 +1228,7 @@ require('../moment').lang('hu', {
         y : translate,
         yy : translate
     },
-    ordinal : function (number) {
-        return '.';
-
-    },
+    ordinal : '%d.',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
@@ -1307,9 +1287,6 @@ require('../moment').lang('id', {
         MM : "%d bulan",
         y : "setahun",
         yy : "%d tahun"
-    },
-    ordinal : function (number) {
-        return '';
     },
     week : {
         dow : 1, // Monday is the first day of the week.
@@ -1400,8 +1377,8 @@ require('../moment').lang('is', {
         LT : "H:mm",
         L : "DD/MM/YYYY",
         LL : "D. MMMM YYYY",
-        LLL : "D. MMMM YYYY kl. LT",
-        LLLL : "dddd, D. MMMM YYYY kl. LT"
+        LLL : "D. MMMM YYYY [kl.] LT",
+        LLLL : "dddd, D. MMMM YYYY [kl.] LT"
     },
     calendar : {
         sameDay : '[í dag kl.] LT',
@@ -1426,9 +1403,7 @@ require('../moment').lang('is', {
         y : translate,
         yy : translate
     },
-    ordinal : function (number) {
-        return '.';
-    },
+    ordinal : '%d.',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -1476,9 +1451,7 @@ require('../moment').lang('it', {
         y : "un anno",
         yy : "%d anni"
     },
-    ordinal: function () {
-        return 'º';
-    },
+    ordinal: '%dº',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -1532,65 +1505,6 @@ require('../moment').lang('ja', {
         MM : "%dヶ月",
         y : "1年",
         yy : "%d年"
-    },
-    ordinal : function (number) {
-        return '';
-    }
-});
-})();
-(function(){
-// moment.js language configuration
-// language : japanese (jp)
-// author : LI Long : https://github.com/baryon
-
-// This language config was incorrectly named 'jp' instead of 'ja'.
-// In version 2.0.0, this will be deprecated and you should use 'ja' instead.
-
-require('../moment').lang('jp', {
-    months : "1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"),
-    monthsShort : "1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"),
-    weekdays : "日曜日_月曜日_火曜日_水曜日_木曜日_金曜日_土曜日".split("_"),
-    weekdaysShort : "日_月_火_水_木_金_土".split("_"),
-    weekdaysMin : "日_月_火_水_木_金_土".split("_"),
-    longDateFormat : {
-        LT : "Ah時m分",
-        L : "YYYY/MM/DD",
-        LL : "YYYY年M月D日",
-        LLL : "YYYY年M月D日LT",
-        LLLL : "YYYY年M月D日LT dddd"
-    },
-    meridiem : function (hour, minute, isLower) {
-        if (hour < 12) {
-            return "午前";
-        } else {
-            return "午後";
-        }
-    },
-    calendar : {
-        sameDay : '[今日] LT',
-        nextDay : '[明日] LT',
-        nextWeek : '[来週]dddd LT',
-        lastDay : '[昨日] LT',
-        lastWeek : '[前週]dddd LT',
-        sameElse : 'L'
-    },
-    relativeTime : {
-        future : "%s後",
-        past : "%s前",
-        s : "数秒",
-        m : "1分",
-        mm : "%d分",
-        h : "1時間",
-        hh : "%d時間",
-        d : "1日",
-        dd : "%d日",
-        M : "1ヶ月",
-        MM : "%dヶ月",
-        y : "1年",
-        yy : "%d年"
-    },
-    ordinal : function (number) {
-        return '';
     }
 });
 })();
@@ -1639,62 +1553,7 @@ require('../moment').lang('ko', {
         y : "일년",
         yy : "%d년"
     },
-    ordinal : function (number) {
-        return '일';
-    }
-});
-})();
-(function(){
-// moment.js language configuration
-// language : korean (kr)
-// author : Kyungwook, Park : https://github.com/kyungw00k
-
-// This language config was incorrectly named 'kr' instead of 'ko'.
-// In version 2.0.0, this will be deprecated and you should use 'ko' instead.
-
-require('../moment').lang('kr', {
-    months : "1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월".split("_"),
-    monthsShort : "1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월".split("_"),
-    weekdays : "일요일_월요일_화요일_수요일_목요일_금요일_토요일".split("_"),
-    weekdaysShort : "일_월_화_수_목_금_토".split("_"),
-    weekdaysMin : "일_월_화_수_목_금_토".split("_"),
-    longDateFormat : {
-        LT : "A h시 mm분",
-        L : "YYYY.MM.DD",
-        LL : "YYYY년 MMMM D일",
-        LLL : "YYYY년 MMMM D일 LT",
-        LLLL : "YYYY년 MMMM D일 dddd LT"
-    },
-    meridiem : function (hour, minute, isUpper) {
-        return hour < 12 ? '오전' : '오후';
-    },
-    calendar : {
-        sameDay : '오늘 LT',
-        nextDay : '내일 LT',
-        nextWeek : 'dddd LT',
-        lastDay : '어제 LT',
-        lastWeek : '지난주 dddd LT',
-        sameElse : 'L'
-    },
-    relativeTime : {
-        future : "%s 후",
-        past : "%s 전",
-        s : "몇초",
-        ss : "%d초",
-        m : "일분",
-        mm : "%d분",
-        h : "한시간",
-        hh : "%d시간",
-        d : "하루",
-        dd : "%d일",
-        M : "한달",
-        MM : "%d달",
-        y : "일년",
-        yy : "%d년"
-    },
-    ordinal : function (number) {
-        return '일';
-    }
+    ordinal : '%d일'
 });
 })();
 (function(){
@@ -1759,9 +1618,7 @@ require('../moment').lang('lv', {
         y : "gadu",
         yy : relativeTimeWithPlural
     },
-    ordinal : function (number) {
-        return '.';
-    },
+    ordinal : '%d.',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -1809,9 +1666,7 @@ require('../moment').lang('nb', {
         y : "ett år",
         yy : "%d år"
     },
-    ordinal : function (number) {
-        return '.';
-    },
+    ordinal : '%d.',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -1909,9 +1764,6 @@ require('../moment').lang('ne', {
         y : "एक बर्ष",
         yy : "%d बर्ष"
     },
-    ordinal : function (number) {
-        return '';
-    },
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
@@ -1969,7 +1821,7 @@ require('../moment').lang('nl', {
         yy : "%d jaar"
     },
     ordinal : function (number) {
-        return (number === 1 || number === 8 || number >= 20) ? 'ste' : 'de';
+        return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de');
     },
     week : {
         dow : 1, // Monday is the first day of the week.
@@ -2051,9 +1903,7 @@ require('../moment').lang('pl', {
         y : "rok",
         yy : translate
     },
-    ordinal : function (number) {
-        return '.';
-    },
+    ordinal : '%d.',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -2105,9 +1955,7 @@ require('../moment').lang('pt-br', {
         y : "um ano",
         yy : "%d anos"
     },
-    ordinal : function (number) {
-        return 'º';
-    }
+    ordinal : '%dº'
 });
 })();
 (function(){
@@ -2155,9 +2003,7 @@ require('../moment').lang('pt', {
         y : "um ano",
         yy : "%d anos"
     },
-    ordinal : function (number) {
-        return 'º';
-    },
+    ordinal : '%dº',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -2205,9 +2051,6 @@ require('../moment').lang('ro', {
         MM : "%d luni",
         y : "un an",
         yy : "%d ani"
-    },
-    ordinal : function (number) {
-        return '';
     },
     week : {
         dow : 1, // Monday is the first day of the week.
@@ -2334,9 +2177,7 @@ require('../moment').lang('ru', {
         y : "год",
         yy : relativeTimeWithPlural
     },
-    ordinal : function (number) {
-        return '.';
-    },
+    ordinal : '%d.',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
@@ -2472,9 +2313,7 @@ require('../moment').lang('sl', {
         y      : "eno leto",
         yy     : translate
     },
-    ordinal : function (number) {
-        return '.';
-    },
+    ordinal : '%d.',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
@@ -2509,7 +2348,7 @@ require('../moment').lang('sv', {
     },
     relativeTime : {
         future : "om %s",
-        past : "för %s sen",
+        past : "för %s sedan",
         s : "några sekunder",
         m : "en minut",
         mm : "%d minuter",
@@ -2523,11 +2362,12 @@ require('../moment').lang('sv', {
         yy : "%d år"
     },
     ordinal : function (number) {
-        var b = number % 10;
-        return (~~ (number % 100 / 10) === 1) ? 'e' :
+        var b = number % 10,
+            output = (~~ (number % 100 / 10) === 1) ? 'e' :
             (b === 1) ? 'a' :
             (b === 2) ? 'a' :
             (b === 3) ? 'e' : 'e';
+        return number + output;
     },
     week : {
         dow : 1, // Monday is the first day of the week.
@@ -2582,9 +2422,6 @@ require('../moment').lang('th', {
         MM : "%d เดือน",
         y : "1 ปี",
         yy : "%d ปี"
-    },
-    ordinal : function (number) {
-        return '';
     }
 });
 })();
@@ -2658,13 +2495,13 @@ require('../moment').lang('tr', {
     },
     ordinal : function (number) {
         if (number === 0) {  // special case for zero
-            return "'ıncı";
+            return number + "'ıncı";
         }
         var a = number % 10,
             b = number % 100 - a,
             c = number >= 100 ? 100 : null;
 
-        return suffixes[a] || suffixes[b] || suffixes[c];
+        return number + (suffixes[a] || suffixes[b] || suffixes[c]);
     },
     week : {
         dow : 1, // Monday is the first day of the week.
@@ -2713,9 +2550,6 @@ require('../moment').lang('tzm-la', {
         y : "asgas",
         yy : "%d isgasn"
     },
-    ordinal : function (number) {
-        return '';
-    },
     week : {
         dow : 6, // Saturday is the first day of the week.
         doy : 12  // The week that contains Jan 1st is the first week of the year.
@@ -2763,12 +2597,133 @@ require('../moment').lang('tzm', {
         y : "ⴰⵙⴳⴰⵙ",
         yy : "%d ⵉⵙⴳⴰⵙⵏ"
     },
-    ordinal : function (number) {
-        return '';
-    },
     week : {
         dow : 6, // Saturday is the first day of the week.
         doy : 12  // The week that contains Jan 1st is the first week of the year.
+    }
+});
+})();
+(function(){
+// moment.js language configuration
+// language : ukrainian (uk)
+// author : zemlanin : https://github.com/zemlanin
+var pluralRules = [
+    function (n) { return ((n % 10 === 1) && (n % 100 !== 11)); },
+    function (n) { return ((n % 10) >= 2 && (n % 10) <= 4 && ((n % 10) % 1) === 0) && ((n % 100) < 12 || (n % 100) > 14); },
+    function (n) { return ((n % 10) === 0 || ((n % 10) >= 5 && (n % 10) <= 9 && ((n % 10) % 1) === 0) || ((n % 100) >= 11 && (n % 100) <= 14 && ((n % 100) % 1) === 0)); },
+    function (n) { return true; }
+];
+
+function plural(word, num) {
+    var forms = word.split('_'),
+    minCount = Math.min(pluralRules.length, forms.length),
+    i = -1;
+
+    while (++i < minCount) {
+        if (pluralRules[i](num)) {
+            return forms[i];
+        }
+    }
+    return forms[minCount - 1];
+}
+
+function relativeTimeWithPlural(number, withoutSuffix, key) {
+    var format = {
+        'mm': 'хвилина_хвилини_хвилин_хвилини',
+        'hh': 'година_години_годин_години',
+        'dd': 'день_дня_днів_дня',
+        'MM': 'місяць_місяця_місяців_місяця',
+        'yy': 'рік_року_років_року'
+    };
+    if (key === 'm') {
+        return withoutSuffix ? 'хвилина' : 'хвилину';
+    }
+    else {
+        return number + ' ' + plural(format[key], +number);
+    }
+}
+
+function monthsCaseReplace(m, format) {
+    var months = {
+        'nominative': 'січень_лютий_березень_квітень_травень_червень_липень_серпень_вересень_жовтень_листопад_грудень'.split('_'),
+        'accusative': 'січня_лютого_березня_квітня_травня_червня_липня_серпня_вересня_жовтня_листопада_грудня'.split('_')
+    },
+
+    nounCase = (/D[oD]? *MMMM?/).test(format) ?
+        'accusative' :
+        'nominative';
+
+    return months[nounCase][m.month()];
+}
+
+function weekdaysCaseReplace(m, format) {
+    var weekdays = {
+        'nominative': 'неділя_понеділок_вівторок_середа_четвер_п’ятниця_субота'.split('_'),
+        'accusative': 'неділю_понеділок_вівторок_середу_четвер_п’ятницю_суботу'.split('_')
+    },
+
+    nounCase = (/\[ ?[Вв] ?(?:попередню|наступну)? ?\] ?dddd/).test(format) ?
+        'accusative' :
+        'nominative';
+
+    return weekdays[nounCase][m.day()];
+}
+
+require('../moment').lang('uk', {
+    months : monthsCaseReplace,
+    monthsShort : "січ_лют_бер_кві_тра_чер_лип_сер_вер_жов_лис_гру".split("_"),
+    weekdays : weekdaysCaseReplace,
+    weekdaysShort : "нед_пон_вів_срд_чет_птн_суб".split("_"),
+    weekdaysMin : "нд_пн_вт_ср_чт_пт_сб".split("_"),
+    longDateFormat : {
+        LT : "HH:mm",
+        L : "DD.MM.YYYY",
+        LL : "D MMMM YYYY г.",
+        LLL : "D MMMM YYYY г., LT",
+        LLLL : "dddd, D MMMM YYYY г., LT"
+    },
+    calendar : {
+        sameDay: '[Сьогодні в] LT',
+        nextDay: '[Завтра в] LT',
+        lastDay: '[Вчора в] LT',
+        nextWeek: function () {
+            return this.day() === 2 ? '[У] dddd [в] LT' : '[В] dddd [в] LT';
+        },
+        lastWeek: function () {
+            switch (this.day()) {
+            case 0:
+            case 3:
+            case 5:
+            case 6:
+                return '[В минулу] dddd [в] LT';
+            case 1:
+            case 2:
+            case 4:
+                return '[В минулий] dddd [в] LT';
+            }
+        },
+        sameElse: 'L'
+    },
+    // It needs checking (adding) ukrainan plurals and cases.
+    relativeTime : {
+        future : "через %s",
+        past : "%s тому",
+        s : "декілька секунд",
+        m : relativeTimeWithPlural,
+        mm : relativeTimeWithPlural,
+        h : "годину",
+        hh : relativeTimeWithPlural,
+        d : "день",
+        dd : relativeTimeWithPlural,
+        M : "місяць",
+        MM : relativeTimeWithPlural,
+        y : "рік",
+        yy : relativeTimeWithPlural
+    },
+    ordinal : '%d.',
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 7  // The week that contains Jan 1st is the first week of the year.
     }
 });
 })();
@@ -2788,7 +2743,11 @@ require('../moment').lang('zh-cn', {
         L : "YYYY年MMMD日",
         LL : "YYYY年MMMD日",
         LLL : "YYYY年MMMD日LT",
-        LLLL : "YYYY年MMMD日ddddLT"
+        LLLL : "YYYY年MMMD日ddddLT",
+        l : "YYYY年MMMD日",
+        ll : "YYYY年MMMD日",
+        lll : "YYYY年MMMD日LT",
+        llll : "YYYY年MMMD日ddddLT"
     },
     meridiem : function (hour, minute, isLower) {
         if (hour < 9) {
@@ -2825,9 +2784,6 @@ require('../moment').lang('zh-cn', {
         MM : "%d个月",
         y : "1年",
         yy : "%d年"
-    },
-    ordinal : function (number) {
-        return '';
     }
 });
 })();
@@ -2847,7 +2803,11 @@ require('../moment').lang('zh-tw', {
         L : "YYYY年MMMD日",
         LL : "YYYY年MMMD日",
         LLL : "YYYY年MMMD日LT",
-        LLLL : "YYYY年MMMD日ddddLT"
+        LLLL : "YYYY年MMMD日ddddLT",
+        l : "YYYY年MMMD日",
+        ll : "YYYY年MMMD日",
+        lll : "YYYY年MMMD日LT",
+        llll : "YYYY年MMMD日ddddLT"
     },
     meridiem : function (hour, minute, isLower) {
         if (hour < 9) {
@@ -2884,9 +2844,6 @@ require('../moment').lang('zh-tw', {
         MM : "%d個月",
         y : "一年",
         yy : "%d年"
-    },
-    ordinal : function (number) {
-        return '';
     }
 });
 

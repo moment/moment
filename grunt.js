@@ -4,6 +4,10 @@ var fs = require('fs'),
 module.exports = function(grunt) {
 
     var minLangs = {
+        moment: {
+            src: ['moment.js'],
+            dest: 'min/moment.min.js'
+        },
         langs: {
             src: ['min/langs.js'],
             dest: 'min/langs.min.js'
@@ -28,15 +32,19 @@ module.exports = function(grunt) {
             }
         },
         minlang : minLangs,
-        min : {
+        minwithcomments : {
             moment: {
                 src: ['moment.js'],
                 dest: 'min/moment.min.js'
             }
         },
         uglify: {
-            mangle: {toplevel: true},
-            squeeze: {dead_code: false},
+            mangle: {
+                toplevel: true
+            },
+            squeeze: {
+                dead_code: false
+            },
             codegen: {
                 ascii_only: true
             }
@@ -100,5 +108,5 @@ module.exports = function(grunt) {
     grunt.registerTask('default', 'lint test');
 
     // Task to be run when releasing a new version
-    grunt.registerTask('release', 'lint test concatlang minlang');
+    grunt.registerTask('release', 'lint test minwithcomments concatlang minlang');
 };

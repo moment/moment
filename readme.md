@@ -1,11 +1,25 @@
-[Moment.js](http://momentjs.com)
-================================
-
 A lightweight javascript date library for parsing, validating, manipulating, and formatting dates.
 
-### [Read the docs](http://momentjs.com/docs/)
+# [Documentation](http://momentjs.com/docs/)
 
-### [Run the tests](http://momentjs.com/test/)
+Upgrading to 2.0.0
+==================
+
+There are a number of small backwards incompatible changes with version 2.0.0.
+
+[See them and their descriptions here](https://gist.github.com/timrwood/e72f2eef320ed9e37c51#backwards-incompatible-changes)
+
+Changed language ordinal method to return the number + ordinal instead of just the ordinal.
+
+Changed two digit year parsing cutoff to match strptime.
+
+Removed `moment#sod` and `moment#eod` in favor of `moment#startOf` and `moment#endOf`.
+
+Removed `moment.humanizeDuration()` in favor of `moment.duration().humanize()`.
+
+Removed the lang data objects from the top level namespace.
+
+Duplicate `Date` passed to `moment()` instead of referencing it.
 
 
 Upgrading to 1.6.0
@@ -24,9 +38,49 @@ Changelog
 =========
 
 
+### 2.0.0 [See changelog](https://gist.github.com/timrwood/e72f2eef320ed9e37c51)
+
+Added short form localized tokens.
+
+Added ability to define language a string should be parsed in.
+
+Added support for reversed add/subtract arguments.
+
+Added support for `endOf('week')` and `startOf('week')`.
+
+Fixed the logic for `moment#diff(Moment, 'months')` and `moment#diff(Moment, 'years')`
+
+`moment#diff` now floors instead of rounds.
+
+Normalized `moment#toString`.
+
+Added `isSame`, `isAfter`, and `isBefore` methods.
+
+Added better week support.
+
+Added `moment#toJSON`
+
+Bugfix: Fixed parsing of first century dates
+
+Bugfix: Parsing 10Sep2001 should work as expected
+
+Bugfix: Fixed wierdness with `moment.utc()` parsing.
+
+Changed language ordinal method to return the number + ordinal instead of just the ordinal.
+
+Changed two digit year parsing cutoff to match strptime.
+
+Removed `moment#sod` and `moment#eod` in favor of `moment#startOf` and `moment#endOf`.
+
+Removed `moment.humanizeDuration()` in favor of `moment.duration().humanize()`.
+
+Removed the lang data objects from the top level namespace.
+
+Duplicate `Date` passed to `moment()` instead of referencing it.
+
 ### 1.7.2 [See discussion](https://github.com/timrwood/moment/issues/456)
 
-Bugfix
+Bugfixes
 
 ### 1.7.1 [See discussion](https://github.com/timrwood/moment/issues/384)
 
