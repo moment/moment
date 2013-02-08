@@ -174,10 +174,10 @@ exports["lang:fr-ca"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({M:1}), true),   "un mois",    "1 month = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({M:5}), true),   "5 mois",   "5 months = 5 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d:344}), true), "11 mois",  "344 days = 11 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:345}), true), "une an",     "345 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:547}), true), "une an",     "547 days = a year");
+        test.equal(start.from(moment([2007, 1, 28]).add({d:345}), true), "un an",     "345 days = a year");
+        test.equal(start.from(moment([2007, 1, 28]).add({d:547}), true), "un an",     "547 days = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({d:548}), true), "2 ans",    "548 days = 2 years");
-        test.equal(start.from(moment([2007, 1, 28]).add({y:1}), true),   "une an",     "1 year = a year");
+        test.equal(start.from(moment([2007, 1, 28]).add({y:1}), true),   "un an",     "1 year = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({y:5}), true),   "5 ans",    "5 years = 5 years");
 
         test.done();
