@@ -289,14 +289,14 @@
     }
 
     // helper function for _.addTime and _.subtractTime
-    function addOrSubtractDurationFromMoment(mom, duration, isAdding) {
+    function addOrSubtractDurationFromMoment(mom, duration, isAdding, ignoreUpdateOffset) {
         var ms = duration._milliseconds,
             d = duration._days,
             M = duration._months,
             currentDate;
 
         if (ms) {
-            mom._d.setTime(+mom + ms * isAdding);
+            mom._d.setTime(+mom._d + ms * isAdding);
         }
         if (d) {
             mom.date(mom.date() + d * isAdding);
@@ -306,6 +306,9 @@
             mom.date(1)
                 .month(mom.month() + M * isAdding)
                 .date(Math.min(currentDate, mom.daysInMonth()));
+        }
+        if (ms && !ignoreUpdateOffset) {
+            moment.updateOffset(mom);
         }
     }
 
@@ -996,6 +999,10 @@
     // default format
     moment.defaultFormat = isoFormat;
 
+    // This function will be called whenever a moment is mutated.
+    // It is intended to keep the offset in sync with the timezone.
+    moment.updateOffset = function () {};
+
     // This function will load languages and then set the global language.  If
     // no arguments are passed in, it will simply return the current global
     // language key.
@@ -1044,7 +1051,7 @@
         },
 
         valueOf : function () {
-            return +this._d;
+            return +this._d + ((this._offset || 0) * 60000);
         },
 
         unix : function () {
@@ -1243,8 +1250,17 @@
             return +this.clone().startOf(units) === +moment(input).startOf(units);
         },
 
-        zone : function () {
-            return this._isUTC ? 0 : this._d.getTimezoneOffset();
+        zone : function (input) {
+            var offset = this._offset || 0;
+            if (input != null) {
+                this._offset = input;
+                this._isUTC = true;
+                if (offset !== input) {
+                    addOrSubtractDurationFromMoment(this, moment.duration(offset - input, 'm'), 1, true);
+                }
+            } else {
+                return this._isUTC ? offset : this._d.getTimezoneOffset();
+            }
         },
 
         daysInMonth : function () {
@@ -1285,6 +1301,7 @@
             var utc = this._isUTC ? 'UTC' : '';
             if (input != null) {
                 this._d['set' + utc + key](input);
+                moment.updateOffset(this);
                 return this;
             } else {
                 return this._d['get' + utc + key]();
