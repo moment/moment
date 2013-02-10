@@ -857,7 +857,8 @@
             iso8601Duration = new RegExp('^P(?:' + year + month + day + time + ')+$'),
             alternateFormat = new RegExp('^P(\\d{4})-?(\\d{2})-?(\\d{2})(?:T(\\d{2}):?(\\d{2}):?(\\d{2}))?$'),
             matches,
-            elements = ['y', 'M', 'd', 'h', 'm', 's'];
+            elements = ['y', 'M', 'd', 'h', 'm', 's'],
+            i;
 
         matches = input.match(iso8601Duration);
         if (!matches) {
@@ -865,7 +866,7 @@
         }
 
         if (matches) {
-            for (var i = 0; i < elements.length; i++) {
+            for (i = 0; i < elements.length; i++) {
                 if (matches[i + 1]) {
                     duration[elements[i]] = parseFloat(matches[i + 1].replace(',', '.'));
                 }
