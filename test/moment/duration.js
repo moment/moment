@@ -84,6 +84,49 @@ exports.duration = {
         test.done();
     },
 
+    "instantiation from string" : function(test) {
+        var stringDuration = moment.duration("P3Y6M4DT12H5.5S");
+        test.expect(6);
+        test.equal(stringDuration.years(), 3,     "3 years");
+        test.equal(stringDuration.months(), 6,  "6 months");
+        test.equal(stringDuration.days(), 4,  "4 days");
+        test.equal(stringDuration.hours(), 12,  "12 hours");
+        test.equal(stringDuration.minutes(), 0,  "0 minutes");
+        test.equal(stringDuration.seconds(), 5.5,  "5.5 seconds");
+        test.done();
+    },
+    
+    "instantiation from string without time" : function(test){
+        var stringDuration = moment.duration("P3,4Y");
+        test.expect(1);
+        test.equal(stringDuration.years(), 3.4, "3.4 years");
+        test.done();
+    },
+
+    "instantiation from string with basic format" : function(test){
+        var stringDuration = moment.duration("P00030604T123005");
+        test.expect(6);
+        test.equal(stringDuration.years(), 3,     "3 years");
+        test.equal(stringDuration.months(), 6,  "6 months");
+        test.equal(stringDuration.days(), 4,  "4 days");
+        test.equal(stringDuration.hours(), 12,  "12 hours");
+        test.equal(stringDuration.minutes(), 30,  "30 minutes");
+        test.equal(stringDuration.seconds(), 5,  "5 seconds");
+        test.done();
+    },
+
+    "instantiation from string with extended format" : function(test){
+        var stringDuration = moment.duration("P0003-06-04T12:30:05");
+        test.expect(6);
+        test.equal(stringDuration.years(), 3,     "3 years");
+        test.equal(stringDuration.months(), 6,  "6 months");
+        test.equal(stringDuration.days(), 4,  "4 days");
+        test.equal(stringDuration.hours(), 12,  "12 hours");
+        test.equal(stringDuration.minutes(), 30,  "30 minutes");
+        test.equal(stringDuration.seconds(), 5,  "5 seconds");
+        test.done();
+    },
+
     "humanize" : function(test) {
         test.expect(32);
         moment.lang('en');
