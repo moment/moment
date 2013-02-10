@@ -856,17 +856,17 @@
             time = '(?:T' + hour + minute + second + ')?',
             iso8601Duration = new RegExp('^P(?:' + year + month + day + time + ')+$'),
             alternateFormat = new RegExp('^P(\\d{4})-?(\\d{2})-?(\\d{2})(?:T(\\d{2}):?(\\d{2}):?(\\d{2}))?$'),
-            matches;
+            matches,
+            elements = ['y', 'M', 'd', 'h', 'm', 's'];
 
         matches = input.match(iso8601Duration);
-        if (!matches){
+        if (!matches) {
             matches = input.match(alternateFormat);
         }
 
-        if (matches){
-            var elements = ['y', 'M', 'd', 'h', 'm', 's'];
-            for (var i = 0; i < elements.length; i++){
-                if (matches[i + 1]){
+        if (matches) {
+            for (var i = 0; i < elements.length; i++) {
+                if (matches[i + 1]) {
                     duration[elements[i]] = parseFloat(matches[i + 1].replace(',', '.'));
                 }
             }
@@ -1007,7 +1007,7 @@
             } else {
                 duration.milliseconds = input;
             }
-        } else if (isString){
+        } else if (isString) {
             makeDurationFromString(input, duration);
         }
 
