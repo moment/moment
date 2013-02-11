@@ -848,11 +848,11 @@
 
     function makeDurationFromString(input, duration) {
         var year = '(?:(\\d+(?:[\\.\\,]\\d+)?)Y)?',
-            month = '(?:(\\d+(?:\\.\\d+)?)M)?',
-            day = '(?:(\\d+(?:\\.\\d+)?)D)?',
-            hour = '(?:(\\d+(?:\\.\\d+)?)H)?',
-            minute = '(?:(\\d+(?:\\.\\d+)?)M)?',
-            second = '(?:(\\d+(?:\\.\\d+)?)S)?',
+            month = '(?:(\\d+(?:[\\.\\,]\\d+)?)M)?',
+            day = '(?:(\\d+(?:[\\.\\,]\\d+)?)D)?',
+            hour = '(?:(\\d+(?:[\\.\\,]\\d+)?)H)?',
+            minute = '(?:(\\d+(?:[\\.\\,]\\d+)?)M)?',
+            second = '(?:(\\d+(?:[\\.\\,]\\d+)?)S)?',
             time = '(?:T' + hour + minute + second + ')?',
             iso8601Duration = new RegExp('^P(?:' + year + month + day + time + ')+$'),
             alternateFormat = new RegExp('^P(\\d{4})-?(\\d{2})-?(\\d{2})(?:T(\\d{2}):?(\\d{2}):?(\\d{2}))?$'),
