@@ -782,12 +782,11 @@
 
             scoreToBeat = 99,
             i,
-            currentDate,
             currentScore;
 
-        while (config._f.length) {
+        for (i = config._f.length; i > 0; i--) {
             tempConfig = extend({}, config);
-            tempConfig._f = config._f.pop();
+            tempConfig._f = config._f[i - 1];
             makeDateFromStringAndFormat(tempConfig);
             tempMoment = new Moment(tempConfig);
 
