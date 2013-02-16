@@ -1217,7 +1217,7 @@
 
             // weeks are a special case
             if (units === 'week') {
-                this.day(0);
+                this.day(this.lang()._week.dow);
             }
 
             return this;
