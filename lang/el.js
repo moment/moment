@@ -3,7 +3,15 @@
 // author : Aggelos Karalias : https://github.com/mehiel
 
 require('../moment').lang('el', {
-    months : "Ιανουάριος_Φεβρουάριος_Μάρτιος_Απρίλιος_Μάιος_Ιούνιος_Ιούλιος_Αύγουστος_Σεπτέμβριος_Οκτώβριος_Νοέμβριος_Δεκέμβριος".split("_"),
+    monthsNominativeEl : "Ιανουάριος_Φεβρουάριος_Μάρτιος_Απρίλιος_Μάιος_Ιούνιος_Ιούλιος_Αύγουστος_Σεπτέμβριος_Οκτώβριος_Νοέμβριος_Δεκέμβριος".split("_"),
+    monthsGenitiveEl : "Ιανουαρίου_Φεβρουαρίου_Μαρτίου_Απριλίου_Μαΐου_Ιουνίου_Ιουλίου_Αυγούστου_Σεπτεμβρίου_Οκτωβρίου_Νοεμβρίου_Δεκεμβρίου".split("_"),
+    months : function (momentToFormat, format) {
+        if (/D/.test(format.substring(0, format.indexOf("MMMM")))) { // if there is a day number before 'MMMM'
+            return this._monthsGenitiveEl[momentToFormat.month()];
+        } else {
+            return this._monthsNominativeEl[momentToFormat.month()];
+        }
+    },
     monthsShort : "Ιαν_Φεβ_Μαρ_Απρ_Μαϊ_Ιουν_Ιουλ_Αυγ_Σεπ_Οκτ_Νοε_Δεκ".split("_"),
     weekdays : "Κυριακή_Δευτέρα_Τρίτη_Τετάρτη_Πέμπτη_Παρασκευή_Σάββατο".split("_"),
     weekdaysShort : "Κυρ_Δευ_Τρι_Τετ_Πεμ_Παρ_Σαβ".split("_"),
@@ -22,16 +30,16 @@ require('../moment').lang('el', {
         LLL : "D MMMM YYYY LT",
         LLLL : "dddd, D MMMM YYYY LT"
     },
+    calendarEl : {
+        sameDay : '[Σήμερα {}] LT',
+        nextDay : '[Αύριο {}] LT',
+        nextWeek : 'dddd [{}] LT',
+        lastDay : '[Χθες {}] LT',
+        lastWeek : '[την προηγούμενη] dddd [{}] LT',
+        sameElse : 'L'
+    },
     calendar : function (key, mom) {
-        var _calendar_el = {
-                sameDay : '[Σήμερα {}] LT',
-                nextDay : '[Αύριο {}] LT',
-                nextWeek : 'dddd [{}] LT',
-                lastDay : '[Χθες {}] LT',
-                lastWeek : '[την προηγούμενη] dddd [{}] LT',
-                sameElse : 'L'
-            },
-            output = _calendar_el[key],
+        var output = this._calendarEl[key],
             hours = mom && mom.hours();
 
         return output.replace("{}", (hours % 12 === 1 ? "στη" : "στις"));
