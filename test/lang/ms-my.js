@@ -45,8 +45,8 @@ exports["lang:ms-my"] = {
         test.expect(22);
 
         var a = [
-                ['dddd, MMMM Do YYYY, h:mm:ss a',      'Ahad, Februari 14 2010, 3:25:50 petang'],
-                ['ddd, hA',                            'Ahd, 3 petang'],
+                ['dddd, MMMM Do YYYY, h:mm:ss a',      'Ahad, Februari 14 2010, 3:25:50 pm'],
+                ['ddd, hA',                            'Ahd, 3PM'],
                 ['M Mo MM MMMM MMM',                   '2 2 02 Februari Feb'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14 14'],
@@ -57,16 +57,16 @@ exports["lang:ms-my"] = {
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
-                ['a A',                                'petang Petang'],
+                ['a A',                                'pm PM'],
                 ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'hari ke 45 tahun ini'],
                 ['L',                                  '02/14/2010'],
                 ['LL',                                 'Februari 14 2010'],
-                ['LLL',                                'Februari 14 2010 3:25 Petang'],
-                ['LLLL',                               'Ahad, Februari 14 2010 3:25 Petang'],
+                ['LLL',                                'Februari 14 2010 3:25 PM'],
+                ['LLLL',                               'Ahad, Februari 14 2010 3:25 PM'],
                 ['l',                                  '2/14/2010'],
                 ['ll',                                 'Feb 14 2010'],
-                ['lll',                                'Feb 14 2010 3:25 Petang'],
-                ['llll',                               'Ahd, Feb 14 2010 3:25 Petang']
+                ['lll',                                'Feb 14 2010 3:25 PM'],
+                ['llll',                               'Ahd, Feb 14 2010 3:25 PM']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
