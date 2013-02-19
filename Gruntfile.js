@@ -3,20 +3,17 @@ var fs = require('fs'),
 
 module.exports = function (grunt) {
 
-    var minLangs = {
-        langs: {
-            src: ['min/langs.js'],
-            dest: 'min/langs.min.js'
-        }
+    var minifiedFiles = {
+        'min/langs.min.js'  : ['min/langs.js'],
+        'min/moment.min.js' : ['moment.js']
     };
 
     // all the lang files need to be added manually
     fs.readdirSync('./lang').forEach(function (path) {
         if (path.indexOf('.js') > -1) {
-            minLangs[path] = {
-                src: ['lang/' + path],
-                dest: 'min/lang/' + path
-            };
+            var dest = 'min/lang/' + path,
+                src = ['lang/' + path];
+            minifiedFiles[dest] = src;
         }
     });
 
@@ -28,22 +25,18 @@ module.exports = function (grunt) {
                 dest: 'min/langs.js'
             }
         },
-        minlang : minLangs,
-        minwithcomments : {
-            moment: {
-                src: ['moment.js'],
-                dest: 'min/moment.min.js'
-            }
-        },
-        uglify: {
-            mangle: {
-                toplevel: true
+        uglify : {
+            my_target: {
+                files: minifiedFiles
             },
-            squeeze: {
-                dead_code: false
-            },
-            codegen: {
-                ascii_only: true
+            options: {
+                mangle: true,
+                squeeze: {
+                    dead_code: false
+                },
+                codegen: {
+                    ascii_only: true
+                }
             }
         },
         nodeunit : {
@@ -106,5 +99,5 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['jshint', 'nodeunit']);
 
     // Task to be run when releasing a new version
-    grunt.registerTask('release', ['jshint', 'nodeunit', 'minwithcomments', 'concat', 'minlang']);
+    grunt.registerTask('release', ['jshint', 'nodeunit', 'concat', 'uglify']);
 };
