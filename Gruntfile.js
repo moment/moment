@@ -8,12 +8,21 @@ module.exports = function (grunt) {
         'min/moment.min.js' : ['moment.js']
     };
 
+    var minLangs = {
+        langs: {
+            src: ['min/langs.js'],
+            dest: 'min/langs.min.js'
+        }
+    };
+
     // all the lang files need to be added manually
     fs.readdirSync('./lang').forEach(function (path) {
         if (path.indexOf('.js') > -1) {
             var dest = 'min/lang/' + path,
                 src = ['lang/' + path];
+
             minifiedFiles[dest] = src;
+            minLangs[path] = {src:src, dest:dest};
         }
     });
 
@@ -31,12 +40,15 @@ module.exports = function (grunt) {
                 dest: 'min/langs.js'
             }
         },
+        minlang : minLangs,
         uglify : {
             my_target: {
                 files: minifiedFiles
             },
             options: {
-                mangle: true,
+                mangle: {
+                    toplevel: true
+                },
                 squeeze: {
                     dead_code: false
                 },
