@@ -49,13 +49,8 @@ module.exports = function(grunt) {
         nodeunit : {
             all : ["test/**/*.js"]
         },
-        lint : {
-            files: [
-                'moment.js',
-                'lang/**/*.js'
-            ]
-        },
         jshint: {
+            all: ["Gruntfile.js", "moment.js", "lang/**/*.js"],
             options: {
                 "node"     : true,
                 "es5"      : true,
