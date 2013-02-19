@@ -106,5 +106,5 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['jshint', 'nodeunit']);
 
     // Task to be run when releasing a new version
-    grunt.registerTask('release', ['jshint', 'nodeunit', 'concat', 'uglify']);
+    grunt.registerTask('release', ['jshint', 'nodeunit', 'concatlang', 'uglify']);
 };
