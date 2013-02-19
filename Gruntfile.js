@@ -1,7 +1,7 @@
 var fs = require('fs'),
     uglifyjs = require('uglify-js');
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
     var minLangs = {
         langs: {
