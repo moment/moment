@@ -22,7 +22,7 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        concatlang : {
+        concat : {
             langs: {
                 src: ['lang/*.js'],
                 dest: 'min/langs.js'
@@ -99,10 +99,11 @@ module.exports = function (grunt) {
     // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-concat');
 
     // Default task.
     grunt.registerTask('default', ['jshint', 'nodeunit']);
 
     // Task to be run when releasing a new version
-    grunt.registerTask('release', ['jshint', 'nodeunit', 'minwithcomments', 'concatlang', 'minlang']);
+    grunt.registerTask('release', ['jshint', 'nodeunit', 'minwithcomments', 'concat', 'minlang']);
 };
