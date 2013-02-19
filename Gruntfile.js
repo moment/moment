@@ -46,8 +46,8 @@ module.exports = function(grunt) {
                 ascii_only: true
             }
         },
-        test : {
-            files : ["test/**/*.js"]
+        nodeunit : {
+            all : ["test/**/*.js"]
         },
         lint : {
             files: [
@@ -101,9 +101,13 @@ module.exports = function(grunt) {
 
     grunt.loadTasks("tasks");
 
+    // These plugins provide necessary tasks.
+    grunt.loadNpmTasks('grunt-contrib-nodeunit');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+
     // Default task.
-    grunt.registerTask('default', 'lint test');
+    grunt.registerTask('default', ['jshint', 'nodeunit']);
 
     // Task to be run when releasing a new version
-    grunt.registerTask('release', 'lint test minwithcomments concatlang minlang');
+    grunt.registerTask('release', ['jshint', 'nodeunit', 'minwithcomments', 'concatlang', 'minlang']);
 };
