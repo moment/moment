@@ -339,7 +339,7 @@ exports["lang:ms-my"] = {
 
         test.done();
     },
-petang
+
     "weeks year starting friday" : function(test) {
         test.expect(6);
 
