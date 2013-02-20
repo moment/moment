@@ -58,15 +58,15 @@ exports["lang:ms-my"] = {
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                'petang petang'],
-                ['h\\a\\ri ke DDDo t\\a\\hun ini', 'hari ke 45 tahun ini'],
+                ['\\h\\a\\ri ke DDDo t\\a\\hun ini', 'hari ke 45 tahun ini'],
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 Februari 2010'],
-                ['LLL',                                '14 Februari 2010 pukul 15:25'],
-                ['LLLL',                               'Ahad, Februari 14 2010 15:25'],
+                ['LLL',                                '14 Februari 2010 pukul 15.25'],
+                ['LLLL',                               'Ahad, Februari 14 2010 15.25'],
                 ['l',                                  '14/2/2010'],
                 ['ll',                                 '14 Feb 2010'],
-                ['lll',                                '14 Feb 2010 pukul 3:25'],
-                ['llll',                               'Ahd, 14 Feb 2010 pukul 15:25']
+                ['lll',                                '14 Feb 2010 pukul 15.25'],
+                ['llll',                               'Ahd, 14 Feb 2010 pukul 15.25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -213,12 +213,12 @@ exports["lang:ms-my"] = {
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "Hari ini pukul 2:00",     "hari ini pada waktu yang sama");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "Hari ini pukul 2:25",     "Sekarang tambah 25 minit");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "Hari ini pukul 3:00",     "Sekarang tambah 1 jam");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "Esok pada pukul 2:00",  "esok pada waktu yang sama");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Hari ini pukul 1:00",     "Sekarang tolak 1 jam");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Kelmarin pukul 2:00", "kelmarin pada waktu yang sama");
+        test.equal(moment(a).calendar(),                     "Hari ini pukul 02.00",     "hari ini pada waktu yang sama");
+        test.equal(moment(a).add({ m: 25 }).calendar(),      "Hari ini pukul 02.25",     "Sekarang tambah 25 minit");
+        test.equal(moment(a).add({ h: 1 }).calendar(),       "Hari ini pukul 03.00",     "Sekarang tambah 1 jam");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "Esok pukul 02.00",  "esok pada waktu yang sama");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Hari ini pukul 01.00",     "Sekarang tolak 1 jam");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Kelmarin pukul 02.00", "kelmarin pada waktu yang sama");
 
         test.done();
     },
