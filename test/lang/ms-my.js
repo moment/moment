@@ -58,15 +58,15 @@ exports["lang:ms-my"] = {
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                'petang petang'],
-                ['hari ke DDDo tahun ini', 'hari ke 45 tahun ini'],
+                ['h\\a\\ri ke DDDo t\\a\\hun ini', 'hari ke 45 tahun ini'],
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 Februari 2010'],
-                ['LLL',                                '14 Februari 2010 3:25'],
-                ['LLLL',                               'Ahad, Februari 14 2010 3:25'],
-                ['l',                                  '2/14/2010'],
-                ['ll',                                 'Feb 14 2010'],
-                ['lll',                                'Feb 14 2010 3:25 PM'],
-                ['llll',                               'Ahd, Feb 14 2010 3:25 PM']
+                ['LLL',                                '14 Februari 2010 pukul 15:25'],
+                ['LLLL',                               'Ahad, Februari 14 2010 15:25'],
+                ['l',                                  '14/2/2010'],
+                ['ll',                                 '14 Feb 2010'],
+                ['lll',                                '14 Feb 2010 pukul 3:25'],
+                ['llll',                               'Ahd, 14 Feb 2010 pukul 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -134,7 +134,7 @@ exports["lang:ms-my"] = {
         test.expect(7);
 
         var i,
-            expected = 'Ahad Ahd Ah_Isnin Isn Is_Selasa Sel Sl_Rabu Rab Rb_Khamis Kha Kh_Jumaat Jum Jm_Sabtu Sab Sb'.split("_");
+            expected = 'Ahad Ahd Ah_Isnin Isn Is_Selasa Sel Sl_Rabu Rab Rb_Khamis Kha Km_Jumaat Jum Jm_Sabtu Sab Sb'.split("_");
 
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
@@ -213,12 +213,12 @@ exports["lang:ms-my"] = {
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "Hari ini pada pukul 2:00",     "hari ini pada waktu yang sama");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "Hari ini pada pukul 2:25",     "Sekarang tambah 25 minit");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "Hari ini pada pukul 3:00",     "Sekarang tambah 1 jam");
+        test.equal(moment(a).calendar(),                     "Hari ini pukul 2:00",     "hari ini pada waktu yang sama");
+        test.equal(moment(a).add({ m: 25 }).calendar(),      "Hari ini pukul 2:25",     "Sekarang tambah 25 minit");
+        test.equal(moment(a).add({ h: 1 }).calendar(),       "Hari ini pukul 3:00",     "Sekarang tambah 1 jam");
         test.equal(moment(a).add({ d: 1 }).calendar(),       "Esok pada pukul 2:00",  "esok pada waktu yang sama");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Hari ini pada pukul 1:00",     "Sekarang tolak 1 jam");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Semalam pada pukul 2:00", "semalam pada waktu yang sama");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Hari ini pukul 1:00",     "Sekarang tolak 1 jam");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Kelmarin pukul 2:00", "kelmarin pada waktu yang sama");
 
         test.done();
     },
@@ -291,7 +291,7 @@ exports["lang:ms-my"] = {
     "weeks year starting monday" : function(test) {
         test.expect(6);
 
-        test.equal(moment([2006, 11, 31]).week(), 1, "Dec 31 2006 sepatutnya minggu 1");
+        test.equal(moment([2006, 11, 31]).week(), 53, "Dec 31 2006 sepatutnya minggu 53");
         test.equal(moment([2007,  0,  1]).week(), 1, "Jan  1 2007 sepatutnya minggu 1");
         test.equal(moment([2007,  0,  6]).week(), 1, "Jan  6 2007 sepatutnya minggu 1");
         test.equal(moment([2007,  0,  7]).week(), 1, "Jan  7 2007 sepatutnya minggu 1");
@@ -369,9 +369,9 @@ exports["lang:ms-my"] = {
         test.expect(5);
 
         test.equal(moment([2012, 0,  1]).format('w ww wo'), '1 01 1', "Jan  1 2012 sepatutnya minggu 1");
-        test.equal(moment([2012, 0,  7]).format('w ww wo'), '1 01 1', "Jan  7 2012 sepatutnya minggu 1");
+        test.equal(moment([2012, 0,  7]).format('w ww wo'), '2 02 2', "Jan  7 2012 sepatutnya minggu 2");
         test.equal(moment([2012, 0,  8]).format('w ww wo'), '2 02 2', "Jan  8 2012 sepatutnya minggu 2");
-        test.equal(moment([2012, 0, 14]).format('w ww wo'), '2 02 2', "Jan 14 2012 sepatutnya minggu 2");
+        test.equal(moment([2012, 0, 14]).format('w ww wo'), '3 03 3', "Jan 14 2012 sepatutnya minggu 3");
         test.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3', "Jan 15 2012 sepatutnya minggu 3");
 
         test.done();
