@@ -4,16 +4,15 @@ var fs = require('fs'),
 module.exports = function (grunt) {
 
     var minifiedFiles = {
-        'min/langs.min.js'  : ['min/langs.js'],
-        'min/moment.min.js' : ['moment.js']
-    };
-
-    var minLangs = {
-        langs: {
-            src: ['min/langs.js'],
-            dest: 'min/langs.min.js'
-        }
-    };
+            'min/langs.min.js'  : ['min/langs.js'],
+            'min/moment.min.js' : ['moment.js']
+        },
+        minLangs = {
+            langs: {
+                src: ['min/langs.js'],
+                dest: 'min/langs.min.js'
+            }
+        };
 
     // all the lang files need to be added manually
     fs.readdirSync('./lang').forEach(function (path) {
@@ -22,7 +21,7 @@ module.exports = function (grunt) {
                 src = ['lang/' + path];
 
             minifiedFiles[dest] = src;
-            minLangs[path] = {src:src, dest:dest};
+            minLangs[path] = {src: src, dest: dest};
         }
     });
 
