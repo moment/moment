@@ -43,7 +43,7 @@ module.exports = function (grunt) {
     }
 
     function getCurrentTimezone(cb) {
-        grunt.utils.spawn({
+        grunt.util.spawn({
             cmd: "systemsetup",
             args: ["gettimezone"]
         }, function (err, result, code) {
@@ -52,7 +52,7 @@ module.exports = function (grunt) {
     }
 
     function getAllTimezones(cb) {
-        grunt.utils.spawn({
+        grunt.util.spawn({
             cmd: "systemsetup",
             args: ["listtimezones"]
         }, function (err, result, code) {
@@ -63,7 +63,7 @@ module.exports = function (grunt) {
     }
 
     function setTimezone(zone, cb) {
-        grunt.utils.spawn({
+        grunt.util.spawn({
             cmd: "systemsetup",
             args: ["settimezone", zone]
         }, function (err, result, code) {
@@ -89,7 +89,7 @@ module.exports = function (grunt) {
     }
 
     function testZone(zone, cb) {
-        grunt.utils.spawn({
+        grunt.util.spawn({
             cmd: "grunt",
             args: ["zone"]
         }, function (err, result, code) {
