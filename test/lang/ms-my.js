@@ -62,7 +62,7 @@ exports["lang:ms-my"] = {
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 Februari 2010'],
                 ['LLL',                                '14 Februari 2010 pukul 15.25'],
-                ['LLLL',                               'Ahad, Februari 14 2010 15.25'],
+                ['LLLL',                               'Ahad, 14 Februari 2010 15.25'],
                 ['l',                                  '14/2/2010'],
                 ['ll',                                 '14 Feb 2010'],
                 ['lll',                                '14 Feb 2010 pukul 15.25'],
