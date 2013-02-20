@@ -41,6 +41,12 @@ module.exports = function (grunt) {
             }
         },
         minlang : minLangs,
+        minwithcomments : {
+            moment: {
+                src: ['moment.js'],
+                dest: 'min/moment.min.js'
+            }
+        },
         uglify : {
             my_target: {
                 files: minifiedFiles
