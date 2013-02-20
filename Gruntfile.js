@@ -101,11 +101,11 @@ module.exports = function (grunt) {
                     'lang/*.js',
                     'test/**/*.js'
                 ],
-                tasks: 'test'
+                tasks: ['nodeunit']
             },
-            lint : {
-                files : '<config:lint.files>',
-                tasks: 'lint'
+            jshint : {
+                files : '<%= jshint.all %>',
+                tasks: ['jshint']
             }
         }
     });
