@@ -2,6 +2,7 @@
 
 module.exports = function (grunt) {
 
+    var helpers = require('grunt-lib-legacyhelpers').init(grunt);
     var START = "(function(){\n";
     var END   = "})();\n";
 
@@ -27,16 +28,16 @@ module.exports = function (grunt) {
     ].join('\n');
 
     grunt.registerMultiTask('concatlang', 'Concatenate files.', function() {
-        var files = grunt.file.expandFiles(this.file.src);
+        var files = grunt.file.expand(this.data.src);
         // Concat specified files.
-        var src = grunt.helper('concat', files, {separator: END + START});
-        grunt.file.write(this.file.dest, wrapFile(src));
+        var src = helpers.concat(files, {separator: END + START});
+        grunt.file.write(this.data.dest, wrapFile(src));
 
         // Fail task if errors were logged.
         if (this.errorCount) { return false; }
 
         // Otherwise, print a success message.
-        grunt.log.writeln('File "' + this.file.dest + '" created.');
+        grunt.log.writeln('File "' + this.data.dest + '" created.');
     });
 
     function wrapFile(code) {
