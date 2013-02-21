@@ -199,15 +199,17 @@ exports.lang = {
     },
 
     "start/endOf week feature for first-day-is-monday langs" : function (test) {
-        test.expect(4);
+        test.expect(2);
 
-        moment.lang('en');
-        test.equal(moment([2013, 0, 1]).startOf('week').day(), 0, 'for lang en first day of the week should be sunday');
-        test.equal(moment([2013, 0, 1]).endOf('week').day(), 6, 'for lang en last day of the week should be saturday');
-
-        moment.lang('nl');
-        test.equal(moment([2013, 0, 1]).startOf('week').day(), 1, 'for lang nl first day of the week should be monday');
-        test.equal(moment([2013, 0, 1]).endOf('week').day(), 0, 'for lang nl last day of the week should be sunday');
+        moment.lang('monday-lang', {
+            week : {
+                dow : 1 // Monday is the first day of the week
+            }
+        });
+        
+        moment.lang('monday-lang');
+        test.equal(moment([2013, 0, 1]).startOf('week').day(), 1, 'for lang monday-lang first day of the week should be monday');
+        test.equal(moment([2013, 0, 1]).endOf('week').day(), 0, 'for lang monday-lang last day of the week should be sunday');
 
         test.done();
     }
