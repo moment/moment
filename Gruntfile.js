@@ -1,5 +1,4 @@
-var fs = require('fs'),
-    uglifyjs = require('uglify-js');
+var fs = require('fs');
 
 module.exports = function (grunt) {
 
@@ -51,13 +50,12 @@ module.exports = function (grunt) {
                 files: minifiedFiles
             },
             options: {
-                mangle: {
-                    toplevel: true
-                },
-                squeeze: {
+                fromString: true,
+                mangle: true,
+                compress: {
                     dead_code: false
                 },
-                codegen: {
+                output: {
                     ascii_only: true
                 }
             }
