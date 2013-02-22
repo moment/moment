@@ -15,18 +15,20 @@ module.exports = function (grunt) {
             min,
             code,
             comments,
-            tok;
+            tok,
+            result;
 
         // Concat specified files. This should really be a single, pre-built (and
         // linted) file, but it supports any number of files.
         code = helpers.concat(files, {separator: this.data.separator});
 
         // Add the first comments
-        tok = uglifyjs.parser.tokenizer(code);
-        min = showCopyright(tok().comments_before);
+        tok = uglifyjs.parse(code);
+        min = showCopyright(tok.start.comments_before);
 
         // Add the minified source.
-        min += uglifyjs(code, grunt.config('uglify'));
+        result = uglifyjs.minify(code, grunt.config('uglify.options'));
+        min += result.code;
         grunt.file.write(this.data.dest, min);
 
         // Fail task if errors were logged.
