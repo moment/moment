@@ -140,7 +140,7 @@ exports.format = {
 
     "toJSON" : function(test) {
         var supportsJson = typeof JSON !== "undefined" && JSON.stringify && JSON.stringify.call,
-            date = moment.utc("2012-10-09T20:30:40.678");
+            date = moment("2012-10-09T21:30:40.678+0100");
 
         test.expect(supportsJson ? 2 : 1);
 
