@@ -424,7 +424,7 @@
             nextDay : '[Tomorrow at] LT',
             nextWeek : 'dddd [at] LT',
             lastDay : '[Yesterday at] LT',
-            lastWeek : '[last] dddd [at] LT',
+            lastWeek : '[Last] dddd [at] LT',
             sameElse : 'L'
         },
         calendar : function (key, mom) {
