@@ -845,6 +845,34 @@
         }
     }
 
+    function makeDurationFromString(input, duration) {
+        var year = '(?:(\\d+(?:[\\.\\,]\\d+)?)Y)?',
+            month = '(?:(\\d+(?:[\\.\\,]\\d+)?)M)?',
+            day = '(?:(\\d+(?:[\\.\\,]\\d+)?)D)?',
+            hour = '(?:(\\d+(?:[\\.\\,]\\d+)?)H)?',
+            minute = '(?:(\\d+(?:[\\.\\,]\\d+)?)M)?',
+            second = '(?:(\\d+(?:[\\.\\,]\\d+)?)S)?',
+            time = '(?:T' + hour + minute + second + ')?',
+            iso8601Duration = new RegExp('^P(?:' + year + month + day + time + ')+$'),
+            alternateFormat = new RegExp('^P(\\d{4})-?(\\d{2})-?(\\d{2})(?:T(\\d{2}):?(\\d{2}):?(\\d{2}))?$'),
+            matches,
+            elements = ['y', 'M', 'd', 'h', 'm', 's'],
+            i;
+
+        matches = input.match(iso8601Duration);
+        if (!matches) {
+            matches = input.match(alternateFormat);
+        }
+
+        if (matches) {
+            for (i = 0; i < elements.length; i++) {
+                if (matches[i + 1]) {
+                    duration[elements[i]] = parseFloat(matches[i + 1].replace(',', '.'));
+                }
+            }
+        }
+    }
+
 
     /************************************
         Relative Time
@@ -969,7 +997,8 @@
     moment.duration = function (input, key) {
         var isDuration = moment.isDuration(input),
             isNumber = (typeof input === 'number'),
-            duration = (isDuration ? input._data : (isNumber ? {} : input)),
+            isString = (typeof input === 'string'),
+            duration = (isDuration ? input._data : (isNumber || isString ? {} : input)),
             ret;
 
         if (isNumber) {
@@ -978,6 +1007,8 @@
             } else {
                 duration.milliseconds = input;
             }
+        } else if (isString) {
+            makeDurationFromString(input, duration);
         }
 
         ret = new Duration(duration);
