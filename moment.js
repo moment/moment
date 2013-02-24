@@ -316,8 +316,7 @@
             days = duration._days,
             months = duration._months,
             minutes,
-            hours,
-            currentDate;
+            hours;
 
         if (milliseconds) {
             mom._d.setTime(+mom._d + milliseconds * isAdding);
@@ -702,7 +701,9 @@
         // MONTH
         case 'M' : // fall through to MM
         case 'MM' :
-            datePartArray[1] = (input == null) ? 0 : ~~input - 1;
+            if (input != null) {
+                datePartArray[1] = ~~input - 1;
+            }
             break;
         case 'MMM' : // fall through to MMMM
         case 'MMMM' :
@@ -715,11 +716,17 @@
             }
             break;
         // DAY OF MONTH
-        case 'D' : // fall through to DDDD
-        case 'DD' : // fall through to DDDD
+        case 'D' : // fall through to DD
+        case 'DD' :
+            if (input != null) {
+                datePartArray[2] = ~~input;
+            }
+            break;
+        // DAY OF YEAR
         case 'DDD' : // fall through to DDDD
         case 'DDDD' :
             if (input != null) {
+                datePartArray[1] = 0;
                 datePartArray[2] = ~~input;
             }
             break;
@@ -782,13 +789,24 @@
     // note: all values past the year are optional and will default to the lowest possible value.
     // [year, month, day , hour, minute, second, millisecond]
     function dateFromArray(config) {
-        var i, date, input = [];
+        var i, date, input = [], currentDate;
 
         if (config._d) {
             return;
         }
 
-        for (i = 0; i < 7; i++) {
+        // Default to current date.
+        // * if no year, month, day of month are given, default to today
+        // * if day of month is given, default month and year
+        // * if month is given, default only year
+        // * if year is given, don't default anything
+        currentDate = currentDateArray(config);
+        for (i = 0; i < 3 && config._a[i] == null; ++i) {
+            config._a[i] = input[i] = currentDate[i];
+        }
+
+        // Zero out whatever was not defaulted, including time
+        for (; i < 7; i++) {
             config._a[i] = input[i] = (config._a[i] == null) ? (i === 2 ? 1 : 0) : config._a[i];
         }
 
@@ -807,6 +825,19 @@
         }
 
         config._d = date;
+    }
+
+    function currentDateArray(config) {
+        var now = new Date();
+        if (config._useUTC) {
+            return [
+                now.getUTCFullYear(),
+                now.getUTCMonth(),
+                now.getUTCDate()
+            ];
+        } else {
+            return [now.getFullYear(), now.getMonth(), now.getDate()];
+        }
     }
 
     // date from string and format string
@@ -1300,8 +1331,7 @@
 
         month : function (input) {
             var utc = this._isUTC ? 'UTC' : '',
-                dayOfMonth,
-                daysInMonth;
+                dayOfMonth;
 
             if (input != null) {
                 if (typeof input === 'string') {

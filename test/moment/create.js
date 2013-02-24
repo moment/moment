@@ -115,10 +115,30 @@ exports.create = {
     "empty string with formats" : function (test) {
         test.expect(3);
 
-        test.equal(moment(' ', 'MM').format('YYYY-MM-DD HH:mm:ss'), '0000-01-01 00:00:00', 'should not break if input is an empty string');
-        test.equal(moment(' ', 'DD').format('YYYY-MM-DD HH:mm:ss'), '0000-01-01 00:00:00', 'should not break if input is an empty string');
-        test.equal(moment(' ', ['MM', "DD"]).format('YYYY-MM-DD HH:mm:ss'), '0000-01-01 00:00:00', 'should not break if input is an empty string');
+        var currentDate = moment().startOf('day').format('YYYY-MM-DD HH:mm:ss');
+        test.equal(moment(' ', 'MM').format('YYYY-MM-DD HH:mm:ss'), currentDate, 'should not break if input is an empty string');
+        test.equal(moment(' ', 'DD').format('YYYY-MM-DD HH:mm:ss'), currentDate, 'should not break if input is an empty string');
+        test.equal(moment(' ', ['MM', "DD"]).format('YYYY-MM-DD HH:mm:ss'), currentDate, 'should not break if input is an empty string');
 
+        test.done();
+    },
+
+    "defaulting to current date" : function (test) {
+        test.expect(4);
+
+        var now = moment();
+        test.equal(moment('12:13:14', 'hh:mm:ss').format('YYYY-MM-DD hh:mm:ss'),
+                now.clone().hour(12).minute(13).second(14).format('YYYY-MM-DD hh:mm:ss'),
+                'given only time default to current date');
+        test.equal(moment('05', 'DD').format('YYYY-MM-DD'),
+                now.clone().date(5).format('YYYY-MM-DD'),
+                'given day of month default to current month, year');
+        test.equal(moment('05', 'MM').format('YYYY-MM-DD'),
+                now.clone().month(4).date(1).format('YYYY-MM-DD'),
+                'given month default to current year');
+        test.equal(moment('1996', 'YYYY').format('YYYY-MM-DD'),
+                now.clone().year(1996).month(0).date(1).format('YYYY-MM-DD'),
+                'given year do not default');
         test.done();
     },
 
