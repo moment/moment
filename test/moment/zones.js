@@ -195,6 +195,46 @@ exports.zones = {
         test.equal(+zoneA, +zoneD, "moment#valueOf should be the same in all zones");
 
         test.done();
+    },
+
+    "cloning" : function (test) {
+        test.equal(moment().zone(120).clone().zone(),   120, "explicit cloning should retain the zone");
+        test.equal(moment().zone(-120).clone().zone(), -120, "explicit cloning should retain the zone");
+        test.equal(moment(moment().zone(120)).zone(),   120, "implicit cloning should retain the zone");
+        test.equal(moment(moment().zone(-120)).zone(), -120, "implicit cloning should retain the zone");
+
+        test.done();
+    },
+
+    "start of / end of" : function (test) {
+        var a = moment.utc([2010, 1, 2, 0, 0, 0]).zone(450);
+
+        test.equal(a.clone().startOf('day').hour(), 0, "start of day should work on moments with a zone");
+        test.equal(a.clone().startOf('day').minute(), 0, "start of day should work on moments with a zone");
+        test.equal(a.clone().startOf('hour').minute(), 0, "start of hour should work on moments with a zone");
+
+        test.equal(a.clone().endOf('day').hour(), 23, "end of day should work on moments with a zone");
+        test.equal(a.clone().endOf('day').minute(), 59, "end of day should work on moments with a zone");
+        test.equal(a.clone().endOf('hour').minute(), 59, "end of hour should work on moments with a zone");
+
+        test.done();
+    },
+
+    "reset zone with moment#utc" : function (test) {
+        var a = moment.utc([2012]).zone(480);
+
+        test.equal(a.clone().hour(),      16, "different zone should have different hour");
+        test.equal(a.clone().utc().hour(), 0, "calling moment#utc should reset the offset");
+
+        test.done();
+    },
+
+    "reset zone with moment#local" : function (test) {
+        var a = moment([2012]).zone(480);
+
+        test.equal(a.clone().local().hour(), 0, "calling moment#local should reset the offset");
+
+        test.done();
     }
 
 };

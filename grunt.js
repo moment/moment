@@ -46,7 +46,7 @@ module.exports = function(grunt) {
             }
         },
         test : {
-            files : ["test/**/*.js"]
+            files : ["test/moment/*.js"]
         },
         lint : {
             files: [

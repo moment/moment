@@ -1095,11 +1095,11 @@
         },
 
         utc : function () {
-            this._isUTC = true;
-            return this;
+            return this.zone(0);
         },
 
         local : function () {
+            this.zone(0);
             this._isUTC = false;
             return this;
         },
