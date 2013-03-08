@@ -248,6 +248,36 @@ exports.zones = {
         test.equal(+zoneA, +zoneD, "moment#toDate should output a date with the right unix timestamp");
 
         test.done();
+    },
+
+    "same / before / after" : function (test) {
+        var zoneA = moment(),
+            zoneB = moment(zoneA).zone(120),
+            zoneC = moment(zoneA).zone(-120);
+
+        test.ok(zoneA.isSame(zoneB), "two moments with different offsets should be the same");
+        test.ok(zoneA.isSame(zoneC), "two moments with different offsets should be the same");
+
+        test.ok(zoneA.isSame(zoneB, 'hour'), "two moments with different offsets should be the same hour");
+        test.ok(zoneA.isSame(zoneC, 'hour'), "two moments with different offsets should be the same hour");
+
+        zoneA.add('hour', 1);
+
+        test.ok(zoneA.isAfter(zoneB), "isAfter should work with two moments with different offsets");
+        test.ok(zoneA.isAfter(zoneC), "isAfter should work with two moments with different offsets");
+
+        test.ok(zoneA.isAfter(zoneB, 'hour'), "isAfter:hour should work with two moments with different offsets");
+        test.ok(zoneA.isAfter(zoneC, 'hour'), "isAfter:hour should work with two moments with different offsets");
+
+        zoneA.subtract('hour', 2);
+
+        test.ok(zoneA.isBefore(zoneB), "isBefore should work with two moments with different offsets");
+        test.ok(zoneA.isBefore(zoneC), "isBefore should work with two moments with different offsets");
+
+        test.ok(zoneA.isBefore(zoneB, 'hour'), "isBefore:hour should work with two moments with different offsets");
+        test.ok(zoneA.isBefore(zoneC, 'hour'), "isBefore:hour should work with two moments with different offsets");
+
+        test.done();
     }
 
 };
