@@ -178,6 +178,23 @@ exports.zones = {
         test.equal(zoneA.diff(other, 'hour', true), zoneD.diff(other, 'hour', true), "moment#diff should be the same in all zones");
 
         test.done();
+    },
+
+    "unix offset and timestamp" : function (test) {
+        var zoneA = moment(),
+            zoneB = moment(zoneA).zone(720),
+            zoneC = moment(zoneA).zone(360),
+            zoneD = moment(zoneA).zone(-690);
+
+        test.equal(zoneA.unix(), zoneB.unix(), "moment#unix should be the same in all zones");
+        test.equal(zoneA.unix(), zoneC.unix(), "moment#unix should be the same in all zones");
+        test.equal(zoneA.unix(), zoneD.unix(), "moment#unix should be the same in all zones");
+
+        test.equal(+zoneA, +zoneB, "moment#valueOf should be the same in all zones");
+        test.equal(+zoneA, +zoneC, "moment#valueOf should be the same in all zones");
+        test.equal(+zoneA, +zoneD, "moment#valueOf should be the same in all zones");
+
+        test.done();
     }
 
 };

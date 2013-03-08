@@ -1055,7 +1055,7 @@
         },
 
         unix : function () {
-            return Math.floor(+this._d / 1000);
+            return Math.floor(+this / 1000);
         },
 
         toString : function () {
