@@ -235,6 +235,19 @@ exports.zones = {
         test.equal(a.clone().local().hour(), 0, "calling moment#local should reset the offset");
 
         test.done();
+    },
+
+    "toDate" : function (test) {
+        var zoneA = new Date(),
+            zoneB = moment(zoneA).zone(720).toDate(),
+            zoneC = moment(zoneA).zone(360).toDate(),
+            zoneD = moment(zoneA).zone(-690).toDate();
+
+        test.equal(+zoneA, +zoneB, "moment#toDate should output a date with the right unix timestamp");
+        test.equal(+zoneA, +zoneC, "moment#toDate should output a date with the right unix timestamp");
+        test.equal(+zoneA, +zoneD, "moment#toDate should output a date with the right unix timestamp");
+
+        test.done();
     }
 
 };
