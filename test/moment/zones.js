@@ -53,6 +53,9 @@ exports.zones = {
         zone.zone(-30);
         test.equal(zone.format("HH:mm"), "07:01", "UTC 6:31AM should be 7:01AM at +0030");
 
+        zone.zone(1380);
+        test.equal(zone.format("HH:mm"), "07:31", "UTC 6:31AM should be 7:31AM at +1380");
+
         test.done();
     },
 
@@ -60,7 +63,8 @@ exports.zones = {
         var zoneA = moment(),
             zoneB = moment(zoneA),
             zoneC = moment(zoneA),
-            zoneD = moment(zoneA);
+            zoneD = moment(zoneA),
+            zoneE = moment(zoneA);
 
         zoneB.utc();
         test.equal(+zoneA, +zoneB, "moment should equal moment.utc");
@@ -70,6 +74,9 @@ exports.zones = {
 
         zoneD.zone(480);
         test.equal(+zoneA, +zoneD, "moment should equal moment.zone(480)");
+
+        zoneE.zone(1000);
+        test.equal(+zoneA, +zoneE, "moment should equal moment.zone(1000)");
 
         test.done();
     },
