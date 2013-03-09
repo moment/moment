@@ -26,6 +26,21 @@ exports.zones = {
         test.done();
     },
 
+    "set zone with string" : function (test) {
+        var zone = moment();
+
+        zone.zone("+00:00");
+        test.equal(zone.zone(), 0, "set the zone with a timezone string");
+
+        zone.zone("2013-03-07T07:00:00-08:00");
+        test.equal(zone.zone(), 480, "set the zone with a string that does not begin with the timezone");
+
+        zone.zone("2013-03-07T07:00:00+0100");
+        test.equal(zone.zone(), -60, "set the zone with a string that uses the +0000 syntax");
+
+        test.done();
+    },
+
     "change hours when changing the zone" : function (test) {
         var zone = moment.utc([2000, 0, 1, 6]);
 
