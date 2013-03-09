@@ -26,6 +26,30 @@ exports.zones = {
         test.done();
     },
 
+    "set zone shorthand" : function (test) {
+        var zone = moment();
+
+        zone.zone(1);
+        test.equal(zone.zone(), 60, "setting the zone to 1 should imply hours and convert to 60");
+
+        zone.zone(-1);
+        test.equal(zone.zone(), -60, "setting the zone to -1 should imply hours and convert to -60");
+
+        zone.zone(15);
+        test.equal(zone.zone(), 900, "setting the zone to 15 should imply hours and convert to 900");
+
+        zone.zone(-15);
+        test.equal(zone.zone(), -900, "setting the zone to -15 should imply hours and convert to -900");
+
+        zone.zone(16);
+        test.equal(zone.zone(), 16, "setting the zone to 16 should imply minutes");
+
+        zone.zone(-16);
+        test.equal(zone.zone(), -16, "setting the zone to -16 should imply minutes");
+
+        test.done();
+    },
+
     "set zone with string" : function (test) {
         var zone = moment();
 

@@ -1265,6 +1265,9 @@
                 if (typeof input === "string") {
                     input = timezoneMinutesFromString(input);
                 }
+                if (Math.abs(input) < 16) {
+                    input = input * 60;
+                }
                 this._offset = input;
                 this._isUTC = true;
                 if (offset !== input) {
