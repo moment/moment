@@ -290,25 +290,37 @@
 
     // helper function for _.addTime and _.subtractTime
     function addOrSubtractDurationFromMoment(mom, duration, isAdding, ignoreUpdateOffset) {
-        var ms = duration._milliseconds,
-            d = duration._days,
-            M = duration._months,
+        var milliseconds = duration._milliseconds,
+            days = duration._days,
+            months = duration._months,
+            minutes,
+            hours,
             currentDate;
 
-        if (ms) {
-            mom._d.setTime(+mom._d + ms * isAdding);
+        if (milliseconds) {
+            mom._d.setTime(+mom._d + milliseconds * isAdding);
         }
-        if (d) {
-            mom.date(mom.date() + d * isAdding);
+        // store the minutes and hours so we can restore them
+        if (days || months) {
+            minutes = mom.minute();
+            hours = mom.hour();
         }
-        if (M) {
+        if (days) {
+            mom.date(mom.date() + days * isAdding);
+        }
+        if (months) {
             currentDate = mom.date();
             mom.date(1)
-                .month(mom.month() + M * isAdding)
+                .month(mom.month() + months * isAdding)
                 .date(Math.min(currentDate, mom.daysInMonth()));
         }
-        if (ms && !ignoreUpdateOffset) {
+        if (milliseconds && !ignoreUpdateOffset) {
             moment.updateOffset(mom);
+        }
+        // restore the minutes and hours after possibly changing dst
+        if (days || months) {
+            mom.minute(minutes);
+            mom.hour(hours);
         }
     }
 

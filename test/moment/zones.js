@@ -285,6 +285,49 @@ exports.zones = {
         test.ok(zoneA.isBefore(zoneC, 'hour'), "isBefore:hour should work with two moments with different offsets");
 
         test.done();
+    },
+
+    "add / subtract over dst" : function (test) {
+        var oldOffset = moment.updateOffset,
+            m = moment.utc([2000, 2, 31, 3]);
+
+        moment.updateOffset = function (mom) {
+            if (mom.clone().utc().month() > 2) {
+                mom.zone(-60);
+            } else {
+                mom.zone(0);
+            }
+        };
+
+        test.equal(m.hour(), 3, "should start at 00:00");
+
+        m.add('hour', 24);
+
+        test.equal(m.hour(), 4, "adding 24 hours should disregard dst");
+
+        m.subtract('hour', 24);
+
+        test.equal(m.hour(), 3, "subtracting 24 hours should disregard dst");
+
+        m.add('day', 1);
+
+        test.equal(m.hour(), 3, "adding 1 day should have the same hour");
+
+        m.subtract('day', 1);
+
+        test.equal(m.hour(), 3, "subtracting 1 day should have the same hour");
+
+        m.add('month', 1);
+
+        test.equal(m.hour(), 3, "adding 1 month should have the same hour");
+
+        m.subtract('month', 1);
+
+        test.equal(m.hour(), 3, "subtracting 1 month should have the same hour");
+
+        moment.updateOffset = oldOffset;
+
+        test.done();
     }
 
 };
