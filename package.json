@@ -38,7 +38,7 @@
     "devDependencies" : {
         "uglify-js" : "latest",
         "nodeunit"  : "latest",
-        "grunt"     : "latest"
+        "grunt"     : "0.3.x"
     },
     "scripts": {
         "test": "grunt"
