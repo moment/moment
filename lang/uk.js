@@ -53,12 +53,15 @@ function monthsCaseReplace(m, format) {
 function weekdaysCaseReplace(m, format) {
     var weekdays = {
         'nominative': 'неділя_понеділок_вівторок_середа_четвер_п’ятниця_субота'.split('_'),
-        'accusative': 'неділю_понеділок_вівторок_середу_четвер_п’ятницю_суботу'.split('_')
+        'accusative': 'неділю_понеділок_вівторок_середу_четвер_п’ятницю_суботу'.split('_'),
+        'genitive': 'неділі_понеділка_вівторка_середи_четверга_п’ятниці_суботи'.split('_')
     },
 
-    nounCase = (/\[ ?[Вв] ?(?:попередню|наступну)? ?\] ?dddd/).test(format) ?
+    nounCase = (/(\[[ВвУу]\]) ?dddd/).test(format) ? 
         'accusative' :
-        'nominative';
+        ((/\[?(?:минулої)? ?\] ?dddd/).test(format) ?
+            'genitive' :
+            'nominative');
 
     return weekdays[nounCase][m.day()];
 }
@@ -89,16 +92,16 @@ require('../moment').lang('uk', {
             case 3:
             case 5:
             case 6:
-                return '[В минулу] dddd [в] LT';
+                return '[Минулої] dddd [в] LT';
             case 1:
             case 2:
             case 4:
-                return '[В минулий] dddd [в] LT';
+                return '[Минулого] dddd [в] LT';
             }
         },
         sameElse: 'L'
     },
-    // It needs checking (adding) ukrainan plurals and cases.
+    // It needs checking (adding) Ukrainian plurals and cases.
     relativeTime : {
         future : "через %s",
         past : "%s тому",
