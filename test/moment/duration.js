@@ -191,14 +191,14 @@ exports.duration = {
         });
 
         test.expect(8);
-        test.equal(Math.round(d.asYears() * 100) / 100,   2.26,        "years");
+        test.equal(Math.round(d.asYears() * 100) / 100,   2.29,        "years");
         test.equal(Math.round(d.asMonths() * 100) / 100,  27.51,       "months");
-        test.equal(Math.round(d.asWeeks() * 100) / 100,   117.91,      "weeks");
-        test.equal(Math.round(d.asDays() * 100) / 100,    825.34,      "days");
-        test.equal(Math.round(d.asHours() * 100) / 100,   19808.16,    "hours");
-        test.equal(Math.round(d.asMinutes() * 100) / 100, 1188489.33,  "minutes");
-        test.equal(Math.round(d.asSeconds() * 100) / 100, 71309360.01, "seconds");
-        test.equal(d.asMilliseconds(),                    71309360012, "milliseconds");
+        test.equal(Math.round(d.asWeeks() * 100) / 100,   119.33,      "weeks");
+        test.equal(Math.round(d.asDays() * 100) / 100,    835.34,      "days");
+        test.equal(Math.round(d.asHours() * 100) / 100,   20048.16,    "hours");
+        test.equal(Math.round(d.asMinutes() * 100) / 100, 1202889.33,  "minutes");
+        test.equal(Math.round(d.asSeconds() * 100) / 100, 72173360.01, "seconds");
+        test.equal(d.asMilliseconds(),                    72173360012, "milliseconds");
         test.done();
     },
 
