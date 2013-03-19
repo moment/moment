@@ -191,14 +191,14 @@ exports.duration = {
         });
 
         test.expect(8);
-        test.equal(Math.round(d.asYears() * 100) / 100,   2.29,        "years");
-        test.equal(Math.round(d.asMonths() * 100) / 100,  27.51,       "months");
-        test.equal(Math.round(d.asWeeks() * 100) / 100,   119.33,      "weeks");
-        test.equal(Math.round(d.asDays() * 100) / 100,    835.34,      "days");
-        test.equal(Math.round(d.asHours() * 100) / 100,   20048.16,    "hours");
-        test.equal(Math.round(d.asMinutes() * 100) / 100, 1202889.33,  "minutes");
-        test.equal(Math.round(d.asSeconds() * 100) / 100, 72173360.01, "seconds");
-        test.equal(d.asMilliseconds(),                    72173360012, "milliseconds");
+        test.equal(d.asYears().toFixed(2),          "2.29", "years");
+        test.equal(d.asMonths().toFixed(2),        "27.51", "months");
+        test.equal(d.asWeeks().toFixed(2),        "119.33", "weeks");
+        test.equal(d.asDays().toFixed(2),         "835.34", "days");
+        test.equal(d.asHours().toFixed(2),      "20048.16", "hours");
+        test.equal(d.asMinutes().toFixed(2),  "1202889.33", "minutes");
+        test.equal(d.asSeconds().toFixed(2), "72173360.01", "seconds");
+        test.equal(d.asMilliseconds(),         72173360012, "milliseconds");
         test.done();
     },
 
