@@ -21,6 +21,7 @@
 
         // ASP.NET json date format regex
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
+        aspNetTimeSpanJsonRegex = /(\-)?(\d*)?\.?(\d+)\:(\d+)\:(\d+)\.?(\d{3})?/,
 
         // format tokens
         formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,
@@ -205,15 +206,15 @@
 
     // Duration Constructor
     function Duration(duration) {
-        var data = this._data = {},
-            years = duration.years || duration.year || duration.y || 0,
-            months = duration.months || duration.month || duration.M || 0,
-            weeks = duration.weeks || duration.week || duration.w || 0,
-            days = duration.days || duration.day || duration.d || 0,
-            hours = duration.hours || duration.hour || duration.h || 0,
-            minutes = duration.minutes || duration.minute || duration.m || 0,
-            seconds = duration.seconds || duration.second || duration.s || 0,
-            milliseconds = duration.milliseconds || duration.millisecond || duration.ms || 0;
+			var data = this._data = {},
+                years = duration.years || duration.year || duration.y || 0,
+                months = duration.months || duration.month || duration.M || 0,
+                weeks = duration.weeks || duration.week || duration.w || 0,
+                days = duration.days || duration.day || duration.d || 0,
+                hours = duration.hours || duration.hour || duration.h || 0,
+                minutes = duration.minutes || duration.minute || duration.m || 0,
+                seconds = duration.seconds || duration.second || duration.s || 0,
+                milliseconds = duration.milliseconds || duration.millisecond || duration.ms || 0;
 
         // representation for dateAddRemove
         this._milliseconds = milliseconds +
@@ -328,6 +329,9 @@
         return diffs + lengthDiff;
     }
 
+    function intZero(x) {
+        return (typeof x !== 'undefined') ? parseInt(x, 10) || 0 : 0;
+    };
 
     /************************************
         Languages
@@ -424,7 +428,7 @@
             nextDay : '[Tomorrow at] LT',
             nextWeek : 'dddd [at] LT',
             lastDay : '[Yesterday at] LT',
-            lastWeek : '[last] dddd [at] LT',
+            lastWeek : '[Last] dddd [at] LT',
             sameElse : 'L'
         },
         calendar : function (key, mom) {
@@ -782,12 +786,11 @@
 
             scoreToBeat = 99,
             i,
-            currentDate,
             currentScore;
 
-        while (config._f.length) {
+        for (i = config._f.length; i > 0; i--) {
             tempConfig = extend({}, config);
-            tempConfig._f = config._f.pop();
+            tempConfig._f = config._f[i - 1];
             makeDateFromStringAndFormat(tempConfig);
             tempMoment = new Moment(tempConfig);
 
@@ -971,6 +974,7 @@
         var isDuration = moment.isDuration(input),
             isNumber = (typeof input === 'number'),
             duration = (isDuration ? input._data : (isNumber ? {} : input)),
+            matched = aspNetTimeSpanJsonRegex.exec(input),
             ret;
 
         if (isNumber) {
@@ -979,6 +983,16 @@
             } else {
                 duration.milliseconds = input;
             }
+        } else if (matched){
+            var sign = (matched[1] == "-") ? -1 : 1;
+            duration = {
+                y:0,
+                d:sign*intZero(matched[2]), 
+				h:sign*intZero(matched[3]), 
+				m:sign*intZero(matched[4]), 
+				s:sign*intZero(matched[5]), 
+				ms:sign*intZero(matched[6])		
+			};
         }
 
         ret = new Duration(duration);
@@ -1060,7 +1074,7 @@
         },
 
         toJSON : function () {
-            return moment.utc(this).format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
+            return moment(this).utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
         },
 
         toArray : function () {

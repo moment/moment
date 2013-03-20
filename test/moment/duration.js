@@ -83,6 +83,78 @@ exports.duration = {
         test.deepEqual(moment.duration(complicated), complicated, "complicated clones are equal");
         test.done();
     },
+    
+    "instatiation from serialized C# TimeSpan zero" : function(test) {
+        test.expect(5);
+        test.equal(moment.duration("00:00:00").days(), 0, "0 day");
+        test.equal(moment.duration("00:00:00").hours(), 0, "0 hours");
+        test.equal(moment.duration("00:00:00").minutes(), 0, "0 minutes");
+        test.equal(moment.duration("00:00:00").seconds(), 0, "0 seconds");
+        test.equal(moment.duration("00:00:00").milliseconds(), 0, "0 milliseconds");
+        test.done();
+    },
+    
+    "instatiation from serialized C# TimeSpan with days" : function(test) {
+        test.expect(5);
+        test.equal(moment.duration("1.02:03:04.9999999").days(), 1, "1 day");
+        test.equal(moment.duration("1.02:03:04.9999999").hours(), 2, "2 hours");
+        test.equal(moment.duration("1.02:03:04.9999999").minutes(), 3, "3 minutes");
+        test.equal(moment.duration("1.02:03:04.9999999").seconds(), 4, "4 seconds");
+        test.equal(moment.duration("1.02:03:04.9999999").milliseconds(), 999, "999 milliseconds");
+        test.done();
+    },
+    
+    "instatiation from serialized C# TimeSpan without days" : function(test) {
+        test.expect(5);
+        test.equal(moment.duration("01:02:03.9999999").days(), 0, "0 day");
+        test.equal(moment.duration("01:02:03.9999999").hours(), 1, "1 hour");
+        test.equal(moment.duration("01:02:03.9999999").minutes(), 2, "2 minutes");
+        test.equal(moment.duration("01:02:03.9999999").seconds(), 3, "3 seconds");
+        test.equal(moment.duration("01:02:03.9999999").milliseconds(), 999, "999 milliseconds");
+        test.done();
+    },
+
+    "instatiation from serialized C# TimeSpan without days or milliseconds" : function(test) {
+        test.expect(5);
+        test.equal(moment.duration("01:02:03").days(), 0, "0 day");
+        test.equal(moment.duration("01:02:03").hours(), 1, "1 hour");
+        test.equal(moment.duration("01:02:03").minutes(), 2, "2 minutes");
+        test.equal(moment.duration("01:02:03").seconds(), 3, "3 seconds");
+        test.equal(moment.duration("01:02:03").milliseconds(), 0, "0 milliseconds");
+        test.done();
+    },
+
+    "instatiation from serialized C# TimeSpan without milliseconds" : function(test) {
+        test.expect(5);
+        test.equal(moment.duration("1.02:03:04").days(), 1, "1 day");
+        test.equal(moment.duration("1.02:03:04").hours(), 2, "2 hours");
+        test.equal(moment.duration("1.02:03:04").minutes(), 3, "3 minutes");
+        test.equal(moment.duration("1.02:03:04").seconds(), 4, "4 seconds");
+        test.equal(moment.duration("1.02:03:04").milliseconds(), 0, "0 milliseconds");
+        test.done();
+    },
+
+    "instatiation from serialized C# TimeSpan maxValue" : function(test) {
+        test.expect(6);
+        test.equal(moment.duration("10675199.02:48:05.4775807").years(), 29653, "29653 years");
+        test.equal(moment.duration("10675199.02:48:05.4775807").days(), 29, "29 day");
+        test.equal(moment.duration("10675199.02:48:05.4775807").hours(), 2, "2 hours");
+        test.equal(moment.duration("10675199.02:48:05.4775807").minutes(), 48, "48 minutes");
+        test.equal(moment.duration("10675199.02:48:05.4775807").seconds(), 5, "5 seconds");
+        test.equal(moment.duration("10675199.02:48:05.4775807").milliseconds(), 477, "477 milliseconds");
+        test.done();
+    },
+
+    "instatiation from serialized C# TimeSpan minValue" : function(test) {
+        test.expect(6);
+        test.equal(moment.duration("-10675199.02:48:05.4775808").years(), -29653, "29653 years");
+        test.equal(moment.duration("-10675199.02:48:05.4775808").days(), -29, "29 day");
+        test.equal(moment.duration("-10675199.02:48:05.4775808").hours(), -2, "2 hours");
+        test.equal(moment.duration("-10675199.02:48:05.4775808").minutes(), -48, "48 minutes");
+        test.equal(moment.duration("-10675199.02:48:05.4775808").seconds(), -5, "5 seconds");
+        test.equal(moment.duration("-10675199.02:48:05.4775808").milliseconds(), -477, "477 milliseconds");
+        test.done();
+    },
 
     "humanize" : function(test) {
         test.expect(32);
