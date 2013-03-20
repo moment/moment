@@ -119,7 +119,7 @@ exports["lang:ar"] = {
 
     "format week" : function(test) {
         test.expect(7);
-        var expected = 'الأحد احد ح_الإتنين اتنين ن_الثلاثاء ثلاثاء ث_الأربعاء اربعاء ر_الخميس خميس خ_الجمعة جمعة ج_السبت سبت س'.split("_");
+        var expected = 'الأحد الأحد ح_الإثنين الإثنين ن_الثلاثاء الثلاثاء ث_الأربعاء الأربعاء ر_الخميس الخميس خ_الجمعة الجمعة ج_السبت السبت س'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
