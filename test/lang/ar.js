@@ -18,7 +18,7 @@ exports["lang:ar"] = {
         var tests = 'كانون الثاني:كانون الثاني_ﺶﺑﺎﻃ:ﺶﺑﺎﻃ_آذار:آذار_نيسان:نيسان_أيار:أيار_حزيران:حزيران_تموز:تموز_آب:آب_أيلول:أيلول_تشرين الأول:تشرين الأول_تشرين الثاني:تشرين الثاني_كانون الأول:كانون الأول'.split("_");
         var i;
         function equalTest(input, mmm, i) {
-            test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
+            test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1) + ' instead is month ' + moment(input, mmm).month());
         }
         for (i = 0; i < 12; i++) {
             tests[i] = tests[i].split(':');
