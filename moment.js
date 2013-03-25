@@ -206,15 +206,15 @@
 
     // Duration Constructor
     function Duration(duration) {
-			var data = this._data = {},
-                years = duration.years || duration.year || duration.y || 0,
-                months = duration.months || duration.month || duration.M || 0,
-                weeks = duration.weeks || duration.week || duration.w || 0,
-                days = duration.days || duration.day || duration.d || 0,
-                hours = duration.hours || duration.hour || duration.h || 0,
-                minutes = duration.minutes || duration.minute || duration.m || 0,
-                seconds = duration.seconds || duration.second || duration.s || 0,
-                milliseconds = duration.milliseconds || duration.millisecond || duration.ms || 0;
+        var data = this._data = {},
+            years = duration.years || duration.year || duration.y || 0,
+            months = duration.months || duration.month || duration.M || 0,
+            weeks = duration.weeks || duration.week || duration.w || 0,
+            days = duration.days || duration.day || duration.d || 0,
+            hours = duration.hours || duration.hour || duration.h || 0,
+            minutes = duration.minutes || duration.minute || duration.m || 0,
+            seconds = duration.seconds || duration.second || duration.s || 0,
+            milliseconds = duration.milliseconds || duration.millisecond || duration.ms || 0;
 
         // representation for dateAddRemove
         this._milliseconds = milliseconds +
@@ -331,7 +331,7 @@
 
     function intZero(x) {
         return (typeof x !== 'undefined') ? parseInt(x, 10) || 0 : 0;
-    };
+    }
 
     /************************************
         Languages
@@ -983,16 +983,16 @@
             } else {
                 duration.milliseconds = input;
             }
-        } else if (matched){
+        } else if (matched) {
             var sign = (matched[1] == "-") ? -1 : 1;
             duration = {
-                y:0,
-                d:sign*intZero(matched[2]), 
-				h:sign*intZero(matched[3]), 
-				m:sign*intZero(matched[4]), 
-				s:sign*intZero(matched[5]), 
-				ms:sign*intZero(matched[6])		
-			};
+                y: 0,
+                d: sign * intZero(matched[2]),
+                h: sign * intZero(matched[3]),
+                m: sign * intZero(matched[4]),
+                s: sign * intZero(matched[5]),
+                ms: sign * intZero(matched[6])
+            };
         }
 
         ret = new Duration(duration);
@@ -1000,7 +1000,6 @@
         if (isDuration && input.hasOwnProperty('_lang')) {
             ret._lang = input._lang;
         }
-
         return ret;
     };
 
