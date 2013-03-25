@@ -239,11 +239,11 @@ exports["lang:uk"] = {
             case 3:
             case 5:
             case 6:
-                return '[В минулу] dddd [в] LT';
+                return '[Минулої] dddd [в] LT';
             case 1:
             case 2:
             case 4:
-                return '[В минулий] dddd [в] LT';
+                return '[Минулого] dddd [в] LT';
             }
         }
 
