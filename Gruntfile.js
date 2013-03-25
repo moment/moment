@@ -1,26 +1,37 @@
-var fs = require('fs'),
-    uglifyjs = require('uglify-js');
+var fs = require('fs');
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
-    var minLangs = {
-        langs: {
-            src: ['min/langs.js'],
-            dest: 'min/langs.min.js'
-        }
-    };
+    var minifiedFiles = {
+            'min/langs.min.js'  : ['min/langs.js'],
+            'min/moment.min.js' : ['moment.js']
+        },
+        minLangs = {
+            langs: {
+                src: ['min/langs.js'],
+                dest: 'min/langs.min.js'
+            }
+        };
 
     // all the lang files need to be added manually
     fs.readdirSync('./lang').forEach(function (path) {
         if (path.indexOf('.js') > -1) {
-            minLangs[path] = {
-                src: ['lang/' + path],
-                dest: 'min/lang/' + path
-            };
+            var dest = 'min/lang/' + path,
+                src = ['lang/' + path];
+
+            minifiedFiles[dest] = src;
+            minLangs[path] = {src: src, dest: dest};
         }
     });
 
     grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
+        concat : {
+            langs: {
+                src: ['lang/*.js'],
+                dest: 'min/langs.js'
+            }
+        },
         concatlang : {
             langs: {
                 src: ['lang/*.js'],
@@ -34,27 +45,26 @@ module.exports = function(grunt) {
                 dest: 'min/moment.min.js'
             }
         },
-        uglify: {
-            mangle: {
-                toplevel: true
+        uglify : {
+            my_target: {
+                files: minifiedFiles
             },
-            squeeze: {
-                dead_code: false
-            },
-            codegen: {
-                ascii_only: true
+            options: {
+                fromString: true,
+                mangle: true,
+                compress: {
+                    dead_code: false
+                },
+                output: {
+                    ascii_only: true
+                }
             }
         },
-        test : {
-            files : ["test/**/*.js"]
-        },
-        lint : {
-            files: [
-                'moment.js',
-                'lang/**/*.js'
-            ]
+        nodeunit : {
+            all : ["test/**/*.js"]
         },
         jshint: {
+            all: ["Gruntfile.js", "moment.js", "lang/**/*.js"],
             options: {
                 "node"     : true,
                 "es5"      : true,
@@ -89,20 +99,27 @@ module.exports = function(grunt) {
                     'lang/*.js',
                     'test/**/*.js'
                 ],
-                tasks: 'test'
+                tasks: ['nodeunit']
             },
-            lint : {
-                files : '<config:lint.files>',
-                tasks: 'lint'
+            jshint : {
+                files : '<%= jshint.all %>',
+                tasks: ['jshint']
             }
         }
     });
 
     grunt.loadTasks("tasks");
 
+    // These plugins provide necessary tasks.
+    grunt.loadNpmTasks('grunt-contrib-nodeunit');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+
     // Default task.
-    grunt.registerTask('default', 'lint test');
+    grunt.registerTask('default', ['jshint', 'nodeunit']);
 
     // Task to be run when releasing a new version
-    grunt.registerTask('release', 'lint test minwithcomments concatlang minlang');
+    grunt.registerTask('release', ['jshint', 'nodeunit', 'minwithcomments', 'concatlang', 'minlang']);
 };
