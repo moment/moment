@@ -1231,7 +1231,7 @@
         },
 
         endOf: function (units) {
-            return this.startOf(units).add(units.replace(/(.)s$/, "$1"), 1).subtract('ms', 1);
+            return this.startOf(units).add(units, 1).subtract('ms', 1);
         },
 
         isAfter: function (input, units) {
