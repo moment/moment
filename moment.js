@@ -330,7 +330,7 @@
     }
 
     function intZero(x) {
-        return (typeof x !== 'undefined') ? parseInt(x, 10) || 0 : 0;
+        return x ? parseInt(x, 10) || 0 : 0;
     }
 
     /************************************
