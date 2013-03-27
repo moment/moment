@@ -329,10 +329,6 @@
         return diffs + lengthDiff;
     }
 
-    function intZero(x) {
-        return x ? parseInt(x, 10) || 0 : 0;
-    }
-
     /************************************
         Languages
     ************************************/
@@ -987,11 +983,11 @@
             var sign = (matched[1] == "-") ? -1 : 1;
             duration = {
                 y: 0,
-                d: sign * intZero(matched[2]),
-                h: sign * intZero(matched[3]),
-                m: sign * intZero(matched[4]),
-                s: sign * intZero(matched[5]),
-                ms: sign * intZero(matched[6])
+                d: ~~matched[2] * sign,
+                h: ~~matched[3] * sign,
+                m: ~~matched[4] * sign,
+                s: ~~matched[5] * sign,
+                ms: ~~matched[6] * sign
             };
         }
 

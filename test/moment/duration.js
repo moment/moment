@@ -85,8 +85,9 @@ exports.duration = {
     },
     
     "instatiation from serialized C# TimeSpan zero" : function(test) {
-        test.expect(5);
-        test.equal(moment.duration("00:00:00").days(), 0, "0 day");
+        test.expect(6);
+        test.equal(moment.duration("00:00:00").years(), 0, "0 years");
+        test.equal(moment.duration("00:00:00").days(), 0, "0 days");
         test.equal(moment.duration("00:00:00").hours(), 0, "0 hours");
         test.equal(moment.duration("00:00:00").minutes(), 0, "0 minutes");
         test.equal(moment.duration("00:00:00").seconds(), 0, "0 seconds");
@@ -95,7 +96,8 @@ exports.duration = {
     },
     
     "instatiation from serialized C# TimeSpan with days" : function(test) {
-        test.expect(5);
+        test.expect(6);
+        test.equal(moment.duration("1.02:03:04.9999999").years(), 0, "0 years");
         test.equal(moment.duration("1.02:03:04.9999999").days(), 1, "1 day");
         test.equal(moment.duration("1.02:03:04.9999999").hours(), 2, "2 hours");
         test.equal(moment.duration("1.02:03:04.9999999").minutes(), 3, "3 minutes");
@@ -105,8 +107,9 @@ exports.duration = {
     },
     
     "instatiation from serialized C# TimeSpan without days" : function(test) {
-        test.expect(5);
-        test.equal(moment.duration("01:02:03.9999999").days(), 0, "0 day");
+        test.expect(6);
+        test.equal(moment.duration("01:02:03.9999999").years(), 0, "0 years");
+        test.equal(moment.duration("01:02:03.9999999").days(), 0, "0 days");
         test.equal(moment.duration("01:02:03.9999999").hours(), 1, "1 hour");
         test.equal(moment.duration("01:02:03.9999999").minutes(), 2, "2 minutes");
         test.equal(moment.duration("01:02:03.9999999").seconds(), 3, "3 seconds");
@@ -115,8 +118,9 @@ exports.duration = {
     },
 
     "instatiation from serialized C# TimeSpan without days or milliseconds" : function(test) {
-        test.expect(5);
-        test.equal(moment.duration("01:02:03").days(), 0, "0 day");
+        test.expect(6);
+        test.equal(moment.duration("01:02:03").years(), 0, "0 years");
+        test.equal(moment.duration("01:02:03").days(), 0, "0 days");
         test.equal(moment.duration("01:02:03").hours(), 1, "1 hour");
         test.equal(moment.duration("01:02:03").minutes(), 2, "2 minutes");
         test.equal(moment.duration("01:02:03").seconds(), 3, "3 seconds");
@@ -125,7 +129,8 @@ exports.duration = {
     },
 
     "instatiation from serialized C# TimeSpan without milliseconds" : function(test) {
-        test.expect(5);
+        test.expect(6);
+        test.equal(moment.duration("1.02:03:04").years(), 0, "0 years");
         test.equal(moment.duration("1.02:03:04").days(), 1, "1 day");
         test.equal(moment.duration("1.02:03:04").hours(), 2, "2 hours");
         test.equal(moment.duration("1.02:03:04").minutes(), 3, "3 minutes");
