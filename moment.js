@@ -971,6 +971,7 @@
             isNumber = (typeof input === 'number'),
             duration = (isDuration ? input._data : (isNumber ? {} : input)),
             matched = aspNetTimeSpanJsonRegex.exec(input),
+			sign,
             ret;
 
         if (isNumber) {
@@ -980,7 +981,7 @@
                 duration.milliseconds = input;
             }
         } else if (matched) {
-            var sign = (matched[1] == "-") ? -1 : 1;
+            sign = (matched[1] === "-") ? -1 : 1;
             duration = {
                 y: 0,
                 d: ~~matched[2] * sign,
