@@ -24,7 +24,7 @@
         aspNetTimeSpanJsonRegex = /(\-)?(\d*)?\.?(\d+)\:(\d+)\:(\d+)\.?(\d{3})?/,
 
         // format tokens
-        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|GGGGG|GGGG|GG|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,
         localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?|l{1,4})/g,
 
         // parsing tokens
@@ -129,6 +129,15 @@
             },
             YYYYY : function () {
                 return leftZeroFill(this.year(), 5);
+            },
+            GG   : function () {
+                return leftZeroFill(this.isoYear() % 100, 2);
+            },
+            GGGG : function () {
+                return this.isoYear();
+            },
+            GGGGG : function () {
+                return leftZeroFill(this.isoYear(), 5);
             },
             a    : function () {
                 return this.lang().meridiem(this.hours(), this.minutes(), true);
@@ -509,7 +518,7 @@
         },
 
         week : function (mom) {
-            return weekOfYear(mom, this._week.dow, this._week.doy);
+            return weekOfYear(mom, this._week.dow, this._week.doy).week;
         },
         _week : {
             dow : 0, // Sunday is the first day of the week.
@@ -930,7 +939,8 @@
     //                      (eg. ISO weeks use thursday (4))
     function weekOfYear(mom, firstDayOfWeek, firstDayOfWeekOfYear) {
         var end = firstDayOfWeekOfYear - firstDayOfWeek,
-            daysToDayOfWeek = firstDayOfWeekOfYear - mom.day();
+            daysToDayOfWeek = firstDayOfWeekOfYear - mom.day(),
+            adjustedMoment;
 
 
         if (daysToDayOfWeek > end) {
@@ -941,7 +951,11 @@
             daysToDayOfWeek += 7;
         }
 
-        return Math.ceil(moment(mom).add('d', daysToDayOfWeek).dayOfYear() / 7);
+        adjustedMoment = moment(mom).add('d', daysToDayOfWeek);
+        return {
+            week: Math.ceil(adjustedMoment.dayOfYear() / 7),
+            year: adjustedMoment.year()
+        };
     }
 
 
@@ -1327,8 +1341,13 @@
         },
 
         isoWeek : function (input) {
-            var week = weekOfYear(this, 1, 4);
+            var week = weekOfYear(this, 1, 4).week;
             return input == null ? week : this.add("d", (input - week) * 7);
+        },
+
+        isoYear: function (input) {
+            var year = weekOfYear(this, 1, 4).year;
+            return input == null ? year : this.add("y", (input - year));
         },
 
         week : function (input) {
