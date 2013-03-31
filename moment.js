@@ -1385,6 +1385,15 @@
             return this.lang().postformat(output);
         },
 
+        get : function (units) {
+            return this[units.toLowerCase()]();
+        },
+
+        as : function (units) {
+            var loweredUnits = units.toLowerCase();
+            return this["as" + loweredUnits.charAt(0).toUpperCase() + loweredUnits.slice(1)]();
+        },
+
         lang : moment.fn.lang
     };
 
