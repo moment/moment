@@ -81,18 +81,18 @@ exports.getters_setters = {
         test.equal(a.milliseconds(), 9, 'milliseconds');
         test.done();
     },
-    
+
     "setters strings" : function(test) {
         test.expect(7);
 
-        var a = moment().lang('en');
-        test.equal(a.day(0).day('Wednesday').day(), 3, 'day full name');
-        test.equal(a.day(0).day('Wed').day(), 3, 'day short name');
-        test.equal(a.day(0).day('We').day(), 3, 'day minimal name');
-        test.equal(a.day(0).day('invalid').day(), 0, 'invalid day name');
-        test.equal(a.month(0).month('April').month(), 3, 'month full name');
-        test.equal(a.month(0).month('Apr').month(), 3, 'month short name');
-        test.equal(a.month(0).month('invalid').month(), 0, 'invalid month name');
+        var a = moment([2012]).lang('en');
+        test.equal(a.clone().day(0).day('Wednesday').day(), 3, 'day full name');
+        test.equal(a.clone().day(0).day('Wed').day(), 3, 'day short name');
+        test.equal(a.clone().day(0).day('We').day(), 3, 'day minimal name');
+        test.equal(a.clone().day(0).day('invalid').day(), 0, 'invalid day name');
+        test.equal(a.clone().month(0).month('April').month(), 3, 'month full name');
+        test.equal(a.clone().month(0).month('Apr').month(), 3, 'month short name');
+        test.equal(a.clone().month(0).month('invalid').month(), 0, 'invalid month name');
         test.done();
     },
 
