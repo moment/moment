@@ -2,7 +2,7 @@
 // language : great britain english (en-gb)
 // author : Chris Gedrim : https://github.com/chrisgedrim
 
-require('../moment').lang('en-gb', {
+require('../moment').lang('sr-latn', {
     months : "Januar_Februar_Mart_April_Maj_Jun_Jul_Avgust_Septembar_Oktobar_Novembar_Decembar".split("_"),
     monthsShort : "Jan_Feb_Mar_Apr_Maj_Jun_Jul_Avg_Sep_Okt_Nov_Dec".split("_"),
     weekdays : "Nedelja_Ponedeljak_Utorak_Sreda_Četvrtak_Petak_Subota".split("_"),
