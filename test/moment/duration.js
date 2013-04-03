@@ -65,6 +65,19 @@ exports.duration = {
         test.done();
     },
 
+    "generic getter" : function(test) {
+        test.expect(8);
+        test.equal(moment.duration({y: 1}).get("years"),         1, "years = y");
+        test.equal(moment.duration({M: 2}).get("months"),        2, "months = M");
+        test.equal(moment.duration({w: 3}).get("weeks"),         3, "weeks = w");
+        test.equal(moment.duration({d: 4}).get("days"),          4, "days = d");
+        test.equal(moment.duration({h: 5}).get("hours"),         5, "hours = h");
+        test.equal(moment.duration({m: 6}).get("minutes"),       6, "minutes = m");
+        test.equal(moment.duration({s: 7}).get("seconds"),       7, "seconds = s");
+        test.equal(moment.duration({ms: 8}).get("milliseconds"), 8, "milliseconds = ms");
+        test.done();
+    },
+
     "instantiation from another duration" : function(test) {
         var simple = moment.duration(1234),
             complicated = moment.duration({
@@ -276,6 +289,30 @@ exports.duration = {
         test.equal(d.asMinutes().toFixed(2),  "1202889.33", "minutes");
         test.equal(d.asSeconds().toFixed(2), "72173360.01", "seconds");
         test.equal(d.asMilliseconds(),         72173360012, "milliseconds");
+        test.done();
+    },
+
+    "generic as getter" : function(test) {
+        var d = moment.duration({
+            years: 2,
+            months: 3,
+            weeks: 2,
+            days: 1,
+            hours: 8,
+            minutes: 9,
+            seconds: 20,
+            milliseconds: 12
+        });
+
+        test.expect(8);
+        test.equal(Math.round(d.as("years") * 100) / 100,   2.26,        "years");
+        test.equal(Math.round(d.as("months") * 100) / 100,  27.51,       "months");
+        test.equal(Math.round(d.as("weeks") * 100) / 100,   117.91,      "weeks");
+        test.equal(Math.round(d.as("days") * 100) / 100,    825.34,      "days");
+        test.equal(Math.round(d.as("hours") * 100) / 100,   19808.16,    "hours");
+        test.equal(Math.round(d.as("minutes") * 100) / 100, 1188489.33,  "minutes");
+        test.equal(Math.round(d.as("seconds") * 100) / 100, 71309360.01, "seconds");
+        test.equal(d.asMilliseconds(),                      71309360012, "milliseconds");
         test.done();
     },
 
