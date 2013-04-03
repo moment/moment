@@ -38,6 +38,7 @@
     "devDependencies" : {
         "uglify-js" : "latest",
         "grunt"     : "latest",
+        "nodeunit"  : "latest",
         "grunt-contrib-jshint"    : "latest",
         "grunt-contrib-nodeunit"  : "latest",
         "grunt-contrib-concat"    : "latest",
