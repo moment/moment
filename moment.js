@@ -373,9 +373,7 @@
                     this._monthsParse[i] = new RegExp(regex.replace('.', ''), 'i');
                 }
                 // test the regex
-                // console.log("testing with regex " + this._monthsParse[i]);
                 if (this._monthsParse[i].test(monthName)) {
-                    // console.log("hit!");
                     return i;
                 }
             }
@@ -645,8 +643,6 @@
         var a, b,
             datePartArray = config._a;
 
-        // console.log('attaft ' + token + ' ' + input + ' ' + config);
-
         switch (token) {
         // MONTH
         case 'M' : // fall through to MM
@@ -780,7 +776,6 @@
 
         for (i = 0; i < tokens.length; i++) {
             parsedInput = (getParseRegexForToken(tokens[i]).exec(string) || [])[0];
-            // console.log('parsedInput: ' + parsedInput);
             if (parsedInput) {
                 string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
             }
