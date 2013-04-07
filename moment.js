@@ -1409,12 +1409,12 @@
 
         get : function (units) {
             units = normalizeUnits(units);
-            return this[units.toLowerCase() + "s"]();
+            return this[units.toLowerCase() + 's']();
         },
 
         as : function (units) {
             units = normalizeUnits(units);
-            return this["as" + units.charAt(0).toUpperCase() + units.slice(1) + "s"]();
+            return this['as' + units.charAt(0).toUpperCase() + units.slice(1) + 's']();
         },
 
         lang : moment.fn.lang
