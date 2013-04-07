@@ -70,14 +70,14 @@
         },
 
         unitAliases = {
-            ms : "millisecond",
-            s : "second",
-            m : "minute",
-            h : "hour",
-            d : "day",
-            w : "week",
-            M : "month",
-            y : "year"
+            ms : 'millisecond',
+            s : 'second',
+            m : 'minute',
+            h : 'hour',
+            d : 'day',
+            w : 'week',
+            M : 'month',
+            y : 'year'
         },
 
         // format function strings
@@ -341,7 +341,7 @@
     }
 
     function normalizeUnits(units) {
-        return unitAliases[units] || units.toLowerCase().replace(/(.)s$/, "$1");
+        return unitAliases[units] || units.toLowerCase().replace(/(.)s$/, '$1');
     }
 
 
