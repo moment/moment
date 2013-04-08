@@ -341,7 +341,10 @@
     }
 
     function normalizeUnits(units) {
-        return unitAliases[units] || units.toLowerCase().replace(/(.)s$/, '$1');
+        if (units) {
+            return unitAliases[units] || units.toLowerCase().replace(/(.)s$/, '$1');
+        }
+        return units;
     }
 
 
@@ -1179,10 +1182,7 @@
                 zoneDiff = (this.zone() - that.zone()) * 6e4,
                 diff, output;
 
-            if (units) {
-                // standardize on singular form
-                units = units.replace(/s$/, '');
-            }
+            units = normalizeUnits(units);
 
             if (units === 'year' || units === 'month') {
                 diff = (this.daysInMonth() + that.daysInMonth()) * 432e5; // 24 * 60 * 60 * 1000 / 2
