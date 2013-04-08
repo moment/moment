@@ -66,15 +66,31 @@ exports.duration = {
     },
 
     "generic getter" : function(test) {
-        test.expect(8);
-        test.equal(moment.duration({y: 1}).get("years"),         1, "years = y");
-        test.equal(moment.duration({M: 2}).get("months"),        2, "months = M");
-        test.equal(moment.duration({w: 3}).get("weeks"),         3, "weeks = w");
-        test.equal(moment.duration({d: 4}).get("days"),          4, "days = d");
-        test.equal(moment.duration({h: 5}).get("hours"),         5, "hours = h");
-        test.equal(moment.duration({m: 6}).get("minutes"),       6, "minutes = m");
-        test.equal(moment.duration({s: 7}).get("seconds"),       7, "seconds = s");
-        test.equal(moment.duration({ms: 8}).get("milliseconds"), 8, "milliseconds = ms");
+        test.expect(24);
+        test.equal(moment.duration(1, "years").get("years"),                1, "years");
+        test.equal(moment.duration(1, "years").get("year"),                 1, "years = year");
+        test.equal(moment.duration(1, "years").get("y"),                    1, "years = y");
+        test.equal(moment.duration(2, "months").get("months"),              2, "months");
+        test.equal(moment.duration(2, "months").get("month"),               2, "months = month");
+        test.equal(moment.duration(2, "months").get("M"),                   2, "months = M");
+        test.equal(moment.duration(3, "weeks").get("weeks"),                3, "weeks");
+        test.equal(moment.duration(3, "weeks").get("week"),                 3, "weeks = week");
+        test.equal(moment.duration(3, "weeks").get("w"),                    3, "weeks = w");
+        test.equal(moment.duration(4, "days").get("days"),                  4, "days");
+        test.equal(moment.duration(4, "days").get("day"),                   4, "days = day");
+        test.equal(moment.duration(4, "days").get("d"),                     4, "days = d");
+        test.equal(moment.duration(5, "hours").get("hours"),                5, "hours");
+        test.equal(moment.duration(5, "hours").get("hour"),                 5, "hours = hour");
+        test.equal(moment.duration(5, "hours").get("h"),                    5, "hours = h");
+        test.equal(moment.duration(6, "minutes").get("minutes"),            6, "minutes");
+        test.equal(moment.duration(6, "minutes").get("minute"),             6, "minutes = minute");
+        test.equal(moment.duration(6, "minutes").get("m"),                  6, "minutes = m");
+        test.equal(moment.duration(7, "seconds").get("seconds"),            7, "seconds");
+        test.equal(moment.duration(7, "seconds").get("second"),             7, "seconds = second");
+        test.equal(moment.duration(7, "seconds").get("s"),                  7, "seconds = s");
+        test.equal(moment.duration(8, "milliseconds").get("milliseconds"),  8, "milliseconds");
+        test.equal(moment.duration(8, "milliseconds").get("millisecond"),   8, "milliseconds = millisecond");
+        test.equal(moment.duration(8, "milliseconds").get("ms"),            8, "milliseconds = ms");
         test.done();
     },
 
@@ -304,15 +320,31 @@ exports.duration = {
             milliseconds: 12
         });
 
-        test.expect(8);
+        test.expect(24);
         test.equal(d.as("years").toFixed(2),          "2.29", "years");
-        test.equal(d.as("months").toFixed(2),        "27.51", "months");
-        test.equal(d.as("weeks").toFixed(2),        "119.33", "weeks");
-        test.equal(d.as("days").toFixed(2),         "835.34", "days");
-        test.equal(d.as("hours").toFixed(2),      "20048.16", "hours");
-        test.equal(d.as("minutes").toFixed(2),  "1202889.33", "minutes");
-        test.equal(d.as("seconds").toFixed(2), "72173360.01", "seconds");
-        test.equal(d.as("milliseconds"),         72173360012, "milliseconds");
+        test.equal(d.as("year").toFixed(2),           "2.29", "years = year");
+        test.equal(d.as("y").toFixed(2),              "2.29", "years = y");
+        test.equal(d.as("months").toFixed(2),         "27.51", "months");
+        test.equal(d.as("month").toFixed(2),          "27.51", "months = month");
+        test.equal(d.as("M").toFixed(2),              "27.51", "months = M");
+        test.equal(d.as("weeks").toFixed(2),          "119.33", "weeks");
+        test.equal(d.as("week").toFixed(2),           "119.33", "weeks = week");
+        test.equal(d.as("w").toFixed(2),              "119.33", "weeks = w");
+        test.equal(d.as("days").toFixed(2),           "835.34", "days");
+        test.equal(d.as("day").toFixed(2),            "835.34", "days = day");
+        test.equal(d.as("d").toFixed(2),              "835.34", "days = d");
+        test.equal(d.as("hours").toFixed(2),          "20048.16", "hours");
+        test.equal(d.as("hour").toFixed(2),           "20048.16", "hours = hour");
+        test.equal(d.as("h").toFixed(2),              "20048.16", "hours = h");
+        test.equal(d.as("minutes").toFixed(2),        "1202889.33", "minutes");
+        test.equal(d.as("minute").toFixed(2),         "1202889.33", "minutes = minute");
+        test.equal(d.as("m").toFixed(2),              "1202889.33", "minutes = m");
+        test.equal(d.as("seconds").toFixed(2),        "72173360.01", "seconds");
+        test.equal(d.as("second").toFixed(2),         "72173360.01", "seconds = second");
+        test.equal(d.as("s").toFixed(2),              "72173360.01", "seconds = s");
+        test.equal(d.as("milliseconds"),              72173360012, "milliseconds");
+        test.equal(d.as("millisecond"),               72173360012, "milliseconds = millisecond");
+        test.equal(d.as("ms"),                        72173360012, "milliseconds = ms");
         test.done();
     },
 

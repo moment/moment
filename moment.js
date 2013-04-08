@@ -69,6 +69,17 @@
             'Years' : 31536e6
         },
 
+        unitAliases = {
+            ms : 'millisecond',
+            s : 'second',
+            m : 'minute',
+            h : 'hour',
+            d : 'day',
+            w : 'week',
+            M : 'month',
+            y : 'year'
+        },
+
         // format function strings
         formatFunctions = {},
 
@@ -327,6 +338,10 @@
             }
         }
         return diffs + lengthDiff;
+    }
+
+    function normalizeUnits(units) {
+        return units ? unitAliases[units] || units.toLowerCase().replace(/(.)s$/, '$1') : units;
     }
 
 
@@ -1164,10 +1179,7 @@
                 zoneDiff = (this.zone() - that.zone()) * 6e4,
                 diff, output;
 
-            if (units) {
-                // standardize on singular form
-                units = units.replace(/s$/, '');
-            }
+            units = normalizeUnits(units);
 
             if (units === 'year' || units === 'month') {
                 diff = (this.daysInMonth() + that.daysInMonth()) * 432e5; // 24 * 60 * 60 * 1000 / 2
@@ -1249,40 +1261,33 @@
         },
 
         startOf: function (units) {
-            units = units.replace(/(.)s$/, "$1");
+            units = normalizeUnits(units);
             // the following switch intentionally omits break keywords
             // to utilize falling through the cases.
             switch (units) {
             case 'year':
-            case 'y':
                 this.month(0);
                 /* falls through */
             case 'month':
-            case 'M':
                 this.date(1);
                 /* falls through */
             case 'week':
-            case 'w':
             case 'day':
-            case 'd':
                 this.hours(0);
                 /* falls through */
             case 'hour':
-            case 'h':
                 this.minutes(0);
                 /* falls through */
             case 'minute':
-            case 'm':
                 this.seconds(0);
                 /* falls through */
             case 'second':
-            case 's': 
                 this.milliseconds(0);
                 /* falls through */
             }
 
             // weeks are a special case
-            if (units === 'week' || units === 'w') {
+            if (units === 'week') {
                 this.day(0);
             }
 
@@ -1400,12 +1405,13 @@
         },
 
         get : function (units) {
-            return this[units.toLowerCase()]();
+            units = normalizeUnits(units);
+            return this[units.toLowerCase() + 's']();
         },
 
         as : function (units) {
-            var loweredUnits = units.toLowerCase();
-            return this["as" + loweredUnits.charAt(0).toUpperCase() + loweredUnits.slice(1)]();
+            units = normalizeUnits(units);
+            return this['as' + units.charAt(0).toUpperCase() + units.slice(1) + 's']();
         },
 
         lang : moment.fn.lang
