@@ -341,10 +341,7 @@
     }
 
     function normalizeUnits(units) {
-        if (units) {
-            return unitAliases[units] || units.toLowerCase().replace(/(.)s$/, '$1');
-        }
-        return units;
+        return units ? unitAliases[units] || units.toLowerCase().replace(/(.)s$/, '$1') : units;
     }
 
 
