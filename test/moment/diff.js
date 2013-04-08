@@ -67,6 +67,22 @@ exports.diff = {
         test.done();
     },
 
+    "diff key before abbreviated" : function(test) {
+        test.expect(10);
+
+        test.equal(moment([2011]).diff([2010], 'y'), 1, "year diff abbreviated");
+        test.equal(moment([2010, 2]).diff([2010], 'M'), 2, "month diff abbreviated");
+        test.equal(moment([2010, 0, 4]).diff([2010], 'd'), 3, "day diff abbreviated");
+        test.equal(moment([2010, 0, 7]).diff([2010], 'w'), 0, "week diff abbreviated");
+        test.equal(moment([2010, 0, 8]).diff([2010], 'w'), 1, "week diff abbreviated");
+        test.equal(moment([2010, 0, 21]).diff([2010], 'w'), 2, "week diff abbreviated");
+        test.equal(moment([2010, 0, 22]).diff([2010], 'w'), 3, "week diff abbreviated");
+        test.equal(moment([2010, 0, 1, 4]).diff([2010], 'h'), 4, "hour diff abbreviated");
+        test.equal(moment([2010, 0, 1, 0, 5]).diff([2010], 'm'), 5, "minute diff abbreviated");
+        test.equal(moment([2010, 0, 1, 0, 0, 6]).diff([2010], 's'), 6, "second diff abbreviated");
+        test.done();
+    },
+
     "diff month" : function(test) {
         test.expect(1);
 
