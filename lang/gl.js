@@ -36,7 +36,7 @@ require('../moment').lang('gl', {
     relativeTime : {
         future : "en %s",
         past : "hai %s",
-        s : "un segundo",
+        s : "uns segundos",
         m : "un minuto",
         mm : "%d minutos",
         h : "unha hora",
