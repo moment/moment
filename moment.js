@@ -131,13 +131,13 @@
                 return leftZeroFill(this.year(), 5);
             },
             GG   : function () {
-                return leftZeroFill(this.isoYear() % 100, 2);
+                return leftZeroFill(this.isoWeekYear() % 100, 2);
             },
             GGGG : function () {
-                return this.isoYear();
+                return this.isoWeekYear();
             },
             GGGGG : function () {
-                return leftZeroFill(this.isoYear(), 5);
+                return leftZeroFill(this.isoWeekYear(), 5);
             },
             a    : function () {
                 return this.lang().meridiem(this.hours(), this.minutes(), true);
@@ -1345,7 +1345,7 @@
             return input == null ? week : this.add("d", (input - week) * 7);
         },
 
-        isoYear: function (input) {
+        isoWeekYear: function (input) {
             var year = weekOfYear(this, 1, 4).year;
             return input == null ? year : this.add("y", (input - year));
         },
