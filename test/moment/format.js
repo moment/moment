@@ -181,7 +181,7 @@ exports.format = {
         test.done();
     },
 
-    "iso year formats" : function(test) {
+    "iso week year formats" : function(test) {
 
         // http://en.wikipedia.org/wiki/ISO_week
         var cases = {
@@ -207,6 +207,39 @@ exports.format = {
             var formatted4 = moment(i).format('GGGG');
             test.equal(isoWeekYear, formatted4, i + ": should be " + isoWeekYear + ", but " + formatted4);
             var formatted2 = moment(i).format('GG');
+            test.equal(isoWeekYear.slice(2, 4), formatted2, i + ": should be " + isoWeekYear + ", but " + formatted2);
+        }
+
+        test.done();
+    },
+
+    "week year formats" : function(test) {
+
+        // http://en.wikipedia.org/wiki/ISO_week
+        var cases = {
+            "2005-01-02": "2004-53",
+            "2005-12-31": "2005-52",
+            "2007-01-01": "2007-01",
+            "2007-12-30": "2007-52",
+            "2007-12-31": "2008-01",
+            "2008-01-01": "2008-01",
+            "2008-12-28": "2008-52",
+            "2008-12-29": "2009-01",
+            "2008-12-30": "2009-01",
+            "2008-12-31": "2009-01",
+            "2009-01-01": "2009-01",
+            "2009-12-31": "2009-53",
+            "2010-01-01": "2009-53",
+            "2010-01-02": "2009-53",
+            "2010-01-03": "2009-53"
+        };
+
+        moment.lang('en-gb'); // 1, 4
+        for (var i in cases) {
+            var isoWeekYear = cases[i].split('-')[0];
+            var formatted4 = moment(i).format('gggg');
+            test.equal(isoWeekYear, formatted4, i + ": should be " + isoWeekYear + ", but " + formatted4);
+            var formatted2 = moment(i).format('gg');
             test.equal(isoWeekYear.slice(2, 4), formatted2, i + ": should be " + isoWeekYear + ", but " + formatted2);
         }
 
