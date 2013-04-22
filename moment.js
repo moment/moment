@@ -24,7 +24,7 @@
         aspNetTimeSpanJsonRegex = /(\-)?(\d*)?\.?(\d+)\:(\d+)\:(\d+)\.?(\d{3})?/,
 
         // format tokens
-        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,
         localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?|l{1,4})/g,
 
         // parsing tokens
@@ -147,6 +147,12 @@
             },
             GGGGG : function () {
                 return leftZeroFill(this.isoWeekYear(), 5);
+            },
+            e : function () {
+                return this.weekday();
+            },
+            E : function () {
+                return this.isoWeekday();
             },
             a    : function () {
                 return this.lang().meridiem(this.hours(), this.minutes(), true);
@@ -1349,17 +1355,12 @@
             return input == null ? dayOfYear : this.add("d", (input - dayOfYear));
         },
 
-        isoWeek : function (input) {
-            var week = weekOfYear(this, 1, 4).week;
-            return input == null ? week : this.add("d", (input - week) * 7);
-        },
-
-        weekYear: function(input) {
+        weekYear : function(input) {
             var year = weekOfYear(this, this.lang()._week.dow, this.lang()._week.doy).year;
             return input == null ? year : this.add("y", (input - year));
         },
 
-        isoWeekYear: function (input) {
+        isoWeekYear : function (input) {
             var year = weekOfYear(this, 1, 4).year;
             return input == null ? year : this.add("y", (input - year));
         },
@@ -1367,6 +1368,23 @@
         week : function (input) {
             var week = this.lang().week(this);
             return input == null ? week : this.add("d", (input - week) * 7);
+        },
+
+        isoWeek : function (input) {
+            var week = weekOfYear(this, 1, 4).week;
+            return input == null ? week : this.add("d", (input - week) * 7);
+        },
+
+        weekday : function(input) {
+            var weekday = (this._d.getDay() + 7 - this.lang()._week.dow) % 7;
+            return input == null ? weekday : this.add("d", input - weekday);
+        },
+
+        isoWeekday : function(input) {
+            // iso weeks start on monday, which is 1, so we subtract 1 (and add
+            // 7 for negative mod to work).
+            var weekday = (this._d.getDay() + 6) % 7;
+            return input == null ? weekday : this.add("d", input - weekday);
         },
 
         // If passed a language key, it will set the language for this
