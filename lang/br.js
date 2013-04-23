@@ -1,6 +1,6 @@
 // moment.js language configuration
-// language : great britain english (en-gb)
-// author : Chris Gedrim : https://github.com/chrisgedrim
+// language : breton (br)
+// author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 
 require('../moment').lang('br', {
     months : "Genver_C'hwevrer_Meurzh_Ebrel_Mae_Mezheven_Gouere_Eost_Gwengolo_Here_Du_Kerzu".split("_"),
