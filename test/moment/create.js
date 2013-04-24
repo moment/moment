@@ -150,7 +150,7 @@ exports.create = {
                 ['h:mm a',              '12:30 am'],
                 ['HH:mm',               '12:00'],
                 ['YYYY-MM-DDTHH:mm:ss', '2011-11-11T11:11:11'],
-                ['MM-DD-YYYY \\M',      '12-02-1999 M'],
+                ['MM-DD-YYYY [M]',      '12-02-1999 M'],
                 ['ddd MMM DD HH:mm:ss YYYY', 'Tue Apr 07 22:52:51 2009'],
                 ['HH:mm:ss',            '12:00:00'],
                 ['HH:mm:ss',            '12:30:00'],
