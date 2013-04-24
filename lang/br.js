@@ -5,15 +5,15 @@
 require('../moment').lang('br', {
     months : "Genver_C'hwevrer_Meurzh_Ebrel_Mae_Mezheven_Gouere_Eost_Gwengolo_Here_Du_Kerzu".split("_"),
     monthsShort : "Gen_C'hwe_Meu_Ebr_Mae_Eve_Gou_Eos_Gwe_Her_Du_Ker".split("_"),
-    weekdays : "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),
-    weekdaysShort : "Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),
-    weekdaysMin : "Su_Mo_Tu_We_Th_Fr_Sa".split("_"),
+    weekdays : "Sul_Lun_Meurzh_Merc'her_Yaou_Gwener_Sadorn".split("_"),
+    weekdaysShort : "Sul_Lun_Meu_Mer_Yao_Gwe_Sad".split("_"),
+    weekdaysMin : "Su_Lu_Me_Mer_Ya_Gw_Sa".split("_"),
     longDateFormat : {
-        LT : "h:mm A",
+        LT : "h[e]mm A",
         L : "DD/MM/YYYY",
-        LL : "D MMMM YYYY",
-        LLL : "D MMMM YYYY LT",
-        LLLL : "dddd, D MMMM YYYY LT"
+        LL : "D [a viz] MMMM YYYY",
+        LLL : "D [a viz] MMMM YYYY LT",
+        LLLL : "dddd, D [a viz] MMMM YYYY LT"
     },
     calendar : {
         sameDay : '[Today at] LT',
@@ -39,11 +39,7 @@ require('../moment').lang('br', {
         yy : "%d years"
     },
     ordinal : function (number) {
-        var b = number % 10,
-            output = (~~ (number % 100 / 10) === 1) ? 'th' :
-            (b === 1) ? 'st' :
-            (b === 2) ? 'nd' :
-            (b === 3) ? 'rd' : 'th';
+        var output = (number === 1) ? 'añ' : 'vet';
         return number + output;
     },
     week : {
