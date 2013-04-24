@@ -39,6 +39,6 @@ require('../moment').lang('fr-ca', {
         yy : "%d ans"
     },
     ordinal : function (number) {
-        return number + (number === 1 ? 'er' : 'ème');
+        return number + (number === 1 ? 'er' : '');
     }
 });
