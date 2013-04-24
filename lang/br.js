@@ -2,6 +2,35 @@
 // language : breton (br)
 // author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 
+function relativeTimeWithMutation(number, withoutSuffix, key)  {
+    var format = {
+        'mm' : "munutenn",
+        'MM' : "miz",
+        'dd' : "devezh",
+        'yy' : "bloaz"
+    };
+    return number + ' ' + mutation(format[key], number);
+}
+
+function mutation(text, number) {
+    if (number === 2) {
+        return softMutation(text);
+    }
+    return text;
+}
+
+function softMutation(text) {
+    var mutationTable =  {
+        'm' : 'v',
+        'b' : 'v',
+        'd' : 'z'
+    };
+    if (mutationTable[text.charAt(0)] === undefined) {
+        return text;
+    }
+    return mutationTable[text.charAt(0)] + text.substring(1);
+}
+
 require('../moment').lang('br', {
     months : "Genver_C'hwevrer_Meurzh_Ebrel_Mae_Mezheven_Gouere_Eost_Gwengolo_Here_Du_Kerzu".split("_"),
     monthsShort : "Gen_C'hwe_Meu_Ebr_Mae_Eve_Gou_Eos_Gwe_Her_Du_Ker".split("_"),
@@ -16,27 +45,27 @@ require('../moment').lang('br', {
         LLLL : "dddd, D [a viz] MMMM YYYY LT"
     },
     calendar : {
-        sameDay : '[Today at] LT',
-        nextDay : '[Tomorrow at] LT',
-        nextWeek : 'dddd [at] LT',
-        lastDay : '[Yesterday at] LT',
-        lastWeek : '[Last] dddd [at] LT',
+        sameDay : '[Hiziv da] LT',
+        nextDay : '[Warc\'hoazh da] LT',
+        nextWeek : 'dddd [da] LT',
+        lastDay : '[Dec\'h da] LT',
+        lastWeek : 'dddd [paset da] LT',
         sameElse : 'L'
     },
     relativeTime : {
-        future : "in %s",
-        past : "%s ago",
-        s : "a few seconds",
-        m : "a minute",
-        mm : "%d minutes",
-        h : "an hour",
-        hh : "%d hours",
-        d : "a day",
-        dd : "%d days",
-        M : "a month",
-        MM : "%d months",
-        y : "a year",
-        yy : "%d years"
+        future : "a-benn %s",
+        past : "%s 'zo",
+        s : "un nebeud segondennoù",
+        m : "ur vunutenn",
+        mm : relativeTimeWithMutation,
+        h : "un eur",
+        hh : "%d eur",
+        d : "un devezh",
+        dd : relativeTimeWithMutation,
+        M : "ur miz",
+        MM : relativeTimeWithMutation,
+        y : "ur vloaz",
+        yy : relativeTimeWithMutation
     },
     ordinal : function (number) {
         var output = (number === 1) ? 'añ' : 'vet';
