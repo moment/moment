@@ -1355,7 +1355,7 @@
             return input == null ? dayOfYear : this.add("d", (input - dayOfYear));
         },
 
-        weekYear : function(input) {
+        weekYear : function (input) {
             var year = weekOfYear(this, this.lang()._week.dow, this.lang()._week.doy).year;
             return input == null ? year : this.add("y", (input - year));
         },
@@ -1375,12 +1375,12 @@
             return input == null ? week : this.add("d", (input - week) * 7);
         },
 
-        weekday : function(input) {
+        weekday : function (input) {
             var weekday = (this._d.getDay() + 7 - this.lang()._week.dow) % 7;
             return input == null ? weekday : this.add("d", input - weekday);
         },
 
-        isoWeekday : function(input) {
+        isoWeekday : function (input) {
             // iso weeks start on monday, which is 1, so we subtract 1 (and add
             // 7 for negative mod to work).
             var weekday = (this._d.getDay() + 6) % 7;
