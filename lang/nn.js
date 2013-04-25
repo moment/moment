@@ -20,7 +20,7 @@ require('../moment').lang('nn', {
         nextDay: '[I morgon klokka] LT',
         nextWeek: 'dddd [klokka] LT',
         lastDay: '[I går klokka] LT',
-        lastWeek: '[Føregående] dddd [klokken] LT',
+        lastWeek: '[Føregående] dddd [klokka] LT',
         sameElse: 'L'
     },
     relativeTime : {
