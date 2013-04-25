@@ -43,7 +43,7 @@ exports["lang:nn"] = {
 
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'sundag, februar 14. 2010, 3:25:50 pm'],
-                ['ddd, hA',                            'syn, 3PM'],
+                ['ddd, hA',                            'sun, 3PM'],
                 ['M Mo MM MMMM MMM',                   '2 2. 02 februar feb'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14. 14'],
