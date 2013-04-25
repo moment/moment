@@ -1228,19 +1228,27 @@
             units = normalizeUnits(units);
 
             if (units === 'year' || units === 'month') {
+                // average number of days in the months in the given dates
                 diff = (this.daysInMonth() + that.daysInMonth()) * 432e5; // 24 * 60 * 60 * 1000 / 2
+                // difference in months
                 output = ((this.year() - that.year()) * 12) + (this.month() - that.month());
-                output += ((this - moment(this).startOf('month')) - (that - moment(that).startOf('month'))) / diff;
+                // adjust by taking difference in days, average number of days
+                // and dst in the given months.
+                output += ((this - moment(this).startOf('month')) -
+                        (that - moment(that).startOf('month'))) / diff;
+                // same as above but with zones, to negate all dst
+                output -= ((this.zone() - moment(this).startOf('month').zone()) -
+                        (that.zone() - moment(that).startOf('month').zone())) * 6e4 / diff;
                 if (units === 'year') {
                     output = output / 12;
                 }
             } else {
-                diff = (this - that) - zoneDiff;
+                diff = (this - that);
                 output = units === 'second' ? diff / 1e3 : // 1000
                     units === 'minute' ? diff / 6e4 : // 1000 * 60
                     units === 'hour' ? diff / 36e5 : // 1000 * 60 * 60
-                    units === 'day' ? diff / 864e5 : // 1000 * 60 * 60 * 24
-                    units === 'week' ? diff / 6048e5 : // 1000 * 60 * 60 * 24 * 7
+                    units === 'day' ? (diff - zoneDiff) / 864e5 : // 1000 * 60 * 60 * 24, negate dst
+                    units === 'week' ? (diff - zoneDiff) / 6048e5 : // 1000 * 60 * 60 * 24 * 7, negate dst
                     diff;
             }
             return asFloat ? output : absRound(output);

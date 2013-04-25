@@ -91,10 +91,17 @@ exports.diff = {
     },
 
     "diff across DST" : function(test) {
-        test.expect(2);
+        test.expect(9);
 
         test.equal(moment([2012, 2, 24]).diff([2012, 2, 10], 'weeks', true), 2, "diff weeks across DST");
-        test.equal(moment([2012, 2, 24]).diff([2012, 2, 10], 'days', true), 14, "diff weeks across DST");
+        test.equal(moment([2012, 2, 24]).diff([2012, 2, 10], 'days', true), 14, "diff days across DST");
+        test.equal(moment([2012, 2, 11]).diff([2012, 2, 11, 12], 'hours', true), -11, "diff hours across DST");
+        test.equal(moment([2012, 2, 11]).diff([2012, 2, 11, 12], 'days', true), -0.5, "diff days across DST");
+        test.equal(moment([2012, 2, 11]).diff([2012, 2, 11, 12], 'months', true), -1/62, "diff months across DST (half day in 31 day month)");
+        test.equal(moment([2012, 2, 11]).diff([2012, 2, 11, 12], 'months', true), -1/62, "diff months across DST (half day in 31 day month)");
+        test.equal(moment([2013, 10, 2]).diff([2013, 10, 17], 'months', true), -0.5, 'diff months across DST (15 days in 30 day month)')
+        test.equal(moment([2013, 10, 2]).diff([2013, 10, 17], 'days', true), -15, 'diff days across DST')
+        test.equal(moment([2013, 10, 2]).diff([2013, 10, 17], 'hours', true), -15 * 24 - 1, 'diff hours across DST (15 days minus 1 hour DST)')
         test.done();
     },
 
