@@ -53,7 +53,7 @@ exports["lang:fi"] = {
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
-                ['vuo\\den DDDo päivä',                'vuoden 45. päivä'],
+                ['[vuoden] DDDo [päivä]',              'vuoden 45. päivä'],
                 ['L',                                  '14.02.2010'],
                 ['LL',                                 '14. helmikuuta 2010'],
                 ['LLL',                                '14. helmikuuta 2010, klo 15.25'],

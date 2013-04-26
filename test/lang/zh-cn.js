@@ -57,7 +57,7 @@ exports["lang:zh-cn"] = {
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                '下午 下午'],
-                ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45 day of the year'],
+                ['[the] DDDo [day of the year]',       'the 45 day of the year'],
                 ['L',                                  '2010年2月14日'],
                 ['LL',                                 '2010年2月14日'],
                 ['LLL',                                '2010年2月14日下午3点25'],
