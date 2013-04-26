@@ -58,7 +58,7 @@ exports["lang:ms-my"] = {
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                'petang petang'],
-                ['\\h\\a\\ri ke DDDo t\\a\\hun ini', 'hari ke 45 tahun ini'],
+                ['[hari] [ke] DDDo [tahun] ini', 'hari ke 45 tahun ini'],
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 Februari 2010'],
                 ['LLL',                                '14 Februari 2010 pukul 15.25'],

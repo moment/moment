@@ -13,9 +13,9 @@ require('../moment').lang('eo', {
     longDateFormat : {
         LT : "HH:mm",
         L : "YYYY-MM-DD",
-        LL : "D-\\an \\de MMMM, YYYY",
-        LLL : "D-\\an \\de MMMM, YYYY LT",
-        LLLL : "dddd, \\l\\a D-\\an \\d\\e MMMM, YYYY LT"
+        LL : "D[-an de] MMMM, YYYY",
+        LLL : "D[-an de] MMMM, YYYY LT",
+        LLLL : "dddd, [la] D[-an de] MMMM, YYYY LT"
     },
     meridiem : function (hours, minutes, isLower) {
         if (hours > 11) {

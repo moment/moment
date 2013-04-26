@@ -55,7 +55,7 @@ exports["lang:eo"] = {
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                'p.t.m. P.T.M.'],
-                ['\\l\\a DDDo t\\ago \\d\\e \\l\\a j\\aro', 'la 45a tago de la jaro'],
+                ['[la] DDDo [tago] [de] [la] [jaro]',  'la 45a tago de la jaro'],
                 ['L',                                  '2010-02-14'],
                 ['LL',                                 '14-an de februaro, 2010'],
                 ['LLL',                                '14-an de februaro, 2010 15:25'],
