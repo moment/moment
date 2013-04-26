@@ -25,7 +25,7 @@ require('../moment').lang('sv', {
     },
     relativeTime : {
         future : "om %s",
-        past : "för %s sedan",
+        past : "%s sedan",
         s : "några sekunder",
         m : "en minut",
         mm : "%d minuter",
