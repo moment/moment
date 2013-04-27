@@ -40,6 +40,21 @@ require('../moment').lang('zh-tw', {
         lastWeek : '[上]ddddLT',
         sameElse : 'L'
     },
+    ordinal : function (number, period) {
+        switch (period) {
+        case "d" :
+        case "D" :
+        case "DDD" :
+            return number + "日";
+        case "M" :
+            return number + "月";
+        case "w" :
+        case "W" :
+            return number + "週";
+        default :
+            return number;
+        }
+    },
     relativeTime : {
         future : "%s內",
         past : "%s前",
