@@ -285,5 +285,13 @@ exports.format = {
         var b = moment(new Date(2009, 1, 5, 15, 25, 50, 125));
         test.equal(b.toString(), b.format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ'));
         test.done();
+    },
+
+    "toJSON skips postformat" : function(test) {
+        test.expect(1);
+
+        moment.lang('postformat', {postformat: function(s) { s.replace(/./g, 'X') }});
+        test.equal(moment.utc([2000, 0, 1]).toJSON(), "2000-01-01T00:00:00.000Z", "toJSON doesn't postformat");
+        test.done();
     }
 };
