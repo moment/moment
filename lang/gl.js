@@ -35,8 +35,9 @@ require('../moment').lang('gl', {
     },
     relativeTime : {
         future : function (str) {
-            if (str === "uns segundos")
+            if (str === "uns segundos") {
                 return "nuns segundos";
+            }
             return "en " + str;
         },
         past : "hai %s",
