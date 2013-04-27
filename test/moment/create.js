@@ -491,6 +491,12 @@ exports.create = {
         test.done();
     },
 
+    "strict parsing" : function(test) {
+        test.equal(moment("ala [ ] bala 2012-05", "[ala] \\[ \\] \b\a\l\a YYYY-MM").format("YYYY-MM"), "2012-05");
+        test.equal(moment("ala [ bala 2012-05", "[ala] \\[ \\] \b\a\l\a YYYY-MM"), null);
+        test.done();
+    },
+
     "parsing into a language" : function (test) {
         test.expect(2);
 

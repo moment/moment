@@ -917,6 +917,9 @@
 
     // date from string and format string
     function makeDateFromStringAndFormat(config) {
+        if (config._strict) {
+            return makeDateFromStringAndStrictFormat(config);
+        }
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
         var lang = getLangDefinition(config._l),
             string = '' + config._i,
@@ -951,6 +954,76 @@
         }
         // return
         dateFromArray(config);
+    }
+
+    function makeDateFromStringAndStrictFormat(config) {
+        var regexp = '', non_token_start = 0;
+
+        // var s = config._f;
+        // for (var i = 0; i < s.length; ++i) {
+        //     console.log(i + ": " + s[i] + " (" + s.charCodeAt(i) + ")");
+        // }
+
+        // We're not interested in the result. Just the tokens and their
+        // starting positions.
+        config._f.replace(formattingTokens, function(token) {
+            var offset = arguments[arguments.length - 2],
+                tokenRegexp;
+
+            if (formatTokenFunctions[token]) {
+                tokenRegexp = getParseRegexForToken(token).toString();
+                // this is a real token
+
+                // regexp-escape strings in-between tokens
+                if (offset > non_token_start) {
+                    regexp += regexpEscape(unescapeFormat(config._f.substring(non_token_start, offset)));
+                }
+                non_token_start = offset + token.length;
+
+                console.log("adding " + tokenRegexp + "### " + tokenRegexp.substring(1, tokenRegexp.lastIndexOf('/')));
+                // add token regexp
+                regexp += tokenRegexp.substring(1, tokenRegexp.lastIndexOf('/'));
+            } else {
+                console.log("not a token " + token);
+            }
+
+            return token;
+        });
+        regexp = new RegExp('^' + regexp + '$');
+        console.log(regexp);
+        console.log(config._i.match(regexp));
+        // TODO: non-matching groups in upper regex, put match groups around
+        // regexes, get tokens, parse.
+        // new RegExp(regexp).match(config._i)
+    }
+
+    function unescapeFormat(s) {
+        console.log("unescaping " + s);
+        return s.replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function(matched, p1, p2, p3, p4) {
+            console.log(matched, p1, p2, p3, p4);
+            return p1 || p2 || p3 || p4;
+        });
+        // console.log("unescape _" + s + "_");
+        // for (var i = 0; i < s.length; ++i) {
+        //     console.log(i + ": " + s[i] + " (" + s.charCodeAt(i) + ")");
+        // }
+        // console.log(s[0] + "XX" + s[s.length-2]);
+        // var res = s;
+        // if (s[0] == '[' && s[s.length-1] == ']') {
+        //     res = s.substr(1, s.length - 2);
+        //     console.log("intermid " + res);
+        // }
+        // console.log("intermid " + res);
+        // res = res.replace(/\\./, '$&');
+        // console.log("unescape " + s + " ==> " + res);
+        // return res;
+    }
+
+    // Code from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
+    function regexpEscape(s) {
+        var res = s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        console.log("regexp escape " + s + " ===> " + res);
+        return res;
     }
 
     // date from string and array of format strings
@@ -1129,23 +1202,33 @@
         return new Moment(config);
     }
 
-    moment = function (input, format, lang) {
+    moment = function (input, format, lang, strict) {
+        if (lang == true) {
+            lang = undefined;
+            strict = true;
+        }
         return makeMoment({
             _i : input,
             _f : format,
             _l : lang,
+            _strict : strict,
             _isUTC : false
         });
     };
 
     // creating with utc
     moment.utc = function (input, format, lang) {
+        if (lang == true) {
+            lang = undefined;
+            strict = true;
+        }
         return makeMoment({
             _useUTC : true,
             _isUTC : true,
             _l : lang,
             _i : input,
-            _f : format
+            _f : format,
+            _strict : strict
         }).utc();
     };
 
