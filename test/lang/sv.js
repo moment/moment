@@ -168,13 +168,13 @@ exports["lang:sv"] = {
     "suffix" : function(test) {
         test.expect(2);
         test.equal(moment(30000).from(0), "om några sekunder",  "prefix");
-        test.equal(moment(0).from(30000), "för några sekunder sedan", "suffix");
+        test.equal(moment(0).from(30000), "några sekunder sedan", "suffix");
         test.done();
     },
 
     "now from now" : function(test) {
         test.expect(1);
-        test.equal(moment().fromNow(), "för några sekunder sedan",  "now from now should display as in the past");
+        test.equal(moment().fromNow(), "några sekunder sedan",  "now from now should display as in the past");
         test.done();
     },
 
