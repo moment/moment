@@ -17,10 +17,10 @@ require('../moment').lang('gl', {
     },
     calendar : {
         sameDay : function () {
-            return '[hoxe ' + ((this.hours() !== 1) ? 'ás' : 'a') + '] LT';
+            return '[hoxe ' + ((this.hours() !== 1) ? 'ás' : 'á') + '] LT';
         },
         nextDay : function () {
-            return '[mañá ' + ((this.hours() !== 1) ? 'ás' : 'a') + '] LT';
+            return '[mañá ' + ((this.hours() !== 1) ? 'ás' : 'á') + '] LT';
         },
         nextWeek : function () {
             return 'dddd [' + ((this.hours() !== 1) ? 'ás' : 'a') + '] LT';
@@ -34,7 +34,11 @@ require('../moment').lang('gl', {
         sameElse : 'L'
     },
     relativeTime : {
-        future : "en %s",
+        future : function (str) {
+            if (str === "uns segundos")
+                return "nuns segundos";
+            return "en " + str;
+        },
         past : "hai %s",
         s : "uns segundos",
         m : "un minuto",
