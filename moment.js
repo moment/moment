@@ -209,15 +209,15 @@
             return leftZeroFill(func.call(this, a), count);
         };
     }
-    function ordinalizeToken(func) {
+    function ordinalizeToken(func, period) {
         return function (a) {
-            return this.lang().ordinal(func.call(this, a));
+            return this.lang().ordinal(func.call(this, a), period);
         };
     }
 
     while (ordinalizeTokens.length) {
         i = ordinalizeTokens.pop();
-        formatTokenFunctions[i + 'o'] = ordinalizeToken(formatTokenFunctions[i]);
+        formatTokenFunctions[i + 'o'] = ordinalizeToken(formatTokenFunctions[i], i);
     }
     while (paddedTokens.length) {
         i = paddedTokens.pop();
