@@ -1137,7 +1137,7 @@
         },
 
         toJSON : function () {
-            return moment(this).utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
+            return formatMoment(moment(this).utc(), 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
         },
 
         toArray : function () {
