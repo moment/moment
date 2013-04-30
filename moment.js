@@ -1238,8 +1238,8 @@
         },
 
         pastFromNow : function (withoutSuffix) {
-            var now = moment();
-            var past = this < now ? this : now;
+            var now = moment(),
+                past = this < now ? this : now;
             return past.from(now, withoutSuffix);
         },
 
