@@ -597,7 +597,7 @@
         return function (mom) {
             var output = "";
             for (i = 0; i < length; i++) {
-                output += typeof array[i].call === 'function' ? array[i].call(mom, format) : array[i];
+                output += array[i] instanceof Function ? array[i].call(mom, format) : array[i];
             }
             return output;
         };
