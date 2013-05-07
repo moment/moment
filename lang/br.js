@@ -2,14 +2,34 @@
 // language : breton (br)
 // author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 
-function relativeTimeWithMutation(number, withoutSuffix, key)  {
+function relativeTimeWithMutation(number, withoutSuffix, key) {
     var format = {
-        'mm' : "munutenn",
-        'MM' : "miz",
-        'dd' : "devezh",
-        'yy' : "bloaz"
+        'mm': "munutenn",
+        'MM': "miz",
+        'dd': "devezh"
     };
     return number + ' ' + mutation(format[key], number);
+}
+
+function specialMutationForYears(number) {
+    switch (lastNumber(number)) {
+        case 1:
+        case 3:
+        case 4:
+        case 5:
+        case 9:
+            return number + ' bloaz';
+        default:
+            return number + ' vloaz';
+
+    }
+}
+
+function lastNumber(number) {
+    if (number > 9) {
+        return lastNumber(number % 10);
+    }
+    return number;
 }
 
 function mutation(text, number) {
@@ -20,10 +40,10 @@ function mutation(text, number) {
 }
 
 function softMutation(text) {
-    var mutationTable =  {
-        'm' : 'v',
-        'b' : 'v',
-        'd' : 'z'
+    var mutationTable = {
+        'm': 'v',
+        'b': 'v',
+        'd': 'z'
     };
     if (mutationTable[text.charAt(0)] === undefined) {
         return text;
@@ -64,8 +84,8 @@ require('../moment').lang('br', {
         dd : relativeTimeWithMutation,
         M : "ur miz",
         MM : relativeTimeWithMutation,
-        y : "ur vloaz",
-        yy : relativeTimeWithMutation
+        y : "ur bloaz",
+        yy : specialMutationForYears
     },
     ordinal : function (number) {
         var output = (number === 1) ? 'añ' : 'vet';

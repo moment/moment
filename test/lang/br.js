@@ -158,10 +158,10 @@ exports["lang:br"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({M:1}), true),   "ur miz",       "1 month = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({M:5}), true),   "5 miz",      "5 months = 5 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d:344}), true), "11 miz",     "344 days = 11 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:345}), true), "ur vloaz",        "345 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:547}), true), "ur vloaz",        "547 days = a year");
+        test.equal(start.from(moment([2007, 1, 28]).add({d:345}), true), "ur bloaz",        "345 days = a year");
+        test.equal(start.from(moment([2007, 1, 28]).add({d:547}), true), "ur bloaz",        "547 days = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({d:548}), true), "2 vloaz",       "548 days = 2 years");
-        test.equal(start.from(moment([2007, 1, 28]).add({y:1}), true),   "ur vloaz",        "1 year = a year");
+        test.equal(start.from(moment([2007, 1, 28]).add({y:1}), true),   "ur bloaz",        "1 year = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({y:5}), true),   "5 bloaz",       "5 years = 5 years");
         test.done();
     },
@@ -251,6 +251,25 @@ exports["lang:br"] = {
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
+        test.done();
+    },
+
+    "special mutations for years": function (test) {
+        test.expect(12);
+        moment.lang('br');
+        var start = moment([2007, 1, 28]);
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true), "ur bloaz", "mutation 1 year");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 2}), true), "2 vloaz", "mutation 2 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 3}), true), "3 bloaz", "mutation 3 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 4}), true), "4 bloaz", "mutation 4 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true), "5 bloaz", "mutation 5 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 9}), true), "9 bloaz", "mutation 9 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 10}), true), "10 vloaz", "mutation 10 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 21}), true), "21 bloaz", "mutation 21 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 22}), true), "22 vloaz", "mutation 22 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 133}), true), "133 bloaz", "mutation 133 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 148}), true), "148 vloaz", "mutation 148 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 261}), true), "261 bloaz", "mutation 261 years");
         test.done();
     }
 };
