@@ -1334,7 +1334,7 @@
 
             // weeks are a special case
             if (units === 'week') {
-                this.day(0);
+                this.weekday(0);
             }
 
             return this;
