@@ -154,7 +154,7 @@ exports.zones = {
     },
 
     "getters and setters" : function (test) {
-        var a = moment([2011]);
+        var a = moment([2011, 5, 20]);
 
         test.equal(a.clone().zone(120).year(2012).year(), 2012, "should get and set year correctly");
         test.equal(a.clone().zone(120).month(1).month(), 1, "should get and set month correctly");
