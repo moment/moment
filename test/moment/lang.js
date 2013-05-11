@@ -196,5 +196,21 @@ exports.lang = {
         test.equal(moment([2011, 0, 1]).format('MMMM MMM'), 'a A', 'should be able to set language values after creating the language');
 
         test.done();
+    },
+
+    "start/endOf week feature for first-day-is-monday langs" : function (test) {
+        test.expect(2);
+
+        moment.lang('monday-lang', {
+            week : {
+                dow : 1 // Monday is the first day of the week
+            }
+        });
+        
+        moment.lang('monday-lang');
+        test.equal(moment([2013, 0, 1]).startOf('week').day(), 1, 'for lang monday-lang first day of the week should be monday');
+        test.equal(moment([2013, 0, 1]).endOf('week').day(), 0, 'for lang monday-lang last day of the week should be sunday');
+
+        test.done();
     }
 };
