@@ -165,7 +165,7 @@ exports.lang = {
             return 'default';
         }
 
-        moment.lang('made-up', {
+        moment.lang('made-up-2', {
             months : fakeReplace,
             monthsShort : fakeReplace,
             weekdays : fakeReplace,

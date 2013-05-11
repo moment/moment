@@ -1,6 +1,16 @@
 var moment = require("../../moment");
 
 exports.utc = {
+    setUp : function (cb) {
+        moment.lang('en');
+        cb();
+    },
+
+    tearDown : function (cb) {
+        moment.lang('en');
+        cb();
+    },
+
     "utc and local" : function(test) {
         test.expect(7);
 
