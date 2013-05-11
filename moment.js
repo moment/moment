@@ -1270,8 +1270,8 @@
         },
 
         isDST : function () {
-            return (this.zone() < moment([this.year()]).zone() ||
-                this.zone() < moment([this.year(), 5]).zone());
+            return (this.zone() < this.clone().month(0).zone() ||
+                this.zone() < this.clone().month(5).zone());
         },
 
         day : function (input) {
@@ -1299,6 +1299,7 @@
                     }
                 }
                 this._d['set' + utc + 'Month'](input);
+                moment.updateOffset(this);
                 return this;
             } else {
                 return this._d['get' + utc + 'Month']();

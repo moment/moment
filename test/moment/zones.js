@@ -367,6 +367,38 @@ exports.zones = {
         moment.updateOffset = oldOffset;
 
         test.done();
+    },
+
+    "isDST" : function (test) {
+        var oldOffset = moment.updateOffset;
+
+        moment.updateOffset = function (mom) {
+            if (mom.month() > 2 && mom.month() < 9) {
+                mom.zone(-60);
+            } else {
+                mom.zone(0);
+            }
+        };
+
+        test.ok(!moment().month(0).isDST(),  "Jan should not be summer dst");
+        test.ok(moment().month(6).isDST(),   "Jul should be summer dst");
+        test.ok(!moment().month(11).isDST(), "Dec should not be summer dst");
+
+        moment.updateOffset = function (mom) {
+            if (mom.month() > 2 && mom.month() < 9) {
+                mom.zone(0);
+            } else {
+                mom.zone(-60);
+            }
+        };
+
+        test.ok(moment().month(0).isDST(),  "Jan should be winter dst");
+        test.ok(!moment().month(6).isDST(), "Jul should not be winter dst");
+        test.ok(moment().month(11).isDST(), "Dec should be winter dst");
+
+        moment.updateOffset = oldOffset;
+
+        test.done();
     }
 
 };
