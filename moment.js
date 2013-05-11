@@ -199,6 +199,12 @@
                 }
                 return b + leftZeroFill(~~(10 * a / 6), 4);
             },
+            z : function () {
+                return this.zoneAbbr();
+            },
+            zz : function () {
+                return this.zoneName();
+            },
             X    : function () {
                 return this.unix();
             }
@@ -1377,6 +1383,14 @@
                 return this._isUTC ? offset : this._d.getTimezoneOffset();
             }
             return this;
+        },
+
+        zoneAbbr : function () {
+            return this._isUTC ? "UTC" : "";
+        },
+
+        zoneName : function () {
+            return this._isUTC ? "Coordinated Universal Time" : "";
         },
 
         daysInMonth : function () {
