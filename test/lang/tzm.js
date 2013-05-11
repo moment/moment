@@ -4,9 +4,18 @@ var moment = require("../../moment");
 
 
 exports["lang:tzm"] = {
+    setUp : function (cb) {
+        moment.lang('tzm');
+        cb();
+    },
+
+    tearDown : function (cb) {
+        moment.lang('en');
+        cb();
+    },
+
     "parse" : function(test) {
         test.expect(96);
-        moment.lang('tzm');
         var tests = 'ⵉⵏⵏⴰⵢⵔ ⵉⵏⵏⴰⵢⵔ_ⴱⵕⴰⵢⵕ ⴱⵕⴰⵢⵕ_ⵎⴰⵕⵚ ⵎⴰⵕⵚ_ⵉⴱⵔⵉⵔ ⵉⴱⵔⵉⵔ_ⵎⴰⵢⵢⵓ ⵎⴰⵢⵢⵓ_ⵢⵓⵏⵢⵓ ⵢⵓⵏⵢⵓ_ⵢⵓⵍⵢⵓⵣ ⵢⵓⵍⵢⵓⵣ_ⵖⵓⵛⵜ ⵖⵓⵛⵜ_ⵛⵓⵜⴰⵏⴱⵉⵔ ⵛⵓⵜⴰⵏⴱⵉⵔ_ⴽⵟⵓⴱⵕ ⴽⵟⵓⴱⵕ_ⵏⵓⵡⴰⵏⴱⵉⵔ ⵏⵓⵡⴰⵏⴱⵉⵔ_ⴷⵓⵊⵏⴱⵉⵔ ⴷⵓⵊⵏⴱⵉⵔ'.split("_");
         var i;
         function equalTest(input, mmm, i) {
@@ -28,7 +37,6 @@ exports["lang:tzm"] = {
 
     "format" : function(test) {
         test.expect(22);
-        moment.lang('tzm');
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'ⴰⵙⴰⵎⴰⵙ, ⴱⵕⴰⵢⵕ 14 2010, 3:25:50 pm'],
                 ['ddd, hA',                            'ⴰⵙⴰⵎⴰⵙ, 3PM'],
@@ -43,7 +51,7 @@ exports["lang:tzm"] = {
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
-                ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45 day of the year'],
+                ['[the] DDDo [day of the year]',       'the 45 day of the year'],
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 ⴱⵕⴰⵢⵕ 2010'],
                 ['LLL',                                '14 ⴱⵕⴰⵢⵕ 2010 15:25'],
@@ -63,7 +71,6 @@ exports["lang:tzm"] = {
 
     "format ordinal" : function(test) {
         test.expect(31);
-        moment.lang('tzm');
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1', '1');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2', '2');
         test.equal(moment([2011, 0, 3]).format('DDDo'), '3', '3');
@@ -103,7 +110,6 @@ exports["lang:tzm"] = {
 
     "format month" : function(test) {
         test.expect(12);
-        moment.lang('tzm');
         var expected = 'ⵉⵏⵏⴰⵢⵔ ⵉⵏⵏⴰⵢⵔ_ⴱⵕⴰⵢⵕ ⴱⵕⴰⵢⵕ_ⵎⴰⵕⵚ ⵎⴰⵕⵚ_ⵉⴱⵔⵉⵔ ⵉⴱⵔⵉⵔ_ⵎⴰⵢⵢⵓ ⵎⴰⵢⵢⵓ_ⵢⵓⵏⵢⵓ ⵢⵓⵏⵢⵓ_ⵢⵓⵍⵢⵓⵣ ⵢⵓⵍⵢⵓⵣ_ⵖⵓⵛⵜ ⵖⵓⵛⵜ_ⵛⵓⵜⴰⵏⴱⵉⵔ ⵛⵓⵜⴰⵏⴱⵉⵔ_ⴽⵟⵓⴱⵕ ⴽⵟⵓⴱⵕ_ⵏⵓⵡⴰⵏⴱⵉⵔ ⵏⵓⵡⴰⵏⴱⵉⵔ_ⴷⵓⵊⵏⴱⵉⵔ ⴷⵓⵊⵏⴱⵉⵔ'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -114,7 +120,6 @@ exports["lang:tzm"] = {
 
     "format week" : function(test) {
         test.expect(7);
-        moment.lang('tzm');
         var expected = 'ⴰⵙⴰⵎⴰⵙ ⴰⵙⴰⵎⴰⵙ ⴰⵙⴰⵎⴰⵙ_ⴰⵢⵏⴰⵙ ⴰⵢⵏⴰⵙ ⴰⵢⵏⴰⵙ_ⴰⵙⵉⵏⴰⵙ ⴰⵙⵉⵏⴰⵙ ⴰⵙⵉⵏⴰⵙ_ⴰⴽⵔⴰⵙ ⴰⴽⵔⴰⵙ ⴰⴽⵔⴰⵙ_ⴰⴽⵡⴰⵙ ⴰⴽⵡⴰⵙ ⴰⴽⵡⴰⵙ_ⴰⵙⵉⵎⵡⴰⵙ ⴰⵙⵉⵎⵡⴰⵙ ⴰⵙⵉⵎⵡⴰⵙ_ⴰⵙⵉⴹⵢⴰⵙ ⴰⵙⵉⴹⵢⴰⵙ ⴰⵙⵉⴹⵢⴰⵙ'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -125,7 +130,6 @@ exports["lang:tzm"] = {
 
     "from" : function(test) {
         test.expect(30);
-        moment.lang('tzm');
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "ⵉⵎⵉⴽ", "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "ⵎⵉⵏⵓⴺ",      "45 seconds = a minute");
@@ -162,7 +166,6 @@ exports["lang:tzm"] = {
 
     "suffix" : function(test) {
         test.expect(2);
-        moment.lang('tzm');
         test.equal(moment(30000).from(0), "ⴷⴰⴷⵅ ⵙ ⵢⴰⵏ ⵉⵎⵉⴽ",  "prefix");
         test.equal(moment(0).from(30000), "ⵢⴰⵏ ⵉⵎⵉⴽ", "suffix");
         test.done();
@@ -170,14 +173,12 @@ exports["lang:tzm"] = {
 
     "now from now" : function(test) {
         test.expect(1);
-        moment.lang('tzm');
         test.equal(moment().fromNow(), "ⵢⴰⵏ ⵉⵎⵉⴽ",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow" : function(test) {
         test.expect(2);
-        moment.lang('tzm');
         test.equal(moment().add({s:30}).fromNow(), "ⴷⴰⴷⵅ ⵙ ⵢⴰⵏ ⵉⵎⵉⴽ", "in a few seconds");
         test.equal(moment().add({d:5}).fromNow(), "ⴷⴰⴷⵅ ⵙ ⵢⴰⵏ 5 oⵙⵙⴰⵏ", "in 5 days");
         test.done();
@@ -185,7 +186,6 @@ exports["lang:tzm"] = {
 
     "calendar day" : function(test) {
         test.expect(6);
-        moment.lang('tzm');
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
@@ -200,7 +200,6 @@ exports["lang:tzm"] = {
 
     "calendar next week" : function(test) {
         test.expect(15);
-        moment.lang('tzm');
 
         var i;
         var m;
@@ -218,7 +217,6 @@ exports["lang:tzm"] = {
 
     "calendar last week" : function(test) {
         test.expect(15);
-        moment.lang('tzm');
 
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
@@ -233,7 +231,6 @@ exports["lang:tzm"] = {
 
     "calendar all else" : function(test) {
         test.expect(4);
-        moment.lang('tzm');
         var weeksAgo = moment().subtract({ w: 1 });
         var weeksFromNow = moment().add({ w: 1 });
 

@@ -1,0 +1,7 @@
+{
+  "name": "moment",
+  "version": "2.0.0",
+  "scripts": ["moment.js"],
+  "main": "moment.js",
+  "description": "Parse, validate, manipulate, and display dates in javascript."
+}

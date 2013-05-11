@@ -13,9 +13,9 @@ exports.diff = {
         test.equal(moment(0).diff(1000), -1000, "0 - 1 second = -1000");
         test.equal(moment(new Date(1000)).diff(1000), 0, "1 second - 1 second = 0");
         var oneHourDate = new Date(),
-        nowDate = new Date(oneHourDate);
+            nowDate = new Date(+oneHourDate);
         oneHourDate.setHours(oneHourDate.getHours() + 1);
-        test.equal(moment(oneHourDate).diff(nowDate), 60 * 60 * 1000, "1 hour from now = 360000");
+        test.equal(moment(oneHourDate).diff(nowDate), 60 * 60 * 1000, "1 hour from now = 3600000");
         test.done();
     },
 
@@ -67,6 +67,22 @@ exports.diff = {
         test.done();
     },
 
+    "diff key before abbreviated" : function(test) {
+        test.expect(10);
+
+        test.equal(moment([2011]).diff([2010], 'y'), 1, "year diff abbreviated");
+        test.equal(moment([2010, 2]).diff([2010], 'M'), 2, "month diff abbreviated");
+        test.equal(moment([2010, 0, 4]).diff([2010], 'd'), 3, "day diff abbreviated");
+        test.equal(moment([2010, 0, 7]).diff([2010], 'w'), 0, "week diff abbreviated");
+        test.equal(moment([2010, 0, 8]).diff([2010], 'w'), 1, "week diff abbreviated");
+        test.equal(moment([2010, 0, 21]).diff([2010], 'w'), 2, "week diff abbreviated");
+        test.equal(moment([2010, 0, 22]).diff([2010], 'w'), 3, "week diff abbreviated");
+        test.equal(moment([2010, 0, 1, 4]).diff([2010], 'h'), 4, "hour diff abbreviated");
+        test.equal(moment([2010, 0, 1, 0, 5]).diff([2010], 'm'), 5, "minute diff abbreviated");
+        test.equal(moment([2010, 0, 1, 0, 0, 6]).diff([2010], 's'), 6, "second diff abbreviated");
+        test.done();
+    },
+
     "diff month" : function(test) {
         test.expect(1);
 
@@ -96,7 +112,7 @@ exports.diff = {
         test.expect(7);
 
         test.equal(moment([2011]).utc().diff([2010], 'years'), 1, "year diff");
-        test.equal(moment([2010, 2]).utc().diff([2010], 'months'), 2, "month diff");
+        test.equal(moment([2010, 2, 2]).utc().diff([2010, 0, 2], 'months'), 2, "month diff");
         test.equal(moment([2010, 0, 4]).utc().diff([2010], 'days'), 3, "day diff");
         test.equal(moment([2010, 0, 22]).utc().diff([2010], 'weeks'), 3, "week diff");
         test.equal(moment([2010, 0, 1, 4]).utc().diff([2010], 'hours'), 4, "hour diff");

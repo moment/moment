@@ -40,7 +40,7 @@ exports["lang:da"] = {
     "format" : function(test) {
         test.expect(22);
         var a = [
-                ['dddd \\den Do MMMM YYYY, h:mm:ss a', 'Søndag den 14. Februar 2010, 3:25:50 pm'],
+                ['dddd [den] Do MMMM YYYY, h:mm:ss a', 'Søndag den 14. Februar 2010, 3:25:50 pm'],
                 ['ddd hA',                             'Søn 3PM'],
                 ['M Mo MM MMMM MMM',                   '2 2. 02 Februar Feb'],
                 ['YYYY YY',                            '2010 10'],
@@ -53,7 +53,7 @@ exports["lang:da"] = {
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
-                ['[den] DDDo \\d\\ag på året',         'den 45. dag på året'],
+                ['[den] DDDo [dag på året]',           'den 45. dag på året'],
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 Februar 2010'],
                 ['LLL',                                '14 Februar 2010 15:25'],

@@ -4,9 +4,19 @@ var moment = require("../../moment");
 
 
 exports["lang:tzm-la"] = {
+    setUp : function (cb) {
+        moment.lang('tzm-la');
+        cb();
+    },
+
+    tearDown : function (cb) {
+        moment.lang('en');
+        cb();
+    },
+
     "parse" : function(test) {
         test.expect(96);
-        moment.lang('tzm-la');
+
         var tests = 'innayr innayr_brˤayrˤ brˤayrˤ_marˤsˤ marˤsˤ_ibrir ibrir_mayyw mayyw_ywnyw ywnyw_ywlywz ywlywz_ɣwšt ɣwšt_šwtanbir šwtanbir_ktˤwbrˤ ktˤwbrˤ_nwwanbir nwwanbir_dwjnbir dwjnbir'.split("_");
         var i;
         function equalTest(input, mmm, i) {
@@ -28,7 +38,7 @@ exports["lang:tzm-la"] = {
 
     "format" : function(test) {
         test.expect(22);
-        moment.lang('tzm-la');
+
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'asamas, brˤayrˤ 14 2010, 3:25:50 pm'],
                 ['ddd, hA',                            'asamas, 3PM'],
@@ -43,7 +53,7 @@ exports["lang:tzm-la"] = {
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
-                ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45 day of the year'],
+                ['[the] DDDo [day of the year]',       'the 45 day of the year'],
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 brˤayrˤ 2010'],
                 ['LLL',                                '14 brˤayrˤ 2010 15:25'],
@@ -63,7 +73,7 @@ exports["lang:tzm-la"] = {
 
     "format ordinal" : function(test) {
         test.expect(31);
-        moment.lang('tzm-la');
+
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1', '1');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2', '2');
         test.equal(moment([2011, 0, 3]).format('DDDo'), '3', '3');
@@ -103,7 +113,7 @@ exports["lang:tzm-la"] = {
 
     "format month" : function(test) {
         test.expect(12);
-        moment.lang('tzm-la');
+
         var expected = 'innayr innayr_brˤayrˤ brˤayrˤ_marˤsˤ marˤsˤ_ibrir ibrir_mayyw mayyw_ywnyw ywnyw_ywlywz ywlywz_ɣwšt ɣwšt_šwtanbir šwtanbir_ktˤwbrˤ ktˤwbrˤ_nwwanbir nwwanbir_dwjnbir dwjnbir'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -114,7 +124,7 @@ exports["lang:tzm-la"] = {
 
     "format week" : function(test) {
         test.expect(7);
-        moment.lang('tzm-la');
+
         var expected = 'asamas asamas asamas_aynas aynas aynas_asinas asinas asinas_akras akras akras_akwas akwas akwas_asimwas asimwas asimwas_asiḍyas asiḍyas asiḍyas'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
@@ -125,7 +135,7 @@ exports["lang:tzm-la"] = {
 
     "from" : function(test) {
         test.expect(30);
-        moment.lang('tzm-la');
+
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "imik", "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "minuḍ",      "45 seconds = a minute");
@@ -162,7 +172,7 @@ exports["lang:tzm-la"] = {
 
     "suffix" : function(test) {
         test.expect(2);
-        moment.lang('tzm-la');
+
         test.equal(moment(30000).from(0), "dadkh s yan imik",  "prefix");
         test.equal(moment(0).from(30000), "yan imik", "suffix");
         test.done();
@@ -170,14 +180,14 @@ exports["lang:tzm-la"] = {
 
     "now from now" : function(test) {
         test.expect(1);
-        moment.lang('tzm-la');
+
         test.equal(moment().fromNow(), "yan imik",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow" : function(test) {
         test.expect(2);
-        moment.lang('tzm-la');
+
         test.equal(moment().add({s:30}).fromNow(), "dadkh s yan imik", "in a few seconds");
         test.equal(moment().add({d:5}).fromNow(), "dadkh s yan 5 ossan", "in 5 days");
         test.done();
@@ -185,7 +195,6 @@ exports["lang:tzm-la"] = {
 
     "calendar day" : function(test) {
         test.expect(6);
-        moment.lang('tzm-la');
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
@@ -200,7 +209,6 @@ exports["lang:tzm-la"] = {
 
     "calendar next week" : function(test) {
         test.expect(15);
-        moment.lang('tzm-la');
 
         var i;
         var m;
@@ -218,7 +226,6 @@ exports["lang:tzm-la"] = {
 
     "calendar last week" : function(test) {
         test.expect(15);
-        moment.lang('tzm-la');
 
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
@@ -233,7 +240,6 @@ exports["lang:tzm-la"] = {
 
     "calendar all else" : function(test) {
         test.expect(4);
-        moment.lang('tzm-la');
         var weeksAgo = moment().subtract({ w: 1 });
         var weeksFromNow = moment().add({ w: 1 });
 

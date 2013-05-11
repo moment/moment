@@ -53,11 +53,11 @@ exports["lang:uk"] = {
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
-                ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45. day of the year'],
+                ['[the] DDDo [day of the year]',       'the 45. day of the year'],
                 ['L',                                  '14.02.2010'],
-                ['LL',                                 '14 лютого 2010 г.'],
-                ['LLL',                                '14 лютого 2010 г., 15:25'],
-                ['LLLL',                               'неділя, 14 лютого 2010 г., 15:25']
+                ['LL',                                 '14 лютого 2010 р.'],
+                ['LLL',                                '14 лютого 2010 р., 15:25'],
+                ['LLLL',                               'неділя, 14 лютого 2010 р., 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -172,7 +172,7 @@ exports["lang:uk"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({d:344}), true), "11 місяців",  "344 days = 11 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d:345}), true), "рік",     "345 days = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({d:547}), true), "рік",     "547 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:548}), true), "2 року",    "548 days = 2 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({d:548}), true), "2 роки",    "548 days = 2 years");
         test.equal(start.from(moment([2007, 1, 28]).add({y:1}), true),   "рік",     "1 year = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({y:5}), true),   "5 років",    "5 years = 5 years");
         test.done();
@@ -180,15 +180,15 @@ exports["lang:uk"] = {
 
     "suffix" : function(test) {
         test.expect(2);
-        test.equal(moment(30000).from(0), "через декілька секунд", "prefix");
+        test.equal(moment(30000).from(0), "за декілька секунд", "prefix");
         test.equal(moment(0).from(30000), "декілька секунд тому", "suffix");
         test.done();
     },
 
     "fromNow" : function(test) {
         test.expect(2);
-        test.equal(moment().add({s:30}).fromNow(), "через декілька секунд", "in seconds");
-        test.equal(moment().add({d:5}).fromNow(), "через 5 днів", "in 5 days");
+        test.equal(moment().add({s:30}).fromNow(), "за декілька секунд", "in seconds");
+        test.equal(moment().add({d:5}).fromNow(), "за 5 днів", "in 5 days");
         test.done();
     },
 
@@ -197,12 +197,12 @@ exports["lang:uk"] = {
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "Сьогодні в 02:00",     "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "Сьогодні в 02:25",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "Сьогодні в 03:00",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "Завтра в 02:00",      "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Сьогодні в 01:00",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Вчора в 02:00",       "yesterday at the same time");
+        test.equal(moment(a).calendar(),                     "Сьогодні о 02:00",     "today at the same time");
+        test.equal(moment(a).add({ m: 25 }).calendar(),      "Сьогодні о 02:25",     "Now plus 25 min");
+        test.equal(moment(a).add({ h: 1 }).calendar(),       "Сьогодні о 03:00",     "Now plus 1 hour");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "Завтра о 02:00",      "tomorrow at the same time");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Сьогодні о 01:00",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Вчора о 02:00",       "yesterday at the same time");
         test.done();
     },
 
@@ -212,17 +212,13 @@ exports["lang:uk"] = {
         var i;
         var m;
 
-        function makeFormat(d) {
-            return d.day() === 2 ? '[У] dddd [в] LT' : '[В] dddd [в] LT';
-        }
-
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
-            test.equal(m.calendar(),       m.format(makeFormat(m)),  "Today + " + i + " days current time");
+            test.equal(m.calendar(),       m.format('[У] dddd [о] LT'),  "Today + " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format(makeFormat(m)),  "Today + " + i + " days beginning of day");
+            test.equal(m.calendar(),       m.format('[У] dddd [о] LT'),  "Today + " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format(makeFormat(m)),  "Today + " + i + " days end of day");
+            test.equal(m.calendar(),       m.format('[У] dddd [о] LT'),  "Today + " + i + " days end of day");
         }
         test.done();
     },
@@ -239,11 +235,11 @@ exports["lang:uk"] = {
             case 3:
             case 5:
             case 6:
-                return '[В минулу] dddd [в] LT';
+                return '[Минулої] dddd [о] LT';
             case 1:
             case 2:
             case 4:
-                return '[В минулий] dddd [в] LT';
+                return '[Минулого] dddd [о] LT';
             }
         }
 

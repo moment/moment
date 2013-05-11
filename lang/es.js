@@ -11,9 +11,9 @@ require('../moment').lang('es', {
     longDateFormat : {
         LT : "H:mm",
         L : "DD/MM/YYYY",
-        LL : "D \\de MMMM \\de YYYY",
-        LLL : "D \\de MMMM \\de YYYY LT",
-        LLLL : "dddd, D \\de MMMM \\de YYYY LT"
+        LL : "D [de] MMMM [de] YYYY",
+        LLL : "D [de] MMMM [de] YYYY LT",
+        LLLL : "dddd, D [de] MMMM [de] YYYY LT"
     },
     calendar : {
         sameDay : function () {

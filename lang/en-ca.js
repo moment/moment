@@ -20,7 +20,7 @@ require('../moment').lang('en-ca', {
         nextDay : '[Tomorrow at] LT',
         nextWeek : 'dddd [at] LT',
         lastDay : '[Yesterday at] LT',
-        lastWeek : '[last] dddd [at] LT',
+        lastWeek : '[Last] dddd [at] LT',
         sameElse : 'L'
     },
     relativeTime : {

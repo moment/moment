@@ -22,6 +22,14 @@ exports.create = {
         test.done();
     },
 
+    "multi format array copying": function(test) {
+        var importantArray = ['MM/DD/YYYY', 'YYYY-MM-DD', 'MM-DD-YYYY'];
+        test.expect(1);
+        moment('1999-02-13', importantArray);
+        test.deepEqual(importantArray, ['MM/DD/YYYY', 'YYYY-MM-DD', 'MM-DD-YYYY'], "initializer should not mutate the original array");
+        test.done();
+    },
+
     "number" : function(test) {
         test.expect(3);
         test.ok(moment(1000).toDate() instanceof Date, "1000");
@@ -142,7 +150,7 @@ exports.create = {
                 ['h:mm a',              '12:30 am'],
                 ['HH:mm',               '12:00'],
                 ['YYYY-MM-DDTHH:mm:ss', '2011-11-11T11:11:11'],
-                ['MM-DD-YYYY \\M',      '12-02-1999 M'],
+                ['MM-DD-YYYY [M]',      '12-02-1999 M'],
                 ['ddd MMM DD HH:mm:ss YYYY', 'Tue Apr 07 22:52:51 2009'],
                 ['HH:mm:ss',            '12:00:00'],
                 ['HH:mm:ss',            '12:30:00'],

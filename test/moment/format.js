@@ -140,7 +140,7 @@ exports.format = {
 
     "toJSON" : function(test) {
         var supportsJson = typeof JSON !== "undefined" && JSON.stringify && JSON.stringify.call,
-            date = moment.utc("2012-10-09T20:30:40.678");
+            date = moment("2012-10-09T21:30:40.678+0100");
 
         test.expect(supportsJson ? 2 : 1);
 
@@ -169,7 +169,7 @@ exports.format = {
             "2009-12-31": "2009-53",
             "2010-01-01": "2009-53",
             "2010-01-02": "2009-53",
-            "2010-01-03": "2009-53",
+            "2010-01-03": "2009-53"
         };
 
         for (var i in cases) {
@@ -181,11 +181,117 @@ exports.format = {
         test.done();
     },
 
+    "iso week year formats" : function(test) {
+
+        // http://en.wikipedia.org/wiki/ISO_week
+        var cases = {
+            "2005-01-02": "2004-53",
+            "2005-12-31": "2005-52",
+            "2007-01-01": "2007-01",
+            "2007-12-30": "2007-52",
+            "2007-12-31": "2008-01",
+            "2008-01-01": "2008-01",
+            "2008-12-28": "2008-52",
+            "2008-12-29": "2009-01",
+            "2008-12-30": "2009-01",
+            "2008-12-31": "2009-01",
+            "2009-01-01": "2009-01",
+            "2009-12-31": "2009-53",
+            "2010-01-01": "2009-53",
+            "2010-01-02": "2009-53",
+            "2010-01-03": "2009-53"
+        };
+
+        for (var i in cases) {
+            var isoWeekYear = cases[i].split('-')[0];
+            var formatted5 = moment(i).format('GGGGG');
+            test.equal('0' + isoWeekYear, formatted5, i + ": should be " + isoWeekYear + ", but " + formatted4);
+            var formatted4 = moment(i).format('GGGG');
+            test.equal(isoWeekYear, formatted4, i + ": should be " + isoWeekYear + ", but " + formatted4);
+            var formatted2 = moment(i).format('GG');
+            test.equal(isoWeekYear.slice(2, 4), formatted2, i + ": should be " + isoWeekYear + ", but " + formatted2);
+        }
+
+        test.done();
+    },
+
+    "week year formats" : function(test) {
+
+        // http://en.wikipedia.org/wiki/ISO_week
+        var cases = {
+            "2005-01-02": "2004-53",
+            "2005-12-31": "2005-52",
+            "2007-01-01": "2007-01",
+            "2007-12-30": "2007-52",
+            "2007-12-31": "2008-01",
+            "2008-01-01": "2008-01",
+            "2008-12-28": "2008-52",
+            "2008-12-29": "2009-01",
+            "2008-12-30": "2009-01",
+            "2008-12-31": "2009-01",
+            "2009-01-01": "2009-01",
+            "2009-12-31": "2009-53",
+            "2010-01-01": "2009-53",
+            "2010-01-02": "2009-53",
+            "2010-01-03": "2009-53"
+        };
+
+        moment.lang('en-gb'); // 1, 4
+        for (var i in cases) {
+            var isoWeekYear = cases[i].split('-')[0];
+            var formatted5 = moment(i).format('ggggg');
+            test.equal('0' + isoWeekYear, formatted5, i + ": should be " + isoWeekYear + ", but " + formatted4);
+            var formatted4 = moment(i).format('gggg');
+            test.equal(isoWeekYear, formatted4, i + ": should be " + isoWeekYear + ", but " + formatted4);
+            var formatted2 = moment(i).format('gg');
+            test.equal(isoWeekYear.slice(2, 4), formatted2, i + ": should be " + isoWeekYear + ", but " + formatted2);
+        }
+
+        test.done();
+    },
+
+    "iso weekday formats" : function(test) {
+        test.expect(7);
+
+        test.equal(moment([1985, 1,  4]).format('E'), '0', "Feb  4 1985 is Monday    -- 0th day");
+        test.equal(moment([2029, 8, 18]).format('E'), '1', "Sep 18 2029 is Tuesday   -- 1st day");
+        test.equal(moment([2013, 3, 24]).format('E'), '2', "Apr 24 2013 is Wednesday -- 2nd day");
+        test.equal(moment([2015, 2,  5]).format('E'), '3', "Mar  5 2015 is Thursday  -- 3nd day");
+        test.equal(moment([1970, 0,  2]).format('E'), '4', "Jan  2 1970 is Friday    -- 4th day");
+        test.equal(moment([2001, 4, 12]).format('E'), '5', "May 12 2001 is Saturday  -- 5th day");
+        test.equal(moment([2000, 0,  2]).format('E'), '6', "Jan  2 2000 is Sunday    -- 6th day");
+
+        test.done();
+    },
+
+    "weekday formats" : function(test) {
+        test.expect(7);
+
+        moment.lang('dow:3,doy:5', {week: {dow: 3, doy: 5}});
+        test.equal(moment([1985, 1,  6]).format('e'), '0', "Feb  6 1985 is Wednesday -- 0th day");
+        test.equal(moment([2029, 8, 20]).format('e'), '1', "Sep 20 2029 is Thursday  -- 1st day");
+        test.equal(moment([2013, 3, 26]).format('e'), '2', "Apr 26 2013 is Friday    -- 2nd day");
+        test.equal(moment([2015, 2,  7]).format('e'), '3', "Mar  7 2015 is Saturday  -- 3nd day");
+        test.equal(moment([1970, 0,  4]).format('e'), '4', "Jan  4 1970 is Sunday    -- 4th day");
+        test.equal(moment([2001, 4, 14]).format('e'), '5', "May 14 2001 is Monday    -- 5th day");
+        test.equal(moment([2000, 0,  4]).format('e'), '6', "Jan  4 2000 is Tuesday   -- 6th day");
+
+        test.done()
+    },
+
     "toString is just human readable format" : function(test) {
         test.expect(1);
 
         var b = moment(new Date(2009, 1, 5, 15, 25, 50, 125));
         test.equal(b.toString(), b.format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ'));
+        test.done();
+    },
+
+    "toJSON skips postformat" : function(test) {
+        test.expect(1);
+
+        moment.lang('postformat', {postformat: function(s) { s.replace(/./g, 'X') }});
+        test.equal(moment.utc([2000, 0, 1]).toJSON(), "2000-01-01T00:00:00.000Z", "toJSON doesn't postformat");
         test.done();
     }
 };
