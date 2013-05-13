@@ -5,8 +5,8 @@
 function relativeTimeWithMutation(number, withoutSuffix, key) {
     var format = {
         'mm': "munutenn",
-        'MM': "miz",
-        'dd': "devezh"
+        'dd': "devezh",
+        'MM': "miz"
     };
     return number + ' ' + mutation(format[key], number);
 }
