@@ -1,6 +1,7 @@
 // moment.js language configuration
 // language : italian (it)
 // author : Lorenzo : https://github.com/aliem
+// author: Mattia Larentis: https://github.com/nostalgiaz
 
 require('../moment').lang('it', {
     months : "Gennaio_Febbraio_Marzo_Aprile_Maggio_Giugno_Luglio_Agosto_Settembre_Ottobre_Novembre_Dicembre".split("_"),
@@ -24,7 +25,7 @@ require('../moment').lang('it', {
         sameElse: 'L'
     },
     relativeTime : {
-        future : "in %s",
+        future : "tra %s",
         past : "%s fa",
         s : "secondi",
         m : "un minuto",
