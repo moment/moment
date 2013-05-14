@@ -25,7 +25,9 @@ require('../moment').lang('it', {
         sameElse: 'L'
     },
     relativeTime : {
-        future : "tra %s",
+        future : function (s) {
+            return ((/^[0-9].+$/).test(s) ? "tra" : "in") + " " + s;
+        },
         past : "%s fa",
         s : "secondi",
         m : "un minuto",
