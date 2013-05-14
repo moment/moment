@@ -53,7 +53,7 @@ exports["lang:br"] = {
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
-                ['DDDo \\devez\\h \\ar v\\lo\\az',       '45vet devezh ar vloaz'],
+                ['DDDo \\d\\ev\\ez\\h \\ar v\\lo\\az',       '45vet devezh ar vloaz'],
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 "14 a viz C'hwevrer 2010"],
                 ['LLL',                                "14 a viz C'hwevrer 2010 3e25 PM"],
