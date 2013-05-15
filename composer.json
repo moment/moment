@@ -1,0 +1,18 @@
+{
+    "name": "timrwood/moment",
+    "description": "Parse, validate, manipulate, and display dates in javascript.",
+    "keywords": [
+        "moment",
+        "date",
+        "time",
+        "parse",
+        "format",
+        "validate",
+        "i18n",
+        "l10n",
+        "ender"
+    ],
+    "homepage": "http://github.com/timrwood/moment/",
+    "author": "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
+    "license": "MIT"
+}
