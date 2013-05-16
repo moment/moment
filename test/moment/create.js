@@ -123,9 +123,12 @@ exports.create = {
     },
 
     "matching am/pm" : function(test) {
-        test.expect(1);
+        test.expect(4);
 
         test.equal(moment('2012-09-03T03:00PM', 'YYYY-MM-DDThh:mmA').format('YYYY-MM-DDThh:mmA'), '2012-09-03T03:00PM', 'am/pm should parse correctly even if the input string contains other letters');
+        test.equal(moment('2012-09-03T03:00P.M.', 'YYYY-MM-DDThh:mmA').format('YYYY-MM-DDThh:mmA'), '2012-09-03T03:00PM', 'am/pm should parse correctly even if the input string contains other letters');
+        test.equal(moment('2012-09-03T03:00pm', 'YYYY-MM-DDThh:mmA').format('YYYY-MM-DDThh:mmA'), '2012-09-03T03:00PM', 'am/pm should parse correctly even if the input string contains other letters');
+        test.equal(moment('2012-09-03T03:00p.m.', 'YYYY-MM-DDThh:mmA').format('YYYY-MM-DDThh:mmA'), '2012-09-03T03:00PM', 'am/pm should parse correctly even if the input string contains other letters');
 
         test.done();
     },
