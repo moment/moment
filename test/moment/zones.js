@@ -399,6 +399,22 @@ exports.zones = {
         moment.updateOffset = oldOffset;
 
         test.done();
+    },
+
+    "zone names" : function (test) {
+        test.expect(8);
+
+        test.equal(moment().zoneAbbr(),   "", "Local zone abbr should be empty");
+        test.equal(moment().format('z'),  "", "Local zone formatted abbr should be empty");
+        test.equal(moment().zoneName(),   "", "Local zone name should be empty");
+        test.equal(moment().format('zz'), "", "Local zone formatted name should be empty");
+
+        test.equal(moment.utc().zoneAbbr(),   "UTC", "UTC zone abbr should be UTC");
+        test.equal(moment.utc().format('z'),  "UTC", "UTC zone formatted abbr should be UTC");
+        test.equal(moment.utc().zoneName(),   "Coordinated Universal Time", "UTC zone abbr should be Coordinated Universal Time");
+        test.equal(moment.utc().format('zz'), "Coordinated Universal Time", "UTC zone formatted abbr should be Coordinated Universal Time");
+
+        test.done();
     }
 
 };
