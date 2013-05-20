@@ -37,7 +37,7 @@ function translate(number, withoutSuffix, key, isFuture) {
 }
 
 function week(isFuture) {
-    return (isFuture ? '' : 'múlt ') + '[' + weekEndings[this.day()] + '] LT[-kor]';
+    return (isFuture ? '' : '[múlt] ') + '[' + weekEndings[this.day()] + '] LT[-kor]';
 }
 
 require('../moment').lang('hu', {
