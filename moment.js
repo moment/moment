@@ -857,16 +857,11 @@
             i,
             currentScore;
 
-        for (i = config._f.length; i > 0; i--) {
+        for (i = 0; i < config._f.length; i++) {
             tempConfig = extend({}, config);
-            tempConfig._f = config._f[i - 1];
+            tempConfig._f = config._f[i];
             makeDateFromStringAndFormat(tempConfig);
             tempMoment = new Moment(tempConfig);
-
-            if (tempMoment.isValid()) {
-                bestMoment = tempMoment;
-                break;
-            }
 
             currentScore = compareArrays(tempConfig._a, tempMoment.toArray());
 
