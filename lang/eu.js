@@ -11,13 +11,13 @@ require('../moment').lang('eu', {
     longDateFormat : {
         LT : "HH:mm",
         L : "YYYY-MM-DD",
-        LL : "YYYYko MMMMren D[a]",
-        LLL : "YYYYko MMMMren D[a] LT",
-        LLLL : "dddd, YYYYko MMMMren D[a] LT",
+        LL : "YYYY[ko] MMMM[ren] D[a]",
+        LLL : "YYYY[ko] MMMM[ren] D[a] LT",
+        LLLL : "dddd, YYYY[ko] MMMM[ren] D[a] LT",
         l : "YYYY-M-D",
-        ll : "YYYYko MMM D[a]",
-        lll : "YYYYko MMM D[a] LT",
-        llll : "ddd, YYYYko MMM D[a] LT"
+        ll : "YYYY[ko] MMM D[a]",
+        lll : "YYYY[ko] MMM D[a] LT",
+        llll : "ddd, YYYY[ko] MMM D[a] LT"
     },
     calendar : {
         sameDay : '[gaur] LT[etan]',

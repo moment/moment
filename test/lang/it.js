@@ -55,7 +55,7 @@ exports["lang:it"] = {
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
-                ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45º day of the year'],
+                ['[the] DDDo [day of the year]',       'the 45º day of the year'],
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 Febbraio 2010'],
                 ['LLL',                                '14 Febbraio 2010 15:25'],
@@ -184,7 +184,7 @@ exports["lang:it"] = {
         test.expect(2);
 
         test.equal(moment().add({s:30}).fromNow(), "in secondi", "in seconds");
-        test.equal(moment().add({d:5}).fromNow(), "in 5 giorni", "in 5 days");
+        test.equal(moment().add({d:5}).fromNow(), "tra 5 giorni", "in 5 days");
         test.done();
     },
 

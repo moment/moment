@@ -52,12 +52,13 @@ moment.lang('ar-ma', {
 // moment.js language configuration
 // language : Arabic (ar)
 // author : Abdel Said : https://github.com/abdelsaid
+// changes in months, weekdays : Ahmed Elkhatib
 
 moment.lang('ar', {
-    months : "كانون الثاني_ﺶﺑﺎﻃ_آذار_نيسان_أيار_حزيران_تموز_آب_أيلول_تشرين الأول_تشرين الثاني_كانون الأول".split("_"),
-    monthsShort : "كانون الثاني_ﺶﺑﺎﻃ_آذار_نيسان_أيار_حزيران_تموز_آب_أيلول_تشرين الأول_تشرين الثاني_كانون الأول".split("_"),
-    weekdays : "الأحد_الإتنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت".split("_"),
-    weekdaysShort : "احد_اتنين_ثلاثاء_اربعاء_خميس_جمعة_سبت".split("_"),
+    months : "يناير/ كانون الثاني_فبراير/ شباط_مارس/ آذار_أبريل/ نيسان_مايو/ أيار_يونيو/ حزيران_يوليو/ تموز_أغسطس/ آب_سبتمبر/ أيلول_أكتوبر/ تشرين الأول_نوفمبر/ تشرين الثاني_ديسمبر/ كانون الأول".split("_"),
+    monthsShort : "يناير/ كانون الثاني_فبراير/ شباط_مارس/ آذار_أبريل/ نيسان_مايو/ أيار_يونيو/ حزيران_يوليو/ تموز_أغسطس/ آب_سبتمبر/ أيلول_أكتوبر/ تشرين الأول_نوفمبر/ تشرين الثاني_ديسمبر/ كانون الأول".split("_"),
+    weekdays : "الأحد_الإثنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت".split("_"),
+    weekdaysShort : "الأحد_الإثنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت".split("_"),
     weekdaysMin : "ح_ن_ث_ر_خ_ج_س".split("_"),
     longDateFormat : {
         LT : "HH:mm",
@@ -490,7 +491,7 @@ moment.lang('de', {
     weekdaysShort : "So._Mo._Di._Mi._Do._Fr._Sa.".split("_"),
     weekdaysMin : "So_Mo_Di_Mi_Do_Fr_Sa".split("_"),
     longDateFormat : {
-        LT: "H:mm U\\hr",
+        LT: "H:mm [Uhr]",
         L : "DD.MM.YYYY",
         LL : "D. MMMM YYYY",
         LLL : "D. MMMM YYYY LT",
@@ -719,9 +720,9 @@ moment.lang('eo', {
     longDateFormat : {
         LT : "HH:mm",
         L : "YYYY-MM-DD",
-        LL : "D-\\an \\de MMMM, YYYY",
-        LLL : "D-\\an \\de MMMM, YYYY LT",
-        LLLL : "dddd, \\l\\a D-\\an \\d\\e MMMM, YYYY LT"
+        LL : "D[-an de] MMMM, YYYY",
+        LLL : "D[-an de] MMMM, YYYY LT",
+        LLLL : "dddd, [la] D[-an de] MMMM, YYYY LT"
     },
     meridiem : function (hours, minutes, isLower) {
         if (hours > 11) {
@@ -774,9 +775,9 @@ moment.lang('es', {
     longDateFormat : {
         LT : "H:mm",
         L : "DD/MM/YYYY",
-        LL : "D \\de MMMM \\de YYYY",
-        LLL : "D \\de MMMM \\de YYYY LT",
-        LLLL : "dddd, D \\de MMMM \\de YYYY LT"
+        LL : "D [de] MMMM [de] YYYY",
+        LLL : "D [de] MMMM [de] YYYY LT",
+        LLLL : "dddd, D [de] MMMM [de] YYYY LT"
     },
     calendar : {
         sameDay : function () {
@@ -884,13 +885,13 @@ moment.lang('eu', {
     longDateFormat : {
         LT : "HH:mm",
         L : "YYYY-MM-DD",
-        LL : "YYYYko MMMMren D[a]",
-        LLL : "YYYYko MMMMren D[a] LT",
-        LLLL : "dddd, YYYYko MMMMren D[a] LT",
+        LL : "YYYY[ko] MMMM[ren] D[a]",
+        LLL : "YYYY[ko] MMMM[ren] D[a] LT",
+        LLLL : "dddd, YYYY[ko] MMMM[ren] D[a] LT",
         l : "YYYY-M-D",
-        ll : "YYYYko MMM D[a]",
-        lll : "YYYYko MMM D[a] LT",
-        llll : "ddd, YYYYko MMM D[a] LT"
+        ll : "YYYY[ko] MMM D[a]",
+        lll : "YYYY[ko] MMM D[a] LT",
+        llll : "ddd, YYYY[ko] MMM D[a] LT"
     },
     calendar : {
         sameDay : '[gaur] LT[etan]',
@@ -1059,7 +1060,7 @@ moment.lang('fr-ca', {
         yy : "%d ans"
     },
     ordinal : function (number) {
-        return number + (number === 1 ? 'er' : 'ème');
+        return number + (number === 1 ? 'er' : '');
     }
 });
 })();
@@ -1105,7 +1106,7 @@ moment.lang('fr', {
         yy : "%d ans"
     },
     ordinal : function (number) {
-        return number + (number === 1 ? 'er' : 'ème');
+        return number + (number === 1 ? 'er' : '');
     },
     week : {
         dow : 1, // Monday is the first day of the week.
@@ -1859,7 +1860,7 @@ moment.lang('lv', {
     weekdaysMin : "Sv_P_O_T_C_Pk_S".split("_"),
     longDateFormat : {
         LT : "HH:mm",
-        L : "YYYY.MM.DD.",
+        L : "DD.MM.YYYY",
         LL : "YYYY. [gada] D. MMMM",
         LLL : "YYYY. [gada] D. MMMM, LT",
         LLLL : "YYYY. [gada] D. MMMM, dddd, LT"
@@ -2158,6 +2159,54 @@ moment.lang('nl', {
 })();
 (function(){
 // moment.js language configuration
+// language : norwegian nynorsk (nn)
+// author : https://github.com/mechuwind
+
+moment.lang('nn', {
+    months : "januar_februar_mars_april_mai_juni_juli_august_september_oktober_november_desember".split("_"),
+    monthsShort : "jan_feb_mar_apr_mai_jun_jul_aug_sep_okt_nov_des".split("_"),
+    weekdays : "sundag_måndag_tysdag_onsdag_torsdag_fredag_laurdag".split("_"),
+    weekdaysShort : "sun_mån_tys_ons_tor_fre_lau".split("_"),
+    weekdaysMin : "su_må_ty_on_to_fr_lø".split("_"),
+    longDateFormat : {
+        LT : "HH:mm",
+        L : "YYYY-MM-DD",
+        LL : "D MMMM YYYY",
+        LLL : "D MMMM YYYY LT",
+        LLLL : "dddd D MMMM YYYY LT"
+    },
+    calendar : {
+        sameDay: '[I dag klokka] LT',
+        nextDay: '[I morgon klokka] LT',
+        nextWeek: 'dddd [klokka] LT',
+        lastDay: '[I går klokka] LT',
+        lastWeek: '[Føregående] dddd [klokka] LT',
+        sameElse: 'L'
+    },
+    relativeTime : {
+        future : "om %s",
+        past : "for %s siden",
+        s : "noen sekund",
+        m : "ett minutt",
+        mm : "%d minutt",
+        h : "en time",
+        hh : "%d timar",
+        d : "en dag",
+        dd : "%d dagar",
+        M : "en månad",
+        MM : "%d månader",
+        y : "ett år",
+        yy : "%d år"
+    },
+    ordinal : '%d.',
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
+    }
+});
+})();
+(function(){
+// moment.js language configuration
 // language : polish (pl)
 // author : Rafal Hirsz : https://github.com/evoL
 
@@ -2251,9 +2300,9 @@ moment.lang('pt-br', {
     longDateFormat : {
         LT : "HH:mm",
         L : "DD/MM/YYYY",
-        LL : "D \\de MMMM \\de YYYY",
-        LLL : "D \\de MMMM \\de YYYY LT",
-        LLLL : "dddd, D \\de MMMM \\de YYYY LT"
+        LL : "D [de] MMMM [de] YYYY",
+        LLL : "D [de] MMMM [de] YYYY LT",
+        LLLL : "dddd, D [de] MMMM [de] YYYY LT"
     },
     calendar : {
         sameDay: '[Hoje às] LT',
@@ -2299,9 +2348,9 @@ moment.lang('pt', {
     longDateFormat : {
         LT : "HH:mm",
         L : "DD/MM/YYYY",
-        LL : "D \\de MMMM \\de YYYY",
-        LLL : "D \\de MMMM \\de YYYY LT",
-        LLLL : "dddd, D \\de MMMM \\de YYYY LT"
+        LL : "D [de] MMMM [de] YYYY",
+        LLL : "D [de] MMMM [de] YYYY LT",
+        LLLL : "dddd, D [de] MMMM [de] YYYY LT"
     },
     calendar : {
         sameDay: '[Hoje às] LT',
@@ -2389,34 +2438,20 @@ moment.lang('ro', {
 // moment.js language configuration
 // language : russian (ru)
 // author : Viktorminator : https://github.com/Viktorminator
-
-var pluralRules = [
-    function (n) { return ((n % 10 === 1) && (n % 100 !== 11)); },
-    function (n) { return ((n % 10) >= 2 && (n % 10) <= 4 && ((n % 10) % 1) === 0) && ((n % 100) < 12 || (n % 100) > 14); },
-    function (n) { return ((n % 10) === 0 || ((n % 10) >= 5 && (n % 10) <= 9 && ((n % 10) % 1) === 0) || ((n % 100) >= 11 && (n % 100) <= 14 && ((n % 100) % 1) === 0)); },
-    function (n) { return true; }
-];
+// Author : Menelion Elensúle : https://github.com/Oire
 
 function plural(word, num) {
-    var forms = word.split('_'),
-    minCount = Math.min(pluralRules.length, forms.length),
-    i = -1;
-
-    while (++i < minCount) {
-        if (pluralRules[i](num)) {
-            return forms[i];
-        }
-    }
-    return forms[minCount - 1];
+    var forms = word.split('_');
+    return num % 10 === 1 && num % 100 !== 11 ? forms[0] : (num % 10 >= 2 && num % 10 <= 4 && (num % 100 < 10 || num % 100 >= 20) ? forms[1] : forms[2]);
 }
 
 function relativeTimeWithPlural(number, withoutSuffix, key) {
     var format = {
-        'mm': 'минута_минуты_минут_минуты',
-        'hh': 'час_часа_часов_часа',
-        'dd': 'день_дня_дней_дня',
-        'MM': 'месяц_месяца_месяцев_месяца',
-        'yy': 'год_года_лет_года'
+        'mm': 'минута_минуты_минут',
+        'hh': 'час_часа_часов',
+        'dd': 'день_дня_дней',
+        'MM': 'месяц_месяца_месяцев',
+        'yy': 'год_года_лет'
     };
     if (key === 'm') {
         return withoutSuffix ? 'минута' : 'минуту';
@@ -2488,7 +2523,6 @@ moment.lang('ru', {
         },
         sameElse: 'L'
     },
-    // It needs checking (adding) russian plurals and cases.
     relativeTime : {
         future : "через %s",
         past : "%s назад",
@@ -2504,10 +2538,159 @@ moment.lang('ru', {
         y : "год",
         yy : relativeTimeWithPlural
     },
+    // FIXME: this is not Russian ordinals format
     ordinal : '%d.',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
+    }
+});
+})();
+(function(){
+// moment.js language configuration
+// language : slovak (sk)
+// author : Martin Minka : https://github.com/k2s
+// based on work of petrbela : https://github.com/petrbela
+
+var months = "január_február_marec_apríl_máj_jún_júl_august_september_október_november_december".split("_"),
+    monthsShort = "jan_feb_mar_apr_máj_jún_júl_aug_sep_okt_nov_dec".split("_");
+
+function plural(n) {
+    return (n > 1) && (n < 5);
+}
+
+function translate(number, withoutSuffix, key, isFuture) {
+    var result = number + " ";
+    switch (key) {
+    case 's':  // a few seconds / in a few seconds / a few seconds ago
+        return (withoutSuffix || isFuture) ? 'pár sekúnd' : 'pár sekundami';
+    case 'm':  // a minute / in a minute / a minute ago
+        return withoutSuffix ? 'minúta' : (isFuture ? 'minútu' : 'minútou');
+    case 'mm': // 9 minutes / in 9 minutes / 9 minutes ago
+        if (withoutSuffix || isFuture) {
+            return result + (plural(number) ? 'minúty' : 'minút');
+        } else {
+            return result + 'minútami';
+        }
+        break;
+    case 'h':  // an hour / in an hour / an hour ago
+        return withoutSuffix ? 'hodina' : (isFuture ? 'hodinu' : 'hodinou');
+    case 'hh': // 9 hours / in 9 hours / 9 hours ago
+        if (withoutSuffix || isFuture) {
+            return result + (plural(number) ? 'hodiny' : 'hodín');
+        } else {
+            return result + 'hodinami';
+        }
+        break;
+    case 'd':  // a day / in a day / a day ago
+        return (withoutSuffix || isFuture) ? 'deň' : 'dňom';
+    case 'dd': // 9 days / in 9 days / 9 days ago
+        if (withoutSuffix || isFuture) {
+            return result + (plural(number) ? 'dni' : 'dní');
+        } else {
+            return result + 'dňami';
+        }
+        break;
+    case 'M':  // a month / in a month / a month ago
+        return (withoutSuffix || isFuture) ? 'mesiac' : 'mesiacom';
+    case 'MM': // 9 months / in 9 months / 9 months ago
+        if (withoutSuffix || isFuture) {
+            return result + (plural(number) ? 'mesiace' : 'mesiacov');
+        } else {
+            return result + 'mesiacmi';
+        }
+        break;
+    case 'y':  // a year / in a year / a year ago
+        return (withoutSuffix || isFuture) ? 'rok' : 'rokom';
+    case 'yy': // 9 years / in 9 years / 9 years ago
+        if (withoutSuffix || isFuture) {
+            return result + (plural(number) ? 'roky' : 'rokov');
+        } else {
+            return result + 'rokmi';
+        }
+        break;
+    }
+}
+
+moment.lang('sk', {
+    months : months,
+    monthsShort : monthsShort,
+    monthsParse : (function (months, monthsShort) {
+        var i, _monthsParse = [];
+        for (i = 0; i < 12; i++) {
+            // use custom parser to solve problem with July (červenec)
+            _monthsParse[i] = new RegExp('^' + months[i] + '$|^' + monthsShort[i] + '$', 'i');
+        }
+        return _monthsParse;
+    }(months, monthsShort)),
+    weekdays : "nedeľa_pondelok_utorok_streda_štvrtok_piatok_sobota".split("_"),
+    weekdaysShort : "ne_po_ut_st_št_pi_so".split("_"),
+    weekdaysMin : "ne_po_ut_st_št_pi_so".split("_"),
+    longDateFormat : {
+        LT: "H:mm",
+        L : "DD.MM.YYYY",
+        LL : "D. MMMM YYYY",
+        LLL : "D. MMMM YYYY LT",
+        LLLL : "dddd D. MMMM YYYY LT"
+    },
+    calendar : {
+        sameDay: "[dnes o] LT",
+        nextDay: '[zajtra o] LT',
+        nextWeek: function () {
+            switch (this.day()) {
+            case 0:
+                return '[v nedeľu o] LT';
+            case 1:
+            case 2:
+                return '[v] dddd [o] LT';
+            case 3:
+                return '[v stredu o] LT';
+            case 4:
+                return '[vo štvrtok o] LT';
+            case 5:
+                return '[v piatok o] LT';
+            case 6:
+                return '[v sobotu o] LT';
+            }
+        },
+        lastDay: '[včera o] LT',
+        lastWeek: function () {
+            switch (this.day()) {
+            case 0:
+                return '[minulú nedeľu o] LT';
+            case 1:
+            case 2:
+                return '[minulý] dddd [o] LT';
+            case 3:
+                return '[minulú stredu o] LT';
+            case 4:
+            case 5:
+                return '[minulý] dddd [o] LT';
+            case 6:
+                return '[minulú sobotu o] LT';
+            }
+        },
+        sameElse: "L"
+    },
+    relativeTime : {
+        future : "za %s",
+        past : "pred %s",
+        s : translate,
+        m : translate,
+        mm : translate,
+        h : translate,
+        hh : translate,
+        d : translate,
+        dd : translate,
+        M : translate,
+        MM : translate,
+        y : translate,
+        yy : translate
+    },
+    ordinal : '%d.',
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 })();
@@ -2934,33 +3117,20 @@ moment.lang('tzm', {
 // moment.js language configuration
 // language : ukrainian (uk)
 // author : zemlanin : https://github.com/zemlanin
-var pluralRules = [
-    function (n) { return ((n % 10 === 1) && (n % 100 !== 11)); },
-    function (n) { return ((n % 10) >= 2 && (n % 10) <= 4 && ((n % 10) % 1) === 0) && ((n % 100) < 12 || (n % 100) > 14); },
-    function (n) { return ((n % 10) === 0 || ((n % 10) >= 5 && (n % 10) <= 9 && ((n % 10) % 1) === 0) || ((n % 100) >= 11 && (n % 100) <= 14 && ((n % 100) % 1) === 0)); },
-    function (n) { return true; }
-];
+// Author : Menelion Elensúle : https://github.com/Oire
 
 function plural(word, num) {
-    var forms = word.split('_'),
-    minCount = Math.min(pluralRules.length, forms.length),
-    i = -1;
-
-    while (++i < minCount) {
-        if (pluralRules[i](num)) {
-            return forms[i];
-        }
-    }
-    return forms[minCount - 1];
+    var forms = word.split('_');
+    return num % 10 === 1 && num % 100 !== 11 ? forms[0] : (num % 10 >= 2 && num % 10 <= 4 && (num % 100 < 10 || num % 100 >= 20) ? forms[1] : forms[2]);
 }
 
 function relativeTimeWithPlural(number, withoutSuffix, key) {
     var format = {
-        'mm': 'хвилина_хвилини_хвилин_хвилини',
-        'hh': 'година_години_годин_години',
-        'dd': 'день_дня_днів_дня',
-        'MM': 'місяць_місяця_місяців_місяця',
-        'yy': 'рік_року_років_року'
+        'mm': 'хвилина_хвилини_хвилин',
+        'hh': 'година_години_годин',
+        'dd': 'день_дня_днів',
+        'MM': 'місяць_місяця_місяців',
+        'yy': 'рік_роки_років'
     };
     if (key === 'm') {
         return withoutSuffix ? 'хвилина' : 'хвилину';
@@ -2992,7 +3162,7 @@ function weekdaysCaseReplace(m, format) {
 
     nounCase = (/(\[[ВвУу]\]) ?dddd/).test(format) ? 
         'accusative' :
-        ((/\[?(?:минулої)? ?\] ?dddd/).test(format) ?
+        ((/\[?(?:минулої|наступної)? ?\] ?dddd/).test(format) ?
             'genitive' :
             'nominative');
 
@@ -3008,35 +3178,32 @@ moment.lang('uk', {
     longDateFormat : {
         LT : "HH:mm",
         L : "DD.MM.YYYY",
-        LL : "D MMMM YYYY г.",
-        LLL : "D MMMM YYYY г., LT",
-        LLLL : "dddd, D MMMM YYYY г., LT"
+        LL : "D MMMM YYYY р.",
+        LLL : "D MMMM YYYY р., LT",
+        LLLL : "dddd, D MMMM YYYY р., LT"
     },
     calendar : {
-        sameDay: '[Сьогодні в] LT',
-        nextDay: '[Завтра в] LT',
-        lastDay: '[Вчора в] LT',
-        nextWeek: function () {
-            return this.day() === 2 ? '[У] dddd [в] LT' : '[В] dddd [в] LT';
-        },
+        sameDay: '[Сьогодні о] LT',
+        nextDay: '[Завтра о] LT',
+        lastDay: '[Вчора о] LT',
+        nextWeek: '[У] dddd [о] LT',
         lastWeek: function () {
             switch (this.day()) {
             case 0:
             case 3:
             case 5:
             case 6:
-                return '[Минулої] dddd [в] LT';
+                return '[Минулої] dddd [о] LT';
             case 1:
             case 2:
             case 4:
-                return '[Минулого] dddd [в] LT';
+                return '[Минулого] dddd [о] LT';
             }
         },
         sameElse: 'L'
     },
-    // It needs checking (adding) Ukrainian plurals and cases.
     relativeTime : {
-        future : "через %s",
+        future : "за %s",
         past : "%s тому",
         s : "декілька секунд",
         m : relativeTimeWithPlural,
@@ -3050,6 +3217,7 @@ moment.lang('uk', {
         y : "рік",
         yy : relativeTimeWithPlural
     },
+    // FIXME: this is not Ukrainian ordinals format
     ordinal : '%d.',
     week : {
         dow : 1, // Monday is the first day of the week.
@@ -3099,6 +3267,21 @@ moment.lang('zh-cn', {
         lastDay : '[昨天]LT',
         lastWeek : '[上]ddddLT',
         sameElse : 'L'
+    },
+    ordinal : function (number, period) {
+        switch (period) {
+        case "d" :
+        case "D" :
+        case "DDD" :
+            return number + "日";
+        case "M" :
+            return number + "月";
+        case "w" :
+        case "W" :
+            return number + "周";
+        default :
+            return number;
+        }
     },
     relativeTime : {
         future : "%s内",
@@ -3159,6 +3342,21 @@ moment.lang('zh-tw', {
         lastDay : '[昨天]LT',
         lastWeek : '[上]ddddLT',
         sameElse : 'L'
+    },
+    ordinal : function (number, period) {
+        switch (period) {
+        case "d" :
+        case "D" :
+        case "DDD" :
+            return number + "日";
+        case "M" :
+            return number + "月";
+        case "w" :
+        case "W" :
+            return number + "週";
+        default :
+            return number;
+        }
     },
     relativeTime : {
         future : "%s內",

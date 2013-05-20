@@ -58,7 +58,7 @@ exports["lang:en"] = {
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
-                ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45th day of the year'],
+                ['[the] DDDo [day of the year]',       'the 45th day of the year'],
                 ['L',                                  '02/14/2010'],
                 ['LL',                                 'February 14 2010'],
                 ['LLL',                                'February 14 2010 3:25 PM'],

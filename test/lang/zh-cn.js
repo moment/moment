@@ -44,20 +44,20 @@ exports["lang:zh-cn"] = {
         test.expect(22);
 
         var a = [
-                ['dddd, MMMM Do YYYY, a h:mm:ss',      '星期日, 二月 14 2010, 下午 3:25:50'],
+                ['dddd, MMMM Do YYYY, a h:mm:ss',      '星期日, 二月 14日 2010, 下午 3:25:50'],
                 ['ddd, Ah',                            '周日, 下午3'],
-                ['M Mo MM MMMM MMM',                   '2 2 02 二月 2月'],
+                ['M Mo MM MMMM MMM',                   '2 2月 02 二月 2月'],
                 ['YYYY YY',                            '2010 10'],
-                ['D Do DD',                            '14 14 14'],
-                ['d do dddd ddd dd',                   '0 0 星期日 周日 日'],
-                ['DDD DDDo DDDD',                      '45 45 045'],
-                ['w wo ww',                            '8 8 08'],
+                ['D Do DD',                            '14 14日 14'],
+                ['d do dddd ddd dd',                   '0 0日 星期日 周日 日'],
+                ['DDD DDDo DDDD',                      '45 45日 045'],
+                ['w wo ww',                            '8 8周 08'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                '下午 下午'],
-                ['t\\he DDDo \\d\\ay of t\\he ye\\ar', 'the 45 day of the year'],
+                ['[这年的第] DDDo',                     '这年的第 45日'],
                 ['L',                                  '2010年2月14日'],
                 ['LL',                                 '2010年2月14日'],
                 ['LLL',                                '2010年2月14日下午3点25'],
@@ -345,11 +345,11 @@ exports["lang:zh-cn"] = {
     "weeks year starting sunday format" : function(test) {
         test.expect(5);
 
-        test.equal(moment([2012, 0,  1]).format('w ww wo'), '1 01 1', "Jan  1 2012 should be week 1");
-        test.equal(moment([2012, 0,  7]).format('w ww wo'), '1 01 1', "Jan  7 2012 should be week 1");
-        test.equal(moment([2012, 0,  8]).format('w ww wo'), '2 02 2', "Jan  8 2012 should be week 2");
-        test.equal(moment([2012, 0, 14]).format('w ww wo'), '2 02 2', "Jan 14 2012 should be week 2");
-        test.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3', "Jan 15 2012 should be week 3");
+        test.equal(moment([2012, 0,  1]).format('w ww wo'), '1 01 1周', "Jan  1 2012 应该是第 1周");
+        test.equal(moment([2012, 0,  7]).format('w ww wo'), '1 01 1周', "Jan  7 2012 应该是第 1周");
+        test.equal(moment([2012, 0,  8]).format('w ww wo'), '2 02 2周', "Jan  8 2012 应该是第 2周");
+        test.equal(moment([2012, 0, 14]).format('w ww wo'), '2 02 2周', "Jan 14 2012 应该是第 2周");
+        test.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3周', "Jan 15 2012 应该是第 3周");
 
         test.done();
     }

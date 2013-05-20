@@ -1,6 +1,16 @@
 var moment = require("../../moment");
 
 exports.end_start_of = {
+    setUp : function (cb) {
+        moment.lang('en');
+        cb();
+    },
+
+    tearDown : function (cb) {
+        moment.lang('en');
+        cb();
+    },
+
     "start of year" : function(test) {
         test.expect(9);
 
