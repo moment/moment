@@ -184,7 +184,7 @@ exports["lang:it"] = {
         test.expect(2);
 
         test.equal(moment().add({s:30}).fromNow(), "in secondi", "in seconds");
-        test.equal(moment().add({d:5}).fromNow(), "in 5 giorni", "in 5 days");
+        test.equal(moment().add({d:5}).fromNow(), "tra 5 giorni", "in 5 days");
         test.done();
     },
 
