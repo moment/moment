@@ -67,7 +67,6 @@ module.exports = function (grunt) {
             all: ["Gruntfile.js", "moment.js", "lang/**/*.js"],
             options: {
                 "node"     : true,
-                "es5"      : true,
                 "browser"  : true,
                 "boss"     : false,
                 "curly"    : true,
