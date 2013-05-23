@@ -4,6 +4,42 @@ function equal(test, a, b, message) {
     test.ok(Math.abs(a - b) < 0.00000001, "(" + a + " === " + b + ") " + message);
 }
 
+function findDSTNear(start_position) {
+    var dstTime = moment(start_position), i, next;
+    for (i = 0; i < 12; ++i) {
+        next = dstTime.clone().add(1, 'month');
+        if (dstTime.zone() !== next.zone()) {
+            break;
+        }
+        dstTime = next;
+    }
+
+    if (i === 12) {
+        return null;
+    }
+
+    for (;;) {
+        next = dstTime.clone().add(1, 'day');
+        if (dstTime.zone() !== next.zone()) {
+            break;
+        }
+        dstTime = next;
+    }
+
+    for (;;) {
+        next = dstTime.clone().add(1, 'hour');
+        if (dstTime.zone() !== next.zone()) {
+            break;
+        }
+        dstTime = next;
+    }
+
+    return {
+        moment : dstTime,
+        diff : (next.zone() - dstTime.zone()) / 60.0,
+    };
+}
+
 exports.diff = {
     "diff" : function(test) {
         test.expect(5);
@@ -91,17 +127,38 @@ exports.diff = {
     },
 
     "diff across DST" : function(test) {
-        test.expect(9);
+        var dst = findDSTNear(moment([2012, 0, 1])), a, b;
+        if (!dst) {
+            console.log("No DST?");
+            test.done();
+            return;
+        }
 
-        test.equal(moment([2012, 2, 24]).diff([2012, 2, 10], 'weeks', true), 2, "diff weeks across DST");
-        test.equal(moment([2012, 2, 24]).diff([2012, 2, 10], 'days', true), 14, "diff days across DST");
-        test.equal(moment([2012, 2, 11]).diff([2012, 2, 11, 12], 'hours', true), -11, "diff hours across DST");
-        test.equal(moment([2012, 2, 11]).diff([2012, 2, 11, 12], 'days', true), -0.5, "diff days across DST");
-        test.equal(moment([2012, 2, 11]).diff([2012, 2, 11, 12], 'months', true), -1/62, "diff months across DST (half day in 31 day month)");
-        test.equal(moment([2012, 2, 11]).diff([2012, 2, 11, 12], 'months', true), -1/62, "diff months across DST (half day in 31 day month)");
-        test.equal(moment([2013, 10, 2]).diff([2013, 10, 17], 'months', true), -0.5, 'diff months across DST (15 days in 30 day month)')
-        test.equal(moment([2013, 10, 2]).diff([2013, 10, 17], 'days', true), -15, 'diff days across DST')
-        test.equal(moment([2013, 10, 2]).diff([2013, 10, 17], 'hours', true), -15 * 24 - 1, 'diff hours across DST (15 days minus 1 hour DST)')
+        test.expect(12);
+
+        a = dst.moment;
+        b = a.clone().utc().add(12, 'hours').local();
+        equal(test, b.diff(a, 'ms', true), 12 * 60 * 60 * 1000, "ms diff across DST");
+        equal(test, b.diff(a, 's', true),  12 * 60 * 60,        "second diff across DST");
+        equal(test, b.diff(a, 'm', true),  12 * 60,             "minute diff across DST");
+        equal(test, b.diff(a, 'h', true),  12,                  "hour diff across DST");
+        equal(test, b.diff(a, 'd', true),  (12 - dst.diff) / 24,      "day diff across DST");
+        equal(test, b.diff(a, 'w', true),  (12 - dst.diff) / 24 / 7,  "week diff across DST");
+        // equal(test, b.diff(a, 'M', true),  (12 - dst.diff) / 24 / 30, "month diff across DST");
+        // equal(test, b.diff(a, 'y', true),  (12 - dst.diff) / 24 / 372,     "year diff across DST");
+
+
+        a = dst.moment;
+        b = a.clone().utc().add(12 + dst.diff, 'hours').local();
+        equal(test, b.diff(a, 'ms', true), (12 + dst.diff) * 60 * 60 * 1000, "ms diff across DST");
+        equal(test, b.diff(a, 's', true),  (12 + dst.diff) * 60 * 60,        "second diff across DST");
+        equal(test, b.diff(a, 'm', true),  (12 + dst.diff) * 60,             "minute diff across DST");
+        equal(test, b.diff(a, 'h', true),  (12 + dst.diff),                  "hour diff across DST");
+        equal(test, b.diff(a, 'd', true),  12 / 24,     "day diff across DST");
+        equal(test, b.diff(a, 'w', true),  12 / 24 / 7, "week diff across DST");
+        // equal(test, b.diff(a, 'M', true),  (12 - dst.diff) / 24 / 30, "month diff across DST");
+        // equal(test, b.diff(a, 'y', true),  12 / 24 / 372, "year diff across DST");
+
         test.done();
     },
 
