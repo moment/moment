@@ -212,5 +212,22 @@ exports.lang = {
         test.equal(moment([2013, 0, 1]).endOf('week').day(), 0, 'for lang monday-lang last day of the week should be sunday');
 
         test.done();
+    },
+
+    "meridiem parsing" : function (test) {
+        test.expect(2);
+
+        moment.lang('meridiem-parsing', {
+            meridiemParse : /[bd]/i,
+            isPM : function (input) {
+                return input === 'b';
+            }
+        });
+
+        moment.lang('meridiem-parsing');
+        test.equal(moment('2012-01-01 3b', 'YYYY-MM-DD ha').hour(), 15, 'Custom parsing of meridiem should work');
+        test.equal(moment('2012-01-01 3d', 'YYYY-MM-DD ha').hour(), 3, 'Custom parsing of meridiem should work');
+
+        test.done();
     }
 };
