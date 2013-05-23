@@ -228,11 +228,11 @@ exports["lang:hu"] = {
 
         for (var i = 2; i < 7; i++) {
             var m = moment().subtract({ d: i });
-            test.equal(m.calendar(),       m.format('múlt ['+days[m.day()]+'] LT[-kor]'),  "today - " + i + " days current time");
+            test.equal(m.calendar(),       m.format('[múlt '+days[m.day()]+'] LT[-kor]'),  "today - " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('múlt ['+days[m.day()]+'] LT[-kor]'),  "today - " + i + " days beginning of day");
+            test.equal(m.calendar(),       m.format('[múlt '+days[m.day()]+'] LT[-kor]'),  "today - " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('múlt ['+days[m.day()]+'] LT[-kor]'),  "today - " + i + " days end of day");
+            test.equal(m.calendar(),       m.format('[múlt '+days[m.day()]+'] LT[-kor]'),  "today - " + i + " days end of day");
         }
 
         test.done();
