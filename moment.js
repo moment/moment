@@ -491,6 +491,7 @@
             return ((input + '').toLowerCase()[0] === 'p');
         },
 
+        _meridiemParse : /[ap]\.?m?\.?/i,
         meridiem : function (hours, minutes, isLower) {
             if (hours > 11) {
                 return isLower ? 'pm' : 'PM';
@@ -648,7 +649,7 @@
 
 
     // get the regex to find the next token
-    function getParseRegexForToken(token) {
+    function getParseRegexForToken(token, config) {
         switch (token) {
         case 'DDDD':
             return parseTokenThreeDigits;
@@ -666,9 +667,10 @@
         case 'dd':
         case 'ddd':
         case 'dddd':
+            return parseTokenWord;
         case 'a':
         case 'A':
-            return parseTokenWord;
+            return getLangDefinition(config._l)._meridiemParse;
         case 'X':
             return parseTokenTimestampMs;
         case 'Z':
@@ -830,7 +832,7 @@
         config._a = [];
 
         for (i = 0; i < tokens.length; i++) {
-            parsedInput = (getParseRegexForToken(tokens[i]).exec(string) || [])[0];
+            parsedInput = (getParseRegexForToken(tokens[i], config).exec(string) || [])[0];
             if (parsedInput) {
                 string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
             }
