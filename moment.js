@@ -1360,6 +1360,24 @@
             return +this.clone().startOf(units) === +moment(input).startOf(units);
         },
 
+        min: function (other) {
+            if (typeof other === "string" && other.toLowerCase() === "now") {
+                other = moment();
+            } else {
+                other = moment.apply(null, arguments);
+            }
+            return other < this ? this : other;
+        },
+
+        max: function (other) {
+            if (typeof other === "string" && other.toLowerCase() === "now") {
+                other = moment();
+            } else {
+                other = moment.apply(null, arguments);
+            }
+            return other > this ? this : other;
+        },
+
         zone : function (input) {
             var offset = this._offset || 0;
             if (input != null) {
