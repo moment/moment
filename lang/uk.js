@@ -12,12 +12,15 @@ function relativeTimeWithPlural(number, withoutSuffix, key) {
     var format = {
         'mm': 'хвилина_хвилини_хвилин',
         'hh': 'година_години_годин',
-        'dd': 'день_дня_днів',
-        'MM': 'місяць_місяця_місяців',
+        'dd': 'день_дні_днів',
+        'MM': 'місяць_місяці_місяців',
         'yy': 'рік_роки_років'
     };
     if (key === 'm') {
         return withoutSuffix ? 'хвилина' : 'хвилину';
+    }
+    else if (key === 'h') {
+        return withoutSuffix ? 'година' : 'годину';
     }
     else {
         return number + ' ' + plural(format[key], +number);
@@ -67,21 +70,29 @@ require('../moment').lang('uk', {
         LLLL : "dddd, D MMMM YYYY р., LT"
     },
     calendar : {
-        sameDay: '[Сьогодні о] LT',
-        nextDay: '[Завтра о] LT',
-        lastDay: '[Вчора о] LT',
-        nextWeek: '[У] dddd [о] LT',
+        sameDay: function () {
+            return '[Сьогодні о' + (this.hours() === 11 ? 'б' : '') + '] LT';
+        },
+        nextDay: function () {
+            return '[Завтра о' + (this.hours() === 11 ? 'б' : '') + '] LT';
+        },
+        lastDay: function () {
+            return '[Вчора о' + (this.hours() === 11 ? 'б' : '') + '] LT';
+        },
+        nextWeek: function () {
+            return '[У] dddd [о' + (this.hours() === 11 ? 'б' : '') + '] LT';
+        },
         lastWeek: function () {
             switch (this.day()) {
             case 0:
             case 3:
             case 5:
             case 6:
-                return '[Минулої] dddd [о] LT';
+                return '[Минулої] dddd [о' + (this.hours() === 11 ? 'б' : '') + '] LT';
             case 1:
             case 2:
             case 4:
-                return '[Минулого] dddd [о] LT';
+                return '[Минулого] dddd [о' + (this.hours() === 11 ? 'б' : '') + '] LT';
             }
         },
         sameElse: 'L'
