@@ -1,5 +1,5 @@
 // moment.js language configuration
-// language : Macedonian (mk)
+// language : macedonian (mk)
 // author : Borislav Mickov : https://github.com/B0k0
 
 require('../moment').lang('bg', {
