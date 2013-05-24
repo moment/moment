@@ -1,6 +1,6 @@
 // moment.js language configuration
-// language : bulgarian (bg)
-// author : Krasen Borisov : https://github.com/kraz
+// language : macedonian (mk)
+// author : Borislav Mickov : https://github.com/B0k0
 
 require('../moment').lang('bg', {
     months : "јануари_февруари_март_април_мај_јуни_јули_август_септември_октомври_ноември_декември".split("_"),
