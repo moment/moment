@@ -1157,7 +1157,7 @@
             return formatMoment(moment(this).utc(), 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
         },
 
-        toISOString: function() {
+        toISOString: function () {
             return moment.utc(this).format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
         },
 
