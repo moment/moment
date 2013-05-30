@@ -1157,10 +1157,6 @@
             return formatMoment(moment(this).utc(), 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
         },
 
-        toISOString: function () {
-            return moment.utc(this).format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
-        },
-
         toArray : function () {
             var m = this;
             return [
@@ -1473,6 +1469,9 @@
     moment.fn.months = moment.fn.month;
     moment.fn.weeks = moment.fn.week;
     moment.fn.isoWeeks = moment.fn.isoWeek;
+
+    // add aliased format methods
+    moment.fn.toISOString = moment.fn.toJSON;
 
     /************************************
         Duration Prototype
