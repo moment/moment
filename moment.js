@@ -351,10 +351,7 @@
             mom.date(mom.date() + days * isAdding);
         }
         if (months) {
-            currentDate = mom.date();
-            mom.date(1)
-                .month(mom.month() + months * isAdding)
-                .date(Math.min(currentDate, mom.daysInMonth()));
+            mom.month(mom.month() + months * isAdding);
         }
         if (milliseconds && !ignoreUpdateOffset) {
             moment.updateOffset(mom);
@@ -1297,7 +1294,10 @@
         },
 
         month : function (input) {
-            var utc = this._isUTC ? 'UTC' : '';
+            var utc = this._isUTC ? 'UTC' : '',
+                dayOfMonth,
+                daysInMonth;
+
             if (input != null) {
                 if (typeof input === 'string') {
                     input = this.lang().monthsParse(input);
@@ -1305,7 +1305,12 @@
                         return this;
                     }
                 }
+
+                dayOfMonth = this.date();
+                this.date(1);
                 this._d['set' + utc + 'Month'](input);
+                this.date(Math.min(dayOfMonth, this.daysInMonth()));
+
                 moment.updateOffset(this);
                 return this;
             } else {
