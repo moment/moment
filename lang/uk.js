@@ -56,6 +56,12 @@ function weekdaysCaseReplace(m, format) {
     return weekdays[nounCase][m.day()];
 }
 
+function processHoursFunction(str) {
+    return function () {
+        return str + 'о' + (this.hours() === 11 ? 'б' : '') + '] LT';
+    };
+}
+
 require('../moment').lang('uk', {
     months : monthsCaseReplace,
     monthsShort : "січ_лют_бер_кві_тра_чер_лип_сер_вер_жов_лис_гру".split("_"),
@@ -70,29 +76,21 @@ require('../moment').lang('uk', {
         LLLL : "dddd, D MMMM YYYY р., LT"
     },
     calendar : {
-        sameDay: function () {
-            return '[Сьогодні о' + (this.hours() === 11 ? 'б' : '') + '] LT';
-        },
-        nextDay: function () {
-            return '[Завтра о' + (this.hours() === 11 ? 'б' : '') + '] LT';
-        },
-        lastDay: function () {
-            return '[Вчора о' + (this.hours() === 11 ? 'б' : '') + '] LT';
-        },
-        nextWeek: function () {
-            return '[У] dddd [о' + (this.hours() === 11 ? 'б' : '') + '] LT';
-        },
+        sameDay: processHoursFunction('[Сьогодні '),
+        nextDay: processHoursFunction('[Завтра '),
+        lastDay: processHoursFunction('[Вчора '),
+        nextWeek: processHoursFunction('[У] dddd ['),
         lastWeek: function () {
             switch (this.day()) {
             case 0:
             case 3:
             case 5:
             case 6:
-                return '[Минулої] dddd [о' + (this.hours() === 11 ? 'б' : '') + '] LT';
+                return '[Минулої] dddd [' + 'о' + (this.hours() === 11 ? 'б' : '') + '] LT';
             case 1:
             case 2:
             case 4:
-                return '[Минулого] dddd [о' + (this.hours() === 11 ? 'б' : '') + '] LT';
+                return '[Минулого] dddd [' + 'о' + (this.hours() === 11 ? 'б' : '') + '] LT';
             }
         },
         sameElse: 'L'
