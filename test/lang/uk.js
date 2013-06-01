@@ -155,7 +155,7 @@ exports["lang:uk"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({h:21}), true),  "21 година",   "21 hours = 21 hours");
         test.equal(start.from(moment([2007, 1, 28]).add({h:22}), true),  "день",      "22 hours = a day");
         test.equal(start.from(moment([2007, 1, 28]).add({h:35}), true),  "день",      "35 hours = a day");
-        test.equal(start.from(moment([2007, 1, 28]).add({h:36}), true),  "2 дня",     "36 hours = 2 days");
+        test.equal(start.from(moment([2007, 1, 28]).add({h:36}), true),  "2 дні",     "36 hours = 2 days");
         test.equal(start.from(moment([2007, 1, 28]).add({d:1}), true),   "день",      "1 day = a day");
         test.equal(start.from(moment([2007, 1, 28]).add({d:5}), true),   "5 днів",     "5 days = 5 days");
         test.equal(start.from(moment([2007, 1, 28]).add({d:11}), true),  "11 днів",     "11 days = 11 days");
@@ -164,9 +164,9 @@ exports["lang:uk"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({d:26}), true),  "місяць",    "26 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d:30}), true),  "місяць",    "30 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d:45}), true),  "місяць",    "45 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:46}), true),  "2 місяця",   "46 days = 2 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:74}), true),  "2 місяця",   "75 days = 2 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:76}), true),  "3 місяця",   "76 days = 3 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({d:46}), true),  "2 місяці",   "46 days = 2 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({d:74}), true),  "2 місяці",   "75 days = 2 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({d:76}), true),  "3 місяці",   "76 days = 3 months");
         test.equal(start.from(moment([2007, 1, 28]).add({M:1}), true),   "місяць",    "1 month = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({M:5}), true),   "5 місяців",   "5 months = 5 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d:344}), true), "11 місяців",  "344 days = 11 months");
@@ -193,7 +193,7 @@ exports["lang:uk"] = {
     },
 
     "calendar day" : function(test) {
-        test.expect(6);
+        test.expect(7);
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
@@ -203,6 +203,8 @@ exports["lang:uk"] = {
         test.equal(moment(a).add({ d: 1 }).calendar(),       "Завтра о 02:00",      "tomorrow at the same time");
         test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Сьогодні о 01:00",     "Now minus 1 hour");
         test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Вчора о 02:00",       "yesterday at the same time");
+        // A special case for Ukrainian since 11 hours have different preposition
+        test.equal(moment(a).add({ h: 9 }).calendar(),  "Сьогодні об 11:00",       "same day at 11 o'clock");
         test.done();
     },
 
@@ -214,7 +216,7 @@ exports["lang:uk"] = {
 
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
-            test.equal(m.calendar(),       m.format('[У] dddd [о] LT'),  "Today + " + i + " days current time");
+            test.equal(m.calendar(),       m.format('[У] dddd [о' + (m.hours() === 11 ? 'б' : '') + '] LT'),  "Today + " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
             test.equal(m.calendar(),       m.format('[У] dddd [о] LT'),  "Today + " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
@@ -235,11 +237,11 @@ exports["lang:uk"] = {
             case 3:
             case 5:
             case 6:
-                return '[Минулої] dddd [о] LT';
+                return '[Минулої] dddd [о' + (d.hours() === 11 ? 'б' : '') + '] LT';
             case 1:
             case 2:
             case 4:
-                return '[Минулого] dddd [о] LT';
+                return '[Минулого] dddd [о' + (d.hours() === 11 ? 'б' : '') + '] LT';
             }
         }
 
