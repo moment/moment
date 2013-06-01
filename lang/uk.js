@@ -86,11 +86,11 @@ require('../moment').lang('uk', {
             case 3:
             case 5:
             case 6:
-                return '[Минулої] dddd [' + 'о' + (this.hours() === 11 ? 'б' : '') + '] LT';
+                return processHoursFunction('[Минулої] dddd [').call(this);
             case 1:
             case 2:
             case 4:
-                return '[Минулого] dddd [' + 'о' + (this.hours() === 11 ? 'б' : '') + '] LT';
+                return processHoursFunction('[Минулого] dddd [').call(this);
             }
         },
         sameElse: 'L'
