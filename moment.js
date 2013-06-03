@@ -523,6 +523,7 @@
             future : "in %s",
             past : "%s ago",
             s : "a few seconds",
+            ss : "%d seconds",
             m : "a minute",
             mm : "%d minutes",
             h : "an hour",
@@ -1259,6 +1260,25 @@
         fromNow : function (withoutSuffix) {
             return this.from(moment(), withoutSuffix);
         },
+
+		interval : function (time, withoutSuffix) {
+			var i = this.diff(time),
+				d = moment.duration(Math.abs(i)),
+				a = d._data,
+				l = d.lang(),
+				f = [];
+			if(a.years) f.push(l.relativeTime(a.years, 0, 'yy'));
+			if(a.months) f.push(l.relativeTime(a.months, 0, 'MM'));
+			if(a.days) f.push(l.relativeTime(a.days, 0, 'dd'));
+			if(a.hours) f.push(l.relativeTime(a.hours, 0, 'hh'));
+			if(a.minutes) f.push(l.relativeTime(a.minutes, 0, 'mm'));
+			if(a.seconds) f.push(l.relativeTime(a.seconds, 0, 'ss'));
+			return withoutSuffix ? l.pastFuture(i, f.join(' ')) : f.join(' ');
+		},
+
+		intervalNow : function (withoutSuffix) {
+			return this.interval(moment(), withoutSuffix);
+		},
 
         calendar : function () {
             var diff = this.diff(moment().startOf('day'), 'days', true),
