@@ -1159,7 +1159,7 @@
             return this._offset ? new Date(+this) : this._d;
         },
 
-        toJSON : function () {
+        toISOString : function () {
             return formatMoment(moment(this).utc(), 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
         },
 
@@ -1487,7 +1487,7 @@
     moment.fn.isoWeeks = moment.fn.isoWeek;
 
     // add aliased format methods
-    moment.fn.toISOString = moment.fn.toJSON;
+    moment.fn.toJSON = moment.fn.toISOString;
 
     /************************************
         Duration Prototype
