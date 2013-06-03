@@ -1260,6 +1260,12 @@
             return this.from(moment(), withoutSuffix);
         },
 
+        pastFromNow : function (withoutSuffix) {
+            var now = moment(),
+                past = this < now ? this : now;
+            return past.from(now, withoutSuffix);
+        },
+
         calendar : function () {
             var diff = this.diff(moment().startOf('day'), 'days', true),
                 format = diff < -6 ? 'sameElse' :
