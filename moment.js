@@ -847,6 +847,12 @@
                 addTimeToArrayFromToken(tokens[i], parsedInput, config);
             }
         }
+
+        // add remaining unparsed input to the string
+        if (string) {
+            config._il = string;
+        }
+
         // handle am pm
         if (config._isPm && config._a[3] < 12) {
             config._a[3] += 12;
@@ -876,6 +882,12 @@
             tempMoment = new Moment(tempConfig);
 
             currentScore = compareArrays(tempConfig._a, tempMoment.toArray());
+
+            // if there is any input that was not parsed
+            // add a penalty for that format
+            if (tempMoment._il) {
+                currentScore += tempMoment._il.length;
+            }
 
             if (currentScore < scoreToBeat) {
                 scoreToBeat = currentScore;
