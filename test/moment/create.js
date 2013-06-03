@@ -248,7 +248,7 @@ exports.create = {
     },
 
     "string with array of formats" : function(test) {
-        test.expect(12);
+        test.expect(14);
 
         test.equal(moment('11-02-1999', ['MM-DD-YYYY', 'DD-MM-YYYY']).format('MM DD YYYY'), '11 02 1999', 'switching month and day');
         test.equal(moment('02-11-1999', ['MM/DD/YYYY', 'YYYY-MM-DD', 'MM-DD-YYYY']).format('MM DD YYYY'), '02 11 1999', 'year last');
@@ -256,6 +256,8 @@ exports.create = {
 
         test.equal(moment('02-11-1999', ['MM/DD/YYYY', 'YYYY-MM-DD']).format('MM DD YYYY'), '02 11 1999', 'year last');
         test.equal(moment('1999-02-11', ['MM/DD/YYYY', 'YYYY-MM-DD']).format('MM DD YYYY'), '02 11 1999', 'year first');
+        test.equal(moment('02-11-1999', ['YYYY-MM-DD', 'MM/DD/YYYY']).format('MM DD YYYY'), '02 11 1999', 'year last');
+        test.equal(moment('1999-02-11', ['YYYY-MM-DD', 'MM/DD/YYYY']).format('MM DD YYYY'), '02 11 1999', 'year first');
 
         test.equal(moment('13-11-1999', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'), '11 13 1999', 'second must be month');
         test.equal(moment('11-13-1999', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'), '11 13 1999', 'first must be month');
