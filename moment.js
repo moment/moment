@@ -1361,20 +1361,12 @@
         },
 
         min: function (other) {
-            if (typeof other === "string" && other.toLowerCase() === "now") {
-                other = moment();
-            } else {
-                other = moment.apply(null, arguments);
-            }
+            other = moment.apply(null, arguments);
             return other < this ? this : other;
         },
 
         max: function (other) {
-            if (typeof other === "string" && other.toLowerCase() === "now") {
-                other = moment();
-            } else {
-                other = moment.apply(null, arguments);
-            }
+            other = moment.apply(null, arguments);
             return other > this ? this : other;
         },
 
