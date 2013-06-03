@@ -151,6 +151,13 @@ exports.format = {
         test.done();
     },
 
+    "toISOString" : function(test) {
+        var date = moment.utc("2012-10-09T20:30:40.678");
+
+        test.equal(date.toISOString(), "2012-10-09T20:30:40.678Z", "should output ISO8601 on moment.fn.toISOString");
+        test.done();
+    },
+
     "weeks format" : function(test) {
 
         // http://en.wikipedia.org/wiki/ISO_week_date
