@@ -12,12 +12,15 @@ function relativeTimeWithPlural(number, withoutSuffix, key) {
     var format = {
         'mm': 'хвилина_хвилини_хвилин',
         'hh': 'година_години_годин',
-        'dd': 'день_дня_днів',
-        'MM': 'місяць_місяця_місяців',
+        'dd': 'день_дні_днів',
+        'MM': 'місяць_місяці_місяців',
         'yy': 'рік_роки_років'
     };
     if (key === 'm') {
         return withoutSuffix ? 'хвилина' : 'хвилину';
+    }
+    else if (key === 'h') {
+        return withoutSuffix ? 'година' : 'годину';
     }
     else {
         return number + ' ' + plural(format[key], +number);
@@ -53,6 +56,12 @@ function weekdaysCaseReplace(m, format) {
     return weekdays[nounCase][m.day()];
 }
 
+function processHoursFunction(str) {
+    return function () {
+        return str + 'о' + (this.hours() === 11 ? 'б' : '') + '] LT';
+    };
+}
+
 require('../moment').lang('uk', {
     months : monthsCaseReplace,
     monthsShort : "січ_лют_бер_кві_тра_чер_лип_сер_вер_жов_лис_гру".split("_"),
@@ -67,21 +76,21 @@ require('../moment').lang('uk', {
         LLLL : "dddd, D MMMM YYYY р., LT"
     },
     calendar : {
-        sameDay: '[Сьогодні о] LT',
-        nextDay: '[Завтра о] LT',
-        lastDay: '[Вчора о] LT',
-        nextWeek: '[У] dddd [о] LT',
+        sameDay: processHoursFunction('[Сьогодні '),
+        nextDay: processHoursFunction('[Завтра '),
+        lastDay: processHoursFunction('[Вчора '),
+        nextWeek: processHoursFunction('[У] dddd ['),
         lastWeek: function () {
             switch (this.day()) {
             case 0:
             case 3:
             case 5:
             case 6:
-                return '[Минулої] dddd [о] LT';
+                return processHoursFunction('[Минулої] dddd [').call(this);
             case 1:
             case 2:
             case 4:
-                return '[Минулого] dddd [о] LT';
+                return processHoursFunction('[Минулого] dddd [').call(this);
             }
         },
         sameElse: 'L'
