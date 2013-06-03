@@ -1486,6 +1486,9 @@
     moment.fn.weeks = moment.fn.week;
     moment.fn.isoWeeks = moment.fn.isoWeek;
 
+    // add aliased format methods
+    moment.fn.toISOString = moment.fn.toJSON;
+
     /************************************
         Duration Prototype
     ************************************/
