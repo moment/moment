@@ -19,7 +19,7 @@ exports["lang:gl"] = {
     "parse" : function(test) {
         test.expect(96);
 
-        var tests = "Xaneiro Xan._Febreiro Feb._Marzo Mar._Abril Abr._Maio Mai._Xuño Xuñ._Xullo Xul._Agosto Ago._Setembro Set._Octubro Out._Novembro Nov._Decembro Dec.".split("_");
+        var tests = "Xaneiro Xan._Febreiro Feb._Marzo Mar._Abril Abr._Maio Mai._Xuño Xuñ._Xullo Xul._Agosto Ago._Setembro Set._Outubro Out._Novembro Nov._Decembro Dec.".split("_");
 
         var i;
         function equalTest(input, mmm, i) {
@@ -82,7 +82,7 @@ exports["lang:gl"] = {
     "format month" : function(test) {
         test.expect(12);
 
-        var expected = "Xaneiro Xan._Febreiro Feb._Marzo Mar._Abril Abr._Maio Mai._Xuño Xuñ._Xullo Xul._Agosto Ago._Setembro Set._Octubro Out._Novembro Nov._Decembro Dec.".split("_");
+        var expected = "Xaneiro Xan._Febreiro Feb._Marzo Mar._Abril Abr._Maio Mai._Xuño Xuñ._Xullo Xul._Agosto Ago._Setembro Set._Outubro Out._Novembro Nov._Decembro Dec.".split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
@@ -107,7 +107,7 @@ exports["lang:gl"] = {
 
         var start = moment([2007, 1, 28]);
 
-        test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "uns segundo", "44 seconds = a few seconds");
+        test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "uns segundos", "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "un minuto",      "45 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s:89}), true),  "un minuto",      "89 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s:90}), true),  "2 minutos",     "90 seconds = 2 minutes");
@@ -143,20 +143,20 @@ exports["lang:gl"] = {
     "suffix" : function(test) {
         test.expect(2);
 
-        test.equal(moment(30000).from(0), "en uns segundo",  "prefix");
-        test.equal(moment(0).from(30000), "fai uns segundo", "suffix");
+        test.equal(moment(30000).from(0), "nuns segundos",  "prefix");
+        test.equal(moment(0).from(30000), "hai uns segundos", "suffix");
         test.done();
     },
 
     "now from now" : function(test) {
         test.expect(1);
-        test.equal(moment().fromNow(), "fai uns segundo",  "now from now should display as in the past");
+        test.equal(moment().fromNow(), "hai uns segundos",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow" : function(test) {
         test.expect(2);
-        test.equal(moment().add({s:30}).fromNow(), "en uns segundo", "en unos segundos");
+        test.equal(moment().add({s:30}).fromNow(), "nuns segundos", "en unos segundos");
         test.equal(moment().add({d:5}).fromNow(), "en 5 días", "en 5 días");
         test.done();
     },
@@ -170,8 +170,8 @@ exports["lang:gl"] = {
         test.equal(moment(a).add({ m: 25 }).calendar(),          "hoxe ás 2:25",     "Now plus 25 min");
         test.equal(moment(a).add({ h: 1 }).calendar(),           "hoxe ás 3:00",     "Now plus 1 hour");
         test.equal(moment(a).add({ d: 1 }).calendar(),           "mañá ás 2:00",  "tomorrow at the same time");
-        test.equal(moment(a).add({ d: 1, h : -1 }).calendar(),   "mañá a 1:00",   "tomorrow minus 1 hour");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),      "hoxe a 1:00",      "Now minus 1 hour");
+        test.equal(moment(a).add({ d: 1, h : -1 }).calendar(),   "mañá á 1:00",   "tomorrow minus 1 hour");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),      "hoxe á 1:00",      "Now minus 1 hour");
         test.equal(moment(a).subtract({ d: 1 }).calendar(),      "onte á 2:00",    "yesterday at the same time");
         test.done();
     },

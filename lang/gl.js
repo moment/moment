@@ -3,7 +3,7 @@
 // author : Juan G. Hurtado : https://github.com/juanghurtado
 
 require('../moment').lang('gl', {
-    months : "Xaneiro_Febreiro_Marzo_Abril_Maio_Xuño_Xullo_Agosto_Setembro_Octubro_Novembro_Decembro".split("_"),
+    months : "Xaneiro_Febreiro_Marzo_Abril_Maio_Xuño_Xullo_Agosto_Setembro_Outubro_Novembro_Decembro".split("_"),
     monthsShort : "Xan._Feb._Mar._Abr._Mai._Xuñ._Xul._Ago._Set._Out._Nov._Dec.".split("_"),
     weekdays : "Domingo_Luns_Martes_Mércores_Xoves_Venres_Sábado".split("_"),
     weekdaysShort : "Dom._Lun._Mar._Mér._Xov._Ven._Sáb.".split("_"),
@@ -17,10 +17,10 @@ require('../moment').lang('gl', {
     },
     calendar : {
         sameDay : function () {
-            return '[hoxe ' + ((this.hours() !== 1) ? 'ás' : 'a') + '] LT';
+            return '[hoxe ' + ((this.hours() !== 1) ? 'ás' : 'á') + '] LT';
         },
         nextDay : function () {
-            return '[mañá ' + ((this.hours() !== 1) ? 'ás' : 'a') + '] LT';
+            return '[mañá ' + ((this.hours() !== 1) ? 'ás' : 'á') + '] LT';
         },
         nextWeek : function () {
             return 'dddd [' + ((this.hours() !== 1) ? 'ás' : 'a') + '] LT';
@@ -34,9 +34,14 @@ require('../moment').lang('gl', {
         sameElse : 'L'
     },
     relativeTime : {
-        future : "en %s",
-        past : "fai %s",
-        s : "uns segundo",
+        future : function (str) {
+            if (str === "uns segundos") {
+                return "nuns segundos";
+            }
+            return "en " + str;
+        },
+        past : "hai %s",
+        s : "uns segundos",
         m : "un minuto",
         mm : "%d minutos",
         h : "unha hora",
