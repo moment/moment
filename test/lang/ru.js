@@ -42,7 +42,7 @@ exports["lang:ru"] = {
         test.expect(22);
 
         var a = [
-                ['dddd, Do MMMM YYYY, h:mm:ss a',      'воскресенье, 14-го февраля 2010, 3:25:50 pm'],
+                ['dddd, Do MMMM YYYY, HH:mm:ss',      'воскресенье, 14-го февраля 2010, 15:25:50'],
                 ['ddd, hA',                            'вск, 3PM'],
                 ['M Mo MM MMMM MMM',                   '2 2-й 02 февраль фев'],
                 ['YYYY YY',                            '2010 10'],
