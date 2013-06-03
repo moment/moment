@@ -889,9 +889,12 @@
     // date from iso format
     function makeDateFromString(config) {
         var i,
-            string = config._i;
-        if (isoRegex.exec(string)) {
-            config._f = 'YYYY-MM-DDT';
+            string = config._i,
+            match = isoRegex.exec(string);
+
+        if (match) {
+            // match[2] should be "T" or undefined
+            config._f = 'YYYY-MM-DD' + (match[2] || " ");
             for (i = 0; i < 4; i++) {
                 if (isoTimes[i][1].exec(string)) {
                     config._f += isoTimes[i][0];
