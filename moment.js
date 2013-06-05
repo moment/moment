@@ -1532,6 +1532,27 @@
             return this.lang().postformat(output);
         },
 
+        add : function (input, val) {
+            // supports only 2.0-style add(1, 's') or add(moment)
+            var dur = moment.duration(input, val);
+
+            this._milliseconds += dur._milliseconds;
+            this._days += dur._days;
+            this._months += dur._months;
+
+            return this;
+        },
+
+        subtract : function (input, val) {
+            var dur = moment.duration(input, val);
+
+            this._milliseconds -= dur._milliseconds;
+            this._days -= dur._days;
+            this._months -= dur._months;
+
+            return this;
+        },
+
         get : function (units) {
             units = normalizeUnits(units);
             return this[units.toLowerCase() + 's']();
