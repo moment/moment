@@ -16,11 +16,11 @@ require('../moment').lang('sv', {
         LLLL : "dddd D MMMM YYYY LT"
     },
     calendar : {
-        sameDay: '[Idag klockan] LT',
-        nextDay: '[Imorgon klockan] LT',
-        lastDay: '[Igår klockan] LT',
-        nextWeek: 'dddd [klockan] LT',
-        lastWeek: '[Förra] dddd[en klockan] LT',
+        sameDay: '[Idag] LT',
+        nextDay: '[Imorgon] LT',
+        lastDay: '[Igår] LT',
+        nextWeek: 'dddd LT',
+        lastWeek: '[Förra] dddd[en] LT',
         sameElse: 'L'
     },
     relativeTime : {
