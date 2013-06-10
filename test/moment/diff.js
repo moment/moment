@@ -4,40 +4,32 @@ function equal(test, a, b, message) {
     test.ok(Math.abs(a - b) < 0.00000001, "(" + a + " === " + b + ") " + message);
 }
 
-function findDSTNear(start_position) {
-    var dstTime = moment(start_position), i, next;
-    for (i = 0; i < 12; ++i) {
-        next = dstTime.clone().add(1, 'month');
-        if (dstTime.zone() !== next.zone()) {
+function dstForYear(year) {
+    var start = moment([year]),
+        end = moment([year + 1]),
+        current = start.clone(),
+        last;
+
+    while (current < end) {
+        last = current.clone();
+        current.add(24, 'hour');
+        if (last.zone() !== current.zone()) {
+            end = current.clone();
+            current = last.clone();
             break;
         }
-        dstTime = next;
     }
 
-    if (i === 12) {
-        return null;
-    }
-
-    for (;;) {
-        next = dstTime.clone().add(1, 'day');
-        if (dstTime.zone() !== next.zone()) {
-            break;
+    while (current < end) {
+        last = current.clone();
+        current.add(1, 'hour');
+        if (last.zone() !== current.zone()) {
+            return {
+                moment : last,
+                diff : (last.zone() - current.zone()) / 60
+            };
         }
-        dstTime = next;
     }
-
-    for (;;) {
-        next = dstTime.clone().add(1, 'hour');
-        if (dstTime.zone() !== next.zone()) {
-            break;
-        }
-        dstTime = next;
-    }
-
-    return {
-        moment : dstTime,
-        diff : (next.zone() - dstTime.zone()) / 60.0,
-    };
 }
 
 exports.diff = {
@@ -127,7 +119,7 @@ exports.diff = {
     },
 
     "diff across DST" : function(test) {
-        var dst = findDSTNear(moment([2012, 0, 1])), a, b, daysInMonth;
+        var dst = dstForYear(2012), a, b, daysInMonth;
         if (!dst) {
             console.log("No DST?");
             test.done();
