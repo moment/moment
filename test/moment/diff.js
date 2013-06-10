@@ -127,37 +127,39 @@ exports.diff = {
     },
 
     "diff across DST" : function(test) {
-        var dst = findDSTNear(moment([2012, 0, 1])), a, b;
+        var dst = findDSTNear(moment([2012, 0, 1])), a, b, daysInMonth;
         if (!dst) {
             console.log("No DST?");
             test.done();
             return;
         }
 
-        test.expect(12);
+        test.expect(16);
 
         a = dst.moment;
         b = a.clone().utc().add(12, 'hours').local();
-        equal(test, b.diff(a, 'ms', true), 12 * 60 * 60 * 1000, "ms diff across DST");
-        equal(test, b.diff(a, 's', true),  12 * 60 * 60,        "second diff across DST");
-        equal(test, b.diff(a, 'm', true),  12 * 60,             "minute diff across DST");
-        equal(test, b.diff(a, 'h', true),  12,                  "hour diff across DST");
-        equal(test, b.diff(a, 'd', true),  (12 - dst.diff) / 24,      "day diff across DST");
-        equal(test, b.diff(a, 'w', true),  (12 - dst.diff) / 24 / 7,  "week diff across DST");
-        // equal(test, b.diff(a, 'M', true),  (12 - dst.diff) / 24 / 30, "month diff across DST");
-        // equal(test, b.diff(a, 'y', true),  (12 - dst.diff) / 24 / 372,     "year diff across DST");
+        daysInMonth = (a.daysInMonth() + b.daysInMonth()) / 2;
+        equal(test, b.diff(a, 'ms', true), 12 * 60 * 60 * 1000,                         "ms diff across DST");
+        equal(test, b.diff(a, 's', true),  12 * 60 * 60,                                "second diff across DST");
+        equal(test, b.diff(a, 'm', true),  12 * 60,                                     "minute diff across DST");
+        equal(test, b.diff(a, 'h', true),  12,                                          "hour diff across DST");
+        equal(test, b.diff(a, 'd', true),  (12 - dst.diff) / 24,                        "day diff across DST");
+        equal(test, b.diff(a, 'w', true),  (12 - dst.diff) / 24 / 7,                    "week diff across DST");
+        equal(test, b.diff(a, 'M', true),  (12 - dst.diff) / 24 / daysInMonth,          "month diff across DST");
+        equal(test, b.diff(a, 'y', true),  (12 - dst.diff) / 24 / daysInMonth / 12,     "year diff across DST");
 
 
         a = dst.moment;
         b = a.clone().utc().add(12 + dst.diff, 'hours').local();
-        equal(test, b.diff(a, 'ms', true), (12 + dst.diff) * 60 * 60 * 1000, "ms diff across DST");
-        equal(test, b.diff(a, 's', true),  (12 + dst.diff) * 60 * 60,        "second diff across DST");
-        equal(test, b.diff(a, 'm', true),  (12 + dst.diff) * 60,             "minute diff across DST");
-        equal(test, b.diff(a, 'h', true),  (12 + dst.diff),                  "hour diff across DST");
-        equal(test, b.diff(a, 'd', true),  12 / 24,     "day diff across DST");
-        equal(test, b.diff(a, 'w', true),  12 / 24 / 7, "week diff across DST");
-        // equal(test, b.diff(a, 'M', true),  (12 - dst.diff) / 24 / 30, "month diff across DST");
-        // equal(test, b.diff(a, 'y', true),  12 / 24 / 372, "year diff across DST");
+        daysInMonth = (a.daysInMonth() + b.daysInMonth()) / 2;
+        equal(test, b.diff(a, 'ms', true), (12 + dst.diff) * 60 * 60 * 1000,   "ms diff across DST");
+        equal(test, b.diff(a, 's', true),  (12 + dst.diff) * 60 * 60,          "second diff across DST");
+        equal(test, b.diff(a, 'm', true),  (12 + dst.diff) * 60,               "minute diff across DST");
+        equal(test, b.diff(a, 'h', true),  (12 + dst.diff),                    "hour diff across DST");
+        equal(test, b.diff(a, 'd', true),  12 / 24,                            "day diff across DST");
+        equal(test, b.diff(a, 'w', true),  12 / 24 / 7,                        "week diff across DST");
+        equal(test, b.diff(a, 'M', true),  12 / 24 / daysInMonth,              "month diff across DST");
+        equal(test, b.diff(a, 'y', true),  12 / 24 / daysInMonth / 12,         "year diff across DST");
 
         test.done();
     },
