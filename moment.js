@@ -1462,10 +1462,10 @@
         },
 
         isoWeekday : function (input) {
-            // iso weeks start on monday, which is 1, so we subtract 1 (and add
-            // 7 for negative mod to work).
-            var weekday = (this._d.getDay() + 6) % 7;
-            return input == null ? weekday : this.add("d", input - weekday);
+            // behaves the same as moment#day except
+            // as a getter, returns 7 instead of 0 (1-7 range instead of 0-6)
+            // as a setter, sunday should belong to the previous week.
+            return input == null ? this.day() || 7 : this.day(this.day() % 7 ? input : input - 7);
         },
 
         // If passed a language key, it will set the language for this
