@@ -591,7 +591,12 @@
             return moment.fn._lang;
         }
         if (!languages[key] && hasModule) {
-            require('./lang/' + key);
+            try {
+                require('./lang/' + key);
+            } catch (e) {
+                // call with no params to set to default
+                return moment.fn._lang;
+            }
         }
         return languages[key];
     }
