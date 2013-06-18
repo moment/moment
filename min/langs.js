@@ -176,6 +176,105 @@ moment.lang('bg', {
 })();
 (function(){
 // moment.js language configuration
+// language : breton (br)
+// author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
+
+function relativeTimeWithMutation(number, withoutSuffix, key) {
+    var format = {
+        'mm': "munutenn",
+        'MM': "miz",
+        'dd': "devezh"
+    };
+    return number + ' ' + mutation(format[key], number);
+}
+
+function specialMutationForYears(number) {
+    switch (lastNumber(number)) {
+    case 1:
+    case 3:
+    case 4:
+    case 5:
+    case 9:
+        return number + ' bloaz';
+    default:
+        return number + ' vloaz';
+    }
+}
+
+function lastNumber(number) {
+    if (number > 9) {
+        return lastNumber(number % 10);
+    }
+    return number;
+}
+
+function mutation(text, number) {
+    if (number === 2) {
+        return softMutation(text);
+    }
+    return text;
+}
+
+function softMutation(text) {
+    var mutationTable = {
+        'm': 'v',
+        'b': 'v',
+        'd': 'z'
+    };
+    if (mutationTable[text.charAt(0)] === undefined) {
+        return text;
+    }
+    return mutationTable[text.charAt(0)] + text.substring(1);
+}
+
+moment.lang('br', {
+    months : "Genver_C'hwevrer_Meurzh_Ebrel_Mae_Mezheven_Gouere_Eost_Gwengolo_Here_Du_Kerzu".split("_"),
+    monthsShort : "Gen_C'hwe_Meu_Ebr_Mae_Eve_Gou_Eos_Gwe_Her_Du_Ker".split("_"),
+    weekdays : "Sul_Lun_Meurzh_Merc'her_Yaou_Gwener_Sadorn".split("_"),
+    weekdaysShort : "Sul_Lun_Meu_Mer_Yao_Gwe_Sad".split("_"),
+    weekdaysMin : "Su_Lu_Me_Mer_Ya_Gw_Sa".split("_"),
+    longDateFormat : {
+        LT : "h[e]mm A",
+        L : "DD/MM/YYYY",
+        LL : "D [a viz] MMMM YYYY",
+        LLL : "D [a viz] MMMM YYYY LT",
+        LLLL : "dddd, D [a viz] MMMM YYYY LT"
+    },
+    calendar : {
+        sameDay : '[Hiziv da] LT',
+        nextDay : '[Warc\'hoazh da] LT',
+        nextWeek : 'dddd [da] LT',
+        lastDay : '[Dec\'h da] LT',
+        lastWeek : 'dddd [paset da] LT',
+        sameElse : 'L'
+    },
+    relativeTime : {
+        future : "a-benn %s",
+        past : "%s 'zo",
+        s : "un nebeud segondennoù",
+        m : "ur vunutenn",
+        mm : relativeTimeWithMutation,
+        h : "un eur",
+        hh : "%d eur",
+        d : "un devezh",
+        dd : relativeTimeWithMutation,
+        M : "ur miz",
+        MM : relativeTimeWithMutation,
+        y : "ur bloaz",
+        yy : specialMutationForYears
+    },
+    ordinal : function (number) {
+        var output = (number === 1) ? 'añ' : 'vet';
+        return number + output;
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
+    }
+});
+})();
+(function(){
+// moment.js language configuration
 // language : catalan (ca)
 // author : Juan G. Hurtado : https://github.com/juanghurtado
 
@@ -661,7 +760,7 @@ moment.lang('en-gb', {
     weekdaysShort : "Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),
     weekdaysMin : "Su_Mo_Tu_We_Th_Fr_Sa".split("_"),
     longDateFormat : {
-        LT : "h:mm A",
+        LT : "HH:mm",
         L : "DD/MM/YYYY",
         LL : "D MMMM YYYY",
         LLL : "D MMMM YYYY LT",
@@ -1120,7 +1219,7 @@ moment.lang('fr', {
 // author : Juan G. Hurtado : https://github.com/juanghurtado
 
 moment.lang('gl', {
-    months : "Xaneiro_Febreiro_Marzo_Abril_Maio_Xuño_Xullo_Agosto_Setembro_Octubro_Novembro_Decembro".split("_"),
+    months : "Xaneiro_Febreiro_Marzo_Abril_Maio_Xuño_Xullo_Agosto_Setembro_Outubro_Novembro_Decembro".split("_"),
     monthsShort : "Xan._Feb._Mar._Abr._Mai._Xuñ._Xul._Ago._Set._Out._Nov._Dec.".split("_"),
     weekdays : "Domingo_Luns_Martes_Mércores_Xoves_Venres_Sábado".split("_"),
     weekdaysShort : "Dom._Lun._Mar._Mér._Xov._Ven._Sáb.".split("_"),
@@ -1134,10 +1233,10 @@ moment.lang('gl', {
     },
     calendar : {
         sameDay : function () {
-            return '[hoxe ' + ((this.hours() !== 1) ? 'ás' : 'a') + '] LT';
+            return '[hoxe ' + ((this.hours() !== 1) ? 'ás' : 'á') + '] LT';
         },
         nextDay : function () {
-            return '[mañá ' + ((this.hours() !== 1) ? 'ás' : 'a') + '] LT';
+            return '[mañá ' + ((this.hours() !== 1) ? 'ás' : 'á') + '] LT';
         },
         nextWeek : function () {
             return 'dddd [' + ((this.hours() !== 1) ? 'ás' : 'a') + '] LT';
@@ -1151,9 +1250,14 @@ moment.lang('gl', {
         sameElse : 'L'
     },
     relativeTime : {
-        future : "en %s",
-        past : "fai %s",
-        s : "uns segundo",
+        future : function (str) {
+            if (str === "uns segundos") {
+                return "nuns segundos";
+            }
+            return "en " + str;
+        },
+        past : "hai %s",
+        s : "uns segundos",
         m : "un minuto",
         mm : "%d minutos",
         h : "unha hora",
@@ -1357,7 +1461,7 @@ function translate(number, withoutSuffix, key, isFuture) {
 }
 
 function week(isFuture) {
-    return (isFuture ? '' : 'múlt ') + '[' + weekEndings[this.day()] + '] LT[-kor]';
+    return (isFuture ? '' : '[múlt] ') + '[' + weekEndings[this.day()] + '] LT[-kor]';
 }
 
 moment.lang('hu', {
@@ -1585,6 +1689,7 @@ moment.lang('is', {
 // moment.js language configuration
 // language : italian (it)
 // author : Lorenzo : https://github.com/aliem
+// author: Mattia Larentis: https://github.com/nostalgiaz
 
 moment.lang('it', {
     months : "Gennaio_Febbraio_Marzo_Aprile_Maggio_Giugno_Luglio_Agosto_Settembre_Ottobre_Novembre_Dicembre".split("_"),
@@ -1608,7 +1713,9 @@ moment.lang('it', {
         sameElse: 'L'
     },
     relativeTime : {
-        future : "in %s",
+        future : function (s) {
+            return ((/^[0-9].+$/).test(s) ? "tra" : "in") + " " + s;
+        },
         past : "%s fa",
         s : "secondi",
         m : "un minuto",
@@ -2210,6 +2317,9 @@ moment.lang('nn', {
 // language : polish (pl)
 // author : Rafal Hirsz : https://github.com/evoL
 
+var monthsNominative = "styczeń_luty_marzec_kwiecień_maj_czerwiec_lipiec_sierpień_wrzesień_październik_listopad_grudzień".split("_"),
+    monthsSubjective = "stycznia_lutego_marca_kwietnia_maja_czerwca_lipca_sierpnia_września_października_listopada_grudnia".split("_");
+
 function plural(n) {
     return (n % 10 < 5) && (n % 10 > 1) && (~~(n / 10) !== 1);
 }
@@ -2233,14 +2343,20 @@ function translate(number, withoutSuffix, key) {
 }
 
 moment.lang('pl', {
-    months : "styczeń_luty_marzec_kwiecień_maj_czerwiec_lipiec_sierpień_wrzesień_październik_listopad_grudzień".split("_"),
+    months : function (momentToFormat, format) {
+        if (/D MMMM/.test(format)) {
+            return monthsSubjective[momentToFormat.month()];
+        } else {
+            return monthsNominative[momentToFormat.month()];
+        }
+    },
     monthsShort : "sty_lut_mar_kwi_maj_cze_lip_sie_wrz_paź_lis_gru".split("_"),
     weekdays : "niedziela_poniedziałek_wtorek_środa_czwartek_piątek_sobota".split("_"),
     weekdaysShort : "nie_pon_wt_śr_czw_pt_sb".split("_"),
     weekdaysMin : "N_Pn_Wt_Śr_Cz_Pt_So".split("_"),
     longDateFormat : {
         LT : "HH:mm",
-        L : "DD-MM-YYYY",
+        L : "DD.MM.YYYY",
         LL : "D MMMM YYYY",
         LLL : "D MMMM YYYY LT",
         LLLL : "dddd, D MMMM YYYY LT"
@@ -2849,11 +2965,11 @@ moment.lang('sv', {
         LLLL : "dddd D MMMM YYYY LT"
     },
     calendar : {
-        sameDay: '[Idag klockan] LT',
-        nextDay: '[Imorgon klockan] LT',
-        lastDay: '[Igår klockan] LT',
-        nextWeek: 'dddd [klockan] LT',
-        lastWeek: '[Förra] dddd[en klockan] LT',
+        sameDay: '[Idag] LT',
+        nextDay: '[Imorgon] LT',
+        lastDay: '[Igår] LT',
+        nextWeek: 'dddd LT',
+        lastWeek: '[Förra] dddd[en] LT',
         sameElse: 'L'
     },
     relativeTime : {
@@ -3128,12 +3244,15 @@ function relativeTimeWithPlural(number, withoutSuffix, key) {
     var format = {
         'mm': 'хвилина_хвилини_хвилин',
         'hh': 'година_години_годин',
-        'dd': 'день_дня_днів',
-        'MM': 'місяць_місяця_місяців',
+        'dd': 'день_дні_днів',
+        'MM': 'місяць_місяці_місяців',
         'yy': 'рік_роки_років'
     };
     if (key === 'm') {
         return withoutSuffix ? 'хвилина' : 'хвилину';
+    }
+    else if (key === 'h') {
+        return withoutSuffix ? 'година' : 'годину';
     }
     else {
         return number + ' ' + plural(format[key], +number);
@@ -3169,6 +3288,12 @@ function weekdaysCaseReplace(m, format) {
     return weekdays[nounCase][m.day()];
 }
 
+function processHoursFunction(str) {
+    return function () {
+        return str + 'о' + (this.hours() === 11 ? 'б' : '') + '] LT';
+    };
+}
+
 moment.lang('uk', {
     months : monthsCaseReplace,
     monthsShort : "січ_лют_бер_кві_тра_чер_лип_сер_вер_жов_лис_гру".split("_"),
@@ -3183,21 +3308,21 @@ moment.lang('uk', {
         LLLL : "dddd, D MMMM YYYY р., LT"
     },
     calendar : {
-        sameDay: '[Сьогодні о] LT',
-        nextDay: '[Завтра о] LT',
-        lastDay: '[Вчора о] LT',
-        nextWeek: '[У] dddd [о] LT',
+        sameDay: processHoursFunction('[Сьогодні '),
+        nextDay: processHoursFunction('[Завтра '),
+        lastDay: processHoursFunction('[Вчора '),
+        nextWeek: processHoursFunction('[У] dddd ['),
         lastWeek: function () {
             switch (this.day()) {
             case 0:
             case 3:
             case 5:
             case 6:
-                return '[Минулої] dddd [о] LT';
+                return processHoursFunction('[Минулої] dddd [').call(this);
             case 1:
             case 2:
             case 4:
-                return '[Минулого] dddd [о] LT';
+                return processHoursFunction('[Минулого] dddd [').call(this);
             }
         },
         sameElse: 'L'
