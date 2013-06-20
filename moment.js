@@ -254,6 +254,9 @@
             seconds = duration.seconds || duration.second || duration.s || 0,
             milliseconds = duration.milliseconds || duration.millisecond || duration.ms || 0;
 
+        // store reference to input for deterministic cloning
+        this._input = duration;
+
         // representation for dateAddRemove
         this._milliseconds = milliseconds +
             seconds * 1e3 + // 1000
@@ -1070,7 +1073,7 @@
     moment.duration = function (input, key) {
         var isDuration = moment.isDuration(input),
             isNumber = (typeof input === 'number'),
-            duration = (isDuration ? input._data : (isNumber ? {} : input)),
+            duration = (isDuration ? input._input : (isNumber ? {} : input)),
             matched = aspNetTimeSpanJsonRegex.exec(input),
             sign,
             ret;
