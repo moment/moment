@@ -27,9 +27,6 @@
         formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,
         localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?|l{1,4})/g,
 
-        // parsing tokens
-        parseMultipleFormatChunker = /([0-9a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)/gi,
-
         // parsing token regexes
         parseTokenOneOrTwoDigits = /\d\d?/, // 0 - 99
         parseTokenOneToThreeDigits = /\d{1,3}/, // 0 - 999
@@ -719,8 +716,7 @@
 
     // function to convert string input to date
     function addTimeToArrayFromToken(token, input, config) {
-        var a, b,
-            datePartArray = config._a;
+        var a, datePartArray = config._a;
 
         switch (token) {
         // MONTH
@@ -1120,8 +1116,6 @@
     // no arguments are passed in, it will simply return the current global
     // language key.
     moment.lang = function (key, values) {
-        var i;
-
         if (!key) {
             return moment.fn._lang._abbr;
         }
