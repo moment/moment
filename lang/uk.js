@@ -110,8 +110,21 @@ require('../moment').lang('uk', {
         y : "рік",
         yy : relativeTimeWithPlural
     },
-    // FIXME: this is not Ukrainian ordinals format
-    ordinal : '%d.',
+    ordinal: function (number, period) {
+        switch (period) {
+        case 'M':
+        case 'd':
+        case 'DDD':
+        case 'w':
+        case 'W':
+            return number + '-й';
+        case 'D':
+            return number + '-го';
+        default:
+            return number;
+        }
+    },
+
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.

@@ -42,20 +42,20 @@ exports["lang:ru"] = {
         test.expect(22);
 
         var a = [
-                ['dddd, MMMM Do YYYY, h:mm:ss a',      'воскресенье, февраль 14. 2010, 3:25:50 pm'],
+                ['dddd, Do MMMM YYYY, HH:mm:ss',       'воскресенье, 14-го февраля 2010, 15:25:50'],
                 ['ddd, hA',                            'вск, 3PM'],
-                ['M Mo MM MMMM MMM',                   '2 2. 02 февраль фев'],
+                ['M Mo MM MMMM MMM',                   '2 2-й 02 февраль фев'],
                 ['YYYY YY',                            '2010 10'],
-                ['D Do DD',                            '14 14. 14'],
-                ['d do dddd ddd dd',                   '0 0. воскресенье вск вс'],
-                ['DDD DDDo DDDD',                      '45 45. 045'],
-                ['w wo ww',                            '7 7. 07'],
+                ['D Do DD',                            '14 14-го 14'],
+                ['d do dddd ddd dd',                   '0 0-й воскресенье вск вс'],
+                ['DDD DDDo DDDD',                      '45 45-й 045'],
+                ['w wo ww',                            '7 7-я 07'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
-                ['[the] DDDo [day of the year]',       'the 45. day of the year'],
+                ['DDDo [день года]',                   '45-й день года'],
                 ['L',                                  '14.02.2010'],
                 ['LL',                                 '14 февраля 2010 г.'],
                 ['LLL',                                '14 февраля 2010 г., 15:25'],
@@ -76,40 +76,40 @@ exports["lang:ru"] = {
     "format ordinal" : function(test) {
         test.expect(31);
 
-        test.equal(moment([2011, 0, 1]).format('DDDo'), '1.', '1.');
-        test.equal(moment([2011, 0, 2]).format('DDDo'), '2.', '2.');
-        test.equal(moment([2011, 0, 3]).format('DDDo'), '3.', '3.');
-        test.equal(moment([2011, 0, 4]).format('DDDo'), '4.', '4.');
-        test.equal(moment([2011, 0, 5]).format('DDDo'), '5.', '5.');
-        test.equal(moment([2011, 0, 6]).format('DDDo'), '6.', '6.');
-        test.equal(moment([2011, 0, 7]).format('DDDo'), '7.', '7.');
-        test.equal(moment([2011, 0, 8]).format('DDDo'), '8.', '8.');
-        test.equal(moment([2011, 0, 9]).format('DDDo'), '9.', '9.');
-        test.equal(moment([2011, 0, 10]).format('DDDo'), '10.', '10.');
+        test.equal(moment([2011, 0, 1]).format('DDDo'), '1-й', '1-й');
+        test.equal(moment([2011, 0, 2]).format('DDDo'), '2-й', '2-й');
+        test.equal(moment([2011, 0, 3]).format('DDDo'), '3-й', '3-й');
+        test.equal(moment([2011, 0, 4]).format('DDDo'), '4-й', '4-й');
+        test.equal(moment([2011, 0, 5]).format('DDDo'), '5-й', '5-й');
+        test.equal(moment([2011, 0, 6]).format('DDDo'), '6-й', '6-й');
+        test.equal(moment([2011, 0, 7]).format('DDDo'), '7-й', '7-й');
+        test.equal(moment([2011, 0, 8]).format('DDDo'), '8-й', '8-й');
+        test.equal(moment([2011, 0, 9]).format('DDDo'), '9-й', '9-й');
+        test.equal(moment([2011, 0, 10]).format('DDDo'), '10-й', '10-й');
 
-        test.equal(moment([2011, 0, 11]).format('DDDo'), '11.', '11.');
-        test.equal(moment([2011, 0, 12]).format('DDDo'), '12.', '12.');
-        test.equal(moment([2011, 0, 13]).format('DDDo'), '13.', '13.');
-        test.equal(moment([2011, 0, 14]).format('DDDo'), '14.', '14.');
-        test.equal(moment([2011, 0, 15]).format('DDDo'), '15.', '15.');
-        test.equal(moment([2011, 0, 16]).format('DDDo'), '16.', '16.');
-        test.equal(moment([2011, 0, 17]).format('DDDo'), '17.', '17.');
-        test.equal(moment([2011, 0, 18]).format('DDDo'), '18.', '18.');
-        test.equal(moment([2011, 0, 19]).format('DDDo'), '19.', '19.');
-        test.equal(moment([2011, 0, 20]).format('DDDo'), '20.', '20.');
+        test.equal(moment([2011, 0, 11]).format('DDDo'), '11-й', '11-й');
+        test.equal(moment([2011, 0, 12]).format('DDDo'), '12-й', '12-й');
+        test.equal(moment([2011, 0, 13]).format('DDDo'), '13-й', '13-й');
+        test.equal(moment([2011, 0, 14]).format('DDDo'), '14-й', '14-й');
+        test.equal(moment([2011, 0, 15]).format('DDDo'), '15-й', '15-й');
+        test.equal(moment([2011, 0, 16]).format('DDDo'), '16-й', '16-й');
+        test.equal(moment([2011, 0, 17]).format('DDDo'), '17-й', '17-й');
+        test.equal(moment([2011, 0, 18]).format('DDDo'), '18-й', '18-й');
+        test.equal(moment([2011, 0, 19]).format('DDDo'), '19-й', '19-й');
+        test.equal(moment([2011, 0, 20]).format('DDDo'), '20-й', '20-й');
 
-        test.equal(moment([2011, 0, 21]).format('DDDo'), '21.', '21.');
-        test.equal(moment([2011, 0, 22]).format('DDDo'), '22.', '22.');
-        test.equal(moment([2011, 0, 23]).format('DDDo'), '23.', '23.');
-        test.equal(moment([2011, 0, 24]).format('DDDo'), '24.', '24.');
-        test.equal(moment([2011, 0, 25]).format('DDDo'), '25.', '25.');
-        test.equal(moment([2011, 0, 26]).format('DDDo'), '26.', '26.');
-        test.equal(moment([2011, 0, 27]).format('DDDo'), '27.', '27.');
-        test.equal(moment([2011, 0, 28]).format('DDDo'), '28.', '28.');
-        test.equal(moment([2011, 0, 29]).format('DDDo'), '29.', '29.');
-        test.equal(moment([2011, 0, 30]).format('DDDo'), '30.', '30.');
+        test.equal(moment([2011, 0, 21]).format('DDDo'), '21-й', '21-й');
+        test.equal(moment([2011, 0, 22]).format('DDDo'), '22-й', '22-й');
+        test.equal(moment([2011, 0, 23]).format('DDDo'), '23-й', '23-й');
+        test.equal(moment([2011, 0, 24]).format('DDDo'), '24-й', '24-й');
+        test.equal(moment([2011, 0, 25]).format('DDDo'), '25-й', '25-й');
+        test.equal(moment([2011, 0, 26]).format('DDDo'), '26-й', '26-й');
+        test.equal(moment([2011, 0, 27]).format('DDDo'), '27-й', '27-й');
+        test.equal(moment([2011, 0, 28]).format('DDDo'), '28-й', '28-й');
+        test.equal(moment([2011, 0, 29]).format('DDDo'), '29-й', '29-й');
+        test.equal(moment([2011, 0, 30]).format('DDDo'), '30-й', '30-й');
 
-        test.equal(moment([2011, 0, 31]).format('DDDo'), '31.', '31.');
+        test.equal(moment([2011, 0, 31]).format('DDDo'), '31-й', '31-й');
         test.done();
     },
 
@@ -382,11 +382,11 @@ exports["lang:ru"] = {
     "weeks year starting sunday formatted" : function(test) {
         test.expect(5);
 
-        test.equal(moment([2011, 11, 26]).format('w ww wo'), '1 01 1.', "Dec 26 2011 should be week 1");
-        test.equal(moment([2012,  0,  1]).format('w ww wo'), '1 01 1.', "Jan  1 2012 should be week 1");
-        test.equal(moment([2012,  0,  2]).format('w ww wo'), '2 02 2.', "Jan  2 2012 should be week 2");
-        test.equal(moment([2012,  0,  8]).format('w ww wo'), '2 02 2.', "Jan  8 2012 should be week 2");
-        test.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 3.', "Jan  9 2012 should be week 3");
+        test.equal(moment([2011, 11, 26]).format('w ww wo'), '1 01 1-я', "Dec 26 2011 should be week 1");
+        test.equal(moment([2012,  0,  1]).format('w ww wo'), '1 01 1-я', "Jan  1 2012 should be week 1");
+        test.equal(moment([2012,  0,  2]).format('w ww wo'), '2 02 2-я', "Jan  2 2012 should be week 2");
+        test.equal(moment([2012,  0,  8]).format('w ww wo'), '2 02 2-я', "Jan  8 2012 should be week 2");
+        test.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 3-я', "Jan  9 2012 should be week 3");
 
         test.done();
     }
