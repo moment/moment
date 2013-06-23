@@ -27,9 +27,6 @@
         formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,
         localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?|l{1,4})/g,
 
-        // parsing tokens
-        parseMultipleFormatChunker = /([0-9a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)/gi,
-
         // parsing token regexes
         parseTokenOneOrTwoDigits = /\d\d?/, // 0 - 99
         parseTokenOneToThreeDigits = /\d{1,3}/, // 0 - 999
@@ -591,7 +588,12 @@
             return moment.fn._lang;
         }
         if (!languages[key] && hasModule) {
-            require('./lang/' + key);
+            try {
+                require('./lang/' + key);
+            } catch (e) {
+                // call with no params to set to default
+                return moment.fn._lang;
+            }
         }
         return languages[key];
     }
@@ -714,8 +716,7 @@
 
     // function to convert string input to date
     function addTimeToArrayFromToken(token, input, config) {
-        var a, b,
-            datePartArray = config._a;
+        var a, datePartArray = config._a;
 
         switch (token) {
         // MONTH
@@ -847,6 +848,12 @@
                 addTimeToArrayFromToken(tokens[i], parsedInput, config);
             }
         }
+
+        // add remaining unparsed input to the string
+        if (string) {
+            config._il = string;
+        }
+
         // handle am pm
         if (config._isPm && config._a[3] < 12) {
             config._a[3] += 12;
@@ -877,6 +884,12 @@
 
             currentScore = compareArrays(tempConfig._a, tempMoment.toArray());
 
+            // if there is any input that was not parsed
+            // add a penalty for that format
+            if (tempMoment._il) {
+                currentScore += tempMoment._il.length;
+            }
+
             if (currentScore < scoreToBeat) {
                 scoreToBeat = currentScore;
                 bestMoment = tempMoment;
@@ -889,9 +902,12 @@
     // date from iso format
     function makeDateFromString(config) {
         var i,
-            string = config._i;
-        if (isoRegex.exec(string)) {
-            config._f = 'YYYY-MM-DDT';
+            string = config._i,
+            match = isoRegex.exec(string);
+
+        if (match) {
+            // match[2] should be "T" or undefined
+            config._f = 'YYYY-MM-DD' + (match[2] || " ");
             for (i = 0; i < 4; i++) {
                 if (isoTimes[i][1].exec(string)) {
                     config._f += isoTimes[i][0];
@@ -1100,8 +1116,6 @@
     // no arguments are passed in, it will simply return the current global
     // language key.
     moment.lang = function (key, values) {
-        var i;
-
         if (!key) {
             return moment.fn._lang._abbr;
         }
@@ -1234,19 +1248,27 @@
             units = normalizeUnits(units);
 
             if (units === 'year' || units === 'month') {
+                // average number of days in the months in the given dates
                 diff = (this.daysInMonth() + that.daysInMonth()) * 432e5; // 24 * 60 * 60 * 1000 / 2
+                // difference in months
                 output = ((this.year() - that.year()) * 12) + (this.month() - that.month());
-                output += ((this - moment(this).startOf('month')) - (that - moment(that).startOf('month'))) / diff;
+                // adjust by taking difference in days, average number of days
+                // and dst in the given months.
+                output += ((this - moment(this).startOf('month')) -
+                        (that - moment(that).startOf('month'))) / diff;
+                // same as above but with zones, to negate all dst
+                output -= ((this.zone() - moment(this).startOf('month').zone()) -
+                        (that.zone() - moment(that).startOf('month').zone())) * 6e4 / diff;
                 if (units === 'year') {
                     output = output / 12;
                 }
             } else {
-                diff = (this - that) - zoneDiff;
+                diff = (this - that);
                 output = units === 'second' ? diff / 1e3 : // 1000
                     units === 'minute' ? diff / 6e4 : // 1000 * 60
                     units === 'hour' ? diff / 36e5 : // 1000 * 60 * 60
-                    units === 'day' ? diff / 864e5 : // 1000 * 60 * 60 * 24
-                    units === 'week' ? diff / 6048e5 : // 1000 * 60 * 60 * 24 * 7
+                    units === 'day' ? (diff - zoneDiff) / 864e5 : // 1000 * 60 * 60 * 24, negate dst
+                    units === 'week' ? (diff - zoneDiff) / 6048e5 : // 1000 * 60 * 60 * 24 * 7, negate dst
                     diff;
             }
             return asFloat ? output : absRound(output);
@@ -1439,10 +1461,10 @@
         },
 
         isoWeekday : function (input) {
-            // iso weeks start on monday, which is 1, so we subtract 1 (and add
-            // 7 for negative mod to work).
-            var weekday = (this._d.getDay() + 6) % 7;
-            return input == null ? weekday : this.add("d", input - weekday);
+            // behaves the same as moment#day except
+            // as a getter, returns 7 instead of 0 (1-7 range instead of 0-6)
+            // as a setter, sunday should belong to the previous week.
+            return input == null ? this.day() || 7 : this.day(this.day() % 7 ? input : input - 7);
         },
 
         // If passed a language key, it will set the language for this
@@ -1515,6 +1537,27 @@
             }
 
             return this.lang().postformat(output);
+        },
+
+        add : function (input, val) {
+            // supports only 2.0-style add(1, 's') or add(moment)
+            var dur = moment.duration(input, val);
+
+            this._milliseconds += dur._milliseconds;
+            this._days += dur._days;
+            this._months += dur._months;
+
+            return this;
+        },
+
+        subtract : function (input, val) {
+            var dur = moment.duration(input, val);
+
+            this._milliseconds -= dur._milliseconds;
+            this._days -= dur._days;
+            this._months -= dur._months;
+
+            return this;
         },
 
         get : function (units) {

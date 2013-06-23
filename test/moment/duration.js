@@ -354,5 +354,32 @@ exports.duration = {
         test.ok(!moment.isDuration(moment()), "moment object is not a duration");
         test.ok(!moment.isDuration({milliseconds: 1}), "plain object is not a duration");
         test.done();
+    },
+
+    "add" : function(test) {
+        test.expect(4);
+
+        var d = moment.duration({months: 4, weeks: 3, days: 2});
+        // for some reason, d._data._months does not get updated; use d._months instead.
+        test.equal(d.add(1, 'month')._months, 5, 'Add months');
+        test.equal(d.add(5, 'days')._days, 28, 'Add days');
+        test.equal(d.add(10000)._milliseconds, 10000, 'Add milliseconds');
+        test.equal(d.add({h: 23, m: 59})._milliseconds, 23*60*60*1000 + 59*60*1000 + 10000, 'Add hour:minute');
+
+        test.done();
+    },
+
+    "subtract" : function(test) {
+        test.expect(4);
+
+        var d = moment.duration({months: 2, weeks: 2, days: 0, hours: 5});
+        // for some reason, d._data._months does not get updated; use d._months instead.
+        test.equal(d.subtract(1, 'months')._months, 1, 'Subtract months');
+        test.equal(d.subtract(14, 'days')._days, 0, 'Subtract days');
+        test.equal(d.subtract(10000)._milliseconds, 5*60*60*1000 - 10000, 'Subtract milliseconds');
+        test.equal(d.subtract({h: 1, m: 59})._milliseconds, 3*60*60*1000 + 1*60*1000 - 10000, 'Subtract hour:minute');
+
+        test.done();
     }
+
 };

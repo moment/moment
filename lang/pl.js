@@ -2,6 +2,9 @@
 // language : polish (pl)
 // author : Rafal Hirsz : https://github.com/evoL
 
+var monthsNominative = "styczeń_luty_marzec_kwiecień_maj_czerwiec_lipiec_sierpień_wrzesień_październik_listopad_grudzień".split("_"),
+    monthsSubjective = "stycznia_lutego_marca_kwietnia_maja_czerwca_lipca_sierpnia_września_października_listopada_grudnia".split("_");
+
 function plural(n) {
     return (n % 10 < 5) && (n % 10 > 1) && (~~(n / 10) !== 1);
 }
@@ -25,14 +28,20 @@ function translate(number, withoutSuffix, key) {
 }
 
 require('../moment').lang('pl', {
-    months : "styczeń_luty_marzec_kwiecień_maj_czerwiec_lipiec_sierpień_wrzesień_październik_listopad_grudzień".split("_"),
+    months : function (momentToFormat, format) {
+        if (/D MMMM/.test(format)) {
+            return monthsSubjective[momentToFormat.month()];
+        } else {
+            return monthsNominative[momentToFormat.month()];
+        }
+    },
     monthsShort : "sty_lut_mar_kwi_maj_cze_lip_sie_wrz_paź_lis_gru".split("_"),
     weekdays : "niedziela_poniedziałek_wtorek_środa_czwartek_piątek_sobota".split("_"),
     weekdaysShort : "nie_pon_wt_śr_czw_pt_sb".split("_"),
     weekdaysMin : "N_Pn_Wt_Śr_Cz_Pt_So".split("_"),
     longDateFormat : {
         LT : "HH:mm",
-        L : "DD-MM-YYYY",
+        L : "DD.MM.YYYY",
         LL : "D MMMM YYYY",
         LLL : "D MMMM YYYY LT",
         LLLL : "dddd, D MMMM YYYY LT"

@@ -248,7 +248,7 @@ exports.create = {
     },
 
     "string with array of formats" : function(test) {
-        test.expect(10);
+        test.expect(14);
 
         test.equal(moment('11-02-1999', ['MM-DD-YYYY', 'DD-MM-YYYY']).format('MM DD YYYY'), '11 02 1999', 'switching month and day');
         test.equal(moment('02-11-1999', ['MM/DD/YYYY', 'YYYY-MM-DD', 'MM-DD-YYYY']).format('MM DD YYYY'), '02 11 1999', 'year last');
@@ -256,11 +256,16 @@ exports.create = {
 
         test.equal(moment('02-11-1999', ['MM/DD/YYYY', 'YYYY-MM-DD']).format('MM DD YYYY'), '02 11 1999', 'year last');
         test.equal(moment('1999-02-11', ['MM/DD/YYYY', 'YYYY-MM-DD']).format('MM DD YYYY'), '02 11 1999', 'year first');
+        test.equal(moment('02-11-1999', ['YYYY-MM-DD', 'MM/DD/YYYY']).format('MM DD YYYY'), '02 11 1999', 'year last');
+        test.equal(moment('1999-02-11', ['YYYY-MM-DD', 'MM/DD/YYYY']).format('MM DD YYYY'), '02 11 1999', 'year first');
 
         test.equal(moment('13-11-1999', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'), '11 13 1999', 'second must be month');
         test.equal(moment('11-13-1999', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'), '11 13 1999', 'first must be month');
         test.equal(moment('13-14-1999', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'), '01 14 2000', 'either can be a month, month first format');
         test.equal(moment('13-14-1999', ['DD/MM/YYYY', 'MM/DD/YYYY']).format('MM DD YYYY'), '02 13 2000', 'either can be a month, day first format');
+
+        test.equal(moment('13-14-98', ['DD MM YY', 'DD MM YYYY'])._f, 'DD MM YY', 'use two digit year');
+        test.equal(moment('13-14-1998', ['DD MM YY', 'DD MM YYYY'])._f, 'DD MM YYYY', 'use four digit year');
 
         test.equal(moment('01', ["MM", "DD"])._f, "MM", "Should use first valid format");
 
@@ -350,6 +355,24 @@ exports.create = {
         for (var i = 0; i < formats.length; i++) {
             test.equal(formats[i][1], moment(formats[i][0]).format('YYYY-MM-DDTHH:mm:ss.SSSZ'), "moment should be able to parse ISO " + formats[i][0]);
         }
+        test.done();
+    },
+
+    "parsing iso with T" : function(test) {
+        test.expect(9);
+
+        test.equal(moment('2011-10-08T18')._f, "YYYY-MM-DDTHH", "should include 'T' in the format");
+        test.equal(moment('2011-10-08T18:20')._f, "YYYY-MM-DDTHH:mm", "should include 'T' in the format");
+        test.equal(moment('2011-10-08T18:20:13')._f, "YYYY-MM-DDTHH:mm:ss", "should include 'T' in the format");
+        test.equal(moment('2011-10-08T18:20:13.321')._f, "YYYY-MM-DDTHH:mm:ss.S", "should include 'T' in the format");
+
+        test.equal(moment('2011-10-08 18')._f, "YYYY-MM-DD HH", "should not include 'T' in the format");
+        test.equal(moment('2011-10-08 18:20')._f, "YYYY-MM-DD HH:mm", "should not include 'T' in the format");
+        test.equal(moment('2011-10-08 18:20:13')._f, "YYYY-MM-DD HH:mm:ss", "should not include 'T' in the format");
+        test.equal(moment('2011-10-08 18:20:13.321')._f, "YYYY-MM-DD HH:mm:ss.S", "should not include 'T' in the format");
+
+        test.ok(moment("2013-04-23 15:23:47 UTC").isValid(), "including a trailing UTC in the input should work");
+
         test.done();
     },
 

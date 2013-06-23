@@ -260,13 +260,13 @@ exports.format = {
     "iso weekday formats" : function(test) {
         test.expect(7);
 
-        test.equal(moment([1985, 1,  4]).format('E'), '0', "Feb  4 1985 is Monday    -- 0th day");
-        test.equal(moment([2029, 8, 18]).format('E'), '1', "Sep 18 2029 is Tuesday   -- 1st day");
-        test.equal(moment([2013, 3, 24]).format('E'), '2', "Apr 24 2013 is Wednesday -- 2nd day");
-        test.equal(moment([2015, 2,  5]).format('E'), '3', "Mar  5 2015 is Thursday  -- 3nd day");
-        test.equal(moment([1970, 0,  2]).format('E'), '4', "Jan  2 1970 is Friday    -- 4th day");
-        test.equal(moment([2001, 4, 12]).format('E'), '5', "May 12 2001 is Saturday  -- 5th day");
-        test.equal(moment([2000, 0,  2]).format('E'), '6', "Jan  2 2000 is Sunday    -- 6th day");
+        test.equal(moment([1985, 1,  4]).format('E'), '1', "Feb  4 1985 is Monday    -- 1st day");
+        test.equal(moment([2029, 8, 18]).format('E'), '2', "Sep 18 2029 is Tuesday   -- 2nd day");
+        test.equal(moment([2013, 3, 24]).format('E'), '3', "Apr 24 2013 is Wednesday -- 3rd day");
+        test.equal(moment([2015, 2,  5]).format('E'), '4', "Mar  5 2015 is Thursday  -- 4th day");
+        test.equal(moment([1970, 0,  2]).format('E'), '5', "Jan  2 1970 is Friday    -- 5th day");
+        test.equal(moment([2001, 4, 12]).format('E'), '6', "May 12 2001 is Saturday  -- 6th day");
+        test.equal(moment([2000, 0,  2]).format('E'), '7', "Jan  2 2000 is Sunday    -- 7th day");
 
         test.done();
     },
@@ -283,7 +283,7 @@ exports.format = {
         test.equal(moment([2001, 4, 14]).format('e'), '5', "May 14 2001 is Monday    -- 5th day");
         test.equal(moment([2000, 0,  4]).format('e'), '6', "Jan  4 2000 is Tuesday   -- 6th day");
 
-        test.done()
+        test.done();
     },
 
     "toString is just human readable format" : function(test) {
