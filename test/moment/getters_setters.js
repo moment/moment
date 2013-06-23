@@ -61,7 +61,7 @@ exports.getters_setters = {
     },
 
     "setters" : function(test) {
-        test.expect(8);
+        test.expect(9);
 
         var a = moment();
         a.year(2011);
@@ -79,6 +79,12 @@ exports.getters_setters = {
         test.equal(a.minutes(), 7, 'minute');
         test.equal(a.seconds(), 8, 'second');
         test.equal(a.milliseconds(), 9, 'milliseconds');
+
+        // Test month() behavior. See https://github.com/timrwood/moment/pull/822
+        a = moment('20130531', 'YYYYMMDD');
+        a.month(3);
+        test.equal(a.month(), 3, 'month edge case');
+
         test.done();
     },
 
