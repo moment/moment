@@ -957,7 +957,9 @@
     }
 
     function makeDateFromStringAndStrictFormat(config) {
-        var regexp = '', non_token_start = 0;
+        var regexp = '', non_token_start = 0,
+            tokens = config._f.match(formattingTokens),
+            match, i, tokenIndex;
 
         // var s = config._f;
         // for (var i = 0; i < s.length; ++i) {
@@ -966,12 +968,14 @@
 
         // We're not interested in the result. Just the tokens and their
         // starting positions.
-        config._f.replace(formattingTokens, function(token) {
+        config._f.replace(formattingTokens, function (token) {
             var offset = arguments[arguments.length - 2],
                 tokenRegexp;
 
             if (formatTokenFunctions[token]) {
                 tokenRegexp = getParseRegexForToken(token).toString();
+                // Do not remember groups
+                tokenRegexp = tokenRegexp.replace(/\(/g, '(?:');
                 // this is a real token
 
                 // regexp-escape strings in-between tokens
@@ -982,7 +986,7 @@
 
                 console.log("adding " + tokenRegexp + "### " + tokenRegexp.substring(1, tokenRegexp.lastIndexOf('/')));
                 // add token regexp
-                regexp += tokenRegexp.substring(1, tokenRegexp.lastIndexOf('/'));
+                regexp += '(' + tokenRegexp.substring(1, tokenRegexp.lastIndexOf('/')) + ')';
             } else {
                 console.log("not a token " + token);
             }
@@ -991,15 +995,27 @@
         });
         regexp = new RegExp('^' + regexp + '$');
         console.log(regexp);
-        console.log(config._i.match(regexp));
-        // TODO: non-matching groups in upper regex, put match groups around
-        // regexes, get tokens, parse.
-        // new RegExp(regexp).match(config._i)
+        match = config._i.match(regexp);
+        console.log(match);
+        if (match === null) {
+            return null;
+        }
+
+        config._a = [];
+        for (i = tokenIndex = 0; i < tokens.length; ++i) {
+            if (formatTokenFunctions[tokens[i]]) {
+                addTimeToArrayFromToken(tokens[i], match[tokenIndex + 1], config);
+                ++tokenIndex;
+            }
+        }
+
+        console.log(config._a);
+        dateFromArray(config);
     }
 
     function unescapeFormat(s) {
         console.log("unescaping " + s);
-        return s.replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function(matched, p1, p2, p3, p4) {
+        return s.replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function (matched, p1, p2, p3, p4) {
             console.log(matched, p1, p2, p3, p4);
             return p1 || p2 || p3 || p4;
         });
@@ -1203,7 +1219,7 @@
     }
 
     moment = function (input, format, lang, strict) {
-        if (lang == true) {
+        if (lang === true) {
             lang = undefined;
             strict = true;
         }
@@ -1217,8 +1233,8 @@
     };
 
     // creating with utc
-    moment.utc = function (input, format, lang) {
-        if (lang == true) {
+    moment.utc = function (input, format, lang, strict) {
+        if (lang === true) {
             lang = undefined;
             strict = true;
         }
