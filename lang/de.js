@@ -1,6 +1,21 @@
 // moment.js language configuration
 // language : german (de)
 // author : lluchs : https://github.com/lluchs
+// author: Menelion Elensúle: https://github.com/Oire
+
+function processRelativeTime(number, withoutSuffix, key, isFuture) {
+    var format = {
+        'm': ['eine Minute', 'einer Minute'],
+        'h': ['eine Stunde', 'einer Stunde'],
+        'd': ['ein Tag', 'einem Tag'],
+        'dd': [number + ' Tage', number + ' Tagen'],
+        'M': ['ein Monat', 'einem Monat'],
+        'MM': [number + ' Monate', number + ' Monaten'],
+        'y': ['ein Jahr', 'einem Jahr'],
+        'yy': [number + ' Jahre', number + ' Jahren']
+    };
+    return withoutSuffix ? format[key][0] : format[key][1];
+}
 
 require('../moment').lang('de', {
     months : "Januar_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember".split("_"),
@@ -27,16 +42,16 @@ require('../moment').lang('de', {
         future : "in %s",
         past : "vor %s",
         s : "ein paar Sekunden",
-        m : "einer Minute",
+        m : processRelativeTime,
         mm : "%d Minuten",
-        h : "einer Stunde",
+        h : processRelativeTime,
         hh : "%d Stunden",
-        d : "einem Tag",
-        dd : "%d Tagen",
-        M : "einem Monat",
-        MM : "%d Monaten",
-        y : "einem Jahr",
-        yy : "%d Jahren"
+        d : processRelativeTime,
+        dd : processRelativeTime,
+        M : processRelativeTime,
+        MM : processRelativeTime,
+        y : processRelativeTime,
+        yy : processRelativeTime
     },
     ordinal : '%d.',
     week : {
