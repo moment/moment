@@ -1070,12 +1070,18 @@
     moment.duration = function (input, key) {
         var isDuration = moment.isDuration(input),
             isNumber = (typeof input === 'number'),
-            duration = (isDuration ? input._data : (isNumber ? {} : input)),
+            duration = (isNumber ? {} : input),
             matched = aspNetTimeSpanJsonRegex.exec(input),
             sign,
             ret;
 
-        if (isNumber) {
+        if (isDuration) {
+            duration = {
+                ms: input._milliseconds,
+                d: input._days,
+                M: input._months
+            };
+        } else if (isNumber) {
             if (key) {
                 duration[key] = input;
             } else {
