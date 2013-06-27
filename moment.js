@@ -244,8 +244,7 @@
 
     // Duration Constructor
     function Duration(duration) {
-        var data = this._data = {},
-            years = duration.years || duration.year || duration.y || 0,
+        var years = duration.years || duration.year || duration.y || 0,
             months = duration.months || duration.month || duration.M || 0,
             weeks = duration.weeks || duration.week || duration.w || 0,
             days = duration.days || duration.day || duration.d || 0,
@@ -269,29 +268,9 @@
         this._months = months +
             years * 12;
 
-        // The following code bubbles up values, see the tests for
-        // examples of what that means.
-        data.milliseconds = milliseconds % 1000;
-        seconds += absRound(milliseconds / 1000);
+        this._data = {};
 
-        data.seconds = seconds % 60;
-        minutes += absRound(seconds / 60);
-
-        data.minutes = minutes % 60;
-        hours += absRound(minutes / 60);
-
-        data.hours = hours % 24;
-        days += absRound(hours / 24);
-
-        days += weeks * 7;
-        data.days = days % 30;
-
-        months += absRound(days / 30);
-
-        data.months = months % 12;
-        years += absRound(months / 12);
-
-        data.years = years;
+        this._bubble();
     }
 
 
@@ -1522,6 +1501,36 @@
 
 
     moment.duration.fn = Duration.prototype = {
+        _bubble : function () {
+            var milliseconds = this._milliseconds,
+                days = this._days,
+                months = this._months,
+                data = this._data,
+                seconds, minutes, hours, years;
+
+            // The following code bubbles up values, see the tests for
+            // examples of what that means.
+            data.milliseconds = milliseconds % 1000;
+
+            seconds = absRound(milliseconds / 1000);
+            data.seconds = seconds % 60;
+
+            minutes = absRound(seconds / 60);
+            data.minutes = minutes % 60;
+
+            hours = absRound(minutes / 60);
+            data.hours = hours % 24;
+
+            days += absRound(hours / 24);
+            data.days = days % 30;
+
+            months += absRound(days / 30);
+            data.months = months % 12;
+
+            years = absRound(months / 12);
+            data.years = years;
+        },
+
         weeks : function () {
             return absRound(this.days() / 7);
         },
@@ -1552,6 +1561,8 @@
             this._days += dur._days;
             this._months += dur._months;
 
+            this._bubble();
+
             return this;
         },
 
@@ -1561,6 +1572,8 @@
             this._milliseconds -= dur._milliseconds;
             this._days -= dur._days;
             this._months -= dur._months;
+
+            this._bubble();
 
             return this;
         },

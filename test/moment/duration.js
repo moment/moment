@@ -112,7 +112,7 @@ exports.duration = {
         test.deepEqual(moment.duration(complicated), complicated, "complicated clones are equal");
         test.done();
     },
-    
+
     "instatiation from serialized C# TimeSpan zero" : function(test) {
         test.expect(6);
         test.equal(moment.duration("00:00:00").years(), 0, "0 years");
@@ -123,7 +123,7 @@ exports.duration = {
         test.equal(moment.duration("00:00:00").milliseconds(), 0, "0 milliseconds");
         test.done();
     },
-    
+
     "instatiation from serialized C# TimeSpan with days" : function(test) {
         test.expect(6);
         test.equal(moment.duration("1.02:03:04.9999999").years(), 0, "0 years");
@@ -134,7 +134,7 @@ exports.duration = {
         test.equal(moment.duration("1.02:03:04.9999999").milliseconds(), 999, "999 milliseconds");
         test.done();
     },
-    
+
     "instatiation from serialized C# TimeSpan without days" : function(test) {
         test.expect(6);
         test.equal(moment.duration("01:02:03.9999999").years(), 0, "0 years");
@@ -365,6 +365,28 @@ exports.duration = {
         test.equal(d.add(5, 'days')._days, 28, 'Add days');
         test.equal(d.add(10000)._milliseconds, 10000, 'Add milliseconds');
         test.equal(d.add({h: 23, m: 59})._milliseconds, 23*60*60*1000 + 59*60*1000 + 10000, 'Add hour:minute');
+
+        test.done();
+    },
+
+    "add and bubble" : function(test) {
+        test.expect(4);
+
+        test.equal(moment.duration(1, 'second').add(1000, 'milliseconds').seconds(), 2, 'Adding milliseconds should bubble up to seconds');
+        test.equal(moment.duration(1, 'minute').add(60, 'second').minutes(), 2, 'Adding seconds should bubble up to minutes');
+        test.equal(moment.duration(1, 'hour').add(60, 'minutes').hours(), 2, 'Adding minutes should bubble up to hours');
+        test.equal(moment.duration(1, 'day').add(24, 'hours').days(), 2, 'Adding hours should bubble up to days');
+
+        test.done();
+    },
+
+    "subtract and bubble" : function(test) {
+        test.expect(4);
+
+        test.equal(moment.duration(2, 'second').subtract(1000, 'milliseconds').seconds(), 1, 'Subtracting milliseconds should bubble up to seconds');
+        test.equal(moment.duration(2, 'minute').subtract(60, 'second').minutes(), 1, 'Subtracting seconds should bubble up to minutes');
+        test.equal(moment.duration(2, 'hour').subtract(60, 'minutes').hours(), 1, 'Subtracting minutes should bubble up to hours');
+        test.equal(moment.duration(2, 'day').subtract(24, 'hours').days(), 1, 'Subtracting hours should bubble up to days');
 
         test.done();
     },
