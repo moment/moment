@@ -26,7 +26,7 @@ function dstForYear(year) {
         if (last.zone() !== current.zone()) {
             return {
                 moment : last,
-                diff : (last.zone() - current.zone()) / 60
+                diff : (current.zone() - last.zone()) / 60
             };
         }
     }
@@ -144,6 +144,7 @@ exports.diff = {
         a = dst.moment;
         b = a.clone().utc().add(12 + dst.diff, 'hours').local();
         daysInMonth = (a.daysInMonth() + b.daysInMonth()) / 2;
+
         equal(test, b.diff(a, 'ms', true), (12 + dst.diff) * 60 * 60 * 1000,   "ms diff across DST");
         equal(test, b.diff(a, 's', true),  (12 + dst.diff) * 60 * 60,          "second diff across DST");
         equal(test, b.diff(a, 'm', true),  (12 + dst.diff) * 60,               "minute diff across DST");
