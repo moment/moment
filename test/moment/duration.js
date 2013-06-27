@@ -96,6 +96,7 @@ exports.duration = {
 
     "instantiation from another duration" : function(test) {
         var simple = moment.duration(1234),
+            lengthy = moment.duration(60 * 60 * 24 * 360 * 1e3),
             complicated = moment.duration({
                 years: 2,
                 months: 3,
@@ -107,8 +108,9 @@ exports.duration = {
                 milliseconds: 12
             });
 
-        test.expect(2);
+        test.expect(3);
         test.deepEqual(moment.duration(simple), simple, "simple clones are equal");
+        test.deepEqual(moment.duration(lengthy), lengthy, "lengthy clones are equal");
         test.deepEqual(moment.duration(complicated), complicated, "complicated clones are equal");
         test.done();
     },
