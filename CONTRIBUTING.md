@@ -22,7 +22,7 @@ To contribute, fork the library and install grunt.
 
 You can add tests to the files in `/test/moment` or add a new test file if you are adding a new feature.
 
-To run the tests, do `grunt test` to run all tests.
+To run the tests, do `grunt` to run all tests.
 
 To check the filesize, you can use `grunt size`.
 
