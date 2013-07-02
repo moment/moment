@@ -582,6 +582,21 @@ moment.lang('da', {
 // moment.js language configuration
 // language : german (de)
 // author : lluchs : https://github.com/lluchs
+// author: Menelion Elensúle: https://github.com/Oire
+
+function processRelativeTime(number, withoutSuffix, key, isFuture) {
+    var format = {
+        'm': ['eine Minute', 'einer Minute'],
+        'h': ['eine Stunde', 'einer Stunde'],
+        'd': ['ein Tag', 'einem Tag'],
+        'dd': [number + ' Tage', number + ' Tagen'],
+        'M': ['ein Monat', 'einem Monat'],
+        'MM': [number + ' Monate', number + ' Monaten'],
+        'y': ['ein Jahr', 'einem Jahr'],
+        'yy': [number + ' Jahre', number + ' Jahren']
+    };
+    return withoutSuffix ? format[key][0] : format[key][1];
+}
 
 moment.lang('de', {
     months : "Januar_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember".split("_"),
@@ -608,16 +623,16 @@ moment.lang('de', {
         future : "in %s",
         past : "vor %s",
         s : "ein paar Sekunden",
-        m : "einer Minute",
+        m : processRelativeTime,
         mm : "%d Minuten",
-        h : "einer Stunde",
+        h : processRelativeTime,
         hh : "%d Stunden",
-        d : "einem Tag",
-        dd : "%d Tagen",
-        M : "einem Monat",
-        MM : "%d Monaten",
-        y : "einem Jahr",
-        yy : "%d Jahren"
+        d : processRelativeTime,
+        dd : processRelativeTime,
+        M : processRelativeTime,
+        MM : processRelativeTime,
+        y : processRelativeTime,
+        yy : processRelativeTime
     },
     ordinal : '%d.',
     week : {
@@ -2654,8 +2669,23 @@ moment.lang('ru', {
         y : "год",
         yy : relativeTimeWithPlural
     },
-    // FIXME: this is not Russian ordinals format
-    ordinal : '%d.',
+
+    ordinal: function (number, period) {
+        switch (period) {
+        case 'M':
+        case 'd':
+        case 'DDD':
+            return number + '-й';
+        case 'D':
+            return number + '-го';
+        case 'w':
+        case 'W':
+            return number + '-я';
+        default:
+            return number;
+        }
+    },
+
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
@@ -2943,6 +2973,54 @@ moment.lang('sl', {
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
+    }
+});
+})();
+(function(){
+// moment.js language configuration
+// language : Albanian (sq)
+// author : Flakërim Ismani : https://github.com/flakerimi
+
+moment.lang('sq', {
+    months : "Janar_Shkurt_Mars_Prill_Maj_Qershor_Korrik_Gusht_Shtator_Tetor_Nëntor_Dhjetor".split("_"),
+    monthsShort : "Jan_Shk_Mar_Pri_Maj_Qer_Kor_Gus_Sht_Tet_Nën_Dhj".split("_"),
+    weekdays : "E Diel_E Hënë_E Marte_E Mërkure_E Enjte_E Premte_E Shtunë".split("_"),
+    weekdaysShort : "Die_Hën_Mar_Mer_Enj_Pre_Sht".split("_"),
+    weekdaysMin : "D_H_Ma_Më_E_P_Sh".split("_"),
+    longDateFormat : {
+        LT : "HH:mm",
+        L : "DD/MM/YYYY",
+        LL : "D MMMM YYYY",
+        LLL : "D MMMM YYYY LT",
+        LLLL : "dddd, D MMMM YYYY LT"
+    },
+    calendar : {
+        sameDay : '[Sot në] LT',
+        nextDay : '[Neser në] LT',
+        nextWeek : 'dddd [në] LT',
+        lastDay : '[Dje në] LT',
+        lastWeek : 'dddd [e kaluar] [në] LT',
+        sameElse : 'L'
+    },
+    relativeTime : {
+        future : "në %s",
+        past : "%s me parë",
+        s : "disa seconda",
+        m : "një minut",
+        mm : "%d minutea",
+        h : "një orë",
+        hh : "%d orë",
+        d : "një ditë",
+        dd : "%d ditë",
+        M : "një muaj",
+        MM : "%d muaj",
+        y : "një vit",
+        yy : "%d vite"
+    },
+    ordinal : '%d.',
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 })();
@@ -3342,8 +3420,21 @@ moment.lang('uk', {
         y : "рік",
         yy : relativeTimeWithPlural
     },
-    // FIXME: this is not Ukrainian ordinals format
-    ordinal : '%d.',
+    ordinal: function (number, period) {
+        switch (period) {
+        case 'M':
+        case 'd':
+        case 'DDD':
+        case 'w':
+        case 'W':
+            return number + '-й';
+        case 'D':
+            return number + '-го';
+        default:
+            return number;
+        }
+    },
+
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
