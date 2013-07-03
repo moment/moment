@@ -132,10 +132,10 @@
             // Microsoft Excel 2003 and later uses b or B for Buddhist Calendar
             // http://office.microsoft.com/en-us/excel-help/format-dates-using-alternate-calendars-HP005262656.aspx
             BB   : function () {
-                return leftZeroFill((this.year()+543) % 100, 2);
+                return leftZeroFill((this.year() + 543) % 100, 2);
             },
             BBBB : function () {
-                return leftZeroFill((this.year()+543), 4);
+                return leftZeroFill((this.year() + 543), 4);
             },
             gg   : function () {
                 return leftZeroFill(this.weekYear() % 100, 2);
