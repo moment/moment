@@ -1241,11 +1241,11 @@
                 if (units === 'year') {
                     output = output / 12;
                 }
-            } else if (units == 'hour-decimal') {
+            } else if (units === 'hour-decimal') {
                 asFloat = true;
-                diff = (this - that) - zoneDiff;
+                diff = Math.abs((this - that) - zoneDiff);
                 output = (diff / 6e4) % 60;
-                output = absRound(diff / 36e5) + (output <  4 ?   0 :
+                output = absRound(diff / 36e5) + (output <  4 ? 0 :
                     output < 10 ? 0.1 :
                     output < 16 ? 0.2 :
                     output < 22 ? 0.3 :
@@ -1255,6 +1255,9 @@
                     output < 46 ? 0.7 :
                     output < 52 ? 0.8 :
                     output < 58 ? 0.9 : 1.0);
+                if(this < that) {
+                    output = output * -1;
+                }
             } else {
                 diff = (this - that);
                 output = units === 'second' ? diff / 1e3 : // 1000
