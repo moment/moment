@@ -1,12 +1,13 @@
 // moment.js language configuration
 // language : Albanian (sq)
 // author : Flakërim Ismani : https://github.com/flakerimi
+// author: Menelion Elensúle: https://github.com/Oire (tests)
 
 require('../moment').lang('sq', {
     months : "Janar_Shkurt_Mars_Prill_Maj_Qershor_Korrik_Gusht_Shtator_Tetor_Nëntor_Dhjetor".split("_"),
     monthsShort : "Jan_Shk_Mar_Pri_Maj_Qer_Kor_Gus_Sht_Tet_Nën_Dhj".split("_"),
     weekdays : "E Diel_E Hënë_E Marte_E Mërkure_E Enjte_E Premte_E Shtunë".split("_"),
-    weekdaysShort : "Die_Hën_Mar_Mer_Enj_Pre_Sht".split("_"),
+    weekdaysShort : "Die_Hën_Mar_Mër_Enj_Pre_Sht".split("_"),
     weekdaysMin : "D_H_Ma_Më_E_P_Sh".split("_"),
     longDateFormat : {
         LT : "HH:mm",
@@ -20,7 +21,7 @@ require('../moment').lang('sq', {
         nextDay : '[Neser në] LT',
         nextWeek : 'dddd [në] LT',
         lastDay : '[Dje në] LT',
-        lastWeek : 'dddd [e kaluar] [në] LT',
+        lastWeek : 'dddd [e kaluar në] LT',
         sameElse : 'L'
     },
     relativeTime : {
