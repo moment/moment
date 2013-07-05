@@ -1243,7 +1243,7 @@
                 }
             } else if (units === 'hour-decimal') {
                 asFloat = true;
-                diff = Math.abs((this - that) - zoneDiff);
+                diff = Math.abs(this - that);
                 output = (diff / 6e4) % 60;
                 output = absRound(diff / 36e5) + (output <  4 ? 0 :
                     output < 10 ? 0.1 :
@@ -1255,7 +1255,7 @@
                     output < 46 ? 0.7 :
                     output < 52 ? 0.8 :
                     output < 58 ? 0.9 : 1.0);
-                if(this < that) {
+                if (this < that) {
                     output = output * -1;
                 }
             } else {
