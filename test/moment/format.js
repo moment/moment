@@ -145,9 +145,13 @@ exports.format = {
         test.expect(supportsJson ? 2 : 1);
 
         test.equal(date.toJSON(), "2012-10-09T20:30:40.678Z", "should output ISO8601 on moment.fn.toJSON");
-        test.equal(JSON.stringify({
-            date : date
-        }), '{"date":"2012-10-09T20:30:40.678Z"}', "should output ISO8601 on JSON.stringify");
+
+        if (supportsJson) {
+            test.equal(JSON.stringify({
+                date : date
+            }), '{"date":"2012-10-09T20:30:40.678Z"}', "should output ISO8601 on JSON.stringify");
+        }
+
         test.done();
     },
 
