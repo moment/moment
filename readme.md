@@ -28,21 +28,18 @@ Develop [![Build Status](https://travis-ci.org/timrwood/moment.png?branch=develo
 
 Master [![Build Status](https://travis-ci.org/timrwood/moment.png)](https://travis-ci.org/timrwood/moment)
 
-Upgrading to 1.6.0
-==================
-
-There are a few things being deprecated in the 1.6.0 release.
-
-1. The format tokens `z` and `zz` (timezone abbreviations like EST CST MST etc) will no longer be supported. Due to inconsistent browser support, we are unable to consistently produce this value. See [this issue](https://github.com/timrwood/moment/issues/162) for more background.
-
-2. The method `moment.fn.native` is deprecated in favor of `moment.fn.toDate`. There continue to be issues with Google Closure Compiler throwing errors when using `native`, even in valid instances.
-
-3. The way to customize am/pm strings is being changed. This would only affect you if you created a custom language file. For more information, see [this issue](https://github.com/timrwood/moment/pull/222).
-
-
 Changelog
 =========
 
+### 2.1.0 [See changelog](https://gist.github.com/timrwood/b8c2d90d528eddb53ab5)
+
+Added better week support.
+
+Added ability to set offset with `moment#zone`.
+
+Added ability to set month or weekday from a string.
+
+Added `moment#min` and `moment#max`
 
 ### 2.0.0 [See changelog](https://gist.github.com/timrwood/e72f2eef320ed9e37c51)
 
@@ -121,6 +118,14 @@ Added support for millisecond parsing and formatting tokens (S SS SSS)
 Added a getter for `moment.lang()`
 
 Various bugfixes.
+
+There are a few things deprecated in the 1.6.0 release.
+
+1. The format tokens `z` and `zz` (timezone abbreviations like EST CST MST etc) will no longer be supported. Due to inconsistent browser support, we are unable to consistently produce this value. See [this issue](https://github.com/timrwood/moment/issues/162) for more background.
+
+2. The method `moment.fn.native` is deprecated in favor of `moment.fn.toDate`. There continue to be issues with Google Closure Compiler throwing errors when using `native`, even in valid instances.
+
+3. The way to customize am/pm strings is being changed. This would only affect you if you created a custom language file. For more information, see [this issue](https://github.com/timrwood/moment/pull/222).
 
 ### 1.5.0 [See milestone](https://github.com/timrwood/moment/issues?milestone=10&page=1&state=closed)
 
