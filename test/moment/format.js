@@ -9,6 +9,14 @@ exports.format = {
         test.done();
     },
 
+    "format **YY" : function(test) {
+        test.expect(1);
+
+        var b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
+        test.equal(b.format('**YY'), '2009', '**YY ---> 2009');
+        test.done();
+    },
+
     "format escape brackets" : function(test) {
         test.expect(9);
 

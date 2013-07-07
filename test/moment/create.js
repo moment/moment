@@ -281,6 +281,19 @@ exports.create = {
         test.done();
     },
 
+    "string with format - permissive years" : function(test) {
+        test.expect(8);
+        test.equal(moment('67', '**YY').format('YYYY'), '2067', '67 > 2067');
+        test.equal(moment('68', '**YY').format('YYYY'), '2068', '68 > 2068');
+        test.equal(moment('69', '**YY').format('YYYY'), '1969', '69 > 1969');
+        test.equal(moment('70', '**YY').format('YYYY'), '1970', '70 > 1970');
+        test.equal(moment('1967', '**YY').format('YYYY'), '1967', '1967 > 1967');
+        test.equal(moment('1968', '**YY').format('YYYY'), '1968', '1968 > 1968');
+        test.equal(moment('2069', '**YY').format('YYYY'), '2069', '2069 > 2069');
+        test.equal(moment('2070', '**YY').format('YYYY'), '2070', '2070 > 2070');
+        test.done();
+    },
+
     "implicit cloning" : function(test) {
         test.expect(2);
         var momentA = moment([2011, 10, 10]);
