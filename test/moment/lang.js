@@ -2,7 +2,7 @@ var moment = require("../../moment");
 
 exports.lang = {
     "library getter" : function (test) {
-        test.expect(4);
+        test.expect(5);
 
         moment.lang('en');
         test.equal(moment.lang(), 'en', 'Lang should return en by default');
@@ -16,9 +16,8 @@ exports.lang = {
         moment.lang('en');
         test.equal(moment.lang(), 'en', 'Lang should reset');
 
-        // TODO: Uncomment this when its fixed.
-        // moment.lang('does-not-exist');
-        // test.equal(moment.lang(), 'en', 'Lang should reset');
+        moment.lang('does-not-exist');
+        test.equal(moment.lang(), 'en', 'Lang should reset');
 
         test.done();
     },
