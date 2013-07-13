@@ -574,7 +574,7 @@
                 return moment.fn._lang;
             }
         }
-        return languages[key];
+        return languages[key] || moment.fn._lang;
     }
 
 
