@@ -9,11 +9,12 @@ exports.format = {
         test.done();
     },
 
-    "format BB" : function(test) {
-        test.expect(1);
+    "format BB,BBBB" : function(test) {
+        test.expect(2);
 
         var b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
         test.equal(b.format('BB'), '52', 'BB ---> 52');
+        test.equal(b.format('BBBB'), '2552', 'BBBB ---> 2552');
         test.done();
     },
 
