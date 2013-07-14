@@ -303,6 +303,7 @@ exports.format = {
 
         moment.lang('postformat', {postformat: function(s) { s.replace(/./g, 'X') }});
         test.equal(moment.utc([2000, 0, 1]).toJSON(), "2000-01-01T00:00:00.000Z", "toJSON doesn't postformat");
+        moment.lang('postformat', null);
         test.done();
     }
 };

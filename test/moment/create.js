@@ -458,6 +458,7 @@ exports.create = {
 
         test.equal(moment('2012 july', 'YYYY MMM', 'en').month(), 6, "should be able to parse in a specific language");
 
+        moment.lang('parselang', null);
         test.done();
     }
 };
