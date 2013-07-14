@@ -65,6 +65,7 @@ module.exports = function (grunt) {
         },
         jshint: {
             all: ["Gruntfile.js", "moment.js", "lang/**/*.js"],
+            test: ["test/moment/*.js"],
             options: {
                 "node"     : true,
                 "browser"  : true,

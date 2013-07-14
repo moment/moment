@@ -1,31 +1,31 @@
 var moment = require("../../moment");
 
 exports.is_before = {
-    "is after without units" : function(test) {
+    "is after without units" : function (test) {
         test.expect(17);
 
         var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
-    test.equal(m.isBefore(moment(new Date(2012, 3, 2, 3, 5, 5, 10))), true, "year is later");
-    test.equal(m.isBefore(moment(new Date(2010, 3, 2, 3, 3, 5, 10))), false, "year is earlier");
-    test.equal(m.isBefore(moment(new Date(2011, 4, 2, 3, 4, 5, 10))), true, "month is later");
-    test.equal(m.isBefore(moment(new Date(2011, 2, 2, 3, 4, 5, 10))), false, "month is earlier");
-    test.equal(m.isBefore(moment(new Date(2011, 3, 3, 3, 4, 5, 10))), true, "day is later");
-    test.equal(m.isBefore(moment(new Date(2011, 3, 1, 3, 4, 5, 10))), false, "day is earlier");
-    test.equal(m.isBefore(moment(new Date(2011, 3, 2, 4, 4, 5, 10))), true, "hour is later");
-    test.equal(m.isBefore(moment(new Date(2011, 3, 2, 2, 4, 5, 10))), false, "hour is earlier");
-    test.equal(m.isBefore(moment(new Date(2011, 3, 2, 3, 5, 5, 10))), true, "minute is later");
-    test.equal(m.isBefore(moment(new Date(2011, 3, 2, 3, 3, 5, 10))), false, "minute is earlier");
-    test.equal(m.isBefore(moment(new Date(2011, 3, 2, 3, 4, 6, 10))), true, "second is later");
-    test.equal(m.isBefore(moment(new Date(2011, 3, 2, 3, 4, 4, 11))), false, "second is earlier");
-    test.equal(m.isBefore(moment(new Date(2011, 3, 2, 3, 4, 5, 10))), false, "millisecond match");
-    test.equal(m.isBefore(moment(new Date(2011, 3, 2, 3, 4, 5, 11))), true, "millisecond is later");
-    test.equal(m.isBefore(moment(new Date(2011, 3, 2, 3, 4, 5, 9))), false, "millisecond is earlier");
+        test.equal(m.isBefore(moment(new Date(2012, 3, 2, 3, 5, 5, 10))), true, "year is later");
+        test.equal(m.isBefore(moment(new Date(2010, 3, 2, 3, 3, 5, 10))), false, "year is earlier");
+        test.equal(m.isBefore(moment(new Date(2011, 4, 2, 3, 4, 5, 10))), true, "month is later");
+        test.equal(m.isBefore(moment(new Date(2011, 2, 2, 3, 4, 5, 10))), false, "month is earlier");
+        test.equal(m.isBefore(moment(new Date(2011, 3, 3, 3, 4, 5, 10))), true, "day is later");
+        test.equal(m.isBefore(moment(new Date(2011, 3, 1, 3, 4, 5, 10))), false, "day is earlier");
+        test.equal(m.isBefore(moment(new Date(2011, 3, 2, 4, 4, 5, 10))), true, "hour is later");
+        test.equal(m.isBefore(moment(new Date(2011, 3, 2, 2, 4, 5, 10))), false, "hour is earlier");
+        test.equal(m.isBefore(moment(new Date(2011, 3, 2, 3, 5, 5, 10))), true, "minute is later");
+        test.equal(m.isBefore(moment(new Date(2011, 3, 2, 3, 3, 5, 10))), false, "minute is earlier");
+        test.equal(m.isBefore(moment(new Date(2011, 3, 2, 3, 4, 6, 10))), true, "second is later");
+        test.equal(m.isBefore(moment(new Date(2011, 3, 2, 3, 4, 4, 11))), false, "second is earlier");
+        test.equal(m.isBefore(moment(new Date(2011, 3, 2, 3, 4, 5, 10))), false, "millisecond match");
+        test.equal(m.isBefore(moment(new Date(2011, 3, 2, 3, 4, 5, 11))), true, "millisecond is later");
+        test.equal(m.isBefore(moment(new Date(2011, 3, 2, 3, 4, 5, 9))), false, "millisecond is earlier");
         test.equal(m.isBefore(m), false, "moments are not before themselves");
         test.equal(+m, +mCopy, "isBefore second should not change moment");
         test.done();
     },
 
-    "is before year" : function(test) {
+    "is before year" : function (test) {
         test.expect(11);
 
         var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
@@ -43,7 +43,7 @@ exports.is_before = {
         test.done();
     },
 
-    "is before month" : function(test) {
+    "is before month" : function (test) {
         test.expect(13);
 
         var m = moment(new Date(2011, 2, 3, 4, 5, 6, 7)), mCopy = moment(m);
@@ -63,7 +63,7 @@ exports.is_before = {
         test.done();
     },
 
-    "is before day" : function(test) {
+    "is before day" : function (test) {
         test.expect(15);
 
         var m = moment(new Date(2011, 3, 2, 3, 4, 5, 6)), mCopy = moment(m);
@@ -85,7 +85,7 @@ exports.is_before = {
         test.done();
     },
 
-    "is before hour" : function(test) {
+    "is before hour" : function (test) {
         test.expect(16);
 
         var m = moment(new Date(2011, 3, 2, 3, 4, 5, 6)), mCopy = moment(m);
@@ -108,7 +108,7 @@ exports.is_before = {
         test.done();
     },
 
-    "is before minute" : function(test) {
+    "is before minute" : function (test) {
         test.expect(18);
 
         var m = moment(new Date(2011, 3, 2, 3, 4, 5, 6)), mCopy = moment(m);
@@ -133,7 +133,7 @@ exports.is_before = {
         test.done();
     },
 
-    "is before second" : function(test) {
+    "is before second" : function (test) {
         test.expect(20);
 
         var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
@@ -160,7 +160,7 @@ exports.is_before = {
         test.done();
     },
 
-    "is before millisecond" : function(test) {
+    "is before millisecond" : function (test) {
         test.expect(18);
 
         var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);

@@ -1,13 +1,13 @@
 var moment = require('../../moment');
 
 exports.is_moment = {
-    "is moment object": function(test) {
+    "is moment object": function (test) {
         test.expect(11);
 
-        var MyObj = function() {};
-        MyObj.prototype.toDate = function() {
+        var MyObj = function () {};
+        MyObj.prototype.toDate = function () {
             return new Date();
-        }
+        };
 
         test.ok(moment.isMoment(moment()), 'simple moment object');
         test.ok(moment.isMoment(moment('invalid date')), 'invalid moment object');

@@ -33,7 +33,7 @@ function dstForYear(year) {
 }
 
 exports.diff = {
-    "diff" : function(test) {
+    "diff" : function (test) {
         test.expect(5);
 
         test.equal(moment(1000).diff(0), 1000, "1 second - 0 = 1000");
@@ -47,7 +47,7 @@ exports.diff = {
         test.done();
     },
 
-    "diff key after" : function(test) {
+    "diff key after" : function (test) {
         test.expect(10);
 
         test.equal(moment([2010]).diff([2011], 'years'), -1, "year diff");
@@ -63,7 +63,7 @@ exports.diff = {
         test.done();
     },
 
-    "diff key before" : function(test) {
+    "diff key before" : function (test) {
         test.expect(10);
 
         test.equal(moment([2011]).diff([2010], 'years'), 1, "year diff");
@@ -79,7 +79,7 @@ exports.diff = {
         test.done();
     },
 
-    "diff key before singular" : function(test) {
+    "diff key before singular" : function (test) {
         test.expect(10);
 
         test.equal(moment([2011]).diff([2010], 'year'), 1, "year diff singular");
@@ -95,7 +95,7 @@ exports.diff = {
         test.done();
     },
 
-    "diff key before abbreviated" : function(test) {
+    "diff key before abbreviated" : function (test) {
         test.expect(10);
 
         test.equal(moment([2011]).diff([2010], 'y'), 1, "year diff abbreviated");
@@ -111,14 +111,14 @@ exports.diff = {
         test.done();
     },
 
-    "diff month" : function(test) {
+    "diff month" : function (test) {
         test.expect(1);
 
         test.equal(moment([2011, 0, 31]).diff([2011, 2, 1], 'months'), -1, "month diff");
         test.done();
     },
 
-    "diff across DST" : function(test) {
+    "diff across DST" : function (test) {
         var dst = dstForYear(2012), a, b, daysInMonth;
         if (!dst) {
             console.log("No DST?");
@@ -157,7 +157,7 @@ exports.diff = {
         test.done();
     },
 
-    "diff overflow" : function(test) {
+    "diff overflow" : function (test) {
         test.expect(4);
 
         test.equal(moment([2011]).diff([2010], 'months'), 12, "month diff");
@@ -167,7 +167,7 @@ exports.diff = {
         test.done();
     },
 
-    "diff between utc and local" : function(test) {
+    "diff between utc and local" : function (test) {
         test.expect(7);
 
         test.equal(moment([2011]).utc().diff([2010], 'years'), 1, "year diff");
@@ -181,7 +181,7 @@ exports.diff = {
         test.done();
     },
 
-    "diff floored" : function(test) {
+    "diff floored" : function (test) {
         test.expect(7);
 
         test.equal(moment([2010, 0, 1, 23]).diff([2010], 'day'), 0, "23 hours = 0 days");
@@ -195,7 +195,7 @@ exports.diff = {
         test.done();
     },
 
-    "year diffs include dates" : function(test) {
+    "year diffs include dates" : function (test) {
         test.expect(1);
 
         test.ok(moment([2012, 1, 19]).diff(moment([2002, 1, 20]), 'years', true) < 10, "year diff should include date of month");
@@ -208,13 +208,13 @@ exports.diff = {
 
         // due to floating point math errors, these tests just need to be accurate within 0.00000001
         equal(test, moment([2012, 0, 1]).diff([2012, 1, 1], 'months', true), -1, 'Jan 1 to Feb 1 should be 1 month');
-        equal(test, moment([2012, 0, 1]).diff([2012, 0, 1, 12], 'months', true), -0.5/31, 'Jan 1 to Jan 1 noon should be 0.5/31 months');
+        equal(test, moment([2012, 0, 1]).diff([2012, 0, 1, 12], 'months', true), -0.5 / 31, 'Jan 1 to Jan 1 noon should be 0.5 / 31 months');
         equal(test, moment([2012, 0, 15]).diff([2012, 1, 15], 'months', true), -1, 'Jan 15 to Feb 15 should be 1 month');
         equal(test, moment([2012, 0, 28]).diff([2012, 1, 28], 'months', true), -1, 'Jan 28 to Feb 28 should be 1 month');
-        equal(test, moment([2012, 0, 31]).diff([2012, 1, 29], 'months', true), -1 + (2/30), 'Jan 31 to Feb 29 should be 1 - (2/30) months');
-        equal(test, moment([2012, 0, 31]).diff([2012, 2, 1], 'months', true), -2 + (30/31), 'Jan 31 to Mar 1 should be 2 - (30/31) months');
-        equal(test, moment([2012, 0, 31]).diff([2012, 2, 1, 12], 'months', true), -2 + (29.5/31), 'Jan 31 to Mar 1 should be 2 - (29.5/31) months');
-        equal(test, moment([2012, 0, 1]).diff([2012, 0, 31], 'months', true), -(30 / 31), 'Jan 1 to Jan 31 should be 30/31 months');
+        equal(test, moment([2012, 0, 31]).diff([2012, 1, 29], 'months', true), -1 + (2 / 30), 'Jan 31 to Feb 29 should be 1 - (2 / 30) months');
+        equal(test, moment([2012, 0, 31]).diff([2012, 2, 1], 'months', true), -2 + (30 / 31), 'Jan 31 to Mar 1 should be 2 - (30 / 31) months');
+        equal(test, moment([2012, 0, 31]).diff([2012, 2, 1, 12], 'months', true), -2 + (29.5 / 31), 'Jan 31 to Mar 1 should be 2 - (29.5 / 31) months');
+        equal(test, moment([2012, 0, 1]).diff([2012, 0, 31], 'months', true), -(30 / 31), 'Jan 1 to Jan 31 should be 30 / 31 months');
 
         test.done();
     },
@@ -230,9 +230,9 @@ exports.diff = {
         equal(test, moment([2012, 11, 31]).diff([2013, 11, 31], 'years', true), -1, 'Dec 31 2012 to Dec 31 2013 should be 1 year');
         equal(test, moment([2012, 0, 1]).diff([2013, 6, 1], 'years', true), -1.5, 'Jan 1 2012 to Jul 1 2013 should be 1.5 years');
         equal(test, moment([2012, 0, 31]).diff([2013, 6, 31], 'years', true), -1.5, 'Jan 31 2012 to Jul 31 2013 should be 1.5 years');
-        equal(test, moment([2012, 0, 1]).diff([2013, 0, 1, 12], 'years', true), -1-(0.5/31)/12, 'Jan 1 2012 to Jan 1 2013 noon should be 1+(0.5/31)/12 years');
-        equal(test, moment([2012, 0, 1]).diff([2013, 6, 1, 12], 'years', true), -1.5-(0.5/31)/12, 'Jan 1 2012 to Jul 1 2013 noon should be 1.5+(0.5/31)/12 years');
-        equal(test, moment([2012, 1, 29]).diff([2013, 1, 28], 'years', true), -1 + (1/28.5)/12, 'Feb 29 2012 to Feb 28 2013 should be 1-(1/28.5)/12 years');
+        equal(test, moment([2012, 0, 1]).diff([2013, 0, 1, 12], 'years', true), -1 - (0.5 / 31) / 12, 'Jan 1 2012 to Jan 1 2013 noon should be 1+(0.5 / 31) / 12 years');
+        equal(test, moment([2012, 0, 1]).diff([2013, 6, 1, 12], 'years', true), -1.5 - (0.5 / 31) / 12, 'Jan 1 2012 to Jul 1 2013 noon should be 1.5+(0.5 / 31) / 12 years');
+        equal(test, moment([2012, 1, 29]).diff([2013, 1, 28], 'years', true), -1 + (1 / 28.5) / 12, 'Feb 29 2012 to Feb 28 2013 should be 1-(1 / 28.5) / 12 years');
 
         test.done();
     }
