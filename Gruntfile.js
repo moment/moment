@@ -66,7 +66,7 @@ module.exports = function (grunt) {
         jshint: {
             all: ["Gruntfile.js", "moment.js", "lang/**/*.js"],
             test: ["test/moment/*.js"],
-            langtest: {files: {src: ["test/lang/*.js"]}, options: {"onevar": false}},
+            langtest: ["test/lang/*.js"],
             options: {
                 "node"     : true,
                 "browser"  : true,

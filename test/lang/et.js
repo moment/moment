@@ -19,8 +19,7 @@ exports["lang:et"] = {
     "parse" : function (test) {
         test.expect(96);
 
-        var tests = 'jaanuar jaan_veebruar veebr_märts märts_aprill apr_mai mai_juuni juuni_juuli juuli_august aug_september sept_oktoober okt_november nov_detsember dets'.split("_");
-        var i;
+        var tests = 'jaanuar jaan_veebruar veebr_märts märts_aprill apr_mai mai_juuni juuni_juuli juuli_august aug_september sept_oktoober okt_november nov_detsember dets'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' peaks olema kuu ' + (i + 1));
         }
@@ -116,8 +115,7 @@ exports["lang:et"] = {
     "format month" : function (test) {
         test.expect(12);
 
-        var expected = 'jaanuar jaan_veebruar veebr_märts märts_aprill apr_mai mai_juuni juuni_juuli juuli_august aug_september sept_oktoober okt_november nov_detsember dets'.split("_");
-        var i;
+        var expected = 'jaanuar jaan_veebruar veebr_märts märts_aprill apr_mai mai_juuni juuni_juuli juuli_august aug_september sept_oktoober okt_november nov_detsember dets'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -127,8 +125,7 @@ exports["lang:et"] = {
     "format week" : function (test) {
         test.expect(7);
 
-        var expected = 'pühapäev P P_esmaspäev E E_teisipäev T T_kolmapäev K K_neljapäev N N_reede R R_laupäev L L'.split("_");
-        var i;
+        var expected = 'pühapäev P P_esmaspäev E E_teisipäev T T_kolmapäev K K_neljapäev N N_reede R R_laupäev L L'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
@@ -212,9 +209,7 @@ exports["lang:et"] = {
     "calendar next week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
-
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('[Järgmine] dddd LT'),  "Today + " + i + " days current time");
@@ -229,9 +224,7 @@ exports["lang:et"] = {
     "calendar last week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
-
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('[Eelmine] dddd LT'),  "Today - " + i + " days current time");
@@ -246,8 +239,8 @@ exports["lang:et"] = {
     "calendar all else" : function (test) {
         test.expect(4);
 
-        var weeksAgo = moment().subtract({ w: 1 });
-        var weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({ w: 1 }),
+            weeksFromNow = moment().add({ w: 1 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 nädal tagasi");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "1 nädala pärast");

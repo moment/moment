@@ -17,8 +17,7 @@ exports["lang:tzm-la"] = {
     "parse" : function (test) {
         test.expect(96);
 
-        var tests = 'innayr innayr_brˤayrˤ brˤayrˤ_marˤsˤ marˤsˤ_ibrir ibrir_mayyw mayyw_ywnyw ywnyw_ywlywz ywlywz_ɣwšt ɣwšt_šwtanbir šwtanbir_ktˤwbrˤ ktˤwbrˤ_nwwanbir nwwanbir_dwjnbir dwjnbir'.split("_");
-        var i;
+        var tests = 'innayr innayr_brˤayrˤ brˤayrˤ_marˤsˤ marˤsˤ_ibrir ibrir_mayyw mayyw_ywnyw ywnyw_ywlywz ywlywz_ɣwšt ɣwšt_šwtanbir šwtanbir_ktˤwbrˤ ktˤwbrˤ_nwwanbir nwwanbir_dwjnbir dwjnbir'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -114,8 +113,7 @@ exports["lang:tzm-la"] = {
     "format month" : function (test) {
         test.expect(12);
 
-        var expected = 'innayr innayr_brˤayrˤ brˤayrˤ_marˤsˤ marˤsˤ_ibrir ibrir_mayyw mayyw_ywnyw ywnyw_ywlywz ywlywz_ɣwšt ɣwšt_šwtanbir šwtanbir_ktˤwbrˤ ktˤwbrˤ_nwwanbir nwwanbir_dwjnbir dwjnbir'.split("_");
-        var i;
+        var expected = 'innayr innayr_brˤayrˤ brˤayrˤ_marˤsˤ marˤsˤ_ibrir ibrir_mayyw mayyw_ywnyw ywnyw_ywlywz ywlywz_ɣwšt ɣwšt_šwtanbir šwtanbir_ktˤwbrˤ ktˤwbrˤ_nwwanbir nwwanbir_dwjnbir dwjnbir'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -125,8 +123,7 @@ exports["lang:tzm-la"] = {
     "format week" : function (test) {
         test.expect(7);
 
-        var expected = 'asamas asamas asamas_aynas aynas aynas_asinas asinas asinas_akras akras akras_akwas akwas akwas_asimwas asimwas asimwas_asiḍyas asiḍyas asiḍyas'.split("_");
-        var i;
+        var expected = 'asamas asamas asamas_aynas aynas aynas_asinas asinas asinas_akras akras akras_akwas akwas akwas_asimwas asimwas asimwas_asiḍyas asiḍyas asiḍyas'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
@@ -210,9 +207,7 @@ exports["lang:tzm-la"] = {
     "calendar next week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
-
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('dddd [g] LT'),  "Today + " + i + " days current time");

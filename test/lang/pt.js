@@ -19,8 +19,7 @@ exports["lang:pt"] = {
     "parse" : function (test) {
         test.expect(96);
 
-        var tests = 'Janeiro Jan_Fevereiro Fev_Março Mar_Abril Abr_Maio Mai_Junho Jun_Julho Jul_Agosto Ago_Setembro Set_Outubro Out_Novembro Nov_Dezembro Dez'.split("_");
-        var i;
+        var tests = 'Janeiro Jan_Fevereiro Fev_Março Mar_Abril Abr_Maio Mai_Junho Jun_Julho Jul_Agosto Ago_Setembro Set_Outubro Out_Novembro Nov_Dezembro Dez'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -114,8 +113,7 @@ exports["lang:pt"] = {
 
     "format month" : function (test) {
         test.expect(12);
-        var expected = 'Janeiro Jan_Fevereiro Fev_Março Mar_Abril Abr_Maio Mai_Junho Jun_Julho Jul_Agosto Ago_Setembro Set_Outubro Out_Novembro Nov_Dezembro Dez'.split("_");
-        var i;
+        var expected = 'Janeiro Jan_Fevereiro Fev_Março Mar_Abril Abr_Maio Mai_Junho Jun_Julho Jul_Agosto Ago_Setembro Set_Outubro Out_Novembro Nov_Dezembro Dez'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -124,8 +122,7 @@ exports["lang:pt"] = {
 
     "format week" : function (test) {
         test.expect(7);
-        var expected = 'Domingo Dom Dom_Segunda-feira Seg 2ª_Terça-feira Ter 3ª_Quarta-feira Qua 4ª_Quinta-feira Qui 5ª_Sexta-feira Sex 6ª_Sábado Sáb Sáb'.split("_");
-        var i;
+        var expected = 'Domingo Dom Dom_Segunda-feira Seg 2ª_Terça-feira Ter 3ª_Quarta-feira Qua 4ª_Quinta-feira Qui 5ª_Sexta-feira Sex 6ª_Sábado Sáb Sáb'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
@@ -199,9 +196,7 @@ exports["lang:pt"] = {
     "calendar next week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
-
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('dddd [às] LT'),  "Today + " + i + " days current time");
@@ -216,9 +211,7 @@ exports["lang:pt"] = {
     "calendar last week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
-
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format((m.day() === 0 || m.day() === 6) ? '[Último] dddd [às] LT' : '[Última] dddd [às] LT'),  "Today - " + i + " days current time");
@@ -233,8 +226,8 @@ exports["lang:pt"] = {
     "calendar all else" : function (test) {
         test.expect(4);
 
-        var weeksAgo = moment().subtract({ w: 1 });
-        var weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({ w: 1 }),
+            weeksFromNow = moment().add({ w: 1 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");

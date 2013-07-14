@@ -18,8 +18,7 @@ exports["lang:bg"] = {
 
     "parse" : function (test) {
         test.expect(96);
-        var tests = 'януари янр_февруари фев_март мар_април апр_май май_юни юни_юли юли_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split("_");
-        var i;
+        var tests = 'януари янр_февруари фев_март мар_април апр_май май_юни юни_юли юли_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -112,8 +111,7 @@ exports["lang:bg"] = {
 
     "format month" : function (test) {
         test.expect(12);
-        var expected = 'януари янр_февруари фев_март мар_април апр_май май_юни юни_юли юли_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split("_");
-        var i;
+        var expected = 'януари янр_февруари фев_март мар_април апр_май май_юни юни_юли юли_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -122,8 +120,7 @@ exports["lang:bg"] = {
 
     "format week" : function (test) {
         test.expect(7);
-        var expected = 'неделя нед нд_понеделник пон пн_вторник вто вт_сряда сря ср_четвъртък чет чт_петък пет пт_събота съб сб'.split("_");
-        var i;
+        var expected = 'неделя нед нд_понеделник пон пн_вторник вто вт_сряда сря ср_четвъртък чет чт_петък пет пт_събота съб сб'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
@@ -203,9 +200,7 @@ exports["lang:bg"] = {
     "calendar next week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
-
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('dddd [в] LT'),  "Today + " + i + " days current time");
@@ -220,8 +215,7 @@ exports["lang:bg"] = {
     "calendar last week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
+        var i, m;
 
         function makeFormat(d) {
             switch (d.day()) {
@@ -250,8 +244,8 @@ exports["lang:bg"] = {
 
     "calendar all else" : function (test) {
         test.expect(4);
-        var weeksAgo = moment().subtract({ w: 1 });
-        var weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({ w: 1 }),
+            weeksFromNow = moment().add({ w: 1 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");

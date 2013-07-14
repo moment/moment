@@ -19,8 +19,7 @@ exports["lang:cv"] = {
     "parse" : function (test) {
         test.expect(96);
 
-        var tests = 'кăрлач кăр_нарăс нар_пуш пуш_ака ака_май май_çĕртме çĕр_утă утă_çурла çур_авăн ав_юпа юпа_чӳк чӳк_раштав раш'.split("_");
-        var i;
+        var tests = 'кăрлач кăр_нарăс нар_пуш пуш_ака ака_май май_çĕртме çĕр_утă утă_çурла çур_авăн ав_юпа юпа_чӳк чӳк_раштав раш'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -207,8 +206,7 @@ exports["lang:cv"] = {
     "calendar next week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
+        var i, m;
 
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
@@ -224,8 +222,7 @@ exports["lang:cv"] = {
     "calendar last week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
+        var i, m;
 
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
@@ -240,8 +237,8 @@ exports["lang:cv"] = {
 
     "calendar all else" : function (test) {
         test.expect(4);
-        var weeksAgo = moment().subtract({ w: 1 });
-        var weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({ w: 1 }),
+            weeksFromNow = moment().add({ w: 1 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");

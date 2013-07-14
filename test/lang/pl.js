@@ -253,8 +253,8 @@ exports["lang:pl"] = {
     "calendar all else" : function (test) {
         test.expect(4);
 
-        var weeksAgo = moment().subtract({ w: 1 });
-        var weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({ w: 1 }),
+            weeksFromNow = moment().add({ w: 1 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");

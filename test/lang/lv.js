@@ -19,8 +19,7 @@ exports["lang:lv"] = {
     "parse" : function (test) {
         test.expect(96);
 
-        var tests = 'janvāris jan_februāris feb_marts mar_aprīlis apr_maijs mai_jūnijs jūn_jūlijs jūl_augusts aug_septembris sep_oktobris okt_novembris nov_decembris dec'.split("_");
-        var i;
+        var tests = 'janvāris jan_februāris feb_marts mar_aprīlis apr_maijs mai_jūnijs jūn_jūlijs jūl_augusts aug_septembris sep_oktobris okt_novembris nov_decembris dec'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -116,8 +115,7 @@ exports["lang:lv"] = {
     "format month" : function (test) {
         test.expect(12);
 
-        var expected = 'janvāris jan_februāris feb_marts mar_aprīlis apr_maijs mai_jūnijs jūn_jūlijs jūl_augusts aug_septembris sep_oktobris okt_novembris nov_decembris dec'.split("_");
-        var i;
+        var expected = 'janvāris jan_februāris feb_marts mar_aprīlis apr_maijs mai_jūnijs jūn_jūlijs jūl_augusts aug_septembris sep_oktobris okt_novembris nov_decembris dec'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -127,8 +125,7 @@ exports["lang:lv"] = {
     "format week" : function (test) {
         test.expect(7);
 
-        var expected = 'svētdiena Sv Sv_pirmdiena P P_otrdiena O O_trešdiena T T_ceturtdiena C C_piektdiena Pk Pk_sestdiena S S'.split("_");
-        var i;
+        var expected = 'svētdiena Sv Sv_pirmdiena P P_otrdiena O O_trešdiena T T_ceturtdiena C C_piektdiena Pk Pk_sestdiena S S'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
@@ -209,9 +206,7 @@ exports["lang:lv"] = {
     "calendar next week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
-
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('dddd [pulksten] LT'),  "Today + " + i + " days current time");
@@ -226,9 +221,7 @@ exports["lang:lv"] = {
     "calendar last week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
-
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('[Pagājušā] dddd [pulksten] LT'),  "Today - " + i + " days current time");
@@ -242,8 +235,8 @@ exports["lang:lv"] = {
 
     "calendar all else" : function (test) {
         test.expect(4);
-        var weeksAgo = moment().subtract({ w: 1 });
-        var weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({ w: 1 }),
+            weeksFromNow = moment().add({ w: 1 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");

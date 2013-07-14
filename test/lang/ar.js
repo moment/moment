@@ -15,8 +15,7 @@ exports["lang:ar"] = {
 
     "parse" : function (test) {
         test.expect(96);
-        var tests = 'يناير/ كانون الثاني:يناير/ كانون الثاني_فبراير/ شباط:فبراير/ شباط_مارس/ آذار:مارس/ آذار_أبريل/ نيسان:أبريل/ نيسان_مايو/ أيار:مايو/ أيار_يونيو/ حزيران:يونيو/ حزيران_يوليو/ تموز:يوليو/ تموز_أغسطس/ آب:أغسطس/ آب_سبتمبر/ أيلول:سبتمبر/ أيلول_أكتوبر/ تشرين الأول:أكتوبر/ تشرين الأول_نوفمبر/ تشرين الثاني:نوفمبر/ تشرين الثاني_ديسمبر/ كانون الأول:ديسمبر/ كانون الأول'.split("_");
-        var i;
+        var tests = 'يناير/ كانون الثاني:يناير/ كانون الثاني_فبراير/ شباط:فبراير/ شباط_مارس/ آذار:مارس/ آذار_أبريل/ نيسان:أبريل/ نيسان_مايو/ أيار:مايو/ أيار_يونيو/ حزيران:يونيو/ حزيران_يوليو/ تموز:يوليو/ تموز_أغسطس/ آب:أغسطس/ آب_سبتمبر/ أيلول:سبتمبر/ أيلول_أكتوبر/ تشرين الأول:أكتوبر/ تشرين الأول_نوفمبر/ تشرين الثاني:نوفمبر/ تشرين الثاني_ديسمبر/ كانون الأول:ديسمبر/ كانون الأول'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1) + ' instead is month ' + moment(input, mmm).month());
         }
@@ -109,8 +108,8 @@ exports["lang:ar"] = {
 
     "format month" : function (test) {
         test.expect(12);
-        var expected = 'يناير/ كانون الثاني يناير/ كانون الثاني_فبراير/ شباط فبراير/ شباط_مارس/ آذار مارس/ آذار_أبريل/ نيسان أبريل/ نيسان_مايو/ أيار مايو/ أيار_يونيو/ حزيران يونيو/ حزيران_يوليو/ تموز يوليو/ تموز_أغسطس/ آب أغسطس/ آب_سبتمبر/ أيلول سبتمبر/ أيلول_أكتوبر/ تشرين الأول أكتوبر/ تشرين الأول_نوفمبر/ تشرين الثاني نوفمبر/ تشرين الثاني_ديسمبر/ كانون الأول ديسمبر/ كانون الأول'.split("_");
-        var i;
+
+        var expected = 'يناير/ كانون الثاني يناير/ كانون الثاني_فبراير/ شباط فبراير/ شباط_مارس/ آذار مارس/ آذار_أبريل/ نيسان أبريل/ نيسان_مايو/ أيار مايو/ أيار_يونيو/ حزيران يونيو/ حزيران_يوليو/ تموز يوليو/ تموز_أغسطس/ آب أغسطس/ آب_سبتمبر/ أيلول سبتمبر/ أيلول_أكتوبر/ تشرين الأول أكتوبر/ تشرين الأول_نوفمبر/ تشرين الثاني نوفمبر/ تشرين الثاني_ديسمبر/ كانون الأول ديسمبر/ كانون الأول'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -119,8 +118,8 @@ exports["lang:ar"] = {
 
     "format week" : function (test) {
         test.expect(7);
-        var expected = 'الأحد الأحد ح_الإثنين الإثنين ن_الثلاثاء الثلاثاء ث_الأربعاء الأربعاء ر_الخميس الخميس خ_الجمعة الجمعة ج_السبت السبت س'.split("_");
-        var i;
+
+        var expected = 'الأحد الأحد ح_الإثنين الإثنين ن_الثلاثاء الثلاثاء ث_الأربعاء الأربعاء ر_الخميس الخميس خ_الجمعة الجمعة ج_السبت السبت س'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
@@ -129,6 +128,7 @@ exports["lang:ar"] = {
 
     "from" : function (test) {
         test.expect(30);
+
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "ثوان", "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "دقيقة",      "45 seconds = a minute");
@@ -200,9 +200,7 @@ exports["lang:ar"] = {
     "calendar next week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
-
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('dddd [على الساعة] LT'),  "Today + " + i + " days current time");
@@ -216,8 +214,8 @@ exports["lang:ar"] = {
 
     "calendar last week" : function (test) {
         test.expect(15);
-        var i, m;
 
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('dddd [على الساعة] LT'),  "Today - " + i + " days current time");
@@ -231,8 +229,9 @@ exports["lang:ar"] = {
 
     "calendar all else" : function (test) {
         test.expect(4);
-        var weeksAgo = moment().subtract({ w: 1 });
-        var weeksFromNow = moment().add({ w: 1 });
+
+        var weeksAgo = moment().subtract({ w: 1 }),
+            weeksFromNow = moment().add({ w: 1 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");

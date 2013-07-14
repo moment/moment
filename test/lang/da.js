@@ -18,8 +18,7 @@ exports["lang:da"] = {
 
     "parse" : function (test) {
         test.expect(96);
-        var tests = 'Januar Jan_Februar Feb_Marts Mar_April Apr_Maj Maj_Juni Jun_Juli Jul_August Aug_September Sep_Oktober Okt_November Nov_December Dec'.split("_");
-        var i;
+        var tests = 'Januar Jan_Februar Feb_Marts Mar_April Apr_Maj Maj_Juni Jun_Juli Jul_August Aug_September Sep_Oktober Okt_November Nov_December Dec'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -112,8 +111,7 @@ exports["lang:da"] = {
 
     "format month" : function (test) {
         test.expect(12);
-        var expected = 'Januar Jan_Februar Feb_Marts Mar_April Apr_Maj Maj_Juni Jun_Juli Jul_August Aug_September Sep_Oktober Okt_November Nov_December Dec'.split("_");
-        var i;
+        var expected = 'Januar Jan_Februar Feb_Marts Mar_April Apr_Maj Maj_Juni Jun_Juli Jul_August Aug_September Sep_Oktober Okt_November Nov_December Dec'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -122,8 +120,7 @@ exports["lang:da"] = {
 
     "format week" : function (test) {
         test.expect(7);
-        var expected = 'Søndag Søn Sø_Mandag Man Ma_Tirsdag Tir Ti_Onsdag Ons On_Torsdag Tor To_Fredag Fre Fr_Lørdag Lør Lø'.split("_");
-        var i;
+        var expected = 'Søndag Søn Sø_Mandag Man Ma_Tirsdag Tir Ti_Onsdag Ons On_Torsdag Tor To_Fredag Fre Fr_Lørdag Lør Lø'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }

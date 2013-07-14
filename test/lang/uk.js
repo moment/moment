@@ -18,8 +18,7 @@ exports["lang:uk"] = {
 
     "parse" : function (test) {
         test.expect(96);
-        var tests = 'січень січ_лютий лют_березень бер_квітень кві_травень тра_червень чер_липень лип_серпень сер_вересень вер_жовтень жов_листопад лис_грудень гру'.split("_");
-        var i;
+        var tests = 'січень січ_лютий лют_березень бер_квітень кві_травень тра_червень чер_липень лип_серпень сер_вересень вер_жовтень жов_листопад лис_грудень гру'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -108,8 +107,7 @@ exports["lang:uk"] = {
 
     "format month" : function (test) {
         test.expect(12);
-        var expected = 'січень січ_лютий лют_березень бер_квітень кві_травень тра_червень чер_липень лип_серпень сер_вересень вер_жовтень жов_листопад лис_грудень гру'.split("_");
-        var i;
+        var expected = 'січень січ_лютий лют_березень бер_квітень кві_травень тра_червень чер_липень лип_серпень сер_вересень вер_жовтень жов_листопад лис_грудень гру'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -121,8 +119,7 @@ exports["lang:uk"] = {
         var months = {
             'nominative': 'січень_лютий_березень_квітень_травень_червень_липень_серпень_вересень_жовтень_листопад_грудень'.split('_'),
             'accusative': 'січня_лютого_березня_квітня_травня_червня_липня_серпня_вересня_жовтня_листопада_грудня'.split('_')
-        };
-        var i;
+        }, i;
         for (i = 0; i < 12; i++) {
             test.equal(moment([2011, i, 1]).format('D MMMM'), '1 ' + months.accusative[i], '1 ' + months.accusative[i]);
             test.equal(moment([2011, i, 1]).format('MMMM'), months.nominative[i], '1 ' + months.nominative[i]);
@@ -132,8 +129,7 @@ exports["lang:uk"] = {
 
     "format week" : function (test) {
         test.expect(7);
-        var expected = 'неділя нед нд_понеділок пон пн_вівторок вів вт_середа срд ср_четвер чет чт_п’ятниця птн пт_субота суб сб'.split("_");
-        var i;
+        var expected = 'неділя нед нд_понеділок пон пн_вівторок вів вт_середа срд ср_четвер чет чт_п’ятниця птн пт_субота суб сб'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
@@ -211,9 +207,7 @@ exports["lang:uk"] = {
     "calendar next week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
-
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('[У] dddd [о' + (m.hours() === 11 ? 'б' : '') + '] LT'),  "Today + " + i + " days current time");
@@ -228,8 +222,7 @@ exports["lang:uk"] = {
     "calendar last week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
+        var i, m;
 
         function makeFormat(d) {
             switch (d.day()) {
@@ -258,8 +251,8 @@ exports["lang:uk"] = {
 
     "calendar all else" : function (test) {
         test.expect(4);
-        var weeksAgo = moment().subtract({ w: 1 });
-        var weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({ w: 1 }),
+            weeksFromNow = moment().add({ w: 1 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");

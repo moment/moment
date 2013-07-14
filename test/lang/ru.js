@@ -19,8 +19,7 @@ exports["lang:ru"] = {
     "parse" : function (test) {
         test.expect(96);
 
-        var tests = 'январь янв_февраль фев_март мар_апрель апр_май май_июнь июн_июль июл_август авг_сентябрь сен_октябрь окт_ноябрь ноя_декабрь дек'.split("_");
-        var i;
+        var tests = 'январь янв_февраль фев_март мар_апрель апр_май май_июнь июн_июль июл_август авг_сентябрь сен_октябрь окт_ноябрь ноя_декабрь дек'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -116,8 +115,7 @@ exports["lang:ru"] = {
     "format month" : function (test) {
         test.expect(12);
 
-        var expected = 'январь янв_февраль фев_март мар_апрель апр_май май_июнь июн_июль июл_август авг_сентябрь сен_октябрь окт_ноябрь ноя_декабрь дек'.split("_");
-        var i;
+        var expected = 'январь янв_февраль фев_март мар_апрель апр_май май_июнь июн_июль июл_август авг_сентябрь сен_октябрь окт_ноябрь ноя_декабрь дек'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -130,8 +128,7 @@ exports["lang:ru"] = {
         var months = {
             'nominative': 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_'),
             'accusative': 'января_февраля_марта_апреля_мая_июня_июля_августа_сентября_октября_ноября_декабря'.split('_')
-        };
-        var i;
+        }, i;
         for (i = 0; i < 12; i++) {
             test.equal(moment([2011, i, 1]).format('D MMMM'), '1 ' + months.accusative[i], '1 ' + months.accusative[i]);
             test.equal(moment([2011, i, 1]).format('MMMM'), months.nominative[i], '1 ' + months.nominative[i]);
@@ -142,8 +139,7 @@ exports["lang:ru"] = {
     "format week" : function (test) {
         test.expect(7);
 
-        var expected = 'воскресенье вск вс_понедельник пнд пн_вторник втр вт_среда срд ср_четверг чтв чт_пятница птн пт_суббота сбт сб'.split("_");
-        var i;
+        var expected = 'воскресенье вск вс_понедельник пнд пн_вторник втр вт_среда срд ср_четверг чтв чт_пятница птн пт_суббота сбт сб'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
@@ -219,9 +215,7 @@ exports["lang:ru"] = {
     "calendar next week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
-
+        var i, m;
         function makeFormat(d) {
             return d.day() === 2 ? '[Во] dddd [в] LT' : '[В] dddd [в] LT';
         }
@@ -240,8 +234,7 @@ exports["lang:ru"] = {
     "calendar last week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
+        var i, m;
 
         function makeFormat(d) {
             switch (d.day()) {
@@ -272,8 +265,8 @@ exports["lang:ru"] = {
     "calendar all else" : function (test) {
         test.expect(4);
 
-        var weeksAgo = moment().subtract({ w: 1 });
-        var weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({ w: 1 }),
+            weeksFromNow = moment().add({ w: 1 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");

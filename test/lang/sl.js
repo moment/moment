@@ -233,8 +233,7 @@ exports["lang:sl"] = {
     "calendar last week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
+        var i, m;
 
         function makeFormat(d) {
             switch (d.day()) {

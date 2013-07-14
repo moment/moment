@@ -18,11 +18,11 @@ exports["lang:cs"] = {
 
     "parse" : function (test) {
         test.expect(96);
-        var tests = 'leden led_únor úno_březen bře_duben dub_květen kvě_červen čvn_červenec čvc_srpen srp_září zář_říjen říj_listopad lis_prosinec pro'.split("_");
+        var tests = 'leden led_únor úno_březen bře_duben dub_květen kvě_červen čvn_červenec čvc_srpen srp_září zář_říjen říj_listopad lis_prosinec pro'.split("_"), i;
         function equalTest(input, mmm, monthIndex) {
             test.equal(moment(input, mmm).month(), monthIndex, input + ' should be month ' + (monthIndex + 1));
         }
-        for (var i = 0; i < 12; i++) {
+        for (i = 0; i < 12; i++) {
             tests[i] = tests[i].split(' ');
             equalTest(tests[i][0], 'MMM', i);
             equalTest(tests[i][1], 'MMM', i);
@@ -111,8 +111,7 @@ exports["lang:cs"] = {
 
     "format month" : function (test) {
         test.expect(12);
-        var expected = 'leden led_únor úno_březen bře_duben dub_květen kvě_červen čvn_červenec čvc_srpen srp_září zář_říjen říj_listopad lis_prosinec pro'.split("_");
-        var i;
+        var expected = 'leden led_únor úno_březen bře_duben dub_květen kvě_červen čvn_červenec čvc_srpen srp_září zář_říjen říj_listopad lis_prosinec pro'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -121,8 +120,7 @@ exports["lang:cs"] = {
 
     "format week" : function (test) {
         test.expect(7);
-        var expected = 'neděle ne ne_pondělí po po_úterý út út_středa st st_čtvrtek čt čt_pátek pá pá_sobota so so'.split("_");
-        var i;
+        var expected = 'neděle ne ne_pondělí po po_úterý út út_středa st st_čtvrtek čt čt_pátek pá pá_sobota so so'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
@@ -237,9 +235,10 @@ exports["lang:cs"] = {
     "calendar next week" : function (test) {
         test.expect(15);
 
-        for (var i = 2; i < 7; i++) {
-            var m = moment().add({ d: i });
-            var nextDay = '';
+        var i, m, nextDay;
+        for (i = 2; i < 7; i++) {
+            m = moment().add({ d: i });
+            nextDay = '';
             switch (m.day()) {
             case 0:
                 nextDay = 'v neděli';
@@ -275,9 +274,10 @@ exports["lang:cs"] = {
     "calendar last week" : function (test) {
         test.expect(15);
 
-        for (var i = 2; i < 7; i++) {
-            var m = moment().subtract({ d: i });
-            var lastDay = '';
+        var i, m, lastDay;
+        for (i = 2; i < 7; i++) {
+            m = moment().subtract({ d: i });
+            lastDay = '';
             switch (m.day()) {
             case 0:
                 lastDay = 'minulou neděli';
@@ -312,8 +312,8 @@ exports["lang:cs"] = {
 
     "calendar all else" : function (test) {
         test.expect(4);
-        var weeksAgo = moment().subtract({ w: 1 });
-        var weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({ w: 1 }),
+            weeksFromNow = moment().add({ w: 1 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");

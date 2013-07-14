@@ -18,8 +18,8 @@ exports["lang:hu"] = {
     "parse" : function (test) {
         test.expect(96);
 
-        var tests = 'január jan_február feb_március márc_április ápr_május máj_június jún_július júl_augusztus aug_szeptember szept_október okt_november nov_december dec'.split("_");
-        var i;
+        var tests = 'január jan_február feb_március márc_április ápr_május máj_június jún_július júl_augusztus aug_szeptember szept_október okt_november nov_december dec'.split("_"),
+            i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -112,8 +112,8 @@ exports["lang:hu"] = {
 
     "format month" : function (test) {
         test.expect(12);
-        var expected = 'január jan_február feb_március márc_április ápr_május máj_június jún_július júl_augusztus aug_szeptember szept_október okt_november nov_december dec'.split("_");
-        var i;
+        var expected = 'január jan_február feb_március márc_április ápr_május máj_június jún_július júl_augusztus aug_szeptember szept_október okt_november nov_december dec'.split("_"),
+            i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -122,8 +122,8 @@ exports["lang:hu"] = {
 
     "format week" : function (test) {
         test.expect(7);
-        var expected = 'vasárnap v_hétfő h_kedd k_szerda sze_csütörtök cs_péntek p_szombat szo'.split("_");
-        var i;
+        var expected = 'vasárnap v_hétfő h_kedd k_szerda sze_csütörtök cs_péntek p_szombat szo'.split("_"),
+            i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd'), expected[i], expected[i]);
         }
@@ -203,10 +203,7 @@ exports["lang:hu"] = {
     "calendar next week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
-        var days = 'vasárnap_hétfőn_kedden_szerdán_csütörtökön_pénteken_szombaton'.split('_');
-
+        var i, m, days = 'vasárnap_hétfőn_kedden_szerdán_csütörtökön_pénteken_szombaton'.split('_');
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('[' + days[m.day()] + '] LT[-kor]'),  "today + " + i + " days current time");

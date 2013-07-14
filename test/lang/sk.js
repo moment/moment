@@ -18,11 +18,11 @@ exports["lang:sk"] = {
 
     "parse" : function (test) {
         test.expect(96);
-        var tests = 'január jan._február feb._marec mar._apríl apr._máj máj_jún jún._júl júl._august aug._september sep._október okt._november nov._december dec.'.split("_");
+        var tests = 'január jan._február feb._marec mar._apríl apr._máj máj_jún jún._júl júl._august aug._september sep._október okt._november nov._december dec.'.split("_"), i;
         function equalTest(input, mmm, monthIndex) {
             test.equal(moment(input, mmm).month(), monthIndex, input + ' should be month ' + (monthIndex + 1));
         }
-        for (var i = 0; i < 12; i++) {
+        for (i = 0; i < 12; i++) {
             tests[i] = tests[i].split(' ');
             equalTest(tests[i][0], 'MMM', i);
             equalTest(tests[i][1], 'MMM', i);
@@ -111,8 +111,7 @@ exports["lang:sk"] = {
 
     "format month" : function (test) {
         test.expect(12);
-        var expected = 'január jan_február feb_marec mar_apríl apr_máj máj_jún jún_júl júl_august aug_september sep_október okt_november nov_december dec'.split("_");
-        var i;
+        var expected = 'január jan_február feb_marec mar_apríl apr_máj máj_jún jún_júl júl_august aug_september sep_október okt_november nov_december dec'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -121,8 +120,7 @@ exports["lang:sk"] = {
 
     "format week" : function (test) {
         test.expect(7);
-        var expected = 'nedeľa ne ne_pondelok po po_utorok ut ut_streda st st_štvrtok št št_piatok pi pi_sobota so so'.split("_");
-        var i;
+        var expected = 'nedeľa ne ne_pondelok po po_utorok ut ut_streda st st_štvrtok št št_piatok pi pi_sobota so so'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
@@ -237,9 +235,10 @@ exports["lang:sk"] = {
     "calendar next week" : function (test) {
         test.expect(15);
 
-        for (var i = 2; i < 7; i++) {
-            var m = moment().add({ d: i });
-            var nextDay = '';
+        var i, m, nextDay;
+        for (i = 2; i < 7; i++) {
+            m = moment().add({ d: i });
+            nextDay = '';
             switch (m.day()) {
             case 0:
                 nextDay = 'v nedeľu';
@@ -275,9 +274,10 @@ exports["lang:sk"] = {
     "calendar last week" : function (test) {
         test.expect(15);
 
-        for (var i = 2; i < 7; i++) {
-            var m = moment().subtract({ d: i });
-            var lastDay = '';
+        var i, m, lastDay;
+        for (i = 2; i < 7; i++) {
+            m = moment().subtract({ d: i });
+            lastDay = '';
             switch (m.day()) {
             case 0:
                 lastDay = 'minulú nedeľu';
@@ -312,8 +312,8 @@ exports["lang:sk"] = {
 
     "calendar all else" : function (test) {
         test.expect(4);
-        var weeksAgo = moment().subtract({ w: 1 });
-        var weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({ w: 1 }),
+            weeksFromNow = moment().add({ w: 1 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");

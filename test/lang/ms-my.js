@@ -227,7 +227,6 @@ exports["lang:ms-my"] = {
         test.expect(15);
 
         var i, m;
-
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('dddd [pukul] LT'),  "Hari ini + " + i + " hari waktu sekarang");
@@ -243,7 +242,6 @@ exports["lang:ms-my"] = {
         test.expect(15);
 
         var i, m;
-
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('dddd [lepas] [pukul] LT'),  "Hari ini - " + i + " hari waktu sekarang");

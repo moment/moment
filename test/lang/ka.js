@@ -230,7 +230,6 @@ exports["lang:ka"] = {
         test.expect(15);
 
         var i, m;
-
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('[შემდეგ] dddd LT[-ზე]'),  "დღეს + " + i + " დღე ახლანდელ დროს");
@@ -246,7 +245,6 @@ exports["lang:ka"] = {
         test.expect(15);
 
         var i, m;
-
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('[წინა] dddd LT[-ზე]'),  "დღეს - " + i + " დღე ახლანდელ დროს");

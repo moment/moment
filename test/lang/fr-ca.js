@@ -218,8 +218,7 @@ exports["lang:fr-ca"] = {
     "same next week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
+        var i, m;
 
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
@@ -251,8 +250,8 @@ exports["lang:fr-ca"] = {
     "same all else" : function (test) {
         test.expect(4);
 
-        var weeksAgo = moment().subtract({ w: 1 });
-        var weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({ w: 1 }),
+            weeksFromNow = moment().add({ w: 1 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");

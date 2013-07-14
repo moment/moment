@@ -18,8 +18,7 @@ exports["lang:br"] = {
 
     "parse" : function (test) {
         test.expect(96);
-        var tests = "Genver Gen_C'hwevrer C'hwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker".split("_");
-        var i;
+        var tests = "Genver Gen_C'hwevrer C'hwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker".split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -110,8 +109,7 @@ exports["lang:br"] = {
     "format month" : function (test) {
         test.expect(12);
         moment.lang('br');
-        var expected = "Genver Gen_C'hwevrer C'hwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker".split("_");
-        var i;
+        var expected = "Genver Gen_C'hwevrer C'hwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker".split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -121,8 +119,7 @@ exports["lang:br"] = {
     "format week" : function (test) {
         test.expect(7);
         moment.lang('br');
-        var expected = "Sul Sul Su_Lun Lun Lu_Meurzh Meu Me_Merc'her Mer Mer_Yaou Yao Ya_Gwener Gwe Gw_Sadorn Sad Sa".split("_");
-        var i;
+        var expected = "Sul Sul Su_Lun Lun Lu_Meurzh Meu Me_Merc'her Mer Mer_Yaou Yao Ya_Gwener Gwe Gw_Sadorn Sad Sa".split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
@@ -208,9 +205,7 @@ exports["lang:br"] = {
         test.expect(15);
         moment.lang('br');
 
-        var i;
-        var m;
-
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('dddd [da] LT'),  "Today + " + i + " days current time");
@@ -225,8 +220,8 @@ exports["lang:br"] = {
     "calendar last week" : function (test) {
         test.expect(15);
         moment.lang('br');
-        var i, m;
 
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('dddd [paset da] LT'),  "Today - " + i + " days current time");
@@ -241,8 +236,8 @@ exports["lang:br"] = {
     "calendar all else" : function (test) {
         test.expect(4);
         moment.lang('br');
-        var weeksAgo = moment().subtract({ w: 1 });
-        var weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({ w: 1 }),
+            weeksFromNow = moment().add({ w: 1 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");

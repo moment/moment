@@ -19,8 +19,7 @@ exports["lang:eo"] = {
     "parse" : function (test) {
         test.expect(96);
 
-        var tests = 'januaro jan_februaro feb_marto mar_aprilo apr_majo maj_junio jun_julio jul_aŭgusto aŭg_septembro sep_oktobro okt_novembro nov_decembro dec'.split("_");
-        var i;
+        var tests = 'januaro jan_februaro feb_marto mar_aprilo apr_majo maj_junio jun_julio jul_aŭgusto aŭg_septembro sep_oktobro okt_novembro nov_decembro dec'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -116,8 +115,7 @@ exports["lang:eo"] = {
     "format month" : function (test) {
         test.expect(12);
 
-        var expected = 'januaro jan_februaro feb_marto mar_aprilo apr_majo maj_junio jun_julio jul_aŭgusto aŭg_septembro sep_oktobro okt_novembro nov_decembro dec'.split("_");
-        var i;
+        var expected = 'januaro jan_februaro feb_marto mar_aprilo apr_majo maj_junio jun_julio jul_aŭgusto aŭg_septembro sep_oktobro okt_novembro nov_decembro dec'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -127,8 +125,7 @@ exports["lang:eo"] = {
     "format week" : function (test) {
         test.expect(7);
 
-        var expected = 'Dimanĉo Dim Di_Lundo Lun Lu_Mardo Mard Ma_Merkredo Merk Me_Ĵaŭdo Ĵaŭ Ĵa_Vendredo Ven Ve_Sabato Sab Sa'.split("_");
-        var i;
+        var expected = 'Dimanĉo Dim Di_Lundo Lun Lu_Mardo Mard Ma_Merkredo Merk Me_Ĵaŭdo Ĵaŭ Ĵa_Vendredo Ven Ve_Sabato Sab Sa'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
@@ -209,8 +206,7 @@ exports["lang:eo"] = {
     "calendar next week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
+        var i, m;
 
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
@@ -226,8 +222,7 @@ exports["lang:eo"] = {
     "calendar last week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
+        var i, m;
 
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
@@ -243,8 +238,8 @@ exports["lang:eo"] = {
     "calendar all else" : function (test) {
         test.expect(4);
 
-        var weeksAgo = moment().subtract({ w: 1 });
-        var weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({ w: 1 }),
+            weeksFromNow = moment().add({ w: 1 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");

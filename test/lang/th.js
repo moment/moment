@@ -19,8 +19,7 @@ exports["lang:th"] = {
     "parse" : function (test) {
         test.expect(96);
 
-        var tests = 'มกราคม มกรา_กุมภาพันธ์ กุมภา_มีนาคม มีนา_เมษายน เมษา_พฤษภาคม พฤษภา_มิถุนายน มิถุนา_กรกฎาคม กรกฎา_สิงหาคม สิงหา_กันยายน กันยา_ตุลาคม ตุลา_พฤศจิกายน พฤศจิกา_ธันวาคม ธันวา'.split("_");
-        var i;
+        var tests = 'มกราคม มกรา_กุมภาพันธ์ กุมภา_มีนาคม มีนา_เมษายน เมษา_พฤษภาคม พฤษภา_มิถุนายน มิถุนา_กรกฎาคม กรกฎา_สิงหาคม สิงหา_กันยายน กันยา_ตุลาคม ตุลา_พฤศจิกายน พฤศจิกา_ธันวาคม ธันวา'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -76,8 +75,7 @@ exports["lang:th"] = {
     "format month" : function (test) {
         test.expect(12);
 
-        var expected = 'มกราคม มกรา_กุมภาพันธ์ กุมภา_มีนาคม มีนา_เมษายน เมษา_พฤษภาคม พฤษภา_มิถุนายน มิถุนา_กรกฎาคม กรกฎา_สิงหาคม สิงหา_กันยายน กันยา_ตุลาคม ตุลา_พฤศจิกายน พฤศจิกา_ธันวาคม ธันวา'.split("_");
-        var i;
+        var expected = 'มกราคม มกรา_กุมภาพันธ์ กุมภา_มีนาคม มีนา_เมษายน เมษา_พฤษภาคม พฤษภา_มิถุนายน มิถุนา_กรกฎาคม กรกฎา_สิงหาคม สิงหา_กันยายน กันยา_ตุลาคม ตุลา_พฤศจิกายน พฤศจิกา_ธันวาคม ธันวา'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -87,8 +85,7 @@ exports["lang:th"] = {
     "format week" : function (test) {
         test.expect(7);
 
-        var expected = 'อาทิตย์ อาทิตย์ อา._จันทร์ จันทร์ จ._อังคาร อังคาร อ._พุธ พุธ พ._พฤหัสบดี พฤหัส พฤ._ศุกร์ ศุกร์ ศ._เสาร์ เสาร์ ส.'.split("_");
-        var i;
+        var expected = 'อาทิตย์ อาทิตย์ อา._จันทร์ จันทร์ จ._อังคาร อังคาร อ._พุธ พุธ พ._พฤหัสบดี พฤหัส พฤ._ศุกร์ ศุกร์ ศ._เสาร์ เสาร์ ส.'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
@@ -169,9 +166,7 @@ exports["lang:th"] = {
     "calendar next week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
-
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('dddd[หน้า เวลา] LT'),  "Today + " + i + " days current time");
@@ -186,9 +181,7 @@ exports["lang:th"] = {
     "calendar last week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
-
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('[วัน]dddd[ที่แล้ว เวลา] LT'),  "Today - " + i + " days current time");
@@ -203,8 +196,8 @@ exports["lang:th"] = {
     "calendar all else" : function (test) {
         test.expect(4);
 
-        var weeksAgo = moment().subtract({ w: 1 });
-        var weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({ w: 1 }),
+            weeksFromNow = moment().add({ w: 1 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),      "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");

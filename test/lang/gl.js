@@ -19,9 +19,7 @@ exports["lang:gl"] = {
     "parse" : function (test) {
         test.expect(96);
 
-        var tests = "Xaneiro Xan._Febreiro Feb._Marzo Mar._Abril Abr._Maio Mai._Xuño Xuñ._Xullo Xul._Agosto Ago._Setembro Set._Outubro Out._Novembro Nov._Decembro Dec.".split("_");
-
-        var i;
+        var tests = "Xaneiro Xan._Febreiro Feb._Marzo Mar._Abril Abr._Maio Mai._Xuño Xuñ._Xullo Xul._Agosto Ago._Setembro Set._Outubro Out._Novembro Nov._Decembro Dec.".split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -82,8 +80,7 @@ exports["lang:gl"] = {
     "format month" : function (test) {
         test.expect(12);
 
-        var expected = "Xaneiro Xan._Febreiro Feb._Marzo Mar._Abril Abr._Maio Mai._Xuño Xuñ._Xullo Xul._Agosto Ago._Setembro Set._Outubro Out._Novembro Nov._Decembro Dec.".split("_");
-        var i;
+        var expected = "Xaneiro Xan._Febreiro Feb._Marzo Mar._Abril Abr._Maio Mai._Xuño Xuñ._Xullo Xul._Agosto Ago._Setembro Set._Outubro Out._Novembro Nov._Decembro Dec.".split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -93,9 +90,8 @@ exports["lang:gl"] = {
     "format week" : function (test) {
         test.expect(7);
 
-        var expected = "Domingo Dom. Do_Luns Lun. Lu_Martes Mar. Ma_Mércores Mér. Mé_Xoves Xov. Xo_Venres Ven. Ve_Sábado Sáb. Sá".split("_");
-
-        var i;
+        var expected = "Domingo Dom. Do_Luns Lun. Lu_Martes Mar. Ma_Mércores Mér. Mé_Xoves Xov. Xo_Venres Ven. Ve_Sábado Sáb. Sá".split("_"),
+        i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
@@ -179,8 +175,7 @@ exports["lang:gl"] = {
     "calendar next week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
+        var i, m;
 
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
@@ -196,9 +191,7 @@ exports["lang:gl"] = {
     "calendar last week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
-
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('[o] dddd [pasado ' + ((m.hours() !== 1) ? 'ás' : 'a') + '] LT'),  "Today - " + i + " days current time");
@@ -213,8 +206,8 @@ exports["lang:gl"] = {
     "calendar all else" : function (test) {
         test.expect(4);
 
-        var weeksAgo = moment().subtract({ w: 1 });
-        var weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({ w: 1 }),
+            weeksFromNow = moment().add({ w: 1 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
