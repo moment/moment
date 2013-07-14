@@ -44,28 +44,26 @@ module.exports = function (grunt) {
 
     function getCurrentTimezone(cb) {
         grunt.util.spawn({
-            cmd: "systemsetup",
-            args: ["gettimezone"]
+            cmd: "tasks/timezone.sh",
+            args: ["get"]
         }, function (err, result, code) {
-            cb(result.stdout.replace('Time Zone: ', ''));
+            cb(result.stdout);
         });
     }
 
     function getAllTimezones(cb) {
         grunt.util.spawn({
-            cmd: "systemsetup",
-            args: ["listtimezones"]
+            cmd: "tasks/timezone.sh",
+            args: ["list"]
         }, function (err, result, code) {
-            var zones = result.stdout.replace('Time Zones:', '');
-            zones = zones.match(/\S+/g);
-            cb(zones);
+            cb(result.stdout.match(/\S+/g));
         });
     }
 
     function setTimezone(zone, cb) {
         grunt.util.spawn({
-            cmd: "systemsetup",
-            args: ["settimezone", zone]
+            cmd: "tasks/timezone.sh",
+            args: ["set", zone]
         }, function (err, result, code) {
             cb();
         });
