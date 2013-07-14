@@ -24,7 +24,7 @@
         aspNetTimeSpanJsonRegex = /(\-)?(\d*)?\.?(\d+)\:(\d+)\:(\d+)\.?(\d{3})?/,
 
         // format tokens
-        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|\*\*YY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,
         localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?|l{1,4})/g,
 
         // parsing token regexes
@@ -122,6 +122,9 @@
                 return leftZeroFill(this.year() % 100, 2);
             },
             YYYY : function () {
+                return leftZeroFill(this.year(), 4);
+            },
+            '**YY' : function () {
                 return leftZeroFill(this.year(), 4);
             },
             YYYYY : function () {
@@ -810,10 +813,34 @@
 
     // date from string and format string
     function makeDateFromStringAndFormat(config) {
+        // add permissive year "**YY" format, accept both 2 or 4 digits
+        if ((function () {
+            var tempMoment,
+                tempConfig = extend({}, config);
+
+            if (config._f.indexOf('**YY') >= 0) {
+
+                tempConfig._f = config._f.replace('**YY', 'YYYY');
+                makeDateFromStringAndFormat(tempConfig);
+                tempMoment    = new Moment(tempConfig);
+
+                if (!tempMoment.isValid() || tempMoment.year() < 100) {
+                    tempConfig = extend({}, config);
+                    tempConfig._f = config._f.replace('**YY', 'YY');
+                    makeDateFromStringAndFormat(tempConfig);
+                    tempMoment    = new Moment(tempConfig);
+                }
+                extend(config, tempMoment);
+                return true;
+            }
+        }).call(this)) { return; }
+
+
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
         var tokens = config._f.match(formattingTokens),
             string = config._i,
-            i, parsedInput;
+            i, parsedInput; 
+            
 
         config._a = [];
 
