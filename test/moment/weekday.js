@@ -1,12 +1,12 @@
 var moment = require("../../moment");
 
 exports.week_year = {
-    "iso weekday": function(test) {
+    "iso weekday": function (test) {
         var i;
         test.expect(7 * 7);
 
         for (i = 0; i < 7; ++i) {
-            moment.lang('dow:' + i + ',doy:6', {week: {dow: i, doy: 6}});
+            moment.lang('dow:' + i + ',doy: 6', {week: {dow: i, doy: 6}});
             test.equal(moment([1985, 1,  4]).isoWeekday(), 1, "Feb  4 1985 is Monday    -- 1st day");
             test.equal(moment([2029, 8, 18]).isoWeekday(), 2, "Sep 18 2029 is Tuesday   -- 2nd day");
             test.equal(moment([2013, 3, 24]).isoWeekday(), 3, "Apr 24 2013 is Wednesday -- 3rd day");
@@ -18,7 +18,7 @@ exports.week_year = {
         test.done();
     },
 
-    "iso weekday setter" : function(test) {
+    "iso weekday setter" : function (test) {
         test.expect(27);
 
         var a = moment([2011, 0, 10]);
@@ -57,10 +57,10 @@ exports.week_year = {
         test.done();
     },
 
-    "weekday first day of week Sunday (dow 0)": function(test) {
+    "weekday first day of week Sunday (dow 0)": function (test) {
         test.expect(7);
 
-        moment.lang('dow:0,doy:6', {week: {dow: 0, doy: 6}});
+        moment.lang('dow: 0,doy: 6', {week: {dow: 0, doy: 6}});
         test.equal(moment([1985, 1,  3]).weekday(), 0, "Feb  3 1985 is Sunday    -- 0th day");
         test.equal(moment([2029, 8, 17]).weekday(), 1, "Sep 17 2029 is Monday    -- 1st day");
         test.equal(moment([2013, 3, 23]).weekday(), 2, "Apr 23 2013 is Tuesday   -- 2nd day");
@@ -71,10 +71,10 @@ exports.week_year = {
         test.done();
     },
 
-    "weekday first day of week Monday (dow 1)": function(test) {
+    "weekday first day of week Monday (dow 1)": function (test) {
         test.expect(7);
 
-        moment.lang('dow:1,doy:6', {week: {dow: 1, doy: 6}});
+        moment.lang('dow: 1,doy: 6', {week: {dow: 1, doy: 6}});
         test.equal(moment([1985, 1,  4]).weekday(), 0, "Feb  4 1985 is Monday    -- 0th day");
         test.equal(moment([2029, 8, 18]).weekday(), 1, "Sep 18 2029 is Tuesday   -- 1st day");
         test.equal(moment([2013, 3, 24]).weekday(), 2, "Apr 24 2013 is Wednesday -- 2nd day");
@@ -85,10 +85,10 @@ exports.week_year = {
         test.done();
     },
 
-    "weekday first day of week Tuesday (dow 2)": function(test) {
+    "weekday first day of week Tuesday (dow 2)": function (test) {
         test.expect(7);
 
-        moment.lang('dow:2,doy:6', {week: {dow: 2, doy: 6}});
+        moment.lang('dow: 2,doy: 6', {week: {dow: 2, doy: 6}});
         test.equal(moment([1985, 1,  5]).weekday(), 0, "Feb  5 1985 is Tuesday   -- 0th day");
         test.equal(moment([2029, 8, 19]).weekday(), 1, "Sep 19 2029 is Wednesday -- 1st day");
         test.equal(moment([2013, 3, 25]).weekday(), 2, "Apr 25 2013 is Thursday  -- 2nd day");
@@ -99,10 +99,10 @@ exports.week_year = {
         test.done();
     },
 
-    "weekday first day of week Wednesday (dow 3)": function(test) {
+    "weekday first day of week Wednesday (dow 3)": function (test) {
         test.expect(7);
 
-        moment.lang('dow:3,doy:6', {week: {dow: 3, doy: 6}});
+        moment.lang('dow: 3,doy: 6', {week: {dow: 3, doy: 6}});
         test.equal(moment([1985, 1,  6]).weekday(), 0, "Feb  6 1985 is Wednesday -- 0th day");
         test.equal(moment([2029, 8, 20]).weekday(), 1, "Sep 20 2029 is Thursday  -- 1st day");
         test.equal(moment([2013, 3, 26]).weekday(), 2, "Apr 26 2013 is Friday    -- 2nd day");
@@ -113,10 +113,10 @@ exports.week_year = {
         test.done();
     },
 
-    "weekday first day of week Thursday (dow 4)": function(test) {
+    "weekday first day of week Thursday (dow 4)": function (test) {
         test.expect(7);
 
-        moment.lang('dow:4,doy:6', {week: {dow: 4, doy: 6}});
+        moment.lang('dow: 4,doy: 6', {week: {dow: 4, doy: 6}});
 
         test.equal(moment([1985, 1,  7]).weekday(), 0, "Feb  7 1985 is Thursday  -- 0th day");
         test.equal(moment([2029, 8, 21]).weekday(), 1, "Sep 21 2029 is Friday    -- 1st day");
@@ -128,10 +128,10 @@ exports.week_year = {
         test.done();
     },
 
-    "weekday first day of week Friday (dow 5)": function(test) {
+    "weekday first day of week Friday (dow 5)": function (test) {
         test.expect(7);
 
-        moment.lang('dow:5,doy:6', {week: {dow: 5, doy: 6}});
+        moment.lang('dow: 5,doy: 6', {week: {dow: 5, doy: 6}});
         test.equal(moment([1985, 1,  8]).weekday(), 0, "Feb  8 1985 is Friday    -- 0th day");
         test.equal(moment([2029, 8, 22]).weekday(), 1, "Sep 22 2029 is Staturday -- 1st day");
         test.equal(moment([2013, 3, 28]).weekday(), 2, "Apr 28 2013 is Sunday    -- 2nd day");
@@ -142,10 +142,10 @@ exports.week_year = {
         test.done();
     },
 
-    "weekday first day of week Saturday (dow 6)": function(test) {
+    "weekday first day of week Saturday (dow 6)": function (test) {
         test.expect(7);
 
-        moment.lang('dow:6,doy:6', {week: {dow: 6, doy: 6}});
+        moment.lang('dow: 6,doy: 6', {week: {dow: 6, doy: 6}});
         test.equal(moment([1985, 1,  9]).weekday(), 0, "Feb  9 1985 is Staturday -- 0th day");
         test.equal(moment([2029, 8, 23]).weekday(), 1, "Sep 23 2029 is Sunday    -- 1st day");
         test.equal(moment([2013, 3, 29]).weekday(), 2, "Apr 29 2013 is Monday    -- 2nd day");

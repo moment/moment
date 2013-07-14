@@ -109,11 +109,11 @@ exports.is_valid = {
             '2010-01-01T24',
             '2010-01-01T23:60',
             '2010-01-01T23:59:60'
-        ];
+        ], i;
 
         test.expect(tests.length * 2);
 
-        for (var i = 0; i < tests.length; i++) {
+        for (i = 0; i < tests.length; i++) {
             test.equal(moment(tests[i]).isValid(), false, tests[i] + ' should be invalid');
             test.equal(moment.utc(tests[i]).isValid(), false, tests[i] + ' should be invalid');
         }
@@ -130,11 +130,11 @@ exports.is_valid = {
             '2010-01-40T23:60+00:00',
             '2010-01-40T23:59:60+00:00',
             '2010-01-40T23:59:59.9999+00:00'
-        ];
+        ], i;
 
         test.expect(tests.length * 2);
 
-        for (var i = 0; i < tests.length; i++) {
+        for (i = 0; i < tests.length; i++) {
             test.equal(moment(tests[i]).isValid(), false, tests[i] + ' should be invalid');
             test.equal(moment.utc(tests[i]).isValid(), false, tests[i] + ' should be invalid');
         }
@@ -151,11 +151,11 @@ exports.is_valid = {
             '2010-01-30T23:59:59.999+00:00',
             '2010-01-30T23:59:59.999-07:00',
             '2010-01-30T00:00:00.000+07:00'
-        ];
+        ], i;
 
         test.expect(tests.length * 2);
 
-        for (var i = 0; i < tests.length; i++) {
+        for (i = 0; i < tests.length; i++) {
             test.equal(moment(tests[i]).isValid(), true, tests[i] + ' should be valid');
             test.equal(moment.utc(tests[i]).isValid(), true, tests[i] + ' should be valid');
         }

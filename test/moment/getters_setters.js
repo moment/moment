@@ -1,7 +1,7 @@
 var moment = require("../../moment");
 
 exports.getters_setters = {
-    "getters" : function(test) {
+    "getters" : function (test) {
         test.expect(8);
 
         var a = moment([2011, 9, 12, 6, 7, 8, 9]);
@@ -16,7 +16,7 @@ exports.getters_setters = {
         test.done();
     },
 
-    "setters plural" : function(test) {
+    "setters plural" : function (test) {
         test.expect(8);
 
         var a = moment();
@@ -38,7 +38,7 @@ exports.getters_setters = {
         test.done();
     },
 
-    "setters singular" : function(test) {
+    "setters singular" : function (test) {
         test.expect(8);
 
         var a = moment();
@@ -60,7 +60,7 @@ exports.getters_setters = {
         test.done();
     },
 
-    "setters" : function(test) {
+    "setters" : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -88,7 +88,7 @@ exports.getters_setters = {
         test.done();
     },
 
-    "setters strings" : function(test) {
+    "setters strings" : function (test) {
         test.expect(7);
 
         var a = moment([2012]).lang('en');
@@ -102,7 +102,7 @@ exports.getters_setters = {
         test.done();
     },
 
-    "setters - falsey values" : function(test) {
+    "setters - falsey values" : function (test) {
         test.expect(1);
 
         var a = moment();
@@ -113,7 +113,7 @@ exports.getters_setters = {
         test.done();
     },
 
-    "chaining setters" : function(test) {
+    "chaining setters" : function (test) {
         test.expect(7);
 
         var a = moment();
@@ -133,7 +133,7 @@ exports.getters_setters = {
         test.done();
     },
 
-    "day setter" : function(test) {
+    "day setter" : function (test) {
         test.expect(18);
 
         var a = moment([2011, 0, 15]);

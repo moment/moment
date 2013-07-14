@@ -1,7 +1,7 @@
 var moment = require("../../moment");
 
 exports.create = {
-    "array" : function(test) {
+    "array" : function (test) {
         test.expect(8);
         test.ok(moment([2010]).toDate() instanceof Date, "[2010]");
         test.ok(moment([2010, 1]).toDate() instanceof Date, "[2010, 1]");
@@ -14,7 +14,7 @@ exports.create = {
         test.done();
     },
 
-    "array copying": function(test) {
+    "array copying": function (test) {
         var importantArray = [2009, 11];
         test.expect(1);
         moment(importantArray);
@@ -22,7 +22,7 @@ exports.create = {
         test.done();
     },
 
-    "multi format array copying": function(test) {
+    "multi format array copying": function (test) {
         var importantArray = ['MM/DD/YYYY', 'YYYY-MM-DD', 'MM-DD-YYYY'];
         test.expect(1);
         moment('1999-02-13', importantArray);
@@ -30,7 +30,7 @@ exports.create = {
         test.done();
     },
 
-    "number" : function(test) {
+    "number" : function (test) {
         test.expect(3);
         test.ok(moment(1000).toDate() instanceof Date, "1000");
         test.ok((moment(1000).valueOf() === 1000), "testing valueOf");
@@ -38,7 +38,7 @@ exports.create = {
         test.done();
     },
 
-    "unix" : function(test) {
+    "unix" : function (test) {
         test.expect(8);
         test.equal(moment.unix(1).valueOf(), 1000, "1 unix timestamp == 1000 Date.valueOf");
         test.equal(moment(1000).unix(), 1, "1000 Date.valueOf == 1 unix timestamp");
@@ -51,47 +51,47 @@ exports.create = {
         test.done();
     },
 
-    "date" : function(test) {
+    "date" : function (test) {
         test.expect(1);
         test.ok(moment(new Date()).toDate() instanceof Date, "new Date()");
         test.done();
     },
 
-    "date mutation" : function(test) {
+    "date mutation" : function (test) {
         test.expect(1);
         var a = new Date();
         test.ok(moment(a).toDate() !== a, "the date moment uses should not be the date passed in");
         test.done();
     },
 
-    "moment" : function(test) {
+    "moment" : function (test) {
         test.expect(2);
         test.ok(moment(moment()).toDate() instanceof Date, "moment(moment())");
         test.ok(moment(moment(moment())).toDate() instanceof Date, "moment(moment(moment()))");
         test.done();
     },
 
-    "cloning moment should only copy own properties" : function(test) {
+    "cloning moment should only copy own properties" : function (test) {
         test.expect(2);
         test.ok(!moment().clone().hasOwnProperty('month'), "Should not clone prototype methods");
         test.ok(!moment().clone().hasOwnProperty('_lang'), "Should not clone prototype objects");
         test.done();
     },
 
-    "undefined" : function(test) {
+    "undefined" : function (test) {
         test.expect(1);
         test.ok(moment().toDate() instanceof Date, "undefined");
         test.done();
     },
 
-    "string without format" : function(test) {
+    "string without format" : function (test) {
         test.expect(2);
         test.ok(moment("Aug 9, 1995").toDate() instanceof Date, "Aug 9, 1995");
         test.ok(moment("Mon, 25 Dec 1995 13:30:00 GMT").toDate() instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
         test.done();
     },
 
-    "string without format - json" : function(test) {
+    "string without format - json" : function (test) {
         test.expect(5);
         test.equal(moment("Date(1325132654000)").valueOf(), 1325132654000, "Date(1325132654000)");
         test.equal(moment("Date(-1325132654000)").valueOf(), -1325132654000, "Date(-1325132654000)");
@@ -101,7 +101,7 @@ exports.create = {
         test.done();
     },
 
-    "string with format dropped am/pm bug" : function(test) {
+    "string with format dropped am/pm bug" : function (test) {
         moment.lang('en');
         test.expect(3);
 
@@ -112,7 +112,7 @@ exports.create = {
         test.done();
     },
 
-    "empty string with formats" : function(test) {
+    "empty string with formats" : function (test) {
         test.expect(3);
 
         test.equal(moment(' ', 'MM').format('YYYY-MM-DD HH:mm:ss'), '0000-01-01 00:00:00', 'should not break if input is an empty string');
@@ -122,7 +122,7 @@ exports.create = {
         test.done();
     },
 
-    "matching am/pm" : function(test) {
+    "matching am/pm" : function (test) {
         test.expect(13);
 
         test.equal(moment('2012-09-03T03:00PM',   'YYYY-MM-DDThh:mmA').format('YYYY-MM-DDThh:mmA'), '2012-09-03T03:00PM', 'am/pm should parse correctly for PM');
@@ -144,7 +144,7 @@ exports.create = {
         test.done();
     },
 
-    "string with format" : function(test) {
+    "string with format" : function (test) {
         moment.lang('en');
         var a = [
                 ['MM-DD-YYYY',          '12-02-1999'],
@@ -186,12 +186,12 @@ exports.create = {
         test.done();
     },
 
-    "unix timestamp format" : function(test) {
-        var formats = ['X', 'X.S', 'X.SS', 'X.SSS'];
+    "unix timestamp format" : function (test) {
+        var formats = ['X', 'X.S', 'X.SS', 'X.SSS'], i, format;
 
         test.expect(formats.length * 4);
-        for (var i = 0; i < formats.length; i++) {
-            var format = formats[i];
+        for (i = 0; i < formats.length; i++) {
+            format = formats[i];
             test.equal(moment('1234567890',     format).valueOf(), 1234567890 * 1000,       format + " matches timestamp without milliseconds");
             test.equal(moment('1234567890.1',   format).valueOf(), 1234567890 * 1000 + 100, format + " matches timestamp with deciseconds");
             test.equal(moment('1234567890.12',  format).valueOf(), 1234567890 * 1000 + 120, format + " matches timestamp with centiseconds");
@@ -201,14 +201,14 @@ exports.create = {
         test.done();
     },
 
-    "string with format no separators" : function(test) {
+    "string with format no separators" : function (test) {
         moment.lang('en');
         var a = [
                 ['MMDDYYYY',          '12021999'],
                 ['DDMMYYYY',          '12021999'],
                 ['YYYYMMDD',          '19991202'],
                 ['DDMMMYYYY',         '10Sep2001']
-            ],i;
+            ], i;
 
         test.expect(a.length);
 
@@ -219,12 +219,12 @@ exports.create = {
         test.done();
     },
 
-    "string with format (timezone)" : function(test) {
+    "string with format (timezone)" : function (test) {
         test.expect(8);
         test.equal(moment('5 -0700', 'H ZZ').toDate().getUTCHours(), 12, 'parse hours "5 -0700" ---> "H ZZ"');
         test.equal(moment('5 -07:00', 'H Z').toDate().getUTCHours(), 12, 'parse hours "5 -07:00" ---> "H Z"');
         test.equal(moment('5 -0730', 'H ZZ').toDate().getUTCMinutes(), 30, 'parse hours "5 -0730" ---> "H ZZ"');
-        test.equal(moment('5 -07:30', 'H Z').toDate().getUTCMinutes(), 30, 'parse hours "5 -07:30" ---> "H Z"');
+        test.equal(moment('5 -07:30', 'H Z').toDate().getUTCMinutes(), 30, 'parse hours "5 -07:0" ---> "H Z"');
         test.equal(moment('5 +0100', 'H ZZ').toDate().getUTCHours(), 4, 'parse hours "5 +0100" ---> "H ZZ"');
         test.equal(moment('5 +01:00', 'H Z').toDate().getUTCHours(), 4, 'parse hours "5 +01:00" ---> "H Z"');
         test.equal(moment('5 +0130', 'H ZZ').toDate().getUTCMinutes(), 30, 'parse hours "5 +0130" ---> "H ZZ"');
@@ -232,22 +232,23 @@ exports.create = {
         test.done();
     },
 
-    "string with format (timezone offset)" : function(test) {
+    "string with format (timezone offset)" : function (test) {
+        var a, b, c, d, e, f;
         test.expect(4);
-        var a = new Date(Date.UTC(2011, 0, 1, 1));
-        var b = moment('2011 1 1 0 -01:00', 'YYYY MM DD HH Z');
+        a = new Date(Date.UTC(2011, 0, 1, 1));
+        b = moment('2011 1 1 0 -01:00', 'YYYY MM DD HH Z');
         test.equal(a.getHours(), b.hours(), 'date created with utc == parsed string with timezone offset');
         test.equal(+a, +b, 'date created with utc == parsed string with timezone offset');
-        var c = moment('2011 2 1 10 -05:00', 'YYYY MM DD HH Z');
-        var d = moment('2011 2 1 8 -07:00', 'YYYY MM DD HH Z');
+        c = moment('2011 2 1 10 -05:00', 'YYYY MM DD HH Z');
+        d = moment('2011 2 1 8 -07:00', 'YYYY MM DD HH Z');
         test.equal(c.hours(), d.hours(), '10 am central time == 8 am pacific time');
-        var e = moment.utc('Fri, 20 Jul 2012 17:15:00', 'ddd, DD MMM YYYY HH:mm:ss');
-        var f = moment.utc('Fri, 20 Jul 2012 10:15:00 -0700', 'ddd, DD MMM YYYY HH:mm:ss ZZ');
+        e = moment.utc('Fri, 20 Jul 2012 17:15:00', 'ddd, DD MMM YYYY HH:mm:ss');
+        f = moment.utc('Fri, 20 Jul 2012 10:15:00 -0700', 'ddd, DD MMM YYYY HH:mm:ss ZZ');
         test.equal(e.hours(), f.hours(), 'parse timezone offset in utc');
         test.done();
     },
 
-    "string with array of formats" : function(test) {
+    "string with array of formats" : function (test) {
         test.expect(14);
 
         test.equal(moment('11-02-1999', ['MM-DD-YYYY', 'DD-MM-YYYY']).format('MM DD YYYY'), '11 02 1999', 'switching month and day');
@@ -272,7 +273,7 @@ exports.create = {
         test.done();
     },
 
-    "string with format - years" : function(test) {
+    "string with format - years" : function (test) {
         test.expect(4);
         test.equal(moment('67', 'YY').format('YYYY'), '2067', '67 > 2067');
         test.equal(moment('68', 'YY').format('YYYY'), '2068', '68 > 2068');
@@ -281,27 +282,27 @@ exports.create = {
         test.done();
     },
 
-    "implicit cloning" : function(test) {
+    "implicit cloning" : function (test) {
         test.expect(2);
-        var momentA = moment([2011, 10, 10]);
-        var momentB = moment(momentA);
+        var momentA = moment([2011, 10, 10]),
+            momentB = moment(momentA);
         momentA.month(5);
         test.equal(momentB.month(), 10, "Calling moment() on a moment will create a clone");
         test.equal(momentA.month(), 5, "Calling moment() on a moment will create a clone");
         test.done();
     },
 
-    "explicit cloning" : function(test) {
+    "explicit cloning" : function (test) {
         test.expect(2);
-        var momentA = moment([2011, 10, 10]);
-        var momentB = momentA.clone();
+        var momentA = moment([2011, 10, 10]),
+            momentB = momentA.clone();
         momentA.month(5);
         test.equal(momentB.month(), 10, "Calling moment() on a moment will create a clone");
         test.equal(momentA.month(), 5, "Calling moment() on a moment will create a clone");
         test.done();
     },
 
-    "cloning carrying over utc mode" : function(test) {
+    "cloning carrying over utc mode" : function (test) {
         test.expect(8);
 
         test.equal(moment().local().clone()._isUTC, false, "An explicit cloned local moment should have _isUTC == false");
@@ -316,49 +317,49 @@ exports.create = {
         test.done();
     },
 
-    "parsing iso" : function(test) {
-        var offset = moment([2011, 9, 08]).zone();
-        var pad = function(input) {
-            if (input < 10) {
-                return '0' + input;
-            }
-            return '' + input;
-        }
-        var hourOffset = (offset > 0) ? Math.floor(offset / 60) : Math.ceil(offset / 60);
-        var minOffset = offset - (hourOffset * 60);
-        var tz = (offset > 0) ? '-' + pad(hourOffset) + ':' + pad(minOffset) : '+' + pad(-hourOffset) + ':' + pad(-minOffset);
-        var tz2 = tz.replace(':', '');
-        var formats = [
-            ['2011-10-08',                    '2011-10-08T00:00:00.000' + tz],
-            ['2011-10-08T18',                 '2011-10-08T18:00:00.000' + tz],
-            ['2011-10-08T18:04',              '2011-10-08T18:04:00.000' + tz],
-            ['2011-10-08T18:04:20',           '2011-10-08T18:04:20.000' + tz],
-            ['2011-10-08T18:04' + tz,         '2011-10-08T18:04:00.000' + tz],
-            ['2011-10-08T18:04:20' + tz,      '2011-10-08T18:04:20.000' + tz],
-            ['2011-10-08T18:04' + tz2,        '2011-10-08T18:04:00.000' + tz],
-            ['2011-10-08T18:04:20' + tz2,     '2011-10-08T18:04:20.000' + tz],
-            ['2011-10-08T18:04:20.1' + tz2,   '2011-10-08T18:04:20.100' + tz],
-            ['2011-10-08T18:04:20.11' + tz2,  '2011-10-08T18:04:20.110' + tz],
-            ['2011-10-08T18:04:20.111' + tz2, '2011-10-08T18:04:20.111' + tz],
-            ['2011-10-08 18',                 '2011-10-08T18:00:00.000' + tz],
-            ['2011-10-08 18:04',              '2011-10-08T18:04:00.000' + tz],
-            ['2011-10-08 18:04:20',           '2011-10-08T18:04:20.000' + tz],
-            ['2011-10-08 18:04' + tz,         '2011-10-08T18:04:00.000' + tz],
-            ['2011-10-08 18:04:20' + tz,      '2011-10-08T18:04:20.000' + tz],
-            ['2011-10-08 18:04' + tz2,        '2011-10-08T18:04:00.000' + tz],
-            ['2011-10-08 18:04:20' + tz2,     '2011-10-08T18:04:20.000' + tz],
-            ['2011-10-08 18:04:20.1' + tz2,   '2011-10-08T18:04:20.100' + tz],
-            ['2011-10-08 18:04:20.11' + tz2,  '2011-10-08T18:04:20.110' + tz],
-            ['2011-10-08 18:04:20.111' + tz2, '2011-10-08T18:04:20.111' + tz]
-        ];
+    "parsing iso" : function (test) {
+        var offset = moment([2011, 9, 08]).zone(),
+            pad = function (input) {
+                if (input < 10) {
+                    return '0' + input;
+                }
+                return '' + input;
+            },
+            hourOffset = (offset > 0) ? Math.floor(offset / 60) : Math.ceil(offset / 60),
+            minOffset = offset - (hourOffset * 60),
+            tz = (offset > 0) ? '-' + pad(hourOffset) + ':' + pad(minOffset) : '+' + pad(-hourOffset) + ':' + pad(-minOffset),
+            tz2 = tz.replace(':', ''),
+            formats = [
+                ['2011-10-08',                    '2011-10-08T00:00:00.000' + tz],
+                ['2011-10-08T18',                 '2011-10-08T18:00:00.000' + tz],
+                ['2011-10-08T18:04',              '2011-10-08T18:04:00.000' + tz],
+                ['2011-10-08T18:04:20',           '2011-10-08T18:04:20.000' + tz],
+                ['2011-10-08T18:04' + tz,         '2011-10-08T18:04:00.000' + tz],
+                ['2011-10-08T18:04:20' + tz,      '2011-10-08T18:04:20.000' + tz],
+                ['2011-10-08T18:04' + tz2,        '2011-10-08T18:04:00.000' + tz],
+                ['2011-10-08T18:04:20' + tz2,     '2011-10-08T18:04:20.000' + tz],
+                ['2011-10-08T18:04:20.1' + tz2,   '2011-10-08T18:04:20.100' + tz],
+                ['2011-10-08T18:04:20.11' + tz2,  '2011-10-08T18:04:20.110' + tz],
+                ['2011-10-08T18:04:20.111' + tz2, '2011-10-08T18:04:20.111' + tz],
+                ['2011-10-08 18',                 '2011-10-08T18:00:00.000' + tz],
+                ['2011-10-08 18:04',              '2011-10-08T18:04:00.000' + tz],
+                ['2011-10-08 18:04:20',           '2011-10-08T18:04:20.000' + tz],
+                ['2011-10-08 18:04' + tz,         '2011-10-08T18:04:00.000' + tz],
+                ['2011-10-08 18:04:20' + tz,      '2011-10-08T18:04:20.000' + tz],
+                ['2011-10-08 18:04' + tz2,        '2011-10-08T18:04:00.000' + tz],
+                ['2011-10-08 18:04:20' + tz2,     '2011-10-08T18:04:20.000' + tz],
+                ['2011-10-08 18:04:20.1' + tz2,   '2011-10-08T18:04:20.100' + tz],
+                ['2011-10-08 18:04:20.11' + tz2,  '2011-10-08T18:04:20.110' + tz],
+                ['2011-10-08 18:04:20.111' + tz2, '2011-10-08T18:04:20.111' + tz]
+            ], i;
         test.expect(formats.length);
-        for (var i = 0; i < formats.length; i++) {
+        for (i = 0; i < formats.length; i++) {
             test.equal(formats[i][1], moment(formats[i][0]).format('YYYY-MM-DDTHH:mm:ss.SSSZ'), "moment should be able to parse ISO " + formats[i][0]);
         }
         test.done();
     },
 
-    "parsing iso with T" : function(test) {
+    "parsing iso with T" : function (test) {
         test.expect(9);
 
         test.equal(moment('2011-10-08T18')._f, "YYYY-MM-DDTHH", "should include 'T' in the format");
@@ -376,7 +377,7 @@ exports.create = {
         test.done();
     },
 
-    "parsing iso Z timezone" : function(test) {
+    "parsing iso Z timezone" : function (test) {
         var i,
             formats = [
             ['2011-10-08T18:04Z',             '2011-10-08T18:04:00.000+00:00'],
@@ -390,7 +391,7 @@ exports.create = {
         test.done();
     },
 
-    "parsing iso Z timezone into local" : function(test) {
+    "parsing iso Z timezone into local" : function (test) {
         test.expect(1);
 
         var m = moment('2011-10-08T18:04:20.111Z');
@@ -400,7 +401,7 @@ exports.create = {
         test.done();
     },
 
-    "null" : function(test) {
+    "null" : function (test) {
         test.expect(3);
         test.equal(moment(''), null, "Calling moment('')");
         test.equal(moment(null), null, "Calling moment(null)");
@@ -408,7 +409,7 @@ exports.create = {
         test.done();
     },
 
-    "first century" : function(test) {
+    "first century" : function (test) {
         test.expect(9);
         test.equal(moment([0, 0, 1]).format("YYYY-MM-DD"), "0000-01-01", "Year AD 0");
         test.equal(moment([99, 0, 1]).format("YYYY-MM-DD"), "0099-01-01", "Year AD 99");
@@ -422,7 +423,7 @@ exports.create = {
         test.done();
     },
 
-    "six digit years" : function(test) {
+    "six digit years" : function (test) {
         test.expect(8);
         test.equal(moment([-270000, 0, 1]).format("YYYYY-MM-DD"), "-270000-01-01", "format BC 270,001");
         test.equal(moment([ 270000, 0, 1]).format("YYYYY-MM-DD"), "270000-01-01", "format AD 270,000");
@@ -435,7 +436,7 @@ exports.create = {
         test.done();
     },
 
-    "negative four digit years" : function(test) {
+    "negative four digit years" : function (test) {
         test.expect(2);
         test.equal(moment("-1000-01-01", "YYYYY-MM-DD").toDate().getFullYear(), -1000, "parse BC 1,001");
         test.equal(moment.utc("-1000-01-01", "YYYYY-MM-DD").toDate().getUTCFullYear(), -1000, "parse utc BC 1,001");

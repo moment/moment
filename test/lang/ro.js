@@ -16,11 +16,10 @@ exports["lang:ro"] = {
         cb();
     },
 
-    "parse" : function(test) {
+    "parse" : function (test) {
         test.expect(96);
 
-        var tests = 'Ianuarie Ian_Februarie Feb_Martie Mar_Aprilie Apr_Mai Mai_Iunie Iun_Iulie Iul_August Aug_Septembrie Sep_Octombrie Oct_Noiembrie Noi_Decembrie Dec'.split("_");
-        var i;
+        var tests = 'Ianuarie Ian_Februarie Feb_Martie Mar_Aprilie Apr_Mai Mai_Iunie Iun_Iulie Iul_August Aug_Septembrie Sep_Octombrie Oct_Noiembrie Noi_Decembrie Dec'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -38,7 +37,7 @@ exports["lang:ro"] = {
         test.done();
     },
 
-    "format" : function(test) {
+    "format" : function (test) {
         test.expect(22);
 
         var a = [
@@ -73,7 +72,7 @@ exports["lang:ro"] = {
         test.done();
     },
 
-    "format ordinal" : function(test) {
+    "format ordinal" : function (test) {
         test.expect(31);
 
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1', '1');
@@ -113,86 +112,84 @@ exports["lang:ro"] = {
         test.done();
     },
 
-    "format month" : function(test) {
+    "format month" : function (test) {
         test.expect(12);
 
-        var expected = 'Ianuarie Ian_Februarie Feb_Martie Mar_Aprilie Apr_Mai Mai_Iunie Iun_Iulie Iul_August Aug_Septembrie Sep_Octombrie Oct_Noiembrie Noi_Decembrie Dec'.split("_");
-        var i;
+        var expected = 'Ianuarie Ian_Februarie Feb_Martie Mar_Aprilie Apr_Mai Mai_Iunie Iun_Iulie Iul_August Aug_Septembrie Sep_Octombrie Oct_Noiembrie Noi_Decembrie Dec'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
         test.done();
     },
 
-    "format week" : function(test) {
+    "format week" : function (test) {
         test.expect(7);
 
-        var expected = 'Duminică Dum Du_Luni Lun Lu_Marţi Mar Ma_Miercuri Mie Mi_Joi Joi Jo_Vineri Vin Vi_Sâmbătă Sâm Sâ'.split("_");
-        var i;
+        var expected = 'Duminică Dum Du_Luni Lun Lu_Marţi Mar Ma_Miercuri Mie Mi_Joi Joi Jo_Vineri Vin Vi_Sâmbătă Sâm Sâ'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
         test.done();
     },
 
-    "from" : function(test) {
+    "from" : function (test) {
         test.expect(30);
 
         var start = moment([2007, 1, 28]);
-        test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "câteva secunde", "44 secunde = câteva secunde");
-        test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "un minut",       "45 secunde = un minut");
-        test.equal(start.from(moment([2007, 1, 28]).add({s:89}), true),  "un minut",       "89 secunde = un minut");
-        test.equal(start.from(moment([2007, 1, 28]).add({s:90}), true),  "2 minute",       "90 secunde = 2 minute");
-        test.equal(start.from(moment([2007, 1, 28]).add({m:44}), true),  "44 minute",      "44 minute = 44 minute");
-        test.equal(start.from(moment([2007, 1, 28]).add({m:45}), true),  "o oră",          "45 minute = o oră");
-        test.equal(start.from(moment([2007, 1, 28]).add({m:89}), true),  "o oră",          "89 minute = o oră");
-        test.equal(start.from(moment([2007, 1, 28]).add({m:90}), true),  "2 ore",          "90 minute = 2 ore");
-        test.equal(start.from(moment([2007, 1, 28]).add({h:5}), true),   "5 ore",          "5 ore = 5 ore");
-        test.equal(start.from(moment([2007, 1, 28]).add({h:21}), true),  "21 ore",         "21 ore = 21 ore");
-        test.equal(start.from(moment([2007, 1, 28]).add({h:22}), true),  "o zi",           "22 ore = o zi");
-        test.equal(start.from(moment([2007, 1, 28]).add({h:35}), true),  "o zi",           "35 ore = o zi");
-        test.equal(start.from(moment([2007, 1, 28]).add({h:36}), true),  "2 zile",         "36 ore = 2 zile");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:1}), true),   "o zi",           "1 zi = o zi");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:5}), true),   "5 zile",         "5 zile = 5 zile");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:25}), true),  "25 zile",        "25 zile = 25 zile");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:26}), true),  "o lună",         "26 zile = o lună");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:30}), true),  "o lună",         "30 zile = o lună");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:45}), true),  "o lună",         "45 zile = o lună");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:46}), true),  "2 luni",         "46 zile = 2 luni");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:74}), true),  "2 luni",         "75 zile = 2 luni");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:76}), true),  "3 luni",         "76 zile = 3 luni");
-        test.equal(start.from(moment([2007, 1, 28]).add({M:1}), true),   "o lună",         "1 lună = o lună");
-        test.equal(start.from(moment([2007, 1, 28]).add({M:5}), true),   "5 luni",         "5 luni = 5 luni");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:344}), true), "11 luni",        "344 zile = 11 luni");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:345}), true), "un an",          "345 zile = un an");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:547}), true), "un an",          "547 zile = un an");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:548}), true), "2 ani",          "548 zile = 2 ani");
-        test.equal(start.from(moment([2007, 1, 28]).add({y:1}), true),   "un an",          "1 an = un an");
-        test.equal(start.from(moment([2007, 1, 28]).add({y:5}), true),   "5 ani",          "5 ani = 5 ani");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "câteva secunde", "44 secunde = câteva secunde");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "un minut",       "45 secunde = un minut");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  "un minut",       "89 secunde = un minut");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  "2 minute",       "90 secunde = 2 minute");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  "44 minute",      "44 minute = 44 minute");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  "o oră",          "45 minute = o oră");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  "o oră",          "89 minute = o oră");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  "2 ore",          "90 minute = 2 ore");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   "5 ore",          "5 ore = 5 ore");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  "21 ore",         "21 ore = 21 ore");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  "o zi",           "22 ore = o zi");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  "o zi",           "35 ore = o zi");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  "2 zile",         "36 ore = 2 zile");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   "o zi",           "1 zi = o zi");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   "5 zile",         "5 zile = 5 zile");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "25 zile",        "25 zile = 25 zile");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "o lună",         "26 zile = o lună");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "o lună",         "30 zile = o lună");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 45}), true),  "o lună",         "45 zile = o lună");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "2 luni",         "46 zile = 2 luni");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "2 luni",         "75 zile = 2 luni");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "3 luni",         "76 zile = 3 luni");
+        test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "o lună",         "1 lună = o lună");
+        test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "5 luni",         "5 luni = 5 luni");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 344}), true), "11 luni",        "344 zile = 11 luni");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "un an",          "345 zile = un an");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 547}), true), "un an",          "547 zile = un an");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "2 ani",          "548 zile = 2 ani");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "un an",          "1 an = un an");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "5 ani",          "5 ani = 5 ani");
         test.done();
     },
 
-    "suffix" : function(test) {
+    "suffix" : function (test) {
         test.expect(2);
         test.equal(moment(30000).from(0), "peste câteva secunde",   "prefix");
         test.equal(moment(0).from(30000), "câteva secunde în urmă", "suffix");
         test.done();
     },
 
-    "now from now" : function(test) {
+    "now from now" : function (test) {
         test.expect(1);
         test.equal(moment().fromNow(), "câteva secunde în urmă",  "now from now should display as in the past");
         test.done();
     },
 
-    "fromNow" : function(test) {
+    "fromNow" : function (test) {
         test.expect(2);
-        test.equal(moment().add({s:30}).fromNow(), "peste câteva secunde", "in a few seconds");
-        test.equal(moment().add({d:5}).fromNow(), "peste 5 zile", "in 5 days");
+        test.equal(moment().add({s: 30}).fromNow(), "peste câteva secunde", "in a few seconds");
+        test.equal(moment().add({d: 5}).fromNow(), "peste 5 zile", "in 5 days");
         test.done();
     },
 
-    "calendar day" : function(test) {
+    "calendar day" : function (test) {
         test.expect(6);
 
         var a = moment().hours(2).minutes(0).seconds(0);
@@ -206,12 +203,10 @@ exports["lang:ro"] = {
         test.done();
     },
 
-    "calendar next week" : function(test) {
+    "calendar next week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
-
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('dddd [la] LT'),  "Today + " + i + " days current time");
@@ -223,12 +218,10 @@ exports["lang:ro"] = {
         test.done();
     },
 
-    "calendar last week" : function(test) {
+    "calendar last week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
-
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('[fosta] dddd [la] LT'),  "Today - " + i + " days current time");
@@ -240,10 +233,10 @@ exports["lang:ro"] = {
         test.done();
     },
 
-    "calendar all else" : function(test) {
+    "calendar all else" : function (test) {
         test.expect(4);
-        var weeksAgo = moment().subtract({ w: 1 });
-        var weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({ w: 1 }),
+            weeksFromNow = moment().add({ w: 1 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
@@ -260,7 +253,7 @@ exports["lang:ro"] = {
     // Monday is the first day of the week.
     // The week that contains Jan 1st is the first week of the year.
 
-    "weeks year starting sunday" : function(test) {
+    "weeks year starting sunday" : function (test) {
         test.expect(5);
 
         test.equal(moment([2011, 11, 26]).week(), 1, "Dec 26 2011 should be week 1");
@@ -272,7 +265,7 @@ exports["lang:ro"] = {
         test.done();
     },
 
-    "weeks year starting monday" : function(test) {
+    "weeks year starting monday" : function (test) {
         test.expect(5);
 
         test.equal(moment([2007, 0, 1]).week(),  1, "Jan  1 2007 should be week 1");
@@ -284,7 +277,7 @@ exports["lang:ro"] = {
         test.done();
     },
 
-    "weeks year starting tuesday" : function(test) {
+    "weeks year starting tuesday" : function (test) {
         test.expect(6);
 
         test.equal(moment([2007, 11, 31]).week(), 1, "Dec 31 2007 should be week 1");
@@ -297,7 +290,7 @@ exports["lang:ro"] = {
         test.done();
     },
 
-    "weeks year starting wednesday" : function(test) {
+    "weeks year starting wednesday" : function (test) {
         test.expect(6);
 
         test.equal(moment([2002, 11, 30]).week(), 1, "Dec 30 2002 should be week 1");
@@ -310,7 +303,7 @@ exports["lang:ro"] = {
         test.done();
     },
 
-    "weeks year starting thursday" : function(test) {
+    "weeks year starting thursday" : function (test) {
         test.expect(6);
 
         test.equal(moment([2008, 11, 29]).week(), 1, "Dec 29 2008 should be week 1");
@@ -323,7 +316,7 @@ exports["lang:ro"] = {
         test.done();
     },
 
-    "weeks year starting friday" : function(test) {
+    "weeks year starting friday" : function (test) {
         test.expect(6);
 
         test.equal(moment([2009, 11, 28]).week(), 1, "Dec 28 2009 should be week 1");
@@ -336,7 +329,7 @@ exports["lang:ro"] = {
         test.done();
     },
 
-    "weeks year starting saturday" : function(test) {
+    "weeks year starting saturday" : function (test) {
         test.expect(6);
 
         test.equal(moment([2010, 11, 27]).week(), 1, "Dec 27 2010 should be week 1");
@@ -349,7 +342,7 @@ exports["lang:ro"] = {
         test.done();
     },
 
-    "weeks year starting sunday formatted" : function(test) {
+    "weeks year starting sunday formatted" : function (test) {
         test.expect(5);
 
         test.equal(moment([2011, 11, 26]).format('w ww wo'), '1 01 1', "Dec 26 2011 should be week 1");

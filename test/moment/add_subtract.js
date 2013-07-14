@@ -1,10 +1,10 @@
 var moment = require("../../moment");
 
 exports.add = {
-    "add short" : function(test) {
+    "add short" : function (test) {
         test.expect(12);
 
-        var a = moment();
+        var a = moment(), b, c;
         a.year(2011);
         a.month(9);
         a.date(12);
@@ -13,17 +13,17 @@ exports.add = {
         a.seconds(8);
         a.milliseconds(500);
 
-        test.equal(a.add({ms:50}).milliseconds(), 550, 'Add milliseconds');
-        test.equal(a.add({s:1}).seconds(), 9, 'Add seconds');
-        test.equal(a.add({m:1}).minutes(), 8, 'Add minutes');
-        test.equal(a.add({h:1}).hours(), 7, 'Add hours');
-        test.equal(a.add({d:1}).date(), 13, 'Add date');
-        test.equal(a.add({w:1}).date(), 20, 'Add week');
-        test.equal(a.add({M:1}).month(), 10, 'Add month');
-        test.equal(a.add({y:1}).year(), 2012, 'Add year');
+        test.equal(a.add({ms: 50}).milliseconds(), 550, 'Add milliseconds');
+        test.equal(a.add({s: 1}).seconds(), 9, 'Add seconds');
+        test.equal(a.add({m: 1}).minutes(), 8, 'Add minutes');
+        test.equal(a.add({h: 1}).hours(), 7, 'Add hours');
+        test.equal(a.add({d: 1}).date(), 13, 'Add date');
+        test.equal(a.add({w: 1}).date(), 20, 'Add week');
+        test.equal(a.add({M: 1}).month(), 10, 'Add month');
+        test.equal(a.add({y: 1}).year(), 2012, 'Add year');
 
-        var b = moment([2010, 0, 31]).add({M:1});
-        var c = moment([2010, 1, 28]).subtract({M:1});
+        b = moment([2010, 0, 31]).add({M: 1});
+        c = moment([2010, 1, 28]).subtract({M: 1});
 
         test.equal(b.month(), 1, 'add month, jan 31st to feb 28th');
         test.equal(b.date(), 28, 'add month, jan 31st to feb 28th');
@@ -32,7 +32,7 @@ exports.add = {
         test.done();
     },
 
-    "add long" : function(test) {
+    "add long" : function (test) {
         test.expect(8);
 
         var a = moment();
@@ -44,18 +44,18 @@ exports.add = {
         a.seconds(8);
         a.milliseconds(500);
 
-        test.equal(a.add({milliseconds:50}).milliseconds(), 550, 'Add milliseconds');
-        test.equal(a.add({seconds:1}).seconds(), 9, 'Add seconds');
-        test.equal(a.add({minutes:1}).minutes(), 8, 'Add minutes');
-        test.equal(a.add({hours:1}).hours(), 7, 'Add hours');
-        test.equal(a.add({days:1}).date(), 13, 'Add date');
-        test.equal(a.add({weeks:1}).date(), 20, 'Add week');
-        test.equal(a.add({months:1}).month(), 10, 'Add month');
-        test.equal(a.add({years:1}).year(), 2012, 'Add year');
+        test.equal(a.add({milliseconds: 50}).milliseconds(), 550, 'Add milliseconds');
+        test.equal(a.add({seconds: 1}).seconds(), 9, 'Add seconds');
+        test.equal(a.add({minutes: 1}).minutes(), 8, 'Add minutes');
+        test.equal(a.add({hours: 1}).hours(), 7, 'Add hours');
+        test.equal(a.add({days: 1}).date(), 13, 'Add date');
+        test.equal(a.add({weeks: 1}).date(), 20, 'Add week');
+        test.equal(a.add({months: 1}).month(), 10, 'Add month');
+        test.equal(a.add({years: 1}).year(), 2012, 'Add year');
         test.done();
     },
 
-    "add long singular" : function(test) {
+    "add long singular" : function (test) {
         test.expect(8);
 
         var a = moment();
@@ -67,21 +67,21 @@ exports.add = {
         a.seconds(8);
         a.milliseconds(500);
 
-        test.equal(a.add({millisecond:50}).milliseconds(), 550, 'Add milliseconds');
-        test.equal(a.add({second:1}).seconds(), 9, 'Add seconds');
-        test.equal(a.add({minute:1}).minutes(), 8, 'Add minutes');
-        test.equal(a.add({hour:1}).hours(), 7, 'Add hours');
-        test.equal(a.add({day:1}).date(), 13, 'Add date');
-        test.equal(a.add({week:1}).date(), 20, 'Add week');
-        test.equal(a.add({month:1}).month(), 10, 'Add month');
-        test.equal(a.add({year:1}).year(), 2012, 'Add year');
+        test.equal(a.add({millisecond: 50}).milliseconds(), 550, 'Add milliseconds');
+        test.equal(a.add({second: 1}).seconds(), 9, 'Add seconds');
+        test.equal(a.add({minute: 1}).minutes(), 8, 'Add minutes');
+        test.equal(a.add({hour: 1}).hours(), 7, 'Add hours');
+        test.equal(a.add({day: 1}).date(), 13, 'Add date');
+        test.equal(a.add({week: 1}).date(), 20, 'Add week');
+        test.equal(a.add({month: 1}).month(), 10, 'Add month');
+        test.equal(a.add({year: 1}).year(), 2012, 'Add year');
         test.done();
     },
 
-    "add string long" : function(test) {
+    "add string long" : function (test) {
         test.expect(9);
 
-        var a = moment();
+        var a = moment(), b;
         a.year(2011);
         a.month(9);
         a.date(12);
@@ -90,7 +90,7 @@ exports.add = {
         a.seconds(8);
         a.milliseconds(500);
 
-        var b = a.clone();
+        b = a.clone();
 
         test.equal(a.add('millisecond', 50).milliseconds(), 550, 'Add milliseconds');
         test.equal(a.add('second', 1).seconds(), 9, 'Add seconds');
@@ -104,10 +104,10 @@ exports.add = {
         test.done();
     },
 
-    "add string long singular" : function(test) {
+    "add string long singular" : function (test) {
         test.expect(9);
 
-        var a = moment();
+        var a = moment(), b;
         a.year(2011);
         a.month(9);
         a.date(12);
@@ -116,7 +116,7 @@ exports.add = {
         a.seconds(8);
         a.milliseconds(500);
 
-        var b = a.clone();
+        b = a.clone();
 
         test.equal(a.add('milliseconds', 50).milliseconds(), 550, 'Add milliseconds');
         test.equal(a.add('seconds', 1).seconds(), 9, 'Add seconds');
@@ -130,7 +130,7 @@ exports.add = {
         test.done();
     },
 
-    "add string short" : function(test) {
+    "add string short" : function (test) {
         test.expect(8);
 
         var a = moment();
@@ -153,7 +153,7 @@ exports.add = {
         test.done();
     },
 
-    "add string long reverse args" : function(test) {
+    "add string long reverse args" : function (test) {
         test.expect(8);
 
         var a = moment();
@@ -176,7 +176,7 @@ exports.add = {
         test.done();
     },
 
-    "add string long singular reverse args" : function(test) {
+    "add string long singular reverse args" : function (test) {
         test.expect(8);
 
         var a = moment();
@@ -199,7 +199,7 @@ exports.add = {
         test.done();
     },
 
-    "add string short reverse args" : function(test) {
+    "add string short reverse args" : function (test) {
         test.expect(8);
 
         var a = moment();
@@ -222,13 +222,13 @@ exports.add = {
         test.done();
     },
 
-    "add across DST" : function(test) {
+    "add across DST" : function (test) {
         test.expect(3);
 
-        var a = moment(new Date(2011, 2, 12, 5, 0, 0));
-        var b = moment(new Date(2011, 2, 12, 5, 0, 0));
-        var c = moment(new Date(2011, 2, 12, 5, 0, 0));
-        var d = moment(new Date(2011, 2, 12, 5, 0, 0));
+        var a = moment(new Date(2011, 2, 12, 5, 0, 0)),
+            b = moment(new Date(2011, 2, 12, 5, 0, 0)),
+            c = moment(new Date(2011, 2, 12, 5, 0, 0)),
+            d = moment(new Date(2011, 2, 12, 5, 0, 0));
         a.add('days', 1);
         b.add('hours', 24);
         c.add('months', 1);

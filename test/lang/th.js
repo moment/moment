@@ -16,11 +16,10 @@ exports["lang:th"] = {
         cb();
     },
 
-    "parse" : function(test) {
+    "parse" : function (test) {
         test.expect(96);
 
-        var tests = 'มกราคม มกรา_กุมภาพันธ์ กุมภา_มีนาคม มีนา_เมษายน เมษา_พฤษภาคม พฤษภา_มิถุนายน มิถุนา_กรกฎาคม กรกฎา_สิงหาคม สิงหา_กันยายน กันยา_ตุลาคม ตุลา_พฤศจิกายน พฤศจิกา_ธันวาคม ธันวา'.split("_");
-        var i;
+        var tests = 'มกราคม มกรา_กุมภาพันธ์ กุมภา_มีนาคม มีนา_เมษายน เมษา_พฤษภาคม พฤษภา_มิถุนายน มิถุนา_กรกฎาคม กรกฎา_สิงหาคม สิงหา_กันยายน กันยา_ตุลาคม ตุลา_พฤศจิกายน พฤศจิกา_ธันวาคม ธันวา'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -38,7 +37,7 @@ exports["lang:th"] = {
         test.done();
     },
 
-    "format" : function(test) {
+    "format" : function (test) {
         test.expect(22);
 
         var a = [
@@ -73,86 +72,84 @@ exports["lang:th"] = {
         test.done();
     },
 
-    "format month" : function(test) {
+    "format month" : function (test) {
         test.expect(12);
 
-        var expected = 'มกราคม มกรา_กุมภาพันธ์ กุมภา_มีนาคม มีนา_เมษายน เมษา_พฤษภาคม พฤษภา_มิถุนายน มิถุนา_กรกฎาคม กรกฎา_สิงหาคม สิงหา_กันยายน กันยา_ตุลาคม ตุลา_พฤศจิกายน พฤศจิกา_ธันวาคม ธันวา'.split("_");
-        var i;
+        var expected = 'มกราคม มกรา_กุมภาพันธ์ กุมภา_มีนาคม มีนา_เมษายน เมษา_พฤษภาคม พฤษภา_มิถุนายน มิถุนา_กรกฎาคม กรกฎา_สิงหาคม สิงหา_กันยายน กันยา_ตุลาคม ตุลา_พฤศจิกายน พฤศจิกา_ธันวาคม ธันวา'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
         test.done();
     },
 
-    "format week" : function(test) {
+    "format week" : function (test) {
         test.expect(7);
 
-        var expected = 'อาทิตย์ อาทิตย์ อา._จันทร์ จันทร์ จ._อังคาร อังคาร อ._พุธ พุธ พ._พฤหัสบดี พฤหัส พฤ._ศุกร์ ศุกร์ ศ._เสาร์ เสาร์ ส.'.split("_");
-        var i;
+        var expected = 'อาทิตย์ อาทิตย์ อา._จันทร์ จันทร์ จ._อังคาร อังคาร อ._พุธ พุธ พ._พฤหัสบดี พฤหัส พฤ._ศุกร์ ศุกร์ ศ._เสาร์ เสาร์ ส.'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
         test.done();
     },
 
-    "from" : function(test) {
+    "from" : function (test) {
         test.expect(30);
 
         var start = moment([2007, 1, 28]);
-        test.equal(start.from(moment([2007, 1, 28]).add({s:44}), true),  "ไม่กี่วินาที",   "44 seconds = a few seconds");
-        test.equal(start.from(moment([2007, 1, 28]).add({s:45}), true),  "1 นาที", "45 seconds = a minute");
-        test.equal(start.from(moment([2007, 1, 28]).add({s:89}), true),  "1 นาที", "89 seconds = a minute");
-        test.equal(start.from(moment([2007, 1, 28]).add({s:90}), true),  "2 นาที",  "90 seconds = 2 minutes");
-        test.equal(start.from(moment([2007, 1, 28]).add({m:44}), true),  "44 นาที", "44 minutes = 44 minutes");
-        test.equal(start.from(moment([2007, 1, 28]).add({m:45}), true),  "1 ชั่วโมง", "45 minutes = an hour");
-        test.equal(start.from(moment([2007, 1, 28]).add({m:89}), true),  "1 ชั่วโมง", "89 minutes = an hour");
-        test.equal(start.from(moment([2007, 1, 28]).add({m:90}), true),  "2 ชั่วโมง",  "90 minutes = 2 hours");
-        test.equal(start.from(moment([2007, 1, 28]).add({h:5}), true),   "5 ชั่วโมง",  "5 hours = 5 hours");
-        test.equal(start.from(moment([2007, 1, 28]).add({h:21}), true),  "21 ชั่วโมง", "21 hours = 21 hours");
-        test.equal(start.from(moment([2007, 1, 28]).add({h:22}), true),  "1 วัน",   "22 hours = a day");
-        test.equal(start.from(moment([2007, 1, 28]).add({h:35}), true),  "1 วัน",   "35 hours = a day");
-        test.equal(start.from(moment([2007, 1, 28]).add({h:36}), true),  "2 วัน",   "36 hours = 2 days");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:1}), true),   "1 วัน",   "1 day = a day");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:5}), true),   "5 วัน",   "5 days = 5 days");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:25}), true),  "25 วัน",  "25 days = 25 days");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:26}), true),  "1 เดือน", "26 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:30}), true),  "1 เดือน", "30 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:45}), true),  "1 เดือน", "45 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:46}), true),  "2 เดือน",  "46 days = 2 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:74}), true),  "2 เดือน",  "75 days = 2 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:76}), true),  "3 เดือน",  "76 days = 3 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({M:1}), true),   "1 เดือน", "1 month = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({M:5}), true),   "5 เดือน",  "5 months = 5 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:344}), true), "11 เดือน", "344 days = 11 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:345}), true), "1 ปี",   "345 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:547}), true), "1 ปี",   "547 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d:548}), true), "2 ปี",   "548 days = 2 years");
-        test.equal(start.from(moment([2007, 1, 28]).add({y:1}), true),   "1 ปี",   "1 year = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({y:5}), true),   "5 ปี",   "5 years = 5 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "ไม่กี่วินาที",   "44 seconds = a few seconds");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "1 นาที", "45 seconds = a minute");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  "1 นาที", "89 seconds = a minute");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  "2 นาที",  "90 seconds = 2 minutes");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  "44 นาที", "44 minutes = 44 minutes");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  "1 ชั่วโมง", "45 minutes = an hour");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  "1 ชั่วโมง", "89 minutes = an hour");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  "2 ชั่วโมง",  "90 minutes = 2 hours");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   "5 ชั่วโมง",  "5 hours = 5 hours");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  "21 ชั่วโมง", "21 hours = 21 hours");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  "1 วัน",   "22 hours = a day");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  "1 วัน",   "35 hours = a day");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  "2 วัน",   "36 hours = 2 days");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   "1 วัน",   "1 day = a day");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   "5 วัน",   "5 days = 5 days");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "25 วัน",  "25 days = 25 days");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "1 เดือน", "26 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "1 เดือน", "30 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 45}), true),  "1 เดือน", "45 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "2 เดือน",  "46 days = 2 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "2 เดือน",  "75 days = 2 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "3 เดือน",  "76 days = 3 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "1 เดือน", "1 month = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "5 เดือน",  "5 months = 5 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 344}), true), "11 เดือน", "344 days = 11 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "1 ปี",   "345 days = a year");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 547}), true), "1 ปี",   "547 days = a year");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "2 ปี",   "548 days = 2 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "1 ปี",   "1 year = a year");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "5 ปี",   "5 years = 5 years");
         test.done();
     },
 
-    "suffix" : function(test) {
+    "suffix" : function (test) {
         test.expect(2);
         test.equal(moment(30000).from(0), "อีก ไม่กี่วินาที",  "prefix");
         test.equal(moment(0).from(30000), "ไม่กี่วินาทีที่แล้ว", "suffix");
         test.done();
     },
 
-    "now from now" : function(test) {
+    "now from now" : function (test) {
         test.expect(1);
         test.equal(moment().fromNow(), "ไม่กี่วินาทีที่แล้ว",  "now from now should display as in the past");
         test.done();
     },
 
-    "fromNow" : function(test) {
+    "fromNow" : function (test) {
         test.expect(2);
-        test.equal(moment().add({s:30}).fromNow(), "อีก ไม่กี่วินาที", "in a few seconds");
-        test.equal(moment().add({d:5}).fromNow(), "อีก 5 วัน", "in 5 days");
+        test.equal(moment().add({s: 30}).fromNow(), "อีก ไม่กี่วินาที", "in a few seconds");
+        test.equal(moment().add({d: 5}).fromNow(), "อีก 5 วัน", "in 5 days");
         test.done();
     },
 
-    "calendar day" : function(test) {
+    "calendar day" : function (test) {
         test.expect(6);
 
         var a = moment().hours(2).minutes(0).seconds(0);
@@ -166,12 +163,10 @@ exports["lang:th"] = {
         test.done();
     },
 
-    "calendar next week" : function(test) {
+    "calendar next week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
-
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
             test.equal(m.calendar(),       m.format('dddd[หน้า เวลา] LT'),  "Today + " + i + " days current time");
@@ -183,12 +178,10 @@ exports["lang:th"] = {
         test.done();
     },
 
-    "calendar last week" : function(test) {
+    "calendar last week" : function (test) {
         test.expect(15);
 
-        var i;
-        var m;
-
+        var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
             test.equal(m.calendar(),       m.format('[วัน]dddd[ที่แล้ว เวลา] LT'),  "Today - " + i + " days current time");
@@ -200,11 +193,11 @@ exports["lang:th"] = {
         test.done();
     },
 
-    "calendar all else" : function(test) {
+    "calendar all else" : function (test) {
         test.expect(4);
 
-        var weeksAgo = moment().subtract({ w: 1 });
-        var weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({ w: 1 }),
+            weeksFromNow = moment().add({ w: 1 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),      "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
@@ -220,7 +213,7 @@ exports["lang:th"] = {
     // Sunday is the first day of the week.
     // The week that contains Jan 1st is the first week of the year.
 
-    "weeks year starting sunday" : function(test) {
+    "weeks year starting sunday" : function (test) {
         test.expect(5);
 
         test.equal(moment([2012, 0,  1]).week(), 1, "Jan  1 2012 should be week 1");
@@ -232,7 +225,7 @@ exports["lang:th"] = {
         test.done();
     },
 
-    "weeks year starting monday" : function(test) {
+    "weeks year starting monday" : function (test) {
         test.expect(6);
 
         test.equal(moment([2006, 11, 31]).week(), 1, "Dec 31 2006 should be week 1");
@@ -245,7 +238,7 @@ exports["lang:th"] = {
         test.done();
     },
 
-    "weeks year starting tuesday" : function(test) {
+    "weeks year starting tuesday" : function (test) {
         test.expect(6);
 
         test.equal(moment([2007, 11, 30]).week(), 1, "Dec 30 2007 should be week 1");
@@ -258,7 +251,7 @@ exports["lang:th"] = {
         test.done();
     },
 
-    "weeks year starting wednesday" : function(test) {
+    "weeks year starting wednesday" : function (test) {
         test.expect(6);
 
         test.equal(moment([2002, 11, 29]).week(), 1, "Dec 29 2002 should be week 1");
@@ -271,7 +264,7 @@ exports["lang:th"] = {
         test.done();
     },
 
-    "weeks year starting thursday" : function(test) {
+    "weeks year starting thursday" : function (test) {
         test.expect(6);
 
         test.equal(moment([2008, 11, 28]).week(), 1, "Dec 28 2008 should be week 1");
@@ -284,7 +277,7 @@ exports["lang:th"] = {
         test.done();
     },
 
-    "weeks year starting friday" : function(test) {
+    "weeks year starting friday" : function (test) {
         test.expect(6);
 
         test.equal(moment([2009, 11, 27]).week(), 1, "Dec 27 2009 should be week 1");
@@ -297,7 +290,7 @@ exports["lang:th"] = {
         test.done();
     },
 
-    "weeks year starting saturday" : function(test) {
+    "weeks year starting saturday" : function (test) {
         test.expect(5);
 
         test.equal(moment([2010, 11, 26]).week(), 1, "Dec 26 2010 should be week 1");
@@ -309,7 +302,7 @@ exports["lang:th"] = {
         test.done();
     },
 
-    "weeks year starting sunday format" : function(test) {
+    "weeks year starting sunday format" : function (test) {
         test.expect(5);
 
         test.equal(moment([2012, 0,  1]).format('w ww wo'), '1 01 1', "Jan  1 2012 should be week 1");
