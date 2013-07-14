@@ -73,6 +73,7 @@
             h : 'hour',
             d : 'day',
             w : 'week',
+            W : 'isoweek',
             M : 'month',
             y : 'year'
         },
@@ -1334,7 +1335,7 @@
                 this.date(1);
                 /* falls through */
             case 'week':
-            case 'isoWeek':
+            case 'isoweek':
             case 'day':
                 this.hours(0);
                 /* falls through */
@@ -1352,15 +1353,16 @@
             // weeks are a special case
             if (units === 'week') {
                 this.weekday(0);
-            } else if (units === 'isoWeek') {
-                this.isoWeekday(0);
+            } else if (units === 'isoweek') {
+                this.isoWeekday(1);
             }
 
             return this;
         },
 
         endOf: function (units) {
-            return this.startOf(units).add(units, 1).subtract('ms', 1);
+            units = normalizeUnits(units);
+            return this.startOf(units).add((units === 'isoweek' ? 'week' : units), 1).subtract('ms', 1);
         },
 
         isAfter: function (input, units) {
