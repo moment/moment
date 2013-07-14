@@ -160,5 +160,18 @@ exports.is_valid = {
             test.equal(moment.utc(tests[i]).isValid(), true, tests[i] + ' should be valid');
         }
         test.done();
+    },
+
+    "invalidAt" : function (test) {
+        test.expect(7);
+        test.equal(moment([2000, 12]).invalidAt(), 1, 'month 12 is invalid: 0-11');
+        test.equal(moment([2000, 1, 30]).invalidAt(), 2, '30 is not a valid february day');
+        test.equal(moment([2000, 1, 29, 24]).invalidAt(), 3, '24 is invalid hour');
+        test.equal(moment([2000, 1, 29, 23, 60]).invalidAt(), 4, '60 is invalid minute');
+        test.equal(moment([2000, 1, 29, 23, 59, 60]).invalidAt(), 5, '60 is invalid second');
+        test.equal(moment([2000, 1, 29, 23, 59, 59, 1000]).invalidAt(), 6, '1000 is invalid millisecond');
+        test.equal(moment([2000, 1, 29, 23, 59, 59, 999]).invalidAt(), -1, '-1 if everything is fine');
+        test.done();
     }
+
 };

@@ -1180,6 +1180,13 @@
             return !!this._isValid;
         },
 
+        invalidAt: function () {
+            var i, arr1 = this._a, arr2 = (this._isUTC ? moment.utc(this._a) : moment(this._a)).toArray();
+            for (i = 6; i >= 0 && arr1[i] === arr2[i]; --i)
+                ;
+            return i;
+        },
+
         utc : function () {
             return this.zone(0);
         },
