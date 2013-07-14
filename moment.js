@@ -1334,6 +1334,7 @@
                 this.date(1);
                 /* falls through */
             case 'week':
+            case 'isoWeek':
             case 'day':
                 this.hours(0);
                 /* falls through */
@@ -1351,6 +1352,8 @@
             // weeks are a special case
             if (units === 'week') {
                 this.weekday(0);
+            } else if (units === 'isoWeek') {
+                this.isoWeekday(0);
             }
 
             return this;
