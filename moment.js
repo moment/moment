@@ -24,7 +24,7 @@
         aspNetTimeSpanJsonRegex = /(\-)?(\d*)?\.?(\d+)\:(\d+)\:(\d+)\.?(\d{3})?/,
 
         // format tokens
-        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|BBBB|BB|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,
         localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?|l{1,4})/g,
 
         // parsing token regexes
@@ -126,6 +126,16 @@
             },
             YYYYY : function () {
                 return leftZeroFill(this.year(), 5);
+            },
+            // THAI YEAR (BE.) is +543 years greater than AD. (that's all)
+            // http://en.wikipedia.org/wiki/Thai_solar_calendar
+            // Microsoft Excel 2003 and later uses b or B for Buddhist Calendar
+            // http://office.microsoft.com/en-us/excel-help/format-dates-using-alternate-calendars-HP005262656.aspx
+            BB   : function () {
+                return leftZeroFill((this.year() + 543) % 100, 2);
+            },
+            BBBB : function () {
+                return leftZeroFill((this.year() + 543), 4);
             },
             gg   : function () {
                 return leftZeroFill(this.weekYear() % 100, 2);
@@ -641,6 +651,7 @@
         case 'DDDD':
             return parseTokenThreeDigits;
         case 'YYYY':
+        case 'BBBB':
             return parseTokenFourDigits;
         case 'YYYYY':
             return parseTokenSixDigits;
@@ -729,6 +740,14 @@
         case 'YYYY' :
         case 'YYYYY' :
             datePartArray[0] = ~~input;
+            break;
+        // THAI YEAR (BE.) is +543 years greater than AD. since AD.1941  => BE.2484
+        // http://en.wikipedia.org/wiki/Thai_solar_calendar#New_year
+        case 'BB' :
+            datePartArray[0] = ~~input + (~~input > 84 ? 2400 : 2500) - 543;
+            break;
+        case 'BBBB' :
+            datePartArray[0] = ~~input - 543;
             break;
         // AM / PM
         case 'a' : // fall through to A
