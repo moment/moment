@@ -492,8 +492,11 @@ exports.create = {
     },
 
     "strict parsing" : function(test) {
-        test.equal(moment("ala [ ] bala 2012-05", "[ala] \\[ \\] \b\a\l\a YYYY-MM").format("YYYY-MM"), "2012-05");
-        test.equal(moment("ala [ bala 2012-05", "[ala] \\[ \\] \b\a\l\a YYYY-MM"), null);
+        test.expect(4);
+        test.equal(moment("2012-05", "YYYY-MM", true).format("YYYY-MM"), "2012-05", "parse correct string");
+        test.equal(moment(" 2012-05", "YYYY-MM", true).isValid(), false, "fail on extra whitespace");
+        test.equal(moment("foo 2012-05", "[foo] YYYY-MM", true).format('YYYY-MM'), "2012-05", "handle fixed text");
+        test.equal(moment("2012 05", "YYYY-MM", true).isValid(), false, "fail on different separator");
         test.done();
     },
 
