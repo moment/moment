@@ -812,7 +812,7 @@
     function makeDateFromStringAndFormat(config) {
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
         var tokens = config._f.match(formattingTokens),
-            string = config._i,
+            string = '' + config._i,
             i, parsedInput;
 
         config._a = [];
