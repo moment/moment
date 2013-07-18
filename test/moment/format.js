@@ -88,7 +88,7 @@ exports.format = {
     },
 
     "unix timestamp" : function (test) {
-        test.expect(4);
+        test.expect(5);
 
         var m = moment('1234567890.123', 'X');
         test.equals(m.format('X'), '1234567890', 'unix timestamp without milliseconds');
@@ -96,6 +96,9 @@ exports.format = {
         test.equals(m.format('X.SS'), '1234567890.12', 'unix timestamp with centiseconds');
         test.equals(m.format('X.SSS'), '1234567890.123', 'unix timestamp with milliseconds');
 
+        m = moment(1234567890.123, 'X');
+        test.equals(m.format('X'), '1234567890', 'unix timestamp as integer');
+        
         test.done();
     },
 
