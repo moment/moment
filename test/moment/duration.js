@@ -138,13 +138,19 @@ exports.duration = {
     },
 
     "instatiation from serialized C# TimeSpan without days" : function (test) {
-        test.expect(6);
+        test.expect(10);
         test.equal(moment.duration("01:02:03.9999999").years(), 0, "0 years");
         test.equal(moment.duration("01:02:03.9999999").days(), 0, "0 days");
         test.equal(moment.duration("01:02:03.9999999").hours(), 1, "1 hour");
         test.equal(moment.duration("01:02:03.9999999").minutes(), 2, "2 minutes");
         test.equal(moment.duration("01:02:03.9999999").seconds(), 3, "3 seconds");
         test.equal(moment.duration("01:02:03.9999999").milliseconds(), 999, "999 milliseconds");
+
+        test.equal(moment.duration("23:59:59.9999999").days(), 0, "0 days");
+        test.equal(moment.duration("23:59:59.9999999").hours(), 23, "23 hours");
+
+        test.equal(moment.duration("500:59:59.9999999").days(), 20, "500 hours overflows to 20 days");
+        test.equal(moment.duration("500:59:59.9999999").hours(), 20, "500 hours overflows to 20 hours");
         test.done();
     },
 
