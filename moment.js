@@ -1182,8 +1182,9 @@
 
         invalidAt: function () {
             var i, arr1 = this._a, arr2 = (this._isUTC ? moment.utc(this._a) : moment(this._a)).toArray();
-            for (i = 6; i >= 0 && arr1[i] === arr2[i]; --i)
-                ;
+            for (i = 6; i >= 0 && arr1[i] === arr2[i]; --i) {
+                // empty loop body
+            }
             return i;
         },
 
