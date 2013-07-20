@@ -91,6 +91,13 @@ module.exports = function (grunt) {
                 "white"    : true
             }
         },
+        component: {
+            "name": "moment",
+            "version": "",
+            "main": "moment.js",
+            "description": "Parse, validate, manipulate, and display dates in javascript.",
+            "scripts": ["moment.js"],
+        },
         watch : {
             test : {
                 files : [
@@ -120,5 +127,5 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['jshint', 'nodeunit']);
 
     // Task to be run when releasing a new version
-    grunt.registerTask('release', ['jshint', 'nodeunit', 'minwithcomments', 'concatlang', 'minlang']);
+    grunt.registerTask('release', ['jshint', 'nodeunit', 'minwithcomments', 'concatlang', 'minlang', 'component']);
 };
