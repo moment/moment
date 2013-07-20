@@ -16,6 +16,21 @@ exports.getters_setters = {
         test.done();
     },
 
+    "getters programmatic" : function (test) {
+        test.expect(8);
+
+        var a = moment([2011, 9, 12, 6, 7, 8, 9]);
+        test.equal(a.get('year'), 2011, 'year');
+        test.equal(a.get('month'), 9, 'month');
+        test.equal(a.get('date'), 12, 'date');
+        test.equal(a.get('day'), 3, 'day');
+        test.equal(a.get('hour'), 6, 'hour');
+        test.equal(a.get('minute'), 7, 'minute');
+        test.equal(a.get('second'), 8, 'second');
+        test.equal(a.get('milliseconds'), 9, 'milliseconds');
+        test.done();
+    },
+
     "setters plural" : function (test) {
         test.expect(8);
 
@@ -71,6 +86,34 @@ exports.getters_setters = {
         a.minutes(7);
         a.seconds(8);
         a.milliseconds(9);
+        test.equal(a.year(), 2011, 'year');
+        test.equal(a.month(), 9, 'month');
+        test.equal(a.date(), 12, 'date');
+        test.equal(a.day(), 3, 'day');
+        test.equal(a.hours(), 6, 'hour');
+        test.equal(a.minutes(), 7, 'minute');
+        test.equal(a.seconds(), 8, 'second');
+        test.equal(a.milliseconds(), 9, 'milliseconds');
+
+        // Test month() behavior. See https://github.com/timrwood/moment/pull/822
+        a = moment('20130531', 'YYYYMMDD');
+        a.month(3);
+        test.equal(a.month(), 3, 'month edge case');
+
+        test.done();
+    },
+
+    "setter programmatic" : function (test) {
+        test.expect(9);
+
+        var a = moment();
+        a.set('year', 2011);
+        a.set('month', 9);
+        a.set('date', 12);
+        a.set('hours', 6);
+        a.set('minutes', 7);
+        a.set('seconds', 8);
+        a.set('milliseconds', 9);
         test.equal(a.year(), 2011, 'year');
         test.equal(a.month(), 9, 'month');
         test.equal(a.date(), 12, 'date');
