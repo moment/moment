@@ -1159,10 +1159,11 @@
             duration = {
                 y: parseIso(isoMatched[1]),
                 M: parseIso(isoMatched[2]),
-                d: parseIso(isoMatched[3]) + parseIso(isoMatched[7]) * 7,
+                d: parseIso(isoMatched[3]),
                 h: parseIso(isoMatched[4]),
                 m: parseIso(isoMatched[5]),
                 s: parseIso(isoMatched[6]),
+                w: parseIso(isoMatched[7]),
             };
         }
 
