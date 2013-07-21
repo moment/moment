@@ -22,6 +22,7 @@
         // ASP.NET json date format regex
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
         aspNetTimeSpanJsonRegex = /(\-)?(?:(\d*)\.)?(\d+)\:(\d+)\:(\d+)\.?(\d{3})?/,
+        isoDurationRegex = /^P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/,
 
         // format tokens
         formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,
@@ -1124,9 +1125,12 @@
         var isDuration = moment.isDuration(input),
             isNumber = (typeof input === 'number'),
             duration = (isDuration ? input._input : (isNumber ? {} : input)),
-            matched = aspNetTimeSpanJsonRegex.exec(input),
+            // matching against regexp is expensive, do it on demand
+            aspMatched = null,
+            isoMatched = null,
             sign,
-            ret;
+            ret,
+            parseIso;
 
         if (isNumber) {
             if (key) {
@@ -1134,15 +1138,31 @@
             } else {
                 duration.milliseconds = input;
             }
-        } else if (matched) {
-            sign = (matched[1] === "-") ? -1 : 1;
+        } else if (!!(aspMatched = aspNetTimeSpanJsonRegex.exec(input))) {
+            sign = (aspMatched[1] === "-") ? -1 : 1;
             duration = {
                 y: 0,
-                d: ~~matched[2] * sign,
-                h: ~~matched[3] * sign,
-                m: ~~matched[4] * sign,
-                s: ~~matched[5] * sign,
-                ms: ~~matched[6] * sign
+                d: ~~aspMatched[2] * sign,
+                h: ~~aspMatched[3] * sign,
+                m: ~~aspMatched[4] * sign,
+                s: ~~aspMatched[5] * sign,
+                ms: ~~aspMatched[6] * sign
+            };
+        } else if (!!(isoMatched = isoDurationRegex.exec(input))) {
+            parseIso = function (inp) {
+                // We'd normally use ~~inp for this, but unfortunately it also
+                // converts floats to ints.
+                // inp may be undefined, so careful calling replace on it.
+                var res = inp && parseFloat(inp.replace(',', '.'));
+                return isNaN(res) ? 0 : res;
+            };
+            duration = {
+                y: parseIso(isoMatched[1]),
+                M: parseIso(isoMatched[2]),
+                d: parseIso(isoMatched[3]) + parseIso(isoMatched[7]) * 7,
+                h: parseIso(isoMatched[4]),
+                m: parseIso(isoMatched[5]),
+                s: parseIso(isoMatched[6]),
             };
         }
 
