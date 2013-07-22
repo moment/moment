@@ -40,7 +40,7 @@ function monthsCaseReplace(m, format) {
 function monthsShortCaseReplace(m, format) {
     var monthsShort = {
         'nominative': 'янв_фев_мар_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split('_'),
-        'accusative': 'янв_фев_мар_апр_май_июня_июля_авг_сен_окт_ноя_дек'.split('_')
+        'accusative': 'янв_фев_мар_апр_мая_июня_июля_авг_сен_окт_ноя_дек'.split('_')
     },
 
     nounCase = (/D[oD]? *MMMM?/).test(format) ?

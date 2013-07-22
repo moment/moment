@@ -141,7 +141,7 @@ exports["lang:ru"] = {
 
         var monthsShort = {
             'nominative': 'янв_фев_мар_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split('_'),
-            'accusative': 'янв_фев_мар_апр_май_июня_июля_авг_сен_окт_ноя_дек'.split('_')
+            'accusative': 'янв_фев_мар_апр_мая_июня_июля_авг_сен_окт_ноя_дек'.split('_')
         }, i;
         for (i = 0; i < 12; i++) {
             test.equal(moment([2011, i, 1]).format('D MMM'), '1 ' + monthsShort.accusative[i], '1 ' + monthsShort.accusative[i]);
