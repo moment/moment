@@ -110,6 +110,7 @@ exports.week_year = {
         test.equal(moment([1970, 0,  4]).weekday(), 4, "Jan  4 1970 is Sunday    -- 4th day");
         test.equal(moment([2001, 4, 14]).weekday(), 5, "May 14 2001 is Monday    -- 5th day");
         test.equal(moment([2000, 0,  4]).weekday(), 6, "Jan  4 2000 is Tuesday   -- 6th day");
+        moment.lang('dow:3,doy:6', null);
         test.done();
     },
 
