@@ -557,6 +557,11 @@
         return languages[key];
     }
 
+    // Remove a language from the `languages` cache. Mostly useful in tests.
+    function unloadLang(key) {
+        delete languages[key];
+    }
+
     // Determines which language definition to use and returns it.
     //
     // With no parameters, it will return the global language.  If you
@@ -1101,6 +1106,9 @@
         }
         if (values) {
             loadLang(key, values);
+        } else if (values === null) {
+            unloadLang(key);
+            key = 'en';
         } else if (!languages[key]) {
             getLangDefinition(key);
         }
