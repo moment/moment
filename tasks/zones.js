@@ -47,7 +47,7 @@ module.exports = function (grunt) {
             cmd: "tasks/timezone.sh",
             args: ["get"]
         }, function (err, result, code) {
-            cb(result.stdout);
+            cb(result.stdout.replace('Time Zone: ', ''));
         });
     }
 
