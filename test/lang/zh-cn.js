@@ -275,7 +275,7 @@ exports["lang:zh-cn"] = {
     "weeks year starting tuesday" : function (test) {
         test.expect(6);
 
-        test.equal(moment([2007, 11, 30]).week(), 1, "Dec 30 2007 should be week 1");
+        test.equal(moment([2007, 11, 29]).week(), 52, "Dec 29 2007 should be week 52");
         test.equal(moment([2008,  0,  1]).week(), 1, "Jan  1 2008 should be week 1");
         test.equal(moment([2008,  0,  5]).week(), 1, "Jan  5 2008 should be week 1");
         test.equal(moment([2008,  0,  6]).week(), 2, "Jan  6 2008 should be week 2");
