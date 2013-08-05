@@ -623,7 +623,8 @@
             return m.lang().longDateFormat(input) || input;
         }
 
-        while (i-- && localFormattingTokens.test(format)) {
+        while (i-- && (localFormattingTokens.lastIndex = 0,
+                    localFormattingTokens.test(format))) {
             format = format.replace(localFormattingTokens, replaceLongDateFormatTokens);
         }
 
