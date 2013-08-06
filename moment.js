@@ -1508,12 +1508,12 @@
 
         get : function (units) {
             units = normalizeUnits(units);
-            return this[units.toLowerCase() + 's']();
+            return this[units.toLowerCase()]();
         },
 
         set : function (units, value) {
             units = normalizeUnits(units);
-            this[units.toLowerCase() + 's'](value);
+            this[units.toLowerCase()](value);
         },
 
         // If passed a language key, it will set the language for this
