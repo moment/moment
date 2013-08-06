@@ -11,9 +11,19 @@ exports.duration = {
             minutes: 9,
             seconds: 20,
             milliseconds: 12
+        }),
+        ds = moment.duration({
+            years: '2',
+            months: '3',
+            weeks: '2',
+            days: '1',
+            hours: '8',
+            minutes: '9',
+            seconds: '20',
+            milliseconds: '12'
         });
 
-        test.expect(8);
+        test.expect(16);
         test.equal(d.years(),        2,  "years");
         test.equal(d.months(),       3,  "months");
         test.equal(d.weeks(),        2,  "weeks");
@@ -22,6 +32,15 @@ exports.duration = {
         test.equal(d.minutes(),      9,  "minutes");
         test.equal(d.seconds(),      20, "seconds");
         test.equal(d.milliseconds(), 12, "milliseconds");
+        // Check against string representations
+        test.equal(ds.years(),        d.years());
+        test.equal(ds.months(),       d.months());
+        test.equal(ds.weeks(),        d.weeks());
+        test.equal(ds.days(),         d.days());
+        test.equal(ds.hours(),        d.hours());
+        test.equal(ds.minutes(),      d.minutes());
+        test.equal(ds.seconds(),      d.seconds());
+        test.equal(ds.milliseconds(), d.milliseconds());
         test.done();
     },
 
