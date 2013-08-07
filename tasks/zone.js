@@ -36,8 +36,8 @@ module.exports = function (grunt) {
 
     function getCurrentTimezone(cb) {
         grunt.util.spawn({
-            cmd: "systemsetup",
-            args: ["gettimezone"]
+            cmd: "tasks/timezone.sh",
+            args: ["get"]
         }, function (err, result, code) {
             cb(result.stdout.replace('Time Zone: ', ''));
         });
