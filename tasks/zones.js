@@ -2,7 +2,6 @@ var fs = require('fs');
 
 
 module.exports = function (grunt) {
-    // placeholder for an array of timezones
     var ZONE_TAB = '/usr/share/zoneinfo/zone.tab';
 
     grunt.registerTask('zones', 'Run the unit tests in different timezones.', function () {
@@ -32,9 +31,9 @@ module.exports = function (grunt) {
                 callback(err);
             }
             callback(null, content.split(/\r\n|\r|\n/)
-                // remove commented lines
+                // remove empty and commented lines
                 .filter(function (line) { return line && !/^#/.test(line); })
-                // country code TAB coordinates TAB TZ
+                // country code TAB coordinates TAB timezone
                 .map(function (line) { return line.split('\t')[2]; }));
         });
     };
