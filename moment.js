@@ -371,7 +371,8 @@
     ************************************/
 
 
-    Language.prototype = {
+    extend(Language.prototype, {
+
         set : function (config) {
             var prop, i;
             for (i in config) {
@@ -541,7 +542,7 @@
             dow : 0, // Sunday is the first day of the week.
             doy : 6  // The week that contains Jan 1st is the first week of the year.
         }
-    };
+    });
 
     // Loads a language definition into the `languages` cache.  The function
     // takes a key and optionally values.  If not in the browser and no values
@@ -1170,7 +1171,7 @@
     ************************************/
 
 
-    moment.fn = Moment.prototype = {
+    extend(moment.fn = Moment.prototype, {
 
         clone : function () {
             return moment(this);
@@ -1526,7 +1527,7 @@
                 return this;
             }
         }
-    };
+    });
 
     // helper for adding shortcuts
     function makeGetterAndSetter(name, key) {
@@ -1564,7 +1565,8 @@
     ************************************/
 
 
-    moment.duration.fn = Duration.prototype = {
+    extend(moment.duration.fn = Duration.prototype, {
+
         _bubble : function () {
             var milliseconds = this._milliseconds,
                 days = this._days,
@@ -1653,7 +1655,7 @@
         },
 
         lang : moment.fn.lang
-    };
+    });
 
     function makeDurationGetter(name) {
         moment.duration.fn[name] = function () {
