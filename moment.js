@@ -1137,6 +1137,8 @@
         if (!key) {
             return moment.fn._lang._abbr;
         }
+        key = key.toLowerCase();
+        key = key.replace('_', '-');
         if (values) {
             loadLang(key, values);
         } else if (values === null) {
