@@ -45,11 +45,11 @@ require('../moment').lang('mr', {
         nextDay : '[उद्या] LT',
         nextWeek : 'dddd, LT',
         lastDay : '[काल] LT',
-        lastWeek : '[मागिल] dddd, LT',
+        lastWeek: '[मागील] dddd, LT',
         sameElse : 'L'
     },
     relativeTime : {
-        future : "%s ने",
+        future : "%s नंतर",
         past : "%s पूर्वी",
         s : "सेकंद",
         m: "एक मिनिट",
