@@ -19,7 +19,7 @@ exports["lang:mr"] = {
     "parse" : function (test) {
         test.expect(96);
 
-        var tests = 'जानेवारी जाने._फेब्रुवारी फेब्रु._मार्च मार्च_एप्रिल एप्रि._मे मे_जून जून_जुलै जुलै._ऑगस्ट ऑग._सप्टेंबर सप्टें._ऑक्टोबर ऑक्टो._नोव्हेंबर नोव्हें._डिसेंबर डिसें.'.split("_"), i;
+        var tests = 'जानेवारी जाने._फेब्रुवारी फेब्रु._मार्च मार्च._एप्रिल एप्रि._मे मे._जून जून._जुलै जुलै._ऑगस्ट ऑग._सप्टेंबर सप्टें._ऑक्टोबर ऑक्टो._नोव्हेंबर नोव्हें._डिसेंबर डिसें.'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -114,7 +114,7 @@ exports["lang:mr"] = {
     "format month" : function (test) {
         test.expect(12);
 
-        var expected = 'जानेवारी जाने._फेब्रुवारी फेब्रु._मार्च मार्च_एप्रिल एप्रि._मे मे_जून जून_जुलै जुलै._ऑगस्ट ऑग._सप्टेंबर सप्टें._ऑक्टोबर ऑक्टो._नोव्हेंबर नोव्हें._डिसेंबर डिसें.'.split("_"), i;
+        var expected = 'जानेवारी जाने._फेब्रुवारी फेब्रु._मार्च मार्च._एप्रिल एप्रि._मे मे._जून जून._जुलै जुलै._ऑगस्ट ऑग._सप्टेंबर सप्टें._ऑक्टोबर ऑक्टो._नोव्हेंबर नोव्हें._डिसेंबर डिसें.'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -151,15 +151,15 @@ exports["lang:mr"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   "एक दिवस",         "1 day = a day");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   "५ दिवस",        "5 days = 5 days");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "२५ दिवस",       "25 days = 25 days");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "एक महीने",       "26 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "एक महीने",       "30 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 45}), true),  "एक महीने",       "45 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "२ महीने",      "46 days = 2 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "२ महीने",      "75 days = 2 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "३ महीने",      "76 days = 3 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "एक महीने",       "1 month = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "५ महीने",      "5 months = 5 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 344}), true), "११ महीने",     "344 days = 11 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({ d: 26 }), true), "एक महिना", "26 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({ d: 30 }), true), "एक महिना", "30 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({ d: 45 }), true), "एक महिना", "45 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({ d: 46 }), true), "२ महिने", "46 days = 2 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({ d: 74 }), true), "२ महिने", "75 days = 2 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({ d: 76 }), true), "३ महिने", "76 days = 3 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({ M: 1 }), true), "एक महिना", "1 month = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({ M: 5 }), true), "५ महिने", "5 months = 5 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({ d: 344 }), true), "११ महिने", "344 days = 11 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "एक वर्ष",        "345 days = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 547}), true), "एक वर्ष",        "547 days = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "२ वर्षे",       "548 days = 2 years");
@@ -170,7 +170,7 @@ exports["lang:mr"] = {
 
     "suffix" : function (test) {
         test.expect(2);
-        test.equal(moment(30000).from(0), "सेकंद मध्ये",  "prefix");
+        test.equal(moment(30000).from(0), "सेकंद नंतर", "prefix");
         test.equal(moment(0).from(30000), "सेकंद पूर्वी", "suffix");
         test.done();
     },
@@ -183,8 +183,8 @@ exports["lang:mr"] = {
 
     "fromNow" : function (test) {
         test.expect(2);
-        test.equal(moment().add({s: 30}).fromNow(), "सेकंद मध्ये", "सेकंद मध्ये");
-        test.equal(moment().add({d: 5}).fromNow(), "५ दिवस मध्ये", "५ दिवस मध्ये");
+        test.equal(moment().add({ s: 30 }).fromNow(), "सेकंद नंतर", "सेकंद नंतर");
+        test.equal(moment().add({ d: 5 }).fromNow(), "५ दिवस नंतर", "५ दिवस नंतर");
         test.done();
     },
 
@@ -196,9 +196,9 @@ exports["lang:mr"] = {
         test.equal(moment(a).calendar(),                     "आज रात्री २:०० वाजता",     "today at the same time");
         test.equal(moment(a).add({ m: 25 }).calendar(),      "आज रात्री २:२५ वाजता",     "Now plus 25 min");
         test.equal(moment(a).add({ h: 3 }).calendar(),       "आज सकाळी ५:०० वाजता",     "Now plus 3 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "कल रात्री २:०० वाजता",  "tomorrow at the same time");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "उद्या रात्री २:०० वाजता",  "tomorrow at the same time");
         test.equal(moment(a).subtract({ h: 1 }).calendar(),  "आज रात्री १:०० वाजता",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "कल रात्री २:०० वाजता", "yesterday at the same time");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "काल रात्री २:०० वाजता", "yesterday at the same time");
         test.done();
     },
 
@@ -224,11 +224,11 @@ exports["lang:mr"] = {
 
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
-            test.equal(m.calendar(),       m.format('[पिछले] dddd[,] LT'),  "Today - " + i + " days current time");
+            test.equal(m.calendar(), m.format('[मागील] dddd[,] LT'), "Today - " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('[पिछले] dddd[,] LT'),  "Today - " + i + " days beginning of day");
+            test.equal(m.calendar(), m.format('[मागील] dddd[,] LT'), "Today - " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('[पिछले] dddd[,] LT'),  "Today - " + i + " days end of day");
+            test.equal(m.calendar(), m.format('[मागील] dddd[,] LT'), "Today - " + i + " days end of day");
         }
         test.done();
     },
