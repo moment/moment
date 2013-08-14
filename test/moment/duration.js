@@ -239,7 +239,7 @@ exports.duration = {
         test.equal(moment.duration({M: -1}).toIsoString(), "-P1M", "one month ago");
         test.equal(moment.duration({m: -1}).toIsoString(), "-PT1M", "one minute ago");
         test.equal(moment.duration({s: -1}).toIsoString(), "-PT0.5S", "one half second ago");
-        test.equal(moment.duration({y: -0.5, M: 1}).toIsoString() , "-P5M", "a month after half a year ago");
+        test.equal(moment.duration({y: -0.5, M: 1}).toIsoString(), "-P5M", "a month after half a year ago");
         test.done();
     },
 
