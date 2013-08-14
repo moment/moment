@@ -198,16 +198,25 @@ exports.duration = {
         test.done();
     },
 
-    "instatiation from iso 8601 duration" : function (test) {
-        test.expect(7);
+    "instantiation from ISO 8601 duration" : function (test) {
+        test.expect(6);
         test.equal(moment.duration("P1Y2M3DT4H5M6S").asSeconds(), moment.duration({y: 1, M: 2, d: 3, h: 4, m: 5, s: 6}).asSeconds(), "all fields");
-        test.equal(moment.duration("P1W").asSeconds(), moment.duration({d: 7}).asSeconds(), "week field");
         test.equal(moment.duration("P1M").asSeconds(), moment.duration({M: 1}).asSeconds(), "single month field");
         test.equal(moment.duration("PT1M").asSeconds(), moment.duration({m: 1}).asSeconds(), "single minute field");
         test.equal(moment.duration("P1MT2H").asSeconds(), moment.duration({M: 1, h: 2}).asSeconds(), "random fields missing");
-        test.equal(moment.duration("PY1MDT2HMS").asSeconds(), moment.duration({M: 1, h: 2}).asSeconds(), "random values missing");
         test.equal(moment.duration("-P60D").asSeconds(), moment.duration({d: -60}).asSeconds(), "negative days");
+        test.equal(moment.duration("PT0.5S").asSeconds(), moment.duration({y: 1, M: 2, d: 3, h: 4, m: 5, s: 6}).asSeconds(), "fractional seconds");
         test.done();
+    },
+    
+    "serialization to ISO 8601 duration strings" : function (test) {
+      test.expect(4);
+      test.equal(moment.duration({y: 1, M: 2, d: 3, h: 4, m: 5, s: 6}).toIsoString() , "P1Y2M3DT4H5M6S", "all fields");
+      test.equal(moment.duration({M: -1}).toIsoString() , "-P1M", "one month ago");
+      test.equal(moment.duration({m: -1}).toIsoString() , "-PT1M", "one minute ago");
+      test.equal(moment.duration({s: -1}).toIsoString() , "-PT0.5S", "one half second ago");
+      test.equal(moment.duration({y: -0.5, M: 1}).toIsoString() , "-P5M", "a month after half a year ago");
+      test.done();
     },
 
     "humanize" : function (test) {

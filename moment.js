@@ -282,7 +282,6 @@
         this._bubble();
     }
 
-
     /************************************
         Helpers
     ************************************/
@@ -1640,7 +1639,21 @@
             return this['as' + units.charAt(0).toUpperCase() + units.slice(1) + 's']();
         },
 
-        lang : moment.fn.lang
+        lang : moment.fn.lang,
+        
+        toIsoString : function () {
+            // inspired by https://github.com/dordille/moment-isoduration/blob/master/moment.isoduration.js
+            return (this.asSeconds() < 0 ? '-' : '') 
+                + 'P'
+                + (this.years() ? Math.abs(this.years()) + 'Y' : '')
+                + (this.months() ? Math.abs(this.months()) + 'M' : '')
+                + (this.days() ? Math.abs(this.days()) + 'D' : '')
+                + ((this.hours() || this.minutes() || this.seconds()) ? 'T' : '')
+                + (this.hours() ? Math.abs(this.hours()) + 'H' : '')
+                + (this.minutes() ? Math.abs(this.minutes()) + 'M' : '')
+                + ((this.seconds() || this.milliseconds()) ?
+                    (Math.abs(this.seconds() + this.milliseconds() / 1000.0)) + 'S' : '');
+        }
     };
 
     function makeDurationGetter(name) {
