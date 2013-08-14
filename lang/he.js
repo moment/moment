@@ -35,12 +35,32 @@ require('../moment').lang('he', {
         m : "דקה",
         mm : "%d דקות",
         h : "שעה",
-        hh : "%d שעות",
+        hh : function (number) {
+            if (number === 2) {
+                return "שעתיים";
+            }
+            return number+" שעות";
+        },
         d : "יום",
-        dd : "%d ימים",
+        dd : function (number) {
+            if (number === 2) {
+                return "יומיים";
+            }
+            return number+" ימים";
+        },
         M : "חודש",
-        MM : "%d חודשים",
+        MM : function (number) {
+            if (number === 2) {
+                return "חודשיים";
+            }
+            return number+" חודשים";
+        },
         y : "שנה",
-        yy : "%d שנים"
+        yy : function (number) {
+            if (number === 2) {
+                return "שנתיים";
+            }
+            return number+" שנים";
+        }
     }
 });
