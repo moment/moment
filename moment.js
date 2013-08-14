@@ -1740,16 +1740,22 @@
         
         toIsoString : function () {
             // inspired by https://github.com/dordille/moment-isoduration/blob/master/moment.isoduration.js
+            var years = Math.abs(this.years()),
+                months = Math.abs(this.months()),
+                days = Math.abs(this.days()),
+                hours = Math.abs(this.hours),
+                minutes = Math.abs(this.minutes()),
+                seconds = Math.abs(this.seconds() + this.milliseconds() / 1000);
+            
             return (this.asSeconds() < 0 ? '-' : '') +
                 'P' +
-                (this.years() ? Math.abs(this.years()) + 'Y' : '') +
-                (this.months() ? Math.abs(this.months()) + 'M' : '') +
-                (this.days() ? Math.abs(this.days()) + 'D' : '') +
-                ((this.hours() || this.minutes() || this.seconds()) ? 'T' : '') +
-                (this.hours() ? Math.abs(this.hours()) + 'H' : '') +
-                (this.minutes() ? Math.abs(this.minutes()) + 'M' : '') +
-                ((this.seconds() || this.milliseconds()) ?
-                    (Math.abs(this.seconds() + this.milliseconds() / 1000.0)) + 'S' : '');
+                (years ? years + 'Y' : '') +
+                (months ? months + 'M' : '') +
+                (days ? days + 'D' : '') +
+                ((hours || minutes || seconds) ? 'T' : '') +
+                (hours ? hours + 'H' : '') +
+                (minutes ? minutes + 'M' : '') +
+                (seconds ? seconds + 'S' : '');
         }
     });
 
