@@ -1646,7 +1646,7 @@
             var years = Math.abs(this.years()),
                 months = Math.abs(this.months()),
                 days = Math.abs(this.days()),
-                hours = Math.abs(this.hours),
+                hours = Math.abs(this.hours()),
                 minutes = Math.abs(this.minutes()),
                 seconds = Math.abs(this.seconds() + this.milliseconds() / 1000);
             
