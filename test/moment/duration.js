@@ -210,13 +210,13 @@ exports.duration = {
     },
     
     "serialization to ISO 8601 duration strings" : function (test) {
-      test.expect(4);
-      test.equal(moment.duration({y: 1, M: 2, d: 3, h: 4, m: 5, s: 6}).toIsoString() , "P1Y2M3DT4H5M6S", "all fields");
-      test.equal(moment.duration({M: -1}).toIsoString() , "-P1M", "one month ago");
-      test.equal(moment.duration({m: -1}).toIsoString() , "-PT1M", "one minute ago");
-      test.equal(moment.duration({s: -1}).toIsoString() , "-PT0.5S", "one half second ago");
-      test.equal(moment.duration({y: -0.5, M: 1}).toIsoString() , "-P5M", "a month after half a year ago");
-      test.done();
+        test.expect(4);
+        test.equal(moment.duration({y: 1, M: 2, d: 3, h: 4, m: 5, s: 6}).toIsoString(), "P1Y2M3DT4H5M6S", "all fields");
+        test.equal(moment.duration({M: -1}).toIsoString(), "-P1M", "one month ago");
+        test.equal(moment.duration({m: -1}).toIsoString(), "-PT1M", "one minute ago");
+        test.equal(moment.duration({s: -1}).toIsoString(), "-PT0.5S", "one half second ago");
+        test.equal(moment.duration({y: -0.5, M: 1}).toIsoString() , "-P5M", "a month after half a year ago");
+        test.done();
     },
 
     "humanize" : function (test) {
