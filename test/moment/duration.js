@@ -199,13 +199,14 @@ exports.duration = {
     },
 
     "instatiation from iso 8601 duration" : function (test) {
-        test.expect(6);
-        test.equal(moment.duration('P1Y2M3DT4H5M6S').asSeconds(), moment.duration({y: 1, M: 2, d: 3, h: 4, m: 5, s: 6}).asSeconds(), "all fields");
-        test.equal(moment.duration('P1W').asSeconds(), moment.duration({d: 7}).asSeconds(), "week field");
-        test.equal(moment.duration('P1M').asSeconds(), moment.duration({M: 1}).asSeconds(), "single month field");
-        test.equal(moment.duration('PT1M').asSeconds(), moment.duration({m: 1}).asSeconds(), "single minute field");
-        test.equal(moment.duration('P1MT2H').asSeconds(), moment.duration({M: 1, h: 2}).asSeconds(), "random fields missing");
-        test.equal(moment.duration('PY1MDT2HMS').asSeconds(), moment.duration({M: 1, h: 2}).asSeconds(), "random values missing");
+        test.expect(7);
+        test.equal(moment.duration("P1Y2M3DT4H5M6S").asSeconds(), moment.duration({y: 1, M: 2, d: 3, h: 4, m: 5, s: 6}).asSeconds(), "all fields");
+        test.equal(moment.duration("P1W").asSeconds(), moment.duration({d: 7}).asSeconds(), "week field");
+        test.equal(moment.duration("P1M").asSeconds(), moment.duration({M: 1}).asSeconds(), "single month field");
+        test.equal(moment.duration("PT1M").asSeconds(), moment.duration({m: 1}).asSeconds(), "single minute field");
+        test.equal(moment.duration("P1MT2H").asSeconds(), moment.duration({M: 1, h: 2}).asSeconds(), "random fields missing");
+        test.equal(moment.duration("PY1MDT2HMS").asSeconds(), moment.duration({M: 1, h: 2}).asSeconds(), "random values missing");
+        test.equal(moment.duration("-P60D").asSeconds(), moment.duration({d: -60}).asSeconds(), "negative days");
         test.done();
     },
 
