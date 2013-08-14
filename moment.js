@@ -1159,7 +1159,7 @@
             dateTimeEmpty = timeEmpty && !(isoMatched[2] || isoMatched[3] || isoMatched[4]);
             
             if (dateTimeEmpty || timeEmpty && isoMatched[5]) {
-              return null;
+                return null;
             }
             
             sign = (isoMatched[1] === "-") ? -1 : 1;
