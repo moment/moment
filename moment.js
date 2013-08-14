@@ -22,7 +22,11 @@
         // ASP.NET json date format regex
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
         aspNetTimeSpanJsonRegex = /(\-)?(?:(\d*)\.)?(\d+)\:(\d+)\:(\d+)\.?(\d{3})?/,
-        isoDurationRegex = /^P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/,
+        
+        // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
+        isoDurationRegex =  new RegExp(
+            '^(-)?P(?:(\\d+)Y)?(?:(\\d+)M)?(?:(\\d+)D)?' +
+            '(T(?:(\\d+)H)?(?:(\\d+)M)?(?:(\\d+(?:\\.\\d+)?)S)?)?$');
 
         // format tokens
         formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,
@@ -1057,7 +1061,9 @@
             isoMatched = null,
             sign,
             ret,
-            parseIso;
+            parseIso,
+            timeEmpty,
+            dateTimeEmpty;
 
         if (isNumber) {
             if (key) {
@@ -1075,7 +1081,15 @@
                 s: ~~aspMatched[5] * sign,
                 ms: ~~aspMatched[6] * sign
             };
-        } else if (!!(isoMatched = isoDurationRegex.exec(input))) {
+        } else if (!!(isoMatched = input.match(isoDurationRegex))) {
+            timeEmpty = !(isoMatched[6] || isoMatched[7] || isoMatched[8]);
+            dateTimeEmpty = timeEmpty && !(isoMatched[2] || isoMatched[3] || isoMatched[4]);
+            
+            if (dateTimeEmpty || timeEmpty && isoMatched[5]) {
+              return null;
+            }
+            
+            sign = (isoMatched[1] === "-") ? -1 : 1;
             parseIso = function (inp) {
                 // We'd normally use ~~inp for this, but unfortunately it also
                 // converts floats to ints.
@@ -1084,13 +1098,12 @@
                 return isNaN(res) ? 0 : res;
             };
             duration = {
-                y: parseIso(isoMatched[1]),
-                M: parseIso(isoMatched[2]),
-                d: parseIso(isoMatched[3]),
-                h: parseIso(isoMatched[4]),
-                m: parseIso(isoMatched[5]),
-                s: parseIso(isoMatched[6]),
-                w: parseIso(isoMatched[7]),
+                y: ~~isoMatched[2] * sign,
+                M: ~~isoMatched[3] * sign,
+                d: ~~isoMatched[4] * sign,
+                h: ~~isoMatched[6] * sign,
+                m: ~~isoMatched[7] * sign,
+                s: parseIso(isoMatched[8]) * sign
             };
         }
 
