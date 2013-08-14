@@ -1081,7 +1081,7 @@
                 s: ~~aspMatched[5] * sign,
                 ms: ~~aspMatched[6] * sign
             };
-        } else if (!!(isoMatched = input.match(isoDurationRegex))) {
+        } else if (!!(isoMatched = isoDurationRegex.exec(input))) {
             timeEmpty = !(isoMatched[6] || isoMatched[7] || isoMatched[8]);
             dateTimeEmpty = timeEmpty && !(isoMatched[2] || isoMatched[3] || isoMatched[4]);
             
