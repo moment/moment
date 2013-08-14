@@ -40,28 +40,28 @@ require('../moment').lang('he', {
             if (number === 2) {
                 return "שעתיים";
             }
-            return number+" שעות";
+            return number + " שעות";
         },
         d : "יום",
         dd : function (number) {
             if (number === 2) {
                 return "יומיים";
             }
-            return number+" ימים";
+            return number + " ימים";
         },
         M : "חודש",
         MM : function (number) {
             if (number === 2) {
                 return "חודשיים";
             }
-            return number+" חודשים";
+            return number + " חודשים";
         },
         y : "שנה",
         yy : function (number) {
             if (number === 2) {
                 return "שנתיים";
             }
-            return number+" שנים";
+            return number + " שנים";
         }
     }
 });
