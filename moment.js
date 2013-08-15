@@ -1652,7 +1652,7 @@
             if (!this.asSeconds()) {
                 // this is the same as C#'s (Noda) and python (isodate)... 
                 // but not other JS (goog.date)
-                return 'PT0D';
+                return 'P0D';
             }
 
             return (this.asSeconds() < 0 ? '-' : '') +
