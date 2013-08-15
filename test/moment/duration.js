@@ -223,13 +223,14 @@ exports.duration = {
     },
 
     "instantiation from ISO 8601 duration" : function (test) {
-        test.expect(6);
+        test.expect(7);
         test.equal(moment.duration("P1Y2M3DT4H5M6S").asSeconds(), moment.duration({y: 1, M: 2, d: 3, h: 4, m: 5, s: 6}).asSeconds(), "all fields");
         test.equal(moment.duration("P1M").asSeconds(), moment.duration({M: 1}).asSeconds(), "single month field");
         test.equal(moment.duration("PT1M").asSeconds(), moment.duration({m: 1}).asSeconds(), "single minute field");
         test.equal(moment.duration("P1MT2H").asSeconds(), moment.duration({M: 1, h: 2}).asSeconds(), "random fields missing");
         test.equal(moment.duration("-P60D").asSeconds(), moment.duration({d: -60}).asSeconds(), "negative days");
         test.equal(moment.duration("PT0.5S").asSeconds(), moment.duration({s: 0.5}).asSeconds(), "fractional seconds");
+        test.equal(moment.duration("PT0,5S").asSeconds(), moment.duration({s: 0.5}).asSeconds(), "fractional seconds (comma)");
         test.done();
     },
     
@@ -240,6 +241,49 @@ exports.duration = {
         test.equal(moment.duration({m: -1}).toIsoString(), "-PT1M", "one minute ago");
         test.equal(moment.duration({s: -0.5}).toIsoString(), "-PT0.5S", "one half second ago");
         test.equal(moment.duration({y: -0.5, M: 1}).toIsoString(), "-P5M", "a month after half a year ago");
+        test.done();
+    },
+    
+    "`isodate` (python) test cases" : function (test) {
+        test.expect(24);
+        test.equal(moment.duration("P18Y9M4DT11H9M8S").asSeconds(), moment.duration({y: 18, M: 9, d: 4, h: 11, m: 9, s: 8}).asSeconds(), "python isodate 1");
+        test.equal(moment.duration("P2W").asSeconds(), moment.duration({w: 2}).asSeconds(), "python isodate 2");
+        test.equal(moment.duration("P3Y6M4DT12H30M5S").asSeconds(), moment.duration({y: 3, M: 6, d: 4, h: 12, m: 30, s: 5}).asSeconds(), "python isodate 3");
+        test.equal(moment.duration("P23DT23H").asSeconds(), moment.duration({d: 23, h: 23}).asSeconds(), "python isodate 4");
+        test.equal(moment.duration("P4Y").asSeconds(), moment.duration({y: 4}).asSeconds(), "python isodate 5");
+        test.equal(moment.duration("P1M").asSeconds(), moment.duration({M: 1}).asSeconds(), "python isodate 6");
+        test.equal(moment.duration("PT1M").asSeconds(), moment.duration({m: 1}).asSeconds(), "python isodate 7");
+        test.equal(moment.duration("P0.5Y").asSeconds(), moment.duration({y: 0.5}).asSeconds(), "python isodate 8");
+        test.equal(moment.duration("PT36H").asSeconds(), moment.duration({h: 36}).asSeconds(), "python isodate 9");
+        test.equal(moment.duration("P1DT12H").asSeconds(), moment.duration({d: 1, h:12}).asSeconds(), "python isodate 10");
+        test.equal(moment.duration("-P2W").asSeconds(), moment.duration({w: -2}).asSeconds(), "python isodate 11");
+        test.equal(moment.duration("-P2.2W").asSeconds(), moment.duration({w: -2.2}).asSeconds(), "python isodate 12");
+        test.equal(moment.duration("P1DT2H3M4S").asSeconds(), moment.duration({d: 1, h: 2, m: 3, s: 4}).asSeconds(), "python isodate 13");
+        test.equal(moment.duration("P1DT2H3M").asSeconds(), moment.duration({d: 1, h: 2, m: 3}).asSeconds(), "python isodate 14");
+        test.equal(moment.duration("P1DT2H").asSeconds(), moment.duration({d: 1, h: 2}).asSeconds(), "python isodate 15");
+        test.equal(moment.duration("PT2H").asSeconds(), moment.duration({h: 2}).asSeconds(), "python isodate 16");
+        test.equal(moment.duration("PT2.3H").asSeconds(), moment.duration({h: 2.3}).asSeconds(), "python isodate 17");
+        test.equal(moment.duration("PT2H3M4S").asSeconds(), moment.duration({h: 2, m: 3, s: 4}).asSeconds(), "python isodate 18");
+        test.equal(moment.duration("PT3M4S").asSeconds(), moment.duration({m: 3, s: 4}).asSeconds(), "python isodate 19");
+        test.equal(moment.duration("PT22S").asSeconds(), moment.duration({s: 22}).asSeconds(), "python isodate 20");
+        test.equal(moment.duration("PT22.22S").asSeconds(), moment.duration({s: 22.22}).asSeconds(), "python isodate 21");
+        test.equal(moment.duration("-P2Y").asSeconds(), moment.duration({y: -2}).asSeconds(), "python isodate 22");
+        test.equal(moment.duration("-P3Y6M4DT12H30M5S").asSeconds(), moment.duration({y: -3, M: -6, d: -4, h: -12, m: -30, s: -5}).asSeconds(), "python isodate 23");
+        test.equal(moment.duration("-P1DT2H3M4S").asSeconds(), moment.duration({d: -1, h: -2, m: -3, s: -4}).asSeconds(), "python isodate 24");
+        test.done();
+    },
+    
+    "ISO 8601 misuse cases" : function(test){
+        test.expect(9);
+        test.equal(moment.duration("P").asSeconds(), 0, "lonely P");
+        test.equal(moment.duration("PT").asSeconds(), 0, "just P and T");
+        test.equal(moment.duration("P1YT").asSeconds(), 0, "trailing T");
+        test.equal(moment.duration("P1H").asSeconds(), 0, "missing T");
+        test.equal(moment.duration("P1D1Y").asSeconds(), 0, "out of order");
+        test.equal(moment.duration("PT.5S").asSeconds(), 0, "no leading zero for decimal");
+        test.equal(moment.duration("PT1,S").asSeconds(), 0, "trailing decimal separator");
+        test.equal(moment.duration("PT0,,5S").asSeconds(), 0, "extra decimal separator");
+        test.equal(moment.duration("P-1DS").asSeconds(), 0, "wrong position of negative");
         test.done();
     },
 
