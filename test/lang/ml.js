@@ -19,7 +19,7 @@ exports["lang:ml"] = {
     "parse" : function (test) {
         test.expect(96);
 
-        var tests = 'ജനുവരി ജനു._ഫെബ്രുവരി ഫെബ്രു._മാർച്ച്‌ മാർ._ഏപ്രിൽ ഏപ്രി._മേയ് മേയ്_ജൂണ്‍ ജൂണ്‍_ജൂലൈ ജൂലൈ._ഓഗസ്റ്റ്‌ ഓഗ._സെപ്റ്റംബർ സെപ്റ്റ._ഒക്ടോബർ ഒക്ടോ._നവംബർ നവം._ഡിസംബർ ഡിസം.'.split("_"), i;
+        var tests = 'ജനുവരി ജനു._ഫെബ്രുവരി ഫെബ്രു._മാർച്ച് മാർ._ഏപ്രിൽ ഏപ്രി._മേയ് മേയ്_ജൂൺ ജൂൺ_ജൂലൈ ജൂലൈ._ഓഗസ്റ്റ് ഓഗ._സെപ്റ്റംബർ സെപ്റ്റ._ഒക്ടോബർ ഒക്ടോ._നവംബർ നവം._ഡിസംബർ ഡിസം.'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -114,7 +114,7 @@ exports["lang:ml"] = {
     "format month" : function (test) {
         test.expect(12);
 
-        var expected = 'ജനുവരി ജനു._ഫെബ്രുവരി ഫെബ്രു._മാർച്ച്‌ മാർ._ഏപ്രിൽ ഏപ്രി._മേയ് മേയ്_ജൂണ്‍ ജൂണ്‍_ജൂലൈ ജൂലൈ._ഓഗസ്റ്റ്‌ ഓഗ._സെപ്റ്റംബർ സെപ്റ്റ._ഒക്ടോബർ ഒക്ടോ._നവംബർ നവം._ഡിസംബർ ഡിസം.'.split("_"), i;
+        var expected = 'ജനുവരി ജനു._ഫെബ്രുവരി ഫെബ്രു._മാർച്ച് മാർ._ഏപ്രിൽ ഏപ്രി._മേയ് മേയ്_ജൂൺ ജൂൺ_ജൂലൈ ജൂലൈ._ഓഗസ്റ്റ് ഓഗ._സെപ്റ്റംബർ സെപ്റ്റ._ഒക്ടോബർ ഒക്ടോ._നവംബർ നവം._ഡിസംബർ ഡിസം.'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -124,7 +124,7 @@ exports["lang:ml"] = {
     "format week" : function (test) {
         test.expect(7);
 
-        var expected = 'ഞായറാഴ്ച ഞായർ ഞാ_തിങ്കളാഴ്ച തിങ്കൾ തി_ചൊവ്വാഴ്ച ചൊവ്വ‍ ചൊ_ബുധനാഴ്ച ബുധൻ ബു_വ്യാഴാഴ്ച വ്യാഴം വ്യാ_വെള്ളിയാഴ്ച വെള്ളി വെ_ശനിയാഴ്ച ശനി ശ'.split("_"), i;
+        var expected = 'ഞായറാഴ്ച ഞായർ ഞാ_തിങ്കളാഴ്ച തിങ്കൾ തി_ചൊവ്വാഴ്ച ചൊവ്വ ചൊ_ബുധനാഴ്ച ബുധൻ ബു_വ്യാഴാഴ്ച വ്യാഴം വ്യാ_വെള്ളിയാഴ്ച വെള്ളി വെ_ശനിയാഴ്ച ശനി ശ'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
@@ -171,13 +171,13 @@ exports["lang:ml"] = {
     "suffix" : function (test) {
         test.expect(2);
         test.equal(moment(30000).from(0), "അൽപ നിമിഷങ്ങൾ കഴിഞ്ഞ്",  "prefix");
-        test.equal(moment(0).from(30000), "അൽപ നിമിഷങ്ങൾ മുൻപ്‌", "suffix");
+        test.equal(moment(0).from(30000), "അൽപ നിമിഷങ്ങൾ മുൻപ്", "suffix");
         test.done();
     },
 
     "now from now" : function (test) {
         test.expect(1);
-        test.equal(moment().fromNow(), "അൽപ നിമിഷങ്ങൾ മുൻപ്‌",  "now from now should display as in the past");
+        test.equal(moment().fromNow(), "അൽപ നിമിഷങ്ങൾ മുൻപ്",  "now from now should display as in the past");
         test.done();
     },
 
