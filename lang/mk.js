@@ -2,7 +2,7 @@
 // language : macedonian (mk)
 // author : Borislav Mickov : https://github.com/B0k0
 
-require('../moment').lang('bg', {
+require('../moment').lang('mk', {
     months : "јануари_февруари_март_април_мај_јуни_јули_август_септември_октомври_ноември_декември".split("_"),
     monthsShort : "јан_фев_мар_апр_мај_јуни_јули_авг_сеп_окт_ное_дек".split("_"),
     weekdays : "недела_понеделник_вторник_среда_четврток_петок_сабота".split("_"),
