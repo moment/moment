@@ -25,7 +25,7 @@ require('../moment').lang('ml', {
     },
     relativeTime : {
         future : "%s കഴിഞ്ഞ്",
-        past : "%s മുമ്പേ",
+        past : "%s മുൻപ്‌",
         s : "അൽപ നിമിഷങ്ങൾ",
         m : "ഒരു മിനിറ്റ്",
         mm : "%d മിനിറ്റ്",
