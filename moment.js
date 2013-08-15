@@ -22,11 +22,10 @@
         // ASP.NET json date format regex
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
         aspNetTimeSpanJsonRegex = /(\-)?(?:(\d*)\.)?(\d+)\:(\d+)\:(\d+)\.?(\d{3})?/,
-        
+
         // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
-        isoDurationRegex =  new RegExp(
-            '^(-)?P(?:(\\d+)Y)?(?:(\\d+)M)?(?:(\\d+)D)?' +
-            '(T(?:(\\d+)H)?(?:(\\d+)M)?(?:(\\d+(?:\\.\\d+)?)S)?)?$'),
+        // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
+        isoDurationRegex = /^(-)?(?:P)(?:(\d+(?:[,.]\d+)?)Y)?(?:(\d+(?:[,.]\d+)?)M)?(?:(\d+(?:[,.]\d+)?)W)?(?:(\d+(?:[,.]\d+)?)D)?(T(?:(\d+(?:[,.]\d+)?)H)?(?:(\d+(?:[,.]\d+)?)M)?(?:(\d+(?:[,.]\d+)?)S)?)?$/,
 
         // format tokens
         formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,
@@ -1056,8 +1055,7 @@
             isNumber = (typeof input === 'number'),
             duration = (isDuration ? input._input : (isNumber ? {} : input)),
             // matching against regexp is expensive, do it on demand
-            aspMatched = null,
-            isoMatched = null,
+            match = null,
             sign,
             ret,
             parseIso,
@@ -1070,40 +1068,41 @@
             } else {
                 duration.milliseconds = input;
             }
-        } else if (!!(aspMatched = aspNetTimeSpanJsonRegex.exec(input))) {
-            sign = (aspMatched[1] === "-") ? -1 : 1;
+        } else if (!!(match = aspNetTimeSpanJsonRegex.exec(input))) {
+            sign = (match[1] === "-") ? -1 : 1;
             duration = {
                 y: 0,
-                d: ~~aspMatched[2] * sign,
-                h: ~~aspMatched[3] * sign,
-                m: ~~aspMatched[4] * sign,
-                s: ~~aspMatched[5] * sign,
-                ms: ~~aspMatched[6] * sign
+                d: ~~match[2] * sign,
+                h: ~~match[3] * sign,
+                m: ~~match[4] * sign,
+                s: ~~match[5] * sign,
+                ms: ~~match[6] * sign
             };
-        } else if (!!(isoMatched = isoDurationRegex.exec(input))) {
-            timeEmpty = !(isoMatched[6] || isoMatched[7] || isoMatched[8]);
-            dateTimeEmpty = timeEmpty && !(isoMatched[2] || isoMatched[3] || isoMatched[4]);
-            
-            if (dateTimeEmpty || timeEmpty && isoMatched[5]) {
-                return null;
+        } else if (!!(match = isoDurationRegex.exec(input))) {
+            timeEmpty = !(match[7] || match[8] || match[9]);
+            dateTimeEmpty = timeEmpty && !(
+                match[2] || match[3] || match[4] || match[5]);
+
+            if (!(dateTimeEmpty || timeEmpty && match[6])) {
+                sign = (match[1] === "-") ? -1 : 1;
+                parseIso = function (inp) {
+                    // We'd normally use ~~inp for this, but unfortunately it
+                    // also converts floats to ints.
+                    // inp may be undefined, so careful calling replace on it.
+                    var res = inp && parseFloat(inp.replace(',', '.'));
+                    // apply sign while we're at it
+                    return (isNaN(res) ? 0 : res) * sign;
+                };
+                duration = {
+                    y: parseIso(match[2]),
+                    M: parseIso(match[3]),
+                    w: parseIso(match[4]),
+                    d: parseIso(match[5]),
+                    h: parseIso(match[7]),
+                    m: parseIso(match[8]),
+                    s: parseIso(match[9])
+                };
             }
-            
-            sign = (isoMatched[1] === "-") ? -1 : 1;
-            parseIso = function (inp) {
-                // We'd normally use ~~inp for this, but unfortunately it also
-                // converts floats to ints.
-                // inp may be undefined, so careful calling replace on it.
-                var res = inp && parseFloat(inp.replace(',', '.'));
-                return isNaN(res) ? 0 : res;
-            };
-            duration = {
-                y: ~~isoMatched[2] * sign,
-                M: ~~isoMatched[3] * sign,
-                d: ~~isoMatched[4] * sign,
-                h: ~~isoMatched[6] * sign,
-                m: ~~isoMatched[7] * sign,
-                s: parseIso(isoMatched[8]) * sign
-            };
         }
 
         ret = new Duration(duration);
@@ -1640,7 +1639,7 @@
         },
 
         lang : moment.fn.lang,
-        
+
         toIsoString : function () {
             // inspired by https://github.com/dordille/moment-isoduration/blob/master/moment.isoduration.js
             var years = Math.abs(this.years()),
@@ -1649,7 +1648,13 @@
                 hours = Math.abs(this.hours()),
                 minutes = Math.abs(this.minutes()),
                 seconds = Math.abs(this.seconds() + this.milliseconds() / 1000);
-            
+
+            if(!this.asSeconds()){
+              // this is the same as C#'s (Noda) and python (isodate)... 
+              // but not other JS (goog.date)
+              return 'PT0D';
+            }
+
             return (this.asSeconds() < 0 ? '-' : '') +
                 'P' +
                 (years ? years + 'Y' : '') +
