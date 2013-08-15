@@ -1649,10 +1649,10 @@
                 minutes = Math.abs(this.minutes()),
                 seconds = Math.abs(this.seconds() + this.milliseconds() / 1000);
 
-            if(!this.asSeconds()){
-              // this is the same as C#'s (Noda) and python (isodate)... 
-              // but not other JS (goog.date)
-              return 'PT0D';
+            if (!this.asSeconds()) {
+                // this is the same as C#'s (Noda) and python (isodate)... 
+                // but not other JS (goog.date)
+                return 'PT0D';
             }
 
             return (this.asSeconds() < 0 ? '-' : '') +

@@ -231,7 +231,7 @@ exports.duration = {
         test.equal(moment.duration("PT1M").asSeconds(), moment.duration({m: 1}).asSeconds(), "python isodate 7");
         test.equal(moment.duration("P0.5Y").asSeconds(), moment.duration({y: 0.5}).asSeconds(), "python isodate 8");
         test.equal(moment.duration("PT36H").asSeconds(), moment.duration({h: 36}).asSeconds(), "python isodate 9");
-        test.equal(moment.duration("P1DT12H").asSeconds(), moment.duration({d: 1, h:12}).asSeconds(), "python isodate 10");
+        test.equal(moment.duration("P1DT12H").asSeconds(), moment.duration({d: 1, h: 12}).asSeconds(), "python isodate 10");
         test.equal(moment.duration("-P2W").asSeconds(), moment.duration({w: -2}).asSeconds(), "python isodate 11");
         test.equal(moment.duration("-P2.2W").asSeconds(), moment.duration({w: -2.2}).asSeconds(), "python isodate 12");
         test.equal(moment.duration("P1DT2H3M4S").asSeconds(), moment.duration({d: 1, h: 2, m: 3, s: 4}).asSeconds(), "python isodate 13");
@@ -249,7 +249,7 @@ exports.duration = {
         test.done();
     },
     
-    "ISO 8601 misuse cases" : function(test){
+    "ISO 8601 misuse cases" : function (test) {
         test.expect(9);
         test.equal(moment.duration("P").asSeconds(), 0, "lonely P");
         test.equal(moment.duration("PT").asSeconds(), 0, "just P and T");
