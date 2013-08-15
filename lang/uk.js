@@ -64,9 +64,9 @@ function processHoursFunction(str) {
 
 require('../moment').lang('uk', {
     months : monthsCaseReplace,
-    monthsShort : "січ_лют_бер_кві_тра_чер_лип_сер_вер_жов_лис_гру".split("_"),
+    monthsShort : "січ_лют_бер_квіт_трав_черв_лип_серп_вер_жовт_лист_груд".split("_"),
     weekdays : weekdaysCaseReplace,
-    weekdaysShort : "нед_пон_вів_срд_чет_птн_суб".split("_"),
+    weekdaysShort : "нед_пон_вів_сер_чет_п’ят_суб".split("_"),
     weekdaysMin : "нд_пн_вт_ср_чт_пт_сб".split("_"),
     longDateFormat : {
         LT : "HH:mm",
