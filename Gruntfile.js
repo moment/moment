@@ -11,7 +11,10 @@ module.exports = function (grunt) {
                 src: ['min/langs.js'],
                 dest: 'min/langs.min.js'
             }
-        };
+        },
+        momentWithLangs = grunt.option('useLangs') ?
+            'lang/{' + grunt.option('useLangs') + '}.js' :
+            'lang/*.js';
 
     // all the lang files need to be added manually
     fs.readdirSync('./lang').forEach(function (path) {
@@ -36,6 +39,13 @@ module.exports = function (grunt) {
             langs: {
                 src: ['lang/*.js'],
                 dest: 'min/langs.js'
+            }
+        },
+        concatwithlang : {
+            langs: {
+                src: [momentWithLangs],
+                moment: 'moment.js',
+                dest: 'moment_and_alllangs.js'
             }
         },
         minlang : minLangs,
@@ -120,5 +130,5 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['jshint', 'nodeunit']);
 
     // Task to be run when releasing a new version
-    grunt.registerTask('release', ['jshint', 'nodeunit', 'minwithcomments', 'concatlang', 'minlang']);
+    grunt.registerTask('release', ['jshint', 'nodeunit', 'minwithcomments', 'concatlang', 'minlang', 'concatwithlang']);
 };
