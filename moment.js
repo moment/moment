@@ -618,10 +618,21 @@
 
     // format date using native date object
     function formatMoment(m, format) {
+
+        format = expandFormat(format, m.lang());
+
+        if (!formatFunctions[format]) {
+            formatFunctions[format] = makeFormatFunction(format);
+        }
+
+        return formatFunctions[format](m);
+    }
+
+    function expandFormat(format, lang) {
         var i = 5;
 
         function replaceLongDateFormatTokens(input) {
-            return m.lang().longDateFormat(input) || input;
+            return lang.longDateFormat(input) || input;
         }
 
         while (i-- && (localFormattingTokens.lastIndex = 0,
@@ -629,11 +640,7 @@
             format = format.replace(localFormattingTokens, replaceLongDateFormatTokens);
         }
 
-        if (!formatFunctions[format]) {
-            formatFunctions[format] = makeFormatFunction(format);
-        }
-
-        return formatFunctions[format](m);
+        return format;
     }
 
 
@@ -850,9 +857,11 @@
     // date from string and format string
     function makeDateFromStringAndFormat(config) {
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
-        var tokens = config._f.match(formattingTokens),
+        var lang = getLangDefinition(config._l),
             string = '' + config._i,
-            i, parsedInput;
+            i, parsedInput, tokens;
+
+        tokens = expandFormat(config._f, lang).match(formattingTokens);
 
         config._a = [];
 
