@@ -195,7 +195,16 @@ exports.create = {
                 ['HH:mm:ss S',          '00:30:00 7'],
                 ['HH:mm:ss SS',         '00:30:00 78'],
                 ['HH:mm:ss SSS',        '00:30:00 789'],
-                ['X.SSS',               '1234567890.123']
+                ['X.SSS',               '1234567890.123'],
+                ['LT',                  '12:30 AM'],
+                ['L',                   '09/02/1999'],
+                ['l',                   '9/2/1999'],
+                ['LL',                  'September 2 1999'],
+                ['ll',                  'Sep 2 1999'],
+                ['LLL',                 'September 2 1999 12:30 AM'],
+                ['lll',                 'Sep 2 1999 12:30 AM'],
+                ['LLLL',                'Thursday, September 2 1999 12:30 AM'],
+                ['llll',                'Thu, Sep 2 1999 12:30 AM']
             ],
             i;
 
