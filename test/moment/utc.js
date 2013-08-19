@@ -73,5 +73,19 @@ exports.utc = {
         test.equal(m.hours(), 23, "the hours should be correct for utc parse with timezone");
 
         test.done();
+    },
+
+    "cloning with utc" : function (test) {
+        test.expect(4);
+
+        var m = moment.utc("2012-01-02T08:20:00");
+        test.equal(moment.utc(m)._isUTC, true, "the local zone should be converted to UTC");
+        test.equal(moment.utc(m.clone().utc())._isUTC, true, "the local zone should stay in UTC");
+
+        m.zone(120);
+        test.equal(moment.utc(m)._isUTC, true, "the explicit zone should stay in UTC");
+        test.equal(moment.utc(m).zone(), 0, "the explicit zone should have an offset of 0");
+
+        test.done();
     }
 };
