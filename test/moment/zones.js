@@ -297,7 +297,7 @@ exports.zones = {
     },
 
     "same / before / after" : function (test) {
-        var zoneA = moment(),
+        var zoneA = moment().utc(),
             zoneB = moment(zoneA).zone(120),
             zoneC = moment(zoneA).zone(-120);
 
