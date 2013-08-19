@@ -1076,7 +1076,7 @@
             _l : lang,
             _i : input,
             _f : format
-        });
+        }).utc();
     };
 
     // creating with unix timestamp (in seconds)
