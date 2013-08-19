@@ -18,7 +18,7 @@ exports["lang:uk"] = {
 
     "parse" : function (test) {
         test.expect(96);
-        var tests = 'січень січ_лютий лют_березень бер_квітень кві_травень тра_червень чер_липень лип_серпень сер_вересень вер_жовтень жов_листопад лис_грудень гру'.split("_"), i;
+        var tests = 'січень січ_лютий лют_березень бер_квітень квіт_травень трав_червень черв_липень лип_серпень серп_вересень вер_жовтень жовт_листопад лист_грудень груд'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -107,7 +107,7 @@ exports["lang:uk"] = {
 
     "format month" : function (test) {
         test.expect(12);
-        var expected = 'січень січ_лютий лют_березень бер_квітень кві_травень тра_червень чер_липень лип_серпень сер_вересень вер_жовтень жов_листопад лис_грудень гру'.split("_"), i;
+        var expected = 'січень січ_лютий лют_березень бер_квітень квіт_травень трав_червень черв_липень лип_серпень серп_вересень вер_жовтень жовт_листопад лист_грудень груд'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -129,7 +129,7 @@ exports["lang:uk"] = {
 
     "format week" : function (test) {
         test.expect(7);
-        var expected = 'неділя нед нд_понеділок пон пн_вівторок вів вт_середа срд ср_четвер чет чт_п’ятниця птн пт_субота суб сб'.split("_"), i;
+        var expected = 'неділя нед нд_понеділок пон пн_вівторок вів вт_середа сер ср_четвер чет чт_п’ятниця п’ят пт_субота суб сб'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
