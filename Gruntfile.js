@@ -1,53 +1,18 @@
-var fs = require('fs');
-
 module.exports = function (grunt) {
-
-    var minifiedFiles = {
-            'min/langs.min.js'  : ['min/langs.js'],
-            'min/moment.min.js' : ['moment.js']
-        },
-        minLangs = {
-            langs: {
-                src: ['min/langs.js'],
-                dest: 'min/langs.min.js'
-            }
-        };
-
-    // all the lang files need to be added manually
-    fs.readdirSync('./lang').forEach(function (path) {
-        if (path.indexOf('.js') > -1) {
-            var dest = 'min/lang/' + path,
-                src = ['lang/' + path];
-
-            minifiedFiles[dest] = src;
-            minLangs[path] = {src: src, dest: dest};
-        }
-    });
-
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         concat : {
             langs: {
-                src: ['lang/*.js'],
+                src: 'lang/*.js',
                 dest: 'min/langs.js'
-            }
-        },
-        concatlang : {
-            langs: {
-                src: ['lang/*.js'],
-                dest: 'min/langs.js'
-            }
-        },
-        minlang : minLangs,
-        minwithcomments : {
-            moment: {
-                src: ['moment.js'],
-                dest: 'min/moment.min.js'
             }
         },
         uglify : {
-            my_target: {
-                files: minifiedFiles
+            target: {
+                files: {
+                    'min/langs.min.js'  : 'min/langs.js',
+                    'min/moment.min.js' : 'moment.js'
+                }
             },
             options: {
                 fromString: true,
@@ -57,6 +22,9 @@ module.exports = function (grunt) {
                 },
                 output: {
                     ascii_only: true
+                },
+                preserveComments: function (node, comment) {
+                    return comment.file === 'moment.js' && comment.line < 6;
                 }
             }
         },
@@ -88,7 +56,10 @@ module.exports = function (grunt) {
                 "undef"    : true,
                 "sub"      : true,
                 "strict"   : false,
-                "white"    : true
+                "white"    : true,
+                "globals": {
+                    "define": false
+                }
             }
         },
         watch : {
@@ -118,7 +89,8 @@ module.exports = function (grunt) {
 
     // Default task.
     grunt.registerTask('default', ['jshint', 'nodeunit']);
+    grunt.registerTask('test', ['nodeunit']);
 
     // Task to be run when releasing a new version
-    grunt.registerTask('release', ['jshint', 'nodeunit', 'minwithcomments', 'concatlang', 'minlang']);
+    grunt.registerTask('release', ['jshint', 'nodeunit', 'concat', 'uglify']);
 };
