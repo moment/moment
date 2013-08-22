@@ -15,7 +15,6 @@ module.exports = function (grunt) {
                 }
             },
             options: {
-                fromString: true,
                 mangle: true,
                 compress: {
                     dead_code: false
@@ -23,9 +22,8 @@ module.exports = function (grunt) {
                 output: {
                     ascii_only: true
                 },
-                preserveComments: function (node, comment) {
-                    return comment.file === 'moment.js' && comment.line < 6;
-                }
+                report: 'min',
+                preserveComments: 'some'
             }
         },
         nodeunit : {
