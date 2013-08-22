@@ -1323,7 +1323,7 @@
         },
 
         calendar : function () {
-            var diff = this.diff(moment().startOf('day'), 'days', true),
+            var diff = this.diff(moment().zone(this.zone()).startOf('day'), 'days', true),
                 format = diff < -6 ? 'sameElse' :
                 diff < -1 ? 'lastWeek' :
                 diff < 0 ? 'lastDay' :
