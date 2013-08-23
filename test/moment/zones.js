@@ -415,6 +415,51 @@ exports.zones = {
         test.equal(moment.utc().format('zz'), "Coordinated Universal Time", "UTC zone formatted abbr should be Coordinated Universal Time");
 
         test.done();
-    }
+    },
 
+    "hours alignment with UTC" : function (test) {
+        test.expect(4);
+
+        test.equals(moment().zone(120).hasAlignedHourOffset(), true);
+        test.equals(moment().zone(-180).hasAlignedHourOffset(), true);
+        test.equals(moment().zone(90).hasAlignedHourOffset(), false);
+        test.equals(moment().zone(-90).hasAlignedHourOffset(), false);
+
+        test.done();
+    },
+
+    "hours alignment with other zone" : function (test) {
+        test.expect(16);
+
+        var m = moment().zone(120);
+
+        test.equals(m.hasAlignedHourOffset(moment().zone(180)), true);
+        test.equals(m.hasAlignedHourOffset(moment().zone(-180)), true);
+        test.equals(m.hasAlignedHourOffset(moment().zone(90)), false);
+        test.equals(m.hasAlignedHourOffset(moment().zone(-90)), false);
+
+        m = moment().zone(90);
+
+        test.equals(m.hasAlignedHourOffset(moment().zone(180)), false);
+        test.equals(m.hasAlignedHourOffset(moment().zone(-180)), false);
+        test.equals(m.hasAlignedHourOffset(moment().zone(30)), true);
+        test.equals(m.hasAlignedHourOffset(moment().zone(-30)), true);
+
+        m = moment().zone(-60);
+
+        test.equals(m.hasAlignedHourOffset(moment().zone(180)), true);
+        test.equals(m.hasAlignedHourOffset(moment().zone(-180)), true);
+        test.equals(m.hasAlignedHourOffset(moment().zone(90)), false);
+        test.equals(m.hasAlignedHourOffset(moment().zone(-90)), false);
+
+        m = moment().zone(25);
+
+        test.equals(m.hasAlignedHourOffset(moment().zone(-35)), true);
+        test.equals(m.hasAlignedHourOffset(moment().zone(85)), true);
+
+        test.equals(m.hasAlignedHourOffset(moment().zone(35)), false);
+        test.equals(m.hasAlignedHourOffset(moment().zone(-85)), false);
+
+        test.done();
+    }
 };

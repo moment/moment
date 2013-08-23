@@ -1477,6 +1477,18 @@
             return this._isUTC ? "Coordinated Universal Time" : "";
         },
 
+        hasAlignedHourOffset : function (input) {
+            var mod = this.zone() % 60,
+                wrapAround = function (minutes) {return minutes < 0 ? 60 + minutes : minutes; };
+
+            if (input == null || input === '') {
+                return mod === 0;
+            }
+            else {
+                return wrapAround(mod) === wrapAround(moment(input).zone() % 60);
+            }
+        },
+
         daysInMonth : function () {
             return moment.utc([this.year(), this.month() + 1, 0]).date();
         },
