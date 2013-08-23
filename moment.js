@@ -1477,12 +1477,15 @@
             return this._isUTC ? "Coordinated Universal Time" : "";
         },
 
-        hasAlignedHours : function (input) {
+        hasAlignedHourOffset : function (input) {
+            var mod = this.zone() % 60,
+                wrapAround = function (minutes) {return minutes < 0 ? 60 + minutes : minutes; };
+
             if (input == null || input === '') {
-                return this.zone() % 60 === 0;
+                return mod === 0;
             }
             else {
-                return this.zone() % 60 === moment(input).zone() % 60;
+                return wrapAround(mod) === wrapAround(moment(input).zone() % 60);
             }
         },
 
