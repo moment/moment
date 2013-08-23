@@ -1,26 +1,27 @@
 // moment.js language configuration
 // language : norwegian bokmål (nb)
-// author : Espen Hovlandsdal : https://github.com/rexxars
+// authors : Espen Hovlandsdal : https://github.com/rexxars
+//           Sigurd Gartmann : https://github.com/sigurdga
 
 require('../moment').lang('nb', {
     months : "januar_februar_mars_april_mai_juni_juli_august_september_oktober_november_desember".split("_"),
-    monthsShort : "jan_feb_mar_apr_mai_jun_jul_aug_sep_okt_nov_des".split("_"),
+    monthsShort : "jan._feb._mars_april_mai_juni_juli_aug._sep._okt._nov._des.".split("_"),
     weekdays : "søndag_mandag_tirsdag_onsdag_torsdag_fredag_lørdag".split("_"),
-    weekdaysShort : "søn_man_tir_ons_tor_fre_lør".split("_"),
+    weekdaysShort : "sø._ma._ti._on._to._fr._lø.".split("_"),
     weekdaysMin : "sø_ma_ti_on_to_fr_lø".split("_"),
     longDateFormat : {
-        LT : "HH:mm",
+        LT : "H.mm",
         L : "DD.MM.YYYY",
-        LL : "D MMMM YYYY",
-        LLL : "D MMMM YYYY LT",
-        LLLL : "dddd D MMMM YYYY LT"
+        LL : "D. MMMM YYYY",
+        LLL : "D. MMMM YYYY [kl.] LT",
+        LLLL : "dddd D. MMMM YYYY [kl.] LT"
     },
     calendar : {
-        sameDay: '[I dag klokken] LT',
-        nextDay: '[I morgen klokken] LT',
-        nextWeek: 'dddd [klokken] LT',
-        lastDay: '[I går klokken] LT',
-        lastWeek: '[Forrige] dddd [klokken] LT',
+        sameDay: '[i dag kl.] LT',
+        nextDay: '[i morgen kl.] LT',
+        nextWeek: 'dddd [kl.] LT',
+        lastDay: '[i går kl.] LT',
+        lastWeek: '[forrige] dddd [kl.] LT',
         sameElse: 'L'
     },
     relativeTime : {
