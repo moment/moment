@@ -317,7 +317,7 @@ exports.format = {
             b = moment().utc().startOf('day').subtract({ m : 1 }),
             c = moment().local().startOf('day').subtract({ m : 1 });
 
-        zones.forEach(function(z) {
+        zones.forEach(function (z) {
             var a = moment().zone(z).startOf('day').subtract({ m: 1 });
             test.equal(moment(a).zone(z).calendar(), "Yesterday at 11:59 PM", "Yesterday at 11:59 PM, not Today, or the wrong time");
         });
