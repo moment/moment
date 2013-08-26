@@ -87,15 +87,5 @@ exports.preparse_postformat = {
         test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Yesterday at @:)) AM", "yesterday at the same time");
 
         test.done();
-    },
-
-    "calendar day timezone" : function (test) {
-        test.expect(1);
-
-        var z = 60,
-            a = moment().zone(z).startOf('day').subtract({ m: 1 });
-
-        test.equal(moment(a).zone(z).calendar(), "Yesterday at !!:%( PM", "Yesterday at 11:59 PM");
-        test.done();
     }
 };

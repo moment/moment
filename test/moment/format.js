@@ -308,5 +308,23 @@ exports.format = {
         test.equal(moment.utc([2000, 0, 1]).toJSON(), "2000-01-01T00:00:00.000Z", "toJSON doesn't postformat");
         moment.lang('postformat', null);
         test.done();
+    },
+
+    "calendar day timezone" : function (test) {
+        test.expect(10);
+
+        var zones = [60, -60, 90, -90, 360, -360, 720, -720],
+            b = moment().utc().startOf('day').subtract({ m : 1 }),
+            c = moment().local().startOf('day').subtract({ m : 1 });
+
+        zones.forEach(function(z) {
+            var a = moment().zone(z).startOf('day').subtract({ m: 1 });
+            test.equal(moment(a).zone(z).calendar(), "Yesterday at 11:59 PM", "Yesterday at 11:59 PM, not Today, or the wrong time");
+        });
+
+        test.equal(moment(b).utc().calendar(), "Yesterday at 11:59 PM", "Yesterday at 11:59 PM, not Today, or the wrong time");
+        test.equal(moment(c).local().calendar(), "Yesterday at 11:59 PM", "Yesterday at 11:59 PM, not Today, or the wrong time");
+
+        test.done();
     }
 };
