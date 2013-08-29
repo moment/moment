@@ -5,7 +5,7 @@ exports.lang = {
         test.expect(7);
 
         moment.lang('en');
-        test.equal(moment.lang(), 'en', 'Lang should return en by default');
+        test.equal(moment.lang(), 'en-us', 'Lang should return en-us by default');
 
         moment.lang('fr');
         test.equal(moment.lang(), 'fr', 'Lang should return the changed language');
@@ -14,10 +14,10 @@ exports.lang = {
         test.equal(moment.lang(), 'en-gb', 'Lang should return the changed language');
 
         moment.lang('en');
-        test.equal(moment.lang(), 'en', 'Lang should reset');
+        test.equal(moment.lang(), 'en-us', 'Lang alias should return full name');
 
         moment.lang('does-not-exist');
-        test.equal(moment.lang(), 'en', 'Lang should reset');
+        test.equal(moment.lang(), 'en-us', 'Lang should reset');
 
         moment.lang('EN');
         test.equal(moment.lang(), 'en', 'Normalize language key case');

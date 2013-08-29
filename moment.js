@@ -549,11 +549,22 @@
     // are provided, it will load the language file module.  As a convenience,
     // this function also returns the language values.
     function loadLang(key, values) {
+        // Optional second argument key alias (e.g. en-us has alias en).
+        var alias;
+        if (arguments.length === 3) {
+            alias = values;
+            values = arguments[2];
+        }
         values.abbr = key;
         if (!languages[key]) {
             languages[key] = new Language();
         }
         languages[key].set(values);
+        if (alias) {
+            delete languages[alias];
+            languages[alias] = languages[key];
+        }
+
         return languages[key];
     }
 
@@ -1149,7 +1160,7 @@
         key = key.toLowerCase();
         key = key.replace('_', '-');
         if (values) {
-            loadLang(key, values);
+            loadLang.apply(null, arguments);
         } else if (values === null) {
             unloadLang(key);
             key = 'en';
@@ -1700,7 +1711,7 @@
 
 
     // Set default language, other languages will inherit from English.
-    moment.lang('en', {
+    moment.lang('en-us', 'en', {
         ordinal : function (number) {
             var b = number % 10,
                 output = (~~ (number % 100 / 10) === 1) ? 'th' :
