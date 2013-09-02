@@ -1478,15 +1478,14 @@
         },
 
         hasAlignedHourOffset : function (input) {
-            var mod = this.zone() % 60,
-                wrapAround = function (minutes) {return minutes < 0 ? 60 + minutes : minutes; };
-
-            if (input == null || input === '') {
-                return mod === 0;
+            if (!input) {
+                input = 0;
             }
             else {
-                return wrapAround(mod) === wrapAround(moment(input).zone() % 60);
+                input = moment(input).zone();
             }
+
+            return (this.zone() - input) % 60 === 0;
         },
 
         daysInMonth : function () {
