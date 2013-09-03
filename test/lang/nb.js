@@ -19,7 +19,7 @@ exports["lang:nb"] = {
     "parse" : function (test) {
         test.expect(96);
 
-        var tests = 'januar jan_februar feb_mars mar_april apr_mai mai_juni jun_juli jul_august aug_september sep_oktober okt_november nov_desember des'.split("_"),
+        var tests = 'januar jan_februar feb_mars mars_april april_mai mai_juni juni_juli juli_august aug_september sep_oktober okt_november nov_desember des'.split("_"),
             i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
@@ -43,11 +43,11 @@ exports["lang:nb"] = {
 
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'søndag, februar 14. 2010, 3:25:50 pm'],
-                ['ddd, hA',                            'søn, 3PM'],
-                ['M Mo MM MMMM MMM',                   '2 2. 02 februar feb'],
+                ['ddd, hA',                            'sø., 3PM'],
+                ['M Mo MM MMMM MMM',                   '2 2. 02 februar feb.'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14. 14'],
-                ['d do dddd ddd dd',                   '0 0. søndag søn sø'],
+                ['d do dddd ddd dd',                   '0 0. søndag sø. sø'],
                 ['DDD DDDo DDDD',                      '45 45. 045'],
                 ['w wo ww',                            '6 6. 06'],
                 ['h hh',                               '3 03'],
@@ -55,15 +55,15 @@ exports["lang:nb"] = {
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
-                ['[the] DDDo [day of the year]',       'the 45. day of the year'],
+                ['[den] DDDo [dagen i året]',          'den 45. dagen i året'],
                 ['L',                                  '14.02.2010'],
-                ['LL',                                 '14 februar 2010'],
-                ['LLL',                                '14 februar 2010 15:25'],
-                ['LLLL',                               'søndag 14 februar 2010 15:25'],
+                ['LL',                                 '14. februar 2010'],
+                ['LLL',                                '14. februar 2010 kl. 15.25'],
+                ['LLLL',                               'søndag 14. februar 2010 kl. 15.25'],
                 ['l',                                  '14.2.2010'],
-                ['ll',                                 '14 feb 2010'],
-                ['lll',                                '14 feb 2010 15:25'],
-                ['llll',                               'søn 14 feb 2010 15:25']
+                ['ll',                                 '14. feb. 2010'],
+                ['lll',                                '14. feb. 2010 kl. 15.25'],
+                ['llll',                               'sø. 14. feb. 2010 kl. 15.25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -116,7 +116,7 @@ exports["lang:nb"] = {
     "format month" : function (test) {
         test.expect(12);
 
-        var expected = 'januar jan_februar feb_mars mar_april apr_mai mai_juni jun_juli jul_august aug_september sep_oktober okt_november nov_desember des'.split("_"), i;
+        var expected = 'januar jan._februar feb._mars mars_april april_mai mai_juni juni_juli juli_august aug._september sep._oktober okt._november nov._desember des.'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -126,7 +126,7 @@ exports["lang:nb"] = {
     "format week" : function (test) {
         test.expect(7);
 
-        var expected = 'søndag søn sø_mandag man ma_tirsdag tir ti_onsdag ons on_torsdag tor to_fredag fre fr_lørdag lør lø'.split("_"), i;
+        var expected = 'søndag sø. sø_mandag ma. ma_tirsdag ti. ti_onsdag on. on_torsdag to. to_fredag fr. fr_lørdag lø. lø'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
@@ -195,12 +195,12 @@ exports["lang:nb"] = {
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "I dag klokken 02:00",     "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "I dag klokken 02:25",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "I dag klokken 03:00",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "I morgen klokken 02:00",  "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "I dag klokken 01:00",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "I går klokken 02:00",     "yesterday at the same time");
+        test.equal(moment(a).calendar(),                     "i dag kl. 2.00",     "today at the same time");
+        test.equal(moment(a).add({ m: 25 }).calendar(),      "i dag kl. 2.25",     "Now plus 25 min");
+        test.equal(moment(a).add({ h: 1 }).calendar(),       "i dag kl. 3.00",     "Now plus 1 hour");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "i morgen kl. 2.00",  "tomorrow at the same time");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "i dag kl. 1.00",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "i går kl. 2.00",     "yesterday at the same time");
         test.done();
     },
 
@@ -210,11 +210,11 @@ exports["lang:nb"] = {
         var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
-            test.equal(m.calendar(),       m.format('dddd [klokken] LT'),  "Today + " + i + " days current time");
+            test.equal(m.calendar(),       m.format('dddd [kl.] LT'),  "Today + " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('dddd [klokken] LT'),  "Today + " + i + " days beginning of day");
+            test.equal(m.calendar(),       m.format('dddd [kl.] LT'),  "Today + " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('dddd [klokken] LT'),  "Today + " + i + " days end of day");
+            test.equal(m.calendar(),       m.format('dddd [kl.] LT'),  "Today + " + i + " days end of day");
         }
         test.done();
     },
@@ -225,11 +225,11 @@ exports["lang:nb"] = {
         var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
-            test.equal(m.calendar(),       m.format('[Forrige] dddd [klokken] LT'),  "Today - " + i + " days current time");
+            test.equal(m.calendar(),       m.format('[forrige] dddd [kl.] LT'),  "Today - " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('[Forrige] dddd [klokken] LT'),  "Today - " + i + " days beginning of day");
+            test.equal(m.calendar(),       m.format('[forrige] dddd [kl.] LT'),  "Today - " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('[Forrige] dddd [klokken] LT'),  "Today - " + i + " days end of day");
+            test.equal(m.calendar(),       m.format('[forrige] dddd [kl.] LT'),  "Today - " + i + " days end of day");
         }
         test.done();
     },
