@@ -251,15 +251,6 @@ exports["lang:nl"] = {
         test.done();
     },
 
-    "month abbreviation" : function (test) {
-        test.expect(2);
-
-        test.equal(moment([2012, 5, 23]).format('D-MMM-YYYY'), '23-jun-2012', 'format month abbreviation surrounded by dashes should not include a dot');
-        test.equal(moment([2012, 5, 23]).format('D MMM YYYY'), '23 jun. 2012', 'format month abbreviation not surrounded by dashes should include a dot');
-
-        test.done();
-    },
-
     // Monday is the first day of the week.
     // The week that contains Jan 4th is the first week of the year.
 

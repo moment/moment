@@ -2,18 +2,9 @@
 // language : dutch (nl)
 // author : Joris Röling : https://github.com/jjupiter
 
-var monthsShortWithDots = "jan._feb._mrt._apr._mei_jun._jul._aug._sep._okt._nov._dec.".split("_"),
-    monthsShortWithoutDots = "jan_feb_mrt_apr_mei_jun_jul_aug_sep_okt_nov_dec".split("_");
-
 require('../moment').lang('nl', {
     months : "januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december".split("_"),
-    monthsShort : function (m, format) {
-        if (/-MMM-/.test(format)) {
-            return monthsShortWithoutDots[m.month()];
-        } else {
-            return monthsShortWithDots[m.month()];
-        }
-    },
+    monthsShort : "jan._feb._mrt._apr._mei_jun._jul._aug._sep._okt._nov._dec.".split("_"),
     weekdays : "zondag_maandag_dinsdag_woensdag_donderdag_vrijdag_zaterdag".split("_"),
     weekdaysShort : "zo._ma._di._wo._do._vr._za.".split("_"),
     weekdaysMin : "Zo_Ma_Di_Wo_Do_Vr_Za".split("_"),
