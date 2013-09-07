@@ -985,7 +985,7 @@
             dateFromArray(config);
         } else if (input instanceof Date) {
             config._d = new Date(+input);
-        } else if (typeof(input) == 'object') {
+        } else if (typeof(input) === 'object') {
             dateFromObject(config);
         } else {
             config._d = new Date(input);
