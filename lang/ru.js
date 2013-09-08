@@ -37,6 +37,19 @@ function monthsCaseReplace(m, format) {
     return months[nounCase][m.month()];
 }
 
+function monthsShortCaseReplace(m, format) {
+    var monthsShort = {
+        'nominative': 'янв_фев_мар_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split('_'),
+        'accusative': 'янв_фев_мар_апр_мая_июня_июля_авг_сен_окт_ноя_дек'.split('_')
+    },
+
+    nounCase = (/D[oD]? *MMMM?/).test(format) ?
+        'accusative' :
+        'nominative';
+
+    return monthsShort[nounCase][m.month()];
+}
+
 function weekdaysCaseReplace(m, format) {
     var weekdays = {
         'nominative': 'воскресенье_понедельник_вторник_среда_четверг_пятница_суббота'.split('_'),
@@ -52,7 +65,7 @@ function weekdaysCaseReplace(m, format) {
 
 require('../moment').lang('ru', {
     months : monthsCaseReplace,
-    monthsShort : "янв_фев_мар_апр_май_июн_июл_авг_сен_окт_ноя_дек".split("_"),
+    monthsShort : monthsShortCaseReplace,
     weekdays : weekdaysCaseReplace,
     weekdaysShort : "вск_пнд_втр_срд_чтв_птн_сбт".split("_"),
     weekdaysMin : "вс_пн_вт_ср_чт_пт_сб".split("_"),
