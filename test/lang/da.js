@@ -18,7 +18,7 @@ exports["lang:da"] = {
 
     "parse" : function (test) {
         test.expect(96);
-        var tests = 'Januar Jan_Februar Feb_Marts Mar_April Apr_Maj Maj_Juni Jun_Juli Jul_August Aug_September Sep_Oktober Okt_November Nov_December Dec'.split("_"), i;
+        var tests = 'januar jan_februar feb_marts mar_april apr_maj maj_juni jun_juli jul_august aug_september sep_oktober okt_november nov_december dec'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -39,12 +39,12 @@ exports["lang:da"] = {
     "format" : function (test) {
         test.expect(22);
         var a = [
-                ['dddd [den] Do MMMM YYYY, h:mm:ss a', 'Søndag den 14. Februar 2010, 3:25:50 pm'],
-                ['ddd hA',                             'Søn 3PM'],
-                ['M Mo MM MMMM MMM',                   '2 2. 02 Februar Feb'],
+                ['dddd [den] Do MMMM YYYY, h:mm:ss a', 'søndag den 14. februar 2010, 3:25:50 pm'],
+                ['ddd hA',                             'søn 3PM'],
+                ['M Mo MM MMMM MMM',                   '2 2. 02 februar feb'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14. 14'],
-                ['d do dddd ddd dd',                   '0 0. Søndag Søn Sø'],
+                ['d do dddd ddd dd',                   '0 0. søndag søn sø'],
                 ['DDD DDDo DDDD',                      '45 45. 045'],
                 ['w wo ww',                            '6 6. 06'],
                 ['h hh',                               '3 03'],
@@ -54,13 +54,13 @@ exports["lang:da"] = {
                 ['a A',                                'pm PM'],
                 ['[den] DDDo [dag på året]',           'den 45. dag på året'],
                 ['L',                                  '14/02/2010'],
-                ['LL',                                 '14 Februar 2010'],
-                ['LLL',                                '14 Februar 2010 15:25'],
-                ['LLLL',                               'Søndag 14. Februar, 2010 15:25'],
+                ['LL',                                 '14 februar 2010'],
+                ['LLL',                                '14 februar 2010 15:25'],
+                ['LLLL',                               'søndag 14. februar, 2010 15:25'],
                 ['l',                                  '14/2/2010'],
-                ['ll',                                 '14 Feb 2010'],
-                ['lll',                                '14 Feb 2010 15:25'],
-                ['llll',                               'Søn 14. Feb, 2010 15:25']
+                ['ll',                                 '14 feb 2010'],
+                ['lll',                                '14 feb 2010 15:25'],
+                ['llll',                               'søn 14. feb, 2010 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -111,7 +111,7 @@ exports["lang:da"] = {
 
     "format month" : function (test) {
         test.expect(12);
-        var expected = 'Januar Jan_Februar Feb_Marts Mar_April Apr_Maj Maj_Juni Jun_Juli Jul_August Aug_September Sep_Oktober Okt_November Nov_December Dec'.split("_"), i;
+        var expected = 'januar jan_februar feb_marts mar_april apr_maj maj_juni jun_juli jul_august aug_september sep_oktober okt_november nov_december dec'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -120,7 +120,7 @@ exports["lang:da"] = {
 
     "format week" : function (test) {
         test.expect(7);
-        var expected = 'Søndag Søn Sø_Mandag Man Ma_Tirsdag Tir Ti_Onsdag Ons On_Torsdag Tor To_Fredag Fre Fr_Lørdag Lør Lø'.split("_"), i;
+        var expected = 'søndag søn sø_mandag man ma_tirsdag tir ti_onsdag ons on_torsdag tor to_fredag fre fr_lørdag lør lø'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
