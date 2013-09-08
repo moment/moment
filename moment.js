@@ -471,7 +471,9 @@
         },
 
         isPM : function (input) {
-            return ((input + '').toLowerCase()[0] === 'p');
+			//IE8 Quirks Mode & IE7 Standards Mode do not allow accessing strings like arrays
+			//Using charAt should be more compatible.
+            return ((input + '').toLowerCase().charAt(0) === 'p');
         },
 
         _meridiemParse : /[ap]\.?m?\.?/i,
