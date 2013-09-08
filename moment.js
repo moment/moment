@@ -1,8 +1,8 @@
-// moment.js
-// version : 2.1.0
-// author : Tim Wood
-// license : MIT
-// momentjs.com
+//! moment.js
+//! version : 2.1.0
+//! author  : Tim Wood
+//! license : MIT
+//! momentjs.com
 
 (function (undefined) {
 
