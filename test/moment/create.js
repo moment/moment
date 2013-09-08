@@ -22,6 +22,19 @@ exports.create = {
         test.done();
     },
 
+    "object" : function (test) {
+        test.expect(8);
+        test.ok(moment({year: 2010}).toDate() instanceof Date, "{year: 2010}");
+        test.ok(moment({year: 2010, month: 1}).toDate() instanceof Date, "{year: 2010, month: 1}");
+        test.ok(moment({year: 2010, month: 1, day: 12}).toDate() instanceof Date, "{year: 2010, month: 1, day: 12}");
+        test.ok(moment({year: 2010, month: 1, day: 12, hours: 1}).toDate() instanceof Date, "{year: 2010, month: 1, day: 12, hours: 1}");
+        test.ok(moment({year: 2010, month: 1, day: 12, hours: 1, minutes: 1}).toDate() instanceof Date, "{year: 2010, month: 1, hours: 12, minutes: 1, seconds: 1}");
+        test.ok(moment({year: 2010, month: 1, day: 12, hours: 1, minutes: 1, seconds: 1}).toDate() instanceof Date, "{year: 2010, month: 1, day: 12, hours: 1, minutes: 1, seconds: 1]");
+        test.ok(moment({year: 2010, month: 1, day: 12, hours: 1, minutes: 1, seconds: 1, milliseconds: 1}).toDate() instanceof Date, "{year: 2010, month: 1, day: 12, hours: 1, minutes: 1, seconds: 1, milliseconds: 1]");
+        test.equal(+moment(new Date(2010, 1, 14, 15, 25, 50, 125)), +moment({year: 2010, month: 1, day: 14, hours: 15, minutes: 25, seconds: 50, milliseconds: 125}), "constructing with object === constructing with new Date()");
+        test.done();
+    },
+
     "multi format array copying": function (test) {
         var importantArray = ['MM/DD/YYYY', 'YYYY-MM-DD', 'MM-DD-YYYY'];
         test.expect(1);
