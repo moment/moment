@@ -10,8 +10,10 @@ module.exports = function (grunt) {
         uglify : {
             target: {
                 files: {
-                    'min/langs.min.js'  : 'min/langs.js',
-                    'min/moment.min.js' : 'moment.js'
+                    'min/moment+langs.min.js'       : 'min/moment+langs.js',
+                    'min/moment+customlangs.min.js' : 'min/moment+customlangs.js',
+                    'min/langs.min.js'              : 'min/langs.js',
+                    'min/moment.min.js'             : 'moment.js'
                 }
             },
             options: {
@@ -73,6 +75,15 @@ module.exports = function (grunt) {
                 files : '<%= jshint.all %>',
                 tasks: ['jshint']
             }
+        },
+        embed_languages: {
+            moment: 'moment.js',
+            dest: grunt.option('embed_languages') ?
+                'min/moment+customlangs.js' :
+                'min/moment+langs.js',
+            targetLangs: grunt.option('embed_languages') ?
+                'lang/{' + grunt.option('embed_languages') + '}.js':
+                'lang/*.js'
         }
     });
 
@@ -90,5 +101,5 @@ module.exports = function (grunt) {
     grunt.registerTask('test', ['nodeunit']);
 
     // Task to be run when releasing a new version
-    grunt.registerTask('release', ['jshint', 'nodeunit', 'concat', 'uglify']);
+    grunt.registerTask('release', ['jshint', 'nodeunit', 'concat', 'embed_languages', 'uglify']);
 };
