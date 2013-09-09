@@ -152,12 +152,12 @@ exports.duration = {
 
      "instantiation from 24-hour time" : function(test) {
         test.expect(6);
-        test.equal(moment.duration("13:45").years(), 0, "0 years");
-        test.equal(moment.duration("13:45").days(), 0, "0 days");
-        test.equal(moment.duration("13:45").hours(), 13, "13 hours");
-        test.equal(moment.duration("13:45").minutes(), 45, "45 minutes");
-        test.equal(moment.duration("13:45").seconds(), 0, "0 seconds");
-        test.equal(moment.duration("13:45").milliseconds(), 0, "0 milliseconds");
+        test.equal(moment.duration("26:45").years(), 0, "0 years");
+        test.equal(moment.duration("26:45").days(), 1, "0 days");
+        test.equal(moment.duration("26:45").hours(), 2, "2 hours");
+        test.equal(moment.duration("26:45").minutes(), 45, "45 minutes");
+        test.equal(moment.duration("26:45").seconds(), 0, "0 seconds");
+        test.equal(moment.duration("26:45").milliseconds(), 0, "0 milliseconds");
         test.done();
     },
 
