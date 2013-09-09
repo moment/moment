@@ -34,7 +34,7 @@
                 return "早上";
             } else if (hm < 1130) {
                 return "上午";
-            } else if (hm < 1330) {
+            } else if (hm < 1230) {
                 return "中午";
             } else if (hm < 1800) {
                 return "下午";
