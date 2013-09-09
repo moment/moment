@@ -23,7 +23,7 @@
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
         aspNetTimeSpanJsonRegex = /(\-)?(?:(\d*)\.)?(\d+)\:(\d+)\:(\d+)\.?(\d{3})?/,
 
-	twentyFourHourTimeRegex = /(\d{2})\:(\d{2})/,
+    twentyFourHourTimeRegex = /(\d{2})\:(\d{2})/,
 
         // format tokens
         formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,
@@ -1127,7 +1127,7 @@
             isNumber = (typeof input === 'number'),
             duration = (isDuration ? input._input : (isNumber ? {} : input)),
             matched = aspNetTimeSpanJsonRegex.exec(input),
-	    twentyFourHourMatched = twentyFourHourTimeRegex.exec(input),
+        twentyFourHourMatched = twentyFourHourTimeRegex.exec(input),
             sign,
             ret;
 
@@ -1147,15 +1147,15 @@
                 s: ~~matched[5] * sign,
                 ms: ~~matched[6] * sign
             };
-	} else if (twentyFourHourMatched) {
-	    duration = {
-		y: 0,
-		d: 0,
-		h: ~~twentyFourHourMatched[1],
-		m: ~~twentyFourHourMatched[2],
-		s: 0,
-		ms: 0
-	    };
+        } else if (twentyFourHourMatched) {
+            duration = {
+            y: 0,
+            d: 0,
+            h: ~~twentyFourHourMatched[1],
+            m: ~~twentyFourHourMatched[2],
+            s: 0,
+            ms: 0
+            };
         }
 
         ret = new Duration(duration);

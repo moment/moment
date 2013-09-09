@@ -140,25 +140,25 @@ exports.duration = {
     },
 
     "instantiation from 24-hour time zero" : function(test) {
-	test.expect(6);
-	test.equal(moment.duration("00:00").years(), 0, "0 years");
-	test.equal(moment.duration("00:00").days(), 0, "0 days");
-	test.equal(moment.duration("00:00").hours(), 0, "0 hours");
-	test.equal(moment.duration("00:00").minutes(), 0, "0 minutes");
-	test.equal(moment.duration("00:00").seconds(), 0, "0 seconds");
-	test.equal(moment.duration("00:00").milliseconds(), 0, "0 milliseconds");
-	test.done();
+        test.expect(6);
+        test.equal(moment.duration("00:00").years(), 0, "0 years");
+        test.equal(moment.duration("00:00").days(), 0, "0 days");
+        test.equal(moment.duration("00:00").hours(), 0, "0 hours");
+        test.equal(moment.duration("00:00").minutes(), 0, "0 minutes");
+        test.equal(moment.duration("00:00").seconds(), 0, "0 seconds");
+        test.equal(moment.duration("00:00").milliseconds(), 0, "0 milliseconds");
+        test.done();
     },
 
      "instantiation from 24-hour time" : function(test) {
-	test.expect(6);
-	test.equal(moment.duration("13:45").years(), 0, "0 years");
-	test.equal(moment.duration("13:45").days(), 0, "0 days");
-	test.equal(moment.duration("13:45").hours(), 13, "13 hours");
-	test.equal(moment.duration("13:45").minutes(), 45, "45 minutes");
-	test.equal(moment.duration("13:45").seconds(), 0, "0 seconds");
-	test.equal(moment.duration("13:45").milliseconds(), 0, "0 milliseconds");
-	test.done();
+        test.expect(6);
+        test.equal(moment.duration("13:45").years(), 0, "0 years");
+        test.equal(moment.duration("13:45").days(), 0, "0 days");
+        test.equal(moment.duration("13:45").hours(), 13, "13 hours");
+        test.equal(moment.duration("13:45").minutes(), 45, "45 minutes");
+        test.equal(moment.duration("13:45").seconds(), 0, "0 seconds");
+        test.equal(moment.duration("13:45").milliseconds(), 0, "0 milliseconds");
+        test.done();
     },
 
     "instatiation from serialized C# TimeSpan zero" : function (test) {
