@@ -1,5 +1,5 @@
 {
-    "name": "timrwood/moment",
+    "name": "moment/moment",
     "description": "Parse, validate, manipulate, and display dates in javascript.",
     "keywords": [
         "moment",
@@ -12,7 +12,7 @@
         "l10n",
         "ender"
     ],
-    "homepage": "http://github.com/timrwood/moment/",
+    "homepage": "http://github.com/moment/moment/",
     "author": "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
     "license": "MIT"
 }
