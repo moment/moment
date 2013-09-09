@@ -78,6 +78,7 @@
         weekdays : weekdaysCaseReplace,
         weekdaysShort : "вск_пнд_втр_срд_чтв_птн_сбт".split("_"),
         weekdaysMin : "вс_пн_вт_ср_чт_пт_сб".split("_"),
+        monthsParse : [/^янв/i, /^фев/i, /^мар/i, /^апр/i, /^ма[й|я]/i, /^июн/i, /^июл/i, /^авг/i, /^сен/i, /^окт/i, /^ноя/i, /^дек/i],
         longDateFormat : {
             LT : "HH:mm",
             L : "DD.MM.YYYY",
