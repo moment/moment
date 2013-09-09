@@ -1,8 +1,8 @@
-// moment.js
-// version : 2.1.0
-// author : Tim Wood
-// license : MIT
-// momentjs.com
+//! moment.js
+//! version : 2.1.0
+//! author  : Tim Wood
+//! license : MIT
+//! momentjs.com
 
 (function (undefined) {
 
@@ -471,7 +471,9 @@
         },
 
         isPM : function (input) {
-            return ((input + '').toLowerCase()[0] === 'p');
+            // IE8 Quirks Mode & IE7 Standards Mode do not allow accessing strings like arrays
+            // Using charAt should be more compatible.
+            return ((input + '').toLowerCase().charAt(0) === 'p');
         },
 
         _meridiemParse : /[ap]\.?m?\.?/i,
@@ -841,6 +843,26 @@
         config._d = date;
     }
 
+    function dateFromObject(config) {
+        var o = config._i;
+
+        if (config._d) {
+            return;
+        }
+
+        config._a = [
+            o.years || o.year || o.y,
+            o.months || o.month || o.m,
+            o.days || o.day || o.d,
+            o.hours || o.hour || o.h,
+            o.minutes || o.minute || o.m,
+            o.seconds || o.second || o.s,
+            o.milliseconds || o.millisecond || o.ms
+        ];
+
+        dateFromArray(config);
+    }
+
     function currentDateArray(config) {
         var now = new Date();
         if (config._useUTC) {
@@ -963,8 +985,12 @@
         } else if (isArray(input)) {
             config._a = input.slice(0);
             dateFromArray(config);
+        } else if (input instanceof Date) {
+            config._d = new Date(+input);
+        } else if (typeof(input) === 'object') {
+            dateFromObject(config);
         } else {
-            config._d = input instanceof Date ? new Date(+input) : new Date(input);
+            config._d = new Date(input);
         }
     }
 
@@ -1323,7 +1349,7 @@
         },
 
         calendar : function () {
-            var diff = this.diff(moment().startOf('day'), 'days', true),
+            var diff = this.diff(moment().zone(this.zone()).startOf('day'), 'days', true),
                 format = diff < -6 ? 'sameElse' :
                 diff < -1 ? 'lastWeek' :
                 diff < 0 ? 'lastDay' :
@@ -1475,6 +1501,17 @@
 
         zoneName : function () {
             return this._isUTC ? "Coordinated Universal Time" : "";
+        },
+
+        hasAlignedHourOffset : function (input) {
+            if (!input) {
+                input = 0;
+            }
+            else {
+                input = moment(input).zone();
+            }
+
+            return (this.zone() - input) % 60 === 0;
         },
 
         daysInMonth : function () {
@@ -1711,6 +1748,7 @@
         }
     });
 
+    /* EMBED_LANGUAGES */
 
     /************************************
         Exposing Moment

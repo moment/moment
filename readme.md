@@ -24,9 +24,9 @@ Duplicate `Date` passed to `moment()` instead of referencing it.
 Travis Build Status
 ===================
 
-Develop [![Build Status](https://travis-ci.org/timrwood/moment.png?branch=develop)](https://travis-ci.org/timrwood/moment)
+Develop [![Build Status](https://travis-ci.org/moment/moment.png?branch=develop)](https://travis-ci.org/moment/moment)
 
-Master [![Build Status](https://travis-ci.org/timrwood/moment.png)](https://travis-ci.org/timrwood/moment)
+Master [![Build Status](https://travis-ci.org/moment/moment.png?branch=master)](https://travis-ci.org/moment/moment)
 
 Changelog
 =========

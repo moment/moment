@@ -1,63 +1,31 @@
-var fs = require('fs');
-
 module.exports = function (grunt) {
-
-    var minifiedFiles = {
-            'min/langs.min.js'  : ['min/langs.js'],
-            'min/moment.min.js' : ['moment.js']
-        },
-        minLangs = {
-            langs: {
-                src: ['min/langs.js'],
-                dest: 'min/langs.min.js'
-            }
-        };
-
-    // all the lang files need to be added manually
-    fs.readdirSync('./lang').forEach(function (path) {
-        if (path.indexOf('.js') > -1) {
-            var dest = 'min/lang/' + path,
-                src = ['lang/' + path];
-
-            minifiedFiles[dest] = src;
-            minLangs[path] = {src: src, dest: dest};
-        }
-    });
-
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         concat : {
             langs: {
-                src: ['lang/*.js'],
+                src: 'lang/*.js',
                 dest: 'min/langs.js'
-            }
-        },
-        concatlang : {
-            langs: {
-                src: ['lang/*.js'],
-                dest: 'min/langs.js'
-            }
-        },
-        minlang : minLangs,
-        minwithcomments : {
-            moment: {
-                src: ['moment.js'],
-                dest: 'min/moment.min.js'
             }
         },
         uglify : {
-            my_target: {
-                files: minifiedFiles
+            target: {
+                files: {
+                    'min/moment+langs.min.js'       : 'min/moment+langs.js',
+                    'min/moment+customlangs.min.js' : 'min/moment+customlangs.js',
+                    'min/langs.min.js'              : 'min/langs.js',
+                    'min/moment.min.js'             : 'moment.js'
+                }
             },
             options: {
-                fromString: true,
                 mangle: true,
                 compress: {
                     dead_code: false
                 },
                 output: {
                     ascii_only: true
-                }
+                },
+                report: 'min',
+                preserveComments: 'some'
             }
         },
         nodeunit : {
@@ -88,7 +56,10 @@ module.exports = function (grunt) {
                 "undef"    : true,
                 "sub"      : true,
                 "strict"   : false,
-                "white"    : true
+                "white"    : true,
+                "globals": {
+                    "define": false
+                }
             }
         },
         watch : {
@@ -104,6 +75,15 @@ module.exports = function (grunt) {
                 files : '<%= jshint.all %>',
                 tasks: ['jshint']
             }
+        },
+        embed_languages: {
+            moment: 'moment.js',
+            dest: grunt.option('embed_languages') ?
+                'min/moment+customlangs.js' :
+                'min/moment+langs.js',
+            targetLangs: grunt.option('embed_languages') ?
+                'lang/{' + grunt.option('embed_languages') + '}.js':
+                'lang/*.js'
         }
     });
 
@@ -118,7 +98,8 @@ module.exports = function (grunt) {
 
     // Default task.
     grunt.registerTask('default', ['jshint', 'nodeunit']);
+    grunt.registerTask('test', ['nodeunit']);
 
     // Task to be run when releasing a new version
-    grunt.registerTask('release', ['jshint', 'nodeunit', 'minwithcomments', 'concatlang', 'minlang']);
+    grunt.registerTask('release', ['jshint', 'nodeunit', 'concat', 'embed_languages', 'uglify']);
 };
