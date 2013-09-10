@@ -54,6 +54,7 @@
         monthsShort : "jan_feb_márc_ápr_máj_jún_júl_aug_szept_okt_nov_dec".split("_"),
         weekdays : "vasárnap_hétfő_kedd_szerda_csütörtök_péntek_szombat".split("_"),
         weekdaysShort : "v_h_k_sze_cs_p_szo".split("_"),
+        weekdaysMin : "V_H_K_SZ_CS_P_SZ".split("_"),
         longDateFormat : {
             LT : "H:mm",
             L : "YYYY.MM.DD.",
