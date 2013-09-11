@@ -31,6 +31,16 @@ Master [![Build Status](https://travis-ci.org/moment/moment.png?branch=master)](
 Changelog
 =========
 
+### 2.2.0 [See changelog](https://gist.github.com/ichernev/00f837a9baf46a3565e4)
+
+Added bower support.
+
+Languge files now use UMD.
+
+Creating moment defaults to current date/month/year.
+
+Added a bundle of moment and all language files.
+
 ### 2.1.0 [See changelog](https://gist.github.com/timrwood/b8c2d90d528eddb53ab5)
 
 Added better week support.
