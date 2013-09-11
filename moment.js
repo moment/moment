@@ -852,7 +852,7 @@
 
         config._a = [
             o.years || o.year || o.y,
-            o.months || o.month || o.m,
+            o.months || o.month || o.M,
             o.days || o.day || o.d,
             o.hours || o.hour || o.h,
             o.minutes || o.minute || o.m,
