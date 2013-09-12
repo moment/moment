@@ -40,7 +40,7 @@ Updated authors and contributors.
 
 Added bower support.
 
-Languge files now use UMD.
+Language files now use UMD.
 
 Creating moment defaults to current date/month/year.
 
