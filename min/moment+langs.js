@@ -1,6 +1,6 @@
 //! moment.js
-//! version : 2.2.0
-//! author  : Tim Wood
+//! version : 2.2.1
+//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
 
@@ -11,7 +11,7 @@
     ************************************/
 
     var moment,
-        VERSION = "2.2.0",
+        VERSION = "2.2.1",
         round = Math.round, i,
         // internal storage for language config files
         languages = {},

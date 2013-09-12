@@ -31,6 +31,11 @@ Master [![Build Status](https://travis-ci.org/moment/moment.png?branch=master)](
 Changelog
 =========
 
+### 2.2.1
+
+Fixed bug in string prototype test.
+Updated authors and contributors.
+
 ### 2.2.0 [See changelog](https://gist.github.com/ichernev/00f837a9baf46a3565e4)
 
 Added bower support.
