@@ -1149,12 +1149,12 @@
             };
         } else if (twentyFourHourMatched) {
             duration = {
-            y: 0,
-            d: 0,
-            h: ~~twentyFourHourMatched[1],
-            m: ~~twentyFourHourMatched[2],
-            s: 0,
-            ms: 0
+                y: 0,
+                d: 0,
+                h: ~~twentyFourHourMatched[1],
+                m: ~~twentyFourHourMatched[2],
+                s: 0,
+                ms: 0
             };
         }
 

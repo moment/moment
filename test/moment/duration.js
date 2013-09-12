@@ -139,7 +139,7 @@ exports.duration = {
         test.done();
     },
 
-    "instantiation from 24-hour time zero" : function(test) {
+    "instantiation from 24-hour time zero" : function (test) {
         test.expect(6);
         test.equal(moment.duration("00:00").years(), 0, "0 years");
         test.equal(moment.duration("00:00").days(), 0, "0 days");
@@ -150,7 +150,7 @@ exports.duration = {
         test.done();
     },
 
-     "instantiation from 24-hour time" : function(test) {
+    "instantiation from 24-hour time" : function (test) {
         test.expect(6);
         test.equal(moment.duration("26:45").years(), 0, "0 years");
         test.equal(moment.duration("26:45").days(), 1, "0 days");
