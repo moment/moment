@@ -1312,7 +1312,7 @@
                 zoneDiff = (this.zone() - that.zone()) * 6e4,
                 diff, output;
 
-            units = this.normalizeUnits(units);
+            units = moment.normalizeUnits(units);
 
             if (units === 'year' || units === 'month') {
                 // average number of days in the months in the given dates
@@ -1410,7 +1410,7 @@
         },
 
         startOf: function (units) {
-            units = this.normalizeUnits(units);
+            units = moment.normalizeUnits(units);
             // the following switch intentionally omits break keywords
             // to utilize falling through the cases.
             switch (units) {
@@ -1447,7 +1447,7 @@
         },
 
         endOf: function (units) {
-            units = this.normalizeUnits(units);
+            units = moment.normalizeUnits(units);
             return this.startOf(units).add((units === 'isoweek' ? 'week' : units), 1).subtract('ms', 1);
         },
 
@@ -1557,12 +1557,12 @@
         },
 
         get : function (units) {
-            units = this.normalizeUnits(units);
+            units = moment.normalizeUnits(units);
             return this[units.toLowerCase()]();
         },
 
         set : function (units, value) {
-            units = this.normalizeUnits(units);
+            units = moment.normalizeUnits(units);
             this[units.toLowerCase()](value);
         },
 
@@ -1695,12 +1695,12 @@
         },
 
         get : function (units) {
-            units = this.normalizeUnits(units);
+            units = moment.normalizeUnits(units);
             return this[units.toLowerCase() + 's']();
         },
 
         as : function (units) {
-            units = this.normalizeUnits(units);
+            units = moment.normalizeUnits(units);
             return this['as' + units.charAt(0).toUpperCase() + units.slice(1) + 's']();
         },
 
