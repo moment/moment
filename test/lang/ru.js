@@ -42,7 +42,7 @@ exports["lang:ru"] = {
 
         var a = [
                 ['dddd, Do MMMM YYYY, HH:mm:ss',       'воскресенье, 14-го февраля 2010, 15:25:50'],
-                ['ddd, hA',                            'вск, 3PM'],
+                ['ddd, h A',                           'вск, 3 дня'],
                 ['M Mo MM MMMM MMM',                   '2 2-й 02 февраль фев'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14-го 14'],
@@ -53,7 +53,7 @@ exports["lang:ru"] = {
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
-                ['a A',                                'pm PM'],
+                ['a A',                                'дня дня'],
                 ['DDDo [день года]',                   '45-й день года'],
                 ['L',                                  '14.02.2010'],
                 ['LL',                                 '14 февраля 2010 г.'],
@@ -69,6 +69,21 @@ exports["lang:ru"] = {
         for (i = 0; i < a.length; i++) {
             test.equal(b.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
         }
+        test.done();
+    },
+
+    "format meridiem" : function (test) {
+        test.expect(8);
+
+        test.equal(moment([2012, 11, 28, 0, 0]).format("A"), "ночи", "night");
+        test.equal(moment([2012, 11, 28, 3, 59]).format("A"), "ночи", "night");
+        test.equal(moment([2012, 11, 28, 4, 0]).format("A"), "утра", "morning");
+        test.equal(moment([2012, 11, 28, 11, 59]).format("A"), "утра", "morning");
+        test.equal(moment([2012, 11, 28, 12, 0]).format("A"), "дня", "afternoon");
+        test.equal(moment([2012, 11, 28, 16, 59]).format("A"), "дня", "afternoon");
+        test.equal(moment([2012, 11, 28, 17, 0]).format("A"), "вечера", "evening");
+        test.equal(moment([2012, 11, 28, 23, 59]).format("A"), "вечера", "evening");
+
         test.done();
     },
 
