@@ -44,25 +44,41 @@
             }
         },
         calendar : {
-            sameDay : '[今天]LT',
-            nextDay : '[明天]LT',
-            nextWeek : '[下]ddddLT',
-            lastDay : '[昨天]LT',
-            lastWeek : '[上]ddddLT',
+            sameDay : function() {
+                return this.minutes() === 0 ? "[今天]Ah[点整]" : "[今天]T";
+            },
+            nextDay : function() {
+                return this.minutes() === 0 ? "[明天]Ah[点整]" : "[明天]T";
+            },
+            lastDay : function() {
+                return this.minutes() === 0 ? "[昨天]Ah[点整]" : "[昨天]T";
+            },
+            nextWeek : function() {
+                var startOfWeek, prefix;
+                startOfWeek = moment().startOf('week');
+                prefix = this.unix() - startOfWeek.unix() > 7*24*3600 ? '[下]' : '[本]';
+                return this.minutes() === 0 ? prefix+"dddAh点整" : prefix+"dddAh点mm";
+            },
+            lastWeek : function() {
+                var startOfWeek, prefix;
+                startOfWeek = moment().startOf('week');
+                prefix = this.unix() < startOfWeek.unix()  ? '[上]' : '[本]';
+                return this.minutes() === 0 ? prefix+"dddAh点整" : prefix+"dddAh点mm";
+            },
             sameElse : 'L'
         },
         ordinal : function (number, period) {
             switch (period) {
-            case "d" :
-            case "D" :
-            case "DDD" :
+                case "d" :
+                case "D" :
+                case "DDD" :
                 return number + "日";
-            case "M" :
+                case "M" :
                 return number + "月";
-            case "w" :
-            case "W" :
+                case "w" :
+                case "W" :
                 return number + "周";
-            default :
+                default :
                 return number;
             }
         },
