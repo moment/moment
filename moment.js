@@ -12,7 +12,8 @@
 
     var moment,
         VERSION = "2.2.1",
-        round = Math.round, i,
+        round = Math.round,
+        i,
         // internal storage for language config files
         languages = {},
 

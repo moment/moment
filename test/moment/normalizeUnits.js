@@ -7,7 +7,7 @@ exports.normalizeUnits = {
             aliases = "y_M_W_w_d_h_m_s_ms".split("_"),
             length = fullKeys.length,
             fullKey,
-            fullKeyCaps
+            fullKeyCaps,
             fullKeyPlural,
             fullKeyCapsPlural,
             alias,
@@ -15,12 +15,12 @@ exports.normalizeUnits = {
             index;
 
         for (index = 0; index < length; index += 1) {
-            fullKey = fullkeys[index];
+            fullKey = fullKeys[index];
             fullKeyCaps = fullKey.toUpperCase();
             fullKeyPlural = fullKey + "s";
-            fullKeyCapsPlural = fullKeyCaps + "s",
+            fullKeyCapsPlural = fullKeyCaps + "s";
             alias = aliases[index];
-            aliasCaps = alias.toUpperCase
+            aliasCaps = alias.toUpperCase;
             test.equal(moment.normalizeUnits(fullKey), fullKey, '2010');
             test.equal(moment.normalizeUnits(fullKeyCaps), fullKey, '2010');
             test.equal(moment.normalizeUnits(fullKeyPlural), fullKey, '2010');
