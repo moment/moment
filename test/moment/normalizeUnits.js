@@ -1,10 +1,12 @@
+/*global require, exports */
+
 var moment = require("../../moment");
 
 exports.normalizeUnits = {
     "normalize units" : function (test) {
         test.expect(54);
-        var fullKeys = "year_month_isoweek_week_day_hour_minute_second_millisecond".split("_"),
-            aliases = "y_M_W_w_d_h_m_s_ms".split("_"),
+        var fullKeys = ["year", "month", "isoweek", "week", "day", "hour", "minute", "second", "millisecond"],
+            aliases = ["y", "M", "W", "w", "d", "h", "m", "s", "ms"],
             length = fullKeys.length,
             fullKey,
             fullKeyCaps,
@@ -21,12 +23,12 @@ exports.normalizeUnits = {
             fullKeyCapsPlural = fullKeyCaps + "s";
             alias = aliases[index];
             aliasCaps = alias.toUpperCase;
-            test.equal(moment.normalizeUnits(fullKey), fullKey, '2010');
-            test.equal(moment.normalizeUnits(fullKeyCaps), fullKey, '2010');
-            test.equal(moment.normalizeUnits(fullKeyPlural), fullKey, '2010');
-            test.equal(moment.normalizeUnits(fullKeyCapsPlural), fullKey, '2010');
-            test.equal(moment.normalizeUnits(alias), fullKey, '2010');
-            test.equal(moment.normalizeUnits(aliasCaps), fullKey, '2010');
+            test.equal(moment.normalizeUnits(fullKey), fullKey, fullKey);
+            test.equal(moment.normalizeUnits(fullKeyCaps), fullKey, fullKey);
+            test.equal(moment.normalizeUnits(fullKeyPlural), fullKey, fullKey);
+            test.equal(moment.normalizeUnits(fullKeyCapsPlural), fullKey, fullKey);
+            test.equal(moment.normalizeUnits(alias), fullKey, fullKey);
+            test.equal(moment.normalizeUnits(aliasCaps), fullKey, fullKey);
         }
 
         test.done();
