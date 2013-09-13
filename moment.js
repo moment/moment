@@ -361,10 +361,6 @@
         return diffs + lengthDiff;
     }
 
-    function normalizeUnits(units) {
-        return units ? unitAliases[units] || units.toLowerCase().replace(/(.)s$/, '$1') : units;
-    }
-
 
     /************************************
         Languages
@@ -1203,6 +1199,11 @@
         return obj instanceof Duration;
     };
 
+    // for use by developers when extending the library
+    // https://github.com/moment/moment/issues/1066
+    moment.normalizeUnits = function (units) {
+        return units ? unitAliases[units] || units.toLowerCase().replace(/(.)s$/, '$1') : units;
+    };
 
     /************************************
         Moment Prototype
@@ -1311,7 +1312,7 @@
                 zoneDiff = (this.zone() - that.zone()) * 6e4,
                 diff, output;
 
-            units = normalizeUnits(units);
+            units = this.normalizeUnits(units);
 
             if (units === 'year' || units === 'month') {
                 // average number of days in the months in the given dates
@@ -1409,7 +1410,7 @@
         },
 
         startOf: function (units) {
-            units = normalizeUnits(units);
+            units = this.normalizeUnits(units);
             // the following switch intentionally omits break keywords
             // to utilize falling through the cases.
             switch (units) {
@@ -1446,7 +1447,7 @@
         },
 
         endOf: function (units) {
-            units = normalizeUnits(units);
+            units = this.normalizeUnits(units);
             return this.startOf(units).add((units === 'isoweek' ? 'week' : units), 1).subtract('ms', 1);
         },
 
@@ -1556,12 +1557,12 @@
         },
 
         get : function (units) {
-            units = normalizeUnits(units);
+            units = this.normalizeUnits(units);
             return this[units.toLowerCase()]();
         },
 
         set : function (units, value) {
-            units = normalizeUnits(units);
+            units = this.normalizeUnits(units);
             this[units.toLowerCase()](value);
         },
 
@@ -1694,12 +1695,12 @@
         },
 
         get : function (units) {
-            units = normalizeUnits(units);
+            units = this.normalizeUnits(units);
             return this[units.toLowerCase() + 's']();
         },
 
         as : function (units) {
-            units = normalizeUnits(units);
+            units = this.normalizeUnits(units);
             return this['as' + units.charAt(0).toUpperCase() + units.slice(1) + 's']();
         },
 
