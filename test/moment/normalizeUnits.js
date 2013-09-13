@@ -5,7 +5,7 @@ exports.normalizeUnits = {
         test.expect(54);
         var fullKeys = "year_month_isoweek_week_day_hour_minute_second_milliseconds".split("_"),
             aliases = "y_m_W_w_d_h_m_s_ms".split("_"),
-            length = full.length,
+            length = fullKeys.length,
             fullKey,
             fullKeyCaps
             fullKeyPlural,
