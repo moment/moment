@@ -96,6 +96,9 @@
             MM : "%d个月",
             y : "1年",
             yy : "%d年"
+        },
+        week : {
+            dow : 1 // Monday is the first day of the week.
         }
     });
 }));
