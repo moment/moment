@@ -37,6 +37,11 @@ exports["lang:ru"] = {
         test.done();
     },
 
+    "parse exceptional case" : function (test) {
+        test.equal(moment('11 мая 1989', ['DD MMMM YYYY']).format('DD-MM-YYYY'), '11-05-1989');
+        test.done();
+    },
+
     "format" : function (test) {
         test.expect(22);
 
