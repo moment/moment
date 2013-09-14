@@ -40,11 +40,11 @@ exports["lang:uk"] = {
         test.expect(18);
         var a = [
                 ['dddd, Do MMMM YYYY, HH:mm:ss',       'неділя, 14-го лютого 2010, 15:25:50'],
-                ['ddd, h A',                           'нед, 3 дня'],
+                ['ddd, h A',                           'нд, 3 дня'],
                 ['M Mo MM MMMM MMM',                   '2 2-й 02 лютий лют'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14-го 14'],
-                ['d do dddd ddd dd',                   '0 0-й неділя нед нд'],
+                ['d do dddd ddd dd',                   '0 0-й неділя нд нд'],
                 ['DDD DDDo DDDD',                      '45 45-й 045'],
                 ['w wo ww',                            '7 7-й 07'],
                 ['h hh',                               '3 03'],
@@ -144,7 +144,7 @@ exports["lang:uk"] = {
 
     "format week" : function (test) {
         test.expect(7);
-        var expected = 'неділя нед нд_понеділок пон пн_вівторок вів вт_середа сер ср_четвер чет чт_п’ятниця п’ят пт_субота суб сб'.split("_"), i;
+        var expected = 'неділя нд нд_понеділок пн пн_вівторок вт вт_середа ср ср_четвер чт чт_п’ятниця пт пт_субота сб сб'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
