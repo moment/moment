@@ -12,7 +12,10 @@
 
     var moment,
         VERSION = "2.2.1",
-        round = Math.round, i,
+        round = Math.round,
+        floor = Math.floor,
+        ceil = Math.ceil,
+        i,
         // internal storage for language config files
         languages = {},
 
@@ -1775,7 +1778,7 @@
         Exposing Moment
     ************************************/
 
-    function makeGlobal () {
+    function makeGlobal() {
         /*global ender:false */
         if (typeof ender === 'undefined') {
             // here, `this` means `window` in the browser, or `global` on the server
