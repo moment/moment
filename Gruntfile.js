@@ -1,4 +1,18 @@
 module.exports = function (grunt) {
+
+    var embedOption = grunt.option('embed_languages'),
+        embedLanguageDest = embedOption ?
+            'min/moment+customlangs.js' :
+            'min/moment+langs.js',
+        embedLanguageLangs = 'lang/*.js';
+
+    if (embedOption && embedOption.match(/,/)) {
+        embedLanguageLangs = 'lang/{' + embedOption + '}.js';
+    }
+    else if (embedOption) {
+        embedLanguageLangs = 'lang/' + embedOption + '.js';
+    }
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         concat : {
@@ -78,12 +92,8 @@ module.exports = function (grunt) {
         },
         embed_languages: {
             moment: 'moment.js',
-            dest: grunt.option('embed_languages') ?
-                'min/moment+customlangs.js' :
-                'min/moment+langs.js',
-            targetLangs: grunt.option('embed_languages') ?
-                'lang/{' + grunt.option('embed_languages') + '}.js':
-                'lang/*.js'
+            dest: embedLanguageDest,
+            targetLangs: embedLanguageLangs
         }
     });
 

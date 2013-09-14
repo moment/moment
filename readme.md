@@ -31,6 +31,21 @@ Master [![Build Status](https://travis-ci.org/moment/moment.png?branch=master)](
 Changelog
 =========
 
+### 2.2.1
+
+Fixed bug in string prototype test.
+Updated authors and contributors.
+
+### 2.2.0 [See changelog](https://gist.github.com/ichernev/00f837a9baf46a3565e4)
+
+Added bower support.
+
+Language files now use UMD.
+
+Creating moment defaults to current date/month/year.
+
+Added a bundle of moment and all language files.
+
 ### 2.1.0 [See changelog](https://gist.github.com/timrwood/b8c2d90d528eddb53ab5)
 
 Added better week support.
@@ -257,13 +272,3 @@ License
 =======
 
 Moment.js is freely distributable under the terms of the MIT license.
-
-Copyright (c) 2011-2012 Tim Wood
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
-files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use,
-copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

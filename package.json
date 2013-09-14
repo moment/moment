@@ -1,12 +1,14 @@
 {
     "name": "moment",
-    "version": "2.1.0",
+    "version": "2.2.1",
     "description": "Parse, manipulate, and display dates.",
     "homepage": "http://momentjs.com",
-    "author": "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
+    "author": "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)",
     "contributors": [
+        "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
         "Rocky Meza (http://rockymeza.com)",
-        "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)"
+        "Matt Johnson <mj1856@hotmail.com> (http://codeofmatt.com)",
+        "Isaac Cambron <isaac@isaaccambron.com> (http://drunkencoder.net/)"
     ],
     "keywords": [
         "moment",

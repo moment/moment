@@ -23,7 +23,7 @@ exports.create = {
     },
 
     "object" : function (test) {
-        test.expect(8);
+        test.expect(10);
         test.ok(moment({year: 2010}).toDate() instanceof Date, "{year: 2010}");
         test.ok(moment({year: 2010, month: 1}).toDate() instanceof Date, "{year: 2010, month: 1}");
         test.ok(moment({year: 2010, month: 1, day: 12}).toDate() instanceof Date, "{year: 2010, month: 1, day: 12}");
@@ -31,7 +31,9 @@ exports.create = {
         test.ok(moment({year: 2010, month: 1, day: 12, hours: 1, minutes: 1}).toDate() instanceof Date, "{year: 2010, month: 1, hours: 12, minutes: 1, seconds: 1}");
         test.ok(moment({year: 2010, month: 1, day: 12, hours: 1, minutes: 1, seconds: 1}).toDate() instanceof Date, "{year: 2010, month: 1, day: 12, hours: 1, minutes: 1, seconds: 1]");
         test.ok(moment({year: 2010, month: 1, day: 12, hours: 1, minutes: 1, seconds: 1, milliseconds: 1}).toDate() instanceof Date, "{year: 2010, month: 1, day: 12, hours: 1, minutes: 1, seconds: 1, milliseconds: 1]");
-        test.equal(+moment(new Date(2010, 1, 14, 15, 25, 50, 125)), +moment({year: 2010, month: 1, day: 14, hours: 15, minutes: 25, seconds: 50, milliseconds: 125}), "constructing with object === constructing with new Date()");
+        test.equal(+moment(new Date(2010, 1, 14, 15, 25, 50, 125)), +moment({years: 2010, months: 1, days: 14, hours: 15, minutes: 25, seconds: 50, milliseconds: 125}), "constructing with object (long plural) === constructing with new Date()");
+        test.equal(+moment(new Date(2010, 1, 14, 15, 25, 50, 125)), +moment({year: 2010, month: 1, day: 14, hour: 15, minute: 25, second: 50, millisecond: 125}), "constructing with object (long) === constructing with new Date()");
+        test.equal(+moment(new Date(2010, 1, 14, 15, 25, 50, 125)), +moment({y: 2010, M: 1, d: 14, h: 15, m: 25, s: 50, ms: 125}), "constructing with object (short) === constructing with new Date()");
         test.done();
     },
 
