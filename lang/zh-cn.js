@@ -30,7 +30,7 @@
             llll : "YYYY年MMMD日ddddLT"
         },
         meridiem : function (hour, minute, isLower) {
-            var hm = hour*100 + minute;
+            var hm = hour * 100 + minute;
             if (hm < 600) {
                 return "凌晨";
             } else if (hm < 900) {
