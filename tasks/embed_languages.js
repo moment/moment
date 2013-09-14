@@ -38,7 +38,7 @@ module.exports = function (grunt) {
         var fileContents = grunt.file.read(file);
 
         if (!fileContents.match(reTransform)) {
-            grunt.log.writeln('Warning: all language files must use the common UMD wrapper pattern.  Failed language file: ' + file);
+            grunt.warn('Warning: all language files must use the common UMD wrapper pattern.  Failed language file: ' + file);
             return '';
         }
 
