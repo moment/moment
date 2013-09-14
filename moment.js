@@ -186,7 +186,7 @@
                     a = -a;
                     b = "-";
                 }
-                return b + leftZeroFill(floorTowardsZero(a / 60), 2) + ":" + leftZeroFill(floorTowardsZeroa % 60, 2);
+                return b + leftZeroFill(floorTowardsZero(a / 60), 2) + ":" + leftZeroFill(floorTowardsZero(a) % 60, 2);
             },
             ZZ   : function () {
                 var a = -this.zone(),
