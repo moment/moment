@@ -1215,6 +1215,11 @@
         return obj instanceof Duration;
     };
 
+    // for use by developers when extending the library
+    // https://github.com/moment/moment/issues/1066
+    moment.normalizeUnits = function (units) {
+        return normalizeUnits(units);
+    };
 
     /************************************
         Moment Prototype
