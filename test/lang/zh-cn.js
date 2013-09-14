@@ -179,36 +179,42 @@ exports["lang:zh-cn"] = {
     },
 
     "calendar current week": function (test) {
-        var i, m;
-        var today = moment().startOf('day');
+        var i, m,
+            today = moment().startOf('day');
 
         for (i = 0; i < 7; i++) {
             m = moment().startOf('week').add({ d: i});
-            if (Math.abs(m.diff(today, 'days')) <= 1) continue; // skip today, yesterday, tomorrow
+            if (Math.abs(m.diff(today, 'days')) <= 1) {
+                continue; // skip today, yesterday, tomorrow
+            }
             test.equal(m.calendar(),       m.format('[本]ddd凌晨12点整'),  "Monday + " + i + " days current time");
         }
         test.done();
     },
 
     "calendar next week" : function (test) {
-        var i, m;
-        var today = moment().startOf('day');
+        var i, m,
+            today = moment().startOf('day');
 
         for (i = 2; i < 7; i++) {
             m = moment().startOf('day').add({ d: i});
-            if (Math.abs(m.diff(today, 'days')) >= 7) continue;
+            if (Math.abs(m.diff(today, 'days')) >= 7) {
+                continue;
+            }
             test.equal(m.calendar(),  m.format('[下]ddd凌晨12点整'), "Today + " + i + " days beginning of day");
         }
         test.done();
     },
 
     "calendar last week" : function (test) {
-        var i, m;
-        var today = moment().startOf('day');
+        var i, m,
+            today = moment().startOf('day');
 
         for (i = 1; i < 8; i++) {
             m = moment().startOf('week').subtract({ d: i});
-            if (Math.abs(m.diff(today, 'days')) >= 7) continue;
+            if (Math.abs(m.diff(today, 'days')) >= 7) {
+                continue;
+            }
             test.equal(m.calendar(),       m.format('[上]ddd凌晨12点整'),  "Monday - " + i + " days next week");
         }
         test.done();
