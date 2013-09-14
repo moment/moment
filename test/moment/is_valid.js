@@ -175,10 +175,8 @@ exports.is_valid = {
     },
 
     "valid Unix timestamp" : function (test) {
-        test.expect(22);
+        test.expect(21);
         test.equal(moment(1371065286, "X").isValid(), true, 'number integer');
-        // jshint won't allow this test
-        //test.equal(moment(1379066897., "X").isValid(), true, 'number trailing .');
         test.equal(moment(1379066897.0, "X").isValid(), true, 'number whole 1dp');
         test.equal(moment(1379066897.7, "X").isValid(), true, 'number 1dp');
         test.equal(moment(1379066897.00, "X").isValid(), true, 'number whole 2dp');
