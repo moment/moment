@@ -47,18 +47,18 @@
         },
         calendar : {
             sameDay : function () {
-                return this.minutes() === 0 ? "[今天]Ah[点整]" : "[今天]T";
+                return this.minutes() === 0 ? "[今天]Ah[点整]" : "[今天]LT";
             },
             nextDay : function () {
-                return this.minutes() === 0 ? "[明天]Ah[点整]" : "[明天]T";
+                return this.minutes() === 0 ? "[明天]Ah[点整]" : "[明天]LT";
             },
             lastDay : function () {
-                return this.minutes() === 0 ? "[昨天]Ah[点整]" : "[昨天]T";
+                return this.minutes() === 0 ? "[昨天]Ah[点整]" : "[昨天]LT";
             },
             nextWeek : function () {
                 var startOfWeek, prefix;
                 startOfWeek = moment().startOf('week');
-                prefix = this.unix() - startOfWeek.unix() > 7 * 24 * 3600 ? '[下]' : '[本]';
+                prefix = this.unix() - startOfWeek.unix() >= 7 * 24 * 3600 ? '[下]' : '[本]';
                 return this.minutes() === 0 ? prefix + "dddAh点整" : prefix + "dddAh点mm";
             },
             lastWeek : function () {
@@ -100,7 +100,9 @@
             yy : "%d年"
         },
         week : {
-            dow : 1 // Monday is the first day of the week.
+            // GB/T 7408-1994《数据元和交换格式·信息交换·日期和时间表示法》与ISO 8601:1988等效
+            dow : 1, // Monday is the first day of the week.
+            doy : 4  // The week that contains Jan 4th is the first week of the year.
         }
     });
 }));

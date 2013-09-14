@@ -50,7 +50,7 @@ exports["lang:zh-cn"] = {
                 ['D Do DD',                            '14 14日 14'],
                 ['d do dddd ddd dd',                   '0 0日 星期日 周日 日'],
                 ['DDD DDDo DDDD',                      '45 45日 045'],
-                ['w wo ww',                            '8 8周 08'],
+                ['w wo ww',                            '6 6周 06'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
@@ -169,42 +169,47 @@ exports["lang:zh-cn"] = {
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "今天早上2点00",     "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "今天早上2点25",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "今天早上3点00",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "明天早上2点00",     "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "今天早上1点00",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "昨天早上2点00",     "yesterday at the same time");
+        test.equal(moment(a).calendar(),                     "今天凌晨2点整",     "today at the same time");
+        test.equal(moment(a).add({ m: 25 }).calendar(),      "今天凌晨2点25",     "Now plus 25 min");
+        test.equal(moment(a).add({ h: 1 }).calendar(),       "今天凌晨3点整",     "Now plus 1 hour");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "明天凌晨2点整",     "tomorrow at the same time");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "今天凌晨1点整",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "昨天凌晨2点整",     "yesterday at the same time");
+        test.done();
+    },
+
+    "calendar current week": function (test) {
+        var i, m;
+        var today = moment().startOf('day');
+
+        for (i = 0; i < 7; i++) {
+            m = moment().startOf('week').add({ d: i});
+            if (Math.abs(m.diff(today, 'days')) <= 1) continue; // skip today, yesterday, tomorrow
+            test.equal(m.calendar(),       m.format('[本]ddd凌晨12点整'),  "Monday + " + i + " days current time");
+        }
         test.done();
     },
 
     "calendar next week" : function (test) {
-        test.expect(15);
-
         var i, m;
+        var today = moment().startOf('day');
+
         for (i = 2; i < 7; i++) {
-            m = moment().add({ d: i });
-            test.equal(m.calendar(),       m.format('[下]ddddLT'),  "Today + " + i + " days current time");
-            m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('[下]ddddLT'),  "Today + " + i + " days beginning of day");
-            m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('[下]ddddLT'),  "Today + " + i + " days end of day");
+            m = moment().startOf('day').add({ d: i});
+            if (Math.abs(m.diff(today, 'days')) >= 7) continue;
+            test.equal(m.calendar(),  m.format('[下]ddd凌晨12点整'), "Today + " + i + " days beginning of day");
         }
         test.done();
     },
 
     "calendar last week" : function (test) {
-        test.expect(15);
-
         var i, m;
+        var today = moment().startOf('day');
 
-        for (i = 2; i < 7; i++) {
-            m = moment().subtract({ d: i });
-            test.equal(m.calendar(),       m.format('[上]ddddLT'),  "Today - " + i + " days current time");
-            m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('[上]ddddLT'),  "Today - " + i + " days beginning of day");
-            m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('[上]ddddLT'),  "Today - " + i + " days end of day");
+        for (i = 1; i < 8; i++) {
+            m = moment().startOf('week').subtract({ d: i});
+            if (Math.abs(m.diff(today, 'days')) >= 7) continue;
+            test.equal(m.calendar(),       m.format('[上]ddd凌晨12点整'),  "Monday - " + i + " days next week");
         }
         test.done();
     },
@@ -227,15 +232,10 @@ exports["lang:zh-cn"] = {
     },
 
     "meridiem" : function (test) {
-        test.expect(10);
+        test.expect(6);
 
-        test.equal(moment([2011, 2, 23,  0, 0]).format('a'), "早上", "morning");
-        test.equal(moment([2011, 2, 23,  9, 0]).format('a'), "上午", "before noon");
-        test.equal(moment([2011, 2, 23, 12, 0]).format('a'), "中午", "noon");
-        test.equal(moment([2011, 2, 23, 13, 0]).format('a'), "下午", "after noon");
-        test.equal(moment([2011, 2, 23, 18, 0]).format('a'), "晚上", "night");
-
-        test.equal(moment([2011, 2, 23,  0, 0]).format('A'), "早上", "morning");
+        test.equal(moment([2011, 2, 23,  0, 0]).format('A'), "凌晨", "before dawn");
+        test.equal(moment([2011, 2, 23,  6, 0]).format('A'), "早上", "morning");
         test.equal(moment([2011, 2, 23,  9, 0]).format('A'), "上午", "before noon");
         test.equal(moment([2011, 2, 23, 12, 0]).format('A'), "中午", "noon");
         test.equal(moment([2011, 2, 23, 13, 0]).format('A'), "下午", "afternoon");
@@ -248,13 +248,12 @@ exports["lang:zh-cn"] = {
     // The week that contains Jan 1st is the first week of the year.
 
     "weeks year starting sunday" : function (test) {
-        test.expect(5);
+        test.expect(4);
 
-        test.equal(moment([2012, 0,  1]).week(), 1, "Jan  1 2012 should be week 1");
+        test.equal(moment([2012, 0,  1]).week(), 52, "Jan  1 2012 should be week 52");
+        test.equal(moment([2012, 0,  2]).week(), 1, "Jan  2 2012 should be week 52");
         test.equal(moment([2012, 0,  7]).week(), 1, "Jan  7 2012 should be week 1");
-        test.equal(moment([2012, 0,  8]).week(), 2, "Jan  8 2012 should be week 2");
         test.equal(moment([2012, 0, 14]).week(), 2, "Jan 14 2012 should be week 2");
-        test.equal(moment([2012, 0, 15]).week(), 3, "Jan 15 2012 should be week 3");
 
         test.done();
     },
@@ -262,12 +261,12 @@ exports["lang:zh-cn"] = {
     "weeks year starting monday" : function (test) {
         test.expect(6);
 
-        test.equal(moment([2006, 11, 31]).week(), 1, "Dec 31 2006 should be week 1");
+        test.equal(moment([2006, 11, 31]).week(), 52, "Dec 31 2006 should be week 52");
         test.equal(moment([2007,  0,  1]).week(), 1, "Jan  1 2007 should be week 1");
         test.equal(moment([2007,  0,  6]).week(), 1, "Jan  6 2007 should be week 1");
-        test.equal(moment([2007,  0,  7]).week(), 2, "Jan  7 2007 should be week 2");
+        test.equal(moment([2007,  0,  7]).week(), 1, "Jan  7 2007 should be week 1");
         test.equal(moment([2007,  0, 13]).week(), 2, "Jan 13 2007 should be week 2");
-        test.equal(moment([2007,  0, 14]).week(), 3, "Jan 14 2007 should be week 3");
+        test.equal(moment([2007,  0, 14]).week(), 2, "Jan 14 2007 should be week 2");
 
         test.done();
     },
@@ -278,9 +277,9 @@ exports["lang:zh-cn"] = {
         test.equal(moment([2007, 11, 29]).week(), 52, "Dec 29 2007 should be week 52");
         test.equal(moment([2008,  0,  1]).week(), 1, "Jan  1 2008 should be week 1");
         test.equal(moment([2008,  0,  5]).week(), 1, "Jan  5 2008 should be week 1");
-        test.equal(moment([2008,  0,  6]).week(), 2, "Jan  6 2008 should be week 2");
+        test.equal(moment([2008,  0,  6]).week(), 1, "Jan  6 2008 should be week 1");
         test.equal(moment([2008,  0, 12]).week(), 2, "Jan 12 2008 should be week 2");
-        test.equal(moment([2008,  0, 13]).week(), 3, "Jan 13 2008 should be week 3");
+        test.equal(moment([2008,  0, 13]).week(), 2, "Jan 13 2008 should be week 2");
 
         test.done();
     },
@@ -288,62 +287,53 @@ exports["lang:zh-cn"] = {
     "weeks year starting wednesday" : function (test) {
         test.expect(6);
 
-        test.equal(moment([2002, 11, 29]).week(), 1, "Dec 29 2002 should be week 1");
+        test.equal(moment([2002, 11, 29]).week(), 52, "Dec 29 2002 should be week 52");
         test.equal(moment([2003,  0,  1]).week(), 1, "Jan  1 2003 should be week 1");
         test.equal(moment([2003,  0,  4]).week(), 1, "Jan  4 2003 should be week 1");
-        test.equal(moment([2003,  0,  5]).week(), 2, "Jan  5 2003 should be week 2");
+        test.equal(moment([2003,  0,  5]).week(), 1, "Jan  5 2003 should be week 1");
         test.equal(moment([2003,  0, 11]).week(), 2, "Jan 11 2003 should be week 2");
-        test.equal(moment([2003,  0, 12]).week(), 3, "Jan 12 2003 should be week 3");
+        test.equal(moment([2003,  0, 12]).week(), 2, "Jan 12 2003 should be week 2");
 
         test.done();
     },
 
     "weeks year starting thursday" : function (test) {
-        test.expect(6);
+        test.expect(5);
 
-        test.equal(moment([2008, 11, 28]).week(), 1, "Dec 28 2008 should be week 1");
         test.equal(moment([2009,  0,  1]).week(), 1, "Jan  1 2009 should be week 1");
         test.equal(moment([2009,  0,  3]).week(), 1, "Jan  3 2009 should be week 1");
-        test.equal(moment([2009,  0,  4]).week(), 2, "Jan  4 2009 should be week 2");
+        test.equal(moment([2009,  0,  4]).week(), 1, "Jan  4 2009 should be week 1");
         test.equal(moment([2009,  0, 10]).week(), 2, "Jan 10 2009 should be week 2");
-        test.equal(moment([2009,  0, 11]).week(), 3, "Jan 11 2009 should be week 3");
+        test.equal(moment([2009,  0, 11]).week(), 2, "Jan 11 2009 should be week 2");
 
         test.done();
     },
 
     "weeks year starting friday" : function (test) {
-        test.expect(6);
+        test.expect(2);
 
-        test.equal(moment([2009, 11, 27]).week(), 1, "Dec 27 2009 should be week 1");
-        test.equal(moment([2010,  0,  1]).week(), 1, "Jan  1 2010 should be week 1");
-        test.equal(moment([2010,  0,  2]).week(), 1, "Jan  2 2010 should be week 1");
-        test.equal(moment([2010,  0,  3]).week(), 2, "Jan  3 2010 should be week 2");
-        test.equal(moment([2010,  0,  9]).week(), 2, "Jan  9 2010 should be week 2");
-        test.equal(moment([2010,  0, 10]).week(), 3, "Jan 10 2010 should be week 3");
+        test.equal(moment([2010,  0,  2]).week(), 53, "Jan  2 2010 should be week 53");
+        test.equal(moment([2010,  0, 10]).week(), 1, "Jan 10 2010 should be week 1");
 
         test.done();
     },
 
     "weeks year starting saturday" : function (test) {
-        test.expect(5);
+        test.expect(3);
 
-        test.equal(moment([2010, 11, 26]).week(), 1, "Dec 26 2010 should be week 1");
-        test.equal(moment([2011,  0,  1]).week(), 1, "Jan  1 2011 should be week 1");
-        test.equal(moment([2011,  0,  2]).week(), 2, "Jan  2 2011 should be week 2");
-        test.equal(moment([2011,  0,  8]).week(), 2, "Jan  8 2011 should be week 2");
-        test.equal(moment([2011,  0,  9]).week(), 3, "Jan  9 2011 should be week 3");
+        test.equal(moment([2011,  0,  2]).week(), 52, "Jan  2 2011 should be week 52");
+        test.equal(moment([2011,  0,  8]).week(), 1, "Jan  8 2011 should be week 1");
+        test.equal(moment([2011,  0,  9]).week(), 1, "Jan  9 2011 should be week 1");
 
         test.done();
     },
 
     "weeks year starting sunday format" : function (test) {
-        test.expect(5);
+        test.expect(3);
 
-        test.equal(moment([2012, 0,  1]).format('w ww wo'), '1 01 1周', "Jan  1 2012 应该是第 1周");
+        test.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52周', "Jan  1 2012 应该是第52周");
         test.equal(moment([2012, 0,  7]).format('w ww wo'), '1 01 1周', "Jan  7 2012 应该是第 1周");
-        test.equal(moment([2012, 0,  8]).format('w ww wo'), '2 02 2周', "Jan  8 2012 应该是第 2周");
         test.equal(moment([2012, 0, 14]).format('w ww wo'), '2 02 2周', "Jan 14 2012 应该是第 2周");
-        test.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3周', "Jan 15 2012 应该是第 3周");
 
         test.done();
     }
