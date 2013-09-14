@@ -1,6 +1,6 @@
 var moment = require("../../moment");
 
-var equalMoment = function(test, a, b, msg) {
+var equalMoment = function (test, a, b, msg) {
     test.equal(a.valueOf(), b.valueOf(), msg);
 };
 
