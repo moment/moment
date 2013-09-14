@@ -22,7 +22,7 @@ exports.normalizeUnits = {
             fullKeyPlural = fullKey + "s";
             fullKeyCapsPlural = fullKeyCaps + "s";
             alias = aliases[index];
-            aliasCaps = alias.toUpperCase;
+            aliasCaps = alias.toUpperCase();
             test.equal(moment.normalizeUnits(fullKey), fullKey, fullKey);
             test.equal(moment.normalizeUnits(fullKeyCaps), fullKey, fullKey);
             test.equal(moment.normalizeUnits(fullKeyPlural), fullKey, fullKey);
