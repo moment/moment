@@ -194,12 +194,12 @@ exports["lang:nl"] = {
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "Vandaag om 02:00",     "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "Vandaag om 02:25",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "Vandaag om 03:00",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "Morgen om 02:00",    "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Vandaag om 01:00",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Gisteren om 02:00",   "yesterday at the same time");
+        test.equal(moment(a).calendar(),                     "vandaag om 02:00",     "today at the same time");
+        test.equal(moment(a).add({ m: 25 }).calendar(),      "vandaag om 02:25",     "Now plus 25 min");
+        test.equal(moment(a).add({ h: 1 }).calendar(),       "vandaag om 03:00",     "Now plus 1 hour");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "morgen om 02:00",    "tomorrow at the same time");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "vandaag om 01:00",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "gisteren om 02:00",   "yesterday at the same time");
         test.done();
     },
 
