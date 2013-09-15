@@ -882,7 +882,9 @@
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
         var lang = getLangDefinition(config._l),
             string = '' + config._i,
-            i, parsedInput, tokens;
+            i, parsedInput, tokens,
+            stringLength = string.length,
+            totalParsedInputLength = 0;
 
         tokens = expandFormat(config._f, lang).match(formattingTokens);
 
@@ -892,17 +894,15 @@
             parsedInput = (getParseRegexForToken(tokens[i], config).exec(string) || [])[0];
             if (parsedInput) {
                 string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
+                totalParsedInputLength += parsedInput.length;
             }
             // don't parse if its not a known token
             if (formatTokenFunctions[tokens[i]]) {
                 addTimeToArrayFromToken(tokens[i], parsedInput, config);
             }
         }
-
-        // add remaining unparsed input to the string
-        if (string) {
-            config._il = string;
-        }
+        // add remaining unparsed input length to the string
+        config._il = stringLength - totalParsedInputLength;
 
         // handle am pm
         if (config._isPm && config._a[3] < 12) {
@@ -933,12 +933,9 @@
             tempMoment = new Moment(tempConfig);
 
             currentScore = compareArrays(tempConfig._a, tempMoment.toArray());
-
             // if there is any input that was not parsed
             // add a penalty for that format
-            if (tempMoment._il) {
-                currentScore += tempMoment._il.length;
-            }
+            currentScore += tempMoment._il;
 
             if (currentScore < scoreToBeat) {
                 scoreToBeat = currentScore;
