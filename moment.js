@@ -785,6 +785,7 @@
         // UNIX TIMESTAMP WITH MS
         case 'X':
             config._d = new Date(parseFloat(input) * 1000);
+            config._isValid = !isNaN(config._d.getTime());
             break;
         // TIMEZONE
         case 'Z' : // fall through to ZZ
