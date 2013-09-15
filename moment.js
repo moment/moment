@@ -365,6 +365,31 @@
         return units ? unitAliases[units] || units.toLowerCase().replace(/(.)s$/, '$1') : units;
     }
 
+    function listLocal(field, format) {
+        var i, m, str, method, count, setter,
+            months = [];
+
+        if (field.match(/^week/)) {
+            count = 7;
+            setter = 'day';
+        }
+        else if (field.match(/^month/)) {
+            count = 12;
+            setter = 'month';
+        }
+        else {
+            return [];
+        }
+
+        for (i = 0; i < count; i++) {
+            m = moment().utc().set(setter, i);
+            method = moment.fn._lang[field] || Language.prototype[field];
+            str = method.call(moment.fn._lang, m, format || '');
+            months.push(str);
+        }
+
+        return months;
+    }
 
     /************************************
         Languages
@@ -1193,6 +1218,26 @@
         return getLangDefinition(key);
     };
 
+    moment.months = function (format) {
+        return listLocal('months', format);
+    };
+
+    moment.monthsShort = function (format) {
+        return listLocal('monthsShort', format);
+    };
+
+    moment.weekdays = function () {
+        return listLocal('weekdays');
+    };
+
+    moment.weekdaysShort = function () {
+        return listLocal('weekdaysShort');
+    };
+
+    moment.weekdaysMin = function () {
+        return listLocal('weekdaysMin');
+    };
+
     // compare moment object
     moment.isMoment = function (obj) {
         return obj instanceof Moment;
@@ -1563,6 +1608,7 @@
         set : function (units, value) {
             units = normalizeUnits(units);
             this[units.toLowerCase()](value);
+            return this;
         },
 
         // If passed a language key, it will set the language for this
