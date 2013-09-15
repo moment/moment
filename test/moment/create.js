@@ -451,12 +451,12 @@ exports.create = {
 
     "null" : function (test) {
         test.expect(6);
-        test.equal(moment(''), null, "Calling moment('')");
-        test.equal(moment(null), null, "Calling moment(null)");
-        test.equal(moment('', 'YYYY-MM-DD'), null, "Calling moment('', 'YYYY-MM-DD')");
-        test.equal(moment.utc(''), null, "Calling moment.utc('')");
-        test.equal(moment.utc(null), null, "Calling moment.utc(null)");
-        test.equal(moment.utc('', 'YYYY-MM-DD'), null, "Calling moment.utc('', 'YYYY-MM-DD')");
+        test.equal(moment('').isValid(), false, "moment('') is not valid");
+        test.equal(moment(null).isValid(), false, "moment(null) is not valid");
+        test.equal(moment('', 'YYYY-MM-DD').isValid(), false, "moment('', 'format') is not valid");
+        test.equal(moment.utc('').isValid(), false, "moment.utc('') is not valid");
+        test.equal(moment.utc(null).isValid(), false, "moment.utc(null) is not valid");
+        test.equal(moment.utc('', 'YYYY-MM-DD').isValid(), false, "moment.utc('', 'YYYY-MM-DD') is not valid");
         test.done();
     },
 

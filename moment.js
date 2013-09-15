@@ -1231,7 +1231,7 @@
             format = config._f;
 
         if (input === null || input === '') {
-            return null;
+            return moment.invalid();
         }
 
         if (typeof input === 'string') {
@@ -1388,6 +1388,12 @@
     // https://github.com/moment/moment/issues/1066
     moment.normalizeUnits = function (units) {
         return normalizeUnits(units);
+    }
+
+    moment.invalid = function () {
+        var m = moment.utc(0);
+        m._isValid = false;
+        return m;
     };
 
     moment.parseZone = function (input) {
