@@ -863,7 +863,16 @@
             }
         }
 
-        config._a = [o.year, o.month, o.day, o.hour, o.minute, o.second, o.millisecond];
+        config._a = [
+            normalizedInput.year,
+            normalizedInput.month,
+            normalizedInput.day,
+            normalizedInput.hour,
+            normalizedInput.minute,
+            normalizedInput.second,
+            normalizedInput.millisecond
+        ];
+
         dateFromArray(config);
     }
 
