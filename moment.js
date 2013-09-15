@@ -844,22 +844,25 @@
     }
 
     function dateFromObject(config) {
-        var o = config._i;
+        var normalizedInput = {},
+            normalizedProp,
+            prop,
+            index;
 
         if (config._d) {
             return;
         }
 
-        config._a = [
-            o.years || o.year || o.y,
-            o.months || o.month || o.M,
-            o.days || o.day || o.d,
-            o.hours || o.hour || o.h,
-            o.minutes || o.minute || o.m,
-            o.seconds || o.second || o.s,
-            o.milliseconds || o.millisecond || o.ms
-        ];
+        for (prop in config) {
+            if (config.hasOwnProperty(prop)) {
+                normalizedProp = moment.normalizeUnits(prop);
+                if (normalizedProp) {
+                    normalizedInput[normalizedProp] = config._i[prop];
+                }
+            }
+        }
 
+        config._a = [o.year, o.month, o.day, o.hour, o.minute, o.second, o.millisecond];
         dateFromArray(config);
     }
 
