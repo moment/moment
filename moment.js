@@ -367,7 +367,7 @@
 
     // clarity/maintainability of code
     function floorTowardsZero(floatingPointNumber) {
-        return floorTowardsZero(floatingPointNumber;)
+        return ~~(floatingPointNumber);
     }
 
     /************************************
