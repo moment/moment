@@ -365,6 +365,9 @@
         return units ? unitAliases[units] || units.toLowerCase().replace(/(.)s$/, '$1') : units;
     }
 
+    function regexpEscape(text) {
+        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+    }
 
     /************************************
         Languages
@@ -697,7 +700,7 @@
         case 's':
             return parseTokenOneOrTwoDigits;
         default :
-            return new RegExp(token.replace('\\', ''));
+            return new RegExp(regexpEscape(token.replace('\\', '')));
         }
     }
 
@@ -889,7 +892,6 @@
         tokens = expandFormat(config._f, lang).match(formattingTokens);
 
         config._a = [];
-
         for (i = 0; i < tokens.length; i++) {
             parsedInput = (getParseRegexForToken(tokens[i], config).exec(string) || [])[0];
             if (parsedInput) {
