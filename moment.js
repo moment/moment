@@ -855,7 +855,7 @@
 
         for (prop in config._i) {
             if (config._i.hasOwnProperty(prop)) {
-                normalizedProp = moment.normalizeUnits(prop);
+                normalizedProp = normalizeUnits(prop);
                 if (normalizedProp) {
                     normalizedInput[normalizedProp] = config._i[prop];
                 }
