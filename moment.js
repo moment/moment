@@ -12,12 +12,7 @@
 
     var moment,
         VERSION = "2.2.1",
-
-        // local cached Math methods
         round = Math.round,
-        floor = Math.floor,
-        ceil = Math.ceil,
-
         i,
 
         // internal storage for language config files
