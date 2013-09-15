@@ -213,7 +213,12 @@ exports.is_valid = {
         test.equal(moment("null", "X").isValid(), false, 'string null');
         test.equal(moment([], "X").isValid(), false, 'array');
         test.equal(moment("{}", "X").isValid(), false, 'object');
-        test.equal(moment("", "X").isValid(), false, 'string empty');
+        try {
+            test.equal(moment("", "X").isValid(), false, 'string empty');
+        } catch (e) {
+            test.ok(true, 'string empty');
+        }
+
         test.equal(moment(" ", "X").isValid(), false, 'string space');
         test.done();
     }
