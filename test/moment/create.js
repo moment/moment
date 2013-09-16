@@ -1,3 +1,4 @@
+/*global require, exports */
 var moment = require("../../moment");
 
 exports.create = {
@@ -130,11 +131,9 @@ exports.create = {
 
     "empty string with formats" : function (test) {
         test.expect(3);
-
-        var currentDate = moment().startOf('day').format('YYYY-MM-DD HH:mm:ss');
-        test.equal(moment(' ', 'MM').format('YYYY-MM-DD HH:mm:ss'), currentDate, 'should not break if input is an empty string');
-        test.equal(moment(' ', 'DD').format('YYYY-MM-DD HH:mm:ss'), currentDate, 'should not break if input is an empty string');
-        test.equal(moment(' ', ['MM', "DD"]).format('YYYY-MM-DD HH:mm:ss'), currentDate, 'should not break if input is an empty string');
+        test.equal(moment(' ', 'MM').format('YYYY-MM-DD HH:mm:ss'), "NaN-NaN-NaN NaN:NaN:NaN", 'should return moment');
+        test.equal(moment(' ', 'DD').format('YYYY-MM-DD HH:mm:ss'), "NaN-NaN-NaN NaN:NaN:NaN", 'should return moment');
+        test.equal(moment(' ', ['MM', "DD"]).format('YYYY-MM-DD HH:mm:ss'), "NaN-NaN-NaN NaN:NaN:NaN", 'should return moment');
 
         test.done();
     },
@@ -450,10 +449,17 @@ exports.create = {
     },
 
     "null" : function (test) {
-        test.expect(3);
-        test.equal(moment(''), null, "Calling moment('')");
-        test.equal(moment(null), null, "Calling moment(null)");
-        test.equal(moment('', 'YYYY-MM-DD'), null, "Calling moment('', 'YYYY-MM-DD')");
+        test.expect(9);
+        test.equal(moment.isMoment(moment('')), true, "should return a moment");
+        test.equal(moment.isMoment(moment(null)), true, "should return a moment");
+        test.equal(moment.isMoment(moment('', 'YYYY-MM-DD')), true, "should return a moment");
+        test.equal(moment('').isValid(), false, "moment should be invalid");
+        test.equal(moment(null).isValid(), false, "moment should be invalid");
+        test.equal(moment('', 'YYYY-MM-DD').isValid(), false, "moment should be invalid");
+        test.equal(isNaN(moment('')._d), true, "Date should be invalid");
+        test.equal(isNaN(moment(null)._d), true, "Date should be invalid");
+        test.equal(isNaN(moment('', 'YYYY-MM-DD')._d), true, "Date should be invalid");
+
         test.done();
     },
 
