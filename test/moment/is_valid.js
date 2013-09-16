@@ -172,6 +172,55 @@ exports.is_valid = {
         test.equal(moment([2000, 1, 29, 23, 59, 59, 1000]).invalidAt(), 6, '1000 is invalid millisecond');
         test.equal(moment([2000, 1, 29, 23, 59, 59, 999]).invalidAt(), -1, '-1 if everything is fine');
         test.done();
-    }
 
+    },
+
+    "valid Unix timestamp" : function (test) {
+        test.expect(21);
+        test.equal(moment(1371065286, "X").isValid(), true, 'number integer');
+        test.equal(moment(1379066897.0, "X").isValid(), true, 'number whole 1dp');
+        test.equal(moment(1379066897.7, "X").isValid(), true, 'number 1dp');
+        test.equal(moment(1379066897.00, "X").isValid(), true, 'number whole 2dp');
+        test.equal(moment(1379066897.07, "X").isValid(), true, 'number 2dp');
+        test.equal(moment(1379066897.17, "X").isValid(), true, 'number 2dp');
+        test.equal(moment(1379066897.000, "X").isValid(), true, 'number whole 3dp');
+        test.equal(moment(1379066897.007, "X").isValid(), true, 'number 3dp');
+        test.equal(moment(1379066897.017, "X").isValid(), true, 'number 3dp');
+        test.equal(moment(1379066897.157, "X").isValid(), true, 'number 3dp');
+        test.equal(moment("1371065286", "X").isValid(), true, 'string integer');
+        test.equal(moment("1379066897.", "X").isValid(), true, 'string trailing .');
+        test.equal(moment("1379066897.0", "X").isValid(), true, 'string whole 1dp');
+        test.equal(moment("1379066897.7", "X").isValid(), true, 'string 1dp');
+        test.equal(moment("1379066897.00", "X").isValid(), true, 'string whole 2dp');
+        test.equal(moment("1379066897.07", "X").isValid(), true, 'string 2dp');
+        test.equal(moment("1379066897.17", "X").isValid(), true, 'string 2dp');
+        test.equal(moment("1379066897.000", "X").isValid(), true, 'string whole 3dp');
+        test.equal(moment("1379066897.007", "X").isValid(), true, 'string 3dp');
+        test.equal(moment("1379066897.017", "X").isValid(), true, 'string 3dp');
+        test.equal(moment("1379066897.157", "X").isValid(), true, 'string 3dp');
+        test.done();
+    },
+
+    "invalid Unix timestamp" : function (test) {
+        test.expect(8);
+        test.equal(moment(undefined, "X").isValid(), false, 'undefined');
+        test.equal(moment("undefined", "X").isValid(), false, 'string undefined');
+        try {
+            test.equal(moment(null, "X").isValid(), false, 'null');
+        } catch (e) {
+            test.ok(true, 'null');
+        }
+
+        test.equal(moment("null", "X").isValid(), false, 'string null');
+        test.equal(moment([], "X").isValid(), false, 'array');
+        test.equal(moment("{}", "X").isValid(), false, 'object');
+        try {
+            test.equal(moment("", "X").isValid(), false, 'string empty');
+        } catch (e) {
+            test.ok(true, 'string empty');
+        }
+
+        test.equal(moment(" ", "X").isValid(), false, 'string space');
+        test.done();
+    }
 };
