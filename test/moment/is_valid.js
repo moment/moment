@@ -172,7 +172,6 @@ exports.is_valid = {
         test.equal(moment([2000, 1, 29, 23, 59, 59, 1000]).invalidAt(), 6, '1000 is invalid millisecond');
         test.equal(moment([2000, 1, 29, 23, 59, 59, 999]).invalidAt(), -1, '-1 if everything is fine');
         test.done();
-
     },
 
     "valid Unix timestamp" : function (test) {
