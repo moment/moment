@@ -349,6 +349,10 @@
         return Object.prototype.toString.call(input) === '[object Array]';
     }
 
+    function isDate(input) {
+        return Object.prototype.toString.call(input) === '[object Date]';
+    }
+
     // compare two arrays, return the number of differences
     function compareArrays(array1, array2) {
         var len = Math.min(array1.length, array2.length),
@@ -988,7 +992,7 @@
         } else if (isArray(input)) {
             config._a = input.slice(0);
             dateFromArray(config);
-        } else if (input instanceof Date) {
+        } else if (isDate(input)) {
             config._d = new Date(+input);
         } else if (typeof(input) === 'object') {
             dateFromObject(config);
