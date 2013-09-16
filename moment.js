@@ -1206,7 +1206,7 @@
 
     moment.normalizeUnits = function (units) {
         return normalizeUnits(units);
-    }
+    };
 
     moment.invalid = function () {
         var m = moment.utc(0);
