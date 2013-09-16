@@ -12,7 +12,13 @@
 
     var moment,
         VERSION = "2.2.1",
-        round = Math.round, i,
+
+       // local cached Math methods
+        round = Math.round,
+        floor = Math.floor,
+        ceil = Math.ceil,
+        i,
+
         // internal storage for language config files
         languages = {},
 
@@ -171,10 +177,10 @@
                 return this.seconds();
             },
             S    : function () {
-                return ~~(this.milliseconds() / 100);
+                return toNearestIntegerClosestZero(this.milliseconds() / 100);
             },
             SS   : function () {
-                return leftZeroFill(~~(this.milliseconds() / 10), 2);
+                return leftZeroFill(toNearestIntegerClosestZero(this.milliseconds() / 10), 2);
             },
             SSS  : function () {
                 return leftZeroFill(this.milliseconds(), 3);
@@ -186,7 +192,7 @@
                     a = -a;
                     b = "-";
                 }
-                return b + leftZeroFill(~~(a / 60), 2) + ":" + leftZeroFill(~~a % 60, 2);
+                return b + leftZeroFill(toNearestIntegerClosestZero(a / 60), 2) + ":" + leftZeroFill(toNearestIntegerClosestZero(a) % 60, 2);
             },
             ZZ   : function () {
                 var a = -this.zone(),
@@ -195,7 +201,7 @@
                     a = -a;
                     b = "-";
                 }
-                return b + leftZeroFill(~~(10 * a / 6), 4);
+                return b + leftZeroFill(toNearestIntegerClosestZero(10 * a / 6), 4);
             },
             z : function () {
                 return this.zoneAbbr();
@@ -354,7 +360,7 @@
             diffs = 0,
             i;
         for (i = 0; i < len; i++) {
-            if (~~array1[i] !== ~~array2[i]) {
+            if (toNearestIntegerClosestZero(array1[i]) !== toNearestIntegerClosestZero(array2[i])) {
                 diffs++;
             }
         }
@@ -365,6 +371,20 @@
         return units ? unitAliases[units] || units.toLowerCase().replace(/(.)s$/, '$1') : units;
     }
 
+    function toNearestIntegerClosestZero(argumentForCoercion) {
+        var coercedNumber = +argumentForCoercion,
+            value = 0;
+
+        if (coercedNumber !== 0 && isFinite(coercedNumber)) {
+            if (coercedNumber >= 0) {
+                value = Math.floor(coercedNumber);
+            } else {
+                value = Math.ceil(coercedNumber);
+            }
+        }
+
+        return value;
+    }
 
     /************************************
         Languages
@@ -704,7 +724,7 @@
     function timezoneMinutesFromString(string) {
         var tzchunk = (parseTokenTimezone.exec(string) || [])[0],
             parts = (tzchunk + '').match(parseTimezoneChunker) || ['-', 0, 0],
-            minutes = +(parts[1] * 60) + ~~parts[2];
+            minutes = +(parts[1] * 60) + toNearestIntegerClosestZero(parts[2]);
 
         return parts[0] === '+' ? -minutes : minutes;
     }
@@ -718,7 +738,7 @@
         case 'M' : // fall through to MM
         case 'MM' :
             if (input != null) {
-                datePartArray[1] = ~~input - 1;
+                datePartArray[1] = toNearestIntegerClosestZero(input) - 1;
             }
             break;
         case 'MMM' : // fall through to MMMM
@@ -735,7 +755,7 @@
         case 'D' : // fall through to DD
         case 'DD' :
             if (input != null) {
-                datePartArray[2] = ~~input;
+                datePartArray[2] = toNearestIntegerClosestZero(input);
             }
             break;
         // DAY OF YEAR
@@ -743,16 +763,16 @@
         case 'DDDD' :
             if (input != null) {
                 datePartArray[1] = 0;
-                datePartArray[2] = ~~input;
+                datePartArray[2] = toNearestIntegerClosestZero(input);
             }
             break;
         // YEAR
         case 'YY' :
-            datePartArray[0] = ~~input + (~~input > 68 ? 1900 : 2000);
+            datePartArray[0] = toNearestIntegerClosestZero(input) + (toNearestIntegerClosestZero(input) > 68 ? 1900 : 2000);
             break;
         case 'YYYY' :
         case 'YYYYY' :
-            datePartArray[0] = ~~input;
+            datePartArray[0] = toNearestIntegerClosestZero(input);
             break;
         // AM / PM
         case 'a' : // fall through to A
@@ -764,23 +784,23 @@
         case 'HH' : // fall through to hh
         case 'h' : // fall through to hh
         case 'hh' :
-            datePartArray[3] = ~~input;
+            datePartArray[3] = toNearestIntegerClosestZero(input);
             break;
         // MINUTE
         case 'm' : // fall through to mm
         case 'mm' :
-            datePartArray[4] = ~~input;
+            datePartArray[4] = toNearestIntegerClosestZero(input);
             break;
         // SECOND
         case 's' : // fall through to ss
         case 'ss' :
-            datePartArray[5] = ~~input;
+            datePartArray[5] = toNearestIntegerClosestZero(input);
             break;
         // MILLISECOND
         case 'S' :
         case 'SS' :
         case 'SSS' :
-            datePartArray[6] = ~~ (('0.' + input) * 1000);
+            datePartArray[6] = toNearestIntegerClosestZero(('0.' + input) * 1000);
             break;
         // UNIX TIMESTAMP WITH MS
         case 'X':
@@ -828,8 +848,8 @@
         }
 
         // add the offsets to the time to be parsed so that we can have a clean array for checking isValid
-        input[3] += ~~((config._tzm || 0) / 60);
-        input[4] += ~~((config._tzm || 0) % 60);
+        input[3] += toNearestIntegerClosestZero((config._tzm || 0) / 60);
+        input[4] += toNearestIntegerClosestZero((config._tzm || 0) % 60);
 
         date = new Date(0);
 
@@ -1139,11 +1159,11 @@
             sign = (matched[1] === "-") ? -1 : 1;
             duration = {
                 y: 0,
-                d: ~~matched[2] * sign,
-                h: ~~matched[3] * sign,
-                m: ~~matched[4] * sign,
-                s: ~~matched[5] * sign,
-                ms: ~~matched[6] * sign
+                d: toNearestIntegerClosestZero(matched[2]) * sign,
+                h: toNearestIntegerClosestZero(matched[3]) * sign,
+                m: toNearestIntegerClosestZero(matched[4]) * sign,
+                s: toNearestIntegerClosestZero(matched[5]) * sign,
+                ms: toNearestIntegerClosestZero(matched[6]) * sign
             };
         }
 
@@ -1660,7 +1680,7 @@
             return this._milliseconds +
               this._days * 864e5 +
               (this._months % 12) * 2592e6 +
-              ~~(this._months / 12) * 31536e6;
+              toNearestIntegerClosestZero(this._months / 12) * 31536e6;
         },
 
         humanize : function (withSuffix) {
@@ -1746,7 +1766,7 @@
     moment.lang('en', {
         ordinal : function (number) {
             var b = number % 10,
-                output = (~~ (number % 100 / 10) === 1) ? 'th' :
+                output = (toNearestIntegerClosestZero(number % 100 / 10) === 1) ? 'th' :
                 (b === 1) ? 'st' :
                 (b === 2) ? 'nd' :
                 (b === 3) ? 'rd' : 'th';
