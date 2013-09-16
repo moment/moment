@@ -854,20 +854,32 @@
     }
 
     function dateFromObject(config) {
-        var o = config._i;
+        var normalizedInput = {},
+            normalizedProp,
+            prop,
+            index;
 
         if (config._d) {
             return;
         }
 
+        for (prop in config._i) {
+            if (config._i.hasOwnProperty(prop)) {
+                normalizedProp = normalizeUnits(prop);
+                if (normalizedProp) {
+                    normalizedInput[normalizedProp] = config._i[prop];
+                }
+            }
+        }
+
         config._a = [
-            o.years || o.year || o.y,
-            o.months || o.month || o.M,
-            o.days || o.day || o.d,
-            o.hours || o.hour || o.h,
-            o.minutes || o.minute || o.m,
-            o.seconds || o.second || o.s,
-            o.milliseconds || o.millisecond || o.ms
+            normalizedInput.year,
+            normalizedInput.month,
+            normalizedInput.day,
+            normalizedInput.hour,
+            normalizedInput.minute,
+            normalizedInput.second,
+            normalizedInput.millisecond
         ];
 
         dateFromArray(config);
