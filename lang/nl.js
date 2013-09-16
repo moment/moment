@@ -34,10 +34,10 @@
             LLLL : "dddd D MMMM YYYY LT"
         },
         calendar : {
-            sameDay: '[Vandaag om] LT',
-            nextDay: '[Morgen om] LT',
+            sameDay: '[vandaag om] LT',
+            nextDay: '[morgen om] LT',
             nextWeek: 'dddd [om] LT',
-            lastDay: '[Gisteren om] LT',
+            lastDay: '[gisteren om] LT',
             lastWeek: '[afgelopen] dddd [om] LT',
             sameElse: 'L'
         },
