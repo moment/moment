@@ -918,7 +918,8 @@
     // date from string and format string
     function makeDateFromStringAndFormat(config) {
         if (config._strict) {
-            return makeDateFromStringAndStrictFormat(config);
+            makeDateFromStringAndStrictFormat(config);
+            return;
         }
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
         var lang = getLangDefinition(config._l),
@@ -984,11 +985,18 @@
 
             return token;
         });
+
+        // Handle stuff after last formatting token.
+        if (non_token_start != config._f.length) {
+            regexp += regexpEscape(unescapeFormat(config._f.substring(non_token_start)));
+        }
         regexp = new RegExp('^' + regexp + '$');
         match = config._i.match(regexp);
         if (match === null) {
+            config._a = [];
+            config._d = new Date(0);
             config._isValid = false;
-            return null;
+            return;
         }
 
         config._a = [];
@@ -1191,9 +1199,9 @@
     }
 
     moment = function (input, format, lang, strict) {
-        if (lang === true) {
+        if (typeof(lang) === "boolean") {
+            strict = lang;
             lang = undefined;
-            strict = true;
         }
         return makeMoment({
             _i : input,
@@ -1206,9 +1214,9 @@
 
     // creating with utc
     moment.utc = function (input, format, lang, strict) {
-        if (lang === true) {
+        if (typeof(lang) === "boolean") {
+            strict = lang;
             lang = undefined;
-            strict = true;
         }
         return makeMoment({
             _useUTC : true,
