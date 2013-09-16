@@ -206,7 +206,9 @@
             X    : function () {
                 return this.unix();
             }
-        };
+        },
+
+        lists = ['months', 'monthsShort', 'weekdays', 'weekdaysShort', 'weekdaysMin'];
 
     function padToken(func, count) {
         return function (a) {
@@ -365,30 +367,34 @@
         return units ? unitAliases[units] || units.toLowerCase().replace(/(.)s$/, '$1') : units;
     }
 
-    function listLocal(field, format) {
-        var i, m, str, method, count, setter,
-            months = [];
+    function makeList(field) {
+        var count, setter;
 
-        if (field.match(/^week/)) {
+        if (field.indexOf('week') === 0) {
             count = 7;
             setter = 'day';
         }
-        else if (field.match(/^month/)) {
+        else if (field.indexOf('month') === 0) {
             count = 12;
             setter = 'month';
         }
         else {
-            return [];
+            return;
         }
 
-        for (i = 0; i < count; i++) {
-            m = moment().utc().set(setter, i);
-            method = moment.fn._lang[field] || Language.prototype[field];
-            str = method.call(moment.fn._lang, m, format || '');
-            months.push(str);
-        }
+        moment[field] = function (format) {
+            var i, m, str,
+                method = moment.fn._lang[field] || Language.prototype[field],
+                results = [];
 
-        return months;
+            for (i = 0; i < count; i++) {
+                m = moment().utc().set(setter, i);
+                str = method.call(moment.fn._lang, m, format || '');
+                results.push(str);
+            }
+
+            return results;
+        };
     }
 
     /************************************
@@ -1218,26 +1224,6 @@
         return getLangDefinition(key);
     };
 
-    moment.months = function (format) {
-        return listLocal('months', format);
-    };
-
-    moment.monthsShort = function (format) {
-        return listLocal('monthsShort', format);
-    };
-
-    moment.weekdays = function () {
-        return listLocal('weekdays');
-    };
-
-    moment.weekdaysShort = function () {
-        return listLocal('weekdaysShort');
-    };
-
-    moment.weekdaysMin = function () {
-        return listLocal('weekdaysMin');
-    };
-
     // compare moment object
     moment.isMoment = function (obj) {
         return obj instanceof Moment;
@@ -1248,6 +1234,9 @@
         return obj instanceof Duration;
     };
 
+    for (i in lists) {
+        makeList(lists[i]);
+    }
 
     /************************************
         Moment Prototype
