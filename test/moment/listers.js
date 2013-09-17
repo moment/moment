@@ -74,13 +74,14 @@ exports.listers = {
             }
         });
 
-        test.expect(5);
+        test.expect(6);
         test.deepEqual(moment.monthsShort(), monthsShort);
         test.deepEqual(moment.monthsShort('MMM'), monthsShort);
         test.deepEqual(moment.monthsShort('-MMM-'), monthsShortWeird);
 
         test.deepEqual(moment.monthsShort('MMM', 2), 'three');
         test.deepEqual(moment.monthsShort('-MMM-', 2), 'threesy');
+        test.deepEqual(moment.monthsShort(2), 'three');
 
         test.done();
     }

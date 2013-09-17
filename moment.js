@@ -389,15 +389,19 @@
         }
 
         moment[field] = function (format, index) {
-            var i,
+            var i, getter,
                 method = moment.fn._lang[field],
-                results = [],
-                getter = function (i) {
-                    var m = moment().utc().set(setter, i);
-                    return method.call(moment.fn._lang, m, format || '');
-                };
+                results = [];
 
-            index = (typeof format === 'number') ? format : index;
+            if (typeof format === 'number') {
+                index = format;
+                format = undefined;
+            }
+
+            getter = function (i) {
+                var m = moment().utc().set(setter, i);
+                return method.call(moment.fn._lang, m, format || '');
+            };
 
             if (index) {
                 return getter(index);
