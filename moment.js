@@ -1080,7 +1080,7 @@
             currentScore = compareArrays(tempConfig._a, tempMoment.toArray());
             // if there is any input that was not parsed
             // add a penalty for that format
-            currentScore += tempMoment._il;
+            currentScore += tempMoment._il || 0;
 
             if (currentScore < scoreToBeat) {
                 scoreToBeat = currentScore;
