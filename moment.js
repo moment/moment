@@ -287,23 +287,23 @@
     ************************************/
 
 
-function extend(a, b) {
-    for (var i in b) {
-        if (b.hasOwnProperty(i)) {
-            a[i] = b[i];
+    function extend(a, b) {
+        for (var i in b) {
+            if (b.hasOwnProperty(i)) {
+                a[i] = b[i];
+            }
         }
-    }
 
-    if (b.hasOwnProperty("toString")) {
-        a.toString = b.toString;
-    }
+        if (b.hasOwnProperty("toString")) {
+            a.toString = b.toString;
+        }
 
-    if (b.hasOwnProperty("valueOf")) {
-        a.valueOf = b.valueOf;
-    }
+        if (b.hasOwnProperty("valueOf")) {
+            a.valueOf = b.valueOf;
+        }
 
-    return a;
-}
+        return a;
+    }
 
     function absRound(number) {
         if (number < 0) {
