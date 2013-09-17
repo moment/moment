@@ -917,6 +917,10 @@
 
     // date from string and format string
     function makeDateFromStringAndFormat(config) {
+        if (config._strict) {
+            makeDateFromStringAndStrictFormat(config);
+            return;
+        }
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
         var lang = getLangDefinition(config._l),
             string = '' + config._i,
@@ -951,6 +955,71 @@
         }
         // return
         dateFromArray(config);
+    }
+
+    function makeDateFromStringAndStrictFormat(config) {
+        var regexp = '', non_token_start = 0,
+            tokens = config._f.match(formattingTokens),
+            match, i, tokenIndex;
+
+        // We're not interested in the result. Just the tokens and their
+        // starting positions.
+        config._f.replace(formattingTokens, function (token) {
+            var offset = arguments[arguments.length - 2],
+                tokenRegexp;
+
+            if (formatTokenFunctions[token]) {
+                tokenRegexp = getParseRegexForToken(token).toString();
+                // Do not remember groups
+                tokenRegexp = tokenRegexp.replace(/\(/g, '(?:');
+
+                // regexp-escape strings in-between tokens
+                if (offset > non_token_start) {
+                    regexp += regexpEscape(unescapeFormat(config._f.substring(non_token_start, offset)));
+                }
+                non_token_start = offset + token.length;
+
+                // add token regexp
+                regexp += '(' + tokenRegexp.substring(1, tokenRegexp.lastIndexOf('/')) + ')';
+            }
+
+            return token;
+        });
+
+        // Handle stuff after last formatting token.
+        if (non_token_start !== config._f.length) {
+            regexp += regexpEscape(unescapeFormat(config._f.substring(non_token_start)));
+        }
+        regexp = new RegExp('^' + regexp + '$');
+        match = config._i.match(regexp);
+        if (match === null) {
+            config._a = [];
+            config._d = new Date(0);
+            config._isValid = false;
+            return;
+        }
+
+        config._a = [];
+        for (i = tokenIndex = 0; i < tokens.length; ++i) {
+            if (formatTokenFunctions[tokens[i]]) {
+                addTimeToArrayFromToken(tokens[i], match[tokenIndex + 1], config);
+                ++tokenIndex;
+            }
+        }
+
+        dateFromArray(config);
+    }
+
+    function unescapeFormat(s) {
+        return s.replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function (matched, p1, p2, p3, p4) {
+            return p1 || p2 || p3 || p4;
+        });
+    }
+
+    // Code from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
+    function regexpEscape(s) {
+        var res = s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        return res;
     }
 
     // date from string and array of format strings
@@ -1129,23 +1198,33 @@
         return new Moment(config);
     }
 
-    moment = function (input, format, lang) {
+    moment = function (input, format, lang, strict) {
+        if (typeof(lang) === "boolean") {
+            strict = lang;
+            lang = undefined;
+        }
         return makeMoment({
             _i : input,
             _f : format,
             _l : lang,
+            _strict : strict,
             _isUTC : false
         });
     };
 
     // creating with utc
-    moment.utc = function (input, format, lang) {
+    moment.utc = function (input, format, lang, strict) {
+        if (typeof(lang) === "boolean") {
+            strict = lang;
+            lang = undefined;
+        }
         return makeMoment({
             _useUTC : true,
             _isUTC : true,
             _l : lang,
             _i : input,
-            _f : format
+            _f : format,
+            _strict : strict
         }).utc();
     };
 

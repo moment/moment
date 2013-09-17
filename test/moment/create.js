@@ -491,6 +491,24 @@ exports.create = {
         test.done();
     },
 
+    "strict parsing" : function (test) {
+        test.expect(10);
+        test.equal(moment("2012-05", "YYYY-MM", true).format("YYYY-MM"), "2012-05", "parse correct string");
+        test.equal(moment(" 2012-05", "YYYY-MM", true).isValid(), false, "fail on extra whitespace");
+        test.equal(moment("foo 2012-05", "[foo] YYYY-MM", true).format('YYYY-MM'), "2012-05", "handle fixed text");
+        test.equal(moment("2012 05", "YYYY-MM", true).isValid(), false, "fail on different separator");
+
+        test.equal(moment("05 30 2010", ["DD MM YYYY", "MM DD YYYY"], true).format("MM DD YYYY"), "05 30 2010", "array with bad date");
+        test.equal(moment("05 30 2010", ["", "MM DD YYYY"], true).format("MM DD YYYY"), "05 30 2010", "array with invalid format");
+        test.equal(moment("05 30 2010", [" DD MM YYYY", "MM DD YYYY"], true).format("MM DD YYYY"), "05 30 2010", "array with non-matching format");
+
+        test.equal(moment("2010.*...", "YYYY.*", true).isValid(), false, "invalid format with regex chars");
+        test.equal(moment("2010.*", "YYYY.*", true).year(), 2010, "valid format with regex chars");
+        test.equal(moment(".*2010.*", ".*YYYY.*", true).year(), 2010, "valid format with regex chars on both sides");
+
+        test.done();
+    },
+
     "parsing into a language" : function (test) {
         test.expect(2);
 
