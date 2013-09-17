@@ -461,5 +461,21 @@ exports.zones = {
         test.equals(m.hasAlignedHourOffset(moment().zone(-85)), false);
 
         test.done();
+    },
+
+    "parse zone" : function (test) {
+        test.expect(2);
+        var m = moment("2013-01-01T00:00:00-13:00").parseZone();
+        test.equal(m.zone(), 13 * 60);
+        test.equal(m.hours(), 0);
+        test.done();
+    },
+
+    "parse zone static" : function (test) {
+        test.expect(2);
+        var m = moment.parseZone("2013-01-01T00:00:00-13:00");
+        test.equal(m.zone(), 13 * 60);
+        test.equal(m.hours(), 0);
+        test.done();
     }
 };
