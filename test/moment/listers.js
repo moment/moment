@@ -21,6 +21,16 @@ exports.listers = {
         test.done();
     },
 
+    "index" : function (test) {
+        test.expect(5);
+        test.equal(moment.months(2), "March");
+        test.equal(moment.monthsShort(2), "Mar");
+        test.equal(moment.weekdays(2), "Tuesday");
+        test.equal(moment.weekdaysShort(2), "Tue");
+        test.equal(moment.weekdaysMin(2), "Tu");
+        test.done();
+    },
+
     "localized" : function (test) {
         var months = "one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve".split('_'),
             monthsShort = "on_tw_th_fo_fi_si_se_ei_ni_te_el_tw".split("_"),
@@ -36,12 +46,19 @@ exports.listers = {
             weekdaysMin: weekdaysMin
         });
 
-        test.expect(5);
+        test.expect(10);
         test.deepEqual(moment.months(), months);
         test.deepEqual(moment.monthsShort(), monthsShort);
         test.deepEqual(moment.weekdays(), weekdays);
         test.deepEqual(moment.weekdaysShort(), weekdaysShort);
         test.deepEqual(moment.weekdaysMin(), weekdaysMin);
+
+        test.equal(moment.months(2), "three");
+        test.equal(moment.monthsShort(2), "th");
+        test.equal(moment.weekdays(2), "three");
+        test.equal(moment.weekdaysShort(2), "th");
+        test.equal(moment.weekdaysMin(2), "3");
+
         test.done();
     },
 
@@ -57,10 +74,14 @@ exports.listers = {
             }
         });
 
-        test.expect(3);
+        test.expect(5);
         test.deepEqual(moment.monthsShort(), monthsShort);
         test.deepEqual(moment.monthsShort('MMM'), monthsShort);
         test.deepEqual(moment.monthsShort('-MMM-'), monthsShortWeird);
+
+        test.deepEqual(moment.monthsShort('MMM', 2), 'three');
+        test.deepEqual(moment.monthsShort('-MMM-', 2), 'threesy');
+
         test.done();
     }
 };

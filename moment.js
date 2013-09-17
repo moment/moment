@@ -382,18 +382,26 @@
             return;
         }
 
-        moment[field] = function (format) {
-            var i, m, str,
-                method = moment.fn._lang[field] || Language.prototype[field],
-                results = [];
+        moment[field] = function (format, index) {
+            var i,
+                method = moment.fn._lang[field],
+                results = [],
+                getter = function (i) {
+                    var m = moment().utc().set(setter, i);
+                    return method.call(moment.fn._lang, m, format || '');
+                };
 
-            for (i = 0; i < count; i++) {
-                m = moment().utc().set(setter, i);
-                str = method.call(moment.fn._lang, m, format || '');
-                results.push(str);
+            index = (typeof format === 'number') ? format : index;
+
+            if (index) {
+                return getter(index);
             }
-
-            return results;
+            else {
+                for (i = 0; i < count; i++) {
+                    results.push(getter(i));
+                }
+                return results;
+            }
         };
     }
 
