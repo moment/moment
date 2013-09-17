@@ -987,7 +987,7 @@
         });
 
         // Handle stuff after last formatting token.
-        if (non_token_start != config._f.length) {
+        if (non_token_start !== config._f.length) {
             regexp += regexpEscape(unescapeFormat(config._f.substring(non_token_start)));
         }
         regexp = new RegExp('^' + regexp + '$');

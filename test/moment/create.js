@@ -491,7 +491,7 @@ exports.create = {
         test.done();
     },
 
-    "strict parsing" : function(test) {
+    "strict parsing" : function (test) {
         test.expect(10);
         test.equal(moment("2012-05", "YYYY-MM", true).format("YYYY-MM"), "2012-05", "parse correct string");
         test.equal(moment(" 2012-05", "YYYY-MM", true).isValid(), false, "fail on extra whitespace");
