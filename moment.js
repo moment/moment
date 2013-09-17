@@ -1391,7 +1391,7 @@
     };
 
     moment.invalid = function () {
-        var m = moment.utc(0);
+        var m = moment.utc(NaN);
         m._isValid = false;
         return m;
     };
