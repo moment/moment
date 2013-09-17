@@ -1544,7 +1544,7 @@
         },
 
         weekday : function (input) {
-            var weekday = (this._d.getDay() + 7 - this.lang()._week.dow) % 7;
+            var weekday = (this.day() + 7 - this.lang()._week.dow) % 7;
             return input == null ? weekday : this.add("d", input - weekday);
         },
 
