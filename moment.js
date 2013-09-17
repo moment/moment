@@ -415,10 +415,6 @@
         };
     }
 
-    function regexpEscape(text) {
-        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-    }
-
     function toInt(argumentForCoercion) {
         var coercedNumber = +argumentForCoercion,
             value = 0;
@@ -1062,8 +1058,7 @@
 
     // Code from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
     function regexpEscape(s) {
-        var res = s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-        return res;
+        return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     }
 
     // date from string and array of format strings
