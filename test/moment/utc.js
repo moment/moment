@@ -87,5 +87,17 @@ exports.utc = {
         test.equal(moment.utc(m).zone(), 0, "the explicit zone should have an offset of 0");
 
         test.done();
+    },
+
+    "weekday with utc" : function (test) {
+        test.expect(1);
+
+        test.equal(
+            moment('2013-09-15T00:00:00Z').utc().weekday(), // first minute of the day
+            moment('2013-09-15T23:59:00Z').utc().weekday(), // last minute of the day
+            "a UTC-moment's .weekday() should not be affected by the local timezone"
+        );
+
+        test.done();
     }
 };
