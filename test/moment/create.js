@@ -451,9 +451,10 @@ exports.create = {
 
     "null" : function (test) {
         test.expect(3);
-        test.equal(moment(''), null, "Calling moment('')");
-        test.equal(moment(null), null, "Calling moment(null)");
-        test.equal(moment('', 'YYYY-MM-DD'), null, "Calling moment('', 'YYYY-MM-DD')");
+
+        test.equal(moment('').isValid(), false);
+        test.equal(moment(null).isValid(), false);
+        test.equal(moment('', 'YYYY-MM-DD').isValid(), false);
         test.done();
     },
 
