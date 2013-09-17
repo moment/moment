@@ -90,20 +90,13 @@ exports.utc = {
     },
 
     "weekday with utc" : function (test) {
+        test.expect(1);
 
-        var isLocalTimezoneOffset = !!new Date(Date.UTC(2013, 8, 15, 12, 0)).getTimezoneOffset();
-        if (isLocalTimezoneOffset) {
-            test.expect(1);
-            test.equal(
-                moment('2013-09-15T00:00:00Z').utc().weekday(), // first minute of the day
-                moment('2013-09-15T23:59:00Z').utc().weekday(), // last minute of the day
-                "a UTC-moment's .weekday() should not be affected by the local timezone"
-            );
-        } else {
-            // bug won't reveal itself if the local timezone offset is 0
-            test.expect(0);
-            process.stdout.write('(skipped weekday test)');
-        }
+        test.equal(
+            moment('2013-09-15T00:00:00Z').utc().weekday(), // first minute of the day
+            moment('2013-09-15T23:59:00Z').utc().weekday(), // last minute of the day
+            "a UTC-moment's .weekday() should not be affected by the local timezone"
+        );
 
         test.done();
     }
