@@ -1268,7 +1268,7 @@
         },
 
         toString : function () {
-            return this.format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ");
+            return moment(this).lang('en').format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ");
         },
 
         toDate : function () {

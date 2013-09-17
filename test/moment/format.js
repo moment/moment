@@ -98,7 +98,7 @@ exports.format = {
 
         m = moment(1234567890.123, 'X');
         test.equals(m.format('X'), '1234567890', 'unix timestamp as integer');
-        
+
         test.done();
     },
 
@@ -298,6 +298,29 @@ exports.format = {
 
         var b = moment(new Date(2009, 1, 5, 15, 25, 50, 125));
         test.equal(b.toString(), b.format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ'));
+        test.done();
+    },
+
+    "toString isn't localized" : function (test) {
+        test.expect(1);
+
+        var b = moment(new Date(2009, 1, 5, 15, 25, 50, 125)).lang("fr");
+        test.equal(b.toString(), moment(b).lang('en').format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ'));
+        test.done();
+    },
+
+    "toString ignores defaultFormat" : function (test) {
+        test.expect(1);
+
+        var temp = moment.defaultFormat,
+            b = moment(new Date(2009, 1, 5, 15, 25, 50, 125));
+
+        moment.defaultFormat = "MM/dd";
+
+        test.equal(b.toString(), moment(b).format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ'));
+
+        moment.defaultFormat = temp;
+
         test.done();
     },
 
