@@ -1244,6 +1244,10 @@
         return normalizeUnits(units);
     };
 
+    moment.parseZone = function (input) {
+        return moment(input).parseZone();
+    };
+
     /************************************
         Moment Prototype
     ************************************/
@@ -1541,6 +1545,13 @@
 
         zoneName : function () {
             return this._isUTC ? "Coordinated Universal Time" : "";
+        },
+
+        parseZone : function () {
+            if (typeof this._i === 'string') {
+                this.zone(this._i);
+            }
+            return this;
         },
 
         hasAlignedHourOffset : function (input) {
