@@ -29,8 +29,8 @@ exports.create = {
         test.ok(moment({year: 2010, month: 1, day: 12}).toDate() instanceof Date, "{year: 2010, month: 1, day: 12}");
         test.ok(moment({year: 2010, month: 1, day: 12, hours: 1}).toDate() instanceof Date, "{year: 2010, month: 1, day: 12, hours: 1}");
         test.ok(moment({year: 2010, month: 1, day: 12, hours: 1, minutes: 1}).toDate() instanceof Date, "{year: 2010, month: 1, hours: 12, minutes: 1, seconds: 1}");
-        test.ok(moment({year: 2010, month: 1, day: 12, hours: 1, minutes: 1, seconds: 1}).toDate() instanceof Date, "{year: 2010, month: 1, day: 12, hours: 1, minutes: 1, seconds: 1]");
-        test.ok(moment({year: 2010, month: 1, day: 12, hours: 1, minutes: 1, seconds: 1, milliseconds: 1}).toDate() instanceof Date, "{year: 2010, month: 1, day: 12, hours: 1, minutes: 1, seconds: 1, milliseconds: 1]");
+        test.ok(moment({year: 2010, month: 1, day: 12, hours: 1, minutes: 1, seconds: 1}).toDate() instanceof Date, "{year: 2010, month: 1, day: 12, hours: 1, minutes: 1, seconds: 1}");
+        test.ok(moment({year: 2010, month: 1, day: 12, hours: 1, minutes: 1, seconds: 1, milliseconds: 1}).toDate() instanceof Date, "{year: 2010, month: 1, day: 12, hours: 1, minutes: 1, seconds: 1, milliseconds: 1}");
         test.equal(+moment(new Date(2010, 1, 14, 15, 25, 50, 125)), +moment({years: 2010, months: 1, days: 14, hours: 15, minutes: 25, seconds: 50, milliseconds: 125}), "constructing with object (long plural) === constructing with new Date()");
         test.equal(+moment(new Date(2010, 1, 14, 15, 25, 50, 125)), +moment({year: 2010, month: 1, day: 14, hour: 15, minute: 25, second: 50, millisecond: 125}), "constructing with object (long) === constructing with new Date()");
         test.equal(+moment(new Date(2010, 1, 14, 15, 25, 50, 125)), +moment({y: 2010, M: 1, d: 14, h: 15, m: 25, s: 50, ms: 125}), "constructing with object (short) === constructing with new Date()");
@@ -100,9 +100,10 @@ exports.create = {
     },
 
     "string without format" : function (test) {
-        test.expect(2);
+        test.expect(3);
         test.ok(moment("Aug 9, 1995").toDate() instanceof Date, "Aug 9, 1995");
         test.ok(moment("Mon, 25 Dec 1995 13:30:00 GMT").toDate() instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
+        test.equal(new Date(2013, 8, 13, 7, 26).valueOf(), moment("2013-09-13 7:26 am").valueOf(), "2013-09-13 7:26 am");
         test.done();
     },
 
@@ -293,21 +294,24 @@ exports.create = {
     },
 
     "string with array of formats" : function (test) {
-        test.expect(14);
+        test.expect(16);
 
         test.equal(moment('11-02-1999', ['MM-DD-YYYY', 'DD-MM-YYYY']).format('MM DD YYYY'), '11 02 1999', 'switching month and day');
-        test.equal(moment('02-11-1999', ['MM/DD/YYYY', 'YYYY-MM-DD', 'MM-DD-YYYY']).format('MM DD YYYY'), '02 11 1999', 'year last');
-        test.equal(moment('1999-02-11', ['MM/DD/YYYY', 'YYYY-MM-DD', 'MM-DD-YYYY']).format('MM DD YYYY'), '02 11 1999', 'year first');
+        test.equal(moment('02-11-1999', ['MM/DD/YYYY', 'YYYY MM DD', 'MM-DD-YYYY']).format('MM DD YYYY'), '02 11 1999', 'year last');
+        test.equal(moment('1999-02-11', ['MM/DD/YYYY', 'YYYY MM DD', 'MM-DD-YYYY']).format('MM DD YYYY'), '02 11 1999', 'year first');
 
-        test.equal(moment('02-11-1999', ['MM/DD/YYYY', 'YYYY-MM-DD']).format('MM DD YYYY'), '02 11 1999', 'year last');
-        test.equal(moment('1999-02-11', ['MM/DD/YYYY', 'YYYY-MM-DD']).format('MM DD YYYY'), '02 11 1999', 'year first');
-        test.equal(moment('02-11-1999', ['YYYY-MM-DD', 'MM/DD/YYYY']).format('MM DD YYYY'), '02 11 1999', 'year last');
-        test.equal(moment('1999-02-11', ['YYYY-MM-DD', 'MM/DD/YYYY']).format('MM DD YYYY'), '02 11 1999', 'year first');
+        test.equal(moment('02-11-1999', ['MM/DD/YYYY', 'YYYY MM DD']).format('MM DD YYYY'), '02 11 1999', 'year last');
+        test.equal(moment('1999-02-11', ['MM/DD/YYYY', 'YYYY MM DD']).format('MM DD YYYY'), '02 11 1999', 'year first');
+        test.equal(moment('02-11-1999', ['YYYY MM DD', 'MM/DD/YYYY']).format('MM DD YYYY'), '02 11 1999', 'year last');
+        test.equal(moment('1999-02-11', ['YYYY MM DD', 'MM/DD/YYYY']).format('MM DD YYYY'), '02 11 1999', 'year first');
 
         test.equal(moment('13-11-1999', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'), '11 13 1999', 'second must be month');
         test.equal(moment('11-13-1999', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'), '11 13 1999', 'first must be month');
         test.equal(moment('13-14-1999', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'), '01 14 2000', 'either can be a month, month first format');
         test.equal(moment('13-14-1999', ['DD/MM/YYYY', 'MM/DD/YYYY']).format('MM DD YYYY'), '02 13 2000', 'either can be a month, day first format');
+
+        test.equal(moment('11-02-10', ['MM/DD/YY', 'YY MM DD', 'DD-MM-YY']).format('MM DD YYYY'), '02 11 2010', 'all unparsed substrings have influence on format penalty');
+        test.equal(moment('11-02-10', ['MM.DD.YY', 'DD-MM-YY']).format('MM DD YYYY'), '02 11 2010', 'escape RegExp special characters on comparing');
 
         test.equal(moment('13-14-98', ['DD MM YY', 'DD MM YYYY'])._f, 'DD MM YY', 'use two digit year');
         test.equal(moment('13-14-1998', ['DD MM YY', 'DD MM YYYY'])._f, 'DD MM YYYY', 'use four digit year');

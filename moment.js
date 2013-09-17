@@ -12,7 +12,9 @@
 
     var moment,
         VERSION = "2.2.1",
-        round = Math.round, i,
+        round = Math.round,
+        i,
+
         // internal storage for language config files
         languages = {},
 
@@ -40,7 +42,7 @@
 
         // preliminary iso regex
         // 0000-00-00 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000
-        isoRegex = /^\s*\d{4}-\d\d-\d\d((T| )(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?/,
+        isoRegex = /^\s*\d{4}-\d\d-\d\d((T| )(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?$/,
         isoFormat = 'YYYY-MM-DDTHH:mm:ssZ',
 
         // iso time formats and regexes
@@ -171,10 +173,10 @@
                 return this.seconds();
             },
             S    : function () {
-                return ~~(this.milliseconds() / 100);
+                return toInt(this.milliseconds() / 100);
             },
             SS   : function () {
-                return leftZeroFill(~~(this.milliseconds() / 10), 2);
+                return leftZeroFill(toInt(this.milliseconds() / 10), 2);
             },
             SSS  : function () {
                 return leftZeroFill(this.milliseconds(), 3);
@@ -186,7 +188,7 @@
                     a = -a;
                     b = "-";
                 }
-                return b + leftZeroFill(~~(a / 60), 2) + ":" + leftZeroFill(~~a % 60, 2);
+                return b + leftZeroFill(toInt(a / 60), 2) + ":" + leftZeroFill(toInt(a) % 60, 2);
             },
             ZZ   : function () {
                 var a = -this.zone(),
@@ -195,7 +197,7 @@
                     a = -a;
                     b = "-";
                 }
-                return b + leftZeroFill(~~(10 * a / 6), 4);
+                return b + leftZeroFill(toInt(10 * a / 6), 4);
             },
             z : function () {
                 return this.zoneAbbr();
@@ -347,6 +349,10 @@
         return Object.prototype.toString.call(input) === '[object Array]';
     }
 
+    function isDate(input) {
+        return Object.prototype.toString.call(input) === '[object Date]';
+    }
+
     // compare two arrays, return the number of differences
     function compareArrays(array1, array2) {
         var len = Math.min(array1.length, array2.length),
@@ -354,7 +360,7 @@
             diffs = 0,
             i;
         for (i = 0; i < len; i++) {
-            if (~~array1[i] !== ~~array2[i]) {
+            if (toInt(array1[i]) !== toInt(array2[i])) {
                 diffs++;
             }
         }
@@ -365,6 +371,24 @@
         return units ? unitAliases[units] || units.toLowerCase().replace(/(.)s$/, '$1') : units;
     }
 
+    function regexpEscape(text) {
+        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+    }
+
+    function toInt(argumentForCoercion) {
+        var coercedNumber = +argumentForCoercion,
+            value = 0;
+
+        if (coercedNumber !== 0 && isFinite(coercedNumber)) {
+            if (coercedNumber >= 0) {
+                value = Math.floor(coercedNumber);
+            } else {
+                value = Math.ceil(coercedNumber);
+            }
+        }
+
+        return value;
+    }
 
     /************************************
         Languages
@@ -637,9 +661,11 @@
             return lang.longDateFormat(input) || input;
         }
 
-        while (i-- && (localFormattingTokens.lastIndex = 0,
-                    localFormattingTokens.test(format))) {
+        localFormattingTokens.lastIndex = 0;
+        while (i >= 0 && localFormattingTokens.test(format)) {
             format = format.replace(localFormattingTokens, replaceLongDateFormatTokens);
+            localFormattingTokens.lastIndex = 0;
+            i -= 1;
         }
 
         return format;
@@ -697,14 +723,14 @@
         case 's':
             return parseTokenOneOrTwoDigits;
         default :
-            return new RegExp(token.replace('\\', ''));
+            return new RegExp(regexpEscape(token.replace('\\', '')));
         }
     }
 
     function timezoneMinutesFromString(string) {
         var tzchunk = (parseTokenTimezone.exec(string) || [])[0],
             parts = (tzchunk + '').match(parseTimezoneChunker) || ['-', 0, 0],
-            minutes = +(parts[1] * 60) + ~~parts[2];
+            minutes = +(parts[1] * 60) + toInt(parts[2]);
 
         return parts[0] === '+' ? -minutes : minutes;
     }
@@ -718,7 +744,7 @@
         case 'M' : // fall through to MM
         case 'MM' :
             if (input != null) {
-                datePartArray[1] = ~~input - 1;
+                datePartArray[1] = toInt(input) - 1;
             }
             break;
         case 'MMM' : // fall through to MMMM
@@ -735,7 +761,7 @@
         case 'D' : // fall through to DD
         case 'DD' :
             if (input != null) {
-                datePartArray[2] = ~~input;
+                datePartArray[2] = toInt(input);
             }
             break;
         // DAY OF YEAR
@@ -743,16 +769,16 @@
         case 'DDDD' :
             if (input != null) {
                 datePartArray[1] = 0;
-                datePartArray[2] = ~~input;
+                datePartArray[2] = toInt(input);
             }
             break;
         // YEAR
         case 'YY' :
-            datePartArray[0] = ~~input + (~~input > 68 ? 1900 : 2000);
+            datePartArray[0] = toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
             break;
         case 'YYYY' :
         case 'YYYYY' :
-            datePartArray[0] = ~~input;
+            datePartArray[0] = toInt(input);
             break;
         // AM / PM
         case 'a' : // fall through to A
@@ -764,23 +790,23 @@
         case 'HH' : // fall through to hh
         case 'h' : // fall through to hh
         case 'hh' :
-            datePartArray[3] = ~~input;
+            datePartArray[3] = toInt(input);
             break;
         // MINUTE
         case 'm' : // fall through to mm
         case 'mm' :
-            datePartArray[4] = ~~input;
+            datePartArray[4] = toInt(input);
             break;
         // SECOND
         case 's' : // fall through to ss
         case 'ss' :
-            datePartArray[5] = ~~input;
+            datePartArray[5] = toInt(input);
             break;
         // MILLISECOND
         case 'S' :
         case 'SS' :
         case 'SSS' :
-            datePartArray[6] = ~~ (('0.' + input) * 1000);
+            datePartArray[6] = toInt(('0.' + input) * 1000);
             break;
         // UNIX TIMESTAMP WITH MS
         case 'X':
@@ -828,8 +854,8 @@
         }
 
         // add the offsets to the time to be parsed so that we can have a clean array for checking isValid
-        input[3] += ~~((config._tzm || 0) / 60);
-        input[4] += ~~((config._tzm || 0) % 60);
+        input[3] += toInt((config._tzm || 0) / 60);
+        input[4] += toInt((config._tzm || 0) % 60);
 
         date = new Date(0);
 
@@ -845,20 +871,32 @@
     }
 
     function dateFromObject(config) {
-        var o = config._i;
+        var normalizedInput = {},
+            normalizedProp,
+            prop,
+            index;
 
         if (config._d) {
             return;
         }
 
+        for (prop in config._i) {
+            if (config._i.hasOwnProperty(prop)) {
+                normalizedProp = normalizeUnits(prop);
+                if (normalizedProp) {
+                    normalizedInput[normalizedProp] = config._i[prop];
+                }
+            }
+        }
+
         config._a = [
-            o.years || o.year || o.y,
-            o.months || o.month || o.M,
-            o.days || o.day || o.d,
-            o.hours || o.hour || o.h,
-            o.minutes || o.minute || o.m,
-            o.seconds || o.second || o.s,
-            o.milliseconds || o.millisecond || o.ms
+            normalizedInput.year,
+            normalizedInput.month,
+            normalizedInput.day,
+            normalizedInput.hour,
+            normalizedInput.minute,
+            normalizedInput.second,
+            normalizedInput.millisecond
         ];
 
         dateFromArray(config);
@@ -882,27 +920,26 @@
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
         var lang = getLangDefinition(config._l),
             string = '' + config._i,
-            i, parsedInput, tokens;
+            i, parsedInput, tokens,
+            stringLength = string.length,
+            totalParsedInputLength = 0;
 
         tokens = expandFormat(config._f, lang).match(formattingTokens);
 
         config._a = [];
-
         for (i = 0; i < tokens.length; i++) {
             parsedInput = (getParseRegexForToken(tokens[i], config).exec(string) || [])[0];
             if (parsedInput) {
                 string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
+                totalParsedInputLength += parsedInput.length;
             }
             // don't parse if its not a known token
             if (formatTokenFunctions[tokens[i]]) {
                 addTimeToArrayFromToken(tokens[i], parsedInput, config);
             }
         }
-
-        // add remaining unparsed input to the string
-        if (string) {
-            config._il = string;
-        }
+        // add remaining unparsed input length to the string
+        config._il = stringLength - totalParsedInputLength;
 
         // handle am pm
         if (config._isPm && config._a[3] < 12) {
@@ -933,12 +970,9 @@
             tempMoment = new Moment(tempConfig);
 
             currentScore = compareArrays(tempConfig._a, tempMoment.toArray());
-
             // if there is any input that was not parsed
             // add a penalty for that format
-            if (tempMoment._il) {
-                currentScore += tempMoment._il.length;
-            }
+            currentScore += tempMoment._il;
 
             if (currentScore < scoreToBeat) {
                 scoreToBeat = currentScore;
@@ -986,7 +1020,7 @@
         } else if (isArray(input)) {
             config._a = input.slice(0);
             dateFromArray(config);
-        } else if (input instanceof Date) {
+        } else if (isDate(input)) {
             config._d = new Date(+input);
         } else if (typeof(input) === 'object') {
             dateFromObject(config);
@@ -1139,11 +1173,11 @@
             sign = (matched[1] === "-") ? -1 : 1;
             duration = {
                 y: 0,
-                d: ~~matched[2] * sign,
-                h: ~~matched[3] * sign,
-                m: ~~matched[4] * sign,
-                s: ~~matched[5] * sign,
-                ms: ~~matched[6] * sign
+                d: toInt(matched[2]) * sign,
+                h: toInt(matched[3]) * sign,
+                m: toInt(matched[4]) * sign,
+                s: toInt(matched[5]) * sign,
+                ms: toInt(matched[6]) * sign
             };
         }
 
@@ -1212,6 +1246,10 @@
         var m = moment.utc(NaN);
         m._isValid = false;
         return m;
+    };
+
+    moment.parseZone = function (input) {
+        return moment(input).parseZone();
     };
 
     /************************************
@@ -1513,6 +1551,13 @@
             return this._isUTC ? "Coordinated Universal Time" : "";
         },
 
+        parseZone : function () {
+            if (typeof this._i === 'string') {
+                this.zone(this._i);
+            }
+            return this;
+        },
+
         hasAlignedHourOffset : function (input) {
             if (!input) {
                 input = 0;
@@ -1664,7 +1709,7 @@
             return this._milliseconds +
               this._days * 864e5 +
               (this._months % 12) * 2592e6 +
-              ~~(this._months / 12) * 31536e6;
+              toInt(this._months / 12) * 31536e6;
         },
 
         humanize : function (withSuffix) {
@@ -1750,7 +1795,7 @@
     moment.lang('en', {
         ordinal : function (number) {
             var b = number % 10,
-                output = (~~ (number % 100 / 10) === 1) ? 'th' :
+                output = (toInt(number % 100 / 10) === 1) ? 'th' :
                 (b === 1) ? 'st' :
                 (b === 2) ? 'nd' :
                 (b === 3) ? 'rd' : 'th';
@@ -1764,22 +1809,29 @@
         Exposing Moment
     ************************************/
 
+    function makeGlobal() {
+        /*global ender:false */
+        if (typeof ender === 'undefined') {
+            // here, `this` means `window` in the browser, or `global` on the server
+            // add `moment` as a global object via a string identifier,
+            // for Closure Compiler "advanced" mode
+            this['moment'] = moment;
+        }
+    }
 
     // CommonJS module is defined
     if (hasModule) {
         module.exports = moment;
-    }
-    /*global ender:false */
-    if (typeof ender === 'undefined') {
-        // here, `this` means `window` in the browser, or `global` on the server
-        // add `moment` as a global object via a string identifier,
-        // for Closure Compiler "advanced" mode
-        this['moment'] = moment;
-    }
-    /*global define:false */
-    if (typeof define === "function" && define.amd) {
-        define("moment", [], function () {
+        makeGlobal();
+    } else if (typeof define === "function" && define.amd) {
+        define("moment", function (require, exports, module) {
+            if (module.config().noGlobal !== true) {
+                makeGlobal();
+            }
+
             return moment;
         });
+    } else {
+        makeGlobal();
     }
 }).call(this);
