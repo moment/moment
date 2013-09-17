@@ -13,10 +13,6 @@
     var moment,
         VERSION = "2.2.1",
         round = Math.round,
-
-        // variable for extend closure function
-        extend,
-
         i,
 
         // internal storage for language config files
@@ -291,50 +287,23 @@
     ************************************/
 
 
-    extend = (function () {
-        var hasDontEnumBug = true,
-            dontEnums = [
-                "toString",
-                "toLocaleString",
-                "valueOf",
-                "hasOwnProperty",
-                "isPrototypeOf",
-                "propertyIsEnumerable",
-                "constructor"
-            ],
-            dontEnumsLength = dontEnums.length,
-            testObject = {
-                "toString": null
-            },
-            key;
-
-        for (key in testObject) {
-            hasDontEnumBug = false;
+function extend(a, b) {
+    for (var i in b) {
+        if (b.hasOwnProperty(i)) {
+            a[i] = b[i];
         }
+    }
 
-        return function extend(a, b) {
-            var name,
-                index,
-                dontEnum;
+    if (b.hasOwnProperty("toString")) {
+        a.toString = b.toString;
+    }
 
-            for (name in b) {
-                if (b.hasOwnProperty(name)) {
-                    a[name] = b[name];
-                }
-            }
+    if (b.hasOwnProperty("valueOf")) {
+        a.valueOf = b.valueOf;
+    }
 
-            if (hasDontEnumBug) {
-                for (index = 0; index < dontEnumsLength; index += 1) {
-                    dontEnum = dontEnums[index];
-                    if (b.hasOwnProprty(dontEnum)) {
-                        a[dontEnum] = b[dontEnum];
-                    }
-                }
-            }
-
-            return a;
-        };
-    }());
+    return a;
+}
 
     function absRound(number) {
         if (number < 0) {
