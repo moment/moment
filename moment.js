@@ -318,9 +318,13 @@
     // see http://jsperf.com/left-zero-filling for performance comparison
     function leftZeroFill(number, targetLength) {
         var output = number + '';
-        while (output.length < targetLength) {
-            output = '0' + output;
+
+        if (typeof number === "number" && isFinite(number)) {
+            while (output.length < targetLength) {
+                output = '0' + output;
+            }
         }
+
         return output;
     }
 
@@ -456,6 +460,10 @@
         }
 
         return value;
+    }
+
+    function trim(str) {
+        return str.replace(/^\s+|\s+$/g, "");
     }
 
     /************************************
@@ -1230,25 +1238,30 @@
         var input = config._i,
             format = config._f;
 
-        if (input === null || input === '') {
-            return null;
-        }
-
         if (typeof input === 'string') {
-            config._i = input = getLangDefinition().preparse(input);
+            input = trim(input);
         }
 
-        if (moment.isMoment(input)) {
-            config = extend({}, input);
-            config._d = new Date(+input._d);
-        } else if (format) {
-            if (isArray(format)) {
-                makeDateFromStringAndArray(config);
-            } else {
-                makeDateFromStringAndFormat(config);
-            }
+        if (input === null || input === '') {
+            config._isValid = false;
+            config._d = new Date(NaN);
         } else {
-            makeDateFromInput(config);
+            if (typeof input === 'string') {
+                config._i = input = getLangDefinition().preparse(input);
+            }
+
+            if (moment.isMoment(input)) {
+                config = extend({}, input);
+                config._d = new Date(+input._d);
+            } else if (format) {
+                if (isArray(format)) {
+                    makeDateFromStringAndArray(config);
+                } else {
+                    makeDateFromStringAndFormat(config);
+                }
+            } else {
+                makeDateFromInput(config);
+            }
         }
 
         return new Moment(config);
