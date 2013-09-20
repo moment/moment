@@ -567,6 +567,11 @@
         _week : {
             dow : 0, // Sunday is the first day of the week.
             doy : 6  // The week that contains Jan 1st is the first week of the year.
+        },
+
+        _invalidDate: 'Invalid date',
+        invalidDate: function () {
+            return this._invalidDate;
         }
     });
 
@@ -644,6 +649,10 @@
 
     // format date using native date object
     function formatMoment(m, format) {
+
+        if (!m.isValid()) {
+            return m.lang().invalidDate();
+        }
 
         format = expandFormat(format, m.lang());
 
@@ -784,7 +793,7 @@
         case 'a' : // fall through to A
         case 'A' :
             config._isPm = getLangDefinition(config._l).isPM(input);
-            break;
+            return;
         // 24 HOUR
         case 'H' : // fall through to hh
         case 'HH' : // fall through to hh
@@ -1105,7 +1114,9 @@
         var input = config._i,
             format = config._f;
 
-        if (input === null || input === '') {
+        if (input === null ||
+            (typeof input === 'string' &&
+             input.replace(/^\s+|\s+$/g, '') === '')) {
             return moment.invalid();
         }
 

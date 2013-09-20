@@ -119,22 +119,31 @@ exports.create = {
 
     "string with format dropped am/pm bug" : function (test) {
         moment.lang('en');
-        test.expect(3);
+        test.expect(6);
 
-        test.equal(moment('05/1/2012', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
+        test.equal(moment('05/1/2012 12:25:00', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
         test.equal(moment('05/1/2012 12:25:00 am', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
         test.equal(moment('05/1/2012 12:25:00 pm', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
+
+        test.ok(moment('05/1/2012 12:25:00', 'MM/DD/YYYY h:m:s a').isValid())
+        test.ok(moment('05/1/2012 12:25:00 am', 'MM/DD/YYYY h:m:s a').isValid())
+        test.ok(moment('05/1/2012 12:25:00 pm', 'MM/DD/YYYY h:m:s a').isValid())
 
         test.done();
     },
 
     "empty string with formats" : function (test) {
-        test.expect(3);
+        test.expect(8);
 
-        var currentDate = moment().startOf('day').format('YYYY-MM-DD HH:mm:ss');
-        test.equal(moment(' ', 'MM').format('YYYY-MM-DD HH:mm:ss'), currentDate, 'should not break if input is an empty string');
-        test.equal(moment(' ', 'DD').format('YYYY-MM-DD HH:mm:ss'), currentDate, 'should not break if input is an empty string');
-        test.equal(moment(' ', ['MM', "DD"]).format('YYYY-MM-DD HH:mm:ss'), currentDate, 'should not break if input is an empty string');
+        test.equal(moment('', 'MM').format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
+        test.equal(moment(' ', 'MM').format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
+        test.equal(moment(' ', 'DD').format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
+        test.equal(moment(' ', ['MM', "DD"]).format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
+
+        test.ok(!moment('', 'MM').isValid())
+        test.ok(!moment(' ', 'MM').isValid())
+        test.ok(!moment(' ', 'DD').isValid())
+        test.ok(!moment(' ', ['MM', "DD"]).isValid())
 
         test.done();
     },
@@ -211,7 +220,7 @@ exports.create = {
                 ['HH:mm:ss S',          '00:30:00 7'],
                 ['HH:mm:ss SS',         '00:30:00 78'],
                 ['HH:mm:ss SSS',        '00:30:00 789'],
-                ['X.SSS',               '1234567890.123'],
+                ['X',                   '1234567890'],
                 ['LT',                  '12:30 AM'],
                 ['L',                   '09/02/1999'],
                 ['l',                   '9/2/1999'],
@@ -224,9 +233,11 @@ exports.create = {
             ],
             i;
 
-        test.expect(a.length);
+        test.expect(2 * a.length);
         for (i = 0; i < a.length; i++) {
-            test.equal(moment(a[i][1], a[i][0]).format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
+            m = moment(a[i][1], a[i][0]);
+            test.ok(m.isValid());
+            test.equal(m.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
         }
         test.done();
     },
