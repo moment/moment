@@ -1270,18 +1270,25 @@
 
     // creating with utc
     moment.utc = function (input, format, lang, strict) {
+        var m;
+
         if (typeof(lang) === "boolean") {
             strict = lang;
             lang = undefined;
         }
-        return makeMoment({
+        m = makeMoment({
             _useUTC : true,
             _isUTC : true,
             _l : lang,
             _i : input,
             _f : format,
             _strict : strict
-        }).utc();
+        });
+        if (m != null) {
+            m = m.utc();
+        }
+
+        return m;
     };
 
     // creating with unix timestamp (in seconds)
