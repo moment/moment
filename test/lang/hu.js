@@ -46,7 +46,7 @@ exports["lang:hu"] = {
                 ['M Mo MM MMMM MMM',                   '2 2. 02 február feb'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14. 14'],
-                ['d do dddd ddd',                      '0 0. vasárnap v'],
+                ['d do dddd ddd dd',                      '0 0. vasárnap Vas V'],
                 ['DDD DDDo DDDD',                      '45 45. 045'],
                 ['w wo ww',                            '7 7. 07'],
                 ['H HH',                               '15 15'],
