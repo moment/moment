@@ -504,7 +504,10 @@
 
     function isValid(m) {
         if (m._isValid == null) {
-            m._isValid = !isNaN(m._d.getTime()) && m._pf.overflow < 0 && !m._pf.empty;
+            m._isValid = !isNaN(m._d.getTime()) &&
+                m._pf.overflow < 0 &&
+                !m._pf.empty &&
+                !m._pf.invalidMonth;
 
             if (m._strict) {
                 m._isValid = m._isValid &&
@@ -892,21 +895,17 @@
             if (a != null) {
                 datePartArray[MONTH] = a;
             } else {
-                config._isValid = false;
+                config._pf.invalidMonth = input;
             }
             break;
         // DAY OF MONTH
         case 'D' : // fall through to DD
         case 'DD' :
             if (input != null) {
-                a = toInt(input);
-                datePartArray[DATE] = a;
-                if (a < 1) {
-                    config._pf.overflow = DATE;
-                }
+                datePartArray[DATE] = toInt(input);
             }
             break;
-        // DATE OF YEAR
+        // DAY OF YEAR
         case 'DDD' : // fall through to DDDD
         case 'DDDD' :
             if (input != null) {
@@ -955,7 +954,6 @@
         // UNIX TIMESTAMP WITH MS
         case 'X':
             config._d = new Date(parseFloat(input) * 1000);
-            config._isValid = !isNaN(config._d.getTime());
             break;
         // TIMEZONE
         case 'Z' : // fall through to ZZ
@@ -1055,13 +1053,7 @@
             stringLength = string.length,
             totalParsedInputLength = 0;
 
-        tokens = expandFormat(config._f, lang).match(formattingTokens);
-
-        if (!tokens) {
-            dateFromArray(config);
-            checkOverflow(config);
-            return;
-        }
+        tokens = expandFormat(config._f, lang).match(formattingTokens) || [];
 
         for (i = 0; i < tokens.length; i++) {
             token = tokens[i];
