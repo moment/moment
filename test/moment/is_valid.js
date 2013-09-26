@@ -2,16 +2,21 @@ var moment = require("../../moment");
 
 exports.is_valid = {
     "array bad month" : function (test) {
-        test.expect(2);
+        var underflow = moment([2010, -1]),
+            overflow = moment([2100, 12]);
 
-        test.equal(moment([2010, -1]).isValid(), false, 'month -1');
-        test.equal(moment([2100, 12]).isValid(), false, 'month 12');
+        test.expect(4);
+        test.equal(underflow.isValid(), false, 'month -1 invalid');
+        test.equal(underflow.parsingFlags().overflow, 1, 'month -1 overflow');
+
+        test.equal(overflow.isValid(), false, 'month 12 invalid');
+        test.equal(overflow.parsingFlags().overflow, 1, 'month 12 invalid');
 
         test.done();
     },
 
     "array good month" : function (test) {
-        test.expect(24);
+        test.expect(12 * 2);
 
         for (var i = 0; i < 12; i++) {
             test.equal(moment([2010, i]).isValid(), true, 'month ' + i);
@@ -22,13 +27,21 @@ exports.is_valid = {
     },
 
     "array bad date" : function (test) {
-        test.expect(4);
+        var tests = [
+            moment([2010, 0, 0]),
+            moment([2100, 0, 32]),
+            moment.utc([2010, 0, 0]),
+            moment.utc([2100, 0, 32])
+        ],
+        i, m;
 
-        test.equal(moment([2010, 0, 0]).isValid(), false, 'date 0');
-        test.equal(moment([2100, 0, 32]).isValid(), false, 'date 32');
+        test.expect(tests.length * 2);
 
-        test.equal(moment.utc([2010, 0, 0]).isValid(), false, 'utc date 0');
-        test.equal(moment.utc([2100, 0, 32]).isValid(), false, 'utc date 32');
+        for (i in tests) {
+            m = tests[i];
+            test.equal(m.isValid(), false);
+            test.equal(m.parsingFlags().overflow, 2);
+        }
 
         test.done();
     },
@@ -77,7 +90,7 @@ exports.is_valid = {
         test.expect(2);
 
         test.equal(moment('fail', "MM-DD-YYYY").isValid(), false, 'string "fail" with format "MM-DD-YYYY"');
-        test.equal(moment("xx-xx-2001", 'DD-MM-YYY').isValid(), false, 'string "xx-xx-2001" with format "MM-DD-YYYY"');
+        test.equal(moment("xx-xx-2001", 'DD-MM-YYY').isValid(), true, 'string "xx-xx-2001" with format "MM-DD-YYYY"');
         test.done();
     },
 

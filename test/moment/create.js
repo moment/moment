@@ -125,9 +125,9 @@ exports.create = {
         test.equal(moment('05/1/2012 12:25:00 am', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
         test.equal(moment('05/1/2012 12:25:00 pm', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
 
-        test.ok(moment('05/1/2012 12:25:00', 'MM/DD/YYYY h:m:s a').isValid())
-        test.ok(moment('05/1/2012 12:25:00 am', 'MM/DD/YYYY h:m:s a').isValid())
-        test.ok(moment('05/1/2012 12:25:00 pm', 'MM/DD/YYYY h:m:s a').isValid())
+        test.ok(moment('05/1/2012 12:25:00', 'MM/DD/YYYY h:m:s a').isValid());
+        test.ok(moment('05/1/2012 12:25:00 am', 'MM/DD/YYYY h:m:s a').isValid());
+        test.ok(moment('05/1/2012 12:25:00 pm', 'MM/DD/YYYY h:m:s a').isValid());
 
         test.done();
     },
@@ -140,10 +140,10 @@ exports.create = {
         test.equal(moment(' ', 'DD').format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
         test.equal(moment(' ', ['MM', "DD"]).format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
 
-        test.ok(!moment('', 'MM').isValid())
-        test.ok(!moment(' ', 'MM').isValid())
-        test.ok(!moment(' ', 'DD').isValid())
-        test.ok(!moment(' ', ['MM', "DD"]).isValid())
+        test.ok(!moment('', 'MM').isValid());
+        test.ok(!moment(' ', 'MM').isValid());
+        test.ok(!moment(' ', 'DD').isValid());
+        test.ok(!moment(' ', ['MM', "DD"]).isValid());
 
         test.done();
     },
@@ -231,6 +231,7 @@ exports.create = {
                 ['LLLL',                'Thursday, September 2 1999 12:30 AM'],
                 ['llll',                'Thu, Sep 2 1999 12:30 AM']
             ],
+            m,
             i;
 
         test.expect(2 * a.length);
@@ -318,8 +319,8 @@ exports.create = {
 
         test.equal(moment('13-11-1999', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'), '11 13 1999', 'second must be month');
         test.equal(moment('11-13-1999', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'), '11 13 1999', 'first must be month');
-        test.equal(moment('13-14-1999', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'), '01 14 2000', 'either can be a month, month first format');
-        test.equal(moment('13-14-1999', ['DD/MM/YYYY', 'MM/DD/YYYY']).format('MM DD YYYY'), '02 13 2000', 'either can be a month, day first format');
+        test.equal(moment('01-02-2000', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'), '01 02 2000', 'either can be a month, month first format');
+        test.equal(moment('02-01-2000', ['DD/MM/YYYY', 'MM/DD/YYYY']).format('MM DD YYYY'), '01 02 2000', 'either can be a month, day first format');
 
         test.equal(moment('11-02-10', ['MM/DD/YY', 'YY MM DD', 'DD-MM-YY']).format('MM DD YYYY'), '02 11 2010', 'all unparsed substrings have influence on format penalty');
         test.equal(moment('11-02-10', ['MM.DD.YY', 'DD-MM-YY']).format('MM DD YYYY'), '02 11 2010', 'escape RegExp special characters on comparing');
@@ -463,13 +464,13 @@ exports.create = {
     "null" : function (test) {
         test.expect(6);
 
-        test.Ok(!moment('').isValid());
-        test.Ok(!moment(null).isValid());
-        test.Ok(!moment('', 'YYYY-MM-DD').isValid());
+        test.ok(!moment('').isValid());
+        test.ok(!moment(null).isValid());
+        test.ok(!moment('', 'YYYY-MM-DD').isValid());
 
-        test.Ok(!moment.utc('').isValid(), "Calling moment.utc('')");
-        test.Ok(!moment.utc(null).isValid(), "Calling moment.utc(null)");
-        test.Ok(!moment.utc('', 'YYYY-MM-DD').isValid(), "Calling moment.utc('', 'YYYY-MM-DD')");
+        test.ok(!moment.utc('').isValid(), "Calling moment.utc('')");
+        test.ok(!moment.utc(null).isValid(), "Calling moment.utc(null)");
+        test.ok(!moment.utc('', 'YYYY-MM-DD').isValid(), "Calling moment.utc('', 'YYYY-MM-DD')");
         test.done();
     },
 

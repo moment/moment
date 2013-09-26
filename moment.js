@@ -15,6 +15,14 @@
         round = Math.round,
         i,
 
+        YEAR = 0,
+        MONTH = 1,
+        DATE = 2,
+        HOUR = 3,
+        MINUTE = 4,
+        SECOND = 5,
+        MILLISECOND = 6,
+
         // internal storage for language config files
         languages = {},
 
@@ -244,6 +252,7 @@
 
     // Moment prototype object
     function Moment(config) {
+        checkOverflow(config);
         extend(this, config);
     }
 
@@ -456,6 +465,54 @@
         }
 
         return value;
+    }
+
+    function daysInMonth(year, month) {
+        return moment.utc([year, month + 1, 0]).date();
+    }
+
+    function isLeapYear(year) {
+        return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+    }
+
+    function checkOverflow(m) {
+        if (m._a && m._pf.overflow == -2) {
+            m._pf.overflow =
+                m._a[MONTH] < 0 || m._a[MONTH] > 11 ? MONTH :
+                m._a[DATE] < 1 || m._a[DATE] >
+                  (m._pf.overflowMonthOk ? (isLeapYear(m._a[YEAR]) ? 364 : 365) : daysInMonth(m._a[YEAR], m._a[MONTH])) ? DATE :
+                m._a[HOUR] < 0 || m._a[HOUR] > 23 ? HOUR :
+                m._a[MINUTE] < 0 || m._a[MINUTE] > 59 ? MINUTE :
+                m._a[SECOND] < 0 || m._a[SECOND] > 59 ? SECOND :
+                m._a[MILLISECOND] < 0 || m._a[MILLISECOND] > 999 ? MILLISECOND :
+                -1;
+
+        }
+    }
+
+    function initializeParsingFlags(config) {
+        config._pf = {
+            empty : false,
+            unusedTokens : [],
+            trailingInput : '',
+            overflowMonthOk : false,
+            dstShifted : false,
+            overflow : -2,
+            charsLeftOver: 0
+        };
+    }
+
+    function isValid(m) {
+        if (m._isValid == null) {
+            m._isValid = !isNaN(m._d.getTime()) && m._pf.overflow < 0 && !m._pf.empty;
+
+            if (m._strict) {
+                m._isValid = m._isValid &&
+                    m._pf.charsLeftOver === 0 &&
+                    m._pf.trailingInput.length === 0;
+            }
+        }
+        return m._isValid;
     }
 
     /************************************
@@ -800,8 +857,12 @@
         case 's':
             return parseTokenOneOrTwoDigits;
         default :
-            return new RegExp(regexpEscape(token.replace('\\', '')));
+            return null;
         }
+    }
+
+    function getDefaultParserRegex(token) {
+        return new RegExp(regexpEscape(unescapeFormat(token.replace('\\', '')), "i"));
     }
 
     function timezoneMinutesFromString(string) {
@@ -834,20 +895,26 @@
                 config._isValid = false;
             }
             break;
-        // DAY OF MONTH
+        // DATE OF MONTH
         case 'D' : // fall through to DD
         case 'DD' :
             if (input != null) {
-                datePartArray[2] = toInt(input);
+                a = toInt(input);
+                datePartArray[DATE] = a;
+                if (a < 1) {
+                    config._pf.overflow = DATE;
+                }
             }
             break;
-        // DAY OF YEAR
+        // DATE OF YEAR
         case 'DDD' : // fall through to DDDD
         case 'DDDD' :
             if (input != null) {
-                datePartArray[1] = 0;
-                datePartArray[2] = toInt(input);
+                datePartArray[MONTH] = 0;
+                datePartArray[DATE] = toInt(input);
+                config._pf.overflowMonthOk = true;
             }
+
             break;
         // YEAR
         case 'YY' :
@@ -861,7 +928,7 @@
         case 'a' : // fall through to A
         case 'A' :
             config._isPm = getLangDefinition(config._l).isPM(input);
-            return;
+            break;
         // 24 HOUR
         case 'H' : // fall through to hh
         case 'HH' : // fall through to hh
@@ -896,11 +963,6 @@
             config._useUTC = true;
             config._tzm = timezoneMinutesFromString(input);
             break;
-        }
-
-        // if the input is null, the date is not valid
-        if (input == null) {
-            config._isValid = false;
         }
     }
 
@@ -983,33 +1045,58 @@
 
     // date from string and format string
     function makeDateFromStringAndFormat(config) {
-        if (config._strict) {
-            makeDateFromStringAndStrictFormat(config);
-            return;
-        }
+        config._pf.empty = true;
+        config._a = [];
+
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
         var lang = getLangDefinition(config._l),
             string = '' + config._i,
-            i, parsedInput, tokens,
+            i, parsedInput, tokens, regex, defaulted, token,
             stringLength = string.length,
             totalParsedInputLength = 0;
 
         tokens = expandFormat(config._f, lang).match(formattingTokens);
 
-        config._a = [];
+        if (!tokens) {
+            dateFromArray(config);
+            checkOverflow(config);
+            return;
+        }
+
         for (i = 0; i < tokens.length; i++) {
-            parsedInput = (getParseRegexForToken(tokens[i], config).exec(string) || [])[0];
+            token = tokens[i];
+            defaulted = false;
+            regex = getParseRegexForToken(token, config);
+            if (regex === null) {
+                regex = getDefaultParserRegex(token);
+                defaulted = true;
+            }
+            if (config._strict) {
+                regex = new RegExp("^" + regex.source, regex.ignoreCase ? "i" : "");
+            }
+            parsedInput = (regex.exec(string) || [])[0];
             if (parsedInput) {
                 string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
                 totalParsedInputLength += parsedInput.length;
+                if (!defaulted) {
+                    config._pf.empty = false;
+                }
             }
+            else {
+                if (!defaulted) {
+                    config._pf.unusedTokens.push(token);
+                }
+            }
+
             // don't parse if its not a known token
-            if (formatTokenFunctions[tokens[i]]) {
-                addTimeToArrayFromToken(tokens[i], parsedInput, config);
+            if (formatTokenFunctions[token]) {
+                addTimeToArrayFromToken(token, parsedInput, config);
             }
         }
+
         // add remaining unparsed input length to the string
-        config._il = stringLength - totalParsedInputLength;
+        config._pf.charsLeftOver = stringLength - totalParsedInputLength;
+        config._pf.trailingInput = string;
 
         // handle am pm
         if (config._isPm && config._a[3] < 12) {
@@ -1019,61 +1106,10 @@
         if (config._isPm === false && config._a[3] === 12) {
             config._a[3] = 0;
         }
+
         // return
         dateFromArray(config);
-    }
-
-    function makeDateFromStringAndStrictFormat(config) {
-        var regexp = '', non_token_start = 0,
-            tokens = config._f.match(formattingTokens),
-            match, i, tokenIndex;
-
-        // We're not interested in the result. Just the tokens and their
-        // starting positions.
-        config._f.replace(formattingTokens, function (token) {
-            var offset = arguments[arguments.length - 2],
-                tokenRegexp;
-
-            if (formatTokenFunctions[token]) {
-                tokenRegexp = getParseRegexForToken(token).toString();
-                // Do not remember groups
-                tokenRegexp = tokenRegexp.replace(/\(/g, '(?:');
-
-                // regexp-escape strings in-between tokens
-                if (offset > non_token_start) {
-                    regexp += regexpEscape(unescapeFormat(config._f.substring(non_token_start, offset)));
-                }
-                non_token_start = offset + token.length;
-
-                // add token regexp
-                regexp += '(' + tokenRegexp.substring(1, tokenRegexp.lastIndexOf('/')) + ')';
-            }
-
-            return token;
-        });
-
-        // Handle stuff after last formatting token.
-        if (non_token_start !== config._f.length) {
-            regexp += regexpEscape(unescapeFormat(config._f.substring(non_token_start)));
-        }
-        regexp = new RegExp('^' + regexp + '$');
-        match = config._i.match(regexp);
-        if (match === null) {
-            config._a = [];
-            config._d = new Date(0);
-            config._isValid = false;
-            return;
-        }
-
-        config._a = [];
-        for (i = tokenIndex = 0; i < tokens.length; ++i) {
-            if (formatTokenFunctions[tokens[i]]) {
-                addTimeToArrayFromToken(tokens[i], match[tokenIndex + 1], config);
-                ++tokenIndex;
-            }
-        }
-
-        dateFromArray(config);
+        checkOverflow(config);
     }
 
     function unescapeFormat(s) {
@@ -1090,31 +1126,38 @@
     // date from string and array of format strings
     function makeDateFromStringAndArray(config) {
         var tempConfig,
-            tempMoment,
             bestMoment,
 
-            scoreToBeat = 99,
+            scoreToBeat = 1000,
             i,
             currentScore;
 
         for (i = 0; i < config._f.length; i++) {
+            currentScore = 0;
             tempConfig = extend({}, config);
+            initializeParsingFlags(tempConfig);
             tempConfig._f = config._f[i];
             makeDateFromStringAndFormat(tempConfig);
-            tempMoment = new Moment(tempConfig);
 
-            currentScore = compareArrays(tempConfig._a, tempMoment.toArray());
-            // if there is any input that was not parsed
-            // add a penalty for that format
-            currentScore += tempMoment._il || 0;
+            if (!isValid(tempConfig)) {
+                currentScore += 100;
+            }
+
+            // if there is any input that was not parsed add a penalty for that format
+            currentScore += tempConfig._pf.charsLeftOver;
+
+            //or tokens
+            currentScore += tempConfig._pf.unusedTokens.length * 10;
+
+            tempConfig._pf.score = currentScore;
 
             if (currentScore < scoreToBeat) {
                 scoreToBeat = currentScore;
-                bestMoment = tempMoment;
+                bestMoment = tempConfig;
             }
         }
 
-        extend(config, bestMoment);
+        extend(config, bestMoment || tempConfig);
     }
 
     // date from iso format
@@ -1239,6 +1282,10 @@
         var input = config._i,
             format = config._f;
 
+        if (typeof config._pf === 'undefined') {
+            initializeParsingFlags(config);
+        }
+
         if (input === null ||
             (typeof input === 'string' &&
              input.replace(/^\s+|\s+$/g, '') === '')) {
@@ -1294,10 +1341,7 @@
             _i : input,
             _f : format,
             _strict : strict
-        });
-        if (m != null) {
-            m = m.utc();
-        }
+        }).utc();
 
         return m;
     };
@@ -1454,22 +1498,25 @@
         },
 
         isValid : function () {
-            if (this._isValid == null) {
-                if (this._a) {
-                    this._isValid = !compareArrays(this._a, (this._isUTC ? moment.utc(this._a) : moment(this._a)).toArray());
-                } else {
-                    this._isValid = !isNaN(this._d.getTime());
-                }
+            return isValid(this);
+        },
+
+        isDSTShifted : function () {
+
+            if (this._a) {
+                //this is best-effort. What if it's a valid overflow AND DST-shifted?
+                return !this._pf.overflowMonthOk && !compareArrays(this._a, (this._isUTC ? moment.utc(this._a) : moment(this._a)).toArray());
             }
-            return !!this._isValid;
+
+            return false;
+        },
+
+        parsingFlags : function () {
+            return extend({}, this._pf);
         },
 
         invalidAt: function () {
-            var i, arr1 = this._a, arr2 = (this._isUTC ? moment.utc(this._a) : moment(this._a)).toArray();
-            for (i = 6; i >= 0 && arr1[i] === arr2[i]; --i) {
-                // empty loop body
-            }
-            return i;
+            return this._pf.overflow;
         },
 
         utc : function () {
@@ -1565,8 +1612,7 @@
         },
 
         isLeapYear : function () {
-            var year = this.year();
-            return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+            return isLeapYear(this.year());
         },
 
         isDST : function () {
@@ -1727,7 +1773,7 @@
         },
 
         daysInMonth : function () {
-            return moment.utc([this.year(), this.month() + 1, 0]).date();
+            return daysInMonth(this.year(), this.month());
         },
 
         dayOfYear : function (input) {
