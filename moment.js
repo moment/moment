@@ -509,7 +509,7 @@
             if (m._strict) {
                 m._isValid = m._isValid &&
                     m._pf.charsLeftOver === 0 &&
-                    m._pf.trailingInput.length === 0;
+                    m._pf.unusedTokens.length == 0;
             }
         }
         return m._isValid;
