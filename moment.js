@@ -476,7 +476,7 @@
     }
 
     function checkOverflow(m) {
-        if (m._a && m._pf.overflow == -2) {
+        if (m._a && m._pf.overflow === -2) {
             m._pf.overflow =
                 m._a[MONTH] < 0 || m._a[MONTH] > 11 ? MONTH :
                 m._a[DATE] < 1 || m._a[DATE] >
@@ -882,7 +882,7 @@
         case 'M' : // fall through to MM
         case 'MM' :
             if (input != null) {
-                datePartArray[1] = toInt(input) - 1;
+                datePartArray[MONTH] = toInt(input) - 1;
             }
             break;
         case 'MMM' : // fall through to MMMM
@@ -890,12 +890,12 @@
             a = getLangDefinition(config._l).monthsParse(input);
             // if we didn't find a month name, mark the date as invalid.
             if (a != null) {
-                datePartArray[1] = a;
+                datePartArray[MONTH] = a;
             } else {
                 config._isValid = false;
             }
             break;
-        // DATE OF MONTH
+        // DAY OF MONTH
         case 'D' : // fall through to DD
         case 'DD' :
             if (input != null) {
@@ -918,11 +918,11 @@
             break;
         // YEAR
         case 'YY' :
-            datePartArray[0] = toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
+            datePartArray[YEAR] = toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
             break;
         case 'YYYY' :
         case 'YYYYY' :
-            datePartArray[0] = toInt(input);
+            datePartArray[YEAR] = toInt(input);
             break;
         // AM / PM
         case 'a' : // fall through to A
@@ -934,23 +934,23 @@
         case 'HH' : // fall through to hh
         case 'h' : // fall through to hh
         case 'hh' :
-            datePartArray[3] = toInt(input);
+            datePartArray[HOUR] = toInt(input);
             break;
         // MINUTE
         case 'm' : // fall through to mm
         case 'mm' :
-            datePartArray[4] = toInt(input);
+            datePartArray[MINUTE] = toInt(input);
             break;
         // SECOND
         case 's' : // fall through to ss
         case 'ss' :
-            datePartArray[5] = toInt(input);
+            datePartArray[SECOND] = toInt(input);
             break;
         // MILLISECOND
         case 'S' :
         case 'SS' :
         case 'SSS' :
-            datePartArray[6] = toInt(('0.' + input) * 1000);
+            datePartArray[MILLISECOND] = toInt(('0.' + input) * 1000);
             break;
         // UNIX TIMESTAMP WITH MS
         case 'X':
@@ -993,17 +993,17 @@
         }
 
         // add the offsets to the time to be parsed so that we can have a clean array for checking isValid
-        input[3] += toInt((config._tzm || 0) / 60);
-        input[4] += toInt((config._tzm || 0) % 60);
+        input[HOUR] += toInt((config._tzm || 0) / 60);
+        input[MINUTE] += toInt((config._tzm || 0) % 60);
 
         date = new Date(0);
 
         if (config._useUTC) {
-            date.setUTCFullYear(input[0], input[1], input[2]);
-            date.setUTCHours(input[3], input[4], input[5], input[6]);
+            date.setUTCFullYear(input[YEAR], input[MONTH], input[DATE]);
+            date.setUTCHours(input[HOUR], input[MINUTE], input[SECOND], input[MILLISECOND]);
         } else {
-            date.setFullYear(input[0], input[1], input[2]);
-            date.setHours(input[3], input[4], input[5], input[6]);
+            date.setFullYear(input[YEAR], input[MONTH], input[DATE]);
+            date.setHours(input[HOUR], input[MINUTE], input[SECOND], input[MILLISECOND]);
         }
 
         config._d = date;
@@ -1099,15 +1099,14 @@
         config._pf.trailingInput = string;
 
         // handle am pm
-        if (config._isPm && config._a[3] < 12) {
-            config._a[3] += 12;
+        if (config._isPm && config._a[HOUR] < 12) {
+            config._a[HOUR] += 12;
         }
         // if is 12 am, change hours to 0
-        if (config._isPm === false && config._a[3] === 12) {
-            config._a[3] = 0;
+        if (config._isPm === false && config._a[HOUR] === 12) {
+            config._a[HOUR] = 0;
         }
 
-        // return
         dateFromArray(config);
         checkOverflow(config);
     }
@@ -1370,11 +1369,11 @@
             sign = (matched[1] === "-") ? -1 : 1;
             duration = {
                 y: 0,
-                d: toInt(matched[2]) * sign,
-                h: toInt(matched[3]) * sign,
-                m: toInt(matched[4]) * sign,
-                s: toInt(matched[5]) * sign,
-                ms: toInt(matched[6]) * sign
+                d: toInt(matched[DATE]) * sign,
+                h: toInt(matched[HOUR]) * sign,
+                m: toInt(matched[MINUTE]) * sign,
+                s: toInt(matched[SECOND]) * sign,
+                ms: toInt(matched[MILLISECOND]) * sign
             };
         }
 
