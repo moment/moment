@@ -2468,6 +2468,125 @@
 }));
 
 // moment.js language configuration
+// language : Lithuanian (lt)
+// author : Mindaugas Mozūras : https://github.com/mmozuras
+
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['moment'], factory); // AMD
+    } else if (typeof exports === 'object') {
+        factory(require('../moment')); // Node
+    } else {
+        factory(window.moment); // Browser global
+    }
+}(function (moment) {
+    var units = {
+        "m" : "minutė_minutės_minutę",
+        "mm": "minutės_minučių_minutes",
+        "h" : "valanda_valandos_valandą",
+        "hh": "valandos_valandų_valandas",
+        "d" : "diena_dienos_dieną",
+        "dd": "dienos_dienų_dienas",
+        "M" : "mėnuo_mėnesio_mėnesį",
+        "MM": "mėnesiai_mėnesių_mėnesius",
+        "y" : "metai_metų_metus",
+        "yy": "metai_metų_metus"
+    },
+    weekDays = "pirmadienis_antradienis_trečiadienis_ketvirtadienis_penktadienis_šeštadienis_sekmadienis".split("_");
+
+    function translateSeconds(number, withoutSuffix, key, isFuture) {
+        if (withoutSuffix) {
+            return "kelios sekundės";
+        } else {
+            return isFuture ? "kelių sekundžių" : "kelias sekundes";
+        }
+    }
+
+    function translateSingular(number, withoutSuffix, key, isFuture) {
+        return withoutSuffix ? forms(key)[0] : (isFuture ? forms(key)[1] : forms(key)[2]);
+    }
+
+    function special(number) {
+        return number % 10 === 0 || (number > 10 && number < 20);
+    }
+
+    function forms(key) {
+        return units[key].split("_");
+    }
+
+    function translate(number, withoutSuffix, key, isFuture) {
+        var result = number + " ";
+        if (number === 1) {
+            return result + translateSingular(number, withoutSuffix, key[0], isFuture);
+        } else if (withoutSuffix) {
+            return result + (special(number) ? forms(key)[1] : forms(key)[0]);
+        } else {
+            if (isFuture) {
+                return result + forms(key)[1];
+            } else {
+                return result + (special(number) ? forms(key)[1] : forms(key)[2]);
+            }
+        }
+    }
+
+    function relativeWeekDay(moment, format) {
+        var nominative = format.indexOf('dddd LT') === -1,
+            weekDay = weekDays[moment.weekday()];
+
+        return nominative ? weekDay : weekDay.substring(0, weekDay.length - 2) + "į";
+    }
+
+    moment.lang("lt", {
+        months : "sausio_vasario_kovo_balandžio_gegužės_biržėlio_liepos_rugpjūčio_rugsėjo_spalio_lapkričio_gruodžio".split("_"),
+        monthsShort : "sau_vas_kov_bal_geg_bir_lie_rgp_rgs_spa_lap_grd".split("_"),
+        weekdays : relativeWeekDay,
+        weekdaysShort : "Sek_Pir_Ant_Tre_Ket_Pen_Šeš".split("_"),
+        weekdaysMin : "S_P_A_T_K_Pn_Š".split("_"),
+        longDateFormat : {
+            LT : "HH:mm",
+            L : "YYYY-MM-DD",
+            LL : "YYYY [m.] MMMM D [d.]",
+            LLL : "YYYY [m.] MMMM D [d.], LT [val.]",
+            LLLL : "YYYY [m.] MMMM D [d.], dddd, LT [val.]",
+            l : "YYYY-MM-DD",
+            ll : "YYYY [m.] MMMM D [d.]",
+            lll : "YYYY [m.] MMMM D [d.], LT [val.]",
+            llll : "YYYY [m.] MMMM D [d.], ddd, LT [val.]"
+        },
+        calendar : {
+            sameDay : "[Šiandien] LT",
+            nextDay : "[Rytoj] LT",
+            nextWeek : "dddd LT",
+            lastDay : "[Vakar] LT",
+            lastWeek : "[Praėjusį] dddd LT",
+            sameElse : "L"
+        },
+        relativeTime : {
+            future : "po %s",
+            past : "prieš %s",
+            s : translateSeconds,
+            m : translateSingular,
+            mm : translate,
+            h : translateSingular,
+            hh : translate,
+            d : translateSingular,
+            dd : translate,
+            M : translateSingular,
+            MM : translate,
+            y : translateSingular,
+            yy : translate
+        },
+        ordinal : function (number) {
+            return number + '-oji';
+        },
+        week : {
+            dow : 1, // Monday is the first day of the week.
+            doy : 4  // The week that contains Jan 4th is the first week of the year.
+        }
+    });
+}));
+
+// moment.js language configuration
 // language : latvian (lv)
 // author : Kristaps Karlsons : https://github.com/skakri
 
@@ -2982,10 +3101,10 @@
             LLLL : "dddd D MMMM YYYY LT"
         },
         calendar : {
-            sameDay: '[Vandaag om] LT',
-            nextDay: '[Morgen om] LT',
+            sameDay: '[vandaag om] LT',
+            nextDay: '[morgen om] LT',
             nextWeek: 'dddd [om] LT',
-            lastDay: '[Gisteren om] LT',
+            lastDay: '[gisteren om] LT',
             lastWeek: '[afgelopen] dddd [om] LT',
             sameElse: 'L'
         },
@@ -3423,8 +3542,9 @@
         months : monthsCaseReplace,
         monthsShort : monthsShortCaseReplace,
         weekdays : weekdaysCaseReplace,
-        weekdaysShort : "вск_пнд_втр_срд_чтв_птн_сбт".split("_"),
+        weekdaysShort : "вс_пн_вт_ср_чт_пт_сб".split("_"),
         weekdaysMin : "вс_пн_вт_ср_чт_пт_сб".split("_"),
+        monthsParse : [/^янв/i, /^фев/i, /^мар/i, /^апр/i, /^ма[й|я]/i, /^июн/i, /^июл/i, /^авг/i, /^сен/i, /^окт/i, /^ноя/i, /^дек/i],
         longDateFormat : {
             LT : "HH:mm",
             L : "DD.MM.YYYY",
@@ -3469,6 +3589,20 @@
             MM : relativeTimeWithPlural,
             y : "год",
             yy : relativeTimeWithPlural
+        },
+
+        // M. E.: those two are virtually unused but a user might want to implement them for his/her website for some reason
+
+        meridiem : function (hour, minute, isLower) {
+            if (hour < 4) {
+                return "ночи";
+            } else if (hour < 12) {
+                return "утра";
+            } else if (hour < 17) {
+                return "дня";
+            } else {
+                return "вечера";
+            }
         },
 
         ordinal: function (number, period) {
@@ -4260,7 +4394,7 @@
         months : monthsCaseReplace,
         monthsShort : "січ_лют_бер_квіт_трав_черв_лип_серп_вер_жовт_лист_груд".split("_"),
         weekdays : weekdaysCaseReplace,
-        weekdaysShort : "нед_пон_вів_сер_чет_п’ят_суб".split("_"),
+        weekdaysShort : "нд_пн_вт_ср_чт_пт_сб".split("_"),
         weekdaysMin : "нд_пн_вт_ср_чт_пт_сб".split("_"),
         longDateFormat : {
             LT : "HH:mm",
@@ -4304,6 +4438,21 @@
             y : "рік",
             yy : relativeTimeWithPlural
         },
+
+        // M. E.: those two are virtually unused but a user might want to implement them for his/her website for some reason
+
+        meridiem : function (hour, minute, isLower) {
+            if (hour < 4) {
+                return "ночі";
+            } else if (hour < 12) {
+                return "ранку";
+            } else if (hour < 17) {
+                return "дня";
+            } else {
+                return "вечора";
+            }
+        },
+
         ordinal: function (number, period) {
             switch (period) {
             case 'M':
@@ -4322,6 +4471,125 @@
         week : {
             dow : 1, // Monday is the first day of the week.
             doy : 7  // The week that contains Jan 1st is the first week of the year.
+        }
+    });
+}));
+
+// moment.js language configuration
+// language : uzbek
+// author : Sardor Muminov : https://github.com/muminoff
+
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['moment'], factory); // AMD
+    } else if (typeof exports === 'object') {
+        factory(require('../moment')); // Node
+    } else {
+        factory(window.moment); // Browser global
+    }
+}(function (moment) {
+    moment.lang('uz', {
+        months : "январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь".split("_"),
+        monthsShort : "янв_фев_мар_апр_май_июн_июл_авг_сен_окт_ноя_дек".split("_"),
+        weekdays : "Якшанба_Душанба_Сешанба_Чоршанба_Пайшанба_Жума_Шанба".split("_"),
+        weekdaysShort : "Якш_Душ_Сеш_Чор_Пай_Жум_Шан".split("_"),
+        weekdaysMin : "Як_Ду_Се_Чо_Па_Жу_Ша".split("_"),
+        longDateFormat : {
+            LT : "HH:mm",
+            L : "DD/MM/YYYY",
+            LL : "D MMMM YYYY",
+            LLL : "D MMMM YYYY LT",
+            LLLL : "D MMMM YYYY, dddd LT"
+        },
+        calendar : {
+            sameDay : '[Бугун соат] LT [да]',
+            nextDay : '[Эртага] LT [да]',
+            nextWeek : 'dddd [куни соат] LT [да]',
+            lastDay : '[Кеча соат] LT [да]',
+            lastWeek : '[Утган] dddd [куни соат] LT [да]',
+            sameElse : 'L'
+        },
+        relativeTime : {
+            future : "Якин %s ичида",
+            past : "Бир неча %s олдин",
+            s : "фурсат",
+            m : "бир дакика",
+            mm : "%d дакика",
+            h : "бир соат",
+            hh : "%d соат",
+            d : "бир кун",
+            dd : "%d кун",
+            M : "бир ой",
+            MM : "%d ой",
+            y : "бир йил",
+            yy : "%d йил"
+        },
+        week : {
+            dow : 1, // Monday is the first day of the week.
+            doy : 7  // The week that contains Jan 4th is the first week of the year.
+        }
+    });
+}));
+
+// moment.js language configuration
+// language : vietnamese (vn)
+// author : Bang Nguyen : https://github.com/bangnk
+
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['moment'], factory); // AMD
+    } else if (typeof exports === 'object') {
+        factory(require('../moment')); // Node
+    } else {
+        factory(window.moment); // Browser global
+    }
+}(function (moment) {
+    moment.lang('vn', {
+        months : "tháng 1_tháng 2_tháng 3_tháng 4_tháng 5_tháng 6_tháng 7_tháng 8_tháng 9_tháng 10_tháng 11_tháng 12".split("_"),
+        monthsShort : "Th01_Th02_Th03_Th04_Th05_Th06_Th07_Th08_Th09_Th10_Th11_Th12".split("_"),
+        weekdays : "chủ nhật_thứ hai_thứ ba_thứ tư_thứ năm_thứ sáu_thứ bảy".split("_"),
+        weekdaysShort : "CN_T2_T3_T4_T5_T6_T7".split("_"),
+        weekdaysMin : "CN_T2_T3_T4_T5_T6_T7".split("_"),
+        longDateFormat : {
+            LT : "HH:mm",
+            L : "DD/MM/YYYY",
+            LL : "D MMMM [năm] YYYY",
+            LLL : "D MMMM [năm] YYYY LT",
+            LLLL : "dddd, D MMMM [năm] YYYY LT",
+            l : "DD/M/YYYY",
+            ll : "D MMM YYYY",
+            lll : "D MMM YYYY LT",
+            llll : "ddd, D MMM YYYY LT"
+        },
+        calendar : {
+            sameDay: "[Hôm nay lúc] LT",
+            nextDay: '[Ngày mai lúc] LT',
+            nextWeek: 'dddd [tuần tới lúc] LT',
+            lastDay: '[Hôm qua lúc] LT',
+            lastWeek: 'dddd [tuần rồi lúc] LT',
+            sameElse: 'L'
+        },
+        relativeTime : {
+            future : "%s tới",
+            past : "%s trước",
+            s : "vài giây",
+            m : "một phút",
+            mm : "%d phút",
+            h : "một giờ",
+            hh : "%d giờ",
+            d : "một ngày",
+            dd : "%d ngày",
+            M : "một tháng",
+            MM : "%d tháng",
+            y : "một năm",
+            yy : "%d năm"
+        },
+        ordinal : function (number) {
+            return number;
+        },
+        week : {
+            dow : 1, // Monday is the first day of the week.
+            doy : 4  // The week that contains Jan 4th is the first week of the year.
         }
     });
 }));
@@ -4357,13 +4625,14 @@
             llll : "YYYY年MMMD日ddddLT"
         },
         meridiem : function (hour, minute, isLower) {
-            if (hour < 9) {
+            var hm = hour * 100 + minute;
+            if (hm < 900) {
                 return "早上";
-            } else if (hour < 11 && minute < 30) {
+            } else if (hm < 1130) {
                 return "上午";
-            } else if (hour < 13 && minute < 30) {
+            } else if (hm < 1230) {
                 return "中午";
-            } else if (hour < 18) {
+            } else if (hm < 1800) {
                 return "下午";
             } else {
                 return "晚上";
@@ -4441,13 +4710,14 @@
             llll : "YYYY年MMMD日ddddLT"
         },
         meridiem : function (hour, minute, isLower) {
-            if (hour < 9) {
+            var hm = hour * 100 + minute;
+            if (hm < 900) {
                 return "早上";
-            } else if (hour < 11 && minute < 30) {
+            } else if (hm < 1130) {
                 return "上午";
-            } else if (hour < 13 && minute < 30) {
+            } else if (hm < 1230) {
                 return "中午";
-            } else if (hour < 18) {
+            } else if (hm < 1800) {
                 return "下午";
             } else {
                 return "晚上";

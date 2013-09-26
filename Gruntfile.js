@@ -2,8 +2,8 @@ module.exports = function (grunt) {
 
     var embedOption = grunt.option('embed_languages'),
         embedLanguageDest = embedOption ?
-            'min/moment+customlangs.js' :
-            'min/moment+langs.js',
+            'min/moment-with-customlangs.js' :
+            'min/moment-with-langs.js',
         embedLanguageLangs = 'lang/*.js';
 
     if (embedOption && embedOption.match(/,/)) {
@@ -24,10 +24,10 @@ module.exports = function (grunt) {
         uglify : {
             target: {
                 files: {
-                    'min/moment+langs.min.js'       : 'min/moment+langs.js',
-                    'min/moment+customlangs.min.js' : 'min/moment+customlangs.js',
-                    'min/langs.min.js'              : 'min/langs.js',
-                    'min/moment.min.js'             : 'moment.js'
+                    'min/moment-with-langs.min.js'       : 'min/moment-with-langs.js',
+                    'min/moment-with-customlangs.min.js' : 'min/moment-with-customlangs.js',
+                    'min/langs.min.js'                   : 'min/langs.js',
+                    'min/moment.min.js'                  : 'moment.js'
                 }
             },
             options: {
