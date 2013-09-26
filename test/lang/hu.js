@@ -42,11 +42,11 @@ exports["lang:hu"] = {
 
         var a = [
                 ['dddd, MMMM Do YYYY, HH:mm:ss',      'vasárnap, február 14. 2010, 15:25:50'],
-                ['ddd, HH',                            'v, 15'],
+                ['ddd, HH',                            'vas, 15'],
                 ['M Mo MM MMMM MMM',                   '2 2. 02 február feb'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14. 14'],
-                ['d do dddd ddd',                      '0 0. vasárnap v'],
+                ['d do dddd ddd dd',                   '0 0. vasárnap vas v'],
                 ['DDD DDDo DDDD',                      '45 45. 045'],
                 ['w wo ww',                            '7 7. 07'],
                 ['H HH',                               '15 15'],
@@ -122,7 +122,7 @@ exports["lang:hu"] = {
 
     "format week" : function (test) {
         test.expect(7);
-        var expected = 'vasárnap v_hétfő h_kedd k_szerda sze_csütörtök cs_péntek p_szombat szo'.split("_"),
+        var expected = 'vasárnap vas_hétfő hét_kedd kedd_szerda sze_csütörtök csüt_péntek pén_szombat szo'.split("_"),
             i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd'), expected[i], expected[i]);
