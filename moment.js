@@ -208,7 +208,9 @@
             X    : function () {
                 return this.unix();
             }
-        };
+        },
+
+        lists = ['months', 'monthsShort', 'weekdays', 'weekdaysShort', 'weekdaysMin'];
 
     function padToken(func, count) {
         return function (a) {
@@ -247,14 +249,15 @@
 
     // Duration Constructor
     function Duration(duration) {
-        var years = duration.years || duration.year || duration.y || 0,
-            months = duration.months || duration.month || duration.M || 0,
-            weeks = duration.weeks || duration.week || duration.w || 0,
-            days = duration.days || duration.day || duration.d || 0,
-            hours = duration.hours || duration.hour || duration.h || 0,
-            minutes = duration.minutes || duration.minute || duration.m || 0,
-            seconds = duration.seconds || duration.second || duration.s || 0,
-            milliseconds = duration.milliseconds || duration.millisecond || duration.ms || 0;
+        var normalizedInput = normalizeObjectUnits(duration),
+            years = normalizedInput.year || 0,
+            months = normalizedInput.month || 0,
+            weeks = normalizedInput.week || 0,
+            days = normalizedInput.day || 0,
+            hours = normalizedInput.hour || 0,
+            minutes = normalizedInput.minute || 0,
+            seconds = normalizedInput.second || 0,
+            milliseconds = normalizedInput.millisecond || 0;
 
         // store reference to input for deterministic cloning
         this._input = duration;
@@ -291,6 +294,15 @@
                 a[i] = b[i];
             }
         }
+
+        if (b.hasOwnProperty("toString")) {
+            a.toString = b.toString;
+        }
+
+        if (b.hasOwnProperty("valueOf")) {
+            a.valueOf = b.valueOf;
+        }
+
         return a;
     }
 
@@ -371,8 +383,64 @@
         return units ? unitAliases[units] || units.toLowerCase().replace(/(.)s$/, '$1') : units;
     }
 
-    function regexpEscape(text) {
-        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+    function normalizeObjectUnits(inputObject) {
+        var normalizedInput = {},
+            normalizedProp,
+            prop,
+            index;
+
+        for (prop in inputObject) {
+            if (inputObject.hasOwnProperty(prop)) {
+                normalizedProp = normalizeUnits(prop);
+                if (normalizedProp) {
+                    normalizedInput[normalizedProp] = inputObject[prop];
+                }
+            }
+        }
+
+        return normalizedInput;
+    }
+
+    function makeList(field) {
+        var count, setter;
+
+        if (field.indexOf('week') === 0) {
+            count = 7;
+            setter = 'day';
+        }
+        else if (field.indexOf('month') === 0) {
+            count = 12;
+            setter = 'month';
+        }
+        else {
+            return;
+        }
+
+        moment[field] = function (format, index) {
+            var i, getter,
+                method = moment.fn._lang[field],
+                results = [];
+
+            if (typeof format === 'number') {
+                index = format;
+                format = undefined;
+            }
+
+            getter = function (i) {
+                var m = moment().utc().set(setter, i);
+                return method.call(moment.fn._lang, m, format || '');
+            };
+
+            if (index) {
+                return getter(index);
+            }
+            else {
+                for (i = 0; i < count; i++) {
+                    results.push(getter(i));
+                }
+                return results;
+            }
+        };
     }
 
     function toInt(argumentForCoercion) {
@@ -880,24 +948,13 @@
     }
 
     function dateFromObject(config) {
-        var normalizedInput = {},
-            normalizedProp,
-            prop,
-            index;
+        var normalizedInput;
 
         if (config._d) {
             return;
         }
 
-        for (prop in config._i) {
-            if (config._i.hasOwnProperty(prop)) {
-                normalizedProp = normalizeUnits(prop);
-                if (normalizedProp) {
-                    normalizedInput[normalizedProp] = config._i[prop];
-                }
-            }
-        }
-
+        normalizedInput = normalizeObjectUnits(config._i);
         config._a = [
             normalizedInput.year,
             normalizedInput.month,
@@ -926,6 +983,10 @@
 
     // date from string and format string
     function makeDateFromStringAndFormat(config) {
+        if (config._strict) {
+            makeDateFromStringAndStrictFormat(config);
+            return;
+        }
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
         var lang = getLangDefinition(config._l),
             string = '' + config._i,
@@ -962,6 +1023,70 @@
         dateFromArray(config);
     }
 
+    function makeDateFromStringAndStrictFormat(config) {
+        var regexp = '', non_token_start = 0,
+            tokens = config._f.match(formattingTokens),
+            match, i, tokenIndex;
+
+        // We're not interested in the result. Just the tokens and their
+        // starting positions.
+        config._f.replace(formattingTokens, function (token) {
+            var offset = arguments[arguments.length - 2],
+                tokenRegexp;
+
+            if (formatTokenFunctions[token]) {
+                tokenRegexp = getParseRegexForToken(token).toString();
+                // Do not remember groups
+                tokenRegexp = tokenRegexp.replace(/\(/g, '(?:');
+
+                // regexp-escape strings in-between tokens
+                if (offset > non_token_start) {
+                    regexp += regexpEscape(unescapeFormat(config._f.substring(non_token_start, offset)));
+                }
+                non_token_start = offset + token.length;
+
+                // add token regexp
+                regexp += '(' + tokenRegexp.substring(1, tokenRegexp.lastIndexOf('/')) + ')';
+            }
+
+            return token;
+        });
+
+        // Handle stuff after last formatting token.
+        if (non_token_start !== config._f.length) {
+            regexp += regexpEscape(unescapeFormat(config._f.substring(non_token_start)));
+        }
+        regexp = new RegExp('^' + regexp + '$');
+        match = config._i.match(regexp);
+        if (match === null) {
+            config._a = [];
+            config._d = new Date(0);
+            config._isValid = false;
+            return;
+        }
+
+        config._a = [];
+        for (i = tokenIndex = 0; i < tokens.length; ++i) {
+            if (formatTokenFunctions[tokens[i]]) {
+                addTimeToArrayFromToken(tokens[i], match[tokenIndex + 1], config);
+                ++tokenIndex;
+            }
+        }
+
+        dateFromArray(config);
+    }
+
+    function unescapeFormat(s) {
+        return s.replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function (matched, p1, p2, p3, p4) {
+            return p1 || p2 || p3 || p4;
+        });
+    }
+
+    // Code from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
+    function regexpEscape(s) {
+        return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    }
+
     // date from string and array of format strings
     function makeDateFromStringAndArray(config) {
         var tempConfig,
@@ -981,7 +1106,7 @@
             currentScore = compareArrays(tempConfig._a, tempMoment.toArray());
             // if there is any input that was not parsed
             // add a penalty for that format
-            currentScore += tempMoment._il;
+            currentScore += tempMoment._il || 0;
 
             if (currentScore < scoreToBeat) {
                 scoreToBeat = currentScore;
@@ -1140,24 +1265,41 @@
         return new Moment(config);
     }
 
-    moment = function (input, format, lang) {
+    moment = function (input, format, lang, strict) {
+        if (typeof(lang) === "boolean") {
+            strict = lang;
+            lang = undefined;
+        }
         return makeMoment({
             _i : input,
             _f : format,
             _l : lang,
+            _strict : strict,
             _isUTC : false
         });
     };
 
     // creating with utc
-    moment.utc = function (input, format, lang) {
-        return makeMoment({
+    moment.utc = function (input, format, lang, strict) {
+        var m;
+
+        if (typeof(lang) === "boolean") {
+            strict = lang;
+            lang = undefined;
+        }
+        m = makeMoment({
             _useUTC : true,
             _isUTC : true,
             _l : lang,
             _i : input,
-            _f : format
-        }).utc();
+            _f : format,
+            _strict : strict
+        });
+        if (m != null) {
+            m = m.utc();
+        }
+
+        return m;
     };
 
     // creating with unix timestamp (in seconds)
@@ -1248,6 +1390,10 @@
     moment.isDuration = function (obj) {
         return obj instanceof Duration;
     };
+
+    for (i in lists) {
+        makeList(lists[i]);
+    }
 
     moment.normalizeUnits = function (units) {
         return normalizeUnits(units);
@@ -1610,7 +1756,7 @@
         },
 
         weekday : function (input) {
-            var weekday = (this._d.getDay() + 7 - this.lang()._week.dow) % 7;
+            var weekday = (this.day() + 7 - this.lang()._week.dow) % 7;
             return input == null ? weekday : this.add("d", input - weekday);
         },
 
@@ -1629,6 +1775,7 @@
         set : function (units, value) {
             units = normalizeUnits(units);
             this[units.toLowerCase()](value);
+            return this;
         },
 
         // If passed a language key, it will set the language for this

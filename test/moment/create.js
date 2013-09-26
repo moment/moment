@@ -461,11 +461,15 @@ exports.create = {
     },
 
     "null" : function (test) {
-        test.expect(3);
+        test.expect(6);
 
-        test.equal(moment('').isValid(), false);
-        test.equal(moment(null).isValid(), false);
-        test.equal(moment('', 'YYYY-MM-DD').isValid(), false);
+        test.Ok(!moment('').isValid());
+        test.Ok(!moment(null).isValid());
+        test.Ok(!moment('', 'YYYY-MM-DD').isValid());
+
+        test.Ok(!moment.utc('').isValid(), "Calling moment.utc('')");
+        test.Ok(!moment.utc(null).isValid(), "Calling moment.utc(null)");
+        test.Ok(!moment.utc('', 'YYYY-MM-DD').isValid(), "Calling moment.utc('', 'YYYY-MM-DD')");
         test.done();
     },
 
@@ -500,6 +504,24 @@ exports.create = {
         test.expect(2);
         test.equal(moment("-1000-01-01", "YYYYY-MM-DD").toDate().getFullYear(), -1000, "parse BC 1,001");
         test.equal(moment.utc("-1000-01-01", "YYYYY-MM-DD").toDate().getUTCFullYear(), -1000, "parse utc BC 1,001");
+        test.done();
+    },
+
+    "strict parsing" : function (test) {
+        test.expect(10);
+        test.equal(moment("2012-05", "YYYY-MM", true).format("YYYY-MM"), "2012-05", "parse correct string");
+        test.equal(moment(" 2012-05", "YYYY-MM", true).isValid(), false, "fail on extra whitespace");
+        test.equal(moment("foo 2012-05", "[foo] YYYY-MM", true).format('YYYY-MM'), "2012-05", "handle fixed text");
+        test.equal(moment("2012 05", "YYYY-MM", true).isValid(), false, "fail on different separator");
+
+        test.equal(moment("05 30 2010", ["DD MM YYYY", "MM DD YYYY"], true).format("MM DD YYYY"), "05 30 2010", "array with bad date");
+        test.equal(moment("05 30 2010", ["", "MM DD YYYY"], true).format("MM DD YYYY"), "05 30 2010", "array with invalid format");
+        test.equal(moment("05 30 2010", [" DD MM YYYY", "MM DD YYYY"], true).format("MM DD YYYY"), "05 30 2010", "array with non-matching format");
+
+        test.equal(moment("2010.*...", "YYYY.*", true).isValid(), false, "invalid format with regex chars");
+        test.equal(moment("2010.*", "YYYY.*", true).year(), 2010, "valid format with regex chars");
+        test.equal(moment(".*2010.*", ".*YYYY.*", true).year(), 2010, "valid format with regex chars on both sides");
+
         test.done();
     },
 
