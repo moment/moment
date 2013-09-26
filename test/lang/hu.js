@@ -42,11 +42,11 @@ exports["lang:hu"] = {
 
         var a = [
                 ['dddd, MMMM Do YYYY, HH:mm:ss',      'vasárnap, február 14. 2010, 15:25:50'],
-                ['ddd, HH',                            'v, 15'],
+                ['ddd, HH',                            'vas, 15'],
                 ['M Mo MM MMMM MMM',                   '2 2. 02 február feb'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14. 14'],
-                ['d do dddd ddd',                      '0 0. vasárnap v'],
+                ['d do dddd ddd dd',                   '0 0. vasárnap vas v'],
                 ['DDD DDDo DDDD',                      '45 45. 045'],
                 ['w wo ww',                            '7 7. 07'],
                 ['H HH',                               '15 15'],
@@ -60,7 +60,7 @@ exports["lang:hu"] = {
                 ['l',                                  '2010.2.14.'],
                 ['ll',                                 '2010. feb 14.'],
                 ['lll',                                '2010. feb 14., 15:25'],
-                ['llll',                               '2010. feb 14., v 15:25']
+                ['llll',                               '2010. feb 14., vas 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
