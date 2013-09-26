@@ -512,7 +512,7 @@
             if (m._strict) {
                 m._isValid = m._isValid &&
                     m._pf.charsLeftOver === 0 &&
-                    m._pf.unusedTokens.length == 0;
+                    m._pf.unusedTokens.length === 0;
             }
         }
         return m._isValid;
@@ -816,6 +816,7 @@
 
     // get the regex to find the next token
     function getParseRegexForToken(token, config) {
+        var a;
         switch (token) {
         case 'DDDD':
             return parseTokenThreeDigits;
@@ -860,12 +861,9 @@
         case 's':
             return parseTokenOneOrTwoDigits;
         default :
-            return null;
+            a = new RegExp(regexpEscape(unescapeFormat(token.replace('\\', '')), "i"));
+            return a;
         }
-    }
-
-    function getDefaultParserRegex(token) {
-        return new RegExp(regexpEscape(unescapeFormat(token.replace('\\', '')), "i"));
     }
 
     function timezoneMinutesFromString(string) {
@@ -1043,13 +1041,13 @@
 
     // date from string and format string
     function makeDateFromStringAndFormat(config) {
-        config._pf.empty = true;
         config._a = [];
+        config._pf.empty = true;
 
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
         var lang = getLangDefinition(config._l),
             string = '' + config._i,
-            i, parsedInput, tokens, regex, defaulted, token,
+            i, parsedInput, tokens, regex, token,
             stringLength = string.length,
             totalParsedInputLength = 0;
 
@@ -1057,12 +1055,7 @@
 
         for (i = 0; i < tokens.length; i++) {
             token = tokens[i];
-            defaulted = false;
             regex = getParseRegexForToken(token, config);
-            if (regex === null) {
-                regex = getDefaultParserRegex(token);
-                defaulted = true;
-            }
             if (config._strict) {
                 regex = new RegExp("^" + regex.source, regex.ignoreCase ? "i" : "");
             }
@@ -1070,18 +1063,12 @@
             if (parsedInput) {
                 string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
                 totalParsedInputLength += parsedInput.length;
-                if (!defaulted) {
+            }
+            // don't parse if it's not a known token
+            if (formatTokenFunctions[token]) {
+                if (parsedInput) {
                     config._pf.empty = false;
                 }
-            }
-            else {
-                if (!defaulted) {
-                    config._pf.unusedTokens.push(token);
-                }
-            }
-
-            // don't parse if its not a known token
-            if (formatTokenFunctions[token]) {
                 addTimeToArrayFromToken(token, parsedInput, config);
             }
         }
