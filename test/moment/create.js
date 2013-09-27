@@ -465,16 +465,16 @@ exports.create = {
         test.done();
     },
 
-    "null" : function (test) {
-        test.expect(6);
-
-        test.ok(!moment('').isValid());
-        test.ok(!moment(null).isValid());
-        test.ok(!moment('', 'YYYY-MM-DD').isValid());
-
-        test.ok(!moment.utc('').isValid(), "Calling moment.utc('')");
-        test.ok(!moment.utc(null).isValid(), "Calling moment.utc(null)");
-        test.ok(!moment.utc('', 'YYYY-MM-DD').isValid(), "Calling moment.utc('', 'YYYY-MM-DD')");
+    "null or empty" : function (test) {
+        test.expect(8);
+        test.equal(moment('').isValid(), false, "moment('') is not valid");
+        test.equal(moment(null).isValid(), false, "moment(null) is not valid");
+        test.equal(moment(null, 'YYYY-MM-DD').isValid(), false, "moment('', 'format') is not valid");
+        test.equal(moment('', 'YYYY-MM-DD').isValid(), false, "moment('', 'format') is not valid");
+        test.equal(moment.utc('').isValid(), false, "moment.utc('') is not valid");
+        test.equal(moment.utc(null).isValid(), false, "moment.utc(null) is not valid");
+        test.equal(moment.utc(null, 'YYYY-MM-DD').isValid(), false, "moment.utc(null) is not valid");
+        test.equal(moment.utc('', 'YYYY-MM-DD').isValid(), false, "moment.utc('', 'YYYY-MM-DD') is not valid");
         test.done();
     },
 

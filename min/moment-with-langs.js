@@ -12,7 +12,9 @@
 
     var moment,
         VERSION = "2.2.1",
-        round = Math.round, i,
+        round = Math.round,
+        i,
+
         // internal storage for language config files
         languages = {},
 
@@ -21,7 +23,7 @@
 
         // ASP.NET json date format regex
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
-        aspNetTimeSpanJsonRegex = /(\-)?(?:(\d*)\.)?(\d+)\:(\d+)\:(\d+)\.?(\d{3})?/,
+        aspNetTimeSpanJsonRegex = /(\-)?(?:(\d*)\.)?(\d+)\:(\d+)(?:\:(\d+)\.?(\d{3})?)?/,
 
         // format tokens
         formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,
@@ -40,7 +42,7 @@
 
         // preliminary iso regex
         // 0000-00-00 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000
-        isoRegex = /^\s*\d{4}-\d\d-\d\d((T| )(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?/,
+        isoRegex = /^\s*\d{4}-\d\d-\d\d((T| )(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?$/,
         isoFormat = 'YYYY-MM-DDTHH:mm:ssZ',
 
         // iso time formats and regexes
@@ -171,10 +173,10 @@
                 return this.seconds();
             },
             S    : function () {
-                return ~~(this.milliseconds() / 100);
+                return toInt(this.milliseconds() / 100);
             },
             SS   : function () {
-                return leftZeroFill(~~(this.milliseconds() / 10), 2);
+                return leftZeroFill(toInt(this.milliseconds() / 10), 2);
             },
             SSS  : function () {
                 return leftZeroFill(this.milliseconds(), 3);
@@ -186,7 +188,7 @@
                     a = -a;
                     b = "-";
                 }
-                return b + leftZeroFill(~~(a / 60), 2) + ":" + leftZeroFill(~~a % 60, 2);
+                return b + leftZeroFill(toInt(a / 60), 2) + ":" + leftZeroFill(toInt(a) % 60, 2);
             },
             ZZ   : function () {
                 var a = -this.zone(),
@@ -195,7 +197,7 @@
                     a = -a;
                     b = "-";
                 }
-                return b + leftZeroFill(~~(10 * a / 6), 4);
+                return b + leftZeroFill(toInt(10 * a / 6), 4);
             },
             z : function () {
                 return this.zoneAbbr();
@@ -206,7 +208,9 @@
             X    : function () {
                 return this.unix();
             }
-        };
+        },
+
+        lists = ['months', 'monthsShort', 'weekdays', 'weekdaysShort', 'weekdaysMin'];
 
     function padToken(func, count) {
         return function (a) {
@@ -245,14 +249,15 @@
 
     // Duration Constructor
     function Duration(duration) {
-        var years = duration.years || duration.year || duration.y || 0,
-            months = duration.months || duration.month || duration.M || 0,
-            weeks = duration.weeks || duration.week || duration.w || 0,
-            days = duration.days || duration.day || duration.d || 0,
-            hours = duration.hours || duration.hour || duration.h || 0,
-            minutes = duration.minutes || duration.minute || duration.m || 0,
-            seconds = duration.seconds || duration.second || duration.s || 0,
-            milliseconds = duration.milliseconds || duration.millisecond || duration.ms || 0;
+        var normalizedInput = normalizeObjectUnits(duration),
+            years = normalizedInput.year || 0,
+            months = normalizedInput.month || 0,
+            weeks = normalizedInput.week || 0,
+            days = normalizedInput.day || 0,
+            hours = normalizedInput.hour || 0,
+            minutes = normalizedInput.minute || 0,
+            seconds = normalizedInput.second || 0,
+            milliseconds = normalizedInput.millisecond || 0;
 
         // store reference to input for deterministic cloning
         this._input = duration;
@@ -289,6 +294,15 @@
                 a[i] = b[i];
             }
         }
+
+        if (b.hasOwnProperty("toString")) {
+            a.toString = b.toString;
+        }
+
+        if (b.hasOwnProperty("valueOf")) {
+            a.valueOf = b.valueOf;
+        }
+
         return a;
     }
 
@@ -347,6 +361,10 @@
         return Object.prototype.toString.call(input) === '[object Array]';
     }
 
+    function isDate(input) {
+        return Object.prototype.toString.call(input) === '[object Date]';
+    }
+
     // compare two arrays, return the number of differences
     function compareArrays(array1, array2) {
         var len = Math.min(array1.length, array2.length),
@@ -354,7 +372,7 @@
             diffs = 0,
             i;
         for (i = 0; i < len; i++) {
-            if (~~array1[i] !== ~~array2[i]) {
+            if (toInt(array1[i]) !== toInt(array2[i])) {
                 diffs++;
             }
         }
@@ -365,6 +383,80 @@
         return units ? unitAliases[units] || units.toLowerCase().replace(/(.)s$/, '$1') : units;
     }
 
+    function normalizeObjectUnits(inputObject) {
+        var normalizedInput = {},
+            normalizedProp,
+            prop,
+            index;
+
+        for (prop in inputObject) {
+            if (inputObject.hasOwnProperty(prop)) {
+                normalizedProp = normalizeUnits(prop);
+                if (normalizedProp) {
+                    normalizedInput[normalizedProp] = inputObject[prop];
+                }
+            }
+        }
+
+        return normalizedInput;
+    }
+
+    function makeList(field) {
+        var count, setter;
+
+        if (field.indexOf('week') === 0) {
+            count = 7;
+            setter = 'day';
+        }
+        else if (field.indexOf('month') === 0) {
+            count = 12;
+            setter = 'month';
+        }
+        else {
+            return;
+        }
+
+        moment[field] = function (format, index) {
+            var i, getter,
+                method = moment.fn._lang[field],
+                results = [];
+
+            if (typeof format === 'number') {
+                index = format;
+                format = undefined;
+            }
+
+            getter = function (i) {
+                var m = moment().utc().set(setter, i);
+                return method.call(moment.fn._lang, m, format || '');
+            };
+
+            if (index) {
+                return getter(index);
+            }
+            else {
+                for (i = 0; i < count; i++) {
+                    results.push(getter(i));
+                }
+                return results;
+            }
+        };
+    }
+
+    function toInt(argumentForCoercion) {
+        var coercedNumber = +argumentForCoercion,
+            value = 0;
+
+        if (coercedNumber !== 0 && isFinite(coercedNumber)) {
+            if (coercedNumber >= 0) {
+                value = Math.floor(coercedNumber);
+            } else {
+                value = Math.ceil(coercedNumber);
+            }
+        }
+
+        return value;
+    }
 
     /************************************
         Languages
@@ -637,9 +729,11 @@
             return lang.longDateFormat(input) || input;
         }
 
-        while (i-- && (localFormattingTokens.lastIndex = 0,
-                    localFormattingTokens.test(format))) {
+        localFormattingTokens.lastIndex = 0;
+        while (i >= 0 && localFormattingTokens.test(format)) {
             format = format.replace(localFormattingTokens, replaceLongDateFormatTokens);
+            localFormattingTokens.lastIndex = 0;
+            i -= 1;
         }
 
         return format;
@@ -697,14 +791,14 @@
         case 's':
             return parseTokenOneOrTwoDigits;
         default :
-            return new RegExp(token.replace('\\', ''));
+            return new RegExp(regexpEscape(token.replace('\\', '')));
         }
     }
 
     function timezoneMinutesFromString(string) {
         var tzchunk = (parseTokenTimezone.exec(string) || [])[0],
             parts = (tzchunk + '').match(parseTimezoneChunker) || ['-', 0, 0],
-            minutes = +(parts[1] * 60) + ~~parts[2];
+            minutes = +(parts[1] * 60) + toInt(parts[2]);
 
         return parts[0] === '+' ? -minutes : minutes;
     }
@@ -718,7 +812,7 @@
         case 'M' : // fall through to MM
         case 'MM' :
             if (input != null) {
-                datePartArray[1] = ~~input - 1;
+                datePartArray[1] = toInt(input) - 1;
             }
             break;
         case 'MMM' : // fall through to MMMM
@@ -735,7 +829,7 @@
         case 'D' : // fall through to DD
         case 'DD' :
             if (input != null) {
-                datePartArray[2] = ~~input;
+                datePartArray[2] = toInt(input);
             }
             break;
         // DAY OF YEAR
@@ -743,16 +837,16 @@
         case 'DDDD' :
             if (input != null) {
                 datePartArray[1] = 0;
-                datePartArray[2] = ~~input;
+                datePartArray[2] = toInt(input);
             }
             break;
         // YEAR
         case 'YY' :
-            datePartArray[0] = ~~input + (~~input > 68 ? 1900 : 2000);
+            datePartArray[0] = toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
             break;
         case 'YYYY' :
         case 'YYYYY' :
-            datePartArray[0] = ~~input;
+            datePartArray[0] = toInt(input);
             break;
         // AM / PM
         case 'a' : // fall through to A
@@ -764,27 +858,28 @@
         case 'HH' : // fall through to hh
         case 'h' : // fall through to hh
         case 'hh' :
-            datePartArray[3] = ~~input;
+            datePartArray[3] = toInt(input);
             break;
         // MINUTE
         case 'm' : // fall through to mm
         case 'mm' :
-            datePartArray[4] = ~~input;
+            datePartArray[4] = toInt(input);
             break;
         // SECOND
         case 's' : // fall through to ss
         case 'ss' :
-            datePartArray[5] = ~~input;
+            datePartArray[5] = toInt(input);
             break;
         // MILLISECOND
         case 'S' :
         case 'SS' :
         case 'SSS' :
-            datePartArray[6] = ~~ (('0.' + input) * 1000);
+            datePartArray[6] = toInt(('0.' + input) * 1000);
             break;
         // UNIX TIMESTAMP WITH MS
         case 'X':
             config._d = new Date(parseFloat(input) * 1000);
+            config._isValid = !isNaN(config._d.getTime());
             break;
         // TIMEZONE
         case 'Z' : // fall through to ZZ
@@ -827,8 +922,8 @@
         }
 
         // add the offsets to the time to be parsed so that we can have a clean array for checking isValid
-        input[3] += ~~((config._tzm || 0) / 60);
-        input[4] += ~~((config._tzm || 0) % 60);
+        input[3] += toInt((config._tzm || 0) / 60);
+        input[4] += toInt((config._tzm || 0) % 60);
 
         date = new Date(0);
 
@@ -844,20 +939,21 @@
     }
 
     function dateFromObject(config) {
-        var o = config._i;
+        var normalizedInput;
 
         if (config._d) {
             return;
         }
 
+        normalizedInput = normalizeObjectUnits(config._i);
         config._a = [
-            o.years || o.year || o.y,
-            o.months || o.month || o.M,
-            o.days || o.day || o.d,
-            o.hours || o.hour || o.h,
-            o.minutes || o.minute || o.m,
-            o.seconds || o.second || o.s,
-            o.milliseconds || o.millisecond || o.ms
+            normalizedInput.year,
+            normalizedInput.month,
+            normalizedInput.day,
+            normalizedInput.hour,
+            normalizedInput.minute,
+            normalizedInput.second,
+            normalizedInput.millisecond
         ];
 
         dateFromArray(config);
@@ -878,30 +974,33 @@
 
     // date from string and format string
     function makeDateFromStringAndFormat(config) {
+        if (config._strict) {
+            makeDateFromStringAndStrictFormat(config);
+            return;
+        }
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
         var lang = getLangDefinition(config._l),
             string = '' + config._i,
-            i, parsedInput, tokens;
+            i, parsedInput, tokens,
+            stringLength = string.length,
+            totalParsedInputLength = 0;
 
         tokens = expandFormat(config._f, lang).match(formattingTokens);
 
         config._a = [];
-
         for (i = 0; i < tokens.length; i++) {
             parsedInput = (getParseRegexForToken(tokens[i], config).exec(string) || [])[0];
             if (parsedInput) {
                 string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
+                totalParsedInputLength += parsedInput.length;
             }
             // don't parse if its not a known token
             if (formatTokenFunctions[tokens[i]]) {
                 addTimeToArrayFromToken(tokens[i], parsedInput, config);
             }
         }
-
-        // add remaining unparsed input to the string
-        if (string) {
-            config._il = string;
-        }
+        // add remaining unparsed input length to the string
+        config._il = stringLength - totalParsedInputLength;
 
         // handle am pm
         if (config._isPm && config._a[3] < 12) {
@@ -913,6 +1012,70 @@
         }
         // return
         dateFromArray(config);
+    }
+
+    function makeDateFromStringAndStrictFormat(config) {
+        var regexp = '', non_token_start = 0,
+            tokens = config._f.match(formattingTokens),
+            match, i, tokenIndex;
+
+        // We're not interested in the result. Just the tokens and their
+        // starting positions.
+        config._f.replace(formattingTokens, function (token) {
+            var offset = arguments[arguments.length - 2],
+                tokenRegexp;
+
+            if (formatTokenFunctions[token]) {
+                tokenRegexp = getParseRegexForToken(token).toString();
+                // Do not remember groups
+                tokenRegexp = tokenRegexp.replace(/\(/g, '(?:');
+
+                // regexp-escape strings in-between tokens
+                if (offset > non_token_start) {
+                    regexp += regexpEscape(unescapeFormat(config._f.substring(non_token_start, offset)));
+                }
+                non_token_start = offset + token.length;
+
+                // add token regexp
+                regexp += '(' + tokenRegexp.substring(1, tokenRegexp.lastIndexOf('/')) + ')';
+            }
+
+            return token;
+        });
+
+        // Handle stuff after last formatting token.
+        if (non_token_start !== config._f.length) {
+            regexp += regexpEscape(unescapeFormat(config._f.substring(non_token_start)));
+        }
+        regexp = new RegExp('^' + regexp + '$');
+        match = config._i.match(regexp);
+        if (match === null) {
+            config._a = [];
+            config._d = new Date(0);
+            config._isValid = false;
+            return;
+        }
+
+        config._a = [];
+        for (i = tokenIndex = 0; i < tokens.length; ++i) {
+            if (formatTokenFunctions[tokens[i]]) {
+                addTimeToArrayFromToken(tokens[i], match[tokenIndex + 1], config);
+                ++tokenIndex;
+            }
+        }
+
+        dateFromArray(config);
+    }
+
+    function unescapeFormat(s) {
+        return s.replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function (matched, p1, p2, p3, p4) {
+            return p1 || p2 || p3 || p4;
+        });
+    }
+
+    // Code from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
+    function regexpEscape(s) {
+        return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     }
 
     // date from string and array of format strings
@@ -932,12 +1095,9 @@
             tempMoment = new Moment(tempConfig);
 
             currentScore = compareArrays(tempConfig._a, tempMoment.toArray());
-
             // if there is any input that was not parsed
             // add a penalty for that format
-            if (tempMoment._il) {
-                currentScore += tempMoment._il.length;
-            }
+            currentScore += tempMoment._il || 0;
 
             if (currentScore < scoreToBeat) {
                 scoreToBeat = currentScore;
@@ -985,7 +1145,7 @@
         } else if (isArray(input)) {
             config._a = input.slice(0);
             dateFromArray(config);
-        } else if (input instanceof Date) {
+        } else if (isDate(input)) {
             config._d = new Date(+input);
         } else if (typeof(input) === 'object') {
             dateFromObject(config);
@@ -1071,7 +1231,7 @@
             format = config._f;
 
         if (input === null || input === '') {
-            return null;
+            return moment.invalid();
         }
 
         if (typeof input === 'string') {
@@ -1094,24 +1254,41 @@
         return new Moment(config);
     }
 
-    moment = function (input, format, lang) {
+    moment = function (input, format, lang, strict) {
+        if (typeof(lang) === "boolean") {
+            strict = lang;
+            lang = undefined;
+        }
         return makeMoment({
             _i : input,
             _f : format,
             _l : lang,
+            _strict : strict,
             _isUTC : false
         });
     };
 
     // creating with utc
-    moment.utc = function (input, format, lang) {
-        return makeMoment({
+    moment.utc = function (input, format, lang, strict) {
+        var m;
+
+        if (typeof(lang) === "boolean") {
+            strict = lang;
+            lang = undefined;
+        }
+        m = makeMoment({
             _useUTC : true,
             _isUTC : true,
             _l : lang,
             _i : input,
-            _f : format
-        }).utc();
+            _f : format,
+            _strict : strict
+        });
+        if (m != null) {
+            m = m.utc();
+        }
+
+        return m;
     };
 
     // creating with unix timestamp (in seconds)
@@ -1138,11 +1315,11 @@
             sign = (matched[1] === "-") ? -1 : 1;
             duration = {
                 y: 0,
-                d: ~~matched[2] * sign,
-                h: ~~matched[3] * sign,
-                m: ~~matched[4] * sign,
-                s: ~~matched[5] * sign,
-                ms: ~~matched[6] * sign
+                d: toInt(matched[2]) * sign,
+                h: toInt(matched[3]) * sign,
+                m: toInt(matched[4]) * sign,
+                s: toInt(matched[5]) * sign,
+                ms: toInt(matched[6]) * sign
             };
         }
 
@@ -1203,6 +1380,25 @@
         return obj instanceof Duration;
     };
 
+    for (i in lists) {
+        makeList(lists[i]);
+    }
+
+    // for use by developers when extending the library
+    // https://github.com/moment/moment/issues/1066
+    moment.normalizeUnits = function (units) {
+        return normalizeUnits(units);
+    };
+
+    moment.invalid = function () {
+        var m = moment.utc(NaN);
+        m._isValid = false;
+        return m;
+    };
+
+    moment.parseZone = function (input) {
+        return moment(input).parseZone();
+    };
 
     /************************************
         Moment Prototype
@@ -1503,6 +1699,13 @@
             return this._isUTC ? "Coordinated Universal Time" : "";
         },
 
+        parseZone : function () {
+            if (typeof this._i === 'string') {
+                this.zone(this._i);
+            }
+            return this;
+        },
+
         hasAlignedHourOffset : function (input) {
             if (!input) {
                 input = 0;
@@ -1544,7 +1747,7 @@
         },
 
         weekday : function (input) {
-            var weekday = (this._d.getDay() + 7 - this.lang()._week.dow) % 7;
+            var weekday = (this.day() + 7 - this.lang()._week.dow) % 7;
             return input == null ? weekday : this.add("d", input - weekday);
         },
 
@@ -1563,6 +1766,7 @@
         set : function (units, value) {
             units = normalizeUnits(units);
             this[units.toLowerCase()](value);
+            return this;
         },
 
         // If passed a language key, it will set the language for this
@@ -1654,7 +1858,7 @@
             return this._milliseconds +
               this._days * 864e5 +
               (this._months % 12) * 2592e6 +
-              ~~(this._months / 12) * 31536e6;
+              toInt(this._months / 12) * 31536e6;
         },
 
         humanize : function (withSuffix) {
@@ -1740,7 +1944,7 @@
     moment.lang('en', {
         ordinal : function (number) {
             var b = number % 10,
-                output = (~~ (number % 100 / 10) === 1) ? 'th' :
+                output = (toInt(number % 100 / 10) === 1) ? 'th' :
                 (b === 1) ? 'st' :
                 (b === 2) ? 'nd' :
                 (b === 3) ? 'rd' : 'th';
@@ -4001,6 +4205,118 @@
     });
 }));
 // moment.js language configuration
+// language : Lithuanian (lt)
+// author : Mindaugas Mozūras : https://github.com/mmozuras
+
+(function (factory) {
+    factory(moment);
+}(function (moment) {
+    var units = {
+        "m" : "minutė_minutės_minutę",
+        "mm": "minutės_minučių_minutes",
+        "h" : "valanda_valandos_valandą",
+        "hh": "valandos_valandų_valandas",
+        "d" : "diena_dienos_dieną",
+        "dd": "dienos_dienų_dienas",
+        "M" : "mėnuo_mėnesio_mėnesį",
+        "MM": "mėnesiai_mėnesių_mėnesius",
+        "y" : "metai_metų_metus",
+        "yy": "metai_metų_metus"
+    },
+    weekDays = "pirmadienis_antradienis_trečiadienis_ketvirtadienis_penktadienis_šeštadienis_sekmadienis".split("_");
+
+    function translateSeconds(number, withoutSuffix, key, isFuture) {
+        if (withoutSuffix) {
+            return "kelios sekundės";
+        } else {
+            return isFuture ? "kelių sekundžių" : "kelias sekundes";
+        }
+    }
+
+    function translateSingular(number, withoutSuffix, key, isFuture) {
+        return withoutSuffix ? forms(key)[0] : (isFuture ? forms(key)[1] : forms(key)[2]);
+    }
+
+    function special(number) {
+        return number % 10 === 0 || (number > 10 && number < 20);
+    }
+
+    function forms(key) {
+        return units[key].split("_");
+    }
+
+    function translate(number, withoutSuffix, key, isFuture) {
+        var result = number + " ";
+        if (number === 1) {
+            return result + translateSingular(number, withoutSuffix, key[0], isFuture);
+        } else if (withoutSuffix) {
+            return result + (special(number) ? forms(key)[1] : forms(key)[0]);
+        } else {
+            if (isFuture) {
+                return result + forms(key)[1];
+            } else {
+                return result + (special(number) ? forms(key)[1] : forms(key)[2]);
+            }
+        }
+    }
+
+    function relativeWeekDay(moment, format) {
+        var nominative = format.indexOf('dddd LT') === -1,
+            weekDay = weekDays[moment.weekday()];
+
+        return nominative ? weekDay : weekDay.substring(0, weekDay.length - 2) + "į";
+    }
+
+    moment.lang("lt", {
+        months : "sausio_vasario_kovo_balandžio_gegužės_biržėlio_liepos_rugpjūčio_rugsėjo_spalio_lapkričio_gruodžio".split("_"),
+        monthsShort : "sau_vas_kov_bal_geg_bir_lie_rgp_rgs_spa_lap_grd".split("_"),
+        weekdays : relativeWeekDay,
+        weekdaysShort : "Sek_Pir_Ant_Tre_Ket_Pen_Šeš".split("_"),
+        weekdaysMin : "S_P_A_T_K_Pn_Š".split("_"),
+        longDateFormat : {
+            LT : "HH:mm",
+            L : "YYYY-MM-DD",
+            LL : "YYYY [m.] MMMM D [d.]",
+            LLL : "YYYY [m.] MMMM D [d.], LT [val.]",
+            LLLL : "YYYY [m.] MMMM D [d.], dddd, LT [val.]",
+            l : "YYYY-MM-DD",
+            ll : "YYYY [m.] MMMM D [d.]",
+            lll : "YYYY [m.] MMMM D [d.], LT [val.]",
+            llll : "YYYY [m.] MMMM D [d.], ddd, LT [val.]"
+        },
+        calendar : {
+            sameDay : "[Šiandien] LT",
+            nextDay : "[Rytoj] LT",
+            nextWeek : "dddd LT",
+            lastDay : "[Vakar] LT",
+            lastWeek : "[Praėjusį] dddd LT",
+            sameElse : "L"
+        },
+        relativeTime : {
+            future : "po %s",
+            past : "prieš %s",
+            s : translateSeconds,
+            m : translateSingular,
+            mm : translate,
+            h : translateSingular,
+            hh : translate,
+            d : translateSingular,
+            dd : translate,
+            M : translateSingular,
+            MM : translate,
+            y : translateSingular,
+            yy : translate
+        },
+        ordinal : function (number) {
+            return number + '-oji';
+        },
+        week : {
+            dow : 1, // Monday is the first day of the week.
+            doy : 4  // The week that contains Jan 4th is the first week of the year.
+        }
+    });
+}));
+// moment.js language configuration
 // language : latvian (lv)
 // author : Kristaps Karlsons : https://github.com/skakri
 
@@ -4467,10 +4783,10 @@
             LLLL : "dddd D MMMM YYYY LT"
         },
         calendar : {
-            sameDay: '[Vandaag om] LT',
-            nextDay: '[Morgen om] LT',
+            sameDay: '[vandaag om] LT',
+            nextDay: '[morgen om] LT',
             nextWeek: 'dddd [om] LT',
-            lastDay: '[Gisteren om] LT',
+            lastDay: '[gisteren om] LT',
             lastWeek: '[afgelopen] dddd [om] LT',
             sameElse: 'L'
         },
@@ -4866,8 +5182,9 @@
         months : monthsCaseReplace,
         monthsShort : monthsShortCaseReplace,
         weekdays : weekdaysCaseReplace,
-        weekdaysShort : "вск_пнд_втр_срд_чтв_птн_сбт".split("_"),
+        weekdaysShort : "вс_пн_вт_ср_чт_пт_сб".split("_"),
         weekdaysMin : "вс_пн_вт_ср_чт_пт_сб".split("_"),
+        monthsParse : [/^янв/i, /^фев/i, /^мар/i, /^апр/i, /^ма[й|я]/i, /^июн/i, /^июл/i, /^авг/i, /^сен/i, /^окт/i, /^ноя/i, /^дек/i],
         longDateFormat : {
             LT : "HH:mm",
             L : "DD.MM.YYYY",
@@ -4912,6 +5229,20 @@
             MM : relativeTimeWithPlural,
             y : "год",
             yy : relativeTimeWithPlural
+        },
+
+        // M. E.: those two are virtually unused but a user might want to implement them for his/her website for some reason
+
+        meridiem : function (hour, minute, isLower) {
+            if (hour < 4) {
+                return "ночи";
+            } else if (hour < 12) {
+                return "утра";
+            } else if (hour < 17) {
+                return "дня";
+            } else {
+                return "вечера";
+            }
         },
 
         ordinal: function (number, period) {
@@ -5640,7 +5971,7 @@
         months : monthsCaseReplace,
         monthsShort : "січ_лют_бер_квіт_трав_черв_лип_серп_вер_жовт_лист_груд".split("_"),
         weekdays : weekdaysCaseReplace,
-        weekdaysShort : "нед_пон_вів_сер_чет_п’ят_суб".split("_"),
+        weekdaysShort : "нд_пн_вт_ср_чт_пт_сб".split("_"),
         weekdaysMin : "нд_пн_вт_ср_чт_пт_сб".split("_"),
         longDateFormat : {
             LT : "HH:mm",
@@ -5684,6 +6015,21 @@
             y : "рік",
             yy : relativeTimeWithPlural
         },
+
+        // M. E.: those two are virtually unused but a user might want to implement them for his/her website for some reason
+
+        meridiem : function (hour, minute, isLower) {
+            if (hour < 4) {
+                return "ночі";
+            } else if (hour < 12) {
+                return "ранку";
+            } else if (hour < 17) {
+                return "дня";
+            } else {
+                return "вечора";
+            }
+        },
+
         ordinal: function (number, period) {
             switch (period) {
             case 'M':
@@ -5702,6 +6048,111 @@
         week : {
             dow : 1, // Monday is the first day of the week.
             doy : 7  // The week that contains Jan 1st is the first week of the year.
+        }
+    });
+}));
+// moment.js language configuration
+// language : uzbek
+// author : Sardor Muminov : https://github.com/muminoff
+
+(function (factory) {
+    factory(moment);
+}(function (moment) {
+    moment.lang('uz', {
+        months : "январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь".split("_"),
+        monthsShort : "янв_фев_мар_апр_май_июн_июл_авг_сен_окт_ноя_дек".split("_"),
+        weekdays : "Якшанба_Душанба_Сешанба_Чоршанба_Пайшанба_Жума_Шанба".split("_"),
+        weekdaysShort : "Якш_Душ_Сеш_Чор_Пай_Жум_Шан".split("_"),
+        weekdaysMin : "Як_Ду_Се_Чо_Па_Жу_Ша".split("_"),
+        longDateFormat : {
+            LT : "HH:mm",
+            L : "DD/MM/YYYY",
+            LL : "D MMMM YYYY",
+            LLL : "D MMMM YYYY LT",
+            LLLL : "D MMMM YYYY, dddd LT"
+        },
+        calendar : {
+            sameDay : '[Бугун соат] LT [да]',
+            nextDay : '[Эртага] LT [да]',
+            nextWeek : 'dddd [куни соат] LT [да]',
+            lastDay : '[Кеча соат] LT [да]',
+            lastWeek : '[Утган] dddd [куни соат] LT [да]',
+            sameElse : 'L'
+        },
+        relativeTime : {
+            future : "Якин %s ичида",
+            past : "Бир неча %s олдин",
+            s : "фурсат",
+            m : "бир дакика",
+            mm : "%d дакика",
+            h : "бир соат",
+            hh : "%d соат",
+            d : "бир кун",
+            dd : "%d кун",
+            M : "бир ой",
+            MM : "%d ой",
+            y : "бир йил",
+            yy : "%d йил"
+        },
+        week : {
+            dow : 1, // Monday is the first day of the week.
+            doy : 7  // The week that contains Jan 4th is the first week of the year.
+        }
+    });
+}));
+// moment.js language configuration
+// language : vietnamese (vn)
+// author : Bang Nguyen : https://github.com/bangnk
+
+(function (factory) {
+    factory(moment);
+}(function (moment) {
+    moment.lang('vn', {
+        months : "tháng 1_tháng 2_tháng 3_tháng 4_tháng 5_tháng 6_tháng 7_tháng 8_tháng 9_tháng 10_tháng 11_tháng 12".split("_"),
+        monthsShort : "Th01_Th02_Th03_Th04_Th05_Th06_Th07_Th08_Th09_Th10_Th11_Th12".split("_"),
+        weekdays : "chủ nhật_thứ hai_thứ ba_thứ tư_thứ năm_thứ sáu_thứ bảy".split("_"),
+        weekdaysShort : "CN_T2_T3_T4_T5_T6_T7".split("_"),
+        weekdaysMin : "CN_T2_T3_T4_T5_T6_T7".split("_"),
+        longDateFormat : {
+            LT : "HH:mm",
+            L : "DD/MM/YYYY",
+            LL : "D MMMM [năm] YYYY",
+            LLL : "D MMMM [năm] YYYY LT",
+            LLLL : "dddd, D MMMM [năm] YYYY LT",
+            l : "DD/M/YYYY",
+            ll : "D MMM YYYY",
+            lll : "D MMM YYYY LT",
+            llll : "ddd, D MMM YYYY LT"
+        },
+        calendar : {
+            sameDay: "[Hôm nay lúc] LT",
+            nextDay: '[Ngày mai lúc] LT',
+            nextWeek: 'dddd [tuần tới lúc] LT',
+            lastDay: '[Hôm qua lúc] LT',
+            lastWeek: 'dddd [tuần rồi lúc] LT',
+            sameElse: 'L'
+        },
+        relativeTime : {
+            future : "%s tới",
+            past : "%s trước",
+            s : "vài giây",
+            m : "một phút",
+            mm : "%d phút",
+            h : "một giờ",
+            hh : "%d giờ",
+            d : "một ngày",
+            dd : "%d ngày",
+            M : "một tháng",
+            MM : "%d tháng",
+            y : "một năm",
+            yy : "%d năm"
+        },
+        ordinal : function (number) {
+            return number;
+        },
+        week : {
+            dow : 1, // Monday is the first day of the week.
+            doy : 4  // The week that contains Jan 4th is the first week of the year.
         }
     });
 }));
@@ -5730,13 +6181,14 @@
             llll : "YYYY年MMMD日ddddLT"
         },
         meridiem : function (hour, minute, isLower) {
-            if (hour < 9) {
+            var hm = hour * 100 + minute;
+            if (hm < 900) {
                 return "早上";
-            } else if (hour < 11 && minute < 30) {
+            } else if (hm < 1130) {
                 return "上午";
-            } else if (hour < 13 && minute < 30) {
+            } else if (hm < 1230) {
                 return "中午";
-            } else if (hour < 18) {
+            } else if (hm < 1800) {
                 return "下午";
             } else {
                 return "晚上";
@@ -5807,13 +6259,14 @@
             llll : "YYYY年MMMD日ddddLT"
         },
         meridiem : function (hour, minute, isLower) {
-            if (hour < 9) {
+            var hm = hour * 100 + minute;
+            if (hm < 900) {
                 return "早上";
-            } else if (hour < 11 && minute < 30) {
+            } else if (hm < 1130) {
                 return "上午";
-            } else if (hour < 13 && minute < 30) {
+            } else if (hm < 1230) {
                 return "中午";
-            } else if (hour < 18) {
+            } else if (hm < 1800) {
                 return "下午";
             } else {
                 return "晚上";
@@ -5867,22 +6320,29 @@
         Exposing Moment
     ************************************/
 
+    function makeGlobal() {
+        /*global ender:false */
+        if (typeof ender === 'undefined') {
+            // here, `this` means `window` in the browser, or `global` on the server
+            // add `moment` as a global object via a string identifier,
+            // for Closure Compiler "advanced" mode
+            this['moment'] = moment;
+        }
+    }
 
     // CommonJS module is defined
     if (hasModule) {
         module.exports = moment;
-    }
-    /*global ender:false */
-    if (typeof ender === 'undefined') {
-        // here, `this` means `window` in the browser, or `global` on the server
-        // add `moment` as a global object via a string identifier,
-        // for Closure Compiler "advanced" mode
-        this['moment'] = moment;
-    }
-    /*global define:false */
-    if (typeof define === "function" && define.amd) {
-        define("moment", [], function () {
+        makeGlobal();
+    } else if (typeof define === "function" && define.amd) {
+        define("moment", function (require, exports, module) {
+            if (module.config().noGlobal !== true) {
+                makeGlobal();
+            }
+
             return moment;
         });
+    } else {
+        makeGlobal();
     }
 }).call(this);

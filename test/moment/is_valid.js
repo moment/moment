@@ -247,6 +247,6 @@ exports.is_valid = {
         //https://github.com/moment/moment/issues/1122
         test.ok(moment("3:25", ["h:mma", "hh:mma", "H:mm", "HH:mm"]).isValid());
 
-        test.done()
+        test.done();
     },
 };
