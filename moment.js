@@ -1130,7 +1130,7 @@
             makeDateFromStringAndFormat(tempConfig);
 
             if (!isValid(tempConfig)) {
-                currentScore += 100;
+                continue;
             }
 
             // if there is any input that was not parsed add a penalty for that format
