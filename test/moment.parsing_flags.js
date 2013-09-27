@@ -118,27 +118,24 @@ exports.parsing_flags = {
         test.done();
     },
 
-    'trailing output' : function (test) {
-        test.equal(flags('1982-05-25', 'YYYY-MM-DD').trailingInput, '', 'normal input');
-        test.equal(flags('1982-05-25 this is more stuff', 'YYYY-MM-DD').trailingInput, ' this is more stuff', 'trailing nonsense');
-        test.equal(flags('1982-05-25 09:30', 'YYYY-MM-DD').trailingInput, ' 09:30', 'trailing legit-looking input');
-        test.equal(flags('1982-05-25 some junk', 'YYYY-MM-DD [some junk]').trailingInput, '', 'junk that actually gets matched');
+    'unused input' : function (test) {
+        test.deepEqual(flags('1982-05-25', 'YYYY-MM-DD').unusedInput, [], 'normal input');
+        test.deepEqual(flags('1982-05-25 this is more stuff', 'YYYY-MM-DD').unusedInput, [' this is more stuff'], 'trailing nonsense');
+        test.deepEqual(flags('1982-05-25 09:30', 'YYYY-MM-DD').unusedInput, [' 09:30'], ['trailing legit-looking input']);
+        test.deepEqual(flags('1982-05-25 some junk', 'YYYY-MM-DD [some junk]').unusedInput, [], 'junk that actually gets matched');
+        test.deepEqual(flags('stuff at beginning 1982-05-25', 'YYYY-MM-DD').unusedInput, ['stuff at beginning '], 'leading junk');
+        test.deepEqual(flags('junk 1982 more junk 05 yet more junk25', 'YYYY-MM-DD').unusedInput, ['junk ', ' more junk ', ' yet more junk'], 'interstitial junk');
 
         test.done();
     },
 
-    'skipped input' : function (test) {
-        test.deepEqual(flags('1982-05-25', 'YYYY-MM-DD').skippedInput, [], 'normal input');
-        test.deepEqual(flags('stuff at beginning 1982-05-25', 'YYYY-MM-DD').skippedInput, ['stuff at beginning '], 'leading junk');
-        test.deepEqual(flags('1982 junk 05 more junk25', 'YYYY-MM-DD').skippedInput, [' junk ', ' more junk'], 'interstitial junk');
-
-        test.done();
-    },
-
-    'skipped input strict' : function (test) {
-        test.deepEqual(flags('1982-05-25', 'YYYY-MM-DD').skippedInput, [], 'normal input');
-        test.deepEqual(flags('stuff at beginning 1982-05-25', 'YYYY-MM-DD').skippedInput, ['stuff at beginning '], 'leading junk');
-        test.deepEqual(flags('1982 junk 05 more junk25', 'YYYY-MM-DD').skippedInput, [' junk ', ' more junk'], 'interstitial junk');
+    'unused input strict' : function (test) {
+        test.deepEqual(flags('1982-05-25', 'YYYY-MM-DD', true).unusedInput, [], 'normal input');
+        test.deepEqual(flags('1982-05-25 this is more stuff', 'YYYY-MM-DD', true).unusedInput, [' this is more stuff'], 'trailing nonsense');
+        test.deepEqual(flags('1982-05-25 09:30', 'YYYY-MM-DD', true).unusedInput, [' 09:30'], ['trailing legit-looking input']);
+        test.deepEqual(flags('1982-05-25 some junk', 'YYYY-MM-DD [some junk]', true).unusedInput, [], 'junk that actually gets matched');
+        test.deepEqual(flags('stuff at beginning 1982-05-25', 'YYYY-MM-DD', true).unusedInput, ['stuff at beginning '], 'leading junk');
+        test.deepEqual(flags('junk 1982 more junk 05 yet more junk25', 'YYYY-MM-DD', true).unusedInput, ['junk ', ' more junk ', ' yet more junk'], 'interstitial junk');
 
         test.done();
     },

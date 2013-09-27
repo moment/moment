@@ -494,10 +494,8 @@
         config._pf = {
             empty : false,
             unusedTokens : [],
-            trailingInput : '',
-            skippedInput : [],
+            unusedInput : [],
             overflowMonthOk : false,
-            dstShifted : false,
             overflow : -2,
             charsLeftOver : 0,
             nullInput : false,
@@ -1065,7 +1063,7 @@
             if (parsedInput) {
                 skipped = string.substr(0, string.indexOf(parsedInput));
                 if (skipped.length > 0) {
-                    config._pf.skippedInput.push(skipped);
+                    config._pf.unusedInput.push(skipped);
                 }
                 string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
                 totalParsedInputLength += parsedInput.length;
@@ -1087,7 +1085,9 @@
 
         // add remaining unparsed input length to the string
         config._pf.charsLeftOver = stringLength - totalParsedInputLength;
-        config._pf.trailingInput = string;
+        if (string.length > 0) {
+            config._pf.unusedInput.push(string);
+        }
 
         // handle am pm
         if (config._isPm && config._a[HOUR] < 12) {
