@@ -238,5 +238,16 @@ exports.lang = {
         test.equal(moment('2012-01-01 3d', 'YYYY-MM-DD ha').hour(), 3, 'Custom parsing of meridiem should work');
 
         test.done();
+    },
+
+    "invalid date formatting" : function (test) {
+        moment.lang('has-invalid', {
+            invalidDate: 'KHAAAAAAAAAAAN!'
+        });
+
+        test.equal(moment.invalid().format(), "KHAAAAAAAAAAAN!");
+        test.equal(moment.invalid().format('YYYY-MM-DD'), "KHAAAAAAAAAAAN!");
+
+        test.done();
     }
 };

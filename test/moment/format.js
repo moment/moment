@@ -98,7 +98,7 @@ exports.format = {
 
         m = moment(1234567890.123, 'X');
         test.equals(m.format('X'), '1234567890', 'unix timestamp as integer');
-        
+
         test.done();
     },
 
@@ -324,6 +324,15 @@ exports.format = {
 
         test.equal(moment(b).utc().calendar(), "Yesterday at 11:59 PM", "Yesterday at 11:59 PM, not Today, or the wrong time");
         test.equal(moment(c).local().calendar(), "Yesterday at 11:59 PM", "Yesterday at 11:59 PM, not Today, or the wrong time");
+
+        test.done();
+    },
+
+    "invalid" : function (test) {
+        moment.lang('en');
+
+        test.equal(moment.invalid().format(), "Invalid date");
+        test.equal(moment.invalid().format('YYYY-MM-DD'), "Invalid date");
 
         test.done();
     }
