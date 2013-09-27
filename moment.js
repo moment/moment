@@ -495,10 +495,14 @@
             empty : false,
             unusedTokens : [],
             trailingInput : '',
+            skippedInput : [],
             overflowMonthOk : false,
             dstShifted : false,
             overflow : -2,
-            charsLeftOver: 0
+            charsLeftOver : 0,
+            nullInput : false,
+            invalidMonth : null,
+            userInvalidated : false
         };
     }
 
@@ -507,7 +511,9 @@
             m._isValid = !isNaN(m._d.getTime()) &&
                 m._pf.overflow < 0 &&
                 !m._pf.empty &&
-                !m._pf.invalidMonth;
+                !m._pf.invalidMonth &&
+                !m._pf.nullInput &&
+                !m._pf.userInvalidated;
 
             if (m._strict) {
                 m._isValid = m._isValid &&
@@ -1047,7 +1053,7 @@
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
         var lang = getLangDefinition(config._l),
             string = '' + config._i,
-            i, parsedInput, tokens, regex, token,
+            i, parsedInput, tokens, token, skipped,
             stringLength = string.length,
             totalParsedInputLength = 0;
 
@@ -1055,12 +1061,12 @@
 
         for (i = 0; i < tokens.length; i++) {
             token = tokens[i];
-            regex = getParseRegexForToken(token, config);
-            if (config._strict) {
-                regex = new RegExp("^" + regex.source, regex.ignoreCase ? "i" : "");
-            }
-            parsedInput = (regex.exec(string) || [])[0];
+            parsedInput = (getParseRegexForToken(token, config).exec(string) || [])[0];
             if (parsedInput) {
+                skipped = string.substr(0, string.indexOf(parsedInput));
+                if (skipped.length > 0) {
+                    config._pf.skippedInput.push(skipped);
+                }
                 string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
                 totalParsedInputLength += parsedInput.length;
             }
@@ -1069,7 +1075,13 @@
                 if (parsedInput) {
                     config._pf.empty = false;
                 }
+                else {
+                    config._pf.unusedTokens.push(token);
+                }
                 addTimeToArrayFromToken(token, parsedInput, config);
+            }
+            else if (config._strict && !parsedInput) {
+                config._pf.unusedTokens.push(token);
             }
         }
 
@@ -1264,10 +1276,8 @@
             initializeParsingFlags(config);
         }
 
-        if (input === null ||
-            (typeof input === 'string' &&
-             input.replace(/^\s+|\s+$/g, '') === '')) {
-            return moment.invalid();
+        if (input === null) {
+            return moment.invalid({nullInput: true});
         }
 
         if (typeof input === 'string') {
@@ -1421,9 +1431,14 @@
         return normalizeUnits(units);
     };
 
-    moment.invalid = function () {
+    moment.invalid = function (flags) {
         var m = moment.utc(NaN);
-        m._isValid = false;
+        if (flags != null) {
+            extend(m._pf, flags);
+        }
+        else {
+            m._pf.userInvalidated = true;
+        }
         return m;
     };
 
@@ -1483,7 +1498,7 @@
 
             if (this._a) {
                 //this is best-effort. What if it's a valid overflow AND DST-shifted?
-                return !this._pf.overflowMonthOk && !compareArrays(this._a, (this._isUTC ? moment.utc(this._a) : moment(this._a)).toArray());
+                return this.isValid() && !this._pf.overflowMonthOk && compareArrays(this._a, (this._isUTC ? moment.utc(this._a) : moment(this._a)).toArray()) > 0;
             }
 
             return false;

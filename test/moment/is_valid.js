@@ -2,15 +2,9 @@ var moment = require("../../moment");
 
 exports.is_valid = {
     "array bad month" : function (test) {
-        var underflow = moment([2010, -1]),
-            overflow = moment([2100, 12]);
-
-        test.expect(4);
-        test.equal(underflow.isValid(), false, 'month -1 invalid');
-        test.equal(underflow.parsingFlags().overflow, 1, 'month -1 overflow');
-
-        test.equal(overflow.isValid(), false, 'month 12 invalid');
-        test.equal(overflow.parsingFlags().overflow, 1, 'month 12 invalid');
+        test.expect(2);
+        test.equal(moment([2010, -1]).isValid(), false, 'month -1 invalid');
+        test.equal(moment([2100, 12]).isValid(), false, 'month 12 invalid');
 
         test.done();
     },
@@ -35,12 +29,11 @@ exports.is_valid = {
         ],
         i, m;
 
-        test.expect(tests.length * 2);
+        test.expect(tests.length);
 
         for (i in tests) {
             m = tests[i];
             test.equal(m.isValid(), false);
-            test.equal(m.parsingFlags().overflow, 2);
         }
 
         test.done();
@@ -234,5 +227,26 @@ exports.is_valid = {
 
         test.equal(moment(" ", "X").isValid(), false, 'string space');
         test.done();
-    }
+    },
+
+    "empty" : function (test) {
+        test.equal(moment(null).isValid(), false, 'null');
+        test.equal(moment('').isValid(), false, 'empty string');
+        test.equal(moment(' ').isValid(), false, 'empty when trimmed');
+
+        test.equal(moment(null, 'YYYY').isValid(), false, 'format + null');
+        test.equal(moment('', 'YYYY').isValid(), false, 'format + empty string');
+        test.equal(moment(' ', 'YYYY').isValid(), false, 'format + empty when trimmed');
+        test.done();
+    },
+
+    "oddball permissiveness" : function (test) {
+        //https://github.com/moment/moment/issues/1128
+        test.ok(moment("2010-10-3199", ["MM/DD/YYYY", "MM-DD-YYYY", "YYYY-MM-DD"]).isValid());
+
+        //https://github.com/moment/moment/issues/1122
+        test.ok(moment("3:25", ["h:mma", "hh:mma", "H:mm", "HH:mm"]).isValid());
+
+        test.done()
+    },
 };
