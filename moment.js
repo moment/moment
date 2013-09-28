@@ -366,13 +366,14 @@
     }
 
     // compare two arrays, return the number of differences
-    function compareArrays(array1, array2) {
+    function compareArrays(array1, array2, dontConvert) {
         var len = Math.min(array1.length, array2.length),
             lengthDiff = Math.abs(array1.length - array2.length),
             diffs = 0,
             i;
         for (i = 0; i < len; i++) {
-            if (toInt(array1[i]) !== toInt(array2[i])) {
+            if ((dontConvert && array1[i] !== array2[i]) ||
+                (!dontConvert && toInt(array1[i]) !== toInt(array2[i]))) {
                 diffs++;
             }
         }
@@ -459,7 +460,7 @@
     }
 
     function normalizeLanguage(key) {
-        return key.toLowerCase().replace('_', '-');
+        return key ? key.toLowerCase().replace('_', '-') : key;
     }
 
     /************************************
@@ -667,9 +668,8 @@
     // definition for 'en', so long as 'en' has already been loaded using
     // moment.lang.
     function getLangDefinition(key) {
-        var i, lang,
+        var i = 0, j, lang, next, split,
             get = function (k) {
-                k = normalizeLanguage(k);
                 if (!languages[k] && hasModule) {
                     try {
                         require('./lang/' + k);
@@ -678,21 +678,39 @@
                 return languages[k];
             };
 
-        if (isArray(key)) {
-            for (i in key) {
-                lang = get(key[i]);
+        if (!key) {
+            return moment.fn._lang;
+        }
+
+        if (!isArray(key)) {
+            //short-circuit everything else
+            lang = get(key);
+            if (lang) {
+                return lang;
+            }
+            key = [key];
+        }
+
+        while (i < key.length) {
+            split = normalizeLanguage(key[i]).split('-');
+            j = split.length;
+            next = normalizeLanguage(key[i + 1]);
+            next = next ? next.split('-') : null;
+            while (j > 0) {
+                lang = get(split.slice(0, j).join('-'));
                 if (lang) {
                     return lang;
                 }
+                if (next && next.length >= j && compareArrays(split, next, true) >= j - 1) {
+                    //the next array item is better than a shallower substring of this one
+                    break;
+                }
+                j--;
             }
+            i++;
         }
-        else if (key) {
-            return get(key) || moment.fn._lang;
-        }
-
         return moment.fn._lang;
     }
-
 
     /************************************
         Formatting

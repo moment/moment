@@ -36,6 +36,23 @@ exports.lang = {
         test.done();
     },
 
+    "library getter language substrings" : function (test) {
+        test.equal(moment.lang('fr-crap'), 'fr', "use substrings");
+        test.equal(moment.lang('fr-does-not-exist'), 'fr', "uses deep substrings");
+        test.equal(moment.lang('fr-CA-does-not-exist'), 'fr-ca', "uses deepest substring");
+        test.done();
+    },
+
+    "library getter language array and substrings" : function (test) {
+        test.equal(moment.lang(['en-CH', 'fr']), 'en', "prefer root languages to shallower ones");
+        test.equal(moment.lang(['en-gb-leeds', 'en-CA']), 'en-gb', "prefer root languages to shallower ones");
+        test.equal(moment.lang(['en-CH', 'en-CA']), 'en-ca', "prefer alternatives with shared roots");
+        test.equals(moment.lang(['fake-CA', 'fake-MX', 'fr']), 'fr', "always find something if possible");
+        test.equals(moment.lang(['fake-CA', 'fake-MX', 'fr']), 'fr', "always find something if possible");
+        test.equals(moment.lang(['fake-CA', 'fake-MX', 'fr-fake-fake-fake']), 'fr', "always find something if possible");
+        test.done();
+    },
+
     "library ensure inheritance" : function (test) {
         test.expect(2);
 
@@ -114,6 +131,18 @@ exports.lang = {
         test.equal(m.lang()._abbr, 'fr', "passing an array uses the first valid language");
         m = moment().lang(['es', 'fr', 'also-non-existent']);
         test.equal(m.lang()._abbr, 'es', "passing an array uses the first valid language");
+        test.done();
+    },
+
+    "instance getter language substrings" : function (test) {
+        var m = moment();
+
+        m.lang('fr-crap');
+        test.equal(m.lang()._abbr, 'fr', "use substrings");
+
+        m.lang('fr-does-not-exist');
+        test.equal(m.lang()._abbr, 'fr', "uses deep substrings");
+
         test.done();
     },
 
