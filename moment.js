@@ -74,10 +74,24 @@
             m : 'minute',
             h : 'hour',
             d : 'day',
+            D : 'date',
             w : 'week',
-            W : 'isoweek',
+            W : 'isoWeek',
             M : 'month',
-            y : 'year'
+            y : 'year',
+            DDD : 'dayOfYear',
+            e : 'weekday',
+            E : 'isoWeekday',
+            gg: 'weekYear',
+            GG: 'isoWeekYear'
+        },
+
+        camelFunctions = {
+            dayofyear : 'dayOfYear',
+            isoweekday : 'isoWeekday',
+            isoweek : 'isoWeek',
+            weekyear : 'weekYear',
+            isoweekyear : 'isoWeekYear',
         },
 
         // format function strings
@@ -245,6 +259,10 @@
     // Moment prototype object
     function Moment(config) {
         extend(this, config);
+
+        if (this._w) {
+            applyWeekData(this);
+        }
     }
 
     // Duration Constructor
@@ -380,7 +398,11 @@
     }
 
     function normalizeUnits(units) {
-        return units ? unitAliases[units] || units.toLowerCase().replace(/(.)s$/, '$1') : units;
+        if (units) {
+            var lowered = units.toLowerCase().replace(/(.)s$/, '$1');
+            units = unitAliases[units] || camelFunctions[lowered] || lowered;
+        }
+        return units;
     }
 
     function normalizeObjectUnits(inputObject) {
@@ -456,6 +478,32 @@
         }
 
         return value;
+    }
+
+    function applyWeekData(m) {
+        var apply = function () {
+            var i, unit, norm, val, found = false;
+            for (i in arguments) {
+                unit = arguments[i];
+                norm = normalizeUnits(unit);
+                if (m._w[unit]) {
+                    found = true;
+                    val = m._w[unit];
+                    val = i === '0' && val.length < 3 ? (parseInt(val, 10) > 68 ? '19' + val : '20' + val) : val;
+                    m.set(norm, val);
+                }
+                else if (found) {
+                    m.set(norm, unit === 'e' ? 0 : 1);
+                }
+            }
+        };
+
+        apply('gg', 'w', 'e');
+        apply('GG', 'W', 'E');
+
+        if (m._w['d']) {
+            m.day(m._w['d']);
+        }
     }
 
     /************************************
@@ -751,8 +799,12 @@
         case 'DDDD':
             return parseTokenThreeDigits;
         case 'YYYY':
+        case 'GGGG':
+        case 'gggg':
             return parseTokenFourDigits;
         case 'YYYYY':
+        case 'GGGGG':
+        case 'ggggg':
             return parseTokenSixDigits;
         case 'S':
         case 'SS':
@@ -778,6 +830,8 @@
         case 'MM':
         case 'DD':
         case 'YY':
+        case 'GG':
+        case 'gg':
         case 'HH':
         case 'hh':
         case 'mm':
@@ -789,6 +843,14 @@
         case 'h':
         case 'm':
         case 's':
+        case 'w':
+        case 'ww':
+        case 'W':
+        case 'WW':
+        case 'e':
+        case 'ee':
+        case 'E':
+        case 'EE':
             return parseTokenOneOrTwoDigits;
         default :
             return new RegExp(regexpEscape(token.replace('\\', '')));
@@ -887,6 +949,29 @@
             config._useUTC = true;
             config._tzm = timezoneMinutesFromString(input);
             break;
+        case 'w':
+        case 'ww':
+        case 'W':
+        case 'WW':
+        case 'd':
+        case 'dd':
+        case 'ddd':
+        case 'dddd':
+        case 'e':
+        case 'E':
+            token = token.substr(0, 1);
+            /* falls through */
+        case 'gg':
+        case 'gggg':
+        case 'GG':
+        case 'GGGG':
+        case 'GGGGG':
+            token = token.substr(0, 2);
+            if (input) {
+                config._w = config._w || {};
+                config._w[token] = input;
+            }
+            break;
         }
 
         // if the input is null, the date is not valid
@@ -974,10 +1059,12 @@
 
     // date from string and format string
     function makeDateFromStringAndFormat(config) {
+
         if (config._strict) {
             makeDateFromStringAndStrictFormat(config);
             return;
         }
+
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
         var lang = getLangDefinition(config._l),
             string = '' + config._i,
@@ -1238,8 +1325,13 @@
             config._i = input = getLangDefinition().preparse(input);
         }
 
+
         if (moment.isMoment(input)) {
             config = extend({}, input);
+
+            //null this out to prevent infinite loops
+            config._w = null;
+
             config._d = new Date(+input._d);
         } else if (format) {
             if (isArray(format)) {
@@ -1569,9 +1661,14 @@
             var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
             if (input != null) {
                 if (typeof input === 'string') {
-                    input = this.lang().weekdaysParse(input);
-                    if (typeof input !== 'number') {
-                        return this;
+                    if (!isNaN(input)) {
+                        input = parseInt(input, 10);
+                    }
+                    else {
+                        input = this.lang().weekdaysParse(input);
+                        if (typeof input !== 'number') {
+                            return this;
+                        }
                     }
                 }
                 return this.add({ d : input - day });
@@ -1616,7 +1713,7 @@
                 this.date(1);
                 /* falls through */
             case 'week':
-            case 'isoweek':
+            case 'isoWeek':
             case 'day':
                 this.hours(0);
                 /* falls through */
@@ -1634,7 +1731,7 @@
             // weeks are a special case
             if (units === 'week') {
                 this.weekday(0);
-            } else if (units === 'isoweek') {
+            } else if (units === 'isoWeek') {
                 this.isoWeekday(1);
             }
 
@@ -1643,7 +1740,7 @@
 
         endOf: function (units) {
             units = normalizeUnits(units);
-            return this.startOf(units).add((units === 'isoweek' ? 'week' : units), 1).subtract('ms', 1);
+            return this.startOf(units).add((units === 'isoWeek' ? 'week' : units), 1).subtract('ms', 1);
         },
 
         isAfter: function (input, units) {
@@ -1760,12 +1857,14 @@
 
         get : function (units) {
             units = normalizeUnits(units);
-            return this[units.toLowerCase()]();
+            return this[units]();
         },
 
         set : function (units, value) {
             units = normalizeUnits(units);
-            this[units.toLowerCase()](value);
+            if (typeof this[units] === 'function') {
+                this[units](value);
+            }
             return this;
         },
 

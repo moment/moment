@@ -530,5 +530,53 @@ exports.create = {
 
         moment.lang('parselang', null);
         test.done();
+    },
+
+    "parsing week and weekday information" : function (test) {
+
+        //year
+        test.equal(moment('99', 'gg').format('YYYY MM DD'), "1998 12 27", 'week-year two digits');
+        test.equal(moment('1999', 'gggg').format('YYYY MM DD'), "1998 12 27", 'week-year four digits');
+        test.equal(moment('99', 'GG').format('YYYY MM DD'), "1999 01 04", 'iso week-year two digits');
+        test.equal(moment('1999', 'GGGG').format('YYYY MM DD'), "1999 01 04", 'iso week-year four digits');
+
+        //year + week
+        test.equal(moment('1999 37', 'gggg w').format('YYYY MM DD'), "1999 09 05", 'week');
+        test.equal(moment('1999 37', 'gggg ww').format('YYYY MM DD'), "1999 09 05", 'week double');
+        test.equal(moment('1999 37', 'GGGG W').format('YYYY MM DD'), "1999 09 13", 'iso week');
+        test.equal(moment('1999 37', 'GGGG WW').format('YYYY MM DD'), "1999 09 13", 'iso week double');
+
+        //year + week + day
+        test.equal(moment('1999 37 4', 'gggg ww e').format('YYYY MM DD'), "1999 09 09", 'day');
+        test.equal(moment('1999 37 4', 'gggg ww ee').format('YYYY MM DD'), "1999 09 09", 'day double');
+        test.equal(moment('1999 37 4', 'GGGG WW E').format('YYYY MM DD'), "1999 09 16", 'iso day');
+        test.equal(moment('1999 37 4', 'GGGG WW EE').format('YYYY MM DD'), "1999 09 16", 'iso day double');
+
+        //d
+        test.equal(moment('1999 37 4', 'gggg ww d').format('YYYY MM DD'), "1999 09 09", 'd');
+        test.equal(moment('1999 37 Th', 'gggg ww dd').format('YYYY MM DD'), "1999 09 09", 'dd');
+        test.equal(moment('1999 37 Thu', 'gggg ww ddd').format('YYYY MM DD'), "1999 09 09", 'ddd');
+        test.equal(moment('1999 37 Thursday', 'gggg ww dddd').format('YYYY MM DD'), "1999 09 09", 'dddd');
+
+        //lower-order only
+        test.equal(moment('22', 'ww').week(), 22, "week sets the week by itself");
+        test.equal(moment('22', 'ww').year(), moment().year(), "week keeps this year");
+        test.equal(moment('2013 22', 'YYYY ww').year(), 2013, "week keeps parsed year");
+
+        test.equal(moment('22', 'WW').isoWeek(), 22, "iso week sets the week by itself");
+        test.equal(moment('2013 22', 'YYYY WW').year(), 2013, "iso week keeps parsed year");
+        test.equal(moment('22', 'WW').year(), moment().year(), "iso week keeps this year");
+
+        test.equal(moment('3', 'ee').weekday(), 3, "day sets the day by itself");
+        test.equal(moment('2013 07 03', 'YYYY MM ee').month(), 6, "weekday keeps the parsed year and month");
+
+        test.equal(moment('3', 'EE').isoWeekday(), 3, "iso day sets the day by itself");
+        test.equal(moment('2013 07 03', 'YYYY MM EE').month(), 6, "iso weekday keeps the parsed year and month");
+
+        //order
+        test.equal(moment('6 2013 2', 'e gggg w').format('YYYY MM DD'), "2013 01 12", "order doesn't matter");
+        test.equal(moment('6 2013 2', 'E GGGG W').format('YYYY MM DD'), "2013 01 12", "iso order doesn't matter");
+
+        test.done();
     }
 };
