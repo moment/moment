@@ -458,6 +458,10 @@
         return value;
     }
 
+    function normalizeLanguage(key) {
+        return key.toLowerCase().replace('_', '-');
+    }
+
     /************************************
         Languages
     ************************************/
@@ -663,18 +667,30 @@
     // definition for 'en', so long as 'en' has already been loaded using
     // moment.lang.
     function getLangDefinition(key) {
-        if (!key) {
-            return moment.fn._lang;
-        }
-        if (!languages[key] && hasModule) {
-            try {
-                require('./lang/' + key);
-            } catch (e) {
-                // call with no params to set to default
-                return moment.fn._lang;
+        var i, lang,
+            get = function (k) {
+                k = normalizeLanguage(k);
+                if (!languages[k] && hasModule) {
+                    try {
+                        require('./lang/' + k);
+                    } catch (e) { }
+                }
+                return languages[k];
+            };
+
+        if (isArray(key)) {
+            for (i in key) {
+                lang = get(key[i]);
+                if (lang) {
+                    return lang;
+                }
             }
         }
-        return languages[key] || moment.fn._lang;
+        else if (key) {
+            return get(key) || moment.fn._lang;
+        }
+
+        return moment.fn._lang;
     }
 
 
@@ -1346,20 +1362,20 @@
     // no arguments are passed in, it will simply return the current global
     // language key.
     moment.lang = function (key, values) {
+        var r;
         if (!key) {
             return moment.fn._lang._abbr;
         }
-        key = key.toLowerCase();
-        key = key.replace('_', '-');
         if (values) {
-            loadLang(key, values);
+            loadLang(normalizeLanguage(key), values);
         } else if (values === null) {
             unloadLang(key);
             key = 'en';
         } else if (!languages[key]) {
             getLangDefinition(key);
         }
-        moment.duration.fn._lang = moment.fn._lang = getLangDefinition(key);
+        r = moment.duration.fn._lang = moment.fn._lang = getLangDefinition(key);
+        return r._abbr;
     };
 
     // returns language data

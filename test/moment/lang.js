@@ -2,9 +2,11 @@ var moment = require("../../moment");
 
 exports.lang = {
     "library getter" : function (test) {
-        test.expect(7);
+        var r;
+        test.expect(8);
 
-        moment.lang('en');
+        r = moment.lang('en');
+        test.equal(r, 'en', 'Lang should return en by default');
         test.equal(moment.lang(), 'en', 'Lang should return en by default');
 
         moment.lang('fr');
@@ -25,6 +27,12 @@ exports.lang = {
         moment.lang('EN_gb');
         test.equal(moment.lang(), 'en-gb', 'Normalize language key underscore');
 
+        test.done();
+    },
+
+    "library getter array of langs" : function (test) {
+        test.equal(moment.lang(['non-existent', 'fr', 'also-non-existent']), 'fr', "passing an array uses the first valid language");
+        test.equal(moment.lang(['es', 'fr', 'also-non-existent']), 'es', "passing an array uses the first valid language");
         test.done();
     },
 
@@ -98,6 +106,14 @@ exports.lang = {
         test.equal(moment([2012, 5, 6]).lang('es').format('MMMM'), 'junio', 'Use the instance specific language');
         test.equal(moment([2012, 5, 6]).format('MMMM'), 'June', 'Using an instance specific language does not affect other moments');
 
+        test.done();
+    },
+
+    "instance lang method with array" : function (test) {
+        var m = moment().lang(['non-existent', 'fr', 'also-non-existent']);
+        test.equal(m.lang()._abbr, 'fr', "passing an array uses the first valid language");
+        m = moment().lang(['es', 'fr', 'also-non-existent']);
+        test.equal(m.lang()._abbr, 'es', "passing an array uses the first valid language");
         test.done();
     },
 
