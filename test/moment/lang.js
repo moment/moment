@@ -46,7 +46,8 @@ exports.lang = {
     "library getter language array and substrings" : function (test) {
         test.equal(moment.lang(['en-CH', 'fr']), 'en', "prefer root languages to shallower ones");
         test.equal(moment.lang(['en-gb-leeds', 'en-CA']), 'en-gb', "prefer root languages to shallower ones");
-        test.equal(moment.lang(['en-CH', 'en-CA']), 'en-ca', "prefer alternatives with shared roots");
+        test.equal(moment.lang(['en-fake', 'en-CA']), 'en-ca', "prefer alternatives with shared roots");
+        test.equal(moment.lang(['en-fake', 'en-fake2', 'en-ca']), 'en-ca', "prefer alternatives with shared roots");
         test.equals(moment.lang(['fake-CA', 'fake-MX', 'fr']), 'fr', "always find something if possible");
         test.equals(moment.lang(['fake-CA', 'fake-MX', 'fr']), 'fr', "always find something if possible");
         test.equals(moment.lang(['fake-CA', 'fake-MX', 'fr-fake-fake-fake']), 'fr', "always find something if possible");
