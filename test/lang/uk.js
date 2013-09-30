@@ -382,5 +382,13 @@ exports["lang:uk"] = {
         test.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 3-й', "Jan  9 2012 should be week 3");
 
         test.done();
+    },
+    
+    "returns the name of the language" : function (test) {
+        test.expect(1);
+        
+        test.equal(require('../../lang/uk'), 'uk', "module should export uk");
+        
+        test.done();
     }
 };
