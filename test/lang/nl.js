@@ -362,5 +362,13 @@ exports["lang:nl"] = {
         test.equal(moment([2012, 0, 15]).format('w ww wo'),    '2 02 2de', "Jan 15 2012 should be week 2");
 
         test.done();
+    },
+    
+    "returns the name of the language" : function (test) {
+        test.expect(1);
+        
+        test.equal(require('../../lang/nl'), 'nl', "module should export nl");
+        
+        test.done();
     }
 };

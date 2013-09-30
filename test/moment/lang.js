@@ -238,5 +238,15 @@ exports.lang = {
         test.equal(moment('2012-01-01 3d', 'YYYY-MM-DD ha').hour(), 3, 'Custom parsing of meridiem should work');
 
         test.done();
+    },
+
+    "return lang name" : function (test) {
+        test.expect(1);
+
+        var registered = moment.lang('return-this', {});
+
+        test.equal(registered, 'return-this', 'returns the language configured');
+
+        test.done();
     }
 };

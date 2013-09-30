@@ -360,5 +360,13 @@ exports["lang:bg"] = {
         test.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 3-ти', "Jan  9 2012 should be week 3");
 
         test.done();
+    },
+    
+    "returns the name of the language" : function (test) {
+        test.expect(1);
+        
+        test.equal(require('../../lang/bg'), 'bg', "module should export bg");
+        
+        test.done();
     }
 };

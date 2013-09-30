@@ -373,5 +373,13 @@ exports["lang:ms-my"] = {
         test.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3', "Jan 15 2012 sepatutnya minggu 3");
 
         test.done();
+    },
+    
+    "returns the name of the language" : function (test) {
+        test.expect(1);
+        
+        test.equal(require('../../lang/ms-my'), 'ms-my', "module should export ms-my");
+        
+        test.done();
     }
 };
