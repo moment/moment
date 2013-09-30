@@ -1360,6 +1360,7 @@
             getLangDefinition(key);
         }
         moment.duration.fn._lang = moment.fn._lang = getLangDefinition(key);
+        return key;
     };
 
     // returns language data
