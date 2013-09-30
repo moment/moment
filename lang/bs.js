@@ -7,7 +7,7 @@
     if (typeof define === 'function' && define.amd) {
         define(['moment'], factory); // AMD
     } else if (typeof exports === 'object') {
-        factory(require('../moment')); // Node
+        module.exports = factory(require('../moment')); // Node
     } else {
         factory(window.moment); // Browser global
     }
@@ -66,7 +66,7 @@
         }
     }
 
-    moment.lang('bs', {
+    return moment.lang('bs', {
 		months : "januar_februar_mart_april_maj_juni_juli_avgust_septembar_oktobar_novembar_decembar".split("_"),
 		monthsShort : "jan._feb._mar._apr._maj._jun._jul._avg._sep._okt._nov._dec.".split("_"),
         weekdays : "nedjelja_ponedjeljak_utorak_srijeda_četvrtak_petak_subota".split("_"),
