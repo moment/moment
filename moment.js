@@ -1409,7 +1409,9 @@
     };
 
     for (i in lists) {
-        makeList(lists[i]);
+        if (lists.hasOwnProperty(i)) {
+            makeList(lists[i]);
+        }
     }
 
     // for use by developers when extending the library
