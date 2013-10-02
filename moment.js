@@ -1323,11 +1323,11 @@
             sign = (match[1] === "-") ? -1 : 1;
             duration = {
                 y: 0,
-                d: toInt(matched[2]) * sign,
-                h: toInt(matched[3]) * sign,
-                m: toInt(matched[4]) * sign,
-                s: toInt(matched[5]) * sign,
-                ms: toInt(matched[6]) * sign
+                d: toInt(match[2]) * sign,
+                h: toInt(match[3]) * sign,
+                m: toInt(match[4]) * sign,
+                s: toInt(match[5]) * sign,
+                ms: toInt(match[6]) * sign
             };
         } else if (!!(match = isoDurationRegex.exec(input))) {
             sign = (match[1] === "-") ? -1 : 1;
