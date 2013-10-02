@@ -359,5 +359,13 @@ exports["lang:kr"] = {
         test.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3일', "Jan 15 2012 should be week 3");
 
         test.done();
+    },
+    
+    "returns the name of the language" : function (test) {
+        test.expect(1);
+        
+        test.equal(require('../../lang/ko'), 'ko', "module should export ko");
+        
+        test.done();
     }
 };

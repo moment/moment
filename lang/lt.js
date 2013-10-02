@@ -6,7 +6,7 @@
     if (typeof define === 'function' && define.amd) {
         define(['moment'], factory); // AMD
     } else if (typeof exports === 'object') {
-        factory(require('../moment')); // Node
+        module.exports = factory(require('../moment')); // Node
     } else {
         factory(window.moment); // Browser global
     }
@@ -67,7 +67,7 @@
         return nominative ? weekDay : weekDay.substring(0, weekDay.length - 2) + "į";
     }
 
-    moment.lang("lt", {
+    return moment.lang("lt", {
         months : "sausio_vasario_kovo_balandžio_gegužės_biržėlio_liepos_rugpjūčio_rugsėjo_spalio_lapkričio_gruodžio".split("_"),
         monthsShort : "sau_vas_kov_bal_geg_bir_lie_rgp_rgs_spa_lap_grd".split("_"),
         weekdays : relativeWeekDay,

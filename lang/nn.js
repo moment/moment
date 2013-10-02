@@ -6,12 +6,12 @@
     if (typeof define === 'function' && define.amd) {
         define(['moment'], factory); // AMD
     } else if (typeof exports === 'object') {
-        factory(require('../moment')); // Node
+        module.exports = factory(require('../moment')); // Node
     } else {
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    moment.lang('nn', {
+    return moment.lang('nn', {
         months : "januar_februar_mars_april_mai_juni_juli_august_september_oktober_november_desember".split("_"),
         monthsShort : "jan_feb_mar_apr_mai_jun_jul_aug_sep_okt_nov_des".split("_"),
         weekdays : "sundag_måndag_tysdag_onsdag_torsdag_fredag_laurdag".split("_"),
