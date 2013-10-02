@@ -10,7 +10,7 @@ exports.format = {
     },
 
     "format escape brackets" : function (test) {
-        test.expect(9);
+        test.expect(10);
 
         moment.lang('en');
 
@@ -24,6 +24,7 @@ exports.format = {
         test.equal(b.format('[L] L'), 'L 02/14/2009', 'localized tokens with escaped localized tokens');
         test.equal(b.format('[L LL LLL LLLL aLa]'), 'L LL LLL LLLL aLa', 'localized tokens with escaped localized tokens');
         test.equal(b.format('[LLL] LLL'), 'LLL February 14 2009 3:25 PM', 'localized tokens with escaped localized tokens (recursion)');
+        test.equal(b.format('YYYY[\n]DD[\n]'), '2009\n14\n', 'Newlines');
         test.done();
     },
 
