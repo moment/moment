@@ -370,13 +370,14 @@
     }
 
     // compare two arrays, return the number of differences
-    function compareArrays(array1, array2) {
+    function compareArrays(array1, array2, dontConvert) {
         var len = Math.min(array1.length, array2.length),
             lengthDiff = Math.abs(array1.length - array2.length),
             diffs = 0,
             i;
         for (i = 0; i < len; i++) {
-            if (toInt(array1[i]) !== toInt(array2[i])) {
+            if ((dontConvert && array1[i] !== array2[i]) ||
+                (!dontConvert && toInt(array1[i]) !== toInt(array2[i]))) {
                 diffs++;
             }
         }
@@ -460,6 +461,10 @@
         }
 
         return value;
+    }
+
+    function normalizeLanguage(key) {
+        return key ? key.toLowerCase().replace('_', '-') : key;
     }
 
     /************************************
@@ -667,20 +672,52 @@
     // definition for 'en', so long as 'en' has already been loaded using
     // moment.lang.
     function getLangDefinition(key) {
+        var i = 0, j, lang, next, split,
+            get = function (k) {
+                if (!languages[k] && hasModule) {
+                    try {
+                        require('./lang/' + k);
+                    } catch (e) { }
+                }
+                return languages[k];
+            };
+
         if (!key) {
             return moment.fn._lang;
         }
-        if (!languages[key] && hasModule) {
-            try {
-                require('./lang/' + key);
-            } catch (e) {
-                // call with no params to set to default
-                return moment.fn._lang;
-            }
-        }
-        return languages[key] || moment.fn._lang;
-    }
 
+        if (!isArray(key)) {
+            //short-circuit everything else
+            lang = get(key);
+            if (lang) {
+                return lang;
+            }
+            key = [key];
+        }
+
+        //pick the language from the array
+        //try ['en-au', 'en-gb'] as 'en-au', 'en-gb', 'en', as in move through the list trying each
+        //substring from most specific to least, but move to the next array item if it's a more specific variant than the current root
+        while (i < key.length) {
+            split = normalizeLanguage(key[i]).split('-');
+            j = split.length;
+            next = normalizeLanguage(key[i + 1]);
+            next = next ? next.split('-') : null;
+            while (j > 0) {
+                lang = get(split.slice(0, j).join('-'));
+                if (lang) {
+                    return lang;
+                }
+                if (next && next.length >= j && compareArrays(split, next, true) >= j - 1) {
+                    //the next array item is better than a shallower substring of this one
+                    break;
+                }
+                j--;
+            }
+            i++;
+        }
+        return moment.fn._lang;
+    }
 
     /************************************
         Formatting
@@ -1373,21 +1410,20 @@
     // no arguments are passed in, it will simply return the current global
     // language key.
     moment.lang = function (key, values) {
+        var r;
         if (!key) {
             return moment.fn._lang._abbr;
         }
-        key = key.toLowerCase();
-        key = key.replace('_', '-');
         if (values) {
-            loadLang(key, values);
+            loadLang(normalizeLanguage(key), values);
         } else if (values === null) {
             unloadLang(key);
             key = 'en';
         } else if (!languages[key]) {
             getLangDefinition(key);
         }
-        moment.duration.fn._lang = moment.fn._lang = getLangDefinition(key);
-        return key;
+        r = moment.duration.fn._lang = moment.fn._lang = getLangDefinition(key);
+        return r._abbr;
     };
 
     // returns language data
