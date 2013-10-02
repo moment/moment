@@ -25,7 +25,8 @@
 
         // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
         // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
-        isoDurationRegex = /^(-)?(?:P)(?:(\d+(?:[,.]\d+)?)Y)?(?:(\d+(?:[,.]\d+)?)M)?(?:(\d+(?:[,.]\d+)?)W)?(?:(\d+(?:[,.]\d+)?)D)?(T(?:(\d+(?:[,.]\d+)?)H)?(?:(\d+(?:[,.]\d+)?)M)?(?:(\d+(?:[,.]\d+)?)S)?)?$/,
+        // isoDurationRegex = /^(-)?(?:P)(?:(\d+(?:[,.]\d+)?)Y)?(?:(\d+(?:[,.]\d+)?)M)?(?:(\d+(?:[,.]\d+)?)W)?(?:(\d+(?:[,.]\d+)?)D)?(T(?:(\d+(?:[,.]\d+)?)H)?(?:(\d+(?:[,.]\d+)?)M)?(?:(\d+(?:[,.]\d+)?)S)?)?$/,
+        isoDurationRegex = /^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/,
 
         // format tokens
         formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,
@@ -1079,30 +1080,24 @@
                 ms: ~~match[6] * sign
             };
         } else if (!!(match = isoDurationRegex.exec(input))) {
-            timeEmpty = !(match[7] || match[8] || match[9]);
-            dateTimeEmpty = timeEmpty && !(
-                match[2] || match[3] || match[4] || match[5]);
-
-            if (!(dateTimeEmpty || timeEmpty && match[6])) {
-                sign = (match[1] === "-") ? -1 : 1;
-                parseIso = function (inp) {
-                    // We'd normally use ~~inp for this, but unfortunately it
-                    // also converts floats to ints.
-                    // inp may be undefined, so careful calling replace on it.
-                    var res = inp && parseFloat(inp.replace(',', '.'));
-                    // apply sign while we're at it
-                    return (isNaN(res) ? 0 : res) * sign;
-                };
-                duration = {
-                    y: parseIso(match[2]),
-                    M: parseIso(match[3]),
-                    w: parseIso(match[4]),
-                    d: parseIso(match[5]),
-                    h: parseIso(match[7]),
-                    m: parseIso(match[8]),
-                    s: parseIso(match[9])
-                };
-            }
+            sign = (match[1] === "-") ? -1 : 1;
+            parseIso = function (inp) {
+                // We'd normally use ~~inp for this, but unfortunately it also
+                // converts floats to ints.
+                // inp may be undefined, so careful calling replace on it.
+                var res = inp && parseFloat(inp.replace(',', '.'));
+                // apply sign while we're at it
+                return (isNaN(res) ? 0 : res) * sign;
+            };
+            duration = {
+                y: parseIso(match[2]),
+                M: parseIso(match[3]),
+                d: parseIso(match[4]),
+                h: parseIso(match[5]),
+                m: parseIso(match[6]),
+                s: parseIso(match[7]),
+                w: parseIso(match[8]),
+            };
         }
 
         ret = new Duration(duration);

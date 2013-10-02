@@ -209,7 +209,7 @@ exports.duration = {
         test.equal(moment.duration("PT0,5S").asSeconds(), moment.duration({s: 0.5}).asSeconds(), "fractional seconds (comma)");
         test.done();
     },
-    
+
     "serialization to ISO 8601 duration strings" : function (test) {
         test.expect(6);
         test.equal(moment.duration({y: 1, M: 2, d: 3, h: 4, m: 5, s: 6}).toIsoString(), "P1Y2M3DT4H5M6S", "all fields");
@@ -220,7 +220,7 @@ exports.duration = {
         test.equal(moment.duration({}).toIsoString(), "P0D", "zero duration");
         test.done();
     },
-    
+
     "`isodate` (python) test cases" : function (test) {
         test.expect(24);
         test.equal(moment.duration("P18Y9M4DT11H9M8S").asSeconds(), moment.duration({y: 18, M: 9, d: 4, h: 11, m: 9, s: 8}).asSeconds(), "python isodate 1");
@@ -249,17 +249,16 @@ exports.duration = {
         test.equal(moment.duration("-P1DT2H3M4S").asSeconds(), moment.duration({d: -1, h: -2, m: -3, s: -4}).asSeconds(), "python isodate 24");
         test.done();
     },
-    
+
     "ISO 8601 misuse cases" : function (test) {
-        test.expect(9);
+        test.expect(8);
         test.equal(moment.duration("P").asSeconds(), 0, "lonely P");
         test.equal(moment.duration("PT").asSeconds(), 0, "just P and T");
-        test.equal(moment.duration("P1YT").asSeconds(), 0, "trailing T");
         test.equal(moment.duration("P1H").asSeconds(), 0, "missing T");
         test.equal(moment.duration("P1D1Y").asSeconds(), 0, "out of order");
-        test.equal(moment.duration("PT.5S").asSeconds(), 0, "no leading zero for decimal");
-        test.equal(moment.duration("PT1,S").asSeconds(), 0, "trailing decimal separator");
-        test.equal(moment.duration("PT0,,5S").asSeconds(), 0, "extra decimal separator");
+        test.equal(moment.duration("PT.5S").asSeconds(), 0.5, "accept no leading zero for decimal");
+        test.equal(moment.duration("PT1,S").asSeconds(), 1, "accept trailing decimal separator");
+        test.equal(moment.duration("PT1M0,,5S").asSeconds(), 60, "extra decimal separators are ignored as 0");
         test.equal(moment.duration("P-1DS").asSeconds(), 0, "wrong position of negative");
         test.done();
     },
