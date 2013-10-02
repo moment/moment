@@ -51,6 +51,7 @@ exports.lang = {
         test.equals(moment.lang(['fake-CA', 'fake-MX', 'fr']), 'fr', "always find something if possible");
         test.equals(moment.lang(['fake-CA', 'fake-MX', 'fr']), 'fr', "always find something if possible");
         test.equals(moment.lang(['fake-CA', 'fake-MX', 'fr-fake-fake-fake']), 'fr', "always find something if possible");
+        test.equals(moment.lang(['en', 'en-CA']), 'en', "prefer earlier if it works");
         test.done();
     },
 

@@ -691,6 +691,9 @@
             key = [key];
         }
 
+        //pick the language from the array
+        //try ['en-au', 'en-gb'] as 'en-au', 'en-gb', 'en', as in move through the list trying each
+        //substring from most specific to least, but move to the next array item if it's a more specific variant than the current root
         while (i < key.length) {
             split = normalizeLanguage(key[i]).split('-');
             j = split.length;
