@@ -1444,7 +1444,7 @@
         },
 
         unix : function () {
-            return Math.floor(+this / 1000);
+            return Math.floor(+(this.utc()._d) / 1000);
         },
 
         toString : function () {
@@ -1676,17 +1676,17 @@
 
         isAfter: function (input, units) {
             units = typeof units !== 'undefined' ? units : 'millisecond';
-            return +this.clone().startOf(units) > +moment(input).startOf(units);
+            return +this.clone().startOf(units).utc()._d > +moment(input).startOf(units).utc()._d;
         },
 
         isBefore: function (input, units) {
             units = typeof units !== 'undefined' ? units : 'millisecond';
-            return +this.clone().startOf(units) < +moment(input).startOf(units);
+            return +this.clone().startOf(units).utc()._d < +moment(input).startOf(units).utc()._d;
         },
 
         isSame: function (input, units) {
             units = typeof units !== 'undefined' ? units : 'millisecond';
-            return +this.clone().startOf(units) === +moment(input).startOf(units);
+            return +this.clone().startOf(units).utc()._d === +moment(input).startOf(units).utc()._d;
         },
 
         min: function (other) {
