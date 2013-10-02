@@ -267,5 +267,13 @@ exports["lang:br"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({y: 148}), true), "148 vloaz", "mutation 148 years");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 261}), true), "261 bloaz", "mutation 261 years");
         test.done();
+    },
+    
+    "returns the name of the language" : function (test) {
+        test.expect(1);
+        
+        test.equal(require('../../lang/br'), 'br', "module should export br");
+        
+        test.done();
     }
 };

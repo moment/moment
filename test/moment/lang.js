@@ -249,5 +249,15 @@ exports.lang = {
         test.equal(moment.invalid().format('YYYY-MM-DD'), "KHAAAAAAAAAAAN!");
 
         test.done();
+    },
+
+    "return lang name" : function (test) {
+        test.expect(1);
+
+        var registered = moment.lang('return-this', {});
+
+        test.equal(registered, 'return-this', 'returns the language configured');
+
+        test.done();
     }
 };

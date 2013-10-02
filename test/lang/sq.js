@@ -374,5 +374,13 @@ exports["lang:sq"] = {
         test.equal(moment([2012, 0, 15]).format('w ww wo'),   '2 02 2.', "Jan 15 2012 should be week 2");
 
         test.done();
+    },
+    
+    "returns the name of the language" : function (test) {
+        test.expect(1);
+        
+        test.equal(require('../../lang/sq'), 'sq', "module should export sq");
+        
+        test.done();
     }
 };

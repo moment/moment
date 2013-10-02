@@ -373,5 +373,13 @@ exports["lang:ka"] = {
         test.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 მე-3', "იან  9 2012 უნდა იყოს კვირა 3");
 
         test.done();
+    },
+    
+    "returns the name of the language" : function (test) {
+        test.expect(1);
+        
+        test.equal(require('../../lang/ka'), 'ka', "module should export ka");
+        
+        test.done();
     }
 };

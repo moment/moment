@@ -6,7 +6,7 @@ Please submit all pull requests to the `develop` branch.
 Language translations will not be merged without unit tests.
 ============================================================
 
-See [the english unit tests](https://github.com/timrwood/moment/blob/develop/test/lang/en.js) for an example.
+See [the British english unit tests](https://github.com/moment/moment/blob/develop/test/lang/en-gb.js) for an example.
 
 Submitting Issues
 =================

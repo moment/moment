@@ -6,7 +6,7 @@
     if (typeof define === 'function' && define.amd) {
         define(['moment'], factory); // AMD
     } else if (typeof exports === 'object') {
-        factory(require('../moment')); // Node
+        module.exports = factory(require('../moment')); // Node
     } else {
         factory(window.moment); // Browser global
     }
@@ -59,7 +59,7 @@
         return mutationTable[text.charAt(0)] + text.substring(1);
     }
 
-    moment.lang('br', {
+    return moment.lang('br', {
         months : "Genver_C'hwevrer_Meurzh_Ebrel_Mae_Mezheven_Gouere_Eost_Gwengolo_Here_Du_Kerzu".split("_"),
         monthsShort : "Gen_C'hwe_Meu_Ebr_Mae_Eve_Gou_Eos_Gwe_Her_Du_Ker".split("_"),
         weekdays : "Sul_Lun_Meurzh_Merc'her_Yaou_Gwener_Sadorn".split("_"),

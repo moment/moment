@@ -346,5 +346,13 @@ exports["lang:zh-cn"] = {
         test.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3周', "Jan 15 2012 应该是第 3周");
 
         test.done();
+    },
+    
+    "returns the name of the language" : function (test) {
+        test.expect(1);
+        
+        test.equal(require('../../lang/zh-cn'), 'zh-cn', "module should export zh-cn");
+        
+        test.done();
     }
 };

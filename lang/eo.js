@@ -8,12 +8,12 @@
     if (typeof define === 'function' && define.amd) {
         define(['moment'], factory); // AMD
     } else if (typeof exports === 'object') {
-        factory(require('../moment')); // Node
+        module.exports = factory(require('../moment')); // Node
     } else {
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    moment.lang('eo', {
+    return moment.lang('eo', {
         months : "januaro_februaro_marto_aprilo_majo_junio_julio_aŭgusto_septembro_oktobro_novembro_decembro".split("_"),
         monthsShort : "jan_feb_mar_apr_maj_jun_jul_aŭg_sep_okt_nov_dec".split("_"),
         weekdays : "Dimanĉo_Lundo_Mardo_Merkredo_Ĵaŭdo_Vendredo_Sabato".split("_"),
