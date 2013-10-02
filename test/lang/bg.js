@@ -39,7 +39,7 @@ exports["lang:bg"] = {
     "format" : function (test) {
         test.expect(22);
         var a = [
-                ['dddd, MMMM Do YYYY, h:mm:ss a',      'неделя, февруари 14-ти 2010, 3:25:50 pm'],
+                ['dddd, MMMM Do YYYY, H:mm:ss',        'неделя, февруари 14-ти 2010, 15:25:50'],
                 ['ddd, hA',                            'нед, 3PM'],
                 ['M Mo MM MMMM MMM',                   '2 2-ри 02 февруари фев'],
                 ['YYYY YY',                            '2010 10'],
@@ -55,12 +55,12 @@ exports["lang:bg"] = {
                 ['[the] DDDo [day of the year]',       'the 45-ти day of the year'],
                 ['L',                                  '14.02.2010'],
                 ['LL',                                 '14 февруари 2010'],
-                ['LLL',                                '14 февруари 2010 3:25'],
-                ['LLLL',                               'неделя, 14 февруари 2010 3:25'],
+                ['LLL',                                '14 февруари 2010 15:25'],
+                ['LLLL',                               'неделя, 14 февруари 2010 15:25'],
                 ['l',                                  '14.2.2010'],
                 ['ll',                                 '14 фев 2010'],
-                ['lll',                                '14 фев 2010 3:25'],
-                ['llll',                               'нед, 14 фев 2010 3:25']
+                ['lll',                                '14 фев 2010 15:25'],
+                ['llll',                               'нед, 14 фев 2010 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -361,12 +361,12 @@ exports["lang:bg"] = {
 
         test.done();
     },
-    
+
     "returns the name of the language" : function (test) {
         test.expect(1);
-        
+
         test.equal(require('../../lang/bg'), 'bg', "module should export bg");
-        
+
         test.done();
     }
 };

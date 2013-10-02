@@ -18,7 +18,7 @@
         weekdaysShort : "нед_пон_вто_сря_чет_пет_съб".split("_"),
         weekdaysMin : "нд_пн_вт_ср_чт_пт_сб".split("_"),
         longDateFormat : {
-            LT : "h:mm",
+            LT : "H:mm",
             L : "D.MM.YYYY",
             LL : "D MMMM YYYY",
             LLL : "D MMMM YYYY LT",
