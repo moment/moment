@@ -476,17 +476,22 @@
     }
 
     function checkOverflow(m) {
+        var overflow;
         if (m._a && m._pf.overflow === -2) {
-            m._pf.overflow =
+            overflow =
                 m._a[MONTH] < 0 || m._a[MONTH] > 11 ? MONTH :
-                m._a[DATE] < 1 || m._a[DATE] >
-                  (m._pf.overflowMonthOk ? (isLeapYear(m._a[YEAR]) ? 364 : 365) : daysInMonth(m._a[YEAR], m._a[MONTH])) ? DATE :
+                m._a[DATE] < 1 || m._a[DATE] > daysInMonth(m._a[YEAR], m._a[MONTH]) ? DATE :
                 m._a[HOUR] < 0 || m._a[HOUR] > 23 ? HOUR :
                 m._a[MINUTE] < 0 || m._a[MINUTE] > 59 ? MINUTE :
                 m._a[SECOND] < 0 || m._a[SECOND] > 59 ? SECOND :
                 m._a[MILLISECOND] < 0 || m._a[MILLISECOND] > 999 ? MILLISECOND :
                 -1;
 
+            if (m._pf._overflowDayOfYear && (overflow < 0 || overflow > 2)) {
+                overflow = 2;
+            }
+
+            m._pf.overflow = overflow;
         }
     }
 
@@ -495,12 +500,11 @@
             empty : false,
             unusedTokens : [],
             unusedInput : [],
-            overflowMonthOk : false,
             overflow : -2,
             charsLeftOver : 0,
             nullInput : false,
             invalidMonth : null,
-            userInvalidated : false
+            userInvalidated : false,
         };
     }
 
@@ -911,9 +915,7 @@
         case 'DDD' : // fall through to DDDD
         case 'DDDD' :
             if (input != null) {
-                datePartArray[MONTH] = 0;
-                datePartArray[DATE] = toInt(input);
-                config._pf.overflowMonthOk = true;
+                config._dayOfYear = toInt(input);
             }
 
             break;
@@ -970,11 +972,26 @@
     // the array should mirror the parameters below
     // note: all values past the year are optional and will default to the lowest possible value.
     // [year, month, day , hour, minute, second, millisecond]
-    function dateFromArray(config) {
-        var i, date, input = [], currentDate;
+    function dateFromConfig(config) {
+        var i, date, input = [], currentDate, yearToUse;
 
         if (config._d) {
             return;
+        }
+
+        currentDate = currentDateArray(config);
+
+        //if the day of the year is set, figure out what it is
+        if (config._dayOfYear) {
+            yearToUse = config._a[YEAR] == null ? currentDate[YEAR] : config._a[YEAR];
+
+            if (config._dayOfYear > (isLeapYear(yearToUse) ? 364 : 365)) {
+                config._pf._overflowDayOfYear = true;
+            }
+
+            date = new Date(yearToUse, 0, config._dayOfYear);
+            config._a[MONTH] = date.getMonth();
+            config._a[DATE] = date.getDate();
         }
 
         // Default to current date.
@@ -982,7 +999,6 @@
         // * if day of month is given, default month and year
         // * if month is given, default only year
         // * if year is given, don't default anything
-        currentDate = currentDateArray(config);
         for (i = 0; i < 3 && config._a[i] == null; ++i) {
             config._a[i] = input[i] = currentDate[i];
         }
@@ -1027,7 +1043,7 @@
             normalizedInput.millisecond
         ];
 
-        dateFromArray(config);
+        dateFromConfig(config);
     }
 
     function currentDateArray(config) {
@@ -1098,7 +1114,7 @@
             config._a[HOUR] = 0;
         }
 
-        dateFromArray(config);
+        dateFromConfig(config);
         checkOverflow(config);
     }
 
@@ -1186,7 +1202,7 @@
             makeDateFromString(config);
         } else if (isArray(input)) {
             config._a = input.slice(0);
-            dateFromArray(config);
+            dateFromConfig(config);
         } else if (isDate(input)) {
             config._d = new Date(+input);
         } else if (typeof(input) === 'object') {
@@ -1498,8 +1514,7 @@
         isDSTShifted : function () {
 
             if (this._a) {
-                //this is best-effort. What if it's a valid overflow AND DST-shifted?
-                return this.isValid() && !this._pf.overflowMonthOk && compareArrays(this._a, (this._isUTC ? moment.utc(this._a) : moment(this._a)).toArray()) > 0;
+                return this.isValid() && compareArrays(this._a, (this._isUTC ? moment.utc(this._a) : moment(this._a)).toArray()) > 0;
             }
 
             return false;

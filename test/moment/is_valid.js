@@ -240,6 +240,16 @@ exports.is_valid = {
         test.done();
     },
 
+    "days of the year" : function (test) {
+        test.equal(moment('2010 300', 'YYYY DDDD').isValid(), true, 'day 300 of year valid');
+        test.equal(moment('2010 365', 'YYYY DDDD').isValid(), true, 'day 365 of year valid');
+        test.equal(moment('2010 366', 'YYYY DDDD').isValid(), false, 'day 366 of year invalid');
+        test.equal(moment('2012 364', 'YYYY DDDD').isValid(), true, 'day 364 of leap year valid');
+        test.equal(moment('2012 365', 'YYYY DDDD').isValid(), false, 'day 365 of leap year invalid');
+
+        test.done();
+    },
+
     "oddball permissiveness" : function (test) {
         //https://github.com/moment/moment/issues/1128
         test.ok(moment("2010-10-3199", ["MM/DD/YYYY", "MM-DD-YYYY", "YYYY-MM-DD"]).isValid());
