@@ -491,8 +491,8 @@
                 m._a[MILLISECOND] < 0 || m._a[MILLISECOND] > 999 ? MILLISECOND :
                 -1;
 
-            if (m._pf._overflowDayOfYear && (overflow < 0 || overflow > 2)) {
-                overflow = 2;
+            if (m._pf._overflowDayOfYear && (overflow < YEAR || overflow > DATE)) {
+                overflow = DATE;
             }
 
             m._pf.overflow = overflow;
@@ -993,9 +993,9 @@
                 config._pf._overflowDayOfYear = true;
             }
 
-            date = new Date(yearToUse, 0, config._dayOfYear);
-            config._a[MONTH] = date.getMonth();
-            config._a[DATE] = date.getDate();
+            date = makeUTCDate(yearToUse, 0, config._dayOfYear);
+            config._a[MONTH] = date.getUTCMonth();
+            config._a[DATE] = date.getUTCDate();
         }
 
         // Default to current date.
@@ -1016,17 +1016,7 @@
         input[HOUR] += toInt((config._tzm || 0) / 60);
         input[MINUTE] += toInt((config._tzm || 0) % 60);
 
-        date = new Date(0);
-
-        if (config._useUTC) {
-            date.setUTCFullYear(input[YEAR], input[MONTH], input[DATE]);
-            date.setUTCHours(input[HOUR], input[MINUTE], input[SECOND], input[MILLISECOND]);
-        } else {
-            date.setFullYear(input[YEAR], input[MONTH], input[DATE]);
-            date.setHours(input[HOUR], input[MINUTE], input[SECOND], input[MILLISECOND]);
-        }
-
-        config._d = date;
+        config._d = (config._useUTC ? makeUTCDate : makeDate).apply(null, input);
     }
 
     function dateFromObject(config) {
@@ -1216,6 +1206,25 @@
         }
     }
 
+    function makeDate(y, m, d, h, M, s, ms) {
+        //can't just apply() to create a date:
+        //http://stackoverflow.com/questions/181348/instantiating-a-javascript-object-by-calling-prototype-constructor-apply
+        var date = new Date(y, m, d, h, M, s, ms);
+
+        //the date constructor doesn't accept years < 1970
+        if (y < 1970) {
+            date.setFullYear(y);
+        }
+        return date;
+    }
+
+    function makeUTCDate(y) {
+        var date = new Date(Date.UTC.apply(null, arguments));
+        if (y < 1970) {
+            date.setUTCFullYear(y);
+        }
+        return date;
+    }
 
     /************************************
         Relative Time
