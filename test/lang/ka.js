@@ -113,11 +113,11 @@ exports["lang:ka"] = {
         test.equal(moment([2011, 0, 29]).format('DDDo'), '29-ე', '29-ე');
         test.equal(moment([2011, 0, 30]).format('DDDo'), '30-ე', '30-ე');
 
-        test.equal(moment([2011, 0, 0]).add('days', 40).format('DDDo'),  'მე-40',  'მე-40');
-        test.equal(moment([2011, 0, 0]).add('days', 50).format('DDDo'),  '50-ე',   '50-ე');
-        test.equal(moment([2011, 0, 0]).add('days', 60).format('DDDo'),  'მე-60',  'მე-60');
-        test.equal(moment([2011, 0, 0]).add('days', 100).format('DDDo'), 'მე-100', 'მე-100');
-        test.equal(moment([2011, 0, 0]).add('days', 101).format('DDDo'), '101-ე',  '101-ე');
+        test.equal(moment("2011 40", "YYYY DDD").format('DDDo'),  'მე-40',  'მე-40');
+        test.equal(moment("2011 50", "YYYY DDD").format('DDDo'),  '50-ე',   '50-ე');
+        test.equal(moment("2011 60", "YYYY DDD").format('DDDo'),  'მე-60',  'მე-60');
+        test.equal(moment("2011 100", "YYYY DDD").format('DDDo'), 'მე-100', 'მე-100');
+        test.equal(moment("2011 101", "YYYY DDD").format('DDDo'), '101-ე',  '101-ე');
         test.done();
     },
 

@@ -3,15 +3,14 @@ var moment = require("../../moment");
 exports.is_valid = {
     "array bad month" : function (test) {
         test.expect(2);
-
-        test.equal(moment([2010, -1]).isValid(), false, 'month -1');
-        test.equal(moment([2100, 12]).isValid(), false, 'month 12');
+        test.equal(moment([2010, -1]).isValid(), false, 'month -1 invalid');
+        test.equal(moment([2100, 12]).isValid(), false, 'month 12 invalid');
 
         test.done();
     },
 
     "array good month" : function (test) {
-        test.expect(24);
+        test.expect(12 * 2);
 
         for (var i = 0; i < 12; i++) {
             test.equal(moment([2010, i]).isValid(), true, 'month ' + i);
@@ -22,13 +21,20 @@ exports.is_valid = {
     },
 
     "array bad date" : function (test) {
-        test.expect(4);
+        var tests = [
+            moment([2010, 0, 0]),
+            moment([2100, 0, 32]),
+            moment.utc([2010, 0, 0]),
+            moment.utc([2100, 0, 32])
+        ],
+        i, m;
 
-        test.equal(moment([2010, 0, 0]).isValid(), false, 'date 0');
-        test.equal(moment([2100, 0, 32]).isValid(), false, 'date 32');
+        test.expect(tests.length);
 
-        test.equal(moment.utc([2010, 0, 0]).isValid(), false, 'utc date 0');
-        test.equal(moment.utc([2100, 0, 32]).isValid(), false, 'utc date 32');
+        for (i in tests) {
+            m = tests[i];
+            test.equal(m.isValid(), false);
+        }
 
         test.done();
     },
@@ -77,7 +83,7 @@ exports.is_valid = {
         test.expect(2);
 
         test.equal(moment('fail', "MM-DD-YYYY").isValid(), false, 'string "fail" with format "MM-DD-YYYY"');
-        test.equal(moment("xx-xx-2001", 'DD-MM-YYY').isValid(), false, 'string "xx-xx-2001" with format "MM-DD-YYYY"');
+        test.equal(moment("xx-xx-2001", 'DD-MM-YYY').isValid(), true, 'string "xx-xx-2001" with format "MM-DD-YYYY"');
         test.done();
     },
 
@@ -221,5 +227,36 @@ exports.is_valid = {
 
         test.equal(moment(" ", "X").isValid(), false, 'string space');
         test.done();
-    }
+    },
+
+    "empty" : function (test) {
+        test.equal(moment(null).isValid(), false, 'null');
+        test.equal(moment('').isValid(), false, 'empty string');
+        test.equal(moment(' ').isValid(), false, 'empty when trimmed');
+
+        test.equal(moment(null, 'YYYY').isValid(), false, 'format + null');
+        test.equal(moment('', 'YYYY').isValid(), false, 'format + empty string');
+        test.equal(moment(' ', 'YYYY').isValid(), false, 'format + empty when trimmed');
+        test.done();
+    },
+
+    "days of the year" : function (test) {
+        test.equal(moment('2010 300', 'YYYY DDDD').isValid(), true, 'day 300 of year valid');
+        test.equal(moment('2010 365', 'YYYY DDDD').isValid(), true, 'day 365 of year valid');
+        test.equal(moment('2010 366', 'YYYY DDDD').isValid(), false, 'day 366 of year invalid');
+        test.equal(moment('2012 364', 'YYYY DDDD').isValid(), true, 'day 364 of leap year valid');
+        test.equal(moment('2012 365', 'YYYY DDDD').isValid(), false, 'day 365 of leap year invalid');
+
+        test.done();
+    },
+
+    "oddball permissiveness" : function (test) {
+        //https://github.com/moment/moment/issues/1128
+        test.ok(moment("2010-10-3199", ["MM/DD/YYYY", "MM-DD-YYYY", "YYYY-MM-DD"]).isValid());
+
+        //https://github.com/moment/moment/issues/1122
+        test.ok(moment("3:25", ["h:mma", "hh:mma", "H:mm", "HH:mm"]).isValid());
+
+        test.done();
+    },
 };

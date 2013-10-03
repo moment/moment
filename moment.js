@@ -15,6 +15,14 @@
         round = Math.round,
         i,
 
+        YEAR = 0,
+        MONTH = 1,
+        DATE = 2,
+        HOUR = 3,
+        MINUTE = 4,
+        SECOND = 5,
+        MILLISECOND = 6,
+
         // internal storage for language config files
         languages = {},
 
@@ -249,6 +257,7 @@
 
     // Moment prototype object
     function Moment(config) {
+        checkOverflow(config);
         extend(this, config);
     }
 
@@ -462,6 +471,65 @@
         return value;
     }
 
+    function daysInMonth(year, month) {
+        return moment.utc([year, month + 1, 0]).date();
+    }
+
+    function isLeapYear(year) {
+        return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+    }
+
+    function checkOverflow(m) {
+        var overflow;
+        if (m._a && m._pf.overflow === -2) {
+            overflow =
+                m._a[MONTH] < 0 || m._a[MONTH] > 11 ? MONTH :
+                m._a[DATE] < 1 || m._a[DATE] > daysInMonth(m._a[YEAR], m._a[MONTH]) ? DATE :
+                m._a[HOUR] < 0 || m._a[HOUR] > 23 ? HOUR :
+                m._a[MINUTE] < 0 || m._a[MINUTE] > 59 ? MINUTE :
+                m._a[SECOND] < 0 || m._a[SECOND] > 59 ? SECOND :
+                m._a[MILLISECOND] < 0 || m._a[MILLISECOND] > 999 ? MILLISECOND :
+                -1;
+
+            if (m._pf._overflowDayOfYear && (overflow < YEAR || overflow > DATE)) {
+                overflow = DATE;
+            }
+
+            m._pf.overflow = overflow;
+        }
+    }
+
+    function initializeParsingFlags(config) {
+        config._pf = {
+            empty : false,
+            unusedTokens : [],
+            unusedInput : [],
+            overflow : -2,
+            charsLeftOver : 0,
+            nullInput : false,
+            invalidMonth : null,
+            userInvalidated : false,
+        };
+    }
+
+    function isValid(m) {
+        if (m._isValid == null) {
+            m._isValid = !isNaN(m._d.getTime()) &&
+                m._pf.overflow < 0 &&
+                !m._pf.empty &&
+                !m._pf.invalidMonth &&
+                !m._pf.nullInput &&
+                !m._pf.userInvalidated;
+
+            if (m._strict) {
+                m._isValid = m._isValid &&
+                    m._pf.charsLeftOver === 0 &&
+                    m._pf.unusedTokens.length === 0;
+            }
+        }
+        return m._isValid;
+    }
+
     /************************************
         Languages
     ************************************/
@@ -639,6 +707,11 @@
         _week : {
             dow : 0, // Sunday is the first day of the week.
             doy : 6  // The week that contains Jan 1st is the first week of the year.
+        },
+
+        _invalidDate: 'Invalid date',
+        invalidDate: function () {
+            return this._invalidDate;
         }
     });
 
@@ -717,6 +790,10 @@
     // format date using native date object
     function formatMoment(m, format) {
 
+        if (!m.isValid()) {
+            return m.lang().invalidDate();
+        }
+
         format = expandFormat(format, m.lang());
 
         if (!formatFunctions[format]) {
@@ -751,6 +828,7 @@
 
     // get the regex to find the next token
     function getParseRegexForToken(token, config) {
+        var a;
         switch (token) {
         case 'DDDD':
             return parseTokenThreeDigits;
@@ -795,7 +873,8 @@
         case 's':
             return parseTokenOneOrTwoDigits;
         default :
-            return new RegExp(regexpEscape(token.replace('\\', '')));
+            a = new RegExp(regexpEscape(unescapeFormat(token.replace('\\', '')), "i"));
+            return a;
         }
     }
 
@@ -816,7 +895,7 @@
         case 'M' : // fall through to MM
         case 'MM' :
             if (input != null) {
-                datePartArray[1] = toInt(input) - 1;
+                datePartArray[MONTH] = toInt(input) - 1;
             }
             break;
         case 'MMM' : // fall through to MMMM
@@ -824,33 +903,33 @@
             a = getLangDefinition(config._l).monthsParse(input);
             // if we didn't find a month name, mark the date as invalid.
             if (a != null) {
-                datePartArray[1] = a;
+                datePartArray[MONTH] = a;
             } else {
-                config._isValid = false;
+                config._pf.invalidMonth = input;
             }
             break;
         // DAY OF MONTH
         case 'D' : // fall through to DD
         case 'DD' :
             if (input != null) {
-                datePartArray[2] = toInt(input);
+                datePartArray[DATE] = toInt(input);
             }
             break;
         // DAY OF YEAR
         case 'DDD' : // fall through to DDDD
         case 'DDDD' :
             if (input != null) {
-                datePartArray[1] = 0;
-                datePartArray[2] = toInt(input);
+                config._dayOfYear = toInt(input);
             }
+
             break;
         // YEAR
         case 'YY' :
-            datePartArray[0] = toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
+            datePartArray[YEAR] = toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
             break;
         case 'YYYY' :
         case 'YYYYY' :
-            datePartArray[0] = toInt(input);
+            datePartArray[YEAR] = toInt(input);
             break;
         // AM / PM
         case 'a' : // fall through to A
@@ -862,28 +941,27 @@
         case 'HH' : // fall through to hh
         case 'h' : // fall through to hh
         case 'hh' :
-            datePartArray[3] = toInt(input);
+            datePartArray[HOUR] = toInt(input);
             break;
         // MINUTE
         case 'm' : // fall through to mm
         case 'mm' :
-            datePartArray[4] = toInt(input);
+            datePartArray[MINUTE] = toInt(input);
             break;
         // SECOND
         case 's' : // fall through to ss
         case 'ss' :
-            datePartArray[5] = toInt(input);
+            datePartArray[SECOND] = toInt(input);
             break;
         // MILLISECOND
         case 'S' :
         case 'SS' :
         case 'SSS' :
-            datePartArray[6] = toInt(('0.' + input) * 1000);
+            datePartArray[MILLISECOND] = toInt(('0.' + input) * 1000);
             break;
         // UNIX TIMESTAMP WITH MS
         case 'X':
             config._d = new Date(parseFloat(input) * 1000);
-            config._isValid = !isNaN(config._d.getTime());
             break;
         // TIMEZONE
         case 'Z' : // fall through to ZZ
@@ -892,22 +970,32 @@
             config._tzm = timezoneMinutesFromString(input);
             break;
         }
-
-        // if the input is null, the date is not valid
-        if (input == null) {
-            config._isValid = false;
-        }
     }
 
     // convert an array to a date.
     // the array should mirror the parameters below
     // note: all values past the year are optional and will default to the lowest possible value.
     // [year, month, day , hour, minute, second, millisecond]
-    function dateFromArray(config) {
-        var i, date, input = [], currentDate;
+    function dateFromConfig(config) {
+        var i, date, input = [], currentDate, yearToUse;
 
         if (config._d) {
             return;
+        }
+
+        currentDate = currentDateArray(config);
+
+        //if the day of the year is set, figure out what it is
+        if (config._dayOfYear) {
+            yearToUse = config._a[YEAR] == null ? currentDate[YEAR] : config._a[YEAR];
+
+            if (config._dayOfYear > (isLeapYear(yearToUse) ? 364 : 365)) {
+                config._pf._overflowDayOfYear = true;
+            }
+
+            date = makeUTCDate(yearToUse, 0, config._dayOfYear);
+            config._a[MONTH] = date.getUTCMonth();
+            config._a[DATE] = date.getUTCDate();
         }
 
         // Default to current date.
@@ -915,7 +1003,6 @@
         // * if day of month is given, default month and year
         // * if month is given, default only year
         // * if year is given, don't default anything
-        currentDate = currentDateArray(config);
         for (i = 0; i < 3 && config._a[i] == null; ++i) {
             config._a[i] = input[i] = currentDate[i];
         }
@@ -926,20 +1013,10 @@
         }
 
         // add the offsets to the time to be parsed so that we can have a clean array for checking isValid
-        input[3] += toInt((config._tzm || 0) / 60);
-        input[4] += toInt((config._tzm || 0) % 60);
+        input[HOUR] += toInt((config._tzm || 0) / 60);
+        input[MINUTE] += toInt((config._tzm || 0) % 60);
 
-        date = new Date(0);
-
-        if (config._useUTC) {
-            date.setUTCFullYear(input[0], input[1], input[2]);
-            date.setUTCHours(input[3], input[4], input[5], input[6]);
-        } else {
-            date.setFullYear(input[0], input[1], input[2]);
-            date.setHours(input[3], input[4], input[5], input[6]);
-        }
-
-        config._d = date;
+        config._d = (config._useUTC ? makeUTCDate : makeDate).apply(null, input);
     }
 
     function dateFromObject(config) {
@@ -960,7 +1037,7 @@
             normalizedInput.millisecond
         ];
 
-        dateFromArray(config);
+        dateFromConfig(config);
     }
 
     function currentDateArray(config) {
@@ -978,97 +1055,61 @@
 
     // date from string and format string
     function makeDateFromStringAndFormat(config) {
-        if (config._strict) {
-            makeDateFromStringAndStrictFormat(config);
-            return;
-        }
+        config._a = [];
+        config._pf.empty = true;
+
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
         var lang = getLangDefinition(config._l),
             string = '' + config._i,
-            i, parsedInput, tokens,
+            i, parsedInput, tokens, token, skipped,
             stringLength = string.length,
             totalParsedInputLength = 0;
 
-        tokens = expandFormat(config._f, lang).match(formattingTokens);
+        tokens = expandFormat(config._f, lang).match(formattingTokens) || [];
 
-        config._a = [];
         for (i = 0; i < tokens.length; i++) {
-            parsedInput = (getParseRegexForToken(tokens[i], config).exec(string) || [])[0];
+            token = tokens[i];
+            parsedInput = (getParseRegexForToken(token, config).exec(string) || [])[0];
             if (parsedInput) {
+                skipped = string.substr(0, string.indexOf(parsedInput));
+                if (skipped.length > 0) {
+                    config._pf.unusedInput.push(skipped);
+                }
                 string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
                 totalParsedInputLength += parsedInput.length;
             }
-            // don't parse if its not a known token
-            if (formatTokenFunctions[tokens[i]]) {
-                addTimeToArrayFromToken(tokens[i], parsedInput, config);
+            // don't parse if it's not a known token
+            if (formatTokenFunctions[token]) {
+                if (parsedInput) {
+                    config._pf.empty = false;
+                }
+                else {
+                    config._pf.unusedTokens.push(token);
+                }
+                addTimeToArrayFromToken(token, parsedInput, config);
+            }
+            else if (config._strict && !parsedInput) {
+                config._pf.unusedTokens.push(token);
             }
         }
+
         // add remaining unparsed input length to the string
-        config._il = stringLength - totalParsedInputLength;
+        config._pf.charsLeftOver = stringLength - totalParsedInputLength;
+        if (string.length > 0) {
+            config._pf.unusedInput.push(string);
+        }
 
         // handle am pm
-        if (config._isPm && config._a[3] < 12) {
-            config._a[3] += 12;
+        if (config._isPm && config._a[HOUR] < 12) {
+            config._a[HOUR] += 12;
         }
         // if is 12 am, change hours to 0
-        if (config._isPm === false && config._a[3] === 12) {
-            config._a[3] = 0;
-        }
-        // return
-        dateFromArray(config);
-    }
-
-    function makeDateFromStringAndStrictFormat(config) {
-        var regexp = '', non_token_start = 0,
-            tokens = config._f.match(formattingTokens),
-            match, i, tokenIndex;
-
-        // We're not interested in the result. Just the tokens and their
-        // starting positions.
-        config._f.replace(formattingTokens, function (token) {
-            var offset = arguments[arguments.length - 2],
-                tokenRegexp;
-
-            if (formatTokenFunctions[token]) {
-                tokenRegexp = getParseRegexForToken(token).toString();
-                // Do not remember groups
-                tokenRegexp = tokenRegexp.replace(/\(/g, '(?:');
-
-                // regexp-escape strings in-between tokens
-                if (offset > non_token_start) {
-                    regexp += regexpEscape(unescapeFormat(config._f.substring(non_token_start, offset)));
-                }
-                non_token_start = offset + token.length;
-
-                // add token regexp
-                regexp += '(' + tokenRegexp.substring(1, tokenRegexp.lastIndexOf('/')) + ')';
-            }
-
-            return token;
-        });
-
-        // Handle stuff after last formatting token.
-        if (non_token_start !== config._f.length) {
-            regexp += regexpEscape(unescapeFormat(config._f.substring(non_token_start)));
-        }
-        regexp = new RegExp('^' + regexp + '$');
-        match = config._i.match(regexp);
-        if (match === null) {
-            config._a = [];
-            config._d = new Date(0);
-            config._isValid = false;
-            return;
+        if (config._isPm === false && config._a[HOUR] === 12) {
+            config._a[HOUR] = 0;
         }
 
-        config._a = [];
-        for (i = tokenIndex = 0; i < tokens.length; ++i) {
-            if (formatTokenFunctions[tokens[i]]) {
-                addTimeToArrayFromToken(tokens[i], match[tokenIndex + 1], config);
-                ++tokenIndex;
-            }
-        }
-
-        dateFromArray(config);
+        dateFromConfig(config);
+        checkOverflow(config);
     }
 
     function unescapeFormat(s) {
@@ -1085,31 +1126,38 @@
     // date from string and array of format strings
     function makeDateFromStringAndArray(config) {
         var tempConfig,
-            tempMoment,
             bestMoment,
 
-            scoreToBeat = 99,
+            scoreToBeat = 1000,
             i,
             currentScore;
 
         for (i = 0; i < config._f.length; i++) {
+            currentScore = 0;
             tempConfig = extend({}, config);
+            initializeParsingFlags(tempConfig);
             tempConfig._f = config._f[i];
             makeDateFromStringAndFormat(tempConfig);
-            tempMoment = new Moment(tempConfig);
 
-            currentScore = compareArrays(tempConfig._a, tempMoment.toArray());
-            // if there is any input that was not parsed
-            // add a penalty for that format
-            currentScore += tempMoment._il || 0;
+            if (!isValid(tempConfig)) {
+                continue;
+            }
+
+            // if there is any input that was not parsed add a penalty for that format
+            currentScore += tempConfig._pf.charsLeftOver;
+
+            //or tokens
+            currentScore += tempConfig._pf.unusedTokens.length * 10;
+
+            tempConfig._pf.score = currentScore;
 
             if (currentScore < scoreToBeat) {
                 scoreToBeat = currentScore;
-                bestMoment = tempMoment;
+                bestMoment = tempConfig;
             }
         }
 
-        extend(config, bestMoment);
+        extend(config, bestMoment || tempConfig);
     }
 
     // date from iso format
@@ -1148,7 +1196,7 @@
             makeDateFromString(config);
         } else if (isArray(input)) {
             config._a = input.slice(0);
-            dateFromArray(config);
+            dateFromConfig(config);
         } else if (isDate(input)) {
             config._d = new Date(+input);
         } else if (typeof(input) === 'object') {
@@ -1158,6 +1206,25 @@
         }
     }
 
+    function makeDate(y, m, d, h, M, s, ms) {
+        //can't just apply() to create a date:
+        //http://stackoverflow.com/questions/181348/instantiating-a-javascript-object-by-calling-prototype-constructor-apply
+        var date = new Date(y, m, d, h, M, s, ms);
+
+        //the date constructor doesn't accept years < 1970
+        if (y < 1970) {
+            date.setFullYear(y);
+        }
+        return date;
+    }
+
+    function makeUTCDate(y) {
+        var date = new Date(Date.UTC.apply(null, arguments));
+        if (y < 1970) {
+            date.setUTCFullYear(y);
+        }
+        return date;
+    }
 
     /************************************
         Relative Time
@@ -1234,8 +1301,12 @@
         var input = config._i,
             format = config._f;
 
-        if (input === null || input === '') {
-            return moment.invalid();
+        if (typeof config._pf === 'undefined') {
+            initializeParsingFlags(config);
+        }
+
+        if (input === null) {
+            return moment.invalid({nullInput: true});
         }
 
         if (typeof input === 'string') {
@@ -1287,10 +1358,7 @@
             _i : input,
             _f : format,
             _strict : strict
-        });
-        if (m != null) {
-            m = m.utc();
-        }
+        }).utc();
 
         return m;
     };
@@ -1323,11 +1391,11 @@
             sign = (match[1] === "-") ? -1 : 1;
             duration = {
                 y: 0,
-                d: toInt(match[2]) * sign,
-                h: toInt(match[3]) * sign,
-                m: toInt(match[4]) * sign,
-                s: toInt(match[5]) * sign,
-                ms: toInt(match[6]) * sign
+                d: toInt(match[DATE]) * sign,
+                h: toInt(match[HOUR]) * sign,
+                m: toInt(match[MINUTE]) * sign,
+                s: toInt(match[SECOND]) * sign,
+                ms: toInt(match[MILLISECOND]) * sign
             };
         } else if (!!(match = isoDurationRegex.exec(input))) {
             sign = (match[1] === "-") ? -1 : 1;
@@ -1412,15 +1480,19 @@
         makeList(lists[i]);
     }
 
-    // for use by developers when extending the library
-    // https://github.com/moment/moment/issues/1066
     moment.normalizeUnits = function (units) {
         return normalizeUnits(units);
     };
 
-    moment.invalid = function () {
+    moment.invalid = function (flags) {
         var m = moment.utc(NaN);
-        m._isValid = false;
+        if (flags != null) {
+            extend(m._pf, flags);
+        }
+        else {
+            m._pf.userInvalidated = true;
+        }
+
         return m;
     };
 
@@ -1473,22 +1545,24 @@
         },
 
         isValid : function () {
-            if (this._isValid == null) {
-                if (this._a) {
-                    this._isValid = !compareArrays(this._a, (this._isUTC ? moment.utc(this._a) : moment(this._a)).toArray());
-                } else {
-                    this._isValid = !isNaN(this._d.getTime());
-                }
+            return isValid(this);
+        },
+
+        isDSTShifted : function () {
+
+            if (this._a) {
+                return this.isValid() && compareArrays(this._a, (this._isUTC ? moment.utc(this._a) : moment(this._a)).toArray()) > 0;
             }
-            return !!this._isValid;
+
+            return false;
+        },
+
+        parsingFlags : function () {
+            return extend({}, this._pf);
         },
 
         invalidAt: function () {
-            var i, arr1 = this._a, arr2 = (this._isUTC ? moment.utc(this._a) : moment(this._a)).toArray();
-            for (i = 6; i >= 0 && arr1[i] === arr2[i]; --i) {
-                // empty loop body
-            }
-            return i;
+            return this._pf.overflow;
         },
 
         utc : function () {
@@ -1584,8 +1658,7 @@
         },
 
         isLeapYear : function () {
-            var year = this.year();
-            return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+            return isLeapYear(this.year());
         },
 
         isDST : function () {
@@ -1746,7 +1819,7 @@
         },
 
         daysInMonth : function () {
-            return moment.utc([this.year(), this.month() + 1, 0]).date();
+            return daysInMonth(this.year(), this.month());
         },
 
         dayOfYear : function (input) {

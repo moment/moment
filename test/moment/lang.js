@@ -240,6 +240,17 @@ exports.lang = {
         test.done();
     },
 
+    "invalid date formatting" : function (test) {
+        moment.lang('has-invalid', {
+            invalidDate: 'KHAAAAAAAAAAAN!'
+        });
+
+        test.equal(moment.invalid().format(), "KHAAAAAAAAAAAN!");
+        test.equal(moment.invalid().format('YYYY-MM-DD'), "KHAAAAAAAAAAAN!");
+
+        test.done();
+    },
+
     "return lang name" : function (test) {
         test.expect(1);
 

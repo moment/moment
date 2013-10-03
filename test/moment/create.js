@@ -119,22 +119,31 @@ exports.create = {
 
     "string with format dropped am/pm bug" : function (test) {
         moment.lang('en');
-        test.expect(3);
+        test.expect(6);
 
-        test.equal(moment('05/1/2012', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
+        test.equal(moment('05/1/2012 12:25:00', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
         test.equal(moment('05/1/2012 12:25:00 am', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
         test.equal(moment('05/1/2012 12:25:00 pm', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
+
+        test.ok(moment('05/1/2012 12:25:00', 'MM/DD/YYYY h:m:s a').isValid());
+        test.ok(moment('05/1/2012 12:25:00 am', 'MM/DD/YYYY h:m:s a').isValid());
+        test.ok(moment('05/1/2012 12:25:00 pm', 'MM/DD/YYYY h:m:s a').isValid());
 
         test.done();
     },
 
     "empty string with formats" : function (test) {
-        test.expect(3);
+        test.expect(8);
 
-        var currentDate = moment().startOf('day').format('YYYY-MM-DD HH:mm:ss');
-        test.equal(moment(' ', 'MM').format('YYYY-MM-DD HH:mm:ss'), currentDate, 'should not break if input is an empty string');
-        test.equal(moment(' ', 'DD').format('YYYY-MM-DD HH:mm:ss'), currentDate, 'should not break if input is an empty string');
-        test.equal(moment(' ', ['MM', "DD"]).format('YYYY-MM-DD HH:mm:ss'), currentDate, 'should not break if input is an empty string');
+        test.equal(moment('', 'MM').format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
+        test.equal(moment(' ', 'MM').format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
+        test.equal(moment(' ', 'DD').format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
+        test.equal(moment(' ', ['MM', "DD"]).format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
+
+        test.ok(!moment('', 'MM').isValid());
+        test.ok(!moment(' ', 'MM').isValid());
+        test.ok(!moment(' ', 'DD').isValid());
+        test.ok(!moment(' ', ['MM', "DD"]).isValid());
 
         test.done();
     },
@@ -211,7 +220,7 @@ exports.create = {
                 ['HH:mm:ss S',          '00:30:00 7'],
                 ['HH:mm:ss SS',         '00:30:00 78'],
                 ['HH:mm:ss SSS',        '00:30:00 789'],
-                ['X.SSS',               '1234567890.123'],
+                ['X',                   '1234567890'],
                 ['LT',                  '12:30 AM'],
                 ['L',                   '09/02/1999'],
                 ['l',                   '9/2/1999'],
@@ -222,11 +231,14 @@ exports.create = {
                 ['LLLL',                'Thursday, September 2 1999 12:30 AM'],
                 ['llll',                'Thu, Sep 2 1999 12:30 AM']
             ],
+            m,
             i;
 
-        test.expect(a.length);
+        test.expect(2 * a.length);
         for (i = 0; i < a.length; i++) {
-            test.equal(moment(a[i][1], a[i][0]).format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
+            m = moment(a[i][1], a[i][0]);
+            test.ok(m.isValid());
+            test.equal(m.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
         }
         test.done();
     },
@@ -294,7 +306,7 @@ exports.create = {
     },
 
     "string with array of formats" : function (test) {
-        test.expect(16);
+        test.expect(19);
 
         test.equal(moment('11-02-1999', ['MM-DD-YYYY', 'DD-MM-YYYY']).format('MM DD YYYY'), '11 02 1999', 'switching month and day');
         test.equal(moment('02-11-1999', ['MM/DD/YYYY', 'YYYY MM DD', 'MM-DD-YYYY']).format('MM DD YYYY'), '02 11 1999', 'year last');
@@ -307,14 +319,18 @@ exports.create = {
 
         test.equal(moment('13-11-1999', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'), '11 13 1999', 'second must be month');
         test.equal(moment('11-13-1999', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'), '11 13 1999', 'first must be month');
-        test.equal(moment('13-14-1999', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'), '01 14 2000', 'either can be a month, month first format');
-        test.equal(moment('13-14-1999', ['DD/MM/YYYY', 'MM/DD/YYYY']).format('MM DD YYYY'), '02 13 2000', 'either can be a month, day first format');
+        test.equal(moment('01-02-2000', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'), '01 02 2000', 'either can be a month, month first format');
+        test.equal(moment('02-01-2000', ['DD/MM/YYYY', 'MM/DD/YYYY']).format('MM DD YYYY'), '01 02 2000', 'either can be a month, day first format');
 
         test.equal(moment('11-02-10', ['MM/DD/YY', 'YY MM DD', 'DD-MM-YY']).format('MM DD YYYY'), '02 11 2010', 'all unparsed substrings have influence on format penalty');
+        test.equal(moment('11-02-10', ['MM-DD-YY HH:mm', 'YY MM DD']).format('MM DD YYYY'), '02 10 2011', 'prefer formats without extra tokens');
+        test.equal(moment('11-02-10 junk', ['MM-DD-YY', 'YY.MM.DD junk']).format('MM DD YYYY'), '02 10 2011', 'prefer formats that dont result in extra characters');
+        test.equal(moment('11-22-10', ['YY-MM-DD', 'YY-DD-MM']).format('MM DD YYYY'), '10 22 2011', 'prefer valid results');
+
         test.equal(moment('11-02-10', ['MM.DD.YY', 'DD-MM-YY']).format('MM DD YYYY'), '02 11 2010', 'escape RegExp special characters on comparing');
 
-        test.equal(moment('13-14-98', ['DD MM YY', 'DD MM YYYY'])._f, 'DD MM YY', 'use two digit year');
-        test.equal(moment('13-14-1998', ['DD MM YY', 'DD MM YYYY'])._f, 'DD MM YYYY', 'use four digit year');
+        test.equal(moment('13-10-98', ['DD MM YY', 'DD MM YYYY'])._f, 'DD MM YY', 'use two digit year');
+        test.equal(moment('13-10-1998', ['DD MM YY', 'DD MM YYYY'])._f, 'DD MM YYYY', 'use four digit year');
 
         test.equal(moment('01', ["MM", "DD"])._f, "MM", "Should use first valid format");
 
@@ -449,13 +465,15 @@ exports.create = {
         test.done();
     },
 
-    "null" : function (test) {
-        test.expect(6);
+    "null or empty" : function (test) {
+        test.expect(8);
         test.equal(moment('').isValid(), false, "moment('') is not valid");
         test.equal(moment(null).isValid(), false, "moment(null) is not valid");
+        test.equal(moment(null, 'YYYY-MM-DD').isValid(), false, "moment('', 'format') is not valid");
         test.equal(moment('', 'YYYY-MM-DD').isValid(), false, "moment('', 'format') is not valid");
         test.equal(moment.utc('').isValid(), false, "moment.utc('') is not valid");
         test.equal(moment.utc(null).isValid(), false, "moment.utc(null) is not valid");
+        test.equal(moment.utc(null, 'YYYY-MM-DD').isValid(), false, "moment.utc(null) is not valid");
         test.equal(moment.utc('', 'YYYY-MM-DD').isValid(), false, "moment.utc('', 'YYYY-MM-DD') is not valid");
         test.done();
     },
@@ -495,11 +513,12 @@ exports.create = {
     },
 
     "strict parsing" : function (test) {
-        test.expect(10);
+        test.expect(11);
         test.equal(moment("2012-05", "YYYY-MM", true).format("YYYY-MM"), "2012-05", "parse correct string");
         test.equal(moment(" 2012-05", "YYYY-MM", true).isValid(), false, "fail on extra whitespace");
         test.equal(moment("foo 2012-05", "[foo] YYYY-MM", true).format('YYYY-MM'), "2012-05", "handle fixed text");
         test.equal(moment("2012 05", "YYYY-MM", true).isValid(), false, "fail on different separator");
+        test.equal(moment("2012 05", "YYYY MM DD", true).isValid(), false, "fail on too many tokens");
 
         test.equal(moment("05 30 2010", ["DD MM YYYY", "MM DD YYYY"], true).format("MM DD YYYY"), "05 30 2010", "array with bad date");
         test.equal(moment("05 30 2010", ["", "MM DD YYYY"], true).format("MM DD YYYY"), "05 30 2010", "array with invalid format");
