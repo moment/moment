@@ -1346,7 +1346,7 @@
                 h: parseIso(match[5]),
                 m: parseIso(match[6]),
                 s: parseIso(match[7]),
-                w: parseIso(match[8]),
+                w: parseIso(match[8])
             };
         }
 
