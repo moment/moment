@@ -1408,10 +1408,8 @@
         return obj instanceof Duration;
     };
 
-    for (i in lists) {
-        if (lists.hasOwnProperty(i)) {
-            makeList(lists[i]);
-        }
+    for (i = lists.length - 1; i >= 0; --i) {
+        makeList(lists[i]);
     }
 
     // for use by developers when extending the library
