@@ -1451,7 +1451,7 @@
                 h: parseIso(match[5]),
                 m: parseIso(match[6]),
                 s: parseIso(match[7]),
-                w: parseIso(match[8]),
+                w: parseIso(match[8])
             };
         }
 
@@ -1513,7 +1513,9 @@
     };
 
     for (i in lists) {
-        makeList(lists[i]);
+        if (lists.hasOwnProperty(i)) {
+            makeList(lists[i]);
+        }
     }
 
     moment.normalizeUnits = function (units) {
