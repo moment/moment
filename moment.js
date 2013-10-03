@@ -1451,7 +1451,7 @@
                 h: parseIso(match[5]),
                 m: parseIso(match[6]),
                 s: parseIso(match[7]),
-                w: parseIso(match[8]),
+                w: parseIso(match[8])
             };
         }
 
@@ -1512,7 +1512,7 @@
         return obj instanceof Duration;
     };
 
-    for (i in lists) {
+    for (i = lists.length - 1; i >= 0; --i) {
         makeList(lists[i]);
     }
 
