@@ -2,12 +2,12 @@ var moment = require("../../moment");
 
 
     /**************************************************
-      British English
+      Australian English
      *************************************************/
 
-exports["lang:en-gb"] = {
+exports["lang:en-au"] = {
     setUp : function (cb) {
-        moment.lang('en-gb');
+        moment.lang('en-au');
         cb();
     },
 
@@ -55,12 +55,12 @@ exports["lang:en-gb"] = {
                 ['[the] DDDo [day of the year]',       'the 45th day of the year'],
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 February 2010'],
-                ['LLL',                                '14 February 2010 15:25'],
-                ['LLLL',                               'Sunday, 14 February 2010 15:25'],
+                ['LLL',                                '14 February 2010 3:25 PM'],
+                ['LLLL',                               'Sunday, 14 February 2010 3:25 PM'],
                 ['l',                                  '14/2/2010'],
                 ['ll',                                 '14 Feb 2010'],
-                ['lll',                                '14 Feb 2010 15:25'],
-                ['llll',                               'Sun, 14 Feb 2010 15:25']
+                ['lll',                                '14 Feb 2010 3:25 PM'],
+                ['llll',                               'Sun, 14 Feb 2010 3:25 PM']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -188,12 +188,12 @@ exports["lang:en-gb"] = {
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "Today at 02:00",      "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "Today at 02:25",      "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "Today at 03:00",      "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "Tomorrow at 02:00",   "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Today at 01:00",      "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Yesterday at 02:00",  "yesterday at the same time");
+        test.equal(moment(a).calendar(),                     "Today at 2:00 AM",      "today at the same time");
+        test.equal(moment(a).add({ m: 25 }).calendar(),      "Today at 2:25 AM",      "Now plus 25 min");
+        test.equal(moment(a).add({ h: 1 }).calendar(),       "Today at 3:00 AM",      "Now plus 1 hour");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "Tomorrow at 2:00 AM",   "tomorrow at the same time");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Today at 1:00 AM",      "Now minus 1 hour");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Yesterday at 2:00 AM",  "yesterday at the same time");
         test.done();
     },
 
@@ -353,7 +353,7 @@ exports["lang:en-gb"] = {
     "returns the name of the language" : function (test) {
         test.expect(1);
 
-        test.equal(require('../../lang/en-gb'), 'en-gb', "module should export en-gb");
+        test.equal(require('../../lang/en-au'), 'en-au', "module should export en-au");
 
         test.done();
     }
