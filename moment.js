@@ -59,10 +59,10 @@
         isoFormat = 'YYYY-MM-DDTHH:mm:ssZ',
 
         isoDates = [
-           'YYYY-MM-DD',
-           'GGGG-[W]WW',
-           'GGGG-[W]WW-E',
-           'YYYY-DDD'
+            'YYYY-MM-DD',
+            'GGGG-[W]WW',
+            'GGGG-[W]WW-E',
+            'YYYY-DDD'
         ],
 
         // iso time formats and regexes
