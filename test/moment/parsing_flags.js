@@ -174,5 +174,11 @@ exports.parsing_flags = {
         test.equal(flags('1982 Laser', 'YYYY MMMM').invalidMonth, 'Laser', 'bad month name');
 
         test.done();
+    },
+
+    'empty format array' : function (test) {
+        test.equal(flags('1982 May', ['YYYY MMM']).invalidFormat, false, 'empty format array');
+        test.equal(flags('1982 May', []).invalidFormat, true, 'empty format array');
+        test.done();
     }
 };
