@@ -10,7 +10,7 @@ exports.format = {
     },
 
     "format escape brackets" : function (test) {
-        test.expect(9);
+        test.expect(10);
 
         moment.lang('en');
 
@@ -24,6 +24,7 @@ exports.format = {
         test.equal(b.format('[L] L'), 'L 02/14/2009', 'localized tokens with escaped localized tokens');
         test.equal(b.format('[L LL LLL LLLL aLa]'), 'L LL LLL LLLL aLa', 'localized tokens with escaped localized tokens');
         test.equal(b.format('[LLL] LLL'), 'LLL February 14 2009 3:25 PM', 'localized tokens with escaped localized tokens (recursion)');
+        test.equal(b.format('YYYY[\n]DD[\n]'), '2009\n14\n', 'Newlines');
         test.done();
     },
 
@@ -98,7 +99,7 @@ exports.format = {
 
         m = moment(1234567890.123, 'X');
         test.equals(m.format('X'), '1234567890', 'unix timestamp as integer');
-        
+
         test.done();
     },
 
@@ -324,6 +325,15 @@ exports.format = {
 
         test.equal(moment(b).utc().calendar(), "Yesterday at 11:59 PM", "Yesterday at 11:59 PM, not Today, or the wrong time");
         test.equal(moment(c).local().calendar(), "Yesterday at 11:59 PM", "Yesterday at 11:59 PM, not Today, or the wrong time");
+
+        test.done();
+    },
+
+    "invalid" : function (test) {
+        moment.lang('en');
+
+        test.equal(moment.invalid().format(), "Invalid date");
+        test.equal(moment.invalid().format('YYYY-MM-DD'), "Invalid date");
 
         test.done();
     }

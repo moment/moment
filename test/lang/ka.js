@@ -113,11 +113,11 @@ exports["lang:ka"] = {
         test.equal(moment([2011, 0, 29]).format('DDDo'), '29-ე', '29-ე');
         test.equal(moment([2011, 0, 30]).format('DDDo'), '30-ე', '30-ე');
 
-        test.equal(moment([2011, 0, 0]).add('days', 40).format('DDDo'),  'მე-40',  'მე-40');
-        test.equal(moment([2011, 0, 0]).add('days', 50).format('DDDo'),  '50-ე',   '50-ე');
-        test.equal(moment([2011, 0, 0]).add('days', 60).format('DDDo'),  'მე-60',  'მე-60');
-        test.equal(moment([2011, 0, 0]).add('days', 100).format('DDDo'), 'მე-100', 'მე-100');
-        test.equal(moment([2011, 0, 0]).add('days', 101).format('DDDo'), '101-ე',  '101-ე');
+        test.equal(moment("2011 40", "YYYY DDD").format('DDDo'),  'მე-40',  'მე-40');
+        test.equal(moment("2011 50", "YYYY DDD").format('DDDo'),  '50-ე',   '50-ე');
+        test.equal(moment("2011 60", "YYYY DDD").format('DDDo'),  'მე-60',  'მე-60');
+        test.equal(moment("2011 100", "YYYY DDD").format('DDDo'), 'მე-100', 'მე-100');
+        test.equal(moment("2011 101", "YYYY DDD").format('DDDo'), '101-ე',  '101-ე');
         test.done();
     },
 
@@ -372,6 +372,14 @@ exports["lang:ka"] = {
         test.equal(moment([2012,  0,  8]).format('w ww wo'), '2 02 მე-2', "იან  8 2012 უნდა იყოს კვირა 2");
         test.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 მე-3', "იან  9 2012 უნდა იყოს კვირა 3");
 
+        test.done();
+    },
+    
+    "returns the name of the language" : function (test) {
+        test.expect(1);
+        
+        test.equal(require('../../lang/ka'), 'ka', "module should export ka");
+        
         test.done();
     }
 };

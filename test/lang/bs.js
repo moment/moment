@@ -5,9 +5,9 @@ var moment = require("../../moment");
       Croatian
      *************************************************/
 
-exports["lang:hr"] = {
+exports["lang:bs"] = {
     setUp : function (cb) {
-        moment.lang('hr');
+        moment.lang('bs');
         cb();
     },
 
@@ -19,7 +19,7 @@ exports["lang:hr"] = {
     "parse" : function (test) {
         test.expect(96);
 
-        var tests = 'sječanj sje._veljača vel._ožujak ožu._travanj tra._svibanj svi._lipanj lip._srpanj srp._kolovoz kol._rujan ruj._listopad lis._studeni stu._prosinac pro.'.split("_"), i;
+        var tests = 'januar jan._februar feb._mart mar._april apr._maj maj._juni jun._juli jul._avgust avg._septembar sep._oktobar okt._novembar nov._decembar dec.'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -40,9 +40,9 @@ exports["lang:hr"] = {
     "format" : function (test) {
         test.expect(22);
         var a = [
-                ['dddd, Do MMMM YYYY, h:mm:ss a',      'nedjelja, 14. veljača 2010, 3:25:50 pm'],
+                ['dddd, Do MMMM YYYY, h:mm:ss a',      'nedjelja, 14. februar 2010, 3:25:50 pm'],
                 ['ddd, hA',                            'ned., 3PM'],
-                ['M Mo MM MMMM MMM',                   '2 2. 02 veljača vel.'],
+                ['M Mo MM MMMM MMM',                   '2 2. 02 februar feb.'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14. 14'],
                 ['d do dddd ddd dd',                   '0 0. nedjelja ned. ne'],
@@ -55,13 +55,13 @@ exports["lang:hr"] = {
                 ['a A',                                'pm PM'],
                 ['[the] DDDo [day of the year]',       'the 45. day of the year'],
                 ['L',                                  '14. 02. 2010'],
-                ['LL',                                 '14. veljača 2010'],
-                ['LLL',                                '14. veljača 2010 15:25'],
-                ['LLLL',                               'nedjelja, 14. veljača 2010 15:25'],
+                ['LL',                                 '14. februar 2010'],
+                ['LLL',                                '14. februar 2010 15:25'],
+                ['LLLL',                               'nedjelja, 14. februar 2010 15:25'],
                 ['l',                                  '14. 2. 2010'],
-                ['ll',                                 '14. vel. 2010'],
-                ['lll',                                '14. vel. 2010 15:25'],
-                ['llll',                               'ned., 14. vel. 2010 15:25']
+                ['ll',                                 '14. feb. 2010'],
+                ['lll',                                '14. feb. 2010 15:25'],
+                ['llll',                               'ned., 14. feb. 2010 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -112,7 +112,7 @@ exports["lang:hr"] = {
 
     "format month" : function (test) {
         test.expect(12);
-        var expected = 'sječanj sje._veljača vel._ožujak ožu._travanj tra._svibanj svi._lipanj lip._srpanj srp._kolovoz kol._rujan ruj._listopad lis._studeni stu._prosinac pro.'.split("_"), i;
+        var expected = 'januar jan._februar feb._mart mar._april apr._maj maj._juni jun._juli jul._avgust avg._septembar sep._oktobar okt._novembar nov._decembar dec.'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -382,12 +382,12 @@ exports["lang:hr"] = {
 
         test.done();
     },
-    
+
     "returns the name of the language" : function (test) {
         test.expect(1);
-        
-        test.equal(require('../../lang/hr'), 'hr', "module should export hr");
-        
+
+        test.equal(require('../../lang/bs'), 'bs', "module should export bs");
+
         test.done();
     }
 };

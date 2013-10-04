@@ -2,9 +2,11 @@ var moment = require("../../moment");
 
 exports.lang = {
     "library getter" : function (test) {
-        test.expect(7);
+        var r;
+        test.expect(8);
 
-        moment.lang('en');
+        r = moment.lang('en');
+        test.equal(r, 'en', 'Lang should return en by default');
         test.equal(moment.lang(), 'en', 'Lang should return en by default');
 
         moment.lang('fr');
@@ -25,6 +27,31 @@ exports.lang = {
         moment.lang('EN_gb');
         test.equal(moment.lang(), 'en-gb', 'Normalize language key underscore');
 
+        test.done();
+    },
+
+    "library getter array of langs" : function (test) {
+        test.equal(moment.lang(['non-existent', 'fr', 'also-non-existent']), 'fr', "passing an array uses the first valid language");
+        test.equal(moment.lang(['es', 'fr', 'also-non-existent']), 'es', "passing an array uses the first valid language");
+        test.done();
+    },
+
+    "library getter language substrings" : function (test) {
+        test.equal(moment.lang('fr-crap'), 'fr', "use substrings");
+        test.equal(moment.lang('fr-does-not-exist'), 'fr', "uses deep substrings");
+        test.equal(moment.lang('fr-CA-does-not-exist'), 'fr-ca', "uses deepest substring");
+        test.done();
+    },
+
+    "library getter language array and substrings" : function (test) {
+        test.equal(moment.lang(['en-CH', 'fr']), 'en', "prefer root languages to shallower ones");
+        test.equal(moment.lang(['en-gb-leeds', 'en-CA']), 'en-gb', "prefer root languages to shallower ones");
+        test.equal(moment.lang(['en-fake', 'en-CA']), 'en-ca', "prefer alternatives with shared roots");
+        test.equal(moment.lang(['en-fake', 'en-fake2', 'en-ca']), 'en-ca', "prefer alternatives with shared roots");
+        test.equals(moment.lang(['fake-CA', 'fake-MX', 'fr']), 'fr', "always find something if possible");
+        test.equals(moment.lang(['fake-CA', 'fake-MX', 'fr']), 'fr', "always find something if possible");
+        test.equals(moment.lang(['fake-CA', 'fake-MX', 'fr-fake-fake-fake']), 'fr', "always find something if possible");
+        test.equals(moment.lang(['en', 'en-CA']), 'en', "prefer earlier if it works");
         test.done();
     },
 
@@ -97,6 +124,26 @@ exports.lang = {
         test.equal(moment([2012, 5, 6]).format('MMMM'), 'June', 'Normally default to global');
         test.equal(moment([2012, 5, 6]).lang('es').format('MMMM'), 'junio', 'Use the instance specific language');
         test.equal(moment([2012, 5, 6]).format('MMMM'), 'June', 'Using an instance specific language does not affect other moments');
+
+        test.done();
+    },
+
+    "instance lang method with array" : function (test) {
+        var m = moment().lang(['non-existent', 'fr', 'also-non-existent']);
+        test.equal(m.lang()._abbr, 'fr', "passing an array uses the first valid language");
+        m = moment().lang(['es', 'fr', 'also-non-existent']);
+        test.equal(m.lang()._abbr, 'es', "passing an array uses the first valid language");
+        test.done();
+    },
+
+    "instance getter language substrings" : function (test) {
+        var m = moment();
+
+        m.lang('fr-crap');
+        test.equal(m.lang()._abbr, 'fr', "use substrings");
+
+        m.lang('fr-does-not-exist');
+        test.equal(m.lang()._abbr, 'fr', "uses deep substrings");
 
         test.done();
     },
@@ -236,6 +283,27 @@ exports.lang = {
         moment.lang('meridiem-parsing');
         test.equal(moment('2012-01-01 3b', 'YYYY-MM-DD ha').hour(), 15, 'Custom parsing of meridiem should work');
         test.equal(moment('2012-01-01 3d', 'YYYY-MM-DD ha').hour(), 3, 'Custom parsing of meridiem should work');
+
+        test.done();
+    },
+
+    "invalid date formatting" : function (test) {
+        moment.lang('has-invalid', {
+            invalidDate: 'KHAAAAAAAAAAAN!'
+        });
+
+        test.equal(moment.invalid().format(), "KHAAAAAAAAAAAN!");
+        test.equal(moment.invalid().format('YYYY-MM-DD'), "KHAAAAAAAAAAAN!");
+
+        test.done();
+    },
+
+    "return lang name" : function (test) {
+        test.expect(1);
+
+        var registered = moment.lang('return-this', {});
+
+        test.equal(registered, 'return-this', 'returns the language configured');
 
         test.done();
     }

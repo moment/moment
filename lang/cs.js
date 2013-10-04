@@ -6,7 +6,7 @@
     if (typeof define === 'function' && define.amd) {
         define(['moment'], factory); // AMD
     } else if (typeof exports === 'object') {
-        factory(require('../moment')); // Node
+        module.exports = factory(require('../moment')); // Node
     } else {
         factory(window.moment); // Browser global
     }
@@ -71,7 +71,7 @@
         }
     }
 
-    moment.lang('cs', {
+    return moment.lang('cs', {
         months : months,
         monthsShort : monthsShort,
         monthsParse : (function (months, monthsShort) {

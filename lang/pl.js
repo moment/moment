@@ -6,7 +6,7 @@
     if (typeof define === 'function' && define.amd) {
         define(['moment'], factory); // AMD
     } else if (typeof exports === 'object') {
-        factory(require('../moment')); // Node
+        module.exports = factory(require('../moment')); // Node
     } else {
         factory(window.moment); // Browser global
     }
@@ -36,7 +36,7 @@
         }
     }
 
-    moment.lang('pl', {
+    return moment.lang('pl', {
         months : function (momentToFormat, format) {
             if (/D MMMM/.test(format)) {
                 return monthsSubjective[momentToFormat.month()];
