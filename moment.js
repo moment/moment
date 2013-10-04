@@ -967,7 +967,7 @@
 
     // function to convert string input to date
     function addTimeToArrayFromToken(token, input, config) {
-        var a, datePartArray = config._a, weekProp;
+        var a, datePartArray = config._a;
 
         switch (token) {
         // MONTH
