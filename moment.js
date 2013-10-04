@@ -509,7 +509,8 @@
             charsLeftOver : 0,
             nullInput : false,
             invalidMonth : null,
-            userInvalidated : false,
+            invalidFormat : false,
+            userInvalidated : false
         };
     }
 
@@ -520,6 +521,7 @@
                 !m._pf.empty &&
                 !m._pf.invalidMonth &&
                 !m._pf.nullInput &&
+                !m._pf.invalidFormat &&
                 !m._pf.userInvalidated;
 
             if (m._strict) {
@@ -1165,9 +1167,15 @@
         var tempConfig,
             bestMoment,
 
-            scoreToBeat = 1000,
+            scoreToBeat,
             i,
             currentScore;
+
+        if (config._f.length === 0) {
+            config._pf.invalidFormat = true;
+            config._d = new Date(NaN);
+            return;
+        }
 
         for (i = 0; i < config._f.length; i++) {
             currentScore = 0;
@@ -1188,7 +1196,7 @@
 
             tempConfig._pf.score = currentScore;
 
-            if (currentScore < scoreToBeat) {
+            if (scoreToBeat == null || currentScore < scoreToBeat) {
                 scoreToBeat = currentScore;
                 bestMoment = tempConfig;
             }
