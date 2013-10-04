@@ -616,10 +616,11 @@ exports.create = {
         test.equal(moment('1999 37', 'GGGG WW').format('YYYY MM DD'), "1999 09 13", 'iso week double');
 
         //year + week + day
-        test.equal(moment('1999 37 4', 'gggg ww e').format('YYYY MM DD'), "1999 09 09", 'day');
-        test.equal(moment('1999 37 04', 'gggg ww e').format('YYYY MM DD'), "1999 09 09", 'day');
         test.equal(moment('1999 37 4', 'GGGG WW E').format('YYYY MM DD'), "1999 09 16", 'iso day');
-        test.equal(moment('1999 37 04', 'GGGG WW E').format('YYYY MM DD'), "1999 09 16", 'iso day');
+        test.equal(moment('1999 37 04', 'GGGG WW E').format('YYYY MM DD'), "1999 09 16", 'iso day wide');
+
+        test.equal(moment('1999 37 4', 'gggg ww e').format('YYYY MM DD'), "1999 09 09", 'day');
+        test.equal(moment('1999 37 04', 'gggg ww e').format('YYYY MM DD'), "1999 09 09", 'day wide');
 
         //d
         test.equal(moment('1999 37 4', 'gggg ww d').format('YYYY MM DD'), "1999 09 09", 'd');
@@ -630,10 +631,10 @@ exports.create = {
         //lower-order only
         test.equal(moment('22', 'ww').week(), 22, "week sets the week by itself");
         test.equal(moment('22', 'ww').year(), moment().year(), "week keeps this year");
-        test.equal(moment('2013 22', 'YYYY ww').year(), 2013, "week keeps parsed year");
+        test.equal(moment('2012 22', 'YYYY ww').year(), 2012, "week keeps parsed year");
 
         test.equal(moment('22', 'WW').isoWeek(), 22, "iso week sets the week by itself");
-        test.equal(moment('2013 22', 'YYYY WW').year(), 2013, "iso week keeps parsed year");
+        test.equal(moment('2012 22', 'YYYY WW').year(), 2012, "iso week keeps parsed year");
         test.equal(moment('22', 'WW').year(), moment().year(), "iso week keeps this year");
 
         //order
@@ -644,5 +645,17 @@ exports.create = {
         test.equals(moment('1999-W37-4 3:30', 'GGGG-[W]WW-E HH:mm').format('YYYY MM DD HH:mm'), '1999 09 16 03:30', "parsing weeks and hours");
 
         test.done();
+    },
+
+    'parsing localized weekdays' : function (test) {
+        try {
+            moment.lang('fr');
+            test.equal(moment('1999 37 4', 'gggg ww e').format('YYYY MM DD'), "1999 09 16", 'localized e uses local doy and dow');
+            test.equal(moment('1999 37 4', 'gggg ww d').format('YYYY MM DD'), "1999 09 09", 'localized d ignores lang entirely');
+        }
+        finally {
+            moment.lang('en');
+            test.done();
+        }
     }
 };

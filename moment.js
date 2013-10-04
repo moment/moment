@@ -1087,22 +1087,24 @@
 
         currentDate = currentDateArray(config);
 
-        //compute day of the year form weeks and weekdays
+        //compute day of the year from weeks and weekdays
         if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
             fixYear = function (val) {
                 return val ?
                   (val.length < 3 ? (parseInt(val, 10) > 68 ? '19' + val : '20' + val) : val) :
-                  (config._a[YEAR] != null ? currentDate[YEAR] :
-                    (config._a[YEAR] == null ? moment().weekYear() : config._a[YEAR]));
+                  (config._a[YEAR] == null ? moment().weekYear() : config._a[YEAR]);
             };
 
             w = config._w;
+            lang = getLangDefinition(config._l);
             if (w.GG != null || w.W != null || w.E != null) {
-                temp = dayOfYearFromWeeks(fixYear(w.GG), w.W, parseWeekday(w.E, config._l), 4, 1);
+                temp = dayOfYearFromWeeks(fixYear(w.GG), w.W, w.E, 4, 1);
+            }
+            else if (w.d != null) {
+                temp = dayOfYearFromWeeks(fixYear(w.gg), w.w, parseWeekday(w.d, lang), 6, 0);
             }
             else {
-                lang = getLangDefinition(config._l);
-                temp = dayOfYearFromWeeks(fixYear(w.gg), w.w, parseWeekday(w.e || w.d, lang), lang._week.doy, lang._week.dow);
+                temp = dayOfYearFromWeeks(fixYear(w.gg), w.w, w.e, lang._week.doy, lang._week.dow);
             }
 
             config._a[YEAR] = temp.year;
@@ -1438,8 +1440,9 @@
         };
     }
 
+    //http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
     function dayOfYearFromWeeks(year, week, weekday, firstDayOfWeekOfYear, firstDayOfWeek) {
-        var d = new Date(year, 0).getUTCDay(),
+        var d = new Date(Date.UTC(year, 0)).getUTCDay(),
             daysToAdd, dayOfYear;
 
         week = week || 1;
