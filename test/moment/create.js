@@ -630,12 +630,12 @@ exports.create = {
 
         //lower-order only
         test.equal(moment('22', 'ww').week(), 22, "week sets the week by itself");
-        test.equal(moment('22', 'ww').year(), moment().year(), "week keeps this year");
-        test.equal(moment('2012 22', 'YYYY ww').year(), 2012, "week keeps parsed year");
+        test.equal(moment('22', 'ww').weekYear(), moment().weekYear(), "week keeps this year");
+        test.equal(moment('2012 22', 'YYYY ww').weekYear(), 2012, "week keeps parsed year");
 
         test.equal(moment('22', 'WW').isoWeek(), 22, "iso week sets the week by itself");
-        test.equal(moment('2012 22', 'YYYY WW').year(), 2012, "iso week keeps parsed year");
-        test.equal(moment('22', 'WW').year(), moment().year(), "iso week keeps this year");
+        test.equal(moment('2012 22', 'YYYY WW').weekYear(), 2012, "iso week keeps parsed year");
+        test.equal(moment('22', 'WW').weekYear(), moment().weekYear(), "iso week keeps this year");
 
         //order
         test.equal(moment('6 2013 2', 'e gggg w').format('YYYY MM DD'), "2013 01 12", "order doesn't matter");
