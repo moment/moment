@@ -35,7 +35,6 @@
 
         // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
         // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
-        // isoDurationRegex = /^(-)?(?:P)(?:(\d+(?:[,.]\d+)?)Y)?(?:(\d+(?:[,.]\d+)?)M)?(?:(\d+(?:[,.]\d+)?)W)?(?:(\d+(?:[,.]\d+)?)D)?(T(?:(\d+(?:[,.]\d+)?)H)?(?:(\d+(?:[,.]\d+)?)M)?(?:(\d+(?:[,.]\d+)?)S)?)?$/,
         isoDurationRegex = /^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/,
 
         // format tokens
@@ -54,9 +53,17 @@
         parseTokenTimestampMs = /[\+\-]?\d+(\.\d{1,3})?/, // 123456789 123456789.123
 
         // preliminary iso regex
-        // 0000-00-00 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000
-        isoRegex = /^\s*\d{4}-\d\d-\d\d((T| )(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?$/,
+        // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000)
+        isoRegex = /^\s*\d{4}-(?:(\d\d-\d\d)|(W\d\d$)|(W\d\d-\d)|(\d\d\d))((T| )(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?$/,
+
         isoFormat = 'YYYY-MM-DDTHH:mm:ssZ',
+
+        isoDates = [
+           'YYYY-MM-DD',
+           'GGGG-[W]WW',
+           'GGGG-[W]WW-E',
+           'YYYY-DDD'
+        ],
 
         // iso time formats and regexes
         isoTimes = [
@@ -942,9 +949,7 @@
         case 'W':
         case 'WW':
         case 'e':
-        case 'ee':
         case 'E':
-        case 'EE':
             return parseTokenOneOrTwoDigits;
         default :
             a = new RegExp(regexpEscape(unescapeFormat(token.replace('\\', '')), "i"));
@@ -962,7 +967,7 @@
 
     // function to convert string input to date
     function addTimeToArrayFromToken(token, input, config) {
-        var a, datePartArray = config._a;
+        var a, datePartArray = config._a, weekProp;
 
         switch (token) {
         // MONTH
@@ -1287,8 +1292,13 @@
             match = isoRegex.exec(string);
 
         if (match) {
-            // match[2] should be "T" or undefined
-            config._f = 'YYYY-MM-DD' + (match[2] || " ");
+            for (i = 4; i > 0; i--) {
+                if (match[i]) {
+                    // match[5] should be "T" or undefined
+                    config._f = isoDates[i - 1] + (match[6] || " ");
+                    break;
+                }
+            }
             for (i = 0; i < 4; i++) {
                 if (isoTimes[i][1].exec(string)) {
                     config._f += isoTimes[i][0];
@@ -1299,7 +1309,8 @@
                 config._f += " Z";
             }
             makeDateFromStringAndFormat(config);
-        } else {
+        }
+        else {
             config._d = new Date(string);
         }
     }
