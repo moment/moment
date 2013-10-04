@@ -1171,7 +1171,7 @@
             i,
             currentScore;
 
-        if (config._f.length == 0) {
+        if (config._f.length === 0) {
             config._pf.invalidFormat = true;
             config._d = new Date(NaN);
             return;
