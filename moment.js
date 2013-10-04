@@ -1093,7 +1093,7 @@
                 return val ?
                   (val.length < 3 ? (parseInt(val, 10) > 68 ? '19' + val : '20' + val) : val) :
                   (config._a[YEAR] != null ? currentDate[YEAR] :
-                    (config._a[YEAR] == null ? currentDate[YEAR] : config._a[YEAR]));
+                    (config._a[YEAR] == null ? moment().weekYear() : config._a[YEAR]));
             };
 
             w = config._w;
@@ -1476,9 +1476,6 @@
 
         if (moment.isMoment(input)) {
             config = extend({}, input);
-
-            //null this out to prevent infinite loops
-            config._w = null;
 
             config._d = new Date(+input._d);
         } else if (format) {
