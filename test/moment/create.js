@@ -9,7 +9,7 @@ var getVerifier = function (test) {
         if (!asymetrical) {
             test.equal(m.format(format), input, 'round trip: ' + description);
         }
-    }
+    };
 };
 
 exports.create = {

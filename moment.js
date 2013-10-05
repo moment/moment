@@ -1102,10 +1102,10 @@
             }
             else {
                 lang = getLangDefinition(config._l);
-                weekday = w.d != null ? parseWeekday(w.d, lang) : (w.e != null ?  parseInt(w.e) + lang._week.dow : 0);
+                weekday = w.d != null ? parseWeekday(w.d, lang) : (w.e != null ?  parseInt(w.e, 10) + lang._week.dow : 0);
 
                 //if we're parsing 'd', then the low day numbers may be next week
-                week = w.w != null ? (w.d != null && weekday < lang._week.dow ? parseInt(w.w) + 1 : w.w) : w.w;
+                week = w.w != null ? (w.d != null && weekday < lang._week.dow ? parseInt(w.w, 10) + 1 : w.w) : w.w;
 
                 temp = dayOfYearFromWeeks(fixYear(w.gg), week, weekday, lang._week.doy, lang._week.dow);
             }
