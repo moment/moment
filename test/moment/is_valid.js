@@ -56,8 +56,7 @@ exports.is_valid = {
     },
 
     "string + formats bad date" : function (test) {
-        test.expect(9);
-
+        test.equal(moment('2020-00-00', []).isValid(), false, 'invalid on empty array');
         test.equal(moment('2020-00-00', ['YYYY-MM-DD', 'DD-MM-YYYY']).isValid(), false, 'invalid on all in array');
         test.equal(moment('2020-00-00', ['DD-MM-YYYY', 'YYYY-MM-DD']).isValid(), false, 'invalid on all in array');
         test.equal(moment('2020-01-01', ['YYYY-MM-DD', 'DD-MM-YYYY']).isValid(), true, 'valid on first');
