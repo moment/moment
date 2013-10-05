@@ -1,5 +1,17 @@
 var moment = require("../../moment");
 
+var getVerifier = function (test) {
+    return function (input, format, expected, description, asymetrical) {
+        var m = moment(input, format);
+        test.equal(m.format('YYYY MM DD'), expected, 'compare: ' + description);
+
+        //test round trip
+        if (!asymetrical) {
+            test.equal(m.format(format), input, 'round trip: ' + description);
+        }
+    }
+};
+
 exports.create = {
     "array" : function (test) {
         test.expect(8);
@@ -595,38 +607,38 @@ exports.create = {
     },
 
     "parsing week and weekday information" : function (test) {
+        var ver = getVerifier(test);
 
         //year
-        test.equal(moment('12', 'gg').format('YYYY MM DD'), "2012 01 01", 'week-year two digits');
-        test.equal(moment('2012', 'gggg').format('YYYY MM DD'), "2012 01 01", 'week-year four digits');
+        ver('12', 'gg', "2012 01 01", 'week-year two digits');
+        ver('2012', 'gggg', "2012 01 01", 'week-year four digits');
 
-        test.equal(moment('99', 'gg').format('YYYY MM DD'), "1998 12 27", 'week-year two digits previous year');
-        test.equal(moment('1999', 'gggg').format('YYYY MM DD'), "1998 12 27", 'week-year four digits previous year');
+        ver('99', 'gg', "1998 12 27", 'week-year two digits previous year');
+        ver('1999', 'gggg', "1998 12 27", 'week-year four digits previous year');
 
-        test.equal(moment('99', 'GG').format('YYYY MM DD'), "1999 01 04", 'iso week-year two digits');
-        test.equal(moment('1999', 'GGGG').format('YYYY MM DD'), "1999 01 04", 'iso week-year four digits');
+        ver('99', 'GG', "1999 01 04", 'iso week-year two digits');
+        ver('1999', 'GGGG', "1999 01 04", 'iso week-year four digits');
 
-        test.equal(moment('13', 'GG').format('YYYY MM DD'), "2012 12 31", 'iso week-year two digits previous year');
-        test.equal(moment('2013', 'GGGG').format('YYYY MM DD'), "2012 12 31", 'iso week-year four digits previous year');
+        ver('13', 'GG', "2012 12 31", 'iso week-year two digits previous year');
+        ver('2013', 'GGGG', "2012 12 31", 'iso week-year four digits previous year');
 
-        //year + week
-        test.equal(moment('1999 37', 'gggg w').format('YYYY MM DD'), "1999 09 05", 'week');
-        test.equal(moment('1999 37', 'gggg ww').format('YYYY MM DD'), "1999 09 05", 'week double');
-        test.equal(moment('1999 37', 'GGGG W').format('YYYY MM DD'), "1999 09 13", 'iso week');
-        test.equal(moment('1999 37', 'GGGG WW').format('YYYY MM DD'), "1999 09 13", 'iso week double');
+        //yer + week
+        ver('1999 37', 'gggg w', "1999 09 05", 'week');
+        ver('1999 37', 'gggg ww', "1999 09 05", 'week double');
+        ver('1999 37', 'GGGG W', "1999 09 13", 'iso week');
+        ver('1999 37', 'GGGG WW', "1999 09 13", 'iso week double');
 
-        //year + week + day
-        test.equal(moment('1999 37 4', 'GGGG WW E').format('YYYY MM DD'), "1999 09 16", 'iso day');
-        test.equal(moment('1999 37 04', 'GGGG WW E').format('YYYY MM DD'), "1999 09 16", 'iso day wide');
+        ver('1999 37 4', 'GGGG WW E', "1999 09 16", 'iso day');
+        ver('1999 37 04', 'GGGG WW E', "1999 09 16", 'iso day wide', true);
 
-        test.equal(moment('1999 37 4', 'gggg ww e').format('YYYY MM DD'), "1999 09 09", 'day');
-        test.equal(moment('1999 37 04', 'gggg ww e').format('YYYY MM DD'), "1999 09 09", 'day wide');
+        ver('1999 37 4', 'gggg ww e', "1999 09 09", 'day');
+        ver('1999 37 04', 'gggg ww e', "1999 09 09", 'day wide', true);
 
-        //d
-        test.equal(moment('1999 37 4', 'gggg ww d').format('YYYY MM DD'), "1999 09 09", 'd');
-        test.equal(moment('1999 37 Th', 'gggg ww dd').format('YYYY MM DD'), "1999 09 09", 'dd');
-        test.equal(moment('1999 37 Thu', 'gggg ww ddd').format('YYYY MM DD'), "1999 09 09", 'ddd');
-        test.equal(moment('1999 37 Thursday', 'gggg ww dddd').format('YYYY MM DD'), "1999 09 09", 'dddd');
+        //yer + week + day
+        ver('1999 37 4', 'gggg ww d', "1999 09 09", 'd');
+        ver('1999 37 Th', 'gggg ww dd', "1999 09 09", 'dd');
+        ver('1999 37 Thu', 'gggg ww ddd', "1999 09 09", 'ddd');
+        ver('1999 37 Thursday', 'gggg ww dddd', "1999 09 09", 'dddd');
 
         //lower-order only
         test.equal(moment('22', 'ww').week(), 22, "week sets the week by itself");
@@ -638,20 +650,34 @@ exports.create = {
         test.equal(moment('22', 'WW').weekYear(), moment().weekYear(), "iso week keeps this year");
 
         //order
-        test.equal(moment('6 2013 2', 'e gggg w').format('YYYY MM DD'), "2013 01 12", "order doesn't matter");
-        test.equal(moment('6 2013 2', 'E GGGG W').format('YYYY MM DD'), "2013 01 12", "iso order doesn't matter");
+        ver('6 2013 2', 'e gggg w', "2013 01 12", "order doesn't matter");
+        ver('6 2013 2', 'E GGGG W', "2013 01 12", "iso order doesn't matter");
 
         //can parse other stuff too
-        test.equals(moment('1999-W37-4 3:30', 'GGGG-[W]WW-E HH:mm').format('YYYY MM DD HH:mm'), '1999 09 16 03:30', "parsing weeks and hours");
+        test.equal(moment('1999-W37-4 3:30', 'GGGG-[W]WW-E HH:mm').format('YYYY MM DD HH:mm'), '1999 09 16 03:30', "parsing weeks and hours");
 
         test.done();
     },
 
     'parsing localized weekdays' : function (test) {
+        var ver = getVerifier(test);
         try {
-            moment.lang('fr');
-            test.equal(moment('1999 37 4', 'gggg ww e').format('YYYY MM DD'), "1999 09 16", 'localized e uses local doy and dow');
-            test.equal(moment('1999 37 4', 'gggg ww d').format('YYYY MM DD'), "1999 09 09", 'localized d ignores lang entirely');
+            moment.lang('fr'); //french uses doy = 4, dow = 1
+            ver('1999 37 4', 'GGGG WW E', "1999 09 16", 'iso ignores language');
+            ver('1999 37 7', 'GGGG WW E', "1999 09 19", 'iso ignores language');
+
+            ver('1999 37 0', 'gggg ww e', "1999 09 13", 'localized e uses local doy and dow: 0 = monday');
+            ver('1999 37 4', 'gggg ww e', "1999 09 17", 'localized e uses local doy and dow: 4 = friday');
+
+            ver('1999 37 1', 'gggg ww d', "1999 09 13", 'localized d uses 0-indexed days: 1 = monday');
+            ver('1999 37 Lu', 'gggg ww dd', "1999 09 13", 'localized d uses 0-indexed days: Mo');
+            ver('1999 37 lun.', 'gggg ww ddd', "1999 09 13", 'localized d uses 0-indexed days: Mon');
+            ver('1999 37 lundi', 'gggg ww dddd', "1999 09 13", 'localized d uses 0-indexed days: Monday');
+            ver('1999 37 4', 'gggg ww d', "1999 09 16", 'localized d uses 0-indexed days: 4');
+
+            //sunday goes at the end of the week
+            ver('1999 37 0', 'gggg ww d', "1999 09 19", 'localized d uses 0-indexed days: 0 = sund');
+            ver('1999 37 Di', 'gggg ww dd', "1999 09 19", 'localized d uses 0-indexed days: 0 = sund');
         }
         finally {
             moment.lang('en');

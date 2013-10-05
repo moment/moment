@@ -1079,7 +1079,8 @@
     // note: all values past the year are optional and will default to the lowest possible value.
     // [year, month, day , hour, minute, second, millisecond]
     function dateFromConfig(config) {
-        var i, date, input = [], currentDate, yearToUse, fixYear, w, temp, lang;
+        var i, date, input = [], currentDate,
+            yearToUse, fixYear, w, temp, lang, weekday, week;
 
         if (config._d) {
             return;
@@ -1096,15 +1097,17 @@
             };
 
             w = config._w;
-            lang = getLangDefinition(config._l);
             if (w.GG != null || w.W != null || w.E != null) {
                 temp = dayOfYearFromWeeks(fixYear(w.GG), w.W, w.E, 4, 1);
             }
-            else if (w.d != null) {
-                temp = dayOfYearFromWeeks(fixYear(w.gg), w.w, parseWeekday(w.d, lang), 6, 0);
-            }
             else {
-                temp = dayOfYearFromWeeks(fixYear(w.gg), w.w, w.e, lang._week.doy, lang._week.dow);
+                lang = getLangDefinition(config._l);
+                weekday = w.d != null ? parseWeekday(w.d, lang) : (w.e != null ?  parseInt(w.e) + lang._week.dow : 0);
+
+                //if we're parsing 'd', then the low day numbers may be next week
+                week = w.w != null ? (w.d != null && weekday < lang._week.dow ? parseInt(w.w) + 1 : w.w) : w.w;
+
+                temp = dayOfYearFromWeeks(fixYear(w.gg), week, weekday, lang._week.doy, lang._week.dow);
             }
 
             config._a[YEAR] = temp.year;
