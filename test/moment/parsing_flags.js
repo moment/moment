@@ -66,8 +66,8 @@ exports.parsing_flags = {
         test.equal(flags('2010 300', 'YYYY DDDD').overflow, -1, 'day 300 of year valid');
         test.equal(flags('2010 365', 'YYYY DDDD').overflow, -1, 'day 365 of year valid');
         test.equal(flags('2010 366', 'YYYY DDDD').overflow, 2, 'day 366 of year invalid');
-        test.equal(flags('2012 364', 'YYYY DDDD').overflow, -1, 'day 364 of leap year valid');
-        test.equal(flags('2012 365', 'YYYY DDDD').overflow, 2, 'day 365 of leap year invalid');
+        test.equal(flags('2012 366', 'YYYY DDDD').overflow, -1, 'day 366 of leap year valid');
+        test.equal(flags('2012 367', 'YYYY DDDD').overflow, 2, 'day 367 of leap year invalid');
 
         //hours
         test.equal(flags('08', 'HH').overflow, -1, 'hour valid');

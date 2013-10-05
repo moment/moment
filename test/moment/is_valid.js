@@ -243,8 +243,9 @@ exports.is_valid = {
         test.equal(moment('2010 300', 'YYYY DDDD').isValid(), true, 'day 300 of year valid');
         test.equal(moment('2010 365', 'YYYY DDDD').isValid(), true, 'day 365 of year valid');
         test.equal(moment('2010 366', 'YYYY DDDD').isValid(), false, 'day 366 of year invalid');
-        test.equal(moment('2012 364', 'YYYY DDDD').isValid(), true, 'day 364 of leap year valid');
-        test.equal(moment('2012 365', 'YYYY DDDD').isValid(), false, 'day 365 of leap year invalid');
+        test.equal(moment('2012 365', 'YYYY DDDD').isValid(), true, 'day 365 of leap year valid');
+        test.equal(moment('2012 366', 'YYYY DDDD').isValid(), true, 'day 366 of leap year valid');
+        test.equal(moment('2012 367', 'YYYY DDDD').isValid(), false, 'day 367 of leap year invalid');
 
         test.done();
     },
