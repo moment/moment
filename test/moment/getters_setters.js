@@ -17,8 +17,6 @@ exports.getters_setters = {
     },
 
     "getters programmatic" : function (test) {
-        test.expect(8);
-
         var a = moment([2011, 9, 12, 6, 7, 8, 9]);
         test.equal(a.get('year'), 2011, 'year');
         test.equal(a.get('month'), 9, 'month');
@@ -28,6 +26,13 @@ exports.getters_setters = {
         test.equal(a.get('minute'), 7, 'minute');
         test.equal(a.get('second'), 8, 'second');
         test.equal(a.get('milliseconds'), 9, 'milliseconds');
+
+        //actual getters tested elsewhere
+        test.equal(a.get('weekday'), a.weekday(), 'weekday');
+        test.equal(a.get('isoWeekday'), a.isoWeekday(), 'isoWeekday');
+        test.equal(a.get('week'), a.week(), 'week');
+        test.equal(a.get('isoWeek'), a.isoWeek(), 'isoWeek');
+        test.equal(a.get('dayOfYear'), a.dayOfYear(), 'dayOfYear');
         test.done();
     },
 
@@ -104,8 +109,6 @@ exports.getters_setters = {
     },
 
     "setter programmatic" : function (test) {
-        test.expect(9);
-
         var a = moment();
         a.set('year', 2011);
         a.set('month', 9);
@@ -127,6 +130,34 @@ exports.getters_setters = {
         a = moment('20130531', 'YYYYMMDD');
         a.month(3);
         test.equal(a.month(), 3, 'month edge case');
+
+        test.done();
+    },
+
+    "setters programatic with weeks" : function (test) {
+        var a = moment();
+        a.set('weekYear', 2001);
+        a.set('week', 49);
+        a.set('day', 4);
+        test.equals(a.weekYear(), 2001);
+        test.equals(a.week(), 49);
+        test.equals(a.day(), 4);
+
+        a.set('weekday', 1);
+        test.equals(a.weekday(), 1);
+
+        test.done();
+    },
+
+    "setters programatic with weeks ISO" : function (test) {
+        var a = moment();
+        a.set('isoWeekYear', 2001);
+        a.set('isoWeek', 49);
+        a.set('isoWeekday', 4);
+
+        test.equals(a.weekYear(), 2001);
+        test.equals(a.week(), 49);
+        test.equals(a.day(), 4);
 
         test.done();
     },

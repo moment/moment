@@ -4,20 +4,21 @@ var moment = require("../../moment");
 
 exports.normalizeUnits = {
     "normalize units" : function (test) {
-        test.expect(45);
-        var fullKeys = ["year", "month", "isoweek", "week", "day", "hour", "minute", "second", "millisecond"],
-            aliases = ["y", "M", "W", "w", "d", "h", "m", "s", "ms"],
+        var fullKeys = ["year", "month", "isoWeek", "week", "day", "hour", "minute", "second", "millisecond", "date", 'dayOfYear', 'weekday', 'isoWeekday', 'weekYear', 'isoWeekYear'],
+            aliases = ["y", "M", "W", "w", "d", "h", "m", "s", "ms", "D", 'DDD', 'e', 'E', 'gg', 'GG'],
             length = fullKeys.length,
             fullKey,
             fullKeyCaps,
             fullKeyPlural,
             fullKeyCapsPlural,
+            fullKeyLower,
             alias,
             index;
 
         for (index = 0; index < length; index += 1) {
             fullKey = fullKeys[index];
             fullKeyCaps = fullKey.toUpperCase();
+            fullKeyLower = fullKey.toLowerCase();
             fullKeyPlural = fullKey + "s";
             fullKeyCapsPlural = fullKeyCaps + "s";
             alias = aliases[index];
