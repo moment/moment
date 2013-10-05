@@ -1098,14 +1098,19 @@
 
             w = config._w;
             if (w.GG != null || w.W != null || w.E != null) {
-                temp = dayOfYearFromWeeks(fixYear(w.GG), w.W, w.E, 4, 1);
+                temp = dayOfYearFromWeeks(fixYear(w.GG), w.W || 1, w.E, 4, 1);
             }
             else {
                 lang = getLangDefinition(config._l);
-                weekday = w.d != null ? parseWeekday(w.d, lang) : (w.e != null ?  parseInt(w.e, 10) + lang._week.dow : 0);
+                weekday = w.d != null ?  parseWeekday(w.d, lang) :
+                  (w.e != null ?  parseInt(w.e, 10) + lang._week.dow : 0);
+
+                week = parseInt(w.w, 10) || 1;
 
                 //if we're parsing 'd', then the low day numbers may be next week
-                week = w.w != null ? (w.d != null && weekday < lang._week.dow ? parseInt(w.w, 10) + 1 : w.w) : w.w;
+                if (w.d != null && weekday < lang._week.dow) {
+                    week++;
+                }
 
                 temp = dayOfYearFromWeeks(fixYear(w.gg), week, weekday, lang._week.doy, lang._week.dow);
             }
@@ -1448,7 +1453,6 @@
         var d = new Date(Date.UTC(year, 0)).getUTCDay(),
             daysToAdd, dayOfYear;
 
-        week = week || 1;
         weekday = weekday != null ? weekday : firstDayOfWeek;
         daysToAdd = firstDayOfWeek - d + (d > firstDayOfWeekOfYear ? 7 : 0);
         dayOfYear = 7 * (week - 1) + (weekday - firstDayOfWeek) + daysToAdd + 1;
