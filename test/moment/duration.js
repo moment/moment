@@ -481,9 +481,10 @@ exports.duration = {
     },
 
     "isDuration" : function (test) {
-        test.expect(3);
+        test.expect(4);
         test.ok(moment.isDuration(moment.duration(12345678)), "correctly says true");
         test.ok(!moment.isDuration(moment()), "moment object is not a duration");
+        test.ok(!moment.isDuration(moment.timer(12345678)), "timer object is not a duration");
         test.ok(!moment.isDuration({milliseconds: 1}), "plain object is not a duration");
         test.done();
     },
@@ -534,6 +535,45 @@ exports.duration = {
         test.equal(d.subtract({h: 1, m: 59})._milliseconds, 3 * 60 * 60 * 1000 + 1 * 60 * 1000 - 10000, 'Subtract hour:minute');
 
         test.done();
-    }
+    },
+
+    "isSame" : function (test) {
+        test.expect(6);
+
+        var d = moment.duration(12345678), dCopy = moment.duration(d);
+        test.equal(d.isSame(moment.duration(12345677)), false, "lower ms");
+        test.equal(d.isSame(moment.duration(12345679)), false, "greater ms");
+        test.equal(d.isSame(moment.duration(12345678)), true, "same ms");
+        test.equal(d.isSame(12345678), true, "same ms");
+        test.equal(d.isSame(d), true, "durations are the same as themselves");
+        test.equal(+d, +dCopy, "isSame should not change duration");
+        test.done();
+    },
+
+    "isBefore" : function (test) {
+        test.expect(6);
+
+        var d = moment.duration(12345678), dCopy = moment.duration(d);
+        test.equal(d.isBefore(moment.duration(12345677)), false, "lower ms");
+        test.equal(d.isBefore(moment.duration(12345679)), true, "greater ms");
+        test.equal(d.isBefore(moment.duration(12345678)), false, "same ms");
+        test.equal(d.isBefore(12345678), false, "same ms");
+        test.equal(d.isBefore(d), false, "durations are the same as themselves");
+        test.equal(+d, +dCopy, "isBefore should not change duration");
+        test.done();
+    },
+
+    "isAfter" : function (test) {
+        test.expect(6);
+
+        var d = moment.duration(12345678), dCopy = moment.duration(d);
+        test.equal(d.isAfter(moment.duration(12345677)), true, "lower ms");
+        test.equal(d.isAfter(moment.duration(12345679)), false, "greater ms");
+        test.equal(d.isAfter(moment.duration(12345678)), false, "same ms");
+        test.equal(d.isAfter(12345678), false, "same ms");
+        test.equal(d.isAfter(d), false, "durations are the same as themselves");
+        test.equal(+d, +dCopy, "isAfter should not change duration");
+        test.done();
+    },
 
 };

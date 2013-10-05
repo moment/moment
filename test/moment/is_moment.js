@@ -2,7 +2,7 @@ var moment = require('../../moment');
 
 exports.is_moment = {
     "is moment object": function (test) {
-        test.expect(11);
+        test.expect(13);
 
         var MyObj = function () {};
         MyObj.prototype.toDate = function () {
@@ -14,6 +14,8 @@ exports.is_moment = {
 
         test.ok(!moment.isMoment(new MyObj()), 'myObj is not moment object');
         test.ok(!moment.isMoment(moment), 'moment function is not moment object');
+        test.ok(!moment.isMoment(moment.duration(12345678)), 'duration object is not moment object');
+        test.ok(!moment.isMoment(moment.timer(12345678)), 'timer object is not moment object');
         test.ok(!moment.isMoment(new Date()), 'date object is not moment object');
         test.ok(!moment.isMoment(Object), 'Object is not moment object');
         test.ok(!moment.isMoment('foo'), 'string is not moment object');
