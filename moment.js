@@ -1,5 +1,5 @@
 //! moment.js
-//! version : 2.2.1
+//! version : 2.3.0
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -11,7 +11,7 @@
     ************************************/
 
     var moment,
-        VERSION = "2.2.1",
+        VERSION = "2.3.0",
         round = Math.round,
         i,
 
