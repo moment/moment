@@ -111,7 +111,7 @@
             isoweekday : 'isoWeekday',
             isoweek : 'isoWeek',
             weekyear : 'weekYear',
-            isoweekyear : 'isoWeekYear',
+            isoweekyear : 'isoWeekYear'
         },
 
         // format function strings
