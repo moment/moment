@@ -22,11 +22,15 @@ exports.listers = {
     },
 
     "index" : function (test) {
-        test.expect(5);
+        test.equal(moment.months(0), "January");
         test.equal(moment.months(2), "March");
+        test.equal(moment.monthsShort(0), "Jan");
         test.equal(moment.monthsShort(2), "Mar");
+        test.equal(moment.weekdays(0), "Sunday");
         test.equal(moment.weekdays(2), "Tuesday");
+        test.equal(moment.weekdaysShort(0), "Sun");
         test.equal(moment.weekdaysShort(2), "Tue");
+        test.equal(moment.weekdaysMin(0), "Su");
         test.equal(moment.weekdaysMin(2), "Tu");
         test.done();
     },
@@ -46,12 +50,17 @@ exports.listers = {
             weekdaysMin: weekdaysMin
         });
 
-        test.expect(10);
         test.deepEqual(moment.months(), months);
         test.deepEqual(moment.monthsShort(), monthsShort);
         test.deepEqual(moment.weekdays(), weekdays);
         test.deepEqual(moment.weekdaysShort(), weekdaysShort);
         test.deepEqual(moment.weekdaysMin(), weekdaysMin);
+
+        test.equal(moment.months(0), "one");
+        test.equal(moment.monthsShort(0), "on");
+        test.equal(moment.weekdays(0), "one");
+        test.equal(moment.weekdaysShort(0), "on");
+        test.equal(moment.weekdaysMin(0), "1");
 
         test.equal(moment.months(2), "three");
         test.equal(moment.monthsShort(2), "th");
