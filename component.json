@@ -65,5 +65,8 @@
     "lang/vn.js",
     "lang/zh-cn.js",
     "lang/zh-tw.js"
+  ],
+  "scripts": [
+    "moment.js"
   ]
 }
