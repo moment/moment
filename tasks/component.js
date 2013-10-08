@@ -3,7 +3,7 @@ module.exports = function (grunt) {
         var config = JSON.parse(grunt.file.read('component.json'));
         config.files = grunt.file.expand('lang/*.js');
         config.files.unshift('moment.js');
-        config.scripts = config.scripts || [];
+        config.scripts = [];
         config.scripts.unshift('moment.js');
 
         grunt.file.write('component.json', JSON.stringify(config, true, 2));
