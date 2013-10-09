@@ -1,5 +1,5 @@
 //! moment.js
-//! version : 2.3.0
+//! version : 2.3.1
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -11,7 +11,7 @@
     ************************************/
 
     var moment,
-        VERSION = "2.3.0",
+        VERSION = "2.3.1",
         round = Math.round,
         i,
 
@@ -111,7 +111,7 @@
             isoweekday : 'isoWeekday',
             isoweek : 'isoWeek',
             weekyear : 'weekYear',
-            isoweekyear : 'isoWeekYear',
+            isoweekyear : 'isoWeekYear'
         },
 
         // format function strings
@@ -470,7 +470,7 @@
                 return method.call(moment.fn._lang, m, format || '');
             };
 
-            if (index) {
+            if (index != null) {
                 return getter(index);
             }
             else {
