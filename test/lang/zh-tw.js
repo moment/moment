@@ -350,9 +350,9 @@ exports["lang:zh-tw"] = {
     },
     
     "returns the name of the language" : function (test) {
-        test.expect(1);
-        
-        test.equal(require('../../lang/zh-tw'), 'zh-tw', "module should export zh-tw");
+        if (typeof module !== 'undefined' && module.exports) {
+            test.equal(require('../../lang/zh-tw'), 'zh-tw', "module should export zh-tw");
+        }
         
         test.done();
     }

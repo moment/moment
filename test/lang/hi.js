@@ -376,9 +376,9 @@ exports["lang:hi"] = {
     },
     
     "returns the name of the language" : function (test) {
-        test.expect(1);
-        
-        test.equal(require('../../lang/hi'), 'hi', "module should export hi");
+        if (typeof module !== 'undefined' && module.exports) {
+            test.equal(require('../../lang/hi'), 'hi', "module should export hi");
+        }
         
         test.done();
     }

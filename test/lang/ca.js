@@ -317,9 +317,9 @@ exports["lang:ca"] = {
     },
     
     "returns the name of the language" : function (test) {
-        test.expect(1);
-        
-        test.equal(require('../../lang/ca'), 'ca', "module should export ca");
+        if (typeof module !== 'undefined' && module.exports) {
+            test.equal(require('../../lang/ca'), 'ca', "module should export ca");
+        }
         
         test.done();
     }

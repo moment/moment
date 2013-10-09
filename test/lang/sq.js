@@ -377,9 +377,9 @@ exports["lang:sq"] = {
     },
     
     "returns the name of the language" : function (test) {
-        test.expect(1);
-        
-        test.equal(require('../../lang/sq'), 'sq', "module should export sq");
+        if (typeof module !== 'undefined' && module.exports) {
+            test.equal(require('../../lang/sq'), 'sq', "module should export sq");
+        }
         
         test.done();
     }

@@ -440,9 +440,9 @@ exports["lang:cs"] = {
     },
     
     "returns the name of the language" : function (test) {
-        test.expect(1);
-        
-        test.equal(require('../../lang/cs'), 'cs', "module should export cs");
+        if (typeof module !== 'undefined' && module.exports) {
+            test.equal(require('../../lang/cs'), 'cs', "module should export cs");
+        }
         
         test.done();
     }

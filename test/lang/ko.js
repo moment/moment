@@ -362,9 +362,9 @@ exports["lang:kr"] = {
     },
     
     "returns the name of the language" : function (test) {
-        test.expect(1);
-        
-        test.equal(require('../../lang/ko'), 'ko', "module should export ko");
+        if (typeof module !== 'undefined' && module.exports) {
+            test.equal(require('../../lang/ko'), 'ko', "module should export ko");
+        }
         
         test.done();
     }
