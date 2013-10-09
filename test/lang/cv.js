@@ -356,9 +356,9 @@ exports["lang:cv"] = {
     },
     
     "returns the name of the language" : function (test) {
-        test.expect(1);
-        
-        test.equal(require('../../lang/cv'), 'cv', "module should export cv");
+        if (typeof module !== 'undefined' && module.exports) {
+            test.equal(require('../../lang/cv'), 'cv', "module should export cv");
+        }
         
         test.done();
     }

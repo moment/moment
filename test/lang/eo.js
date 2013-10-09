@@ -358,9 +358,9 @@ exports["lang:eo"] = {
     },
     
     "returns the name of the language" : function (test) {
-        test.expect(1);
-        
-        test.equal(require('../../lang/eo'), 'eo', "module should export eo");
+        if (typeof module !== 'undefined' && module.exports) {
+            test.equal(require('../../lang/eo'), 'eo', "module should export eo");
+        }
         
         test.done();
     }

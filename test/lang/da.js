@@ -288,9 +288,9 @@ exports["lang:da"] = {
     },
     
     "returns the name of the language" : function (test) {
-        test.expect(1);
-        
-        test.equal(require('../../lang/da'), 'da', "module should export da");
+        if (typeof module !== 'undefined' && module.exports) {
+            test.equal(require('../../lang/da'), 'da', "module should export da");
+        }
         
         test.done();
     }

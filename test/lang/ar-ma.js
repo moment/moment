@@ -342,12 +342,11 @@ exports["lang:ar-ma"] = {
 
         test.done();
     },
-    
+
     "returns the name of the language" : function (test) {
-        test.expect(1);
-        
-        test.equal(require('../../lang/ar-ma'), 'ar-ma', "module should export ar-ma");
-        
+        if (typeof module !== 'undefined' && module.exports) {
+            test.equal(require('../../lang/ar-ma'), 'ar-ma', "module should export ar-ma");
+        }
         test.done();
     }
 };

@@ -365,9 +365,9 @@ exports["lang:nl"] = {
     },
     
     "returns the name of the language" : function (test) {
-        test.expect(1);
-        
-        test.equal(require('../../lang/nl'), 'nl', "module should export nl");
+        if (typeof module !== 'undefined' && module.exports) {
+            test.equal(require('../../lang/nl'), 'nl', "module should export nl");
+        }
         
         test.done();
     }
