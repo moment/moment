@@ -470,7 +470,7 @@
                 return method.call(moment.fn._lang, m, format || '');
             };
 
-            if (index) {
+            if (index != null) {
                 return getter(index);
             }
             else {
