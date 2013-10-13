@@ -374,12 +374,12 @@ exports["lang:ka"] = {
 
         test.done();
     },
-    
+
     "returns the name of the language" : function (test) {
-        test.expect(1);
-        
-        test.equal(require('../../lang/ka'), 'ka', "module should export ka");
-        
+        if (typeof module !== 'undefined' && module.exports) {
+            test.equal(require('../../lang/ka'), 'ka', "module should export ka");
+        }
+
         test.done();
     }
 };

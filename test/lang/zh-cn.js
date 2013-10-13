@@ -349,9 +349,9 @@ exports["lang:zh-cn"] = {
     },
     
     "returns the name of the language" : function (test) {
-        test.expect(1);
-        
-        test.equal(require('../../lang/zh-cn'), 'zh-cn', "module should export zh-cn");
+        if (typeof module !== 'undefined' && module.exports) {
+            test.equal(require('../../lang/zh-cn'), 'zh-cn', "module should export zh-cn");
+        }
         
         test.done();
     }

@@ -310,9 +310,9 @@ exports["lang:id"] = {
     },
     
     "returns the name of the language" : function (test) {
-        test.expect(1);
-        
-        test.equal(require('../../lang/id'), 'id', "module should export id");
+        if (typeof module !== 'undefined' && module.exports) {
+            test.equal(require('../../lang/id'), 'id', "module should export id");
+        }
         
         test.done();
     }

@@ -354,9 +354,9 @@ exports["lang:tzm-la"] = {
     },
     
     "returns the name of the language" : function (test) {
-        test.expect(1);
-        
-        test.equal(require('../../lang/tzm-la'), 'tzm-la', "module should export tzm-la");
+        if (typeof module !== 'undefined' && module.exports) {
+            test.equal(require('../../lang/tzm-la'), 'tzm-la', "module should export tzm-la");
+        }
         
         test.done();
     }

@@ -334,9 +334,9 @@ exports["lang:gl"] = {
     },
     
     "returns the name of the language" : function (test) {
-        test.expect(1);
-        
-        test.equal(require('../../lang/gl'), 'gl', "module should export gl");
+        if (typeof module !== 'undefined' && module.exports) {
+            test.equal(require('../../lang/gl'), 'gl', "module should export gl");
+        }
         
         test.done();
     }

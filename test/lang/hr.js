@@ -384,9 +384,9 @@ exports["lang:hr"] = {
     },
     
     "returns the name of the language" : function (test) {
-        test.expect(1);
-        
-        test.equal(require('../../lang/hr'), 'hr', "module should export hr");
+        if (typeof module !== 'undefined' && module.exports) {
+            test.equal(require('../../lang/hr'), 'hr', "module should export hr");
+        }
         
         test.done();
     }

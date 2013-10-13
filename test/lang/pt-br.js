@@ -356,9 +356,9 @@ exports["lang:pt-br"] = {
     },
     
     "returns the name of the language" : function (test) {
-        test.expect(1);
-        
-        test.equal(require('../../lang/pt-br'), 'pt-br', "module should export pt-br");
+        if (typeof module !== 'undefined' && module.exports) {
+            test.equal(require('../../lang/pt-br'), 'pt-br', "module should export pt-br");
+        }
         
         test.done();
     }
