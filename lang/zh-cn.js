@@ -1,6 +1,7 @@
 // moment.js language configuration
 // language : chinese
 // author : suupic : https://github.com/suupic
+// author : Zeno Zeng : https://github.com/zenozeng
 
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
@@ -30,7 +31,9 @@
         },
         meridiem : function (hour, minute, isLower) {
             var hm = hour * 100 + minute;
-            if (hm < 900) {
+            if (hm < 600) {
+                return "凌晨";
+            } else if (hm < 900) {
                 return "早上";
             } else if (hm < 1130) {
                 return "上午";
@@ -43,25 +46,41 @@
             }
         },
         calendar : {
-            sameDay : '[今天]LT',
-            nextDay : '[明天]LT',
-            nextWeek : '[下]ddddLT',
-            lastDay : '[昨天]LT',
-            lastWeek : '[上]ddddLT',
+            sameDay : function () {
+                return this.minutes() === 0 ? "[今天]Ah[点整]" : "[今天]LT";
+            },
+            nextDay : function () {
+                return this.minutes() === 0 ? "[明天]Ah[点整]" : "[明天]LT";
+            },
+            lastDay : function () {
+                return this.minutes() === 0 ? "[昨天]Ah[点整]" : "[昨天]LT";
+            },
+            nextWeek : function () {
+                var startOfWeek, prefix;
+                startOfWeek = moment().startOf('week');
+                prefix = this.unix() - startOfWeek.unix() >= 7 * 24 * 3600 ? '[下]' : '[本]';
+                return this.minutes() === 0 ? prefix + "dddAh点整" : prefix + "dddAh点mm";
+            },
+            lastWeek : function () {
+                var startOfWeek, prefix;
+                startOfWeek = moment().startOf('week');
+                prefix = this.unix() < startOfWeek.unix()  ? '[上]' : '[本]';
+                return this.minutes() === 0 ? prefix + "dddAh点整" : prefix + "dddAh点mm";
+            },
             sameElse : 'L'
         },
         ordinal : function (number, period) {
             switch (period) {
-            case "d" :
-            case "D" :
-            case "DDD" :
+            case "d":
+            case "D":
+            case "DDD":
                 return number + "日";
-            case "M" :
+            case "M":
                 return number + "月";
-            case "w" :
-            case "W" :
+            case "w":
+            case "W":
                 return number + "周";
-            default :
+            default:
                 return number;
             }
         },
@@ -79,6 +98,11 @@
             MM : "%d个月",
             y : "1年",
             yy : "%d年"
+        },
+        week : {
+            // GB/T 7408-1994《数据元和交换格式·信息交换·日期和时间表示法》与ISO 8601:1988等效
+            dow : 1, // Monday is the first day of the week.
+            doy : 4  // The week that contains Jan 4th is the first week of the year.
         }
     });
 }));
