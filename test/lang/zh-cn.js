@@ -196,8 +196,8 @@ exports["lang:zh-cn"] = {
         var i, m,
             today = moment().startOf('day');
 
-        for (i = 2; i < 7; i++) {
-            m = moment().startOf('day').add({ d: i});
+        for (i = 7; i < 14; i++) {
+            m = moment().startOf('week').add({ d: i});
             if (Math.abs(m.diff(today, 'days')) >= 7) {
                 continue;
             }
@@ -212,10 +212,10 @@ exports["lang:zh-cn"] = {
 
         for (i = 1; i < 8; i++) {
             m = moment().startOf('week').subtract({ d: i});
-            if (Math.abs(m.diff(today, 'days')) >= 7) {
+            if ((Math.abs(m.diff(today, 'days')) >= 7) || (Math.abs(m.diff(today, 'days')) <= 1)) {
                 continue;
             }
-            test.equal(m.calendar(),       m.format('[上]ddd凌晨12点整'),  "Monday - " + i + " days next week");
+            test.equal(m.calendar(),  m.format('[上]ddd凌晨12点整'),  "Monday - " + i + " days next week");
         }
         test.done();
     },
@@ -343,12 +343,12 @@ exports["lang:zh-cn"] = {
 
         test.done();
     },
-    
+
     "returns the name of the language" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
             test.equal(require('../../lang/zh-cn'), 'zh-cn', "module should export zh-cn");
         }
-        
+
         test.done();
     }
 };
