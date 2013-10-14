@@ -54,7 +54,7 @@
 
         // preliminary iso regex
         // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000)
-        isoRegex = /^\s*\d{4}-(?:(\d\d-\d\d)|(W\d\d$)|(W\d\d-\d)|(\d\d\d))((T| )(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?$/,
+        isoRegex = /^\s*\d{4}-(?:(\d\d-\d\d)|(W\d\d$)|(W\d\d-\d)|(\d\d\d))((T| )(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d|Z)?)?$/,
 
         isoFormat = 'YYYY-MM-DDTHH:mm:ssZ',
 
@@ -539,7 +539,8 @@
             nullInput : false,
             invalidMonth : null,
             invalidFormat : false,
-            userInvalidated : false
+            userInvalidated : false,
+            iso: false
         };
     }
 
@@ -1310,6 +1311,7 @@
             match = isoRegex.exec(string);
 
         if (match) {
+            config._pf.iso = true;
             for (i = 4; i > 0; i--) {
                 if (match[i]) {
                     // match[5] should be "T" or undefined
@@ -1324,7 +1326,7 @@
                 }
             }
             if (parseTokenTimezone.exec(string)) {
-                config._f += " Z";
+                config._f += "Z";
             }
             makeDateFromStringAndFormat(config);
         }
@@ -1490,7 +1492,6 @@
         if (typeof input === 'string') {
             config._i = input = getLangDefinition().preparse(input);
         }
-
 
         if (moment.isMoment(input)) {
             config = extend({}, input);
