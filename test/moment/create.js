@@ -112,10 +112,9 @@ exports.create = {
     },
 
     "string without format" : function (test) {
-        test.expect(3);
+        test.expect(2);
         test.ok(moment("Aug 9, 1995").toDate() instanceof Date, "Aug 9, 1995");
         test.ok(moment("Mon, 25 Dec 1995 13:30:00 GMT").toDate() instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
-        test.equal(new Date(2013, 8, 13, 7, 26).valueOf(), moment("2013-09-13 7:26 am").valueOf(), "2013-09-13 7:26 am");
         test.done();
     },
 
