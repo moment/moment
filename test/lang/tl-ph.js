@@ -353,9 +353,9 @@ exports["lang:tl-ph"] = {
     },
     
     "returns the name of the language" : function (test) {
-        test.expect(1);
-        
-        test.equal(require('../../lang/tl-ph'), 'tl-ph', "module should export tl-ph");
+        if (typeof module !== 'undefied' && module.exports) {
+            test.equal(require('../../lang/tl-ph'), 'tl-ph', "module should export tl-ph");
+        }
         
         test.done();
     }
