@@ -71,7 +71,7 @@ exports.lang = {
     },
 
     "library ensure inheritance LT L LL LLL LLLL" : function (test) {
-        test.expect(5);
+        test.expect(10);
 
         var lang = 'test-inherit-lt';
 
@@ -100,6 +100,13 @@ exports.lang = {
         test.equal(moment().add('days', -1).lang(lang).calendar(), "LastDay -LLL-", "Should use instance lang in LL formatting");
         test.equal(moment().add('days', 4).lang(lang).calendar(), "NextWeek -LL-", "Should use instance lang in LLL formatting");
         test.equal(moment().add('days', -4).lang(lang).calendar(), "LastWeek -LLLL-", "Should use instance lang in LLLL formatting");
+
+        // test uppercase first letter
+        test.equal(moment().lang(lang).calendar(false), "sameDay -LT-", "should use instance lang in LT formatting");
+        test.equal(moment().add('days', 1).lang(lang).calendar(false), "nextDay -L-", "Should use instance lang in L formatting");
+        test.equal(moment().add('days', -1).lang(lang).calendar(false), "lastDay -LLL-", "Should use instance lang in LL formatting");
+        test.equal(moment().add('days', 4).lang(lang).calendar(false), "nextWeek -LL-", "Should use instance lang in LLL formatting");
+        test.equal(moment().add('days', -4).lang(lang).calendar(false), "lastWeek -LLLL-", "Should use instance lang in LLLL formatting");
 
         test.done();
     },
