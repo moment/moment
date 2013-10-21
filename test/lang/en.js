@@ -213,12 +213,12 @@ exports["lang:en"] = {
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "Today at 2:00 AM",     "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "Today at 2:25 AM",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "Today at 3:00 AM",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "Tomorrow at 2:00 AM",  "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Today at 1:00 AM",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Yesterday at 2:00 AM", "yesterday at the same time");
+        test.equal(moment(a).calendar(),                     "today at 2:00 AM",     "today at the same time");
+        test.equal(moment(a).add({ m: 25 }).calendar(),      "today at 2:25 AM",     "Now plus 25 min");
+        test.equal(moment(a).add({ h: 1 }).calendar(),       "today at 3:00 AM",     "Now plus 1 hour");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "tomorrow at 2:00 AM",  "tomorrow at the same time");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "today at 1:00 AM",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "yesterday at 2:00 AM", "yesterday at the same time");
 
         test.done();
     },
@@ -230,11 +230,11 @@ exports["lang:en"] = {
 
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
-            test.equal(m.calendar(),       m.format('dddd [at] LT'),  "Today + " + i + " days current time");
+            test.equal(m.calendar(),       m.format('dddd [at] LT'),  "today + " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('dddd [at] LT'),  "Today + " + i + " days beginning of day");
+            test.equal(m.calendar(),       m.format('dddd [at] LT'),  "today + " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('dddd [at] LT'),  "Today + " + i + " days end of day");
+            test.equal(m.calendar(),       m.format('dddd [at] LT'),  "today + " + i + " days end of day");
         }
         test.done();
     },
@@ -246,11 +246,11 @@ exports["lang:en"] = {
 
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
-            test.equal(m.calendar(),       m.format('[Last] dddd [at] LT'),  "Today - " + i + " days current time");
+            test.equal(m.calendar(),       m.format('[last] dddd [at] LT'),  "today - " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('[Last] dddd [at] LT'),  "Today - " + i + " days beginning of day");
+            test.equal(m.calendar(),       m.format('[last] dddd [at] LT'),  "today - " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('[Last] dddd [at] LT'),  "Today - " + i + " days end of day");
+            test.equal(m.calendar(),       m.format('[last] dddd [at] LT'),  "today - " + i + " days end of day");
         }
         test.done();
     },

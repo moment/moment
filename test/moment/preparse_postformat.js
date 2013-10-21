@@ -79,12 +79,12 @@ exports.preparse_postformat = {
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "Today at @:)) AM",     "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "Today at @:@% AM",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "Today at #:)) AM",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "Tomorrow at @:)) AM",  "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Today at !:)) AM",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Yesterday at @:)) AM", "yesterday at the same time");
+        test.equal(moment(a).calendar(),                     "today at @:)) AM",     "today at the same time");
+        test.equal(moment(a).add({ m: 25 }).calendar(),      "today at @:@% AM",     "Now plus 25 min");
+        test.equal(moment(a).add({ h: 1 }).calendar(),       "today at #:)) AM",     "Now plus 1 hour");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "tomorrow at @:)) AM",  "tomorrow at the same time");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "today at !:)) AM",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "yesterday at @:)) AM", "yesterday at the same time");
 
         test.done();
     }

@@ -320,11 +320,11 @@ exports.format = {
 
         zones.forEach(function (z) {
             var a = moment().zone(z).startOf('day').subtract({ m: 1 });
-            test.equal(moment(a).zone(z).calendar(), "Yesterday at 11:59 PM", "Yesterday at 11:59 PM, not Today, or the wrong time");
+            test.equal(moment(a).zone(z).calendar(), "yesterday at 11:59 PM", "yesterday at 11:59 PM, not Today, or the wrong time");
         });
 
-        test.equal(moment(b).utc().calendar(), "Yesterday at 11:59 PM", "Yesterday at 11:59 PM, not Today, or the wrong time");
-        test.equal(moment(c).local().calendar(), "Yesterday at 11:59 PM", "Yesterday at 11:59 PM, not Today, or the wrong time");
+        test.equal(moment(b).utc().calendar(), "yesterday at 11:59 PM", "yesterday at 11:59 PM, not Today, or the wrong time");
+        test.equal(moment(c).local().calendar(), "yesterday at 11:59 PM", "yesterday at 11:59 PM, not Today, or the wrong time");
 
         test.done();
     },
