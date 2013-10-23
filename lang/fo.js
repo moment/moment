@@ -26,9 +26,9 @@
         },
         calendar : {
             sameDay : '[Í dag kl.] LT',
-            nextDay : '[I morgin kl.] LT',
+            nextDay : '[Í morgin kl.] LT',
             nextWeek : 'dddd [kl.] LT',
-            lastDay : '[I gjár kl.] LT',
+            lastDay : '[Í gjár kl.] LT',
             lastWeek : '[síðstu] dddd [kl] LT',
             sameElse : 'L'
         },
