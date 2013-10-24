@@ -5,9 +5,9 @@ var moment = require("../../moment");
       Welsh
      *************************************************/
 
-exports["lang:cy-gb"] = {
+exports["lang:cy"] = {
     setUp : function (cb) {
-        moment.lang('cy-gb');
+        moment.lang('cy');
         cb();
     },
 
@@ -354,7 +354,7 @@ exports["lang:cy-gb"] = {
     
     "returns the name of the language" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/cy-gb'), 'cy-gb', "module should export cy-gb");
+            test.equal(require('../../lang/cy'), 'cy', "module should export cy");
         }
         
         test.done();
