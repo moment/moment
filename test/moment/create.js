@@ -277,8 +277,8 @@ exports.create = {
         test.equal(moment('12', 'SS').get('ms'), 120, 'centiseconds');
         // test.equal(moment('123', 'SS', true).isValid(), false, 'centiseconds with three digits');
         test.equal(moment('123', 'SSS').get('ms'), 123, 'milliseconds');
-        test.equal(moment('1234', 'SSSS').get('ms'), 123, 'milliseconds with SSSS')
-        test.equal(moment('123456789101112', 'SSSS').get('ms'), 123, 'milliseconds with SSSS')
+        test.equal(moment('1234', 'SSSS').get('ms'), 123, 'milliseconds with SSSS');
+        test.equal(moment('123456789101112', 'SSSS').get('ms'), 123, 'milliseconds with SSSS');
         test.done();
     },
 
