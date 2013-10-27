@@ -2288,7 +2288,7 @@
                             "deprecated, and will be removed in an upcoming " +
                             "release.");
                 }
-                local_moment.apply(null, arguments);
+                return local_moment.apply(null, arguments);
             };
         } else {
             this['moment'] = moment;
