@@ -31,6 +31,22 @@ Master [![Build Status](https://travis-ci.org/moment/moment.png?branch=master)](
 Changelog
 =========
 
+### 2.4.0
+
+* **Deprecate** globally exported moment, will be removed in next major
+* New languages
+  * Farose (fo) [#1206](https://github.com/moment/moment/issues/1206)
+  * Tagalog/Filipino (tl-ph) [#1197](https://github.com/moment/moment/issues/1197)
+  * Welsh (cy) [#1214](https://github.com/moment/moment/issues/1214)
+* Bugfixes
+  * properly handle Z at the end of iso RegExp [#1187](https://github.com/moment/moment/issues/1187)
+  * chinese meridian time improvements [#1076](https://github.com/moment/moment/issues/1076)
+  * fix language tests [#1177](https://github.com/moment/moment/issues/1177)
+  * remove some failing tests (that should have never existed :))
+    [#1185](https://github.com/moment/moment/issues/#1185)
+    [#1183](https://github.com/moment/moment/issues/1183)
+  * handle russian noun cases in weird cases [#1195](https://github.com/moment/moment/issues/1195]
+
 ### 2.3.1
 
 Removed a trailing comma [1169] and fixed a bug with `months`, `weekdays` getters [1171].
