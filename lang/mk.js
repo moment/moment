@@ -2,11 +2,11 @@
 // language : macedonian (mk)
 // author : Borislav Mickov : https://github.com/B0k0
 
-require('../moment').lang('bg', {
+require('../moment').lang('mk', {
     months : "јануари_февруари_март_април_мај_јуни_јули_август_септември_октомври_ноември_декември".split("_"),
     monthsShort : "јан_фев_мар_апр_мај_јуни_јули_авг_сеп_окт_ное_дек".split("_"),
     weekdays : "недела_понеделник_вторник_среда_четврток_петок_сабота".split("_"),
-    weekdaysShort : "нед_пон_вто_цре_чет_пет_саб".split("_"),
+    weekdaysShort : "нед_пон_вто_сре_чет_пет_саб".split("_"),
     weekdaysMin : "нд_пн_вт_ср_че_пе_сб".split("_"),
     longDateFormat : {
         LT : "h:mm",
@@ -46,7 +46,7 @@ require('../moment').lang('bg', {
         d : "ден",
         dd : "%d дена",
         M : "месец",
-        MM : "%d месеца",
+        MM : "%d месеци",
         y : "година",
         yy : "%d години"
     },
