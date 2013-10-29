@@ -122,7 +122,7 @@ exports["lang:mk"] = {
 
     "format week" : function(test) {
         test.expect(7);
-        var expected = 'недела нед нд_понеделник пон пн_вторник вто вт_среда сре ср_четврток чет чт_петок пет пт_сабота саб сб'.split("_");
+        var expected = 'недела нед нд_понеделник пон пн_вторник вто вт_среда сре ср_четврток чет че_петок пет пе_сабота саб сб'.split("_");
         var i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
