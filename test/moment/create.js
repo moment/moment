@@ -269,6 +269,19 @@ exports.create = {
         test.done();
     },
 
+    "milliseconds format" : function (test) {
+        test.expect(5);
+        test.equal(moment('1', 'S').get('ms'), 100, 'deciseconds');
+        // test.equal(moment('10', 'S', true).isValid(), false, 'deciseconds with two digits');
+        // test.equal(moment('1', 'SS', true).isValid(), false, 'centiseconds with one digits');
+        test.equal(moment('12', 'SS').get('ms'), 120, 'centiseconds');
+        // test.equal(moment('123', 'SS', true).isValid(), false, 'centiseconds with three digits');
+        test.equal(moment('123', 'SSS').get('ms'), 123, 'milliseconds');
+        test.equal(moment('1234', 'SSSS').get('ms'), 123, 'milliseconds with SSSS');
+        test.equal(moment('123456789101112', 'SSSS').get('ms'), 123, 'milliseconds with SSSS');
+        test.done();
+    },
+
     "string with format no separators" : function (test) {
         moment.lang('en');
         var a = [
@@ -520,12 +533,12 @@ exports.create = {
         test.equal(moment('2011-10-08T18')._f, "YYYY-MM-DDTHH", "should include 'T' in the format");
         test.equal(moment('2011-10-08T18:20')._f, "YYYY-MM-DDTHH:mm", "should include 'T' in the format");
         test.equal(moment('2011-10-08T18:20:13')._f, "YYYY-MM-DDTHH:mm:ss", "should include 'T' in the format");
-        test.equal(moment('2011-10-08T18:20:13.321')._f, "YYYY-MM-DDTHH:mm:ss.S", "should include 'T' in the format");
+        test.equal(moment('2011-10-08T18:20:13.321')._f, "YYYY-MM-DDTHH:mm:ss.SSSS", "should include 'T' in the format");
 
         test.equal(moment('2011-10-08 18')._f, "YYYY-MM-DD HH", "should not include 'T' in the format");
         test.equal(moment('2011-10-08 18:20')._f, "YYYY-MM-DD HH:mm", "should not include 'T' in the format");
         test.equal(moment('2011-10-08 18:20:13')._f, "YYYY-MM-DD HH:mm:ss", "should not include 'T' in the format");
-        test.equal(moment('2011-10-08 18:20:13.321')._f, "YYYY-MM-DD HH:mm:ss.S", "should not include 'T' in the format");
+        test.equal(moment('2011-10-08 18:20:13.321')._f, "YYYY-MM-DD HH:mm:ss.SSSS", "should not include 'T' in the format");
 
         test.done();
     },

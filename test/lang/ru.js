@@ -170,6 +170,38 @@ exports["lang:ru"] = {
         test.done();
     },
 
+    "format month case with escaped symbols" : function (test) {
+        test.expect(48);
+
+        var months = {
+            'nominative': 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_'),
+            'accusative': 'января_февраля_марта_апреля_мая_июня_июля_августа_сентября_октября_ноября_декабря'.split('_')
+        }, i;
+        for (i = 0; i < 12; i++) {
+            test.equal(moment([2013, i, 1]).format('D[] MMMM'), '1 ' + months.accusative[i], '1 ' + months.accusative[i]);
+            test.equal(moment([2013, i, 1]).format('[<i>]D[</i>] [<b>]MMMM[</b>]'), '<i>1</i> <b>' + months.accusative[i] + '</b>', '1 <b>' + months.accusative[i] + '</b>');
+            test.equal(moment([2013, i, 1]).format('D[-й день] MMMM'), '1-й день ' + months.accusative[i], '1-й день ' + months.accusative[i]);
+            test.equal(moment([2013, i, 1]).format('D, MMMM'), '1, ' + months.nominative[i], '1, ' + months.nominative[i]);
+        }
+        test.done();
+    },
+
+    "format month short case with escaped symbols" : function (test) {
+        test.expect(48);
+
+        var monthsShort = {
+            'nominative': 'янв_фев_мар_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split('_'),
+            'accusative': 'янв_фев_мар_апр_мая_июня_июля_авг_сен_окт_ноя_дек'.split('_')
+        }, i;
+        for (i = 0; i < 12; i++) {
+            test.equal(moment([2013, i, 1]).format('D[] MMM'), '1 ' + monthsShort.accusative[i], '1 ' + monthsShort.accusative[i]);
+            test.equal(moment([2013, i, 1]).format('[<i>]D[</i>] [<b>]MMM[</b>]'), '<i>1</i> <b>' + monthsShort.accusative[i] + '</b>', '1 <b>' + monthsShort.accusative[i] + '</b>');
+            test.equal(moment([2013, i, 1]).format('D[-й день] MMM'), '1-й день ' + monthsShort.accusative[i], '1-й день ' + monthsShort.accusative[i]);
+            test.equal(moment([2013, i, 1]).format('D, MMM'), '1, ' + monthsShort.nominative[i], '1, ' + monthsShort.nominative[i]);
+        }
+        test.done();
+    },
+
     "format week" : function (test) {
         test.expect(7);
 

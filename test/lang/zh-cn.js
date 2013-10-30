@@ -201,6 +201,9 @@ exports["lang:zh-cn"] = {
             if (Math.abs(m.diff(today, 'days')) >= 7) {
                 continue;
             }
+            if (Math.abs(m.diff(today, 'days')) <= 1) {
+                continue; // skip today, yesterday, tomorrow
+            }
             test.equal(m.calendar(),  m.format('[下]ddd凌晨12点整'), "Today + " + i + " days beginning of day");
         }
         test.done();
