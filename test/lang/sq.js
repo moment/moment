@@ -148,11 +148,11 @@ exports["lang:sq"] = {
 
         var start = moment([2007, 1, 28]);
 
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "disa seconda", "44 seconds = a few seconds");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "disa sekonda", "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "një minut",      "45 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  "një minut",      "89 seconds = a minute");
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  "2 minutea",     "90 seconds = 2 minutes");
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  "44 minutea",    "44 minutes = 44 minutes");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  "2 minuta",     "90 seconds = 2 minutes");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  "44 minuta",    "44 minutes = 44 minutes");
         test.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  "një orë",       "45 minutes = an hour");
         test.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  "një orë",       "89 minutes = an hour");
         test.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  "2 orë",       "90 minutes = 2 hours");
@@ -185,8 +185,8 @@ exports["lang:sq"] = {
     "suffix" : function (test) {
         test.expect(2);
 
-        test.equal(moment(30000).from(0), "në disa seconda",  "prefix");
-        test.equal(moment(0).from(30000), "disa seconda me parë", "suffix");
+        test.equal(moment(30000).from(0), "në disa sekonda",  "prefix");
+        test.equal(moment(0).from(30000), "disa sekonda me parë", "suffix");
 
         test.done();
     },
@@ -194,7 +194,7 @@ exports["lang:sq"] = {
     "now from now" : function (test) {
         test.expect(1);
 
-        test.equal(moment().fromNow(), "disa seconda me parë",  "now from now should display as in the past");
+        test.equal(moment().fromNow(), "disa sekonda me parë",  "now from now should display as in the past");
 
         test.done();
     },
@@ -202,7 +202,7 @@ exports["lang:sq"] = {
     "fromNow" : function (test) {
         test.expect(2);
 
-        test.equal(moment().add({s: 30}).fromNow(), "në disa seconda", "in a few seconds");
+        test.equal(moment().add({s: 30}).fromNow(), "në disa sekonda", "in a few seconds");
         test.equal(moment().add({d: 5}).fromNow(), "në 5 ditë", "in 5 days");
 
         test.done();
