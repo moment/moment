@@ -55,6 +55,12 @@ exports.lang = {
         test.done();
     },
 
+    "library list all language keys" : function (test) {
+        test.expect(1);
+        test.equal(moment.langKeys().length, 50, 'Returns all 50 lang keys');
+        test.done();
+    },
+
     "library ensure inheritance" : function (test) {
         test.expect(2);
 

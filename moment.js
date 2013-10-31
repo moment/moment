@@ -1646,6 +1646,18 @@
         return r._abbr;
     };
 
+    // returns all available lang keys
+    moment.langKeys = function () {
+        var keys = [], k;
+        for (k in languages) {
+            // this is to make sure its a valid en-us format key
+            if (k.length < 6) {
+                keys.push(k);
+            }
+        }
+        return keys;
+    };
+
     // returns language data
     moment.langData = function (key) {
         if (key && key._lang && key._lang._abbr) {
