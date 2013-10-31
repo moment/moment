@@ -130,12 +130,14 @@ exports.duration = {
                 minutes: 9,
                 seconds: 20,
                 milliseconds: 12
-            });
+            }),
+            modified = moment.duration(1, 'day').add(moment.duration(1, 'day'));
 
-        test.expect(3);
+        test.expect(4);
         test.deepEqual(moment.duration(simple), simple, "simple clones are equal");
         test.deepEqual(moment.duration(lengthy), lengthy, "lengthy clones are equal");
         test.deepEqual(moment.duration(complicated), complicated, "complicated clones are equal");
+        test.deepEqual(moment.duration(modified), modified, "cloning modified duration works");
         test.done();
     },
 
