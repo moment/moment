@@ -55,11 +55,11 @@ exports["lang:ro"] = {
                 ['s ss',                           '50 50'],
                 ['a A',                            'pm PM'],
                 ['[a] DDDo[a zi a anului]',        'a 45a zi a anului'],
-                ['L',                              '14/02/2010'],
+                ['L',                              '14.02.2010'],
                 ['LL',                             '14 februarie 2010'],
                 ['LLL',                            '14 februarie 2010 15:25'],
                 ['LLLL',                           'duminică, 14 februarie 2010 15:25'],
-                ['l',                              '14/2/2010'],
+                ['l',                              '14.2.2010'],
                 ['ll',                             '14 feb 2010'],
                 ['lll',                            '14 feb 2010 15:25'],
                 ['llll',                           'Dum, 14 feb 2010 15:25']
