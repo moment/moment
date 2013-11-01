@@ -19,7 +19,7 @@ exports["lang:ro"] = {
     "parse" : function (test) {
         test.expect(96);
 
-        var tests = 'Ianuarie Ian_Februarie Feb_Martie Mar_Aprilie Apr_Mai Mai_Iunie Iun_Iulie Iul_August Aug_Septembrie Sep_Octombrie Oct_Noiembrie Noi_Decembrie Dec'.split("_"), i;
+        var tests = 'ianuarie ian_februarie feb_martie mar_aprilie apr_mai mai_iunie iun_iulie iul_august aug_septembrie sep_octombrie oct_noiembrie noi_decembrie dec'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -41,12 +41,12 @@ exports["lang:ro"] = {
         test.expect(22);
 
         var a = [
-                ['dddd, MMMM Do YYYY, h:mm:ss A',  'Duminică, Februarie 14 2010, 3:25:50 PM'],
+                ['dddd, MMMM Do YYYY, h:mm:ss A',  'duminică, februarie 14 2010, 3:25:50 PM'],
                 ['ddd, hA',                        'Dum, 3PM'],
-                ['M Mo MM MMMM MMM',               '2 2 02 Februarie Feb'],
+                ['M Mo MM MMMM MMM',               '2 2 02 februarie feb'],
                 ['YYYY YY',                        '2010 10'],
                 ['D Do DD',                        '14 14 14'],
-                ['d do dddd ddd dd',               '0 0 Duminică Dum Du'],
+                ['d do dddd ddd dd',               '0 0 duminică Dum Du'],
                 ['DDD DDDo DDDD',                  '45 45 045'],
                 ['w wo ww',                        '7 7 07'],
                 ['h hh',                           '3 03'],
@@ -56,13 +56,13 @@ exports["lang:ro"] = {
                 ['a A',                            'pm PM'],
                 ['[a] DDDo[a zi a anului]',        'a 45a zi a anului'],
                 ['L',                              '14/02/2010'],
-                ['LL',                             '14 Februarie 2010'],
-                ['LLL',                            '14 Februarie 2010 15:25'],
-                ['LLLL',                           'Duminică, 14 Februarie 2010 15:25'],
+                ['LL',                             '14 februarie 2010'],
+                ['LLL',                            '14 februarie 2010 15:25'],
+                ['LLLL',                           'duminică, 14 februarie 2010 15:25'],
                 ['l',                              '14/2/2010'],
-                ['ll',                             '14 Feb 2010'],
-                ['lll',                            '14 Feb 2010 15:25'],
-                ['llll',                           'Dum, 14 Feb 2010 15:25']
+                ['ll',                             '14 feb 2010'],
+                ['lll',                            '14 feb 2010 15:25'],
+                ['llll',                           'Dum, 14 feb 2010 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -115,7 +115,7 @@ exports["lang:ro"] = {
     "format month" : function (test) {
         test.expect(12);
 
-        var expected = 'Ianuarie Ian_Februarie Feb_Martie Mar_Aprilie Apr_Mai Mai_Iunie Iun_Iulie Iul_August Aug_Septembrie Sep_Octombrie Oct_Noiembrie Noi_Decembrie Dec'.split("_"), i;
+        var expected = 'ianuarie ian_februarie feb_martie mar_aprilie apr_mai mai_iunie iun_iulie iul_august aug_septembrie sep_octombrie oct_noiembrie noi_decembrie dec'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -125,7 +125,7 @@ exports["lang:ro"] = {
     "format week" : function (test) {
         test.expect(7);
 
-        var expected = 'Duminică Dum Du_Luni Lun Lu_Marţi Mar Ma_Miercuri Mie Mi_Joi Joi Jo_Vineri Vin Vi_Sâmbătă Sâm Sâ'.split("_"), i;
+        var expected = 'duminică Dum Du_luni Lun Lu_marţi Mar Ma_miercuri Mie Mi_joi Joi Jo_vineri Vin Vi_sâmbătă Sâm Sâ'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
