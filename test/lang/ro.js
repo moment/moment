@@ -125,7 +125,7 @@ exports["lang:ro"] = {
     "format week" : function (test) {
         test.expect(7);
 
-        var expected = 'duminică Dum Du_luni Lun Lu_marţi Mar Ma_miercuri Mie Mi_joi Joi Jo_vineri Vin Vi_sâmbătă Sâm Sâ'.split("_"), i;
+        var expected = 'duminică Dum Du_luni Lun Lu_marți Mar Ma_miercuri Mie Mi_joi Joi Jo_vineri Vin Vi_sâmbătă Sâm Sâ'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
