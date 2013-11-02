@@ -1826,7 +1826,7 @@
         },
 
         diff : function (input, units, asFloat) {
-            var that = moment(input),
+            var that = this._isUTC ? moment(input).zone(this._offset || 0) : moment(input).local(),
                 zoneDiff = (this.zone() - that.zone()) * 6e4,
                 diff, output;
 
