@@ -12,6 +12,7 @@
 
     var moment,
         VERSION = "2.4.0",
+        global = this,
         round = Math.round,
         i,
 
@@ -2282,7 +2283,7 @@
         // add `moment` as a global object via a string identifier,
         // for Closure Compiler "advanced" mode
         if (deprecate) {
-            this.moment = function () {
+            global.moment = function () {
                 if (!warned && console && console.warn) {
                     warned = true;
                     console.warn(
@@ -2293,7 +2294,7 @@
                 return local_moment.apply(null, arguments);
             };
         } else {
-            this['moment'] = moment;
+            global['moment'] = moment;
         }
     }
 
