@@ -36,9 +36,9 @@
         relativeTime : {
             future : "në %s",
             past : "%s me parë",
-            s : "disa seconda",
+            s : "disa sekonda",
             m : "një minut",
-            mm : "%d minutea",
+            mm : "%d minuta",
             h : "një orë",
             hh : "%d orë",
             d : "një ditë",
