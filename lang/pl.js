@@ -33,6 +33,10 @@
             return result + (plural(number) ? 'miesiące' : 'miesięcy');
         case 'yy':
             return result + (plural(number) ? 'lata' : 'lat');
+        case 's': 
+            return withoutSuffix ? 'sekunda' : 'sekundę';
+        case 'ss':
+            return result + (plural(number) ? 'sekundy' : 'sekund');        
         }
     }
 
@@ -77,7 +81,8 @@
         relativeTime : {
             future : "za %s",
             past : "%s temu",
-            s : "kilka sekund",
+            s : translate,
+            ss : translate,
             m : translate,
             mm : translate,
             h : translate,
