@@ -45,7 +45,7 @@ Changelog
   * remove some failing tests (that should have never existed :))
     [#1185](https://github.com/moment/moment/issues/#1185)
     [#1183](https://github.com/moment/moment/issues/1183)
-  * handle russian noun cases in weird cases [#1195](https://github.com/moment/moment/issues/1195]
+  * handle russian noun cases in weird cases [#1195](https://github.com/moment/moment/issues/1195)
 
 ### 2.3.1
 
