@@ -1,4 +1,4 @@
 node_modules/
 .DS_Store
-min/moment+customlangs.js
-min/moment+customlangs.min.js
+min/moment+customlocales.js
+min/moment+customlocales.min.js

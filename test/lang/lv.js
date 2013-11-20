@@ -5,14 +5,14 @@ var moment = require("../../moment");
       Latvian
      *************************************************/
 
-exports["lang:lv"] = {
+exports["locale:lv"] = {
     setUp : function (cb) {
-        moment.lang('lv');
+        moment.locale('lv');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -353,9 +353,9 @@ exports["lang:lv"] = {
         test.done();
     },
     
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/lv'), 'lv', "module should export lv");
+            test.equal(require('../../locale/lv'), 'lv', "module should export lv");
         }
         
         test.done();

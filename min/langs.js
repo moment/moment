@@ -1,5 +1,5 @@
-// moment.js language configuration
-// language : Moroccan Arabic (ar-ma)
+// moment.js locale configuration
+// locale : Moroccan Arabic (ar-ma)
 // author : ElFadili Yassine : https://github.com/ElFadiliY
 // author : Abdel Said : https://github.com/abdelsaid
 
@@ -12,7 +12,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('ar-ma', {
+    return moment.locale('ar-ma', {
         months : "يناير_فبراير_مارس_أبريل_ماي_يونيو_يوليوز_غشت_شتنبر_أكتوبر_نونبر_دجنبر".split("_"),
         monthsShort : "يناير_فبراير_مارس_أبريل_ماي_يونيو_يوليوز_غشت_شتنبر_أكتوبر_نونبر_دجنبر".split("_"),
         weekdays : "الأحد_الإتنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت".split("_"),
@@ -55,8 +55,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : Arabic (ar)
+// moment.js locale configuration
+// locale : Arabic (ar)
 // author : Abdel Said : https://github.com/abdelsaid
 // changes in months, weekdays : Ahmed Elkhatib
 
@@ -69,7 +69,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('ar', {
+    return moment.locale('ar', {
         months : "يناير/ كانون الثاني_فبراير/ شباط_مارس/ آذار_أبريل/ نيسان_مايو/ أيار_يونيو/ حزيران_يوليو/ تموز_أغسطس/ آب_سبتمبر/ أيلول_أكتوبر/ تشرين الأول_نوفمبر/ تشرين الثاني_ديسمبر/ كانون الأول".split("_"),
         monthsShort : "يناير/ كانون الثاني_فبراير/ شباط_مارس/ آذار_أبريل/ نيسان_مايو/ أيار_يونيو/ حزيران_يوليو/ تموز_أغسطس/ آب_سبتمبر/ أيلول_أكتوبر/ تشرين الأول_نوفمبر/ تشرين الثاني_ديسمبر/ كانون الأول".split("_"),
         weekdays : "الأحد_الإثنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت".split("_"),
@@ -112,8 +112,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : bulgarian (bg)
+// moment.js locale configuration
+// locale : bulgarian (bg)
 // author : Krasen Borisov : https://github.com/kraz
 
 (function (factory) {
@@ -125,7 +125,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('bg', {
+    return moment.locale('bg', {
         months : "януари_февруари_март_април_май_юни_юли_август_септември_октомври_ноември_декември".split("_"),
         monthsShort : "янр_фев_мар_апр_май_юни_юли_авг_сеп_окт_ное_дек".split("_"),
         weekdays : "неделя_понеделник_вторник_сряда_четвъртък_петък_събота".split("_"),
@@ -199,8 +199,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : breton (br)
+// moment.js locale configuration
+// locale : breton (br)
 // author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 
 (function (factory) {
@@ -260,7 +260,7 @@
         return mutationTable[text.charAt(0)] + text.substring(1);
     }
 
-    return moment.lang('br', {
+    return moment.locale('br', {
         months : "Genver_C'hwevrer_Meurzh_Ebrel_Mae_Mezheven_Gouere_Eost_Gwengolo_Here_Du_Kerzu".split("_"),
         monthsShort : "Gen_C'hwe_Meu_Ebr_Mae_Eve_Gou_Eos_Gwe_Her_Du_Ker".split("_"),
         weekdays : "Sul_Lun_Meurzh_Merc'her_Yaou_Gwener_Sadorn".split("_"),
@@ -307,8 +307,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : bosnian (bs)
+// moment.js locale configuration
+// locale : bosnian (bs)
 // author : Nedim Cholich : https://github.com/frontyard
 // based on (hr) translation by Bojan Marković
 
@@ -375,7 +375,7 @@
         }
     }
 
-    return moment.lang('bs', {
+    return moment.locale('bs', {
 		months : "januar_februar_mart_april_maj_juni_juli_avgust_septembar_oktobar_novembar_decembar".split("_"),
 		monthsShort : "jan._feb._mar._apr._maj._jun._jul._avg._sep._okt._nov._dec.".split("_"),
         weekdays : "nedjelja_ponedjeljak_utorak_srijeda_četvrtak_petak_subota".split("_"),
@@ -447,8 +447,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : catalan (ca)
+// moment.js locale configuration
+// locale : catalan (ca)
 // author : Juan G. Hurtado : https://github.com/juanghurtado
 
 (function (factory) {
@@ -460,7 +460,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('ca', {
+    return moment.locale('ca', {
         months : "Gener_Febrer_Març_Abril_Maig_Juny_Juliol_Agost_Setembre_Octubre_Novembre_Desembre".split("_"),
         monthsShort : "Gen._Febr._Mar._Abr._Mai._Jun._Jul._Ag._Set._Oct._Nov._Des.".split("_"),
         weekdays : "Diumenge_Dilluns_Dimarts_Dimecres_Dijous_Divendres_Dissabte".split("_"),
@@ -514,8 +514,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : czech (cs)
+// moment.js locale configuration
+// locale : czech (cs)
 // author : petrbela : https://github.com/petrbela
 
 (function (factory) {
@@ -587,7 +587,7 @@
         }
     }
 
-    return moment.lang('cs', {
+    return moment.locale('cs', {
         months : months,
         monthsShort : monthsShort,
         monthsParse : (function (months, monthsShort) {
@@ -670,8 +670,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : chuvash (cv)
+// moment.js locale configuration
+// locale : chuvash (cv)
 // author : Anatoly Mironov : https://github.com/mirontoli
 
 (function (factory) {
@@ -683,7 +683,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('cv', {
+    return moment.locale('cv', {
         months : "кăрлач_нарăс_пуш_ака_май_çĕртме_утă_çурла_авăн_юпа_чӳк_раштав".split("_"),
         monthsShort : "кăр_нар_пуш_ака_май_çĕр_утă_çур_ав_юпа_чӳк_раш".split("_"),
         weekdays : "вырсарникун_тунтикун_ытларикун_юнкун_кĕçнерникун_эрнекун_шăматкун".split("_"),
@@ -730,8 +730,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : Welsh (cy)
+// moment.js locale configuration
+// locale : Welsh (cy)
 // author : Robert Allen
 
 (function (factory) {
@@ -743,7 +743,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang("cy", {
+    return moment.locale("cy", {
         months: "Ionawr_Chwefror_Mawrth_Ebrill_Mai_Mehefin_Gorffennaf_Awst_Medi_Hydref_Tachwedd_Rhagfyr".split("_"),
         monthsShort: "Ion_Chwe_Maw_Ebr_Mai_Meh_Gor_Aws_Med_Hyd_Tach_Rhag".split("_"),
         weekdays: "Dydd Sul_Dydd Llun_Dydd Mawrth_Dydd Mercher_Dydd Iau_Dydd Gwener_Dydd Sadwrn".split("_"),
@@ -808,8 +808,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : danish (da)
+// moment.js locale configuration
+// locale : danish (da)
 // author : Ulrik Nielsen : https://github.com/mrbase
 
 (function (factory) {
@@ -821,7 +821,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('da', {
+    return moment.locale('da', {
         months : "januar_februar_marts_april_maj_juni_juli_august_september_oktober_november_december".split("_"),
         monthsShort : "jan_feb_mar_apr_maj_jun_jul_aug_sep_okt_nov_dec".split("_"),
         weekdays : "søndag_mandag_tirsdag_onsdag_torsdag_fredag_lørdag".split("_"),
@@ -865,8 +865,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : german (de)
+// moment.js locale configuration
+// locale : german (de)
 // author : lluchs : https://github.com/lluchs
 // author: Menelion Elensúle: https://github.com/Oire
 
@@ -893,7 +893,7 @@
         return withoutSuffix ? format[key][0] : format[key][1];
     }
 
-    return moment.lang('de', {
+    return moment.locale('de', {
         months : "Januar_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember".split("_"),
         monthsShort : "Jan._Febr._Mrz._Apr._Mai_Jun._Jul._Aug._Sept._Okt._Nov._Dez.".split("_"),
         weekdays : "Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag".split("_"),
@@ -937,8 +937,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : modern greek (el)
+// moment.js locale configuration
+// locale : modern greek (el)
 // author : Aggelos Karalias : https://github.com/mehiel
 
 (function (factory) {
@@ -950,7 +950,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('el', {
+    return moment.locale('el', {
         monthsNominativeEl : "Ιανουάριος_Φεβρουάριος_Μάρτιος_Απρίλιος_Μάιος_Ιούνιος_Ιούλιος_Αύγουστος_Σεπτέμβριος_Οκτώβριος_Νοέμβριος_Δεκέμβριος".split("_"),
         monthsGenitiveEl : "Ιανουαρίου_Φεβρουαρίου_Μαρτίου_Απριλίου_Μαΐου_Ιουνίου_Ιουλίου_Αυγούστου_Σεπτεμβρίου_Οκτωβρίου_Νοεμβρίου_Δεκεμβρίου".split("_"),
         months : function (momentToFormat, format) {
@@ -1017,8 +1017,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : australian english (en-au)
+// moment.js locale configuration
+// locale : australian english (en-au)
 
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
@@ -1029,7 +1029,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('en-au', {
+    return moment.locale('en-au', {
         months : "January_February_March_April_May_June_July_August_September_October_November_December".split("_"),
         monthsShort : "Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"),
         weekdays : "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),
@@ -1080,8 +1080,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : canadian english (en-ca)
+// moment.js locale configuration
+// locale : canadian english (en-ca)
 // author : Jonathan Abourbih : https://github.com/jonbca
 
 (function (factory) {
@@ -1093,7 +1093,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('en-ca', {
+    return moment.locale('en-ca', {
         months : "January_February_March_April_May_June_July_August_September_October_November_December".split("_"),
         monthsShort : "Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"),
         weekdays : "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),
@@ -1140,8 +1140,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : great britain english (en-gb)
+// moment.js locale configuration
+// locale : great britain english (en-gb)
 // author : Chris Gedrim : https://github.com/chrisgedrim
 
 (function (factory) {
@@ -1153,7 +1153,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('en-gb', {
+    return moment.locale('en-gb', {
         months : "January_February_March_April_May_June_July_August_September_October_November_December".split("_"),
         monthsShort : "Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"),
         weekdays : "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),
@@ -1204,8 +1204,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : esperanto (eo)
+// moment.js locale configuration
+// locale : esperanto (eo)
 // author : Colin Dean : https://github.com/colindean
 // komento: Mi estas malcerta se mi korekte traktis akuzativojn en tiu traduko.
 //          Se ne, bonvolu korekti kaj avizi min por ke mi povas lerni!
@@ -1219,7 +1219,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('eo', {
+    return moment.locale('eo', {
         months : "januaro_februaro_marto_aprilo_majo_junio_julio_aŭgusto_septembro_oktobro_novembro_decembro".split("_"),
         monthsShort : "jan_feb_mar_apr_maj_jun_jul_aŭg_sep_okt_nov_dec".split("_"),
         weekdays : "Dimanĉo_Lundo_Mardo_Merkredo_Ĵaŭdo_Vendredo_Sabato".split("_"),
@@ -1270,8 +1270,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : spanish (es)
+// moment.js locale configuration
+// locale : spanish (es)
 // author : Julio Napurí : https://github.com/julionc
 
 (function (factory) {
@@ -1283,7 +1283,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('es', {
+    return moment.locale('es', {
         months : "enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre".split("_"),
         monthsShort : "ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.".split("_"),
         weekdays : "domingo_lunes_martes_miércoles_jueves_viernes_sábado".split("_"),
@@ -1337,8 +1337,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : estonian (et)
+// moment.js locale configuration
+// locale : estonian (et)
 // author : Henry Kehlmann : https://github.com/madhenry
 
 (function (factory) {
@@ -1354,7 +1354,7 @@
         return (isFuture || withoutSuffix) ? 'paari sekundi' : 'paar sekundit';
     }
 
-    return moment.lang('et', {
+    return moment.locale('et', {
         months        : "jaanuar_veebruar_märts_aprill_mai_juuni_juuli_august_september_oktoober_november_detsember".split("_"),
         monthsShort   : "jaan_veebr_märts_apr_mai_juuni_juuli_aug_sept_okt_nov_dets".split("_"),
         weekdays      : "pühapäev_esmaspäev_teisipäev_kolmapäev_neljapäev_reede_laupäev".split("_"),
@@ -1398,8 +1398,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : euskara (eu)
+// moment.js locale configuration
+// locale : euskara (eu)
 // author : Eneko Illarramendi : https://github.com/eillarra
 
 (function (factory) {
@@ -1411,7 +1411,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('eu', {
+    return moment.locale('eu', {
         months : "urtarrila_otsaila_martxoa_apirila_maiatza_ekaina_uztaila_abuztua_iraila_urria_azaroa_abendua".split("_"),
         monthsShort : "urt._ots._mar._api._mai._eka._uzt._abu._ira._urr._aza._abe.".split("_"),
         weekdays : "igandea_astelehena_asteartea_asteazkena_osteguna_ostirala_larunbata".split("_"),
@@ -1459,8 +1459,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : Persian Language
+// moment.js locale configuration
+// locale : Persian Locale
 // author : Ebrahim Byagowi : https://github.com/ebraminio
 
 (function (factory) {
@@ -1496,7 +1496,7 @@
         '۰': '0'
     };
 
-    return moment.lang('fa', {
+    return moment.locale('fa', {
         months : 'ژانویه_فوریه_مارس_آوریل_مه_ژوئن_ژوئیه_اوت_سپتامبر_اکتبر_نوامبر_دسامبر'.split('_'),
         monthsShort : 'ژانویه_فوریه_مارس_آوریل_مه_ژوئن_ژوئیه_اوت_سپتامبر_اکتبر_نوامبر_دسامبر'.split('_'),
         weekdays : 'یک\u200cشنبه_دوشنبه_سه\u200cشنبه_چهارشنبه_پنج\u200cشنبه_جمعه_شنبه'.split('_'),
@@ -1557,8 +1557,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : finnish (fi)
+// moment.js locale configuration
+// locale : finnish (fi)
 // author : Tarmo Aidantausta : https://github.com/bleadof
 
 (function (factory) {
@@ -1613,7 +1613,7 @@
         return number < 10 ? (isFuture ? numbers_future[number] : numbers_past[number]) : number;
     }
 
-    return moment.lang('fi', {
+    return moment.locale('fi', {
         months : "tammikuu_helmikuu_maaliskuu_huhtikuu_toukokuu_kesäkuu_heinäkuu_elokuu_syyskuu_lokakuu_marraskuu_joulukuu".split("_"),
         monthsShort : "tammi_helmi_maalis_huhti_touko_kesä_heinä_elo_syys_loka_marras_joulu".split("_"),
         weekdays : "sunnuntai_maanantai_tiistai_keskiviikko_torstai_perjantai_lauantai".split("_"),
@@ -1661,8 +1661,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : faroese (fo)
+// moment.js locale configuration
+// locale : faroese (fo)
 // author : Ragnar Johannesen : https://github.com/ragnar123
 
 (function (factory) {
@@ -1674,7 +1674,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('fo', {
+    return moment.locale('fo', {
         months : "januar_februar_mars_apríl_mai_juni_juli_august_september_oktober_november_desember".split("_"),
         monthsShort : "jan_feb_mar_apr_mai_jun_jul_aug_sep_okt_nov_des".split("_"),
         weekdays : "sunnudagur_mánadagur_týsdagur_mikudagur_hósdagur_fríggjadagur_leygardagur".split("_"),
@@ -1718,8 +1718,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : canadian french (fr-ca)
+// moment.js locale configuration
+// locale : canadian french (fr-ca)
 // author : Jonathan Abourbih : https://github.com/jonbca
 
 (function (factory) {
@@ -1731,7 +1731,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('fr-ca', {
+    return moment.locale('fr-ca', {
         months : "janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre".split("_"),
         monthsShort : "janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.".split("_"),
         weekdays : "dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi".split("_"),
@@ -1773,8 +1773,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : french (fr)
+// moment.js locale configuration
+// locale : french (fr)
 // author : John Fischer : https://github.com/jfroffice
 
 (function (factory) {
@@ -1786,7 +1786,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('fr', {
+    return moment.locale('fr', {
         months : "janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre".split("_"),
         monthsShort : "janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.".split("_"),
         weekdays : "dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi".split("_"),
@@ -1832,8 +1832,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : galician (gl)
+// moment.js locale configuration
+// locale : galician (gl)
 // author : Juan G. Hurtado : https://github.com/juanghurtado
 
 (function (factory) {
@@ -1845,7 +1845,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('gl', {
+    return moment.locale('gl', {
         months : "Xaneiro_Febreiro_Marzo_Abril_Maio_Xuño_Xullo_Agosto_Setembro_Outubro_Novembro_Decembro".split("_"),
         monthsShort : "Xan._Feb._Mar._Abr._Mai._Xuñ._Xul._Ago._Set._Out._Nov._Dec.".split("_"),
         weekdays : "Domingo_Luns_Martes_Mércores_Xoves_Venres_Sábado".split("_"),
@@ -1904,8 +1904,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : Hebrew (he)
+// moment.js locale configuration
+// locale : Hebrew (he)
 // author : Tomer Cohen : https://github.com/tomer
 // author : Moshe Simantov : https://github.com/DevelopmentIL
 // author : Tal Ater : https://github.com/TalAter
@@ -1919,7 +1919,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('he', {
+    return moment.locale('he', {
         months : "ינואר_פברואר_מרץ_אפריל_מאי_יוני_יולי_אוגוסט_ספטמבר_אוקטובר_נובמבר_דצמבר".split("_"),
         monthsShort : "ינו׳_פבר׳_מרץ_אפר׳_מאי_יוני_יולי_אוג׳_ספט׳_אוק׳_נוב׳_דצמ׳".split("_"),
         weekdays : "ראשון_שני_שלישי_רביעי_חמישי_שישי_שבת".split("_"),
@@ -1982,8 +1982,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : hindi (hi)
+// moment.js locale configuration
+// locale : hindi (hi)
 // author : Mayank Singhal : https://github.com/mayanksinghal
 
 (function (factory) {
@@ -2020,7 +2020,7 @@
         '०': '0'
     };
 
-    return moment.lang('hi', {
+    return moment.locale('hi', {
         months : 'जनवरी_फ़रवरी_मार्च_अप्रैल_मई_जून_जुलाई_अगस्त_सितम्बर_अक्टूबर_नवम्बर_दिसम्बर'.split("_"),
         monthsShort : 'जन._फ़र._मार्च_अप्रै._मई_जून_जुल._अग._सित._अक्टू._नव._दिस.'.split("_"),
         weekdays : 'रविवार_सोमवार_मंगलवार_बुधवार_गुरूवार_शुक्रवार_शनिवार'.split("_"),
@@ -2088,8 +2088,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : hrvatski (hr)
+// moment.js locale configuration
+// locale : hrvatski (hr)
 // author : Bojan Marković : https://github.com/bmarkovic
 
 // based on (sl) translation by Robert Sedovšek
@@ -2157,7 +2157,7 @@
         }
     }
 
-    return moment.lang('hr', {
+    return moment.locale('hr', {
         months : "sječanj_veljača_ožujak_travanj_svibanj_lipanj_srpanj_kolovoz_rujan_listopad_studeni_prosinac".split("_"),
         monthsShort : "sje._vel._ožu._tra._svi._lip._srp._kol._ruj._lis._stu._pro.".split("_"),
         weekdays : "nedjelja_ponedjeljak_utorak_srijeda_četvrtak_petak_subota".split("_"),
@@ -2229,8 +2229,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : hungarian (hu)
+// moment.js locale configuration
+// locale : hungarian (hu)
 // author : Adam Brunner : https://github.com/adambrunner
 
 (function (factory) {
@@ -2280,7 +2280,7 @@
         return (isFuture ? '' : '[múlt] ') + '[' + weekEndings[this.day()] + '] LT[-kor]';
     }
 
-    return moment.lang('hu', {
+    return moment.locale('hu', {
         months : "január_február_március_április_május_június_július_augusztus_szeptember_október_november_december".split("_"),
         monthsShort : "jan_feb_márc_ápr_máj_jún_júl_aug_szept_okt_nov_dec".split("_"),
         weekdays : "vasárnap_hétfő_kedd_szerda_csütörtök_péntek_szombat".split("_"),
@@ -2328,8 +2328,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : Bahasa Indonesia (id)
+// moment.js locale configuration
+// locale : Bahasa Indonesia (id)
 // author : Mohammad Satrio Utomo : https://github.com/tyok
 // reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
 
@@ -2342,7 +2342,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('id', {
+    return moment.locale('id', {
         months : "Januari_Februari_Maret_April_Mei_Juni_Juli_Agustus_September_Oktober_November_Desember".split("_"),
         monthsShort : "Jan_Feb_Mar_Apr_Mei_Jun_Jul_Ags_Sep_Okt_Nov_Des".split("_"),
         weekdays : "Minggu_Senin_Selasa_Rabu_Kamis_Jumat_Sabtu".split("_"),
@@ -2396,8 +2396,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : icelandic (is)
+// moment.js locale configuration
+// locale : icelandic (is)
 // author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 
 (function (factory) {
@@ -2477,7 +2477,7 @@
         }
     }
 
-    return moment.lang('is', {
+    return moment.locale('is', {
         months : "janúar_febrúar_mars_apríl_maí_júní_júlí_ágúst_september_október_nóvember_desember".split("_"),
         monthsShort : "jan_feb_mar_apr_maí_jún_júl_ágú_sep_okt_nóv_des".split("_"),
         weekdays : "sunnudagur_mánudagur_þriðjudagur_miðvikudagur_fimmtudagur_föstudagur_laugardagur".split("_"),
@@ -2521,8 +2521,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : italian (it)
+// moment.js locale configuration
+// locale : italian (it)
 // author : Lorenzo : https://github.com/aliem
 // author: Mattia Larentis: https://github.com/nostalgiaz
 
@@ -2535,7 +2535,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('it', {
+    return moment.locale('it', {
         months : "Gennaio_Febbraio_Marzo_Aprile_Maggio_Giugno_Luglio_Agosto_Settembre_Ottobre_Novembre_Dicembre".split("_"),
         monthsShort : "Gen_Feb_Mar_Apr_Mag_Giu_Lug_Ago_Set_Ott_Nov_Dic".split("_"),
         weekdays : "Domenica_Lunedì_Martedì_Mercoledì_Giovedì_Venerdì_Sabato".split("_"),
@@ -2581,8 +2581,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : japanese (ja)
+// moment.js locale configuration
+// locale : japanese (ja)
 // author : LI Long : https://github.com/baryon
 
 (function (factory) {
@@ -2594,7 +2594,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('ja', {
+    return moment.locale('ja', {
         months : "1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"),
         monthsShort : "1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"),
         weekdays : "日曜日_月曜日_火曜日_水曜日_木曜日_金曜日_土曜日".split("_"),
@@ -2640,8 +2640,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : Georgian (ka)
+// moment.js locale configuration
+// locale : Georgian (ka)
 // author : Irakli Janiashvili : https://github.com/irakli-janiashvili
 
 (function (factory) {
@@ -2680,7 +2680,7 @@
         return weekdays[nounCase][m.day()];
     }
 
-    return moment.lang('ka', {
+    return moment.locale('ka', {
         months : monthsCaseReplace,
         monthsShort : "იან_თებ_მარ_აპრ_მაი_ივნ_ივლ_აგვ_სექ_ოქტ_ნოე_დეკ".split("_"),
         weekdays : weekdaysCaseReplace,
@@ -2749,8 +2749,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : korean (ko)
+// moment.js locale configuration
+// locale : korean (ko)
 // author : Kyungwook, Park : https://github.com/kyungw00k
 
 (function (factory) {
@@ -2762,7 +2762,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('ko', {
+    return moment.locale('ko', {
         months : "1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월".split("_"),
         monthsShort : "1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월".split("_"),
         weekdays : "일요일_월요일_화요일_수요일_목요일_금요일_토요일".split("_"),
@@ -2806,8 +2806,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : Lithuanian (lt)
+// moment.js locale configuration
+// locale : Lithuanian (lt)
 // author : Mindaugas Mozūras : https://github.com/mmozuras
 
 (function (factory) {
@@ -2875,7 +2875,7 @@
         return nominative ? weekDay : weekDay.substring(0, weekDay.length - 2) + "į";
     }
 
-    return moment.lang("lt", {
+    return moment.locale("lt", {
         months : "sausio_vasario_kovo_balandžio_gegužės_biržėlio_liepos_rugpjūčio_rugsėjo_spalio_lapkričio_gruodžio".split("_"),
         monthsShort : "sau_vas_kov_bal_geg_bir_lie_rgp_rgs_spa_lap_grd".split("_"),
         weekdays : relativeWeekDay,
@@ -2925,8 +2925,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : latvian (lv)
+// moment.js locale configuration
+// locale : latvian (lv)
 // author : Kristaps Karlsons : https://github.com/skakri
 
 (function (factory) {
@@ -2959,7 +2959,7 @@
         return number + ' ' + format(units[key], number, withoutSuffix);
     }
 
-    return moment.lang('lv', {
+    return moment.locale('lv', {
         months : "janvāris_februāris_marts_aprīlis_maijs_jūnijs_jūlijs_augusts_septembris_oktobris_novembris_decembris".split("_"),
         monthsShort : "jan_feb_mar_apr_mai_jūn_jūl_aug_sep_okt_nov_dec".split("_"),
         weekdays : "svētdiena_pirmdiena_otrdiena_trešdiena_ceturtdiena_piektdiena_sestdiena".split("_"),
@@ -3003,8 +3003,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : malayalam (ml)
+// moment.js locale configuration
+// locale : malayalam (ml)
 // author : Floyd Pink : https://github.com/floydpink
 
 (function (factory) {
@@ -3016,7 +3016,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('ml', {
+    return moment.locale('ml', {
         months : 'ജനുവരി_ഫെബ്രുവരി_മാർച്ച്_ഏപ്രിൽ_മേയ്_ജൂൺ_ജൂലൈ_ഓഗസ്റ്റ്_സെപ്റ്റംബർ_ഒക്ടോബർ_നവംബർ_ഡിസംബർ'.split("_"),
         monthsShort : 'ജനു._ഫെബ്രു._മാർ._ഏപ്രി._മേയ്_ജൂൺ_ജൂലൈ._ഓഗ._സെപ്റ്റ._ഒക്ടോ._നവം._ഡിസം.'.split("_"),
         weekdays : 'ഞായറാഴ്ച_തിങ്കളാഴ്ച_ചൊവ്വാഴ്ച_ബുധനാഴ്ച_വ്യാഴാഴ്ച_വെള്ളിയാഴ്ച_ശനിയാഴ്ച'.split("_"),
@@ -3068,8 +3068,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : Marathi (mr)
+// moment.js locale configuration
+// locale : Marathi (mr)
 // author : Harshad Kale : https://github.com/kalehv
 
 (function (factory) {
@@ -3106,7 +3106,7 @@
         '०': '0'
     };
 
-    return moment.lang('mr', {
+    return moment.locale('mr', {
         months : 'जानेवारी_फेब्रुवारी_मार्च_एप्रिल_मे_जून_जुलै_ऑगस्ट_सप्टेंबर_ऑक्टोबर_नोव्हेंबर_डिसेंबर'.split("_"),
         monthsShort: 'जाने._फेब्रु._मार्च._एप्रि._मे._जून._जुलै._ऑग._सप्टें._ऑक्टो._नोव्हें._डिसें.'.split("_"),
         weekdays : 'रविवार_सोमवार_मंगळवार_बुधवार_गुरूवार_शुक्रवार_शनिवार'.split("_"),
@@ -3173,8 +3173,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : Bahasa Malaysia (ms-MY)
+// moment.js locale configuration
+// locale : Bahasa Malaysia (ms-MY)
 // author : Weldan Jamili : https://github.com/weldan
 
 (function (factory) {
@@ -3186,7 +3186,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('ms-my', {
+    return moment.locale('ms-my', {
         months : "Januari_Februari_Mac_April_Mei_Jun_Julai_Ogos_September_Oktober_November_Disember".split("_"),
         monthsShort : "Jan_Feb_Mac_Apr_Mei_Jun_Jul_Ogs_Sep_Okt_Nov_Dis".split("_"),
         weekdays : "Ahad_Isnin_Selasa_Rabu_Khamis_Jumaat_Sabtu".split("_"),
@@ -3240,8 +3240,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : norwegian bokmål (nb)
+// moment.js locale configuration
+// locale : norwegian bokmål (nb)
 // authors : Espen Hovlandsdal : https://github.com/rexxars
 //           Sigurd Gartmann : https://github.com/sigurdga
 
@@ -3254,7 +3254,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('nb', {
+    return moment.locale('nb', {
         months : "januar_februar_mars_april_mai_juni_juli_august_september_oktober_november_desember".split("_"),
         monthsShort : "jan._feb._mars_april_mai_juni_juli_aug._sep._okt._nov._des.".split("_"),
         weekdays : "søndag_mandag_tirsdag_onsdag_torsdag_fredag_lørdag".split("_"),
@@ -3298,8 +3298,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : nepali/nepalese
+// moment.js locale configuration
+// locale : nepali/nepalese
 // author : suvash : https://github.com/suvash
 
 (function (factory) {
@@ -3336,7 +3336,7 @@
         '०': '0'
     };
 
-    return moment.lang('ne', {
+    return moment.locale('ne', {
         months : 'जनवरी_फेब्रुवरी_मार्च_अप्रिल_मई_जुन_जुलाई_अगष्ट_सेप्टेम्बर_अक्टोबर_नोभेम्बर_डिसेम्बर'.split("_"),
         monthsShort : 'जन._फेब्रु._मार्च_अप्रि._मई_जुन_जुलाई._अग._सेप्ट._अक्टो._नोभे._डिसे.'.split("_"),
         weekdays : 'आइतबार_सोमबार_मङ्गलबार_बुधबार_बिहिबार_शुक्रबार_शनिबार'.split("_"),
@@ -3404,8 +3404,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : dutch (nl)
+// moment.js locale configuration
+// locale : dutch (nl)
 // author : Joris Röling : https://github.com/jjupiter
 
 (function (factory) {
@@ -3420,7 +3420,7 @@
     var monthsShortWithDots = "jan._feb._mrt._apr._mei_jun._jul._aug._sep._okt._nov._dec.".split("_"),
         monthsShortWithoutDots = "jan_feb_mrt_apr_mei_jun_jul_aug_sep_okt_nov_dec".split("_");
 
-    return moment.lang('nl', {
+    return moment.locale('nl', {
         months : "januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december".split("_"),
         monthsShort : function (m, format) {
             if (/-MMM-/.test(format)) {
@@ -3472,8 +3472,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : norwegian nynorsk (nn)
+// moment.js locale configuration
+// locale : norwegian nynorsk (nn)
 // author : https://github.com/mechuwind
 
 (function (factory) {
@@ -3485,7 +3485,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('nn', {
+    return moment.locale('nn', {
         months : "januar_februar_mars_april_mai_juni_juli_august_september_oktober_november_desember".split("_"),
         monthsShort : "jan_feb_mar_apr_mai_jun_jul_aug_sep_okt_nov_des".split("_"),
         weekdays : "sundag_måndag_tysdag_onsdag_torsdag_fredag_laurdag".split("_"),
@@ -3529,8 +3529,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : polish (pl)
+// moment.js locale configuration
+// locale : polish (pl)
 // author : Rafal Hirsz : https://github.com/evoL
 
 (function (factory) {
@@ -3567,7 +3567,7 @@
         }
     }
 
-    return moment.lang('pl', {
+    return moment.locale('pl', {
         months : function (momentToFormat, format) {
             if (/D MMMM/.test(format)) {
                 return monthsSubjective[momentToFormat.month()];
@@ -3628,8 +3628,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : brazilian portuguese (pt-br)
+// moment.js locale configuration
+// locale : brazilian portuguese (pt-br)
 // author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 
 (function (factory) {
@@ -3641,7 +3641,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('pt-br', {
+    return moment.locale('pt-br', {
         months : "Janeiro_Fevereiro_Março_Abril_Maio_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro".split("_"),
         monthsShort : "Jan_Fev_Mar_Abr_Mai_Jun_Jul_Ago_Set_Out_Nov_Dez".split("_"),
         weekdays : "Domingo_Segunda-feira_Terça-feira_Quarta-feira_Quinta-feira_Sexta-feira_Sábado".split("_"),
@@ -3685,8 +3685,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : portuguese (pt)
+// moment.js locale configuration
+// locale : portuguese (pt)
 // author : Jefferson : https://github.com/jalex79
 
 (function (factory) {
@@ -3698,7 +3698,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('pt', {
+    return moment.locale('pt', {
         months : "Janeiro_Fevereiro_Março_Abril_Maio_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro".split("_"),
         monthsShort : "Jan_Fev_Mar_Abr_Mai_Jun_Jul_Ago_Set_Out_Nov_Dez".split("_"),
         weekdays : "Domingo_Segunda-feira_Terça-feira_Quarta-feira_Quinta-feira_Sexta-feira_Sábado".split("_"),
@@ -3746,8 +3746,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : romanian (ro)
+// moment.js locale configuration
+// locale : romanian (ro)
 // author : Vlad Gurdiga : https://github.com/gurdiga
 // author : Valentin Agachi : https://github.com/avaly
 
@@ -3760,7 +3760,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('ro', {
+    return moment.locale('ro', {
         months : "Ianuarie_Februarie_Martie_Aprilie_Mai_Iunie_Iulie_August_Septembrie_Octombrie_Noiembrie_Decembrie".split("_"),
         monthsShort : "Ian_Feb_Mar_Apr_Mai_Iun_Iul_Aug_Sep_Oct_Noi_Dec".split("_"),
         weekdays : "Duminică_Luni_Marţi_Miercuri_Joi_Vineri_Sâmbătă".split("_"),
@@ -3803,8 +3803,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : russian (ru)
+// moment.js locale configuration
+// locale : russian (ru)
 // author : Viktorminator : https://github.com/Viktorminator
 // Author : Menelion Elensúle : https://github.com/Oire
 
@@ -3877,7 +3877,7 @@
         return weekdays[nounCase][m.day()];
     }
 
-    return moment.lang('ru', {
+    return moment.locale('ru', {
         months : monthsCaseReplace,
         monthsShort : monthsShortCaseReplace,
         weekdays : weekdaysCaseReplace,
@@ -3967,8 +3967,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : slovak (sk)
+// moment.js locale configuration
+// locale : slovak (sk)
 // author : Martin Minka : https://github.com/k2s
 // based on work of petrbela : https://github.com/petrbela
 
@@ -4041,7 +4041,7 @@
         }
     }
 
-    return moment.lang('sk', {
+    return moment.locale('sk', {
         months : months,
         monthsShort : monthsShort,
         monthsParse : (function (months, monthsShort) {
@@ -4124,8 +4124,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : slovenian (sl)
+// moment.js locale configuration
+// locale : slovenian (sl)
 // author : Robert Sedovšek : https://github.com/sedovsek
 
 (function (factory) {
@@ -4198,7 +4198,7 @@
         }
     }
 
-    return moment.lang('sl', {
+    return moment.locale('sl', {
         months : "januar_februar_marec_april_maj_junij_julij_avgust_september_oktober_november_december".split("_"),
         monthsShort : "jan._feb._mar._apr._maj._jun._jul._avg._sep._okt._nov._dec.".split("_"),
         weekdays : "nedelja_ponedeljek_torek_sreda_četrtek_petek_sobota".split("_"),
@@ -4269,8 +4269,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : Albanian (sq)
+// moment.js locale configuration
+// locale : Albanian (sq)
 // author : Flakërim Ismani : https://github.com/flakerimi
 // author: Menelion Elensúle: https://github.com/Oire (tests)
 
@@ -4283,7 +4283,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('sq', {
+    return moment.locale('sq', {
         months : "Janar_Shkurt_Mars_Prill_Maj_Qershor_Korrik_Gusht_Shtator_Tetor_Nëntor_Dhjetor".split("_"),
         monthsShort : "Jan_Shk_Mar_Pri_Maj_Qer_Kor_Gus_Sht_Tet_Nën_Dhj".split("_"),
         weekdays : "E Diel_E Hënë_E Marte_E Mërkure_E Enjte_E Premte_E Shtunë".split("_"),
@@ -4327,8 +4327,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : swedish (sv)
+// moment.js locale configuration
+// locale : swedish (sv)
 // author : Jens Alm : https://github.com/ulmus
 
 (function (factory) {
@@ -4340,7 +4340,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('sv', {
+    return moment.locale('sv', {
         months : "januari_februari_mars_april_maj_juni_juli_augusti_september_oktober_november_december".split("_"),
         monthsShort : "jan_feb_mar_apr_maj_jun_jul_aug_sep_okt_nov_dec".split("_"),
         weekdays : "söndag_måndag_tisdag_onsdag_torsdag_fredag_lördag".split("_"),
@@ -4391,8 +4391,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : thai (th)
+// moment.js locale configuration
+// locale : thai (th)
 // author : Kridsada Thanabulpong : https://github.com/sirn
 
 (function (factory) {
@@ -4404,7 +4404,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('th', {
+    return moment.locale('th', {
         months : "มกราคม_กุมภาพันธ์_มีนาคม_เมษายน_พฤษภาคม_มิถุนายน_กรกฎาคม_สิงหาคม_กันยายน_ตุลาคม_พฤศจิกายน_ธันวาคม".split("_"),
         monthsShort : "มกรา_กุมภา_มีนา_เมษา_พฤษภา_มิถุนา_กรกฎา_สิงหา_กันยา_ตุลา_พฤศจิกา_ธันวา".split("_"),
         weekdays : "อาทิตย์_จันทร์_อังคาร_พุธ_พฤหัสบดี_ศุกร์_เสาร์".split("_"),
@@ -4450,8 +4450,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : Tagalog/Filipino (tl-ph)
+// moment.js locale configuration
+// locale : Tagalog/Filipino (tl-ph)
 // author : Dan Hagman
 
 (function (factory) {
@@ -4463,7 +4463,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('tl-ph', {
+    return moment.locale('tl-ph', {
         months : "Enero_Pebrero_Marso_Abril_Mayo_Hunyo_Hulyo_Agosto_Setyembre_Oktubre_Nobyembre_Disyembre".split("_"),
         monthsShort : "Ene_Peb_Mar_Abr_May_Hun_Hul_Ago_Set_Okt_Nob_Dis".split("_"),
         weekdays : "Linggo_Lunes_Martes_Miyerkules_Huwebes_Biyernes_Sabado".split("_"),
@@ -4487,7 +4487,7 @@
         relativeTime : {
             future : "sa loob ng %s",
             past : "%s ang nakalipas",
-            s : "ilang segundo",
+            s : "ilocale segundo",
             m : "isang minuto",
             mm : "%d minuto",
             h : "isang oras",
@@ -4509,8 +4509,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : turkish (tr)
+// moment.js locale configuration
+// locale : turkish (tr)
 // authors : Erhan Gundogan : https://github.com/erhangundogan,
 //           Burak Yiğit Kaya: https://github.com/BYK
 
@@ -4550,7 +4550,7 @@
         90: "'ıncı"
     };
 
-    return moment.lang('tr', {
+    return moment.locale('tr', {
         months : "Ocak_Şubat_Mart_Nisan_Mayıs_Haziran_Temmuz_Ağustos_Eylül_Ekim_Kasım_Aralık".split("_"),
         monthsShort : "Oca_Şub_Mar_Nis_May_Haz_Tem_Ağu_Eyl_Eki_Kas_Ara".split("_"),
         weekdays : "Pazar_Pazartesi_Salı_Çarşamba_Perşembe_Cuma_Cumartesi".split("_"),
@@ -4603,8 +4603,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : Morocco Central Atlas Tamaziɣt in Latin (tzm-la)
+// moment.js locale configuration
+// locale : Morocco Central Atlas Tamaziɣt in Latin (tzm-la)
 // author : Abdel Said : https://github.com/abdelsaid
 
 (function (factory) {
@@ -4616,7 +4616,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('tzm-la', {
+    return moment.locale('tzm-la', {
         months : "innayr_brˤayrˤ_marˤsˤ_ibrir_mayyw_ywnyw_ywlywz_ɣwšt_šwtanbir_ktˤwbrˤ_nwwanbir_dwjnbir".split("_"),
         monthsShort : "innayr_brˤayrˤ_marˤsˤ_ibrir_mayyw_ywnyw_ywlywz_ɣwšt_šwtanbir_ktˤwbrˤ_nwwanbir_dwjnbir".split("_"),
         weekdays : "asamas_aynas_asinas_akras_akwas_asimwas_asiḍyas".split("_"),
@@ -4659,8 +4659,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : Morocco Central Atlas Tamaziɣt (tzm)
+// moment.js locale configuration
+// locale : Morocco Central Atlas Tamaziɣt (tzm)
 // author : Abdel Said : https://github.com/abdelsaid
 
 (function (factory) {
@@ -4672,7 +4672,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('tzm', {
+    return moment.locale('tzm', {
         months : "ⵉⵏⵏⴰⵢⵔ_ⴱⵕⴰⵢⵕ_ⵎⴰⵕⵚ_ⵉⴱⵔⵉⵔ_ⵎⴰⵢⵢⵓ_ⵢⵓⵏⵢⵓ_ⵢⵓⵍⵢⵓⵣ_ⵖⵓⵛⵜ_ⵛⵓⵜⴰⵏⴱⵉⵔ_ⴽⵟⵓⴱⵕ_ⵏⵓⵡⴰⵏⴱⵉⵔ_ⴷⵓⵊⵏⴱⵉⵔ".split("_"),
         monthsShort : "ⵉⵏⵏⴰⵢⵔ_ⴱⵕⴰⵢⵕ_ⵎⴰⵕⵚ_ⵉⴱⵔⵉⵔ_ⵎⴰⵢⵢⵓ_ⵢⵓⵏⵢⵓ_ⵢⵓⵍⵢⵓⵣ_ⵖⵓⵛⵜ_ⵛⵓⵜⴰⵏⴱⵉⵔ_ⴽⵟⵓⴱⵕ_ⵏⵓⵡⴰⵏⴱⵉⵔ_ⴷⵓⵊⵏⴱⵉⵔ".split("_"),
         weekdays : "ⴰⵙⴰⵎⴰⵙ_ⴰⵢⵏⴰⵙ_ⴰⵙⵉⵏⴰⵙ_ⴰⴽⵔⴰⵙ_ⴰⴽⵡⴰⵙ_ⴰⵙⵉⵎⵡⴰⵙ_ⴰⵙⵉⴹⵢⴰⵙ".split("_"),
@@ -4715,8 +4715,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : ukrainian (uk)
+// moment.js locale configuration
+// locale : ukrainian (uk)
 // author : zemlanin : https://github.com/zemlanin
 // Author : Menelion Elensúle : https://github.com/Oire
 
@@ -4788,7 +4788,7 @@
         };
     }
 
-    return moment.lang('uk', {
+    return moment.locale('uk', {
         months : monthsCaseReplace,
         monthsShort : "січ_лют_бер_квіт_трав_черв_лип_серп_вер_жовт_лист_груд".split("_"),
         weekdays : weekdaysCaseReplace,
@@ -4873,8 +4873,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : uzbek
+// moment.js locale configuration
+// locale : uzbek
 // author : Sardor Muminov : https://github.com/muminoff
 
 (function (factory) {
@@ -4886,7 +4886,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('uz', {
+    return moment.locale('uz', {
         months : "январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь".split("_"),
         monthsShort : "янв_фев_мар_апр_май_июн_июл_авг_сен_окт_ноя_дек".split("_"),
         weekdays : "Якшанба_Душанба_Сешанба_Чоршанба_Пайшанба_Жума_Шанба".split("_"),
@@ -4929,8 +4929,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : vietnamese (vn)
+// moment.js locale configuration
+// locale : vietnamese (vn)
 // author : Bang Nguyen : https://github.com/bangnk
 
 (function (factory) {
@@ -4942,7 +4942,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('vn', {
+    return moment.locale('vn', {
         months : "tháng 1_tháng 2_tháng 3_tháng 4_tháng 5_tháng 6_tháng 7_tháng 8_tháng 9_tháng 10_tháng 11_tháng 12".split("_"),
         monthsShort : "Th01_Th02_Th03_Th04_Th05_Th06_Th07_Th08_Th09_Th10_Th11_Th12".split("_"),
         weekdays : "chủ nhật_thứ hai_thứ ba_thứ tư_thứ năm_thứ sáu_thứ bảy".split("_"),
@@ -4992,8 +4992,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : chinese
+// moment.js locale configuration
+// locale : chinese
 // author : suupic : https://github.com/suupic
 // author : Zeno Zeng : https://github.com/zenozeng
 
@@ -5006,7 +5006,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('zh-cn', {
+    return moment.locale('zh-cn', {
         months : "一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月".split("_"),
         monthsShort : "1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"),
         weekdays : "星期日_星期一_星期二_星期三_星期四_星期五_星期六".split("_"),
@@ -5101,8 +5101,8 @@
     });
 }));
 
-// moment.js language configuration
-// language : traditional chinese (zh-tw)
+// moment.js locale configuration
+// locale : traditional chinese (zh-tw)
 // author : Ben : https://github.com/ben-lin
 
 (function (factory) {
@@ -5114,7 +5114,7 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('zh-tw', {
+    return moment.locale('zh-tw', {
         months : "一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月".split("_"),
         monthsShort : "1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"),
         weekdays : "星期日_星期一_星期二_星期三_星期四_星期五_星期六".split("_"),

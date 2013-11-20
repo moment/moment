@@ -5,14 +5,14 @@ var moment = require("../../moment");
       Galego
      *************************************************/
 
-exports["lang:gl"] = {
+exports["locale:gl"] = {
     setUp : function (cb) {
-        moment.lang('gl');
+        moment.locale('gl');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -333,9 +333,9 @@ exports["lang:gl"] = {
         test.done();
     },
     
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/gl'), 'gl', "module should export gl");
+            test.equal(require('../../locale/gl'), 'gl', "module should export gl");
         }
         
         test.done();

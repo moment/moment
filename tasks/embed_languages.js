@@ -1,15 +1,15 @@
 
 module.exports = function (grunt) {
 
-    grunt.registerTask('embed_languages', function () {
-        var config = grunt.config('embed_languages');
+    grunt.registerTask('embed_locales', function () {
+        var config = grunt.config('embed_locales');
 
         var files = grunt.file.expand(config.targetLangs);
         var embeddedContents = determineEmbeddedContent(files);
 
         var momentContents = grunt.file.read(config.moment);
         var modifiedContents = momentContents.replace('/* EMBED_LANGUAGES */', function () {
-            // If we don't do this, $ symbols in lang files may get interpreted in
+            // If we don't do this, $ symbols in locale files may get interpreted in
             // the regex replacement
             return embeddedContents;
         });
@@ -17,14 +17,14 @@ module.exports = function (grunt) {
         grunt.file.write(config.dest, modifiedContents);
     });
 
-    var languageReset = 'moment.lang(\'en\');';
+    var localeReset = 'moment.locale(\'en\');';
 
     function determineEmbeddedContent(files) {
         var embeddedContent = '';
         files.forEach(function (file) {
             embeddedContent += transformFile(file);
         });
-        embeddedContent += '\n    ' + languageReset + '\n';
+        embeddedContent += '\n    ' + localeReset + '\n';
         return embeddedContent;
     }
 
@@ -38,7 +38,7 @@ module.exports = function (grunt) {
         var fileContents = grunt.file.read(file);
 
         if (!fileContents.match(reTransform)) {
-            grunt.warn('Warning: all language files must use the common UMD wrapper pattern.  Failed language file: ' + file);
+            grunt.warn('Warning: all locale files must use the common UMD wrapper pattern.  Failed locale file: ' + file);
             return '';
         }
 

@@ -5,14 +5,14 @@ var moment = require("../../moment");
       English
      *************************************************/
 
-exports["lang:en"] = {
+exports["locale:en"] = {
     setUp : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 

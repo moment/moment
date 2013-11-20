@@ -5,14 +5,14 @@ var moment = require("../../moment");
       Traditional Chinese
      *************************************************/
 
-exports["lang:zh-tw"] = {
+exports["locale:zh-tw"] = {
     setUp : function (cb) {
-        moment.lang('zh-tw');
+        moment.locale('zh-tw');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -349,9 +349,9 @@ exports["lang:zh-tw"] = {
         test.done();
     },
     
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/zh-tw'), 'zh-tw', "module should export zh-tw");
+            test.equal(require('../../locale/zh-tw'), 'zh-tw', "module should export zh-tw");
         }
         
         test.done();

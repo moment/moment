@@ -1,32 +1,32 @@
 module.exports = function (grunt) {
 
-    var embedOption = grunt.option('embed_languages'),
-        embedLanguageDest = embedOption ?
-            'min/moment-with-customlangs.js' :
-            'min/moment-with-langs.js',
-        embedLanguageLangs = 'lang/*.js';
+    var embedOption = grunt.option('embed_locales'),
+        embedLocaleDest = embedOption ?
+            'min/moment-with-customlocales.js' :
+            'min/moment-with-locales.js',
+        embedLocaleLangs = 'locale/*.js';
 
     if (embedOption && embedOption.match(/,/)) {
-        embedLanguageLangs = 'lang/{' + embedOption + '}.js';
+        embedLocaleLangs = 'locale/{' + embedOption + '}.js';
     }
     else if (embedOption) {
-        embedLanguageLangs = 'lang/' + embedOption + '.js';
+        embedLocaleLangs = 'locale/' + embedOption + '.js';
     }
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         concat : {
-            langs: {
-                src: 'lang/*.js',
-                dest: 'min/langs.js'
+            locales: {
+                src: 'locale/*.js',
+                dest: 'min/locales.js'
             }
         },
         uglify : {
             target: {
                 files: {
-                    'min/moment-with-langs.min.js'       : 'min/moment-with-langs.js',
-                    'min/moment-with-customlangs.min.js' : 'min/moment-with-customlangs.js',
-                    'min/langs.min.js'                   : 'min/langs.js',
+                    'min/moment-with-locales.min.js'       : 'min/moment-with-locales.js',
+                    'min/moment-with-customlocales.min.js' : 'min/moment-with-customlocales.js',
+                    'min/locales.min.js'                   : 'min/locales.js',
                     'min/moment.min.js'                  : 'moment.js'
                 }
             },
@@ -46,7 +46,7 @@ module.exports = function (grunt) {
             all : ["test/**/*.js"]
         },
         jshint: {
-            all: ["Gruntfile.js", "moment.js", "lang/**/*.js", "test/**/*.js"],
+            all: ["Gruntfile.js", "moment.js", "locale/**/*.js", "test/**/*.js"],
             options: {
                 "node"     : true,
                 "browser"  : true,
@@ -80,7 +80,7 @@ module.exports = function (grunt) {
             test : {
                 files : [
                     'moment.js',
-                    'lang/*.js',
+                    'locale/*.js',
                     'test/**/*.js'
                 ],
                 tasks: ['nodeunit']
@@ -90,10 +90,10 @@ module.exports = function (grunt) {
                 tasks: ['jshint']
             }
         },
-        embed_languages: {
+        embed_locales: {
             moment: 'moment.js',
-            dest: embedLanguageDest,
-            targetLangs: embedLanguageLangs
+            dest: embedLocaleDest,
+            targetLangs: embedLocaleLangs
         }
     });
 
@@ -112,5 +112,5 @@ module.exports = function (grunt) {
 
     // Task to be run when releasing a new version
     grunt.registerTask('release', ['jshint', 'nodeunit', 'concat',
-            'embed_languages', 'component', 'uglify']);
+            'embed_locales', 'component', 'uglify']);
 };

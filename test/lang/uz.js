@@ -5,14 +5,14 @@ var moment = require("../../moment");
       Uzbek
      *************************************************/
 
-exports["lang:uz"] = {
+exports["locale:uz"] = {
     setUp : function (cb) {
-        moment.lang('uz');
+        moment.locale('uz');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -351,9 +351,9 @@ exports["lang:uz"] = {
         test.done();
     },
     
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/uz'), 'uz', "module should export uz");
+            test.equal(require('../../locale/uz'), 'uz', "module should export uz");
         }
         
         test.done();

@@ -130,12 +130,14 @@ exports.duration = {
                 minutes: 9,
                 seconds: 20,
                 milliseconds: 12
-            });
+            }),
+            modified = moment.duration(1, 'day').add(moment.duration(1, 'day'));
 
-        test.expect(3);
+        test.expect(4);
         test.deepEqual(moment.duration(simple), simple, "simple clones are equal");
         test.deepEqual(moment.duration(lengthy), lengthy, "lengthy clones are equal");
         test.deepEqual(moment.duration(complicated), complicated, "complicated clones are equal");
+        test.deepEqual(moment.duration(modified), modified, "cloning modified duration works");
         test.done();
     },
 
@@ -322,7 +324,7 @@ exports.duration = {
 
     "humanize" : function (test) {
         test.expect(32);
-        moment.lang('en');
+        moment.locale('en');
         test.equal(moment.duration({seconds: 44}).humanize(),  "a few seconds", "44 seconds = a few seconds");
         test.equal(moment.duration({seconds: 45}).humanize(),  "a minute",      "45 seconds = a minute");
         test.equal(moment.duration({seconds: 89}).humanize(),  "a minute",      "89 seconds = a minute");
@@ -360,7 +362,7 @@ exports.duration = {
 
     "humanize duration with suffix" : function (test) {
         test.expect(2);
-        moment.lang('en');
+        moment.locale('en');
         test.equal(moment.duration({seconds:  44}).humanize(true),  "in a few seconds", "44 seconds = a few seconds");
         test.equal(moment.duration({seconds: -44}).humanize(true),  "a few seconds ago", "44 seconds = a few seconds");
         test.done();

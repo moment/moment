@@ -12,6 +12,7 @@
 
     var moment,
         VERSION = "2.4.0",
+        global = this,
         round = Math.round,
         i,
 
@@ -23,11 +24,11 @@
         SECOND = 5,
         MILLISECOND = 6,
 
-        // internal storage for language config files
-        languages = {},
+        // internal storage for locale config files
+        locales = {},
 
         // check for nodeJS
-        hasModule = (typeof module !== 'undefined' && module.exports),
+        hasModule = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined'),
 
         // ASP.NET json date format regex
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
@@ -50,7 +51,7 @@
         parseTokenDigits = /\d+/, // nonzero number of digits
         parseTokenWord = /[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i, // any word (or two) characters or numbers including two/three word month in arabic.
         parseTokenTimezone = /Z|[\+\-]\d\d:?\d\d/i, // +00:00 -00:00 +0000 -0000 or Z
-        parseTokenT = /T/i, // T (ISO seperator)
+        parseTokenT = /T/i, // T (ISO separator)
         parseTokenTimestampMs = /[\+\-]?\d+(\.\d{1,3})?/, // 123456789 123456789.123
 
         // preliminary iso regex
@@ -127,10 +128,10 @@
                 return this.month() + 1;
             },
             MMM  : function (format) {
-                return this.lang().monthsShort(this, format);
+                return this.locale().monthsShort(this, format);
             },
             MMMM : function (format) {
-                return this.lang().months(this, format);
+                return this.locale().months(this, format);
             },
             D    : function () {
                 return this.date();
@@ -142,13 +143,13 @@
                 return this.day();
             },
             dd   : function (format) {
-                return this.lang().weekdaysMin(this, format);
+                return this.locale().weekdaysMin(this, format);
             },
             ddd  : function (format) {
-                return this.lang().weekdaysShort(this, format);
+                return this.locale().weekdaysShort(this, format);
             },
             dddd : function (format) {
-                return this.lang().weekdays(this, format);
+                return this.locale().weekdays(this, format);
             },
             w    : function () {
                 return this.week();
@@ -190,10 +191,10 @@
                 return this.isoWeekday();
             },
             a    : function () {
-                return this.lang().meridiem(this.hours(), this.minutes(), true);
+                return this.locale().meridiem(this.hours(), this.minutes(), true);
             },
             A    : function () {
-                return this.lang().meridiem(this.hours(), this.minutes(), false);
+                return this.locale().meridiem(this.hours(), this.minutes(), false);
             },
             H    : function () {
                 return this.hours();
@@ -257,7 +258,7 @@
     }
     function ordinalizeToken(func, period) {
         return function (a) {
-            return this.lang().ordinal(func.call(this, a), period);
+            return this.locale().ordinal(func.call(this, a), period);
         };
     }
 
@@ -276,7 +277,7 @@
         Constructors
     ************************************/
 
-    function Language() {
+    function Locale() {
 
     }
 
@@ -297,9 +298,6 @@
             minutes = normalizedInput.minute || 0,
             seconds = normalizedInput.second || 0,
             milliseconds = normalizedInput.millisecond || 0;
-
-        // store reference to input for deterministic cloning
-        this._input = duration;
 
         // representation for dateAddRemove
         this._milliseconds = +milliseconds +
@@ -462,7 +460,7 @@
 
         moment[field] = function (format, index) {
             var i, getter,
-                method = moment.fn._lang[field],
+                method = moment.fn._locale[field],
                 results = [];
 
             if (typeof format === 'number') {
@@ -472,7 +470,7 @@
 
             getter = function (i) {
                 var m = moment().utc().set(setter, i);
-                return method.call(moment.fn._lang, m, format || '');
+                return method.call(moment.fn._locale, m, format || '');
             };
 
             if (index != null) {
@@ -568,16 +566,16 @@
         return m._isValid;
     }
 
-    function normalizeLanguage(key) {
+    function normalizeLocale(key) {
         return key ? key.toLowerCase().replace('_', '-') : key;
     }
 
     /************************************
-        Languages
+        Locales
     ************************************/
 
 
-    extend(Language.prototype, {
+    extend(Locale.prototype, {
 
         set : function (config) {
             var prop, i;
@@ -758,66 +756,66 @@
         }
     });
 
-    // Loads a language definition into the `languages` cache.  The function
+    // Loads a locale definition into the `locales` cache.  The function
     // takes a key and optionally values.  If not in the browser and no values
-    // are provided, it will load the language file module.  As a convenience,
-    // this function also returns the language values.
+    // are provided, it will load the locale file module.  As a convenience,
+    // this function also returns the locale values.
     function loadLang(key, values) {
         values.abbr = key;
-        if (!languages[key]) {
-            languages[key] = new Language();
+        if (!locales[key]) {
+            locales[key] = new Locale();
         }
-        languages[key].set(values);
-        return languages[key];
+        locales[key].set(values);
+        return locales[key];
     }
 
-    // Remove a language from the `languages` cache. Mostly useful in tests.
+    // Remove a locale from the `locales` cache. Mostly useful in tests.
     function unloadLang(key) {
-        delete languages[key];
+        delete locales[key];
     }
 
-    // Determines which language definition to use and returns it.
+    // Determines which locale definition to use and returns it.
     //
-    // With no parameters, it will return the global language.  If you
-    // pass in a language key, such as 'en', it will return the
+    // With no parameters, it will return the global locale.  If you
+    // pass in a locale key, such as 'en', it will return the
     // definition for 'en', so long as 'en' has already been loaded using
-    // moment.lang.
+    // moment.locale.
     function getLangDefinition(key) {
-        var i = 0, j, lang, next, split,
+        var i = 0, j, locale, next, split,
             get = function (k) {
-                if (!languages[k] && hasModule) {
+                if (!locales[k] && hasModule) {
                     try {
-                        require('./lang/' + k);
+                        require('./locale/' + k);
                     } catch (e) { }
                 }
-                return languages[k];
+                return locales[k];
             };
 
         if (!key) {
-            return moment.fn._lang;
+            return moment.fn._locale;
         }
 
         if (!isArray(key)) {
             //short-circuit everything else
-            lang = get(key);
-            if (lang) {
-                return lang;
+            locale = get(key);
+            if (locale) {
+                return locale;
             }
             key = [key];
         }
 
-        //pick the language from the array
+        //pick the locale from the array
         //try ['en-au', 'en-gb'] as 'en-au', 'en-gb', 'en', as in move through the list trying each
         //substring from most specific to least, but move to the next array item if it's a more specific variant than the current root
         while (i < key.length) {
-            split = normalizeLanguage(key[i]).split('-');
+            split = normalizeLocale(key[i]).split('-');
             j = split.length;
-            next = normalizeLanguage(key[i + 1]);
+            next = normalizeLocale(key[i + 1]);
             next = next ? next.split('-') : null;
             while (j > 0) {
-                lang = get(split.slice(0, j).join('-'));
-                if (lang) {
-                    return lang;
+                locale = get(split.slice(0, j).join('-'));
+                if (locale) {
+                    return locale;
                 }
                 if (next && next.length >= j && compareArrays(split, next, true) >= j - 1) {
                     //the next array item is better than a shallower substring of this one
@@ -827,7 +825,7 @@
             }
             i++;
         }
-        return moment.fn._lang;
+        return moment.fn._locale;
     }
 
     /************************************
@@ -866,10 +864,10 @@
     function formatMoment(m, format) {
 
         if (!m.isValid()) {
-            return m.lang().invalidDate();
+            return m.locale().invalidDate();
         }
 
-        format = expandFormat(format, m.lang());
+        format = expandFormat(format, m.locale());
 
         if (!formatFunctions[format]) {
             formatFunctions[format] = makeFormatFunction(format);
@@ -878,11 +876,11 @@
         return formatFunctions[format](m);
     }
 
-    function expandFormat(format, lang) {
+    function expandFormat(format, locale) {
         var i = 5;
 
         function replaceLongDateFormatTokens(input) {
-            return lang.longDateFormat(input) || input;
+            return locale.longDateFormat(input) || input;
         }
 
         localFormattingTokens.lastIndex = 0;
@@ -1091,7 +1089,7 @@
     // [year, month, day , hour, minute, second, millisecond]
     function dateFromConfig(config) {
         var i, date, input = [], currentDate,
-            yearToUse, fixYear, w, temp, lang, weekday, week;
+            yearToUse, fixYear, w, temp, locale, weekday, week;
 
         if (config._d) {
             return;
@@ -1112,18 +1110,18 @@
                 temp = dayOfYearFromWeeks(fixYear(w.GG), w.W || 1, w.E, 4, 1);
             }
             else {
-                lang = getLangDefinition(config._l);
-                weekday = w.d != null ?  parseWeekday(w.d, lang) :
-                  (w.e != null ?  parseInt(w.e, 10) + lang._week.dow : 0);
+                locale = getLangDefinition(config._l);
+                weekday = w.d != null ?  parseWeekday(w.d, locale) :
+                  (w.e != null ?  parseInt(w.e, 10) + locale._week.dow : 0);
 
                 week = parseInt(w.w, 10) || 1;
 
                 //if we're parsing 'd', then the low day numbers may be next week
-                if (w.d != null && weekday < lang._week.dow) {
+                if (w.d != null && weekday < locale._week.dow) {
                     week++;
                 }
 
-                temp = dayOfYearFromWeeks(fixYear(w.gg), week, weekday, lang._week.doy, lang._week.dow);
+                temp = dayOfYearFromWeeks(fixYear(w.gg), week, weekday, locale._week.doy, locale._week.dow);
             }
 
             config._a[YEAR] = temp.year;
@@ -1205,13 +1203,13 @@
         config._pf.empty = true;
 
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
-        var lang = getLangDefinition(config._l),
+        var locale = getLangDefinition(config._l),
             string = '' + config._i,
             i, parsedInput, tokens, token, skipped,
             stringLength = string.length,
             totalParsedInputLength = 0;
 
-        tokens = expandFormat(config._f, lang).match(formattingTokens) || [];
+        tokens = expandFormat(config._f, locale).match(formattingTokens) || [];
 
         for (i = 0; i < tokens.length; i++) {
             token = tokens[i];
@@ -1385,13 +1383,13 @@
         return date;
     }
 
-    function parseWeekday(input, language) {
+    function parseWeekday(input, locale) {
         if (typeof input === 'string') {
             if (!isNaN(input)) {
                 input = parseInt(input, 10);
             }
             else {
-                input = language.weekdaysParse(input);
+                input = locale.weekdaysParse(input);
                 if (typeof input !== 'number') {
                     return null;
                 }
@@ -1406,11 +1404,11 @@
 
 
     // helper function for moment.fn.from, moment.fn.fromNow, and moment.duration.fn.humanize
-    function substituteTimeAgo(string, number, withoutSuffix, isFuture, lang) {
-        return lang.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
+    function substituteTimeAgo(string, number, withoutSuffix, isFuture, locale) {
+        return locale.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
     }
 
-    function relativeTime(milliseconds, withoutSuffix, lang) {
+    function relativeTime(milliseconds, withoutSuffix, locale) {
         var seconds = round(Math.abs(milliseconds) / 1000),
             minutes = round(seconds / 60),
             hours = round(minutes / 60),
@@ -1428,7 +1426,7 @@
                 years === 1 && ['y'] || ['yy', years];
         args[2] = withoutSuffix;
         args[3] = milliseconds > 0;
-        args[4] = lang;
+        args[4] = locale;
         return substituteTimeAgo.apply({}, args);
     }
 
@@ -1518,32 +1516,32 @@
         return new Moment(config);
     }
 
-    moment = function (input, format, lang, strict) {
-        if (typeof(lang) === "boolean") {
-            strict = lang;
-            lang = undefined;
+    moment = function (input, format, locale, strict) {
+        if (typeof(locale) === "boolean") {
+            strict = locale;
+            locale = undefined;
         }
         return makeMoment({
             _i : input,
             _f : format,
-            _l : lang,
+            _l : locale,
             _strict : strict,
             _isUTC : false
         });
     };
 
     // creating with utc
-    moment.utc = function (input, format, lang, strict) {
+    moment.utc = function (input, format, locale, strict) {
         var m;
 
-        if (typeof(lang) === "boolean") {
-            strict = lang;
-            lang = undefined;
+        if (typeof(locale) === "boolean") {
+            strict = locale;
+            locale = undefined;
         }
         m = makeMoment({
             _useUTC : true,
             _isUTC : true,
-            _l : lang,
+            _l : locale,
             _i : input,
             _f : format,
             _strict : strict
@@ -1559,9 +1557,7 @@
 
     // duration
     moment.duration = function (input, key) {
-        var isDuration = moment.isDuration(input),
-            isNumber = (typeof input === 'number'),
-            duration = (isDuration ? input._input : (isNumber ? {} : input)),
+        var duration = input,
             // matching against regexp is expensive, do it on demand
             match = null,
             sign,
@@ -1570,7 +1566,14 @@
             timeEmpty,
             dateTimeEmpty;
 
-        if (isNumber) {
+        if (moment.isDuration(input)) {
+            duration = {
+                ms: input._milliseconds,
+                d: input._days,
+                M: input._months
+            };
+        } else if (typeof input === 'number') {
+            duration = {};
             if (key) {
                 duration[key] = input;
             } else {
@@ -1609,8 +1612,8 @@
 
         ret = new Duration(duration);
 
-        if (isDuration && input.hasOwnProperty('_lang')) {
-            ret._lang = input._lang;
+        if (moment.isDuration(input) && input.hasOwnProperty('_locale')) {
+            ret._locale = input._locale;
         }
 
         return ret;
@@ -1626,30 +1629,30 @@
     // It is intended to keep the offset in sync with the timezone.
     moment.updateOffset = function () {};
 
-    // This function will load languages and then set the global language.  If
+    // This function will load locales and then set the global locale.  If
     // no arguments are passed in, it will simply return the current global
-    // language key.
-    moment.lang = function (key, values) {
+    // locale key.
+    moment.locale = function (key, values) {
         var r;
         if (!key) {
-            return moment.fn._lang._abbr;
+            return moment.fn._locale._abbr;
         }
         if (values) {
-            loadLang(normalizeLanguage(key), values);
+            loadLang(normalizeLocale(key), values);
         } else if (values === null) {
             unloadLang(key);
             key = 'en';
-        } else if (!languages[key]) {
+        } else if (!locales[key]) {
             getLangDefinition(key);
         }
-        r = moment.duration.fn._lang = moment.fn._lang = getLangDefinition(key);
+        r = moment.duration.fn._locale = moment.fn._locale = getLangDefinition(key);
         return r._abbr;
     };
 
-    // returns language data
-    moment.langData = function (key) {
-        if (key && key._lang && key._lang._abbr) {
-            key = key._lang._abbr;
+    // returns locale data
+    moment.localeData = function (key) {
+        if (key && key._locale && key._locale._abbr) {
+            key = key._locale._abbr;
         }
         return getLangDefinition(key);
     };
@@ -1708,7 +1711,7 @@
         },
 
         toString : function () {
-            return this.clone().lang('en').format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ");
+            return this.clone().locale('en').format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ");
         },
 
         toDate : function () {
@@ -1765,7 +1768,7 @@
 
         format : function (inputString) {
             var output = formatMoment(this, inputString || moment.defaultFormat);
-            return this.lang().postformat(output);
+            return this.locale().postformat(output);
         },
 
         add : function (input, val) {
@@ -1827,7 +1830,7 @@
         },
 
         from : function (time, withoutSuffix) {
-            return moment.duration(this.diff(time)).lang(this.lang()._abbr).humanize(!withoutSuffix);
+            return moment.duration(this.diff(time)).locale(this.locale()._abbr).humanize(!withoutSuffix);
         },
 
         fromNow : function (withoutSuffix) {
@@ -1842,7 +1845,7 @@
                 diff < 1 ? 'sameDay' :
                 diff < 2 ? 'nextDay' :
                 diff < 7 ? 'nextWeek' : 'sameElse';
-            return this.format(this.lang().calendar(format, this));
+            return this.format(this.locale().calendar(format, this));
         },
 
         isLeapYear : function () {
@@ -1857,7 +1860,7 @@
         day : function (input) {
             var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
             if (input != null) {
-                input = parseWeekday(input, this.lang());
+                input = parseWeekday(input, this.locale());
                 return this.add({ d : input - day });
             } else {
                 return day;
@@ -1870,7 +1873,7 @@
 
             if (input != null) {
                 if (typeof input === 'string') {
-                    input = this.lang().monthsParse(input);
+                    input = this.locale().monthsParse(input);
                     if (typeof input !== 'number') {
                         return this;
                     }
@@ -2011,7 +2014,7 @@
         },
 
         weekYear : function (input) {
-            var year = weekOfYear(this, this.lang()._week.dow, this.lang()._week.doy).year;
+            var year = weekOfYear(this, this.locale()._week.dow, this.locale()._week.doy).year;
             return input == null ? year : this.add("y", (input - year));
         },
 
@@ -2021,7 +2024,7 @@
         },
 
         week : function (input) {
-            var week = this.lang().week(this);
+            var week = this.locale().week(this);
             return input == null ? week : this.add("d", (input - week) * 7);
         },
 
@@ -2031,7 +2034,7 @@
         },
 
         weekday : function (input) {
-            var weekday = (this.day() + 7 - this.lang()._week.dow) % 7;
+            var weekday = (this.day() + 7 - this.locale()._week.dow) % 7;
             return input == null ? weekday : this.add("d", input - weekday);
         },
 
@@ -2055,14 +2058,14 @@
             return this;
         },
 
-        // If passed a language key, it will set the language for this
-        // instance.  Otherwise, it will return the language configuration
+        // If passed a locale key, it will set the locale for this
+        // instance.  Otherwise, it will return the locale configuration
         // variables for this instance.
-        lang : function (key) {
+        locale : function (key) {
             if (key === undefined) {
-                return this._lang;
+                return this._locale;
             } else {
-                this._lang = getLangDefinition(key);
+                this._locale = getLangDefinition(key);
                 return this;
             }
         }
@@ -2149,13 +2152,13 @@
 
         humanize : function (withSuffix) {
             var difference = +this,
-                output = relativeTime(difference, !withSuffix, this.lang());
+                output = relativeTime(difference, !withSuffix, this.locale());
 
             if (withSuffix) {
-                output = this.lang().pastFuture(difference, output);
+                output = this.locale().pastFuture(difference, output);
             }
 
-            return this.lang().postformat(output);
+            return this.locale().postformat(output);
         },
 
         add : function (input, val) {
@@ -2193,7 +2196,7 @@
             return this['as' + units.charAt(0).toUpperCase() + units.slice(1) + 's']();
         },
 
-        lang : moment.fn.lang,
+        locale : moment.fn.locale,
 
         toIsoString : function () {
             // inspired by https://github.com/dordille/moment-isoduration/blob/master/moment.isoduration.js
@@ -2252,8 +2255,8 @@
     ************************************/
 
 
-    // Set default language, other languages will inherit from English.
-    moment.lang('en', {
+    // Set default locale, other locales will inherit from English.
+    moment.locale('en', {
         ordinal : function (number) {
             var b = number % 10,
                 output = (toInt(number % 100 / 10) === 1) ? 'th' :
@@ -2280,7 +2283,7 @@
         // add `moment` as a global object via a string identifier,
         // for Closure Compiler "advanced" mode
         if (deprecate) {
-            this.moment = function () {
+            global.moment = function () {
                 if (!warned && console && console.warn) {
                     warned = true;
                     console.warn(
@@ -2291,7 +2294,7 @@
                 return local_moment.apply(null, arguments);
             };
         } else {
-            this['moment'] = moment;
+            global['moment'] = moment;
         }
     }
 
@@ -2301,7 +2304,7 @@
         makeGlobal(true);
     } else if (typeof define === "function" && define.amd) {
         define("moment", function (require, exports, module) {
-            if (module.config().noGlobal !== true) {
+            if (module.config() && module.config().noGlobal !== true) {
                 // If user provided noGlobal, he is aware of global
                 makeGlobal(module.config().noGlobal === undefined);
             }

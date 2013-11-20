@@ -4,7 +4,7 @@ exports.string_prototype = {
     "string prototype overrides call" : function (test) {
         test.expect(1);
 
-        moment.lang('en');
+        moment.locale('en');
         var prior = String.prototype.call, b;
         String.prototype.call = function () { return null; };
 

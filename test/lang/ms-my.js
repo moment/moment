@@ -5,14 +5,14 @@ var moment = require("../../moment");
       Bahasa Melayu
      *************************************************/
 
-exports["lang:ms-my"] = {
+exports["locale:ms-my"] = {
     setUp : function (cb) {
-        moment.lang('ms-my');
+        moment.locale('ms-my');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -375,9 +375,9 @@ exports["lang:ms-my"] = {
         test.done();
     },
     
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/ms-my'), 'ms-my', "module should export ms-my");
+            test.equal(require('../../locale/ms-my'), 'ms-my', "module should export ms-my");
         }
         
         test.done();
