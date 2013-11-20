@@ -4,7 +4,7 @@ module.exports = function (grunt) {
     grunt.registerTask('embed_locales', function () {
         var config = grunt.config('embed_locales');
 
-        var files = grunt.file.expand(config.targetLangs);
+        var files = grunt.file.expand(config.targetLocales);
         var embeddedContents = determineEmbeddedContent(files);
 
         var momentContents = grunt.file.read(config.moment);

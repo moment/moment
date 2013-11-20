@@ -4,13 +4,13 @@ module.exports = function (grunt) {
         embedLocaleDest = embedOption ?
             'min/moment-with-customlocales.js' :
             'min/moment-with-locales.js',
-        embedLocaleLangs = 'locale/*.js';
+        embedLocales = 'locale/*.js';
 
     if (embedOption && embedOption.match(/,/)) {
-        embedLocaleLangs = 'locale/{' + embedOption + '}.js';
+        embedLocales = 'locale/{' + embedOption + '}.js';
     }
     else if (embedOption) {
-        embedLocaleLangs = 'locale/' + embedOption + '.js';
+        embedLocales = 'locale/' + embedOption + '.js';
     }
 
     grunt.initConfig({
@@ -93,7 +93,7 @@ module.exports = function (grunt) {
         embed_locales: {
             moment: 'moment.js',
             dest: embedLocaleDest,
-            targetLangs: embedLocaleLangs
+            targetLocales: embedLocales
         }
     });
 
