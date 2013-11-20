@@ -5,14 +5,14 @@ var moment = require("../../moment");
       Chuvash
      *************************************************/
 
-exports["lang:cv"] = {
+exports["locale:cv"] = {
     setUp : function (cb) {
-        moment.lang('cv');
+        moment.locale('cv');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -355,9 +355,9 @@ exports["lang:cv"] = {
         test.done();
     },
     
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/cv'), 'cv', "module should export cv");
+            test.equal(require('../../locale/cv'), 'cv', "module should export cv");
         }
         
         test.done();

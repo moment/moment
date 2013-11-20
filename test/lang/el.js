@@ -5,14 +5,14 @@ var moment = require("../../moment");
       Modern Greek
      *************************************************/
 
-exports["lang:el"] = {
+exports["locale:el"] = {
     setUp : function (cb) {
-        moment.lang('el');
+        moment.locale('el');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -379,9 +379,9 @@ exports["lang:el"] = {
         test.done();
     },
     
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/el'), 'el', "module should export el");
+            test.equal(require('../../locale/el'), 'el', "module should export el");
         }
         
         test.done();

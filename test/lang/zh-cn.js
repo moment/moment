@@ -5,14 +5,14 @@ var moment = require("../../moment");
     Simplified Chinese
 **************************************************/
 
-exports["lang:zh-cn"] = {
+exports["locale:zh-cn"] = {
     setUp : function (cb) {
-        moment.lang('zh-cn');
+        moment.locale('zh-cn');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -347,9 +347,9 @@ exports["lang:zh-cn"] = {
         test.done();
     },
 
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/zh-cn'), 'zh-cn', "module should export zh-cn");
+            test.equal(require('../../locale/zh-cn'), 'zh-cn', "module should export zh-cn");
         }
 
         test.done();

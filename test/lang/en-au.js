@@ -5,14 +5,14 @@ var moment = require("../../moment");
       Australian English
      *************************************************/
 
-exports["lang:en-au"] = {
+exports["locale:en-au"] = {
     setUp : function (cb) {
-        moment.lang('en-au');
+        moment.locale('en-au');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -350,9 +350,9 @@ exports["lang:en-au"] = {
         test.done();
     },
 
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/en-au'), 'en-au', "module should export en-au");
+            test.equal(require('../../locale/en-au'), 'en-au', "module should export en-au");
         }
 
         test.done();

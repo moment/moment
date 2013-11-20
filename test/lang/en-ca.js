@@ -4,14 +4,14 @@ var moment = require("../../moment");
     English (Canadian)
 *************************************************/
 
-exports["lang:en-ca"] = {
+exports["locale:en-ca"] = {
     setUp : function (cb) {
-        moment.lang('en-ca');
+        moment.locale('en-ca');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -376,9 +376,9 @@ exports["lang:en-ca"] = {
         test.done();
     },
     
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/en-ca'), 'en-ca', "module should export en-ca");
+            test.equal(require('../../locale/en-ca'), 'en-ca', "module should export en-ca");
         }
         
         test.done();

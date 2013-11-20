@@ -5,14 +5,14 @@ var moment = require("../../moment");
       Polish
      *************************************************/
 
-exports["lang:pl"] = {
+exports["locale:pl"] = {
     setUp : function (cb) {
-        moment.lang('pl');
+        moment.locale('pl');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -372,9 +372,9 @@ exports["lang:pl"] = {
         test.done();
     },
     
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/pl'), 'pl', "module should export pl");
+            test.equal(require('../../locale/pl'), 'pl', "module should export pl");
         }
         
         test.done();

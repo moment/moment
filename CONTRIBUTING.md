@@ -3,10 +3,10 @@ All pull requests to the `master` branch will be closed.
 
 Please submit all pull requests to the `develop` branch.
 
-Language translations will not be merged without unit tests.
+Locale translations will not be merged without unit tests.
 ============================================================
 
-See [the British english unit tests](https://github.com/moment/moment/blob/develop/test/lang/en-gb.js) for an example.
+See [the British english unit tests](https://github.com/moment/moment/blob/develop/test/locale/en-gb.js) for an example.
 
 Submitting Issues
 =================

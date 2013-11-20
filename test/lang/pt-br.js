@@ -5,14 +5,14 @@ var moment = require("../../moment");
       Portuguese - Brazilian
      *************************************************/
 
-exports["lang:pt-br"] = {
+exports["locale:pt-br"] = {
     setUp : function (cb) {
-        moment.lang('pt-br');
+        moment.locale('pt-br');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -355,9 +355,9 @@ exports["lang:pt-br"] = {
         test.done();
     },
     
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/pt-br'), 'pt-br', "module should export pt-br");
+            test.equal(require('../../locale/pt-br'), 'pt-br', "module should export pt-br");
         }
         
         test.done();

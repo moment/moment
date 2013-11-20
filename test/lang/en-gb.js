@@ -5,14 +5,14 @@ var moment = require("../../moment");
       British English
      *************************************************/
 
-exports["lang:en-gb"] = {
+exports["locale:en-gb"] = {
     setUp : function (cb) {
-        moment.lang('en-gb');
+        moment.locale('en-gb');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -350,9 +350,9 @@ exports["lang:en-gb"] = {
         test.done();
     },
 
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/en-gb'), 'en-gb', "module should export en-gb");
+            test.equal(require('../../locale/en-gb'), 'en-gb', "module should export en-gb");
         }
 
         test.done();

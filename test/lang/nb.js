@@ -5,14 +5,14 @@ var moment = require("../../moment");
       Norwegian bokmål
      *************************************************/
 
-exports["lang:nb"] = {
+exports["locale:nb"] = {
     setUp : function (cb) {
-        moment.lang('nb');
+        moment.locale('nb');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -354,9 +354,9 @@ exports["lang:nb"] = {
         test.done();
     },
     
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/nb'), 'nb', "module should export nb");
+            test.equal(require('../../locale/nb'), 'nb', "module should export nb");
         }
         
         test.done();

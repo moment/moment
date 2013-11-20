@@ -3,14 +3,14 @@
 var moment = require("../../moment");
 
 
-exports["lang:tzm-la"] = {
+exports["locale:tzm-la"] = {
     setUp : function (cb) {
-        moment.lang('tzm-la');
+        moment.locale('tzm-la');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -353,9 +353,9 @@ exports["lang:tzm-la"] = {
         test.done();
     },
     
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/tzm-la'), 'tzm-la', "module should export tzm-la");
+            test.equal(require('../../locale/tzm-la'), 'tzm-la', "module should export tzm-la");
         }
         
         test.done();

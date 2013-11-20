@@ -101,7 +101,7 @@ exports.create = {
     "cloning moment should only copy own properties" : function (test) {
         test.expect(2);
         test.ok(!moment().clone().hasOwnProperty('month'), "Should not clone prototype methods");
-        test.ok(!moment().clone().hasOwnProperty('_lang'), "Should not clone prototype objects");
+        test.ok(!moment().clone().hasOwnProperty('_locale'), "Should not clone prototype objects");
         test.done();
     },
 
@@ -129,7 +129,7 @@ exports.create = {
     },
 
     "string with format dropped am/pm bug" : function (test) {
-        moment.lang('en');
+        moment.locale('en');
         test.expect(6);
 
         test.equal(moment('05/1/2012 12:25:00', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
@@ -201,7 +201,7 @@ exports.create = {
     },
 
     "string with format" : function (test) {
-        moment.lang('en');
+        moment.locale('en');
         var a = [
                 ['MM-DD-YYYY',          '12-02-1999'],
                 ['DD-MM-YYYY',          '12-02-1999'],
@@ -283,7 +283,7 @@ exports.create = {
     },
 
     "string with format no separators" : function (test) {
-        moment.lang('en');
+        moment.locale('en');
         var a = [
                 ['MMDDYYYY',          '12021999'],
                 ['DDMMYYYY',          '12021999'],
@@ -633,23 +633,23 @@ exports.create = {
         test.done();
     },
 
-    "parsing into a language" : function (test) {
+    "parsing into a locale" : function (test) {
         test.expect(2);
 
-        moment.lang('parselang', {
+        moment.locale('parselocale', {
             months : "one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve".split('_'),
             monthsShort : "one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve".split("_")
         });
 
-        moment.lang('en');
+        moment.locale('en');
 
-        test.equal(moment('2012 seven', 'YYYY MMM', 'parselang').month(), 6, "should be able to parse in a specific language");
+        test.equal(moment('2012 seven', 'YYYY MMM', 'parselocale').month(), 6, "should be able to parse in a specific locale");
 
-        moment.lang('parselang');
+        moment.locale('parselocale');
 
-        test.equal(moment('2012 july', 'YYYY MMM', 'en').month(), 6, "should be able to parse in a specific language");
+        test.equal(moment('2012 july', 'YYYY MMM', 'en').month(), 6, "should be able to parse in a specific locale");
 
-        moment.lang('parselang', null);
+        moment.locale('parselocale', null);
         test.done();
     },
 
@@ -709,9 +709,9 @@ exports.create = {
     'parsing localized weekdays' : function (test) {
         var ver = getVerifier(test);
         try {
-            moment.lang('fr'); //french uses doy = 4, dow = 1
-            ver('1999 37 4', 'GGGG WW E', "1999 09 16", 'iso ignores language');
-            ver('1999 37 7', 'GGGG WW E', "1999 09 19", 'iso ignores language');
+            moment.locale('fr'); //french uses doy = 4, dow = 1
+            ver('1999 37 4', 'GGGG WW E', "1999 09 16", 'iso ignores locale');
+            ver('1999 37 7', 'GGGG WW E', "1999 09 19", 'iso ignores locale');
 
             ver('1999 37 0', 'gggg ww e', "1999 09 13", 'localized e uses local doy and dow: 0 = monday');
             ver('1999 37 4', 'gggg ww e', "1999 09 17", 'localized e uses local doy and dow: 4 = friday');
@@ -727,7 +727,7 @@ exports.create = {
             ver('1999 37 Di', 'gggg ww dd', "1999 09 19", 'localized d uses 0-indexed days: 0 = sund');
         }
         finally {
-            moment.lang('en');
+            moment.locale('en');
             test.done();
         }
     }
