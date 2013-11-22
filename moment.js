@@ -2293,7 +2293,7 @@
                 }
                 return local_moment.apply(null, arguments);
             };
-            extend(this.moment, local_moment);
+            extend(global.moment, local_moment);
         } else {
             global['moment'] = moment;
         }
