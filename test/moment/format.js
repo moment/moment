@@ -12,7 +12,7 @@ exports.format = {
     "format escape brackets" : function (test) {
         test.expect(10);
 
-        moment.lang('en');
+        moment.locale('en');
 
         var b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
         test.equal(b.format('[day]'), 'day', 'Single bracket');
@@ -133,7 +133,7 @@ exports.format = {
 
     "escaping quotes" : function (test) {
         test.expect(4);
-        moment.lang('en');
+        moment.locale('en');
         var date = moment([2012, 0]);
         test.equal(date.format('MMM \'YY'), "Jan '12", "Should be able to format with single parenthesis");
         test.equal(date.format('MMM "YY'),  'Jan "12', "Should be able to format with double parenthesis");
@@ -251,7 +251,7 @@ exports.format = {
             "2010-01-03": "2009-53"
         }, i, formatted5, formatted4, formatted2, isoWeekYear;
 
-        moment.lang('en-gb'); // 1, 4
+        moment.locale('en-gb'); // 1, 4
         for (i in cases) {
             isoWeekYear = cases[i].split('-')[0];
             formatted5 = moment(i).format('ggggg');
@@ -282,7 +282,7 @@ exports.format = {
     "weekday formats" : function (test) {
         test.expect(7);
 
-        moment.lang('dow: 3,doy: 5', {week: {dow: 3, doy: 5}});
+        moment.locale('dow: 3,doy: 5', {week: {dow: 3, doy: 5}});
         test.equal(moment([1985, 1,  6]).format('e'), '0', "Feb  6 1985 is Wednesday -- 0th day");
         test.equal(moment([2029, 8, 20]).format('e'), '1', "Sep 20 2029 is Thursday  -- 1st day");
         test.equal(moment([2013, 3, 26]).format('e'), '2', "Apr 26 2013 is Friday    -- 2nd day");
@@ -305,16 +305,16 @@ exports.format = {
     "toJSON skips postformat" : function (test) {
         test.expect(1);
 
-        moment.lang('postformat', {postformat: function (s) { s.replace(/./g, 'X'); }});
+        moment.locale('postformat', {postformat: function (s) { s.replace(/./g, 'X'); }});
         test.equal(moment.utc([2000, 0, 1]).toJSON(), "2000-01-01T00:00:00.000Z", "toJSON doesn't postformat");
-        moment.lang('postformat', null);
+        moment.locale('postformat', null);
         test.done();
     },
 
     "calendar day timezone" : function (test) {
         test.expect(10);
 
-        moment.lang('en');
+        moment.locale('en');
         var zones = [60, -60, 90, -90, 360, -360, 720, -720],
             b = moment().utc().startOf('day').subtract({ m : 1 }),
             c = moment().local().startOf('day').subtract({ m : 1 }),
@@ -333,7 +333,7 @@ exports.format = {
     },
 
     "invalid" : function (test) {
-        moment.lang('en');
+        moment.locale('en');
 
         test.equal(moment.invalid().format(), "Invalid date");
         test.equal(moment.invalid().format('YYYY-MM-DD'), "Invalid date");

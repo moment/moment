@@ -9,7 +9,7 @@ There are a number of small backwards incompatible changes with version 2.0.0.
 
 [See them and their descriptions here](https://gist.github.com/timrwood/e72f2eef320ed9e37c51#backwards-incompatible-changes)
 
-Changed language ordinal method to return the number + ordinal instead of just the ordinal.
+Changed locale ordinal method to return the number + ordinal instead of just the ordinal.
 
 Changed two digit year parsing cutoff to match strptime.
 
@@ -17,7 +17,7 @@ Removed `moment#sod` and `moment#eod` in favor of `moment#startOf` and `moment#e
 
 Removed `moment.humanizeDuration()` in favor of `moment.duration().humanize()`.
 
-Removed the lang data objects from the top level namespace.
+Removed the locale data objects from the top level namespace.
 
 Duplicate `Date` passed to `moment()` instead of referencing it.
 
@@ -34,14 +34,14 @@ Changelog
 ### 2.4.0
 
 * **Deprecate** globally exported moment, will be removed in next major
-* New languages
+* New locales
   * Farose (fo) [#1206](https://github.com/moment/moment/issues/1206)
   * Tagalog/Filipino (tl-ph) [#1197](https://github.com/moment/moment/issues/1197)
   * Welsh (cy) [#1214](https://github.com/moment/moment/issues/1214)
 * Bugfixes
   * properly handle Z at the end of iso RegExp [#1187](https://github.com/moment/moment/issues/1187)
   * chinese meridian time improvements [#1076](https://github.com/moment/moment/issues/1076)
-  * fix language tests [#1177](https://github.com/moment/moment/issues/1177)
+  * fix locale tests [#1177](https://github.com/moment/moment/issues/1177)
   * remove some failing tests (that should have never existed :))
     [#1185](https://github.com/moment/moment/issues/#1185)
     [#1183](https://github.com/moment/moment/issues/1183)
@@ -65,11 +65,11 @@ Updated authors and contributors.
 
 Added bower support.
 
-Language files now use UMD.
+Locale files now use UMD.
 
 Creating moment defaults to current date/month/year.
 
-Added a bundle of moment and all language files.
+Added a bundle of moment and all locale files.
 
 ### 2.1.0 [See changelog](https://gist.github.com/timrwood/b8c2d90d528eddb53ab5)
 
@@ -85,7 +85,7 @@ Added `moment#min` and `moment#max`
 
 Added short form localized tokens.
 
-Added ability to define language a string should be parsed in.
+Added ability to define locale a string should be parsed in.
 
 Added support for reversed add/subtract arguments.
 
@@ -109,7 +109,7 @@ Bugfix: Parsing 10Sep2001 should work as expected
 
 Bugfix: Fixed wierdness with `moment.utc()` parsing.
 
-Changed language ordinal method to return the number + ordinal instead of just the ordinal.
+Changed locale ordinal method to return the number + ordinal instead of just the ordinal.
 
 Changed two digit year parsing cutoff to match strptime.
 
@@ -117,7 +117,7 @@ Removed `moment#sod` and `moment#eod` in favor of `moment#startOf` and `moment#e
 
 Removed `moment.humanizeDuration()` in favor of `moment.duration().humanize()`.
 
-Removed the lang data objects from the top level namespace.
+Removed the locale data objects from the top level namespace.
 
 Duplicate `Date` passed to `moment()` instead of referencing it.
 
@@ -139,11 +139,11 @@ Made formatting method 3x faster. http://jsperf.com/momentjs-cached-format-funct
 
 Add support for month/weekday callbacks in `moment.fn.format()`
 
-Added instance specific languages.
+Added instance specific locales.
 
 Added two letter weekday abbreviations with the formatting token `dd`.
 
-Various language updates.
+Various locale updates.
 
 Various bugfixes.
 
@@ -155,7 +155,7 @@ Revamped parser to support parsing non-separated strings (YYYYMMDD vs YYYY-MM-DD
 
 Added support for millisecond parsing and formatting tokens (S SS SSS)
 
-Added a getter for `moment.lang()`
+Added a getter for `moment.locale()`
 
 Various bugfixes.
 
@@ -165,7 +165,7 @@ There are a few things deprecated in the 1.6.0 release.
 
 2. The method `moment.fn.native` is deprecated in favor of `moment.fn.toDate`. There continue to be issues with Google Closure Compiler throwing errors when using `native`, even in valid instances.
 
-3. The way to customize am/pm strings is being changed. This would only affect you if you created a custom language file. For more information, see [this issue](https://github.com/timrwood/moment/pull/222).
+3. The way to customize am/pm strings is being changed. This would only affect you if you created a custom locale file. For more information, see [this issue](https://github.com/timrwood/moment/pull/222).
 
 ### 1.5.0 [See milestone](https://github.com/timrwood/moment/issues?milestone=10&page=1&state=closed)
 
@@ -185,7 +185,7 @@ Various bugfixes.
 
 ### 1.3.0 [See milestone](https://github.com/timrwood/moment/issues?milestone=7&state=closed)
 
-Added support for parsing month names in the current language.
+Added support for parsing month names in the current locale.
 
 Added escape blocks for parsing tokens.
 
@@ -229,17 +229,17 @@ Added convenience methods for getting and setting date parts.
 
 Added better support for `moment.add()`.
 
-Added better lang support in NodeJS.
+Added better locale support in NodeJS.
 
 Renamed library from underscore.date to Moment.js
 
 ### 0.6.1
 
-Added Portuguese, Italian, and French language support
+Added Portuguese, Italian, and French locale support
 
 ### 0.6.0
 
-Added _date.lang() support.
+Added _date.locale() support.
 Added support for passing multiple formats to try to parse a date. _date("07-10-1986", ["MM-DD-YYYY", "YYYY-MM-DD"]);
 Made parse from string and single format 25% faster.
 

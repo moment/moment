@@ -2,12 +2,12 @@ var moment = require("../../moment");
 
 exports.utc = {
     setUp : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 

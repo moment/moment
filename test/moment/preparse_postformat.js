@@ -43,12 +43,12 @@ var symbolLang = {
 
 exports.preparse_postformat = {
     setUp: function (cb) {
-        moment.lang('symbol', symbolLang);
+        moment.locale('symbol', symbolLang);
         cb();
     },
 
     tearDown: function (cb) {
-        moment.lang('en-gb');
+        moment.locale('en-gb');
         cb();
     },
 

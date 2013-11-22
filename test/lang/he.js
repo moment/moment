@@ -5,14 +5,14 @@
     Hebrew
 **************************************************/
 
-exports["lang:he"] = {
+exports["locale:he"] = {
     setUp : function (cb) {
-        moment.lang('he');
+        moment.locale('he');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -312,9 +312,9 @@ exports["lang:he"] = {
         test.done();
     },
     
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/he'), 'he', "module should export he");
+            test.equal(require('../../locale/he'), 'he', "module should export he");
         }
         
         test.done();

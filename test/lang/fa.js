@@ -2,14 +2,14 @@
 // author: Ebrahim Byagowi : https://github.com/ebraminio
 var moment = require("../../moment");
 
-exports["lang:fa"] = {
+exports["locale:fa"] = {
     setUp : function (cb) {
-        moment.lang('fa');
+        moment.locale('fa');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -336,9 +336,9 @@ exports["lang:fa"] = {
         test.done();
     },
     
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/fa'), 'fa', "module should export fa");
+            test.equal(require('../../locale/fa'), 'fa', "module should export fa");
         }
         
         test.done();

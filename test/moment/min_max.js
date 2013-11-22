@@ -6,12 +6,12 @@ var equalMoment = function (test, a, b, msg) {
 
 exports.min_max = {
     setUp : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 

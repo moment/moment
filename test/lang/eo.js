@@ -5,14 +5,14 @@ var moment = require("../../moment");
       Esperanto
      *************************************************/
 
-exports["lang:eo"] = {
+exports["locale:eo"] = {
     setUp : function (cb) {
-        moment.lang('eo');
+        moment.locale('eo');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -357,9 +357,9 @@ exports["lang:eo"] = {
         test.done();
     },
     
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/eo'), 'eo', "module should export eo");
+            test.equal(require('../../locale/eo'), 'eo', "module should export eo");
         }
         
         test.done();

@@ -5,14 +5,14 @@ var moment = require("../../moment");
       Tagalog/Filipino
      *************************************************/
 
-exports["lang:tl-ph"] = {
+exports["locale:tl-ph"] = {
     setUp : function (cb) {
-        moment.lang('tl-ph');
+        moment.locale('tl-ph');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -137,7 +137,7 @@ exports["lang:tl-ph"] = {
         test.expect(30);
 
         var start = moment([2007, 1, 28]);
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "ilang segundo", "44 seconds = a few seconds");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "ilocale segundo", "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "isang minuto",   "45 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  "isang minuto",   "89 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  "2 minuto",  "90 seconds = 2 minutes");
@@ -173,15 +173,15 @@ exports["lang:tl-ph"] = {
     "suffix" : function (test) {
         test.expect(2);
 
-        test.equal(moment(30000).from(0), "sa loob ng ilang segundo", "prefix");
-        test.equal(moment(0).from(30000), "ilang segundo ang nakalipas", "suffix");
+        test.equal(moment(30000).from(0), "sa loob ng ilocale segundo", "prefix");
+        test.equal(moment(0).from(30000), "ilocale segundo ang nakalipas", "suffix");
         test.done();
     },
 
     "fromNow" : function (test) {
         test.expect(2);
 
-        test.equal(moment().add({s: 30}).fromNow(), "sa loob ng ilang segundo", "in a few seconds");
+        test.equal(moment().add({s: 30}).fromNow(), "sa loob ng ilocale segundo", "in a few seconds");
         test.equal(moment().add({d: 5}).fromNow(), "sa loob ng 5 araw", "in 5 days");
         test.done();
     },
@@ -352,9 +352,9 @@ exports["lang:tl-ph"] = {
         test.done();
     },
 
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/tl-ph'), 'tl-ph', "module should export tl-ph");
+            test.equal(require('../../locale/tl-ph'), 'tl-ph', "module should export tl-ph");
         }
 
         test.done();

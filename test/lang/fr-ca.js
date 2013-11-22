@@ -4,14 +4,14 @@ var moment = require("../../moment");
     French (Canadian)
 *************************************************/
 
-exports["lang:fr-ca"] = {
+exports["locale:fr-ca"] = {
     setUp : function (cb) {
-        moment.lang('fr-ca');
+        moment.locale('fr-ca');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -369,9 +369,9 @@ exports["lang:fr-ca"] = {
         test.done();
     },
     
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/fr-ca'), 'fr-ca', "module should export fr-ca");
+            test.equal(require('../../locale/fr-ca'), 'fr-ca', "module should export fr-ca");
         }
         
         test.done();

@@ -2,14 +2,14 @@
 // author: Abdel Said : https://github.com/abdelsaid
 var moment = require("../../moment");
 
-exports["lang:ar"] = {
+exports["locale:ar"] = {
     setUp : function (cb) {
-        moment.lang('ar');
+        moment.locale('ar');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -347,9 +347,9 @@ exports["lang:ar"] = {
         test.done();
     },
 
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/ar'), 'ar', "module should export ar");
+            test.equal(require('../../locale/ar'), 'ar', "module should export ar");
         }
         test.done();
     }

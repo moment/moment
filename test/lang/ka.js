@@ -1,17 +1,17 @@
-// moment.js language configuration
-// language : Georgian (ka)
+// moment.js locale configuration
+// locale : Georgian (ka)
 // author : Irakli Janiashvili : https://github.com/irakli-janiashvili
 
 var moment = require("../../moment");
 
-exports["lang:ka"] = {
+exports["locale:ka"] = {
     setUp : function (cb) {
-        moment.lang('ka');
+        moment.locale('ka');
         cb();
     },
 
     tearDown : function (cb) {
-        moment.lang('ka');
+        moment.locale('ka');
         cb();
     },
 
@@ -375,9 +375,9 @@ exports["lang:ka"] = {
         test.done();
     },
 
-    "returns the name of the language" : function (test) {
+    "returns the name of the locale" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/ka'), 'ka', "module should export ka");
+            test.equal(require('../../locale/ka'), 'ka', "module should export ka");
         }
 
         test.done();
