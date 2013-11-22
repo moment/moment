@@ -162,7 +162,7 @@ exports["lang:lb"] = {
             m = moment().subtract({ d: i });
 
             // Different date string for "Dënschdeg" (Tuesday) and "Donneschdeg" (Thursday)
-            weekday = parseInt(m.format('d'));
+            weekday = parseInt(m.format('d'), 10);
             datestring = (weekday === 2 || weekday === 4 ? '[Leschten] dddd [um] LT' : '[Leschte] dddd [um] LT');
 
             test.equal(m.calendar(), m.format(datestring), "Today + " + i + " days current time");
