@@ -319,6 +319,20 @@
         this._bubble();
     }
 
+    // Timer constructor
+    function Timer(timer) {
+        // store reference to input for deterministic cloning
+        this._input = timer;
+
+        this._data = {};
+
+        this.tick(timer.tick);
+        this.duration(timer.duration);
+        this.repeat(timer.repeat);
+        this.threshold(timer.threshold);
+        this.aggression(timer.aggression);
+    }
+
     /************************************
         Helpers
     ************************************/
@@ -1619,6 +1633,28 @@
         return ret;
     };
 
+    // timer
+    moment.timer = function (duration, repeat, tick) {
+        if (typeof tick === 'undefined') {
+            tick = repeat;
+            repeat = null;
+        }
+
+        var timer = {
+            repeat: repeat,
+            tick: tick,
+            threshold: null,
+            aggression: null
+        };
+        if (typeof duration === 'object' && !moment.isDuration(duration)) {
+            timer = extend(timer, duration);
+        } else {
+            timer.duration = duration;
+        }
+
+        return new Timer(timer);
+    };
+
     // version number
     moment.version = VERSION;
 
@@ -1666,6 +1702,11 @@
     moment.isDuration = function (obj) {
         return obj instanceof Duration;
     };
+
+    // for typechecking Timer objects
+    moment.isTimer = function (obj) {
+        return obj instanceof Timer;
+	};
 
     for (i = lists.length - 1; i >= 0; --i) {
         makeList(lists[i]);
@@ -2186,6 +2227,21 @@
             return this;
         },
 
+        isAfter: function (input, units) {
+            units = typeof units !== 'undefined' ? units : 'millisecond';
+            return +this > +moment.duration(input, units);
+        },
+
+        isBefore: function (input, units) {
+            units = typeof units !== 'undefined' ? units : 'millisecond';
+            return +this < +moment.duration(input, units);
+        },
+
+        isSame: function (input, units) {
+            units = typeof units !== 'undefined' ? units : 'millisecond';
+            return +this === +moment.duration(input, units);
+        },
+
         get : function (units) {
             units = normalizeUnits(units);
             return this[units.toLowerCase() + 's']();
@@ -2248,6 +2304,91 @@
     moment.duration.fn.asMonths = function () {
         return (+this - this.years() * 31536e6) / 2592e6 + this.years() * 12;
     };
+
+
+    /************************************
+        Timer Prototype
+    ************************************/
+
+
+    // helper for adding shortcuts
+    function makeGetterSetter(name, type, defaultVal) {
+        var hasDefault = arguments.length >= 3; /* typeof defaultVal !== 'undefined' is no good because defaultVal can be undefined */
+        type = type || function (val) { return val; };
+
+        return function (val) {
+            var data = this._data;
+            if (typeof val === 'undefined') {
+                return data[name];
+            } else {
+                data[name] = type(val === null && hasDefault ? defaultVal : val);
+                return this;
+            }
+        };
+    }
+
+    extend(moment.timer.fn = Timer.prototype, {
+
+        start : function () {
+            var data = this._data,
+                now = moment(),
+                msToTick;
+
+            if (this.state() !== 'started') {
+                data.state = 'started';
+                data.count = 0;
+                data.startTime = now;
+            }
+
+            msToTick = this.tickTime().diff(now);
+            if (msToTick <= this.threshold()) {
+                data.count++;
+                this.tick().call(this);
+                if (this.repeat() !== true && data.count >= this.repeat()) { return this.stop(); }
+            }
+
+            data.timeoutID = moment.timer._setTimeout(this.start.bind(this), msToTick / this.aggression());
+
+            return this;
+        },
+
+        stop : function () {
+            var data = this._data;
+            if ('timeoutID' in data) { moment.timer._clearTimeout(data.timeoutID); }
+            data.state = 'stopped';
+
+            return this;
+        },
+
+        tick : makeGetterSetter('tick'),
+        duration : makeGetterSetter('duration', moment.duration),
+        repeat : makeGetterSetter('repeat', null, 1),
+        threshold : makeGetterSetter('threshold', moment.duration, 1),
+        aggression : makeGetterSetter('aggression', Number, 1.1),
+
+        count : function () { return this._data.count; },
+
+        state : function () { return this._data.state; },
+
+        startTime : function () { return this._data.startTime.clone(); },
+
+        runTime : function () { return moment.duration(moment().diff(this.startTime())); },
+
+        tickTime : function (n) {
+            if (this.state() === 'started') {
+                return this.startTime().add(this.duration() * (this.count() + (typeof n !== 'undefined' ? n : 1)));
+            }
+        }
+
+    });
+
+    // Store original reference to setTimeout and create a wrapper callable within a function
+    moment.timer.setTimeout = setTimeout;
+    moment.timer._setTimeout = setTimeout.bind(null);
+
+    // Store original reference to clearTimeout and create a wrapper callable within a function
+    moment.timer.clearTimeout = clearTimeout;
+    moment.timer._clearTimeout = clearTimeout.bind(null);
 
 
     /************************************
