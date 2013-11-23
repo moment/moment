@@ -5,7 +5,7 @@ var moment = require("../../moment");
       Italian
      *************************************************/
 
-exports["lang:it"] = {
+this["lang:it"] = {
     setUp : function (cb) {
         moment.lang('it');
         cb();

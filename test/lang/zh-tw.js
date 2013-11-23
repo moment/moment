@@ -5,7 +5,7 @@ var moment = require("../../moment");
       Traditional Chinese
      *************************************************/
 
-exports["lang:zh-tw"] = {
+this["lang:zh-tw"] = {
     setUp : function (cb) {
         moment.lang('zh-tw');
         cb();

@@ -3,7 +3,7 @@ var moment = require('../../moment'),
         return moment.apply(null, arguments).parsingFlags();
     };
 
-exports.parsing_flags = {
+this.parsing_flags = {
 
     'overflow with array' : function (test) {
 

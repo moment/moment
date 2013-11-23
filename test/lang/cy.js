@@ -5,7 +5,7 @@ var moment = require("../../moment");
       Welsh
      *************************************************/
 
-exports["lang:cy"] = {
+this["lang:cy"] = {
     setUp : function (cb) {
         moment.lang('cy');
         cb();

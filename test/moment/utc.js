@@ -1,6 +1,6 @@
 var moment = require("../../moment");
 
-exports.utc = {
+this.utc = {
     setUp : function (cb) {
         moment.lang('en');
         cb();

@@ -3,7 +3,7 @@
 var moment = require("../../moment");
 
 
-exports["lang:tzm-la"] = {
+this["lang:tzm-la"] = {
     setUp : function (cb) {
         moment.lang('tzm-la');
         cb();

@@ -1,6 +1,6 @@
 var moment = require("../../moment");
 
-exports.add = {
+this.add = {
     "add short" : function (test) {
         test.expect(12);
 

@@ -1,6 +1,6 @@
 var moment = require("../../moment");
 
-exports.is_before = {
+this.is_before = {
     "is after without units" : function (test) {
         test.expect(17);
 

@@ -4,7 +4,7 @@ var equalMoment = function (test, a, b, msg) {
     test.equal(a.valueOf(), b.valueOf(), msg);
 };
 
-exports.min_max = {
+this.min_max = {
     setUp : function (cb) {
         moment.lang('en');
         cb();

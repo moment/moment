@@ -5,7 +5,7 @@ var moment = require("../../moment");
       Modern Greek
      *************************************************/
 
-exports["lang:el"] = {
+this["lang:el"] = {
     setUp : function (cb) {
         moment.lang('el');
         cb();

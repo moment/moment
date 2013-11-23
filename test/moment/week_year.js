@@ -1,6 +1,6 @@
 var moment = require("../../moment");
 
-exports.week_year = {
+this.week_year = {
     "iso week year": function (test) {
         test.expect(19);
 

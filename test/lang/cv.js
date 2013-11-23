@@ -5,7 +5,7 @@ var moment = require("../../moment");
       Chuvash
      *************************************************/
 
-exports["lang:cv"] = {
+this["lang:cv"] = {
     setUp : function (cb) {
         moment.lang('cv');
         cb();

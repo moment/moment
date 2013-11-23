@@ -5,7 +5,7 @@ var moment = require("../../moment");
       Bahasa Melayu
      *************************************************/
 
-exports["lang:ms-my"] = {
+this["lang:ms-my"] = {
     setUp : function (cb) {
         moment.lang('ms-my');
         cb();

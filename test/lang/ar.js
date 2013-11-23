@@ -2,7 +2,7 @@
 // author: Abdel Said : https://github.com/abdelsaid
 var moment = require("../../moment");
 
-exports["lang:ar"] = {
+this["lang:ar"] = {
     setUp : function (cb) {
         moment.lang('ar');
         cb();

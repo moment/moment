@@ -1,6 +1,6 @@
 var moment = require("../../moment");
 
-exports.listers = {
+this.listers = {
     setUp : function (cb) {
         moment.lang('en');
         cb();

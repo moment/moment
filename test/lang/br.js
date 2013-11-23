@@ -5,7 +5,7 @@ var moment = require("../../moment");
       Breton
      *************************************************/
 
-exports["lang:br"] = {
+this["lang:br"] = {
     setUp : function (cb) {
         moment.lang('br');
         cb();
