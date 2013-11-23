@@ -126,7 +126,11 @@ module.exports = function (grunt) {
 
     // Default task.
     grunt.registerTask('default', ['jshint', 'nodeunit']);
-    grunt.registerTask('test', ['nodeunit']);
+    grunt.registerTask('test', ['test:node', 'test:browser']);
+
+    //test tasks
+    grunt.registerTask('test:node', ['nodeunit']);
+    grunt.registerTask('test:browser', ['concat', 'embed_languages', 'karma:chrome']);
 
     // Task to be run when releasing a new version
     grunt.registerTask('release', ['jshint', 'nodeunit', 'concat',
