@@ -21,6 +21,23 @@ module.exports = function (grunt) {
                 dest: 'min/langs.js'
             }
         },
+
+        karma: {
+            options: {
+                frameworks: ['nodeunit'],
+                files: [
+                    'min/moment-with-langs.js',
+                    'test/moment/**/*.js',
+                    'test/lang/**/*.js',
+                    'test/browser.js'
+                ]
+            },
+            chrome: {
+                singleRun: true,
+                browsers: ['Chrome'],
+            }
+        },
+
         uglify : {
             target: {
                 files: {
@@ -43,7 +60,7 @@ module.exports = function (grunt) {
             }
         },
         nodeunit : {
-            all : ["test/**/*.js"]
+            all : ["test/moment/**/*.js", "test/lang/**/*.js"]
         },
         jshint: {
             all: ["Gruntfile.js", "moment.js", "lang/**/*.js", "test/**/*.js"],
@@ -105,6 +122,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-karma');
 
     // Default task.
     grunt.registerTask('default', ['jshint', 'nodeunit']);
