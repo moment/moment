@@ -1,4 +1,4 @@
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
 this.end_start_of = {
     setUp : function (cb) {

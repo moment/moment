@@ -1,5 +1,4 @@
-var moment = require("../../moment");
-
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
     /**************************************************
       French

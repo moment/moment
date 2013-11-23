@@ -1,4 +1,4 @@
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
 this.getters_setters = {
     "getters" : function (test) {

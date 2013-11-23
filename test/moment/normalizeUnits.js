@@ -1,6 +1,6 @@
 /*global require, this */
 
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
 this.normalizeUnits = {
     "normalize units" : function (test) {

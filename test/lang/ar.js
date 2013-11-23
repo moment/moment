@@ -1,6 +1,6 @@
 // moment.js arabic (ar) tests
 // author: Abdel Said : https://github.com/abdelsaid
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
 this["lang:ar"] = {
     setUp : function (cb) {

@@ -1,4 +1,4 @@
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
 var getVerifier = function (test) {
     return function (input, format, expected, description, asymetrical) {
