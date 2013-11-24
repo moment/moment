@@ -53,7 +53,7 @@
         "karma-sauce-launcher": "~0.1"
   },
     "scripts": {
-        "test": "grunt"
+        "test": "grunt test:node"
     },
     "ender": "./ender.js",
     "dojoBuild": "package.js"
