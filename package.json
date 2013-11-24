@@ -47,11 +47,10 @@
         "grunt-contrib-uglify": "latest",
         "grunt-contrib-watch": "latest",
         "grunt-lib-legacyhelpers": "latest",
-        "karma-chrome-launcher": "~0.1.0",
-        "karma-firefox-launcher": "~0.1.0",
-        "karma": "~0.10.4",
-        "grunt-karma": "~0.6.2",
-        "karma-nodeunit": "~0.1.1"
+        "grunt-karma": "https://github.com/karma-runner/grunt-karma/archive/a8472d47240a71673cb5601acba6a093fe7387c1.tar.gz",
+        "karma": "~0.11.0",
+        "karma-nodeunit": "~0.1.1",
+        "karma-sauce-launcher": "~0.1"
   },
     "scripts": {
         "test": "grunt"
