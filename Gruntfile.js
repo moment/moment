@@ -176,6 +176,9 @@ module.exports = function (grunt) {
     grunt.registerTask('test:browser', ['concat', 'embed_languages', 'karma:chrome']);
     grunt.registerTask('test:sauce-browser', ['concat', 'embed_languages', 'karma:sauce']);
 
+    // travis build task
+    grunt.registerTask('build:travis', ['jshint', 'test:node', 'test:sauce-browser']);
+
     // Task to be run when releasing a new version
     grunt.registerTask('release', ['jshint', 'nodeunit', 'concat',
             'embed_languages', 'component', 'uglify']);
