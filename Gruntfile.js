@@ -30,11 +30,54 @@ module.exports = function (grunt) {
                     'test/moment/**/*.js',
                     'test/lang/**/*.js',
                     'test/browser.js'
-                ]
+                ],
+                sauceLabs: {
+                    startConnect: true,
+                    testName: 'MomentJS'
+                },
+                customLaunchers: {
+                    sl_chrome_win_xp: {
+                        base: 'SauceLabs',
+                        browserName: 'chrome',
+                        platform: 'Windows XP'
+                    },
+                    sl_ie9_win7: {
+                        base: 'SauceLabs',
+                        browserName: 'internet explorer',
+                        platform: 'Windows 7',
+                        version: '9'
+                    },
+                    sl_ie8_win7: {
+                        base: 'SauceLabs',
+                        browserName: 'internet explorer',
+                        platform: 'Windows 7',
+                        version: '8'
+                    },
+                    sl_ff_linux: {
+                        base: 'SauceLabs',
+                        browserName: 'firefox',
+                        platform: 'Linux',
+                    },
+                    sl_safari_osx: {
+                        base: 'SauceLabs',
+                        browserName: 'safari',
+                        platform: 'OS X 10.8',
+                    }
+                },
             },
             chrome: {
                 singleRun: true,
                 browsers: ['Chrome'],
+            },
+            sauce: {
+                singleRun: true,
+                browsers: [
+                    'sl_chrome_win_xp',
+                    'sl_ie9_win7',
+                    'sl_ie8_win7',
+                    'sl_ff_linux',
+                    'sl_safari_osx'
+                ]
             }
         },
 
@@ -131,6 +174,7 @@ module.exports = function (grunt) {
     //test tasks
     grunt.registerTask('test:node', ['nodeunit']);
     grunt.registerTask('test:browser', ['concat', 'embed_languages', 'karma:chrome']);
+    grunt.registerTask('test:sauce-browser', ['concat', 'embed_languages', 'karma:sauce']);
 
     // Task to be run when releasing a new version
     grunt.registerTask('release', ['jshint', 'nodeunit', 'concat',
