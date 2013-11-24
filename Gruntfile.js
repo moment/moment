@@ -169,9 +169,9 @@ module.exports = function (grunt) {
 
     // Default task.
     grunt.registerTask('default', ['jshint', 'nodeunit']);
-    grunt.registerTask('test', ['test:node', 'test:browser']);
 
     //test tasks
+    grunt.registerTask('test', ['test:node', 'test:browser']);
     grunt.registerTask('test:node', ['nodeunit']);
     grunt.registerTask('test:browser', ['concat', 'embed_languages', 'karma:chrome']);
     grunt.registerTask('test:sauce-browser', ['concat', 'embed_languages', 'karma:sauce']);
