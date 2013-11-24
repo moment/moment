@@ -1,5 +1,13 @@
 language: node_js
 node_js:
   - 0.8
+
+env:
+  global:
+    - secure: "Secure username token goes here!"
+    - secure: "Secure access key token goes here!"
+
 before_script:
   - npm install -g grunt-cli
+
+script: grunt build:travis
