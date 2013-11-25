@@ -618,7 +618,6 @@ exports.create = {
     },
 
     "strict parsing" : function (test) {
-        test.expect(11);
         test.equal(moment("2012-05", "YYYY-MM", true).format("YYYY-MM"), "2012-05", "parse correct string");
         test.equal(moment(" 2012-05", "YYYY-MM", true).isValid(), false, "fail on extra whitespace");
         test.equal(moment("foo 2012-05", "[foo] YYYY-MM", true).format('YYYY-MM'), "2012-05", "handle fixed text");
@@ -632,6 +631,34 @@ exports.create = {
         test.equal(moment("2010.*...", "YYYY.*", true).isValid(), false, "invalid format with regex chars");
         test.equal(moment("2010.*", "YYYY.*", true).year(), 2010, "valid format with regex chars");
         test.equal(moment(".*2010.*", ".*YYYY.*", true).year(), 2010, "valid format with regex chars on both sides");
+
+        //strict tokens
+        test.equal(moment("2-05-25", 'YYYY-MM-DD', true).isValid(), false, "invalid one-digit year");
+        test.equal(moment("20-05-25", 'YYYY-MM-DD', true).isValid(), false, "invalid two-digit year");
+        test.equal(moment("201-05-25", 'YYYY-MM-DD', true).isValid(), false, "invalid three-digit year");
+
+        test.equal(moment("12-05-25", 'YY-MM-DD', true).isValid(), true, "valid two-digit year");
+        test.equal(moment("2012-05-25", 'YY-MM-DD', true).isValid(), false, "invalid four-digit year");
+
+        test.equal(moment("2012-5-25", 'YYYY-MM-DD', true).isValid(), false, "invalid one-digit month");
+
+        test.equal(moment("2012-05-2", 'YYYY-MM-DD', true).isValid(), false, "invalid one-digit day");
+
+        test.equal(moment("+002012-05-25", 'YYYYY-MM-DD', true).isValid(), true, "valid six-digit year");
+        test.equal(moment("+2012-05-25", 'YYYYY-MM-DD', true).isValid(), false, "invalid four-digit year");
+
+        //thse are kinda pointless, but they should work as expected
+        test.equal(moment("1", 'S', true).isValid(), true, "valid one-digit milisecond");
+        test.equal(moment("12", 'S', true).isValid(), false, "invalid two-digit milisecond");
+        test.equal(moment("123", 'S', true).isValid(), false, "invalid three-digit milisecond");
+
+        test.equal(moment("1", 'SS', true).isValid(), false, "invalid one-digit milisecond");
+        test.equal(moment("12", 'SS', true).isValid(), true, "valid two-digit milisecond");
+        test.equal(moment("123", 'SS', true).isValid(), false, "invalid three-digit milisecond");
+
+        test.equal(moment("1", 'SSS', true).isValid(), false, "invalid one-digit milisecond");
+        test.equal(moment("12", 'SSS', true).isValid(), false, "invalid two-digit milisecond");
+        test.equal(moment("123", 'SSS', true).isValid(), true, "valid three-digit milisecond");
 
         test.done();
     },
