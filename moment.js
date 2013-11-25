@@ -920,14 +920,12 @@
         case 'ggggg':
             return strict ? parseTokenSixDigits : parseTokenOneToSixDigits;
         case 'S':
-            if (strict) { return parseTokenOneDigit;}
+            if (strict) { return parseTokenOneDigit; }
             /* falls through */
         case 'SS':
-            if (strict) { return parseTokenTwoDigits;}
+            if (strict) { return parseTokenTwoDigits; }
             /* falls through */
         case 'SSS':
-            if (strict) { return parseTokenThreeDigits;}
-            /* falls through */
         case 'DDD':
             return strict ? parseTokenThreeDigits : parseTokenOneToThreeDigits;
         case 'MMM':
