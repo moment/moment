@@ -247,7 +247,7 @@
             X    : function () {
                 return this.unix();
             },
-            q : function () {
+            Q : function () {
                 return this.quarterOfYear();
             }
         },
