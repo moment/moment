@@ -246,6 +246,9 @@
             },
             X    : function () {
                 return this.unix();
+            },
+            q : function () {
+                return this.quarterOfYear();
             }
         },
 
@@ -2011,6 +2014,10 @@
         dayOfYear : function (input) {
             var dayOfYear = round((moment(this).startOf('day') - moment(this).startOf('year')) / 864e5) + 1;
             return input == null ? dayOfYear : this.add("d", (input - dayOfYear));
+        },
+
+        quarterOfYear : function () {
+            return Math.ceil((this.month() + 1.0) / 3.0);
         },
 
         weekYear : function (input) {
