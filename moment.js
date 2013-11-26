@@ -248,7 +248,7 @@
                 return this.unix();
             },
             Q : function () {
-                return this.quarterOfYear();
+                return this.quarter();
             }
         },
 
@@ -2016,7 +2016,7 @@
             return input == null ? dayOfYear : this.add("d", (input - dayOfYear));
         },
 
-        quarterOfYear : function () {
+        quarter : function () {
             return Math.ceil((this.month() + 1.0) / 3.0);
         },
 
