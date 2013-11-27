@@ -54,7 +54,10 @@
     "ender": "./ender.js",
     "dojoBuild": "package.js",
     "jspm": {
-        "files": ["moment.js"],
+        "files": ["moment.js", "lang"],
+        "dependencyMap": {
+            "moment": "./moment"
+        },
         "buildConfig": {
             "uglify": true
         }
