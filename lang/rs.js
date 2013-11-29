@@ -66,7 +66,7 @@
         }
     }
 
-    return moment.lang('bs', {
+    return moment.lang('rs', {
         months : "januar_februar_mart_april_maj_jun_jul_avgust_septembar_oktobar_novembar_decembar".split("_"),
         monthsShort : "jan._feb._mar._apr._maj._jun._jul._avg._sep._okt._nov._dec.".split("_"),
         weekdays : "nedelja_ponedeljak_utorak_sreda_četvrtak_petak_subota".split("_"),
