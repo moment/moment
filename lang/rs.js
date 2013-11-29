@@ -98,7 +98,7 @@
                     return '[u] dddd [u] LT';
                 }
             },
-            lastDay  : '[jučer u] LT',
+            lastDay  : '[juče u] LT',
             lastWeek : function () {
                 switch (this.day()) {
                 case 0:
