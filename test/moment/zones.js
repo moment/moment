@@ -477,5 +477,16 @@ exports.zones = {
         test.equal(m.zone(), 13 * 60);
         test.equal(m.hours(), 0);
         test.done();
+    },
+
+    "timezone format" : function (test) {
+        test.equal(moment().zone(-60).format('ZZ'), "+0100", "-60 -> +0100");
+        test.equal(moment().zone(-90).format('ZZ'), "+0130", "-90 -> +0130");
+        test.equal(moment().zone(-120).format('ZZ'), "+0200", "-120 -> +0200");
+
+        test.equal(moment().zone(+60).format('ZZ'), "-0100", "+60 -> -0100");
+        test.equal(moment().zone(+90).format('ZZ'), "-0130", "+90 -> -0130");
+        test.equal(moment().zone(+120).format('ZZ'), "-0200", "+120 -> -0200");
+        test.done();
     }
 };
