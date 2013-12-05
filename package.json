@@ -55,7 +55,7 @@
     "dojoBuild": "package.js",
     "jspm": {
         "files": ["moment.js", "lang"],
-        "dependencyMap": {
+        "map": {
             "moment": "./moment"
         },
         "buildConfig": {
