@@ -38,7 +38,7 @@
                 return ((/^[0-9].+$/).test(s) ? "tra" : "in") + " " + s;
             },
             past : "%s fa",
-            s : "alcuni secondi",
+            s : "secondi",
             m : "un minuto",
             mm : "%d minuti",
             h : "un'ora",
