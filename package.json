@@ -47,7 +47,7 @@
         "grunt-contrib-uglify": "latest",
         "grunt-contrib-watch": "latest",
         "grunt-lib-legacyhelpers": "latest",
-        "grunt-karma": "https://github.com/karma-runner/grunt-karma/archive/a8472d47240a71673cb5601acba6a093fe7387c1.tar.gz",
+        "grunt-karma": "~0.7.2",
         "karma": "~0.11.0",
         "karma-nodeunit": "~0.1.1",
         "karma-sauce-launcher": "~0.1"
