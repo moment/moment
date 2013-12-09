@@ -19,6 +19,15 @@ module.exports = function (grunt) {
             langs: {
                 src: 'lang/*.js',
                 dest: 'min/langs.js'
+            },
+            tests: {
+                src: [
+                    'test/browser-prefix.js',
+                    'test/moment/*.js',
+                    'test/lang/*.js',
+                    'test/browser-suffix.js'
+                ],
+                dest: 'min/tests.js'
             }
         },
 
@@ -27,8 +36,9 @@ module.exports = function (grunt) {
                 frameworks: ['nodeunit'],
                 files: [
                     'min/moment-with-langs.js',
-                    'test/moment/**/*.js',
-                    'test/lang/**/*.js',
+                    'min/tests.js',
+                    // 'test/moment/**/*.js',
+                    // 'test/lang/**/*.js',
                     'test/browser.js'
                 ],
                 sauceLabs: {
