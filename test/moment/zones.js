@@ -481,6 +481,15 @@ exports.zones = {
         test.equal(m.hours(), 0);
         test.done();
     },
+    
+    "parse zone dependent on format string" : function (test) {
+        test.expect(1);
+        
+        var m = moment("11-12-2013 -0400 +1100", "DD-MM-YYYY ZZ #####").parseZone();
+        
+        test.equal(m.zone(), 4 * 60);
+        test.done();
+    },
 
     "timezone format" : function (test) {
         test.equal(moment().zone(-60).format('ZZ'), "+0100", "-60 -> +0100");
