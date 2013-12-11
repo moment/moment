@@ -1,5 +1,9 @@
 var moment = require("../../moment");
 
+// helper
+function _capitalise(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
     /**************************************************
       French
@@ -14,6 +18,13 @@ exports["lang:fr"] = {
     tearDown : function (cb) {
         moment.lang('en');
         cb();
+    },
+
+    "_capitalise" : function (test) {
+        test.expect(2);
+        test.equal(_capitalise('foo'), 'Foo');
+        test.equal(_capitalise('foO'), 'FoO');
+        test.done();
     },
 
     "parse" : function (test) {
@@ -207,11 +218,11 @@ exports["lang:fr"] = {
 
         for (i = 2; i < 7; i++) {
             m = moment().add({ d: i });
-            test.equal(m.calendar(),       m.format('dddd [à] LT'),  "Today + " + i + " days current time");
+            test.equal(m.calendar(), _capitalise(m.format('dddd [à] LT')),  "Today + " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('dddd [à] LT'),  "Today + " + i + " days beginning of day");
+            test.equal(m.calendar(), _capitalise(m.format('dddd [à] LT')),  "Today + " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('dddd [à] LT'),  "Today + " + i + " days end of day");
+            test.equal(m.calendar(), _capitalise(m.format('dddd [à] LT')),  "Today + " + i + " days end of day");
         }
         test.done();
     },
@@ -223,11 +234,11 @@ exports["lang:fr"] = {
 
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
-            test.equal(m.calendar(),       m.format('dddd [dernier à] LT'),  "Today - " + i + " days current time");
+            test.equal(m.calendar(), _capitalise(m.format('dddd [dernier à] LT')),  "Today - " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('dddd [dernier à] LT'),  "Today - " + i + " days beginning of day");
+            test.equal(m.calendar(), _capitalise(m.format('dddd [dernier à] LT')),  "Today - " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('dddd [dernier à] LT'),  "Today - " + i + " days end of day");
+            test.equal(m.calendar(), _capitalise(m.format('dddd [dernier à] LT')),  "Today - " + i + " days end of day");
         }
         test.done();
     },
@@ -238,13 +249,13 @@ exports["lang:fr"] = {
             weeksFromNow = moment().add({ w: 1 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
-        test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
+        test.equal(weeksFromNow.calendar(),   _capitalise(weeksFromNow.format('L')),  "in 1 week");
 
         weeksAgo = moment().subtract({ w: 2 });
         weeksFromNow = moment().add({ w: 2 });
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
-        test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
+        test.equal(weeksFromNow.calendar(),   _capitalise(weeksFromNow.format('L')),  "in 2 weeks");
         test.done();
     },
 

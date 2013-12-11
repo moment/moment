@@ -698,11 +698,11 @@
         },
 
         _calendar : {
-            sameDay : '[Today at] LT',
-            nextDay : '[Tomorrow at] LT',
+            sameDay : '[today at] LT',
+            nextDay : '[tomorrow at] LT',
             nextWeek : 'dddd [at] LT',
-            lastDay : '[Yesterday at] LT',
-            lastWeek : '[Last] dddd [at] LT',
+            lastDay : '[yesterday at] LT',
+            lastWeek : '[last] dddd [at] LT',
             sameElse : 'L'
         },
         calendar : function (key, mom) {
@@ -1848,15 +1848,18 @@
             return this.from(moment(), withoutSuffix);
         },
 
-        calendar : function () {
+        calendar : function (upperCaseFirstLetter) {
+            // default to true
+            upperCaseFirstLetter = typeof upperCaseFirstLetter === 'boolean' ? upperCaseFirstLetter: true;
             var diff = this.diff(moment().zone(this.zone()).startOf('day'), 'days', true),
                 format = diff < -6 ? 'sameElse' :
                 diff < -1 ? 'lastWeek' :
                 diff < 0 ? 'lastDay' :
                 diff < 1 ? 'sameDay' :
                 diff < 2 ? 'nextDay' :
-                diff < 7 ? 'nextWeek' : 'sameElse';
-            return this.format(this.lang().calendar(format, this));
+                diff < 7 ? 'nextWeek' : 'sameElse',
+            res = this.format(this.lang().calendar(format, this));
+            return upperCaseFirstLetter ? res.charAt(0).toUpperCase() + res.slice(1) : res;
         },
 
         isLeapYear : function () {
