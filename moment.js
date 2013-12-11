@@ -362,11 +362,13 @@
     // left zero fill a number
     // see http://jsperf.com/left-zero-filling for performance comparison
     function leftZeroFill(number, targetLength) {
-        var output = number + '';
+        var output = Math.abs(number) + '',
+            sign = number >= 0;
+
         while (output.length < targetLength) {
             output = '0' + output;
         }
-        return output;
+        return (sign ? '' : '-') + output;
     }
 
     // helper function for _.addTime and _.subtractTime

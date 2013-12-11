@@ -28,6 +28,24 @@ exports.format = {
         test.done();
     },
 
+    "handle negative years" : function (test) {
+        test.expect(10);
+
+        moment.lang('en');
+        test.equal(moment.utc().year(-1).format('YY'), '-01', 'YY with negative year');
+        test.equal(moment.utc().year(-1).format('YYYY'), '-0001', 'YYYY with negative year');
+        test.equal(moment.utc().year(-12).format('YY'), '-12', 'YY with negative year');
+        test.equal(moment.utc().year(-12).format('YYYY'), '-0012', 'YYYY with negative year');
+        test.equal(moment.utc().year(-123).format('YY'), '-23', 'YY with negative year');
+        test.equal(moment.utc().year(-123).format('YYYY'), '-0123', 'YYYY with negative year');
+        test.equal(moment.utc().year(-1234).format('YY'), '-34', 'YY with negative year');
+        test.equal(moment.utc().year(-1234).format('YYYY'), '-1234', 'YYYY with negative year');
+        test.equal(moment.utc().year(-12345).format('YY'), '-45', 'YY with negative year');
+        test.equal(moment.utc().year(-12345).format('YYYY'), '-12345', 'YYYY with negative year');
+
+        test.done();
+    },
+
     "format milliseconds" : function (test) {
         test.expect(6);
         var b = moment(new Date(2009, 1, 14, 15, 25, 50, 123));
