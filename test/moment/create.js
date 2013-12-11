@@ -733,6 +733,9 @@ exports.create = {
         //can parse other stuff too
         test.equal(moment('1999-W37-4 3:30', 'GGGG-[W]WW-E HH:mm').format('YYYY MM DD HH:mm'), '1999 09 16 03:30', "parsing weeks and hours");
 
+        // Years less than 100
+        ver('0098-06', 'GGGG-WW', "0098 02 03", "small years work", true);
+
         test.done();
     },
 

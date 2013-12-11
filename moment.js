@@ -365,14 +365,14 @@
 
     // left zero fill a number
     // see http://jsperf.com/left-zero-filling for performance comparison
-    function leftZeroFill(number, targetLength) {
+    function leftZeroFill(number, targetLength, forceSign) {
         var output = Math.abs(number) + '',
             sign = number >= 0;
 
         while (output.length < targetLength) {
             output = '0' + output;
         }
-        return (sign ? '' : '-') + output;
+        return (sign ? (forceSign ? '+' : '') : '-') + output;
     }
 
     // helper function for _.addTime and _.subtractTime
@@ -1121,8 +1121,9 @@
         //compute day of the year from weeks and weekdays
         if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
             fixYear = function (val) {
+                var int_val = parseInt(val, 10);
                 return val ?
-                  (val.length < 3 ? (parseInt(val, 10) > 68 ? '19' + val : '20' + val) : val) :
+                  (val.length < 3 ? (int_val > 68 ? 1900 + int_val : 2000 + int_val) : int_val) :
                   (config._a[YEAR] == null ? moment().weekYear() : config._a[YEAR]);
             };
 
@@ -1487,7 +1488,10 @@
 
     //http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
     function dayOfYearFromWeeks(year, week, weekday, firstDayOfWeekOfYear, firstDayOfWeek) {
-        var d = new Date(Date.UTC(year, 0)).getUTCDay(),
+        // The only solid way to create an iso date from year is to use
+        // a string format (Date.UTC handles only years > 1900). Don't ask why
+        // it doesn't need Z at the end.
+        var d = new Date(leftZeroFill(year, 6, true) + '-01-01').getUTCDay(),
             daysToAdd, dayOfYear;
 
         weekday = weekday != null ? weekday : firstDayOfWeek;
