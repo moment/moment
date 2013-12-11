@@ -20,11 +20,11 @@
         weekdaysMin : "日_一_二_三_四_五_六".split("_"),
         longDateFormat : {
             LT : "Ah点mm",
-            L : "YYYY年MMMD日",
+            L : "YYYY-MM-DD",
             LL : "YYYY年MMMD日",
             LLL : "YYYY年MMMD日LT",
             LLLL : "YYYY年MMMD日ddddLT",
-            l : "YYYY年MMMD日",
+            l : "YYYY-MM-DD",
             ll : "YYYY年MMMD日",
             lll : "YYYY年MMMD日LT",
             llll : "YYYY年MMMD日ddddLT"
@@ -67,7 +67,7 @@
                 prefix = this.unix() < startOfWeek.unix()  ? '[上]' : '[本]';
                 return this.minutes() === 0 ? prefix + "dddAh点整" : prefix + "dddAh点mm";
             },
-            sameElse : 'L'
+            sameElse : 'LL'
         },
         ordinal : function (number, period) {
             switch (period) {
