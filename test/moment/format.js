@@ -28,6 +28,17 @@ exports.format = {
         test.done();
     },
 
+    "handle negative years" : function (test) {
+        test.expect(2);
+
+        moment.lang('en');
+        var m = moment('-000001-01-01T00:00:00.000Z');
+        test.equal(m.format('YY'), '-02', 'YY with negative year');
+        test.equal(m.format('YYYY'), '-0002', 'YYYY with negative year');
+
+        test.done();
+    },
+
     "format milliseconds" : function (test) {
         test.expect(6);
         var b = moment(new Date(2009, 1, 14, 15, 25, 50, 123));
