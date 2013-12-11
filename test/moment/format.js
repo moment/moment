@@ -166,6 +166,19 @@ exports.format = {
         test.done();
     },
 
+    "long years" : function (test) {
+        test.expect(6);
+        test.equal(moment.utc().year(2).format('YYYYYY'), '+000002', 'small year with YYYYYY');
+        test.equal(moment.utc().year(2012).format('YYYYYY'), '+002012', 'regular year with YYYYYY');
+        test.equal(moment.utc().year(20123).format('YYYYYY'), '+020123', 'big year with YYYYYY');
+
+        test.equal(moment.utc().year(-1).format('YYYYYY'), '-000001', 'small negative year with YYYYYY');
+        test.equal(moment.utc().year(-2012).format('YYYYYY'), '-002012', 'negative year with YYYYYY');
+        test.equal(moment.utc().year(-20123).format('YYYYYY'), '-020123', 'big negative year with YYYYYY');
+
+        test.done();
+    },
+
     "weeks format" : function (test) {
 
         // http://en.wikipedia.org/wiki/ISO_week_date
