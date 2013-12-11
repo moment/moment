@@ -178,9 +178,34 @@ exports.format = {
     },
 
     "toISOString" : function (test) {
+        test.expect(4);
         var date = moment.utc("2012-10-09T20:30:40.678");
 
         test.equal(date.toISOString(), "2012-10-09T20:30:40.678Z", "should output ISO8601 on moment.fn.toISOString");
+
+        // big years
+        date = moment.utc("+020123-10-09T20:30:40.678");
+        test.equal(date.toISOString(), "+020123-10-09T20:30:40.678Z", "ISO8601 format on big positive year");
+        // negative years
+        date = moment.utc("-000001-10-09T20:30:40.678");
+        test.equal(date.toISOString(), "-000001-10-09T20:30:40.678Z", "ISO8601 format on big positive year");
+        // big negative years
+        date = moment.utc("-020123-10-09T20:30:40.678");
+        test.equal(date.toISOString(), "-020123-10-09T20:30:40.678Z", "ISO8601 format on big positive year");
+
+        test.done();
+    },
+
+    "long years" : function (test) {
+        test.expect(6);
+        test.equal(moment.utc().year(2).format('YYYYYY'), '+000002', 'small year with YYYYYY');
+        test.equal(moment.utc().year(2012).format('YYYYYY'), '+002012', 'regular year with YYYYYY');
+        test.equal(moment.utc().year(20123).format('YYYYYY'), '+020123', 'big year with YYYYYY');
+
+        test.equal(moment.utc().year(-1).format('YYYYYY'), '-000001', 'small negative year with YYYYYY');
+        test.equal(moment.utc().year(-2012).format('YYYYYY'), '-002012', 'negative year with YYYYYY');
+        test.equal(moment.utc().year(-20123).format('YYYYYY'), '-020123', 'big negative year with YYYYYY');
+
         test.done();
     },
 
