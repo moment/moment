@@ -57,11 +57,11 @@ exports["lang:zh-cn"] = {
                 ['s ss',                               '50 50'],
                 ['a A',                                '下午 下午'],
                 ['[这年的第] DDDo',                     '这年的第 45日'],
-                ['L',                                  '2010年2月14日'],
+                ['L',                                  '2010-02-14'],
                 ['LL',                                 '2010年2月14日'],
                 ['LLL',                                '2010年2月14日下午3点25'],
                 ['LLLL',                               '2010年2月14日星期日下午3点25'],
-                ['l',                                  '2010年2月14日'],
+                ['l',                                  '2010-02-14'],
                 ['ll',                                 '2010年2月14日'],
                 ['lll',                                '2010年2月14日下午3点25'],
                 ['llll',                               '2010年2月14日星期日下午3点25']
@@ -229,14 +229,14 @@ exports["lang:zh-cn"] = {
         var weeksAgo = moment().subtract({ w: 1 }),
             weeksFromNow = moment().add({ w: 1 });
 
-        test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),      "1 week ago");
-        test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
+        test.equal(weeksAgo.calendar(),       weeksAgo.format('LL'),      "1 week ago");
+        test.equal(weeksFromNow.calendar(),   weeksFromNow.format('LL'),  "in 1 week");
 
         weeksAgo = moment().subtract({ w: 2 });
         weeksFromNow = moment().add({ w: 2 });
 
-        test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),      "2 weeks ago");
-        test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
+        test.equal(weeksAgo.calendar(),       weeksAgo.format('LL'),      "2 weeks ago");
+        test.equal(weeksFromNow.calendar(),   weeksFromNow.format('LL'),  "in 2 weeks");
         test.done();
     },
 
