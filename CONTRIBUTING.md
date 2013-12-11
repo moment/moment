@@ -16,9 +16,10 @@ If you are submitting a bug, please create a [jsfiddle](http://jsfiddle.net/) de
 Contributing
 ============
 
-To contribute, fork the library and install grunt.
+To contribute, fork the library and install grunt and dependencies.
 
-    npm install grunt -g
+    npm install -g grunt-cli
+    npm install
 
 You can add tests to the files in `/test/moment` or add a new test file if you are adding a new feature.
 

@@ -52,5 +52,14 @@
         "test": "grunt"
     },
     "ender": "./ender.js",
-    "dojoBuild": "package.js"
+    "dojoBuild": "package.js",
+    "jspm": {
+        "files": ["moment.js", "lang"],
+        "map": {
+            "moment": "./moment"
+        },
+        "buildConfig": {
+            "uglify": true
+        }
+    }
 }
