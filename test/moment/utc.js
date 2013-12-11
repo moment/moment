@@ -34,19 +34,27 @@ exports.utc = {
         expected = (24 + 3 - zone) % 24;
         test.equal(m.hours(), expected, "the hours (" + m.hours() + ") should be correct for local");
         test.equal(moment().utc().zone(), 0, "timezone in utc should always be zero");
+
         test.done();
     },
 
-    "creating with utc" : function (test) {
-        test.expect(7);
+    "creating with utc and no arguments" : function (test) {
+        test.expect(2);
 
-        var diff = moment.utc().valueOf() - moment().valueOf(), m;
-        diff = Math.abs(diff);
-        // we check the diff rather than equality because sometimes they are off by a millisecond
+        var startOfTest = new Date().valueOf(),
+            momentDefaultUtcTime = moment.utc().valueOf(),
+            afterMomentCreationTime = new Date().valueOf();
 
-        test.ok(diff < 5, "Calling moment.utc() should default to the current time");
+        test.ok(startOfTest <= momentDefaultUtcTime, "moment UTC default time should be now, not in the past");
+        test.ok(momentDefaultUtcTime <= afterMomentCreationTime, "moment UTC default time should be now, not in the future");
 
-        m = moment.utc([2011, 1, 2, 3, 4, 5, 6]);
+        test.done();
+    },
+
+    "creating with utc and a date parameter array" : function (test) {
+        test.expect(6);
+
+        var m = moment.utc([2011, 1, 2, 3, 4, 5, 6]);
         test.equal(m.date(), 2, "the day should be correct for utc array");
         test.equal(m.hours(), 3, "the hours should be correct for utc array");
 
