@@ -37,7 +37,7 @@ Changelog
 * New languages
   * Farose (fo) [#1206](https://github.com/moment/moment/issues/1206)
   * Tagalog/Filipino (tl-ph) [#1197](https://github.com/moment/moment/issues/1197)
-  * Welsh (cy) [#1214](https://github.com/moment/moment/issues/1214)
+  * Welsh (cy) [#1215](https://github.com/moment/moment/issues/1215)
 * Bugfixes
   * properly handle Z at the end of iso RegExp [#1187](https://github.com/moment/moment/issues/1187)
   * chinese meridian time improvements [#1076](https://github.com/moment/moment/issues/1076)
