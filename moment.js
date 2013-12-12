@@ -413,8 +413,8 @@
     }
 
     function isDate(input) {
-        return  Object.prototype.toString.call(input) === '[object Date]' ||
-                input instanceof Date;
+        return input instanceof Date || 
+               Object.prototype.toString.call(input) === '[object Date]';
     }
 
     // compare two arrays, return the number of differences
