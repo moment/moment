@@ -482,12 +482,21 @@ exports.zones = {
         test.done();
     },
     
-    "parse zone dependent on format string" : function (test) {
+    "parse zone with a timezone from the format string" : function (test) {
         test.expect(1);
         
         var m = moment("11-12-2013 -0400 +1100", "DD-MM-YYYY ZZ #####").parseZone();
         
         test.equal(m.zone(), 4 * 60);
+        test.done();
+    },
+
+    "parse zone without a timezone included in the format string" : function (test) {
+        test.expect(1);
+
+        var m = moment("11-12-2013 -0400 +1100", "DD-MM-YYYY").parseZone();
+
+        test.equal(m.zone(), -11 * 60);
         test.done();
     },
 
