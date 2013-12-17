@@ -62,6 +62,9 @@ exports.zones = {
         zone.zone("2013-03-07T07:00:00+0100");
         test.equal(zone.zone(), -60, "set the zone with a string that uses the +0000 syntax");
 
+        zone.zone("03-07-2013T07:00:00-08:00");
+        test.equal(zone.zone(), 480, "set the zone with a string with a non-ISO 8601 date");
+
         test.done();
     },
 
@@ -476,6 +479,24 @@ exports.zones = {
         var m = moment.parseZone("2013-01-01T00:00:00-13:00");
         test.equal(m.zone(), 13 * 60);
         test.equal(m.hours(), 0);
+        test.done();
+    },
+    
+    "parse zone with a timezone from the format string" : function (test) {
+        test.expect(1);
+        
+        var m = moment("11-12-2013 -0400 +1100", "DD-MM-YYYY ZZ #####").parseZone();
+        
+        test.equal(m.zone(), 4 * 60);
+        test.done();
+    },
+
+    "parse zone without a timezone included in the format string" : function (test) {
+        test.expect(1);
+
+        var m = moment("11-12-2013 -0400 +1100", "DD-MM-YYYY").parseZone();
+
+        test.equal(m.zone(), -11 * 60);
         test.done();
     },
 
