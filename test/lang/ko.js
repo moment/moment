@@ -38,7 +38,7 @@ exports["lang:kr"] = {
     },
     
     
-    "parse meridiem" : function(test){
+    "parse meridiem" : function (test){
     	var elements = [{
     		expression : "1981년 9월 8일 오후 2시 30분",
     		inputFormat : "YYYY[년] M[월] D[일] A h[시] m[분]",
