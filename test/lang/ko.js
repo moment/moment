@@ -43,17 +43,17 @@ exports["lang:kr"] = {
             inputFormat : "YYYY[년] M[월] D[일] A h[시] m[분]",
             outputFormat : "A",
             expected : "오후"
-        },{
+        }, {
             expression : "1981년 9월 8일 오전 2시 30분",
             inputFormat : "YYYY[년] M[월] D[일] A h[시] m[분]",
             outputFormat : "A h시",
             expected : "오전 2시"
-        },{
+        }, {
             expression : "14시 30분",
             inputFormat : "H[시] m[분]",
             outputFormat : "A",
             expected : "오후"
-        },{
+        }, {
             expression : "오후 4시",
             inputFormat : "A h[시]",
             outputFormat : "H",
@@ -62,7 +62,7 @@ exports["lang:kr"] = {
   
         test.expect(elements.length);
         
-        elements.forEach(function(it){
+        elements.forEach(function (it) {
             var actual = moment(it.expression, it.inputFormat).format(it.outputFormat);
             
             test.equal(
