@@ -31,21 +31,38 @@ Master [![Build Status](https://travis-ci.org/moment/moment.png?branch=master)](
 Changelog
 =========
 
+### 2.5.0 [See changelog](https://gist.github.com/ichernev/8104451)
+
+* New languages
+  * Luxemburish (lb) [1247](https://github.com/moment/moment/issues/1247)
+  * Serbian (rs) [1319](https://github.com/moment/moment/issues/1319)
+  * Tamil (ta) [1324](https://github.com/moment/moment/issues/1324)
+  * Macedonian (mk) [1337](https://github.com/moment/moment/issues/1337)
+
+* Features
+  * [1311](https://github.com/moment/moment/issues/1311) Add quarter getter and format token `Q`
+  * [1303](https://github.com/moment/moment/issues/1303) strict parsing now respects number of digits per token (fix [1196](https://github.com/moment/moment/issues/1196))
+  * 0d30bb7 add jspm support
+  * [1347](https://github.com/moment/moment/issues/1347) improve zone parsing
+  * [1362](https://github.com/moment/moment/issues/1362) support merideam parsing in Korean
+
+* 22 bugfixes
+
 ### 2.4.0
 
 * **Deprecate** globally exported moment, will be removed in next major
 * New languages
   * Farose (fo) [#1206](https://github.com/moment/moment/issues/1206)
   * Tagalog/Filipino (tl-ph) [#1197](https://github.com/moment/moment/issues/1197)
-  * Welsh (cy) [#1214](https://github.com/moment/moment/issues/1214)
+  * Welsh (cy) [#1215](https://github.com/moment/moment/issues/1215)
 * Bugfixes
   * properly handle Z at the end of iso RegExp [#1187](https://github.com/moment/moment/issues/1187)
   * chinese meridian time improvements [#1076](https://github.com/moment/moment/issues/1076)
   * fix language tests [#1177](https://github.com/moment/moment/issues/1177)
   * remove some failing tests (that should have never existed :))
-    [#1185](https://github.com/moment/moment/issues/#1185)
+    [#1185](https://github.com/moment/moment/issues/1185)
     [#1183](https://github.com/moment/moment/issues/1183)
-  * handle russian noun cases in weird cases [#1195](https://github.com/moment/moment/issues/1195]
+  * handle russian noun cases in weird cases [#1195](https://github.com/moment/moment/issues/1195)
 
 ### 2.3.1
 

@@ -136,7 +136,7 @@ exports["lang:it"] = {
         test.expect(30);
 
         var start = moment([2007, 1, 28]);
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "secondi",    "44 seconds = seconds");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "alcuni secondi",    "44 seconds = seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "un minuto",   "45 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  "un minuto",   "89 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  "2 minuti",  "90 seconds = 2 minutes");
@@ -172,15 +172,15 @@ exports["lang:it"] = {
     "suffix" : function (test) {
         test.expect(2);
 
-        test.equal(moment(30000).from(0), "in secondi", "prefix");
-        test.equal(moment(0).from(30000), "secondi fa", "suffix");
+        test.equal(moment(30000).from(0), "in alcuni secondi", "prefix");
+        test.equal(moment(0).from(30000), "alcuni secondi fa", "suffix");
         test.done();
     },
 
     "fromNow" : function (test) {
         test.expect(2);
 
-        test.equal(moment().add({s: 30}).fromNow(), "in secondi", "in seconds");
+        test.equal(moment().add({s: 30}).fromNow(), "in alcuni secondi", "in seconds");
         test.equal(moment().add({d: 5}).fromNow(), "tra 5 giorni", "in 5 days");
         test.done();
     },

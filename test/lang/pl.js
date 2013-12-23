@@ -133,7 +133,7 @@ exports["lang:pl"] = {
     },
 
     "from" : function (test) {
-        test.expect(30);
+        test.expect(34);
 
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "kilka sekund",  "44 seconds = a few seconds");
@@ -166,6 +166,10 @@ exports["lang:pl"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "2 lata",        "548 days = 2 years");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "rok",           "1 year = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "5 lat",         "5 years = 5 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 112}), true), "112 lat",       "112 years = 112 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 122}), true), "122 lata",      "122 years = 122 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 213}), true), "213 lat",       "213 years = 213 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 223}), true), "223 lata",      "223 years = 223 years");
         test.done();
     },
 

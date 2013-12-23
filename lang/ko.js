@@ -1,7 +1,10 @@
 // moment.js language configuration
 // language : korean (ko)
-// author : Kyungwook, Park : https://github.com/kyungw00k
-
+//
+// authors 
+//
+// - Kyungwook, Park : https://github.com/kyungw00k
+// - Jeeeyul Lee <jeeeyul@gmail.com>
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
         define(['moment'], factory); // AMD
@@ -51,6 +54,10 @@
             y : "일년",
             yy : "%d년"
         },
-        ordinal : '%d일'
+        ordinal : '%d일',
+        meridiemParse : /(오전|오후)/,
+        isPM : function (token) {
+            return token === "오후";
+        }
     });
 }));

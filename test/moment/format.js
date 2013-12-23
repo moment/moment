@@ -28,6 +28,24 @@ exports.format = {
         test.done();
     },
 
+    "handle negative years" : function (test) {
+        test.expect(10);
+
+        moment.lang('en');
+        test.equal(moment.utc().year(-1).format('YY'), '-01', 'YY with negative year');
+        test.equal(moment.utc().year(-1).format('YYYY'), '-0001', 'YYYY with negative year');
+        test.equal(moment.utc().year(-12).format('YY'), '-12', 'YY with negative year');
+        test.equal(moment.utc().year(-12).format('YYYY'), '-0012', 'YYYY with negative year');
+        test.equal(moment.utc().year(-123).format('YY'), '-23', 'YY with negative year');
+        test.equal(moment.utc().year(-123).format('YYYY'), '-0123', 'YYYY with negative year');
+        test.equal(moment.utc().year(-1234).format('YY'), '-34', 'YY with negative year');
+        test.equal(moment.utc().year(-1234).format('YYYY'), '-1234', 'YYYY with negative year');
+        test.equal(moment.utc().year(-12345).format('YY'), '-45', 'YY with negative year');
+        test.equal(moment.utc().year(-12345).format('YYYY'), '-12345', 'YYYY with negative year');
+
+        test.done();
+    },
+
     "format milliseconds" : function (test) {
         test.expect(6);
         var b = moment(new Date(2009, 1, 14, 15, 25, 50, 123));
@@ -160,9 +178,34 @@ exports.format = {
     },
 
     "toISOString" : function (test) {
+        test.expect(4);
         var date = moment.utc("2012-10-09T20:30:40.678");
 
         test.equal(date.toISOString(), "2012-10-09T20:30:40.678Z", "should output ISO8601 on moment.fn.toISOString");
+
+        // big years
+        date = moment.utc("+020123-10-09T20:30:40.678");
+        test.equal(date.toISOString(), "+020123-10-09T20:30:40.678Z", "ISO8601 format on big positive year");
+        // negative years
+        date = moment.utc("-000001-10-09T20:30:40.678");
+        test.equal(date.toISOString(), "-000001-10-09T20:30:40.678Z", "ISO8601 format on big positive year");
+        // big negative years
+        date = moment.utc("-020123-10-09T20:30:40.678");
+        test.equal(date.toISOString(), "-020123-10-09T20:30:40.678Z", "ISO8601 format on big positive year");
+
+        test.done();
+    },
+
+    "long years" : function (test) {
+        test.expect(6);
+        test.equal(moment.utc().year(2).format('YYYYYY'), '+000002', 'small year with YYYYYY');
+        test.equal(moment.utc().year(2012).format('YYYYYY'), '+002012', 'regular year with YYYYYY');
+        test.equal(moment.utc().year(20123).format('YYYYYY'), '+020123', 'big year with YYYYYY');
+
+        test.equal(moment.utc().year(-1).format('YYYYYY'), '-000001', 'small negative year with YYYYYY');
+        test.equal(moment.utc().year(-2012).format('YYYYYY'), '-002012', 'negative year with YYYYYY');
+        test.equal(moment.utc().year(-20123).format('YYYYYY'), '-020123', 'big negative year with YYYYYY');
+
         test.done();
     },
 
@@ -337,6 +380,20 @@ exports.format = {
 
         test.equal(moment.invalid().format(), "Invalid date");
         test.equal(moment.invalid().format('YYYY-MM-DD'), "Invalid date");
+
+        test.done();
+    },
+
+    "quarter formats" : function (test) {
+        test.expect(7);
+
+        test.equal(moment([1985, 1,  4]).format('Q'), '1', "Feb  4 1985 is Q1");
+        test.equal(moment([2029, 8, 18]).format('Q'), '3', "Sep 18 2029 is Q3");
+        test.equal(moment([2013, 3, 24]).format('Q'), '2', "Apr 24 2013 is Q2");
+        test.equal(moment([2015, 2,  5]).format('Q'), '1', "Mar  5 2015 is Q1");
+        test.equal(moment([1970, 0,  2]).format('Q'), '1', "Jan  2 1970 is Q1");
+        test.equal(moment([2001, 11, 12]).format('Q'), '4', "Dec 12 2001 is Q4");
+        test.equal(moment([2000, 0,  2]).format('[Q]Q-YYYY'), 'Q1-2000', "Jan  2 2000 is Q1");
 
         test.done();
     }

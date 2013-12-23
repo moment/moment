@@ -1,6 +1,6 @@
 {
     "name": "moment",
-    "version": "2.4.0",
+    "version": "2.5.0",
     "description": "Parse, manipulate, and display dates.",
     "homepage": "http://momentjs.com",
     "author": "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)",
@@ -52,5 +52,14 @@
         "test": "grunt"
     },
     "ender": "./ender.js",
-    "dojoBuild": "package.js"
+    "dojoBuild": "package.js",
+    "jspm": {
+        "files": ["moment.js", "lang"],
+        "map": {
+            "moment": "./moment"
+        },
+        "buildConfig": {
+            "uglify": true
+        }
+    }
 }

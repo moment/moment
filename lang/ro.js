@@ -12,15 +12,31 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
+    function relativeTimeWithPlural(number, withoutSuffix, key) {
+        var format = {
+            'mm': 'minute',
+            'hh': 'ore',
+            'dd': 'zile',
+            'MM': 'luni',
+            'yy': 'ani'
+        },
+            separator = ' ';
+        if (number % 100 >= 20 || (number >= 100 && number % 100 === 0)) {
+            separator = ' de ';
+        }
+
+        return number + separator + format[key];
+    }
+
     return moment.lang('ro', {
-        months : "Ianuarie_Februarie_Martie_Aprilie_Mai_Iunie_Iulie_August_Septembrie_Octombrie_Noiembrie_Decembrie".split("_"),
-        monthsShort : "Ian_Feb_Mar_Apr_Mai_Iun_Iul_Aug_Sep_Oct_Noi_Dec".split("_"),
-        weekdays : "Duminică_Luni_Marţi_Miercuri_Joi_Vineri_Sâmbătă".split("_"),
+        months : "ianuarie_februarie_martie_aprilie_mai_iunie_iulie_august_septembrie_octombrie_noiembrie_decembrie".split("_"),
+        monthsShort : "ian_feb_mar_apr_mai_iun_iul_aug_sep_oct_noi_dec".split("_"),
+        weekdays : "duminică_luni_marți_miercuri_joi_vineri_sâmbătă".split("_"),
         weekdaysShort : "Dum_Lun_Mar_Mie_Joi_Vin_Sâm".split("_"),
         weekdaysMin : "Du_Lu_Ma_Mi_Jo_Vi_Sâ".split("_"),
         longDateFormat : {
             LT : "H:mm",
-            L : "DD/MM/YYYY",
+            L : "DD.MM.YYYY",
             LL : "D MMMM YYYY",
             LLL : "D MMMM YYYY H:mm",
             LLLL : "dddd, D MMMM YYYY H:mm"
@@ -38,15 +54,15 @@
             past : "%s în urmă",
             s : "câteva secunde",
             m : "un minut",
-            mm : "%d minute",
+            mm : relativeTimeWithPlural,
             h : "o oră",
-            hh : "%d ore",
+            hh : relativeTimeWithPlural,
             d : "o zi",
-            dd : "%d zile",
+            dd : relativeTimeWithPlural,
             M : "o lună",
-            MM : "%d luni",
+            MM : relativeTimeWithPlural,
             y : "un an",
-            yy : "%d ani"
+            yy : relativeTimeWithPlural
         },
         week : {
             dow : 1, // Monday is the first day of the week.

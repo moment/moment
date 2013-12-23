@@ -136,35 +136,35 @@ exports["lang:et"] = {
         test.expect(30);
 
         var start = moment([2007, 1, 28]);
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "paari sekundi", "44 seconds = paari sekundi");
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "minut",      "45 seconds = minut");
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  "minut",      "89 seconds = minut");
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  "2 minutit",     "90 seconds = 2 minutit");
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  "44 minutit",    "44 minutes = 44 minutit");
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  "tund",       "45 minutes = tund");
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  "tund",       "89 minutes = tund");
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  "2 tundi",       "90 minutes = 2 tundi");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   "5 tundi",       "5 hours = 5 tundi");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  "21 tundi",      "21 hours = 21 tundi");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  "päev",         "22 hours = päev");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  "päev",         "35 hours = päev");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "paar sekundit",  "44 seconds = paar sekundit");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "üks minut",      "45 seconds = üks minut");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  "üks minut",      "89 seconds = üks minut");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  "2 minutit",      "90 seconds = 2 minutit");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  "44 minutit",     "44 minutes = 44 minutit");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  "üks tund",       "45 minutes = tund aega");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  "üks tund",       "89 minutes = üks tund");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  "2 tundi",        "90 minutes = 2 tundi");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   "5 tundi",        "5 hours = 5 tundi");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  "21 tundi",       "21 hours = 21 tundi");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  "üks päev",       "22 hours = üks päev");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  "üks päev",       "35 hours = üks päev");
         test.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  "2 päeva",        "36 hours = 2 päeva");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   "päev",         "1 day = päev");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   "üks päev",       "1 day = üks päev");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   "5 päeva",        "5 days = 5 päeva");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "25 päeva",       "25 days = 25 päeva");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "kuu",       "26 days = kuu");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "kuu",       "30 days = kuu");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 45}), true),  "kuu",       "45 days = kuu");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "2 kuud",      "46 days = 2 kuud");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "2 kuud",      "75 days = 2 kuud");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "3 kuud",      "76 days = 3 kuud");
-        test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "kuu",       "1 month = kuu");
-        test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "5 kuud",      "5 months = 5 kuud");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 344}), true), "11 kuud",     "344 days = 11 kuud");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "aasta",        "345 days = aasta");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 547}), true), "aasta",        "547 days = aasta");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "üks kuu",        "26 days = üks kuu");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "üks kuu",        "30 days = üks kuu");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 45}), true),  "üks kuu",        "45 days = üks kuu");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "2 kuud",         "46 days = 2 kuud");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "2 kuud",         "75 days = 2 kuud");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "3 kuud",         "76 days = 3 kuud");
+        test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "üks kuu",        "1 month = üks kuu");
+        test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "5 kuud",         "5 months = 5 kuud");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 344}), true), "11 kuud",        "344 days = 11 kuud");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "üks aasta",      "345 days = üks aasta");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 547}), true), "üks aasta",      "547 days = üks aasta");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "2 aastat",       "548 days = 2 aastat");
-        test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "aasta",        "1 year = aasta");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "üks aasta",      "1 year = üks aasta");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "5 aastat",       "5 years = 5 aastat");
         test.done();
     },
@@ -172,23 +172,47 @@ exports["lang:et"] = {
     "suffix" : function (test) {
         test.expect(2);
 
-        test.equal(moment(30000).from(0), "paari sekundi pärast",  "prefix");
-        test.equal(moment(0).from(30000), "paar sekundit tagasi", "suffix");
+        test.equal(moment(30000).from(0), "mõne sekundi pärast",  "prefix");
+        test.equal(moment(0).from(30000), "mõni sekund tagasi", "suffix");
         test.done();
     },
 
     "now from now" : function (test) {
         test.expect(1);
 
-        test.equal(moment().fromNow(), "paar sekundit tagasi",  "now from now should display as in the past");
+        test.equal(moment().fromNow(), "mõni sekund tagasi",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow" : function (test) {
-        test.expect(2);
+        test.expect(18);
 
-        test.equal(moment().add({s: 30}).fromNow(), "paari sekundi pärast", "paari sekundi pärast");
-        test.equal(moment().add({d: 5}).fromNow(), "5 päeva pärast", "5 päeva pärast");
+        test.equal(moment().add({s: 30}).fromNow(), "mõne sekundi pärast", "in a few seconds");
+        test.equal(moment().subtract({s: 30}).fromNow(), "mõni sekund tagasi", "a few seconds ago");
+        
+        test.equal(moment().add({m: 1}).fromNow(), "ühe minuti pärast", "in a minute");
+        test.equal(moment().subtract({m: 1}).fromNow(), "üks minut tagasi", "a minute ago");
+
+        test.equal(moment().add({m: 5}).fromNow(), "5 minuti pärast", "in 5 minutes");
+        test.equal(moment().subtract({m: 5}).fromNow(), "5 minutit tagasi", "5 minutes ago");
+
+        test.equal(moment().add({d: 1}).fromNow(), "ühe päeva pärast", "in one day");
+        test.equal(moment().subtract({d: 1}).fromNow(), "üks päev tagasi", "one day ago");
+
+        test.equal(moment().add({d: 5}).fromNow(), "5 päeva pärast", "in 5 days");
+        test.equal(moment().subtract({d: 5}).fromNow(), "5 päeva tagasi", "5 days ago");
+
+        test.equal(moment().add({M: 1}).fromNow(), "kuu aja pärast", "in a month");
+        test.equal(moment().subtract({M: 1}).fromNow(), "kuu aega tagasi", "a month ago");
+
+        test.equal(moment().add({M: 5}).fromNow(), "5 kuu pärast", "in 5 months");
+        test.equal(moment().subtract({M: 5}).fromNow(), "5 kuud tagasi", "5 months ago");
+
+        test.equal(moment().add({y: 1}).fromNow(), "ühe aasta pärast", "in a year");
+        test.equal(moment().subtract({y: 1}).fromNow(), "aasta tagasi", "a year ago");
+
+        test.equal(moment().add({y: 5}).fromNow(), "5 aasta pärast", "in 5 years");
+        test.equal(moment().subtract({y: 5}).fromNow(), "5 aastat tagasi", "5 years ago");
         test.done();
     },
 
@@ -200,9 +224,9 @@ exports["lang:et"] = {
         test.equal(moment(a).calendar(),                     "Täna, 2:00",     "today at the same time");
         test.equal(moment(a).add({ m: 25 }).calendar(),      "Täna, 2:25",     "Now plus 25 min");
         test.equal(moment(a).add({ h: 1 }).calendar(),       "Täna, 3:00",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "Homme, 2:00",  "tomorrow at the same time");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "Homme, 2:00",    "tomorrow at the same time");
         test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Täna, 1:00",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Eile, 2:00", "yesterday at the same time");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Eile, 2:00",     "yesterday at the same time");
         test.done();
     },
 

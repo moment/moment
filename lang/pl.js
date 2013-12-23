@@ -15,7 +15,7 @@
         monthsSubjective = "stycznia_lutego_marca_kwietnia_maja_czerwca_lipca_sierpnia_września_października_listopada_grudnia".split("_");
 
     function plural(n) {
-        return (n % 10 < 5) && (n % 10 > 1) && (~~(n / 10) !== 1);
+        return (n % 10 < 5) && (n % 10 > 1) && ((~~(n / 10) % 10) !== 1);
     }
 
     function translate(number, withoutSuffix, key) {
