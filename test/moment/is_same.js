@@ -163,9 +163,9 @@ exports.is_same = {
 
     "is same with zone'd moments" : function (test) {
         test.expect(3);
-        test.ok(moment.parseZone('2013-01-01T-05:00').isSame(moment('2013-01-01'), 'year'), "zoned vs local moment");
-        test.ok(moment('2013-01-01').isSame(moment('2013-01-01').zone('-05:00'), 'year'), "local vs zoned moment");
-        test.ok(moment.parseZone('2013-01-01T-05:00').isSame(moment.parseZone('2013-01-01T-06:30'), 'year'),
+        test.ok(moment.parseZone('2013-02-01T-05:00').isSame(moment('2013-02-01'), 'year'), "zoned vs local moment");
+        test.ok(moment('2013-02-01').isSame(moment('2013-02-01').zone('-05:00'), 'year'), "local vs zoned moment");
+        test.ok(moment.parseZone('2013-02-01T-05:00').isSame(moment.parseZone('2013-02-01T-06:30'), 'year'),
                 "zoned vs (differently) zoned moment");
         test.done();
     }
