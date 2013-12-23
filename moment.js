@@ -1876,7 +1876,7 @@
         calendar : function () {
             // We want to compare the start of today, vs this.
             // Getting start-of-today depends on whether we're zone'd or not.
-            var sod = (this._isUTC ? moment().zone(this.zone()) : moment()).startOf('day'),
+            var sod = makeAs(moment(), this).startOf('day'),
                 diff = this.diff(sod, 'days', true),
                 format = diff < -6 ? 'sameElse' :
                     diff < -1 ? 'lastWeek' :
