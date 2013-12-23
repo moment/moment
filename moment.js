@@ -584,6 +584,12 @@
         return key ? key.toLowerCase().replace('_', '-') : key;
     }
 
+    // Return a moment from input, that is local/utc/zone equivalent to model.
+    function makeAs(input, model) {
+        return model._isUTC ? moment(input).zone(model._offset || 0) :
+            moment(input).local();
+    }
+
     /************************************
         Languages
     ************************************/
@@ -1826,7 +1832,7 @@
         },
 
         diff : function (input, units, asFloat) {
-            var that = this._isUTC ? moment(input).zone(this._offset || 0) : moment(input).local(),
+            var that = makeAs(input, this),
                 zoneDiff = (this.zone() - that.zone()) * 6e4,
                 diff, output;
 
@@ -1870,7 +1876,7 @@
         calendar : function () {
             // We want to compare the start of today, vs this.
             // Getting start-of-today depends on whether we're zone'd or not.
-            var sod = (this._isUTC ? moment().zone(this.zone()) : moment()).startOf('day'),
+            var sod = makeAs(moment(), this).startOf('day'),
                 diff = this.diff(sod, 'days', true),
                 format = diff < -6 ? 'sameElse' :
                     diff < -1 ? 'lastWeek' :
@@ -1977,8 +1983,8 @@
         },
 
         isSame: function (input, units) {
-            units = typeof units !== 'undefined' ? units : 'millisecond';
-            return +this.clone().startOf(units) === +moment(input).startOf(units);
+            units = units || 'ms';
+            return +this.clone().startOf(units) === +makeAs(input, this).startOf(units);
         },
 
         min: function (other) {
