@@ -4,8 +4,8 @@ node_js:
 
 env:
   global:
-    - secure: "Secure username token goes here!"
-    - secure: "Secure access key token goes here!"
+    - secure: "i2Dl7NUAflgYdJV5one365q4RAePpLcCoKUT72c9isv891GfReRiGblfLUKRmsSpo1zfx1kIgpqOCShbR2D8rIL2t9dQ7RH4e5i5TbP1QSD0nCwBxOf6TcIQnN57Y8FgId102nsvI99DxH8cV8Xo3k0JnOCr5ZSQf90qCxXvG6U="
+    - secure: "bEE5axgvIkPKpEx+PcpVNQZWPFrbLAYrPh7YEn9c5GRM0z8tL78a/hg/WSZCkb0wfM0zlQyOx1wpFBSwGQTqL/+r0DBVr4MbEHSyHGXLBJqsjZDHaf6jC1jxKsYryd8Cuf/41HR3rJes2N08KQgzEjasKooo7wUqk461c6TeZdA="
 
 before_script:
   - npm install -g grunt-cli
