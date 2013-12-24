@@ -188,10 +188,10 @@ exports.format = {
         test.equal(date.toISOString(), "+020123-10-09T20:30:40.678Z", "ISO8601 format on big positive year");
         // negative years
         date = moment.utc("-000001-10-09T20:30:40.678");
-        test.equal(date.toISOString(), "-000001-10-09T20:30:40.678Z", "ISO8601 format on big positive year");
+        test.equal(date.toISOString(), "-000001-10-09T20:30:40.678Z", "ISO8601 format on negative year");
         // big negative years
         date = moment.utc("-020123-10-09T20:30:40.678");
-        test.equal(date.toISOString(), "-020123-10-09T20:30:40.678Z", "ISO8601 format on big positive year");
+        test.equal(date.toISOString(), "-020123-10-09T20:30:40.678Z", "ISO8601 format on big negative year");
 
         test.done();
     },
