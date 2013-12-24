@@ -30,15 +30,16 @@ module.exports = function (grunt) {
                 dest: 'min/tests.js'
             }
         },
-
-        karma: {
+        env : {
+            sauceLabs : (grunt.file.exists('.sauce-labs.creds') ?
+                    grunt.file.readJSON('.sauce-labs.creds') : {})
+        },
+        karma : {
             options: {
                 frameworks: ['nodeunit'],
                 files: [
                     'min/moment-with-langs.js',
                     'min/tests.js',
-                    // 'test/moment/**/*.js',
-                    // 'test/lang/**/*.js',
                     'test/browser.js'
                 ],
                 sauceLabs: {
@@ -175,6 +176,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-env');
     grunt.loadNpmTasks('grunt-karma');
 
     // Default task.
@@ -184,12 +186,17 @@ module.exports = function (grunt) {
     grunt.registerTask('test', ['test:node', 'test:browser']);
     grunt.registerTask('test:node', ['nodeunit']);
     grunt.registerTask('test:browser', ['concat', 'embed_languages', 'karma:chrome']);
-    grunt.registerTask('test:sauce-browser', ['concat', 'embed_languages', 'karma:sauce']);
+    grunt.registerTask('test:sauce-browser', ['concat', 'embed_languages', 'env:sauceLabs', 'karma:sauce']);
+    grunt.registerTask('test:travis-sauce-browser', ['concat', 'embed_languages', 'karma:sauce']);
 
     // travis build task
-    grunt.registerTask('build:travis', ['jshint', 'test:node', 'test:sauce-browser']);
+    grunt.registerTask('build:travis', [
+            'jshint', 'test:node', 'test:travis-sauce-browser'
+    ]);
 
     // Task to be run when releasing a new version
-    grunt.registerTask('release', ['jshint', 'nodeunit', 'concat',
-            'embed_languages', 'component', 'uglify']);
+    grunt.registerTask('release', [
+            'jshint', 'nodeunit', 'concat', 'embed_languages',
+            'component', 'uglify'
+    ]);
 };
