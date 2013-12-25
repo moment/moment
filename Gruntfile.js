@@ -117,7 +117,10 @@ module.exports = function (grunt) {
             all : ["test/moment/**/*.js", "test/lang/**/*.js"]
         },
         jshint: {
-            all: ["Gruntfile.js", "moment.js", "lang/**/*.js", "test/**/*.js"],
+            all: [
+                "Gruntfile.js", "moment.js", "lang/**/*.js", "test/**/*.js",
+                "!test/browser*.js"
+            ],
             options: {
                 "node"     : true,
                 "browser"  : true,
