@@ -1,6 +1,6 @@
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
-exports.mutable = {
+this.mutable = {
     "manipulation methods" : function (test) {
 
         var mutableMethods = {

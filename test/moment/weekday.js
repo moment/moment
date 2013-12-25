@@ -1,6 +1,6 @@
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
-exports.week_year = {
+this.weekday = {
     "iso weekday": function (test) {
         var i;
         test.expect(7 * 7);

@@ -1,11 +1,11 @@
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
 
     /**************************************************
       Traditional Chinese
      *************************************************/
 
-exports["lang:zh-tw"] = {
+this["lang:zh-tw"] = {
     setUp : function (cb) {
         moment.lang('zh-tw');
         cb();

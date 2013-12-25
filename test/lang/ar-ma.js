@@ -1,8 +1,8 @@
 // moment.js Moroccan arabic (ar-ma) tests
 // author: Abdel Said : https://github.com/abdelsaid
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
-exports["lang:ar-ma"] = {
+this["lang:ar-ma"] = {
     setUp : function (cb) {
         moment.lang('ar-ma');
         cb();

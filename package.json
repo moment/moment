@@ -37,19 +37,23 @@
             "type" : "MIT"
         }
     ],
-    "devDependencies" : {
-        "uglify-js" : "latest",
-        "grunt"     : "latest",
-        "nodeunit"  : "latest",
-        "grunt-contrib-jshint"    : "latest",
-        "grunt-contrib-nodeunit"  : "latest",
-        "grunt-contrib-concat"    : "latest",
-        "grunt-contrib-uglify"    : "latest",
-        "grunt-contrib-watch"     : "latest",
-        "grunt-lib-legacyhelpers" : "latest"
-    },
+    "devDependencies": {
+        "uglify-js": "latest",
+        "grunt": "latest",
+        "nodeunit": "latest",
+        "grunt-contrib-jshint": "latest",
+        "grunt-contrib-nodeunit": "latest",
+        "grunt-contrib-concat": "latest",
+        "grunt-contrib-uglify": "latest",
+        "grunt-contrib-watch": "latest",
+        "grunt-lib-legacyhelpers": "latest",
+        "grunt-karma": "~0.7.2",
+        "karma": "~0.11.0",
+        "karma-nodeunit": "~0.1.1",
+        "karma-sauce-launcher": "~0.1"
+  },
     "scripts": {
-        "test": "grunt"
+        "test": "grunt test:node"
     },
     "ender": "./ender.js",
     "dojoBuild": "package.js",

@@ -1,11 +1,11 @@
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
 
     /**************************************************
       Dutch
      *************************************************/
 
-exports["lang:nl"] = {
+this["lang:nl"] = {
     setUp : function (cb) {
         moment.lang('nl');
         cb();

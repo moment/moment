@@ -1,6 +1,6 @@
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
-exports.leapyear = {
+this.leapyear = {
     "leap year" : function (test) {
         test.expect(4);
 

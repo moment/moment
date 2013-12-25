@@ -1,6 +1,6 @@
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
-exports.string_prototype = {
+this.string_prototype = {
     "string prototype overrides call" : function (test) {
         test.expect(1);
 

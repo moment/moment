@@ -1,9 +1,9 @@
 // moment.js Morocco Central Atlas Tamaziɣt in Latin (tzm-la) tests
 // author : Abdel Said : https://github.com/abdelsaid
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
 
-exports["lang:tzm-la"] = {
+this["lang:tzm-la"] = {
     setUp : function (cb) {
         moment.lang('tzm-la');
         cb();

@@ -21,6 +21,66 @@ module.exports = function (grunt) {
                 dest: 'min/langs.js'
             }
         },
+
+        karma: {
+            options: {
+                frameworks: ['nodeunit'],
+                files: [
+                    'min/moment-with-langs.js',
+                    'test/moment/**/*.js',
+                    'test/lang/**/*.js',
+                    'test/browser.js'
+                ],
+                sauceLabs: {
+                    startConnect: true,
+                    testName: 'MomentJS'
+                },
+                customLaunchers: {
+                    sl_chrome_win_xp: {
+                        base: 'SauceLabs',
+                        browserName: 'chrome',
+                        platform: 'Windows XP'
+                    },
+                    sl_ie9_win7: {
+                        base: 'SauceLabs',
+                        browserName: 'internet explorer',
+                        platform: 'Windows 7',
+                        version: '9'
+                    },
+                    sl_ie8_win7: {
+                        base: 'SauceLabs',
+                        browserName: 'internet explorer',
+                        platform: 'Windows 7',
+                        version: '8'
+                    },
+                    sl_ff_linux: {
+                        base: 'SauceLabs',
+                        browserName: 'firefox',
+                        platform: 'Linux',
+                    },
+                    sl_safari_osx: {
+                        base: 'SauceLabs',
+                        browserName: 'safari',
+                        platform: 'OS X 10.8',
+                    }
+                },
+            },
+            chrome: {
+                singleRun: true,
+                browsers: ['Chrome'],
+            },
+            sauce: {
+                singleRun: true,
+                browsers: [
+                    'sl_chrome_win_xp',
+                    'sl_ie9_win7',
+                    'sl_ie8_win7',
+                    'sl_ff_linux',
+                    'sl_safari_osx'
+                ]
+            }
+        },
+
         uglify : {
             target: {
                 files: {
@@ -43,7 +103,7 @@ module.exports = function (grunt) {
             }
         },
         nodeunit : {
-            all : ["test/**/*.js"]
+            all : ["test/moment/**/*.js", "test/lang/**/*.js"]
         },
         jshint: {
             all: ["Gruntfile.js", "moment.js", "lang/**/*.js", "test/**/*.js"],
@@ -105,10 +165,19 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-karma');
 
     // Default task.
     grunt.registerTask('default', ['jshint', 'nodeunit']);
-    grunt.registerTask('test', ['nodeunit']);
+
+    //test tasks
+    grunt.registerTask('test', ['test:node', 'test:browser']);
+    grunt.registerTask('test:node', ['nodeunit']);
+    grunt.registerTask('test:browser', ['concat', 'embed_languages', 'karma:chrome']);
+    grunt.registerTask('test:sauce-browser', ['concat', 'embed_languages', 'karma:sauce']);
+
+    // travis build task
+    grunt.registerTask('build:travis', ['jshint', 'test:node', 'test:sauce-browser']);
 
     // Task to be run when releasing a new version
     grunt.registerTask('release', ['jshint', 'nodeunit', 'concat',

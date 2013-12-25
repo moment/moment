@@ -1,6 +1,6 @@
-var moment = require('../../moment');
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
-exports.is_moment = {
+this.is_moment = {
     "is moment object": function (test) {
         test.expect(11);
 

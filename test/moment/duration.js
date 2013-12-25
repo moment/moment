@@ -1,6 +1,6 @@
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
-exports.duration = {
+this.duration = {
     "object instantiation" : function (test) {
         var d = moment.duration({
             years: 2,

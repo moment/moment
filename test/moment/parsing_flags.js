@@ -1,9 +1,9 @@
-var moment = require('../../moment'),
-    flags = function () {
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
+var flags = function () {
         return moment.apply(null, arguments).parsingFlags();
     };
 
-exports.parsing_flags = {
+this.parsing_flags = {
 
     'overflow with array' : function (test) {
 

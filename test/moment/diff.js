@@ -1,4 +1,4 @@
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
 function equal(test, a, b, message) {
     test.ok(Math.abs(a - b) < 0.00000001, "(" + a + " === " + b + ") " + message);
@@ -32,7 +32,7 @@ function dstForYear(year) {
     }
 }
 
-exports.diff = {
+this.diff = {
     "diff" : function (test) {
         test.expect(5);
 

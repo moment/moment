@@ -2,9 +2,9 @@
 // language : Georgian (ka)
 // author : Irakli Janiashvili : https://github.com/irakli-janiashvili
 
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
-exports["lang:ka"] = {
+this["lang:ka"] = {
     setUp : function (cb) {
         moment.lang('ka');
         cb();

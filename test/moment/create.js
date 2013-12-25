@@ -1,4 +1,4 @@
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
 var getVerifier = function (test) {
     return function (input, format, expected, description, asymetrical) {
@@ -12,7 +12,7 @@ var getVerifier = function (test) {
     };
 };
 
-exports.create = {
+this.create = {
     "array" : function (test) {
         test.expect(8);
         test.ok(moment([2010]).toDate() instanceof Date, "[2010]");

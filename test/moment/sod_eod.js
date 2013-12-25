@@ -1,6 +1,6 @@
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
-exports.end_start_of = {
+this.end_start_of = {
     setUp : function (cb) {
         moment.lang('en');
         cb();

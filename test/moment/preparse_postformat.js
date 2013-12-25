@@ -1,4 +1,4 @@
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
 
 var symbolMap = {
@@ -41,7 +41,7 @@ var symbolLang = {
     }
 };
 
-exports.preparse_postformat = {
+this.preparse_postformat = {
     setUp: function (cb) {
         moment.lang('symbol', symbolLang);
         cb();

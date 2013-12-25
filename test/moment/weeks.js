@@ -1,6 +1,6 @@
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
-exports.weeks = {
+this.weeks = {
     setUp : function (cb) {
         moment.lang('en');
         cb();

@@ -1,6 +1,6 @@
-var moment = require("../../moment");
+var moment = typeof window  !== 'undefined' ? window.moment : require("../../moment");
 
-exports.days_in_month = {
+this.days_in_month = {
     "days in month" : function (test) {
         test.expect(24);
         var months = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31], i;
