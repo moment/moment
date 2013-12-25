@@ -58,11 +58,10 @@ exports["lang:kr"] = {
             inputFormat : "A h[시]",
             outputFormat : "H",
             expected : "16"
-        }];
+        }], i, l, it, actual;
 
         test.expect(elements.length);
 
-        var i, l, it, actual;
         for (i = 0, l = elements.length; i < l; ++i) {
             it = elements[i];
             actual = moment(it.expression, it.inputFormat).format(it.outputFormat);
