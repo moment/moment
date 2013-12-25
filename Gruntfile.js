@@ -78,7 +78,7 @@ module.exports = function (grunt) {
             },
             chrome: {
                 singleRun: true,
-                browsers: ['Chrome'],
+                browsers: ['Chrome', 'Firefox'],
             },
             sauce: {
                 singleRun: true,
