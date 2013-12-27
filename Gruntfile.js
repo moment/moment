@@ -78,7 +78,11 @@ module.exports = function (grunt) {
             },
             chrome: {
                 singleRun: true,
-                browsers: ['Chrome', 'Firefox'],
+                browsers: ['Chrome'],
+            },
+            firefox: {
+                singleRun: true,
+                browsers: ['Firefox'],
             },
             sauce: {
                 singleRun: true,
@@ -188,7 +192,7 @@ module.exports = function (grunt) {
     //test tasks
     grunt.registerTask('test', ['test:node', 'test:browser']);
     grunt.registerTask('test:node', ['nodeunit']);
-    grunt.registerTask('test:browser', ['concat', 'embed_languages', 'karma:chrome']);
+    grunt.registerTask('test:browser', ['concat', 'embed_languages', 'karma:chrome', 'karma:firefox']);
     grunt.registerTask('test:sauce-browser', ['concat', 'embed_languages', 'env:sauceLabs', 'karma:sauce']);
     grunt.registerTask('test:travis-sauce-browser', ['concat', 'embed_languages', 'karma:sauce']);
 
