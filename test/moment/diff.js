@@ -121,7 +121,6 @@ exports.diff = {
     "diff across DST" : function (test) {
         var dst = dstForYear(2012), a, b, daysInMonth;
         if (!dst) {
-            console.log("No DST?");
             test.done();
             return;
         }
