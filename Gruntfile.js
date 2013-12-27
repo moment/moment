@@ -67,22 +67,25 @@ module.exports = function (grunt) {
                     sl_ff_linux: {
                         base: 'SauceLabs',
                         browserName: 'firefox',
-                        platform: 'Linux',
+                        platform: 'Linux'
                     },
                     sl_safari_osx: {
                         base: 'SauceLabs',
                         browserName: 'safari',
-                        platform: 'OS X 10.8',
+                        platform: 'OS X 10.8'
                     }
-                },
+                }
+            },
+            server: {
+                browsers: []
             },
             chrome: {
                 singleRun: true,
-                browsers: ['Chrome'],
+                browsers: ['Chrome']
             },
             firefox: {
                 singleRun: true,
-                browsers: ['Firefox'],
+                browsers: ['Firefox']
             },
             sauce: {
                 options: {reporters: ['dots']},
@@ -150,6 +153,7 @@ module.exports = function (grunt) {
                 "sub"      : true,
                 "strict"   : false,
                 "white"    : true,
+                "es3"      : true,
                 "globals": {
                     "define": false
                 }
@@ -193,6 +197,7 @@ module.exports = function (grunt) {
     //test tasks
     grunt.registerTask('test', ['test:node', 'test:browser']);
     grunt.registerTask('test:node', ['nodeunit']);
+    grunt.registerTask('test:server', ['concat', 'embed_languages', 'karma:server']);
     grunt.registerTask('test:browser', ['concat', 'embed_languages', 'karma:chrome', 'karma:firefox']);
     grunt.registerTask('test:sauce-browser', ['concat', 'embed_languages', 'env:sauceLabs', 'karma:sauce']);
     grunt.registerTask('test:travis-sauce-browser', ['concat', 'embed_languages', 'karma:sauce']);
