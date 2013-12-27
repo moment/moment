@@ -85,6 +85,7 @@ module.exports = function (grunt) {
                 browsers: ['Firefox'],
             },
             sauce: {
+                options: {reporters: ['dots']},
                 singleRun: true,
                 browsers: [
                     'sl_chrome_win_xp',
