@@ -9,7 +9,6 @@
     /************************************
         Constants
     ************************************/
-
     var moment,
         VERSION = "2.5.0",
         global = this,
@@ -28,7 +27,7 @@
         languages = {},
 
         // check for nodeJS
-        hasModule = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined'),
+        hasModule = (typeof module !== 'undefined' && module.hasOwnProperty('exports') && typeof require !== 'undefined'),
 
         // ASP.NET json date format regex
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
