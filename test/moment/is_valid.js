@@ -259,5 +259,5 @@ exports.is_valid = {
         test.ok(moment("3:25", ["h:mma", "hh:mma", "H:mm", "HH:mm"]).isValid());
 
         test.done();
-    },
+    }
 };

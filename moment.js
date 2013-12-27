@@ -71,7 +71,7 @@
             ['YYYY-MM-DD', /\d{4}-\d{2}-\d{2}/],
             ['GGGG-[W]WW-E', /\d{4}-W\d{2}-\d/],
             ['GGGG-[W]WW', /\d{4}-W\d{2}/],
-            ['YYYY-DDD', /\d{4}-\d{3}/],
+            ['YYYY-DDD', /\d{4}-\d{3}/]
         ],
 
         // iso time formats and regexes
@@ -367,7 +367,7 @@
     // left zero fill a number
     // see http://jsperf.com/left-zero-filling for performance comparison
     function leftZeroFill(number, targetLength, forceSign) {
-        var output = Math.abs(number) + '',
+        var output = '' + Math.abs(number),
             sign = number >= 0;
 
         while (output.length < targetLength) {
@@ -1497,11 +1497,7 @@
 
     //http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
     function dayOfYearFromWeeks(year, week, weekday, firstDayOfWeekOfYear, firstDayOfWeek) {
-        // The only solid way to create an iso date from year is to use
-        // a string format (Date.UTC handles only years > 1900). Don't ask why
-        // it doesn't need Z at the end.
-        var d = new Date(leftZeroFill(year, 6, true) + '-01-01').getUTCDay(),
-            daysToAdd, dayOfYear;
+        var d = makeUTCDate(year, 0, 1).getUTCDay(), daysToAdd, dayOfYear;
 
         weekday = weekday != null ? weekday : firstDayOfWeek;
         daysToAdd = firstDayOfWeek - d + (d > firstDayOfWeekOfYear ? 7 : 0);
