@@ -204,12 +204,12 @@ module.exports = function (grunt) {
 
     // travis build task
     grunt.registerTask('build:travis', [
-            'jshint', 'test:node', 'test:travis-sauce-browser'
+        'jshint', 'test:node', 'test:travis-sauce-browser'
     ]);
 
     // Task to be run when releasing a new version
     grunt.registerTask('release', [
-            'jshint', 'nodeunit', 'concat', 'embed_languages',
-            'component', 'uglify'
+        'jshint', 'nodeunit', 'concat', 'embed_languages',
+        'component', 'uglify'
     ]);
 };
