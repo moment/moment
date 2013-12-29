@@ -1,5 +1,13 @@
 language: node_js
 node_js:
   - 0.8
+
+env:
+  global:
+    - secure: "CIzz5komT5c6Y8EoOhYo4CvV8ryQ78gfmZQgSKe2cTeUJU0Hr/kxqqe2W0LYx8bkCqJbuzZQ4Awh6drD+03jCqrHN1r4YHoX61eVnqe2ijAhyRh6i45CzjiUlKROTztFU9mDNAOQpOhItE1Zjj3oL0F/b6AC8UKIRTcHuSOPD34="
+    - secure: "EhJqzT4RueTZ85zbM3MhY6Ziut2t220UsABIwLSWDTgNyn3Kiqx+Z6Lc0YMm1XDe2Srxj3EY77ujzkMp8oYEc5RGW+ZpbJlCyZjNceb/ntb6RuPqXd7ZnE9Ir1cyudCHus8XIBiXWKKVTnPUw6J+ySXyigoi1rz2G5j4guzXXJ0="
+
 before_script:
   - npm install -g grunt-cli
+
+script: grunt build:travis

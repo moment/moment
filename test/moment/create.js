@@ -746,8 +746,12 @@ exports.create = {
         //can parse other stuff too
         test.equal(moment('1999-W37-4 3:30', 'GGGG-[W]WW-E HH:mm').format('YYYY MM DD HH:mm'), '1999 09 16 03:30', "parsing weeks and hours");
 
-        // Years less than 100
-        ver('0098-06', 'GGGG-WW', "0098 02 03", "small years work", true);
+        // In safari, all years before 1300 are shifted back with one day.
+        // http://stackoverflow.com/questions/20768975/safari-subtracts-1-day-from-dates-before-1300
+        if (new Date("1300-01-01").getUTCFullYear() === 1300) {
+            // Years less than 100
+            ver('0098-06', 'GGGG-WW', "0098 02 03", "small years work", true);
+        }
 
         test.done();
     },
