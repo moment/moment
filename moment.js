@@ -365,15 +365,18 @@
     }
 
     // left zero fill a number
-    // see http://jsperf.com/left-zero-filling for performance comparison
+    // see http://jsperf.com/zero-filling-full for performance comparison
     function leftZeroFill(number, targetLength, forceSign) {
         var output = '' + Math.abs(number),
-            sign = number >= 0;
+            sign = number >= 0,
+            zeroesMissing = targetLength - output.length;
 
-        while (output.length < targetLength) {
-            output = '0' + output;
+        if (zeroesMissing > 0) {
+            output = (zeroesMissing === 1 ? '0'
+                : '000000000000000'.slice(0, zeroesMissing)) + output;
         }
-        return (sign ? (forceSign ? '+' : '') : '-') + output;
+
+        return (sign ? (forceSign ? '+' + output : output) : '-' + output);
     }
 
     // helper function for _.addTime and _.subtractTime
