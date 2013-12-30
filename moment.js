@@ -357,11 +357,7 @@
     }
 
     function absRound(number) {
-        if (number < 0) {
-            return Math.ceil(number);
-        } else {
-            return Math.floor(number);
-        }
+        return Math[number < 0 ? 'ceil' : 'floor'](number);
     }
 
     // left zero fill a number
