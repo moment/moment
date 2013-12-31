@@ -19,7 +19,7 @@ exports["lang:ca"] = {
     "parse" : function (test) {
         test.expect(96);
 
-        var tests = "Gener Gen._Febrer Febr._Març Mar._Abril Abr._Maig Mai._Juny Jun._Juliol Jul._Agost Ag._Setembre Set._Octubre Oct._Novembre Nov._Desembre Des.".split("_"), i;
+        var tests = "gener gen._febrer febr._març mar._abril abr._maig mai._juny jun._juliol jul._agost ag._setembre set._octubre oct._novembre nov._desembre des.".split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -78,7 +78,7 @@ exports["lang:ca"] = {
 
     "format month" : function (test) {
         test.expect(12);
-        var expected = "Gener Gen._Febrer Febr._Març Mar._Abril Abr._Maig Mai._Juny Jun._Juliol Jul._Agost Ag._Setembre Set._Octubre Oct._Novembre Nov._Desembre Des.".split("_"), i;
+        var expected = "gener gen._febrer febr._març mar._abril abr._maig mai._juny jun._juliol jul._agost ag._setembre set._octubre oct._novembre nov._desembre des.".split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -87,7 +87,7 @@ exports["lang:ca"] = {
 
     "format week" : function (test) {
         test.expect(7);
-        var expected = "Diumenge Dg. Dg_Dilluns Dl. Dl_Dimarts Dt. Dt_Dimecres Dc. Dc_Dijous Dj. Dj_Divendres Dv. Dv_Dissabte Ds. Ds".split("_"), i;
+        var expected = "diumenge dg. Dg_dilluns dl. Dl_dimarts dt. Dt_dimecres dc. Dc_dijous dj. Dj_divendres dv. Dv_dissabte ds. Ds".split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
