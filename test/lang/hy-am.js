@@ -283,7 +283,7 @@ exports["lang:hy-am"] = {
 
         var i, m;
         function makeFormat(d) {
-            return d.day() === 2 ? '[Во] dddd [в] LT' : '[В] dddd [в] LT';
+            return 'dddd [օրը ժամը] LT';
         }
 
         for (i = 2; i < 7; i++) {
@@ -303,18 +303,7 @@ exports["lang:hy-am"] = {
         var i, m;
 
         function makeFormat(d) {
-            switch (d.day()) {
-            case 0:
-                return '[անցած] dddd LT';
-            case 1:
-            case 2:
-            case 4:
-                return '[անցած] dddd LT';
-            case 3:
-            case 5:
-            case 6:
-                return '[անցած] dddd LT';
-            }
+            return '[անցած] dddd [օրը ժամը] LT';
         }
 
         for (i = 2; i < 7; i++) {

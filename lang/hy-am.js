@@ -11,26 +11,6 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    function plural(word, num) {
-        var forms = word.split('_');
-        return num % 10 === 1 && num % 100 !== 11 ? forms[0] : (num % 10 >= 2 && num % 10 <= 4 && (num % 100 < 10 || num % 100 >= 20) ? forms[1] : forms[2]);
-    }
-
-    function relativeTimeWithPlural(number, withoutSuffix, key) {
-        var format = {
-            'mm': 'րոպե',
-            'hh': 'ժամ',
-            'dd': 'օր',
-            'MM': 'ամիս',
-            'yy': 'տարի'
-        };
-        if (key === 'm') {
-            return withoutSuffix ? 'րոպե' : 'րոպե';
-        }
-        else {
-            return number + ' ' + format[key];
-        }
-    }
 
     function monthsCaseReplace(m, format) {
         var months = {
@@ -59,16 +39,9 @@
     }
 
     function weekdaysCaseReplace(m, format) {
-        var weekdays = {
-            'nominative': 'կիրակի_երկուշաբթի_երեքշաբթի_չորեքշաբթի_հինգշաբթի_ուրբաթ_շաբաթ'.split('_'),
-            'accusative': 'կիրակի_երկուշաբթի_երեքշաբթի_չորեքշաբթի_հինգշաբթի_ուրբաթ_շաբաթ'.split('_')
-        },
+        var weekdays = 'կիրակի_երկուշաբթի_երեքշաբթի_չորեքշաբթի_հինգշաբթի_ուրբաթ_շաբաթ'.split('_');
 
-        nounCase = (/\[ ?[Вв] ?(?:անցած|հաջորդ)? ?\] ?dddd/).test(format) ?
-            'accusative' :
-            'nominative';
-
-        return weekdays[nounCase][m.day()];
+        return weekdays[m.day()];
     }
 
     return moment.lang('hy-am', {
@@ -77,7 +50,6 @@
         weekdays : weekdaysCaseReplace,
         weekdaysShort : "կրկ_երկ_երք_չրք_հնգ_ուրբ_շբթ".split("_"),
         weekdaysMin : "կրկ_երկ_երք_չրք_հնգ_ուրբ_շբթ".split("_"),
-        //monthsParse : [/^հնվ/i, /^փտր/i, /^մրտ/i, /^ապր/i, /^մյս/i, /^июн/i, /^июл/i, /^авг/i, /^сен/i, /^окт/i, /^ноя/i, /^дек/i],
         longDateFormat : {
             LT : "HH:mm",
             L : "DD.MM.YYYY",
@@ -90,21 +62,10 @@
             nextDay: '[վաղը] LT',
             lastDay: '[երեկ] LT',
             nextWeek: function () {
-                return this.day() === 2 ? '[Во] dddd [в] LT' : '[В] dddd [в] LT';
+                return 'dddd [օրը ժամը] LT';
             },
             lastWeek: function () {
-                switch (this.day()) {
-                case 0:
-                    return '[անցած] dddd LT';
-                case 1:
-                case 2:
-                case 4:
-                    return '[անցած] dddd LT';
-                case 3:
-                case 5:
-                case 6:
-                    return '[անցած] dddd LT';
-                }
+                return '[անցած] dddd [օրը ժամը] LT';
             },
             sameElse: 'L'
         },
@@ -112,19 +73,17 @@
             future : "%s հետո",
             past : "%s առաջ",
             s : "մի քանի վայրկյան",
-            m : relativeTimeWithPlural,
-            mm : relativeTimeWithPlural,
+            m : "րոպե",
+            mm : "%d րոպե",
             h : "ժամ",
-            hh : relativeTimeWithPlural,
+            hh : "%d ժամ",
             d : "օր",
-            dd : relativeTimeWithPlural,
+            dd : "%d օր",
             M : "ամիս",
-            MM : relativeTimeWithPlural,
+            MM : "%d ամիս",
             y : "տարի",
-            yy : relativeTimeWithPlural
+            yy : "%d տարի"
         },
-
-        // M. E.: those two are virtually unused but a user might want to implement them for his/her website for some reason
 
         meridiem : function (hour, minute, isLower) {
             if (hour < 4) {
