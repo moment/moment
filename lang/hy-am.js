@@ -26,16 +26,9 @@
     }
 
     function monthsShortCaseReplace(m, format) {
-        var monthsShort = {
-            'nominative': 'հնվ_փտր_մրտ_ապր_մյս_հնս_հլս_օգս_սպտ_հկտ_նմբ_դկտ'.split('_'),
-            'accusative': 'հնվ_փտր_մրտ_ապր_մյս_հնս_հլս_օգս_սպտ_հկտ_նմբ_դկտ'.split('_')
-        },
+        var monthsShort = 'հնվ_փտր_մրտ_ապր_մյս_հնս_հլս_օգս_սպտ_հկտ_նմբ_դկտ'.split('_');
 
-        nounCase = (/D[oD]?(\[[^\[\]]*\]|\s+)+MMMM?/).test(format) ?
-            'accusative' :
-            'nominative';
-
-        return monthsShort[nounCase][m.month()];
+        return monthsShort[m.month()];
     }
 
     function weekdaysCaseReplace(m, format) {
@@ -99,19 +92,10 @@
 
         ordinal: function (number, period) {
             switch (period) {
-            case 'M':
-            case 'd':
-                return number;
             case 'DDD':
-                if (number === 1) return number + '-ին';
-                return number + '-րդ';
-            case 'DDDo':
-                if (number === 1) return number + '-ին';
-                return number + '-րդ';
-            case 'D':
-                return number + '';
             case 'w':
             case 'W':
+            case 'DDDo':
                 if (number === 1) return number + '-ին';
                 return number + '-րդ';
             default:
