@@ -1,5 +1,5 @@
 // moment.js language configuration
-// language : armenian (hy-am)
+// language : Armenian (hy-am)
 // author : Armendarabyan : https://github.com/armendarabyan
 
 (function (factory) {
@@ -78,7 +78,7 @@
             yy : "%d տարի"
         },
 
-        meridiem : function (hour, minute, isLower) {
+        meridiem : function (hour) {
             if (hour < 4) {
                 return "գիշերվա";
             } else if (hour < 12) {
@@ -96,7 +96,9 @@
             case 'w':
             case 'W':
             case 'DDDo':
-                if (number === 1) return number + '-ին';
+                if (number === 1) {
+                    return number + '-ին';
+                }
                 return number + '-րդ';
             default:
                 return number;
