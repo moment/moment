@@ -1,7 +1,6 @@
 // moment.js language configuration
-// language : russian (ru)
-// author : Viktorminator : https://github.com/Viktorminator
-// Author : Menelion Elensúle : https://github.com/Oire
+// language : armenian (hy-am)
+// author : Armendarabyan : https://github.com/armendarabyan
 
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
