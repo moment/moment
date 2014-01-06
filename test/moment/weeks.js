@@ -203,7 +203,7 @@ exports.weeks = {
         test.done();
     },
 
-    "iso weeks with 53 weeks" : function (test) {
+    "years with iso week 53" : function (test) {
         test.expect(71);
 
         // Based on a table taken from http://en.wikipedia.org/wiki/ISO_week_date
@@ -280,6 +280,22 @@ exports.weeks = {
         test.equal(moment([2387, 11, 31]).isoWeek(), 53, "Dec 31 2387 should be iso week 53");
         test.equal(moment([2392, 11, 31]).isoWeek(), 53, "Dec 31 2392 should be iso week 53");
         test.equal(moment([2398, 11, 31]).isoWeek(), 53, "Dec 31 2398 should be iso week 53");
+
+        test.done();
+    },
+
+    "count years with iso week 53" : function (test) {
+        test.expect(1);
+
+        // Based on http://en.wikipedia.org/wiki/ISO_week_date (as seen on 2014-01-06)
+        // stating that there are 71 years in a 400-year cycle that have 53 weeks;
+        // in this case reflecting the 2000 based cycle
+        var count = 0, i, yr;
+        for (i = 0; i < 400; i++) {
+            yr = 2000 + i;
+            count += (moment([yr, 11, 31]).isoWeek() === 53) ? 1 : 0;
+        }
+        test.equal(count, 71, "Should have 71 years in 400-year cycle with iso week 53");
 
         test.done();
     }
