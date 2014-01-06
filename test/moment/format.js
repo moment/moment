@@ -209,7 +209,7 @@ exports.format = {
         test.done();
     },
 
-    "weeks format" : function (test) {
+    "iso week formats" : function (test) {
 
         // http://en.wikipedia.org/wiki/ISO_week_date
         var cases = {
@@ -228,12 +228,15 @@ exports.format = {
             "2010-01-01": "2009-53",
             "2010-01-02": "2009-53",
             "2010-01-03": "2009-53"
-        }, i, iso, the;
+        }, i, isoWeek, formatted2, formatted1;
 
         for (i in cases) {
-            iso = cases[i].split('-').pop();
-            the = moment(i).format('WW');
-            test.equal(iso, the, i + ": should be " + iso + ", but " + the);
+            isoWeek = cases[i].split('-').pop();
+            formatted2 = moment(i).format('WW');
+            test.equal(isoWeek, formatted2, i + ": should be " + isoWeek + ", but " + formatted2);
+            isoWeek = isoWeek.replace(/^0+/, '');
+            formatted1 = moment(i).format('W');
+            test.equal(isoWeek, formatted1, i + ": should be " + isoWeek + ", but " + formatted1);
         }
 
         test.done();
