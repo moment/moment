@@ -290,10 +290,9 @@ exports.weeks = {
         // Based on http://en.wikipedia.org/wiki/ISO_week_date (as seen on 2014-01-06)
         // stating that there are 71 years in a 400-year cycle that have 53 weeks;
         // in this case reflecting the 2000 based cycle
-        var count = 0, i, yr;
+        var count = 0, i;
         for (i = 0; i < 400; i++) {
-            yr = 2000 + i;
-            count += (moment([yr, 11, 31]).isoWeek() === 53) ? 1 : 0;
+            count += (moment([2000 + i, 11, 31]).isoWeek() === 53) ? 1 : 0;
         }
         test.equal(count, 71, "Should have 71 years in 400-year cycle with iso week 53");
 
