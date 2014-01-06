@@ -266,7 +266,7 @@ exports.format = {
         for (i in cases) {
             isoWeekYear = cases[i].split('-')[0];
             formatted5 = moment(i).format('GGGGG');
-            test.equal('0' + isoWeekYear, formatted5, i + ": should be " + isoWeekYear + ", but " + formatted4);
+            test.equal('0' + isoWeekYear, formatted5, i + ": should be " + isoWeekYear + ", but " + formatted5);
             formatted4 = moment(i).format('GGGG');
             test.equal(isoWeekYear, formatted4, i + ": should be " + isoWeekYear + ", but " + formatted4);
             formatted2 = moment(i).format('GG');
@@ -295,13 +295,13 @@ exports.format = {
             "2010-01-01": "2009-53",
             "2010-01-02": "2009-53",
             "2010-01-03": "2009-53"
-        }, i, formatted5, formatted4, formatted2, isoWeekYear;
+        }, i, isoWeekYear, formatted5, formatted4, formatted2;
 
         moment.lang('en-gb'); // 1, 4
         for (i in cases) {
             isoWeekYear = cases[i].split('-')[0];
             formatted5 = moment(i).format('ggggg');
-            test.equal('0' + isoWeekYear, formatted5, i + ": should be " + isoWeekYear + ", but " + formatted4);
+            test.equal('0' + isoWeekYear, formatted5, i + ": should be " + isoWeekYear + ", but " + formatted5);
             formatted4 = moment(i).format('gggg');
             test.equal(isoWeekYear, formatted4, i + ": should be " + isoWeekYear + ", but " + formatted4);
             formatted2 = moment(i).format('gg');
