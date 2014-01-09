@@ -23,7 +23,7 @@
         MINUTE = 4,
         SECOND = 5,
         MILLISECOND = 6,
-
+        define = null,
         // internal storage for language config files
         languages = {},
 
