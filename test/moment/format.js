@@ -234,11 +234,11 @@ exports.format = {
 
         for (i in cases) {
             isoWeek = cases[i].split('-').pop();
-            formatted2 = moment(i).format('WW');
-            test.equal(isoWeek, formatted2, i + ": should be " + isoWeek + ", but " + formatted2);
+            formatted2 = moment(i, 'YYYY-MM-DD').format('WW');
+            test.equal(isoWeek, formatted2, i + ": WW should be " + isoWeek + ", but " + formatted2);
             isoWeek = isoWeek.replace(/^0+/, '');
-            formatted1 = moment(i).format('W');
-            test.equal(isoWeek, formatted1, i + ": should be " + isoWeek + ", but " + formatted1);
+            formatted1 = moment(i, 'YYYY-MM-DD').format('W');
+            test.equal(isoWeek, formatted1, i + ": W should be " + isoWeek + ", but " + formatted1);
         }
 
         test.done();
