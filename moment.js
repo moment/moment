@@ -2326,9 +2326,9 @@
         // for Closure Compiler "advanced" mode
         if (deprecate) {
             global.moment = function () {
-                if (!warned && console && console.warn) {
+                if (!warned && window.console && window.console.warn) {
                     warned = true;
-                    console.warn(
+                    window.console.warn(
                             "Accessing Moment through the global scope is " +
                             "deprecated, and will be removed in an upcoming " +
                             "release.");
