@@ -209,7 +209,7 @@ exports.format = {
         test.done();
     },
 
-    "weeks format" : function (test) {
+    "iso week formats" : function (test) {
 
         // http://en.wikipedia.org/wiki/ISO_week_date
         var cases = {
@@ -227,13 +227,18 @@ exports.format = {
             "2009-12-31": "2009-53",
             "2010-01-01": "2009-53",
             "2010-01-02": "2009-53",
-            "2010-01-03": "2009-53"
-        }, i, iso, the;
+            "2010-01-03": "2009-53",
+            "404-12-31": "0404-53",
+            "405-12-31": "0405-52"
+        }, i, isoWeek, formatted2, formatted1;
 
         for (i in cases) {
-            iso = cases[i].split('-').pop();
-            the = moment(i).format('WW');
-            test.equal(iso, the, i + ": should be " + iso + ", but " + the);
+            isoWeek = cases[i].split('-').pop();
+            formatted2 = moment(i).format('WW');
+            test.equal(isoWeek, formatted2, i + ": should be " + isoWeek + ", but " + formatted2);
+            isoWeek = isoWeek.replace(/^0+/, '');
+            formatted1 = moment(i).format('W');
+            test.equal(isoWeek, formatted1, i + ": should be " + isoWeek + ", but " + formatted1);
         }
 
         test.done();
@@ -241,7 +246,7 @@ exports.format = {
 
     "iso week year formats" : function (test) {
 
-        // http://en.wikipedia.org/wiki/ISO_week
+        // http://en.wikipedia.org/wiki/ISO_week_date
         var cases = {
             "2005-01-02": "2004-53",
             "2005-12-31": "2005-52",
@@ -257,13 +262,15 @@ exports.format = {
             "2009-12-31": "2009-53",
             "2010-01-01": "2009-53",
             "2010-01-02": "2009-53",
-            "2010-01-03": "2009-53"
+            "2010-01-03": "2009-53",
+            "404-12-31": "0404-53",
+            "405-12-31": "0405-52"
         }, i, isoWeekYear, formatted5, formatted4, formatted2;
 
         for (i in cases) {
             isoWeekYear = cases[i].split('-')[0];
             formatted5 = moment(i).format('GGGGG');
-            test.equal('0' + isoWeekYear, formatted5, i + ": should be " + isoWeekYear + ", but " + formatted4);
+            test.equal('0' + isoWeekYear, formatted5, i + ": should be " + isoWeekYear + ", but " + formatted5);
             formatted4 = moment(i).format('GGGG');
             test.equal(isoWeekYear, formatted4, i + ": should be " + isoWeekYear + ", but " + formatted4);
             formatted2 = moment(i).format('GG');
@@ -275,7 +282,7 @@ exports.format = {
 
     "week year formats" : function (test) {
 
-        // http://en.wikipedia.org/wiki/ISO_week
+        // http://en.wikipedia.org/wiki/ISO_week_date
         var cases = {
             "2005-01-02": "2004-53",
             "2005-12-31": "2005-52",
@@ -291,14 +298,16 @@ exports.format = {
             "2009-12-31": "2009-53",
             "2010-01-01": "2009-53",
             "2010-01-02": "2009-53",
-            "2010-01-03": "2009-53"
-        }, i, formatted5, formatted4, formatted2, isoWeekYear;
+            "2010-01-03": "2009-53",
+            "404-12-31": "0404-53",
+            "405-12-31": "0405-52"
+        }, i, isoWeekYear, formatted5, formatted4, formatted2;
 
         moment.lang('en-gb'); // 1, 4
         for (i in cases) {
             isoWeekYear = cases[i].split('-')[0];
             formatted5 = moment(i).format('ggggg');
-            test.equal('0' + isoWeekYear, formatted5, i + ": should be " + isoWeekYear + ", but " + formatted4);
+            test.equal('0' + isoWeekYear, formatted5, i + ": should be " + isoWeekYear + ", but " + formatted5);
             formatted4 = moment(i).format('gggg');
             test.equal(isoWeekYear, formatted4, i + ": should be " + isoWeekYear + ", but " + formatted4);
             formatted2 = moment(i).format('gg');
