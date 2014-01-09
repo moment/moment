@@ -286,7 +286,7 @@ exports["lang:ar"] = {
     },
 
     "weeks year starting wednesday" : function (test) {
-        test.expect(6);
+        test.expect(10);
 
         test.equal(moment([2002, 11, 28]).week(), 1, "Dec 28 2002 should be week 1");
         test.equal(moment([2003,  0,  1]).week(), 1, "Jan  1 2003 should be week 1");
@@ -294,6 +294,11 @@ exports["lang:ar"] = {
         test.equal(moment([2003,  0,  4]).week(), 2, "Jan  4 2003 should be week 2");
         test.equal(moment([2003,  0, 10]).week(), 2, "Jan 10 2003 should be week 2");
         test.equal(moment([2003,  0, 11]).week(), 3, "Jan 11 2003 should be week 3");
+
+        test.equal(moment("2003 1 6", "gggg w d").format("YYYY-MM-DD"), "2002-12-28", "Week 1 of 2003 should be Dec 28 2002");
+        test.equal(moment("2003 1 0", "gggg w e").format("YYYY-MM-DD"), "2002-12-28", "Week 1 of 2003 should be Dec 28 2002");
+        test.equal(moment("2003 1 6", "gggg w d").format("gggg w d"), "2003 1 6", "Saturday of week 1 of 2003 parsed should be formatted as 2003 1 6");
+        test.equal(moment("2003 1 0", "gggg w e").format("gggg w e"), "2003 1 0", "1st day of week 1 of 2003 parsed should be formatted as 2003 1 0");
 
         test.done();
     },
