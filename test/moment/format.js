@@ -269,12 +269,12 @@ exports.format = {
 
         for (i in cases) {
             isoWeekYear = cases[i].split('-')[0];
-            formatted5 = moment(i).format('GGGGG');
-            test.equal('0' + isoWeekYear, formatted5, i + ": should be " + isoWeekYear + ", but " + formatted5);
-            formatted4 = moment(i).format('GGGG');
-            test.equal(isoWeekYear, formatted4, i + ": should be " + isoWeekYear + ", but " + formatted4);
-            formatted2 = moment(i).format('GG');
-            test.equal(isoWeekYear.slice(2, 4), formatted2, i + ": should be " + isoWeekYear + ", but " + formatted2);
+            formatted5 = moment(i, 'YYYY-MM-DD').format('GGGGG');
+            test.equal('0' + isoWeekYear, formatted5, i + ": GGGGG should be " + isoWeekYear + ", but " + formatted5);
+            formatted4 = moment(i, 'YYYY-MM-DD').format('GGGG');
+            test.equal(isoWeekYear, formatted4, i + ": GGGG should be " + isoWeekYear + ", but " + formatted4);
+            formatted2 = moment(i, 'YYYY-MM-DD').format('GG');
+            test.equal(isoWeekYear.slice(2, 4), formatted2, i + ": GG should be " + isoWeekYear + ", but " + formatted2);
         }
 
         test.done();
@@ -306,12 +306,12 @@ exports.format = {
         moment.lang('en-gb'); // 1, 4
         for (i in cases) {
             isoWeekYear = cases[i].split('-')[0];
-            formatted5 = moment(i).format('ggggg');
-            test.equal('0' + isoWeekYear, formatted5, i + ": should be " + isoWeekYear + ", but " + formatted5);
-            formatted4 = moment(i).format('gggg');
-            test.equal(isoWeekYear, formatted4, i + ": should be " + isoWeekYear + ", but " + formatted4);
-            formatted2 = moment(i).format('gg');
-            test.equal(isoWeekYear.slice(2, 4), formatted2, i + ": should be " + isoWeekYear + ", but " + formatted2);
+            formatted5 = moment(i, 'YYYY-MM-DD').format('ggggg');
+            test.equal('0' + isoWeekYear, formatted5, i + ": ggggg should be " + isoWeekYear + ", but " + formatted5);
+            formatted4 = moment(i, 'YYYY-MM-DD').format('gggg');
+            test.equal(isoWeekYear, formatted4, i + ": gggg should be " + isoWeekYear + ", but " + formatted4);
+            formatted2 = moment(i, 'YYYY-MM-DD').format('gg');
+            test.equal(isoWeekYear.slice(2, 4), formatted2, i + ": gg should be " + isoWeekYear + ", but " + formatted2);
         }
 
         test.done();
