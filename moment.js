@@ -23,6 +23,10 @@
         MINUTE = 4,
         SECOND = 5,
         MILLISECOND = 6,
+        define = window.define || undefined,
+        ender = window.ender || undefined,
+        require = window.require || undefined,
+        module = window.module || undefined,
 
         // internal storage for language config files
         languages = {},
