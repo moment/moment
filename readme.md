@@ -66,7 +66,7 @@ Changelog
 
 ### 2.3.1
 
-Removed a trailing comma [1169] and fixed a bug with `months`, `weekdays` getters [1171].
+Removed a trailing comma [1169] and fixed a bug with `months`, `weekdays` getters [#1171](https://github.com/moment/moment/issues/1171).
 
 ### 2.3.0 [See changelog](https://gist.github.com/ichernev/6864354)
 
