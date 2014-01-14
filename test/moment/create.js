@@ -105,6 +105,23 @@ exports.create = {
         test.done();
     },
 
+    "cloning moment works with weird clones" : function (test) {
+        var extend = function (a, b) {
+                var i;
+                for (i in b) {
+                    a[i] = b[i];
+                }
+                return a;
+            },
+            now = moment(),
+            nowu = moment.utc();
+
+        test.expect(2);
+        test.equal(+extend({}, now).clone(), +now, "cloning extend-ed now is now");
+        test.equal(+extend({}, nowu).clone(), +nowu, "cloning extend-ed utc now is utc now");
+        test.done();
+    },
+
     "undefined" : function (test) {
         test.expect(1);
         test.ok(moment().toDate() instanceof Date, "undefined");
