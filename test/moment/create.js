@@ -112,11 +112,13 @@ exports.create = {
                     a[i] = b[i];
                 }
                 return a;
-            },
-            now = moment();
+            };
+            now = moment(),
+            nowu = moment.utc();
 
-        test.expect(1);
+        test.expect(2);
         test.equal(+extend({}, now).clone(), +now, "cloning extend-ed now is now");
+        test.equal(+extend({}, nowu).clone(), +nowu, "cloning extend-ed utc now is utc now");
         test.done();
     },
 

@@ -2,7 +2,7 @@ var moment = require('../../moment');
 
 exports.is_moment = {
     "is moment object": function (test) {
-        test.expect(12);
+        test.expect(13);
 
         var MyObj = function () {},
             extend = function(a, b) {
@@ -19,6 +19,7 @@ exports.is_moment = {
         test.ok(moment.isMoment(moment()), 'simple moment object');
         test.ok(moment.isMoment(moment('invalid date')), 'invalid moment object');
         test.ok(moment.isMoment(extend({}, moment())), 'externally cloned moments are moments');
+        test.ok(moment.isMoment(extend({}, moment.utc())), 'externally cloned utc moments are moments');
 
         test.ok(!moment.isMoment(new MyObj()), 'myObj is not moment object');
         test.ok(!moment.isMoment(moment), 'moment function is not moment object');

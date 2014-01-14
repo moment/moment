@@ -1593,6 +1593,7 @@
             lang = undefined;
         }
         m = makeMoment({
+            _isAMomentObject: true,
             _useUTC : true,
             _isUTC : true,
             _l : lang,
