@@ -5,7 +5,7 @@ exports.is_moment = {
         test.expect(13);
 
         var MyObj = function () {},
-            extend = function(a, b) {
+            extend = function (a, b) {
                 var i;
                 for (i in b) {
                     a[i] = b[i];

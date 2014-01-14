@@ -106,13 +106,13 @@ exports.create = {
     },
 
     "cloning moment works with weird clones" : function (test) {
-        var extend = function(a, b) {
+        var extend = function (a, b) {
                 var i;
                 for (i in b) {
                     a[i] = b[i];
                 }
                 return a;
-            };
+            },
             now = moment(),
             nowu = moment.utc();
 
