@@ -663,16 +663,30 @@ exports.create = {
         test.equal(moment(".*2010.*", ".*YYYY.*", true).year(), 2010, "valid format with regex chars on both sides");
 
         //strict tokens
+        test.equal(moment("-5-05-25", 'YYYY-MM-DD', true).isValid(), false, "invalid negative year");
         test.equal(moment("2-05-25", 'YYYY-MM-DD', true).isValid(), false, "invalid one-digit year");
         test.equal(moment("20-05-25", 'YYYY-MM-DD', true).isValid(), false, "invalid two-digit year");
         test.equal(moment("201-05-25", 'YYYY-MM-DD', true).isValid(), false, "invalid three-digit year");
+        test.equal(moment("2010-05-25", 'YYYY-MM-DD', true).isValid(), true, "valid four-digit year");
+        test.equal(moment("22010-05-25", 'YYYY-MM-DD', true).isValid(), false, "invalid five-digit year");
 
         test.equal(moment("12-05-25", 'YY-MM-DD', true).isValid(), true, "valid two-digit year");
         test.equal(moment("2012-05-25", 'YY-MM-DD', true).isValid(), false, "invalid four-digit year");
 
-        test.equal(moment("2012-5-25", 'YYYY-MM-DD', true).isValid(), false, "invalid one-digit month");
+        test.equal(moment("-5-05-25", 'Y-MM-DD', true).isValid(), true, "valid negative year");
+        test.equal(moment("2-05-25", 'Y-MM-DD', true).isValid(), true, "valid one-digit year");
+        test.equal(moment("20-05-25", 'Y-MM-DD', true).isValid(), true, "valid two-digit year");
+        test.equal(moment("201-05-25", 'Y-MM-DD', true).isValid(), true, "valid three-digit year");
 
+        test.equal(moment("2012-5-25", 'YYYY-M-DD', true).isValid(), true, "valid one-digit month");
+        test.equal(moment("2012-5-25", 'YYYY-MM-DD', true).isValid(), false, "invalid one-digit month");
+        test.equal(moment("2012-05-25", 'YYYY-M-DD', true).isValid(), true, "valid one-digit month");
+        test.equal(moment("2012-05-25", 'YYYY-MM-DD', true).isValid(), true, "valid one-digit month");
+
+        test.equal(moment("2012-05-2", 'YYYY-MM-D', true).isValid(), true, "valid one-digit day");
         test.equal(moment("2012-05-2", 'YYYY-MM-DD', true).isValid(), false, "invalid one-digit day");
+        test.equal(moment("2012-05-02", 'YYYY-MM-D', true).isValid(), true, "valid two-digit day");
+        test.equal(moment("2012-05-02", 'YYYY-MM-DD', true).isValid(), true, "valid two-digit day");
 
         test.equal(moment("+002012-05-25", 'YYYYY-MM-DD', true).isValid(), true, "valid six-digit year");
         test.equal(moment("+2012-05-25", 'YYYYY-MM-DD', true).isValid(), false, "invalid four-digit year");

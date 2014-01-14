@@ -71,7 +71,8 @@
         parseTokenTwoDigits = /\d\d/, // 00 - 99
         parseTokenThreeDigits = /\d{3}/, // 000 - 999
         parseTokenFourDigits = /\d{4}/, // 0000 - 9999
-        parseTokenSixDigits = /[+\-]?\d{6}/, // -999,999 - 999,999
+        parseTokenSixDigits = /[+-]?\d{6}/, // -999,999 - 999,999
+        parseTokenSignedNumber = /[+-]?\d+/, // -inf - inf
 
         // iso 8601 regex
         // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
@@ -956,6 +957,10 @@
         case 'GGGG':
         case 'gggg':
             return strict ? parseTokenFourDigits : parseTokenOneToFourDigits;
+        case 'Y':
+        case 'G':
+        case 'g':
+            return parseTokenSignedNumber;
         case 'YYYYYY':
         case 'YYYYY':
         case 'GGGGG':
@@ -968,8 +973,10 @@
             if (strict) { return parseTokenTwoDigits; }
             /* falls through */
         case 'SSS':
+            if (strict) { return parseTokenThreeDigits; }
+            /* falls through */
         case 'DDD':
-            return strict ? parseTokenThreeDigits : parseTokenOneToThreeDigits;
+            return parseTokenOneToThreeDigits;
         case 'MMM':
         case 'MMMM':
         case 'dd':
@@ -1011,7 +1018,7 @@
         case 'W':
         case 'e':
         case 'E':
-            return strict ? parseTokenOneDigit : parseTokenOneOrTwoDigits;
+            return parseTokenOneOrTwoDigits;
         default :
             a = new RegExp(regexpEscape(unescapeFormat(token.replace('\\', '')), "i"));
             return a;
