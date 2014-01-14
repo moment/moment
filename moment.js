@@ -278,6 +278,23 @@
 
         lists = ['months', 'monthsShort', 'weekdays', 'weekdaysShort', 'weekdaysMin'];
 
+    function defaultParsingFlags() {
+        // We need to deep clone this object, and es5 standard is not very
+        // helpful.
+        return {
+            empty : false,
+            unusedTokens : [],
+            unusedInput : [],
+            overflow : -2,
+            charsLeftOver : 0,
+            nullInput : false,
+            invalidMonth : null,
+            invalidFormat : false,
+            userInvalidated : false,
+            iso: false
+        };
+    }
+
     function padToken(func, count) {
         return function (a) {
             return leftZeroFill(func.call(this, a), count);
@@ -569,21 +586,6 @@
 
             m._pf.overflow = overflow;
         }
-    }
-
-    function initializeParsingFlags(config) {
-        config._pf = {
-            empty : false,
-            unusedTokens : [],
-            unusedInput : [],
-            overflow : -2,
-            charsLeftOver : 0,
-            nullInput : false,
-            invalidMonth : null,
-            invalidFormat : false,
-            userInvalidated : false,
-            iso: false
-        };
     }
 
     function isValid(m) {
@@ -1340,7 +1342,7 @@
         for (i = 0; i < config._f.length; i++) {
             currentScore = 0;
             tempConfig = extend({}, config);
-            initializeParsingFlags(tempConfig);
+            tempConfig._pf = defaultParsingFlags();
             tempConfig._f = config._f[i];
             makeDateFromStringAndFormat(tempConfig);
 
@@ -1541,10 +1543,6 @@
         var input = config._i,
             format = config._f;
 
-        if (typeof config._pf === 'undefined') {
-            initializeParsingFlags(config);
-        }
-
         if (input === null) {
             return moment.invalid({nullInput: true});
         }
@@ -1581,7 +1579,8 @@
             _f : format,
             _l : lang,
             _strict : strict,
-            _isUTC : false
+            _isUTC : false,
+            _pf : defaultParsingFlags()
         });
     };
 
@@ -1599,7 +1598,8 @@
             _l : lang,
             _i : input,
             _f : format,
-            _strict : strict
+            _strict : strict,
+            _pf : defaultParsingFlags()
         }).utc();
 
         return m;
