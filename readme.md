@@ -28,6 +28,22 @@ Develop [![Build Status](https://travis-ci.org/moment/moment.png?branch=develop)
 
 Master [![Build Status](https://travis-ci.org/moment/moment.png?branch=master)](https://travis-ci.org/moment/moment)
 
+For developers
+==============
+
+You need [node](http://nodejs.org/), use [nvm](https://github.com/creationix/nvm) or [nenv](https://github.com/ryuone/nenv) to install it.
+
+Then, in your shell
+
+```bash
+git clone https://github.com/moment/moment.git
+cd moment
+npm install -g grunt-cli
+npm install
+git checkout develop  # all patches against develop branch, please!
+grunt                 # this runs tests and jshint
+```
+
 Changelog
 =========
 
