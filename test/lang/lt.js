@@ -132,6 +132,17 @@ exports["lang:lt"] = {
         test.done();
     },
 
+    "format week on US calendar" : function (test) {
+        test.expect(7);
+        moment.lang("lt", {week: {dow: 0, doy: 6}}); // Tests, whether the weekday names are correct, even if the week does not start on Moday
+        var expected = 'sekmadienis Sek S_pirmadienis Pir P_antradienis Ant A_trečiadienis Tre T_ketvirtadienis Ket K_penktadienis Pen Pn_šeštadienis Šeš Š'.split("_"), i;
+        for (i = 0; i < expected.length; i++) {
+            test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
+        }
+        moment.lang("lt", {week: {dow: 1, doy: 4}});
+        test.done();
+    },
+
     "from" : function (test) {
         test.expect(37);
 
@@ -367,4 +378,5 @@ exports["lang:lt"] = {
         
         test.done();
     }
+
 };
