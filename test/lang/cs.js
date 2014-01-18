@@ -130,7 +130,7 @@ exports["lang:cs"] = {
     "from" : function (test) {
         test.expect(30);
         var start = moment([2007, 1, 28]);
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "pár vteřin",  "44 seconds = a few seconds");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "pár sekund",  "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "minuta",        "45 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  "minuta",        "89 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  "2 minuty",      "90 seconds = 2 minutes");
@@ -165,20 +165,20 @@ exports["lang:cs"] = {
 
     "suffix" : function (test) {
         test.expect(2);
-        test.equal(moment(30000).from(0), "za pár vteřin",  "prefix");
-        test.equal(moment(0).from(30000), "před pár vteřinami", "suffix");
+        test.equal(moment(30000).from(0), "za pár sekund",  "prefix");
+        test.equal(moment(0).from(30000), "před pár sekundami", "suffix");
         test.done();
     },
 
     "now from now" : function (test) {
         test.expect(1);
-        test.equal(moment().fromNow(), "před pár vteřinami",  "now from now should display as in the past");
+        test.equal(moment().fromNow(), "před pár sekundami",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow (future)" : function (test) {
         test.expect(16);
-        test.equal(moment().add({s: 30}).fromNow(), "za pár vteřin", "in a few seconds");
+        test.equal(moment().add({s: 30}).fromNow(), "za pár sekund", "in a few seconds");
         test.equal(moment().add({m: 1}).fromNow(), "za minutu", "in a minute");
         test.equal(moment().add({m: 3}).fromNow(), "za 3 minuty", "in 3 minutes");
         test.equal(moment().add({m: 10}).fromNow(), "za 10 minut", "in 10 minutes");
@@ -199,7 +199,7 @@ exports["lang:cs"] = {
 
     "fromNow (past)" : function (test) {
         test.expect(16);
-        test.equal(moment().subtract({s: 30}).fromNow(), "před pár vteřinami", "a few seconds ago");
+        test.equal(moment().subtract({s: 30}).fromNow(), "před pár sekundami", "a few seconds ago");
         test.equal(moment().subtract({m: 1}).fromNow(), "před minutou", "a minute ago");
         test.equal(moment().subtract({m: 3}).fromNow(), "před 3 minutami", "3 minutes ago");
         test.equal(moment().subtract({m: 10}).fromNow(), "před 10 minutami", "10 minutes ago");
@@ -438,12 +438,12 @@ exports["lang:cs"] = {
 
         test.done();
     },
-    
+
     "returns the name of the language" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
             test.equal(require('../../lang/cs'), 'cs', "module should export cs");
         }
-        
+
         test.done();
     }
 };
