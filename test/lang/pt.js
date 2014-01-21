@@ -168,7 +168,7 @@ exports["lang:pt"] = {
     "suffix" : function (test) {
         test.expect(2);
         test.equal(moment(30000).from(0), "em segundos", "prefix");
-        test.equal(moment(0).from(30000), "segundos atrás", "suffix");
+        test.equal(moment(0).from(30000), "há segundos", "suffix");
         test.done();
     },
 
