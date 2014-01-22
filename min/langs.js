@@ -461,10 +461,10 @@
     }
 }(function (moment) {
     return moment.lang('ca', {
-        months : "Gener_Febrer_Març_Abril_Maig_Juny_Juliol_Agost_Setembre_Octubre_Novembre_Desembre".split("_"),
-        monthsShort : "Gen._Febr._Mar._Abr._Mai._Jun._Jul._Ag._Set._Oct._Nov._Des.".split("_"),
-        weekdays : "Diumenge_Dilluns_Dimarts_Dimecres_Dijous_Divendres_Dissabte".split("_"),
-        weekdaysShort : "Dg._Dl._Dt._Dc._Dj._Dv._Ds.".split("_"),
+        months : "gener_febrer_març_abril_maig_juny_juliol_agost_setembre_octubre_novembre_desembre".split("_"),
+        monthsShort : "gen._febr._mar._abr._mai._jun._jul._ag._set._oct._nov._des.".split("_"),
+        weekdays : "diumenge_dilluns_dimarts_dimecres_dijous_divendres_dissabte".split("_"),
+        weekdaysShort : "dg._dl._dt._dc._dj._dv._ds.".split("_"),
         weekdaysMin : "Dg_Dl_Dt_Dc_Dj_Dv_Ds".split("_"),
         longDateFormat : {
             LT : "H:mm",
@@ -767,7 +767,7 @@
         },
         relativeTime: {
             future: "mewn %s",
-            past: "%s yn &#244;l",
+            past: "%s yn àl",
             s: "ychydig eiliadau",
             m: "munud",
             mm: "%d munud",
@@ -2337,6 +2337,120 @@
             yy : translate
         },
         ordinal : '%d.',
+        week : {
+            dow : 1, // Monday is the first day of the week.
+            doy : 7  // The week that contains Jan 1st is the first week of the year.
+        }
+    });
+}));
+
+// moment.js language configuration
+// language : Armenian (hy-am)
+// author : Armendarabyan : https://github.com/armendarabyan
+
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['moment'], factory); // AMD
+    } else if (typeof exports === 'object') {
+        module.exports = factory(require('../moment')); // Node
+    } else {
+        factory(window.moment); // Browser global
+    }
+}(function (moment) {
+
+    function monthsCaseReplace(m, format) {
+        var months = {
+            'nominative': 'հունվար_փետրվար_մարտ_ապրիլ_մայիս_հունիս_հուլիս_օգոստոս_սեպտեմբեր_հոկտեմբեր_նոյեմբեր_դեկտեմբեր'.split('_'),
+            'accusative': 'հունվարի_փետրվարի_մարտի_ապրիլի_մայիսի_հունիսի_հուլիսի_օգոստոսի_սեպտեմբերի_հոկտեմբերի_նոյեմբերի_դեկտեմբերի'.split('_')
+        },
+
+        nounCase = (/D[oD]?(\[[^\[\]]*\]|\s+)+MMMM?/).test(format) ?
+            'accusative' :
+            'nominative';
+
+        return months[nounCase][m.month()];
+    }
+
+    function monthsShortCaseReplace(m, format) {
+        var monthsShort = 'հնվ_փտր_մրտ_ապր_մյս_հնս_հլս_օգս_սպտ_հկտ_նմբ_դկտ'.split('_');
+
+        return monthsShort[m.month()];
+    }
+
+    function weekdaysCaseReplace(m, format) {
+        var weekdays = 'կիրակի_երկուշաբթի_երեքշաբթի_չորեքշաբթի_հինգշաբթի_ուրբաթ_շաբաթ'.split('_');
+
+        return weekdays[m.day()];
+    }
+
+    return moment.lang('hy-am', {
+        months : monthsCaseReplace,
+        monthsShort : monthsShortCaseReplace,
+        weekdays : weekdaysCaseReplace,
+        weekdaysShort : "կրկ_երկ_երք_չրք_հնգ_ուրբ_շբթ".split("_"),
+        weekdaysMin : "կրկ_երկ_երք_չրք_հնգ_ուրբ_շբթ".split("_"),
+        longDateFormat : {
+            LT : "HH:mm",
+            L : "DD.MM.YYYY",
+            LL : "D MMMM YYYY թ.",
+            LLL : "D MMMM YYYY թ., LT",
+            LLLL : "dddd, D MMMM YYYY թ., LT"
+        },
+        calendar : {
+            sameDay: '[այսօր] LT',
+            nextDay: '[վաղը] LT',
+            lastDay: '[երեկ] LT',
+            nextWeek: function () {
+                return 'dddd [օրը ժամը] LT';
+            },
+            lastWeek: function () {
+                return '[անցած] dddd [օրը ժամը] LT';
+            },
+            sameElse: 'L'
+        },
+        relativeTime : {
+            future : "%s հետո",
+            past : "%s առաջ",
+            s : "մի քանի վայրկյան",
+            m : "րոպե",
+            mm : "%d րոպե",
+            h : "ժամ",
+            hh : "%d ժամ",
+            d : "օր",
+            dd : "%d օր",
+            M : "ամիս",
+            MM : "%d ամիս",
+            y : "տարի",
+            yy : "%d տարի"
+        },
+
+        meridiem : function (hour) {
+            if (hour < 4) {
+                return "գիշերվա";
+            } else if (hour < 12) {
+                return "առավոտվա";
+            } else if (hour < 17) {
+                return "ցերեկվա";
+            } else {
+                return "երեկոյան";
+            }
+        },
+
+        ordinal: function (number, period) {
+            switch (period) {
+            case 'DDD':
+            case 'w':
+            case 'W':
+            case 'DDDo':
+                if (number === 1) {
+                    return number + '-ին';
+                }
+                return number + '-րդ';
+            default:
+                return number;
+            }
+        },
+
         week : {
             dow : 1, // Monday is the first day of the week.
             doy : 7  // The week that contains Jan 1st is the first week of the year.
