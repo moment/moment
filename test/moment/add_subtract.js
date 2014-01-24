@@ -223,7 +223,12 @@ exports.add = {
     },
 
     "add across DST" : function (test) {
-        test.expect(3);
+        // Detect Safari bug and bail. Hours on 13th March 2011 are shifted
+        // with 1 ahead.
+        if (new Date(2011, 2, 13, 5, 0, 0).getHours() !== 5) {
+            test.done();
+            return;
+        }
 
         var a = moment(new Date(2011, 2, 12, 5, 0, 0)),
             b = moment(new Date(2011, 2, 12, 5, 0, 0)),
