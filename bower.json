@@ -1,5 +1,5 @@
 {
-  "name": "moment",
+  "name": "momentjs",
   "version": "2.5.1",
   "main": "moment.js",
   "ignore": [
