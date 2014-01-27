@@ -40,6 +40,7 @@
             future : "%s tới",
             past : "%s trước",
             s : "vài giây",
+            ss : "vài giây",
             m : "một phút",
             mm : "%d phút",
             h : "một giờ",

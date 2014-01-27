@@ -57,6 +57,7 @@
             future : "%s vēlāk",
             past : "%s agrāk",
             s : "dažas sekundes",
+            ss : "dažas sekundes",
             m : "minūti",
             mm : relativeTimeWithPlural,
             h : "stundu",

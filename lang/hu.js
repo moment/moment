@@ -78,6 +78,7 @@
             future : "%s múlva",
             past : "%s",
             s : translate,
+            ss : translate,
             m : translate,
             mm : translate,
             h : translate,

@@ -39,6 +39,7 @@
             },
             past : "%s fa",
             s : "alcuni secondi",
+            ss : "alcuni secondi",
             m : "un minuto",
             mm : "%d minuti",
             h : "un'ora",

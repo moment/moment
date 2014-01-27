@@ -56,6 +56,7 @@
             future : "%s pärast",
             past   : "%s tagasi",
             s      : processRelativeTime,
+            ss      : processRelativeTime,
             m      : processRelativeTime,
             mm     : processRelativeTime,
             h      : processRelativeTime,

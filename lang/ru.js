@@ -113,6 +113,7 @@
             future : "через %s",
             past : "%s назад",
             s : "несколько секунд",
+            ss : "несколько секунд",
             m : relativeTimeWithPlural,
             mm : relativeTimeWithPlural,
             h : "час",

@@ -36,6 +36,7 @@
             future : "dans %s",
             past : "il y a %s",
             s : "quelques secondes",
+            ss : "quelques secondes",
             m : "une minute",
             mm : "%d minutes",
             h : "une heure",

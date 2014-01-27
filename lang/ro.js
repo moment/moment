@@ -53,6 +53,7 @@
             future : "peste %s",
             past : "%s în urmă",
             s : "câteva secunde",
+            ss : "câteva secunde",
             m : "un minut",
             mm : relativeTimeWithPlural,
             h : "o oră",

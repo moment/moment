@@ -46,6 +46,7 @@
             future : "en %s",
             past : "hace %s",
             s : "unos segundos",
+            ss : "unos segundos",
             m : "un minuto",
             mm : "%d minutos",
             h : "una hora",

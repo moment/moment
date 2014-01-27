@@ -78,6 +78,7 @@
             future : "za %s",
             past : "%s temu",
             s : "kilka sekund",
+            ss : "kilka sekund",
             m : translate,
             mm : translate,
             h : translate,

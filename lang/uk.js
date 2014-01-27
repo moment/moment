@@ -108,6 +108,7 @@
             future : "за %s",
             past : "%s тому",
             s : "декілька секунд",
+            ss : "декілька секунд",
             m : relativeTimeWithPlural,
             mm : relativeTimeWithPlural,
             h : "годину",

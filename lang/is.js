@@ -104,6 +104,7 @@
             future : "eftir %s",
             past : "fyrir %s síðan",
             s : translate,
+            ss : translate,
             m : translate,
             mm : translate,
             h : "klukkustund",

@@ -51,6 +51,7 @@
             },
             past : "hai %s",
             s : "uns segundos",
+            ss : "uns segundos",
             m : "un minuto",
             mm : "%d minutos",
             h : "unha hora",

@@ -36,6 +36,7 @@
             future : "om %s",
             past : "för %s sedan",
             s : "några sekunder",
+            ss : "några sekunder",
             m : "en minut",
             mm : "%d minuter",
             h : "en timme",

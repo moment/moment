@@ -36,6 +36,7 @@
             future : "um %s",
             past : "%s síðani",
             s : "fá sekund",
+            ss : "fá sekund",
             m : "ein minutt",
             mm : "%d minuttir",
             h : "ein tími",

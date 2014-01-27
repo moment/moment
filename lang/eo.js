@@ -45,6 +45,7 @@
             future : "je %s",
             past : "antaŭ %s",
             s : "sekundoj",
+            ss : "sekundoj",
             m : "minuto",
             mm : "%d minutoj",
             h : "horo",

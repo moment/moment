@@ -36,6 +36,7 @@
             future : "dadkh s yan %s",
             past : "yan %s",
             s : "imik",
+            ss : "imik",
             m : "minuḍ",
             mm : "%d minuḍ",
             h : "saɛa",

@@ -64,6 +64,7 @@
             future : "%s sonra",
             past : "%s önce",
             s : "birkaç saniye",
+            ss : "birkaç saniye",
             m : "bir dakika",
             mm : "%d dakika",
             h : "bir saat",

@@ -140,6 +140,7 @@
             future: processFutureTime,
             past: processPastTime,
             s: "e puer Sekonnen",
+            ss: "e puer Sekonnen",
             m: processRelativeTime,
             mm: "%d Minutten",
             h: processRelativeTime,

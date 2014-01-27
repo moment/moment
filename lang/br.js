@@ -84,6 +84,7 @@
             future : "a-benn %s",
             past : "%s 'zo",
             s : "un nebeud segondennoù",
+            ss : "un nebeud segondennoù",
             m : "ur vunutenn",
             mm : relativeTimeWithMutation,
             h : "un eur",

@@ -96,6 +96,7 @@
             future : "po %s",
             past : "prieš %s",
             s : translateSeconds,
+            ss : translateSeconds,
             m : translateSingular,
             mm : translate,
             h : translateSingular,

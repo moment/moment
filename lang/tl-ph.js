@@ -36,6 +36,7 @@
             future : "sa loob ng %s",
             past : "%s ang nakalipas",
             s : "ilang segundo",
+            ss : "ilang segundo",
             m : "isang minuto",
             mm : "%d minuto",
             h : "isang oras",
