@@ -20,8 +20,8 @@
         longDateFormat : {
             LT : "HH:mm",
             L : "DD/MM/YYYY",
-            LL : "D MMMM YYYY",
-            LLL : "D MMMM YYYY LT",
+            LL : "D. MMMM YYYY",
+            LLL : "D. MMMM YYYY LT",
             LLLL : "dddd D. MMMM, YYYY LT"
         },
         calendar : {
