@@ -1755,8 +1755,8 @@
         return m;
     };
 
-    moment.parseZone = function (input) {
-        return moment(input).parseZone();
+    moment.parseZone = function () {
+        return moment.apply(null, arguments).parseZone();
     };
 
     /************************************
