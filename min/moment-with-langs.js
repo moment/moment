@@ -27,6 +27,9 @@
         // internal storage for language config files
         languages = {},
 
+        // global offset
+        globalOffset,
+
         // moment internal properties
         momentProperties = {
             _isAMomentObject: null,
@@ -1025,6 +1028,16 @@
         }
     }
 
+    function timezoneMinutesFromInput(input) {
+        if (typeof input === "string") {
+            input = timezoneMinutesFromString(input);
+        }
+        if (Math.abs(input) < 16) {
+            input = input * 60;
+        }
+        return input;
+    }
+
     function timezoneMinutesFromString(string) {
         string = string || "";
         var possibleTzMatches = (string.match(parseTokenTimezone) || []),
@@ -1592,8 +1605,13 @@
         c._strict = strict;
         c._isUTC = false;
         c._pf = defaultParsingFlags();
-
-        return makeMoment(c);
+        if (typeof globalOffset === "undefined") {
+            return makeMoment(c);
+        } else {
+            c._useUTC = true;
+            c._tzm = globalOffset;
+            return makeMoment(c).zone(globalOffset);
+        }
     };
 
     // creating with utc
@@ -1755,8 +1773,18 @@
         return m;
     };
 
-    moment.parseZone = function (input) {
-        return moment(input).parseZone();
+    moment.zone = function (input) {
+        if (typeof input === "undefined") {
+            return globalOffset;
+        } else if (input === null) {
+            globalOffset = undefined;
+        } else {
+            globalOffset = timezoneMinutesFromInput(input);
+        }
+    };
+
+    moment.parseZone = function () {
+        return moment.apply(null, arguments).parseZone();
     };
 
     /************************************
@@ -2037,12 +2065,7 @@
         zone : function (input) {
             var offset = this._offset || 0;
             if (input != null) {
-                if (typeof input === "string") {
-                    input = timezoneMinutesFromString(input);
-                }
-                if (Math.abs(input) < 16) {
-                    input = input * 60;
-                }
+                input = timezoneMinutesFromInput(input);
                 this._offset = input;
                 this._isUTC = true;
                 if (offset !== input) {
