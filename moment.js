@@ -28,17 +28,17 @@
         languages = {},
 
         // moment internal properties
-        momentProperties = {
-            _isAMomentObject: null,
-            _i : null,
-            _f : null,
-            _l : null,
-            _strict : null,
-            _isUTC : null,
-            _offset : null,  // optional. Combine with _isUTC
-            _pf : null,
-            _lang : null  // optional
-        },
+        momentProperties = [ 
+            '_isAMomentObject',
+            '_i',
+            '_f',
+            '_l',
+            '_strict',
+            '_isUTC',
+            '_offset',  // optional. Combine with _isUTC
+            '_pf',
+            '_lang' // optional
+        ],
 
         // check for nodeJS
         hasModule = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined'),
@@ -369,29 +369,23 @@
     ************************************/
 
 
+    // Hot function, simple is fast
     function extend(a, b) {
         for (var i in b) {
-            if (b.hasOwnProperty(i)) {
-                a[i] = b[i];
-            }
-        }
-
-        if (b.hasOwnProperty("toString")) {
-            a.toString = b.toString;
-        }
-
-        if (b.hasOwnProperty("valueOf")) {
-            a.valueOf = b.valueOf;
+            a[i] = b[i];
         }
 
         return a;
     }
 
+    // Hot function, worth the extra effort
     function cloneMoment(m) {
-        var result = {}, i;
-        for (i in m) {
-            if (m.hasOwnProperty(i) && momentProperties.hasOwnProperty(i)) {
-                result[i] = m[i];
+        var result = {}, key, i;
+        i = momentProperties.length;
+        while (i--) {
+            key = momentProperties[i];
+            if (m.hasOwnProperty(key)) {
+                result[key] = m[key];
             }
         }
 
