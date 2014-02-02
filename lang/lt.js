@@ -61,7 +61,7 @@
     }
 
     function relativeWeekDay(moment, format) {
-        var nominative = format.indexOf('dddd LT') === -1,
+        var nominative = format.indexOf('dddd HH:mm') === -1,
             weekDay = weekDays[moment.weekday()];
 
         return nominative ? weekDay : weekDay.substring(0, weekDay.length - 2) + "į";
