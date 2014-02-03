@@ -37,7 +37,7 @@ exports["lang:es"] = {
     },
 
     "format" : function (test) {
-        test.expect(22);
+        test.expect(23);
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'domingo, febrero 14º 2010, 3:25:50 pm'],
                 ['ddd, hA',                            'dom., 3PM'],
@@ -47,6 +47,7 @@ exports["lang:es"] = {
                 ['d do dddd ddd dd',                   '0 0º domingo dom. Do'],
                 ['DDD DDDo DDDD',                      '45 45º 045'],
                 ['w wo ww',                            '6 6º 06'],
+                ['YYYY-MMM-DD',                        '2010-feb-14'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
@@ -351,12 +352,12 @@ exports["lang:es"] = {
 
         test.done();
     },
-    
+
     "returns the name of the language" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
             test.equal(require('../../lang/es'), 'es', "module should export es");
         }
-        
+
         test.done();
     }
 };
