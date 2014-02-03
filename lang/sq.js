@@ -18,6 +18,9 @@
         weekdays : "E Diel_E Hënë_E Marte_E Mërkure_E Enjte_E Premte_E Shtunë".split("_"),
         weekdaysShort : "Die_Hën_Mar_Mër_Enj_Pre_Sht".split("_"),
         weekdaysMin : "D_H_Ma_Më_E_P_Sh".split("_"),
+        meridiem : function (hours, minutes, isLower) {
+            return hours < 12 ? 'PD' : 'MD';
+        },
         longDateFormat : {
             LT : "HH:mm",
             L : "DD/MM/YYYY",

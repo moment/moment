@@ -57,7 +57,7 @@ exports["lang:sq"] = {
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
-                ['a A',                                'pm PM'],
+                ['a A',                                'MD MD'],
                 ['[the] DDDo [day of the year]',       'the 45. day of the year'],
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 Shkurt 2010'],
@@ -74,6 +74,15 @@ exports["lang:sq"] = {
         for (i = 0; i < a.length; i++) {
             test.equal(b.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
         }
+
+        test.done();
+    },
+
+    "meridiem" : function (test) {
+        test.expect(2);
+
+        test.equal(moment([2011, 2, 23,  0, 0]).format('A'), "PD", "before dawn");
+        test.equal(moment([2011, 2, 23, 12, 0]).format('A'), "MD", "noon");
 
         test.done();
     },
@@ -375,12 +384,12 @@ exports["lang:sq"] = {
 
         test.done();
     },
-    
+
     "returns the name of the language" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
             test.equal(require('../../lang/sq'), 'sq', "module should export sq");
         }
-        
+
         test.done();
     }
 };
