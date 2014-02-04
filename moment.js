@@ -561,6 +561,10 @@
         return new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
     }
 
+    function weeksInYear(year, dow, doy) {
+        return weekOfYear(moment([year, 11, 31 + dow - doy]), dow, doy).week;
+    }
+
     function daysInYear(year) {
         return isLeapYear(year) ? 366 : 365;
     }
@@ -2125,6 +2129,15 @@
             // as a getter, returns 7 instead of 0 (1-7 range instead of 0-6)
             // as a setter, sunday should belong to the previous week.
             return input == null ? this.day() || 7 : this.day(this.day() % 7 ? input : input - 7);
+        },
+
+        isoWeeksInYear : function () {
+            return weeksInYear(this.year(), 1, 4);
+        },
+
+        weeksInYear : function () {
+            var weekInfo = this._lang._week;
+            return weeksInYear(this.year(), weekInfo.dow, weekInfo.doy);
         },
 
         get : function (units) {
