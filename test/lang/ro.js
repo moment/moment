@@ -19,7 +19,7 @@ exports["lang:ro"] = {
     "parse" : function (test) {
         test.expect(96);
 
-        var tests = 'ianuarie ian_februarie feb_martie mar_aprilie apr_mai mai_iunie iun_iulie iul_august aug_septembrie sep_octombrie oct_noiembrie noi_decembrie dec'.split("_"), i;
+        var tests = 'ianuarie ian._februarie febr._martie mart._aprilie apr._mai mai_iunie iun._iulie iul._august aug._septembrie sept._octombrie oct._noiembrie nov._decembrie dec.'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -43,7 +43,7 @@ exports["lang:ro"] = {
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss A',  'duminică, februarie 14 2010, 3:25:50 PM'],
                 ['ddd, hA',                        'Dum, 3PM'],
-                ['M Mo MM MMMM MMM',               '2 2 02 februarie feb'],
+                ['M Mo MM MMMM MMM',               '2 2 02 februarie febr.'],
                 ['YYYY YY',                        '2010 10'],
                 ['D Do DD',                        '14 14 14'],
                 ['d do dddd ddd dd',               '0 0 duminică Dum Du'],
@@ -60,9 +60,9 @@ exports["lang:ro"] = {
                 ['LLL',                            '14 februarie 2010 15:25'],
                 ['LLLL',                           'duminică, 14 februarie 2010 15:25'],
                 ['l',                              '14.2.2010'],
-                ['ll',                             '14 feb 2010'],
-                ['lll',                            '14 feb 2010 15:25'],
-                ['llll',                           'Dum, 14 feb 2010 15:25']
+                ['ll',                             '14 febr. 2010'],
+                ['lll',                            '14 febr. 2010 15:25'],
+                ['llll',                           'Dum, 14 febr. 2010 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -115,7 +115,7 @@ exports["lang:ro"] = {
     "format month" : function (test) {
         test.expect(12);
 
-        var expected = 'ianuarie ian_februarie feb_martie mar_aprilie apr_mai mai_iunie iun_iulie iul_august aug_septembrie sep_octombrie oct_noiembrie noi_decembrie dec'.split("_"), i;
+        var expected = 'ianuarie ian._februarie febr._martie mart._aprilie apr._mai mai_iunie iun._iulie iul._august aug._septembrie sept._octombrie oct._noiembrie nov._decembrie dec.'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
