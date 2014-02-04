@@ -60,12 +60,12 @@ exports["lang:pt-br"] = {
                 ['[the] DDDo [day of the year]',       'the 45º day of the year'],
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 de Fevereiro de 2010'],
-                ['LLL',                                '14 de Fevereiro de 2010 15:25'],
-                ['LLLL',                               'Domingo, 14 de Fevereiro de 2010 15:25'],
+                ['LLL',                                '14 de Fevereiro de 2010 às 15:25'],
+                ['LLLL',                               'Domingo, 14 de Fevereiro de 2010 às 15:25'],
                 ['l',                                  '14/2/2010'],
                 ['ll',                                 '14 de Fev de 2010'],
-                ['lll',                                '14 de Fev de 2010 15:25'],
-                ['llll',                               'Dom, 14 de Fev de 2010 15:25']
+                ['lll',                                '14 de Fev de 2010 às 15:25'],
+                ['llll',                               'Dom, 14 de Fev de 2010 às 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
