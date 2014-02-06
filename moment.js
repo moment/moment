@@ -435,10 +435,10 @@
             hours = mom.hour();
         }
         if (days) {
-            mom.date(mom.date() + days * isAdding, true);
+            mom.date(mom.date() + days * isAdding);
         }
         if (months) {
-            mom.month(mom.month() + months * isAdding, true);
+            mom.month(mom.month() + months * isAdding);
         }
         if (milliseconds && !ignoreUpdateOffset) {
             moment.updateOffset(mom, days || months);
@@ -1959,11 +1959,9 @@
                     }
                 }
 
-                dayOfMonth = this.date();
-                this.date(1, true);
-                this._d['set' + utc + 'Month'](input, true);
-                this.date(Math.min(dayOfMonth, this.daysInMonth()), true);
-
+                dayOfMonth = Math.min(this.date(),
+                        daysInMonth(this.year(), input));
+                this._d['set' + utc + 'Month'](input, dayOfMonth);
                 moment.updateOffset(this, true);
                 return this;
             } else {
@@ -2171,8 +2169,12 @@
         // ignoreOffsetTransitions provides a hint to updateOffset to not
         // change hours/minutes when crossing a tz boundary.  This is frequently
         // desirable when modifying part of an existing moment object directly.
+        var defaultIgnoreOffsetTransitions = key === 'date' || key === 'month' || key === 'year';
         moment.fn[name] = moment.fn[name + 's'] = function (input, ignoreOffsetTransitions) {
             var utc = this._isUTC ? 'UTC' : '';
+            if (ignoreOffsetTransitions == null) {
+                ignoreOffsetTransitions = defaultIgnoreOffsetTransitions;
+            }
             if (input != null) {
                 this._d['set' + utc + key](input);
                 moment.updateOffset(this, ignoreOffsetTransitions);
@@ -2183,7 +2185,8 @@
         };
     }
 
-    // loop through and add shortcuts (Month, Date, Hours, Minutes, Seconds, Milliseconds)
+    // loop through and add shortcuts (Date, Hours, Minutes, Seconds, Milliseconds)
+    // Month has a custom getter/setter.
     for (i = 0; i < proxyGettersAndSetters.length; i ++) {
         makeGetterAndSetter(proxyGettersAndSetters[i].toLowerCase().replace(/s$/, ''), proxyGettersAndSetters[i]);
     }
