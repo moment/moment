@@ -2038,7 +2038,8 @@
             return other > this ? this : other;
         },
 
-        zone : function (input) {
+        zone : function (input, adjust) {
+            adjust = (adjust == null ? true : false);
             var offset = this._offset || 0;
             if (input != null) {
                 if (typeof input === "string") {
@@ -2049,7 +2050,7 @@
                 }
                 this._offset = input;
                 this._isUTC = true;
-                if (offset !== input) {
+                if (offset !== input && adjust) {
                     addOrSubtractDurationFromMoment(this, moment.duration(offset - input, 'm'), 1, true);
                 }
             } else {
