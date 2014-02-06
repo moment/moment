@@ -435,13 +435,13 @@
             hours = mom.hour();
         }
         if (days) {
-            mom.date(mom.date() + days * isAdding);
+            mom.date(mom.date() + days * isAdding, true);
         }
         if (months) {
-            mom.month(mom.month() + months * isAdding);
+            mom.month(mom.month() + months * isAdding, true);
         }
         if (milliseconds && !ignoreUpdateOffset) {
-            moment.updateOffset(mom);
+            moment.updateOffset(mom, days || months);
         }
         // restore the minutes and hours after possibly changing dst
         if (days || months) {
@@ -1960,11 +1960,11 @@
                 }
 
                 dayOfMonth = this.date();
-                this.date(1);
-                this._d['set' + utc + 'Month'](input);
-                this.date(Math.min(dayOfMonth, this.daysInMonth()));
+                this.date(1, true);
+                this._d['set' + utc + 'Month'](input, true);
+                this.date(Math.min(dayOfMonth, this.daysInMonth()), true);
 
-                moment.updateOffset(this);
+                moment.updateOffset(this, true);
                 return this;
             } else {
                 return this._d['get' + utc + 'Month']();
@@ -2168,11 +2168,14 @@
 
     // helper for adding shortcuts
     function makeGetterAndSetter(name, key) {
-        moment.fn[name] = moment.fn[name + 's'] = function (input) {
+        // ignoreOffsetTransitions provides a hint to updateOffset to not
+        // change hours/minutes when crossing a tz boundary.  This is frequently
+        // desirable when modifying part of an existing moment object directly.
+        moment.fn[name] = moment.fn[name + 's'] = function (input, ignoreOffsetTransitions) {
             var utc = this._isUTC ? 'UTC' : '';
             if (input != null) {
                 this._d['set' + utc + key](input);
-                moment.updateOffset(this);
+                moment.updateOffset(this, ignoreOffsetTransitions);
                 return this;
             } else {
                 return this._d['get' + utc + key]();
