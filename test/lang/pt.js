@@ -41,12 +41,12 @@ exports["lang:pt"] = {
         test.expect(22);
 
         var a = [
-                ['dddd, MMMM Do YYYY, h:mm:ss a',      'Domingo, Fevereiro 14º 2010, 3:25:50 pm'],
-                ['ddd, hA',                            'Dom, 3PM'],
-                ['M Mo MM MMMM MMM',                   '2 2º 02 Fevereiro Fev'],
+                ['dddd, MMMM Do YYYY, h:mm:ss a',      'domingo, fevereiro 14º 2010, 3:25:50 pm'],
+                ['ddd, hA',                            'dom, 3PM'],
+                ['M Mo MM MMMM MMM',                   '2 2º 02 fevereiro fev'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14º 14'],
-                ['d do dddd ddd dd',                   '0 0º Domingo Dom Dom'],
+                ['d do dddd ddd dd',                   '0 0º domingo dom dom'],
                 ['DDD DDDo DDDD',                      '45 45º 045'],
                 ['w wo ww',                            '6 6º 06'],
                 ['h hh',                               '3 03'],
@@ -56,13 +56,13 @@ exports["lang:pt"] = {
                 ['a A',                                'pm PM'],
                 ['[the] DDDo [day of the year]',       'the 45º day of the year'],
                 ['L',                                  '14/02/2010'],
-                ['LL',                                 '14 de Fevereiro de 2010'],
-                ['LLL',                                '14 de Fevereiro de 2010 15:25'],
-                ['LLLL',                               'Domingo, 14 de Fevereiro de 2010 15:25'],
+                ['LL',                                 '14 de fevereiro de 2010'],
+                ['LLL',                                '14 de fevereiro de 2010 15:25'],
+                ['LLLL',                               'domingo, 14 de fevereiro de 2010 15:25'],
                 ['l',                                  '14/2/2010'],
-                ['ll',                                 '14 de Fev de 2010'],
-                ['lll',                                '14 de Fev de 2010 15:25'],
-                ['llll',                               'Dom, 14 de Fev de 2010 15:25']
+                ['ll',                                 '14 de fev de 2010'],
+                ['lll',                                '14 de fev de 2010 15:25'],
+                ['llll',                               'dom, 14 de fev de 2010 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -113,7 +113,7 @@ exports["lang:pt"] = {
 
     "format month" : function (test) {
         test.expect(12);
-        var expected = 'Janeiro Jan_Fevereiro Fev_Março Mar_Abril Abr_Maio Mai_Junho Jun_Julho Jul_Agosto Ago_Setembro Set_Outubro Out_Novembro Nov_Dezembro Dez'.split("_"), i;
+        var expected = 'janeiro jan_fevereiro fev_março mar_abril abr_maio mai_junho jun_julho jul_agosto ago_setembro set_outubro out_novembro nov_dezembro dez'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -122,7 +122,7 @@ exports["lang:pt"] = {
 
     "format week" : function (test) {
         test.expect(7);
-        var expected = 'Domingo Dom Dom_Segunda-feira Seg 2ª_Terça-feira Ter 3ª_Quarta-feira Qua 4ª_Quinta-feira Qui 5ª_Sexta-feira Sex 6ª_Sábado Sáb Sáb'.split("_"), i;
+        var expected = 'domingo dom dom_segunda-feira seg 2ª_terça-feira ter 3ª_quarta-feira qua 4ª_quinta-feira qui 5ª_sexta-feira sex 6ª_sábado sáb sáb'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
