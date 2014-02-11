@@ -172,13 +172,13 @@ exports["lang:nn"] = {
     "suffix" : function (test) {
         test.expect(2);
         test.equal(moment(30000).from(0), "om nokre sekund",  "prefix");
-        test.equal(moment(0).from(30000), "for nokre sekund siden", "suffix");
+        test.equal(moment(0).from(30000), "for nokre sekund sidan", "suffix");
         test.done();
     },
 
     "now from now" : function (test) {
         test.expect(1);
-        test.equal(moment().fromNow(), "for nokre sekund siden",  "now from now should display as in the past");
+        test.equal(moment().fromNow(), "for nokre sekund sidan",  "now from now should display as in the past");
         test.done();
     },
 
