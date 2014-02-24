@@ -14,5 +14,17 @@
     ],
     "homepage": "http://github.com/moment/moment/",
     "author": "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
-    "license": "MIT"
+    "license": "MIT",
+    "type": "component",
+    "extra": {
+        "component": {
+            "scripts": [
+                "min/*.js"
+            ],
+            "styles": []
+        }
+    },
+    "require": {
+        "robloach/component-installer": "*"
+    }
 }
