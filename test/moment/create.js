@@ -147,7 +147,7 @@ exports.create = {
 
     "string with format dropped am/pm bug" : function (test) {
         moment.lang('en');
-        test.expect(6);
+        test.expect(8);
 
         test.equal(moment('05/1/2012 12:25:00', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
         test.equal(moment('05/1/2012 12:25:00 am', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
@@ -156,6 +156,8 @@ exports.create = {
         test.ok(moment('05/1/2012 12:25:00', 'MM/DD/YYYY h:m:s a').isValid());
         test.ok(moment('05/1/2012 12:25:00 am', 'MM/DD/YYYY h:m:s a').isValid());
         test.ok(moment('05/1/2012 12:25:00 pm', 'MM/DD/YYYY h:m:s a').isValid());
+        test.ok(moment('05/1/2012 12:25:00 a.m.', 'MM/DD/YYYY h:m:s aa').isValid());
+        test.ok(moment('05/1/2012 12:25:00 p.m.', 'MM/DD/YYYY h:m:s aa').isValid());
 
         test.done();
     },
@@ -196,20 +198,24 @@ exports.create = {
     },
 
     "matching am/pm" : function (test) {
-        test.expect(13);
+        test.expect(17);
 
         test.equal(moment('2012-09-03T03:00PM',   'YYYY-MM-DDThh:mmA').format('YYYY-MM-DDThh:mmA'), '2012-09-03T03:00PM', 'am/pm should parse correctly for PM');
         test.equal(moment('2012-09-03T03:00P.M.', 'YYYY-MM-DDThh:mmA').format('YYYY-MM-DDThh:mmA'), '2012-09-03T03:00PM', 'am/pm should parse correctly for P.M.');
+        test.equal(moment('2012-09-03T03:00P.M.', 'YYYY-MM-DDThh:mmAA').format('YYYY-MM-DDThh:mmAA'), '2012-09-03T03:00P.M.', 'a.m./p.m. should parse correctly for P.M.');
         test.equal(moment('2012-09-03T03:00P',    'YYYY-MM-DDThh:mmA').format('YYYY-MM-DDThh:mmA'), '2012-09-03T03:00PM', 'am/pm should parse correctly for P');
         test.equal(moment('2012-09-03T03:00pm',   'YYYY-MM-DDThh:mmA').format('YYYY-MM-DDThh:mmA'), '2012-09-03T03:00PM', 'am/pm should parse correctly for pm');
         test.equal(moment('2012-09-03T03:00p.m.', 'YYYY-MM-DDThh:mmA').format('YYYY-MM-DDThh:mmA'), '2012-09-03T03:00PM', 'am/pm should parse correctly for p.m.');
+        test.equal(moment('2012-09-03T03:00p.m.', 'YYYY-MM-DDThh:mmAA').format('YYYY-MM-DDThh:mmAA'), '2012-09-03T03:00P.M.', 'a.m./p.m. should parse correctly for p.m.');
         test.equal(moment('2012-09-03T03:00p',    'YYYY-MM-DDThh:mmA').format('YYYY-MM-DDThh:mmA'), '2012-09-03T03:00PM', 'am/pm should parse correctly for p');
 
         test.equal(moment('2012-09-03T03:00AM',   'YYYY-MM-DDThh:mmA').format('YYYY-MM-DDThh:mmA'), '2012-09-03T03:00AM', 'am/pm should parse correctly for AM');
         test.equal(moment('2012-09-03T03:00A.M.', 'YYYY-MM-DDThh:mmA').format('YYYY-MM-DDThh:mmA'), '2012-09-03T03:00AM', 'am/pm should parse correctly for A.M.');
+        test.equal(moment('2012-09-03T03:00A.M.', 'YYYY-MM-DDThh:mmAA').format('YYYY-MM-DDThh:mmAA'), '2012-09-03T03:00A.M.', 'a.m./p.m. should parse correctly for A.M.');
         test.equal(moment('2012-09-03T03:00A',    'YYYY-MM-DDThh:mmA').format('YYYY-MM-DDThh:mmA'), '2012-09-03T03:00AM', 'am/pm should parse correctly for A');
         test.equal(moment('2012-09-03T03:00am',   'YYYY-MM-DDThh:mmA').format('YYYY-MM-DDThh:mmA'), '2012-09-03T03:00AM', 'am/pm should parse correctly for am');
         test.equal(moment('2012-09-03T03:00a.m.', 'YYYY-MM-DDThh:mmA').format('YYYY-MM-DDThh:mmA'), '2012-09-03T03:00AM', 'am/pm should parse correctly for a.m.');
+        test.equal(moment('2012-09-03T03:00a.m.', 'YYYY-MM-DDThh:mmA').format('YYYY-MM-DDThh:mmAA'), '2012-09-03T03:00A.M.', 'a.m./p.m. should parse correctly for a.m.');
         test.equal(moment('2012-09-03T03:00a',    'YYYY-MM-DDThh:mmA').format('YYYY-MM-DDThh:mmA'), '2012-09-03T03:00AM', 'am/pm should parse correctly for a');
 
         test.equal(moment('5:00p.m.March 4 2012', 'h:mmAMMMM D YYYY').format('YYYY-MM-DDThh:mmA'), '2012-03-04T05:00PM', 'am/pm should parse correctly before month names');
@@ -231,10 +237,16 @@ exports.create = {
                 ['DD-MM-YYYY h:m:s',    '12-02-1999 2:45:10'],
                 ['DD-MM-YYYY h:m:s a',  '12-02-1999 2:45:10 am'],
                 ['DD-MM-YYYY h:m:s a',  '12-02-1999 2:45:10 pm'],
+                ['DD-MM-YYYY h:m:s aa',  '12-02-1999 2:45:10 a.m.'],
+                ['DD-MM-YYYY h:m:s aa',  '12-02-1999 2:45:10 p.m.'],
                 ['h:mm a',              '12:00 pm'],
                 ['h:mm a',              '12:30 pm'],
                 ['h:mm a',              '12:00 am'],
                 ['h:mm a',              '12:30 am'],
+                ['h:mm aa',              '12:00 p.m.'],
+                ['h:mm aa',              '12:30 p.m.'],
+                ['h:mm aa',              '12:00 a.m.'],
+                ['h:mm aa',              '12:30 a.m.'],
                 ['HH:mm',               '12:00'],
                 ['YYYY-MM-DDTHH:mm:ss', '2011-11-11T11:11:11'],
                 ['MM-DD-YYYY [M]',      '12-02-1999 M'],

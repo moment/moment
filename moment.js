@@ -52,7 +52,7 @@
         isoDurationRegex = /^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/,
 
         // format tokens
-        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|X|zz?|ZZ?|.)/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|aa|AA|a|A|hh?|HH?|mm?|ss?|S{1,4}|X|zz?|ZZ?|.)/g,
         localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?|l{1,4})/g,
 
         // parsing token regexes
@@ -217,10 +217,16 @@
                 return this.isoWeekday();
             },
             a    : function () {
-                return this.lang().meridiem(this.hours(), this.minutes(), true);
+                return this.lang().meridiem(this.hours(), this.minutes(), true, false);
+            },
+            aa   : function () {
+                return this.lang().meridiem(this.hours(), this.minutes(), true, true);
             },
             A    : function () {
-                return this.lang().meridiem(this.hours(), this.minutes(), false);
+                return this.lang().meridiem(this.hours(), this.minutes(), false, false);
+            },
+            AA   : function () {
+                return this.lang().meridiem(this.hours(), this.minutes(), false, true);
             },
             H    : function () {
                 return this.hours();
@@ -733,12 +739,16 @@
             return ((input + '').toLowerCase().charAt(0) === 'p');
         },
 
-        _meridiemParse : /[ap]\.?m?\.?/i,
-        meridiem : function (hours, minutes, isLower) {
+        _meridiemParse : /(a{1,2}|p\.?m?\.?)/i,
+        meridiem : function (hours, minutes, isLower, useDots) {
             if (hours > 11) {
-                return isLower ? 'pm' : 'PM';
+                return isLower ?
+                    (useDots ? 'p.m.' : 'pm') :
+                    (useDots ? 'P.M.' : 'PM');
             } else {
-                return isLower ? 'am' : 'AM';
+                return isLower ?
+                    (useDots ? 'a.m.' : 'am') :
+                    (useDots ? 'A.M.' : 'AM');
             }
         },
 
@@ -988,7 +998,9 @@
         case 'ddd':
         case 'dddd':
             return parseTokenWord;
+        case 'aa':
         case 'a':
+        case 'AA':
         case 'A':
             return getLangDefinition(config._l)._meridiemParse;
         case 'X':
@@ -1095,7 +1107,9 @@
             break;
         // AM / PM
         case 'a' : // fall through to A
+        case 'aa':
         case 'A' :
+        case 'AA':
             config._isPm = getLangDefinition(config._l).isPM(input);
             break;
         // 24 HOUR
