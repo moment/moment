@@ -13,6 +13,21 @@
         "ender"
     ],
     "homepage": "http://github.com/moment/moment/",
-    "author": "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
-    "license": "MIT"
+    "authors": [{"name": "Tim Wood", "email": "washwithcare@gmail.com"}],
+    "license": "MIT",
+    "type": "component",
+    "require": {
+        "robloach/component-installer": "*"
+    },
+    "extra": {
+        "component": {
+            "scripts": [
+                "moment.js"
+            ],
+            "files": [
+               "min/*.js",
+               "lang/*.js"
+            ]
+        }
+    }
 }
