@@ -136,55 +136,55 @@ exports["lang:nn"] = {
         test.expect(30);
 
         var start = moment([2007, 1, 28]);
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "noen sekund", "44 sekunder = a few seconds");
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "ett minutt",      "45 seconds = a minute");
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  "ett minutt",      "89 seconds = a minute");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "nokre sekund", "44 sekunder = a few seconds");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "eit minutt",   "45 seconds = a minute");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  "eit minutt",   "89 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  "2 minutt",     "90 seconds = 2 minutes");
         test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  "44 minutt",    "44 minutes = 44 minutes");
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  "en time",       "45 minutes = an hour");
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  "en time",       "89 minutes = an hour");
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  "2 timar",       "90 minutes = 2 hours");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   "5 timar",       "5 hours = 5 hours");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  "21 timar",      "21 hours = 21 hours");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  "en dag",         "22 hours = a day");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  "en dag",         "35 hours = a day");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  "2 dagar",        "36 hours = 2 days");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   "en dag",         "1 day = a day");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   "5 dagar",        "5 days = 5 days");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "25 dagar",       "25 days = 25 days");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "en månad",       "26 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "en månad",       "30 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 45}), true),  "en månad",       "45 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "2 månader",      "46 days = 2 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "2 månader",      "75 days = 2 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "3 månader",      "76 days = 3 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "en månad",       "1 month = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "5 månader",      "5 months = 5 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 344}), true), "11 månader",     "344 days = 11 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "ett år",        "345 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 547}), true), "ett år",        "547 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "2 år",       "548 days = 2 years");
-        test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "ett år",        "1 year = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "5 år",       "5 years = 5 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  "ein time",     "45 minutes = an hour");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  "ein time",     "89 minutes = an hour");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  "2 timar",      "90 minutes = 2 hours");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   "5 timar",      "5 hours = 5 hours");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  "21 timar",     "21 hours = 21 hours");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  "ein dag",      "22 hours = a day");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  "ein dag",      "35 hours = a day");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  "2 dagar",      "36 hours = 2 days");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   "ein dag",      "1 day = a day");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   "5 dagar",      "5 days = 5 days");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "25 dagar",     "25 days = 25 days");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "ein månad",    "26 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "ein månad",    "30 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 45}), true),  "ein månad",    "45 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "2 månader",    "46 days = 2 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "2 månader",    "75 days = 2 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "3 månader",    "76 days = 3 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "ein månad",    "1 month = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "5 månader",    "5 months = 5 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 344}), true), "11 månader",   "344 days = 11 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "eit år",       "345 days = a year");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 547}), true), "eit år",       "547 days = a year");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "2 år",         "548 days = 2 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "eit år",       "1 year = a year");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "5 år",         "5 years = 5 years");
         test.done();
     },
 
     "suffix" : function (test) {
         test.expect(2);
-        test.equal(moment(30000).from(0), "om noen sekund",  "prefix");
-        test.equal(moment(0).from(30000), "for noen sekund siden", "suffix");
+        test.equal(moment(30000).from(0), "om nokre sekund",  "prefix");
+        test.equal(moment(0).from(30000), "for nokre sekund sidan", "suffix");
         test.done();
     },
 
     "now from now" : function (test) {
         test.expect(1);
-        test.equal(moment().fromNow(), "for noen sekund siden",  "now from now should display as in the past");
+        test.equal(moment().fromNow(), "for nokre sekund sidan",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow" : function (test) {
         test.expect(2);
-        test.equal(moment().add({s: 30}).fromNow(), "om noen sekund", "in a few seconds");
+        test.equal(moment().add({s: 30}).fromNow(), "om nokre sekund", "in a few seconds");
         test.equal(moment().add({d: 5}).fromNow(), "om 5 dagar", "in 5 days");
         test.done();
     },
@@ -224,11 +224,11 @@ exports["lang:nn"] = {
         var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
-            test.equal(m.calendar(),       m.format('[Føregående] dddd [klokka] LT'),  "Today - " + i + " days current time");
+            test.equal(m.calendar(),       m.format('[Føregåande] dddd [klokka] LT'),  "Today - " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('[Føregående] dddd [klokka] LT'),  "Today - " + i + " days beginning of day");
+            test.equal(m.calendar(),       m.format('[Føregåande] dddd [klokka] LT'),  "Today - " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('[Føregående] dddd [klokka] LT'),  "Today - " + i + " days end of day");
+            test.equal(m.calendar(),       m.format('[Føregåande] dddd [klokka] LT'),  "Today - " + i + " days end of day");
         }
         test.done();
     },
@@ -352,12 +352,12 @@ exports["lang:nn"] = {
 
         test.done();
     },
-    
+
     "returns the name of the language" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
             test.equal(require('../../lang/nn'), 'nn', "module should export nn");
         }
-        
+
         test.done();
     }
 };
