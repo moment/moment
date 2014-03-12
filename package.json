@@ -47,13 +47,13 @@
         "grunt-contrib-uglify": "latest",
         "grunt-contrib-watch": "latest",
         "grunt-env": "latest",
-        "grunt-karma": "~0.7.2",
+        "grunt-karma": "latest",
         "load-grunt-tasks": "latest",
-        "karma": "~0.11.0",
+        "karma": "latest",
         "karma-chrome-launcher": "latest",
         "karma-firefox-launcher": "latest",
-        "karma-nodeunit": "~0.1.1",
-        "karma-sauce-launcher": "~0.1"
+        "karma-nodeunit": "latest",
+        "karma-sauce-launcher": "latest"
   },
     "scripts": {
         "test": "grunt test:node"
