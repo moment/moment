@@ -759,6 +759,7 @@
             future : "in %s",
             past : "%s ago",
             s : "a few seconds",
+            ss : "%d seconds",
             m : "a minute",
             mm : "%d minutes",
             h : "an hour",
@@ -2332,7 +2333,31 @@
                 (hours ? hours + 'H' : '') +
                 (minutes ? minutes + 'M' : '') +
                 (seconds ? seconds + 'S' : '');
-        }
+        },
+
+		toLocalString : function(withSuffix, precision) {
+			if(!precision) precision = 2;
+			var y = Math.abs(this.years()),
+				m = Math.abs(this.months()),
+				d = Math.abs(this.days()),
+				h = Math.abs(this.hours()),
+				i = Math.abs(this.minutes()),
+				s = Math.abs(this.seconds()),
+				u = Math.abs(this.milliseconds()),
+				l = this.lang(),
+				res = [];
+
+			if(y) res.push(l.relativeTime(y, 0, 'yy'));
+			if(m) res.push(l.relativeTime(m, 0, 'MM'));
+			if(d) res.push(l.relativeTime(d, 0, 'dd'));
+			if(precision > 1) {
+				if(h) res.push(l.relativeTime(h, 0, 'hh'));
+				if(i) res.push(l.relativeTime(i, 0, 'mm'));
+				if(s) res.push(l.relativeTime(s, 0, 'ss'));
+			}
+			if(precision > 2 && u) res.push(u);
+			return withSuffix ? l.pastFuture(this.asSeconds(), res.join(' ')) : res.join(' ');
+		}
     });
 
     function makeDurationGetter(name) {

@@ -37,6 +37,7 @@
             future: "mewn %s",
             past: "%s yn àl",
             s: "ychydig eiliadau",
+            ss: "ychydig eiliadau",
             m: "munud",
             mm: "%d munud",
             h: "awr",

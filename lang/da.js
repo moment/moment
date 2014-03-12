@@ -36,6 +36,7 @@
             future : "om %s",
             past : "%s siden",
             s : "få sekunder",
+            ss : "få sekunder",
             m : "et minut",
             mm : "%d minutter",
             h : "en time",

@@ -83,6 +83,7 @@
             future : "%s päästä",
             past : "%s sitten",
             s : translate,
+            ss : translate,
             m : translate,
             mm : translate,
             h : translate,

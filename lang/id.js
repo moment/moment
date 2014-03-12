@@ -48,6 +48,7 @@
             future : "dalam %s",
             past : "%s yang lalu",
             s : "beberapa detik",
+            ss : "beberapa detik",
             m : "semenit",
             mm : "%d menit",
             h : "sejam",

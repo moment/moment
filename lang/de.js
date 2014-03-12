@@ -51,6 +51,7 @@
             future : "in %s",
             past : "vor %s",
             s : "ein paar Sekunden",
+            ss : "ein paar Sekunden",
             m : processRelativeTime,
             mm : "%d Minuten",
             h : processRelativeTime,

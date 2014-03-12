@@ -119,6 +119,7 @@
             future : "za %s",
             past   : "pre %s",
             s      : "par sekundi",
+            ss      : "par sekundi",
             m      : translate,
             mm     : translate,
             h      : translate,

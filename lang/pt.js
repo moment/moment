@@ -40,6 +40,7 @@
             future : "em %s",
             past : "%s atrás",
             s : "segundos",
+            ss : "segundos",
             m : "um minuto",
             mm : "%d minutos",
             h : "uma hora",

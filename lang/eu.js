@@ -40,6 +40,7 @@
             future : "%s barru",
             past : "duela %s",
             s : "segundo batzuk",
+            ss : "segundo batzuk",
             m : "minutu bat",
             mm : "%d minutu",
             h : "ordu bat",

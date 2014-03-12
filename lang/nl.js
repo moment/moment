@@ -45,6 +45,7 @@
             future : "over %s",
             past : "%s geleden",
             s : "een paar seconden",
+            ss : "een paar seconden",
             m : "één minuut",
             mm : "%d minuten",
             h : "één uur",

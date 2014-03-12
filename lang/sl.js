@@ -124,6 +124,7 @@
             future : "čez %s",
             past   : "%s nazaj",
             s      : "nekaj sekund",
+            ss      : "nekaj sekund",
             m      : translate,
             mm     : translate,
             h      : translate,

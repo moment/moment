@@ -40,6 +40,7 @@
             future : "në %s",
             past : "%s me parë",
             s : "disa sekonda",
+            ss : "disa sekonda",
             m : "një minut",
             mm : "%d minuta",
             h : "një orë",
