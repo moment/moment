@@ -53,14 +53,14 @@ exports["lang:cs"] = {
                 ['s ss',                         '50 50'],
                 ['a A',                          'pm PM'],
                 ['DDDo [den v roce]',            '45. den v roce'],
-                ['L',                            '14.02.2010'],
+                ['L',                            '14. 02. 2010'],
                 ['LL',                           '14. únor 2010'],
-                ['LLL',                          '14. únor 2010 15:25'],
-                ['LLLL',                         'neděle 14. únor 2010 15:25'],
-                ['l',                            '14.2.2010'],
+                ['LLL',                          '14. únor 2010 15.25'],
+                ['LLLL',                         'neděle 14. únor 2010 15.25'],
+                ['l',                            '14. 2. 2010'],
                 ['ll',                           '14. úno 2010'],
-                ['lll',                          '14. úno 2010 15:25'],
-                ['llll',                         'ne 14. úno 2010 15:25']
+                ['lll',                          '14. úno 2010 15.25'],
+                ['llll',                         'ne 14. úno 2010 15.25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -130,7 +130,7 @@ exports["lang:cs"] = {
     "from" : function (test) {
         test.expect(30);
         var start = moment([2007, 1, 28]);
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "pár vteřin",  "44 seconds = a few seconds");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "pár sekund",  "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "minuta",        "45 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  "minuta",        "89 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  "2 minuty",      "90 seconds = 2 minutes");
@@ -165,20 +165,20 @@ exports["lang:cs"] = {
 
     "suffix" : function (test) {
         test.expect(2);
-        test.equal(moment(30000).from(0), "za pár vteřin",  "prefix");
-        test.equal(moment(0).from(30000), "před pár vteřinami", "suffix");
+        test.equal(moment(30000).from(0), "za pár sekund",  "prefix");
+        test.equal(moment(0).from(30000), "před pár sekundami", "suffix");
         test.done();
     },
 
     "now from now" : function (test) {
         test.expect(1);
-        test.equal(moment().fromNow(), "před pár vteřinami",  "now from now should display as in the past");
+        test.equal(moment().fromNow(), "před pár sekundami",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow (future)" : function (test) {
         test.expect(16);
-        test.equal(moment().add({s: 30}).fromNow(), "za pár vteřin", "in a few seconds");
+        test.equal(moment().add({s: 30}).fromNow(), "za pár sekund", "in a few seconds");
         test.equal(moment().add({m: 1}).fromNow(), "za minutu", "in a minute");
         test.equal(moment().add({m: 3}).fromNow(), "za 3 minuty", "in 3 minutes");
         test.equal(moment().add({m: 10}).fromNow(), "za 10 minut", "in 10 minutes");
@@ -199,7 +199,7 @@ exports["lang:cs"] = {
 
     "fromNow (past)" : function (test) {
         test.expect(16);
-        test.equal(moment().subtract({s: 30}).fromNow(), "před pár vteřinami", "a few seconds ago");
+        test.equal(moment().subtract({s: 30}).fromNow(), "před pár sekundami", "a few seconds ago");
         test.equal(moment().subtract({m: 1}).fromNow(), "před minutou", "a minute ago");
         test.equal(moment().subtract({m: 3}).fromNow(), "před 3 minutami", "3 minutes ago");
         test.equal(moment().subtract({m: 10}).fromNow(), "před 10 minutami", "10 minutes ago");
@@ -223,12 +223,12 @@ exports["lang:cs"] = {
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "dnes v 2:00",     "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "dnes v 2:25",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "dnes v 3:00",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "zítra v 2:00",  "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "dnes v 1:00",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "včera v 2:00",     "yesterday at the same time");
+        test.equal(moment(a).calendar(),                     "dnes v 2.00",     "today at the same time");
+        test.equal(moment(a).add({ m: 25 }).calendar(),      "dnes v 2.25",     "Now plus 25 min");
+        test.equal(moment(a).add({ h: 1 }).calendar(),       "dnes v 3.00",     "Now plus 1 hour");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "zítra v 2.00",  "tomorrow at the same time");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "dnes v 1.00",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "včera v 2.00",     "yesterday at the same time");
         test.done();
     },
 
@@ -438,12 +438,12 @@ exports["lang:cs"] = {
 
         test.done();
     },
-    
+
     "returns the name of the language" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
             test.equal(require('../../lang/cs'), 'cs', "module should export cs");
         }
-        
+
         test.done();
     }
 };

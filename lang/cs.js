@@ -22,7 +22,7 @@
         var result = number + " ";
         switch (key) {
         case 's':  // a few seconds / in a few seconds / a few seconds ago
-            return (withoutSuffix || isFuture) ? 'pár vteřin' : 'pár vteřinami';
+            return (withoutSuffix || isFuture) ? 'pár sekund' : 'pár sekundami';
         case 'm':  // a minute / in a minute / a minute ago
             return withoutSuffix ? 'minuta' : (isFuture ? 'minutu' : 'minutou');
         case 'mm': // 9 minutes / in 9 minutes / 9 minutes ago
@@ -86,8 +86,8 @@
         weekdaysShort : "ne_po_út_st_čt_pá_so".split("_"),
         weekdaysMin : "ne_po_út_st_čt_pá_so".split("_"),
         longDateFormat : {
-            LT: "H:mm",
-            L : "DD.MM.YYYY",
+            LT: "H.mm",
+            L : "DD. MM. YYYY",
             LL : "D. MMMM YYYY",
             LLL : "D. MMMM YYYY LT",
             LLLL : "dddd D. MMMM YYYY LT"
