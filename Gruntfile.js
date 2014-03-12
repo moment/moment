@@ -183,13 +183,7 @@ module.exports = function (grunt) {
     grunt.loadTasks("tasks");
 
     // These plugins provide necessary tasks.
-    grunt.loadNpmTasks('grunt-contrib-nodeunit');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-env');
-    grunt.loadNpmTasks('grunt-karma');
+    require('load-grunt-tasks')(grunt);
 
     // Default task.
     grunt.registerTask('default', ['jshint', 'nodeunit']);
