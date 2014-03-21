@@ -136,7 +136,7 @@ exports["lang:km"] = {
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({
             s: 44
-        }), true), "ប៉ុណ្មានវិនាទី", "44 seconds = ប៉ុណ្មានវិនាទី");
+        }), true), "ប៉ុន្មានវិនាទី", "44 seconds = ប៉ុន្មានវិនាទី");
         test.equal(start.from(moment([2007, 1, 28]).add({
             s: 45
         }), true), "មួយនាទី", "45 seconds = មួយនាទី");
@@ -229,14 +229,14 @@ exports["lang:km"] = {
 
     "suffix": function (test) {
         test.expect(2);
-        test.equal(moment(30000).from(0), "ប៉ុណ្មានវិនាទីទៀត", "prefix");
-        test.equal(moment(0).from(30000), "ប៉ុណ្មានវិនាទីមុន", "suffix");
+        test.equal(moment(30000).from(0), "ប៉ុន្មានវិនាទីទៀត", "prefix");
+        test.equal(moment(0).from(30000), "ប៉ុន្មានវិនាទីមុន", "suffix");
         test.done();
     },
 
     "now from now": function (test) {
         test.expect(1);
-        test.equal(moment().fromNow(), "ប៉ុណ្មានវិនាទីមុន", "now from now should display as in the past");
+        test.equal(moment().fromNow(), "ប៉ុន្មានវិនាទីមុន", "now from now should display as in the past");
         test.done();
     },
 
@@ -244,7 +244,7 @@ exports["lang:km"] = {
         test.expect(2);
         test.equal(moment().add({
             s: 30
-        }).fromNow(), "ប៉ុណ្មានវិនាទីទៀត", "in a few seconds");
+        }).fromNow(), "ប៉ុន្មានវិនាទីទៀត", "in a few seconds");
         test.equal(moment().add({
             d: 5
         }).fromNow(), "5 ថ្ងៃទៀត", "in 5 days");
