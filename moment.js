@@ -12,7 +12,8 @@
 
     var moment,
         VERSION = "2.5.1",
-        global = this,
+        // the global-scope this is NOT the global object in Node.js
+        global_scope = typeof global !== 'undefined' ? global : this,
         round = Math.round,
         i,
 
@@ -2180,8 +2181,8 @@
     function deprecate(msg, fn) {
         var first_time = true;
         function printMsg() {
-            if (global.console && global.console.warn) {
-                global.console.warn("Deprecation warning: " + msg);
+            if (typeof console !== 'undefined' && console.warn) {
+                console.warn("Deprecation warning: " + msg);
             }
         }
         return extend(function () {
@@ -2405,29 +2406,19 @@
         Exposing Moment
     ************************************/
 
-    function makeGlobal(deprecate) {
-        var warned = false, local_moment = moment;
+    function makeGlobal(should_deprecate) {
         /*global ender:false */
         if (typeof ender !== 'undefined') {
             return;
         }
-        // here, `this` means `window` in the browser, or `global` on the server
-        // add `moment` as a global object via a string identifier,
-        // for Closure Compiler "advanced" mode
-        if (deprecate) {
-            global.moment = function () {
-                if (!warned && console && console.warn) {
-                    warned = true;
-                    console.warn(
-                            "Accessing Moment through the global scope is " +
-                            "deprecated, and will be removed in an upcoming " +
-                            "release.");
-                }
-                return local_moment.apply(null, arguments);
-            };
-            extend(global.moment, local_moment);
+        if (should_deprecate) {
+            global_scope.moment = deprecate(
+                    "Accessing Moment through the global scope is " +
+                    "deprecated, and will be removed in an upcoming " +
+                    "release.",
+                    moment);
         } else {
-            global['moment'] = moment;
+            global_scope.moment = moment;
         }
     }
 
