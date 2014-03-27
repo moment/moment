@@ -2177,35 +2177,53 @@
         }
     });
 
-    // helper for adding shortcuts
-    function makeGetterAndSetter(name, key) {
-        // ignoreOffsetTransitions provides a hint to updateOffset to not
-        // change hours/minutes when crossing a tz boundary.  This is frequently
-        // desirable when modifying part of an existing moment object directly.
-        var defaultIgnoreOffsetTransitions = key === 'date' || key === 'month' || key === 'year';
-        moment.fn[name] = moment.fn[name + 's'] = function (input, ignoreOffsetTransitions) {
-            var utc = this._isUTC ? 'UTC' : '';
-            if (ignoreOffsetTransitions == null) {
-                ignoreOffsetTransitions = defaultIgnoreOffsetTransitions;
+    function deprecate(msg, fn) {
+        var first_time = true;
+        function printMsg() {
+            if (global.console && global.console.warn) {
+                global.console.warn("Deprecation warning: " + msg);
             }
-            if (input != null) {
-                this._d['set' + utc + key](input);
-                moment.updateOffset(this, ignoreOffsetTransitions);
+        }
+        return extend(function () {
+            if (first_time) {
+                printMsg();
+                first_time = false;
+            }
+            return fn.apply(this, arguments);
+        }, fn);
+    }
+
+    function rawGetter(mom, unit) {
+        var utc = mom._isUTC ? 'UTC' : '';
+        return mom._d['get' + utc + unit]();
+    }
+
+    function rawSetter(mom, unit, value) {
+        var utc = mom._isUTC ? 'UTC' : '';
+        return mom._d['set' + utc + unit](value);
+    }
+
+    function makeAccessor(unit, noDSTAdjust) {
+        return function (value) {
+            if (value != null) {
+                rawSetter(this, unit, value);
+                moment.updateOffset(this, noDSTAdjust);
                 return this;
             } else {
-                return this._d['get' + utc + key]();
+                return rawGetter(this, unit);
             }
         };
     }
 
-    // loop through and add shortcuts (Date, Hours, Minutes, Seconds, Milliseconds)
-    // Month has a custom getter/setter.
-    for (i = 0; i < proxyGettersAndSetters.length; i ++) {
-        makeGetterAndSetter(proxyGettersAndSetters[i].toLowerCase().replace(/s$/, ''), proxyGettersAndSetters[i]);
-    }
-
-    // add shortcut for year (uses different syntax than the getter/setter 'year' == 'FullYear')
-    makeGetterAndSetter('year', 'FullYear');
+    moment.fn.millisecond = moment.fn.milliseconds = makeAccessor('Milliseconds', false);
+    moment.fn.second = moment.fn.seconds = makeAccessor('Seconds', false);
+    moment.fn.minute = moment.fn.minutes = makeAccessor('Minutes', false);
+    moment.fn.hour = moment.fn.hours = makeAccessor('Hours', false);
+    // moment.fn.month is defined separately
+    moment.fn.date = makeAccessor('Date', true);
+    moment.fn.dates = deprecate("dates accessor is deprecated. Use date instead.", makeAccessor('Date', true));
+    moment.fn.year = makeAccessor('FullYear', true);
+    moment.fn.years = deprecate("years accessor is deprecated. Use year instead.", makeAccessor('FullYear', true));
 
     // add plural methods
     moment.fn.days = moment.fn.day;
