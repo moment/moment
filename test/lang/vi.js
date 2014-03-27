@@ -5,9 +5,9 @@ var moment = require("../../moment");
       Vietnamese
      *************************************************/
 
-exports["lang:vn"] = {
+exports["lang:vi"] = {
     setUp : function (cb) {
-        moment.lang('vn');
+        moment.lang('vi');
         cb();
     },
 
@@ -379,7 +379,7 @@ exports["lang:vn"] = {
     
     "returns the name of the language" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/vn'), 'vn', "module should export vn");
+            test.equal(require('../../lang/vi'), 'vi', "module should export vi");
         }
         
         test.done();
