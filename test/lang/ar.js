@@ -36,28 +36,28 @@ exports["lang:ar"] = {
     "format" : function (test) {
         test.expect(22);
         var a = [
-                ['dddd, MMMM Do YYYY, h:mm:ss a',      'الأحد, فبراير/ شباط 14 2010, 3:25:50 pm'],
-                ['ddd, hA',                            'الأحد, 3PM'],
-                ['M Mo MM MMMM MMM',                   '2 2 02 فبراير/ شباط فبراير/ شباط'],
-                ['YYYY YY',                            '2010 10'],
-                ['D Do DD',                            '14 14 14'],
-                ['d do dddd ddd dd',                   '0 0 الأحد الأحد ح'],
-                ['DDD DDDo DDDD',                      '45 45 045'],
-                ['w wo ww',                            '8 8 08'],
-                ['h hh',                               '3 03'],
-                ['H HH',                               '15 15'],
-                ['m mm',                               '25 25'],
-                ['s ss',                               '50 50'],
-                ['a A',                                'pm PM'],
-                ['[the] DDDo [day of the year]',       'the 45 day of the year'],
-                ['L',                                  '14/02/2010'],
-                ['LL',                                 '14 فبراير/ شباط 2010'],
-                ['LLL',                                '14 فبراير/ شباط 2010 15:25'],
-                ['LLLL',                               'الأحد 14 فبراير/ شباط 2010 15:25'],
-                ['l',                                  '14/2/2010'],
-                ['ll',                                 '14 فبراير/ شباط 2010'],
-                ['lll',                                '14 فبراير/ شباط 2010 15:25'],
-                ['llll',                               'الأحد 14 فبراير/ شباط 2010 15:25']
+                ['dddd, MMMM Do YYYY, h:mm:ss a',      'الأحد، فبراير/ شباط ١٤ ٢٠١٠، ٣:٢٥:٥٠ م'],
+                ['ddd, hA',                            'الأحد، ٣م'],
+                ['M Mo MM MMMM MMM',                   '٢ ٢ ٠٢ فبراير/ شباط فبراير/ شباط'],
+                ['YYYY YY',                            '٢٠١٠ ١٠'],
+                ['D Do DD',                            '١٤ ١٤ ١٤'],
+                ['d do dddd ddd dd',                   '٠ ٠ الأحد أحد ح'],
+                ['DDD DDDo DDDD',                      '٤٥ ٤٥ ٠٤٥'],
+                ['w wo ww',                            '٨ ٨ ٠٨'],
+                ['h hh',                               '٣ ٠٣'],
+                ['H HH',                               '١٥ ١٥'],
+                ['m mm',                               '٢٥ ٢٥'],
+                ['s ss',                               '٥٠ ٥٠'],
+                ['a A',                                'م م'],
+                ['[the] DDDo [day of the year]',       'the ٤٥ day of the year'],
+                ['L',                                  '١٤/٠٢/٢٠١٠'],
+                ['LL',                                 '١٤ فبراير/ شباط ٢٠١٠'],
+                ['LLL',                                '١٤ فبراير/ شباط ٢٠١٠ ١٥:٢٥'],
+                ['LLLL',                               'الأحد ١٤ فبراير/ شباط ٢٠١٠ ١٥:٢٥'],
+                ['l',                                  '١٤/2/٢٠١٠'],
+                ['ll',                                 '١٤ فبراير/ شباط ٢٠١٠'],
+                ['lll',                                '١٤ فبراير/ شباط ٢٠١٠ ١٥:٢٥'],
+                ['llll',                               'الأحد ١٤ فبراير/ شباط ٢٠١٠ ١٥:٢٥']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -133,33 +133,33 @@ exports["lang:ar"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "ثوان", "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "دقيقة",      "45 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  "دقيقة",      "89 seconds = a minute");
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  "2 دقائق",     "90 seconds = 2 minutes");
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  "44 دقائق",    "44 minutes = 44 minutes");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  "٢ دقائق",     "90 seconds = 2 minutes");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  "٤٤ دقائق",    "44 minutes = 44 minutes");
         test.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  "ساعة",       "45 minutes = an hour");
         test.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  "ساعة",       "89 minutes = an hour");
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  "2 ساعات",       "90 minutes = 2 hours");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   "5 ساعات",       "5 hours = 5 hours");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  "21 ساعات",      "21 hours = 21 hours");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  "٢ ساعات",       "90 minutes = 2 hours");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   "٥ ساعات",       "5 hours = 5 hours");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  "٢١ ساعات",      "21 hours = 21 hours");
         test.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  "يوم",         "22 hours = a day");
         test.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  "يوم",         "35 hours = a day");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  "2 أيام",        "36 hours = 2 days");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  "٢ أيام",        "36 hours = 2 days");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   "يوم",         "1 day = a day");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   "5 أيام",        "5 days = 5 days");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "25 أيام",       "25 days = 25 days");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   "٥ أيام",        "5 days = 5 days");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "٢٥ أيام",       "25 days = 25 days");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "شهر",       "26 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "شهر",       "30 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 45}), true),  "شهر",       "45 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "2 أشهر",      "46 days = 2 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "2 أشهر",      "75 days = 2 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "3 أشهر",      "76 days = 3 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "٢ أشهر",      "46 days = 2 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "٢ أشهر",      "75 days = 2 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "٣ أشهر",      "76 days = 3 months");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "شهر",       "1 month = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "5 أشهر",      "5 months = 5 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 344}), true), "11 أشهر",     "344 days = 11 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "٥ أشهر",      "5 months = 5 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 344}), true), "١١ أشهر",     "344 days = 11 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "سنة",        "345 days = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 547}), true), "سنة",        "547 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "2 سنوات",       "548 days = 2 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "٢ سنوات",       "548 days = 2 years");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "سنة",        "1 year = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "5 سنوات",       "5 years = 5 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "٥ سنوات",       "5 years = 5 years");
         test.done();
     },
 
@@ -188,12 +188,12 @@ exports["lang:ar"] = {
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "اليوم على الساعة 02:00",     "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "اليوم على الساعة 02:25",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "اليوم على الساعة 03:00",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "غدا على الساعة 02:00",  "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "اليوم على الساعة 01:00",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "أمس على الساعة 02:00", "yesterday at the same time");
+        test.equal(moment(a).calendar(),                     "اليوم على الساعة ٠٢:٠٠",     "today at the same time");
+        test.equal(moment(a).add({ m: 25 }).calendar(),      "اليوم على الساعة ٠٢:٢٥",     "Now plus 25 min");
+        test.equal(moment(a).add({ h: 1 }).calendar(),       "اليوم على الساعة ٠٣:٠٠",     "Now plus 1 hour");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "غدا على الساعة ٠٢:٠٠",  "tomorrow at the same time");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "اليوم على الساعة ٠١:٠٠",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "أمس على الساعة ٠٢:٠٠", "yesterday at the same time");
         test.done();
     },
 
