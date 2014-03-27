@@ -3,11 +3,13 @@ var moment = require("../../moment");
 exports.zones = {
     setUp : function (cb) {
         moment.lang('en');
+        moment.zone(null);
         cb();
     },
 
     tearDown : function (cb) {
         moment.lang('en');
+        moment.zone(null);
         cb();
     },
 
@@ -522,6 +524,106 @@ exports.zones = {
         test.equal(moment().zone(+60).format('ZZ'), "-0100", "+60 -> -0100");
         test.equal(moment().zone(+90).format('ZZ'), "-0130", "+90 -> -0130");
         test.equal(moment().zone(+120).format('ZZ'), "-0200", "+120 -> -0200");
+        test.done();
+    },
+
+    "set default zone" : function (test) {
+        moment.zone(0);
+        test.equal(moment.zone(), 0, "should be possible to set default zone to 0");
+        moment.zone(+60);
+        test.equal(moment.zone(), +60, "should be possible to set default zone to +60");
+        moment.zone(-60);
+        test.equal(moment.zone(), -60, "should be possible to set default zone to -60");
+        moment.zone(null);
+        test.equal(moment.zone(), undefined, "should be able to reset default zone");
+
+        test.done();
+    },
+
+    "default zone applies to moment()" : function (test) {
+        moment.zone(0);
+        test.equal(moment().zone(), 0, "default zone of 0 should apply to new moments");
+        moment.zone(+60);
+        test.equal(moment().zone(), +60, "default zone of +60 should apply to new moments");
+        moment.zone(-60);
+        test.equal(moment().zone(), -60, "default zone of -60 should apply to new moments");
+
+        test.done();
+    },
+
+    "default zone applies to moment(string)" : function (test) {
+        moment.zone(0);
+        test.equal(moment("2014-01-01T00:00:00").zone(), 0, "new moment should have zone of 0");
+        moment.zone(+60);
+        test.equal(moment("2014-01-01T00:00:00").zone(), 60, "new moment should have zone of +60");
+        moment.zone(-60);
+        test.equal(moment("2014-01-01T00:00:00").zone(), -60, "new moment should have zone of -60");
+
+        test.done();
+    },
+
+    "default zone applies to moment(timestamp)" : function (test) {
+        var t = moment().unix();
+
+        moment.zone(0);
+        test.equal(moment(t).zone(), 0, "new moment should have zone of 0");
+        moment.zone(+60);
+        test.equal(moment(t).zone(), 60, "new moment should have zone of +60");
+        moment.zone(-60);
+        test.equal(moment(t).zone(), -60, "new moment should have zone of -60");
+
+        test.done();
+    },
+
+    "default zone applies to moment(array)" : function (test) {
+        var t = [2014, 1, 1];
+
+        moment.zone(0);
+        test.equal(moment(t).zone(), 0, "new moment should have zone of 0");
+        moment.zone(+60);
+        test.equal(moment(t).zone(), 60, "new moment should have zone of +60");
+        moment.zone(-60);
+        test.equal(moment(t).zone(), -60, "new moment should have zone of -60");
+
+        test.done();
+    },
+
+    "defualt zone should not change timestamp of moment with timezone" : function (test) {
+        var m = moment('2014-01-01T00:00:00+00:00');
+
+        moment.zone(0);
+        test.equal(moment("2014-01-01T00:00:00+00:00").unix(), m.unix(), "default zone of 0 does not affect timestamp");
+        moment.zone(+60);
+        test.equal(moment("2014-01-01T00:00:00+00:00").unix(), m.unix(), "default zone of +60 does not affect timestamp");
+        moment.zone(-60);
+        test.equal(moment("2014-01-01T00:00:00+00:00").unix(), m.unix(), "default zone of -60 does not affect timestamp");
+
+        test.done();
+    },
+
+    "setting default zone does not change timestamp" : function (test) {
+        var time = +moment();
+
+        moment.zone(0);
+        test.equal(+moment(time), time, "default zone of 0 does not affect timestamp");
+        moment.zone(60);
+        test.equal(+moment(time), time, "default zone of 60 does not affect timestamp");
+        moment.zone(-60);
+        test.equal(+moment(time), time, "default zone of -60 does not affect timestamp");
+
+        test.done();
+    },
+
+    "default zone does not override timezone if present in string" : function (test) {
+        moment.zone(0);
+        test.equal(moment("2014-01-01T01:00:00+01:00").format(), "2014-01-01T00:00:00+00:00");
+        moment.zone(-60);
+        test.equal(moment("2014-01-01T00:00:00+00:00").format(), "2014-01-01T01:00:00+01:00");
+        test.equal(moment("2014-01-01T00:00:00").format(), "2014-01-01T00:00:00+01:00");
+        moment.zone(+60);
+        test.equal(moment("2014-01-01T00:00:00+00:00").format(), "2013-12-31T23:00:00-01:00");
+        test.equal(moment("2014-01-01T00:00:00").format(), "2014-01-01T00:00:00-01:00");
+
         test.done();
     }
 };
