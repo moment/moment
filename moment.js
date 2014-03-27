@@ -421,34 +421,23 @@
     }
 
     // helper function for _.addTime and _.subtractTime
-    function addOrSubtractDurationFromMoment(mom, duration, isAdding, ignoreUpdateOffset) {
+    function addOrSubtractDurationFromMoment(mom, duration, isAdding, updateOffset) {
         var milliseconds = duration._milliseconds,
             days = duration._days,
-            months = duration._months,
-            minutes,
-            hours;
+            months = duration._months;
+        updateOffset = updateOffset == null ? true : updateOffset;
 
         if (milliseconds) {
             mom._d.setTime(+mom._d + milliseconds * isAdding);
         }
-        // store the minutes and hours so we can restore them
-        if (days || months) {
-            minutes = mom.minute();
-            hours = mom.hour();
-        }
         if (days) {
-            mom.date(mom.date() + days * isAdding);
+            rawSetter(mom, 'Date', rawGetter(mom, 'Date') + days * isAdding);
         }
         if (months) {
-            mom.month(mom.month() + months * isAdding);
+            rawMonthSetter(mom, rawGetter(mom, 'Month') + months * isAdding);
         }
-        if (milliseconds && !ignoreUpdateOffset) {
+        if (updateOffset) {
             moment.updateOffset(mom, days || months);
-        }
-        // restore the minutes and hours after possibly changing dst
-        if (days || months) {
-            mom.minute(minutes);
-            mom.hour(hours);
         }
     }
 
@@ -1960,27 +1949,7 @@
             }
         },
 
-        month : function (input) {
-            var utc = this._isUTC ? 'UTC' : '',
-                dayOfMonth;
-
-            if (input != null) {
-                if (typeof input === 'string') {
-                    input = this.lang().monthsParse(input);
-                    if (typeof input !== 'number') {
-                        return this;
-                    }
-                }
-
-                dayOfMonth = Math.min(this.date(),
-                        daysInMonth(this.year(), input));
-                this._d['set' + utc + 'Month'](input, dayOfMonth);
-                moment.updateOffset(this, true);
-                return this;
-            } else {
-                return this._d['get' + utc + 'Month']();
-            }
-        },
+        month : makeAccessor('Month', true),
 
         startOf: function (units) {
             units = normalizeUnits(units);
@@ -2049,8 +2018,9 @@
             return other > this ? this : other;
         },
 
-        zone : function (input, adjust) {
-            adjust = (adjust == null ? true : false);
+        // keepTime = true means only change the timezone, without affecting
+        // the local hour. So 5:31:26 +0300 --[zone(2, true)]--> 5:31:26 +0200
+        zone : function (input, keepTime) {
             var offset = this._offset || 0;
             if (input != null) {
                 if (typeof input === "string") {
@@ -2061,8 +2031,9 @@
                 }
                 this._offset = input;
                 this._isUTC = true;
-                if (offset !== input && adjust) {
-                    addOrSubtractDurationFromMoment(this, moment.duration(offset - input, 'm'), 1, true);
+                if (offset !== input && !keepTime) {
+                    addOrSubtractDurationFromMoment(this,
+                            moment.duration(offset - input, 'm'), 1, false);
                 }
             } else {
                 return this._isUTC ? offset : this._d.getTimezoneOffset();
@@ -2194,21 +2165,41 @@
         }, fn);
     }
 
+    function rawMonthSetter(mom, value) {
+        var dayOfMonth;
+
+        // TODO: Move this out of here!
+        if (typeof value === 'string') {
+            value = mom.lang().monthsParse(value);
+            // TODO: Another silent failure?
+            if (typeof value !== 'number') {
+                return mom;
+            }
+        }
+
+        dayOfMonth = Math.min(mom.date(),
+                daysInMonth(mom.year(), value));
+        mom._d['set' + (mom._isUTC ? 'UTC' : '') + 'Month'](value, dayOfMonth);
+        return mom;
+    }
+
     function rawGetter(mom, unit) {
-        var utc = mom._isUTC ? 'UTC' : '';
-        return mom._d['get' + utc + unit]();
+        return mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]();
     }
 
     function rawSetter(mom, unit, value) {
-        var utc = mom._isUTC ? 'UTC' : '';
-        return mom._d['set' + utc + unit](value);
+        if (unit === 'Month') {
+            return rawMonthSetter(mom, value);
+        } else {
+            return mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
+        }
     }
 
-    function makeAccessor(unit, noDSTAdjust) {
+    function makeAccessor(unit, keepTime) {
         return function (value) {
             if (value != null) {
                 rawSetter(this, unit, value);
-                moment.updateOffset(this, noDSTAdjust);
+                moment.updateOffset(this, keepTime);
                 return this;
             } else {
                 return rawGetter(this, unit);

@@ -127,12 +127,12 @@ exports.zones = {
         var oldOffset = moment.updateOffset,
             m = moment.utc([2000, 6, 1]);
 
-        moment.updateOffset = function (mom) {
+        moment.updateOffset = function (mom, keepTime) {
             if (mom.__doChange) {
                 if (+mom > 962409600000) {
-                    mom.zone(120);
+                    mom.zone(120, keepTime);
                 } else {
-                    mom.zone(60);
+                    mom.zone(60, keepTime);
                 }
             }
         };
@@ -333,11 +333,11 @@ exports.zones = {
         var oldOffset = moment.updateOffset,
             m = moment.utc([2000, 2, 31, 3]);
 
-        moment.updateOffset = function (mom) {
+        moment.updateOffset = function (mom, keepTime) {
             if (mom.clone().utc().month() > 2) {
-                mom.zone(-60);
+                mom.zone(-60, keepTime);
             } else {
-                mom.zone(0);
+                mom.zone(0, keepTime);
             }
         };
 
@@ -375,11 +375,11 @@ exports.zones = {
     "isDST" : function (test) {
         var oldOffset = moment.updateOffset;
 
-        moment.updateOffset = function (mom) {
+        moment.updateOffset = function (mom, keepTime) {
             if (mom.month() > 2 && mom.month() < 9) {
-                mom.zone(-60);
+                mom.zone(-60, keepTime);
             } else {
-                mom.zone(0);
+                mom.zone(0, keepTime);
             }
         };
 
