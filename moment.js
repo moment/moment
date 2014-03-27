@@ -1260,8 +1260,12 @@
     }
 
     function currentDateArray(config) {
-        var now = new Date();
-        if (config._useUTC) {
+        var now = new Date(),
+            relative = config._relative;
+        if (relative) {
+          relative = relative.toDate();
+          return [relative.getFullYear(), relative.getMonth(), relative.getDate()];
+        } else if (config._useUTC) {
             return [
                 now.getUTCFullYear(),
                 now.getUTCMonth(),
@@ -1629,6 +1633,28 @@
         c._pf = defaultParsingFlags();
 
         return makeMoment(c).utc();
+    };
+
+    moment.relative = function(relative, input, format, lang, strict) {
+        var c;
+
+        if (typeof(lang) === "boolean") {
+            strict = lang;
+            lang = undefined;
+        }
+        // object construction must be done this way.
+        // https://github.com/moment/moment/issues/1423
+        c = {};
+        c._isAMomentObject = true;
+        c._i = input;
+        c._f = format;
+        c._l = lang;
+        c._strict = strict;
+        c._isUTC = false;
+        c._pf = defaultParsingFlags();
+        c._relative = relative;
+
+        return makeMoment(c);
     };
 
     // creating with unix timestamp (in seconds)
