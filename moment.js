@@ -2020,6 +2020,14 @@
 
         // keepTime = true means only change the timezone, without affecting
         // the local hour. So 5:31:26 +0300 --[zone(2, true)]--> 5:31:26 +0200
+        // It is possible that 5:31:26 doesn't exist int zone +0200, so we
+        // adjust the time as needed, to be valid.
+        //
+        // Keeping the time actually adds/subtracts (one hour)
+        // from the actual represented time. That is why we call updateOffset
+        // a second time. In case it wants us to change the offset again
+        // _change_in_progress == true case, then we have to adjust, because
+        // there is no such time in the given timezone.
         zone : function (input, keepTime) {
             var offset = this._offset || 0;
             if (input != null) {
@@ -2031,9 +2039,15 @@
                 }
                 this._offset = input;
                 this._isUTC = true;
-                if (offset !== input && !keepTime) {
-                    addOrSubtractDurationFromMoment(this,
-                            moment.duration(offset - input, 'm'), 1, false);
+                if (offset !== input) {
+                    if (!keepTime || this._change_in_progress) {
+                        addOrSubtractDurationFromMoment(this,
+                                moment.duration(offset - input, 'm'), 1, false);
+                    } else if (!this._change_in_progress) {
+                        this._change_in_progress = true;
+                        moment.updateOffset(this, true);
+                        this._change_in_progress = null;
+                    }
                 }
             } else {
                 return this._isUTC ? offset : this._d.getTimezoneOffset();
