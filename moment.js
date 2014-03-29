@@ -2224,7 +2224,11 @@
     moment.fn.millisecond = moment.fn.milliseconds = makeAccessor('Milliseconds', false);
     moment.fn.second = moment.fn.seconds = makeAccessor('Seconds', false);
     moment.fn.minute = moment.fn.minutes = makeAccessor('Minutes', false);
-    moment.fn.hour = moment.fn.hours = makeAccessor('Hours', false);
+    // Setting the hour should keep the time, because the user explicitly
+    // specified which hour he wants. So trying to maintain the same hour (in
+    // a new timezone) makes sense. Adding/subtracting hours does not follow
+    // this rule.
+    moment.fn.hour = moment.fn.hours = makeAccessor('Hours', true);
     // moment.fn.month is defined separately
     moment.fn.date = makeAccessor('Date', true);
     moment.fn.dates = deprecate("dates accessor is deprecated. Use date instead.", makeAccessor('Date', true));
