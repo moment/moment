@@ -315,10 +315,10 @@ exports.end_start_of = {
             } else {
                 mom.zone(7, keepTime);
             }
-        }
+        };
 
         m = moment("2014-03-15T00:00:00-07:00").parseZone();
-        m.startOf('M')
+        m.startOf('M');
         test.equal(m.format(), "2014-03-01T00:00:00-08:00",
                 "startOf('month') across +1");
 
@@ -356,10 +356,10 @@ exports.end_start_of = {
             } else {
                 mom.zone(8, keepTime);
             }
-        }
+        };
 
         m = moment("2014-11-15T00:00:00-08:00").parseZone();
-        m.startOf('M')
+        m.startOf('M');
         test.equal(m.format(), "2014-11-01T00:00:00-07:00",
                 "startOf('month') across -1");
 
