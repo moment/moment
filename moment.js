@@ -1771,9 +1771,9 @@
         return moment.apply(null, arguments).parseZone();
     };
 
-    moment.parseTwoDigitYear = function(input) {
-      return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
-    }
+    moment.parseTwoDigitYear = function (input) {
+        return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
+    };
 
     /************************************
         Moment Prototype

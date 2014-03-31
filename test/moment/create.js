@@ -814,24 +814,21 @@ exports.create = {
     },
 
     'parsing with customized two-digit year' : function (test) {
-      var original = moment.parseTwoDigitYear;
-      try {
-        test.equal(moment('68', 'YY').year(), 2068);
-        test.equal(moment('69', 'YY').year(), 1969);
-        moment.parseTwoDigitYear = function(input){
-          return +input + (+input > 30 ? 1900 : 2000);
-        };
-        test.equal(moment('68', 'YY').year(), 1968);
-        test.equal(moment('67', 'YY').year(), 1967);
-        test.equal(moment('31', 'YY').year(), 1931);
-        test.equal(moment('30', 'YY').year(), 2030);
-
-      }
-      finally {
-        moment.parseTwoDigitYear = original;
-        test.done();
-      }
-
+        var original = moment.parseTwoDigitYear;
+        try {
+            test.equal(moment('68', 'YY').year(), 2068);
+            test.equal(moment('69', 'YY').year(), 1969);
+            moment.parseTwoDigitYear = function (input) {
+                return +input + (+input > 30 ? 1900 : 2000);
+            };
+            test.equal(moment('68', 'YY').year(), 1968);
+            test.equal(moment('67', 'YY').year(), 1967);
+            test.equal(moment('31', 'YY').year(), 1931);
+            test.equal(moment('30', 'YY').year(), 2030);
+        }
+        finally {
+            moment.parseTwoDigitYear = original;
+            test.done();
+        }
     }
-
 };
