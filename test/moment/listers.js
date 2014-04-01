@@ -3,6 +3,10 @@ var moment = require("../../moment");
 exports.listers = {
     setUp : function (cb) {
         moment.lang('en');
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
+
         cb();
     },
 

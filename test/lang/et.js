@@ -8,6 +8,9 @@ var moment = require("../../moment");
 exports["lang:et"] = {
     setUp : function (cb) {
         moment.lang('et');
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
         cb();
     },
 
@@ -189,7 +192,7 @@ exports["lang:et"] = {
 
         test.equal(moment().add({s: 30}).fromNow(), "mõne sekundi pärast", "in a few seconds");
         test.equal(moment().subtract({s: 30}).fromNow(), "mõni sekund tagasi", "a few seconds ago");
-        
+
         test.equal(moment().add({m: 1}).fromNow(), "ühe minuti pärast", "in a minute");
         test.equal(moment().subtract({m: 1}).fromNow(), "üks minut tagasi", "a minute ago");
 
@@ -381,12 +384,12 @@ exports["lang:et"] = {
 
         test.done();
     },
-    
+
     "returns the name of the language" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
             test.equal(require('../../lang/et'), 'et', "module should export et");
         }
-        
+
         test.done();
     }
 };

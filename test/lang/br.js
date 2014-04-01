@@ -8,6 +8,9 @@ var moment = require("../../moment");
 exports["lang:br"] = {
     setUp : function (cb) {
         moment.lang('br');
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
         cb();
     },
 
@@ -268,12 +271,12 @@ exports["lang:br"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({y: 261}), true), "261 bloaz", "mutation 261 years");
         test.done();
     },
-    
+
     "returns the name of the language" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
             test.equal(require('../../lang/br'), 'br', "module should export br");
         }
-        
+
         test.done();
     }
 };

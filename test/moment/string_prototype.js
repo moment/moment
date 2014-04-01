@@ -1,6 +1,13 @@
 var moment = require("../../moment");
 
 exports.string_prototype = {
+    setUp : function (done) {
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
+        done();
+    },
+
     "string prototype overrides call" : function (test) {
         test.expect(1);
 

@@ -7,7 +7,10 @@ var moment = require("../../moment");
 
 exports["lang:sr"] = {
     setUp : function (cb) {
-        moment.lang('sr-lat');
+        moment.lang('sr');
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
         cb();
     },
 

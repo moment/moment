@@ -1,6 +1,13 @@
 var moment = require("../../moment");
 
 exports.quarter = {
+    setUp : function (done) {
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
+        done();
+    },
+
     "library quarter" : function (test) {
         test.expect(7);
 

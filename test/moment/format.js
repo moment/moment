@@ -1,6 +1,13 @@
 var moment = require("../../moment");
 
 exports.format = {
+    setUp : function (done) {
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
+        done();
+    },
+
     "format YY" : function (test) {
         test.expect(1);
 

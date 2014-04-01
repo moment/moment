@@ -1,6 +1,13 @@
 var moment = require("../../moment");
 
 exports.mutable = {
+    setUp : function (done) {
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
+        done();
+    },
+
     "manipulation methods" : function (test) {
 
         var mutableMethods = {

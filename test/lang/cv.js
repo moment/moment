@@ -8,6 +8,9 @@ var moment = require("../../moment");
 exports["lang:cv"] = {
     setUp : function (cb) {
         moment.lang('cv');
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
         cb();
     },
 
@@ -354,12 +357,12 @@ exports["lang:cv"] = {
 
         test.done();
     },
-    
+
     "returns the name of the language" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
             test.equal(require('../../lang/cv'), 'cv', "module should export cv");
         }
-        
+
         test.done();
     }
 };

@@ -8,6 +8,9 @@ var moment = require("../../moment");
 exports["lang:bg"] = {
     setUp : function (cb) {
         moment.lang('bg');
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
         cb();
     },
 

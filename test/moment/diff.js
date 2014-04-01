@@ -33,6 +33,13 @@ function dstForYear(year) {
 }
 
 exports.diff = {
+    setUp : function (done) {
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
+        done();
+    },
+
     "diff" : function (test) {
         test.expect(5);
 

@@ -8,6 +8,9 @@ var moment = require("../../moment");
 exports["lang:zh-tw"] = {
     setUp : function (cb) {
         moment.lang('zh-tw');
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
         cb();
     },
 
@@ -348,12 +351,12 @@ exports["lang:zh-tw"] = {
 
         test.done();
     },
-    
+
     "returns the name of the language" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
             test.equal(require('../../lang/zh-tw'), 'zh-tw', "module should export zh-tw");
         }
-        
+
         test.done();
     }
 };

@@ -1,9 +1,13 @@
 var moment = require("../../moment");
 
 exports.weeks = {
-    setUp : function (cb) {
+    setUp : function (done) {
         moment.lang('en');
-        cb();
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
+
+        done();
     },
 
     tearDown : function (cb) {
