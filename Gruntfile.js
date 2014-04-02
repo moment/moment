@@ -115,7 +115,7 @@ module.exports = function (grunt) {
                     dead_code: false // jshint ignore:line
                 },
                 output: {
-                    asciiOnly: true
+                    ascii_only: true // jshint ignore:line
                 },
                 report: 'min',
                 preserveComments: 'some'
