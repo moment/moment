@@ -3,7 +3,7 @@ var moment = require('../../moment'),
         return moment.apply(null, arguments).parsingFlags();
     };
 
-exports.parsing_flags = {
+exports.parsingFlags = {
     setUp : function (done) {
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");

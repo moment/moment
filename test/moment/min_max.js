@@ -4,7 +4,7 @@ var equalMoment = function (test, a, b, msg) {
     test.equal(a.valueOf(), b.valueOf(), msg);
 };
 
-exports.min_max = {
+exports.minMax = {
     setUp : function (cb) {
         moment.lang('en');
         moment.createFromInputFallback = function () {

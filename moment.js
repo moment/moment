@@ -13,7 +13,7 @@
     var moment,
         VERSION = "2.5.1",
         // the global-scope this is NOT the global object in Node.js
-        global_scope = typeof global !== 'undefined' ? global : this,
+        globalScope = typeof global !== 'undefined' ? global : this,
         round = Math.round,
         i,
 
@@ -1165,9 +1165,9 @@
         //compute day of the year from weeks and weekdays
         if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
             fixYear = function (val) {
-                var int_val = parseInt(val, 10);
+                var intVal = parseInt(val, 10);
                 return val ?
-                  (val.length < 3 ? (int_val > 68 ? 1900 + int_val : 2000 + int_val) : int_val) :
+                  (val.length < 3 ? (intVal > 68 ? 1900 + intVal : 2000 + intVal) : intVal) :
                   (config._a[YEAR] == null ? moment().weekYear() : config._a[YEAR]);
             };
 
@@ -2037,7 +2037,7 @@
         // Keeping the time actually adds/subtracts (one hour)
         // from the actual represented time. That is why we call updateOffset
         // a second time. In case it wants us to change the offset again
-        // _change_in_progress == true case, then we have to adjust, because
+        // _changeInProgress == true case, then we have to adjust, because
         // there is no such time in the given timezone.
         zone : function (input, keepTime) {
             var offset = this._offset || 0;
@@ -2051,13 +2051,13 @@
                 this._offset = input;
                 this._isUTC = true;
                 if (offset !== input) {
-                    if (!keepTime || this._change_in_progress) {
+                    if (!keepTime || this._changeInProgress) {
                         addOrSubtractDurationFromMoment(this,
                                 moment.duration(offset - input, 'm'), 1, false);
-                    } else if (!this._change_in_progress) {
-                        this._change_in_progress = true;
+                    } else if (!this._changeInProgress) {
+                        this._changeInProgress = true;
                         moment.updateOffset(this, true);
-                        this._change_in_progress = null;
+                        this._changeInProgress = null;
                     }
                 }
             } else {
@@ -2175,16 +2175,16 @@
     });
 
     function deprecate(msg, fn) {
-        var first_time = true;
+        var firstTime = true;
         function printMsg() {
             if (typeof console !== 'undefined' && console.warn) {
                 console.warn("Deprecation warning: " + msg);
             }
         }
         return extend(function () {
-            if (first_time) {
+            if (firstTime) {
                 printMsg();
-                first_time = false;
+                firstTime = false;
             }
             return fn.apply(this, arguments);
         }, fn);
@@ -2426,19 +2426,19 @@
         Exposing Moment
     ************************************/
 
-    function makeGlobal(should_deprecate) {
+    function makeGlobal(shouldDeprecate) {
         /*global ender:false */
         if (typeof ender !== 'undefined') {
             return;
         }
-        if (should_deprecate) {
-            global_scope.moment = deprecate(
+        if (shouldDeprecate) {
+            globalScope.moment = deprecate(
                     "Accessing Moment through the global scope is " +
                     "deprecated, and will be removed in an upcoming " +
                     "release.",
                     moment);
         } else {
-            global_scope.moment = moment;
+            globalScope.moment = moment;
         }
     }
 

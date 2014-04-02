@@ -1,6 +1,6 @@
 var moment = require("../../moment");
 
-exports.week_year = {
+exports.weekYear = {
     setUp : function (done) {
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");

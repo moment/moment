@@ -1,6 +1,6 @@
 var moment = require("../../moment");
 
-exports.is_after = {
+exports.isAfter = {
     setUp : function (done) {
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");

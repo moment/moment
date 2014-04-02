@@ -1,6 +1,6 @@
 var moment = require("../../moment");
 
-exports.end_start_of = {
+exports.endStartOf = {
     setUp : function (done) {
         moment.lang('en');
         moment.createFromInputFallback = function () {

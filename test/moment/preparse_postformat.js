@@ -41,7 +41,7 @@ var symbolLang = {
     }
 };
 
-exports.preparse_postformat = {
+exports.preparsePostformat = {
     setUp: function (cb) {
         moment.lang('symbol', symbolLang);
         moment.createFromInputFallback = function () {
