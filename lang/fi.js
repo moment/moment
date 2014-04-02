@@ -11,9 +11,9 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    var numbers_past = 'nolla yksi kaksi kolme neljä viisi kuusi seitsemän kahdeksan yhdeksän'.split(' '),
-        numbers_future = ['nolla', 'yhden', 'kahden', 'kolmen', 'neljän', 'viiden', 'kuuden',
-                          numbers_past[7], numbers_past[8], numbers_past[9]];
+    var numbersPast = 'nolla yksi kaksi kolme neljä viisi kuusi seitsemän kahdeksan yhdeksän'.split(' '),
+        numbersFuture = ['nolla', 'yhden', 'kahden', 'kolmen', 'neljän', 'viiden', 'kuuden',
+                          numbersPast[7], numbersPast[8], numbersPast[9]];
 
     function translate(number, withoutSuffix, key, isFuture) {
         var result = "";
@@ -46,12 +46,12 @@
             result = isFuture ? 'vuoden' : 'vuotta';
             break;
         }
-        result = verbal_number(number, isFuture) + " " + result;
+        result = verbalNumber(number, isFuture) + " " + result;
         return result;
     }
 
-    function verbal_number(number, isFuture) {
-        return number < 10 ? (isFuture ? numbers_future[number] : numbers_past[number]) : number;
+    function verbalNumber(number, isFuture) {
+        return number < 10 ? (isFuture ? numbersFuture[number] : numbersPast[number]) : number;
     }
 
     return moment.lang('fi', {

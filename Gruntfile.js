@@ -1,6 +1,6 @@
 module.exports = function (grunt) {
 
-    var embedOption = grunt.option('embed_languages'),
+    var embedOption = grunt.option('embedLanguages'),
         embedLanguageDest = embedOption ?
             'min/moment-with-customlangs.js' :
             'min/moment-with-langs.js',
@@ -47,29 +47,29 @@ module.exports = function (grunt) {
                     testName: 'MomentJS'
                 },
                 customLaunchers: {
-                    sl_chrome_win_xp: {
+                    slChromeWinXp: {
                         base: 'SauceLabs',
                         browserName: 'chrome',
                         platform: 'Windows XP'
                     },
-                    sl_ie9_win7: {
+                    slIe9Win7: {
                         base: 'SauceLabs',
                         browserName: 'internet explorer',
                         platform: 'Windows 7',
                         version: '9'
                     },
-                    sl_ie8_win7: {
+                    slIe8Win7: {
                         base: 'SauceLabs',
                         browserName: 'internet explorer',
                         platform: 'Windows 7',
                         version: '8'
                     },
-                    sl_ff_linux: {
+                    slFfLinux: {
                         base: 'SauceLabs',
                         browserName: 'firefox',
                         platform: 'Linux'
                     },
-                    sl_safari_osx: {
+                    slSafariOsx: {
                         base: 'SauceLabs',
                         browserName: 'safari',
                         platform: 'OS X 10.8'
@@ -91,11 +91,11 @@ module.exports = function (grunt) {
                 options: {reporters: ['dots']},
                 singleRun: true,
                 browsers: [
-                    'sl_chrome_win_xp',
-                    'sl_ie9_win7',
-                    'sl_ie8_win7',
-                    'sl_ff_linux',
-                    'sl_safari_osx'
+                    'slChromeWinXp',
+                    'slIe9Win7',
+                    'slIe8Win7',
+                    'slFfLinux',
+                    'slSafariOsx'
                 ]
             }
         },
@@ -112,10 +112,10 @@ module.exports = function (grunt) {
             options: {
                 mangle: true,
                 compress: {
-                    dead_code: false
+                    dead_code: false // jshint ignore:line
                 },
                 output: {
-                    ascii_only: true
+                    asciiOnly: true
                 },
                 report: 'min',
                 preserveComments: 'some'
@@ -154,6 +154,7 @@ module.exports = function (grunt) {
                 "strict"   : false,
                 "white"    : true,
                 "es3"      : true,
+                "camelcase" : true,
                 "globals": {
                     "define": false
                 }
@@ -173,7 +174,7 @@ module.exports = function (grunt) {
                 tasks: ['jshint']
             }
         },
-        embed_languages: {
+        embedLanguages: {
             moment: 'moment.js',
             dest: embedLanguageDest,
             targetLangs: embedLanguageLangs
@@ -191,10 +192,10 @@ module.exports = function (grunt) {
     //test tasks
     grunt.registerTask('test', ['test:node', 'test:browser']);
     grunt.registerTask('test:node', ['nodeunit']);
-    grunt.registerTask('test:server', ['concat', 'embed_languages', 'karma:server']);
-    grunt.registerTask('test:browser', ['concat', 'embed_languages', 'karma:chrome', 'karma:firefox']);
-    grunt.registerTask('test:sauce-browser', ['concat', 'embed_languages', 'env:sauceLabs', 'karma:sauce']);
-    grunt.registerTask('test:travis-sauce-browser', ['concat', 'embed_languages', 'karma:sauce']);
+    grunt.registerTask('test:server', ['concat', 'embedLanguages', 'karma:server']);
+    grunt.registerTask('test:browser', ['concat', 'embedLanguages', 'karma:chrome', 'karma:firefox']);
+    grunt.registerTask('test:sauce-browser', ['concat', 'embedLanguages', 'env:sauceLabs', 'karma:sauce']);
+    grunt.registerTask('test:travis-sauce-browser', ['concat', 'embedLanguages', 'karma:sauce']);
 
     // travis build task
     grunt.registerTask('build:travis', [
@@ -204,7 +205,7 @@ module.exports = function (grunt) {
 
     // Task to be run when releasing a new version
     grunt.registerTask('release', [
-        'jshint', 'nodeunit', 'concat', 'embed_languages',
+        'jshint', 'nodeunit', 'concat', 'embedLanguages',
         'component', 'uglify'
     ]);
 };

@@ -1,6 +1,6 @@
 var moment = require("../../moment");
 
-exports.getters_setters = {
+exports.gettersSetters = {
     setUp : function (done) {
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");

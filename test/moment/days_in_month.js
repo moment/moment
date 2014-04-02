@@ -1,6 +1,6 @@
 var moment = require("../../moment");
 
-exports.days_in_month = {
+exports.daysInMonth = {
     setUp : function (done) {
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");

@@ -1,6 +1,6 @@
 var moment = require("../../moment");
 
-exports.weeks_in_year = {
+exports.weeksInYear = {
     "isoWeeksInYear": function (test) {
         test.equal(moment([2004]).isoWeeksInYear(), 53, "2004 has 53 iso weeks");
         test.equal(moment([2005]).isoWeeksInYear(), 52, "2005 has 53 iso weeks");
