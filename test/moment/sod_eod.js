@@ -304,5 +304,87 @@ exports.end_start_of = {
         test.equal(m.seconds(), 5, "keep the seconds");
         test.equal(m.milliseconds(), 999, "set the seconds");
         test.done();
+    },
+
+    "startOf across DST +1" : function (test) {
+        var oldUpdateOffset = moment.updateOffset,
+            // Based on a real story somewhere in America/Los_Angeles
+            dstAt = moment("2014-03-09T02:00:00-08:00").parseZone(),
+            m;
+
+        moment.updateOffset = function (mom, keepTime) {
+            if (mom.isBefore(dstAt)) {
+                mom.zone(8, keepTime);
+            } else {
+                mom.zone(7, keepTime);
+            }
+        };
+
+        m = moment("2014-03-15T00:00:00-07:00").parseZone();
+        m.startOf('M');
+        test.equal(m.format(), "2014-03-01T00:00:00-08:00",
+                "startOf('month') across +1");
+
+        m = moment("2014-03-09T09:00:00-07:00").parseZone();
+        m.startOf('d');
+        test.equal(m.format(), "2014-03-09T00:00:00-08:00",
+                "startOf('day') across +1");
+
+        m = moment("2014-03-09T03:05:00-07:00").parseZone();
+        m.startOf('h');
+        test.equal(m.format(), "2014-03-09T03:00:00-07:00",
+                "startOf('hour') after +1");
+
+        m = moment("2014-03-09T01:35:00-08:00").parseZone();
+        m.startOf('h');
+        test.equal(m.format(), "2014-03-09T01:00:00-08:00",
+                "startOf('hour') before +1");
+
+        // There is no such time as 2:30-7 to try startOf('hour') across that
+
+        moment.updateOffset = oldUpdateOffset;
+
+        test.done();
+    },
+
+    "startOf across DST -1" : function (test) {
+        var oldUpdateOffset = moment.updateOffset,
+            // Based on a real story somewhere in America/Los_Angeles
+            dstAt = moment("2014-11-02T02:00:00-07:00").parseZone(),
+            m;
+
+        moment.updateOffset = function (mom, keepTime) {
+            if (mom.isBefore(dstAt)) {
+                mom.zone(7, keepTime);
+            } else {
+                mom.zone(8, keepTime);
+            }
+        };
+
+        m = moment("2014-11-15T00:00:00-08:00").parseZone();
+        m.startOf('M');
+        test.equal(m.format(), "2014-11-01T00:00:00-07:00",
+                "startOf('month') across -1");
+
+        m = moment("2014-11-02T09:00:00-08:00").parseZone();
+        m.startOf('d');
+        test.equal(m.format(), "2014-11-02T00:00:00-07:00",
+                "startOf('day') across -1");
+
+        // note that zone is -8
+        m = moment("2014-11-02T01:30:00-08:00").parseZone();
+        m.startOf('h');
+        test.equal(m.format(), "2014-11-02T01:00:00-08:00",
+                "startOf('hour') after +1");
+
+        // note that zone is -7
+        m = moment("2014-11-02T01:30:00-07:00").parseZone();
+        m.startOf('h');
+        test.equal(m.format(), "2014-11-02T01:00:00-07:00",
+                "startOf('hour') before +1");
+
+        moment.updateOffset = oldUpdateOffset;
+
+        test.done();
     }
 };
