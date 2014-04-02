@@ -600,6 +600,12 @@ exports.create = {
         test.done();
     },
 
+    "parsing iso with more subsecond precision digits" : function (test) {
+        test.equal(moment.utc("2013-07-31T22:00:00.0000000Z").format(),
+                "2013-07-31T22:00:00+00:00", "more than 3 subsecond digits");
+        test.done();
+    },
+
     "null or empty" : function (test) {
         test.expect(8);
         test.equal(moment('').isValid(), false, "moment('') is not valid");
