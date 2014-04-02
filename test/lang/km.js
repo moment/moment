@@ -72,6 +72,45 @@ exports["lang:km"] = {
         test.done();
     },
 
+    "format ordinal": function (test) {
+        test.expect(31);
+        test.equal(moment([2011, 0, 1]).format('DDDo'), '1', '1st');
+        test.equal(moment([2011, 0, 2]).format('DDDo'), '2', '2nd');
+        test.equal(moment([2011, 0, 3]).format('DDDo'), '3', '3rd');
+        test.equal(moment([2011, 0, 4]).format('DDDo'), '4', '4th');
+        test.equal(moment([2011, 0, 5]).format('DDDo'), '5', '5th');
+        test.equal(moment([2011, 0, 6]).format('DDDo'), '6', '6th');
+        test.equal(moment([2011, 0, 7]).format('DDDo'), '7', '7th');
+        test.equal(moment([2011, 0, 8]).format('DDDo'), '8', '8th');
+        test.equal(moment([2011, 0, 9]).format('DDDo'), '9', '9th');
+        test.equal(moment([2011, 0, 10]).format('DDDo'), '10', '10th');
+
+        test.equal(moment([2011, 0, 11]).format('DDDo'), '11', '11th');
+        test.equal(moment([2011, 0, 12]).format('DDDo'), '12', '12th');
+        test.equal(moment([2011, 0, 13]).format('DDDo'), '13', '13th');
+        test.equal(moment([2011, 0, 14]).format('DDDo'), '14', '14th');
+        test.equal(moment([2011, 0, 15]).format('DDDo'), '15', '15th');
+        test.equal(moment([2011, 0, 16]).format('DDDo'), '16', '16th');
+        test.equal(moment([2011, 0, 17]).format('DDDo'), '17', '17th');
+        test.equal(moment([2011, 0, 18]).format('DDDo'), '18', '18th');
+        test.equal(moment([2011, 0, 19]).format('DDDo'), '19', '19th');
+        test.equal(moment([2011, 0, 20]).format('DDDo'), '20', '20th');
+ 
+        test.equal(moment([2011, 0, 21]).format('DDDo'), '21', '21st');
+        test.equal(moment([2011, 0, 22]).format('DDDo'), '22', '22nd');
+        test.equal(moment([2011, 0, 23]).format('DDDo'), '23', '23rd');
+        test.equal(moment([2011, 0, 24]).format('DDDo'), '24', '24th');
+        test.equal(moment([2011, 0, 25]).format('DDDo'), '25', '25th');
+        test.equal(moment([2011, 0, 26]).format('DDDo'), '26', '26th');
+        test.equal(moment([2011, 0, 27]).format('DDDo'), '27', '27th');
+        test.equal(moment([2011, 0, 28]).format('DDDo'), '28', '28th');
+        test.equal(moment([2011, 0, 29]).format('DDDo'), '29', '29th');
+        test.equal(moment([2011, 0, 30]).format('DDDo'), '30', '30th');
+ 
+        test.equal(moment([2011, 0, 31]).format('DDDo'), '31', '31st');
+        test.done();
+    },
+
     "format month": function (test) {
         test.expect(12);
         var expected = 'មករា មករា_កុម្ភៈ កុម្ភៈ_មិនា មិនា_មេសា មេសា_ឧសភា ឧសភា_មិថុនា មិថុនា_កក្កដា កក្កដា_សីហា សីហា_កញ្ញា កញ្ញា_តុលា តុលា_វិច្ឆិកា វិច្ឆិកា_ធ្នូ ធ្នូ'.split("_"),
