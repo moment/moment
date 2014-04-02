@@ -1,6 +1,13 @@
 var moment = require("../../moment");
 
 exports.days_in_month = {
+    setUp : function (done) {
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
+        done();
+    },
+
     "days in month" : function (test) {
         test.expect(24);
         var months = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31], i;

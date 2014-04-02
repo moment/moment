@@ -1,6 +1,13 @@
 var moment = require('../../moment');
 
 exports.is_moment = {
+    setUp : function (done) {
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
+        done();
+    },
+
     "is moment object": function (test) {
         test.expect(13);
 

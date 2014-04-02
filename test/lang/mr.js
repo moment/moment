@@ -8,6 +8,9 @@ var moment = require("../../moment");
 exports["lang:mr"] = {
     setUp : function (cb) {
         moment.lang('mr');
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
         cb();
     },
 
@@ -374,12 +377,12 @@ exports["lang:mr"] = {
 
         test.done();
     },
-    
+
     "returns the name of the language" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
             test.equal(require('../../lang/mr'), 'mr', "module should export mr");
         }
-        
+
         test.done();
     }
 };

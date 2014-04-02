@@ -1,6 +1,13 @@
 var moment = require("../../moment");
 
 exports.duration = {
+    setUp : function (done) {
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
+        done();
+    },
+
     "object instantiation" : function (test) {
         var d = moment.duration({
             years: 2,

@@ -8,6 +8,9 @@ var moment = require("../../moment");
 exports["lang:zh-cn"] = {
     setUp : function (cb) {
         moment.lang('zh-cn');
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
         cb();
     },
 

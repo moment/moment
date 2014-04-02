@@ -1,6 +1,13 @@
 var moment = require("../../moment");
 
 exports.is_valid = {
+    setUp : function (done) {
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
+        done();
+    },
+
     "array bad month" : function (test) {
         test.expect(2);
         test.equal(moment([2010, -1]).isValid(), false, 'month -1 invalid');

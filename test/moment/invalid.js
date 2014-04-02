@@ -1,6 +1,13 @@
 var moment = require("../../moment");
 
 exports.invalid = {
+    setUp : function (done) {
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
+        done();
+    },
+
     "invalid" : function (test) {
         var m = moment.invalid();
         test.equals(m.isValid(), false);

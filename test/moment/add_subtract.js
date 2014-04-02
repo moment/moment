@@ -1,6 +1,13 @@
 var moment = require("../../moment");
 
 exports.add = {
+    setUp : function (done) {
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
+        done();
+    },
+
     "add short" : function (test) {
         test.expect(12);
 

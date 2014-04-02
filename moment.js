@@ -1434,8 +1434,11 @@
             config._d = new Date(+input);
         } else if (typeof(input) === 'object') {
             dateFromObject(config);
-        } else {
+        } else if (typeof(input) === 'number') {
+            // from milliseconds
             config._d = new Date(input);
+        } else {
+            moment.createFromInputFallback(config);
         }
     }
 
@@ -1606,6 +1609,10 @@
         c._pf = defaultParsingFlags();
 
         return makeMoment(c);
+    };
+
+    moment.createFromInputFallback = function (config) {
+        config._d = new Date(config._i);
     };
 
     // creating with utc

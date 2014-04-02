@@ -1,6 +1,13 @@
 var moment = require("../../moment");
 
 exports.is_after = {
+    setUp : function (done) {
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
+        done();
+    },
+
     "is after without units" : function (test) {
         test.expect(17);
 

@@ -13,6 +13,13 @@ var getVerifier = function (test) {
 };
 
 exports.create = {
+    setUp : function (done) {
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
+        done();
+    },
+
     "array" : function (test) {
         test.expect(8);
         test.ok(moment([2010]).toDate() instanceof Date, "[2010]");

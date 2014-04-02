@@ -5,6 +5,9 @@ var moment = require("../../moment");
 exports["lang:ar"] = {
     setUp : function (cb) {
         moment.lang('ar');
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
         cb();
     },
 

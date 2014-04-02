@@ -6,6 +6,9 @@ var moment = require("../../moment");
 exports["lang:tzm"] = {
     setUp : function (cb) {
         moment.lang('tzm');
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
         cb();
     },
 

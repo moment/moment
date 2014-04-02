@@ -4,6 +4,13 @@ var moment = require('../../moment'),
     };
 
 exports.parsing_flags = {
+    setUp : function (done) {
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
+        done();
+    },
+
 
     'overflow with array' : function (test) {
 

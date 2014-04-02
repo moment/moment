@@ -1,6 +1,13 @@
 var moment = require("../../moment");
 
 exports.lang = {
+    setUp : function (done) {
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
+        done();
+    },
+
     "library getter" : function (test) {
         var r;
         test.expect(8);
