@@ -29,9 +29,9 @@
         longDateFormat : {
             LT : "H:mm",
             L : "DD/MM/YYYY",
-            LL : "D [de] MMMM [de] YYYY",
-            LLL : "D [de] MMMM [de] YYYY LT",
-            LLLL : "dddd, D [de] MMMM [de] YYYY LT"
+            LL : "D [de] MMMM [del] YYYY",
+            LLL : "D [de] MMMM [del] YYYY LT",
+            LLLL : "dddd, D [de] MMMM [del] YYYY LT"
         },
         calendar : {
             sameDay : function () {
