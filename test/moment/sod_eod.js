@@ -50,6 +50,44 @@ exports.endStartOf = {
         test.done();
     },
 
+    "start of quarter" : function (test) {
+        test.expect(10);
+
+        var m = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).startOf('quarter'),
+            ms = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).startOf('quarters'),
+            ma = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).startOf('Q');
+        test.equal(+m, +ms, "Plural or singular should work");
+        test.equal(+m, +ma, "Full or abbreviated should work");
+        test.equal(m.year(), 2011, "keep the year");
+        test.equal(m.quarter(), 2, "keep the quarter");
+        test.equal(m.month(), 3, "strip out the month");
+        test.equal(m.date(), 1, "strip out the day");
+        test.equal(m.hours(), 0, "strip out the hours");
+        test.equal(m.minutes(), 0, "strip out the minutes");
+        test.equal(m.seconds(), 0, "strip out the seconds");
+        test.equal(m.milliseconds(), 0, "strip out the milliseconds");
+        test.done();
+    },
+
+    "end of quarter" : function (test) {
+        test.expect(10);
+
+        var m = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).endOf('quarter'),
+            ms = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).endOf('quarters'),
+            ma = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).endOf('Q');
+        test.equal(+m, +ms, "Plural or singular should work");
+        test.equal(+m, +ma, "Full or abbreviated should work");
+        test.equal(m.year(), 2011, "keep the year");
+        test.equal(m.quarter(), 2, "keep the quarter");
+        test.equal(m.month(), 5, "set the month");
+        test.equal(m.date(), 30, "set the day");
+        test.equal(m.hours(), 23, "set the hours");
+        test.equal(m.minutes(), 59, "set the minutes");
+        test.equal(m.seconds(), 59, "set the seconds");
+        test.equal(m.milliseconds(), 999, "set the seconds");
+        test.done();
+    },
+
     "start of month" : function (test) {
         test.expect(9);
 
