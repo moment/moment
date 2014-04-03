@@ -1,8 +1,8 @@
 
 module.exports = function (grunt) {
 
-    grunt.registerTask('embed_languages', function () {
-        var config = grunt.config('embed_languages');
+    grunt.registerTask('embedLanguages', function () {
+        var config = grunt.config('embedLanguages');
 
         var files = grunt.file.expand(config.targetLangs);
         var embeddedContents = determineEmbeddedContent(files);
