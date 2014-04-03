@@ -41,7 +41,7 @@
         },
 
         // check for nodeJS
-        hasModule = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined'),
+        hasModule = (typeof module !== 'undefined' && module.exports),
 
         // ASP.NET json date format regex
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
