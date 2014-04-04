@@ -2445,7 +2445,6 @@
     // CommonJS module is defined
     if (hasModule) {
         module.exports = moment;
-        makeGlobal(true);
     } else if (typeof define === "function" && define.amd) {
         define("moment", function (require, exports, module) {
             if (module.config && module.config() && module.config().noGlobal !== true) {
