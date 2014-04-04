@@ -146,7 +146,7 @@ exports["lang:sq"] = {
         test.expect(7);
 
         var i,
-            expected = 'E Diel Die D_E Hënë Hën H_E Marte Mar Ma_E Mërkure Mër Më_E Enjte Enj E_E Premte Pre P_E Shtunë Sht Sh'.split("_");
+            expected = 'E Diel Die D_E Hënë Hën H_E Martë Mar Ma_E Mërkurë Mër Më_E Enjte Enj E_E Premte Pre P_E Shtunë Sht Sh'.split("_");
 
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
@@ -161,8 +161,8 @@ exports["lang:sq"] = {
         var start = moment([2007, 1, 28]);
 
         test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "disa sekonda", "44 seconds = a few seconds");
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "një minut",      "45 seconds = a minute");
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  "një minut",      "89 seconds = a minute");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "një minutë",      "45 seconds = a minute");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  "një minutë",      "89 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  "2 minuta",     "90 seconds = 2 minutes");
         test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  "44 minuta",    "44 minutes = 44 minutes");
         test.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  "një orë",       "45 minutes = an hour");
@@ -198,7 +198,7 @@ exports["lang:sq"] = {
         test.expect(2);
 
         test.equal(moment(30000).from(0), "në disa sekonda",  "prefix");
-        test.equal(moment(0).from(30000), "disa sekonda me parë", "suffix");
+        test.equal(moment(0).from(30000), "disa sekonda më parë", "suffix");
 
         test.done();
     },
@@ -206,7 +206,7 @@ exports["lang:sq"] = {
     "now from now" : function (test) {
         test.expect(1);
 
-        test.equal(moment().fromNow(), "disa sekonda me parë",  "now from now should display as in the past");
+        test.equal(moment().fromNow(), "disa sekonda më parë",  "now from now should display as in the past");
 
         test.done();
     },
@@ -228,7 +228,7 @@ exports["lang:sq"] = {
         test.equal(moment(a).calendar(),                     "Sot në 02:00",     "today at the same time");
         test.equal(moment(a).add({ m: 25 }).calendar(),      "Sot në 02:25",     "Now plus 25 min");
         test.equal(moment(a).add({ h: 1 }).calendar(),       "Sot në 03:00",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "Neser në 02:00",  "tomorrow at the same time");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "Nesër në 02:00",  "tomorrow at the same time");
         test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Sot në 01:00",     "Now minus 1 hour");
         test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Dje në 02:00", "yesterday at the same time");
 
