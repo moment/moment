@@ -11,8 +11,8 @@ exports.normalizeUnits = {
     },
 
     "normalize units" : function (test) {
-        var fullKeys = ["year", "month", "isoWeek", "week", "day", "hour", "minute", "second", "millisecond", "date", 'dayOfYear', 'weekday', 'isoWeekday', 'weekYear', 'isoWeekYear'],
-            aliases = ["y", "M", "W", "w", "d", "h", "m", "s", "ms", "D", 'DDD', 'e', 'E', 'gg', 'GG'],
+        var fullKeys = ["year", "quarter", "month", "isoWeek", "week", "day", "hour", "minute", "second", "millisecond", "date", 'dayOfYear', 'weekday', 'isoWeekday', 'weekYear', 'isoWeekYear'],
+            aliases = ["y", "Q", "M", "W", "w", "d", "h", "m", "s", "ms", "D", 'DDD', 'e', 'E', 'gg', 'GG'],
             length = fullKeys.length,
             fullKey,
             fullKeyCaps,
