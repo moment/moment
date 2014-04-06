@@ -73,6 +73,22 @@ exports["lang:hu"] = {
         test.done();
     },
 
+    "meridiem" : function (test) {
+        test.expect(8);
+
+        test.equal(moment([2011, 2, 23,  0,  0]).format('a'), "de", "am");
+        test.equal(moment([2011, 2, 23, 11, 59]).format('a'), "de", "am");
+        test.equal(moment([2011, 2, 23, 12,  0]).format('a'), "du", "pm");
+        test.equal(moment([2011, 2, 23, 23, 59]).format('a'), "du", "pm");
+
+        test.equal(moment([2011, 2, 23,  0,  0]).format('A'), "DE", "AM");
+        test.equal(moment([2011, 2, 23, 11, 59]).format('A'), "DE", "AM");
+        test.equal(moment([2011, 2, 23, 12,  0]).format('A'), "DU", "PM");
+        test.equal(moment([2011, 2, 23, 23, 59]).format('A'), "DU", "PM");
+
+        test.done();
+    },
+
     "format ordinal" : function (test) {
         test.expect(31);
 
