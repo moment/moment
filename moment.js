@@ -54,7 +54,7 @@
         isoDurationRegex = /^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/,
 
         // format tokens
-        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|X|zz?|ZZ?|.)/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|X|zz?|ZZ?|.)/g,
         localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?|l{1,4})/g,
 
         // parsing token regexes
@@ -124,6 +124,7 @@
             w : 'week',
             W : 'isoWeek',
             M : 'month',
+            Q : 'quarter',
             y : 'year',
             DDD : 'dayOfYear',
             e : 'weekday',
@@ -339,6 +340,7 @@
     function Duration(duration) {
         var normalizedInput = normalizeObjectUnits(duration),
             years = normalizedInput.year || 0,
+            quarters = normalizedInput.quarter || 0,
             months = normalizedInput.month || 0,
             weeks = normalizedInput.week || 0,
             days = normalizedInput.day || 0,
@@ -360,6 +362,7 @@
         // which months you are are talking about, so we have to store
         // it separately.
         this._months = +months +
+            quarters * 3 +
             years * 12;
 
         this._data = {};
@@ -947,6 +950,8 @@
     function getParseRegexForToken(token, config) {
         var a, strict = config._strict;
         switch (token) {
+        case 'Q':
+            return parseTokenOneDigit;
         case 'DDDD':
             return parseTokenThreeDigits;
         case 'YYYY':
@@ -1038,6 +1043,12 @@
         var a, datePartArray = config._a;
 
         switch (token) {
+        // QUARTER
+        case 'Q':
+            if (input != null) {
+                datePartArray[MONTH] = (toInt(input) - 1) * 3;
+            }
+            break;
         // MONTH
         case 'M' : // fall through to MM
         case 'MM' :
@@ -1971,6 +1982,7 @@
             case 'year':
                 this.month(0);
                 /* falls through */
+            case 'quarter':
             case 'month':
                 this.date(1);
                 /* falls through */
@@ -1995,6 +2007,11 @@
                 this.weekday(0);
             } else if (units === 'isoWeek') {
                 this.isoWeekday(1);
+            }
+
+            // quarters are also special
+            if (units === 'quarter') {
+                this.month(Math.floor(this.month() / 3) * 3);
             }
 
             return this;
@@ -2104,8 +2121,8 @@
             return input == null ? dayOfYear : this.add("d", (input - dayOfYear));
         },
 
-        quarter : function () {
-            return Math.ceil((this.month() + 1.0) / 3.0);
+        quarter : function (input) {
+            return input == null ? Math.ceil((this.month() + 1) / 3) : this.month((input - 1) * 3 + this.month() % 3);
         },
 
         weekYear : function (input) {
@@ -2252,6 +2269,7 @@
     moment.fn.months = moment.fn.month;
     moment.fn.weeks = moment.fn.week;
     moment.fn.isoWeeks = moment.fn.isoWeek;
+    moment.fn.quarters = moment.fn.quarter;
 
     // add aliased format methods
     moment.fn.toJSON = moment.fn.toISOString;
