@@ -1975,7 +1975,8 @@
         month : makeAccessor('Month', true),
         
         roundTo: function (units, offset, midpoint) {
-            units = normalizeUnits(units), offset = offset || 1;
+            units = normalizeUnits(units);
+            offset = offset || 1;
             var roundUnit = function(unit) {
                 switch (midpoint) {
                     case 'up':
