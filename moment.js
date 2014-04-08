@@ -1973,7 +1973,57 @@
         },
 
         month : makeAccessor('Month', true),
+        
+        roundTo: function (units, offset, midpoint) {
+            units = normalizeUnits(units);
+            offset = offset || 1;
+            function roundUnit(unit) {
+                switch (midpoint) {
+                    case 'up':
+                        unit = Math.ceil(unit / offset);
+                        break;
+                    case 'down':
+                        unit = Math.floor(unit / offset);
+                        break;
+                    default:
+                        unit = Math.round(unit / offset);
+                        break;
+                }
+                return unit * offset;
+            };
+            switch (units) {
+                case 'year':
+                    this.year(roundUnit(this.year()));
+                    break;
+                case 'month':
+                    this.month(roundUnit(this.month()));
+                    break;
+                case 'week':
+                    this.weekday(roundUnit(this.weekday()));
+                    break;
+                case 'isoWeek':
+                    this.isoWeekday(roundUnit(this.isoWeekday()));
+                    break;
+                case 'day':
+                    this.day(roundUnit(this.day()));
+                    break;
+                case 'hour':
+                    this.hour(roundUnit(this.hour()));
+                    break;
+                case 'minute':
+                    this.minute(roundUnit(this.minute()));
+                    break;
+                case 'second':
+                    this.second(roundUnit(this.second()));
+                    break;
+                default:
+                    this.millisecond(roundUnit(this.millisecond()));
+                    break;
+            }
 
+            return this;
+        },
+        
         startOf: function (units) {
             units = normalizeUnits(units);
             // the following switch intentionally omits break keywords
