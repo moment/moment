@@ -216,12 +216,13 @@ exports["lang:ru"] = {
     },
 
     "from" : function (test) {
-        test.expect(32);
+        test.expect(33);
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "несколько секунд",    "44 seconds = seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "минута",   "45 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  "минута",   "89 seconds = a minute");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  "2 минуты",  "90 seconds = 2 minutes");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 31}), true),  "31 минута",  "31 minutes = 31 minutes");
         test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  "44 минуты", "44 minutes = 44 minutes");
         test.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  "час",    "45 minutes = an hour");
         test.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  "час",    "89 minutes = an hour");
@@ -261,9 +262,11 @@ exports["lang:ru"] = {
     },
 
     "fromNow" : function (test) {
-        test.expect(2);
+        test.expect(4);
         test.equal(moment().add({s: 30}).fromNow(), "через несколько секунд", "in seconds");
         test.equal(moment().add({d: 5}).fromNow(), "через 5 дней", "in 5 days");
+        test.equal(moment().add({m: 31}).fromNow(), "31 минуту назад", "31 minutes ago = 31 minutes ago");
+        test.equal(moment().subtract({m: 31}).fromNow(), "через 31 минуту", "in 31 minutes = in 31 minutes");
         test.done();
     },
 
