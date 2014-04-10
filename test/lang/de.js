@@ -190,12 +190,12 @@ exports["lang:de"] = {
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "Heute um 2:00 Uhr",   "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "Heute um 2:25 Uhr",   "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "Heute um 3:00 Uhr",   "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "Morgen um 2:00 Uhr",  "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Heute um 1:00 Uhr",   "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Gestern um 2:00 Uhr", "yesterday at the same time");
+        test.equal(moment(a).calendar(),                     "Heute um 02:00 Uhr",   "today at the same time");
+        test.equal(moment(a).add({ m: 25 }).calendar(),      "Heute um 02:25 Uhr",   "Now plus 25 min");
+        test.equal(moment(a).add({ h: 1 }).calendar(),       "Heute um 03:00 Uhr",   "Now plus 1 hour");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "Morgen um 02:00 Uhr",  "tomorrow at the same time");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Heute um 01:00 Uhr",   "Now minus 1 hour");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Gestern um 02:00 Uhr", "yesterday at the same time");
         test.done();
     },
 
