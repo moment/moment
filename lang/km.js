@@ -29,7 +29,7 @@
             nextDay: '[ស្អែក ម៉ោង] LT',
             nextWeek: 'dddd [ម៉ោង] LT',
             lastDay: '[ម្សិលមិញ ម៉ោង] LT',
-            lastWeek: '[Last] dddd [ម៉ោង] LT',
+            lastWeek: 'dddd [សប្តាហ៍មុន] [ម៉ោង] LT',
             sameElse: 'L'
         },
         relativeTime: {
@@ -46,14 +46,6 @@
             MM: "%d ខែ",
             y: "មួយឆ្នាំ",
             yy: "%d ឆ្នាំ"
-        },
-        ordinal: function (number) {
-            var b = number % 10,
-                output = (~~(number % 100 / 10) === 1) ? 'th' :
-                    (b === 1) ? 'st' :
-                    (b === 2) ? 'nd' :
-                    (b === 3) ? 'rd' : 'th';
-            return number + output;
         },
         week: {
             dow: 1, // Monday is the first day of the week.
