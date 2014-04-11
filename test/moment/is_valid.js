@@ -78,13 +78,6 @@ exports.isValid = {
         test.done();
     },
 
-    "string nonsensical" : function (test) {
-        test.expect(1);
-
-        test.equal(moment('fail').isValid(), false, 'string "fail"');
-        test.done();
-    },
-
     "string nonsensical with format" : function (test) {
         test.expect(2);
 
@@ -239,7 +232,6 @@ exports.isValid = {
     "empty" : function (test) {
         test.equal(moment(null).isValid(), false, 'null');
         test.equal(moment('').isValid(), false, 'empty string');
-        test.equal(moment(' ').isValid(), false, 'empty when trimmed');
 
         test.equal(moment(null, 'YYYY').isValid(), false, 'format + null');
         test.equal(moment('', 'YYYY').isValid(), false, 'format + empty string');

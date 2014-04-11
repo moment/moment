@@ -300,6 +300,22 @@
         };
     }
 
+    function deprecate(msg, fn) {
+        var firstTime = true;
+        function printMsg() {
+            if (typeof console !== 'undefined' && console.warn) {
+                console.warn("Deprecation warning: " + msg);
+            }
+        }
+        return extend(function () {
+            if (firstTime) {
+                printMsg();
+                firstTime = false;
+            }
+            return fn.apply(this, arguments);
+        }, fn);
+    }
+
     function padToken(func, count) {
         return function (a) {
             return leftZeroFill(func.call(this, a), count);
@@ -1415,7 +1431,7 @@
             makeDateFromStringAndFormat(config);
         }
         else {
-            config._d = new Date(string);
+            config._d = moment.createFromInputFallback(string);
         }
     }
 
@@ -1567,7 +1583,7 @@
         var input = config._i,
             format = config._f;
 
-        if (input === null) {
+        if (input === null || (format === undefined && input === '')) {
             return moment.invalid({nullInput: true});
         }
 
@@ -1613,9 +1629,14 @@
         return makeMoment(c);
     };
 
-    moment.createFromInputFallback = function (config) {
+    moment.createFromInputFallback = deprecate(
+            "moment construction falls back to js Date. This is " +
+            "discouraged and will be removed in upcoming major " +
+            "release. Please refer to " +
+            "https://github.com/moment/moment/issues/1407 for more info.",
+            function (config) {
         config._d = new Date(config._i);
-    };
+    });
 
     // creating with utc
     moment.utc = function (input, format, lang, strict) {
@@ -2191,22 +2212,6 @@
             }
         }
     });
-
-    function deprecate(msg, fn) {
-        var firstTime = true;
-        function printMsg() {
-            if (typeof console !== 'undefined' && console.warn) {
-                console.warn("Deprecation warning: " + msg);
-            }
-        }
-        return extend(function () {
-            if (firstTime) {
-                printMsg();
-                firstTime = false;
-            }
-            return fn.apply(this, arguments);
-        }, fn);
-    }
 
     function rawMonthSetter(mom, value) {
         var dayOfMonth;
