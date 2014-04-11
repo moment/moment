@@ -1432,7 +1432,7 @@
             makeDateFromStringAndFormat(config);
         }
         else {
-            config._d = moment.createFromInputFallback(string);
+            moment.createFromInputFallback(config);
         }
     }
 
