@@ -24,7 +24,7 @@ exports.isMoment = {
         };
 
         test.ok(moment.isMoment(moment()), 'simple moment object');
-        test.ok(moment.isMoment(moment('invalid date')), 'invalid moment object');
+        test.ok(moment.isMoment(moment(null)), 'invalid moment object');
         test.ok(moment.isMoment(extend({}, moment())), 'externally cloned moments are moments');
         test.ok(moment.isMoment(extend({}, moment.utc())), 'externally cloned utc moments are moments');
 

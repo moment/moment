@@ -135,13 +135,6 @@ exports.create = {
         test.done();
     },
 
-    "string without format" : function (test) {
-        test.expect(2);
-        test.ok(moment("Aug 9, 1995").toDate() instanceof Date, "Aug 9, 1995");
-        test.ok(moment("Mon, 25 Dec 1995 13:30:00 GMT").toDate() instanceof Date, "Mon, 25 Dec 1995 13:30:00 GMT");
-        test.done();
-    },
-
     "string without format - json" : function (test) {
         test.expect(5);
         test.equal(moment("Date(1325132654000)").valueOf(), 1325132654000, "Date(1325132654000)");
