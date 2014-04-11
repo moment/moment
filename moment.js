@@ -303,7 +303,8 @@
     function deprecate(msg, fn) {
         var firstTime = true;
         function printMsg() {
-            if (typeof console !== 'undefined' && console.warn) {
+            if (moment.suppressDeprecationWarnings === false &&
+                    typeof console !== 'undefined' && console.warn) {
                 console.warn("Deprecation warning: " + msg);
             }
         }
@@ -1628,6 +1629,8 @@
 
         return makeMoment(c);
     };
+
+    moment.suppressDeprecationWarnings = false;
 
     moment.createFromInputFallback = deprecate(
             "moment construction falls back to js Date. This is " +
