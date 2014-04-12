@@ -47,6 +47,25 @@ grunt                 # this runs tests and jshint
 Changelog
 =========
 
+### 2.6.0 [See changelog](https://gist.github.com/ichernev/10544682)
+
+* languages
+  * [#1529] Serbian-Cyrillic (sr-cyr)
+  * [#1544], [#1546] Khmer Cambodia (km)
+
+* features
+    * [#1419](https://github.com/moment/moment/issues/1419), [#1468](https://github.com/moment/moment/issues/1468), [#1467](https://github.com/moment/moment/issues/1467), [#1546](https://github.com/moment/moment/issues/1546) better handling of timezone-d moments around DST
+    * [#1462](https://github.com/moment/moment/issues/1462) add weeksInYear and isoWeeksInYear
+    * [#1475](https://github.com/moment/moment/issues/1475) support ordinal parsing
+    * [#1499](https://github.com/moment/moment/issues/1499) composer support
+    * [#1577](https://github.com/moment/moment/issues/1577), [#1604](https://github.com/moment/moment/issues/1604) put Date parsing in moment.createFromInputFallback so it can be properly deprecated and controlled in the future
+    * [#1545](https://github.com/moment/moment/issues/1545) extract two-digit year parsing in moment.parseTwoDigitYear, so it can be overwritten
+    * [#1590](https://github.com/moment/moment/issues/1590) (see [#1574](https://github.com/moment/moment/issues/1574)) set AMD global before module definition to better support non AMD module dependencies used in AMD environment
+    * [#1589](https://github.com/moment/moment/issues/1589) remove global in Node.JS environment (was not working before, nobody complained, was scheduled for removal anyway)
+    * [#1586](https://github.com/moment/moment/issues/1586) support quarter setting and parsing
+
+* 18 bugs fixed
+
 ### 2.5.1
 
 * languages
