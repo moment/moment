@@ -27,7 +27,7 @@ To run the tests, do `grunt` to run all tests.
 
 To check the filesize, you can use `grunt size`.
 
-To minify all the files, use `grunt release`.
+To minify all the files, use `grunt release`. **But please don't include minified files in pull requests.** We'll minify them when we release.
 
 If your code passes the unit tests (including the ones you wrote), submit a pull request.
 
