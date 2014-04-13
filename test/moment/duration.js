@@ -375,6 +375,26 @@ exports.duration = {
         test.done();
     },
 
+    "humanize duration with short version" : function (test) {
+        moment.lang('en');
+        test.equal(moment.duration({seconds: 1}).humanize(false, true), '1s', '1 second = 1s');
+        test.equal(moment.duration({seconds: 5}).humanize(false, true), '5s', '5 seconds = 5s');
+        test.equal(moment.duration({minutes: 1}).humanize(false, true), '1m', '1 minute = 1m');
+        test.equal(moment.duration({minutes: 5}).humanize(false, true), '5m', '5 minutes = 5m');
+        test.equal(moment.duration({hours: 1}).humanize(false, true), '1h', '1 hour = 1h');
+        test.equal(moment.duration({hours: 5}).humanize(false, true), '5h', '5 hours = 5h');
+        test.equal(moment.duration({days: 1}).humanize(false, true), '1d', '1 day = 1d');
+        test.equal(moment.duration({days: 5}).humanize(false, true), '5d', '5 days = 5d');
+        test.equal(moment.duration({months: 1}).humanize(false, true), '1mnt', '1 month = 1mnt');
+        test.equal(moment.duration({months: 5}).humanize(false, true), '5mnt', '5 months = 5mnt');
+        test.equal(moment.duration({years: 1}).humanize(false, true), '1y', '1 year = 1y');
+        test.equal(moment.duration({years: 5}).humanize(false, true), '5y', '5 years = 5y');
+
+        test.equal(moment.duration({seconds: 5}).humanize(true, true), '5s', '5 second with suffix = 5s');
+        test.equal(moment.duration({seconds: -5}).humanize(true, true), '5s', '-5 second with suffix = 5s');
+        test.done();
+    },
+
     "bubble value up" : function (test) {
         test.expect(5);
         test.equal(moment.duration({milliseconds: 61001}).milliseconds(), 1, "61001 milliseconds has 1 millisecond left over");
