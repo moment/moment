@@ -799,13 +799,14 @@
         },
 
         relativeTime : function (number, withoutSuffix, string, isFuture, shortForm) {
-            var output = (shortForm ? this._shortRelativeTime : this._relativeTime[string]);
+            var output = (shortForm ? this._shortRelativeTime[string] : this._relativeTime[string]);
             return (typeof output === 'function') ?
                 output(number, withoutSuffix, string, isFuture, shortForm) :
                 output.replace(/%d/i, number);
         },
-        pastFuture : function (diff, output) {
-            var format = this._relativeTime[diff > 0 ? 'future' : 'past'];
+        pastFuture : function (diff, output, shortForm) {
+            var format = shortForm && this._shortRelativeTime[diff > 0 ? 'future' : 'past'] ||
+                         this._relativeTime[diff > 0 ? 'future' : 'past'];
             return typeof format === 'function' ? format(output) : format.replace(/%s/i, output);
         },
 
@@ -1519,11 +1520,11 @@
 
 
     // helper function for moment.fn.from, moment.fn.fromNow, and moment.duration.fn.humanize
-    function substituteTimeAgo(string, number, withoutSuffix, isFuture, lang) {
-        return lang.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
+    function substituteTimeAgo(string, number, withoutSuffix, isFuture, lang, shortForm) {
+        return lang.relativeTime(number || 1, !!withoutSuffix, string, isFuture, shortForm);
     }
 
-    function relativeTime(milliseconds, withoutSuffix, lang) {
+    function relativeTime(milliseconds, withoutSuffix, lang, shortForm) {
         var seconds = round(Math.abs(milliseconds) / 1000),
             minutes = round(seconds / 60),
             hours = round(minutes / 60),
@@ -1542,6 +1543,7 @@
         args[2] = withoutSuffix;
         args[3] = milliseconds > 0;
         args[4] = lang;
+        args[5] = shortForm;
         return substituteTimeAgo.apply({}, args);
     }
 
@@ -2352,7 +2354,7 @@
                 output = relativeTime(difference, !withSuffix, this.lang(), shortForm);
 
             if (withSuffix) {
-                output = this.lang().pastFuture(difference, output);
+                output = this.lang().pastFuture(difference, output, shortForm);
             }
 
             return this.lang().postformat(output);
