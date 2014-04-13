@@ -46,6 +46,21 @@
             y : "a year",
             yy : "%d years"
         },
+        shortRelativeTime : {
+            future : "%s",
+            past : "%s",
+            s : "%ds",
+            m : "%dm",
+            mm : "%dm",
+            h : "%dh",
+            hh : "%dh",
+            d : "%dd",
+            dd : "%dd",
+            M : "%dmnt",
+            MM : "%dmnt",
+            y : "%dy",
+            yy : "%dy"
+        },
         ordinal : function (number) {
             var b = number % 10,
                 output = (~~ (number % 100 / 10) === 1) ? 'th' :

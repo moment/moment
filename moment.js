@@ -781,10 +781,27 @@
             y : "a year",
             yy : "%d years"
         },
-        relativeTime : function (number, withoutSuffix, string, isFuture) {
-            var output = this._relativeTime[string];
+
+        _shortRelativeTime : {
+            future : "%s",
+            past : "%s",
+            s : "%ds",
+            m : "%dm",
+            mm : "%dm",
+            h : "%dh",
+            hh : "%dh",
+            d : "%dd",
+            dd : "%dd",
+            M : "%dmnt",
+            MM : "%dmnt",
+            y : "%dy",
+            yy : "%dy"
+        },
+
+        relativeTime : function (number, withoutSuffix, string, isFuture, shortForm) {
+            var output = (shortForm ? this._shortRelativeTime : this._relativeTime[string]);
             return (typeof output === 'function') ?
-                output(number, withoutSuffix, string, isFuture) :
+                output(number, withoutSuffix, string, isFuture, shortForm) :
                 output.replace(/%d/i, number);
         },
         pastFuture : function (diff, output) {
@@ -2330,9 +2347,9 @@
               toInt(this._months / 12) * 31536e6;
         },
 
-        humanize : function (withSuffix) {
+        humanize : function (withSuffix, shortForm) {
             var difference = +this,
-                output = relativeTime(difference, !withSuffix, this.lang());
+                output = relativeTime(difference, !withSuffix, this.lang(), shortForm);
 
             if (withSuffix) {
                 output = this.lang().pastFuture(difference, output);
