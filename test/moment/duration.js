@@ -376,6 +376,7 @@ exports.duration = {
     },
 
     "humanize duration with short version" : function (test) {
+        test.expect(14);
         moment.lang('en');
         test.equal(moment.duration({seconds: 1}).humanize(false, true), '1s', '1 second = 1s');
         test.equal(moment.duration({seconds: 5}).humanize(false, true), '5s', '5 seconds = 5s');
