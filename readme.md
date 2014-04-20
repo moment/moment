@@ -50,8 +50,8 @@ Changelog
 ### 2.6.0 [See changelog](https://gist.github.com/ichernev/10544682)
 
 * languages
-  * [#1529] Serbian-Cyrillic (sr-cyr)
-  * [#1544], [#1546] Khmer Cambodia (km)
+  * [#1529](https://github.com/moment/moment/issues/1529) Serbian-Cyrillic (sr-cyr)
+  * [#1544](https://github.com/moment/moment/issues/1544), [#1546](https://github.com/moment/moment/issues/1546) Khmer Cambodia (km)
 
 * features
     * [#1419](https://github.com/moment/moment/issues/1419), [#1468](https://github.com/moment/moment/issues/1468), [#1467](https://github.com/moment/moment/issues/1467), [#1546](https://github.com/moment/moment/issues/1546) better handling of timezone-d moments around DST
