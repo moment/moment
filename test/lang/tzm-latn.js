@@ -3,9 +3,9 @@
 var moment = require("../../moment");
 
 
-exports["lang:tzm-la"] = {
+exports["lang:tzm-latn"] = {
     setUp : function (cb) {
-        moment.lang('tzm-la');
+        moment.lang('tzm-latn');
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");
         };
@@ -358,7 +358,7 @@ exports["lang:tzm-la"] = {
 
     "returns the name of the language" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/tzm-la'), 'tzm-la', "module should export tzm-la");
+            test.equal(require('../../lang/tzm-latn'), 'tzm-latn', "module should export tzm-latn");
         }
 
         test.done();

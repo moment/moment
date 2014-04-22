@@ -5,9 +5,9 @@ var moment = require("../../moment");
       Serbian-cyrillic (sr-cyr)
      *************************************************/
 
-exports["lang:sr-cyr"] = {
+exports["lang:sr-cyrl"] = {
     setUp : function (cb) {
-        moment.lang('sr-cyr');
+        moment.lang('sr-cyrl');
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");
         };
@@ -390,7 +390,7 @@ exports["lang:sr-cyr"] = {
 
     "returns the name of the language" : function (test) {
         if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/sr-cyr'), 'sr-cyr', "module should export sr-cyr");
+            test.equal(require('../../lang/sr-cyrl'), 'sr-cyrl', "module should export sr-cyrl");
         }
 
         test.done();
