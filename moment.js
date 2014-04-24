@@ -940,7 +940,7 @@
         format = expandFormat(format, lang);
 
         if (!formatFunctions[format]) {
-            formatFunctions[format] = makeFormatFunction(format, lang);
+            formatFunctions[format] = makeFormatFunction(format);
         }
 
         return formatFunctions[format](m, lang);
