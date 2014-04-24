@@ -249,7 +249,7 @@ exports["lang:el"] = {
         var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().subtract({ d: i });
-            var dayString = m.day() == 6 ? '[το προηγούμενο Σάββατο]' : '[την προηγούμενη] dddd';
+            var dayString = m.day() === 6 ? '[το προηγούμενο Σάββατο]' : '[την προηγούμενη] dddd';
             test.equal(m.calendar(),       m.format(dayString + ' [' + (m.hours() % 12 === 1 ? 'στη' : 'στις') + '] LT'),  "Today - " + i + " days current time");
             m.hours(1).minutes(30).seconds(0).milliseconds(0);
             test.equal(m.calendar(),       m.format(dayString + ' [στη] LT'),  "Today - " + i + " days one o clock");
