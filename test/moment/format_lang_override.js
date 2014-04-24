@@ -1,6 +1,6 @@
 var moment = require("../../moment");
 
-exports.format_lang_override = {
+exports.formatLangOverride = {
     setUp : function (cb) {
         moment.lang('en');
         moment.createFromInputFallback = function () {
