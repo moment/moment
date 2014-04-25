@@ -44,12 +44,23 @@
             nextDay : '[Αύριο {}] LT',
             nextWeek : 'dddd [{}] LT',
             lastDay : '[Χθες {}] LT',
-            lastWeek : '[την προηγούμενη] dddd [{}] LT',
+            lastWeek : function() {
+                switch (this.day()) {
+                    case 6:
+                        return '[το προηγούμενο] dddd [{}] LT';
+                    default:
+                        return '[την προηγούμενη] dddd [{}] LT';
+                }
+            },
             sameElse : 'L'
         },
         calendar : function (key, mom) {
             var output = this._calendarEl[key],
                 hours = mom && mom.hours();
+
+            if (typeof output === 'function') {
+                output = output.apply(mom);
+            }
 
             return output.replace("{}", (hours % 12 === 1 ? "στη" : "στις"));
         },
