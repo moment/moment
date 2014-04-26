@@ -2451,7 +2451,7 @@
                 days = this._days,
                 months = this._months,
                 data = this._data,
-                seconds, minutes, hours, years;
+                seconds, minutes, hours, years = 0;
 
             // The following code bubbles up values, see the tests for
             // examples of what that means.
@@ -2467,12 +2467,23 @@
             data.hours = hours % 24;
 
             days += absRound(hours / 24);
-            data.days = days % 30;
 
+            // Accurately convert days to years, assume start from year 0.
+            years = absRound(days * 400 / 146097);
+            days -= years * 365 + absRound(years / 4) -
+                absRound(years / 100) + absRound(years / 400);
+
+            // 30 days to a month
+            // TODO (iskren): Use anchor date (like 1st Jan) to compute this.
             months += absRound(days / 30);
-            data.months = months % 12;
+            days %= 30;
 
-            years = absRound(months / 12);
+            // 12 months -> 1 year
+            years += absRound(months / 12);
+            months %= 12;
+
+            data.days = days;
+            data.months = months;
             data.years = years;
         },
 

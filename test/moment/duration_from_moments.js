@@ -1,6 +1,6 @@
 var moment = require("../../moment");
 
-exports.duration_from_moments = {
+exports.durationFromMoments = {
     setUp: function (done) {
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");

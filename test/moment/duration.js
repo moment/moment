@@ -243,24 +243,30 @@ exports.duration = {
     },
 
     "instatiation from serialized C# TimeSpan maxValue" : function (test) {
-        test.expect(6);
-        test.equal(moment.duration("10675199.02:48:05.4775807").years(), 29653, "29653 years");
-        test.equal(moment.duration("10675199.02:48:05.4775807").days(), 29, "29 day");
-        test.equal(moment.duration("10675199.02:48:05.4775807").hours(), 2, "2 hours");
-        test.equal(moment.duration("10675199.02:48:05.4775807").minutes(), 48, "48 minutes");
-        test.equal(moment.duration("10675199.02:48:05.4775807").seconds(), 5, "5 seconds");
-        test.equal(moment.duration("10675199.02:48:05.4775807").milliseconds(), 477, "477 milliseconds");
+        var d = moment.duration("10675199.02:48:05.4775807");
+
+        test.equal(d.years(), 29227, "29227 years");
+        test.equal(d.months(), 8, "8 months");
+        test.equal(d.days(), 17, "17 day");  // this should be 13
+
+        test.equal(d.hours(), 2, "2 hours");
+        test.equal(d.minutes(), 48, "48 minutes");
+        test.equal(d.seconds(), 5, "5 seconds");
+        test.equal(d.milliseconds(), 477, "477 milliseconds");
         test.done();
     },
 
     "instatiation from serialized C# TimeSpan minValue" : function (test) {
-        test.expect(6);
-        test.equal(moment.duration("-10675199.02:48:05.4775808").years(), -29653, "29653 years");
-        test.equal(moment.duration("-10675199.02:48:05.4775808").days(), -29, "29 day");
-        test.equal(moment.duration("-10675199.02:48:05.4775808").hours(), -2, "2 hours");
-        test.equal(moment.duration("-10675199.02:48:05.4775808").minutes(), -48, "48 minutes");
-        test.equal(moment.duration("-10675199.02:48:05.4775808").seconds(), -5, "5 seconds");
-        test.equal(moment.duration("-10675199.02:48:05.4775808").milliseconds(), -477, "477 milliseconds");
+        var d = moment.duration("-10675199.02:48:05.4775808");
+
+        test.equal(d.years(), -29227, "29653 years");
+        test.equal(d.months(), -8, "8 day");
+        test.equal(d.days(), -17, "17 day"); // this should be 13
+
+        test.equal(d.hours(), -2, "2 hours");
+        test.equal(d.minutes(), -48, "48 minutes");
+        test.equal(d.seconds(), -5, "5 seconds");
+        test.equal(d.milliseconds(), -477, "477 milliseconds");
         test.done();
     },
 
