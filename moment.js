@@ -1598,10 +1598,8 @@
         return lang.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
     }
 
-    function relativeTime(msOrDuration, withoutSuffix, lang) {
-        var duration = (typeof msOrDuration === "number" ?
-                    moment.duration(Math.abs(msOrDuration)) :
-                    moment.duration(msOrDuration).abs()),
+    function relativeTime(posNegDuration, withoutSuffix, lang) {
+        var duration = moment.duration(posNegDuration).abs(),
             seconds = round(duration.as('s')),
             minutes = round(duration.as('m')),
             hours = round(duration.as('h')),
