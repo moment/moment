@@ -147,12 +147,11 @@
 
         // default relative time thresholds
         relativeTimeThresholds = {
-          s: 45,   //seconds to minutes
-          m: 45,   //minutes to hours
-          h: 22,   //hours to days
-          dd: 25,  //days to month (month == 1)
-          dm: 45,  //days to months (months > 1)
-          dy: 345  //days to year
+            s: 45,  // seconds to minute
+            m: 45,  // minutes to hour
+            h: 22,  // hours to day
+            d: 26,  // days to month
+            M: 11   // months to year
         },
 
         // tokens to ordinalize and pad
@@ -830,12 +829,14 @@
             y : "a year",
             yy : "%d years"
         },
+
         relativeTime : function (number, withoutSuffix, string, isFuture) {
             var output = this._relativeTime[string];
             return (typeof output === 'function') ?
                 output(number, withoutSuffix, string, isFuture) :
                 output.replace(/%d/i, number);
         },
+
         pastFuture : function (diff, output) {
             var format = this._relativeTime[diff > 0 ? 'future' : 'past'];
             return typeof format === 'function' ? format(output) : format.replace(/%s/i, output);
@@ -1597,24 +1598,30 @@
         return lang.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
     }
 
-    function relativeTime(milliseconds, withoutSuffix, lang) {
-        var seconds = round(Math.abs(milliseconds) / 1000),
-            minutes = round(seconds / 60),
-            hours = round(minutes / 60),
-            days = round(hours / 24),
-            years = round(days / 365),
-            args = seconds < relativeTimeThresholds.s  && ['s', seconds] ||
+    function relativeTime(msOrDuration, withoutSuffix, lang) {
+        var duration = (typeof msOrDuration === "number" ?
+                    moment.duration(Math.abs(msOrDuration)) :
+                    moment.duration(msOrDuration).abs()),
+            seconds = round(duration.as('s')),
+            minutes = round(duration.as('m')),
+            hours = round(duration.as('h')),
+            days = round(duration.as('d')),
+            months = round(duration.as('M')),
+            years = round(duration.as('y')),
+
+            args = seconds < relativeTimeThresholds.s && ['s', seconds] ||
                 minutes === 1 && ['m'] ||
                 minutes < relativeTimeThresholds.m && ['mm', minutes] ||
                 hours === 1 && ['h'] ||
                 hours < relativeTimeThresholds.h && ['hh', hours] ||
                 days === 1 && ['d'] ||
-                days <= relativeTimeThresholds.dd && ['dd', days] ||
-                days <= relativeTimeThresholds.dm && ['M'] ||
-                days < relativeTimeThresholds.dy && ['MM', round(days / 30)] ||
+                days < relativeTimeThresholds.d && ['dd', days] ||
+                months === 1 && ['M'] ||
+                months < relativeTimeThresholds.M && ['MM', months] ||
                 years === 1 && ['y'] || ['yy', years];
+
         args[2] = withoutSuffix;
-        args[3] = milliseconds > 0;
+        args[3] = +msOrDuration > 0;
         args[4] = lang;
         return substituteTimeAgo.apply({}, args);
     }
@@ -2106,7 +2113,7 @@
         },
 
         from : function (time, withoutSuffix) {
-            return moment.duration(this.diff(time)).lang(this.lang()._abbr).humanize(!withoutSuffix);
+            return moment.duration({to: this, from: time}).lang(this.lang()._abbr).humanize(!withoutSuffix);
         },
 
         fromNow : function (withoutSuffix) {
@@ -2444,6 +2451,17 @@
     ************************************/
 
 
+    function daysToYears (days) {
+        // 400 years have 146097 days (taking into account leap year rules)
+        return days * 400 / 146097;
+    }
+
+    function yearsToDays (years) {
+        // years * 365 + absRound(years / 4) -
+        //     absRound(years / 100) + absRound(years / 400);
+        return years * 146097 / 400;
+    }
+
     extend(moment.duration.fn = Duration.prototype, {
 
         _bubble : function () {
@@ -2469,9 +2487,8 @@
             days += absRound(hours / 24);
 
             // Accurately convert days to years, assume start from year 0.
-            years = absRound(days * 400 / 146097);
-            days -= years * 365 + absRound(years / 4) -
-                absRound(years / 100) + absRound(years / 400);
+            years = absRound(daysToYears(days));
+            days -= absRound(yearsToDays(years));
 
             // 30 days to a month
             // TODO (iskren): Use anchor date (like 1st Jan) to compute this.
@@ -2487,6 +2504,21 @@
             data.years = years;
         },
 
+        abs : function () {
+            this._milliseconds = Math.abs(this._milliseconds);
+            this._days = Math.abs(this._days);
+            this._months = Math.abs(this._months);
+
+            this._data.milliseconds = Math.abs(this._data.milliseconds);
+            this._data.seconds = Math.abs(this._data.seconds);
+            this._data.minutes = Math.abs(this._data.minutes);
+            this._data.hours = Math.abs(this._data.hours);
+            this._data.months = Math.abs(this._data.months);
+            this._data.years = Math.abs(this._data.years);
+
+            return this;
+        },
+
         weeks : function () {
             return absRound(this.days() / 7);
         },
@@ -2499,11 +2531,10 @@
         },
 
         humanize : function (withSuffix) {
-            var difference = +this,
-                output = relativeTime(difference, !withSuffix, this.lang());
+            var output = relativeTime(this, !withSuffix, this.lang());
 
             if (withSuffix) {
-                output = this.lang().pastFuture(difference, output);
+                output = this.lang().pastFuture(+this, output);
             }
 
             return this.lang().postformat(output);
@@ -2540,8 +2571,25 @@
         },
 
         as : function (units) {
+            var days, months;
             units = normalizeUnits(units);
-            return this['as' + units.charAt(0).toUpperCase() + units.slice(1) + 's']();
+
+            days = this._days + this._milliseconds / 864e5;
+            if (units === 'month' || units === 'year') {
+                months = this._months + daysToYears(days) * 12;
+                return units === 'month' ? months : months / 12;
+            } else {
+                days += yearsToDays(this._months / 12);
+                switch (units) {
+                    case 'week': return days / 7;
+                    case 'day': return days;
+                    case 'hour': return days * 24;
+                    case 'minute': return days * 24 * 60;
+                    case 'second': return days * 24 * 60 * 60;
+                    case 'millisecond': return days * 24 * 60 * 60 * 1000;
+                    default: throw new Error("Unknown unit " + units);
+                }
+            }
         },
 
         lang : moment.fn.lang,
@@ -2579,24 +2627,20 @@
         };
     }
 
-    function makeDurationAsGetter(name, factor) {
-        moment.duration.fn['as' + name] = function () {
-            return +this / factor;
-        };
-    }
-
     for (i in unitMillisecondFactors) {
         if (unitMillisecondFactors.hasOwnProperty(i)) {
-            makeDurationAsGetter(i, unitMillisecondFactors[i]);
             makeDurationGetter(i.toLowerCase());
         }
     }
 
-    makeDurationAsGetter('Weeks', 6048e5);
-    moment.duration.fn.asMonths = function () {
-        return (+this - this.years() * 31536e6) / 2592e6 + this.years() * 12;
-    };
-
+    moment.duration.fn.asMilliseconds = function () { return this.as('ms'); };
+    moment.duration.fn.asSeconds = function () { return this.as('s'); };
+    moment.duration.fn.asMinutes = function () { return this.as('m'); };
+    moment.duration.fn.asHours = function () { return this.as('h'); };
+    moment.duration.fn.asDays = function () { return this.as('d'); };
+    moment.duration.fn.asWeeks = function () { return this.as('weeks'); };
+    moment.duration.fn.asMonths = function () { return this.as('M'); };
+    moment.duration.fn.asYears = function () { return this.as('Y'); };
 
     /************************************
         Default Lang
