@@ -1641,6 +1641,40 @@
         config._d = new Date(config._i);
     });
 
+    function _pickBy(key, moments) {
+        var res, i;
+        if (!moments.length) {
+            return moment();
+        }
+        res = moments[0];
+        for (i = 1; i < moments.length; ++i) {
+            if (moments[i][key](res)) {
+                res = moments[i];
+            }
+        }
+        return res;
+    }
+
+    moment.min = function () {
+        var args = [].slice.call(arguments, 0);
+
+        if (args.length === 1 && isArray(args[0])) {
+            return _pickBy('isBefore', args[0]);
+        } else {
+            return _pickBy('isBefore', args);
+        }
+    },
+
+    moment.max = function () {
+        var args = [].slice.call(arguments, 0);
+
+        if (args.length === 1 && isArray(args[0])) {
+            return _pickBy('isAfter', args[0]);
+        } else {
+            return _pickBy('isAfter', args);
+        }
+    },
+
     // creating with utc
     moment.utc = function (input, format, lang, strict) {
         var c;
@@ -2069,7 +2103,7 @@
                  }
          ),
 
-        max: deprecated(
+        max: deprecate(
                 "moment().max is deprecated, use moment.max instead",
                 function (other) {
                     other = moment.apply(null, arguments);
