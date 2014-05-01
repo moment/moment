@@ -2096,7 +2096,7 @@
         },
 
         min: deprecate(
-                 "moment().min is deprecated, use moment.min instead",
+                 "moment().min is deprecated, use moment.min instead. https://github.com/moment/moment/issues/1548",
                  function (other) {
                      other = moment.apply(null, arguments);
                      return other < this ? this : other;
@@ -2104,7 +2104,7 @@
          ),
 
         max: deprecate(
-                "moment().max is deprecated, use moment.max instead",
+                "moment().max is deprecated, use moment.max instead. https://github.com/moment/moment/issues/1548",
                 function (other) {
                     other = moment.apply(null, arguments);
                     return other > this ? this : other;
