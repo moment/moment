@@ -14,6 +14,7 @@ var getVerifier = function (test) {
 
 exports.create = {
     setUp : function (done) {
+        moment.lang('en');
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");
         };
@@ -526,6 +527,69 @@ exports.create = {
         for (i = 0; i < formats.length; i++) {
             test.equal(moment(formats[i][0]).format('YYYY-MM-DDTHH:mm:ss.SSSZ'), formats[i][1], "moment should be able to parse ISO " + formats[i][0]);
         }
+        test.done();
+    },
+
+    "parsing iso week year/week/weekday" : function (test) {
+        test.equal(moment.utc("2007-W01").format(), "2007-01-01T00:00:00+00:00", "2008 week 1 (1st Jan Mon)");
+        test.equal(moment.utc("2008-W01").format(), "2007-12-31T00:00:00+00:00", "2008 week 1 (1st Jan Tue)");
+        test.equal(moment.utc("2003-W01").format(), "2002-12-30T00:00:00+00:00", "2008 week 1 (1st Jan Wed)");
+        test.equal(moment.utc("2009-W01").format(), "2008-12-29T00:00:00+00:00", "2009 week 1 (1st Jan Thu)");
+        test.equal(moment.utc("2010-W01").format(), "2010-01-04T00:00:00+00:00", "2010 week 1 (1st Jan Fri)");
+        test.equal(moment.utc("2011-W01").format(), "2011-01-03T00:00:00+00:00", "2011 week 1 (1st Jan Sat)");
+        test.equal(moment.utc("2012-W01").format(), "2012-01-02T00:00:00+00:00", "2012 week 1 (1st Jan Sun)");
+        test.done();
+    },
+
+    "parsing week year/week/weekday (dow 1, doy 4)" : function (test) {
+        moment.lang("dow:1,doy:4", {week: {dow: 1, doy: 4}});
+
+        test.equal(moment.utc("2007-01", "gggg-ww").format(), "2007-01-01T00:00:00+00:00", "2007 week 1 (1st Jan Mon)");
+        test.equal(moment.utc("2008-01", "gggg-ww").format(), "2007-12-31T00:00:00+00:00", "2008 week 1 (1st Jan Tue)");
+        test.equal(moment.utc("2003-01", "gggg-ww").format(), "2002-12-30T00:00:00+00:00", "2003 week 1 (1st Jan Wed)");
+        test.equal(moment.utc("2009-01", "gggg-ww").format(), "2008-12-29T00:00:00+00:00", "2009 week 1 (1st Jan Thu)");
+        test.equal(moment.utc("2010-01", "gggg-ww").format(), "2010-01-04T00:00:00+00:00", "2010 week 1 (1st Jan Fri)");
+        test.equal(moment.utc("2011-01", "gggg-ww").format(), "2011-01-03T00:00:00+00:00", "2011 week 1 (1st Jan Sat)");
+        test.equal(moment.utc("2012-01", "gggg-ww").format(), "2012-01-02T00:00:00+00:00", "2012 week 1 (1st Jan Sun)");
+        test.done();
+    },
+
+    "parsing week year/week/weekday (dow 1, doy 7)" : function (test) {
+        moment.lang("dow:1,doy:7", {week: {dow: 1, doy: 7}});
+
+        test.equal(moment.utc("2007-01", "gggg-ww").format(), "2007-01-01T00:00:00+00:00", "2007 week 1 (1st Jan Mon)");
+        test.equal(moment.utc("2008-01", "gggg-ww").format(), "2007-12-31T00:00:00+00:00", "2008 week 1 (1st Jan Tue)");
+        test.equal(moment.utc("2003-01", "gggg-ww").format(), "2002-12-30T00:00:00+00:00", "2003 week 1 (1st Jan Wed)");
+        test.equal(moment.utc("2009-01", "gggg-ww").format(), "2008-12-29T00:00:00+00:00", "2009 week 1 (1st Jan Thu)");
+        test.equal(moment.utc("2010-01", "gggg-ww").format(), "2009-12-28T00:00:00+00:00", "2010 week 1 (1st Jan Fri)");
+        test.equal(moment.utc("2011-01", "gggg-ww").format(), "2010-12-27T00:00:00+00:00", "2011 week 1 (1st Jan Sat)");
+        test.equal(moment.utc("2012-01", "gggg-ww").format(), "2011-12-26T00:00:00+00:00", "2012 week 1 (1st Jan Sun)");
+        test.done();
+    },
+
+    "parsing week year/week/weekday (dow 0, doy 6)" : function (test) {
+        moment.lang("dow:0,doy:6", {week: {dow: 0, doy: 6}});
+
+        test.equal(moment.utc("2007-01", "gggg-ww").format(), "2006-12-31T00:00:00+00:00", "2007 week 1 (1st Jan Mon)");
+        test.equal(moment.utc("2008-01", "gggg-ww").format(), "2007-12-30T00:00:00+00:00", "2008 week 1 (1st Jan Tue)");
+        test.equal(moment.utc("2003-01", "gggg-ww").format(), "2002-12-29T00:00:00+00:00", "2003 week 1 (1st Jan Wed)");
+        test.equal(moment.utc("2009-01", "gggg-ww").format(), "2008-12-28T00:00:00+00:00", "2009 week 1 (1st Jan Thu)");
+        test.equal(moment.utc("2010-01", "gggg-ww").format(), "2009-12-27T00:00:00+00:00", "2010 week 1 (1st Jan Fri)");
+        test.equal(moment.utc("2011-01", "gggg-ww").format(), "2010-12-26T00:00:00+00:00", "2011 week 1 (1st Jan Sat)");
+        test.equal(moment.utc("2012-01", "gggg-ww").format(), "2012-01-01T00:00:00+00:00", "2012 week 1 (1st Jan Sun)");
+        test.done();
+    },
+
+    "parsing week year/week/weekday (dow 6, doy 12)" : function (test) {
+        moment.lang("dow:6,doy:12", {week: {dow: 6, doy: 12}});
+
+        test.equal(moment.utc("2007-01", "gggg-ww").format(), "2006-12-30T00:00:00+00:00", "2007 week 1 (1st Jan Mon)");
+        test.equal(moment.utc("2008-01", "gggg-ww").format(), "2007-12-29T00:00:00+00:00", "2008 week 1 (1st Jan Tue)");
+        test.equal(moment.utc("2003-01", "gggg-ww").format(), "2002-12-28T00:00:00+00:00", "2003 week 1 (1st Jan Wed)");
+        test.equal(moment.utc("2009-01", "gggg-ww").format(), "2008-12-27T00:00:00+00:00", "2009 week 1 (1st Jan Thu)");
+        test.equal(moment.utc("2010-01", "gggg-ww").format(), "2009-12-26T00:00:00+00:00", "2010 week 1 (1st Jan Fri)");
+        test.equal(moment.utc("2011-01", "gggg-ww").format(), "2011-01-01T00:00:00+00:00", "2011 week 1 (1st Jan Sat)");
+        test.equal(moment.utc("2012-01", "gggg-ww").format(), "2011-12-31T00:00:00+00:00", "2012 week 1 (1st Jan Sun)");
         test.done();
     },
 
