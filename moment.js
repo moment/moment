@@ -283,6 +283,16 @@
 
         lists = ['months', 'monthsShort', 'weekdays', 'weekdaysShort', 'weekdaysMin'];
 
+    function dfl() {
+        var i;
+        for (i = 0; i < arguments.length; ++i) {
+            if (arguments[i] != null) {
+                return arguments[i];
+            }
+        }
+        return null;
+    }
+
     function defaultParsingFlags() {
         // We need to deep clone this object, and es5 standard is not very
         // helpful.
@@ -1151,30 +1161,82 @@
             config._useUTC = true;
             config._tzm = timezoneMinutesFromString(input);
             break;
+        case 'dd':
+        case 'ddd':
+        case 'dddd':
+            a = getLangDefinition(config._l).weekdaysParse(input);
+            // if we didn't get a weekday name, mark the date as invalid
+            if (a != null) {
+                config._w = config._w || {};
+                config._w['d'] = a;
+            }
+            break;
         case 'w':
         case 'ww':
         case 'W':
         case 'WW':
         case 'd':
-        case 'dd':
-        case 'ddd':
-        case 'dddd':
         case 'e':
         case 'E':
             token = token.substr(0, 1);
             /* falls through */
-        case 'gg':
         case 'gggg':
-        case 'GG':
         case 'GGGG':
         case 'GGGGG':
             token = token.substr(0, 2);
             if (input) {
                 config._w = config._w || {};
-                config._w[token] = input;
+                config._w[token] = toInt(input);
             }
             break;
+        case 'gg':
+        case 'GG':
+            config._w = config._w || {};
+            config._w[token] = moment.parseTwoDigitYear(input);
         }
+    }
+
+    function dayOfYearFromWeekInfo(config) {
+        var w, weekYear, week, weekday, dow, doy, temp, lang;
+
+        w = config._w;
+        if (w.GG != null || w.W != null || w.E != null) {
+            dow = 1;
+            doy = 4;
+
+            // TODO: We need to take the current isoWeekYear, but that depends on
+            // how we interpret now (local, utc, fixed offset). So create
+            // a now version of current config (take local/utc/offset flags, and
+            // create now).
+            weekYear = dfl(w.GG, config._a[YEAR], weekOfYear(moment(), 1, 4).year);
+            week = dfl(w.W, 1);
+            weekday = dfl(w.E, 1);
+        } else {
+            lang = getLangDefinition(config._l);
+            dow = lang._week.dow;
+            doy = lang._week.doy;
+
+            weekYear = dfl(w.gg, config._a[YEAR], weekOfYear(moment(), dow, doy).year);
+            week = dfl(w.w, 1);
+
+            if (w.d != null) {
+                // weekday -- low day numbers are considered next week
+                weekday = w.d;
+                if (weekday < dow) {
+                    ++week;
+                }
+            } else if (w.e != null) {
+                // local weekday -- counting starts from begining of week
+                weekday = w.e + dow;
+            } else {
+                // default to begining of week
+                weekday = dow;
+            }
+        }
+        temp = dayOfYearFromWeeks(weekYear, week, weekday, doy, dow);
+
+        config._a[YEAR] = temp.year;
+        config._dayOfYear = temp.dayOfYear;
     }
 
     // convert an array to a date.
@@ -1182,8 +1244,7 @@
     // note: all values past the year are optional and will default to the lowest possible value.
     // [year, month, day , hour, minute, second, millisecond]
     function dateFromConfig(config) {
-        var i, date, input = [], currentDate,
-            yearToUse, fixYear, w, temp, lang, weekday, week;
+        var i, date, input = [], currentDate, yearToUse;
 
         if (config._d) {
             return;
@@ -1193,39 +1254,12 @@
 
         //compute day of the year from weeks and weekdays
         if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
-            fixYear = function (val) {
-                var intVal = parseInt(val, 10);
-                return val ?
-                  (val.length < 3 ? (intVal > 68 ? 1900 + intVal : 2000 + intVal) : intVal) :
-                  (config._a[YEAR] == null ? moment().weekYear() : config._a[YEAR]);
-            };
-
-            w = config._w;
-            if (w.GG != null || w.W != null || w.E != null) {
-                temp = dayOfYearFromWeeks(fixYear(w.GG), w.W || 1, w.E, 4, 1);
-            }
-            else {
-                lang = getLangDefinition(config._l);
-                weekday = w.d != null ? parseWeekday(w.d, lang) :
-                  ((w.e != null ? parseInt(w.e, 10) : 0) + lang._week.dow);
-
-                week = parseInt(w.w, 10) || 1;
-
-                //if we're parsing 'd', then the low day numbers may be next week
-                if (w.d != null && weekday < lang._week.dow) {
-                    week++;
-                }
-
-                temp = dayOfYearFromWeeks(fixYear(w.gg), week, weekday, lang._week.doy, lang._week.dow);
-            }
-
-            config._a[YEAR] = temp.year;
-            config._dayOfYear = temp.dayOfYear;
+            dayOfYearFromWeekInfo(config);
         }
 
         //if the day of the year is set, figure out what it is
         if (config._dayOfYear) {
-            yearToUse = config._a[YEAR] == null ? currentDate[YEAR] : config._a[YEAR];
+            yearToUse = dfl(config._a[YEAR], currentDate[YEAR]);
 
             if (config._dayOfYear > daysInYear(yearToUse)) {
                 config._pf._overflowDayOfYear = true;

@@ -803,7 +803,7 @@ exports.create = {
     "parsing week and weekday information" : function (test) {
         var ver = getVerifier(test);
 
-        //year
+        // year
         ver('12', 'gg', "2012 01 01", 'week-year two digits');
         ver('2012', 'gggg', "2012 01 01", 'week-year four digits');
 
@@ -816,7 +816,7 @@ exports.create = {
         ver('13', 'GG', "2012 12 31", 'iso week-year two digits previous year');
         ver('2013', 'GGGG', "2012 12 31", 'iso week-year four digits previous year');
 
-        //yer + week
+        // year + week
         ver('1999 37', 'gggg w', "1999 09 05", 'week');
         ver('1999 37', 'gggg ww', "1999 09 05", 'week double');
         ver('1999 37', 'GGGG W', "1999 09 13", 'iso week');
@@ -828,13 +828,13 @@ exports.create = {
         ver('1999 37 4', 'gggg ww e', "1999 09 09", 'day');
         ver('1999 37 04', 'gggg ww e', "1999 09 09", 'day wide', true);
 
-        //yer + week + day
+        // year + week + day
         ver('1999 37 4', 'gggg ww d', "1999 09 09", 'd');
         ver('1999 37 Th', 'gggg ww dd', "1999 09 09", 'dd');
         ver('1999 37 Thu', 'gggg ww ddd', "1999 09 09", 'ddd');
         ver('1999 37 Thursday', 'gggg ww dddd', "1999 09 09", 'dddd');
 
-        //lower-order only
+        // lower-order only
         test.equal(moment('22', 'ww').week(), 22, "week sets the week by itself");
         test.equal(moment('22', 'ww').weekYear(), moment().weekYear(), "week keeps this year");
         test.equal(moment('2012 22', 'YYYY ww').weekYear(), 2012, "week keeps parsed year");
@@ -843,7 +843,7 @@ exports.create = {
         test.equal(moment('2012 22', 'YYYY WW').weekYear(), 2012, "iso week keeps parsed year");
         test.equal(moment('22', 'WW').weekYear(), moment().weekYear(), "iso week keeps this year");
 
-        //order
+        // order
         ver('6 2013 2', 'e gggg w', "2013 01 12", "order doesn't matter");
         ver('6 2013 2', 'E GGGG W', "2013 01 12", "iso order doesn't matter");
 
