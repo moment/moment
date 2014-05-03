@@ -1663,7 +1663,7 @@
         } else {
             return _pickBy('isBefore', args);
         }
-    },
+    };
 
     moment.max = function () {
         var args = [].slice.call(arguments, 0);
@@ -1673,7 +1673,7 @@
         } else {
             return _pickBy('isAfter', args);
         }
-    },
+    };
 
     // creating with utc
     moment.utc = function (input, format, lang, strict) {
