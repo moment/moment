@@ -35,7 +35,7 @@
         },
         relativeTime: {
             future: "mewn %s",
-            past: "%s yn àl",
+            past: "%s yn ôl",
             s: "ychydig eiliadau",
             m: "munud",
             mm: "%d munud",
