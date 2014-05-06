@@ -1641,14 +1641,22 @@
         config._d = new Date(config._i);
     });
 
-    function _pickBy(key, moments) {
+    // Pick a moment m from moments so that m[fn](other) is true for all
+    // other. This relies on the function fn to be transitive.
+    //
+    // moments should either be an array of moment objects or an array, whose
+    // first element is an array of moment objects.
+    function pickBy(fn, moments) {
         var res, i;
+        if (moments.length === 1 && isArray(moments[0])) {
+            moments = moments[0];
+        }
         if (!moments.length) {
             return moment();
         }
         res = moments[0];
         for (i = 1; i < moments.length; ++i) {
-            if (moments[i][key](res)) {
+            if (moments[i][fn](res)) {
                 res = moments[i];
             }
         }
@@ -1658,21 +1666,13 @@
     moment.min = function () {
         var args = [].slice.call(arguments, 0);
 
-        if (args.length === 1 && isArray(args[0])) {
-            return _pickBy('isBefore', args[0]);
-        } else {
-            return _pickBy('isBefore', args);
-        }
+        return pickBy('isBefore', args);
     };
 
     moment.max = function () {
         var args = [].slice.call(arguments, 0);
 
-        if (args.length === 1 && isArray(args[0])) {
-            return _pickBy('isAfter', args[0]);
-        } else {
-            return _pickBy('isAfter', args);
-        }
+        return pickBy('isAfter', args);
     };
 
     // creating with utc
