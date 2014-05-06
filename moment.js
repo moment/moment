@@ -283,14 +283,14 @@
 
         lists = ['months', 'monthsShort', 'weekdays', 'weekdaysShort', 'weekdaysMin'];
 
-    function dfl() {
-        var i;
-        for (i = 0; i < arguments.length; ++i) {
-            if (arguments[i] != null) {
-                return arguments[i];
-            }
+    // Pick the first defined of two or three arguments. dfl comes from
+    // default.
+    function dfl(a, b, c) {
+        switch (arguments.length) {
+            case 2: return a != null ? a : b;
+            case 3: return a != null ? a : b != null ? b : c;
+            default: throw new Error("Implement me");
         }
-        return null;
     }
 
     function defaultParsingFlags() {
