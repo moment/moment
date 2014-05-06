@@ -1184,7 +1184,6 @@
         case 'E':
             token = token.substr(0, 1);
             /* falls through */
-        // WEEK YEAR
         case 'gggg':
         case 'GGGG':
         case 'GGGGG':
