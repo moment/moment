@@ -1161,6 +1161,7 @@
             config._useUTC = true;
             config._tzm = timezoneMinutesFromString(input);
             break;
+        // WEEKDAY - human
         case 'dd':
         case 'ddd':
         case 'dddd':
@@ -1169,8 +1170,11 @@
             if (a != null) {
                 config._w = config._w || {};
                 config._w['d'] = a;
+            } else {
+                config._pf.invalidWeekday = input;
             }
             break;
+        // WEEK, WEEK DAY - numeric
         case 'w':
         case 'ww':
         case 'W':
@@ -1180,6 +1184,7 @@
         case 'E':
             token = token.substr(0, 1);
             /* falls through */
+        // WEEK YEAR
         case 'gggg':
         case 'GGGG':
         case 'GGGGG':
