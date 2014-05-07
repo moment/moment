@@ -1619,7 +1619,7 @@
                 years === 1 && ['y'] || ['yy', years];
 
         args[2] = withoutSuffix;
-        args[3] = +msOrDuration > 0;
+        args[3] = +posNegDuration > 0;
         args[4] = lang;
         return substituteTimeAgo.apply({}, args);
     }
@@ -2638,7 +2638,7 @@
     moment.duration.fn.asDays = function () { return this.as('d'); };
     moment.duration.fn.asWeeks = function () { return this.as('weeks'); };
     moment.duration.fn.asMonths = function () { return this.as('M'); };
-    moment.duration.fn.asYears = function () { return this.as('Y'); };
+    moment.duration.fn.asYears = function () { return this.as('y'); };
 
     /************************************
         Default Lang
