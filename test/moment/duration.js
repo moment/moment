@@ -357,10 +357,10 @@ exports.duration = {
         test.equal(moment.duration({days: 25}).humanize(),     "25 days",       "25 days = 25 days");
         test.equal(moment.duration({days: 26}).humanize(),     "a month",       "26 days = a month");
         test.equal(moment.duration({days: 30}).humanize(),     "a month",       "30 days = a month");
-        test.equal(moment.duration({days: 45}).humanize(),     "2 months",       "45 days = 2 months");
+        test.equal(moment.duration({days: 45}).humanize(),     "a month",       "45 days = a month");
         test.equal(moment.duration({days: 46}).humanize(),     "2 months",      "46 days = 2 months");
-        test.equal(moment.duration({days: 74}).humanize(),     "2 months",      "75 days = 2 months");
-        test.equal(moment.duration({days: 76}).humanize(),     "3 months",      "76 days = 3 months");
+        test.equal(moment.duration({days: 74}).humanize(),     "2 months",      "74 days = 2 months");
+        test.equal(moment.duration({days: 77}).humanize(),     "3 months",      "77 days = 3 months");
         test.equal(moment.duration({months: 1}).humanize(),    "a month",       "1 month = a month");
         test.equal(moment.duration({months: 5}).humanize(),    "5 months",      "5 months = 5 months");
         test.equal(moment.duration({days: 344}).humanize(),    "a year",        "344 days = a year");
@@ -442,14 +442,16 @@ exports.duration = {
         });
 
         test.expect(8);
+        // These are of course very fragile. Their existence merely hints that
+        // changing the way 'as' works changes the output.
         test.equal(d.asYears().toFixed(2),          "2.29", "years");
-        test.equal(d.asMonths().toFixed(2),        "27.51", "months");
-        test.equal(d.asWeeks().toFixed(2),        "119.33", "weeks");
-        test.equal(d.asDays().toFixed(2),         "835.34", "days");
-        test.equal(d.asHours().toFixed(2),      "20048.16", "hours");
-        test.equal(d.asMinutes().toFixed(2),  "1202889.33", "minutes");
-        test.equal(d.asSeconds().toFixed(2), "72173360.01", "seconds");
-        test.equal(d.asMilliseconds(),         72173360012, "milliseconds");
+        test.equal(d.asMonths().toFixed(2),        "27.50", "months");
+        test.equal(d.asWeeks().toFixed(2),        "119.59", "weeks");
+        test.equal(d.asDays().toFixed(2),         "837.14", "days");
+        test.equal(d.asHours().toFixed(2),      "20091.25", "hours");
+        test.equal(d.asMinutes().toFixed(2),  "1205475.03", "minutes");
+        test.equal(d.asSeconds().toFixed(2), "72328502.01", "seconds");
+        test.equal(d.asMilliseconds(),         72328502012, "milliseconds");
         test.done();
     },
 
@@ -465,31 +467,33 @@ exports.duration = {
             milliseconds: 12
         });
 
+        // These are of course very fragile. Their existence merely hints that
+        // changing the way 'as' works changes the output.
         test.expect(24);
         test.equal(d.as("years").toFixed(2),          "2.29", "years");
         test.equal(d.as("year").toFixed(2),           "2.29", "years = year");
         test.equal(d.as("y").toFixed(2),              "2.29", "years = y");
-        test.equal(d.as("months").toFixed(2),         "27.51", "months");
-        test.equal(d.as("month").toFixed(2),          "27.51", "months = month");
-        test.equal(d.as("M").toFixed(2),              "27.51", "months = M");
-        test.equal(d.as("weeks").toFixed(2),          "119.33", "weeks");
-        test.equal(d.as("week").toFixed(2),           "119.33", "weeks = week");
-        test.equal(d.as("w").toFixed(2),              "119.33", "weeks = w");
-        test.equal(d.as("days").toFixed(2),           "835.34", "days");
-        test.equal(d.as("day").toFixed(2),            "835.34", "days = day");
-        test.equal(d.as("d").toFixed(2),              "835.34", "days = d");
-        test.equal(d.as("hours").toFixed(2),          "20048.16", "hours");
-        test.equal(d.as("hour").toFixed(2),           "20048.16", "hours = hour");
-        test.equal(d.as("h").toFixed(2),              "20048.16", "hours = h");
-        test.equal(d.as("minutes").toFixed(2),        "1202889.33", "minutes");
-        test.equal(d.as("minute").toFixed(2),         "1202889.33", "minutes = minute");
-        test.equal(d.as("m").toFixed(2),              "1202889.33", "minutes = m");
-        test.equal(d.as("seconds").toFixed(2),        "72173360.01", "seconds");
-        test.equal(d.as("second").toFixed(2),         "72173360.01", "seconds = second");
-        test.equal(d.as("s").toFixed(2),              "72173360.01", "seconds = s");
-        test.equal(d.as("milliseconds"),              72173360012, "milliseconds");
-        test.equal(d.as("millisecond"),               72173360012, "milliseconds = millisecond");
-        test.equal(d.as("ms"),                        72173360012, "milliseconds = ms");
+        test.equal(d.as("months").toFixed(2),         "27.50", "months");
+        test.equal(d.as("month").toFixed(2),          "27.50", "months = month");
+        test.equal(d.as("M").toFixed(2),              "27.50", "months = M");
+        test.equal(d.as("weeks").toFixed(2),          "119.59", "weeks");
+        test.equal(d.as("week").toFixed(2),           "119.59", "weeks = week");
+        test.equal(d.as("w").toFixed(2),              "119.59", "weeks = w");
+        test.equal(d.as("days").toFixed(2),           "837.14", "days");
+        test.equal(d.as("day").toFixed(2),            "837.14", "days = day");
+        test.equal(d.as("d").toFixed(2),              "837.14", "days = d");
+        test.equal(d.as("hours").toFixed(2),          "20091.25", "hours");
+        test.equal(d.as("hour").toFixed(2),           "20091.25", "hours = hour");
+        test.equal(d.as("h").toFixed(2),              "20091.25", "hours = h");
+        test.equal(d.as("minutes").toFixed(2),        "1205475.03", "minutes");
+        test.equal(d.as("minute").toFixed(2),         "1205475.03", "minutes = minute");
+        test.equal(d.as("m").toFixed(2),              "1205475.03", "minutes = m");
+        test.equal(d.as("seconds").toFixed(2),        "72328502.01", "seconds");
+        test.equal(d.as("second").toFixed(2),         "72328502.01", "seconds = second");
+        test.equal(d.as("s").toFixed(2),              "72328502.01", "seconds = s");
+        test.equal(d.as("milliseconds"),              72328502012, "milliseconds");
+        test.equal(d.as("millisecond"),               72328502012, "milliseconds = millisecond");
+        test.equal(d.as("ms"),                        72328502012, "milliseconds = ms");
         test.done();
     },
 
