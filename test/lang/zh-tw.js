@@ -20,7 +20,6 @@ exports["lang:zh-tw"] = {
     },
 
     "parse" : function (test) {
-        test.expect(96);
 
         var tests = '一月 1月_二月 2月_三月 3月_四月 4月_五月 5月_六月 6月_七月 7月_八月 8月_九月 9月_十月 10月_十一月 11月_十二月 12月'.split("_"), i;
         function equalTest(input, mmm, i) {
@@ -41,7 +40,6 @@ exports["lang:zh-tw"] = {
     },
 
     "format" : function (test) {
-        test.expect(22);
 
         var a = [
                 ['dddd, MMMM Do YYYY, a h:mm:ss',      '星期日, 二月 14日 2010, 下午 3:25:50'],
@@ -78,7 +76,6 @@ exports["lang:zh-tw"] = {
     },
 
     "format month" : function (test) {
-        test.expect(12);
 
         var expected = '一月 1月_二月 2月_三月 3月_四月 4月_五月 5月_六月 6月_七月 7月_八月 8月_九月 9月_十月 10月_十一月 11月_十二月 12月'.split("_"), i;
 
@@ -90,7 +87,6 @@ exports["lang:zh-tw"] = {
     },
 
     "format week" : function (test) {
-        test.expect(7);
 
         var expected = '星期日 週日 日_星期一 週一 一_星期二 週二 二_星期三 週三 三_星期四 週四 四_星期五 週五 五_星期六 週六 六'.split("_"), i;
 
@@ -102,7 +98,6 @@ exports["lang:zh-tw"] = {
     },
 
     "from" : function (test) {
-        test.expect(30);
 
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "幾秒",   "44 seconds = a few seconds");
@@ -123,15 +118,13 @@ exports["lang:zh-tw"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "25天",  "25 days = 25 days");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "一個月", "26 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "一個月", "30 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 45}), true),  "一個月", "45 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  "一個月", "43 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "2個月",  "46 days = 2 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "2個月",  "75 days = 2 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "3個月",  "76 days = 3 months");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "一個月", "1 month = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "5個月",  "5 months = 5 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 344}), true), "11個月", "344 days = 11 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "一年",   "345 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 547}), true), "一年",   "547 days = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "2年",   "548 days = 2 years");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "一年",   "1 year = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "5年",   "5 years = 5 years");
@@ -140,7 +133,6 @@ exports["lang:zh-tw"] = {
     },
 
     "suffix" : function (test) {
-        test.expect(2);
 
         test.equal(moment(30000).from(0), "幾秒內",  "prefix");
         test.equal(moment(0).from(30000), "幾秒前", "suffix");
@@ -149,7 +141,6 @@ exports["lang:zh-tw"] = {
     },
 
     "now from now" : function (test) {
-        test.expect(1);
 
         test.equal(moment().fromNow(), "幾秒前",  "now from now should display as in the past");
 
@@ -157,7 +148,6 @@ exports["lang:zh-tw"] = {
     },
 
     "fromNow" : function (test) {
-        test.expect(2);
 
         test.equal(moment().add({s: 30}).fromNow(), "幾秒內", "in a few seconds");
         test.equal(moment().add({d: 5}).fromNow(), "5天內", "in 5 days");
@@ -166,7 +156,6 @@ exports["lang:zh-tw"] = {
     },
 
     "calendar day" : function (test) {
-        test.expect(6);
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
@@ -181,7 +170,6 @@ exports["lang:zh-tw"] = {
     },
 
     "calendar next week" : function (test) {
-        test.expect(15);
 
         var i, m;
         for (i = 2; i < 7; i++) {
@@ -197,7 +185,6 @@ exports["lang:zh-tw"] = {
     },
 
     "calendar last week" : function (test) {
-        test.expect(15);
 
         var i, m;
         for (i = 2; i < 7; i++) {
@@ -213,7 +200,6 @@ exports["lang:zh-tw"] = {
     },
 
     "calendar all else" : function (test) {
-        test.expect(4);
 
         var weeksAgo = moment().subtract({ w: 1 }),
             weeksFromNow = moment().add({ w: 1 });
@@ -231,7 +217,6 @@ exports["lang:zh-tw"] = {
     },
 
     "meridiem" : function (test) {
-        test.expect(10);
 
         test.equal(moment([2011, 2, 23,  0, 0]).format('a'), "早上", "morning");
         test.equal(moment([2011, 2, 23,  9, 0]).format('a'), "上午", "before noon");
@@ -252,7 +237,6 @@ exports["lang:zh-tw"] = {
     // The week that contains Jan 1st is the first week of the year.
 
     "weeks year starting sunday" : function (test) {
-        test.expect(5);
 
         test.equal(moment([2012, 0,  1]).week(), 1, "Jan  1 2012 should be week 1");
         test.equal(moment([2012, 0,  7]).week(), 1, "Jan  7 2012 should be week 1");
@@ -264,7 +248,6 @@ exports["lang:zh-tw"] = {
     },
 
     "weeks year starting monday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2006, 11, 31]).week(), 1, "Dec 31 2006 should be week 1");
         test.equal(moment([2007,  0,  1]).week(), 1, "Jan  1 2007 should be week 1");
@@ -277,7 +260,6 @@ exports["lang:zh-tw"] = {
     },
 
     "weeks year starting tuesday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2007, 11, 29]).week(), 52, "Dec 29 2007 should be week 52");
         test.equal(moment([2008,  0,  1]).week(), 1, "Jan  1 2008 should be week 1");
@@ -290,7 +272,6 @@ exports["lang:zh-tw"] = {
     },
 
     "weeks year starting wednesday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2002, 11, 29]).week(), 1, "Dec 29 2002 should be week 1");
         test.equal(moment([2003,  0,  1]).week(), 1, "Jan  1 2003 should be week 1");
@@ -303,7 +284,6 @@ exports["lang:zh-tw"] = {
     },
 
     "weeks year starting thursday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2008, 11, 28]).week(), 1, "Dec 28 2008 should be week 1");
         test.equal(moment([2009,  0,  1]).week(), 1, "Jan  1 2009 should be week 1");
@@ -316,7 +296,6 @@ exports["lang:zh-tw"] = {
     },
 
     "weeks year starting friday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2009, 11, 27]).week(), 1, "Dec 27 2009 should be week 1");
         test.equal(moment([2010,  0,  1]).week(), 1, "Jan  1 2010 should be week 1");
@@ -329,7 +308,6 @@ exports["lang:zh-tw"] = {
     },
 
     "weeks year starting saturday" : function (test) {
-        test.expect(5);
 
         test.equal(moment([2010, 11, 26]).week(), 1, "Dec 26 2010 should be week 1");
         test.equal(moment([2011,  0,  1]).week(), 1, "Jan  1 2011 should be week 1");
@@ -341,7 +319,6 @@ exports["lang:zh-tw"] = {
     },
 
     "weeks year starting sunday format" : function (test) {
-        test.expect(5);
 
         test.equal(moment([2012, 0,  1]).format('w ww wo'), '1 01 1週', "Jan  1 2012 應該是第 1週");
         test.equal(moment([2012, 0,  7]).format('w ww wo'), '1 01 1週', "Jan  7 2012 應該是第 1週");

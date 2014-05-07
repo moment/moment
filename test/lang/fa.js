@@ -17,7 +17,6 @@ exports["lang:fa"] = {
     },
 
     "parse" : function (test) {
-        test.expect(24);
         var tests = 'ژانویه_فوریه_مارس_آوریل_مه_ژوئن_ژوئیه_اوت_سپتامبر_اکتبر_نوامبر_دسامبر'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1) + ' instead is month ' + moment(input, mmm).month());
@@ -30,7 +29,6 @@ exports["lang:fa"] = {
     },
 
     "format" : function (test) {
-        test.expect(22);
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'یک\u200cشنبه، فوریه ۱۴م ۲۰۱۰، ۳:۲۵:۵۰ بعد از ظهر'],
                 ['ddd, hA',                            'یک\u200cشنبه، ۳بعد از ظهر'],
@@ -64,7 +62,6 @@ exports["lang:fa"] = {
     },
 
     "format ordinal" : function (test) {
-        test.expect(31);
         test.equal(moment([2011, 0, 1]).format('DDDo'), '۱م', '1');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '۲م', '2');
         test.equal(moment([2011, 0, 3]).format('DDDo'), '۳م', '3');
@@ -103,7 +100,6 @@ exports["lang:fa"] = {
     },
 
     "format month" : function (test) {
-        test.expect(12);
         var expected = 'ژانویه ژانویه_فوریه فوریه_مارس مارس_آوریل آوریل_مه مه_ژوئن ژوئن_ژوئیه ژوئیه_اوت اوت_سپتامبر سپتامبر_اکتبر اکتبر_نوامبر نوامبر_دسامبر دسامبر'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
@@ -112,7 +108,6 @@ exports["lang:fa"] = {
     },
 
     "format week" : function (test) {
-        test.expect(7);
         var expected = 'یک\u200cشنبه یک\u200cشنبه ی_دوشنبه دوشنبه د_سه\u200cشنبه سه\u200cشنبه س_چهارشنبه چهارشنبه چ_پنج\u200cشنبه پنج\u200cشنبه پ_جمعه جمعه ج_شنبه شنبه ش'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
@@ -121,7 +116,6 @@ exports["lang:fa"] = {
     },
 
     "from" : function (test) {
-        test.expect(30);
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "چندین ثانیه", "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "یک دقیقه",       "45 seconds = a minute");
@@ -141,15 +135,13 @@ exports["lang:fa"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "۲۵ روز",      "25 days = 25 days");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "یک ماه",      "26 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "یک ماه",      "30 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 45}), true),  "یک ماه",      "45 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  "یک ماه",      "43 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "۲ ماه",       "46 days = 2 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "۲ ماه",       "75 days = 2 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "۳ ماه",       "76 days = 3 months");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "یک ماه",      "1 month = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "۵ ماه",       "5 months = 5 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 344}), true), "۱۱ ماه",      "344 days = 11 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "یک سال",      "345 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 547}), true), "یک سال",      "547 days = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "۲ سال",       "548 days = 2 years");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "یک سال",      "1 year = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "۵ سال",       "5 years = 5 years");
@@ -157,27 +149,23 @@ exports["lang:fa"] = {
     },
 
     "suffix" : function (test) {
-        test.expect(2);
         test.equal(moment(30000).from(0), "در چندین ثانیه", "prefix");
         test.equal(moment(0).from(30000), "چندین ثانیه پیش", "suffix");
         test.done();
     },
 
     "now from now" : function (test) {
-        test.expect(1);
         test.equal(moment().fromNow(), "چندین ثانیه پیش",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow" : function (test) {
-        test.expect(2);
         test.equal(moment().add({s: 30}).fromNow(), "در چندین ثانیه", "in a few seconds");
         test.equal(moment().add({d: 5}).fromNow(), "در ۵ روز", "in 5 days");
         test.done();
     },
 
     "calendar day" : function (test) {
-        test.expect(6);
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
@@ -191,7 +179,6 @@ exports["lang:fa"] = {
     },
 
     "calendar next week" : function (test) {
-        test.expect(15);
 
         var i, m;
         for (i = 2; i < 7; i++) {
@@ -206,7 +193,6 @@ exports["lang:fa"] = {
     },
 
     "calendar last week" : function (test) {
-        test.expect(15);
 
         var i, m;
         for (i = 2; i < 7; i++) {
@@ -221,7 +207,6 @@ exports["lang:fa"] = {
     },
 
     "calendar all else" : function (test) {
-        test.expect(4);
         var weeksAgo = moment().subtract({ w: 1 }),
             weeksFromNow = moment().add({ w: 1 });
 
@@ -241,7 +226,6 @@ exports["lang:fa"] = {
     // The week that contains Jan 1st is the first week of the year.
 
     "weeks year starting sunday" : function (test) {
-        test.expect(5);
 
         test.equal(moment([2011, 11, 31]).week(), 1, "Dec 31 2011 should be week 1");
         test.equal(moment([2012,  0,  6]).week(), 1, "Jan  6 2012 should be week 1");
@@ -253,7 +237,6 @@ exports["lang:fa"] = {
     },
 
     "weeks year starting monday" : function (test) {
-        test.expect(5);
 
         test.equal(moment([2006, 11, 30]).week(), 1, "Dec 30 2006 should be week 1");
         test.equal(moment([2007,  0,  5]).week(), 1, "Jan  5 2007 should be week 1");
@@ -265,7 +248,6 @@ exports["lang:fa"] = {
     },
 
     "weeks year starting tuesday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2007, 11, 29]).week(), 1, "Dec 29 2007 should be week 1");
         test.equal(moment([2008,  0,  1]).week(), 1, "Jan  1 2008 should be week 1");
@@ -278,7 +260,6 @@ exports["lang:fa"] = {
     },
 
     "weeks year starting wednesday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2002, 11, 28]).week(), 1, "Dec 28 2002 should be week 1");
         test.equal(moment([2003,  0,  1]).week(), 1, "Jan  1 2003 should be week 1");
@@ -291,7 +272,6 @@ exports["lang:fa"] = {
     },
 
     "weeks year starting thursday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2008, 11, 27]).week(), 1, "Dec 27 2008 should be week 1");
         test.equal(moment([2009,  0,  1]).week(), 1, "Jan  1 2009 should be week 1");
@@ -304,7 +284,6 @@ exports["lang:fa"] = {
     },
 
     "weeks year starting friday" : function (test) {
-        test.expect(5);
 
         test.equal(moment([2009, 11, 26]).week(), 1, "Dec 26 2009 should be week 1");
         test.equal(moment([2010,  0,  1]).week(), 1, "Jan  1 2010 should be week 1");
@@ -316,7 +295,6 @@ exports["lang:fa"] = {
     },
 
     "weeks year starting saturday" : function (test) {
-        test.expect(5);
 
         test.equal(moment([2011, 0,  1]).week(), 1, "Jan  1 2011 should be week 1");
         test.equal(moment([2011, 0,  7]).week(), 1, "Jan  7 2011 should be week 1");
@@ -328,7 +306,6 @@ exports["lang:fa"] = {
     },
 
     "weeks year starting sunday formatted" : function (test) {
-        test.expect(5);
 
         test.equal(moment([2011, 11, 31]).format('w ww wo'), '۱ ۰۱ ۱م', "Dec 31 2011 should be week 1");
         test.equal(moment([2012,  0,  6]).format('w ww wo'), '۱ ۰۱ ۱م', "Jan  6 2012 should be week 1");

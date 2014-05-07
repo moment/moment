@@ -17,7 +17,6 @@ exports["lang:km"] = {
     },
 
     "parse": function (test) {
-        test.expect(96);
         var tests = 'មករា មករា_កុម្ភៈ កុម្ភៈ_មិនា មិនា_មេសា មេសា_ឧសភា ឧសភា_មិថុនា មិថុនា_កក្កដា កក្កដា_សីហា សីហា_កញ្ញា កញ្ញា_តុលា តុលា_វិច្ឆិកា វិច្ឆិកា_ធ្នូ ធ្នូ'.split("_"),
             i;
 
@@ -39,7 +38,6 @@ exports["lang:km"] = {
     },
 
     "format": function (test) {
-        test.expect(22);
         var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss a', 'អាទិត្យ, កុម្ភៈ 14 2010, 3:25:50 pm'],
             ['ddd, hA', 'អាទិត្យ, 3PM'],
@@ -73,7 +71,6 @@ exports["lang:km"] = {
     },
 
     "format ordinal": function (test) {
-        test.expect(31);
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1', '1st');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2', '2nd');
         test.equal(moment([2011, 0, 3]).format('DDDo'), '3', '3rd');
@@ -95,7 +92,7 @@ exports["lang:km"] = {
         test.equal(moment([2011, 0, 18]).format('DDDo'), '18', '18th');
         test.equal(moment([2011, 0, 19]).format('DDDo'), '19', '19th');
         test.equal(moment([2011, 0, 20]).format('DDDo'), '20', '20th');
- 
+
         test.equal(moment([2011, 0, 21]).format('DDDo'), '21', '21st');
         test.equal(moment([2011, 0, 22]).format('DDDo'), '22', '22nd');
         test.equal(moment([2011, 0, 23]).format('DDDo'), '23', '23rd');
@@ -106,13 +103,12 @@ exports["lang:km"] = {
         test.equal(moment([2011, 0, 28]).format('DDDo'), '28', '28th');
         test.equal(moment([2011, 0, 29]).format('DDDo'), '29', '29th');
         test.equal(moment([2011, 0, 30]).format('DDDo'), '30', '30th');
- 
+
         test.equal(moment([2011, 0, 31]).format('DDDo'), '31', '31st');
         test.done();
     },
 
     "format month": function (test) {
-        test.expect(12);
         var expected = 'មករា មករា_កុម្ភៈ កុម្ភៈ_មិនា មិនា_មេសា មេសា_ឧសភា ឧសភា_មិថុនា មិថុនា_កក្កដា កក្កដា_សីហា សីហា_កញ្ញា កញ្ញា_តុលា តុលា_វិច្ឆិកា វិច្ឆិកា_ធ្នូ ធ្នូ'.split("_"),
             i;
         for (i = 0; i < expected.length; i++) {
@@ -122,7 +118,6 @@ exports["lang:km"] = {
     },
 
     "format week": function (test) {
-        test.expect(7);
         var expected = 'អាទិត្យ អាទិត្យ អាទិត្យ_ច័ន្ទ ច័ន្ទ ច័ន្ទ_អង្គារ អង្គារ អង្គារ_ពុធ ពុធ ពុធ_ព្រហស្បតិ៍ ព្រហស្បតិ៍ ព្រហស្បតិ៍_សុក្រ សុក្រ សុក្រ_សៅរ៍ សៅរ៍ សៅរ៍'.split("_"),
             i;
         for (i = 0; i < expected.length; i++) {
@@ -132,116 +127,50 @@ exports["lang:km"] = {
     },
 
     "from": function (test) {
-        test.expect(30);
         var start = moment([2007, 1, 28]);
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            s: 44
-        }), true), "ប៉ុន្មានវិនាទី", "44 seconds = ប៉ុន្មានវិនាទី");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            s: 45
-        }), true), "មួយនាទី", "45 seconds = មួយនាទី");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            s: 89
-        }), true), "មួយនាទី", "89 seconds = មួយនាទី");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            s: 90
-        }), true), "2 នាទី", "90 seconds = 2 នាទី");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            m: 44
-        }), true), "44 នាទី", "44 minutes = 44 នាទី");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            m: 45
-        }), true), "មួយម៉ោង", "45 minutes = មួយម៉ោង");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            m: 89
-        }), true), "មួយម៉ោង", "89 minutes = មួយម៉ោង");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            m: 90
-        }), true), "2 ម៉ោង", "90 minutes = 2 ម៉ោង");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            h: 5
-        }), true), "5 ម៉ោង", "5 hours = 5 ម៉ោង");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            h: 21
-        }), true), "21 ម៉ោង", "21 hours = 21 ម៉ោង");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            h: 22
-        }), true), "មួយថ្ងៃ", "22 hours = មួយថ្ងៃ");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            h: 35
-        }), true), "មួយថ្ងៃ", "35 hours = មួយថ្ងៃ");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            h: 36
-        }), true), "2 ថ្ងៃ", "36 hours = 2 ថ្ងៃ");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            d: 1
-        }), true), "មួយថ្ងៃ", "1 day = មួយថ្ងៃ");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            d: 5
-        }), true), "5 ថ្ងៃ", "5 days = 5 ថ្ងៃ");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            d: 25
-        }), true), "25 ថ្ងៃ", "25 days = 25 ថ្ងៃ");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            d: 26
-        }), true), "មួយខែ", "26 days = មួយខែ");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            d: 30
-        }), true), "មួយខែ", "30 days = មួយខែ");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            d: 45
-        }), true), "មួយខែ", "45 days = មួយខែ");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            d: 46
-        }), true), "2 ខែ", "46 days = 2 ខែ");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            d: 74
-        }), true), "2 ខែ", "75 days = 2 ខែ");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            d: 76
-        }), true), "3 ខែ", "76 days = 3 ខែ");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            M: 1
-        }), true), "មួយខែ", "1 month = មួយខែ");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            M: 5
-        }), true), "5 ខែ", "5 months = 5 ខែ");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            d: 344
-        }), true), "11 ខែ", "344 days = 11 ខែ");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            d: 345
-        }), true), "មួយឆ្នាំ", "345 days = មួយឆ្នាំ");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            d: 547
-        }), true), "មួយឆ្នាំ", "547 days = មួយឆ្នាំ");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            d: 548
-        }), true), "2 ឆ្នាំ", "548 days = 2 ឆ្នាំ");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            y: 1
-        }), true), "មួយឆ្នាំ", "1 year = មួយឆ្នាំ");
-        test.equal(start.from(moment([2007, 1, 28]).add({
-            y: 5
-        }), true), "5 ឆ្នាំ", "5 years = 5 ឆ្នាំ");
+        test.equal(start.from(moment([2007, 1, 28]).add({ s: 44 }), true), "ប៉ុន្មានវិនាទី", "44 seconds = ប៉ុន្មានវិនាទី");
+        test.equal(start.from(moment([2007, 1, 28]).add({ s: 45 }), true), "មួយនាទី", "45 seconds = មួយនាទី");
+        test.equal(start.from(moment([2007, 1, 28]).add({ s: 89 }), true), "មួយនាទី", "89 seconds = មួយនាទី");
+        test.equal(start.from(moment([2007, 1, 28]).add({ s: 90 }), true), "2 នាទី", "90 seconds = 2 នាទី");
+        test.equal(start.from(moment([2007, 1, 28]).add({ m: 44 }), true), "44 នាទី", "44 minutes = 44 នាទី");
+        test.equal(start.from(moment([2007, 1, 28]).add({ m: 45 }), true), "មួយម៉ោង", "45 minutes = មួយម៉ោង");
+        test.equal(start.from(moment([2007, 1, 28]).add({ m: 89 }), true), "មួយម៉ោង", "89 minutes = មួយម៉ោង");
+        test.equal(start.from(moment([2007, 1, 28]).add({ m: 90 }), true), "2 ម៉ោង", "90 minutes = 2 ម៉ោង");
+        test.equal(start.from(moment([2007, 1, 28]).add({ h: 5 }), true), "5 ម៉ោង", "5 hours = 5 ម៉ោង");
+        test.equal(start.from(moment([2007, 1, 28]).add({ h: 21 }), true), "21 ម៉ោង", "21 hours = 21 ម៉ោង");
+        test.equal(start.from(moment([2007, 1, 28]).add({ h: 22 }), true), "មួយថ្ងៃ", "22 hours = មួយថ្ងៃ");
+        test.equal(start.from(moment([2007, 1, 28]).add({ h: 35 }), true), "មួយថ្ងៃ", "35 hours = មួយថ្ងៃ");
+        test.equal(start.from(moment([2007, 1, 28]).add({ h: 36 }), true), "2 ថ្ងៃ", "36 hours = 2 ថ្ងៃ");
+        test.equal(start.from(moment([2007, 1, 28]).add({ d: 1 }), true), "មួយថ្ងៃ", "1 day = មួយថ្ងៃ");
+        test.equal(start.from(moment([2007, 1, 28]).add({ d: 5 }), true), "5 ថ្ងៃ", "5 days = 5 ថ្ងៃ");
+        test.equal(start.from(moment([2007, 1, 28]).add({ d: 25 }), true), "25 ថ្ងៃ", "25 days = 25 ថ្ងៃ");
+        test.equal(start.from(moment([2007, 1, 28]).add({ d: 26 }), true), "មួយខែ", "26 days = មួយខែ");
+        test.equal(start.from(moment([2007, 1, 28]).add({ d: 30 }), true), "មួយខែ", "30 days = មួយខែ");
+        test.equal(start.from(moment([2007, 1, 28]).add({ d: 43 }), true), "មួយខែ", "43 days = មួយខែ");
+        test.equal(start.from(moment([2007, 1, 28]).add({ d: 46 }), true), "2 ខែ", "46 days = 2 ខែ");
+        test.equal(start.from(moment([2007, 1, 28]).add({ d: 74 }), true), "2 ខែ", "75 days = 2 ខែ");
+        test.equal(start.from(moment([2007, 1, 28]).add({ d: 76 }), true), "3 ខែ", "76 days = 3 ខែ");
+        test.equal(start.from(moment([2007, 1, 28]).add({ M: 1 }), true), "មួយខែ", "1 month = មួយខែ");
+        test.equal(start.from(moment([2007, 1, 28]).add({ M: 5 }), true), "5 ខែ", "5 months = 5 ខែ");
+        test.equal(start.from(moment([2007, 1, 28]).add({ d: 345 }), true), "មួយឆ្នាំ", "345 days = មួយឆ្នាំ");
+        test.equal(start.from(moment([2007, 1, 28]).add({ d: 548 }), true), "2 ឆ្នាំ", "548 days = 2 ឆ្នាំ");
+        test.equal(start.from(moment([2007, 1, 28]).add({ y: 1 }), true), "មួយឆ្នាំ", "1 year = មួយឆ្នាំ");
+        test.equal(start.from(moment([2007, 1, 28]).add({ y: 5 }), true), "5 ឆ្នាំ", "5 years = 5 ឆ្នាំ");
         test.done();
     },
 
     "suffix": function (test) {
-        test.expect(2);
         test.equal(moment(30000).from(0), "ប៉ុន្មានវិនាទីទៀត", "prefix");
         test.equal(moment(0).from(30000), "ប៉ុន្មានវិនាទីមុន", "suffix");
         test.done();
     },
 
     "now from now": function (test) {
-        test.expect(1);
         test.equal(moment().fromNow(), "ប៉ុន្មានវិនាទីមុន", "now from now should display as in the past");
         test.done();
     },
 
     "fromNow": function (test) {
-        test.expect(2);
         test.equal(moment().add({
             s: 30
         }).fromNow(), "ប៉ុន្មានវិនាទីទៀត", "in a few seconds");
@@ -252,7 +181,6 @@ exports["lang:km"] = {
     },
 
     "calendar day": function (test) {
-        test.expect(6);
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
@@ -276,7 +204,6 @@ exports["lang:km"] = {
     },
 
     "calendar next week": function (test) {
-        test.expect(15);
 
         var i, m;
         for (i = 2; i < 7; i++) {
@@ -293,7 +220,6 @@ exports["lang:km"] = {
     },
 
     "calendar last week": function (test) {
-        test.expect(15);
 
         var i, m;
 
@@ -311,7 +237,6 @@ exports["lang:km"] = {
     },
 
     "calendar all else": function (test) {
-        test.expect(4);
 
         var weeksAgo = moment().subtract({
             w: 1
@@ -340,7 +265,6 @@ exports["lang:km"] = {
     // The week that contains Jan 4th is the first week of the year.
 
     "weeks year starting sunday": function (test) {
-        test.expect(5);
 
         test.equal(moment([2012, 0, 1]).week(), 52, "Jan  1 2012 should be week 52");
         test.equal(moment([2012, 0, 2]).week(), 1, "Jan  2 2012 should be week 1");
@@ -352,7 +276,6 @@ exports["lang:km"] = {
     },
 
     "weeks year starting monday": function (test) {
-        test.expect(5);
 
         test.equal(moment([2007, 0, 1]).week(), 1, "Jan  1 2007 should be week 1");
         test.equal(moment([2007, 0, 7]).week(), 1, "Jan  7 2007 should be week 1");
@@ -364,7 +287,6 @@ exports["lang:km"] = {
     },
 
     "weeks year starting tuesday": function (test) {
-        test.expect(6);
 
         test.equal(moment([2007, 11, 31]).week(), 1, "Dec 31 2007 should be week 1");
         test.equal(moment([2008, 0, 1]).week(), 1, "Jan  1 2008 should be week 1");
@@ -377,7 +299,6 @@ exports["lang:km"] = {
     },
 
     "weeks year starting wednesday": function (test) {
-        test.expect(6);
 
         test.equal(moment([2002, 11, 30]).week(), 1, "Dec 30 2002 should be week 1");
         test.equal(moment([2003, 0, 1]).week(), 1, "Jan  1 2003 should be week 1");
@@ -390,7 +311,6 @@ exports["lang:km"] = {
     },
 
     "weeks year starting thursday": function (test) {
-        test.expect(6);
 
         test.equal(moment([2008, 11, 29]).week(), 1, "Dec 29 2008 should be week 1");
         test.equal(moment([2009, 0, 1]).week(), 1, "Jan  1 2009 should be week 1");
@@ -403,7 +323,6 @@ exports["lang:km"] = {
     },
 
     "weeks year starting friday": function (test) {
-        test.expect(6);
 
         test.equal(moment([2009, 11, 28]).week(), 53, "Dec 28 2009 should be week 53");
         test.equal(moment([2010, 0, 1]).week(), 53, "Jan  1 2010 should be week 53");
@@ -416,7 +335,6 @@ exports["lang:km"] = {
     },
 
     "weeks year starting saturday": function (test) {
-        test.expect(6);
 
         test.equal(moment([2010, 11, 27]).week(), 52, "Dec 27 2010 should be week 52");
         test.equal(moment([2011, 0, 1]).week(), 52, "Jan  1 2011 should be week 52");
@@ -429,7 +347,6 @@ exports["lang:km"] = {
     },
 
     "weeks year starting sunday formatted": function (test) {
-        test.expect(5);
 
         test.equal(moment([2012, 0, 1]).format('w ww wo'), '52 52 52', "Jan  1 2012 should be week 52");
         test.equal(moment([2012, 0, 2]).format('w ww wo'), '1 01 1', "Jan  2 2012 should be week 1");

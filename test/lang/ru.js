@@ -20,7 +20,6 @@ exports["lang:ru"] = {
     },
 
     "parse" : function (test) {
-        test.expect(96);
 
         var tests = 'январь янв_февраль фев_март мар_апрель апр_май май_июнь июнь_июль июль_август авг_сентябрь сен_октябрь окт_ноябрь ноя_декабрь дек'.split("_"), i;
         function equalTest(input, mmm, i) {
@@ -46,7 +45,6 @@ exports["lang:ru"] = {
     },
 
     "format" : function (test) {
-        test.expect(22);
 
         var a = [
                 ['dddd, Do MMMM YYYY, HH:mm:ss',       'воскресенье, 14-го февраля 2010, 15:25:50'],
@@ -81,7 +79,6 @@ exports["lang:ru"] = {
     },
 
     "format meridiem" : function (test) {
-        test.expect(8);
 
         test.equal(moment([2012, 11, 28, 0, 0]).format("A"), "ночи", "night");
         test.equal(moment([2012, 11, 28, 3, 59]).format("A"), "ночи", "night");
@@ -96,7 +93,6 @@ exports["lang:ru"] = {
     },
 
     "format ordinal" : function (test) {
-        test.expect(31);
 
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1-й', '1-й');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2-й', '2-й');
@@ -136,7 +132,6 @@ exports["lang:ru"] = {
     },
 
     "format month" : function (test) {
-        test.expect(12);
 
         var expected = 'январь янв_февраль фев_март мар_апрель апр_май май_июнь июнь_июль июль_август авг_сентябрь сен_октябрь окт_ноябрь ноя_декабрь дек'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
@@ -146,7 +141,6 @@ exports["lang:ru"] = {
     },
 
     "format month case" : function (test) {
-        test.expect(24);
 
         var months = {
             'nominative': 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_'),
@@ -160,7 +154,6 @@ exports["lang:ru"] = {
     },
 
     "format month short case" : function (test) {
-        test.expect(24);
 
         var monthsShort = {
             'nominative': 'янв_фев_мар_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split('_'),
@@ -174,7 +167,6 @@ exports["lang:ru"] = {
     },
 
     "format month case with escaped symbols" : function (test) {
-        test.expect(48);
 
         var months = {
             'nominative': 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_'),
@@ -190,7 +182,6 @@ exports["lang:ru"] = {
     },
 
     "format month short case with escaped symbols" : function (test) {
-        test.expect(48);
 
         var monthsShort = {
             'nominative': 'янв_фев_мар_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split('_'),
@@ -206,7 +197,6 @@ exports["lang:ru"] = {
     },
 
     "format week" : function (test) {
-        test.expect(7);
 
         var expected = 'воскресенье вс вс_понедельник пн пн_вторник вт вт_среда ср ср_четверг чт чт_пятница пт пт_суббота сб сб'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
@@ -216,7 +206,6 @@ exports["lang:ru"] = {
     },
 
     "from" : function (test) {
-        test.expect(33);
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "несколько секунд",    "44 seconds = seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "минута",   "45 seconds = a minute");
@@ -239,15 +228,13 @@ exports["lang:ru"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "25 дней",    "25 days = 25 days");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "месяц",    "26 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "месяц",    "30 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 45}), true),  "месяц",    "45 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  "месяц",    "43 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "2 месяца",   "46 days = 2 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "2 месяца",   "75 days = 2 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "3 месяца",   "76 days = 3 months");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "месяц",    "1 month = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "5 месяцев",   "5 months = 5 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 344}), true), "11 месяцев",  "344 days = 11 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "год",     "345 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 547}), true), "год",     "547 days = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "2 года",    "548 days = 2 years");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "год",     "1 year = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "5 лет",    "5 years = 5 years");
@@ -255,14 +242,12 @@ exports["lang:ru"] = {
     },
 
     "suffix" : function (test) {
-        test.expect(2);
         test.equal(moment(30000).from(0), "через несколько секунд", "prefix");
         test.equal(moment(0).from(30000), "несколько секунд назад", "suffix");
         test.done();
     },
 
     "fromNow" : function (test) {
-        test.expect(4);
         test.equal(moment().add({s: 30}).fromNow(), "через несколько секунд", "in seconds");
         test.equal(moment().add({d: 5}).fromNow(), "через 5 дней", "in 5 days");
         test.equal(moment().add({m: 31}).fromNow(), "через 31 минуту", "in 31 minutes = in 31 minutes");
@@ -271,7 +256,6 @@ exports["lang:ru"] = {
     },
 
     "calendar day" : function (test) {
-        test.expect(6);
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
@@ -285,7 +269,6 @@ exports["lang:ru"] = {
     },
 
     "calendar next week" : function (test) {
-        test.expect(15);
 
         var i, m;
         function makeFormat(d) {
@@ -304,7 +287,6 @@ exports["lang:ru"] = {
     },
 
     "calendar last week" : function (test) {
-        test.expect(15);
 
         var i, m;
 
@@ -335,7 +317,6 @@ exports["lang:ru"] = {
     },
 
     "calendar all else" : function (test) {
-        test.expect(4);
 
         var weeksAgo = moment().subtract({ w: 1 }),
             weeksFromNow = moment().add({ w: 1 });
@@ -356,7 +337,6 @@ exports["lang:ru"] = {
     // The week that contains Jan 1st is the first week of the year.
 
     "weeks year starting sunday" : function (test) {
-        test.expect(5);
 
         test.equal(moment([2011, 11, 26]).week(), 1, "Dec 26 2011 should be week 1");
         test.equal(moment([2012,  0,  1]).week(), 1, "Jan  1 2012 should be week 1");
@@ -368,7 +348,6 @@ exports["lang:ru"] = {
     },
 
     "weeks year starting monday" : function (test) {
-        test.expect(5);
 
         test.equal(moment([2007, 0, 1]).week(),  1, "Jan  1 2007 should be week 1");
         test.equal(moment([2007, 0, 7]).week(),  1, "Jan  7 2007 should be week 1");
@@ -380,7 +359,6 @@ exports["lang:ru"] = {
     },
 
     "weeks year starting tuesday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2007, 11, 31]).week(), 1, "Dec 31 2007 should be week 1");
         test.equal(moment([2008,  0,  1]).week(), 1, "Jan  1 2008 should be week 1");
@@ -393,7 +371,6 @@ exports["lang:ru"] = {
     },
 
     "weeks year starting wednesday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2002, 11, 30]).week(), 1, "Dec 30 2002 should be week 1");
         test.equal(moment([2003,  0,  1]).week(), 1, "Jan  1 2003 should be week 1");
@@ -406,7 +383,6 @@ exports["lang:ru"] = {
     },
 
     "weeks year starting thursday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2008, 11, 29]).week(), 1, "Dec 29 2008 should be week 1");
         test.equal(moment([2009,  0,  1]).week(), 1, "Jan  1 2009 should be week 1");
@@ -419,7 +395,6 @@ exports["lang:ru"] = {
     },
 
     "weeks year starting friday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2009, 11, 28]).week(), 1, "Dec 28 2009 should be week 1");
         test.equal(moment([2010,  0,  1]).week(), 1, "Jan  1 2010 should be week 1");
@@ -432,7 +407,6 @@ exports["lang:ru"] = {
     },
 
     "weeks year starting saturday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2010, 11, 27]).week(), 1, "Dec 27 2010 should be week 1");
         test.equal(moment([2011,  0,  1]).week(), 1, "Jan  1 2011 should be week 1");
@@ -445,7 +419,6 @@ exports["lang:ru"] = {
     },
 
     "weeks year starting sunday formatted" : function (test) {
-        test.expect(5);
 
         test.equal(moment([2011, 11, 26]).format('w ww wo'), '1 01 1-я', "Dec 26 2011 should be week 1");
         test.equal(moment([2012,  0,  1]).format('w ww wo'), '1 01 1-я', "Jan  1 2012 should be week 1");
