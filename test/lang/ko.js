@@ -5,7 +5,7 @@ var moment = require("../../moment");
       Korean
      *************************************************/
 
-exports["lang:kr"] = {
+exports["lang:ko"] = {
     setUp : function (cb) {
         moment.lang('ko');
         moment.createFromInputFallback = function () {
