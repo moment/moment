@@ -348,6 +348,16 @@ exports.create = {
         test.done();
     },
 
+    "string with timezone around start of year" : function (test) {
+        test.equal(moment('2000-01-01T00:00:00.000+01:00').toISOString(), "1999-12-31T23:00:00.000Z", "+1:00 around 2000");
+        test.equal(moment('2000-01-01T00:00:00.000-01:00').toISOString(), "2000-01-01T01:00:00.000Z", "-1:00 around 2000");
+        test.equal(moment('1970-01-01T00:00:00.000+01:00').toISOString(), "1969-12-31T23:00:00.000Z", "+1:00 around 1970");
+        test.equal(moment('1970-01-01T00:00:00.000-01:00').toISOString(), "1970-01-01T01:00:00.000Z", "-1:00 around 1970");
+        test.equal(moment('1200-01-01T00:00:00.000+01:00').toISOString(), "1199-12-31T23:00:00.000Z", "+1:00 around 1200");
+        test.equal(moment('1200-01-01T00:00:00.000-01:00').toISOString(), "1200-01-01T01:00:00.000Z", "-1:00 around 1200");
+        test.done();
+    },
+
     "string with array of formats" : function (test) {
 
         test.equal(moment('11-02-1999', ['MM-DD-YYYY', 'DD-MM-YYYY']).format('MM DD YYYY'), '11 02 1999', 'switching month and day');
