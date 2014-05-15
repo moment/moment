@@ -174,7 +174,7 @@ exports["lang:cy"] = {
         test.expect(2);
 
         test.equal(moment(30000).from(0), "mewn ychydig eiliadau", "prefix");
-        test.equal(moment(0).from(30000), "ychydig eiliadau yn &#244;l", "suffix");
+        test.equal(moment(0).from(30000), "ychydig eiliadau yn ôl", "suffix");
         test.done();
     },
 
