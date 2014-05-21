@@ -371,12 +371,13 @@ exports.format = {
     },
 
     "calendar day timezone" : function (test) {
-        test.expect(10);
+        test.expect(11);
 
         moment.lang('en');
         var zones = [60, -60, 90, -90, 360, -360, 720, -720],
             b = moment().utc().startOf('day').subtract({ m : 1 }),
             c = moment().local().startOf('day').subtract({ m : 1 }),
+            d = moment().local().startOf('day').subtract({ d : 2 }),
             i, z, a;
 
         for (i = 0; i < zones.length; ++i) {
@@ -387,6 +388,7 @@ exports.format = {
 
         test.equal(moment(b).utc().calendar(), "Yesterday at 11:59 PM", "Yesterday at 11:59 PM, not Today, or the wrong time");
         test.equal(moment(c).local().calendar(), "Yesterday at 11:59 PM", "Yesterday at 11:59 PM, not Today, or the wrong time");
+        test.equal(moment(c).local().calendar(d), "Tomorrow at 11:59 PM", "Tomorrow at 11:59 PM, not Yesterday, or the wrong time");
 
         test.done();
     },
