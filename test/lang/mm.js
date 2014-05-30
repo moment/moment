@@ -123,7 +123,7 @@ exports["lang:mm"] = {
 
     "format week" : function (test) {
         test.expect(7);
-        var expected = 'တနဂၤေႏြ ေႏြ ေႏြ_တနလာၤ လာ လာ_အဂၤါ ဂၤါ ဂၤါ_ဗုဒၶဟူးေန႔ ဟူး ဟူး_ၾကာသပေတး ၾကာ ၾကာ_ေသာၾကာ ေသာ ေသာ_စေန စ စ'.split("_"), i;
+        var expected = 'တနဂၤေႏြ ေႏြ ေႏြ_တနလာၤ လာ လာ_အဂၤါ ဂါ ဂါ_ဗုဒၶဟူးေန႔ ဟူး ဟူး_ၾကာသပေတး ေတး ေတး_ေသာၾကာ ေသာ ေသာ_စေန ေန ေန'.split("_"), i;
 
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
