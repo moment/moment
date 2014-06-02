@@ -192,12 +192,12 @@ exports["lang:mm"] = {
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "ယေန႔ ၀၂ း ၀၀ တြင္",      "ယေန႔ အခ်ိန္တူတူတြင္");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "ယေန႔ ၀၂ း ၂၅ တြင္",      "ယခုမွ ၂၅ မိနစ္ေပါင္းထည့္");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "ယေန႔ ၀၃ း ၀၀ တြင္",      "ယခုမွ ၁ နာရီေပါင္းထည့္");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "မနက္ျဖန္ ၀၂ း ၀၀ တြင္",   "မနက္ျဖန္ အခ်ိန္ အတူတူတြင္");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "ယေန႔ ၀၁ း ၀၀ တြင္",      "၁ နာရီ ယခုမိနစ္");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "မေန႔က ၀၂း၀၀ တြင္",  "မေန႔က အခ်ိန္အတူတူတြင္");
+        test.equal(moment(a).calendar(),                     "ယေန႔ ၀၂ : ၀၀ တြင္",      "ယေန႔ အခ်ိန္တူတူတြင္");
+        test.equal(moment(a).add({ m: 25 }).calendar(),      "ယေန႔ ၀၂ : ၂၅ တြင္",      "ယခုမွ ၂၅ မိနစ္ေပါင္းထည့္");
+        test.equal(moment(a).add({ h: 1 }).calendar(),       "ယေန႔ ၀၃ : ၀၀ တြင္",      "ယခုမွ ၁ နာရီေပါင္းထည့္");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "မနက္ျဖန္ ၀၂ : ၀၀ တြင္",   "မနက္ျဖန္ အခ်ိန္ အတူတူတြင္");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "ယေန႔ ၀၁ : ၀၀ တြင္",      "၁ နာရီ ယခုမိနစ္");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "မေန႔က ၀၂:၀၀ တြင္",  "မေန႔က အခ်ိန္အတူတူတြင္");
         test.done();
     },
 
