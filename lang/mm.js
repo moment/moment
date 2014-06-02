@@ -10,19 +10,45 @@
     } else {
         factory(window.moment); // Browser global
     }
-}(function (moment) {
+}
+
+(function (moment) {
+        var symbolMap = {
+        '1': '၁',
+        '2': '၂',
+        '3': '၃',
+        '4': '၄',
+        '5': '၅',
+        '6': '၆',
+        '7': '၇',
+        '8': '၈',
+        '9': '၉',
+        '0': '၀'
+    },
+    numberMap = {
+        '၁': '1',
+        '၂': '2',
+        '၃': '3',
+        '၄': '4',
+        '၅': '5',
+        '၆': '6',
+        '၇': '7',
+        '၈': '8',
+        '၉': '9',
+        '၀': '0'
+    };
     return moment.lang('mm', {
         months : "ဇန္နဝါရီ_ေဖေဖာ္ဝါရီ_မတ္_ဧျပီ_ေမ_ဇြန္_ဇူလိုင္_ၾသဂုတ္_စက္တင္ဘာ_ေအာက္တိုဘာ_ႏိုဝင္ဘာ_ဒီဇင္ဘာ".split("_"),
-        monthsShort : "ဇန္_ေဖ_မတ္_ျပီ_ေမ_ဇြန္_လိုင္_ၾသ_စက္_ေအာက္_ႏို_ဒီ".split("_"),
-        weekdays : "တနဂၤေႏြေန႔_တနလာၤေန႔_အဂၤါေန႔_ဗုဒၶဟူးေန႔_ၾကာသပေတးေန႔_ေသာၾကာေန႔_စေနေန႔".split("_"),
-        weekdaysShort : "ေႏြ_လာ_ဂါ_ဟူး_ေတး_ေသာ_ေန".split("_"),
-        weekdaysMin : "ေႏြ_လာ_ဂါ_ဟူး_ေတး_ေသာ_ေန".split("_"),
+        monthsShort : "ဇန္_ေဖ_မတ္_ျပီ_ေမ_ဇြန္_ဂ်ဴလိုင္_ၾသ_စက္_ေအာက္_ႏို_ဒီ".split("_"),
+        weekdays : "တနလၤာ_အဂၤါ_ဗုဒၶဟူး_ၾကာသပေတး_ေသာၾကာ_စေန_တနဂၤေႏြ".split("_"),
+        weekdaysShort : "လာ_ဂၤါ_ဟူး_ၾကာ_ေသာ_စ_ေႏြြ".split("_"),
+        weekdaysMin : "လာ_ဂၤါ_ဟူး_ၾကာ_ေသာ_စ_ေႏြ".split("_"),
         longDateFormat : {
-            LT : "HH.mm",
+            LT : "HH:mm",
             L : "DD/MM/YYYY",
             LL : "D MMMM YYYY",
-            LLL : "D MMMM YYYY [pukul] LT",
-            LLLL : "dddd, D MMMM YYYY [pukul] LT"
+            LLL : "D MMMM YYYY LT",
+            LLLL : "dddd D MMMM YYYY LT"
         },
         calendar : {
             sameDay : '[ယေန႔] LT [မွာ]',
@@ -46,6 +72,16 @@
             MM : "%d လ",
             y : "တစ္ႏွစ္",
             yy : "%d ႏွစ္"
+        },
+        preparse: function (string) {
+            return string.replace(/[၁၂၃၄၅၆၇၈၉၀]/g, function (match) {
+                return numberMap[match];
+            });
+        },
+        postformat: function (string) {
+            return string.replace(/\d/g, function (match) {
+                return symbolMap[match];
+            });
         },
         week : {
             dow : 1, // Monday is the first day of the week.
