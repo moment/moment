@@ -42,7 +42,7 @@ exports["lang:mm"] = {
     "format" : function (test) {
         test.expect(22);
         var a = [
-                ['dddd, MMMM Do YYYY, h:mm:ss a',      'တနဂၤေႏြ၊ ေဖေဖာ္ဝါရီ ၁၄ ၂၀၁၀၊ ၃း ၂၅း ၅၀ ညေန'],
+                ['dddd, MMMM Do YYYY, h:mm:ss a',      'တနဂၤေႏြ၊ ေဖေဖာ္ဝါရီ ၁၄ ၂၀၁၀၊ ၃: ၂၅: ၅၀ ညေန'],
                 ['ddd, hA',                            'ေႏြ, ညေန ၃နာရီ'],
                 ['M Mo MM MMMM MMM',                   '၂ ၂ ၀၂ ေဖေဖာ္ဝါရီ ေဖ'],
                 ['YYYY YY',                            '၂၀၁၀ ၁၀'],
