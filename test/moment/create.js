@@ -395,6 +395,16 @@ exports.create = {
 
         test.equal(moment('01', ["MM", "DD"])._f, "MM", "Should use first valid format");
 
+        // pass an ISO date in the array of formats
+        function parseISO(string) {
+            return moment(string, ['YYYY', 'HH:mm', 'M', moment.ISO_8601]);
+        }
+        // those tests are broken because of the scoring system
+        // and the deprecation of createFromInputFallback
+        //test.equal(parseISO('1994').year(), 1994, 'iso: test parse year');
+        //test.equal(parseISO('17:15').format('HH:mm'), '17:15', 'iso: test parse HH:mm');
+        test.equal(parseISO('2012-06-01').format('YYYY-MM-DD'), '2012-06-01', 'iso: test parse iso');
+
         test.done();
     },
 

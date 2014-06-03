@@ -1344,6 +1344,11 @@
     // date from string and format string
     function makeDateFromStringAndFormat(config) {
 
+        if (config._f === moment.ISO_8601) {
+            makeDateFromString(config);
+            return;
+        }
+
         config._a = [];
         config._pf.empty = true;
 
@@ -1821,6 +1826,9 @@
 
     // default format
     moment.defaultFormat = isoFormat;
+
+    // constant that refers to the ISO standard
+    moment.ISO_8601 = 'ISO 8601';
 
     // Plugins that add properties should also add the key here (null value),
     // so we can properly clone ourselves.
