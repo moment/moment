@@ -399,11 +399,12 @@ exports.create = {
         function parseISO(string) {
             return moment(string, ['YYYY', 'HH:mm', 'M', moment.ISO_8601]);
         }
-        // those tests are broken because of the scoring system
-        // and the deprecation of createFromInputFallback
-        //test.equal(parseISO('1994').year(), 1994, 'iso: test parse year');
-        //test.equal(parseISO('17:15').format('HH:mm'), '17:15', 'iso: test parse HH:mm');
+        test.equal(parseISO('1994').year(), 1994, 'iso: test parse year');
+        test.equal(parseISO('17:15').format('HH:mm'), '17:15', 'iso: test parse HH:mm');
         test.equal(parseISO('2012-06-01').format('YYYY-MM-DD'), '2012-06-01', 'iso: test parse iso');
+        
+        test.equal(moment('2014-05-05', [moment.ISO_8601, 'YYYY-MM-DD'])._pf.iso, true, 'iso: edge case array precedence iso');
+        test.equal(moment('2014-05-05', ['YYYY-MM-DD', moment.ISO_8601])._pf.iso, false, 'iso: edge case array precedence not iso');
 
         test.done();
     },

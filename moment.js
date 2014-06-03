@@ -1345,7 +1345,7 @@
     function makeDateFromStringAndFormat(config) {
 
         if (config._f === moment.ISO_8601) {
-            makeDateFromString(config);
+            makeDateFromString(config, false);
             return;
         }
 
@@ -1461,10 +1461,12 @@
     }
 
     // date from iso format
-    function makeDateFromString(config) {
+    function makeDateFromString(config, useFallback) {
         var i, l,
             string = config._i,
             match = isoRegex.exec(string);
+
+        useFallback = typeof useFallback === 'undefined' ? true : useFallback;
 
         if (match) {
             config._pf.iso = true;
@@ -1487,7 +1489,11 @@
             makeDateFromStringAndFormat(config);
         }
         else {
-            moment.createFromInputFallback(config);
+            if (useFallback) {
+                moment.createFromInputFallback(config);
+            } else {
+                config._isValid = false;
+            }
         }
     }
 
