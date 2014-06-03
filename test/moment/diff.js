@@ -174,9 +174,10 @@ exports.diff = {
     },
 
     "diff between utc and local" : function (test) {
-        test.expect(7);
-
-        test.equal(moment([2012]).utc().diff([2011], 'years'), 1, "year diff");
+        if (moment([2012]).zone() === moment([2011]).zone()) {
+            // Russia's zone offset on 1st of Jan 2012 vs 2011 is different
+            test.equal(moment([2012]).utc().diff([2011], 'years'), 1, "year diff");
+        }
         test.equal(moment([2010, 2, 2]).utc().diff([2010, 0, 2], 'months'), 2, "month diff");
         test.equal(moment([2010, 0, 4]).utc().diff([2010], 'days'), 3, "day diff");
         test.equal(moment([2010, 0, 22]).utc().diff([2010], 'weeks'), 3, "week diff");
