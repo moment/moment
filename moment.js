@@ -1345,7 +1345,7 @@
     function makeDateFromStringAndFormat(config) {
 
         if (config._f === moment.ISO_8601) {
-            makeDateFromString(config, false);
+            parseISO(config);
             return;
         }
 
@@ -1461,12 +1461,10 @@
     }
 
     // date from iso format
-    function makeDateFromString(config, useFallback) {
+    function parseISO(config) {
         var i, l,
             string = config._i,
             match = isoRegex.exec(string);
-
-        useFallback = typeof useFallback === 'undefined' ? true : useFallback;
 
         if (match) {
             config._pf.iso = true;
@@ -1487,13 +1485,17 @@
                 config._f += "Z";
             }
             makeDateFromStringAndFormat(config);
+        } else {
+            config._isValid = false;
         }
-        else {
-            if (useFallback) {
-                moment.createFromInputFallback(config);
-            } else {
-                config._isValid = false;
-            }
+    }
+
+    // date from iso format or fallback
+    function makeDateFromString(config) {
+        parseISO(config);
+        if (config._isValid === false) {
+            delete config._isValid;
+            moment.createFromInputFallback(config);
         }
     }
 
@@ -1834,7 +1836,7 @@
     moment.defaultFormat = isoFormat;
 
     // constant that refers to the ISO standard
-    moment.ISO_8601 = 'ISO 8601';
+    moment.ISO_8601 = function () {};
 
     // Plugins that add properties should also add the key here (null value),
     // so we can properly clone ourselves.
