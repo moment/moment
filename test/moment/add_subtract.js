@@ -242,6 +242,102 @@ exports.add = {
         test.done();
     },
 
+    "add strings string short args" : function (test) {
+        test.expect(9);
+
+        var a = moment();
+        a.year(2011);
+        a.month(9);
+        a.date(12);
+        a.hours(6);
+        a.minutes(7);
+        a.seconds(8);
+        a.milliseconds(500);
+
+        test.equal(a.add('ms', '50').milliseconds(), 550, 'Add milliseconds');
+        test.equal(a.add('s', '1').seconds(), 9, 'Add seconds');
+        test.equal(a.add('m', '1').minutes(), 8, 'Add minutes');
+        test.equal(a.add('h', '1').hours(), 7, 'Add hours');
+        test.equal(a.add('d', '1').date(), 13, 'Add date');
+        test.equal(a.add('w', '1').date(), 20, 'Add week');
+        test.equal(a.add('M', '1').month(), 10, 'Add month');
+        test.equal(a.add('y', '1').year(), 2012, 'Add year');
+        test.equal(a.add('Q', '1').month(), 1, 'Add quarter');
+        test.done();
+    },
+
+    "subtract strings string short args" : function (test) {
+        test.expect(9);
+
+        var a = moment();
+        a.year(2011);
+        a.month(9);
+        a.date(12);
+        a.hours(6);
+        a.minutes(7);
+        a.seconds(8);
+        a.milliseconds(500);
+
+        test.equal(a.subtract('ms', '50').milliseconds(), 450, 'Subtract milliseconds');
+        test.equal(a.subtract('s', '1').seconds(), 7, 'Subtract seconds');
+        test.equal(a.subtract('m', '1').minutes(), 6, 'Subtract minutes');
+        test.equal(a.subtract('h', '1').hours(), 5, 'Subtract hours');
+        test.equal(a.subtract('d', '1').date(), 11, 'Subtract date');
+        test.equal(a.subtract('w', '1').date(), 4, 'Subtract week');
+        test.equal(a.subtract('M', '1').month(), 8, 'Subtract month');
+        test.equal(a.subtract('y', '1').year(), 2010, 'Subtract year');
+        test.equal(a.subtract('Q', '1').month(), 5, 'Subtract quarter');
+        test.done();
+    },
+
+    "add strings string short reverse args" : function (test) {
+        test.expect(9);
+
+        var a = moment();
+        a.year(2011);
+        a.month(9);
+        a.date(12);
+        a.hours(6);
+        a.minutes(7);
+        a.seconds(8);
+        a.milliseconds(500);
+
+        test.equal(a.add('50', 'ms').milliseconds(), 550, 'Add milliseconds');
+        test.equal(a.add('1', 's').seconds(), 9, 'Add seconds');
+        test.equal(a.add('1', 'm').minutes(), 8, 'Add minutes');
+        test.equal(a.add('1', 'h').hours(), 7, 'Add hours');
+        test.equal(a.add('1', 'd').date(), 13, 'Add date');
+        test.equal(a.add('1', 'w').date(), 20, 'Add week');
+        test.equal(a.add('1', 'M').month(), 10, 'Add month');
+        test.equal(a.add('1', 'y').year(), 2012, 'Add year');
+        test.equal(a.add('1', 'Q').month(), 1, 'Add quarter');
+        test.done();
+    },
+
+    "subtract strings string short reverse args" : function (test) {
+        test.expect(9);
+
+        var a = moment();
+        a.year(2011);
+        a.month(9);
+        a.date(12);
+        a.hours(6);
+        a.minutes(7);
+        a.seconds(8);
+        a.milliseconds(500);
+
+        test.equal(a.subtract('50', 'ms').milliseconds(), 450, 'Subtract milliseconds');
+        test.equal(a.subtract('1', 's').seconds(), 7, 'Subtract seconds');
+        test.equal(a.subtract('1', 'm').minutes(), 6, 'Subtract minutes');
+        test.equal(a.subtract('1', 'h').hours(), 5, 'Subtract hours');
+        test.equal(a.subtract('1', 'd').date(), 11, 'Subtract date');
+        test.equal(a.subtract('1', 'w').date(), 4, 'Subtract week');
+        test.equal(a.subtract('1', 'M').month(), 8, 'Subtract month');
+        test.equal(a.subtract('1', 'y').year(), 2010, 'Subtract year');
+        test.equal(a.subtract('1', 'Q').month(), 5, 'Subtract quarter');
+        test.done();
+    },
+
     "add across DST" : function (test) {
         // Detect Safari bug and bail. Hours on 13th March 2011 are shifted
         // with 1 ahead.
