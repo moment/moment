@@ -1487,20 +1487,24 @@
     }
 
     function makeDateFromInput(config) {
-        var input = config._i,
-            matched = aspNetJsonRegex.exec(input);
-
+        var input = config._i;
         if (input === undefined) {
             config._d = new Date();
-        } else if (matched) {
+            return;
+        } else if (isDate(input)) {
+            config._d = new Date(+input);
+            return;
+        }
+
+        var matched = aspNetJsonRegex.exec(input);
+
+        if (matched) {
             config._d = new Date(+matched[1]);
         } else if (typeof input === 'string') {
             makeDateFromString(config);
         } else if (isArray(input)) {
             config._a = input.slice(0);
             dateFromConfig(config);
-        } else if (isDate(input)) {
-            config._d = new Date(+input);
         } else if (typeof(input) === 'object') {
             dateFromObject(config);
         } else if (typeof(input) === 'number') {
