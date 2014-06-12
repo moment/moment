@@ -1487,18 +1487,12 @@
     }
 
     function makeDateFromInput(config) {
-        var input = config._i;
+        var input = config._i, matched;
         if (input === undefined) {
             config._d = new Date();
-            return;
         } else if (isDate(input)) {
             config._d = new Date(+input);
-            return;
-        }
-
-        var matched = aspNetJsonRegex.exec(input);
-
-        if (matched) {
+        } else if ( (matched = aspNetJsonRegex.exec(input)) !== null ) {
             config._d = new Date(+matched[1]);
         } else if (typeof input === 'string') {
             makeDateFromString(config);
