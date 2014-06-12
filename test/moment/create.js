@@ -398,6 +398,17 @@ exports.create = {
         test.done();
     },
 
+    "string with array of formats + ISO": function (test) {
+        test.equal(moment('1994', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).year(), 1994, 'iso: test parse YYYY');
+        test.equal(moment('17:15', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).hour(), 17, 'iso: test parse HH:mm (1)');
+        test.equal(moment('17:15', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).minutes(), 15, 'iso: test parse HH:mm (2)');
+        test.equal(moment('06', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).month(), 6-1, 'iso: test parse MM');
+        test.equal(moment('2012-06-01', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).parsingFlags().iso, true, 'iso: test parse iso');
+        test.equal(moment('2014-05-05', [moment.ISO_8601, 'YYYY-MM-DD']).parsingFlags().iso, true, 'iso: edge case array precedence iso');
+        test.equal(moment('2014-05-05', ['YYYY-MM-DD', moment.ISO_8601]).parsingFlags().iso, false, 'iso: edge case array precedence not iso');
+        test.done();
+    },
+
     "string with format - years" : function (test) {
         test.expect(4);
         test.equal(moment('67', 'YY').format('YYYY'), '2067', '67 > 2067');
