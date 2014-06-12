@@ -47,6 +47,26 @@ grunt                 # this runs tests and jshint
 Changelog
 =========
 
+### 2.7.0 [See changelog](https://gist.github.com/ichernev/b0a3d456d5a84c9901d7)
+
+* new languages
+
+  * [#1678](https://github.com/moment/moment/issues/1678) Bengali (bn)
+  * [#1628](https://github.com/moment/moment/issues/1628) Azerbaijani (az)
+  * [#1633](https://github.com/moment/moment/issues/1633) Arabic, Saudi Arabia (ar-sa)
+  * [#1648](https://github.com/moment/moment/issues/1648) Austrian German (de-at)
+
+* features
+
+  * [#1663](https://github.com/moment/moment/issues/1663) configurable relative time thresholds
+  * [#1554](https://github.com/moment/moment/issues/1554) support anchor time in moment.calendar
+  * [#1693](https://github.com/moment/moment/issues/1693) support moment.ISO_8601 as parsing format
+  * [#1637](https://github.com/moment/moment/issues/1637) add moment.min and moment.max and deprecate min/max instance methods
+  * [#1704](https://github.com/moment/moment/issues/1704) support string value in add/subtract
+  * [#1647](https://github.com/moment/moment/issues/1647) add spm support (package manager)
+
+* bugfixes
+
 ### 2.6.0 [See changelog](https://gist.github.com/ichernev/10544682)
 
 * languages
