@@ -68,7 +68,7 @@
     }
 
     return moment.lang("lt", {
-        months : "sausio_vasario_kovo_balandžio_gegužės_biržėlio_liepos_rugpjūčio_rugsėjo_spalio_lapkričio_gruodžio".split("_"),
+        months : "sausio_vasario_kovo_balandžio_gegužės_birželio_liepos_rugpjūčio_rugsėjo_spalio_lapkričio_gruodžio".split("_"),
         monthsShort : "sau_vas_kov_bal_geg_bir_lie_rgp_rgs_spa_lap_grd".split("_"),
         weekdays : relativeWeekDay,
         weekdaysShort : "Sek_Pir_Ant_Tre_Ket_Pen_Šeš".split("_"),

@@ -22,7 +22,7 @@ exports["lang:lt"] = {
     "parse" : function (test) {
         test.expect(96);
 
-        var tests = 'sausio sau_vasario vas_kovo kov_balandžio bal_gegužės geg_biržėlio bir_liepos lie_rugpjūčio rgp_rugsėjo rgs_spalio spa_lapkričio lap_gruodžio grd'.split("_"), i;
+        var tests = 'sausio sau_vasario vas_kovo kov_balandžio bal_gegužės geg_birželio bir_liepos lie_rugpjūčio rgp_rugsėjo rgs_spalio spa_lapkričio lap_gruodžio grd'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -118,7 +118,7 @@ exports["lang:lt"] = {
     "format month" : function (test) {
         test.expect(12);
 
-        var expected = 'sausio sau_vasario vas_kovo kov_balandžio bal_gegužės geg_biržėlio bir_liepos lie_rugpjūčio rgp_rugsėjo rgs_spalio spa_lapkričio lap_gruodžio grd'.split("_"), i;
+        var expected = 'sausio sau_vasario vas_kovo kov_balandžio bal_gegužės geg_birželio bir_liepos lie_rugpjūčio rgp_rugsėjo rgs_spalio spa_lapkričio lap_gruodžio grd'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
