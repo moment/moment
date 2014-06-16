@@ -112,5 +112,15 @@ exports.relativeTime = {
         test.equal(a.fromNow(), "a year ago", "Above custom days to years threshold");
         moment.relativeTimeThreshold('dy', 345);
         test.done();
+    },
+
+    "retrive threshold settings" : function (test) {
+        test.expect(1);
+        moment.relativeTimeThreshold('m', 45);
+        var minuteThreshold = moment.relativeTimeThreshold('m');
+
+        test.equal(minuteThreshold, 45, "Can retrieve minute setting");
+
+        test.done();
     }
 };
