@@ -1851,6 +1851,11 @@
       if (relativeTimeThresholds[threshold] === undefined) {
         return false;
       }
+
+      if(limit  === undefined){
+        return relativeTimeThresholds[threshold];
+      }
+
       relativeTimeThresholds[threshold] = limit;
       return true;
     };
