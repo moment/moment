@@ -160,6 +160,15 @@ module.exports = function (grunt) {
                 }
             }
         },
+        jscs: {
+            all: [
+                "Gruntfile.js", "moment.js", "lang/**/*.js",
+                "test/**/*.js", "!test/browser*.js"
+            ],
+            options: {
+                config: ".jscs.json"
+            }
+        },
         watch : {
             test : {
                 files : [
@@ -187,7 +196,7 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
     // Default task.
-    grunt.registerTask('default', ['jshint', 'nodeunit']);
+    grunt.registerTask('default', ['jshint', 'jscs', 'nodeunit']);
 
     //test tasks
     grunt.registerTask('test', ['test:node', 'test:browser']);
@@ -199,8 +208,12 @@ module.exports = function (grunt) {
 
     // travis build task
     grunt.registerTask('build:travis', [
-        'jshint', 'test:node', 'check-sauce-creds',
-        'test:travis-sauce-browser'
+        // code style
+        'jshint', 'jscs',
+        // node tests
+        'test:node',
+        // sauce tests
+        'check-sauce-creds', 'test:travis-sauce-browser'
     ]);
 
     // Task to be run when releasing a new version

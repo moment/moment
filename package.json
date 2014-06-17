@@ -48,6 +48,7 @@
         "grunt-contrib-uglify": "latest",
         "grunt-contrib-watch": "latest",
         "grunt-env": "latest",
+        "grunt-jscs-checker": "latest",
         "grunt-karma": "latest",
         "load-grunt-tasks": "latest",
         "karma": "latest",
