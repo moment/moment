@@ -82,7 +82,7 @@
                 return symbolMap[match];
             });
         },
-        //Bengali is a vast language its spoken 
+        //Bengali is a vast language its spoken
         //in different forms in various parts of the world.
         //I have just generalized with most common one used
         meridiem : function (hour, minute, isLower) {

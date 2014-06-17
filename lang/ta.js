@@ -87,20 +87,20 @@
         },
 
 
-// refer http://ta.wikipedia.org/s/1er1      
+        // refer http://ta.wikipedia.org/s/1er1
 
         meridiem : function (hour, minute, isLower) {
             if (hour >= 6 && hour <= 10) {
                 return " காலை";
-            } else   if (hour >= 10 && hour <= 14) {
+            } else if (hour >= 10 && hour <= 14) {
                 return " நண்பகல்";
-            } else    if (hour >= 14 && hour <= 18) {
+            } else if (hour >= 14 && hour <= 18) {
                 return " எற்பாடு";
-            } else   if (hour >= 18 && hour <= 20) {
+            } else if (hour >= 18 && hour <= 20) {
                 return " மாலை";
-            } else  if (hour >= 20 && hour <= 24) {
+            } else if (hour >= 20 && hour <= 24) {
                 return " இரவு";
-            } else  if (hour >= 0 && hour <= 6) {
+            } else if (hour >= 0 && hour <= 6) {
                 return " வைகறை";
             }
         },
