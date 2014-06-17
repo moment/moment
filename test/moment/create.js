@@ -454,7 +454,7 @@ exports.create = {
     },
 
     "parsing iso" : function (test) {
-        var offset = moment([2011, 9, 08]).zone(),
+        var offset = moment([2011, 9, 8]).zone(),
             pad = function (input) {
                 if (input < 10) {
                     return '0' + input;
