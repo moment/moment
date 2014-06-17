@@ -467,7 +467,7 @@
         res.months = other.month() - base.month() +
             (other.year() - base.year()) * 12;
         if (base.clone().add(res.months, 'M').isAfter(other)) {
-            -- res.months;
+            --res.months;
         }
 
         res.milliseconds = +other - +(base.clone().add(res.months, 'M'));
@@ -482,8 +482,8 @@
             res = positiveMomentsDifference(base, other);
         } else {
             res = positiveMomentsDifference(other, base);
-            res.milliseconds = - res.milliseconds;
-            res.months = - res.months;
+            res.milliseconds = -res.milliseconds;
+            res.months = -res.months;
         }
 
         return res;
@@ -516,8 +516,8 @@
     }
 
     function isDate(input) {
-        return  Object.prototype.toString.call(input) === '[object Date]' ||
-                input instanceof Date;
+        return Object.prototype.toString.call(input) === '[object Date]' ||
+            input instanceof Date;
     }
 
     // compare two arrays, return the number of differences
@@ -1035,13 +1035,19 @@
         case 'ggggg':
             return strict ? parseTokenSixDigits : parseTokenOneToSixDigits;
         case 'S':
-            if (strict) { return parseTokenOneDigit; }
+            if (strict) {
+                return parseTokenOneDigit;
+            }
             /* falls through */
         case 'SS':
-            if (strict) { return parseTokenTwoDigits; }
+            if (strict) {
+                return parseTokenTwoDigits;
+            }
             /* falls through */
         case 'SSS':
-            if (strict) { return parseTokenThreeDigits; }
+            if (strict) {
+                return parseTokenThreeDigits;
+            }
             /* falls through */
         case 'DDD':
             return parseTokenOneToThreeDigits;
@@ -1730,13 +1736,14 @@
     moment.suppressDeprecationWarnings = false;
 
     moment.createFromInputFallback = deprecate(
-            "moment construction falls back to js Date. This is " +
-            "discouraged and will be removed in upcoming major " +
-            "release. Please refer to " +
-            "https://github.com/moment/moment/issues/1407 for more info.",
-            function (config) {
-        config._d = new Date(config._i);
-    });
+        "moment construction falls back to js Date. This is " +
+        "discouraged and will be removed in upcoming major " +
+        "release. Please refer to " +
+        "https://github.com/moment/moment/issues/1407 for more info.",
+        function (config) {
+            config._d = new Date(config._i);
+        }
+    );
 
     // Pick a moment m from moments so that m[fn](other) is true for all
     // other. This relies on the function fn to be transitive.
@@ -1888,17 +1895,15 @@
     moment.updateOffset = function () {};
 
     // This function allows you to set a threshold for relative time strings
-    moment.relativeTimeThreshold = function(threshold, limit) {
-      if (relativeTimeThresholds[threshold] === undefined) {
-        return false;
-      }
-
-      if(limit  === undefined){
-        return relativeTimeThresholds[threshold];
-      }
-
-      relativeTimeThresholds[threshold] = limit;
-      return true;
+    moment.relativeTimeThreshold = function (threshold, limit) {
+        if (relativeTimeThresholds[threshold] === undefined) {
+            return false;
+        }
+        if (limit === undefined) {
+            return relativeTimeThresholds[threshold];
+        }
+        relativeTimeThresholds[threshold] = limit;
+        return true;
     };
 
     // This function will load languages and then set the global language.  If
@@ -2151,7 +2156,7 @@
             var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
             if (input != null) {
                 input = parseWeekday(input, this.lang());
-                return this.add({ d : input - day });
+                return this.add(input - day, 'days');
             } else {
                 return day;
             }
@@ -2636,14 +2641,30 @@
         }
     }
 
-    moment.duration.fn.asMilliseconds = function () { return this.as('ms'); };
-    moment.duration.fn.asSeconds = function () { return this.as('s'); };
-    moment.duration.fn.asMinutes = function () { return this.as('m'); };
-    moment.duration.fn.asHours = function () { return this.as('h'); };
-    moment.duration.fn.asDays = function () { return this.as('d'); };
-    moment.duration.fn.asWeeks = function () { return this.as('weeks'); };
-    moment.duration.fn.asMonths = function () { return this.as('M'); };
-    moment.duration.fn.asYears = function () { return this.as('y'); };
+    moment.duration.fn.asMilliseconds = function () {
+        return this.as('ms');
+    };
+    moment.duration.fn.asSeconds = function () {
+        return this.as('s');
+    };
+    moment.duration.fn.asMinutes = function () {
+        return this.as('m');
+    };
+    moment.duration.fn.asHours = function () {
+        return this.as('h');
+    };
+    moment.duration.fn.asDays = function () {
+        return this.as('d');
+    };
+    moment.duration.fn.asWeeks = function () {
+        return this.as('weeks');
+    };
+    moment.duration.fn.asMonths = function () {
+        return this.as('M');
+    };
+    moment.duration.fn.asYears = function () {
+        return this.as('y');
+    };
 
     /************************************
         Default Lang
