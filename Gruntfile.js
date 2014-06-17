@@ -1,5 +1,4 @@
 module.exports = function (grunt) {
-
     var embedOption = grunt.option('embedLanguages'),
         embedLanguageDest = embedOption ?
             'min/moment-with-customlangs.js' :
@@ -198,7 +197,7 @@ module.exports = function (grunt) {
     // Default task.
     grunt.registerTask('default', ['jshint', 'jscs', 'nodeunit']);
 
-    //test tasks
+    // test tasks
     grunt.registerTask('test', ['test:node', 'test:browser']);
     grunt.registerTask('test:node', ['nodeunit']);
     grunt.registerTask('test:server', ['concat', 'embedLanguages', 'karma:server']);
