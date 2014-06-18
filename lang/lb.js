@@ -1,6 +1,6 @@
 // moment.js language configuration
 // language : Luxembourgish (lb)
-// author : mweimerskirch : https://github.com/mweimerskirch
+// author : mweimerskirch : https://github.com/mweimerskirch, David Raison : https://github.com/kwisatz
 
 // Note: Luxembourgish has a very particular phonological rule ("Eifeler Regel") that causes the
 // deletion of the final "n" in certain contexts. That's what the "eifelerRegelAppliesToWeekday"
@@ -15,16 +15,14 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
+
     function processRelativeTime(number, withoutSuffix, key, isFuture) {
         var format = {
             'm': ['eng Minutt', 'enger Minutt'],
             'h': ['eng Stonn', 'enger Stonn'],
             'd': ['een Dag', 'engem Dag'],
-            'dd': [number + ' Deeg', number + ' Deeg'],
             'M': ['ee Mount', 'engem Mount'],
-            'MM': [number + ' Méint', number + ' Méint'],
-            'y': ['ee Joer', 'engem Joer'],
-            'yy': [number + ' Joer', number + ' Joer']
+            'y': ['ee Joer', 'engem Joer']
         };
         return withoutSuffix ? format[key][0] : format[key][1];
     }
@@ -43,35 +41,6 @@
             return "viru " + string;
         }
         return "virun " + string;
-    }
-
-    function processLastWeek(string1) {
-        var weekday = this.format('d');
-        if (eifelerRegelAppliesToWeekday(weekday)) {
-            return '[Leschte] dddd [um] LT';
-        }
-        return '[Leschten] dddd [um] LT';
-    }
-
-    /**
-     * Returns true if the word before the given week day loses the "-n" ending.
-     * e.g. "Leschten Dënschdeg" but "Leschte Méindeg"
-     *
-     * @param weekday {integer}
-     * @returns {boolean}
-     */
-    function eifelerRegelAppliesToWeekday(weekday) {
-        weekday = parseInt(weekday, 10);
-        switch (weekday) {
-        case 0: // Sonndeg
-        case 1: // Méindeg
-        case 3: // Mëttwoch
-        case 5: // Freideg
-        case 6: // Samschdeg
-            return true;
-        default: // 2 Dënschdeg, 4 Donneschdeg
-            return false;
-        }
     }
 
     /**
@@ -134,22 +103,31 @@
             nextDay: '[Muer um] LT',
             nextWeek: 'dddd [um] LT',
             lastDay: '[Gëschter um] LT',
-            lastWeek: processLastWeek
+            lastWeek: function () {
+                // Different date string for "Dënschdeg" (Tuesday) and "Donneschdeg" (Thursday) due to phonological rule
+                switch (this.day()) {
+                    case 2:
+                    case 4:
+                        return '[Leschten] dddd [um] LT';
+                    default:
+                        return '[Leschte] dddd [um] LT';
+                }
+            }
         },
-        relativeTime: {
-            future: processFutureTime,
-            past: processPastTime,
-            s: "e puer Sekonnen",
-            m: processRelativeTime,
-            mm: "%d Minutten",
-            h: processRelativeTime,
-            hh: "%d Stonnen",
-            d: processRelativeTime,
-            dd: processRelativeTime,
-            M: processRelativeTime,
-            MM: processRelativeTime,
-            y: processRelativeTime,
-            yy: processRelativeTime
+        relativeTime : {
+            future : processFutureTime,
+            past : processPastTime,
+            s : "e puer Sekonnen",
+            m : processRelativeTime,
+            mm : "%d Minutten",
+            h : processRelativeTime,
+            hh : "%d Stonnen",
+            d : processRelativeTime,
+            dd : "%d Deeg",
+            M : processRelativeTime,
+            MM : "%d Méint",
+            y : processRelativeTime,
+            yy : "%d Joer"
         },
         ordinal: '%d.',
         week: {
