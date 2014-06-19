@@ -18,15 +18,15 @@
         weekdaysShort : "週日_週一_週二_週三_週四_週五_週六".split("_"),
         weekdaysMin : "日_一_二_三_四_五_六".split("_"),
         longDateFormat : {
-            LT : "Ah點mm",
-            L : "YYYY年MMMD日",
-            LL : "YYYY年MMMD日",
-            LLL : "YYYY年MMMD日LT",
-            LLLL : "YYYY年MMMD日ddddLT",
-            l : "YYYY年MMMD日",
+            LT : "Ah:mm",
+            L : "YYYY/MM/DD",
+            LL : "YYYY年MMMDD日",
+            LLL : "YYYY年MMMD日 LT",
+            LLLL : "YYYY年MMMD日dddd LT",
+            l : "YYYY/M/D",
             ll : "YYYY年MMMD日",
-            lll : "YYYY年MMMD日LT",
-            llll : "YYYY年MMMD日ddddLT"
+            lll : "YYYY年MMMD日 LT",
+            llll : "YYYY年MMMD日dddd LT"
         },
         meridiem : function (hour, minute, isLower) {
             var hm = hour * 100 + minute;
