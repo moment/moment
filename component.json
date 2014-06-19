@@ -3,7 +3,7 @@
   "version": "2.7.0",
   "main": "moment.js",
   "description": "Parse, validate, manipulate, and display dates in javascript.",
-  "files": [
+  "scripts": [
     "moment.js",
     "lang/ar-ma.js",
     "lang/ar-sa.js",
@@ -79,8 +79,5 @@
     "lang/vi.js",
     "lang/zh-cn.js",
     "lang/zh-tw.js"
-  ],
-  "scripts": [
-    "moment.js"
   ]
 }
