@@ -1,45 +1,44 @@
-var moment = require("../../moment");
+var moment = require("../../moment"),
 
-
-var symbolMap = {
-    '1': '!',
-    '2': '@',
-    '3': '#',
-    '4': '$',
-    '5': '%',
-    '6': '^',
-    '7': '&',
-    '8': '*',
-    '9': '(',
-    '0': ')'
-};
-
-var numberMap = {
-    '!': '1',
-    '@': '2',
-    '#': '3',
-    '$': '4',
-    '%': '5',
-    '^': '6',
-    '&': '7',
-    '*': '8',
-    '(': '9',
-    ')': '0'
-};
-
-var symbolLang = {
-    preparse: function (string) {
-        return string.replace(/[!@#$%\^&*()]/g, function (match) {
-            return numberMap[match];
-        });
+    symbolMap = {
+        '1': '!',
+        '2': '@',
+        '3': '#',
+        '4': '$',
+        '5': '%',
+        '6': '^',
+        '7': '&',
+        '8': '*',
+        '9': '(',
+        '0': ')'
     },
 
-    postformat: function (string) {
-        return string.replace(/\d/g, function (match) {
-            return symbolMap[match];
-        });
-    }
-};
+    numberMap = {
+        '!': '1',
+        '@': '2',
+        '#': '3',
+        '$': '4',
+        '%': '5',
+        '^': '6',
+        '&': '7',
+        '*': '8',
+        '(': '9',
+        ')': '0'
+    },
+
+    symbolLang = {
+        preparse: function (string) {
+            return string.replace(/[!@#$%\^&*()]/g, function (match) {
+                return numberMap[match];
+            });
+        },
+
+        postformat: function (string) {
+            return string.replace(/\d/g, function (match) {
+                return symbolMap[match];
+            });
+        }
+    };
 
 exports.preparsePostformat = {
     setUp: function (cb) {
@@ -84,11 +83,11 @@ exports.preparsePostformat = {
         var a = moment().hours(2).minutes(0).seconds(0);
 
         test.equal(moment(a).calendar(),                     "Today at @:)) AM",     "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "Today at @:@% AM",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "Today at #:)) AM",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "Tomorrow at @:)) AM",  "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Today at !:)) AM",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Yesterday at @:)) AM", "yesterday at the same time");
+        test.equal(moment(a).add({m: 25}).calendar(),      "Today at @:@% AM",     "Now plus 25 min");
+        test.equal(moment(a).add({h: 1}).calendar(),       "Today at #:)) AM",     "Now plus 1 hour");
+        test.equal(moment(a).add({d: 1}).calendar(),       "Tomorrow at @:)) AM",  "tomorrow at the same time");
+        test.equal(moment(a).subtract({h: 1}).calendar(),  "Today at !:)) AM",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({d: 1}).calendar(),  "Yesterday at @:)) AM", "yesterday at the same time");
 
         test.done();
     }

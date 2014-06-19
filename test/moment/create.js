@@ -1,16 +1,16 @@
-var moment = require("../../moment");
+var moment = require("../../moment"),
 
-var getVerifier = function (test) {
-    return function (input, format, expected, description, asymetrical) {
-        var m = moment(input, format);
-        test.equal(m.format('YYYY MM DD'), expected, 'compare: ' + description);
+    getVerifier = function (test) {
+        return function (input, format, expected, description, asymetrical) {
+            var m = moment(input, format);
+            test.equal(m.format('YYYY MM DD'), expected, 'compare: ' + description);
 
-        //test round trip
-        if (!asymetrical) {
-            test.equal(m.format(format), input, 'round trip: ' + description);
-        }
+            //test round trip
+            if (!asymetrical) {
+                test.equal(m.format(format), input, 'round trip: ' + description);
+            }
+        };
     };
-};
 
 exports.create = {
     setUp : function (done) {
@@ -402,7 +402,7 @@ exports.create = {
         test.equal(moment('1994', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).year(), 1994, 'iso: test parse YYYY');
         test.equal(moment('17:15', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).hour(), 17, 'iso: test parse HH:mm (1)');
         test.equal(moment('17:15', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).minutes(), 15, 'iso: test parse HH:mm (2)');
-        test.equal(moment('06', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).month(), 6-1, 'iso: test parse MM');
+        test.equal(moment('06', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).month(), 6 - 1, 'iso: test parse MM');
         test.equal(moment('2012-06-01', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).parsingFlags().iso, true, 'iso: test parse iso');
         test.equal(moment('2014-05-05', [moment.ISO_8601, 'YYYY-MM-DD']).parsingFlags().iso, true, 'iso: edge case array precedence iso');
         test.equal(moment('2014-05-05', ['YYYY-MM-DD', moment.ISO_8601]).parsingFlags().iso, false, 'iso: edge case array precedence not iso');
@@ -665,10 +665,10 @@ exports.create = {
     "parsing iso Z timezone" : function (test) {
         var i,
             formats = [
-            ['2011-10-08T18:04Z',             '2011-10-08T18:04:00.000+00:00'],
-            ['2011-10-08T18:04:20Z',          '2011-10-08T18:04:20.000+00:00'],
-            ['2011-10-08T18:04:20.111Z',      '2011-10-08T18:04:20.111+00:00']
-        ];
+                ['2011-10-08T18:04Z',             '2011-10-08T18:04:00.000+00:00'],
+                ['2011-10-08T18:04:20Z',          '2011-10-08T18:04:20.000+00:00'],
+                ['2011-10-08T18:04:20.111Z',      '2011-10-08T18:04:20.111+00:00']
+            ];
         test.expect(formats.length);
         for (i = 0; i < formats.length; i++) {
             test.equal(moment.utc(formats[i][0]).format('YYYY-MM-DDTHH:mm:ss.SSSZ'), formats[i][1], "moment should be able to parse ISO " + formats[i][0]);
@@ -722,7 +722,7 @@ exports.create = {
     "six digit years" : function (test) {
         test.expect(8);
         test.equal(moment([-270000, 0, 1]).format("YYYYY-MM-DD"), "-270000-01-01", "format BC 270,001");
-        test.equal(moment([ 270000, 0, 1]).format("YYYYY-MM-DD"), "270000-01-01", "format AD 270,000");
+        test.equal(moment([270000, 0, 1]).format("YYYYY-MM-DD"), "270000-01-01", "format AD 270,000");
         test.equal(moment("-270000-01-01", "YYYYY-MM-DD").toDate().getFullYear(), -270000, "parse BC 270,001");
         test.equal(moment("270000-01-01",  "YYYYY-MM-DD").toDate().getFullYear(), 270000, "parse AD 270,000");
         test.equal(moment("+270000-01-01", "YYYYY-MM-DD").toDate().getFullYear(), 270000, "parse AD +270,000");

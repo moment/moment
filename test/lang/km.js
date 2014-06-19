@@ -39,29 +39,29 @@ exports["lang:km"] = {
 
     "format": function (test) {
         var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a', 'អាទិត្យ, កុម្ភៈ 14 2010, 3:25:50 pm'],
-            ['ddd, hA', 'អាទិត្យ, 3PM'],
-            ['M Mo MM MMMM MMM', '2 2 02 កុម្ភៈ កុម្ភៈ'],
-            ['YYYY YY', '2010 10'],
-            ['D Do DD', '14 14 14'],
-            ['d do dddd ddd dd', '0 0 អាទិត្យ អាទិត្យ អាទិត្យ'],
-            ['DDD DDDo DDDD', '45 45 045'],
-            ['w wo ww', '6 6 06'],
-            ['h hh', '3 03'],
-            ['H HH', '15 15'],
-            ['m mm', '25 25'],
-            ['s ss', '50 50'],
-            ['a A', 'pm PM'],
-            ['[the] DDDo [day of the year]', 'the 45 day of the year'],
-            ['L', '14/02/2010'],
-            ['LL', '14 កុម្ភៈ 2010'],
-            ['LLL', '14 កុម្ភៈ 2010 15:25'],
-            ['LLLL', 'អាទិត្យ, 14 កុម្ភៈ 2010 15:25'],
-            ['l', '14/2/2010'],
-            ['ll', '14 កុម្ភៈ 2010'],
-            ['lll', '14 កុម្ភៈ 2010 15:25'],
-            ['llll', 'អាទិត្យ, 14 កុម្ភៈ 2010 15:25']
-        ],
+                ['dddd, MMMM Do YYYY, h:mm:ss a', 'អាទិត្យ, កុម្ភៈ 14 2010, 3:25:50 pm'],
+                ['ddd, hA', 'អាទិត្យ, 3PM'],
+                ['M Mo MM MMMM MMM', '2 2 02 កុម្ភៈ កុម្ភៈ'],
+                ['YYYY YY', '2010 10'],
+                ['D Do DD', '14 14 14'],
+                ['d do dddd ddd dd', '0 0 អាទិត្យ អាទិត្យ អាទិត្យ'],
+                ['DDD DDDo DDDD', '45 45 045'],
+                ['w wo ww', '6 6 06'],
+                ['h hh', '3 03'],
+                ['H HH', '15 15'],
+                ['m mm', '25 25'],
+                ['s ss', '50 50'],
+                ['a A', 'pm PM'],
+                ['[the] DDDo [day of the year]', 'the 45 day of the year'],
+                ['L', '14/02/2010'],
+                ['LL', '14 កុម្ភៈ 2010'],
+                ['LLL', '14 កុម្ភៈ 2010 15:25'],
+                ['LLLL', 'អាទិត្យ, 14 កុម្ភៈ 2010 15:25'],
+                ['l', '14/2/2010'],
+                ['ll', '14 កុម្ភៈ 2010'],
+                ['lll', '14 កុម្ភៈ 2010 15:25'],
+                ['llll', 'អាទិត្យ, 14 កុម្ភៈ 2010 15:25']
+            ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
         for (i = 0; i < a.length; i++) {
@@ -128,34 +128,34 @@ exports["lang:km"] = {
 
     "from": function (test) {
         var start = moment([2007, 1, 28]);
-        test.equal(start.from(moment([2007, 1, 28]).add({ s: 44 }), true), "ប៉ុន្មានវិនាទី", "44 seconds = ប៉ុន្មានវិនាទី");
-        test.equal(start.from(moment([2007, 1, 28]).add({ s: 45 }), true), "មួយនាទី", "45 seconds = មួយនាទី");
-        test.equal(start.from(moment([2007, 1, 28]).add({ s: 89 }), true), "មួយនាទី", "89 seconds = មួយនាទី");
-        test.equal(start.from(moment([2007, 1, 28]).add({ s: 90 }), true), "2 នាទី", "90 seconds = 2 នាទី");
-        test.equal(start.from(moment([2007, 1, 28]).add({ m: 44 }), true), "44 នាទី", "44 minutes = 44 នាទី");
-        test.equal(start.from(moment([2007, 1, 28]).add({ m: 45 }), true), "មួយម៉ោង", "45 minutes = មួយម៉ោង");
-        test.equal(start.from(moment([2007, 1, 28]).add({ m: 89 }), true), "មួយម៉ោង", "89 minutes = មួយម៉ោង");
-        test.equal(start.from(moment([2007, 1, 28]).add({ m: 90 }), true), "2 ម៉ោង", "90 minutes = 2 ម៉ោង");
-        test.equal(start.from(moment([2007, 1, 28]).add({ h: 5 }), true), "5 ម៉ោង", "5 hours = 5 ម៉ោង");
-        test.equal(start.from(moment([2007, 1, 28]).add({ h: 21 }), true), "21 ម៉ោង", "21 hours = 21 ម៉ោង");
-        test.equal(start.from(moment([2007, 1, 28]).add({ h: 22 }), true), "មួយថ្ងៃ", "22 hours = មួយថ្ងៃ");
-        test.equal(start.from(moment([2007, 1, 28]).add({ h: 35 }), true), "មួយថ្ងៃ", "35 hours = មួយថ្ងៃ");
-        test.equal(start.from(moment([2007, 1, 28]).add({ h: 36 }), true), "2 ថ្ងៃ", "36 hours = 2 ថ្ងៃ");
-        test.equal(start.from(moment([2007, 1, 28]).add({ d: 1 }), true), "មួយថ្ងៃ", "1 day = មួយថ្ងៃ");
-        test.equal(start.from(moment([2007, 1, 28]).add({ d: 5 }), true), "5 ថ្ងៃ", "5 days = 5 ថ្ងៃ");
-        test.equal(start.from(moment([2007, 1, 28]).add({ d: 25 }), true), "25 ថ្ងៃ", "25 days = 25 ថ្ងៃ");
-        test.equal(start.from(moment([2007, 1, 28]).add({ d: 26 }), true), "មួយខែ", "26 days = មួយខែ");
-        test.equal(start.from(moment([2007, 1, 28]).add({ d: 30 }), true), "មួយខែ", "30 days = មួយខែ");
-        test.equal(start.from(moment([2007, 1, 28]).add({ d: 43 }), true), "មួយខែ", "43 days = មួយខែ");
-        test.equal(start.from(moment([2007, 1, 28]).add({ d: 46 }), true), "2 ខែ", "46 days = 2 ខែ");
-        test.equal(start.from(moment([2007, 1, 28]).add({ d: 74 }), true), "2 ខែ", "75 days = 2 ខែ");
-        test.equal(start.from(moment([2007, 1, 28]).add({ d: 76 }), true), "3 ខែ", "76 days = 3 ខែ");
-        test.equal(start.from(moment([2007, 1, 28]).add({ M: 1 }), true), "មួយខែ", "1 month = មួយខែ");
-        test.equal(start.from(moment([2007, 1, 28]).add({ M: 5 }), true), "5 ខែ", "5 months = 5 ខែ");
-        test.equal(start.from(moment([2007, 1, 28]).add({ d: 345 }), true), "មួយឆ្នាំ", "345 days = មួយឆ្នាំ");
-        test.equal(start.from(moment([2007, 1, 28]).add({ d: 548 }), true), "2 ឆ្នាំ", "548 days = 2 ឆ្នាំ");
-        test.equal(start.from(moment([2007, 1, 28]).add({ y: 1 }), true), "មួយឆ្នាំ", "1 year = មួយឆ្នាំ");
-        test.equal(start.from(moment([2007, 1, 28]).add({ y: 5 }), true), "5 ឆ្នាំ", "5 years = 5 ឆ្នាំ");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true), "ប៉ុន្មានវិនាទី", "44 seconds = ប៉ុន្មានវិនាទី");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true), "មួយនាទី", "45 seconds = មួយនាទី");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true), "មួយនាទី", "89 seconds = មួយនាទី");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true), "2 នាទី", "90 seconds = 2 នាទី");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true), "44 នាទី", "44 minutes = 44 នាទី");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true), "មួយម៉ោង", "45 minutes = មួយម៉ោង");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true), "មួយម៉ោង", "89 minutes = មួយម៉ោង");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true), "2 ម៉ោង", "90 minutes = 2 ម៉ោង");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true), "5 ម៉ោង", "5 hours = 5 ម៉ោង");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true), "21 ម៉ោង", "21 hours = 21 ម៉ោង");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true), "មួយថ្ងៃ", "22 hours = មួយថ្ងៃ");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true), "មួយថ្ងៃ", "35 hours = មួយថ្ងៃ");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true), "2 ថ្ងៃ", "36 hours = 2 ថ្ងៃ");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true), "មួយថ្ងៃ", "1 day = មួយថ្ងៃ");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true), "5 ថ្ងៃ", "5 days = 5 ថ្ងៃ");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true), "25 ថ្ងៃ", "25 days = 25 ថ្ងៃ");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true), "មួយខែ", "26 days = មួយខែ");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true), "មួយខែ", "30 days = មួយខែ");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true), "មួយខែ", "43 days = មួយខែ");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true), "2 ខែ", "46 days = 2 ខែ");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true), "2 ខែ", "75 days = 2 ខែ");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true), "3 ខែ", "76 days = 3 ខែ");
+        test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true), "មួយខែ", "1 month = មួយខែ");
+        test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true), "5 ខែ", "5 months = 5 ខែ");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "មួយឆ្នាំ", "345 days = មួយឆ្នាំ");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "2 ឆ្នាំ", "548 days = 2 ឆ្នាំ");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true), "មួយឆ្នាំ", "1 year = មួយឆ្នាំ");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true), "5 ឆ្នាំ", "5 years = 5 ឆ្នាំ");
         test.done();
     },
 
@@ -239,8 +239,8 @@ exports["lang:km"] = {
     "calendar all else": function (test) {
 
         var weeksAgo = moment().subtract({
-            w: 1
-        }),
+                w: 1
+            }),
             weeksFromNow = moment().add({
                 w: 1
             });

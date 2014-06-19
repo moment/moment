@@ -162,11 +162,11 @@ exports["lang:zh-cn"] = {
         var a = moment().hours(2).minutes(0).seconds(0);
 
         test.equal(moment(a).calendar(),                     "今天凌晨2点整",     "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "今天凌晨2点25",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "今天凌晨3点整",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "明天凌晨2点整",     "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "今天凌晨1点整",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "昨天凌晨2点整",     "yesterday at the same time");
+        test.equal(moment(a).add({m: 25}).calendar(),      "今天凌晨2点25",     "Now plus 25 min");
+        test.equal(moment(a).add({h: 1}).calendar(),       "今天凌晨3点整",     "Now plus 1 hour");
+        test.equal(moment(a).add({d: 1}).calendar(),       "明天凌晨2点整",     "tomorrow at the same time");
+        test.equal(moment(a).subtract({h: 1}).calendar(),  "今天凌晨1点整",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({d: 1}).calendar(),  "昨天凌晨2点整",     "yesterday at the same time");
         test.done();
     },
 
@@ -175,7 +175,7 @@ exports["lang:zh-cn"] = {
             today = moment().startOf('day');
 
         for (i = 0; i < 7; i++) {
-            m = moment().startOf('week').add({ d: i});
+            m = moment().startOf('week').add({d: i});
             if (Math.abs(m.diff(today, 'days')) <= 1) {
                 continue; // skip today, yesterday, tomorrow
             }
@@ -189,7 +189,7 @@ exports["lang:zh-cn"] = {
             today = moment().startOf('day');
 
         for (i = 7; i < 14; i++) {
-            m = moment().startOf('week').add({ d: i});
+            m = moment().startOf('week').add({d: i});
             if (Math.abs(m.diff(today, 'days')) >= 7) {
                 continue;
             }
@@ -206,7 +206,7 @@ exports["lang:zh-cn"] = {
             today = moment().startOf('day');
 
         for (i = 1; i < 8; i++) {
-            m = moment().startOf('week').subtract({ d: i});
+            m = moment().startOf('week').subtract({d: i});
             if ((Math.abs(m.diff(today, 'days')) >= 7) || (Math.abs(m.diff(today, 'days')) <= 1)) {
                 continue;
             }
@@ -217,14 +217,14 @@ exports["lang:zh-cn"] = {
 
     "calendar all else" : function (test) {
 
-        var weeksAgo = moment().subtract({ w: 1 }),
-            weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({w: 1}),
+            weeksFromNow = moment().add({w: 1});
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('LL'),      "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('LL'),  "in 1 week");
 
-        weeksAgo = moment().subtract({ w: 2 });
-        weeksFromNow = moment().add({ w: 2 });
+        weeksAgo = moment().subtract({w: 2});
+        weeksFromNow = moment().add({w: 2});
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('LL'),      "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('LL'),  "in 2 weeks");

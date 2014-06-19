@@ -205,11 +205,11 @@ exports["lang:ms-my"] = {
         var a = moment().hours(2).minutes(0).seconds(0);
 
         test.equal(moment(a).calendar(),                     "Hari ini pukul 02.00",     "hari ini pada waktu yang sama");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "Hari ini pukul 02.25",     "Sekarang tambah 25 minit");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "Hari ini pukul 03.00",     "Sekarang tambah 1 jam");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "Esok pukul 02.00",  "esok pada waktu yang sama");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Hari ini pukul 01.00",     "Sekarang tolak 1 jam");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Kelmarin pukul 02.00", "kelmarin pada waktu yang sama");
+        test.equal(moment(a).add({m: 25}).calendar(),      "Hari ini pukul 02.25",     "Sekarang tambah 25 minit");
+        test.equal(moment(a).add({h: 1}).calendar(),       "Hari ini pukul 03.00",     "Sekarang tambah 1 jam");
+        test.equal(moment(a).add({d: 1}).calendar(),       "Esok pukul 02.00",  "esok pada waktu yang sama");
+        test.equal(moment(a).subtract({h: 1}).calendar(),  "Hari ini pukul 01.00",     "Sekarang tolak 1 jam");
+        test.equal(moment(a).subtract({d: 1}).calendar(),  "Kelmarin pukul 02.00", "kelmarin pada waktu yang sama");
 
         test.done();
     },
@@ -218,7 +218,7 @@ exports["lang:ms-my"] = {
 
         var i, m;
         for (i = 2; i < 7; i++) {
-            m = moment().add({ d: i });
+            m = moment().add({d: i});
             test.equal(m.calendar(),       m.format('dddd [pukul] LT'),  "Hari ini + " + i + " hari waktu sekarang");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
             test.equal(m.calendar(),       m.format('dddd [pukul] LT'),  "Hari ini + " + i + " hari permulaan hari");
@@ -232,7 +232,7 @@ exports["lang:ms-my"] = {
 
         var i, m;
         for (i = 2; i < 7; i++) {
-            m = moment().subtract({ d: i });
+            m = moment().subtract({d: i});
             test.equal(m.calendar(),       m.format('dddd [lepas] [pukul] LT'),  "Hari ini - " + i + " hari waktu sekarang");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
             test.equal(m.calendar(),       m.format('dddd [lepas] [pukul] LT'),  "Hari ini - " + i + " hari permulaan hari");
@@ -244,14 +244,14 @@ exports["lang:ms-my"] = {
 
     "calendar all else" : function (test) {
 
-        var weeksAgo = moment().subtract({ w: 1 }),
-            weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({w: 1}),
+            weeksFromNow = moment().add({w: 1});
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 minggu lepas");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "dalam 1 minggu");
 
-        weeksAgo = moment().subtract({ w: 2 });
-        weeksFromNow = moment().add({ w: 2 });
+        weeksAgo = moment().subtract({w: 2});
+        weeksFromNow = moment().add({w: 2});
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 minggu lepas");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "dalam 2 minggu");
