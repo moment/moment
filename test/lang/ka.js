@@ -208,11 +208,11 @@ exports["lang:ka"] = {
         var a = moment().hours(2).minutes(0).seconds(0);
 
         test.equal(moment(a).calendar(),                     "დღეს 2:00 AM-ზე",  "დღეს ამავე დროს");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "დღეს 2:25 AM-ზე",  "ახლანდელ დროს დამატებული 25 წუთი");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "დღეს 3:00 AM-ზე",  "ახლანდელ დროს დამატებული 1 საათი");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "ხვალ 2:00 AM-ზე",  "ხვალ ამავე დროს");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "დღეს 1:00 AM-ზე",  "ახლანდელ დროს გამოკლებული 1 საათი");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "გუშინ 2:00 AM-ზე", "გუშინ ამავე დროს");
+        test.equal(moment(a).add({m: 25}).calendar(),      "დღეს 2:25 AM-ზე",  "ახლანდელ დროს დამატებული 25 წუთი");
+        test.equal(moment(a).add({h: 1}).calendar(),       "დღეს 3:00 AM-ზე",  "ახლანდელ დროს დამატებული 1 საათი");
+        test.equal(moment(a).add({d: 1}).calendar(),       "ხვალ 2:00 AM-ზე",  "ხვალ ამავე დროს");
+        test.equal(moment(a).subtract({h: 1}).calendar(),  "დღეს 1:00 AM-ზე",  "ახლანდელ დროს გამოკლებული 1 საათი");
+        test.equal(moment(a).subtract({d: 1}).calendar(),  "გუშინ 2:00 AM-ზე", "გუშინ ამავე დროს");
 
         test.done();
     },
@@ -221,7 +221,7 @@ exports["lang:ka"] = {
 
         var i, m;
         for (i = 2; i < 7; i++) {
-            m = moment().add({ d: i });
+            m = moment().add({d: i});
             test.equal(m.calendar(),       m.format('[შემდეგ] dddd LT[-ზე]'),  "დღეს + " + i + " დღე ახლანდელ დროს");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
             test.equal(m.calendar(),       m.format('[შემდეგ] dddd LT[-ზე]'),  "დღეს + " + i + " დღე დღის დასაწყისში");
@@ -235,7 +235,7 @@ exports["lang:ka"] = {
 
         var i, m;
         for (i = 2; i < 7; i++) {
-            m = moment().subtract({ d: i });
+            m = moment().subtract({d: i});
             test.equal(m.calendar(),       m.format('[წინა] dddd LT[-ზე]'),  "დღეს - " + i + " დღე ახლანდელ დროს");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
             test.equal(m.calendar(),       m.format('[წინა] dddd LT[-ზე]'),  "დღეს - " + i + " დღე დღის დასაწყისში");
@@ -247,14 +247,14 @@ exports["lang:ka"] = {
 
     "calendar all else" : function (test) {
 
-        var weeksAgo = moment().subtract({ w: 1 }),
-            weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({w: 1}),
+            weeksFromNow = moment().add({w: 1});
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 კვირის წინ");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "1 კვირაში");
 
-        weeksAgo = moment().subtract({ w: 2 });
-        weeksFromNow = moment().add({ w: 2 });
+        weeksAgo = moment().subtract({w: 2});
+        weeksFromNow = moment().add({w: 2});
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 კვირის წინ");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "2 კვირაში");

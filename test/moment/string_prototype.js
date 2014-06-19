@@ -13,7 +13,9 @@ exports.stringPrototype = {
 
         moment.lang('en');
         var prior = String.prototype.call, b;
-        String.prototype.call = function () { return null; };
+        String.prototype.call = function () {
+            return null;
+        };
 
         b = moment(new Date(2011, 7, 28, 15, 25, 50, 125));
         test.equal(b.format('MMMM Do YYYY, h:mm a'), 'August 28th 2011, 3:25 pm');

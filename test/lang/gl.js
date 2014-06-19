@@ -155,12 +155,12 @@ exports["lang:gl"] = {
         var a = moment().hours(2).minutes(0).seconds(0);
 
         test.equal(moment(a).calendar(),                         "hoxe ás 2:00",     "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),          "hoxe ás 2:25",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),           "hoxe ás 3:00",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),           "mañá ás 2:00",  "tomorrow at the same time");
-        test.equal(moment(a).add({ d: 1, h : -1 }).calendar(),   "mañá á 1:00",   "tomorrow minus 1 hour");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),      "hoxe á 1:00",      "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),      "onte á 2:00",    "yesterday at the same time");
+        test.equal(moment(a).add({m: 25}).calendar(),          "hoxe ás 2:25",     "Now plus 25 min");
+        test.equal(moment(a).add({h: 1}).calendar(),           "hoxe ás 3:00",     "Now plus 1 hour");
+        test.equal(moment(a).add({d: 1}).calendar(),           "mañá ás 2:00",  "tomorrow at the same time");
+        test.equal(moment(a).add({d: 1, h : -1}).calendar(),   "mañá á 1:00",   "tomorrow minus 1 hour");
+        test.equal(moment(a).subtract({h: 1}).calendar(),      "hoxe á 1:00",      "Now minus 1 hour");
+        test.equal(moment(a).subtract({d: 1}).calendar(),      "onte á 2:00",    "yesterday at the same time");
         test.done();
     },
 
@@ -169,7 +169,7 @@ exports["lang:gl"] = {
         var i, m;
 
         for (i = 2; i < 7; i++) {
-            m = moment().add({ d: i });
+            m = moment().add({d: i});
             test.equal(m.calendar(),       m.format('dddd [' + ((m.hours() !== 1) ? 'ás' : 'a') + '] LT'),  "Today + " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
             test.equal(m.calendar(),       m.format('dddd [' + ((m.hours() !== 1) ? 'ás' : 'a') + '] LT'),  "Today + " + i + " days beginning of day");
@@ -183,7 +183,7 @@ exports["lang:gl"] = {
 
         var i, m;
         for (i = 2; i < 7; i++) {
-            m = moment().subtract({ d: i });
+            m = moment().subtract({d: i});
             test.equal(m.calendar(),       m.format('[o] dddd [pasado ' + ((m.hours() !== 1) ? 'ás' : 'a') + '] LT'),  "Today - " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
             test.equal(m.calendar(),       m.format('[o] dddd [pasado ' + ((m.hours() !== 1) ? 'ás' : 'a') + '] LT'),  "Today - " + i + " days beginning of day");
@@ -195,14 +195,14 @@ exports["lang:gl"] = {
 
     "calendar all else" : function (test) {
 
-        var weeksAgo = moment().subtract({ w: 1 }),
-            weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({w: 1}),
+            weeksFromNow = moment().add({w: 1});
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
 
-        weeksAgo = moment().subtract({ w: 2 });
-        weeksFromNow = moment().add({ w: 2 });
+        weeksAgo = moment().subtract({w: 2});
+        weeksFromNow = moment().add({w: 2});
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");
@@ -211,7 +211,7 @@ exports["lang:gl"] = {
 
     "regression tests" : function (test) {
 
-        var lastWeek = moment().subtract({ d: 4 }).hours(1);
+        var lastWeek = moment().subtract({d: 4}).hours(1);
         test.equal(lastWeek.calendar(), lastWeek.format('[o] dddd [pasado a] LT'), "1 o'clock bug");
 
         test.done();

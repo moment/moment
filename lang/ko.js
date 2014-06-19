@@ -1,7 +1,7 @@
 // moment.js language configuration
 // language : korean (ko)
 //
-// authors 
+// authors
 //
 // - Kyungwook, Park : https://github.com/kyungw00k
 // - Jeeeyul Lee <jeeeyul@gmail.com>

@@ -147,11 +147,11 @@ exports["lang:th"] = {
         var a = moment().hours(2).minutes(0).seconds(0);
 
         test.equal(moment(a).calendar(),                     "วันนี้ เวลา 2 นาฬิกา 0 นาที",      "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "วันนี้ เวลา 2 นาฬิกา 25 นาที",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "วันนี้ เวลา 3 นาฬิกา 0 นาที",      "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "พรุ่งนี้ เวลา 2 นาฬิกา 0 นาที", "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "วันนี้ เวลา 1 นาฬิกา 0 นาที",      "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "เมื่อวานนี้ เวลา 2 นาฬิกา 0 นาที", "yesterday at the same time");
+        test.equal(moment(a).add({m: 25}).calendar(),      "วันนี้ เวลา 2 นาฬิกา 25 นาที",     "Now plus 25 min");
+        test.equal(moment(a).add({h: 1}).calendar(),       "วันนี้ เวลา 3 นาฬิกา 0 นาที",      "Now plus 1 hour");
+        test.equal(moment(a).add({d: 1}).calendar(),       "พรุ่งนี้ เวลา 2 นาฬิกา 0 นาที", "tomorrow at the same time");
+        test.equal(moment(a).subtract({h: 1}).calendar(),  "วันนี้ เวลา 1 นาฬิกา 0 นาที",      "Now minus 1 hour");
+        test.equal(moment(a).subtract({d: 1}).calendar(),  "เมื่อวานนี้ เวลา 2 นาฬิกา 0 นาที", "yesterday at the same time");
         test.done();
     },
 
@@ -159,7 +159,7 @@ exports["lang:th"] = {
 
         var i, m;
         for (i = 2; i < 7; i++) {
-            m = moment().add({ d: i });
+            m = moment().add({d: i});
             test.equal(m.calendar(),       m.format('dddd[หน้า เวลา] LT'),  "Today + " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
             test.equal(m.calendar(),       m.format('dddd[หน้า เวลา] LT'),  "Today + " + i + " days beginning of day");
@@ -173,7 +173,7 @@ exports["lang:th"] = {
 
         var i, m;
         for (i = 2; i < 7; i++) {
-            m = moment().subtract({ d: i });
+            m = moment().subtract({d: i});
             test.equal(m.calendar(),       m.format('[วัน]dddd[ที่แล้ว เวลา] LT'),  "Today - " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
             test.equal(m.calendar(),       m.format('[วัน]dddd[ที่แล้ว เวลา] LT'),  "Today - " + i + " days beginning of day");
@@ -185,14 +185,14 @@ exports["lang:th"] = {
 
     "calendar all else" : function (test) {
 
-        var weeksAgo = moment().subtract({ w: 1 }),
-            weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({w: 1}),
+            weeksFromNow = moment().add({w: 1});
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),      "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
 
-        weeksAgo = moment().subtract({ w: 2 });
-        weeksFromNow = moment().add({ w: 2 });
+        weeksAgo = moment().subtract({w: 2});
+        weeksFromNow = moment().add({w: 2});
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),      "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");

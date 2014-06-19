@@ -207,11 +207,11 @@ exports["lang:el"] = {
         var a = moment().hours(2).minutes(0).seconds(0);
 
         test.equal(moment(a).calendar(),                     "Σήμερα στις 2:00 ΠΜ",     "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "Σήμερα στις 2:25 ΠΜ",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "Σήμερα στις 3:00 ΠΜ",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "Αύριο στις 2:00 ΠΜ",      "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Σήμερα στη 1:00 ΠΜ",        "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Χθες στις 2:00 ΠΜ",       "yesterday at the same time");
+        test.equal(moment(a).add({m: 25}).calendar(),      "Σήμερα στις 2:25 ΠΜ",     "Now plus 25 min");
+        test.equal(moment(a).add({h: 1}).calendar(),       "Σήμερα στις 3:00 ΠΜ",     "Now plus 1 hour");
+        test.equal(moment(a).add({d: 1}).calendar(),       "Αύριο στις 2:00 ΠΜ",      "tomorrow at the same time");
+        test.equal(moment(a).subtract({h: 1}).calendar(),  "Σήμερα στη 1:00 ΠΜ",        "Now minus 1 hour");
+        test.equal(moment(a).subtract({d: 1}).calendar(),  "Χθες στις 2:00 ΠΜ",       "yesterday at the same time");
 
         test.done();
     },
@@ -220,7 +220,7 @@ exports["lang:el"] = {
 
         var i, m;
         for (i = 2; i < 7; i++) {
-            m = moment().add({ d: i });
+            m = moment().add({d: i});
             test.equal(m.calendar(),       m.format('dddd [' + (m.hours() % 12 === 1 ? 'στη' : 'στις') + '] LT'),  "Today + " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
             test.equal(m.calendar(),       m.format('dddd [στις] LT'),  "Today + " + i + " days beginning of day");
@@ -232,10 +232,10 @@ exports["lang:el"] = {
 
     "calendar last week" : function (test) {
 
-        var i, m;
+        var i, m, dayString;
         for (i = 2; i < 7; i++) {
-            m = moment().subtract({ d: i });
-            var dayString = m.day() === 6 ? '[το προηγούμενο Σάββατο]' : '[την προηγούμενη] dddd';
+            m = moment().subtract({d: i});
+            dayString = m.day() === 6 ? '[το προηγούμενο Σάββατο]' : '[την προηγούμενη] dddd';
             test.equal(m.calendar(),       m.format(dayString + ' [' + (m.hours() % 12 === 1 ? 'στη' : 'στις') + '] LT'),  "Today - " + i + " days current time");
             m.hours(1).minutes(30).seconds(0).milliseconds(0);
             test.equal(m.calendar(),       m.format(dayString + ' [στη] LT'),  "Today - " + i + " days one o clock");
@@ -249,14 +249,14 @@ exports["lang:el"] = {
 
     "calendar all else" : function (test) {
 
-        var weeksAgo = moment().subtract({ w: 1 }),
-            weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({w: 1}),
+            weeksFromNow = moment().add({w: 1});
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
 
-        weeksAgo = moment().subtract({ w: 2 });
-        weeksFromNow = moment().add({ w: 2 });
+        weeksAgo = moment().subtract({w: 2});
+        weeksFromNow = moment().add({w: 2});
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");

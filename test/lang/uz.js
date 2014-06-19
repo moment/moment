@@ -181,11 +181,11 @@ exports["lang:uz"] = {
         var a = moment().hours(2).minutes(0).seconds(0);
 
         test.equal(moment(a).calendar(),                     "Бугун соат 02:00 да",      "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "Бугун соат 02:25 да",      "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "Бугун соат 03:00 да",      "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "Эртага 02:00 да",   "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Бугун соат 01:00 да",      "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Кеча соат 02:00 да",  "yesterday at the same time");
+        test.equal(moment(a).add({m: 25}).calendar(),      "Бугун соат 02:25 да",      "Now plus 25 min");
+        test.equal(moment(a).add({h: 1}).calendar(),       "Бугун соат 03:00 да",      "Now plus 1 hour");
+        test.equal(moment(a).add({d: 1}).calendar(),       "Эртага 02:00 да",   "tomorrow at the same time");
+        test.equal(moment(a).subtract({h: 1}).calendar(),  "Бугун соат 01:00 да",      "Now minus 1 hour");
+        test.equal(moment(a).subtract({d: 1}).calendar(),  "Кеча соат 02:00 да",  "yesterday at the same time");
         test.done();
     },
 
@@ -193,7 +193,7 @@ exports["lang:uz"] = {
 
         var i, m;
         for (i = 2; i < 7; i++) {
-            m = moment().add({ d: i });
+            m = moment().add({d: i});
             test.equal(m.calendar(),       m.format('dddd [куни соат] LT [да]'),  "Today + " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
             test.equal(m.calendar(),       m.format('dddd [куни соат] LT [да]'),  "Today + " + i + " days beginning of day");
@@ -208,7 +208,7 @@ exports["lang:uz"] = {
         var i, m;
 
         for (i = 2; i < 7; i++) {
-            m = moment().subtract({ d: i });
+            m = moment().subtract({d: i});
             test.equal(m.calendar(),       m.format('[Утган] dddd [куни соат] LT [да]'),  "Today - " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
             test.equal(m.calendar(),       m.format('[Утган] dddd [куни соат] LT [да]'),  "Today - " + i + " days beginning of day");
@@ -220,14 +220,14 @@ exports["lang:uz"] = {
 
     "calendar all else" : function (test) {
 
-        var weeksAgo = moment().subtract({ w: 1 }),
-            weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({w: 1}),
+            weeksFromNow = moment().add({w: 1});
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
 
-        weeksAgo = moment().subtract({ w: 2 });
-        weeksFromNow = moment().add({ w: 2 });
+        weeksAgo = moment().subtract({w: 2});
+        weeksFromNow = moment().add({w: 2});
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");

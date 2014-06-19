@@ -156,7 +156,7 @@ exports.gettersSetters = {
     //     test.equals(a.weekday(), 1);
 
     //     test.done();
-    // },
+    //},
 
     // I think this suffers from the same issue as the non-iso version.
     // "setters programatic with weeks ISO" : function (test) {
@@ -170,7 +170,7 @@ exports.gettersSetters = {
     //     test.equals(a.day(), 4);
 
     //     test.done();
-    // },
+    //},
 
     "setters strings" : function (test) {
         test.expect(7);

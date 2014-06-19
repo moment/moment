@@ -152,7 +152,7 @@ exports["lang:lb"] = {
 
         var i, m, weekday, datestring;
         for (i = 2; i < 7; i++) {
-            m = moment().subtract({ d: i });
+            m = moment().subtract({d: i});
 
             // Different date string for "Dënschdeg" (Tuesday) and "Donneschdeg" (Thursday)
             weekday = parseInt(m.format('d'), 10);

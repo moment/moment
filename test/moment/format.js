@@ -364,7 +364,11 @@ exports.format = {
     "toJSON skips postformat" : function (test) {
         test.expect(1);
 
-        moment.lang('postformat', {postformat: function (s) { s.replace(/./g, 'X'); }});
+        moment.lang('postformat', {
+            postformat: function (s) {
+                s.replace(/./g, 'X');
+            }
+        });
         test.equal(moment.utc([2000, 0, 1]).toJSON(), "2000-01-01T00:00:00.000Z", "toJSON doesn't postformat");
         moment.lang('postformat', null);
         test.done();
@@ -375,14 +379,14 @@ exports.format = {
 
         moment.lang('en');
         var zones = [60, -60, 90, -90, 360, -360, 720, -720],
-            b = moment().utc().startOf('day').subtract({ m : 1 }),
-            c = moment().local().startOf('day').subtract({ m : 1 }),
-            d = moment().local().startOf('day').subtract({ d : 2 }),
+            b = moment().utc().startOf('day').subtract({m : 1}),
+            c = moment().local().startOf('day').subtract({m : 1}),
+            d = moment().local().startOf('day').subtract({d : 2}),
             i, z, a;
 
         for (i = 0; i < zones.length; ++i) {
             z = zones[i];
-            a = moment().zone(z).startOf('day').subtract({ m: 1 });
+            a = moment().zone(z).startOf('day').subtract({m: 1});
             test.equal(moment(a).zone(z).calendar(), "Yesterday at 11:59 PM", "Yesterday at 11:59 PM, not Today, or the wrong time");
         }
 

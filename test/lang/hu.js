@@ -198,11 +198,11 @@ exports["lang:hu"] = {
         var a = moment().hours(2).minutes(0).seconds(0);
 
         test.equal(moment(a).calendar(),                     "ma 2:00-kor",     "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "ma 2:25-kor",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "ma 3:00-kor",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "holnap 2:00-kor", "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "ma 1:00-kor",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "tegnap 2:00-kor", "yesterday at the same time");
+        test.equal(moment(a).add({m: 25}).calendar(),      "ma 2:25-kor",     "Now plus 25 min");
+        test.equal(moment(a).add({h: 1}).calendar(),       "ma 3:00-kor",     "Now plus 1 hour");
+        test.equal(moment(a).add({d: 1}).calendar(),       "holnap 2:00-kor", "tomorrow at the same time");
+        test.equal(moment(a).subtract({h: 1}).calendar(),  "ma 1:00-kor",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({d: 1}).calendar(),  "tegnap 2:00-kor", "yesterday at the same time");
         test.done();
     },
 
@@ -210,7 +210,7 @@ exports["lang:hu"] = {
 
         var i, m, days = 'vasárnap_hétfőn_kedden_szerdán_csütörtökön_pénteken_szombaton'.split('_');
         for (i = 2; i < 7; i++) {
-            m = moment().add({ d: i });
+            m = moment().add({d: i});
             test.equal(m.calendar(),       m.format('[' + days[m.day()] + '] LT[-kor]'),  "today + " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
             test.equal(m.calendar(),       m.format('[' + days[m.day()] + '] LT[-kor]'),  "today + " + i + " days beginning of day");
@@ -226,7 +226,7 @@ exports["lang:hu"] = {
         var i, m, days = 'vasárnap_hétfőn_kedden_szerdán_csütörtökön_pénteken_szombaton'.split('_');
 
         for (i = 2; i < 7; i++) {
-            m = moment().subtract({ d: i });
+            m = moment().subtract({d: i});
             test.equal(m.calendar(),       m.format('[múlt ' + days[m.day()] + '] LT[-kor]'),  "today - " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
             test.equal(m.calendar(),       m.format('[múlt ' + days[m.day()] + '] LT[-kor]'),  "today - " + i + " days beginning of day");
@@ -239,14 +239,14 @@ exports["lang:hu"] = {
 
     "calendar all else" : function (test) {
 
-        var weeksAgo = moment().subtract({ w: 1 }),
-            weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({w: 1}),
+            weeksFromNow = moment().add({w: 1});
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "egy héte");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "egy hét múlva");
 
-        weeksAgo = moment().subtract({ w: 2 });
-        weeksFromNow = moment().add({ w: 2 });
+        weeksAgo = moment().subtract({w: 2});
+        weeksFromNow = moment().add({w: 2});
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 hete");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "2 hét múlva");

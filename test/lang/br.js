@@ -184,11 +184,11 @@ exports["lang:br"] = {
         var a = moment().hours(2).minutes(0).seconds(0);
 
         test.equal(moment(a).calendar(),                     "Hiziv da 2e00 AM",     "today at the same time");
-        test.equal(moment(a).add({ m: 25 }).calendar(),      "Hiziv da 2e25 AM",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "Hiziv da 3e00 AM",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "Warc'hoazh da 2e00 AM",  "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "Hiziv da 1e00 AM",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "Dec'h da 2e00 AM", "yesterday at the same time");
+        test.equal(moment(a).add({m: 25}).calendar(),      "Hiziv da 2e25 AM",     "Now plus 25 min");
+        test.equal(moment(a).add({h: 1}).calendar(),       "Hiziv da 3e00 AM",     "Now plus 1 hour");
+        test.equal(moment(a).add({d: 1}).calendar(),       "Warc'hoazh da 2e00 AM",  "tomorrow at the same time");
+        test.equal(moment(a).subtract({h: 1}).calendar(),  "Hiziv da 1e00 AM",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({d: 1}).calendar(),  "Dec'h da 2e00 AM", "yesterday at the same time");
         test.done();
     },
 
@@ -197,7 +197,7 @@ exports["lang:br"] = {
 
         var i, m;
         for (i = 2; i < 7; i++) {
-            m = moment().add({ d: i });
+            m = moment().add({d: i});
             test.equal(m.calendar(),       m.format('dddd [da] LT'),  "Today + " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
             test.equal(m.calendar(),       m.format('dddd [da] LT'),  "Today + " + i + " days beginning of day");
@@ -212,7 +212,7 @@ exports["lang:br"] = {
 
         var i, m;
         for (i = 2; i < 7; i++) {
-            m = moment().subtract({ d: i });
+            m = moment().subtract({d: i});
             test.equal(m.calendar(),       m.format('dddd [paset da] LT'),  "Today - " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
             test.equal(m.calendar(),       m.format('dddd [paset da] LT'),  "Today - " + i + " days beginning of day");
@@ -224,14 +224,14 @@ exports["lang:br"] = {
 
     "calendar all else" : function (test) {
         moment.lang('br');
-        var weeksAgo = moment().subtract({ w: 1 }),
-            weeksFromNow = moment().add({ w: 1 });
+        var weeksAgo = moment().subtract({w: 1}),
+            weeksFromNow = moment().add({w: 1});
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "1 week ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 1 week");
 
-        weeksAgo = moment().subtract({ w: 2 });
-        weeksFromNow = moment().add({ w: 2 });
+        weeksAgo = moment().subtract({w: 2});
+        weeksFromNow = moment().add({w: 2});
 
         test.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  "2 weeks ago");
         test.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  "in 2 weeks");

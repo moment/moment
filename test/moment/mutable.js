@@ -9,54 +9,28 @@ exports.mutable = {
     },
 
     "manipulation methods" : function (test) {
+        var m = moment();
 
-        var mutableMethods = {
-            'year':          function (m) { return m.year(2011); },
-            'month':         function (m) { return m.month(1); },
-            'date':          function (m) { return m.date(9); },
-            'hours':         function (m) { return m.hours(7); },
-            'minutes':       function (m) { return m.minutes(33); },
-            'seconds':       function (m) { return m.seconds(44); },
-            'milliseconds':  function (m) { return m.milliseconds(55); },
-            'day':           function (m) { return m.day(2); },
-            'startOf':       function (m) { return m.startOf('week'); },
-            'endOf':         function (m) { return m.endOf('week'); },
-            'add':           function (m) { return m.add('days', 1); },
-            'subtract':      function (m) { return m.subtract('years', 2); },
-            'local':         function (m) { return m.local(); },
-            'utc':           function (m) { return m.utc(); }
-        }, method, d, d2;
-
-        test.expect(14);
-
-        for (method in mutableMethods) {
-            if (mutableMethods.hasOwnProperty(method)) {
-                d = moment();
-                d2 = mutableMethods[method](d);
-                test.equal(d, d2, method + "() should be mutable");
-            }
-        }
+        test.equal(m, m.year(2011), 'year() should be mutable');
+        test.equal(m, m.month(1), 'month() should be mutable');
+        test.equal(m, m.hours(7), 'hours() should be mutable');
+        test.equal(m, m.minutes(33), 'minutes() should be mutable');
+        test.equal(m, m.seconds(44), 'seconds() should be mutable');
+        test.equal(m, m.milliseconds(55), 'milliseconds() should be mutable');
+        test.equal(m, m.day(2), 'day() should be mutable');
+        test.equal(m, m.startOf('week'), 'startOf() should be mutable');
+        test.equal(m, m.add(1, 'days'), 'add() should be mutable');
+        test.equal(m, m.subtract(2, 'years'), 'subtract() should be mutable');
+        test.equal(m, m.local(), 'local() should be mutable');
+        test.equal(m, m.utc(), 'utc() should be mutable');
 
         test.done();
     },
 
     "non mutable methods" : function (test) {
-
-        var nonMutableMethods = {
-            'clone':       function (m) { return m.clone(); }
-        }, method, d, d2;
-
-        test.expect(1);
-
-        for (method in nonMutableMethods) {
-            if (nonMutableMethods.hasOwnProperty(method)) {
-                d = new Date();
-                d2 = nonMutableMethods[method](moment(d)).toDate();
-                test.notEqual(d, d2, method + "() should not be mutable");
-            }
-        }
+        var m = moment();
+        test.notEqual(m, m.clone(), "clone() should not be mutable");
 
         test.done();
     }
-
 };
