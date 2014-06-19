@@ -133,8 +133,6 @@ exports["lang:ar-sa"] = {
     },
 
     "from" : function (test) {
-        test.expect(30);
-
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "ثوان", "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "دقيقة",      "45 seconds = a minute");
@@ -154,15 +152,13 @@ exports["lang:ar-sa"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "٢٥ أيام",       "25 days = 25 days");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "شهر",       "26 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "شهر",       "30 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 45}), true),  "شهر",       "45 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  "شهر",       "43 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "٢ أشهر",      "46 days = 2 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "٢ أشهر",      "75 days = 2 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "٣ أشهر",      "76 days = 3 months");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "شهر",       "1 month = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "٥ أشهر",      "5 months = 5 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 344}), true), "١١ أشهر",     "344 days = 11 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "سنة",        "345 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 547}), true), "سنة",        "547 days = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "٢ سنوات",       "548 days = 2 years");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "سنة",        "1 year = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "٥ سنوات",       "5 years = 5 years");

@@ -19,7 +19,6 @@ exports["lang:lb"] = {
     },
 
     "parse": function (test) {
-        test.expect(96);
 
         var tests = 'Januar Jan._Februar Febr._Mäerz Mrz._Abrëll Abr._Mee Mee_Juni Jun._Juli Jul._August Aug._September Sept._Oktober Okt._November Nov._Dezember Dez.'.split("_"), i;
 
@@ -42,7 +41,6 @@ exports["lang:lb"] = {
     },
 
     "format": function (test) {
-        test.expect(22);
 
         var a = [
                 ['dddd, Do MMMM YYYY, HH:mm:ss', 'Sonndeg, 14. Februar 2010, 15:25:50'],
@@ -77,7 +75,6 @@ exports["lang:lb"] = {
     },
 
     "format month": function (test) {
-        test.expect(12);
 
         var expected = 'Januar Jan._Februar Febr._Mäerz Mrz._Abrëll Abr._Mee Mee_Juni Jun._Juli Jul._August Aug._September Sept._Oktober Okt._November Nov._Dezember Dez.'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
@@ -87,7 +84,6 @@ exports["lang:lb"] = {
     },
 
     "format week": function (test) {
-        test.expect(7);
 
         var expected = 'Sonndeg So. So_Méindeg Mé. Mé_Dënschdeg Dë. Dë_Mëttwoch Më. Më_Donneschdeg Do. Do_Freideg Fr. Fr_Samschdeg Sa. Sa'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
@@ -97,7 +93,6 @@ exports["lang:lb"] = {
     },
 
     "from": function (test) {
-        test.expect(30);
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true), "e puer Sekonnen", "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true), "eng Minutt", "45 seconds = a minute");
@@ -117,15 +112,13 @@ exports["lang:lb"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true), "25 Deeg", "25 days = 25 days");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true), "ee Mount", "26 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true), "ee Mount", "30 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 45}), true), "ee Mount", "45 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true), "ee Mount", "43 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true), "2 Méint", "46 days = 2 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true), "2 Méint", "75 days = 2 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true), "3 Méint", "76 days = 3 months");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true), "ee Mount", "1 month = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true), "5 Méint", "5 months = 5 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 344}), true), "11 Méint", "344 days = 11 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "ee Joer", "345 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 547}), true), "ee Joer", "547 days = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "2 Joer", "548 days = 2 years");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true), "ee Joer", "1 year = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true), "5 Joer", "5 years = 5 years");
@@ -133,14 +126,12 @@ exports["lang:lb"] = {
     },
 
     "suffix": function (test) {
-        test.expect(2);
         test.equal(moment(30000).from(0), "an e puer Sekonnen", "prefix");
         test.equal(moment(0).from(30000), "virun e puer Sekonnen", "suffix");
         test.done();
     },
 
     "fromNow": function (test) {
-        test.expect(13);
         test.equal(moment().add({s: 30}).fromNow(), "an e puer Sekonnen", "in a few seconds");
         test.equal(moment().add({d: 1}).fromNow(), "an engem Dag", "in one day");
         test.equal(moment().add({d: 2}).fromNow(), "an 2 Deeg", "in 2 days");
@@ -158,7 +149,6 @@ exports["lang:lb"] = {
     },
 
     "calendar last week": function (test) {
-        test.expect(15);
 
         var i, m, weekday, datestring;
         for (i = 2; i < 7; i++) {

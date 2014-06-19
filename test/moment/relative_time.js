@@ -1,13 +1,7 @@
 var moment = require("../../moment");
 
 exports.relativeTime = {
-    setUp : function (done) {
-        done();
-    },
-
     "default thresholds" : function (test) {
-        test.expect(12);
-
         var a = moment();
 
         // Seconds to minutes threshold
@@ -30,35 +24,27 @@ exports.relativeTime = {
         a.subtract('hours', 1);
         test.equal(a.fromNow(), "a day ago", "Above default hours to day threshold");
 
-        // Days to month (singular) threshold
+        // Days to month threshold
         a = moment();
         a.subtract('days', 25);
         test.equal(a.fromNow(), "25 days ago", "Below default days to month (singular) threshold");
         a.subtract('days', 1);
         test.equal(a.fromNow(), "a month ago", "Above default days to month (singular) threshold");
 
-        // Days to months (plural) threshold
+        // months to year threshold
         a = moment();
-        a.subtract('days', 45);
-        test.equal(a.fromNow(), "a month ago", "Below default days to months (plural) threshold");
-        a.subtract('days', 1);
-        test.equal(a.fromNow(), "2 months ago", "Above default days to months (plural) threshold");
-
-        // Days to years threshold
-        a = moment();
-        a.subtract('days', 344);
-        test.equal(a.fromNow(), "11 months ago", "Below default days to years threshold");
-        a.subtract('days', 1);
+        a.subtract(10, 'months');
+        test.equal(a.fromNow(), "10 months ago", "Below default days to years threshold");
+        a.subtract(1, 'month');
         test.equal(a.fromNow(), "a year ago", "Above default days to years threshold");
 
         test.done();
     },
 
     "custom thresholds" : function (test) {
-        test.expect(12);
-
         // Seconds to minutes threshold
         moment.relativeTimeThreshold('s', 55);
+
         var a = moment();
         a.subtract('seconds', 54);
         test.equal(a.fromNow(), "a few seconds ago", "Below custom seconds to minutes threshold");
@@ -85,32 +71,23 @@ exports.relativeTime = {
         test.equal(a.fromNow(), "a day ago", "Above custom hours to days threshold");
         moment.relativeTimeThreshold('h', 22);
 
-        // Days to month (singluar) threshold
-        moment.relativeTimeThreshold('dd', 28);
+        // Days to month threshold
+        moment.relativeTimeThreshold('d', 28);
         a = moment();
-        a.subtract('days', 28);
-        test.equal(a.fromNow(), "28 days ago", "Below custom days to month (singular) threshold");
+        a.subtract('days', 27);
+        test.equal(a.fromNow(), "27 days ago", "Below custom days to month (singular) threshold");
         a.subtract('days', 1);
         test.equal(a.fromNow(), "a month ago", "Above custom days to month (singular) threshold");
-        moment.relativeTimeThreshold('dd', 25);
+        moment.relativeTimeThreshold('d', 26);
 
-        // Days to months (plural) threshold
-        moment.relativeTimeThreshold('dm', 55);
+        // months to years threshold
+        moment.relativeTimeThreshold('M', 9);
         a = moment();
-        a.subtract('days', 55);
-        test.equal(a.fromNow(), "a month ago", "Above custom days to months (plural) threshold");
-        a.subtract('days', 1);
-        test.equal(a.fromNow(), "2 months ago", "Below custom days to months (plural) threshold");
-        moment.relativeTimeThreshold('dm', 45);
-
-        // Days to years threshold
-        moment.relativeTimeThreshold('dy', 360);
-        a = moment();
-        a.subtract('days', 359);
-        test.equal(a.fromNow(), "12 months ago", "Below custom days to years threshold");
-        a.subtract('days', 1);
+        a.subtract('months', 8);
+        test.equal(a.fromNow(), "8 months ago", "Below custom days to years threshold");
+        a.subtract('months', 1);
         test.equal(a.fromNow(), "a year ago", "Above custom days to years threshold");
-        moment.relativeTimeThreshold('dy', 345);
+        moment.relativeTimeThreshold('M', 11);
         test.done();
     },
 

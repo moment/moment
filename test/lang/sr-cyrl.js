@@ -20,7 +20,6 @@ exports["lang:sr-cyrl"] = {
     },
 
     "parse" : function (test) {
-        test.expect(96);
 
         var tests = 'јануар јан._фебруар феб._март мар._април апр._мај мај_јун јун_јул јул_август авг._септембар сеп._октобар окт._новембар нов._децембар дец.'.split("_"),
             i;
@@ -42,7 +41,6 @@ exports["lang:sr-cyrl"] = {
     },
 
     "format" : function (test) {
-        test.expect(22);
         var a = [
                 ['dddd, Do MMMM YYYY, h:mm:ss a',      'недеља, 14. фебруар 2010, 3:25:50 pm'],
                 ['ddd, hA',                            'нед., 3PM'],
@@ -76,7 +74,6 @@ exports["lang:sr-cyrl"] = {
     },
 
     "format ordinal" : function (test) {
-        test.expect(31);
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1.', '1.');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2.', '2.');
         test.equal(moment([2011, 0, 3]).format('DDDo'), '3.', '3.');
@@ -115,7 +112,6 @@ exports["lang:sr-cyrl"] = {
     },
 
     "format month" : function (test) {
-        test.expect(12);
         var expected = 'јануар јан._фебруар феб._март мар._април апр._мај мај_јун јун_јул јул_август авг._септембар сеп._октобар окт._новембар нов._децембар дец.'.split("_"),
             i;
         for (i = 0; i < expected.length; i++) {
@@ -125,7 +121,6 @@ exports["lang:sr-cyrl"] = {
     },
 
     "format week" : function (test) {
-        test.expect(7);
         var expected = 'недеља нед. не_понедељак пон. по_уторак уто. ут_среда сре. ср_четвртак чет. че_петак пет. пе_субота суб. су'.split("_"),
             i;
         for (i = 0; i < expected.length; i++) {
@@ -135,7 +130,6 @@ exports["lang:sr-cyrl"] = {
     },
 
     "from" : function (test) {
-        test.expect(30);
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "неколико секунди", "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "један минут",   "45 seconds = a minute");
@@ -155,15 +149,13 @@ exports["lang:sr-cyrl"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "25 дана",       "25 days = 25 days");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "месец",     "26 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "месец",     "30 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 45}), true),  "месец",     "45 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  "месец",     "43 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "2 месеца",     "46 days = 2 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "2 месеца",     "75 days = 2 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "3 месеца",     "76 days = 3 months");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "месец",     "1 month = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "5 месеци",    "5 months = 5 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 344}), true), "11 месеци",   "344 days = 11 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "годину",     "345 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 547}), true), "годину",     "547 days = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "2 године",       "548 days = 2 years");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "годину",     "1 year = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "5 година",        "5 years = 5 years");
@@ -171,27 +163,23 @@ exports["lang:sr-cyrl"] = {
     },
 
     "suffix" : function (test) {
-        test.expect(2);
         test.equal(moment(30000).from(0), "за неколико секунди",  "prefix");
         test.equal(moment(0).from(30000), "пре неколико секунди", "prefix");
         test.done();
     },
 
     "now from now" : function (test) {
-        test.expect(1);
         test.equal(moment().fromNow(), "пре неколико секунди",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow" : function (test) {
-        test.expect(2);
         test.equal(moment().add({s: 30}).fromNow(), "за неколико секунди", "in a few seconds");
         test.equal(moment().add({d: 5}).fromNow(), "за 5 дана", "in 5 days");
         test.done();
     },
 
     "calendar day" : function (test) {
-        test.expect(6);
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
@@ -205,7 +193,6 @@ exports["lang:sr-cyrl"] = {
     },
 
     "calendar next week" : function (test) {
-        test.expect(15);
 
         var i, m;
 
@@ -237,7 +224,6 @@ exports["lang:sr-cyrl"] = {
     },
 
     "calendar last week" : function (test) {
-        test.expect(15);
 
         var i, m;
 
@@ -267,7 +253,6 @@ exports["lang:sr-cyrl"] = {
     },
 
     "calendar all else" : function (test) {
-        test.expect(4);
 
         var weeksAgo = moment().subtract({ w: 1 }),
             weeksFromNow = moment().add({ w: 1 });
@@ -288,7 +273,6 @@ exports["lang:sr-cyrl"] = {
     // The week that contains Jan 1st is the first week of the year.
 
     "weeks year starting sunday" : function (test) {
-        test.expect(5);
 
         test.equal(moment([2011, 11, 26]).week(), 1, "Dec 26 2011 should be week 1");
         test.equal(moment([2012,  0,  1]).week(), 1, "Jan  1 2012 should be week 1");
@@ -300,7 +284,6 @@ exports["lang:sr-cyrl"] = {
     },
 
     "weeks year starting monday" : function (test) {
-        test.expect(5);
 
         test.equal(moment([2007, 0, 1]).week(),  1, "Jan  1 2007 should be week 1");
         test.equal(moment([2007, 0, 7]).week(),  1, "Jan  7 2007 should be week 1");
@@ -312,7 +295,6 @@ exports["lang:sr-cyrl"] = {
     },
 
     "weeks year starting tuesday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2007, 11, 31]).week(), 1, "Dec 31 2007 should be week 1");
         test.equal(moment([2008,  0,  1]).week(), 1, "Jan  1 2008 should be week 1");
@@ -325,7 +307,6 @@ exports["lang:sr-cyrl"] = {
     },
 
     "weeks year starting wednesday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2002, 11, 30]).week(), 1, "Dec 30 2002 should be week 1");
         test.equal(moment([2003,  0,  1]).week(), 1, "Jan  1 2003 should be week 1");
@@ -338,7 +319,6 @@ exports["lang:sr-cyrl"] = {
     },
 
     "weeks year starting thursday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2008, 11, 29]).week(), 1, "Dec 29 2008 should be week 1");
         test.equal(moment([2009,  0,  1]).week(), 1, "Jan  1 2009 should be week 1");
@@ -351,7 +331,6 @@ exports["lang:sr-cyrl"] = {
     },
 
     "weeks year starting friday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2009, 11, 28]).week(), 1, "Dec 28 2009 should be week 1");
         test.equal(moment([2010,  0,  1]).week(), 1, "Jan  1 2010 should be week 1");
@@ -364,7 +343,6 @@ exports["lang:sr-cyrl"] = {
     },
 
     "weeks year starting saturday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2010, 11, 27]).week(), 1, "Dec 27 2010 should be week 1");
         test.equal(moment([2011,  0,  1]).week(), 1, "Jan  1 2011 should be week 1");
@@ -377,7 +355,6 @@ exports["lang:sr-cyrl"] = {
     },
 
     "weeks year starting sunday formatted" : function (test) {
-        test.expect(5);
 
         test.equal(moment([2011, 11, 26]).format('w ww wo'), '1 01 1.', "Dec 26 2011 should be week 1");
         test.equal(moment([2012,  0,  1]).format('w ww wo'), '1 01 1.', "Jan  1 2012 should be week 1");

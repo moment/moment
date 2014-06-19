@@ -20,7 +20,6 @@ exports["lang:cv"] = {
     },
 
     "parse" : function (test) {
-        test.expect(96);
 
         var tests = 'кăрлач кăр_нарăс нар_пуш пуш_ака ака_май май_çĕртме çĕр_утă утă_çурла çур_авăн ав_юпа юпа_чӳк чӳк_раштав раш'.split("_"), i;
         function equalTest(input, mmm, i) {
@@ -41,7 +40,6 @@ exports["lang:cv"] = {
     },
 
     "format" : function (test) {
-        test.expect(22);
 
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'вырсарникун, нарăс 14-мĕш 2010, 3:25:50 pm'],
@@ -76,7 +74,6 @@ exports["lang:cv"] = {
     },
 
     "format ordinal" : function (test) {
-        test.expect(31);
 
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1-мĕш', '1-мĕш');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2-мĕш', '2-мĕш');
@@ -116,7 +113,6 @@ exports["lang:cv"] = {
     },
 
     "format month" : function (test) {
-        test.expect(12);
 
         var expected = 'кăрлач кăр_нарăс нар_пуш пуш_ака ака_май май_çĕртме çĕр_утă утă_çурла çур_авăн ав_юпа юпа_чӳк чӳк_раштав раш'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
@@ -126,7 +122,6 @@ exports["lang:cv"] = {
     },
 
     "format week" : function (test) {
-        test.expect(7);
 
         var expected = 'вырсарникун выр вр_тунтикун тун тн_ытларикун ытл ыт_юнкун юн юн_кĕçнерникун кĕç кç_эрнекун эрн эр_шăматкун шăм шм'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
@@ -136,7 +131,6 @@ exports["lang:cv"] = {
     },
 
     "from" : function (test) {
-        test.expect(30);
 
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "пĕр-ик çеккунт", "44 sekunder = a few seconds");
@@ -157,15 +151,13 @@ exports["lang:cv"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "25 кун",       "25 days = 25 days");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "пĕр уйăх",       "26 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "пĕр уйăх",       "30 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 45}), true),  "пĕр уйăх",       "45 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  "пĕр уйăх",       "43 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "2 уйăх",      "46 days = 2 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "2 уйăх",      "75 days = 2 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "3 уйăх",      "76 days = 3 months");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "пĕр уйăх",       "1 month = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "5 уйăх",      "5 months = 5 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 344}), true), "11 уйăх",     "344 days = 11 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "пĕр çул",        "345 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 547}), true), "пĕр çул",        "547 days = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "2 çул",       "548 days = 2 years");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "пĕр çул",        "1 year = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "5 çул",       "5 years = 5 years");
@@ -173,20 +165,17 @@ exports["lang:cv"] = {
     },
 
     "suffix" : function (test) {
-        test.expect(2);
         test.equal(moment(30000).from(0), "пĕр-ик çеккунтран",  "prefix");
         test.equal(moment(0).from(30000), "пĕр-ик çеккунт каялла", "suffix");
         test.done();
     },
 
     "now from now" : function (test) {
-        test.expect(1);
         test.equal(moment().fromNow(), "пĕр-ик çеккунт каялла",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow" : function (test) {
-        test.expect(4);
         test.equal(moment().add({s: 30}).fromNow(), "пĕр-ик çеккунтран", "in a few seconds");
         test.equal(moment().add({d: 5}).fromNow(), "5 кунран", "in 5 days");
         test.equal(moment().add({h: 2}).fromNow(), "2 сехетрен", "in 2 hours, the right suffix!");
@@ -195,7 +184,6 @@ exports["lang:cv"] = {
     },
 
     "calendar day" : function (test) {
-        test.expect(6);
         var a = moment().hours(2).minutes(0).seconds(0);
         test.equal(moment(a).calendar(),                     "Паян 02:00 сехетре",     "today at the same time");
         test.equal(moment(a).add({ m: 25 }).calendar(),      "Паян 02:25 сехетре",     "Now plus 25 min");
@@ -207,7 +195,6 @@ exports["lang:cv"] = {
     },
 
     "calendar next week" : function (test) {
-        test.expect(15);
 
         var i, m;
 
@@ -223,7 +210,6 @@ exports["lang:cv"] = {
     },
 
     "calendar last week" : function (test) {
-        test.expect(15);
 
         var i, m;
 
@@ -239,7 +225,6 @@ exports["lang:cv"] = {
     },
 
     "calendar all else" : function (test) {
-        test.expect(4);
         var weeksAgo = moment().subtract({ w: 1 }),
             weeksFromNow = moment().add({ w: 1 });
 
@@ -258,7 +243,6 @@ exports["lang:cv"] = {
     // The week that contains Jan 1st is the first week of the year.
 
     "weeks year starting sunday" : function (test) {
-        test.expect(5);
 
         test.equal(moment([2011, 11, 26]).week(), 1, "Dec 26 2011 should be week 1");
         test.equal(moment([2012,  0,  1]).week(), 1, "Jan  1 2012 should be week 1");
@@ -270,7 +254,6 @@ exports["lang:cv"] = {
     },
 
     "weeks year starting monday" : function (test) {
-        test.expect(5);
 
         test.equal(moment([2007, 0, 1]).week(),  1, "Jan  1 2007 should be week 1");
         test.equal(moment([2007, 0, 7]).week(),  1, "Jan  7 2007 should be week 1");
@@ -282,7 +265,6 @@ exports["lang:cv"] = {
     },
 
     "weeks year starting tuesday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2007, 11, 31]).week(), 1, "Dec 31 2007 should be week 1");
         test.equal(moment([2008,  0,  1]).week(), 1, "Jan  1 2008 should be week 1");
@@ -295,7 +277,6 @@ exports["lang:cv"] = {
     },
 
     "weeks year starting wednesday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2002, 11, 30]).week(), 1, "Dec 30 2002 should be week 1");
         test.equal(moment([2003,  0,  1]).week(), 1, "Jan  1 2003 should be week 1");
@@ -308,7 +289,6 @@ exports["lang:cv"] = {
     },
 
     "weeks year starting thursday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2008, 11, 29]).week(), 1, "Dec 29 2008 should be week 1");
         test.equal(moment([2009,  0,  1]).week(), 1, "Jan  1 2009 should be week 1");
@@ -321,7 +301,6 @@ exports["lang:cv"] = {
     },
 
     "weeks year starting friday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2009, 11, 28]).week(), 1, "Dec 28 2009 should be week 1");
         test.equal(moment([2010,  0,  1]).week(), 1, "Jan  1 2010 should be week 1");
@@ -334,7 +313,6 @@ exports["lang:cv"] = {
     },
 
     "weeks year starting saturday" : function (test) {
-        test.expect(6);
 
         test.equal(moment([2010, 11, 27]).week(), 1, "Dec 27 2010 should be week 1");
         test.equal(moment([2011,  0,  1]).week(), 1, "Jan  1 2011 should be week 1");
@@ -347,7 +325,6 @@ exports["lang:cv"] = {
     },
 
     "weeks year starting sunday formatted" : function (test) {
-        test.expect(5);
 
         test.equal(moment([2011, 11, 26]).format('w ww wo'), '1 01 1-мĕш', "Dec 26 2011 should be week 1");
         test.equal(moment([2012,  0,  1]).format('w ww wo'), '1 01 1-мĕш', "Jan  1 2012 should be week 1");

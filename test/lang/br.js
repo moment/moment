@@ -20,7 +20,6 @@ exports["lang:br"] = {
     },
 
     "parse" : function (test) {
-        test.expect(96);
         var tests = "Genver Gen_C'hwevrer C'hwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker".split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
@@ -40,7 +39,6 @@ exports["lang:br"] = {
     },
 
     "format" : function (test) {
-        test.expect(17);
         moment.lang('br');
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      "Sul, C'hwevrer 14vet 2010, 3:25:50 pm"],
@@ -70,7 +68,6 @@ exports["lang:br"] = {
     },
 
     "format ordinal" : function (test) {
-        test.expect(31);
         moment.lang('br');
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1añ', '1añ');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2vet', '2vet');
@@ -110,7 +107,6 @@ exports["lang:br"] = {
     },
 
     "format month" : function (test) {
-        test.expect(12);
         moment.lang('br');
         var expected = "Genver Gen_C'hwevrer C'hwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker".split("_"), i;
         for (i = 0; i < expected.length; i++) {
@@ -120,7 +116,6 @@ exports["lang:br"] = {
     },
 
     "format week" : function (test) {
-        test.expect(7);
         moment.lang('br');
         var expected = "Sul Sul Su_Lun Lun Lu_Meurzh Meu Me_Merc'her Mer Mer_Yaou Yao Ya_Gwener Gwe Gw_Sadorn Sad Sa".split("_"), i;
         for (i = 0; i < expected.length; i++) {
@@ -130,7 +125,6 @@ exports["lang:br"] = {
     },
 
     "from" : function (test) {
-        test.expect(30);
         moment.lang('br');
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "un nebeud segondennoù", "44 seconds = a few seconds");
@@ -151,15 +145,13 @@ exports["lang:br"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "25 devezh",       "25 days = 25 days");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "ur miz",       "26 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "ur miz",       "30 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 45}), true),  "ur miz",       "45 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  "ur miz",       "43 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "2 viz",      "46 days = 2 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "2 viz",      "75 days = 2 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "3 miz",      "76 days = 3 months");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "ur miz",       "1 month = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "5 miz",      "5 months = 5 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 344}), true), "11 miz",     "344 days = 11 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "ur bloaz",        "345 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 547}), true), "ur bloaz",        "547 days = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "2 vloaz",       "548 days = 2 years");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "ur bloaz",        "1 year = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "5 bloaz",       "5 years = 5 years");
@@ -167,7 +159,6 @@ exports["lang:br"] = {
     },
 
     "suffix" : function (test) {
-        test.expect(2);
         moment.lang('br');
         test.equal(moment(30000).from(0), "a-benn un nebeud segondennoù",  "prefix");
         test.equal(moment(0).from(30000), "un nebeud segondennoù 'zo", "suffix");
@@ -175,14 +166,12 @@ exports["lang:br"] = {
     },
 
     "now from now" : function (test) {
-        test.expect(1);
         moment.lang('br');
         test.equal(moment().fromNow(), "un nebeud segondennoù 'zo",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow" : function (test) {
-        test.expect(2);
         moment.lang('br');
         test.equal(moment().add({s: 30}).fromNow(), "a-benn un nebeud segondennoù", "in a few seconds");
         test.equal(moment().add({d: 5}).fromNow(), "a-benn 5 devezh", "in 5 days");
@@ -190,7 +179,6 @@ exports["lang:br"] = {
     },
 
     "calendar day" : function (test) {
-        test.expect(6);
         moment.lang('br');
 
         var a = moment().hours(2).minutes(0).seconds(0);
@@ -205,7 +193,6 @@ exports["lang:br"] = {
     },
 
     "calendar next week" : function (test) {
-        test.expect(15);
         moment.lang('br');
 
         var i, m;
@@ -221,7 +208,6 @@ exports["lang:br"] = {
     },
 
     "calendar last week" : function (test) {
-        test.expect(15);
         moment.lang('br');
 
         var i, m;
@@ -237,7 +223,6 @@ exports["lang:br"] = {
     },
 
     "calendar all else" : function (test) {
-        test.expect(4);
         moment.lang('br');
         var weeksAgo = moment().subtract({ w: 1 }),
             weeksFromNow = moment().add({ w: 1 });
@@ -254,7 +239,6 @@ exports["lang:br"] = {
     },
 
     "special mutations for years": function (test) {
-        test.expect(12);
         moment.lang('br');
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true), "ur bloaz", "mutation 1 year");
