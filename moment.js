@@ -431,7 +431,23 @@
     }
 
     function cloneMoment(m) {
-        var result = {}, i;
+        var result = {}, i, keys, n;
+
+        if (Object.keys) {
+            keys = Object.keys(m);
+            n = keys.length;
+
+            while (--n >= 0) {
+                i = keys[n];
+
+                if (momentProperties[i] !== undefined) {
+                    result[i] = m[i];
+                }
+            }
+
+            return result;
+        }
+
         for (i in m) {
             if (m.hasOwnProperty(i) && momentProperties.hasOwnProperty(i)) {
                 result[i] = m[i];
