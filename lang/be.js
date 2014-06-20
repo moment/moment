@@ -81,7 +81,7 @@
             nextDay: '[Заўтра ў] LT',
             lastDay: '[Учора ў] LT',
             nextWeek: function () {
-                return  '[У] dddd [ў] LT';
+                return '[У] dddd [ў] LT';
             },
             lastWeek: function () {
                 switch (this.day()) {
