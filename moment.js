@@ -899,7 +899,7 @@
             get = function (k) {
                 if (!languages[k] && hasModule) {
                     try {
-                        require('./lang/' + k);
+                        require('./language-loader')(k);
                     } catch (e) { }
                 }
                 return languages[k];

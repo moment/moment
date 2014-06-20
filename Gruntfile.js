@@ -218,6 +218,6 @@ module.exports = function (grunt) {
     // Task to be run when releasing a new version
     grunt.registerTask('release', [
         'jshint', 'nodeunit', 'concat', 'embedLanguages',
-        'component', 'uglify'
+        'languageLoader', 'component', 'uglify'
     ]);
 };

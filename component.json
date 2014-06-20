@@ -5,6 +5,7 @@
   "description": "Parse, validate, manipulate, and display dates in javascript.",
   "scripts": [
     "moment.js",
+    "language_loader.js",
     "lang/ar-ma.js",
     "lang/ar-sa.js",
     "lang/ar.js",
