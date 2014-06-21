@@ -1,3 +1,4 @@
+// don't touch this file, it's generated
 var languages = {
   "ar-ma": function() {return require("./lang/ar-ma.js");},
   "ar-sa": function() {return require("./lang/ar-sa.js");},
@@ -75,7 +76,8 @@ var languages = {
   "zh-tw": function() {return require("./lang/zh-tw.js");}
 };
 module.exports = function(key) {
-  if (languages[key] === undefined) {
-    throw new Error("no language file was found for the key: "+key);  }
+  if (languages[key] === null) {
+    throw new Error("no language file was found for the key: "+key);
+  }
   return languages[key]();
 };

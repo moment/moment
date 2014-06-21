@@ -3,6 +3,8 @@ module.exports = function (grunt) {
 
         var langFiles = grunt.file.expand('lang/*.js');
         var buf = [];
+        buf.push('// don\'t touch this file, it\'s generated\n');
+        
         buf.push('var languages = {\n');
         var i=0;
         for (i; i<langFiles.length; i++) {
@@ -16,7 +18,7 @@ module.exports = function (grunt) {
         buf.push('};\n');
         buf.push('module.exports = function(key) {\n');
         buf.push('  if (languages[key] === null) {\n');
-        buf.push('    throw new Error("no language file was found for the key: "+key);');
+        buf.push('    throw new Error("no language file was found for the key: "+key);\n');
         buf.push('  }\n');
         buf.push('  return languages[key]();\n');
         buf.push('};');
