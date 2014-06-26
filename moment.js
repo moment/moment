@@ -2043,13 +2043,19 @@
             return this._pf.overflow;
         },
 
-        utc : function () {
-            return this.zone(0);
+        utc : function (keepLocalTime) {
+            return this.zone(0, keepLocalTime);
         },
 
-        local : function () {
-            this.zone(0);
-            this._isUTC = false;
+        local : function (keepLocalTime) {
+            if (this._isUTC) {
+                this.zone(0, keepLocalTime);
+                this._isUTC = false;
+
+                if (keepLocalTime) {
+                    this.add(this._d.getTimezoneOffset(), 'm');
+                }
+            }
             return this;
         },
 
@@ -2243,18 +2249,19 @@
                 }
         ),
 
-        // keepTime = true means only change the timezone, without affecting
-        // the local hour. So 5:31:26 +0300 --[zone(2, true)]--> 5:31:26 +0200
-        // It is possible that 5:31:26 doesn't exist int zone +0200, so we
-        // adjust the time as needed, to be valid.
+        // keepLocalTime = true means only change the timezone, without
+        // affecting the local hour. So 5:31:26 +0300 --[zone(2, true)]-->
+        // 5:31:26 +0200 It is possible that 5:31:26 doesn't exist int zone
+        // +0200, so we adjust the time as needed, to be valid.
         //
         // Keeping the time actually adds/subtracts (one hour)
         // from the actual represented time. That is why we call updateOffset
         // a second time. In case it wants us to change the offset again
         // _changeInProgress == true case, then we have to adjust, because
         // there is no such time in the given timezone.
-        zone : function (input, keepTime) {
-            var offset = this._offset || 0;
+        zone : function (input, keepLocalTime) {
+            var offset = this._offset || 0,
+                localAdjust;
             if (input != null) {
                 if (typeof input === "string") {
                     input = timezoneMinutesFromString(input);
@@ -2262,10 +2269,16 @@
                 if (Math.abs(input) < 16) {
                     input = input * 60;
                 }
+                if (!this._isUTC && keepLocalTime) {
+                    localAdjust = this._d.getTimezoneOffset();
+                }
                 this._offset = input;
                 this._isUTC = true;
+                if (localAdjust != null) {
+                    this.subtract(localAdjust, 'm');
+                }
                 if (offset !== input) {
-                    if (!keepTime || this._changeInProgress) {
+                    if (!keepLocalTime || this._changeInProgress) {
                         addOrSubtractDurationFromMoment(this,
                                 moment.duration(offset - input, 'm'), 1, false);
                     } else if (!this._changeInProgress) {
