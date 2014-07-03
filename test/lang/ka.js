@@ -19,7 +19,6 @@ exports["lang:ka"] = {
     },
 
     "parse" : function (test) {
-
         var i,
             tests = 'იანვარი იან_თებერვალი თებ_მარტი მარ_აპრილი აპრ_მაისი მაი_ივნისი ივნ_ივლისი ივლ_აგვისტო აგვ_სექტემბერი სექ_ოქტომბერი ოქტ_ნოემბერი ნოე_დეკემბერი დეკ'.split("_");
 
@@ -43,7 +42,6 @@ exports["lang:ka"] = {
     },
 
     "format" : function (test) {
-
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a', 'კვირა, თებერვალი მე-14 2010, 3:25:50 pm'],
                 ['ddd, hA',                       'კვი, 3PM'],
@@ -79,7 +77,6 @@ exports["lang:ka"] = {
     },
 
     "format ordinal" : function (test) {
-
         test.equal(moment([2011, 0, 1]).format('DDDo'),  '1-ლი',  '1-ლი');
         test.equal(moment([2011, 0, 2]).format('DDDo'),  'მე-2',  'მე-2');
         test.equal(moment([2011, 0, 3]).format('DDDo'),  'მე-3',  'მე-3');
@@ -122,7 +119,6 @@ exports["lang:ka"] = {
     },
 
     "format month" : function (test) {
-
         var i,
             expected = 'იანვარი იან_თებერვალი თებ_მარტი მარ_აპრილი აპრ_მაისი მაი_ივნისი ივნ_ივლისი ივლ_აგვისტო აგვ_სექტემბერი სექ_ოქტომბერი ოქტ_ნოემბერი ნოე_დეკემბერი დეკ'.split("_");
 
@@ -133,7 +129,6 @@ exports["lang:ka"] = {
     },
 
     "format week" : function (test) {
-
         var i,
             expected = 'კვირა კვი კვ_ორშაბათი ორშ ორ_სამშაბათი სამ სა_ოთხშაბათი ოთხ ოთ_ხუთშაბათი ხუთ ხუ_პარასკევი პარ პა_შაბათი შაბ შა'.split("_");
 
@@ -145,7 +140,6 @@ exports["lang:ka"] = {
     },
 
     "from" : function (test) {
-
         var start = moment([2007, 1, 28]);
 
         test.equal(start.from(moment([2007, 1, 28]).add({s: 44}),  true), "რამდენიმე წამი", "44 წამი  = რამდენიმე წამი");
@@ -181,7 +175,6 @@ exports["lang:ka"] = {
     },
 
     "suffix" : function (test) {
-
         test.equal(moment(30000).from(0), "რამდენიმე წამში",     "ში სუფიქსი");
         test.equal(moment(0).from(30000), "რამდენიმე წამის წინ", "წინ სუფიქსი");
 
@@ -189,14 +182,12 @@ exports["lang:ka"] = {
     },
 
     "now from now" : function (test) {
-
         test.equal(moment().fromNow(), "რამდენიმე წამის წინ", "უნდა აჩვენოს როგორც წარსული");
 
         test.done();
     },
 
     "fromNow" : function (test) {
-
         test.equal(moment().add({s: 30}).fromNow(), "რამდენიმე წამში", "რამდენიმე წამში");
         test.equal(moment().add({d: 5}).fromNow(), "5 დღეში", "5 დღეში");
 
@@ -204,7 +195,6 @@ exports["lang:ka"] = {
     },
 
     "calendar day" : function (test) {
-
         var a = moment().hours(2).minutes(0).seconds(0);
 
         test.equal(moment(a).calendar(),                     "დღეს 2:00 AM-ზე",  "დღეს ამავე დროს");
@@ -218,7 +208,6 @@ exports["lang:ka"] = {
     },
 
     "calendar next week" : function (test) {
-
         var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({d: i});
@@ -232,7 +221,6 @@ exports["lang:ka"] = {
     },
 
     "calendar last week" : function (test) {
-
         var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().subtract({d: i});
@@ -246,7 +234,6 @@ exports["lang:ka"] = {
     },
 
     "calendar all else" : function (test) {
-
         var weeksAgo = moment().subtract({w: 1}),
             weeksFromNow = moment().add({w: 1});
 
@@ -263,7 +250,6 @@ exports["lang:ka"] = {
     },
 
     "weeks year starting sunday" : function (test) {
-
         test.equal(moment([2011, 11, 26]).week(), 1, "დეკ 26 2011 უნდა იყოს კვირა 1");
         test.equal(moment([2012,  0,  1]).week(), 1, "იან  1 2012 უნდა იყოს კვირა 1");
         test.equal(moment([2012,  0,  2]).week(), 2, "იან  2 2012 უნდა იყოს კვირა 2");
@@ -274,7 +260,6 @@ exports["lang:ka"] = {
     },
 
     "weeks year starting monday" : function (test) {
-
         test.equal(moment([2007, 0, 1]).week(),  1, "იან  1 2007 უნდა იყოს კვირა 1");
         test.equal(moment([2007, 0, 7]).week(),  1, "იან  7 2007 უნდა იყოს კვირა 1");
         test.equal(moment([2007, 0, 8]).week(),  2, "იან  8 2007 უნდა იყოს კვირა 2");
@@ -285,7 +270,6 @@ exports["lang:ka"] = {
     },
 
     "weeks year starting tuesday" : function (test) {
-
         test.equal(moment([2007, 11, 31]).week(), 1, "დეკ 31 2007 უნდა იყოს კვირა 1");
         test.equal(moment([2008,  0,  1]).week(), 1, "იან  1 2008 უნდა იყოს კვირა 1");
         test.equal(moment([2008,  0,  6]).week(), 1, "იან  6 2008 უნდა იყოს კვირა 1");
@@ -297,7 +281,6 @@ exports["lang:ka"] = {
     },
 
     "weeks year starting wednesday" : function (test) {
-
         test.equal(moment([2002, 11, 30]).week(), 1, "დეკ 30 2002 უნდა იყოს კვირა 1");
         test.equal(moment([2003,  0,  1]).week(), 1, "იან  1 2003 უნდა იყოს კვირა 1");
         test.equal(moment([2003,  0,  5]).week(), 1, "იან  5 2003 უნდა იყოს კვირა 1");
@@ -309,7 +292,6 @@ exports["lang:ka"] = {
     },
 
     "weeks year starting thursday" : function (test) {
-
         test.equal(moment([2008, 11, 29]).week(), 1, "დეკ 29 2008 უნდა იყოს კვირა 1");
         test.equal(moment([2009,  0,  1]).week(), 1, "იან  1 2009 უნდა იყოს კვირა 1");
         test.equal(moment([2009,  0,  4]).week(), 1, "იან  4 2009 უნდა იყოს კვირა 1");
@@ -321,7 +303,6 @@ exports["lang:ka"] = {
     },
 
     "weeks year starting friday" : function (test) {
-
         test.equal(moment([2009, 11, 28]).week(), 1, "დეკ 28 2009 უნდა იყოს კვირა 1");
         test.equal(moment([2010,  0,  1]).week(), 1, "იან  1 2010 უნდა იყოს კვირა 1");
         test.equal(moment([2010,  0,  3]).week(), 1, "იან  3 2010 უნდა იყოს კვირა 1");
@@ -333,7 +314,6 @@ exports["lang:ka"] = {
     },
 
     "weeks year starting saturday" : function (test) {
-
         test.equal(moment([2010, 11, 27]).week(), 1, "დეკ 27 2010 უნდა იყოს კვირა 1");
         test.equal(moment([2011,  0,  1]).week(), 1, "იან  1 2011 უნდა იყოს კვირა 1");
         test.equal(moment([2011,  0,  2]).week(), 1, "იან  2 2011 უნდა იყოს კვირა 1");
@@ -345,7 +325,6 @@ exports["lang:ka"] = {
     },
 
     "weeks year starting sunday formatted" : function (test) {
-
         test.equal(moment([2011, 11, 26]).format('w ww wo'), '1 01 1-ლი', "დეკ 26 2011 უნდა იყოს კვირა 1");
         test.equal(moment([2012,  0,  1]).format('w ww wo'), '1 01 1-ლი', "იან  1 2012 უნდა იყოს კვირა 1");
         test.equal(moment([2012,  0,  2]).format('w ww wo'), '2 02 მე-2', "იან  2 2012 უნდა იყოს კვირა 2");

@@ -12,7 +12,6 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-
     var suffixes = {
         1: "'inci",
         5: "'inci",

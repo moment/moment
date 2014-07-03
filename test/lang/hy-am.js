@@ -20,7 +20,6 @@ exports["lang:hy-am"] = {
     },
 
     "parse" : function (test) {
-
         var tests = 'հունվար հնվ_փետրվար փտր_մարտ մրտ_ապրիլ ապր_մայիս մյս_հունիս հնս_հուլիս հլս_օգոստոս օգս_սեպտեմբեր սպտ_հոկտեմբեր հկտ_նոյեմբեր նմբ_դեկտեմբեր դկտ'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
@@ -45,7 +44,6 @@ exports["lang:hy-am"] = {
     },
 
     "format" : function (test) {
-
         var a = [
                 ['dddd, Do MMMM YYYY, HH:mm:ss',       'կիրակի, 14 փետրվարի 2010, 15:25:50'],
                 ['ddd, h A',                           'կրկ, 3 ցերեկվա'],
@@ -79,7 +77,6 @@ exports["lang:hy-am"] = {
     },
 
     "format meridiem" : function (test) {
-
         test.equal(moment([2012, 11, 28, 0, 0]).format("A"), "գիշերվա", "night");
         test.equal(moment([2012, 11, 28, 3, 59]).format("A"), "գիշերվա", "night");
         test.equal(moment([2012, 11, 28, 4, 0]).format("A"), "առավոտվա", "morning");
@@ -93,7 +90,6 @@ exports["lang:hy-am"] = {
     },
 
     "format ordinal" : function (test) {
-
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1-ին', '1-ին');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2-րդ', '2-րդ');
         test.equal(moment([2011, 0, 3]).format('DDDo'), '3-րդ', '3-րդ');
@@ -132,7 +128,6 @@ exports["lang:hy-am"] = {
     },
 
     "format month" : function (test) {
-
         var expected = 'հունվար հնվ_փետրվար փտր_մարտ մրտ_ապրիլ ապր_մայիս մյս_հունիս հնս_հուլիս հլս_օգոստոս օգս_սեպտեմբեր սպտ_հոկտեմբեր հկտ_նոյեմբեր նմբ_դեկտեմբեր դկտ'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
@@ -141,7 +136,6 @@ exports["lang:hy-am"] = {
     },
 
     "format month case" : function (test) {
-
         var months = {
             'nominative': 'հունվար_փետրվար_մարտ_ապրիլ_մայիս_հունիս_հուլիս_օգոստոս_սեպտեմբեր_հոկտեմբեր_նոյեմբեր_դեկտեմբեր'.split('_'),
             'accusative': 'հունվարի_փետրվարի_մարտի_ապրիլի_մայիսի_հունիսի_հուլիսի_օգոստոսի_սեպտեմբերի_հոկտեմբերի_նոյեմբերի_դեկտեմբերի'.split('_')
@@ -154,7 +148,6 @@ exports["lang:hy-am"] = {
     },
 
     "format month short case" : function (test) {
-
         var monthsShort = {
             'nominative': 'հնվ_փտր_մրտ_ապր_մյս_հնս_հլս_օգս_սպտ_հկտ_նմբ_դկտ'.split('_'),
             'accusative': 'հնվ_փտր_մրտ_ապր_մյս_հնս_հլս_օգս_սպտ_հկտ_նմբ_դկտ'.split('_')
@@ -167,7 +160,6 @@ exports["lang:hy-am"] = {
     },
 
     "format month case with escaped symbols" : function (test) {
-
         var months = {
             'nominative': 'հունվար_փետրվար_մարտ_ապրիլ_մայիս_հունիս_հուլիս_օգոստոս_սեպտեմբեր_հոկտեմբեր_նոյեմբեր_դեկտեմբեր'.split('_'),
             'accusative': 'հունվարի_փետրվարի_մարտի_ապրիլի_մայիսի_հունիսի_հուլիսի_օգոստոսի_սեպտեմբերի_հոկտեմբերի_նոյեմբերի_դեկտեմբերի'.split('_')
@@ -182,7 +174,6 @@ exports["lang:hy-am"] = {
     },
 
     "format month short case with escaped symbols" : function (test) {
-
         var monthsShort = {
             'nominative': 'հնվ_փտր_մրտ_ապր_մյս_հնս_հլս_օգս_սպտ_հկտ_նմբ_դկտ'.split('_'),
             'accusative': 'հնվ_փտր_մրտ_ապր_մյս_հնս_հլս_օգս_սպտ_հկտ_նմբ_դկտ'.split('_')
@@ -197,7 +188,6 @@ exports["lang:hy-am"] = {
     },
 
     "format week" : function (test) {
-
         var expected = 'կիրակի կրկ կրկ_երկուշաբթի երկ երկ_երեքշաբթի երք երք_չորեքշաբթի չրք չրք_հինգշաբթի հնգ հնգ_ուրբաթ ուրբ ուրբ_շաբաթ շբթ շբթ'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
@@ -253,7 +243,6 @@ exports["lang:hy-am"] = {
     },
 
     "calendar day" : function (test) {
-
         var a = moment().hours(2).minutes(0).seconds(0);
 
         test.equal(moment(a).calendar(),                     "այսօր 02:00",   "today at the same time");
@@ -266,7 +255,6 @@ exports["lang:hy-am"] = {
     },
 
     "calendar next week" : function (test) {
-
         var i, m;
         function makeFormat(d) {
             return 'dddd [օրը ժամը] LT';
@@ -284,7 +272,6 @@ exports["lang:hy-am"] = {
     },
 
     "calendar last week" : function (test) {
-
         var i, m;
 
         function makeFormat(d) {
@@ -303,7 +290,6 @@ exports["lang:hy-am"] = {
     },
 
     "calendar all else" : function (test) {
-
         var weeksAgo = moment().subtract({w: 1}),
             weeksFromNow = moment().add({w: 1});
 
@@ -323,7 +309,6 @@ exports["lang:hy-am"] = {
     // The week that contains Jan 1st is the first week of the year.
 
     "weeks year starting sunday" : function (test) {
-
         test.equal(moment([2011, 11, 26]).week(), 1, "Dec 26 2011 should be week 1");
         test.equal(moment([2012,  0,  1]).week(), 1, "Jan  1 2012 should be week 1");
         test.equal(moment([2012,  0,  2]).week(), 2, "Jan  2 2012 should be week 2");
@@ -334,7 +319,6 @@ exports["lang:hy-am"] = {
     },
 
     "weeks year starting monday" : function (test) {
-
         test.equal(moment([2007, 0, 1]).week(),  1, "Jan  1 2007 should be week 1");
         test.equal(moment([2007, 0, 7]).week(),  1, "Jan  7 2007 should be week 1");
         test.equal(moment([2007, 0, 8]).week(),  2, "Jan  8 2007 should be week 2");
@@ -345,7 +329,6 @@ exports["lang:hy-am"] = {
     },
 
     "weeks year starting tuesday" : function (test) {
-
         test.equal(moment([2007, 11, 31]).week(), 1, "Dec 31 2007 should be week 1");
         test.equal(moment([2008,  0,  1]).week(), 1, "Jan  1 2008 should be week 1");
         test.equal(moment([2008,  0,  6]).week(), 1, "Jan  6 2008 should be week 1");
@@ -357,7 +340,6 @@ exports["lang:hy-am"] = {
     },
 
     "weeks year starting wednesday" : function (test) {
-
         test.equal(moment([2002, 11, 30]).week(), 1, "Dec 30 2002 should be week 1");
         test.equal(moment([2003,  0,  1]).week(), 1, "Jan  1 2003 should be week 1");
         test.equal(moment([2003,  0,  5]).week(), 1, "Jan  5 2003 should be week 1");
@@ -369,7 +351,6 @@ exports["lang:hy-am"] = {
     },
 
     "weeks year starting thursday" : function (test) {
-
         test.equal(moment([2008, 11, 29]).week(), 1, "Dec 29 2008 should be week 1");
         test.equal(moment([2009,  0,  1]).week(), 1, "Jan  1 2009 should be week 1");
         test.equal(moment([2009,  0,  4]).week(), 1, "Jan  4 2009 should be week 1");
@@ -381,7 +362,6 @@ exports["lang:hy-am"] = {
     },
 
     "weeks year starting friday" : function (test) {
-
         test.equal(moment([2009, 11, 28]).week(), 1, "Dec 28 2009 should be week 1");
         test.equal(moment([2010,  0,  1]).week(), 1, "Jan  1 2010 should be week 1");
         test.equal(moment([2010,  0,  3]).week(), 1, "Jan  3 2010 should be week 1");
@@ -393,7 +373,6 @@ exports["lang:hy-am"] = {
     },
 
     "weeks year starting saturday" : function (test) {
-
         test.equal(moment([2010, 11, 27]).week(), 1, "Dec 27 2010 should be week 1");
         test.equal(moment([2011,  0,  1]).week(), 1, "Jan  1 2011 should be week 1");
         test.equal(moment([2011,  0,  2]).week(), 1, "Jan  2 2011 should be week 1");
@@ -405,7 +384,6 @@ exports["lang:hy-am"] = {
     },
 
     "weeks year starting sunday formatted" : function (test) {
-
         test.equal(moment([2011, 11, 26]).format('w ww wo'), '1 01 1-ին', "Dec 26 2011 should be week 1");
         test.equal(moment([2012,  0,  1]).format('w ww wo'), '1 01 1-ին', "Jan  1 2012 should be week 1");
         test.equal(moment([2012,  0,  2]).format('w ww wo'), '2 02 2-րդ', "Jan  2 2012 should be week 2");

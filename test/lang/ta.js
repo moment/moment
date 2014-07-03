@@ -176,7 +176,6 @@ exports["lang:ta"] = {
     },
 
     "calendar day" : function (test) {
-
         var a = moment().hours(2).minutes(0).seconds(0);
 
         test.equal(moment(a).calendar(),  "இன்று 02:00", "இன்று  02:00");
@@ -189,7 +188,6 @@ exports["lang:ta"] = {
     },
 
     "calendar next week" : function (test) {
-
         var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({d: i});
@@ -203,7 +201,6 @@ exports["lang:ta"] = {
     },
 
     "calendar last week" : function (test) {
-
         var i, m;
 
         for (i = 2; i < 7; i++) {
@@ -219,7 +216,6 @@ exports["lang:ta"] = {
 
 
     "calendar all else" : function (test) {
-
         var weeksAgo = moment().subtract({w: 1}),
             weeksFromNow = moment().add({w: 1});
 
@@ -241,7 +237,6 @@ exports["lang:ta"] = {
     // The week that contains Jan 1st is the first week of the year.
 
     "weeks year starting sunday" : function (test) {
-
         test.equal(moment([2012, 0,  1]).week(), 1, "Jan  1 2012 should be week 1");
         test.equal(moment([2012, 0,  7]).week(), 1, "Jan  7 2012 should be week 1");
         test.equal(moment([2012, 0,  8]).week(), 2, "Jan  8 2012 should be week 2");
@@ -252,7 +247,6 @@ exports["lang:ta"] = {
     },
 
     "weeks year starting monday" : function (test) {
-
         test.equal(moment([2006, 11, 31]).week(), 1, "Dec 31 2006 should be week 1");
         test.equal(moment([2007,  0,  1]).week(), 1, "Jan  1 2007 should be week 1");
         test.equal(moment([2007,  0,  6]).week(), 1, "Jan  6 2007 should be week 1");
@@ -264,7 +258,6 @@ exports["lang:ta"] = {
     },
 
     "weeks year starting tuesday" : function (test) {
-
         test.equal(moment([2007, 11, 29]).week(), 52, "Dec 29 2007 should be week 52");
         test.equal(moment([2008,  0,  1]).week(), 1, "Jan  1 2008 should be week 1");
         test.equal(moment([2008,  0,  5]).week(), 1, "Jan  5 2008 should be week 1");
@@ -276,7 +269,6 @@ exports["lang:ta"] = {
     },
 
     "weeks year starting wednesday" : function (test) {
-
         test.equal(moment([2002, 11, 29]).week(), 1, "Dec 29 2002 should be week 1");
         test.equal(moment([2003,  0,  1]).week(), 1, "Jan  1 2003 should be week 1");
         test.equal(moment([2003,  0,  4]).week(), 1, "Jan  4 2003 should be week 1");
@@ -288,7 +280,6 @@ exports["lang:ta"] = {
     },
 
     "weeks year starting thursday" : function (test) {
-
         test.equal(moment([2008, 11, 28]).week(), 1, "Dec 28 2008 should be week 1");
         test.equal(moment([2009,  0,  1]).week(), 1, "Jan  1 2009 should be week 1");
         test.equal(moment([2009,  0,  3]).week(), 1, "Jan  3 2009 should be week 1");
@@ -300,7 +291,6 @@ exports["lang:ta"] = {
     },
 
     "weeks year starting friday" : function (test) {
-
         test.equal(moment([2009, 11, 27]).week(), 1, "Dec 27 2009 should be week 1");
         test.equal(moment([2010,  0,  1]).week(), 1, "Jan  1 2010 should be week 1");
         test.equal(moment([2010,  0,  2]).week(), 1, "Jan  2 2010 should be week 1");
@@ -312,7 +302,6 @@ exports["lang:ta"] = {
     },
 
     "weeks year starting saturday" : function (test) {
-
         test.equal(moment([2010, 11, 26]).week(), 1, "Dec 26 2010 should be week 1");
         test.equal(moment([2011,  0,  1]).week(), 1, "Jan  1 2011 should be week 1");
         test.equal(moment([2011,  0,  2]).week(), 2, "Jan  2 2011 should be week 2");
@@ -323,7 +312,6 @@ exports["lang:ta"] = {
     },
 
     "meridiem" : function (test) {
-
         test.equal(moment([2011, 2, 23,  2, 30]).format('a'), " வைகறை", "before dawn");
         test.equal(moment([2011, 2, 23,  9, 30]).format('a'), " காலை", "morning");
         test.equal(moment([2011, 2, 23, 14, 30]).format('a'), " நண்பகல்", "during day");

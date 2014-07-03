@@ -5,7 +5,6 @@
 //! momentjs.com
 
 (function (undefined) {
-
     /************************************
         Constants
     ************************************/
@@ -364,7 +363,6 @@
     ************************************/
 
     function Language() {
-
     }
 
     // Moment prototype object
@@ -976,7 +974,6 @@
 
     // format date using native date object
     function formatMoment(m, format) {
-
         if (!m.isValid()) {
             return m.lang().invalidDate();
         }
@@ -1378,7 +1375,6 @@
 
     // date from string and format string
     function makeDateFromStringAndFormat(config) {
-
         if (config._f === moment.ISO_8601) {
             parseISO(config);
             return;
@@ -1540,7 +1536,7 @@
             config._d = new Date();
         } else if (isDate(input)) {
             config._d = new Date(+input);
-        } else if ( (matched = aspNetJsonRegex.exec(input)) !== null ) {
+        } else if ((matched = aspNetJsonRegex.exec(input)) !== null) {
             config._d = new Date(+matched[1]);
         } else if (typeof input === 'string') {
             makeDateFromString(config);
@@ -2025,7 +2021,6 @@
         },
 
         isDSTShifted : function () {
-
             if (this._a) {
                 return this.isValid() && compareArrays(this._a, (this._isUTC ? moment.utc(this._a) : moment(this._a)).toArray()) > 0;
             }

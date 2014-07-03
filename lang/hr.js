@@ -13,7 +13,6 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-
     function translate(number, withoutSuffix, key) {
         var result = number + " ";
         switch (key) {
