@@ -217,7 +217,6 @@ exports.format = {
     },
 
     "iso week formats" : function (test) {
-
         // http://en.wikipedia.org/wiki/ISO_week_date
         var cases = {
             "2005-01-02": "2004-53",
@@ -252,7 +251,6 @@ exports.format = {
     },
 
     "iso week year formats" : function (test) {
-
         // http://en.wikipedia.org/wiki/ISO_week_date
         var cases = {
             "2005-01-02": "2004-53",
@@ -288,7 +286,6 @@ exports.format = {
     },
 
     "week year formats" : function (test) {
-
         // http://en.wikipedia.org/wiki/ISO_week_date
         var cases = {
             "2005-01-02": "2004-53",

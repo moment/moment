@@ -20,7 +20,6 @@ exports["lang:zh-cn"] = {
     },
 
     "parse" : function (test) {
-
         var tests = '一月 1月_二月 2月_三月 3月_四月 4月_五月 5月_六月 6月_七月 7月_八月 8月_九月 9月_十月 10月_十一月 11月_十二月 12月'.split("_"), i;
 
         function equalTest(input, mmm, i) {
@@ -42,7 +41,6 @@ exports["lang:zh-cn"] = {
     },
 
     "format" : function (test) {
-
         var a = [
                 ['dddd, MMMM Do YYYY, a h:mm:ss',      '星期日, 二月 14日 2010, 下午 3:25:50'],
                 ['ddd, Ah',                            '周日, 下午3'],
@@ -78,7 +76,6 @@ exports["lang:zh-cn"] = {
     },
 
     "format month" : function (test) {
-
         var expected = '一月 1月_二月 2月_三月 3月_四月 4月_五月 5月_六月 6月_七月 7月_八月 8月_九月 9月_十月 10月_十一月 11月_十二月 12月'.split("_"), i;
 
         for (i = 0; i < expected.length; i++) {
@@ -89,7 +86,6 @@ exports["lang:zh-cn"] = {
     },
 
     "format week" : function (test) {
-
         var expected = '星期日 周日 日_星期一 周一 一_星期二 周二 二_星期三 周三 三_星期四 周四 四_星期五 周五 五_星期六 周六 六'.split("_"), i;
 
         for (i = 0; i < expected.length; i++) {
@@ -100,7 +96,6 @@ exports["lang:zh-cn"] = {
     },
 
     "from" : function (test) {
-
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "几秒",   "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "1分钟", "45 seconds = a minute");
@@ -135,7 +130,6 @@ exports["lang:zh-cn"] = {
     },
 
     "suffix" : function (test) {
-
         test.equal(moment(30000).from(0), "几秒内",  "prefix");
         test.equal(moment(0).from(30000), "几秒前", "suffix");
 
@@ -143,14 +137,12 @@ exports["lang:zh-cn"] = {
     },
 
     "now from now" : function (test) {
-
         test.equal(moment().fromNow(), "几秒前",  "now from now should display as in the past");
 
         test.done();
     },
 
     "fromNow" : function (test) {
-
         test.equal(moment().add({s: 30}).fromNow(), "几秒内", "in a few seconds");
         test.equal(moment().add({d: 5}).fromNow(), "5天内", "in 5 days");
 
@@ -158,7 +150,6 @@ exports["lang:zh-cn"] = {
     },
 
     "calendar day" : function (test) {
-
         var a = moment().hours(2).minutes(0).seconds(0);
 
         test.equal(moment(a).calendar(),                     "今天凌晨2点整",     "today at the same time");
@@ -216,7 +207,6 @@ exports["lang:zh-cn"] = {
     },
 
     "calendar all else" : function (test) {
-
         var weeksAgo = moment().subtract({w: 1}),
             weeksFromNow = moment().add({w: 1});
 
@@ -232,7 +222,6 @@ exports["lang:zh-cn"] = {
     },
 
     "meridiem" : function (test) {
-
         test.equal(moment([2011, 2, 23,  0, 0]).format('A'), "凌晨", "before dawn");
         test.equal(moment([2011, 2, 23,  6, 0]).format('A'), "早上", "morning");
         test.equal(moment([2011, 2, 23,  9, 0]).format('A'), "上午", "before noon");
@@ -247,7 +236,6 @@ exports["lang:zh-cn"] = {
     // The week that contains Jan 1st is the first week of the year.
 
     "weeks year starting sunday" : function (test) {
-
         test.equal(moment([2012, 0,  1]).week(), 52, "Jan  1 2012 should be week 52");
         test.equal(moment([2012, 0,  2]).week(), 1, "Jan  2 2012 should be week 52");
         test.equal(moment([2012, 0,  7]).week(), 1, "Jan  7 2012 should be week 1");
@@ -257,7 +245,6 @@ exports["lang:zh-cn"] = {
     },
 
     "weeks year starting monday" : function (test) {
-
         test.equal(moment([2006, 11, 31]).week(), 52, "Dec 31 2006 should be week 52");
         test.equal(moment([2007,  0,  1]).week(), 1, "Jan  1 2007 should be week 1");
         test.equal(moment([2007,  0,  6]).week(), 1, "Jan  6 2007 should be week 1");
@@ -269,7 +256,6 @@ exports["lang:zh-cn"] = {
     },
 
     "weeks year starting tuesday" : function (test) {
-
         test.equal(moment([2007, 11, 29]).week(), 52, "Dec 29 2007 should be week 52");
         test.equal(moment([2008,  0,  1]).week(), 1, "Jan  1 2008 should be week 1");
         test.equal(moment([2008,  0,  5]).week(), 1, "Jan  5 2008 should be week 1");
@@ -281,7 +267,6 @@ exports["lang:zh-cn"] = {
     },
 
     "weeks year starting wednesday" : function (test) {
-
         test.equal(moment([2002, 11, 29]).week(), 52, "Dec 29 2002 should be week 52");
         test.equal(moment([2003,  0,  1]).week(), 1, "Jan  1 2003 should be week 1");
         test.equal(moment([2003,  0,  4]).week(), 1, "Jan  4 2003 should be week 1");
@@ -293,7 +278,6 @@ exports["lang:zh-cn"] = {
     },
 
     "weeks year starting thursday" : function (test) {
-
         test.equal(moment([2009,  0,  1]).week(), 1, "Jan  1 2009 should be week 1");
         test.equal(moment([2009,  0,  3]).week(), 1, "Jan  3 2009 should be week 1");
         test.equal(moment([2009,  0,  4]).week(), 1, "Jan  4 2009 should be week 1");
@@ -304,7 +288,6 @@ exports["lang:zh-cn"] = {
     },
 
     "weeks year starting friday" : function (test) {
-
         test.equal(moment([2010,  0,  2]).week(), 53, "Jan  2 2010 should be week 53");
         test.equal(moment([2010,  0, 10]).week(), 1, "Jan 10 2010 should be week 1");
 
@@ -312,7 +295,6 @@ exports["lang:zh-cn"] = {
     },
 
     "weeks year starting saturday" : function (test) {
-
         test.equal(moment([2011,  0,  2]).week(), 52, "Jan  2 2011 should be week 52");
         test.equal(moment([2011,  0,  8]).week(), 1, "Jan  8 2011 should be week 1");
         test.equal(moment([2011,  0,  9]).week(), 1, "Jan  9 2011 should be week 1");
@@ -321,7 +303,6 @@ exports["lang:zh-cn"] = {
     },
 
     "weeks year starting sunday format" : function (test) {
-
         test.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52周', "Jan  1 2012 应该是第52周");
         test.equal(moment([2012, 0,  7]).format('w ww wo'), '1 01 1周', "Jan  7 2012 应该是第 1周");
         test.equal(moment([2012, 0, 14]).format('w ww wo'), '2 02 2周', "Jan 14 2012 应该是第 2周");

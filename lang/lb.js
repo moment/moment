@@ -15,7 +15,6 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-
     function processRelativeTime(number, withoutSuffix, key, isFuture) {
         var format = {
             'm': ['eng Minutt', 'enger Minutt'],

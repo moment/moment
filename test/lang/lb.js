@@ -19,7 +19,6 @@ exports["lang:lb"] = {
     },
 
     "parse": function (test) {
-
         var tests = 'Januar Jan._Februar Febr._Mäerz Mrz._Abrëll Abr._Mee Mee_Juni Jun._Juli Jul._August Aug._September Sept._Oktober Okt._November Nov._Dezember Dez.'.split("_"), i;
 
         function equalTest(input, mmm, i) {
@@ -41,7 +40,6 @@ exports["lang:lb"] = {
     },
 
     "format": function (test) {
-
         var a = [
                 ['dddd, Do MMMM YYYY, HH:mm:ss', 'Sonndeg, 14. Februar 2010, 15:25:50'],
                 ['ddd, HH:mm', 'So., 15:25'],
@@ -75,7 +73,6 @@ exports["lang:lb"] = {
     },
 
     "format month": function (test) {
-
         var expected = 'Januar Jan._Februar Febr._Mäerz Mrz._Abrëll Abr._Mee Mee_Juni Jun._Juli Jul._August Aug._September Sept._Oktober Okt._November Nov._Dezember Dez.'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
@@ -84,7 +81,6 @@ exports["lang:lb"] = {
     },
 
     "format week": function (test) {
-
         var expected = 'Sonndeg So. So_Méindeg Mé. Mé_Dënschdeg Dë. Dë_Mëttwoch Më. Më_Donneschdeg Do. Do_Freideg Fr. Fr_Samschdeg Sa. Sa'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
@@ -149,7 +145,6 @@ exports["lang:lb"] = {
     },
 
     "calendar last week": function (test) {
-
         var i, m, weekday, datestring;
         for (i = 2; i < 7; i++) {
             m = moment().subtract({d: i});

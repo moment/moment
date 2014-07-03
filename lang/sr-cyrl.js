@@ -11,7 +11,6 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-
     var translator = {
         words: { //Different grammatical cases
             m: ['један минут', 'једне минуте'],

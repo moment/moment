@@ -41,7 +41,6 @@ exports["lang:az"] = {
     },
 
     "format" : function (test) {
-
         var a = [
                 ['dddd, D MMMM YYYY, HH:mm:ss',        'Bazar, 14 fevral 2010, 15:25:50'],
                 ['ddd, A h',                           'Baz, gündüz 3'],

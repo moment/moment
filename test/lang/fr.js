@@ -20,7 +20,6 @@ exports["lang:fr"] = {
     },
 
     "parse" : function (test) {
-
         var tests = 'janvier janv._février févr._mars mars_avril avr._mai mai_juin juin_juillet juil._août août_septembre sept._octobre oct._novembre nov._décembre déc.'.split("_"),
             i;
         function equalTest(input, mmm, i) {
@@ -41,7 +40,6 @@ exports["lang:fr"] = {
     },
 
     "format" : function (test) {
-
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'dimanche, février 14 2010, 3:25:50 pm'],
                 ['ddd, hA',                            'dim., 3PM'],
@@ -75,7 +73,6 @@ exports["lang:fr"] = {
     },
 
     "format ordinal" : function (test) {
-
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1er', '1er');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2', '2');
         test.equal(moment([2011, 0, 3]).format('DDDo'), '3', '3');
@@ -114,7 +111,6 @@ exports["lang:fr"] = {
     },
 
     "format month" : function (test) {
-
         var expected = 'janvier janv._février févr._mars mars_avril avr._mai mai_juin juin_juillet juil._août août_septembre sept._octobre oct._novembre nov._décembre déc.'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
@@ -123,7 +119,6 @@ exports["lang:fr"] = {
     },
 
     "format week" : function (test) {
-
         var expected = 'dimanche dim. Di_lundi lun. Lu_mardi mar. Ma_mercredi mer. Me_jeudi jeu. Je_vendredi ven. Ve_samedi sam. Sa'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
@@ -132,7 +127,6 @@ exports["lang:fr"] = {
     },
 
     "from" : function (test) {
-
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "quelques secondes", "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "une minute",   "45 seconds = a minute");
@@ -166,21 +160,18 @@ exports["lang:fr"] = {
     },
 
     "suffix" : function (test) {
-
         test.equal(moment(30000).from(0), "dans quelques secondes", "prefix");
         test.equal(moment(0).from(30000), "il y a quelques secondes", "suffix");
         test.done();
     },
 
     "fromNow" : function (test) {
-
         test.equal(moment().add({s: 30}).fromNow(), "dans quelques secondes", "in a few seconds");
         test.equal(moment().add({d: 5}).fromNow(), "dans 5 jours", "in 5 days");
         test.done();
     },
 
     "same day" : function (test) {
-
         var a = moment().hours(2).minutes(0).seconds(0);
 
         test.equal(moment(a).calendar(),                     "Aujourd'hui à 02:00",    "today at the same time");
@@ -193,7 +184,6 @@ exports["lang:fr"] = {
     },
 
     "same next week" : function (test) {
-
         var i, m;
 
         for (i = 2; i < 7; i++) {
@@ -208,7 +198,6 @@ exports["lang:fr"] = {
     },
 
     "same last week" : function (test) {
-
         var i, m;
 
         for (i = 2; i < 7; i++) {
@@ -241,7 +230,6 @@ exports["lang:fr"] = {
     // The week that contains Jan 4th is the first week of the year.
 
     "weeks year starting sunday" : function (test) {
-
         test.equal(moment([2012, 0, 1]).week(), 52, "Jan  1 2012 should be week 52");
         test.equal(moment([2012, 0, 2]).week(),  1, "Jan  2 2012 should be week 1");
         test.equal(moment([2012, 0, 8]).week(),  1, "Jan  8 2012 should be week 1");
@@ -252,7 +240,6 @@ exports["lang:fr"] = {
     },
 
     "weeks year starting monday" : function (test) {
-
         test.equal(moment([2007, 0, 1]).week(),  1, "Jan  1 2007 should be week 1");
         test.equal(moment([2007, 0, 7]).week(),  1, "Jan  7 2007 should be week 1");
         test.equal(moment([2007, 0, 8]).week(),  2, "Jan  8 2007 should be week 2");
@@ -263,7 +250,6 @@ exports["lang:fr"] = {
     },
 
     "weeks year starting tuesday" : function (test) {
-
         test.equal(moment([2007, 11, 31]).week(), 1, "Dec 31 2007 should be week 1");
         test.equal(moment([2008,  0,  1]).week(), 1, "Jan  1 2008 should be week 1");
         test.equal(moment([2008,  0,  6]).week(), 1, "Jan  6 2008 should be week 1");
@@ -275,7 +261,6 @@ exports["lang:fr"] = {
     },
 
     "weeks year starting wednesday" : function (test) {
-
         test.equal(moment([2002, 11, 30]).week(), 1, "Dec 30 2002 should be week 1");
         test.equal(moment([2003,  0,  1]).week(), 1, "Jan  1 2003 should be week 1");
         test.equal(moment([2003,  0,  5]).week(), 1, "Jan  5 2003 should be week 1");
@@ -287,7 +272,6 @@ exports["lang:fr"] = {
     },
 
     "weeks year starting thursday" : function (test) {
-
         test.equal(moment([2008, 11, 29]).week(), 1, "Dec 29 2008 should be week 1");
         test.equal(moment([2009,  0,  1]).week(), 1, "Jan  1 2009 should be week 1");
         test.equal(moment([2009,  0,  4]).week(), 1, "Jan  4 2009 should be week 1");
@@ -299,7 +283,6 @@ exports["lang:fr"] = {
     },
 
     "weeks year starting friday" : function (test) {
-
         test.equal(moment([2009, 11, 28]).week(), 53, "Dec 28 2009 should be week 53");
         test.equal(moment([2010,  0,  1]).week(), 53, "Jan  1 2010 should be week 53");
         test.equal(moment([2010,  0,  3]).week(), 53, "Jan  3 2010 should be week 53");
@@ -311,7 +294,6 @@ exports["lang:fr"] = {
     },
 
     "weeks year starting saturday" : function (test) {
-
         test.equal(moment([2010, 11, 27]).week(), 52, "Dec 27 2010 should be week 52");
         test.equal(moment([2011,  0,  1]).week(), 52, "Jan  1 2011 should be week 52");
         test.equal(moment([2011,  0,  2]).week(), 52, "Jan  2 2011 should be week 52");
@@ -323,7 +305,6 @@ exports["lang:fr"] = {
     },
 
     "weeks year starting sunday formatted" : function (test) {
-
         test.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52', "Jan  1 2012 should be week 52");
         test.equal(moment([2012, 0,  2]).format('w ww wo'), '1 01 1er', "Jan  2 2012 should be week 1");
         test.equal(moment([2012, 0,  8]).format('w ww wo'), '1 01 1er', "Jan  8 2012 should be week 1");
