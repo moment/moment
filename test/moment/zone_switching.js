@@ -88,7 +88,7 @@ exports.zoneSwitching = {
             m.zone(z * 60);
 
             test.equal(m.clone().local(true).format(fmt), m.format(fmt),
-                    "zone(" + z + ":00) to local failed to keep the local time");
+                    "zone(" + z + ":00) to local failed to keep local time");
         }
 
         test.done();
@@ -105,9 +105,9 @@ exports.zoneSwitching = {
             m.zone(z * 60);
 
             test.equal(m.clone().local(false).valueOf(), m.valueOf(),
-                    "zone(" + z + ":00) to local failed to keep the local time (explicit)");
+                    "zone(" + z + ":00) to local failed to keep utc time (explicit)");
             test.equal(m.clone().local().valueOf(), m.valueOf(),
-                    "zone(" + z + ":00) to local failed to keep the local time (implicit)");
+                    "zone(" + z + ":00) to local failed to keep utc time (implicit)");
         }
 
         test.done();
