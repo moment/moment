@@ -1540,7 +1540,7 @@
             config._d = new Date();
         } else if (isDate(input)) {
             config._d = new Date(+input);
-        } else if ( (matched = aspNetJsonRegex.exec(input)) !== null ) {
+        } else if ((matched = aspNetJsonRegex.exec(input)) !== null) {
             config._d = new Date(+matched[1]);
         } else if (typeof input === 'string') {
             makeDateFromString(config);
