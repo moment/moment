@@ -162,11 +162,11 @@
             M    : function () {
                 return this.month() + 1;
             },
-            MMM  : function (format) {
-                return this.lang().monthsShort(this, format);
+            MMM  : function (format, lang) {
+                return lang.monthsShort(this, format);
             },
-            MMMM : function (format) {
-                return this.lang().months(this, format);
+            MMMM : function (format, lang) {
+                return lang.months(this, format);
             },
             D    : function () {
                 return this.date();
@@ -177,14 +177,14 @@
             d    : function () {
                 return this.day();
             },
-            dd   : function (format) {
-                return this.lang().weekdaysMin(this, format);
+            dd   : function (format, lang) {
+                return lang.weekdaysMin(this, format);
             },
-            ddd  : function (format) {
-                return this.lang().weekdaysShort(this, format);
+            ddd  : function (format, lang) {
+                return lang.weekdaysShort(this, format);
             },
-            dddd : function (format) {
-                return this.lang().weekdays(this, format);
+            dddd : function (format, lang) {
+                return lang.weekdays(this, format);
             },
             w    : function () {
                 return this.week();
@@ -229,11 +229,11 @@
             E : function () {
                 return this.isoWeekday();
             },
-            a    : function () {
-                return this.lang().meridiem(this.hours(), this.minutes(), true);
+            a    : function (format, lang) {
+                return lang.meridiem(this.hours(), this.minutes(), true);
             },
-            A    : function () {
-                return this.lang().meridiem(this.hours(), this.minutes(), false);
+            A    : function (format, lang) {
+                return lang.meridiem(this.hours(), this.minutes(), false);
             },
             H    : function () {
                 return this.hours();
@@ -338,13 +338,13 @@
     }
 
     function padToken(func, count) {
-        return function (a) {
-            return leftZeroFill(func.call(this, a), count);
+        return function (format, lang) {
+            return leftZeroFill(func.call(this, format, lang), count);
         };
     }
     function ordinalizeToken(func, period) {
-        return function (a) {
-            return this.lang().ordinal(func.call(this, a), period);
+        return function (format, lang) {
+            return lang.ordinal(func.call(this, format, lang), period);
         };
     }
 
@@ -965,29 +965,35 @@
             }
         }
 
-        return function (mom) {
+        return function (mom, lang) {
             var output = "";
             for (i = 0; i < length; i++) {
-                output += array[i] instanceof Function ? array[i].call(mom, format) : array[i];
+                output += array[i] instanceof Function ? array[i].call(mom, format, lang) : array[i];
             }
             return output;
         };
     }
 
     // format date using native date object
-    function formatMoment(m, format) {
-
-        if (!m.isValid()) {
-            return m.lang().invalidDate();
+    function formatMoment(m, format, options) {
+        var lang;
+        if(options && options.lang) {
+            lang = getLangDefinition(options.lang);
+        } else {
+            lang = m.lang();
         }
 
-        format = expandFormat(format, m.lang());
+        if (!m.isValid()) {
+            return lang.invalidDate();
+        }
+
+        format = expandFormat(format, lang);
 
         if (!formatFunctions[format]) {
             formatFunctions[format] = makeFormatFunction(format);
         }
 
-        return formatFunctions[format](m);
+        return formatFunctions[format](m, lang);
     }
 
     function expandFormat(format, lang) {
@@ -2057,9 +2063,16 @@
             return this;
         },
 
-        format : function (inputString) {
-            var output = formatMoment(this, inputString || moment.defaultFormat);
-            return this.lang().postformat(output);
+        format : function (inputString, options) {
+            var lang;
+            if(options && options.lang) {
+                lang = getLangDefinition(options.lang);
+            } else {
+                lang = this.lang();
+            }
+
+            var output = formatMoment(this, inputString || moment.defaultFormat, options);
+            return lang.postformat(output);
         },
 
         add : function (input, val) {
