@@ -34,7 +34,6 @@
     },
     "requireMultipleVarDecl": "onevar",
     "requireBlocksOnNewline": true,
-    "disallowPaddingNewlinesInBlocks": true,
     "disallowEmptyBlocks": true,
     "disallowSpacesInsideObjectBrackets": true,
     "disallowSpacesInsideArrayBrackets": true,
