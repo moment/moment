@@ -175,7 +175,7 @@ exports.gettersSetters = {
     "setters strings" : function (test) {
         test.expect(7);
 
-        var a = moment([2012]).lang('en');
+        var a = moment([2012]).locale('en');
         test.equal(a.clone().day(0).day('Wednesday').day(), 3, 'day full name');
         test.equal(a.clone().day(0).day('Wed').day(), 3, 'day short name');
         test.equal(a.clone().day(0).day('We').day(), 3, 'day minimal name');

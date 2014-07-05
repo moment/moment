@@ -342,7 +342,7 @@ exports.duration = {
 
     "humanize" : function (test) {
         test.expect(32);
-        moment.lang('en');
+        moment.locale('en');
         test.equal(moment.duration({seconds: 44}).humanize(),  "a few seconds", "44 seconds = a few seconds");
         test.equal(moment.duration({seconds: 45}).humanize(),  "a minute",      "45 seconds = a minute");
         test.equal(moment.duration({seconds: 89}).humanize(),  "a minute",      "89 seconds = a minute");
@@ -380,7 +380,7 @@ exports.duration = {
 
     "humanize duration with suffix" : function (test) {
         test.expect(2);
-        moment.lang('en');
+        moment.locale('en');
         test.equal(moment.duration({seconds:  44}).humanize(true),  "in a few seconds", "44 seconds = a few seconds");
         test.equal(moment.duration({seconds: -44}).humanize(true),  "a few seconds ago", "44 seconds = a few seconds");
         test.done();

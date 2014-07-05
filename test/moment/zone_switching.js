@@ -2,7 +2,7 @@ var moment = require('../../moment');
 
 exports.zoneSwitching = {
     setUp : function (done) {
-        moment.lang('en');
+        moment.locale('en');
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");
         };

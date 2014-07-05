@@ -14,7 +14,7 @@ var moment = require("../../moment"),
 
 exports.create = {
     setUp : function (done) {
-        moment.lang('en');
+        moment.locale('en');
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");
         };
@@ -107,9 +107,7 @@ exports.create = {
     },
 
     "cloning moment should only copy own properties" : function (test) {
-        test.expect(2);
         test.ok(!moment().clone().hasOwnProperty('month'), "Should not clone prototype methods");
-        test.ok(!moment().clone().hasOwnProperty('_lang'), "Should not clone prototype objects");
         test.done();
     },
 
@@ -147,8 +145,7 @@ exports.create = {
     },
 
     "string with format dropped am/pm bug" : function (test) {
-        moment.lang('en');
-        test.expect(6);
+        moment.locale('en');
 
         test.equal(moment('05/1/2012 12:25:00', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
         test.equal(moment('05/1/2012 12:25:00 am', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'), '05/01/2012', 'should not break if am/pm is left off from the parsing tokens');
@@ -219,7 +216,7 @@ exports.create = {
     },
 
     "string with format" : function (test) {
-        moment.lang('en');
+        moment.locale('en');
         var a = [
                 ['YYYY-Q',              '2014-4'],
                 ['MM-DD-YYYY',          '12-02-1999'],
@@ -302,7 +299,7 @@ exports.create = {
     },
 
     "string with format no separators" : function (test) {
-        moment.lang('en');
+        moment.locale('en');
         var a = [
                 ['MMDDYYYY',          '12021999'],
                 ['DDMMYYYY',          '12021999'],
@@ -562,7 +559,7 @@ exports.create = {
     },
 
     "parsing week year/week/weekday (dow 1, doy 4)" : function (test) {
-        moment.lang("dow:1,doy:4", {week: {dow: 1, doy: 4}});
+        moment.locale("dow:1,doy:4", {week: {dow: 1, doy: 4}});
 
         test.equal(moment.utc("2007-01", "gggg-ww").format(), "2007-01-01T00:00:00+00:00", "2007 week 1 (1st Jan Mon)");
         test.equal(moment.utc("2008-01", "gggg-ww").format(), "2007-12-31T00:00:00+00:00", "2008 week 1 (1st Jan Tue)");
@@ -571,11 +568,13 @@ exports.create = {
         test.equal(moment.utc("2010-01", "gggg-ww").format(), "2010-01-04T00:00:00+00:00", "2010 week 1 (1st Jan Fri)");
         test.equal(moment.utc("2011-01", "gggg-ww").format(), "2011-01-03T00:00:00+00:00", "2011 week 1 (1st Jan Sat)");
         test.equal(moment.utc("2012-01", "gggg-ww").format(), "2012-01-02T00:00:00+00:00", "2012 week 1 (1st Jan Sun)");
+
+        moment.defineLocale("dow:1,doy:4", null);
         test.done();
     },
 
     "parsing week year/week/weekday (dow 1, doy 7)" : function (test) {
-        moment.lang("dow:1,doy:7", {week: {dow: 1, doy: 7}});
+        moment.locale("dow:1,doy:7", {week: {dow: 1, doy: 7}});
 
         test.equal(moment.utc("2007-01", "gggg-ww").format(), "2007-01-01T00:00:00+00:00", "2007 week 1 (1st Jan Mon)");
         test.equal(moment.utc("2008-01", "gggg-ww").format(), "2007-12-31T00:00:00+00:00", "2008 week 1 (1st Jan Tue)");
@@ -584,11 +583,12 @@ exports.create = {
         test.equal(moment.utc("2010-01", "gggg-ww").format(), "2009-12-28T00:00:00+00:00", "2010 week 1 (1st Jan Fri)");
         test.equal(moment.utc("2011-01", "gggg-ww").format(), "2010-12-27T00:00:00+00:00", "2011 week 1 (1st Jan Sat)");
         test.equal(moment.utc("2012-01", "gggg-ww").format(), "2011-12-26T00:00:00+00:00", "2012 week 1 (1st Jan Sun)");
+        moment.defineLocale("dow:1,doy:7", null);
         test.done();
     },
 
     "parsing week year/week/weekday (dow 0, doy 6)" : function (test) {
-        moment.lang("dow:0,doy:6", {week: {dow: 0, doy: 6}});
+        moment.locale("dow:0,doy:6", {week: {dow: 0, doy: 6}});
 
         test.equal(moment.utc("2007-01", "gggg-ww").format(), "2006-12-31T00:00:00+00:00", "2007 week 1 (1st Jan Mon)");
         test.equal(moment.utc("2008-01", "gggg-ww").format(), "2007-12-30T00:00:00+00:00", "2008 week 1 (1st Jan Tue)");
@@ -597,11 +597,12 @@ exports.create = {
         test.equal(moment.utc("2010-01", "gggg-ww").format(), "2009-12-27T00:00:00+00:00", "2010 week 1 (1st Jan Fri)");
         test.equal(moment.utc("2011-01", "gggg-ww").format(), "2010-12-26T00:00:00+00:00", "2011 week 1 (1st Jan Sat)");
         test.equal(moment.utc("2012-01", "gggg-ww").format(), "2012-01-01T00:00:00+00:00", "2012 week 1 (1st Jan Sun)");
+        moment.defineLocale("dow:0,doy:6", null);
         test.done();
     },
 
     "parsing week year/week/weekday (dow 6, doy 12)" : function (test) {
-        moment.lang("dow:6,doy:12", {week: {dow: 6, doy: 12}});
+        moment.locale("dow:6,doy:12", {week: {dow: 6, doy: 12}});
 
         test.equal(moment.utc("2007-01", "gggg-ww").format(), "2006-12-30T00:00:00+00:00", "2007 week 1 (1st Jan Mon)");
         test.equal(moment.utc("2008-01", "gggg-ww").format(), "2007-12-29T00:00:00+00:00", "2008 week 1 (1st Jan Tue)");
@@ -800,23 +801,23 @@ exports.create = {
         test.done();
     },
 
-    "parsing into a language" : function (test) {
+    "parsing into a locale" : function (test) {
         test.expect(2);
 
-        moment.lang('parselang', {
+        moment.defineLocale('parselocale', {
             months : "one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve".split('_'),
             monthsShort : "one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve".split("_")
         });
 
-        moment.lang('en');
+        moment.locale('en');
 
-        test.equal(moment('2012 seven', 'YYYY MMM', 'parselang').month(), 6, "should be able to parse in a specific language");
+        test.equal(moment('2012 seven', 'YYYY MMM', 'parselocale').month(), 6, "should be able to parse in a specific locale");
 
-        moment.lang('parselang');
+        moment.locale('parselocale');
 
-        test.equal(moment('2012 july', 'YYYY MMM', 'en').month(), 6, "should be able to parse in a specific language");
+        test.equal(moment('2012 july', 'YYYY MMM', 'en').month(), 6, "should be able to parse in a specific locale");
 
-        moment.lang('parselang', null);
+        moment.defineLocale('parselocale', null);
         test.done();
     },
 
@@ -883,9 +884,9 @@ exports.create = {
     'parsing localized weekdays' : function (test) {
         var ver = getVerifier(test);
         try {
-            moment.lang('fr'); //french uses doy = 4, dow = 1
-            ver('1999 37 4', 'GGGG WW E', "1999 09 16", 'iso ignores language');
-            ver('1999 37 7', 'GGGG WW E', "1999 09 19", 'iso ignores language');
+            moment.locale('fr'); //french uses doy = 4, dow = 1
+            ver('1999 37 4', 'GGGG WW E', "1999 09 16", 'iso ignores locale');
+            ver('1999 37 7', 'GGGG WW E', "1999 09 19", 'iso ignores locale');
 
             ver('1999 37 0', 'gggg ww e', "1999 09 13", 'localized e uses local doy and dow: 0 = monday');
             ver('1999 37 4', 'gggg ww e', "1999 09 17", 'localized e uses local doy and dow: 4 = friday');
@@ -901,7 +902,7 @@ exports.create = {
             ver('1999 37 Di', 'gggg ww dd', "1999 09 19", 'localized d uses 0-indexed days: 0 = sund');
         }
         finally {
-            moment.lang('en');
+            moment.locale('en');
             test.done();
         }
     },

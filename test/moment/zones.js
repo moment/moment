@@ -2,7 +2,7 @@ var moment = require("../../moment");
 
 exports.zones = {
     setUp : function (done) {
-        moment.lang('en');
+        moment.locale('en');
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");
         };
@@ -11,7 +11,7 @@ exports.zones = {
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
