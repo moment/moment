@@ -210,7 +210,7 @@ module.exports = function (grunt) {
         // code style
         'jshint', 'jscs',
         // node tests
-        'test:node',
+        'test:node'
     ]);
 
     // Task to be run when releasing a new version
