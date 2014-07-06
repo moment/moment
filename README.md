@@ -1,4 +1,4 @@
-[![NPM version][npm-version-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-url] [![MIT License][license-image]][license-url] [![Develop build Status][travis-image]][travis-url] [![Master build Status][travis-image-master]][travis-url]
+[![NPM version][npm-version-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-url] [![MIT License][license-image]][license-url] [![Build Status][travis-image]][travis-url]
 
 A lightweight javascript date library for parsing, validating, manipulating, and formatting dates.
 
@@ -26,23 +26,12 @@ Duplicate `Date` passed to `moment()` instead of referencing it.
 Changelog
 =========
 
-See [CHANGELOG.md](CHANGELOG.md).
+See [the changelog](CHANGELOG.md).
 
-For developers
-==============
+Contributing
+============
 
-You need [node](http://nodejs.org/); use [nvm](https://github.com/creationix/nvm) or [nenv](https://github.com/ryuone/nenv) to install it.
-
-Then, in your shell
-
-```bash
-git clone https://github.com/moment/moment.git
-cd moment
-npm install -g grunt-cli
-npm install
-git checkout develop  # all patches against develop branch, please!
-grunt                 # this runs tests and jshint
-```
+See [the contributing guide](CONTRIBUTING.md).
 
 License
 =======
@@ -58,4 +47,3 @@ Moment.js is freely distributable under the terms of the [MIT license](LICENSE).
 
 [travis-url]: http://travis-ci.org/moment/moment
 [travis-image]: http://img.shields.io/travis/moment/moment/develop.svg?style=flat
-[travis-image-master]: http://img.shields.io/travis/moment/moment/master.svg?style=flat
