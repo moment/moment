@@ -2,39 +2,29 @@
 
 A lightweight javascript date library for parsing, validating, manipulating, and formatting dates.
 
-# [Documentation](http://momentjs.com/docs/)
+## [Documentation](http://momentjs.com/docs/)
 
-Upgrading to 2.0.0
-==================
+## Upgrading to 2.0.0
 
-There are a number of small backwards incompatible changes with version 2.0.0.
+There are a number of small backwards incompatible changes with version 2.0.0. [See the full descriptions here](https://gist.github.com/timrwood/e72f2eef320ed9e37c51#backwards-incompatible-changes)
 
-[See them and their descriptions here](https://gist.github.com/timrwood/e72f2eef320ed9e37c51#backwards-incompatible-changes)
+ * Changed language ordinal method to return the number + ordinal instead of just the ordinal.
 
-Changed language ordinal method to return the number + ordinal instead of just the ordinal.
+ * Changed two digit year parsing cutoff to match strptime.
 
-Changed two digit year parsing cutoff to match strptime.
+ * Removed `moment#sod` and `moment#eod` in favor of `moment#startOf` and `moment#endOf`.
 
-Removed `moment#sod` and `moment#eod` in favor of `moment#startOf` and `moment#endOf`.
+ * Removed `moment.humanizeDuration()` in favor of `moment.duration().humanize()`.
 
-Removed `moment.humanizeDuration()` in favor of `moment.duration().humanize()`.
+ * Removed the lang data objects from the top level namespace.
 
-Removed the lang data objects from the top level namespace.
+ * Duplicate `Date` passed to `moment()` instead of referencing it.
 
-Duplicate `Date` passed to `moment()` instead of referencing it.
+## [Changelog](CHANGELOG.md)
 
-Changelog
-=========
+## [Contributing](CONTRIBUTING.md)
 
-See [the changelog](CHANGELOG.md).
-
-Contributing
-============
-
-See [the contributing guide](CONTRIBUTING.md).
-
-License
-=======
+## License
 
 Moment.js is freely distributable under the terms of the [MIT license](LICENSE).
 
