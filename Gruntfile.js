@@ -211,8 +211,6 @@ module.exports = function (grunt) {
         'jshint', 'jscs',
         // node tests
         'test:node',
-        // sauce tests
-        'check-sauce-creds', 'test:travis-sauce-browser'
     ]);
 
     // Task to be run when releasing a new version
