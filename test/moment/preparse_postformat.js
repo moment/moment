@@ -71,7 +71,7 @@ exports.preparsePostformat = {
         var start = moment([2007, 1, 28]);
 
         test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true), "@ minutes", "postformat should work on moment.fn.from");
-        test.equal(moment().add('d', 6).fromNow(true), "^ days", "postformat should work on moment.fn.fromNow");
+        test.equal(moment().add(6, 'd').fromNow(true), "^ days", "postformat should work on moment.fn.fromNow");
         test.equal(moment.duration(10, "h").humanize(), "!) hours", "postformat should work on moment.duration.fn.humanize");
 
         test.done();

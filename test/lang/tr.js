@@ -77,7 +77,7 @@ exports["lang:tr"] = {
         }
         for (i = 0; i < DDDo.length; i++) {
             DDDoDt = moment([2010]);
-            test.equal(DDDoDt.add('days', DDDo[i][0]).format('DDDo'), DDDo[i][1], DDDo[i][0] + ' ---> ' + DDDo[i][1]);
+            test.equal(DDDoDt.add(DDDo[i][0], 'days').format('DDDo'), DDDo[i][1], DDDo[i][0] + ' ---> ' + DDDo[i][1]);
         }
         test.done();
     },

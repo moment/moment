@@ -8,7 +8,7 @@ exports.add = {
         done();
     },
 
-    "add short" : function (test) {
+    "add short reverse args" : function (test) {
         test.expect(16);
 
         var a = moment(), b, c, d;
@@ -44,7 +44,7 @@ exports.add = {
         test.done();
     },
 
-    "add long" : function (test) {
+    "add long reverse args" : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -68,7 +68,7 @@ exports.add = {
         test.done();
     },
 
-    "add long singular" : function (test) {
+    "add long singular reverse args" : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -92,7 +92,7 @@ exports.add = {
         test.done();
     },
 
-    "add string long" : function (test) {
+    "add string long reverse args" : function (test) {
         test.expect(10);
 
         var a = moment(), b;
@@ -119,7 +119,7 @@ exports.add = {
         test.done();
     },
 
-    "add string long singular" : function (test) {
+    "add string long singular reverse args" : function (test) {
         test.expect(10);
 
         var a = moment(), b;
@@ -146,7 +146,7 @@ exports.add = {
         test.done();
     },
 
-    "add string short" : function (test) {
+    "add string short reverse args" : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -170,7 +170,7 @@ exports.add = {
         test.done();
     },
 
-    "add string long reverse args" : function (test) {
+    "add string long" : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -194,7 +194,7 @@ exports.add = {
         test.done();
     },
 
-    "add string long singular reverse args" : function (test) {
+    "add string long singular" : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -218,7 +218,7 @@ exports.add = {
         test.done();
     },
 
-    "add string short reverse args" : function (test) {
+    "add string short" : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -290,7 +290,7 @@ exports.add = {
         test.done();
     },
 
-    "add strings string short reverse args" : function (test) {
+    "add strings string short" : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -314,7 +314,7 @@ exports.add = {
         test.done();
     },
 
-    "subtract strings string short reverse args" : function (test) {
+    "subtract strings string short" : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -351,10 +351,10 @@ exports.add = {
             c = moment(new Date(2011, 2, 12, 5, 0, 0)),
             d = moment(new Date(2011, 2, 12, 5, 0, 0)),
             e = moment(new Date(2011, 2, 12, 5, 0, 0));
-        a.add('days', 1);
-        b.add('hours', 24);
-        c.add('months', 1);
-        e.add('quarter', 1);
+        a.add(1, 'days');
+        b.add(24, 'hours');
+        c.add(1, 'months');
+        e.add(1, 'quarter');
         test.equal(a.hours(), 5, 'adding days over DST difference should result in the same hour');
         if (b.isDST() && !d.isDST()) {
             test.equal(b.hours(), 6, 'adding hours over DST difference should result in a different hour');
