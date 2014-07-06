@@ -20,8 +20,6 @@ exports["lang:be"] = {
     },
 
     "parse" : function (test) {
-        test.expect(96);
-
         var tests = 'студзень студ_люты лют_сакавік сак_красавік крас_травень трав_чэрвень чэрв_ліпень ліп_жнівень жнів_верасень вер_кастрычнік каст_лістапад ліст_снежань снеж'.split("_"), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
@@ -41,8 +39,6 @@ exports["lang:be"] = {
     },
 
     "format" : function (test) {
-        test.expect(22);
-
         var a = [
                 ['dddd, Do MMMM YYYY, HH:mm:ss',       'нядзеля, 14-га лютага 2010, 15:25:50'],
                 ['ddd, h A',                           'нд, 3 дня'],
@@ -76,8 +72,6 @@ exports["lang:be"] = {
     },
 
     "format meridiem" : function (test) {
-        test.expect(8);
-
         test.equal(moment([2012, 11, 28, 0, 0]).format("A"), "ночы", "night");
         test.equal(moment([2012, 11, 28, 3, 59]).format("A"), "ночы", "night");
         test.equal(moment([2012, 11, 28, 4, 0]).format("A"), "раніцы", "morning");
@@ -91,8 +85,6 @@ exports["lang:be"] = {
     },
 
     "format ordinal" : function (test) {
-        test.expect(31);
-
         test.equal(moment([2011, 0, 1]).format('DDDo'), '1-ы', '1-ы');
         test.equal(moment([2011, 0, 2]).format('DDDo'), '2-і', '2-і');
         test.equal(moment([2011, 0, 3]).format('DDDo'), '3-і', '3-і');
@@ -131,8 +123,6 @@ exports["lang:be"] = {
     },
 
     "format month" : function (test) {
-        test.expect(12);
-
         var expected = 'студзень студ_люты лют_сакавік сак_красавік крас_травень трав_чэрвень чэрв_ліпень ліп_жнівень жнів_верасень вер_кастрычнік каст_лістапад ліст_снежань снеж'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
@@ -141,8 +131,6 @@ exports["lang:be"] = {
     },
 
     "format month case" : function (test) {
-        test.expect(24);
-
         var months = {
             'nominative': 'студзень_люты_сакавік_красавік_травень_чэрвень_ліпень_жнівень_верасень_кастрычнік_лістапад_снежань'.split('_'),
             'accusative': 'студзеня_лютага_сакавіка_красавіка_траўня_чэрвеня_ліпеня_жніўня_верасня_кастрычніка_лістапада_снежня'.split('_')
@@ -155,8 +143,6 @@ exports["lang:be"] = {
     },
 
     "format month case with escaped symbols" : function (test) {
-        test.expect(48);
-
         var months = {
             'nominative': 'студзень_люты_сакавік_красавік_травень_чэрвень_ліпень_жнівень_верасень_кастрычнік_лістапад_снежань'.split('_'),
             'accusative': 'студзеня_лютага_сакавіка_красавіка_траўня_чэрвеня_ліпеня_жніўня_верасня_кастрычніка_лістапада_снежня'.split('_')
@@ -171,8 +157,6 @@ exports["lang:be"] = {
     },
 
     "format week" : function (test) {
-        test.expect(7);
-
         var expected = 'нядзеля нд нд_панядзелак пн пн_аўторак ат ат_серада ср ср_чацвер чц чц_пятніца пт пт_субота сб сб'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
@@ -181,7 +165,6 @@ exports["lang:be"] = {
     },
 
     "from" : function (test) {
-        test.expect(33);
         var start = moment([2007, 1, 28]);
         test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "некалькі секунд",    "44 seconds = a few seconds");
         test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "хвіліна",   "45 seconds = a minute");
@@ -204,15 +187,13 @@ exports["lang:be"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "25 дзён",    "25 days = 25 days");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "месяц",    "26 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "месяц",    "30 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 45}), true),  "месяц",    "45 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  "месяц",    "43 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "2 месяцы",   "46 days = 2 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "2 месяцы",   "75 days = 2 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "3 месяцы",   "76 days = 3 months");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "месяц",    "1 month = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "5 месяцаў",   "5 months = 5 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 344}), true), "11 месяцаў",  "344 days = 11 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "год",     "345 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 547}), true), "год",     "547 days = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "2 гады",    "548 days = 2 years");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "год",     "1 year = a year");
         test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "5 гадоў",    "5 years = 5 years");
@@ -220,14 +201,12 @@ exports["lang:be"] = {
     },
 
     "suffix" : function (test) {
-        test.expect(2);
         test.equal(moment(30000).from(0), "праз некалькі секунд", "prefix");
         test.equal(moment(0).from(30000), "некалькі секунд таму", "suffix");
         test.done();
     },
 
     "fromNow" : function (test) {
-        test.expect(4);
         test.equal(moment().add({s: 30}).fromNow(), "праз некалькі секунд", "in a few seconds");
         test.equal(moment().add({d: 5}).fromNow(), "праз 5 дзён", "in 5 days");
         test.equal(moment().add({m: 31}).fromNow(), "праз 31 хвіліну", "in 31 minutes = in 31 minutes");
@@ -236,8 +215,6 @@ exports["lang:be"] = {
     },
 
     "calendar day" : function (test) {
-        test.expect(6);
-
         var a = moment().hours(2).minutes(0).seconds(0);
 
         test.equal(moment(a).calendar(),                     "Сёння ў 02:00",     "today at the same time");
@@ -250,8 +227,6 @@ exports["lang:be"] = {
     },
 
     "calendar next week" : function (test) {
-        test.expect(15);
-
         var i, m;
         function makeFormat(d) {
             return '[У] dddd [ў] LT';
@@ -269,8 +244,6 @@ exports["lang:be"] = {
     },
 
     "calendar last week" : function (test) {
-        test.expect(15);
-
         var i, m;
 
         function makeFormat(d) {
@@ -299,8 +272,6 @@ exports["lang:be"] = {
     },
 
     "calendar all else" : function (test) {
-        test.expect(4);
-
         var weeksAgo = moment().subtract({w: 1}),
             weeksFromNow = moment().add({w: 1});
 
@@ -320,8 +291,6 @@ exports["lang:be"] = {
     // The week that contains Jan 1st is the first week of the year.
 
     "weeks year starting sunday" : function (test) {
-        test.expect(5);
-
         test.equal(moment([2011, 11, 26]).week(), 1, "Dec 26 2011 should be week 1");
         test.equal(moment([2012,  0,  1]).week(), 1, "Jan  1 2012 should be week 1");
         test.equal(moment([2012,  0,  2]).week(), 2, "Jan  2 2012 should be week 2");
@@ -332,8 +301,6 @@ exports["lang:be"] = {
     },
 
     "weeks year starting monday" : function (test) {
-        test.expect(5);
-
         test.equal(moment([2007, 0, 1]).week(),  1, "Jan  1 2007 should be week 1");
         test.equal(moment([2007, 0, 7]).week(),  1, "Jan  7 2007 should be week 1");
         test.equal(moment([2007, 0, 8]).week(),  2, "Jan  8 2007 should be week 2");
@@ -344,8 +311,6 @@ exports["lang:be"] = {
     },
 
     "weeks year starting tuesday" : function (test) {
-        test.expect(6);
-
         test.equal(moment([2007, 11, 31]).week(), 1, "Dec 31 2007 should be week 1");
         test.equal(moment([2008,  0,  1]).week(), 1, "Jan  1 2008 should be week 1");
         test.equal(moment([2008,  0,  6]).week(), 1, "Jan  6 2008 should be week 1");
@@ -357,8 +322,6 @@ exports["lang:be"] = {
     },
 
     "weeks year starting wednesday" : function (test) {
-        test.expect(6);
-
         test.equal(moment([2002, 11, 30]).week(), 1, "Dec 30 2002 should be week 1");
         test.equal(moment([2003,  0,  1]).week(), 1, "Jan  1 2003 should be week 1");
         test.equal(moment([2003,  0,  5]).week(), 1, "Jan  5 2003 should be week 1");
@@ -370,8 +333,6 @@ exports["lang:be"] = {
     },
 
     "weeks year starting thursday" : function (test) {
-        test.expect(6);
-
         test.equal(moment([2008, 11, 29]).week(), 1, "Dec 29 2008 should be week 1");
         test.equal(moment([2009,  0,  1]).week(), 1, "Jan  1 2009 should be week 1");
         test.equal(moment([2009,  0,  4]).week(), 1, "Jan  4 2009 should be week 1");
@@ -383,8 +344,6 @@ exports["lang:be"] = {
     },
 
     "weeks year starting friday" : function (test) {
-        test.expect(6);
-
         test.equal(moment([2009, 11, 28]).week(), 1, "Dec 28 2009 should be week 1");
         test.equal(moment([2010,  0,  1]).week(), 1, "Jan  1 2010 should be week 1");
         test.equal(moment([2010,  0,  3]).week(), 1, "Jan  3 2010 should be week 1");
@@ -396,8 +355,6 @@ exports["lang:be"] = {
     },
 
     "weeks year starting saturday" : function (test) {
-        test.expect(6);
-
         test.equal(moment([2010, 11, 27]).week(), 1, "Dec 27 2010 should be week 1");
         test.equal(moment([2011,  0,  1]).week(), 1, "Jan  1 2011 should be week 1");
         test.equal(moment([2011,  0,  2]).week(), 1, "Jan  2 2011 should be week 1");
@@ -409,8 +366,6 @@ exports["lang:be"] = {
     },
 
     "weeks year starting sunday formatted" : function (test) {
-        test.expect(5);
-
         test.equal(moment([2011, 11, 26]).format('w ww wo'), '1 01 1-ы', "Dec 26 2011 should be week 1");
         test.equal(moment([2012,  0,  1]).format('w ww wo'), '1 01 1-ы', "Jan  1 2012 should be week 1");
         test.equal(moment([2012,  0,  2]).format('w ww wo'), '2 02 2-і', "Jan  2 2012 should be week 2");
