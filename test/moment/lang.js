@@ -103,10 +103,10 @@ exports.lang = {
         moment.lang('es');
 
         test.equal(moment().lang(lang).calendar(), "sameDay -LT-", "Should use instance lang in LT formatting");
-        test.equal(moment().add('days', 1).lang(lang).calendar(), "nextDay -L-", "Should use instance lang in L formatting");
-        test.equal(moment().add('days', -1).lang(lang).calendar(), "lastDay -LLL-", "Should use instance lang in LL formatting");
-        test.equal(moment().add('days', 4).lang(lang).calendar(), "nextWeek -LL-", "Should use instance lang in LLL formatting");
-        test.equal(moment().add('days', -4).lang(lang).calendar(), "lastWeek -LLLL-", "Should use instance lang in LLLL formatting");
+        test.equal(moment().add(1, 'days').lang(lang).calendar(), "nextDay -L-", "Should use instance lang in L formatting");
+        test.equal(moment().add(-1, 'days').lang(lang).calendar(), "lastDay -LLL-", "Should use instance lang in LL formatting");
+        test.equal(moment().add(4, 'days').lang(lang).calendar(), "nextWeek -LL-", "Should use instance lang in LLL formatting");
+        test.equal(moment().add(-4, 'days').lang(lang).calendar(), "lastWeek -LLLL-", "Should use instance lang in LLLL formatting");
 
         test.done();
     },

@@ -145,12 +145,12 @@ exports.zones = {
         test.equal(m.format("HH:mm"), "00:00", "should start 12AM at +0000 timezone");
 
         m.__doChange = true;
-        m.add('h', 1);
+        m.add(1, 'h');
 
         test.equal(m.format("ZZ"), "-0200", "should be at -0200");
         test.equal(m.format("HH:mm"), "23:00", "1AM at +0000 should be 11PM at -0200 timezone");
 
-        m.subtract('h', 1);
+        m.subtract(1, 'h');
 
         test.equal(m.format("ZZ"), "-0100", "should be at -0100");
         test.equal(m.format("HH:mm"), "23:00", "12AM at +0000 should be 11PM at -0100 timezone");
@@ -202,7 +202,7 @@ exports.zones = {
             zoneB = moment(zoneA).zone(720),
             zoneC = moment(zoneA).zone(360),
             zoneD = moment(zoneA).zone(-690),
-            other = moment(zoneA).add('m', 35);
+            other = moment(zoneA).add(35, 'm');
 
         test.equal(zoneA.from(other), zoneB.from(other), "moment#from should be the same in all zones");
         test.equal(zoneA.from(other), zoneC.from(other), "moment#from should be the same in all zones");
@@ -216,7 +216,7 @@ exports.zones = {
             zoneB = moment(zoneA).zone(720),
             zoneC = moment(zoneA).zone(360),
             zoneD = moment(zoneA).zone(-690),
-            other = moment(zoneA).add('m', 35);
+            other = moment(zoneA).add(35, 'm');
 
         test.equal(zoneA.diff(other), zoneB.diff(other), "moment#diff should be the same in all zones");
         test.equal(zoneA.diff(other), zoneC.diff(other), "moment#diff should be the same in all zones");
@@ -314,7 +314,7 @@ exports.zones = {
         test.ok(zoneA.isSame(zoneB, 'hour'), "two moments with different offsets should be the same hour");
         test.ok(zoneA.isSame(zoneC, 'hour'), "two moments with different offsets should be the same hour");
 
-        zoneA.add('hour', 1);
+        zoneA.add(1, 'hour');
 
         test.ok(zoneA.isAfter(zoneB), "isAfter should work with two moments with different offsets");
         test.ok(zoneA.isAfter(zoneC), "isAfter should work with two moments with different offsets");
@@ -322,7 +322,7 @@ exports.zones = {
         test.ok(zoneA.isAfter(zoneB, 'hour'), "isAfter:hour should work with two moments with different offsets");
         test.ok(zoneA.isAfter(zoneC, 'hour'), "isAfter:hour should work with two moments with different offsets");
 
-        zoneA.subtract('hour', 2);
+        zoneA.subtract(2, 'hour');
 
         test.ok(zoneA.isBefore(zoneB), "isBefore should work with two moments with different offsets");
         test.ok(zoneA.isBefore(zoneC), "isBefore should work with two moments with different offsets");
@@ -347,27 +347,27 @@ exports.zones = {
 
         test.equal(m.hour(), 3, "should start at 00:00");
 
-        m.add('hour', 24);
+        m.add(24, 'hour');
 
         test.equal(m.hour(), 4, "adding 24 hours should disregard dst");
 
-        m.subtract('hour', 24);
+        m.subtract(24, 'hour');
 
         test.equal(m.hour(), 3, "subtracting 24 hours should disregard dst");
 
-        m.add('day', 1);
+        m.add(1, 'day');
 
         test.equal(m.hour(), 3, "adding 1 day should have the same hour");
 
-        m.subtract('day', 1);
+        m.subtract(1, 'day');
 
         test.equal(m.hour(), 3, "subtracting 1 day should have the same hour");
 
-        m.add('month', 1);
+        m.add(1, 'month');
 
         test.equal(m.hour(), 3, "adding 1 month should have the same hour");
 
-        m.subtract('month', 1);
+        m.subtract(1, 'month');
 
         test.equal(m.hour(), 3, "subtracting 1 month should have the same hour");
 
