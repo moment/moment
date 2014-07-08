@@ -11,7 +11,6 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-
     var translator = {
         words: { //Different grammatical cases
             m: ['jedan minut', 'jedne minute'],
@@ -42,11 +41,11 @@
         weekdaysShort: ['ned.', 'pon.', 'uto.', 'sre.', 'čet.', 'pet.', 'sub.'],
         weekdaysMin: ['ne', 'po', 'ut', 'sr', 'če', 'pe', 'su'],
         longDateFormat: {
-            LT: "H:mm",
-            L: "DD. MM. YYYY",
-            LL: "D. MMMM YYYY",
-            LLL: "D. MMMM YYYY LT",
-            LLLL: "dddd, D. MMMM YYYY LT"
+            LT: 'H:mm',
+            L: 'DD. MM. YYYY',
+            LL: 'D. MMMM YYYY',
+            LLL: 'D. MMMM YYYY LT',
+            LLLL: 'dddd, D. MMMM YYYY LT'
         },
         calendar: {
             sameDay: '[danas u] LT',
@@ -83,18 +82,18 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : "za %s",
-            past   : "pre %s",
-            s      : "nekoliko sekundi",
+            future : 'za %s',
+            past   : 'pre %s',
+            s      : 'nekoliko sekundi',
             m      : translator.translate,
             mm     : translator.translate,
             h      : translator.translate,
             hh     : translator.translate,
-            d      : "dan",
+            d      : 'dan',
             dd     : translator.translate,
-            M      : "mesec",
+            M      : 'mesec',
             MM     : translator.translate,
-            y      : "godinu",
+            y      : 'godinu',
             yy     : translator.translate
         },
         ordinal : '%d.',

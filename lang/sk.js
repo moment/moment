@@ -12,15 +12,15 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    var months = "január_február_marec_apríl_máj_jún_júl_august_september_október_november_december".split("_"),
-        monthsShort = "jan_feb_mar_apr_máj_jún_júl_aug_sep_okt_nov_dec".split("_");
+    var months = 'január_február_marec_apríl_máj_jún_júl_august_september_október_november_december'.split('_'),
+        monthsShort = 'jan_feb_mar_apr_máj_jún_júl_aug_sep_okt_nov_dec'.split('_');
 
     function plural(n) {
         return (n > 1) && (n < 5);
     }
 
     function translate(number, withoutSuffix, key, isFuture) {
-        var result = number + " ";
+        var result = number + ' ';
         switch (key) {
         case 's':  // a few seconds / in a few seconds / a few seconds ago
             return (withoutSuffix || isFuture) ? 'pár sekúnd' : 'pár sekundami';
@@ -83,18 +83,18 @@
             }
             return _monthsParse;
         }(months, monthsShort)),
-        weekdays : "nedeľa_pondelok_utorok_streda_štvrtok_piatok_sobota".split("_"),
-        weekdaysShort : "ne_po_ut_st_št_pi_so".split("_"),
-        weekdaysMin : "ne_po_ut_st_št_pi_so".split("_"),
+        weekdays : 'nedeľa_pondelok_utorok_streda_štvrtok_piatok_sobota'.split('_'),
+        weekdaysShort : 'ne_po_ut_st_št_pi_so'.split('_'),
+        weekdaysMin : 'ne_po_ut_st_št_pi_so'.split('_'),
         longDateFormat : {
-            LT: "H:mm",
-            L : "DD.MM.YYYY",
-            LL : "D. MMMM YYYY",
-            LLL : "D. MMMM YYYY LT",
-            LLLL : "dddd D. MMMM YYYY LT"
+            LT: 'H:mm',
+            L : 'DD.MM.YYYY',
+            LL : 'D. MMMM YYYY',
+            LLL : 'D. MMMM YYYY LT',
+            LLLL : 'dddd D. MMMM YYYY LT'
         },
         calendar : {
-            sameDay: "[dnes o] LT",
+            sameDay: '[dnes o] LT',
             nextDay: '[zajtra o] LT',
             nextWeek: function () {
                 switch (this.day()) {
@@ -130,11 +130,11 @@
                     return '[minulú sobotu o] LT';
                 }
             },
-            sameElse: "L"
+            sameElse: 'L'
         },
         relativeTime : {
-            future : "za %s",
-            past : "pred %s",
+            future : 'za %s',
+            past : 'pred %s',
             s : translate,
             m : translate,
             mm : translate,

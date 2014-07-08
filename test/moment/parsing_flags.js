@@ -6,14 +6,13 @@ var moment = require('../../moment'),
 exports.parsingFlags = {
     setUp : function (done) {
         moment.createFromInputFallback = function () {
-            throw new Error("input not handled by moment");
+            throw new Error('input not handled by moment');
         };
         done();
     },
 
 
     'overflow with array' : function (test) {
-
         //months
         test.equal(flags([2010, 0]).overflow, -1, 'month 0 valid');
         test.equal(flags([2010, 1]).overflow, -1, 'month 1 valid');
@@ -56,7 +55,6 @@ exports.parsingFlags = {
     },
 
     'overflow without format' : function (test) {
-
         //months
         test.equal(flags('2001-01', 'YYYY-MM').overflow, -1, 'month 1 valid');
         test.equal(flags('2001-12', 'YYYY-MM').overflow, -1, 'month 12 valid');
@@ -102,7 +100,6 @@ exports.parsingFlags = {
     },
 
     'extra tokens' : function (test) {
-
         test.deepEqual(flags('1982-05-25', 'YYYY-MM-DD').unusedTokens, [], 'nothing extra');
         test.deepEqual(flags('1982-05', 'YYYY-MM-DD').unusedTokens, ['DD'], 'extra formatting token');
         test.deepEqual(flags('1982', 'YYYY-MM-DD').unusedTokens, ['MM', 'DD'], 'multiple extra formatting tokens');
@@ -114,7 +111,6 @@ exports.parsingFlags = {
     },
 
     'extra tokens strict' : function (test) {
-
         test.deepEqual(flags('1982-05-25', 'YYYY-MM-DD', true).unusedTokens, [], 'nothing extra');
         test.deepEqual(flags('1982-05', 'YYYY-MM-DD', true).unusedTokens, ['-', 'DD'], 'extra formatting token');
         test.deepEqual(flags('1982', 'YYYY-MM-DD', true).unusedTokens, ['-', 'MM', '-', 'DD'], 'multiple extra formatting tokens');

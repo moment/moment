@@ -1,14 +1,14 @@
-var moment = require("../../moment");
+var moment = require('../../moment');
 
 exports.leapyear = {
     setUp : function (done) {
         moment.createFromInputFallback = function () {
-            throw new Error("input not handled by moment");
+            throw new Error('input not handled by moment');
         };
         done();
     },
 
-    "leap year" : function (test) {
+    'leap year' : function (test) {
         test.expect(4);
 
         test.equal(moment([2010, 0, 1]).isLeapYear(), false, '2010');

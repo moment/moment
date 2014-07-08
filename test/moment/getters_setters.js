@@ -1,14 +1,14 @@
-var moment = require("../../moment");
+var moment = require('../../moment');
 
 exports.gettersSetters = {
     setUp : function (done) {
         moment.createFromInputFallback = function () {
-            throw new Error("input not handled by moment");
+            throw new Error('input not handled by moment');
         };
         done();
     },
 
-    "getters" : function (test) {
+    'getters' : function (test) {
         test.expect(8);
 
         var a = moment([2011, 9, 12, 6, 7, 8, 9]);
@@ -23,7 +23,7 @@ exports.gettersSetters = {
         test.done();
     },
 
-    "getters programmatic" : function (test) {
+    'getters programmatic' : function (test) {
         var a = moment([2011, 9, 12, 6, 7, 8, 9]);
         test.equal(a.get('year'), 2011, 'year');
         test.equal(a.get('month'), 9, 'month');
@@ -43,7 +43,7 @@ exports.gettersSetters = {
         test.done();
     },
 
-    "setters plural" : function (test) {
+    'setters plural' : function (test) {
         test.expect(8);
 
         var a = moment();
@@ -65,7 +65,7 @@ exports.gettersSetters = {
         test.done();
     },
 
-    "setters singular" : function (test) {
+    'setters singular' : function (test) {
         test.expect(8);
 
         var a = moment();
@@ -87,7 +87,7 @@ exports.gettersSetters = {
         test.done();
     },
 
-    "setters" : function (test) {
+    'setters' : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -115,7 +115,7 @@ exports.gettersSetters = {
         test.done();
     },
 
-    "setter programmatic" : function (test) {
+    'setter programmatic' : function (test) {
         var a = moment();
         a.set('year', 2011);
         a.set('month', 9);
@@ -143,7 +143,7 @@ exports.gettersSetters = {
 
     // Disable this, until we weekYear setter is fixed.
     // https://github.com/moment/moment/issues/1379
-    // "setters programatic with weeks" : function (test) {
+    // 'setters programatic with weeks' : function (test) {
     //     var a = moment();
     //     a.set('weekYear', 2001);
     //     a.set('week', 49);
@@ -159,7 +159,7 @@ exports.gettersSetters = {
     //},
 
     // I think this suffers from the same issue as the non-iso version.
-    // "setters programatic with weeks ISO" : function (test) {
+    // 'setters programatic with weeks ISO' : function (test) {
     //     var a = moment();
     //     a.set('isoWeekYear', 2001);
     //     a.set('isoWeek', 49);
@@ -172,7 +172,7 @@ exports.gettersSetters = {
     //     test.done();
     //},
 
-    "setters strings" : function (test) {
+    'setters strings' : function (test) {
         test.expect(7);
 
         var a = moment([2012]).lang('en');
@@ -186,7 +186,7 @@ exports.gettersSetters = {
         test.done();
     },
 
-    "setters - falsey values" : function (test) {
+    'setters - falsey values' : function (test) {
         test.expect(1);
 
         var a = moment();
@@ -197,7 +197,7 @@ exports.gettersSetters = {
         test.done();
     },
 
-    "chaining setters" : function (test) {
+    'chaining setters' : function (test) {
         test.expect(7);
 
         var a = moment();
@@ -217,7 +217,7 @@ exports.gettersSetters = {
         test.done();
     },
 
-    "day setter" : function (test) {
+    'day setter' : function (test) {
         test.expect(18);
 
         var a = moment([2011, 0, 15]);

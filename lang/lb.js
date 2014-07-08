@@ -32,17 +32,17 @@
     function processFutureTime(string) {
         var number = string.substr(0, string.indexOf(' '));
         if (eifelerRegelAppliesToNumber(number)) {
-            return "a " + string;
+            return 'a ' + string;
         }
-        return "an " + string;
+        return 'an ' + string;
     }
 
     function processPastTime(string) {
         var number = string.substr(0, string.indexOf(' '));
         if (eifelerRegelAppliesToNumber(number)) {
-            return "viru " + string;
+            return 'viru ' + string;
         }
-        return "virun " + string;
+        return 'virun ' + string;
     }
 
     function processLastWeek(string1) {
@@ -116,21 +116,21 @@
     }
 
     return moment.lang('lb', {
-        months: "Januar_Februar_Mäerz_Abrëll_Mee_Juni_Juli_August_September_Oktober_November_Dezember".split("_"),
-        monthsShort: "Jan._Febr._Mrz._Abr._Mee_Jun._Jul._Aug._Sept._Okt._Nov._Dez.".split("_"),
-        weekdays: "Sonndeg_Méindeg_Dënschdeg_Mëttwoch_Donneschdeg_Freideg_Samschdeg".split("_"),
-        weekdaysShort: "So._Mé._Dë._Më._Do._Fr._Sa.".split("_"),
-        weekdaysMin: "So_Mé_Dë_Më_Do_Fr_Sa".split("_"),
+        months: 'Januar_Februar_Mäerz_Abrëll_Mee_Juni_Juli_August_September_Oktober_November_Dezember'.split('_'),
+        monthsShort: 'Jan._Febr._Mrz._Abr._Mee_Jun._Jul._Aug._Sept._Okt._Nov._Dez.'.split('_'),
+        weekdays: 'Sonndeg_Méindeg_Dënschdeg_Mëttwoch_Donneschdeg_Freideg_Samschdeg'.split('_'),
+        weekdaysShort: 'So._Mé._Dë._Më._Do._Fr._Sa.'.split('_'),
+        weekdaysMin: 'So_Mé_Dë_Më_Do_Fr_Sa'.split('_'),
         longDateFormat: {
-            LT: "H:mm [Auer]",
-            L: "DD.MM.YYYY",
-            LL: "D. MMMM YYYY",
-            LLL: "D. MMMM YYYY LT",
-            LLLL: "dddd, D. MMMM YYYY LT"
+            LT: 'H:mm [Auer]',
+            L: 'DD.MM.YYYY',
+            LL: 'D. MMMM YYYY',
+            LLL: 'D. MMMM YYYY LT',
+            LLLL: 'dddd, D. MMMM YYYY LT'
         },
         calendar: {
-            sameDay: "[Haut um] LT",
-            sameElse: "L",
+            sameDay: '[Haut um] LT',
+            sameElse: 'L',
             nextDay: '[Muer um] LT',
             nextWeek: 'dddd [um] LT',
             lastDay: '[Gëschter um] LT',
@@ -139,11 +139,11 @@
         relativeTime: {
             future: processFutureTime,
             past: processPastTime,
-            s: "e puer Sekonnen",
+            s: 'e puer Sekonnen',
             m: processRelativeTime,
-            mm: "%d Minutten",
+            mm: '%d Minutten',
             h: processRelativeTime,
-            hh: "%d Stonnen",
+            hh: '%d Stonnen',
             d: processRelativeTime,
             dd: processRelativeTime,
             M: processRelativeTime,
