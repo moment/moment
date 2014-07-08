@@ -293,7 +293,7 @@ exports.duration = {
         test.done();
     },
 
-    "toIsoString deprecation" : function (test) {
+    'toIsoString deprecation' : function (test) {
         test.equal(moment.duration({}).toIsoString(), moment.duration({}).toISOString(), 'toIsoString delegates to toISOString');
         test.done();
     },
