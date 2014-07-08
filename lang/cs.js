@@ -11,15 +11,15 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    var months = "leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec".split("_"),
-        monthsShort = "led_úno_bře_dub_kvě_čvn_čvc_srp_zář_říj_lis_pro".split("_");
+    var months = 'leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec'.split('_'),
+        monthsShort = 'led_úno_bře_dub_kvě_čvn_čvc_srp_zář_říj_lis_pro'.split('_');
 
     function plural(n) {
         return (n > 1) && (n < 5) && (~~(n / 10) !== 1);
     }
 
     function translate(number, withoutSuffix, key, isFuture) {
-        var result = number + " ";
+        var result = number + ' ';
         switch (key) {
         case 's':  // a few seconds / in a few seconds / a few seconds ago
             return (withoutSuffix || isFuture) ? 'pár sekund' : 'pár sekundami';
@@ -82,18 +82,18 @@
             }
             return _monthsParse;
         }(months, monthsShort)),
-        weekdays : "neděle_pondělí_úterý_středa_čtvrtek_pátek_sobota".split("_"),
-        weekdaysShort : "ne_po_út_st_čt_pá_so".split("_"),
-        weekdaysMin : "ne_po_út_st_čt_pá_so".split("_"),
+        weekdays : 'neděle_pondělí_úterý_středa_čtvrtek_pátek_sobota'.split('_'),
+        weekdaysShort : 'ne_po_út_st_čt_pá_so'.split('_'),
+        weekdaysMin : 'ne_po_út_st_čt_pá_so'.split('_'),
         longDateFormat : {
-            LT: "H.mm",
-            L : "DD. MM. YYYY",
-            LL : "D. MMMM YYYY",
-            LLL : "D. MMMM YYYY LT",
-            LLLL : "dddd D. MMMM YYYY LT"
+            LT: 'H.mm',
+            L : 'DD. MM. YYYY',
+            LL : 'D. MMMM YYYY',
+            LLL : 'D. MMMM YYYY LT',
+            LLLL : 'dddd D. MMMM YYYY LT'
         },
         calendar : {
-            sameDay: "[dnes v] LT",
+            sameDay: '[dnes v] LT',
             nextDay: '[zítra v] LT',
             nextWeek: function () {
                 switch (this.day()) {
@@ -129,11 +129,11 @@
                     return '[minulou sobotu v] LT';
                 }
             },
-            sameElse: "L"
+            sameElse: 'L'
         },
         relativeTime : {
-            future : "za %s",
-            past : "před %s",
+            future : 'za %s',
+            past : 'před %s',
             s : translate,
             m : translate,
             mm : translate,

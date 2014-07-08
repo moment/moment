@@ -1,4 +1,4 @@
-var https = require("https"),
+var https = require('https'),
     zlib = require('zlib'),
     path = require('path'),
     fs = require('fs');

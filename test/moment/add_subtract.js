@@ -1,14 +1,14 @@
-var moment = require("../../moment");
+var moment = require('../../moment');
 
 exports.add = {
     setUp : function (done) {
         moment.createFromInputFallback = function () {
-            throw new Error("input not handled by moment");
+            throw new Error('input not handled by moment');
         };
         done();
     },
 
-    "add short" : function (test) {
+    'add short' : function (test) {
         test.expect(16);
 
         var a = moment(), b, c, d;
@@ -44,7 +44,7 @@ exports.add = {
         test.done();
     },
 
-    "add long" : function (test) {
+    'add long' : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -68,7 +68,7 @@ exports.add = {
         test.done();
     },
 
-    "add long singular" : function (test) {
+    'add long singular' : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -92,7 +92,7 @@ exports.add = {
         test.done();
     },
 
-    "add string long" : function (test) {
+    'add string long' : function (test) {
         test.expect(10);
 
         var a = moment(), b;
@@ -119,7 +119,7 @@ exports.add = {
         test.done();
     },
 
-    "add string long singular" : function (test) {
+    'add string long singular' : function (test) {
         test.expect(10);
 
         var a = moment(), b;
@@ -146,7 +146,7 @@ exports.add = {
         test.done();
     },
 
-    "add string short" : function (test) {
+    'add string short' : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -170,7 +170,7 @@ exports.add = {
         test.done();
     },
 
-    "add string long reverse args" : function (test) {
+    'add string long reverse args' : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -194,7 +194,7 @@ exports.add = {
         test.done();
     },
 
-    "add string long singular reverse args" : function (test) {
+    'add string long singular reverse args' : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -218,7 +218,7 @@ exports.add = {
         test.done();
     },
 
-    "add string short reverse args" : function (test) {
+    'add string short reverse args' : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -242,7 +242,7 @@ exports.add = {
         test.done();
     },
 
-    "add strings string short args" : function (test) {
+    'add strings string short args' : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -266,7 +266,7 @@ exports.add = {
         test.done();
     },
 
-    "subtract strings string short args" : function (test) {
+    'subtract strings string short args' : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -290,7 +290,7 @@ exports.add = {
         test.done();
     },
 
-    "add strings string short reverse args" : function (test) {
+    'add strings string short reverse args' : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -314,7 +314,7 @@ exports.add = {
         test.done();
     },
 
-    "subtract strings string short reverse args" : function (test) {
+    'subtract strings string short reverse args' : function (test) {
         test.expect(9);
 
         var a = moment();
@@ -338,7 +338,7 @@ exports.add = {
         test.done();
     },
 
-    "add across DST" : function (test) {
+    'add across DST' : function (test) {
         // Detect Safari bug and bail. Hours on 13th March 2011 are shifted
         // with 1 ahead.
         if (new Date(2011, 2, 13, 5, 0, 0).getHours() !== 5) {

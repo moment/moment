@@ -76,15 +76,15 @@
         months : monthsCaseReplace,
         monthsShort : monthsShortCaseReplace,
         weekdays : weekdaysCaseReplace,
-        weekdaysShort : "вс_пн_вт_ср_чт_пт_сб".split("_"),
-        weekdaysMin : "вс_пн_вт_ср_чт_пт_сб".split("_"),
+        weekdaysShort : 'вс_пн_вт_ср_чт_пт_сб'.split('_'),
+        weekdaysMin : 'вс_пн_вт_ср_чт_пт_сб'.split('_'),
         monthsParse : [/^янв/i, /^фев/i, /^мар/i, /^апр/i, /^ма[й|я]/i, /^июн/i, /^июл/i, /^авг/i, /^сен/i, /^окт/i, /^ноя/i, /^дек/i],
         longDateFormat : {
-            LT : "HH:mm",
-            L : "DD.MM.YYYY",
-            LL : "D MMMM YYYY г.",
-            LLL : "D MMMM YYYY г., LT",
-            LLLL : "dddd, D MMMM YYYY г., LT"
+            LT : 'HH:mm',
+            L : 'DD.MM.YYYY',
+            LL : 'D MMMM YYYY г.',
+            LLL : 'D MMMM YYYY г., LT',
+            LLLL : 'dddd, D MMMM YYYY г., LT'
         },
         calendar : {
             sameDay: '[Сегодня в] LT',
@@ -110,18 +110,18 @@
             sameElse: 'L'
         },
         relativeTime : {
-            future : "через %s",
-            past : "%s назад",
-            s : "несколько секунд",
+            future : 'через %s',
+            past : '%s назад',
+            s : 'несколько секунд',
             m : relativeTimeWithPlural,
             mm : relativeTimeWithPlural,
-            h : "час",
+            h : 'час',
             hh : relativeTimeWithPlural,
-            d : "день",
+            d : 'день',
             dd : relativeTimeWithPlural,
-            M : "месяц",
+            M : 'месяц',
             MM : relativeTimeWithPlural,
-            y : "год",
+            y : 'год',
             yy : relativeTimeWithPlural
         },
 
@@ -132,13 +132,13 @@
 
         meridiem : function (hour, minute, isLower) {
             if (hour < 4) {
-                return "ночи";
+                return 'ночи';
             } else if (hour < 12) {
-                return "утра";
+                return 'утра';
             } else if (hour < 17) {
-                return "дня";
+                return 'дня';
             } else {
-                return "вечера";
+                return 'вечера';
             }
         },
 
