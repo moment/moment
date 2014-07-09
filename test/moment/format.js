@@ -70,7 +70,7 @@ exports.format = {
         test.expect(2);
 
         var b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
-            explanation = "moment().format('z') = " + b.format('z') + ' It should be something like "PST"';
+            explanation = 'moment().format("z") = ' + b.format('z') + ' It should be something like "PST"';
         if (moment().zone() === -60) {
             explanation += 'For UTC+1 this is a known issue, see https://github.com/timrwood/moment/issues/162';
         }

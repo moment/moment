@@ -69,7 +69,7 @@ exports['lang:ko'] = {
             test.equal(
                 actual,
                 it.expected,
-                "'' + it.outputFormat + '' of '' + it.expression + '' must be '' + it.expected + '' but was '' + actual + ''."
+                "'" + it.outputFormat + "' of '" + it.expression + "' must be '" + it.expected + "' but was '" + actual + "'."
             );
         }
 

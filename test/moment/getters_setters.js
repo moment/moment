@@ -143,7 +143,7 @@ exports.gettersSetters = {
 
     // Disable this, until we weekYear setter is fixed.
     // https://github.com/moment/moment/issues/1379
-    // 'setters programatic with weeks' : function (test) {
+    // "setters programatic with weeks" : function (test) {
     //     var a = moment();
     //     a.set('weekYear', 2001);
     //     a.set('week', 49);
@@ -159,7 +159,7 @@ exports.gettersSetters = {
     //},
 
     // I think this suffers from the same issue as the non-iso version.
-    // 'setters programatic with weeks ISO' : function (test) {
+    // "setters programatic with weeks ISO" : function (test) {
     //     var a = moment();
     //     a.set('isoWeekYear', 2001);
     //     a.set('isoWeek', 49);

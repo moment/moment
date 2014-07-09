@@ -321,14 +321,14 @@ exports.create = {
 
     'string with format (timezone)' : function (test) {
         test.expect(8);
-        test.equal(moment('5 -0700', 'H ZZ').toDate().getUTCHours(), 12, "parse hours '5 -0700' ---> 'H ZZ'");
-        test.equal(moment('5 -07:00', 'H Z').toDate().getUTCHours(), 12, "parse hours '5 -07:00' ---> 'H Z'");
-        test.equal(moment('5 -0730', 'H ZZ').toDate().getUTCMinutes(), 30, "parse hours '5 -0730' ---> 'H ZZ'");
-        test.equal(moment('5 -07:30', 'H Z').toDate().getUTCMinutes(), 30, "parse hours '5 -07:0' ---> 'H Z'");
-        test.equal(moment('5 +0100', 'H ZZ').toDate().getUTCHours(), 4, "parse hours '5 +0100' ---> 'H ZZ'");
-        test.equal(moment('5 +01:00', 'H Z').toDate().getUTCHours(), 4, "parse hours '5 +01:00' ---> 'H Z'");
-        test.equal(moment('5 +0130', 'H ZZ').toDate().getUTCMinutes(), 30, "parse hours '5 +0130' ---> 'H ZZ'");
-        test.equal(moment('5 +01:30', 'H Z').toDate().getUTCMinutes(), 30, "parse hours '5 +01:30' ---> 'H Z'");
+        test.equal(moment('5 -0700', 'H ZZ').toDate().getUTCHours(), 12, 'parse hours "5 -0700" ---> "H ZZ"');
+        test.equal(moment('5 -07:00', 'H Z').toDate().getUTCHours(), 12, 'parse hours "5 -07:00" ---> "H Z"');
+        test.equal(moment('5 -0730', 'H ZZ').toDate().getUTCMinutes(), 30, 'parse hours "5 -0730" ---> "H ZZ"');
+        test.equal(moment('5 -07:30', 'H Z').toDate().getUTCMinutes(), 30, 'parse hours "5 -07:0" ---> "H Z"');
+        test.equal(moment('5 +0100', 'H ZZ').toDate().getUTCHours(), 4, 'parse hours "5 +0100" ---> "H ZZ"');
+        test.equal(moment('5 +01:00', 'H Z').toDate().getUTCHours(), 4, 'parse hours "5 +01:00" ---> "H Z"');
+        test.equal(moment('5 +0130', 'H ZZ').toDate().getUTCMinutes(), 30, 'parse hours "5 +0130" ---> "H ZZ"');
+        test.equal(moment('5 +01:30', 'H Z').toDate().getUTCMinutes(), 30, 'parse hours "5 +01:30" ---> "H Z"');
         test.done();
     },
 
