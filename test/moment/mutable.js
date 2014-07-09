@@ -1,14 +1,14 @@
-var moment = require("../../moment");
+var moment = require('../../moment');
 
 exports.mutable = {
     setUp : function (done) {
         moment.createFromInputFallback = function () {
-            throw new Error("input not handled by moment");
+            throw new Error('input not handled by moment');
         };
         done();
     },
 
-    "manipulation methods" : function (test) {
+    'manipulation methods' : function (test) {
         var m = moment();
 
         test.equal(m, m.year(2011), 'year() should be mutable');
@@ -27,9 +27,9 @@ exports.mutable = {
         test.done();
     },
 
-    "non mutable methods" : function (test) {
+    'non mutable methods' : function (test) {
         var m = moment();
-        test.notEqual(m, m.clone(), "clone() should not be mutable");
+        test.notEqual(m, m.clone(), 'clone() should not be mutable');
 
         test.done();
     }

@@ -50,9 +50,9 @@
         },
         meridiem : function (hour, minute, isLower) {
             if (hour < 12) {
-                return "قبل از ظهر";
+                return 'قبل از ظهر';
             } else {
-                return "بعد از ظهر";
+                return 'بعد از ظهر';
             }
         },
         calendar : {

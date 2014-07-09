@@ -1,4 +1,4 @@
-var https = require("https"),
+var https = require('https'),
     zlib = require('zlib'),
     path = require('path'),
     fs = require('fs');
@@ -34,11 +34,11 @@ function printDiffs(stableLen, stableGzip, currentLen, currentGzip) {
     var diff = currentLen - stableLen,
         gzipDiff = currentGzip - stableGzip;
 
-    console.log("Filesize difference from current branch to " + stable);
-    console.log(stable + "   " + stableLen + ' / ' + stableGzip);
-    console.log("curr    " + currentLen + ' / ' + currentGzip);
-    console.log("diff    " + (diff > 0 ? '+' : '') + diff);
-    console.log("gzip    " + (gzipDiff > 0 ? '+' : '') + gzipDiff);
+    console.log('Filesize difference from current branch to ' + stable);
+    console.log(stable + '   ' + stableLen + ' / ' + stableGzip);
+    console.log('curr    ' + currentLen + ' / ' + currentGzip);
+    console.log('diff    ' + (diff > 0 ? '+' : '') + diff);
+    console.log('gzip    ' + (gzipDiff > 0 ? '+' : '') + gzipDiff);
 }
 
 

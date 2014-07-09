@@ -1973,7 +1973,6 @@
 
 
     extend(moment.fn = Moment.prototype, {
-
         clone : function () {
             return moment(this);
         },
@@ -2477,7 +2476,6 @@
     }
 
     extend(moment.duration.fn = Duration.prototype, {
-
         _bubble : function () {
             var milliseconds = this._milliseconds,
                 days = this._days,
@@ -2609,8 +2607,8 @@
         lang : moment.fn.lang,
 
         toIsoString : deprecate(
-            "toIsoString() is deprecated. Please use toISOString() instead " +
-            "(notice the capitals)",
+            'toIsoString() is deprecated. Please use toISOString() instead ' +
+            '(notice the capitals)',
             function () {
                 return this.toISOString();
             }
