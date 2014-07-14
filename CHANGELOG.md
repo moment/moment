@@ -1,49 +1,3 @@
-A lightweight javascript date library for parsing, validating, manipulating, and formatting dates.
-
-# [Documentation](http://momentjs.com/docs/)
-
-Upgrading to 2.0.0
-==================
-
-There are a number of small backwards incompatible changes with version 2.0.0.
-
-[See them and their descriptions here](https://gist.github.com/timrwood/e72f2eef320ed9e37c51#backwards-incompatible-changes)
-
-Changed language ordinal method to return the number + ordinal instead of just the ordinal.
-
-Changed two digit year parsing cutoff to match strptime.
-
-Removed `moment#sod` and `moment#eod` in favor of `moment#startOf` and `moment#endOf`.
-
-Removed `moment.humanizeDuration()` in favor of `moment.duration().humanize()`.
-
-Removed the lang data objects from the top level namespace.
-
-Duplicate `Date` passed to `moment()` instead of referencing it.
-
-Travis Build Status
-===================
-
-Develop [![Build Status](https://travis-ci.org/moment/moment.png?branch=develop)](https://travis-ci.org/moment/moment)
-
-Master [![Build Status](https://travis-ci.org/moment/moment.png?branch=master)](https://travis-ci.org/moment/moment)
-
-For developers
-==============
-
-You need [node](http://nodejs.org/), use [nvm](https://github.com/creationix/nvm) or [nenv](https://github.com/ryuone/nenv) to install it.
-
-Then, in your shell
-
-```bash
-git clone https://github.com/moment/moment.git
-cd moment
-npm install -g grunt-cli
-npm install
-git checkout develop  # all patches against develop branch, please!
-grunt                 # this runs tests and jshint
-```
-
 Changelog
 =========
 
@@ -382,7 +336,3 @@ Changed date format from php date format to custom format.
 
 Initial release
 
-License
-=======
-
-Moment.js is freely distributable under the terms of the MIT license.

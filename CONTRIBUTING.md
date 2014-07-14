@@ -1,46 +1,36 @@
-All pull requests to the `master` branch will be closed.
-========================================================
-
-Please submit all pull requests to the `develop` branch.
-
-Language translations will not be merged without unit tests.
-============================================================
-
-See [the British english unit tests](https://github.com/moment/moment/blob/develop/test/lang/en-gb.js) for an example.
-
-Submitting Issues
+Submitting issues
 =================
 
 If you are submitting a bug, please create a [jsfiddle](http://jsfiddle.net/) demonstrating the issue.
 
-Contributing
-============
+Contributing code
+=================
 
-To contribute, fork the library and install grunt and dependencies.
+To contribute, fork the library and install grunt and dependencies. You need [node](http://nodejs.org/); use [nvm](https://github.com/creationix/nvm) or [nenv](https://github.com/ryuone/nenv) to install it.
 
-    npm install -g grunt-cli
-    npm install
+```bash
+git clone https://github.com/moment/moment.git
+cd moment
+npm install -g grunt-cli
+npm install
+git checkout develop  # all patches against develop branch, please!
+grunt                 # this runs tests and jshint
+```
 
-You can add tests to the files in `/test/moment` or add a new test file if you are adding a new feature.
+Very important notes
+====================
 
-To run the tests, do `grunt` to run all tests.
+ * **Pull pull requests to the `master` branch will be closed.** Please submit all pull requests to the `develop` branch.
+ * **Language translations will not be merged without unit tests.** See [the British English unit tests](https://github.com/moment/moment/blob/develop/test/lang/en-gb.js) for an example.
+ * **Do not include the minified files in your pull request.** Don't worry, we'll build them when we cut a release.
 
-To check the filesize, you can use `grunt size`.
+Grunt tasks
+===========
 
-To minify all the files, use `grunt release`. **But please don't include minified files in pull requests.** We'll minify them when we release.
+We use Grunt for managing the build. Here are some useful Grunt tasks:
 
-If your code passes the unit tests (including the ones you wrote), submit a pull request.
-
-Submitting pull requests
-========================
-
-Moment.js now uses [git-flow](https://github.com/nvie/gitflow). If you're not familiar with git-flow, please read up on it, you'll be glad you did.
-
-When submitting new features, please create a new feature branch using `git flow feature start <name>` and submit the pull request to the `develop` branch.
-
-Pull requests for enhancements for features should be submitted to the `develop` branch as well.
-
-When submitting a bugfix, please check if there is an existing bugfix branch. If the latest stable version is `1.5.0`, the bugfix branch would be `hotfix/1.5.1`. All pull requests for bug fixes should be on a `hotfix` branch, unless the bug fix depends on a new feature.
-
-The `master` branch should always have the latest stable version. When bugfix or minor releases are needed, the develop/hotfix branch will be merged into master and released.
-
+  * `grunt` The default task lints the code and runs the tests. You should make sure you do this before submitting a PR.
+  * `grunt nodeunit:all` Just run the tests.
+  * `grunt release` Build everything, including minified files
+  * `grunt release --embedLanguages=fr,ru` Build everything, and also create `moment-with-customLangs.js` and `moment-with-customLangs.min.js` containing just French and Russian.
+  * `grunt size` Print size statistics.
