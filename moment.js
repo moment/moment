@@ -702,6 +702,42 @@
         return key ? key.toLowerCase().replace('_', '-') : key;
     }
 
+    // pick the locale from the array
+    // try ['en-au', 'en-gb'] as 'en-au', 'en-gb', 'en', as in move through the list trying each
+    // substring from most specific to least, but move to the next array item if it's a more specific variant than the current root
+    function chooseLocale(names) {
+        var i = 0, j, next, locale, split;
+
+        while (i < names.length) {
+            split = normalizeLocale(names[i]).split('-');
+            j = split.length;
+            next = normalizeLocale(names[i + 1]);
+            next = next ? next.split('-') : null;
+            while (j > 0) {
+                locale = loadLocale(split.slice(0, j).join('-'));
+                if (locale) {
+                    return locale;
+                }
+                if (next && next.length >= j && compareArrays(split, next, true) >= j - 1) {
+                    //the next array item is better than a shallower substring of this one
+                    break;
+                }
+                j--;
+            }
+            i++;
+        }
+        return null;
+    }
+
+    function loadLocale(name) {
+        if (!locales[name] && hasModule) {
+            try {
+                require('./locale/' + name);
+            } catch (e) { }
+        }
+        return locales[name];
+    }
+
     // Return a moment from input, that is local/utc/zone equivalent to model.
     function makeAs(input, model) {
         return model._isUTC ? moment(input).zone(model._offset || 0) :
@@ -1906,15 +1942,7 @@
 
     // returns locale data
     moment.localeData = function (key) {
-        var i = 0, j, locale, next, split,
-            get = function (k) {
-                if (!locales[k] && hasModule) {
-                    try {
-                        require('./locale/' + k);
-                    } catch (e) { }
-                }
-                return locales[k];
-            };
+        var locale;
 
         if (key && key._locale && key._locale._abbr) {
             key = key._locale._abbr;
@@ -1926,35 +1954,14 @@
 
         if (!isArray(key)) {
             //short-circuit everything else
-            locale = get(key);
+            locale = loadLocale(key);
             if (locale) {
                 return locale;
             }
             key = [key];
         }
 
-        //pick the locale from the array
-        //try ['en-au', 'en-gb'] as 'en-au', 'en-gb', 'en', as in move through the list trying each
-        //substring from most specific to least, but move to the next array item if it's a more specific variant than the current root
-        while (i < key.length) {
-            split = normalizeLocale(key[i]).split('-');
-            j = split.length;
-            next = normalizeLocale(key[i + 1]);
-            next = next ? next.split('-') : null;
-            while (j > 0) {
-                locale = get(split.slice(0, j).join('-'));
-                if (locale) {
-                    return locale;
-                }
-                if (next && next.length >= j && compareArrays(split, next, true) >= j - 1) {
-                    //the next array item is better than a shallower substring of this one
-                    break;
-                }
-                j--;
-            }
-            i++;
-        }
-        return null;
+        return chooseLocale(key);
     };
 
     // compare moment object
@@ -2401,7 +2408,7 @@
         lang : deprecate(
             "moment().lang is deprecated. Use moment().locale instead.",
             function (key) {
-                return this.locale(key);
+                return this.localeData(key);
             }
         ),
 

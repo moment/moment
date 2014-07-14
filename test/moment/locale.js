@@ -219,7 +219,7 @@ exports.locale = {
     },
 
     "duration deprecations" : function (test) {
-        test.equal(moment.duration().lang(), moment.duration().locale(), "duration.lang is the same as duration.locale");
+        test.equal(moment.duration().lang(), moment.duration().localeData(), "duration.lang is the same as duration.localeData");
         test.done();
     },
 
