@@ -497,7 +497,7 @@
         return res;
     }
 
-    //todo: remove 'name' arg after deprecation is removed
+    // TODO: remove 'name' arg after deprecation is removed
     function createAdder(direction, name) {
         return function (val, period) {
             var dur, tmp;
