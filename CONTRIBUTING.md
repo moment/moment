@@ -22,7 +22,7 @@ Very important notes
 
  * **Pull pull requests to the `master` branch will be closed.** Please submit all pull requests to the `develop` branch.
  * **Language translations will not be merged without unit tests.** See [the British English unit tests](https://github.com/moment/moment/blob/develop/test/lang/en-gb.js) for an example.
- * **Do not include the minifiled files in your pull request.** Don't worrry, we'll build them when we cut a release.
+ * **Do not include the minified files in your pull request.** Don't worry, we'll build them when we cut a release.
 
 Grunt tasks
 ===========
