@@ -38,11 +38,11 @@
         '၀': '0'
     };
     return moment.lang('mm', {
-        months : "ဇန္နဝါရီ_ေဖေဖာ္ဝါရီ_မတ္_ဧျပီ_ေမ_ဇြန္_ဇူလိုင္_ၾသဂုတ္_စက္တင္ဘာ_ေအာက္တိုဘာ_ႏိုဝင္ဘာ_ဒီဇင္ဘာ".split("_"),
-        monthsShort : "ဇန္_ေဖ_မတ္_ျပီ_ေမ_ဇြန္_ဂ်ဴလိုင္_ၾသ_စက္_ေအာက္_ႏို_ဒီ".split("_"),
-        weekdays : "တနလၤာ_အဂၤါ_ဗုဒၶဟူး_ၾကာသပေတး_ေသာၾကာ_စေန_တနဂၤေႏြ".split("_"),
-        weekdaysShort : "လာ_ဂၤါ_ဟူး_ၾကာ_ေသာ_စ_ေႏြြ".split("_"),
-        weekdaysMin : "လာ_ဂၤါ_ဟူး_ၾကာ_ေသာ_စ_ေႏြ".split("_"),
+        months : "ဇန်နဝါရီ_ဖေဖော်ဝါရီ_မတ်_ဧပြီ_မေ_ဇွန်_ဇူလိုင်_သြဂုတ်_စက်တင်ဘာ_အောက်တိုဘာ_နိုဝင်ဘာ_ဒီဇင်ဘာ".split("_"),
+        monthsShort : "ဇန်_ဖေ_မတ်_ပြီ_မေ_ဇွန်_ဂျူလိုင်_သြ_စက်_အောက်_နို_ဒီ".split("_"),
+        weekdays : "တနင်္လာ_အင်္ဂါ_ဗုဒ္ဓဟူး_ကြာသပတေး_သောကြာ_စနေ_တနင်္ဂနွေ".split("_"),
+        weekdaysShort : "လာ_င်္ဂါ_ဟူး_ကြာ_သော_စ_နွေ".split("_"),
+        weekdaysMin : "လာ_င်္ဂါ_ဟူး_ကြာ_သော_စ_နွေ".split("_"),
         longDateFormat : {
             LT : "HH:mm",
             L : "DD/MM/YYYY",
@@ -50,28 +50,28 @@
             LLL : "D MMMM YYYY LT",
             LLLL : "dddd D MMMM YYYY LT"
         },
-        calendar : {
-            sameDay : '[ယေန႔] LT [မွာ]',
-            nextDay : '[မနက္ျဖန္] LT [မွာ]',
-            nextWeek : 'dddd [မွ] LT',
-            lastDay : '[မေန႔က] LT [မွာ]',
-            lastWeek : '[ေနာက္ဆံုး] dddd LT',
+       calendar : {
+            sameDay : '[ယနေ.] LT [မှာ]',
+            nextDay : '[မနက်ဖြန်] LT [မှာ]',
+            nextWeek : 'dddd [မှ] LT',
+            lastDay : '[မနေ.က] LT [မှာ]',
+            lastWeek : '[နောက်ဆုံး] dddd LT',
             sameElse : 'L'
         },
         relativeTime : {
-            future : "%s မွာ",
-            past : "လြန္ခဲ့ေသာ %s က",
-            s : "စကၠန္႔အနည္းငယ္",
-            m : "တစ္မိနစ္",
-            mm : "%d မိနစ္",
-            h : "တစ္နာရီ",
+            future : "%s မှာ",
+            past : "လွန်ခဲ့သော %s က",
+            s : "စက္ကန့်အနည်းငယ်",
+            m : "တစ်မိနစ်",
+            mm : "%d မိနစ်",
+            h : "တစ်နာရီ",
             hh : "%d နာရီ",
-            d : "တစ္ေန႔ ",
-            dd : "%d ရက္",
-            M : "တစ္လ",
+            d : "တစ်နေ. ",
+            dd : "%d ရက်",
+            M : "တစ်လ",
             MM : "%d လ",
-            y : "တစ္ႏွစ္",
-            yy : "%d ႏွစ္"
+            y : "တစ်နှစ်",
+            yy : "%d နှစ်"
         },
         preparse: function (string) {
             return string.replace(/[၁၂၃၄၅၆၇၈၉၀]/g, function (match) {
