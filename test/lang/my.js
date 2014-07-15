@@ -5,9 +5,9 @@ var moment = require("../../moment");
       Myanmar Burmese
      *************************************************/
 
-exports["lang:mm"] = {
+exports["lang:my"] = {
     setUp : function (cb) {
-        moment.lang('mm');
+        moment.lang('my');
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");
         };
