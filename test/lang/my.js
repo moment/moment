@@ -72,7 +72,7 @@ exports["lang:my"] = {
         }
         test.done();
     },
-/*
+
     "format ordinal" : function (test) {
         test.expect(31);
         test.equal(moment([2011, 0, 1]).format('DDDo'), '၁', '၁');
@@ -120,7 +120,7 @@ exports["lang:my"] = {
         }
         test.done();
     },
-
+/*
     "format week" : function (test) {
         test.expect(7);
         var expected = 'တနဂၤေႏြ ေႏြ ေႏြ_တနလာၤ လာ လာ_အဂၤါ ဂါ ဂါ_ဗုဒၶဟူးေန႔ ဟူး ဟူး_ၾကာသပေတး ေတး ေတး_ေသာၾကာ ေသာ ေသာ_စေန ေန ေန'.split("_"), i;
