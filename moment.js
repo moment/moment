@@ -15,6 +15,7 @@
         globalScope = typeof global !== 'undefined' ? global : this,
         oldGlobalMoment,
         round = Math.round,
+        objectKeys,
         i,
 
         YEAR = 0,
@@ -419,34 +420,45 @@
         Helpers
     ************************************/
 
+    objectKeys = (function () {
+        if (Object.keys) {
+            return Object.keys;
+        }
+
+        return function objectKeys(o) {
+            var i, keys = [];
+
+            for (i in o) {
+                if (o.hasOwnProperty(i)) {
+                    keys.push(i);
+                }
+            }
+
+            // IE < 9 always excludes certain properties when enumerating.
+            // Manually handle the buggy properties we care about.
+            //
+            // See: https://developer.mozilla.org/en-US/docs/ECMAScript_DontEnum_attribute#JScript_DontEnum_Bug
+            // See: GH-1114
+            if (o.hasOwnProperty('toString')) {
+                keys.push('toString');
+            }
+
+            if (o.hasOwnProperty('valueOf')) {
+                keys.push('valueOf');
+            }
+
+            return keys;
+        };
+    })();
 
     function extend(a, b) {
-        for (var i in b) {
-            if (b.hasOwnProperty(i)) {
-                a[i] = b[i];
-            }
-        }
+        var i, n, keys = objectKeys(b);
 
-        if (b.hasOwnProperty('toString')) {
-            a.toString = b.toString;
-        }
-
-        if (b.hasOwnProperty('valueOf')) {
-            a.valueOf = b.valueOf;
+        for (i = 0, n = keys.length; i < n; i++) {
+            a[keys[i]] = b[keys[i]];
         }
 
         return a;
-    }
-
-    function cloneMoment(m) {
-        var result = {}, i;
-        for (i in m) {
-            if (m.hasOwnProperty(i) && momentProperties.hasOwnProperty(i)) {
-                result[i] = m[i];
-            }
-        }
-
-        return result;
     }
 
     function absRound(number) {
@@ -1716,7 +1728,7 @@
         }
 
         if (moment.isMoment(input)) {
-            config = cloneMoment(input);
+            config = extend({}, input);
 
             config._d = new Date(+input._d);
         } else if (format) {
