@@ -2691,7 +2691,8 @@
     moment.lang('en', {
         ordinal : function (number) {
             var b = number % 10,
-                output = (toInt(number % 100 / 10) === 1) ? 'th' :
+                output = number >= 10 && number <= 20 ? 'th' :
+                (toInt(number % 100 / 10) === 1) ? 'th' :
                 (b === 1) ? 'st' :
                 (b === 2) ? 'nd' :
                 (b === 3) ? 'rd' : 'th';
