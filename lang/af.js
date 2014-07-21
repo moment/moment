@@ -11,12 +11,19 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.lang('en-gb', {
+    return moment.lang('af', {
         months : "Januarie_Februarie_Maart_April_Mei_Junie_Julie_Augustus_September_Oktober_November_Desember".split("_"),
         monthsShort : "Jan_Feb_Mar_Apr_Mei_Jun_Jul_Aug_Sep_Okt_Nov_Des".split("_"),
         weekdays : "Sondag_Maandag_Dinsdag_Woensdag_Donderdag_Vrydag_Saterdag".split("_"),
         weekdaysShort : "Son_Maa_Din_Woe_Don_Vry_Sat".split("_"),
         weekdaysMin : "So_Ma_Di_Wo_Do_Vr_Sa".split("_"),
+        meridiem : function (hours, minutes, isLower) {
+            if (hours < 12) {
+                return isLower ? 'vm' : 'VM';
+            } else {
+                return isLower ? 'nm' : 'NM';
+            }
+        },
         longDateFormat : {
             LT : "HH:mm",
             L : "DD/MM/YYYY",
@@ -42,10 +49,10 @@
             hh : "%d ure",
             d : "'n dag",
             dd : "%d dae",
-            M : "'n month",
+            M : "'n maand",
             MM : "%d maande",
             y : "'n jaar",
-            yy : "%d jare"
+            yy : "%d jaar"
         },
         ordinal : function (number) {
             return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de'); // Thanks to Joris Röling : https://github.com/jjupiter
