@@ -29,18 +29,18 @@
         locales = {},
 
         // moment internal properties
-        momentProperties = {
-            _isAMomentObject: null,
-            _i : null,
-            _f : null,
-            _l : null,
-            _strict : null,
-            _tzm : null,
-            _isUTC : null,
-            _offset : null,  // optional. Combine with _isUTC
-            _pf : null,
-            _locale : null  // optional
-        },
+        momentProperties = [
+          '_isAMomentObject',
+          '_i',
+          '_f',
+          '_l',
+          '_strict',
+          '_tzm',
+          '_isUTC',
+          '_offset',
+          '_pf',
+          '_locale'
+        ];
 
         // check for nodeJS
         hasModule = (typeof module !== 'undefined' && module.exports),
@@ -376,9 +376,11 @@
     }
 
     // Moment prototype object
-    function Moment(config) {
-        checkOverflow(config);
-        extend(this, config);
+    function Moment(config, skipOverflow) {
+        if (skipOverflow != false) {
+          checkOverflow(config);
+        }
+        copyConfig(this, config);
     }
 
     // Duration Constructor
@@ -440,15 +442,20 @@
         return a;
     }
 
-    function cloneMoment(m) {
-        var result = {}, i;
-        for (i in m) {
-            if (m.hasOwnProperty(i) && momentProperties.hasOwnProperty(i)) {
-                result[i] = m[i];
-            }
+    function copyConfig(to, from) {
+        var i, prop, val;
+
+        for (i in momentProperties) {
+          prop = momentProperties[i];
+          val = from[prop];
+          if (typeof val !== 'undefined') {
+            to[prop] = val;
+          }
         }
 
-        return result;
+        to._d = new Date(+from._d);
+
+        return to;
     }
 
     function absRound(number) {
@@ -1686,9 +1693,8 @@
         }
 
         if (moment.isMoment(input)) {
-            config = cloneMoment(input);
+            return new Moment(input, true);
 
-            config._d = new Date(+input._d);
         } else if (format) {
             if (isArray(format)) {
                 makeDateFromStringAndArray(config);

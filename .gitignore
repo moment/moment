@@ -6,3 +6,4 @@ min/tests.js
 sauce_connect.log
 .sauce-labs.creds
 npm-debug.log
+benchmarks/results.csv

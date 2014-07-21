@@ -186,6 +186,12 @@ module.exports = function (grunt) {
             moment: 'moment.js',
             dest: embedLocaleDest,
             targetLocales: embedLocaleSrc
+        },
+        benchmark: {
+          all: {
+            src: ['benchmarks/*.js'],
+            dest: 'benchmarks/results.json',
+          }
         }
     });
 
