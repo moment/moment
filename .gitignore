@@ -5,4 +5,3 @@ min/moment+customlangs.min.js
 min/tests.js
 sauce_connect.log
 .sauce-labs.creds
-benchmarks/results.csv

@@ -188,10 +188,9 @@ module.exports = function (grunt) {
             targetLangs: embedLanguageLangs
         },
         benchmark: {
-          all: {
-            src: ['benchmarks/*.js'],
-            dest: 'benchmarks/results.json',
-          }
+            all: {
+                src: ['benchmarks/*.js']
+            }
         }
     });
 
