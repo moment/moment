@@ -169,7 +169,7 @@ exports["lang:ti"] = {
     },
 
     "fromNow" : function (test) {
-        test.equal(moment().add({s: 30}).fromNow(), "ལམ་སང", "ལམ་སང");
+        test.equal(moment().add({s: 30}).fromNow(), "ལམ་སང ལ་", "ལམ་སང ལ་");
         test.equal(moment().add({d: 5}).fromNow(), "༥ ཉིན་ ལ་", "༥ ཉིན་ ལ་");
         test.done();
     },
@@ -190,11 +190,11 @@ exports["lang:ti"] = {
         var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({d: i});
-            test.equal(m.calendar(),       m.format('dddd [,] LT'),  "Today + " + i + " days current time");
+            test.equal(m.calendar(),       m.format('[བདུན་ཕྲག་རྗེས་མ] [,] LT'),  "Today + " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('dddd [,] LT'),  "Today + " + i + " days beginning of day");
+            test.equal(m.calendar(),       m.format('[བདུན་ཕྲག་རྗེས་མ] [,] LT'),  "Today + " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('dddd [,] LT'),  "Today + " + i + " days end of day");
+            test.equal(m.calendar(),       m.format('[བདུན་ཕྲག་རྗེས་མ] [,] LT'),  "Today + " + i + " days end of day");
         }
         test.done();
     },
