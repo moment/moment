@@ -22,11 +22,9 @@
     "extra": {
         "component": {
             "scripts": [
-                "moment.js"
-            ],
-            "files": [
-               "min/*.js",
-               "lang/*.js"
+                "moment.js",
+                "language-loader.js",
+                "lang/*.js"
             ]
         }
     }
