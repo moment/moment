@@ -460,7 +460,7 @@
         if (typeof from._pf !== 'undefined') {
             to._pf = from._pf;
         }
-        if (typeof from._lang !== 'undefined') {
+        if (typeof from._lang !== 'undefined' && from.hasOwnProperty('_lang')) {
             to._lang = from._lang;
         }
 
