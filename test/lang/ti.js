@@ -138,7 +138,7 @@ exports["lang:ti"] = {
         test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  "༢༡ ཆུ་ཚོད",      "21 hours = 21 hours");
         test.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  "ཉིན་གཅིག",         "22 hours = a day");
         test.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  "ཉིན་གཅིག",         "35 hours = a day");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  "༢ ཉིན",        "36 hours = 2 days");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  "༢ ཉིན་",        "36 hours = 2 days");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   "ཉིན་གཅིག",         "1 day = a day");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   "༥ ཉིན་",        "5 days = 5 days");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "༢༥ ཉིན་",       "25 days = 25 days");
@@ -158,7 +158,7 @@ exports["lang:ti"] = {
     },
 
     "suffix" : function (test) {
-        test.equal(moment(30000).from(0), "ལམ་སང",  "prefix");
+        test.equal(moment(30000).from(0), "ལམ་སང ལ་",  "prefix");
         test.equal(moment(0).from(30000), "ལམ་སང སྔན་ལ", "suffix");
         test.done();
     },
@@ -182,7 +182,7 @@ exports["lang:ti"] = {
         test.equal(moment(a).add({h: 3}).calendar(),       "དི་རིང ཞོགས་ཀས ༥:༠༠",     "Now plus 3 hour");
         test.equal(moment(a).add({d: 1}).calendar(),       "སང་ཉིན མཚན་མོ ༢:༠༠",  "tomorrow at the same time");
         test.equal(moment(a).subtract({h: 1}).calendar(),  "དི་རིང མཚན་མོ ༡:༠༠",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({d: 1}).calendar(),  "ཁ་སང མཚན་མོ ༢:००", "yesterday at the same time");
+        test.equal(moment(a).subtract({d: 1}).calendar(),  "ཁ་སང མཚན་མོ ༢:༠༠", "yesterday at the same time");
         test.done();
     },
 
@@ -190,11 +190,11 @@ exports["lang:ti"] = {
         var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({d: i});
-            test.equal(m.calendar(),       m.format('dddd་[,] LT'),  "Today + " + i + " days current time");
+            test.equal(m.calendar(),       m.format('dddd [,] LT'),  "Today + " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('dddd་[,] LT'),  "Today + " + i + " days beginning of day");
+            test.equal(m.calendar(),       m.format('dddd [,] LT'),  "Today + " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('dddd་[,] LT'),  "Today + " + i + " days end of day");
+            test.equal(m.calendar(),       m.format('dddd [,] LT'),  "Today + " + i + " days end of day");
         }
         test.done();
     },
