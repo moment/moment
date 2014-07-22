@@ -107,7 +107,6 @@ exports.create = {
     },
 
     "cloning moment should only copy own properties" : function (test) {
-        test.expect(2);
         test.ok(!moment().clone().hasOwnProperty('month'), "Should not clone prototype methods");
         test.ok(!moment().clone().hasOwnProperty('_lang'), "Should not clone prototype objects");
         test.done();
