@@ -40,12 +40,12 @@ exports["lang:ti"] = {
 
     "format" : function (test) {
         var a = [
-                ['dddd, Do MMMM YYYY, a h:mm:ss बजे',  'གཟའ་ཉི་མ་, ༡༤ ཟླ་བ་གཉིས་པ ༢༠༡༠, ཉིན་གུང ༣:२༢༥:༥༠ ལ་'],
-                ['ddd, a h बजे',                       'གཟའ་ཉི་མ་, ཉིན་གུང ༣ ལ་'],
+                ['dddd, Do MMMM YYYY, a h:mm:ss ལ་',  'གཟའ་ཉི་མ་, ༡༤ ཟླ་བ་གཉིས་པ ༢༠༡༠, ཉིན་གུང ༣:२༢༥:༥༠ ལ་'],
+                ['ddd, a h ལ་',                       'གཟའ་ཉི་མ་, ཉིན་གུང ༣ ལ་'],
                 ['M Mo MM MMMM MMM',                   '༢ ༢ ༠༢ ཟླ་བ་གཉིས་པ ཟླ་བ་གཉིས་པ'],
                 ['YYYY YY',                            '༢༠༡༠ ༡༠'],
                 ['D Do DD',                            '༡༤ ༡༤ ༡༤'],
-                ['d do dddd ddd dd',                   '༠ ༠ གཟའ་ཉི་མ་ གཟའ་ཉི་མ་'],
+                ['d do dddd ddd dd',                   '༠ ༠ གཟའ་ཉི་མ་ ཉི་མ་ ཉི་མ་'],
                 ['DDD DDDo DDDD',                      '༤༥ ༤༥ ༠༤༥'],
                 ['w wo ww',                            '༨ ༨ ༠༨'],
                 ['h hh',                               '༣ ༠༣'],
@@ -55,12 +55,12 @@ exports["lang:ti"] = {
                 ['a A',                                'ཉིན་གུང ཉིན་གུང'],
                 ['L',                                  '༡༤/༠༢/༢༠༡༠'],
                 ['LL',                                 '༡༤ ཟླ་བ་གཉིས་པ ༢༠༡༠'],
-                ['LLL',                                '༡༤ ཟླ་བ་གཉིས་པ ༢༠༡༠, ཉིན་གུང ༣:༢༥ ལ་'],
-                ['LLLL',                               'གཟའ་ཉི་མ་, ༡༤ ཟླ་བ་གཉིས་པ ༢༠༡༠, ཉིན་གུང ༣:༢༥ ལ་'],
+                ['LLL',                                '༡༤ ཟླ་བ་གཉིས་པ ༢༠༡༠, ཉིན་གུང ༣:༢༥'],
+                ['LLLL',                               'གཟའ་ཉི་མ་, ༡༤ ཟླ་བ་གཉིས་པ ༢༠༡༠, ཉིན་གུང ༣:༢༥'],
                 ['l',                                  '༡༤/༢/༢༠༡༠'],
                 ['ll',                                 '༡༤ ཟླ་བ་གཉིས་པ ༢༠༡༠'],
-                ['lll',                                '༡༤ ཟླ་བ་གཉིས་པ ༢༠༡༠, ཉིན་གུང ༣:༢༥ ལ་'],
-                ['llll',                               'གཟའ་ཉི་མ་, ༡༤ ཟླ་བ་གཉིས་པ ༢༠༡༠, ཉིན་གུང ༣:༢༥ ལ་']
+                ['lll',                                '༡༤ ཟླ་བ་གཉིས་པ ༢༠༡༠, ཉིན་གུང ༣:༢༥'],
+                ['llll',                               'ཉི་མ་, ༡༤ ཟླ་བ་གཉིས་པ ༢༠༡༠, ཉིན་གུང ༣:༢༥']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -109,7 +109,7 @@ exports["lang:ti"] = {
     },
 
     "format month" : function (test) {
-        var expected = 'ཟླ་བ་དང་པོ ཟླ་བ་དང་པོ._ཟླ་བ་གཉིས་པ ཟླ་བ་གཉིས་པ_ཟླ་བ་གསུམ་པ ཟླ་བ་གསུམ་པ_ཟླ་བ་བཞི་པ ཟླ་བ་བཞི་པ_ཟླ་བ་ལྔ་པ ཟླ་བ་ལྔ་པ_ཟླ་བ་དྲུག་པ ཟླ་བ་དྲུག་པ_ཟླ་བ་བདུན་པ ཟླ་བ་བདུན་པ_ཟླ་བ་བརྒྱད་པ ཟླ་བ་བརྒྱད་པ_ཟླ་བ་དགུ་པ ཟླ་བ་དགུ་པ_ཟླ་བ་བཅུ་པ ཟླ་བ་བཅུ་པ_ཟླ་བ་བཅུ་གཅིག་པ ཟླ་བ་བཅུ་གཅིག་པ_ཟླ་བ་བཅུ་གཉིས་པ ཟླ་བ་བཅུ་གཉིས་པ'.split("_"), i;
+        var expected = 'ཟླ་བ་དང་པོ ཟླ་བ་དང་པོ_ཟླ་བ་གཉིས་པ ཟླ་བ་གཉིས་པ_ཟླ་བ་གསུམ་པ ཟླ་བ་གསུམ་པ_ཟླ་བ་བཞི་པ ཟླ་བ་བཞི་པ_ཟླ་བ་ལྔ་པ ཟླ་བ་ལྔ་པ_ཟླ་བ་དྲུག་པ ཟླ་བ་དྲུག་པ_ཟླ་བ་བདུན་པ ཟླ་བ་བདུན་པ_ཟླ་བ་བརྒྱད་པ ཟླ་བ་བརྒྱད་པ_ཟླ་བ་དགུ་པ ཟླ་བ་དགུ་པ_ཟླ་བ་བཅུ་པ ཟླ་བ་བཅུ་པ_ཟླ་བ་བཅུ་གཅིག་པ ཟླ་བ་བཅུ་གཅིག་པ_ཟླ་བ་བཅུ་གཉིས་པ ཟླ་བ་བཅུ་གཉིས་པ'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -126,39 +126,39 @@ exports["lang:ti"] = {
 
     "from" : function (test) {
         var start = moment([2007, 1, 28]);
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "कुछ ही क्षण", "44 seconds = a few seconds");
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "སྐར་མ་ གཅིག",      "45 seconds = a minute");
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  "སྐར་མ་ གཅིག",      "89 seconds = a minute");
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  "སྐར་མ་ ༡",     "90 seconds = 2 minutes");
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  "སྐར་མ་ ༤༤",    "44 minutes = 44 minutes");
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  "ཆུ་ཚོད་ གཅིག",       "45 minutes = an hour");
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  "ཆུ་ཚོད་ གཅིག",       "89 minutes = an hour");
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  "ཆུ་ཚོད་ ༢",       "90 minutes = 2 hours");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   "ཆུ་ཚོད་ ༥",       "5 hours = 5 hours");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  "ཆུ་ཚོད་ ༢༡",      "21 hours = 21 hours");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  "ཉིན་ གཅིག",         "22 hours = a day");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  "ཉིན་ གཅིག",         "35 hours = a day");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  "ཉིན་ ༢",        "36 hours = 2 days");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   "ཉིན་ གཅིག",         "1 day = a day");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   "ཉིན་ ༥",        "5 days = 5 days");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "ཉིན་ ༢༥",       "25 days = 25 days");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "ཟླ་བ་ གཅིག",       "26 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "ཟླ་བ་ གཅིག",       "30 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  "ཟླ་བ་ གཅིག",       "43 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "ལམ་སང", "44 seconds = a few seconds");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "སྐར་མ་གཅིག",      "45 seconds = a minute");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  "སྐར་མ་གཅིག",      "89 seconds = a minute");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  "༡ སྐར་མ",     "90 seconds = 2 minutes");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  "༤༤ སྐར་མ",    "44 minutes = 44 minutes");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  "ཆུ་ཚོད་གཅིག",       "45 minutes = an hour");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  "ཆུ་ཚོད་གཅིག",       "89 minutes = an hour");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  "༢ ཆུ་ཚོད",       "90 minutes = 2 hours");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   "༥ ཆུ་ཚོད",       "5 hours = 5 hours");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  "༢༡ ཆུ་ཚོད",      "21 hours = 21 hours");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  "ཉིན་གཅིག",         "22 hours = a day");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  "ཉིན་གཅིག",         "35 hours = a day");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  "༢ ཉིན",        "36 hours = 2 days");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   "ཉིན་གཅིག",         "1 day = a day");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   "༥ ཉིན་",        "5 days = 5 days");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "༢༥ ཉིན",       "25 days = 25 days");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "ཟླ་བ་གཅིག",       "26 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "ཟླ་བ་གཅིག",       "30 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  "ཟླ་བ་གཅིག",       "43 days = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "ཟླ་བ་ ༢",      "46 days = 2 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "ཟླ་བ་ ༢",      "75 days = 2 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "ཟླ་བ་ ༣",      "76 days = 3 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "ཟླ་བ་ གཅིག",       "1 month = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "ཟླ་བ་ ༥",      "5 months = 5 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "ལོ་ གཅིག",        "345 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "ལོ་ ༢",       "548 days = 2 years");
-        test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "ལོ་ གཅིག",        "1 year = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "ལོ་ ༥",       "5 years = 5 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "༢ ཟླ་བ",      "75 days = 2 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "༣ ཟླ་བ",      "76 days = 3 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "ཟླ་བ་གཅིག",       "1 month = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "༥ ཟླ་བ",      "5 months = 5 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "ལོ་གཅིག",        "345 days = a year");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "༢ ལོ",       "548 days = 2 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "ལོ་གཅིག",        "1 year = a year");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "༥ ལོ",       "5 years = 5 years");
         test.done();
     },
 
     "suffix" : function (test) {
-        test.equal(moment(30000).from(0), "ལམ་སང",  "prefix");
+        test.equal(moment(30000).from(0), "ལམ་སང ལ་",  "prefix");
         test.equal(moment(0).from(30000), "ལམ་སང སྔན་ལ", "suffix");
         test.done();
     },
@@ -170,19 +170,19 @@ exports["lang:ti"] = {
 
     "fromNow" : function (test) {
         test.equal(moment().add({s: 30}).fromNow(), "ལམ་སང", "ལམ་སང");
-        test.equal(moment().add({d: 5}).fromNow(), "ཉིན་ं ༥ ལ་", "ཉིན་ं ༥ ལ་");
+        test.equal(moment().add({d: 5}).fromNow(), "༥ ཉིན་ ལ་", "༥ ཉིན་ ལ་");
         test.done();
     },
 
     "calendar day" : function (test) {
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "དི་རིང མཚན་མོ ༢:༠༠ ལ་",     "today at the same time");
-        test.equal(moment(a).add({m: 25}).calendar(),      "དི་རིང མཚན་མོ ༢:༢༥ ལ་",     "Now plus 25 min");
-        test.equal(moment(a).add({h: 3}).calendar(),       "དི་རིང ཞོགས་ཀས ༥:༠༠ ལ་",     "Now plus 3 hour");
-        test.equal(moment(a).add({d: 1}).calendar(),       "སང་ཉིན མཚན་མོ ༢:༠༠ ལ་",  "tomorrow at the same time");
-        test.equal(moment(a).subtract({h: 1}).calendar(),  "དི་རིང མཚན་མོ ༡:༠༠ ལ་",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({d: 1}).calendar(),  "ཁ་སང མཚན་མོ २:०० ལ་", "yesterday at the same time");
+        test.equal(moment(a).calendar(),                     "དི་རིང མཚན་མོ ༢:༠༠",     "today at the same time");
+        test.equal(moment(a).add({m: 25}).calendar(),      "དི་རིང མཚན་མོ ༢:༢༥",     "Now plus 25 min");
+        test.equal(moment(a).add({h: 3}).calendar(),       "དི་རིང ཞོགས་ཀས ༥:༠༠",     "Now plus 3 hour");
+        test.equal(moment(a).add({d: 1}).calendar(),       "སང་ཉིན མཚན་མོ ༢:༠༠་",  "tomorrow at the same time");
+        test.equal(moment(a).subtract({h: 1}).calendar(),  "དི་རིང མཚན་མོ ༡:༠༠",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({d: 1}).calendar(),  "ཁ་སང མཚན་མོ २:००", "yesterday at the same time");
         test.done();
     },
 
@@ -190,11 +190,11 @@ exports["lang:ti"] = {
         var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({d: i});
-            test.equal(m.calendar(),       m.format('dddd[,] LT'),  "Today + " + i + " days current time");
+            test.equal(m.calendar(),       m.format('[བདུན་ཕྲག་རྗེས་མ ] dddd[,] LT'),  "Today + " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('dddd[,] LT'),  "Today + " + i + " days beginning of day");
+            test.equal(m.calendar(),       m.format('[བདུན་ཕྲག་རྗེས་མ ] dddd[,] LT'),  "Today + " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('dddd[,] LT'),  "Today + " + i + " days end of day");
+            test.equal(m.calendar(),       m.format('[བདུན་ཕྲག་རྗེས་མ ] dddd[,] LT'),  "Today + " + i + " days end of day");
         }
         test.done();
     },
@@ -204,11 +204,11 @@ exports["lang:ti"] = {
 
         for (i = 2; i < 7; i++) {
             m = moment().subtract({d: i});
-            test.equal(m.calendar(),       m.format('[གཞུག་ལ ] dddd[,] LT'),  "Today - " + i + " days current time");
+            test.equal(m.calendar(),       m.format('[བདུན་ཕྲག་མཐའ་མ ] dddd[,] LT'),  "Today - " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('[གཞུག་ལ ] dddd[,] LT'),  "Today - " + i + " days beginning of day");
+            test.equal(m.calendar(),       m.format('[བདུན་ཕྲག་མཐའ་མ ] dddd[,] LT'),  "Today - " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('[གཞུག་ལ ] dddd[,] LT'),  "Today - " + i + " days end of day");
+            test.equal(m.calendar(),       m.format('[བདུན་ཕྲག་མཐའ་མ ] dddd[,] LT'),  "Today - " + i + " days end of day");
         }
         test.done();
     },
@@ -328,9 +328,9 @@ exports["lang:ti"] = {
     "weeks year starting sunday formatted" : function (test) {
         test.equal(moment([2012, 0,  1]).format('w ww wo'), '༡ ༠༡ ༡', "Jan  1 2012 should be week 1");
         test.equal(moment([2012, 0,  7]).format('w ww wo'), '༡ ༠༡ ༡', "Jan  7 2012 should be week 1");
-        test.equal(moment([2012, 0,  8]).format('w ww wo'), '༢ ༠༢ ༠༢', "Jan  8 2012 should be week 2");
+        test.equal(moment([2012, 0,  8]).format('w ww wo'), '༢ ༠༢ ༢', "Jan  8 2012 should be week 2");
         test.equal(moment([2012, 0, 14]).format('w ww wo'), '༢ ༠༢ ༢', "Jan 14 2012 should be week 2");
-        test.equal(moment([2012, 0, 15]).format('w ww wo'), '༣ ༠༣ ༠༣', "Jan 15 2012 should be week 3");
+        test.equal(moment([2012, 0, 15]).format('w ww wo'), '༣ ༠༣ ༣', "Jan 15 2012 should be week 3");
 
         test.done();
     },
