@@ -1719,7 +1719,7 @@
             config = cloneMoment(input);
 
             config._d = new Date(+input._d);
-        } else if (format) {
+        } else if (format && typeof input === 'string') {
             if (isArray(format)) {
                 makeDateFromStringAndArray(config);
             } else {
