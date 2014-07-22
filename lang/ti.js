@@ -82,7 +82,6 @@
                 return symbolMap[match];
             });
         },
-        
         meridiem : function (hour, minute, isLower) {
             if (hour < 4) {
                 return "མཚན་མོ";
