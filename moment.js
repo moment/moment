@@ -2407,7 +2407,7 @@
         },
 
         lang : deprecate(
-            "moment().lang is deprecated. Use moment().locale instead.",
+            "moment().lang() is deprecated. Use moment().localeData() instead.",
             function (key) {
                 return this.localeData(key);
             }
