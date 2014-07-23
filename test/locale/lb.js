@@ -160,13 +160,5 @@ exports["locale:lb"] = {
             test.equal(m.calendar(), m.format(datestring), "Today + " + i + " days end of day");
         }
         test.done();
-    },
-
-    "returns the name of the locale": function (test) {
-        if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../locale/lb'), 'lb', "module should export lb");
-        }
-
-        test.done();
     }
 };

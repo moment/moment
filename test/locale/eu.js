@@ -314,13 +314,5 @@ exports["locale:eu"] = {
         test.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 3.', "Jan  9 2012 should be week 3");
 
         test.done();
-    },
-
-    "returns the name of the locale" : function (test) {
-        if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../locale/eu'), 'eu', "module should export eu");
-        }
-
-        test.done();
     }
 };

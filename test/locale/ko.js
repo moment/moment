@@ -356,13 +356,5 @@ exports["locale:ko"] = {
         test.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3일', "Jan 15 2012 should be week 3");
 
         test.done();
-    },
-
-    "returns the name of the locale" : function (test) {
-        if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../locale/ko'), 'ko', "module should export ko");
-        }
-
-        test.done();
     }
 };

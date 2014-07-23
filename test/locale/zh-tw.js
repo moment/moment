@@ -306,13 +306,5 @@ exports["locale:zh-tw"] = {
         test.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3週', "Jan 15 2012 應該是第 3週");
 
         test.done();
-    },
-
-    "returns the name of the locale" : function (test) {
-        if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../locale/zh-tw'), 'zh-tw', "module should export zh-tw");
-        }
-
-        test.done();
     }
 };

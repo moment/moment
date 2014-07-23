@@ -319,13 +319,5 @@ exports["locale:ta"] = {
         test.equal(moment([2011, 2, 23, 19, 30]).format('a'), " மாலை", "late evening");
         test.equal(moment([2011, 2, 23, 21, 20]).format('a'), " இரவு", "night");
         test.done();
-    },
-
-    "returns the name of the locale" : function (test) {
-        if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../locale/ta'), 'ta', "module should export ta");
-        }
-
-        test.done();
     }
 };

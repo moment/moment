@@ -308,13 +308,5 @@ exports["locale:zh-cn"] = {
         test.equal(moment([2012, 0, 14]).format('w ww wo'), '2 02 2周', "Jan 14 2012 应该是第 2周");
 
         test.done();
-    },
-
-    "returns the name of the locale" : function (test) {
-        if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../locale/zh-cn'), 'zh-cn', "module should export zh-cn");
-        }
-
-        test.done();
     }
 };

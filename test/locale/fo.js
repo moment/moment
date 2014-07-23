@@ -261,13 +261,5 @@ exports["locale:fo"] = {
         test.equal(moment([2012, 0, 15]).format('w ww wo'),   '2 02 2.', "Jan 15 2012 should be week 2");
 
         test.done();
-    },
-
-    "returns the name of the locale" : function (test) {
-        if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../locale/fo'), 'fo', "module should export fo");
-        }
-
-        test.done();
     }
 };

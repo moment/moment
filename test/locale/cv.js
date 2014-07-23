@@ -317,13 +317,5 @@ exports["locale:cv"] = {
         test.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 3-мĕш', "Jan  9 2012 should be week 3");
 
         test.done();
-    },
-
-    "returns the name of the locale" : function (test) {
-        if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../locale/cv'), 'cv', "module should export cv");
-        }
-
-        test.done();
     }
 };
