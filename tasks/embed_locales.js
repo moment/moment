@@ -17,11 +17,14 @@ module.exports = function (grunt) {
         grunt.file.write(config.dest, modifiedContents);
     });
 
+    var languageReset = 'moment.locale(\'en\');'
+
     function determineEmbeddedContent(files) {
         var embeddedContent = '';
         files.forEach(function (file) {
             embeddedContent += transformFile(file);
         });
+        embeddedContent += '\n    ' + languageReset + '\n';
         return embeddedContent;
     }
 

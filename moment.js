@@ -603,7 +603,7 @@
 
         moment[field] = function (format, index) {
             var i, getter,
-                method = moment.fn._locale[field],
+                method = moment._locale[field],
                 results = [];
 
             if (typeof format === 'number') {
@@ -613,7 +613,7 @@
 
             getter = function (i) {
                 var m = moment().utc().set(setter, i);
-                return method.call(moment.fn._locale, m, format || '');
+                return method.call(moment._locale, m, format || '');
             };
 
             if (index != null) {
@@ -730,9 +730,13 @@
     }
 
     function loadLocale(name) {
+        var oldLocale = null;
         if (!locales[name] && hasModule) {
             try {
+                oldLocale = moment.locale();
                 require('./locale/' + name);
+                // because defineLocale currently also sets the global locale, we want to undo that for lazy loaded locales
+                moment.locale(oldLocale);
             } catch (e) { }
         }
         return locales[name];
@@ -1913,11 +1917,11 @@
             }
 
             if (data) {
-                moment.duration.fn._locale = moment.fn._locale = data;
+                moment.duration._locale = moment._locale = data;
             }
         }
 
-        return moment.fn._locale._abbr;
+        return moment._locale._abbr;
     };
 
     moment.defineLocale = function (name, values) {
@@ -1927,8 +1931,13 @@
                 locales[name] = new Locale();
             }
             locales[name].set(values);
+
+            // backwards compat for now: also set the locale
+            moment.locale(name);
+
             return locales[name];
         } else {
+            // useful for testing
             delete locales[name];
             return null;
         }
@@ -1950,7 +1959,7 @@
         }
 
         if (!key) {
-            return moment.fn._locale;
+            return moment._locale;
         }
 
         if (!isArray(key)) {

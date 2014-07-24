@@ -129,7 +129,7 @@ exports.locale = {
     "defineLocale" : function (test) {
         moment.locale("en");
         moment.defineLocale("dude", {months: ["Movember"]});
-        test.equal(moment().locale(), "en", "defineLocale doesn't set it");
+        test.equal(moment().locale(), "dude", "defineLocale also sets it");
         test.equal(moment().locale("dude").locale(), "dude", "defineLocale defines a locale");
         test.done();
     },
@@ -411,6 +411,14 @@ exports.locale = {
 
         test.equal(registered, 'return-this', 'returns the locale configured');
 
+        test.done();
+    },
+
+    "changing the global locale doesn't affect existing instances" : function (test) {
+        moment.locale('en');
+        var mom = moment();
+        moment.locale('pr');
+        test.equal('en', moment.locale());
         test.done();
     }
 };
