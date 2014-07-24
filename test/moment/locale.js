@@ -220,7 +220,7 @@ exports.locale = {
     },
 
     "changing the global locale doesn't affect existing duration instances" : function (test) {
-        var mom = moment.duration()
+        var mom = moment.duration();
         moment.locale('fr');
         test.equal('en', mom.locale());
         test.done();
