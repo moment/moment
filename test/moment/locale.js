@@ -5,6 +5,7 @@ exports.locale = {
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");
         };
+        moment.locale('en');
         done();
     },
 
@@ -218,6 +219,13 @@ exports.locale = {
         test.done();
     },
 
+    "changing the global locale doesn't affect existing duration instances" : function (test) {
+        var mom = moment.duration()
+        moment.locale('fr');
+        test.equal('en', mom.locale());
+        test.done();
+    },
+
     "duration deprecations" : function (test) {
         test.equal(moment.duration().lang(), moment.duration().localeData(), "duration.lang is the same as duration.localeData");
         test.done();
@@ -415,10 +423,9 @@ exports.locale = {
     },
 
     "changing the global locale doesn't affect existing instances" : function (test) {
-        moment.locale('en');
         var mom = moment();
-        moment.locale('pr');
-        test.equal('en', moment.locale());
+        moment.locale('fr');
+        test.equal('en', mom.locale());
         test.done();
     }
 };
