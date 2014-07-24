@@ -11,7 +11,6 @@ exports.roundTo = {
     "round to nearest unit": function (test) {
         test.expect(7 * 3);
         
-        var units = ['millisecond', 'minute', 'hour', 'day', 'month', 'quarter', 'year'];
         var actual = moment(1234, 5, 6, 7, 8, 9, 10);
 
         test.equal(moment(actual).roundTo('millisecond', 1).get('millisecond'), 10, 'millisecond should round to 10');
