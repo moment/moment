@@ -1974,6 +1974,27 @@
 
         month : makeAccessor('Month', true),
 
+        roundTo: function (units, offset, midpoint) {
+            units = normalizeUnits(units);
+            offset = offset || 1;
+            var roundTo = function (unit) {
+                switch (midpoint) {
+                    case 'up':
+                        unit = Math.ceil(unit / offset);
+                        break;
+                    case 'down':
+                        unit = Math.floor(unit / offset);
+                        break;
+                    default:
+                        unit = Math.round(unit / offset);
+                        break;
+                }
+                return unit * offset;
+            };
+
+            return this.set(units, roundTo(this.get(units)));
+        },
+
         startOf: function (units) {
             units = normalizeUnits(units);
             // the following switch intentionally omits break keywords
