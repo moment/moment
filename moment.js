@@ -1974,25 +1974,25 @@
 
         month : makeAccessor('Month', true),
 
-        roundTo: function (units, offset, midpoint) {
-            units = normalizeUnits(units);
+        roundTo: function (unit, offset, midpoint) {
+            unit = normalizeUnits(unit);
             offset = offset || 1;
-            var roundTo = function (unit) {
-                switch (midpoint) {
-                    case 'up':
-                        unit = Math.ceil(unit / offset);
-                        break;
-                    case 'down':
-                        unit = Math.floor(unit / offset);
-                        break;
-                    default:
-                        unit = Math.round(unit / offset);
-                        break;
-                }
-                return unit * offset;
-            };
+            var value = this.get(unit);
 
-            return this.set(units, roundTo(this.get(units)));
+            switch (midpoint) {
+                case 'up':
+                    value = Math.ceil(value / offset);
+                    break;
+                case 'down':
+                    value = Math.floor(value / offset);
+                    break;
+                case 'nearest':
+                default:
+                    value = Math.round(value / offset);
+                    break;
+            }
+
+            return this.set(unit, value * offset);
         },
 
         startOf: function (units) {
