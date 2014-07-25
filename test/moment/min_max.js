@@ -2,7 +2,7 @@ var moment = require("../../moment");
 
 exports.minMax = {
     setUp : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");
         };
@@ -10,7 +10,7 @@ exports.minMax = {
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 

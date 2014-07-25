@@ -1,4 +1,4 @@
-Submitting issues
+Submitting Issues
 =================
 
 If you are submitting a bug, please create a [jsfiddle](http://jsfiddle.net/) demonstrating the issue.
@@ -21,7 +21,7 @@ Very important notes
 ====================
 
  * **Pull pull requests to the `master` branch will be closed.** Please submit all pull requests to the `develop` branch.
- * **Language translations will not be merged without unit tests.** See [the British English unit tests](https://github.com/moment/moment/blob/develop/test/lang/en-gb.js) for an example.
+ * **Locale translations will not be merged without unit tests.** See [the British English unit tests](https://github.com/moment/moment/blob/develop/test/locale/en-gb.js) for an example.
  * **Do not include the minified files in your pull request.** Don't worry, we'll build them when we cut a release.
 
 Grunt tasks
@@ -32,5 +32,5 @@ We use Grunt for managing the build. Here are some useful Grunt tasks:
   * `grunt` The default task lints the code and runs the tests. You should make sure you do this before submitting a PR.
   * `grunt nodeunit:all` Just run the tests.
   * `grunt release` Build everything, including minified files
-  * `grunt release --embedLanguages=fr,ru` Build everything, and also create `moment-with-customLangs.js` and `moment-with-customLangs.min.js` containing just French and Russian.
+  * `grunt release --embedLocales=fr,ru` Build everything, and also create `moment-with-customLocales.js` and `moment-with-customLocales.min.js` containing just French and Russian.
   * `grunt size` Print size statistics.

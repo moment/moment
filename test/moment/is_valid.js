@@ -87,9 +87,7 @@ exports.isValid = {
     },
 
     "string with bad month name" : function (test) {
-        test.expect(2);
-
-        moment.lang('en');
+        moment.locale('en');
 
         test.equal(moment('01-Nam-2012', 'DD-MMM-YYYY').isValid(), false, '"Nam" is an invalid month');
         test.equal(moment('01-Aug-2012', 'DD-MMM-YYYY').isValid(), true, '"Aug" is a valid month');

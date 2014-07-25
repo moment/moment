@@ -42,7 +42,7 @@ var moment = require("../../moment"),
 
 exports.preparsePostformat = {
     setUp: function (cb) {
-        moment.lang('symbol', symbolLang);
+        moment.locale('symbol', symbolLang);
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");
         };
@@ -51,7 +51,7 @@ exports.preparsePostformat = {
     },
 
     tearDown: function (cb) {
-        moment.lang('en-gb');
+        moment.locale('en-gb');
         cb();
     },
 

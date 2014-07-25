@@ -1,29 +1,29 @@
 module.exports = function (grunt) {
-    var embedOption = grunt.option('embedLanguages'),
-        embedLanguageDest = embedOption ?
-            'min/moment-with-customlangs.js' :
-            'min/moment-with-langs.js',
-        embedLanguageLangs = 'lang/*.js';
+    var embedOption = grunt.option('embedLocales'),
+        embedLocaleDest = embedOption ?
+            'min/moment-with-customlocales.js' :
+            'min/moment-with-locales.js',
+        embedLocaleSrc = 'locale/*.js';
 
     if (embedOption && embedOption.match(/,/)) {
-        embedLanguageLangs = 'lang/{' + embedOption + '}.js';
+        embedLocaleSrc = 'locale/{' + embedOption + '}.js';
     }
     else if (embedOption) {
-        embedLanguageLangs = 'lang/' + embedOption + '.js';
+        embedLocaleSrc = 'locale/' + embedOption + '.js';
     }
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         concat : {
-            langs: {
-                src: 'lang/*.js',
-                dest: 'min/langs.js'
+            locales: {
+                src: 'locale/*.js',
+                dest: 'min/locales.js'
             },
             tests: {
                 src: [
                     'test/browser-prefix.js',
                     'test/moment/*.js',
-                    'test/lang/*.js',
+                    'test/locale/*.js',
                     'test/browser-suffix.js'
                 ],
                 dest: 'min/tests.js'
@@ -37,7 +37,7 @@ module.exports = function (grunt) {
             options: {
                 frameworks: ['nodeunit'],
                 files: [
-                    'min/moment-with-langs.js',
+                    'min/moment-with-locales.js',
                     'min/tests.js',
                     'test/browser.js'
                 ],
@@ -102,9 +102,9 @@ module.exports = function (grunt) {
         uglify : {
             target: {
                 files: {
-                    'min/moment-with-langs.min.js'       : 'min/moment-with-langs.js',
-                    'min/moment-with-customlangs.min.js' : 'min/moment-with-customlangs.js',
-                    'min/langs.min.js'                   : 'min/langs.js',
+                    'min/moment-with-locales.min.js'       : 'min/moment-with-locales.js',
+                    'min/moment-with-customlocales.min.js' : 'min/moment-with-customlocales.js',
+                    'min/locales.min.js'                   : 'min/locales.js',
                     'min/moment.min.js'                  : 'moment.js'
                 }
             },
@@ -121,11 +121,11 @@ module.exports = function (grunt) {
             }
         },
         nodeunit : {
-            all : ["test/moment/**/*.js", "test/lang/**/*.js"]
+            all : ["test/moment/**/*.js", "test/locale/**/*.js"]
         },
         jshint: {
             all: [
-                "Gruntfile.js", "moment.js", "lang/**/*.js", "test/**/*.js",
+                "Gruntfile.js", "moment.js", "locale/**/*.js", "test/**/*.js",
                 "!test/browser*.js"
             ],
             options: {
@@ -161,7 +161,7 @@ module.exports = function (grunt) {
         },
         jscs: {
             all: [
-                "Gruntfile.js", "moment.js", "lang/**/*.js",
+                "Gruntfile.js", "moment.js", "locale/**/*.js",
                 "test/**/*.js", "!test/browser*.js"
             ],
             options: {
@@ -172,7 +172,7 @@ module.exports = function (grunt) {
             test : {
                 files : [
                     'moment.js',
-                    'lang/*.js',
+                    'locale/*.js',
                     'test/**/*.js'
                 ],
                 tasks: ['nodeunit']
@@ -182,10 +182,10 @@ module.exports = function (grunt) {
                 tasks: ['jshint']
             }
         },
-        embedLanguages: {
+        embedLocales: {
             moment: 'moment.js',
-            dest: embedLanguageDest,
-            targetLangs: embedLanguageLangs
+            dest: embedLocaleDest,
+            targetLocales: embedLocaleSrc
         }
     });
 
@@ -200,10 +200,10 @@ module.exports = function (grunt) {
     // test tasks
     grunt.registerTask('test', ['test:node', 'test:browser']);
     grunt.registerTask('test:node', ['nodeunit']);
-    grunt.registerTask('test:server', ['concat', 'embedLanguages', 'karma:server']);
-    grunt.registerTask('test:browser', ['concat', 'embedLanguages', 'karma:chrome', 'karma:firefox']);
-    grunt.registerTask('test:sauce-browser', ['concat', 'embedLanguages', 'env:sauceLabs', 'karma:sauce']);
-    grunt.registerTask('test:travis-sauce-browser', ['concat', 'embedLanguages', 'karma:sauce']);
+    grunt.registerTask('test:server', ['concat', 'embedLocales', 'karma:server']);
+    grunt.registerTask('test:browser', ['concat', 'embedLocales', 'karma:chrome', 'karma:firefox']);
+    grunt.registerTask('test:sauce-browser', ['concat', 'embedLocales', 'env:sauceLabs', 'karma:sauce']);
+    grunt.registerTask('test:travis-sauce-browser', ['concat', 'embedLocales', 'karma:sauce']);
 
     // travis build task
     grunt.registerTask('build:travis', [
@@ -215,7 +215,7 @@ module.exports = function (grunt) {
 
     // Task to be run when releasing a new version
     grunt.registerTask('release', [
-        'jshint', 'nodeunit', 'concat', 'embedLanguages',
+        'jshint', 'nodeunit', 'concat', 'embedLocales',
         'component', 'uglify'
     ]);
 };

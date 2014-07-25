@@ -2,7 +2,7 @@ var moment = require("../../moment");
 
 exports.listers = {
     setUp : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");
         };
@@ -11,7 +11,7 @@ exports.listers = {
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -46,7 +46,7 @@ exports.listers = {
             weekdaysShort = "on_tw_th_fo_fi_si_se".split("_"),
             weekdaysMin = "1_2_3_4_5_6_7".split("_");
 
-        moment.lang('numerologists', {
+        moment.locale('numerologists', {
             months : months,
             monthsShort : monthsShort,
             weekdays : weekdays,
@@ -79,7 +79,7 @@ exports.listers = {
         var monthsShort = "one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve".split('_'),
             monthsShortWeird = "onesy_twosy_threesy_foursy_fivesy_sixsy_sevensy_eightsy_ninesy_tensy_elevensy_twelvesy".split('_');
 
-        moment.lang("difficult", {
+        moment.locale("difficult", {
 
             monthsShort: function (m, format) {
                 var arr = format.match(/-MMM-/) ? monthsShortWeird : monthsShort;
