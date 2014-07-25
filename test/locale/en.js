@@ -59,13 +59,13 @@ exports["locale:en"] = {
                 ['a A',                                'pm PM'],
                 ['[the] DDDo [day of the year]',       'the 45th day of the year'],
                 ['L',                                  '02/14/2010'],
-                ['LL',                                 'February 14 2010'],
-                ['LLL',                                'February 14 2010 3:25 PM'],
-                ['LLLL',                               'Sunday, February 14 2010 3:25 PM'],
+                ['LL',                                 'February 14, 2010'],
+                ['LLL',                                'February 14, 2010 3:25 PM'],
+                ['LLLL',                               'Sunday, February 14, 2010 3:25 PM'],
                 ['l',                                  '2/14/2010'],
-                ['ll',                                 'Feb 14 2010'],
-                ['lll',                                'Feb 14 2010 3:25 PM'],
-                ['llll',                               'Sun, Feb 14 2010 3:25 PM']
+                ['ll',                                 'Feb 14, 2010'],
+                ['lll',                                'Feb 14, 2010 3:25 PM'],
+                ['llll',                               'Sun, Feb 14, 2010 3:25 PM']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;

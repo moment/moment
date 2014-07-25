@@ -251,12 +251,12 @@ exports.create = {
                 ['LT',                  '12:30 AM'],
                 ['L',                   '09/02/1999'],
                 ['l',                   '9/2/1999'],
-                ['LL',                  'September 2 1999'],
-                ['ll',                  'Sep 2 1999'],
-                ['LLL',                 'September 2 1999 12:30 AM'],
-                ['lll',                 'Sep 2 1999 12:30 AM'],
-                ['LLLL',                'Thursday, September 2 1999 12:30 AM'],
-                ['llll',                'Thu, Sep 2 1999 12:30 AM']
+                ['LL',                  'September 2, 1999'],
+                ['ll',                  'Sep 2, 1999'],
+                ['LLL',                 'September 2, 1999 12:30 AM'],
+                ['lll',                 'Sep 2, 1999 12:30 AM'],
+                ['LLLL',                'Thursday, September 2, 1999 12:30 AM'],
+                ['llll',                'Thu, Sep 2, 1999 12:30 AM']
             ],
             m,
             i;
