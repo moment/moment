@@ -243,12 +243,12 @@ exports["lang:kr"] = {
 
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "오늘 오전 2시 00분",     "today at the same time");
+        test.equal(moment(a).calendar(),                     "오늘 오전 2시 0분",     "today at the same time");
         test.equal(moment(a).add({ m: 25 }).calendar(),      "오늘 오전 2시 25분",     "Now plus 25 min");
-        test.equal(moment(a).add({ h: 1 }).calendar(),       "오늘 오전 3시 00분",     "Now plus 1 hour");
-        test.equal(moment(a).add({ d: 1 }).calendar(),       "내일 오전 2시 00분",     "tomorrow at the same time");
-        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "오늘 오전 1시 00분",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "어제 오전 2시 00분",     "yesterday at the same time");
+        test.equal(moment(a).add({ h: 1 }).calendar(),       "오늘 오전 3시 0분",     "Now plus 1 hour");
+        test.equal(moment(a).add({ d: 1 }).calendar(),       "내일 오전 2시 0분",     "tomorrow at the same time");
+        test.equal(moment(a).subtract({ h: 1 }).calendar(),  "오늘 오전 1시 0분",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({ d: 1 }).calendar(),  "어제 오전 2시 0분",     "yesterday at the same time");
         test.done();
     },
 
