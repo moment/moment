@@ -34,6 +34,19 @@
         '٨': '8',
         '٩': '9',
         '٠': '0'
+    }, pluralForm = function (n) {
+        return n === 0 ? 0 : n === 1 ? 1 : n === 2 ? 2 : n % 100 >= 3 && n % 100 <= 10 ? 3 : n % 100 >= 11 ? 4 : 5;
+    }, plurals = {
+        s : ["أقل من ثانية", "ثانية واحدة", "ثانيتين", "%d ثوانٍ", "%d ثانيةً", "%d ثانيةٍ"],
+        m : ["أقل من دقيقة", "دقيقة واحدة", "دقيقتين", "%d دقائق", "%d دقيقةً", "%d دقيقةٍ"],
+        h : ["أقل من ساعة", "ساعة واحدة", "ساعتين", "%d ساعات", "%d ساعةً", "%d ساعةٍ"],
+        d : ["أقل من يوم", "يوم واحد", "يومين", "%d أيام", "%d يومًا", "%d يومٍ"],
+        M : ["أقل من شهر", "شهر واحد", "شهرين", "%d أشهر", "%d شهرًا", "%d شهرٍ"],
+        y : ["أقل من عام", "عام واحد", "عامين", "%d أعوام", "%d عامًا", "%d عامٍ"]
+    }, pluralize = function (u) {
+        return function (number, withoutSuffix, string, isFuture) {
+            return plurals[u][pluralForm(number)].replace(/%d/i, number);
+        };
     };
 
     return moment.defineLocale('ar', {
@@ -67,17 +80,17 @@
         relativeTime : {
             future : "في %s",
             past : "منذ %s",
-            s : "ثوان",
-            m : "دقيقة",
-            mm : "%d دقائق",
-            h : "ساعة",
-            hh : "%d ساعات",
-            d : "يوم",
-            dd : "%d أيام",
-            M : "شهر",
-            MM : "%d أشهر",
-            y : "سنة",
-            yy : "%d سنوات"
+            s : pluralize("s"),
+            m : pluralize("m"),
+            mm : pluralize("m"),
+            h : pluralize("h"),
+            hh : pluralize("h"),
+            d : pluralize("d"),
+            dd : pluralize("d"),
+            M : pluralize("M"),
+            MM : pluralize("M"),
+            y : pluralize("y"),
+            yy : pluralize("y")
         },
         preparse: function (string) {
             return string.replace(/[۰-۹]/g, function (match) {
