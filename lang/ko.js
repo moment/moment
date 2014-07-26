@@ -21,7 +21,7 @@
         weekdaysShort : "일_월_화_수_목_금_토".split("_"),
         weekdaysMin : "일_월_화_수_목_금_토".split("_"),
         longDateFormat : {
-            LT : "A h시 mm분",
+            LT : "A h시 m분",
             L : "YYYY.MM.DD",
             LL : "YYYY년 MMMM D일",
             LLL : "YYYY년 MMMM D일 LT",
