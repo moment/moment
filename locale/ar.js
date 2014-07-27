@@ -45,17 +45,14 @@
         y : ["أقل من عام", "عام واحد", "عامان|عامين", "%d أعوام", "%d عامًا", "%d عام"]
     }, pluralize = function (u) {
         return function (number, withoutSuffix, string, isFuture) {
-            var f = pluralForm(number);
-            str = plurals[u][pluralForm(number)];
+            var f = pluralForm(number),
+                str = plurals[u][pluralForm(number)];
             if (f === 2) {
                 str = str.split("|")[withoutSuffix ? 0 : 1];
             }
             return str.replace(/%d/i, number);
         };
-    };
-
-    return moment.defineLocale('ar', {
-        months : monthsLong = [ 'كانون الثاني يناير',
+    }, months = [ 'كانون الثاني يناير',
   'شباط فبراير',
   'آذار مارس',
   'نيسان أبريل',
@@ -66,8 +63,11 @@
   'أيلول سبتمبر',
   'تشرين الأول أكتوبر',
   'تشرين الثاني نوفمبر',
-  'كانون الأول ديسمبر' ],
-        monthsShort : monthsLong,
+  'كانون الأول ديسمبر' ];
+
+    return moment.defineLocale('ar', {
+        months : months,
+        monthsShort : months,
         weekdays : "الأحد_الإثنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت".split("_"),
         weekdaysShort : "أحد_إثنين_ثلاثاء_أربعاء_خميس_جمعة_سبت".split("_"),
         weekdaysMin : "ح_ن_ث_ر_خ_ج_س".split("_"),
