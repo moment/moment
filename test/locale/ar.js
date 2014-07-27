@@ -1,6 +1,19 @@
 // moment.js arabic (ar) tests
 // author: Abdel Said : https://github.com/abdelsaid
-var moment = require("../../moment");
+// test for natural plural forms: forabi (https://github.com/forabi)
+var moment = require("../../moment"),
+    months = [ 'كانون الثاني يناير',
+  'شباط فبراير',
+  'آذار مارس',
+  'نيسان أبريل',
+  'أيار مايو',
+  'حزيران يونيو',
+  'تموز يوليو',
+  'آب أغسطس',
+  'أيلول سبتمبر',
+  'تشرين الأول أكتوبر',
+  'تشرين الثاني نوفمبر',
+  'كانون الأول ديسمبر' ];
 
 exports["locale:ar"] = {
     setUp : function (cb) {
@@ -17,29 +30,29 @@ exports["locale:ar"] = {
     },
 
     "parse" : function (test) {
-        var tests = 'يناير/ كانون الثاني:يناير/ كانون الثاني_فبراير/ شباط:فبراير/ شباط_مارس/ آذار:مارس/ آذار_أبريل/ نيسان:أبريل/ نيسان_مايو/ أيار:مايو/ أيار_يونيو/ حزيران:يونيو/ حزيران_يوليو/ تموز:يوليو/ تموز_أغسطس/ آب:أغسطس/ آب_سبتمبر/ أيلول:سبتمبر/ أيلول_أكتوبر/ تشرين الأول:أكتوبر/ تشرين الأول_نوفمبر/ تشرين الثاني:نوفمبر/ تشرين الثاني_ديسمبر/ كانون الأول:ديسمبر/ كانون الأول'.split("_"), i;
+        var tests = months, i;
+        
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1) + ' instead is month ' + moment(input, mmm).month());
         }
         for (i = 0; i < 12; i++) {
-            tests[i] = tests[i].split(':');
-            equalTest(tests[i][0], 'MMM', i);
-            equalTest(tests[i][1], 'MMM', i);
-            equalTest(tests[i][0], 'MMMM', i);
-            equalTest(tests[i][1], 'MMMM', i);
-            equalTest(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
-            equalTest(tests[i][1].toLocaleLowerCase(), 'MMMM', i);
-            equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
-            equalTest(tests[i][1].toLocaleUpperCase(), 'MMMM', i);
+            equalTest(tests[i], 'MMM', i);
+            equalTest(tests[i], 'MMM', i);
+            equalTest(tests[i], 'MMMM', i);
+            equalTest(tests[i], 'MMMM', i);
+            equalTest(tests[i].toLocaleLowerCase(), 'MMMM', i);
+            equalTest(tests[i].toLocaleLowerCase(), 'MMMM', i);
+            equalTest(tests[i].toLocaleUpperCase(), 'MMMM', i);
+            equalTest(tests[i].toLocaleUpperCase(), 'MMMM', i);
         }
         test.done();
     },
 
     "format" : function (test) {
         var a = [
-                ['dddd, MMMM Do YYYY, h:mm:ss a',      'الأحد، فبراير/ شباط ١٤ ٢٠١٠، ٣:٢٥:٥٠ م'],
+                ['dddd, MMMM Do YYYY, h:mm:ss a',      'الأحد، شباط فبراير ١٤ ٢٠١٠، ٣:٢٥:٥٠ م'],
                 ['ddd, hA',                            'أحد، ٣م'],
-                ['M Mo MM MMMM MMM',                   '٢ ٢ ٠٢ فبراير/ شباط فبراير/ شباط'],
+                ['M Mo MM MMMM MMM',                   '٢ ٢ ٠٢ شباط فبراير شباط فبراير'],
                 ['YYYY YY',                            '٢٠١٠ ١٠'],
                 ['D Do DD',                            '١٤ ١٤ ١٤'],
                 ['d do dddd ddd dd',                   '٠ ٠ الأحد أحد ح'],
@@ -52,13 +65,13 @@ exports["locale:ar"] = {
                 ['a A',                                'م م'],
                 ['[the] DDDo [day of the year]',       'the ٤٥ day of the year'],
                 ['L',                                  '١٤/٠٢/٢٠١٠'],
-                ['LL',                                 '١٤ فبراير/ شباط ٢٠١٠'],
-                ['LLL',                                '١٤ فبراير/ شباط ٢٠١٠ ١٥:٢٥'],
-                ['LLLL',                               'الأحد ١٤ فبراير/ شباط ٢٠١٠ ١٥:٢٥'],
+                ['LL',                                 '١٤ شباط فبراير ٢٠١٠'],
+                ['LLL',                                '١٤ شباط فبراير ٢٠١٠ ١٥:٢٥'],
+                ['LLLL',                               'الأحد ١٤ شباط فبراير ٢٠١٠ ١٥:٢٥'],
                 ['l',                                  '١٤/٢/٢٠١٠'],
-                ['ll',                                 '١٤ فبراير/ شباط ٢٠١٠'],
-                ['lll',                                '١٤ فبراير/ شباط ٢٠١٠ ١٥:٢٥'],
-                ['llll',                               'أحد ١٤ فبراير/ شباط ٢٠١٠ ١٥:٢٥']
+                ['ll',                                 '١٤ شباط فبراير ٢٠١٠'],
+                ['lll',                                '١٤ شباط فبراير ٢٠١٠ ١٥:٢٥'],
+                ['llll',                               'أحد ١٤ شباط فبراير ٢٠١٠ ١٥:٢٥']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -107,9 +120,10 @@ exports["locale:ar"] = {
     },
 
     "format month" : function (test) {
-        var expected = 'يناير/ كانون الثاني يناير/ كانون الثاني_فبراير/ شباط فبراير/ شباط_مارس/ آذار مارس/ آذار_أبريل/ نيسان أبريل/ نيسان_مايو/ أيار مايو/ أيار_يونيو/ حزيران يونيو/ حزيران_يوليو/ تموز يوليو/ تموز_أغسطس/ آب أغسطس/ آب_سبتمبر/ أيلول سبتمبر/ أيلول_أكتوبر/ تشرين الأول أكتوبر/ تشرين الأول_نوفمبر/ تشرين الثاني نوفمبر/ تشرين الثاني_ديسمبر/ كانون الأول ديسمبر/ كانون الأول'.split("_"), i;
+        var expected = months, i;
         for (i = 0; i < expected.length; i++) {
-            test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
+            test.equal(moment([2011, i, 1]).format('MMMM'), expected[i], expected[i]);
+            test.equal(moment([2011, i, 1]).format('MMM'), expected[i], expected[i]);
         }
         test.done();
     },
@@ -124,63 +138,63 @@ exports["locale:ar"] = {
 
     "from" : function (test) {
         var start = moment([2007, 1, 28]);
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "ثوان", "44 seconds = a few seconds");
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "دقيقة",      "45 seconds = a minute");
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  "دقيقة",      "89 seconds = a minute");
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  "٢ دقائق",     "90 seconds = 2 minutes");
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  "٤٤ دقائق",    "44 minutes = 44 minutes");
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  "ساعة",       "45 minutes = an hour");
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  "ساعة",       "89 minutes = an hour");
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  "٢ ساعات",       "90 minutes = 2 hours");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  "٤٤ ثانية", "44 seconds = a few seconds");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  "دقيقة واحدة",      "45 seconds = a minute");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  "دقيقة واحدة",      "89 seconds = a minute");
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  "دقيقتان",     "90 seconds = 2 minutes");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  "٤٤ دقيقة",    "44 minutes = 44 minutes");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  "ساعة واحدة",       "45 minutes = an hour");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  "ساعة واحدة",       "89 minutes = an hour");
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  "ساعتان",       "90 minutes = 2 hours");
         test.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   "٥ ساعات",       "5 hours = 5 hours");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  "٢١ ساعات",      "21 hours = 21 hours");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  "يوم",         "22 hours = a day");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  "يوم",         "35 hours = a day");
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  "٢ أيام",        "36 hours = 2 days");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   "يوم",         "1 day = a day");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  "٢١ ساعة",      "21 hours = 21 hours");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  "يوم واحد",         "22 hours = a day");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  "يوم واحد",         "35 hours = a day");
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  "يومان",        "36 hours = 2 days");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   "يوم واحد",         "1 day = a day");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   "٥ أيام",        "5 days = 5 days");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "٢٥ أيام",       "25 days = 25 days");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "شهر",       "26 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "شهر",       "30 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  "شهر",       "43 days = a month");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "٢ أشهر",      "46 days = 2 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "٢ أشهر",      "75 days = 2 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  "٢٥ يومًا",       "25 days = 25 days");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  "شهر واحد",       "26 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  "شهر واحد",       "30 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  "شهر واحد",       "43 days = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  "شهران",      "46 days = 2 months");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  "شهران",      "75 days = 2 months");
         test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  "٣ أشهر",      "76 days = 3 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "شهر",       "1 month = a month");
+        test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   "شهر واحد",       "1 month = a month");
         test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   "٥ أشهر",      "5 months = 5 months");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "سنة",        "345 days = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "٢ سنوات",       "548 days = 2 years");
-        test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "سنة",        "1 year = a year");
-        test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "٥ سنوات",       "5 years = 5 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), "عام واحد",        "345 days = a year");
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), "عامان",       "548 days = 2 years");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   "عام واحد",        "1 year = a year");
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   "٥ أعوام",       "5 years = 5 years");
         test.done();
     },
 
     "suffix" : function (test) {
-        test.equal(moment(30000).from(0), "في ثوان",  "prefix");
-        test.equal(moment(0).from(30000), "منذ ثوان", "suffix");
+        test.equal(moment(30000).from(0), "بعد ٣٠ ثانية",  "prefix");
+        test.equal(moment(0).from(30000), "منذ ٣٠ ثانية", "suffix");
         test.done();
     },
 
     "now from now" : function (test) {
-        test.equal(moment().fromNow(), "منذ ثوان",  "now from now should display as in the past");
+        test.equal(moment().fromNow(), "منذ ثانية واحدة",  "now from now should display as in the past");
         test.done();
     },
 
     "fromNow" : function (test) {
-        test.equal(moment().add({s: 30}).fromNow(), "في ثوان", "in a few seconds");
-        test.equal(moment().add({d: 5}).fromNow(), "في ٥ أيام", "in 5 days");
+        test.equal(moment().add({s: 30}).fromNow(), "بعد ٣٠ ثانية", "in a few seconds");
+        test.equal(moment().add({d: 5}).fromNow(), "بعد ٥ أيام", "in 5 days");
         test.done();
     },
 
     "calendar day" : function (test) {
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     "اليوم على الساعة ٠٢:٠٠",     "today at the same time");
-        test.equal(moment(a).add({m: 25}).calendar(),      "اليوم على الساعة ٠٢:٢٥",     "Now plus 25 min");
-        test.equal(moment(a).add({h: 1}).calendar(),       "اليوم على الساعة ٠٣:٠٠",     "Now plus 1 hour");
-        test.equal(moment(a).add({d: 1}).calendar(),       "غدا على الساعة ٠٢:٠٠",  "tomorrow at the same time");
-        test.equal(moment(a).subtract({h: 1}).calendar(),  "اليوم على الساعة ٠١:٠٠",     "Now minus 1 hour");
-        test.equal(moment(a).subtract({d: 1}).calendar(),  "أمس على الساعة ٠٢:٠٠", "yesterday at the same time");
+        test.equal(moment(a).calendar(),                     "اليوم عند الساعة ٠٢:٠٠",     "today at the same time");
+        test.equal(moment(a).add({m: 25}).calendar(),      "اليوم عند الساعة ٠٢:٢٥",     "Now plus 25 min");
+        test.equal(moment(a).add({h: 1}).calendar(),       "اليوم عند الساعة ٠٣:٠٠",     "Now plus 1 hour");
+        test.equal(moment(a).add({d: 1}).calendar(),       "غدًا عند الساعة ٠٢:٠٠",  "tomorrow at the same time");
+        test.equal(moment(a).subtract({h: 1}).calendar(),  "اليوم عند الساعة ٠١:٠٠",     "Now minus 1 hour");
+        test.equal(moment(a).subtract({d: 1}).calendar(),  "أمس عند الساعة ٠٢:٠٠", "yesterday at the same time");
         test.done();
     },
 
@@ -188,11 +202,11 @@ exports["locale:ar"] = {
         var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({d: i});
-            test.equal(m.calendar(),       m.format('dddd [على الساعة] LT'),  "Today + " + i + " days current time");
+            test.equal(m.calendar(),       m.format('dddd [عند الساعة] LT'),  "Today + " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('dddd [على الساعة] LT'),  "Today + " + i + " days beginning of day");
+            test.equal(m.calendar(),       m.format('dddd [عند الساعة] LT'),  "Today + " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('dddd [على الساعة] LT'),  "Today + " + i + " days end of day");
+            test.equal(m.calendar(),       m.format('dddd [عند الساعة] LT'),  "Today + " + i + " days end of day");
         }
         test.done();
     },
@@ -201,11 +215,11 @@ exports["locale:ar"] = {
         var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().subtract({d: i});
-            test.equal(m.calendar(),       m.format('dddd [على الساعة] LT'),  "Today - " + i + " days current time");
+            test.equal(m.calendar(),       m.format('dddd [عند الساعة] LT'),  "Today - " + i + " days current time");
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('dddd [على الساعة] LT'),  "Today - " + i + " days beginning of day");
+            test.equal(m.calendar(),       m.format('dddd [عند الساعة] LT'),  "Today - " + i + " days beginning of day");
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('dddd [على الساعة] LT'),  "Today - " + i + " days end of day");
+            test.equal(m.calendar(),       m.format('dddd [عند الساعة] LT'),  "Today - " + i + " days end of day");
         }
         test.done();
     },
