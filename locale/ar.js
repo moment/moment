@@ -2,6 +2,7 @@
 // locale : Arabic (ar)
 // author : Abdel Said : https://github.com/abdelsaid
 // changes in months, weekdays : Ahmed Elkhatib
+// native plural forms: forabi https://github.com/forabi
 
 (function (factory) {
     if (typeof define === 'function' && define.amd) {

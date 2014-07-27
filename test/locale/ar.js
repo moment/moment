@@ -1,6 +1,6 @@
 // moment.js arabic (ar) tests
 // author: Abdel Said : https://github.com/abdelsaid
-// test for natural plural forms: forabi (https://github.com/forabi)
+// tests updated by forabi (https://github.com/forabi)
 var moment = require("../../moment"),
     months = [ 'كانون الثاني يناير',
   'شباط فبراير',
