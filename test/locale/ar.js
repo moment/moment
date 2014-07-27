@@ -2,18 +2,18 @@
 // author: Abdel Said : https://github.com/abdelsaid
 // tests updated by forabi (https://github.com/forabi)
 var moment = require("../../moment"),
-    months = [ 'كانون الثاني يناير',
-  'شباط فبراير',
-  'آذار مارس',
-  'نيسان أبريل',
-  'أيار مايو',
-  'حزيران يونيو',
-  'تموز يوليو',
-  'آب أغسطس',
-  'أيلول سبتمبر',
-  'تشرين الأول أكتوبر',
-  'تشرين الثاني نوفمبر',
-  'كانون الأول ديسمبر' ];
+    months = ['كانون الثاني يناير',
+        'شباط فبراير',
+        'آذار مارس',
+        'نيسان أبريل',
+        'أيار مايو',
+        'حزيران يونيو',
+        'تموز يوليو',
+        'آب أغسطس',
+        'أيلول سبتمبر',
+        'تشرين الأول أكتوبر',
+        'تشرين الثاني نوفمبر',
+    'كانون الأول ديسمبر'];
 
 exports["locale:ar"] = {
     setUp : function (cb) {
@@ -31,7 +31,6 @@ exports["locale:ar"] = {
 
     "parse" : function (test) {
         var tests = months, i;
-        
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1) + ' instead is month ' + moment(input, mmm).month());
         }
