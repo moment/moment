@@ -1,8 +1,8 @@
 // moment.js locale configuration
-// locale : Arabic (ar)
-// author : Abdel Said : https://github.com/abdelsaid
-// changes in months, weekdays : Ahmed Elkhatib
-// native plural forms: forabi https://github.com/forabi
+// Locale: Arabic (ar)
+// Author: Abdel Said: https://github.com/abdelsaid
+// Changes in months, weekdays: Ahmed Elkhatib
+// Native plural forms: forabi https://github.com/forabi
 
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
@@ -38,18 +38,18 @@
     }, pluralForm = function (n) {
         return n === 0 ? 0 : n === 1 ? 1 : n === 2 ? 2 : n % 100 >= 3 && n % 100 <= 10 ? 3 : n % 100 >= 11 ? 4 : 5;
     }, plurals = {
-        s : ["أقل من ثانية", "ثانية واحدة", "ثانيتان|ثانيتين", "%d ثوان", "%d ثانية", "%d ثانية"],
-        m : ["أقل من دقيقة", "دقيقة واحدة", "دقيقتان|دقيقتين", "%d دقائق", "%d دقيقة", "%d دقيقة"],
-        h : ["أقل من ساعة", "ساعة واحدة", "ساعتان|ساعتين", "%d ساعات", "%d ساعة", "%d ساعة"],
-        d : ["أقل من يوم", "يوم واحد", "يومان|يومين", "%d أيام", "%d يومًا", "%d يوم"],
-        M : ["أقل من شهر", "شهر واحد", "شهران|شهرين", "%d أشهر", "%d شهرا", "%d شهر"],
-        y : ["أقل من عام", "عام واحد", "عامان|عامين", "%d أعوام", "%d عامًا", "%d عام"]
+        s : ["أقل من ثانية", "ثانية واحدة", ["ثانيتان", "ثانيتين"], "%d ثوان", "%d ثانية", "%d ثانية"],
+        m : ["أقل من دقيقة", "دقيقة واحدة", ["دقيقتان", "دقيقتين"], "%d دقائق", "%d دقيقة", "%d دقيقة"],
+        h : ["أقل من ساعة", "ساعة واحدة", ["ساعتان", "ساعتين"], "%d ساعات", "%d ساعة", "%d ساعة"],
+        d : ["أقل من يوم", "يوم واحد", ["يومان", "يومين"], "%d أيام", "%d يومًا", "%d يوم"],
+        M : ["أقل من شهر", "شهر واحد", ["شهران", "شهرين"], "%d أشهر", "%d شهرا", "%d شهر"],
+        y : ["أقل من عام", "عام واحد", ["عامان", "عامين"], "%d أعوام", "%d عامًا", "%d عام"]
     }, pluralize = function (u) {
         return function (number, withoutSuffix, string, isFuture) {
             var f = pluralForm(number),
                 str = plurals[u][pluralForm(number)];
             if (f === 2) {
-                str = str.split("|")[withoutSuffix ? 0 : 1];
+                str = str[withoutSuffix ? 0 : 1];
             }
             return str.replace(/%d/i, number);
         };

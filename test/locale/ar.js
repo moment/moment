@@ -1,6 +1,6 @@
 // moment.js arabic (ar) tests
-// author: Abdel Said : https://github.com/abdelsaid
-// tests updated by forabi (https://github.com/forabi)
+// Author: Abdel Said: https://github.com/abdelsaid
+// Tests updated by forabi (https://github.com/forabi)
 var moment = require("../../moment"),
     months = ['كانون الثاني يناير',
         'شباط فبراير',
