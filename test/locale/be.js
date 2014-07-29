@@ -5,9 +5,9 @@ var moment = require("../../moment");
       Belarusian
      *************************************************/
 
-exports["lang:be"] = {
+exports["locale:be"] = {
     setUp : function (cb) {
-        moment.lang('be');
+        moment.locale('be');
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");
         };
@@ -15,7 +15,7 @@ exports["lang:be"] = {
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -373,13 +373,6 @@ exports["lang:be"] = {
         test.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 3-і', "Jan  9 2012 should be week 3");
 
         test.done();
-    },
-
-    "returns the name of the language" : function (test) {
-        if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/be'), 'be', "module should export be");
-        }
-
-        test.done();
     }
+
 };

@@ -5,9 +5,9 @@ var moment = require("../../moment");
       Tibetan
      *************************************************/
 
-exports["lang:ti"] = {
+exports["locale:ti"] = {
     setUp : function (cb) {
-        moment.lang('ti');
+        moment.locale('ti');
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");
         };
@@ -15,7 +15,7 @@ exports["lang:ti"] = {
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -331,14 +331,6 @@ exports["lang:ti"] = {
         test.equal(moment([2012, 0,  8]).format('w ww wo'), '༢ ༠༢ ༢', "Jan  8 2012 should be week 2");
         test.equal(moment([2012, 0, 14]).format('w ww wo'), '༢ ༠༢ ༢', "Jan 14 2012 should be week 2");
         test.equal(moment([2012, 0, 15]).format('w ww wo'), '༣ ༠༣ ༣', "Jan 15 2012 should be week 3");
-
-        test.done();
-    },
-
-    "returns the name of the language" : function (test) {
-        if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/ti'), 'ti', "module should export ti");
-        }
 
         test.done();
     }
