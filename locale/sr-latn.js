@@ -1,6 +1,6 @@
 // moment.js locale configuration
-// locale : Serbian-cyrillic (sr-cyrl)
-// author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
+// locale : Serbian-latin (sr-latn)
+// author : sr-cyrl.js : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j; sr.latn.js is adapted by djura-san
 
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
@@ -13,13 +13,13 @@
 }(function (moment) {
     var translator = {
         words: { //Different grammatical cases
-            m: ['један минут', 'једне минуте'],
-            mm: ['минут', 'минуте', 'минута'],
-            h: ['један сат', 'једног сата'],
-            hh: ['сат', 'сата', 'сати'],
-            dd: ['дан', 'дана', 'дана'],
-            MM: ['месец', 'месеца', 'месеци'],
-            yy: ['година', 'године', 'година']
+            m: ['jedan minut', 'jedne minute'],
+            mm: ['minut', 'minute', 'minuta'],
+            h: ['jedan sat', 'jednog sata'],
+            hh: ['sat', 'sata', 'sati'],
+            dd: ['dan', 'dana', 'dana'],
+            MM: ['mesec', 'meseca', 'meseci'],
+            yy: ['godina', 'godine', 'godina']
         },
         correctGrammaticalCase: function (number, wordKey) {
             return number === 1 ? wordKey[0] : (number >= 2 && number <= 4 ? wordKey[1] : wordKey[2]);
@@ -35,11 +35,11 @@
     };
 
     return moment.defineLocale('sr-cyrl', {
-        months: ['јануар', 'фебруар', 'март', 'април', 'мај', 'јун', 'јул', 'август', 'септембар', 'октобар', 'новембар', 'децембар'],
-        monthsShort: ['јан.', 'феб.', 'мар.', 'апр.', 'мај', 'јун', 'јул', 'авг.', 'сеп.', 'окт.', 'нов.', 'дец.'],
-        weekdays: ['недеља', 'понедељак', 'уторак', 'среда', 'четвртак', 'петак', 'субота'],
-        weekdaysShort: ['нед.', 'пон.', 'уто.', 'сре.', 'чет.', 'пет.', 'суб.'],
-        weekdaysMin: ['не', 'по', 'ут', 'ср', 'че', 'пе', 'су'],
+        months: ['januar', 'februar', 'mart', 'april', 'maj', 'jun', 'jul', 'avgust', 'septembar', 'oktobar', 'novembar', 'decembar'],
+        monthsShort: ['jan.', 'feb.', 'mar.', 'apr.', 'maj', 'jun', 'jul', 'avg.', 'sep.', 'okt.', 'nov.', 'dec.'],
+        weekdays: ['nedelja', 'ponedeljak', 'utorak', 'sreda', 'četvrtak', 'petak', 'subota'],
+        weekdaysShort: ['ned.', 'pon.', 'uto.', 'sre.', 'čet.', 'pet.', 'sub.'],
+        weekdaysMin: ['ne', 'po', 'ut', 'sr', 'če', 'pe', 'su'],
         longDateFormat: {
             LT: "H:mm",
             L: "DD. MM. YYYY",
@@ -48,17 +48,17 @@
             LLLL: "dddd, D. MMMM YYYY LT"
         },
         calendar: {
-            sameDay: '[данас у] LT',
-            nextDay: '[сутра у] LT',
+            sameDay: '[danas u] LT',
+            nextDay: '[sutra u] LT',
 
             nextWeek: function () {
                 switch (this.day()) {
                 case 0:
-                    return '[у] [недељу] [у] LT';
+                    return '[u] [nedelju] [u] LT';
                 case 3:
-                    return '[у] [среду] [у] LT';
+                    return '[u] [sredu] [u] LT';
                 case 6:
-                    return '[у] [суботу] [у] LT';
+                    return '[u] [subotu] [u] LT';
                 case 1:
                 case 2:
                 case 4:
@@ -66,34 +66,34 @@
                     return '[у] dddd [у] LT';
                 }
             },
-            lastDay  : '[јуче у] LT',
+            lastDay  : '[juče u] LT',
             lastWeek : function () {
                 var lastWeekDays = [
-                    '[прошле] [недеље] [у] LT',
-                    '[прошлог] [понедељка] [у] LT',
-                    '[прошлог] [уторка] [у] LT',
-                    '[прошле] [среде] [у] LT',
-                    '[прошлог] [четвртка] [у] LT',
-                    '[прошлог] [петка] [у] LT',
-                    '[прошле] [суботе] [у] LT'
+                    '[prošle] [nedelje] [u] LT',
+                    '[prošlog] [ponedeljka] [u] LT',
+                    '[prošlog] [utorka] [u] LT',
+                    '[prošle] [srede] [u] LT',
+                    '[prošlog] [četvrtka] [u] LT',
+                    '[prošlog] [petka] [u] LT',
+                    '[prošle] [subote] [u] LT'
                 ];
                 return lastWeekDays[this.day()];
             },
             sameElse : 'L'
         },
         relativeTime : {
-            future : "за %s",
-            past   : "пре %s",
-            s      : "неколико секунди",
+            future : "za %s",
+            past   : "pre %s",
+            s      : "nekoliko sekundi",
             m      : translator.translate,
             mm     : translator.translate,
             h      : translator.translate,
             hh     : translator.translate,
-            d      : "дан",
+            d      : "dan",
             dd     : translator.translate,
-            M      : "месец",
+            M      : "mesec",
             MM     : translator.translate,
-            y      : "годину",
+            y      : "godinu",
             yy     : translator.translate
         },
         ordinal : '%d.',
