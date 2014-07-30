@@ -128,6 +128,18 @@ exports.create = {
         test.done();
     },
 
+    "cloning respects moment.momentProperties" : function (test) {
+        var m = moment();
+
+        test.equal(m.clone()._special, undefined, "cloning ignores extra properties");
+        m._special = "bacon";
+        moment.momentProperties.push("_special");
+        test.equal(m.clone()._special, "bacon", "cloning respects momentProperties");
+        moment.momentProperties.pop();
+
+        test.done();
+    },
+
     "undefined" : function (test) {
         test.expect(1);
         test.ok(moment().toDate() instanceof Date, "undefined");
