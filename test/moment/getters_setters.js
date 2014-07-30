@@ -217,6 +217,28 @@ exports.gettersSetters = {
         test.done();
     },
 
+    'setter with multiple unit values' : function (test) {
+        var a = moment();
+        a.set({
+            year: 2011,
+            month: 9,
+            date: 12,
+            hours: 6,
+            minutes: 7,
+            seconds: 8,
+            milliseconds: 9
+        });
+        test.equal(a.year(), 2011, 'year');
+        test.equal(a.month(), 9, 'month');
+        test.equal(a.date(), 12, 'date');
+        test.equal(a.day(), 3, 'day');
+        test.equal(a.hours(), 6, 'hour');
+        test.equal(a.minutes(), 7, 'minute');
+        test.equal(a.seconds(), 8, 'second');
+        test.equal(a.milliseconds(), 9, 'milliseconds');
+        test.done();
+    },
+
     'day setter' : function (test) {
         test.expect(18);
 
