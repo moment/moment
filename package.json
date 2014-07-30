@@ -52,6 +52,7 @@
         "grunt-jscs": "latest",
         "grunt-karma": "latest",
         "grunt-benchmark" : "latest",
+        "grunt-string-replace" : "latest",
         "load-grunt-tasks": "latest",
         "karma": "latest",
         "karma-chrome-launcher": "latest",
