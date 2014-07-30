@@ -5,9 +5,9 @@ var moment = require("../../moment");
       Afrikaans
      *************************************************/
 
-exports["lang:af"] = {
+exports["locale:af"] = {
     setUp : function (cb) {
-        moment.lang('af');
+        moment.locale('af');
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");
         };
@@ -15,7 +15,7 @@ exports["lang:af"] = {
     },
 
     tearDown : function (cb) {
-        moment.lang('en');
+        moment.locale('en');
         cb();
     },
 
@@ -313,14 +313,6 @@ exports["lang:af"] = {
         test.equal(moment([2012, 0,  8]).format('w ww wo'),   '1 01 1ste', "Jan  8 2012 should be week 1");
         test.equal(moment([2012, 0,  9]).format('w ww wo'),    '2 02 2de', "Jan  9 2012 should be week 2");
         test.equal(moment([2012, 0, 15]).format('w ww wo'),    '2 02 2de', "Jan 15 2012 should be week 2");
-
-        test.done();
-    },
-
-    "returns the name of the language" : function (test) {
-        if (typeof module !== 'undefined' && module.exports) {
-            test.equal(require('../../lang/af'), 'af', "module should export af");
-        }
 
         test.done();
     }

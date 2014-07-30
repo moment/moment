@@ -1,5 +1,5 @@
-// moment.js language configuration
-// language : belarusian (be)
+// moment.js locale configuration
+// locale : belarusian (be)
 // author : Dmitry Demidov : https://github.com/demidov91
 // author: Praleska: http://praleska.pro/
 // Author : Menelion Elensúle : https://github.com/Oire
@@ -63,7 +63,7 @@
         return weekdays[nounCase][m.day()];
     }
 
-    return moment.lang('be', {
+    return moment.defineLocale('be', {
         months : monthsCaseReplace,
         monthsShort : 'студ_лют_сак_крас_трав_чэрв_ліп_жнів_вер_каст_ліст_снеж'.split('_'),
         weekdays : weekdaysCaseReplace,
