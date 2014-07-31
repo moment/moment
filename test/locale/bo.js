@@ -5,9 +5,9 @@ var moment = require("../../moment");
       Tibetan
      *************************************************/
 
-exports["locale:ti"] = {
+exports["locale:bo"] = {
     setUp : function (cb) {
-        moment.locale('ti');
+        moment.locale('bo');
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");
         };
