@@ -33,9 +33,9 @@
     "bugs": {
         "url": "https://github.com/moment/moment/issues"
     },
-    "licenses" : [
+    "licenses": [
         {
-            "type" : "MIT"
+            "type": "MIT"
         }
     ],
     "devDependencies": {
@@ -51,22 +51,25 @@
         "grunt-env": "latest",
         "grunt-jscs": "latest",
         "grunt-karma": "latest",
-        "grunt-benchmark" : "latest",
-        "grunt-string-replace" : "latest",
+        "grunt-benchmark": "latest",
+        "grunt-string-replace": "latest",
         "load-grunt-tasks": "latest",
         "karma": "latest",
         "karma-chrome-launcher": "latest",
         "karma-firefox-launcher": "latest",
         "karma-nodeunit": "latest",
         "karma-sauce-launcher": "latest"
-  },
+    },
     "scripts": {
         "test": "grunt test:node"
     },
     "ender": "./ender.js",
     "dojoBuild": "package.js",
     "jspm": {
-        "files": ["moment.js", "locale"],
+        "files": [
+            "moment.js",
+            "locale"
+        ],
         "map": {
             "moment": "./moment"
         },
@@ -77,9 +80,15 @@
     "spm": {
         "main": "moment.js",
         "output": [
+            "locale/af.js",
             "locale/ar-ma.js",
+            "locale/ar-sa.js",
             "locale/ar.js",
+            "locale/az.js",
+            "locale/be.js",
             "locale/bg.js",
+            "locale/bn.js",
+            "locale/bo.js",
             "locale/br.js",
             "locale/bs.js",
             "locale/ca.js",
@@ -87,6 +96,7 @@
             "locale/cv.js",
             "locale/cy.js",
             "locale/da.js",
+            "locale/de-at.js",
             "locale/de.js",
             "locale/el.js",
             "locale/en-au.js",
@@ -121,6 +131,7 @@
             "locale/ml.js",
             "locale/mr.js",
             "locale/ms-my.js",
+            "locale/my.js",
             "locale/nb.js",
             "locale/ne.js",
             "locale/nl.js",
@@ -133,14 +144,14 @@
             "locale/sk.js",
             "locale/sl.js",
             "locale/sq.js",
-            "locale/sr-cyr.js",
+            "locale/sr-cyrl.js",
             "locale/sr.js",
             "locale/sv.js",
             "locale/ta.js",
             "locale/th.js",
             "locale/tl-ph.js",
             "locale/tr.js",
-            "locale/tzm-la.js",
+            "locale/tzm-latn.js",
             "locale/tzm.js",
             "locale/uk.js",
             "locale/uz.js",
