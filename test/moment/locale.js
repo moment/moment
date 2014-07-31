@@ -427,5 +427,22 @@ exports.locale = {
         moment.locale('fr');
         test.equal('en', mom.locale());
         test.done();
+    },
+
+    "setting a language on instance returns the original moment for chaining" : function (test) {
+        var mom = moment();
+
+        test.equal(mom.lang('fr'), mom, "setting the language (lang) returns the original moment for chaining");
+        test.equal(mom.locale('it'), mom, "setting the language (locale) returns the original moment for chaining");
+
+        test.done();
+    },
+
+    "lang(key) changes the language of the instance" : function (test) {
+        var m = moment().month(0);
+        m.lang("fr");
+        test.equal(m.locale(), "fr", "m.lang(key) changes instance locale");
+
+        test.done()
     }
 };
