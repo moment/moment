@@ -443,6 +443,6 @@ exports.locale = {
         m.lang("fr");
         test.equal(m.locale(), "fr", "m.lang(key) changes instance locale");
 
-        test.done()
+        test.done();
     }
 };
