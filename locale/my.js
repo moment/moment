@@ -1,5 +1,5 @@
 // moment.js locale configuration
-// locale : Burmese (mm)
+// locale : Burmese (my)
 // author : Squar team, mysquar.com
 
 (function (factory) {
