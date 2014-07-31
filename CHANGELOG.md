@@ -1,6 +1,26 @@
 Changelog
 =========
 
+### 2.8.0 [See changelog](https://gist.github.com/ichernev/ac3899324a5fa6c8c9b4)
+
+* incompatible changes
+    * [#1761](https://github.com/moment/moment/issues/1761): moments created without a language are no longer following the global language, in case it changes. Only newly created moments take the global language by default. In case you're affected by this, wait, comment on [#1797](https://github.com/moment/moment/issues/1797) and wait for a proper reimplementation
+    * [#1642](https://github.com/moment/moment/issues/1642): 45 days is no longer "a month" according to humanize, cutoffs for month, and year have changed. Hopefully your code does not depend on a particular answer from humanize (which it shouldn't anyway)
+    * [#1784](https://github.com/moment/moment/issues/1784): if you use the human readable English datetime format in a weird way (like storing them in a database) that would break when the format changes you're at risk.
+
+* deprecations (old behavior will be dropped in 3.0)
+    * [#1761](https://github.com/moment/moment/issues/1761) `lang` is renamed to `locale`, `langData` -> `localeData`. Also there is now `defineLocale` that should be used when creating new locales
+    * [#1763](https://github.com/moment/moment/issues/1763) `add(unit, value)` and `subtract(unit, value)` are now deprecated. Use `add(value, unit)` and `subtract(value, unit)` instead.
+    * [#1759](https://github.com/moment/moment/issues/1759) rename `duration.toIsoString` to `duration.toISOString`. The js standard library and moment's `toISOString` follow that convention.
+
+* new locales
+    * [#1789](https://github.com/moment/moment/issues/1789) Tibetan (bo)
+    * [#1786](https://github.com/moment/moment/issues/1786) Africaans (af)
+    * [#1778](https://github.com/moment/moment/issues/1778) Burmese (my)
+    * [#1727](https://github.com/moment/moment/issues/1727) Belarusian (be)
+
+* bugfixes, locale bugfixes, performance improvements, features
+
 ### 2.7.0 [See changelog](https://gist.github.com/ichernev/b0a3d456d5a84c9901d7)
 
 * new languages
