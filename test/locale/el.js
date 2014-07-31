@@ -42,6 +42,41 @@ exports["locale:el"] = {
         test.done();
     },
 
+    "parse meridiem" : function (test) {
+        var i,
+            b = moment(),
+            meridiemTests = [
+                // h a patterns, expected hours, isValid
+                ['10 πμ',   10, true],
+                ['10 μμ',   22, true],
+                ['10 π.μ.', 10, true],
+                ['10 μ.μ.', 22, true],
+                ['10 π',    10, true],
+                ['10 μ',    22, true],
+                ['10 ΠΜ',   10, true],
+                ['10 ΜΜ',   22, true],
+                ['10 Π.Μ.', 10, true],
+                ['10 Μ.Μ.', 22, true],
+                ['10 Π',    10, true],
+                ['10 Μ',    22, true],
+                ['10 am',   10, false],
+                ['10 pm',   10, false]
+            ];
+
+        // test that a formatted moment including meridiem string can be parsed back to the same moment
+        test.ok(b.isSame(moment(b.format('h:mm:ss a'), 'h:mm:ss a', 'el', true), 'seconds'), b.format('h:mm:ss a') + ' should be equal to ' + moment(b.format('h:mm:ss a'), 'h:mm:ss a', 'el', true).format('h:mm:ss a'));
+
+        // test that a formatted moment having a meridiem string can be parsed with strict flag
+        test.ok(moment(b.format('h:mm:ss a'), 'h:mm:ss a', 'el', true).isValid(), b.format('h:mm:ss a') + ' should be parsed as valid');
+
+        for (i = 0; i < meridiemTests.length; i++) {
+            test.equal(moment(meridiemTests[i][0], 'h a', 'el', true).hours(), meridiemTests[i][1], moment(meridiemTests[i][0], 'h a', 'el', true).hours() + ' should be ' + meridiemTests[i][1]);
+            test.ok(moment(meridiemTests[i][0], 'h a', 'el', true).isValid() === meridiemTests[i][2], meridiemTests[i][0] + ' ----> ' + meridiemTests[i][2]);
+        }
+
+        test.done();
+    },
+
     "format" : function (test) {
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'Κυριακή, Φεβρουάριος 14η 2010, 3:25:50 μμ'],
