@@ -32,6 +32,10 @@
                 return isLower ? 'πμ' : 'ΠΜ';
             }
         },
+        isPM : function (input) {
+            return ((input + '').toLowerCase()[0] === 'μ');
+        },
+        meridiemParse : /[ΠΜ]\.?Μ?\.?/i,
         longDateFormat : {
             LT : "h:mm A",
             L : "DD/MM/YYYY",
