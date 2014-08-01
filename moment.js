@@ -2444,7 +2444,12 @@
         lang : deprecate(
             "moment().lang() is deprecated. Use moment().localeData() instead.",
             function (key) {
-                return this.localeData(key);
+                if (key === undefined) {
+                    return this.localeData();
+                } else {
+                    this._locale = moment.localeData(key);
+                    return this;
+                }
             }
         ),
 
