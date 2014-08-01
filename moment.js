@@ -2442,9 +2442,14 @@
         },
 
         lang : deprecate(
-            "moment().lang() is deprecated. Use moment().localeData() instead.",
+            "moment().lang() is deprecated. Use moment().locale() or moment().localeData() instead.",
             function (key) {
-                return this.localeData(key);
+                if (key === undefined) {
+                    return this.localeData();
+                }
+                else {
+                    return this.locale(key);
+                }
             }
         ),
 
