@@ -197,6 +197,14 @@ exports.locale = {
         test.done();
     },
 
+    "instance deprecations" : function (test) {
+        var m = moment().lang('es');
+        test.ok(moment.isMoment(m));
+        test.equal(m.locale(), 'es');
+        test.equal(m.lang()._abbr, 'es');
+        test.done();
+    },
+
     "duration locale method" : function (test) {
         test.expect(3);
         moment.locale('en');
