@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 2.8.1
+
+* bugfix [#1813](https://github.com/moment/moment/issues/1813): fix moment().lang([key]) incompatibility
+
 ### 2.8.0 [See changelog](https://gist.github.com/ichernev/ac3899324a5fa6c8c9b4)
 
 * incompatible changes
