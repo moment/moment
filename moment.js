@@ -2039,6 +2039,8 @@
         return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
     };
 
+    moment.leftZeroFill = leftZeroFill;
+
     /************************************
         Moment Prototype
     ************************************/
