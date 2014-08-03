@@ -19,7 +19,7 @@
         weekdaysShort : "周日_周一_周二_周三_周四_周五_周六".split("_"),
         weekdaysMin : "日_一_二_三_四_五_六".split("_"),
         longDateFormat : {
-            LT : "Ah点mm",
+            LT : "Ah点m分s秒",
             L : "YYYY-MM-DD",
             LL : "YYYY年MMMD日",
             LLL : "YYYY年MMMD日LT",
@@ -47,25 +47,25 @@
         },
         calendar : {
             sameDay : function () {
-                return this.minutes() === 0 ? "[今天]Ah[点整]" : "[今天]LT";
+                return (this.minutes() === 0 && this.second() === 0) ? "[今天]Ah[点整]" : "[今天]LT";
             },
             nextDay : function () {
-                return this.minutes() === 0 ? "[明天]Ah[点整]" : "[明天]LT";
+                return (this.minutes() === 0 && this.second() === 0) ? "[明天]Ah[点整]" : "[明天]LT";
             },
             lastDay : function () {
-                return this.minutes() === 0 ? "[昨天]Ah[点整]" : "[昨天]LT";
+                return (this.minutes() === 0 && this.second() === 0) ? "[昨天]Ah[点整]" : "[昨天]LT";
             },
             nextWeek : function () {
                 var startOfWeek, prefix;
                 startOfWeek = moment().startOf('week');
                 prefix = this.unix() - startOfWeek.unix() >= 7 * 24 * 3600 ? '[下]' : '[本]';
-                return this.minutes() === 0 ? prefix + "dddAh点整" : prefix + "dddAh点mm";
+                return (this.minutes() === 0 && this.second() === 0) ? prefix + "dddAh点整" : prefix + "dddAh点m分s秒";
             },
             lastWeek : function () {
                 var startOfWeek, prefix;
                 startOfWeek = moment().startOf('week');
                 prefix = this.unix() < startOfWeek.unix()  ? '[上]' : '[本]';
-                return this.minutes() === 0 ? prefix + "dddAh点整" : prefix + "dddAh点mm";
+                return (this.minutes() === 0 && this.second() === 0) ? prefix + "dddAh点整" : prefix + "dddAh点m分s秒";
             },
             sameElse : 'LL'
         },
