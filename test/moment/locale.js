@@ -444,5 +444,19 @@ exports.locale = {
         test.equal(m.locale(), "fr", "m.lang(key) changes instance locale");
 
         test.done();
+    },
+
+    "moment#locale(false) resets to global locale" : function (test) {
+        var m = moment();
+
+        moment.locale("fr");
+        m.locale("it");
+
+        test.equal(moment.locale(), "fr", "global locale is it");
+        test.equal(m.locale(), "it", "instance locale is it");
+        m.locale(false);
+        test.equal(m.locale(), "fr", "instance locale reset to global locale");
+
+        test.done();
     }
 };
