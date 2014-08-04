@@ -1,5 +1,5 @@
-// moment.js language configuration
-// language : Burmese (mm)
+// moment.js locale configuration
+// locale : Burmese (my)
 // author : Squar team, mysquar.com
 
 (function (factory) {
@@ -34,7 +34,7 @@
         '၉': '9',
         '၀': '0'
     };
-    return moment.lang('my', {
+    return moment.defineLocale('my', {
         months: "ဇန်နဝါရီ_ဖေဖော်ဝါရီ_မတ်_ဧပြီ_မေ_ဇွန်_ဇူလိုင်_သြဂုတ်_စက်တင်ဘာ_အောက်တိုဘာ_နိုဝင်ဘာ_ဒီဇင်ဘာ".split("_"),
         monthsShort: "ဇန်_ဖေ_မတ်_ပြီ_မေ_ဇွန်_လိုင်_သြ_စက်_အောက်_နို_ဒီ".split("_"),
         weekdays: "တနင်္ဂနွေ_တနင်္လာ_အင်္ဂါ_ဗုဒ္ဓဟူး_ကြာသပတေး_သောကြာ_စနေ".split("_"),

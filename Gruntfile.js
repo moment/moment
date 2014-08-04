@@ -186,6 +186,11 @@ module.exports = function (grunt) {
             moment: 'moment.js',
             dest: embedLocaleDest,
             targetLocales: embedLocaleSrc
+        },
+        benchmark: {
+            all: {
+                src: ['benchmarks/*.js']
+            }
         }
     });
 
@@ -216,6 +221,6 @@ module.exports = function (grunt) {
     // Task to be run when releasing a new version
     grunt.registerTask('release', [
         'jshint', 'nodeunit', 'concat', 'embedLocales',
-        'component', 'uglify'
+        'component', 'package_json', 'uglify'
     ]);
 };
