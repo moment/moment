@@ -226,7 +226,21 @@ exports.diff = {
         test.done();
     },
 
-    'year diffs' : function (test) {
+    "exact month diffs" : function (test) {
+        // generate all pairs of months and compute month diff, with fixed day
+        // of month = 15.
+
+        var m1, m2;
+        for (m1 = 0; m1 < 12; ++m1) {
+            for (m2 = m1; m2 < 12; ++m2) {
+                test.equal(moment([2013, m2, 15]).diff(moment([2013, m1, 15]), 'months', true), m2 - m1,
+                        "month diff from 2013-" + m1 + "-15 to 2013-" + m2 + "-15");
+            }
+        }
+        test.done();
+    },
+
+    "year diffs" : function (test) {
         test.expect(10);
 
         // due to floating point math errors, these tests just need to be accurate within 0.00000001
