@@ -5,27 +5,30 @@
 //! momentjs.com
 
 
-(function (global, factory) {
+(function (global, factory, undefined) {
     if (typeof define === 'function' && define.amd) {
+        // For RequireJS / AMD environments
         define(function (require, exports, module) {
-            return factory(global, module.config && module.config() && module.config().noGlobal);
+            // NOTE : it could be possible to provide require additional locales
+            //        here, juste like for CommonJS (i.e. Node.js) environment,
+            //        however, this require is not synchronized.
+            return factory();
         });
     } else if (typeof module === "object" && typeof module.exports === "object") {
-        // For CommonJS and CommonJS-like environments where a proper window is present,
-        // execute the factory and get moment globally.
-        module.exports = factory(global);
+        // For CommonJS and CommonJS-like environments (i.e. Node.js)
+        module.exports = factory(undefined, typeof require === 'function');
     } else {
         factory(global);
     }
 
 // Pass this if window is not defined yet
-}(typeof window !== "undefined" ? window : this, function (window, noGlobal) {
+}(typeof window !== "undefined" ? window : this, function (global, hasModule, undefined) {
     /************************************
         Constants
     ************************************/
 
     var moment,
-        VERSION = '2.8.1',
+        VERSION = '2.8.2',
         round = Math.round,
         i,
 
@@ -42,9 +45,6 @@
 
         // extra moment internal properties (plugins register props here)
         momentProperties = [],
-
-        // check for nodeJS
-        hasModule = (typeof module !== 'undefined' && module.exports),
 
         // ASP.NET json date format regex
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
@@ -2784,8 +2784,9 @@
         Exposing Moment
     ************************************/
 
-    if (typeof noGlobal === 'undefined') {
-        window.moment = moment;
+    // if we have a global context
+    if (global) {
+        global.moment = moment;
     }
 
     return moment;
