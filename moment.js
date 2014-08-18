@@ -2003,7 +2003,7 @@
     // compare moment object
     moment.isMoment = function (obj) {
         return obj instanceof Moment ||
-            (obj != null &&  obj.hasOwnProperty('_isAMomentObject'));
+            (obj != null &&  Object.prototype.hasOwnProperty.call(obj, '_isAMomentObject'));
     };
 
     // for typechecking Duration objects
