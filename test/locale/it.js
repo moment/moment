@@ -40,9 +40,9 @@ exports["locale:it"] = {
 
     "format" : function (test) {
         var a = [
-                ['dddd, MMMM Do YYYY, h:mm:ss a',      'Domenica, febbraio 14º 2010, 3:25:50 pm'],
+                ['dddd, MMMM Do YYYY, h:mm:ss a',      'Domenica, Febbraio 14º 2010, 3:25:50 pm'],
                 ['ddd, hA',                            'Dom, 3PM'],
-                ['M Mo MM MMMM MMM',                   '2 2º 02 febbraio feb'],
+                ['M Mo MM MMMM MMM',                   '2 2º 02 Febbraio Feb'],
                 ['YYYY YY',                            '2010 10'],
                 ['D Do DD',                            '14 14º 14'],
                 ['d do dddd ddd dd',                   '0 0º Domenica Dom D'],
@@ -55,13 +55,13 @@ exports["locale:it"] = {
                 ['a A',                                'pm PM'],
                 ['[the] DDDo [day of the year]',       'the 45º day of the year'],
                 ['L',                                  '14/02/2010'],
-                ['LL',                                 '14 febbraio 2010'],
-                ['LLL',                                '14 febbraio 2010 15:25'],
-                ['LLLL',                               'Domenica, 14 febbraio 2010 15:25'],
+                ['LL',                                 '14 Febbraio 2010'],
+                ['LLL',                                '14 Febbraio 2010 15:25'],
+                ['LLLL',                               'Domenica, 14 Febbraio 2010 15:25'],
                 ['l',                                  '14/2/2010'],
-                ['ll',                                 '14 feb 2010'],
-                ['lll',                                '14 feb 2010 15:25'],
-                ['llll',                               'Dom, 14 feb 2010 15:25']
+                ['ll',                                 '14 Feb 2010'],
+                ['lll',                                '14 Feb 2010 15:25'],
+                ['llll',                               'Dom, 14 Feb 2010 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -110,7 +110,7 @@ exports["locale:it"] = {
     },
 
     "format month" : function (test) {
-        var expected = 'gennaio gen_febbraio feb_marzo mar_aprile apr_maggio mag_giugno giu_luglio lug_agosto ago_settembre set_ottobre ott_novembre nov_dicembre dic'.split("_"), i;
+        var expected = 'Gennaio Gen_Febbraio Feb_Marzo Mar_Aprile Apr_Maggio Mag_Giugno Giu_Luglio Lug_Agosto Ago_Settembre Set_Ottobre Ott_Novembre Nov_Dicembre Dic'.split("_"), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
