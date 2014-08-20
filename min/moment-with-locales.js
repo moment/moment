@@ -1,19 +1,34 @@
 //! moment.js
-//! version : 2.8.1
+//! version : 2.8.2
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
 
-(function (undefined) {
+
+(function (global, factory, undefined) {
+    if (typeof define === 'function' && define.amd) {
+        // For RequireJS / AMD environments
+        define(function (require, exports, module) {
+            // NOTE : it could be possible to provide require additional locales
+            //        here, juste like for CommonJS (i.e. Node.js) environment,
+            //        however, this require is not synchronized.
+            return factory();
+        });
+    } else if (typeof module === "object" && typeof module.exports === "object") {
+        // For CommonJS and CommonJS-like environments (i.e. Node.js)
+        module.exports = factory(undefined, typeof require === 'function');
+    } else {
+        factory(global);
+    }
+
+// Pass this if window is not defined yet
+}(typeof window !== "undefined" ? window : this, function (global, hasModule, undefined) {
     /************************************
         Constants
     ************************************/
 
     var moment,
-        VERSION = '2.8.1',
-        // the global-scope this is NOT the global object in Node.js
-        globalScope = typeof global !== 'undefined' ? global : this,
-        oldGlobalMoment,
+        VERSION = '2.8.2',
         round = Math.round,
         i,
 
@@ -30,9 +45,6 @@
 
         // extra moment internal properties (plugins register props here)
         momentProperties = [],
-
-        // check for nodeJS
-        hasModule = (typeof module !== 'undefined' && module.exports),
 
         // ASP.NET json date format regex
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
@@ -9036,37 +9048,10 @@
         Exposing Moment
     ************************************/
 
-    function makeGlobal(shouldDeprecate) {
-        /*global ender:false */
-        if (typeof ender !== 'undefined') {
-            return;
-        }
-        oldGlobalMoment = globalScope.moment;
-        if (shouldDeprecate) {
-            globalScope.moment = deprecate(
-                    'Accessing Moment through the global scope is ' +
-                    'deprecated, and will be removed in an upcoming ' +
-                    'release.',
-                    moment);
-        } else {
-            globalScope.moment = moment;
-        }
+    // if we have a global context
+    if (global) {
+        global.moment = moment;
     }
 
-    // CommonJS module is defined
-    if (hasModule) {
-        module.exports = moment;
-    } else if (typeof define === 'function' && define.amd) {
-        define('moment', function (require, exports, module) {
-            if (module.config && module.config() && module.config().noGlobal === true) {
-                // release the global variable
-                globalScope.moment = oldGlobalMoment;
-            }
-
-            return moment;
-        });
-        makeGlobal(true);
-    } else {
-        makeGlobal();
-    }
-}).call(this);
+    return moment;
+}));
