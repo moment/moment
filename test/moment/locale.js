@@ -6,6 +6,9 @@ exports.locale = {
             throw new Error("input not handled by moment");
         };
         moment.locale('en');
+        moment.deprecationHandler = function (name, msg) {
+            throw new Error("got deprecation warning " + name + " " + msg);
+        };
         done();
     },
 
@@ -120,10 +123,13 @@ exports.locale = {
     },
 
     "library deprecations" : function (test) {
+        var originalDeprecationHandler = moment.deprecationHandler;
+        moment.deprecationHandler = function () {};
         moment.lang("dude", {months: ["Movember"]});
         test.equal(moment.locale(), "dude", "setting the lang sets the locale");
         test.equal(moment.lang(), moment.locale());
         test.equal(moment.langData(), moment.localeData(), "langData is localeData");
+        moment.deprecationHandler = originalDeprecationHandler;
         test.done();
     },
 
@@ -227,7 +233,10 @@ exports.locale = {
     },
 
     "duration deprecations" : function (test) {
+        var originalDeprecationHandler = moment.deprecationHandler;
+        moment.deprecationHandler = function () {};
         test.equal(moment.duration().lang(), moment.duration().localeData(), "duration.lang is the same as duration.localeData");
+        moment.deprecationHandler = originalDeprecationHandler;
         test.done();
     },
 
@@ -432,17 +441,31 @@ exports.locale = {
     "setting a language on instance returns the original moment for chaining" : function (test) {
         var mom = moment();
 
-        test.equal(mom.lang('fr'), mom, "setting the language (lang) returns the original moment for chaining");
         test.equal(mom.locale('it'), mom, "setting the language (locale) returns the original moment for chaining");
 
         test.done();
     },
 
-    "lang(key) changes the language of the instance" : function (test) {
-        var m = moment().month(0);
+    "setting a language on instance returns the original moment for chaining deprecated" : function (test) {
+        var mom = moment(),
+            originalDeprecationHandler = moment.deprecationHandler;
+        moment.deprecationHandler = function () {};
+
+        test.equal(mom.lang('fr'), mom, "setting the language (lang) returns the original moment for chaining");
+
+        moment.deprecationHandler = originalDeprecationHandler;
+        test.done();
+    },
+
+
+    "lang(key) changes the language of the instance (deprecated)" : function (test) {
+        var m = moment().month(0),
+            originalDeprecationHandler = moment.deprecationHandler;
+        moment.deprecationHandler = function () {};
         m.lang("fr");
         test.equal(m.locale(), "fr", "m.lang(key) changes instance locale");
 
+        moment.deprecationHandler = originalDeprecationHandler;
         test.done();
     },
 

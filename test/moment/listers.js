@@ -36,6 +36,9 @@ exports.listers = {
         test.equal(moment.weekdaysShort(2), "Tue");
         test.equal(moment.weekdaysMin(0), "Su");
         test.equal(moment.weekdaysMin(2), "Tu");
+        moment.deprecationHandler = function (name, msg) {
+            throw new Error("got deprecation warning " + name + " " + msg);
+        };
         test.done();
     },
 

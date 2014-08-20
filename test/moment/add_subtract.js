@@ -5,13 +5,18 @@ exports.add = {
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");
         };
+        moment.deprecationHandler = function (name, msg) {
+            throw new Error("got deprecation warning " + name + " " + msg);
+        };
         done();
     },
 
     "add short reverse args" : function (test) {
         test.expect(16);
 
-        var a = moment(), b, c, d;
+        var a = moment(), b, c, d,
+            originalDeprecationHandler = moment.deprecationHandler;
+        moment.deprecationHandler = function () {};
         a.year(2011);
         a.month(9);
         a.date(12);
@@ -41,13 +46,16 @@ exports.add = {
         test.equal(d.month(), 10, 'subtract quarter, feb 28th 2010 to nov 28th 2009');
         test.equal(d.date(), 28, 'subtract quarter, feb 28th 2010 to nov 28th 2009');
         test.equal(d.year(), 2009, 'subtract quarter, feb 28th 2010 to nov 28th 2009');
+        moment.deprecationHandler = originalDeprecationHandler;
         test.done();
     },
 
     "add long reverse args" : function (test) {
         test.expect(9);
 
-        var a = moment();
+        var a = moment(),
+            originalDeprecationHandler = moment.deprecationHandler;
+        moment.deprecationHandler = function () {};
         a.year(2011);
         a.month(9);
         a.date(12);
@@ -65,13 +73,16 @@ exports.add = {
         test.equal(a.add({months: 1}).month(), 10, 'Add month');
         test.equal(a.add({years: 1}).year(), 2012, 'Add year');
         test.equal(a.add({quarters: 1}).month(), 1, 'Add quarter');
+        moment.deprecationHandler = originalDeprecationHandler;
         test.done();
     },
 
     "add long singular reverse args" : function (test) {
         test.expect(9);
 
-        var a = moment();
+        var a = moment(),
+            originalDeprecationHandler = moment.deprecationHandler;
+        moment.deprecationHandler = function () {};
         a.year(2011);
         a.month(9);
         a.date(12);
@@ -89,13 +100,14 @@ exports.add = {
         test.equal(a.add({month: 1}).month(), 10, 'Add month');
         test.equal(a.add({year: 1}).year(), 2012, 'Add year');
         test.equal(a.add({quarter: 1}).month(), 1, 'Add quarter');
+        moment.deprecationHandler = originalDeprecationHandler;
         test.done();
     },
 
     "add string long reverse args" : function (test) {
-        test.expect(10);
-
-        var a = moment(), b;
+        var a = moment(), b,
+            originalDeprecationHandler = moment.deprecationHandler;
+        moment.deprecationHandler = function () {};
         a.year(2011);
         a.month(9);
         a.date(12);
@@ -116,13 +128,17 @@ exports.add = {
         test.equal(a.add('year', 1).year(), 2012, 'Add year');
         test.equal(b.add('day', '01').date(), 13, 'Add date');
         test.equal(a.add('quarter', 1).month(), 1, 'Add quarter');
+
+        moment.deprecationHandler = originalDeprecationHandler;
         test.done();
     },
 
     "add string long singular reverse args" : function (test) {
         test.expect(10);
 
-        var a = moment(), b;
+        var a = moment(), b,
+            originalDeprecationHandler = moment.deprecationHandler;
+        moment.deprecationHandler = function () {};
         a.year(2011);
         a.month(9);
         a.date(12);
@@ -143,13 +159,17 @@ exports.add = {
         test.equal(a.add('years', 1).year(), 2012, 'Add year');
         test.equal(b.add('days', '01').date(), 13, 'Add date');
         test.equal(a.add('quarters', 1).month(), 1, 'Add quarter');
+
+        moment.deprecationHandler = originalDeprecationHandler;
         test.done();
     },
 
     "add string short reverse args" : function (test) {
         test.expect(9);
 
-        var a = moment();
+        var a = moment(),
+            originalDeprecationHandler = moment.deprecationHandler;
+        moment.deprecationHandler = function () {};
         a.year(2011);
         a.month(9);
         a.date(12);
@@ -167,6 +187,7 @@ exports.add = {
         test.equal(a.add('M', 1).month(), 10, 'Add month');
         test.equal(a.add('y', 1).year(), 2012, 'Add year');
         test.equal(a.add('Q', 1).month(), 1, 'Add quarter');
+        moment.deprecationHandler = originalDeprecationHandler;
         test.done();
     },
 
@@ -245,7 +266,9 @@ exports.add = {
     "add strings string short args" : function (test) {
         test.expect(9);
 
-        var a = moment();
+        var a = moment(),
+            originalDeprecationHandler = moment.deprecationHandler;
+        moment.deprecationHandler = function () {};
         a.year(2011);
         a.month(9);
         a.date(12);
@@ -263,13 +286,16 @@ exports.add = {
         test.equal(a.add('M', '1').month(), 10, 'Add month');
         test.equal(a.add('y', '1').year(), 2012, 'Add year');
         test.equal(a.add('Q', '1').month(), 1, 'Add quarter');
+        moment.deprecationHandler = originalDeprecationHandler;
         test.done();
     },
 
     "subtract strings string short args" : function (test) {
         test.expect(9);
 
-        var a = moment();
+        var a = moment(),
+            originalDeprecationHandler = moment.deprecationHandler;
+        moment.deprecationHandler = function () {};
         a.year(2011);
         a.month(9);
         a.date(12);
@@ -287,6 +313,7 @@ exports.add = {
         test.equal(a.subtract('M', '1').month(), 8, 'Subtract month');
         test.equal(a.subtract('y', '1').year(), 2010, 'Subtract year');
         test.equal(a.subtract('Q', '1').month(), 5, 'Subtract quarter');
+        moment.deprecationHandler = originalDeprecationHandler;
         test.done();
     },
 

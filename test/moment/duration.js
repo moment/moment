@@ -5,6 +5,9 @@ exports.duration = {
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");
         };
+        moment.deprecationHandler = function (name, msg) {
+            throw new Error("got deprecation warning " + name + " " + msg);
+        };
         done();
     },
 
@@ -294,7 +297,10 @@ exports.duration = {
     },
 
     "toIsoString deprecation" : function (test) {
+        var originalDeprecationHandler = moment.deprecationHandler;
+        moment.deprecationHandler = function () {};
         test.equal(moment.duration({}).toIsoString(), moment.duration({}).toISOString(), "toIsoString delegates to toISOString");
+        moment.deprecationHandler = originalDeprecationHandler;
         test.done();
     },
 

@@ -18,6 +18,9 @@ exports.create = {
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");
         };
+        moment.deprecationHandler = function (name, msg) {
+            throw new Error("got deprecation warning " + name + " " + msg);
+        };
         done();
     },
 
