@@ -15,6 +15,7 @@
         globalScope = typeof global !== 'undefined' ? global : this,
         oldGlobalMoment,
         round = Math.round,
+        hasOwnProperty = Object.prototype.hasOwnProperty,
         i,
 
         YEAR = 0,
@@ -293,6 +294,10 @@
         }
     }
 
+    function hasOwnProp(a, b) {
+        return hasOwnProperty.call(a, b);
+    }
+
     function defaultParsingFlags() {
         // We need to deep clone this object, and es5 standard is not very
         // helpful.
@@ -416,16 +421,16 @@
 
     function extend(a, b) {
         for (var i in b) {
-            if (b.hasOwnProperty(i)) {
+            if (hasOwnProp(b, i)) {
                 a[i] = b[i];
             }
         }
 
-        if (b.hasOwnProperty('toString')) {
+        if (hasOwnProp(b, 'toString')) {
             a.toString = b.toString;
         }
 
-        if (b.hasOwnProperty('valueOf')) {
+        if (hasOwnProp(b, 'valueOf')) {
             a.valueOf = b.valueOf;
         }
 
@@ -603,7 +608,7 @@
             prop;
 
         for (prop in inputObject) {
-            if (inputObject.hasOwnProperty(prop)) {
+            if (hasOwnProp(inputObject, prop)) {
                 normalizedProp = normalizeUnits(prop);
                 if (normalizedProp) {
                     normalizedInput[normalizedProp] = inputObject[prop];
@@ -1886,7 +1891,7 @@
 
         ret = new Duration(duration);
 
-        if (moment.isDuration(input) && input.hasOwnProperty('_locale')) {
+        if (moment.isDuration(input) && hasOwnProp(input, '_locale')) {
             ret._locale = input._locale;
         }
 
@@ -2003,7 +2008,7 @@
     // compare moment object
     moment.isMoment = function (obj) {
         return obj instanceof Moment ||
-            (obj != null &&  obj.hasOwnProperty('_isAMomentObject'));
+            (obj != null && hasOwnProp(obj, '_isAMomentObject'));
     };
 
     // for typechecking Duration objects
@@ -2721,7 +2726,7 @@
     }
 
     for (i in unitMillisecondFactors) {
-        if (unitMillisecondFactors.hasOwnProperty(i)) {
+        if (hasOwnProp(unitMillisecondFactors, i)) {
             makeDurationGetter(i.toLowerCase());
         }
     }

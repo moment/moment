@@ -39,5 +39,16 @@ exports.isMoment = {
         test.ok(!moment.isMoment(undefined), 'undefined is not moment object');
 
         test.done();
+    },
+
+    'is moment with hacked hasOwnProperty': function (test) {
+        var obj = {};
+        // HACK to suppress jshint warning about bad property name
+        obj['hasOwnMoney'.replace('Money', 'Property')] = function () {
+            return true;
+        };
+
+        test.ok(!moment.isMoment(obj), 'isMoment works even if passed object has a wrong hasOwnProperty implementation (ie8)');
+        test.done();
     }
 };
