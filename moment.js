@@ -324,6 +324,7 @@
                 printMsg(msg);
                 firstTime = false;
             }
+            moment.deprecationHandler(null, msg);
             return fn.apply(this, arguments);
         }, fn);
     }
@@ -333,6 +334,7 @@
             printMsg(msg);
             deprecations[name] = true;
         }
+        moment.deprecationHandler(name, msg);
     }
 
     function padToken(func, count) {
@@ -1905,6 +1907,10 @@
     // Plugins that add properties should also add the key here (null value),
     // so we can properly clone ourselves.
     moment.momentProperties = momentProperties;
+
+    // Callback for all deprecated function calls.
+    // Useful for tests and debugging large codebases.
+    moment.deprecationHandler = function () {};
 
     // This function will be called whenever a moment is mutated.
     // It is intended to keep the offset in sync with the timezone.
