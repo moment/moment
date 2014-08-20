@@ -2118,7 +2118,7 @@
                 this._isUTC = false;
 
                 if (keepLocalTime) {
-                    this.add(this._d.getTimezoneOffset(), 'm');
+                    this.add(Math.round(this._d.getTimezoneOffset()), 'm');
                 }
             }
             return this;
@@ -2311,7 +2311,7 @@
                     input = input * 60;
                 }
                 if (!this._isUTC && keepLocalTime) {
-                    localAdjust = this._d.getTimezoneOffset();
+                    localAdjust = Math.round(this._d.getTimezoneOffset());
                 }
                 this._offset = input;
                 this._isUTC = true;
@@ -2329,7 +2329,7 @@
                     }
                 }
             } else {
-                return this._isUTC ? offset : this._d.getTimezoneOffset();
+                return this._isUTC ? offset : Math.round(this._d.getTimezoneOffset());
             }
             return this;
         },
