@@ -11,19 +11,19 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    return moment.defineLocale("cy", {
-        months: "Ionawr_Chwefror_Mawrth_Ebrill_Mai_Mehefin_Gorffennaf_Awst_Medi_Hydref_Tachwedd_Rhagfyr".split("_"),
-        monthsShort: "Ion_Chwe_Maw_Ebr_Mai_Meh_Gor_Aws_Med_Hyd_Tach_Rhag".split("_"),
-        weekdays: "Dydd Sul_Dydd Llun_Dydd Mawrth_Dydd Mercher_Dydd Iau_Dydd Gwener_Dydd Sadwrn".split("_"),
-        weekdaysShort: "Sul_Llun_Maw_Mer_Iau_Gwe_Sad".split("_"),
-        weekdaysMin: "Su_Ll_Ma_Me_Ia_Gw_Sa".split("_"),
+    return moment.defineLocale('cy', {
+        months: 'Ionawr_Chwefror_Mawrth_Ebrill_Mai_Mehefin_Gorffennaf_Awst_Medi_Hydref_Tachwedd_Rhagfyr'.split('_'),
+        monthsShort: 'Ion_Chwe_Maw_Ebr_Mai_Meh_Gor_Aws_Med_Hyd_Tach_Rhag'.split('_'),
+        weekdays: 'Dydd Sul_Dydd Llun_Dydd Mawrth_Dydd Mercher_Dydd Iau_Dydd Gwener_Dydd Sadwrn'.split('_'),
+        weekdaysShort: 'Sul_Llun_Maw_Mer_Iau_Gwe_Sad'.split('_'),
+        weekdaysMin: 'Su_Ll_Ma_Me_Ia_Gw_Sa'.split('_'),
         // time formats are the same as en-gb
         longDateFormat: {
-            LT: "HH:mm",
-            L: "DD/MM/YYYY",
-            LL: "D MMMM YYYY",
-            LLL: "D MMMM YYYY LT",
-            LLLL: "dddd, D MMMM YYYY LT"
+            LT: 'HH:mm',
+            L: 'DD/MM/YYYY',
+            LL: 'D MMMM YYYY',
+            LLL: 'D MMMM YYYY LT',
+            LLLL: 'dddd, D MMMM YYYY LT'
         },
         calendar: {
             sameDay: '[Heddiw am] LT',
@@ -34,19 +34,19 @@
             sameElse: 'L'
         },
         relativeTime: {
-            future: "mewn %s",
-            past: "%s yn ôl",
-            s: "ychydig eiliadau",
-            m: "munud",
-            mm: "%d munud",
-            h: "awr",
-            hh: "%d awr",
-            d: "diwrnod",
-            dd: "%d diwrnod",
-            M: "mis",
-            MM: "%d mis",
-            y: "blwyddyn",
-            yy: "%d flynedd"
+            future: 'mewn %s',
+            past: '%s yn ôl',
+            s: 'ychydig eiliadau',
+            m: 'munud',
+            mm: '%d munud',
+            h: 'awr',
+            hh: '%d awr',
+            d: 'diwrnod',
+            dd: '%d diwrnod',
+            M: 'mis',
+            MM: '%d mis',
+            y: 'blwyddyn',
+            yy: '%d flynedd'
         },
         // traditional ordinal numbers above 31 are not commonly used in colloquial Welsh
         ordinal: function (number) {

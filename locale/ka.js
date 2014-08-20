@@ -39,16 +39,16 @@
 
     return moment.defineLocale('ka', {
         months : monthsCaseReplace,
-        monthsShort : "იან_თებ_მარ_აპრ_მაი_ივნ_ივლ_აგვ_სექ_ოქტ_ნოე_დეკ".split("_"),
+        monthsShort : 'იან_თებ_მარ_აპრ_მაი_ივნ_ივლ_აგვ_სექ_ოქტ_ნოე_დეკ'.split('_'),
         weekdays : weekdaysCaseReplace,
-        weekdaysShort : "კვი_ორშ_სამ_ოთხ_ხუთ_პარ_შაბ".split("_"),
-        weekdaysMin : "კვ_ორ_სა_ოთ_ხუ_პა_შა".split("_"),
+        weekdaysShort : 'კვი_ორშ_სამ_ოთხ_ხუთ_პარ_შაბ'.split('_'),
+        weekdaysMin : 'კვ_ორ_სა_ოთ_ხუ_პა_შა'.split('_'),
         longDateFormat : {
-            LT : "h:mm A",
-            L : "DD/MM/YYYY",
-            LL : "D MMMM YYYY",
-            LLL : "D MMMM YYYY LT",
-            LLLL : "dddd, D MMMM YYYY LT"
+            LT : 'h:mm A',
+            L : 'DD/MM/YYYY',
+            LL : 'D MMMM YYYY',
+            LLL : 'D MMMM YYYY LT',
+            LLLL : 'dddd, D MMMM YYYY LT'
         },
         calendar : {
             sameDay : '[დღეს] LT[-ზე]',
@@ -61,28 +61,28 @@
         relativeTime : {
             future : function (s) {
                 return (/(წამი|წუთი|საათი|წელი)/).test(s) ?
-                    s.replace(/ი$/, "ში") :
-                    s + "ში";
+                    s.replace(/ი$/, 'ში') :
+                    s + 'ში';
             },
             past : function (s) {
                 if ((/(წამი|წუთი|საათი|დღე|თვე)/).test(s)) {
-                    return s.replace(/(ი|ე)$/, "ის წინ");
+                    return s.replace(/(ი|ე)$/, 'ის წინ');
                 }
                 if ((/წელი/).test(s)) {
-                    return s.replace(/წელი$/, "წლის წინ");
+                    return s.replace(/წელი$/, 'წლის წინ');
                 }
             },
-            s : "რამდენიმე წამი",
-            m : "წუთი",
-            mm : "%d წუთი",
-            h : "საათი",
-            hh : "%d საათი",
-            d : "დღე",
-            dd : "%d დღე",
-            M : "თვე",
-            MM : "%d თვე",
-            y : "წელი",
-            yy : "%d წელი"
+            s : 'რამდენიმე წამი',
+            m : 'წუთი',
+            mm : '%d წუთი',
+            h : 'საათი',
+            hh : '%d საათი',
+            d : 'დღე',
+            dd : '%d დღე',
+            M : 'თვე',
+            MM : '%d თვე',
+            y : 'წელი',
+            yy : '%d წელი'
         },
         ordinal : function (number) {
             if (number === 0) {
@@ -90,14 +90,14 @@
             }
 
             if (number === 1) {
-                return number + "-ლი";
+                return number + '-ლი';
             }
 
             if ((number < 20) || (number <= 100 && (number % 20 === 0)) || (number % 100 === 0)) {
-                return "მე-" + number;
+                return 'მე-' + number;
             }
 
-            return number + "-ე";
+            return number + '-ე';
         },
         week : {
             dow : 1,

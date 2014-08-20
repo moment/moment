@@ -14,17 +14,17 @@
     }
 }(function (moment) {
     return moment.defineLocale('eo', {
-        months : "januaro_februaro_marto_aprilo_majo_junio_julio_aŭgusto_septembro_oktobro_novembro_decembro".split("_"),
-        monthsShort : "jan_feb_mar_apr_maj_jun_jul_aŭg_sep_okt_nov_dec".split("_"),
-        weekdays : "Dimanĉo_Lundo_Mardo_Merkredo_Ĵaŭdo_Vendredo_Sabato".split("_"),
-        weekdaysShort : "Dim_Lun_Mard_Merk_Ĵaŭ_Ven_Sab".split("_"),
-        weekdaysMin : "Di_Lu_Ma_Me_Ĵa_Ve_Sa".split("_"),
+        months : 'januaro_februaro_marto_aprilo_majo_junio_julio_aŭgusto_septembro_oktobro_novembro_decembro'.split('_'),
+        monthsShort : 'jan_feb_mar_apr_maj_jun_jul_aŭg_sep_okt_nov_dec'.split('_'),
+        weekdays : 'Dimanĉo_Lundo_Mardo_Merkredo_Ĵaŭdo_Vendredo_Sabato'.split('_'),
+        weekdaysShort : 'Dim_Lun_Mard_Merk_Ĵaŭ_Ven_Sab'.split('_'),
+        weekdaysMin : 'Di_Lu_Ma_Me_Ĵa_Ve_Sa'.split('_'),
         longDateFormat : {
-            LT : "HH:mm",
-            L : "YYYY-MM-DD",
-            LL : "D[-an de] MMMM, YYYY",
-            LLL : "D[-an de] MMMM, YYYY LT",
-            LLLL : "dddd, [la] D[-an de] MMMM, YYYY LT"
+            LT : 'HH:mm',
+            L : 'YYYY-MM-DD',
+            LL : 'D[-an de] MMMM, YYYY',
+            LLL : 'D[-an de] MMMM, YYYY LT',
+            LLLL : 'dddd, [la] D[-an de] MMMM, YYYY LT'
         },
         meridiem : function (hours, minutes, isLower) {
             if (hours > 11) {
@@ -42,21 +42,21 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : "je %s",
-            past : "antaŭ %s",
-            s : "sekundoj",
-            m : "minuto",
-            mm : "%d minutoj",
-            h : "horo",
-            hh : "%d horoj",
-            d : "tago",//ne 'diurno', ĉar estas uzita por proksimumo
-            dd : "%d tagoj",
-            M : "monato",
-            MM : "%d monatoj",
-            y : "jaro",
-            yy : "%d jaroj"
+            future : 'je %s',
+            past : 'antaŭ %s',
+            s : 'sekundoj',
+            m : 'minuto',
+            mm : '%d minutoj',
+            h : 'horo',
+            hh : '%d horoj',
+            d : 'tago',//ne 'diurno', ĉar estas uzita por proksimumo
+            dd : '%d tagoj',
+            M : 'monato',
+            MM : '%d monatoj',
+            y : 'jaro',
+            yy : '%d jaroj'
         },
-        ordinal : "%da",
+        ordinal : '%da',
         week : {
             dow : 1, // Monday is the first day of the week.
             doy : 7  // The week that contains Jan 1st is the first week of the year.

@@ -13,7 +13,7 @@
     }
 }(function (moment) {
     function translate(number, withoutSuffix, key) {
-        var result = number + " ";
+        var result = number + ' ';
         switch (key) {
         case 'm':
             return withoutSuffix ? 'jedna minuta' : 'jedne minute';
@@ -66,17 +66,17 @@
     }
 
     return moment.defineLocale('bs', {
-        months : "januar_februar_mart_april_maj_juni_juli_avgust_septembar_oktobar_novembar_decembar".split("_"),
-        monthsShort : "jan._feb._mar._apr._maj._jun._jul._avg._sep._okt._nov._dec.".split("_"),
-        weekdays : "nedjelja_ponedjeljak_utorak_srijeda_četvrtak_petak_subota".split("_"),
-        weekdaysShort : "ned._pon._uto._sri._čet._pet._sub.".split("_"),
-        weekdaysMin : "ne_po_ut_sr_če_pe_su".split("_"),
+        months : 'januar_februar_mart_april_maj_juni_juli_avgust_septembar_oktobar_novembar_decembar'.split('_'),
+        monthsShort : 'jan._feb._mar._apr._maj._jun._jul._avg._sep._okt._nov._dec.'.split('_'),
+        weekdays : 'nedjelja_ponedjeljak_utorak_srijeda_četvrtak_petak_subota'.split('_'),
+        weekdaysShort : 'ned._pon._uto._sri._čet._pet._sub.'.split('_'),
+        weekdaysMin : 'ne_po_ut_sr_če_pe_su'.split('_'),
         longDateFormat : {
-            LT : "H:mm",
-            L : "DD. MM. YYYY",
-            LL : "D. MMMM YYYY",
-            LLL : "D. MMMM YYYY LT",
-            LLLL : "dddd, D. MMMM YYYY LT"
+            LT : 'H:mm',
+            L : 'DD. MM. YYYY',
+            LL : 'D. MMMM YYYY',
+            LLL : 'D. MMMM YYYY LT',
+            LLLL : 'dddd, D. MMMM YYYY LT'
         },
         calendar : {
             sameDay  : '[danas u] LT',
@@ -115,18 +115,18 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : "za %s",
-            past   : "prije %s",
-            s      : "par sekundi",
+            future : 'za %s',
+            past   : 'prije %s',
+            s      : 'par sekundi',
             m      : translate,
             mm     : translate,
             h      : translate,
             hh     : translate,
-            d      : "dan",
+            d      : 'dan',
             dd     : translate,
-            M      : "mjesec",
+            M      : 'mjesec',
             MM     : translate,
-            y      : "godinu",
+            y      : 'godinu',
             yy     : translate
         },
         ordinal : '%d.',

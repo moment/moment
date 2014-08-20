@@ -27,34 +27,34 @@
     }
 
     return moment.defineLocale('de', {
-        months : "Januar_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember".split("_"),
-        monthsShort : "Jan._Febr._Mrz._Apr._Mai_Jun._Jul._Aug._Sept._Okt._Nov._Dez.".split("_"),
-        weekdays : "Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag".split("_"),
-        weekdaysShort : "So._Mo._Di._Mi._Do._Fr._Sa.".split("_"),
-        weekdaysMin : "So_Mo_Di_Mi_Do_Fr_Sa".split("_"),
+        months : 'Januar_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember'.split('_'),
+        monthsShort : 'Jan._Febr._Mrz._Apr._Mai_Jun._Jul._Aug._Sept._Okt._Nov._Dez.'.split('_'),
+        weekdays : 'Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag'.split('_'),
+        weekdaysShort : 'So._Mo._Di._Mi._Do._Fr._Sa.'.split('_'),
+        weekdaysMin : 'So_Mo_Di_Mi_Do_Fr_Sa'.split('_'),
         longDateFormat : {
-            LT: "HH:mm [Uhr]",
-            L : "DD.MM.YYYY",
-            LL : "D. MMMM YYYY",
-            LLL : "D. MMMM YYYY LT",
-            LLLL : "dddd, D. MMMM YYYY LT"
+            LT: 'HH:mm [Uhr]',
+            L : 'DD.MM.YYYY',
+            LL : 'D. MMMM YYYY',
+            LLL : 'D. MMMM YYYY LT',
+            LLLL : 'dddd, D. MMMM YYYY LT'
         },
         calendar : {
-            sameDay: "[Heute um] LT",
-            sameElse: "L",
+            sameDay: '[Heute um] LT',
+            sameElse: 'L',
             nextDay: '[Morgen um] LT',
             nextWeek: 'dddd [um] LT',
             lastDay: '[Gestern um] LT',
             lastWeek: '[letzten] dddd [um] LT'
         },
         relativeTime : {
-            future : "in %s",
-            past : "vor %s",
-            s : "ein paar Sekunden",
+            future : 'in %s',
+            past : 'vor %s',
+            s : 'ein paar Sekunden',
             m : processRelativeTime,
-            mm : "%d Minuten",
+            mm : '%d Minuten',
             h : processRelativeTime,
-            hh : "%d Stunden",
+            hh : '%d Stunden',
             d : processRelativeTime,
             dd : processRelativeTime,
             M : processRelativeTime,

@@ -12,7 +12,7 @@
     }
 }(function (moment) {
     function translate(number, withoutSuffix, key) {
-        var result = number + " ";
+        var result = number + ' ';
         switch (key) {
         case 'm':
             return withoutSuffix ? 'ena minuta' : 'eno minuto';
@@ -73,17 +73,17 @@
     }
 
     return moment.defineLocale('sl', {
-        months : "januar_februar_marec_april_maj_junij_julij_avgust_september_oktober_november_december".split("_"),
-        monthsShort : "jan._feb._mar._apr._maj._jun._jul._avg._sep._okt._nov._dec.".split("_"),
-        weekdays : "nedelja_ponedeljek_torek_sreda_četrtek_petek_sobota".split("_"),
-        weekdaysShort : "ned._pon._tor._sre._čet._pet._sob.".split("_"),
-        weekdaysMin : "ne_po_to_sr_če_pe_so".split("_"),
+        months : 'januar_februar_marec_april_maj_junij_julij_avgust_september_oktober_november_december'.split('_'),
+        monthsShort : 'jan._feb._mar._apr._maj._jun._jul._avg._sep._okt._nov._dec.'.split('_'),
+        weekdays : 'nedelja_ponedeljek_torek_sreda_četrtek_petek_sobota'.split('_'),
+        weekdaysShort : 'ned._pon._tor._sre._čet._pet._sob.'.split('_'),
+        weekdaysMin : 'ne_po_to_sr_če_pe_so'.split('_'),
         longDateFormat : {
-            LT : "H:mm",
-            L : "DD. MM. YYYY",
-            LL : "D. MMMM YYYY",
-            LLL : "D. MMMM YYYY LT",
-            LLLL : "dddd, D. MMMM YYYY LT"
+            LT : 'H:mm',
+            L : 'DD. MM. YYYY',
+            LL : 'D. MMMM YYYY',
+            LLL : 'D. MMMM YYYY LT',
+            LLLL : 'dddd, D. MMMM YYYY LT'
         },
         calendar : {
             sameDay  : '[danes ob] LT',
@@ -121,18 +121,18 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : "čez %s",
-            past   : "%s nazaj",
-            s      : "nekaj sekund",
+            future : 'čez %s',
+            past   : '%s nazaj',
+            s      : 'nekaj sekund',
             m      : translate,
             mm     : translate,
             h      : translate,
             hh     : translate,
-            d      : "en dan",
+            d      : 'en dan',
             dd     : translate,
-            M      : "en mesec",
+            M      : 'en mesec',
             MM     : translate,
-            y      : "eno leto",
+            y      : 'eno leto',
             yy     : translate
         },
         ordinal : '%d.',

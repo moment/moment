@@ -3,12 +3,12 @@ var moment = require('../../moment');
 exports.isMoment = {
     setUp : function (done) {
         moment.createFromInputFallback = function () {
-            throw new Error("input not handled by moment");
+            throw new Error('input not handled by moment');
         };
         done();
     },
 
-    "is moment object": function (test) {
+    'is moment object': function (test) {
         test.expect(13);
 
         var MyObj = function () {},

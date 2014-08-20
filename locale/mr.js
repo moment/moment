@@ -37,17 +37,17 @@
     };
 
     return moment.defineLocale('mr', {
-        months : 'जानेवारी_फेब्रुवारी_मार्च_एप्रिल_मे_जून_जुलै_ऑगस्ट_सप्टेंबर_ऑक्टोबर_नोव्हेंबर_डिसेंबर'.split("_"),
-        monthsShort: 'जाने._फेब्रु._मार्च._एप्रि._मे._जून._जुलै._ऑग._सप्टें._ऑक्टो._नोव्हें._डिसें.'.split("_"),
-        weekdays : 'रविवार_सोमवार_मंगळवार_बुधवार_गुरूवार_शुक्रवार_शनिवार'.split("_"),
-        weekdaysShort : 'रवि_सोम_मंगळ_बुध_गुरू_शुक्र_शनि'.split("_"),
-        weekdaysMin : 'र_सो_मं_बु_गु_शु_श'.split("_"),
+        months : 'जानेवारी_फेब्रुवारी_मार्च_एप्रिल_मे_जून_जुलै_ऑगस्ट_सप्टेंबर_ऑक्टोबर_नोव्हेंबर_डिसेंबर'.split('_'),
+        monthsShort: 'जाने._फेब्रु._मार्च._एप्रि._मे._जून._जुलै._ऑग._सप्टें._ऑक्टो._नोव्हें._डिसें.'.split('_'),
+        weekdays : 'रविवार_सोमवार_मंगळवार_बुधवार_गुरूवार_शुक्रवार_शनिवार'.split('_'),
+        weekdaysShort : 'रवि_सोम_मंगळ_बुध_गुरू_शुक्र_शनि'.split('_'),
+        weekdaysMin : 'र_सो_मं_बु_गु_शु_श'.split('_'),
         longDateFormat : {
-            LT : "A h:mm वाजता",
-            L : "DD/MM/YYYY",
-            LL : "D MMMM YYYY",
-            LLL : "D MMMM YYYY, LT",
-            LLLL : "dddd, D MMMM YYYY, LT"
+            LT : 'A h:mm वाजता',
+            L : 'DD/MM/YYYY',
+            LL : 'D MMMM YYYY',
+            LLL : 'D MMMM YYYY, LT',
+            LLLL : 'dddd, D MMMM YYYY, LT'
         },
         calendar : {
             sameDay : '[आज] LT',
@@ -58,19 +58,19 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : "%s नंतर",
-            past : "%s पूर्वी",
-            s : "सेकंद",
-            m: "एक मिनिट",
-            mm: "%d मिनिटे",
-            h : "एक तास",
-            hh : "%d तास",
-            d : "एक दिवस",
-            dd : "%d दिवस",
-            M : "एक महिना",
-            MM : "%d महिने",
-            y : "एक वर्ष",
-            yy : "%d वर्षे"
+            future : '%s नंतर',
+            past : '%s पूर्वी',
+            s : 'सेकंद',
+            m: 'एक मिनिट',
+            mm: '%d मिनिटे',
+            h : 'एक तास',
+            hh : '%d तास',
+            d : 'एक दिवस',
+            dd : '%d दिवस',
+            M : 'एक महिना',
+            MM : '%d महिने',
+            y : 'एक वर्ष',
+            yy : '%d वर्षे'
         },
         preparse: function (string) {
             return string.replace(/[१२३४५६७८९०]/g, function (match) {
@@ -85,15 +85,15 @@
         meridiem: function (hour, minute, isLower)
         {
             if (hour < 4) {
-                return "रात्री";
+                return 'रात्री';
             } else if (hour < 10) {
-                return "सकाळी";
+                return 'सकाळी';
             } else if (hour < 17) {
-                return "दुपारी";
+                return 'दुपारी';
             } else if (hour < 20) {
-                return "सायंकाळी";
+                return 'सायंकाळी';
             } else {
-                return "रात्री";
+                return 'रात्री';
             }
         },
         week : {

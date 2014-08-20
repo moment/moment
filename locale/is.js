@@ -21,7 +21,7 @@
     }
 
     function translate(number, withoutSuffix, key, isFuture) {
-        var result = number + " ";
+        var result = number + ' ';
         switch (key) {
         case 's':
             return withoutSuffix || isFuture ? 'nokkrar sekúndur' : 'nokkrum sekúndum';
@@ -80,17 +80,17 @@
     }
 
     return moment.defineLocale('is', {
-        months : "janúar_febrúar_mars_apríl_maí_júní_júlí_ágúst_september_október_nóvember_desember".split("_"),
-        monthsShort : "jan_feb_mar_apr_maí_jún_júl_ágú_sep_okt_nóv_des".split("_"),
-        weekdays : "sunnudagur_mánudagur_þriðjudagur_miðvikudagur_fimmtudagur_föstudagur_laugardagur".split("_"),
-        weekdaysShort : "sun_mán_þri_mið_fim_fös_lau".split("_"),
-        weekdaysMin : "Su_Má_Þr_Mi_Fi_Fö_La".split("_"),
+        months : 'janúar_febrúar_mars_apríl_maí_júní_júlí_ágúst_september_október_nóvember_desember'.split('_'),
+        monthsShort : 'jan_feb_mar_apr_maí_jún_júl_ágú_sep_okt_nóv_des'.split('_'),
+        weekdays : 'sunnudagur_mánudagur_þriðjudagur_miðvikudagur_fimmtudagur_föstudagur_laugardagur'.split('_'),
+        weekdaysShort : 'sun_mán_þri_mið_fim_fös_lau'.split('_'),
+        weekdaysMin : 'Su_Má_Þr_Mi_Fi_Fö_La'.split('_'),
         longDateFormat : {
-            LT : "H:mm",
-            L : "DD/MM/YYYY",
-            LL : "D. MMMM YYYY",
-            LLL : "D. MMMM YYYY [kl.] LT",
-            LLLL : "dddd, D. MMMM YYYY [kl.] LT"
+            LT : 'H:mm',
+            L : 'DD/MM/YYYY',
+            LL : 'D. MMMM YYYY',
+            LLL : 'D. MMMM YYYY [kl.] LT',
+            LLLL : 'dddd, D. MMMM YYYY [kl.] LT'
         },
         calendar : {
             sameDay : '[í dag kl.] LT',
@@ -101,12 +101,12 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : "eftir %s",
-            past : "fyrir %s síðan",
+            future : 'eftir %s',
+            past : 'fyrir %s síðan',
             s : translate,
             m : translate,
             mm : translate,
-            h : "klukkustund",
+            h : 'klukkustund',
             hh : translate,
             d : translate,
             dd : translate,

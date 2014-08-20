@@ -6,7 +6,7 @@ var moment = require('../../moment'),
 exports.parsingFlags = {
     setUp : function (done) {
         moment.createFromInputFallback = function () {
-            throw new Error("input not handled by moment");
+            throw new Error('input not handled by moment');
         };
         done();
     },

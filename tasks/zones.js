@@ -39,14 +39,14 @@ module.exports = function (grunt) {
     };
 
     function runTestsInZone (zone, next) {
-        grunt.log.ok("Running tests in zone " + zone);
+        grunt.log.ok('Running tests in zone ' + zone);
         grunt.util.spawn({
-            cmd: "grunt",
+            cmd: 'grunt',
             opts: { env: {
-                "PATH": process.env.PATH,
-                "TZ": zone
+                'PATH': process.env.PATH,
+                'TZ': zone
             } },
-            args: ["--no-color", "nodeunit"]
+            args: ['--no-color', 'nodeunit']
         }, function (err, result, code) {
             if (code !== 0) {
                 grunt.log.error(result.stdout.split(/\r\n|\r|\n/)
