@@ -1,6 +1,16 @@
 var moment = require("../../moment");
 
 exports.relativeTime = {
+    setUp : function (done) {
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
+        moment.deprecationHandler = function (name, msg) {
+            throw new Error("got deprecation warning " + name + " " + msg);
+        };
+        done();
+    },
+
     "default thresholds" : function (test) {
         var a = moment();
 

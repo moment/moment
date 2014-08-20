@@ -74,6 +74,9 @@ exports.preparsePostformat = {
         test.equal(moment().add(6, 'd').fromNow(true), "^ days", "postformat should work on moment.fn.fromNow");
         test.equal(moment.duration(10, "h").humanize(), "!) hours", "postformat should work on moment.duration.fn.humanize");
 
+        moment.deprecationHandler = function (name, msg) {
+            throw new Error("got deprecation warning " + name + " " + msg);
+        };
         test.done();
     },
 

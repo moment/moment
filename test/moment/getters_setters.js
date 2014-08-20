@@ -5,6 +5,9 @@ exports.gettersSetters = {
         moment.createFromInputFallback = function () {
             throw new Error("input not handled by moment");
         };
+        moment.deprecationHandler = function (name, msg) {
+            throw new Error("got deprecation warning " + name + " " + msg);
+        };
         done();
     },
 
@@ -47,16 +50,16 @@ exports.gettersSetters = {
         test.expect(8);
 
         var a = moment();
-        a.years(2011);
+        a.year(2011);
         a.months(9);
-        a.dates(12);
+        a.date(12);
         a.hours(6);
         a.minutes(7);
         a.seconds(8);
         a.milliseconds(9);
-        test.equal(a.years(), 2011, 'years');
+        test.equal(a.year(), 2011, 'year');
         test.equal(a.months(), 9, 'months');
-        test.equal(a.dates(), 12, 'dates');
+        test.equal(a.date(), 12, 'date');
         test.equal(a.days(), 3, 'days');
         test.equal(a.hours(), 6, 'hours');
         test.equal(a.minutes(), 7, 'minutes');

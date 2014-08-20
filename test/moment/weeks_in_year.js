@@ -1,6 +1,16 @@
 var moment = require("../../moment");
 
 exports.weeksInYear = {
+    setUp : function (done) {
+        moment.createFromInputFallback = function () {
+            throw new Error("input not handled by moment");
+        };
+        moment.deprecationHandler = function (name, msg) {
+            throw new Error("got deprecation warning " + name + " " + msg);
+        };
+        done();
+    },
+
     "isoWeeksInYear": function (test) {
         test.equal(moment([2004]).isoWeeksInYear(), 53, "2004 has 53 iso weeks");
         test.equal(moment([2005]).isoWeeksInYear(), 52, "2005 has 53 iso weeks");

@@ -51,6 +51,9 @@ exports.minMax = {
         test.equal(moment.max([now, past]), now, "max(now, past)");
         test.equal(moment.max([now]), now, "max(now)");
 
+        moment.deprecationHandler = function (name, msg) {
+            throw new Error("got deprecation warning " + name + " " + msg);
+        };
         test.done();
     }
 
