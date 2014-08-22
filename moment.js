@@ -1,5 +1,5 @@
 //! moment.js
-//! version : 2.8.1
+//! version : 2.8.2
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -10,7 +10,7 @@
     ************************************/
 
     var moment,
-        VERSION = '2.8.1',
+        VERSION = '2.8.2',
         // the global-scope this is NOT the global object in Node.js
         globalScope = typeof global !== 'undefined' ? global : this,
         oldGlobalMoment,
