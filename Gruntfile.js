@@ -100,12 +100,16 @@ module.exports = function (grunt) {
         },
 
         uglify : {
-            target: {
+            main: {
                 files: {
-                    'min/moment-with-locales.min.js'       : 'min/moment-with-locales.js',
-                    'min/moment-with-customlocales.min.js' : 'min/moment-with-customlocales.js',
-                    'min/locales.min.js'                   : 'min/locales.js',
+                    'min/moment-with-locales.min.js'     : 'min/moment-with-locales.js',
+                    'min/locales.min.js'                 : 'min/locales.js',
                     'min/moment.min.js'                  : 'moment.js'
+                }
+            },
+            customlocales: {
+                files: {
+                    'min/moment-with-customlocales.min.js' : 'min/moment-with-customlocales.js'
                 }
             },
             options: {
@@ -221,6 +225,6 @@ module.exports = function (grunt) {
     // Task to be run when releasing a new version
     grunt.registerTask('release', [
         'jshint', 'nodeunit', 'concat', 'embedLocales',
-        'component', 'package_json', 'uglify'
+        'component', 'package_json', 'uglify:main'
     ]);
 };
