@@ -1,6 +1,18 @@
 Changelog
 =========
 
+### 2.8.2
+
+Minor bugfixes:
+
+* [#1874](https://github.com/moment/moment/issues/1874) use `Object.prototype.hasOwnProperty`
+  instead of `obj.hasOwnProperty` (ie8 bug)
+* [#1873](https://github.com/moment/moment/issues/1873) add `duration#toString()`
+* [#1859](https://github.com/moment/moment/issues/1859) better month/weekday names in norwegian
+* [#1812](https://github.com/moment/moment/issues/1812) meridiem parsing for greek
+* [#1804](https://github.com/moment/moment/issues/1804) spanish del -> de
+* [#1800](https://github.com/moment/moment/issues/1800) korean LT improvement
+
 ### 2.8.1
 
 * bugfix [#1813](https://github.com/moment/moment/issues/1813): fix moment().lang([key]) incompatibility

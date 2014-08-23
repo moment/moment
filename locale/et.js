@@ -32,17 +32,17 @@
     }
 
     return moment.defineLocale('et', {
-        months        : "jaanuar_veebruar_märts_aprill_mai_juuni_juuli_august_september_oktoober_november_detsember".split("_"),
-        monthsShort   : "jaan_veebr_märts_apr_mai_juuni_juuli_aug_sept_okt_nov_dets".split("_"),
-        weekdays      : "pühapäev_esmaspäev_teisipäev_kolmapäev_neljapäev_reede_laupäev".split("_"),
-        weekdaysShort : "P_E_T_K_N_R_L".split("_"),
-        weekdaysMin   : "P_E_T_K_N_R_L".split("_"),
+        months        : 'jaanuar_veebruar_märts_aprill_mai_juuni_juuli_august_september_oktoober_november_detsember'.split('_'),
+        monthsShort   : 'jaan_veebr_märts_apr_mai_juuni_juuli_aug_sept_okt_nov_dets'.split('_'),
+        weekdays      : 'pühapäev_esmaspäev_teisipäev_kolmapäev_neljapäev_reede_laupäev'.split('_'),
+        weekdaysShort : 'P_E_T_K_N_R_L'.split('_'),
+        weekdaysMin   : 'P_E_T_K_N_R_L'.split('_'),
         longDateFormat : {
-            LT   : "H:mm",
-            L    : "DD.MM.YYYY",
-            LL   : "D. MMMM YYYY",
-            LLL  : "D. MMMM YYYY LT",
-            LLLL : "dddd, D. MMMM YYYY LT"
+            LT   : 'H:mm',
+            L    : 'DD.MM.YYYY',
+            LL   : 'D. MMMM YYYY',
+            LLL  : 'D. MMMM YYYY LT',
+            LLLL : 'dddd, D. MMMM YYYY LT'
         },
         calendar : {
             sameDay  : '[Täna,] LT',
@@ -53,8 +53,8 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : "%s pärast",
-            past   : "%s tagasi",
+            future : '%s pärast',
+            past   : '%s tagasi',
             s      : processRelativeTime,
             m      : processRelativeTime,
             mm     : processRelativeTime,

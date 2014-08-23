@@ -100,12 +100,16 @@ module.exports = function (grunt) {
         },
 
         uglify : {
-            target: {
+            main: {
                 files: {
-                    'min/moment-with-locales.min.js'       : 'min/moment-with-locales.js',
-                    'min/moment-with-customlocales.min.js' : 'min/moment-with-customlocales.js',
-                    'min/locales.min.js'                   : 'min/locales.js',
+                    'min/moment-with-locales.min.js'     : 'min/moment-with-locales.js',
+                    'min/locales.min.js'                 : 'min/locales.js',
                     'min/moment.min.js'                  : 'moment.js'
+                }
+            },
+            customlocales: {
+                files: {
+                    'min/moment-with-customlocales.min.js' : 'min/moment-with-customlocales.js'
                 }
             },
             options: {
@@ -121,51 +125,51 @@ module.exports = function (grunt) {
             }
         },
         nodeunit : {
-            all : ["test/moment/**/*.js", "test/locale/**/*.js"]
+            all : ['test/moment/**/*.js', 'test/locale/**/*.js']
         },
         jshint: {
             all: [
-                "Gruntfile.js", "moment.js", "locale/**/*.js", "test/**/*.js",
-                "!test/browser*.js"
+                'Gruntfile.js', 'moment.js', 'locale/**/*.js', 'test/**/*.js',
+                '!test/browser*.js'
             ],
             options: {
-                "node"     : true,
-                "browser"  : true,
-                "boss"     : false,
-                "curly"    : true,
-                "debug"    : false,
-                "devel"    : false,
-                "eqeqeq"   : true,
-                "eqnull"   : true,
-                "evil"     : false,
-                "forin"    : false,
-                "immed"    : false,
-                "laxbreak" : false,
-                "newcap"   : true,
-                "noarg"    : true,
-                "noempty"  : false,
-                "nonew"    : false,
-                "onevar"   : true,
-                "plusplus" : false,
-                "regexp"   : false,
-                "undef"    : true,
-                "sub"      : true,
-                "strict"   : false,
-                "white"    : true,
-                "es3"      : true,
-                "camelcase" : true,
-                "globals": {
-                    "define": false
+                'node'     : true,
+                'browser'  : true,
+                'boss'     : false,
+                'curly'    : true,
+                'debug'    : false,
+                'devel'    : false,
+                'eqeqeq'   : true,
+                'eqnull'   : true,
+                'evil'     : false,
+                'forin'    : false,
+                'immed'    : false,
+                'laxbreak' : false,
+                'newcap'   : true,
+                'noarg'    : true,
+                'noempty'  : false,
+                'nonew'    : false,
+                'onevar'   : true,
+                'plusplus' : false,
+                'regexp'   : false,
+                'undef'    : true,
+                'sub'      : true,
+                'strict'   : false,
+                'white'    : true,
+                'es3'      : true,
+                'camelcase' : true,
+                'globals': {
+                    'define': false
                 }
             }
         },
         jscs: {
             all: [
-                "Gruntfile.js", "moment.js", "locale/**/*.js",
-                "test/**/*.js", "!test/browser*.js"
+                'Gruntfile.js', 'moment.js', 'locale/**/*.js',
+                'test/**/*.js', '!test/browser*.js'
             ],
             options: {
-                config: ".jscs.json"
+                config: '.jscs.json'
             }
         },
         watch : {
@@ -194,7 +198,7 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.loadTasks("tasks");
+    grunt.loadTasks('tasks');
 
     // These plugins provide necessary tasks.
     require('load-grunt-tasks')(grunt);
@@ -221,6 +225,6 @@ module.exports = function (grunt) {
     // Task to be run when releasing a new version
     grunt.registerTask('release', [
         'jshint', 'nodeunit', 'concat', 'embedLocales',
-        'component', 'package_json', 'uglify'
+        'component', 'package_json', 'uglify:main'
     ]);
 };

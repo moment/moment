@@ -12,17 +12,17 @@
     }
 }(function (moment) {
     return moment.defineLocale('fo', {
-        months : "januar_februar_mars_apríl_mai_juni_juli_august_september_oktober_november_desember".split("_"),
-        monthsShort : "jan_feb_mar_apr_mai_jun_jul_aug_sep_okt_nov_des".split("_"),
-        weekdays : "sunnudagur_mánadagur_týsdagur_mikudagur_hósdagur_fríggjadagur_leygardagur".split("_"),
-        weekdaysShort : "sun_mán_týs_mik_hós_frí_ley".split("_"),
-        weekdaysMin : "su_má_tý_mi_hó_fr_le".split("_"),
+        months : 'januar_februar_mars_apríl_mai_juni_juli_august_september_oktober_november_desember'.split('_'),
+        monthsShort : 'jan_feb_mar_apr_mai_jun_jul_aug_sep_okt_nov_des'.split('_'),
+        weekdays : 'sunnudagur_mánadagur_týsdagur_mikudagur_hósdagur_fríggjadagur_leygardagur'.split('_'),
+        weekdaysShort : 'sun_mán_týs_mik_hós_frí_ley'.split('_'),
+        weekdaysMin : 'su_má_tý_mi_hó_fr_le'.split('_'),
         longDateFormat : {
-            LT : "HH:mm",
-            L : "DD/MM/YYYY",
-            LL : "D MMMM YYYY",
-            LLL : "D MMMM YYYY LT",
-            LLLL : "dddd D. MMMM, YYYY LT"
+            LT : 'HH:mm',
+            L : 'DD/MM/YYYY',
+            LL : 'D MMMM YYYY',
+            LLL : 'D MMMM YYYY LT',
+            LLLL : 'dddd D. MMMM, YYYY LT'
         },
         calendar : {
             sameDay : '[Í dag kl.] LT',
@@ -33,19 +33,19 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : "um %s",
-            past : "%s síðani",
-            s : "fá sekund",
-            m : "ein minutt",
-            mm : "%d minuttir",
-            h : "ein tími",
-            hh : "%d tímar",
-            d : "ein dagur",
-            dd : "%d dagar",
-            M : "ein mánaði",
-            MM : "%d mánaðir",
-            y : "eitt ár",
-            yy : "%d ár"
+            future : 'um %s',
+            past : '%s síðani',
+            s : 'fá sekund',
+            m : 'ein minutt',
+            mm : '%d minuttir',
+            h : 'ein tími',
+            hh : '%d tímar',
+            d : 'ein dagur',
+            dd : '%d dagar',
+            M : 'ein mánaði',
+            MM : '%d mánaðir',
+            y : 'eitt ár',
+            yy : '%d ár'
         },
         ordinal : '%d.',
         week : {

@@ -59,5 +59,9 @@
     "disallowTrailingWhitespace": true,
     "disallowTrailingComma": true,
     "requireLineFeedAtFileEnd": true,
-    "requireCapitalizedConstructors": true
+    "requireCapitalizedConstructors": true,
+    "validateQuoteMarks": {
+        "mark": "'",
+        "escape": true
+    }
 }

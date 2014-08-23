@@ -12,24 +12,24 @@
     }
 }(function (moment) {
     var units = {
-        "m" : "minutė_minutės_minutę",
-        "mm": "minutės_minučių_minutes",
-        "h" : "valanda_valandos_valandą",
-        "hh": "valandos_valandų_valandas",
-        "d" : "diena_dienos_dieną",
-        "dd": "dienos_dienų_dienas",
-        "M" : "mėnuo_mėnesio_mėnesį",
-        "MM": "mėnesiai_mėnesių_mėnesius",
-        "y" : "metai_metų_metus",
-        "yy": "metai_metų_metus"
+        'm' : 'minutė_minutės_minutę',
+        'mm': 'minutės_minučių_minutes',
+        'h' : 'valanda_valandos_valandą',
+        'hh': 'valandos_valandų_valandas',
+        'd' : 'diena_dienos_dieną',
+        'dd': 'dienos_dienų_dienas',
+        'M' : 'mėnuo_mėnesio_mėnesį',
+        'MM': 'mėnesiai_mėnesių_mėnesius',
+        'y' : 'metai_metų_metus',
+        'yy': 'metai_metų_metus'
     },
-    weekDays = "sekmadienis_pirmadienis_antradienis_trečiadienis_ketvirtadienis_penktadienis_šeštadienis".split("_");
+    weekDays = 'sekmadienis_pirmadienis_antradienis_trečiadienis_ketvirtadienis_penktadienis_šeštadienis'.split('_');
 
     function translateSeconds(number, withoutSuffix, key, isFuture) {
         if (withoutSuffix) {
-            return "kelios sekundės";
+            return 'kelios sekundės';
         } else {
-            return isFuture ? "kelių sekundžių" : "kelias sekundes";
+            return isFuture ? 'kelių sekundžių' : 'kelias sekundes';
         }
     }
 
@@ -42,11 +42,11 @@
     }
 
     function forms(key) {
-        return units[key].split("_");
+        return units[key].split('_');
     }
 
     function translate(number, withoutSuffix, key, isFuture) {
-        var result = number + " ";
+        var result = number + ' ';
         if (number === 1) {
             return result + translateSingular(number, withoutSuffix, key[0], isFuture);
         } else if (withoutSuffix) {
@@ -64,37 +64,37 @@
         var nominative = format.indexOf('dddd HH:mm') === -1,
             weekDay = weekDays[moment.day()];
 
-        return nominative ? weekDay : weekDay.substring(0, weekDay.length - 2) + "į";
+        return nominative ? weekDay : weekDay.substring(0, weekDay.length - 2) + 'į';
     }
 
-    return moment.defineLocale("lt", {
-        months : "sausio_vasario_kovo_balandžio_gegužės_birželio_liepos_rugpjūčio_rugsėjo_spalio_lapkričio_gruodžio".split("_"),
-        monthsShort : "sau_vas_kov_bal_geg_bir_lie_rgp_rgs_spa_lap_grd".split("_"),
+    return moment.defineLocale('lt', {
+        months : 'sausio_vasario_kovo_balandžio_gegužės_birželio_liepos_rugpjūčio_rugsėjo_spalio_lapkričio_gruodžio'.split('_'),
+        monthsShort : 'sau_vas_kov_bal_geg_bir_lie_rgp_rgs_spa_lap_grd'.split('_'),
         weekdays : relativeWeekDay,
-        weekdaysShort : "Sek_Pir_Ant_Tre_Ket_Pen_Šeš".split("_"),
-        weekdaysMin : "S_P_A_T_K_Pn_Š".split("_"),
+        weekdaysShort : 'Sek_Pir_Ant_Tre_Ket_Pen_Šeš'.split('_'),
+        weekdaysMin : 'S_P_A_T_K_Pn_Š'.split('_'),
         longDateFormat : {
-            LT : "HH:mm",
-            L : "YYYY-MM-DD",
-            LL : "YYYY [m.] MMMM D [d.]",
-            LLL : "YYYY [m.] MMMM D [d.], LT [val.]",
-            LLLL : "YYYY [m.] MMMM D [d.], dddd, LT [val.]",
-            l : "YYYY-MM-DD",
-            ll : "YYYY [m.] MMMM D [d.]",
-            lll : "YYYY [m.] MMMM D [d.], LT [val.]",
-            llll : "YYYY [m.] MMMM D [d.], ddd, LT [val.]"
+            LT : 'HH:mm',
+            L : 'YYYY-MM-DD',
+            LL : 'YYYY [m.] MMMM D [d.]',
+            LLL : 'YYYY [m.] MMMM D [d.], LT [val.]',
+            LLLL : 'YYYY [m.] MMMM D [d.], dddd, LT [val.]',
+            l : 'YYYY-MM-DD',
+            ll : 'YYYY [m.] MMMM D [d.]',
+            lll : 'YYYY [m.] MMMM D [d.], LT [val.]',
+            llll : 'YYYY [m.] MMMM D [d.], ddd, LT [val.]'
         },
         calendar : {
-            sameDay : "[Šiandien] LT",
-            nextDay : "[Rytoj] LT",
-            nextWeek : "dddd LT",
-            lastDay : "[Vakar] LT",
-            lastWeek : "[Praėjusį] dddd LT",
-            sameElse : "L"
+            sameDay : '[Šiandien] LT',
+            nextDay : '[Rytoj] LT',
+            nextWeek : 'dddd LT',
+            lastDay : '[Vakar] LT',
+            lastWeek : '[Praėjusį] dddd LT',
+            sameElse : 'L'
         },
         relativeTime : {
-            future : "po %s",
-            past : "prieš %s",
+            future : 'po %s',
+            past : 'prieš %s',
             s : translateSeconds,
             m : translateSingular,
             mm : translate,

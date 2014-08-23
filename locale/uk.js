@@ -73,16 +73,16 @@
 
     return moment.defineLocale('uk', {
         months : monthsCaseReplace,
-        monthsShort : "січ_лют_бер_квіт_трав_черв_лип_серп_вер_жовт_лист_груд".split("_"),
+        monthsShort : 'січ_лют_бер_квіт_трав_черв_лип_серп_вер_жовт_лист_груд'.split('_'),
         weekdays : weekdaysCaseReplace,
-        weekdaysShort : "нд_пн_вт_ср_чт_пт_сб".split("_"),
-        weekdaysMin : "нд_пн_вт_ср_чт_пт_сб".split("_"),
+        weekdaysShort : 'нд_пн_вт_ср_чт_пт_сб'.split('_'),
+        weekdaysMin : 'нд_пн_вт_ср_чт_пт_сб'.split('_'),
         longDateFormat : {
-            LT : "HH:mm",
-            L : "DD.MM.YYYY",
-            LL : "D MMMM YYYY р.",
-            LLL : "D MMMM YYYY р., LT",
-            LLLL : "dddd, D MMMM YYYY р., LT"
+            LT : 'HH:mm',
+            L : 'DD.MM.YYYY',
+            LL : 'D MMMM YYYY р.',
+            LLL : 'D MMMM YYYY р., LT',
+            LLLL : 'dddd, D MMMM YYYY р., LT'
         },
         calendar : {
             sameDay: processHoursFunction('[Сьогодні '),
@@ -105,18 +105,18 @@
             sameElse: 'L'
         },
         relativeTime : {
-            future : "за %s",
-            past : "%s тому",
-            s : "декілька секунд",
+            future : 'за %s',
+            past : '%s тому',
+            s : 'декілька секунд',
             m : relativeTimeWithPlural,
             mm : relativeTimeWithPlural,
-            h : "годину",
+            h : 'годину',
             hh : relativeTimeWithPlural,
-            d : "день",
+            d : 'день',
             dd : relativeTimeWithPlural,
-            M : "місяць",
+            M : 'місяць',
             MM : relativeTimeWithPlural,
-            y : "рік",
+            y : 'рік',
             yy : relativeTimeWithPlural
         },
 
@@ -124,13 +124,13 @@
 
         meridiem : function (hour, minute, isLower) {
             if (hour < 4) {
-                return "ночі";
+                return 'ночі';
             } else if (hour < 12) {
-                return "ранку";
+                return 'ранку';
             } else if (hour < 17) {
-                return "дня";
+                return 'дня';
             } else {
-                return "вечора";
+                return 'вечора';
             }
         },
 

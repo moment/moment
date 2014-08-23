@@ -11,11 +11,11 @@
         factory(window.moment); // Browser global
     }
 }(function (moment) {
-    var monthsShortDot = "ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.".split("_"),
-        monthsShort = "ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic".split("_");
+    var monthsShortDot = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split('_'),
+        monthsShort = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_');
 
     return moment.defineLocale('es', {
-        months : "enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre".split("_"),
+        months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
         monthsShort : function (m, format) {
             if (/-MMM-/.test(format)) {
                 return monthsShort[m.month()];
@@ -23,15 +23,15 @@
                 return monthsShortDot[m.month()];
             }
         },
-        weekdays : "domingo_lunes_martes_miércoles_jueves_viernes_sábado".split("_"),
-        weekdaysShort : "dom._lun._mar._mié._jue._vie._sáb.".split("_"),
-        weekdaysMin : "Do_Lu_Ma_Mi_Ju_Vi_Sá".split("_"),
+        weekdays : 'domingo_lunes_martes_miércoles_jueves_viernes_sábado'.split('_'),
+        weekdaysShort : 'dom._lun._mar._mié._jue._vie._sáb.'.split('_'),
+        weekdaysMin : 'Do_Lu_Ma_Mi_Ju_Vi_Sá'.split('_'),
         longDateFormat : {
-            LT : "H:mm",
-            L : "DD/MM/YYYY",
-            LL : "D [de] MMMM [del] YYYY",
-            LLL : "D [de] MMMM [del] YYYY LT",
-            LLLL : "dddd, D [de] MMMM [del] YYYY LT"
+            LT : 'H:mm',
+            L : 'DD/MM/YYYY',
+            LL : 'D [de] MMMM [de] YYYY',
+            LLL : 'D [de] MMMM [de] YYYY LT',
+            LLLL : 'dddd, D [de] MMMM [de] YYYY LT'
         },
         calendar : {
             sameDay : function () {
@@ -52,19 +52,19 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : "en %s",
-            past : "hace %s",
-            s : "unos segundos",
-            m : "un minuto",
-            mm : "%d minutos",
-            h : "una hora",
-            hh : "%d horas",
-            d : "un día",
-            dd : "%d días",
-            M : "un mes",
-            MM : "%d meses",
-            y : "un año",
-            yy : "%d años"
+            future : 'en %s',
+            past : 'hace %s',
+            s : 'unos segundos',
+            m : 'un minuto',
+            mm : '%d minutos',
+            h : 'una hora',
+            hh : '%d horas',
+            d : 'un día',
+            dd : '%d días',
+            M : 'un mes',
+            MM : '%d meses',
+            y : 'un año',
+            yy : '%d años'
         },
         ordinal : '%dº',
         week : {

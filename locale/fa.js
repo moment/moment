@@ -1,5 +1,5 @@
 // moment.js locale configuration
-// locale : Persian
+// locale : Persian (fa)
 // author : Ebrahim Byagowi : https://github.com/ebraminio
 
 (function (factory) {
@@ -50,9 +50,9 @@
         },
         meridiem : function (hour, minute, isLower) {
             if (hour < 12) {
-                return "قبل از ظهر";
+                return 'قبل از ظهر';
             } else {
-                return "بعد از ظهر";
+                return 'بعد از ظهر';
             }
         },
         calendar : {

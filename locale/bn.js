@@ -37,17 +37,17 @@
     };
 
     return moment.defineLocale('bn', {
-        months : 'জানুয়ারী_ফেবুয়ারী_মার্চ_এপ্রিল_মে_জুন_জুলাই_অগাস্ট_সেপ্টেম্বর_অক্টোবর_নভেম্বর_ডিসেম্বর'.split("_"),
-        monthsShort : 'জানু_ফেব_মার্চ_এপর_মে_জুন_জুল_অগ_সেপ্ট_অক্টো_নভ_ডিসেম্'.split("_"),
-        weekdays : 'রবিবার_সোমবার_মঙ্গলবার_বুধবার_বৃহস্পত্তিবার_শুক্রুবার_শনিবার'.split("_"),
-        weekdaysShort : 'রবি_সোম_মঙ্গল_বুধ_বৃহস্পত্তি_শুক্রু_শনি'.split("_"),
-        weekdaysMin : 'রব_সম_মঙ্গ_বু_ব্রিহ_শু_শনি'.split("_"),
+        months : 'জানুয়ারী_ফেবুয়ারী_মার্চ_এপ্রিল_মে_জুন_জুলাই_অগাস্ট_সেপ্টেম্বর_অক্টোবর_নভেম্বর_ডিসেম্বর'.split('_'),
+        monthsShort : 'জানু_ফেব_মার্চ_এপর_মে_জুন_জুল_অগ_সেপ্ট_অক্টো_নভ_ডিসেম্'.split('_'),
+        weekdays : 'রবিবার_সোমবার_মঙ্গলবার_বুধবার_বৃহস্পত্তিবার_শুক্রুবার_শনিবার'.split('_'),
+        weekdaysShort : 'রবি_সোম_মঙ্গল_বুধ_বৃহস্পত্তি_শুক্রু_শনি'.split('_'),
+        weekdaysMin : 'রব_সম_মঙ্গ_বু_ব্রিহ_শু_শনি'.split('_'),
         longDateFormat : {
-            LT : "A h:mm সময়",
-            L : "DD/MM/YYYY",
-            LL : "D MMMM YYYY",
-            LLL : "D MMMM YYYY, LT",
-            LLLL : "dddd, D MMMM YYYY, LT"
+            LT : 'A h:mm সময়',
+            L : 'DD/MM/YYYY',
+            LL : 'D MMMM YYYY',
+            LLL : 'D MMMM YYYY, LT',
+            LLLL : 'dddd, D MMMM YYYY, LT'
         },
         calendar : {
             sameDay : '[আজ] LT',
@@ -58,19 +58,19 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : "%s পরে",
-            past : "%s আগে",
-            s : "কএক সেকেন্ড",
-            m : "এক মিনিট",
-            mm : "%d মিনিট",
-            h : "এক ঘন্টা",
-            hh : "%d ঘন্টা",
-            d : "এক দিন",
-            dd : "%d দিন",
-            M : "এক মাস",
-            MM : "%d মাস",
-            y : "এক বছর",
-            yy : "%d বছর"
+            future : '%s পরে',
+            past : '%s আগে',
+            s : 'কএক সেকেন্ড',
+            m : 'এক মিনিট',
+            mm : '%d মিনিট',
+            h : 'এক ঘন্টা',
+            hh : '%d ঘন্টা',
+            d : 'এক দিন',
+            dd : '%d দিন',
+            M : 'এক মাস',
+            MM : '%d মাস',
+            y : 'এক বছর',
+            yy : '%d বছর'
         },
         preparse: function (string) {
             return string.replace(/[১২৩৪৫৬৭৮৯০]/g, function (match) {
@@ -87,15 +87,15 @@
         //I have just generalized with most common one used
         meridiem : function (hour, minute, isLower) {
             if (hour < 4) {
-                return "রাত";
+                return 'রাত';
             } else if (hour < 10) {
-                return "শকাল";
+                return 'শকাল';
             } else if (hour < 17) {
-                return "দুপুর";
+                return 'দুপুর';
             } else if (hour < 20) {
-                return "বিকেল";
+                return 'বিকেল';
             } else {
-                return "রাত";
+                return 'রাত';
             }
         },
         week : {

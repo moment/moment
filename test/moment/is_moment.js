@@ -3,12 +3,12 @@ var moment = require('../../moment');
 exports.isMoment = {
     setUp : function (done) {
         moment.createFromInputFallback = function () {
-            throw new Error("input not handled by moment");
+            throw new Error('input not handled by moment');
         };
         done();
     },
 
-    "is moment object": function (test) {
+    'is moment object': function (test) {
         test.expect(13);
 
         var MyObj = function () {},
@@ -38,6 +38,17 @@ exports.isMoment = {
         test.ok(!moment.isMoment(null), 'null is not moment object');
         test.ok(!moment.isMoment(undefined), 'undefined is not moment object');
 
+        test.done();
+    },
+
+    'is moment with hacked hasOwnProperty': function (test) {
+        var obj = {};
+        // HACK to suppress jshint warning about bad property name
+        obj['hasOwnMoney'.replace('Money', 'Property')] = function () {
+            return true;
+        };
+
+        test.ok(!moment.isMoment(obj), 'isMoment works even if passed object has a wrong hasOwnProperty implementation (ie8)');
         test.done();
     }
 };
