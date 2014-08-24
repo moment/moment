@@ -54,6 +54,7 @@
         "grunt-benchmark": "latest",
         "grunt-string-replace": "latest",
         "load-grunt-tasks": "latest",
+        "lodash": "latest",
         "karma": "latest",
         "karma-chrome-launcher": "latest",
         "karma-firefox-launcher": "latest",
