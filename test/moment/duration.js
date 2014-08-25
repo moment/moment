@@ -513,7 +513,7 @@ exports.duration = {
         test.done();
     },
 
-	'as getters for small units' : function (test) {
+    'as getters for small units' : function (test) {
         var dS = moment.duration(1, 'milliseconds'),
             ds = moment.duration(3, 'seconds'),
             dm = moment.duration(13, 'minutes');
@@ -529,7 +529,7 @@ exports.duration = {
         test.equal(dm.asMinutes(),        13, 'asMinutes()');
         test.done();
     },
-	
+
     'isDuration' : function (test) {
         test.expect(3);
         test.ok(moment.isDuration(moment.duration(12345678)), 'correctly says true');
