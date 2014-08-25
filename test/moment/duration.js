@@ -520,7 +520,7 @@ exports.duration = {
 
         test.expect(6);
         // Tests for issue #1867.
-		// Floating point errors for small duration units were introduced in version 2.8.0.
+        // Floating point errors for small duration units were introduced in version 2.8.0.
         test.equal(dS.as('milliseconds'), 1, 'as("milliseconds")');
         test.equal(dS.asMilliseconds(),   1, 'asMilliseconds()');
         test.equal(ds.as('seconds'),      3, 'as("seconds")');
