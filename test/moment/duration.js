@@ -513,6 +513,23 @@ exports.duration = {
         test.done();
     },
 
+	'as getters for small units' : function (test) {
+        var dS = moment.duration(1, 'milliseconds'),
+            ds = moment.duration(3, 'seconds'),
+            dm = moment.duration(13, 'minutes');
+
+        test.expect(6);
+        // Tests for issue #1867.
+		// Floating point errors for small duration units were introduced in version 2.8.0.
+        test.equal(dS.as('milliseconds'), 1, 'as("milliseconds")');
+        test.equal(dS.asMilliseconds(),   1, 'asMilliseconds()');
+        test.equal(ds.as('seconds'),      3, 'as("seconds")');
+        test.equal(ds.asSeconds(),        3, 'asSeconds()');
+        test.equal(dm.as('minutes'),      13, 'as("minutes")');
+        test.equal(dm.asMinutes(),        13, 'asMinutes()');
+        test.done();
+    },
+	
     'isDuration' : function (test) {
         test.expect(3);
         test.ok(moment.isDuration(moment.duration(12345678)), 'correctly says true');
