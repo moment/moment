@@ -11,3 +11,6 @@ before_script:
   - npm install -g grunt-cli
 
 script: grunt build:travis
+
+git:
+  depth: 10
