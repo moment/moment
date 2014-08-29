@@ -2448,10 +2448,15 @@
         // instance.  Otherwise, it will return the locale configuration
         // variables for this instance.
         locale : function (key) {
+            var newLocaleData;
+
             if (key === undefined) {
                 return this._locale._abbr;
             } else {
-                this._locale = moment.localeData(key);
+                newLocaleData = moment.localeData(key);
+                if (newLocaleData != null) {
+                    this._locale = newLocaleData;
+                }
                 return this;
             }
         },
@@ -2462,8 +2467,7 @@
                 if (key === undefined) {
                     return this.localeData();
                 } else {
-                    this._locale = moment.localeData(key);
-                    return this;
+                    return this.locale(key);
                 }
             }
         ),

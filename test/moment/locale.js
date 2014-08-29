@@ -458,5 +458,17 @@ exports.locale = {
         test.equal(m.locale(), 'fr', 'instance locale reset to global locale');
 
         test.done();
+    },
+
+    'moment().locale with missing key doesn\'t change locale' : function (test) {
+        test.equal(moment().locale('boo').localeData(), moment.localeData(),
+                'preserve global locale in case of bad locale id');
+        test.done();
+    },
+
+    'moment().lang with missing key doesn\'t change locale' : function (test) {
+        test.equal(moment().lang('boo').localeData(), moment.localeData(),
+                'preserve global locale in case of bad locale id');
+        test.done();
     }
 };
