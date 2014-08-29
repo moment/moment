@@ -2662,7 +2662,7 @@
                 months = this._months + daysToYears(days) * 12;
                 return units === 'month' ? months : months / 12;
             } else {
-                days += yearsToDays(this._months / 12);
+                days += Math.floor(yearsToDays(this._months / 12));
                 switch (units) {
                     case 'week': return days / 7;
                     case 'day': return days;
