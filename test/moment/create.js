@@ -936,5 +936,13 @@ exports.create = {
             moment.parseTwoDigitYear = original;
             test.done();
         }
+    },
+
+    'array with strings' : function (test) {
+        test.equal(moment(['2014', '7', '31']).isValid(),
+                true,
+                'string array + isValid');
+        test.done();
     }
+
 };
