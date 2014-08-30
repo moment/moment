@@ -2,7 +2,7 @@ var moment = require('../../moment');
 
 
     /**************************************************
-      Croatian
+      Bosnian
      *************************************************/
 
 exports['locale:bs'] = {
@@ -20,7 +20,7 @@ exports['locale:bs'] = {
     },
 
     'parse' : function (test) {
-        var tests = 'januar jan._februar feb._mart mar._april apr._maj maj._juni jun._juli jul._avgust avg._septembar sep._oktobar okt._novembar nov._decembar dec.'.split('_'), i;
+        var tests = 'januar jan._februar feb._mart mar._april apr._maj maj._juni jun._juli jul._august aug._septembar sep._oktobar okt._novembar nov._decembar dec.'.split('_'), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -111,7 +111,7 @@ exports['locale:bs'] = {
     },
 
     'format month' : function (test) {
-        var expected = 'januar jan._februar feb._mart mar._april apr._maj maj._juni jun._juli jul._avgust avg._septembar sep._oktobar okt._novembar nov._decembar dec.'.split('_'), i;
+        var expected = 'januar jan._februar feb._mart mar._april apr._maj maj._juni jun._juli jul._august aug._septembar sep._oktobar okt._novembar nov._decembar dec.'.split('_'), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
