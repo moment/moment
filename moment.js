@@ -2690,19 +2690,21 @@
             var days, months;
             units = normalizeUnits(units);
 
-            days = this._days + this._milliseconds / 864e5;
             if (units === 'month' || units === 'year') {
+                days = this._days + this._milliseconds / 864e5;
                 months = this._months + daysToYears(days) * 12;
                 return units === 'month' ? months : months / 12;
             } else {
-                days += yearsToDays(this._months / 12);
+                // handle milliseconds separately because of floating point math errors (issue #1867)
+                days = this._days + yearsToDays(this._months / 12);
                 switch (units) {
-                    case 'week': return days / 7;
-                    case 'day': return days;
-                    case 'hour': return days * 24;
-                    case 'minute': return days * 24 * 60;
-                    case 'second': return days * 24 * 60 * 60;
-                    case 'millisecond': return days * 24 * 60 * 60 * 1000;
+                    case 'week': return days / 7 + this._milliseconds / 6048e5;
+                    case 'day': return days + this._milliseconds / 864e5;
+                    case 'hour': return days * 24 + this._milliseconds / 36e5;
+                    case 'minute': return days * 24 * 60 + this._milliseconds / 6e4;
+                    case 'second': return days * 24 * 60 * 60 + this._milliseconds / 1000;
+                    // Math.floor prevents floating point math errors here
+                    case 'millisecond': return Math.floor(days * 24 * 60 * 60 * 1000) + this._milliseconds;
                     default: throw new Error('Unknown unit ' + units);
                 }
             }
