@@ -1,6 +1,22 @@
 Changelog
 =========
 
+### 2.8.3
+
+Bugfixes:
+
+* [#1801](https://github.com/moment/moment/issues/1801) proper pluralization for Arabic
+* [#1833](https://github.com/moment/moment/issues/1833) improve spm integration
+* [#1871](https://github.com/moment/moment/issues/1871) fix zone bug caused by Firefox 24
+* [#1882](https://github.com/moment/moment/issues/1882) Use hh:mm in Czech
+* [#1883](https://github.com/moment/moment/issues/1883) Fix 2.8.0 regression in duration as conversions
+* [#1890](https://github.com/moment/moment/issues/1890) Faster travis builds
+* [#1892](https://github.com/moment/moment/issues/1892) Faster isBefore/After/Same
+* [#1848](https://github.com/moment/moment/issues/1848) Fix flaky month diffs
+* [#1895](https://github.com/moment/moment/issues/1895) Fix 2.8.0 regression in moment.utc with format array
+* [#1896](https://github.com/moment/moment/issues/1896) Support setting invalid instance locale (noop)
+* [#1897](https://github.com/moment/moment/issues/1897) Support moment([str]) in addition to moment([int])
+
 ### 2.8.2
 
 Minor bugfixes:
