@@ -59,7 +59,7 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : '%s soňra',
+            future : '%s soň',
             past : '%s öň',
             s : 'birnäçe sekund',
             m : 'bir minut',
