@@ -671,6 +671,8 @@
             } else {
                 value = Math.ceil(coercedNumber);
             }
+        } else if (argumentForCoercion === undefined) {
+            return;
         }
 
         return value;
@@ -1356,7 +1358,7 @@
 
         // Zero out whatever was not defaulted, including time
         for (; i < 7; i++) {
-            config._a[i] = input[i] = (config._a[i] == null) ? (i === 2 ? 1 : 0) : config._a[i];
+            config._a[i] = input[i] = (config._a[i] == null) ? (i === DATE ? 1 : 0) : config._a[i];
         }
 
         config._d = (config._useUTC ? makeUTCDate : makeDate).apply(null, input);
@@ -2054,7 +2056,8 @@
     };
 
     moment.parseTwoDigitYear = function (input) {
-        return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
+        var inputVal = toInt(input) || 0;
+        return inputVal + (inputVal > 68 ? 1900 : 2000);
     };
 
     /************************************
