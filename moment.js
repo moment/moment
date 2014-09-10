@@ -411,6 +411,8 @@
 
         this._locale = moment.localeData();
 
+        this._input = normalizedInput;
+
         this._bubble();
     }
 
