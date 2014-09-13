@@ -446,7 +446,7 @@ exports.duration = {
     },
 
     'asGetters' : function (test) {
-	    // 400 years have exactly 146097 days
+        // 400 years have exactly 146097 days
         test.expect(84);
 
         // years	
