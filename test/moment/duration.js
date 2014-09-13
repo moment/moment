@@ -449,7 +449,7 @@ exports.duration = {
         // 400 years have exactly 146097 days
         test.expect(84);
 
-        // years	
+        // years
         test.equal(moment.duration(1, 'year').asYears(),            1,           '1 year as years');
         test.equal(moment.duration(1, 'year').asMonths(),           12,          '1 year as months');
         test.equal(moment.duration(400, 'year').asMonths(),         4800,        '400 years as months');
