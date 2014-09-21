@@ -941,7 +941,7 @@
         },
         calendar : function (key, mom) {
             var output = this._calendar[key];
-            return typeof output === 'function' ? output.apply(mom) : output;
+            return typeof output === 'function' ? output.apply(mom, Array.prototype.slice.call(arguments, 2)) : output;
         },
 
         _relativeTime : {
