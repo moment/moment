@@ -93,18 +93,33 @@
             nextWeek: function () {
                 return this.day() === 2 ? '[Во] dddd [в] LT' : '[В] dddd [в] LT';
             },
-            lastWeek: function () {
-                switch (this.day()) {
-                case 0:
-                    return '[В прошлое] dddd [в] LT';
-                case 1:
-                case 2:
-                case 4:
-                    return '[В прошлый] dddd [в] LT';
-                case 3:
-                case 5:
-                case 6:
-                    return '[В прошлую] dddd [в] LT';
+            lastWeek: function (now) {
+                if (now.week() !== this.week()) {
+                    switch (this.day()) {
+                    case 0:
+                        return '[В прошлое] dddd [в] LT';
+                    case 1:
+                    case 2:
+                    case 4:
+                        return '[В прошлый] dddd [в] LT';
+                    case 3:
+                    case 5:
+                    case 6:
+                        return '[В прошлую] dddd [в] LT';
+                    }
+                } else {
+                    switch (this.day()) {
+                    case 0:
+                        return '[В это] dddd [в] LT';
+                    case 1:
+                    case 2:
+                    case 4:
+                        return '[В этот] dddd [в] LT';
+                    case 3:
+                    case 5:
+                    case 6:
+                        return '[В эту] dddd [в] LT';
+                    }
                 }
             },
             sameElse: 'L'
