@@ -2206,7 +2206,7 @@
                     diff < 1 ? 'sameDay' :
                     diff < 2 ? 'nextDay' :
                     diff < 7 ? 'nextWeek' : 'sameElse';
-            return this.format(this.localeData().calendar(format, this));
+            return this.format(this.localeData().calendar(format, this, moment(now)));
         },
 
         isLeapYear : function () {
