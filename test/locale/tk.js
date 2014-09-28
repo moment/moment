@@ -5,9 +5,9 @@ var moment = require('../../moment');
       English
      *************************************************/
 
-exports['locale:en'] = {
+exports['locale:tk'] = {
     setUp : function (cb) {
-        moment.locale('en');
+        moment.locale('tk');
         moment.createFromInputFallback = function () {
             throw new Error('input not handled by moment');
         };
@@ -15,7 +15,7 @@ exports['locale:en'] = {
     },
 
     tearDown : function (cb) {
-        moment.locale('en');
+        moment.locale('tk');
         cb();
     },
 
