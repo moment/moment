@@ -152,10 +152,10 @@
                 return this.month() + 1;
             },
             MMM  : function (format) {
-                return this.localeData().monthsShort(this, format);
+                return this.localeData().monthShort(this, format);
             },
             MMMM : function (format) {
-                return this.localeData().months(this, format);
+                return this.localeData().month(this, format);
             },
             D    : function () {
                 return this.date();
@@ -167,13 +167,13 @@
                 return this.day();
             },
             dd   : function (format) {
-                return this.localeData().weekdaysMin(this, format);
+                return this.localeData().weekdayMin(this, format);
             },
             ddd  : function (format) {
-                return this.localeData().weekdaysShort(this, format);
+                return this.localeData().weekdayShort(this, format);
             },
             dddd : function (format) {
-                return this.localeData().weekdays(this, format);
+                return this.localeData().weekday(this, format);
             },
             w    : function () {
                 return this.week();
@@ -620,44 +620,8 @@
     }
 
     function makeList(field) {
-        var count, setter;
-
-        if (field.indexOf('week') === 0) {
-            count = 7;
-            setter = 'day';
-        }
-        else if (field.indexOf('month') === 0) {
-            count = 12;
-            setter = 'month';
-        }
-        else {
-            return;
-        }
-
         moment[field] = function (format, index) {
-            var i, getter,
-                method = moment._locale[field],
-                results = [];
-
-            if (typeof format === 'number') {
-                index = format;
-                format = undefined;
-            }
-
-            getter = function (i) {
-                var m = moment().utc().set(setter, i);
-                return method.call(moment._locale, m, format || '');
-            };
-
-            if (index != null) {
-                return getter(index);
-            }
-            else {
-                for (i = 0; i < count; i++) {
-                    results.push(getter(i));
-                }
-                return results;
-            }
+            return this.localeData()[field](format, index);
         };
     }
 
@@ -784,15 +748,88 @@
     /************************************
         Locale
     ************************************/
+    var localeList = {
+        months: 'month',
+        monthsShort: 'monthShort',
+        weekdays: 'weekday',
+        weekdaysShort: 'weekdayShort',
+        weekdaysMin: 'weekdayMin'
+    };
 
+    var extendLocale = {};
 
+    function makeLocaleList (listName, singleName) {
+        var count, setter;
+
+        if (listName.indexOf('week') === 0) {
+            count = 7;
+            setter = 'day';
+        }
+        else if (listName.indexOf('month') === 0) {
+            count = 12;
+            setter = 'month';
+        }
+        else {
+            return;
+        }
+
+        extendLocale[listName] = function (format, index) {
+
+            var i, getter,
+                method = this[singleName],
+                results = [];
+
+            if (typeof format === 'number') {
+                index = format;
+                format = undefined;
+            }
+
+            var self = this;
+            getter = function (i) {
+                var m = moment().utc().set(setter, i);
+                return method.call(self, m, format || '');
+            };
+
+            if (index != null) {
+                return getter(index);
+            }
+            else {
+                for (i = 0; i < count; i++) {
+                    results.push(getter(i));
+                }
+                return results;
+            }
+        };
+    }
+
+    for (var list in localeList) {
+      makeLocaleList(list, localeList[list]);
+    }
+
+    function wrapToFunction (obj, accessor) {
+      if (typeof obj === 'function') {
+        return obj;
+      } else {
+        return function (m) {
+          return obj[m[accessor]()];
+        }
+      }
+    }
+
+    extend(Locale.prototype, extendLocale);
     extend(Locale.prototype, {
 
         set : function (config) {
             var prop, i;
             for (i in config) {
                 prop = config[i];
-                if (typeof prop === 'function') {
+                if (['months', 'monthsShort'].indexOf(i) >= 0) {
+                  this['_' + i] = wrapToFunction(prop, 'month');
+                } else if (['weekdays', 'weekdaysShort',
+                            'weekdaysMin'].indexOf(i) >= 0) {
+                  this['_' + i] = wrapToFunction(prop, 'day');
+                }
+                else if (typeof prop === 'function') {
                     this[i] = prop;
                 } else {
                     this['_' + i] = prop;
@@ -800,14 +837,20 @@
             }
         },
 
-        _months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
-        months : function (m) {
-            return this._months[m.month()];
+        _months : wrapToFunction(
+            'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
+            'month'
+        ),
+        month : function (m, format) {
+            return this._months(m, format);
         },
 
-        _monthsShort : 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
-        monthsShort : function (m) {
-            return this._monthsShort[m.month()];
+        _monthsShort : wrapToFunction(
+            'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
+            'month'
+        ),
+        monthShort : function (m, format) {
+            return this._monthsShort(m, format);
         },
 
         monthsParse : function (monthName) {
@@ -821,7 +864,7 @@
                 // make the regex if we don't have it already
                 if (!this._monthsParse[i]) {
                     mom = moment.utc([2000, i]);
-                    regex = '^' + this.months(mom, '') + '|^' + this.monthsShort(mom, '');
+                    regex = '^' + this.month(mom, '') + '|^' + this.monthShort(mom, '');
                     this._monthsParse[i] = new RegExp(regex.replace('.', ''), 'i');
                 }
                 // test the regex
@@ -831,19 +874,28 @@
             }
         },
 
-        _weekdays : 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
-        weekdays : function (m) {
-            return this._weekdays[m.day()];
+        _weekdays : wrapToFunction(
+            'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+            'days'
+        ),
+        weekday : function (m, format) {
+            return this._weekdays(m, format);
         },
 
-        _weekdaysShort : 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
-        weekdaysShort : function (m) {
-            return this._weekdaysShort[m.day()];
+        _weekdaysShort : wrapToFunction(
+            'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
+            'days'
+        ),
+        weekdayShort : function (m, format) {
+            return this._weekdaysShort(m, format);
         },
 
-        _weekdaysMin : 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
-        weekdaysMin : function (m) {
-            return this._weekdaysMin[m.day()];
+        _weekdaysMin : wrapToFunction(
+            'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
+            'days'
+        ),
+        weekdayMin : function (m, format) {
+            return this._weekdaysMin(m, format);
         },
 
         weekdaysParse : function (weekdayName) {
@@ -857,7 +909,7 @@
                 // make the regex if we don't have it already
                 if (!this._weekdaysParse[i]) {
                     mom = moment([2000, 1]).day(i);
-                    regex = '^' + this.weekdays(mom, '') + '|^' + this.weekdaysShort(mom, '') + '|^' + this.weekdaysMin(mom, '');
+                    regex = '^' + this.weekday(mom, '') + '|^' + this.weekdayShort(mom, '') + '|^' + this.weekdayMin(mom, '');
                     this._weekdaysParse[i] = new RegExp(regex.replace('.', ''), 'i');
                 }
                 // test the regex
