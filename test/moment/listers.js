@@ -57,7 +57,8 @@ exports.listers = {
             monthsShort = 'on_tw_th_fo_fi_si_se_ei_ni_te_el_tw'.split('_'),
             weekdays = 'one_two_three_four_five_six_seven'.split('_'),
             weekdaysShort = 'on_tw_th_fo_fi_si_se'.split('_'),
-            weekdaysMin = '1_2_3_4_5_6_7'.split('_');
+            weekdaysMin = '1_2_3_4_5_6_7'.split('_'),
+            m;
 
         moment.locale('numerologists', {
             months : months,
@@ -67,7 +68,7 @@ exports.listers = {
             weekdaysMin: weekdaysMin
         });
 
-        var m = moment();
+        m = moment();
         test.deepEqual(m.localeData().months(), months);
         test.deepEqual(m.localeData().monthsShort(), monthsShort);
         test.deepEqual(m.localeData().weekdays(), weekdays);
@@ -91,7 +92,8 @@ exports.listers = {
 
     'with functions' : function (test) {
         var monthsShort = 'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split('_'),
-            monthsShortWeird = 'onesy_twosy_threesy_foursy_fivesy_sixsy_sevensy_eightsy_ninesy_tensy_elevensy_twelvesy'.split('_');
+            monthsShortWeird = 'onesy_twosy_threesy_foursy_fivesy_sixsy_sevensy_eightsy_ninesy_tensy_elevensy_twelvesy'.split('_'),
+            m;
 
         moment.locale('difficult', {
 
@@ -101,7 +103,7 @@ exports.listers = {
             }
         });
 
-        var m = moment();
+        m = moment();
         test.expect(6);
         test.deepEqual(m.localeData().monthsShort(), monthsShort);
         test.deepEqual(m.localeData().monthsShort('MMM'), monthsShort);

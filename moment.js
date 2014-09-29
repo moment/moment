@@ -282,7 +282,14 @@
 
         deprecations = {},
 
-        lists = ['months', 'monthsShort', 'weekdays', 'weekdaysShort', 'weekdaysMin'];
+        lists = ['months', 'monthsShort', 'weekdays', 'weekdaysShort', 'weekdaysMin'],
+        localeList = {
+            months: 'month',
+            monthsShort: 'monthShort',
+            weekdays: 'weekday',
+            weekdaysShort: 'weekdayShort',
+            weekdaysMin: 'weekdayMin'
+        };
 
     // Pick the first defined of two or three arguments. dfl comes from
     // default.
@@ -748,16 +755,6 @@
     /************************************
         Locale
     ************************************/
-    var localeList = {
-        months: 'month',
-        monthsShort: 'monthShort',
-        weekdays: 'weekday',
-        weekdaysShort: 'weekdayShort',
-        weekdaysMin: 'weekdayMin'
-    };
-
-    var extendLocale = {};
-
     function makeLocaleList (listName, singleName) {
         var count, setter;
 
@@ -773,18 +770,17 @@
             return;
         }
 
-        extendLocale[listName] = function (format, index) {
-
+        Locale.prototype[listName] = function (format, index) {
             var i, getter,
                 method = this[singleName],
-                results = [];
+                results = [],
+                self = this;
 
             if (typeof format === 'number') {
                 index = format;
                 format = undefined;
             }
 
-            var self = this;
             getter = function (i) {
                 var m = moment().utc().set(setter, i);
                 return method.call(self, m, format || '');
@@ -802,21 +798,20 @@
         };
     }
 
-    for (var list in localeList) {
-      makeLocaleList(list, localeList[list]);
+    for (i in localeList) {
+        makeLocaleList(i, localeList[i]);
     }
 
     function wrapToFunction (obj, accessor) {
-      if (typeof obj === 'function') {
-        return obj;
-      } else {
-        return function (m) {
-          return obj[m[accessor]()];
+        if (typeof obj === 'function') {
+            return obj;
+        } else {
+            return function (m) {
+                return obj[m[accessor]()];
+            };
         }
-      }
     }
 
-    extend(Locale.prototype, extendLocale);
     extend(Locale.prototype, {
 
         set : function (config) {
@@ -824,10 +819,9 @@
             for (i in config) {
                 prop = config[i];
                 if (['months', 'monthsShort'].indexOf(i) >= 0) {
-                  this['_' + i] = wrapToFunction(prop, 'month');
-                } else if (['weekdays', 'weekdaysShort',
-                            'weekdaysMin'].indexOf(i) >= 0) {
-                  this['_' + i] = wrapToFunction(prop, 'day');
+                    this['_' + i] = wrapToFunction(prop, 'month');
+                } else if (['weekdays', 'weekdaysShort', 'weekdaysMin'].indexOf(i) >= 0) {
+                    this['_' + i] = wrapToFunction(prop, 'day');
                 }
                 else if (typeof prop === 'function') {
                     this[i] = prop;
