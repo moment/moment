@@ -308,5 +308,44 @@ exports['locale:zh-cn'] = {
         test.equal(moment([2012, 0, 14]).format('w ww wo'), '2 02 2周', 'Jan 14 2012 应该是第 2周');
 
         test.done();
+    },
+
+    'lenient ordinal parsing' : function (test) {
+        var i, ordinalStr, testMoment;
+        for (i = 1; i <= 31; ++i) {
+            ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
+            testMoment = moment(ordinalStr, 'YYYY MM Do');
+            test.equal(testMoment.year(), 2014,
+                    'lenient ordinal parsing ' + i + ' year check');
+            test.equal(testMoment.month(), 0,
+                    'lenient ordinal parsing ' + i + ' month check');
+            test.equal(testMoment.date(), i,
+                    'lenient ordinal parsing ' + i + ' date check');
+        }
+        test.done();
+    },
+
+    'lenient ordinal parsing of number' : function (test) {
+        var i, testMoment;
+        for (i = 1; i <= 31; ++i) {
+            testMoment = moment('2014 01 ' + i, 'YYYY MM Do');
+            test.equal(testMoment.year(), 2014,
+                    'lenient ordinal parsing of number ' + i + ' year check');
+            test.equal(testMoment.month(), 0,
+                    'lenient ordinal parsing of number ' + i + ' month check');
+            test.equal(testMoment.date(), i,
+                    'lenient ordinal parsing of number ' + i + ' date check');
+        }
+        test.done();
+    },
+
+    'strict ordinal parsing' : function (test) {
+        var i, ordinalStr, testMoment;
+        for (i = 1; i <= 31; ++i) {
+            ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
+            testMoment = moment(ordinalStr, 'YYYY MM Do', true);
+            test.ok(testMoment.isValid(), 'strict ordinal parsing ' + i);
+        }
+        test.done();
     }
 };

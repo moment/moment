@@ -88,6 +88,7 @@
                 return symbolMap[match];
             }).replace(/,/g, '،');
         },
+        ordinalParse: /\d{1,2}م/,
         ordinal : '%dم',
         week : {
             dow : 6, // Saturday is the first day of the week.

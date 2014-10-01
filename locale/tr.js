@@ -74,6 +74,7 @@
             y : 'bir yıl',
             yy : '%d yıl'
         },
+        ordinalParse: /\d{1,2}'(inci|nci|üncü|ncı|uncu|ıncı)/,
         ordinal : function (number) {
             if (number === 0) {  // special case for zero
                 return number + '\'ıncı';

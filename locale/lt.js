@@ -107,6 +107,7 @@
             y : translateSingular,
             yy : translate
         },
+        ordinalParse: /\d{1,2}-oji/,
         ordinal : function (number) {
             return number + '-oji';
         },

@@ -83,9 +83,8 @@
             y : 'ένας χρόνος',
             yy : '%d χρόνια'
         },
-        ordinal : function (number) {
-            return number + 'η';
-        },
+        ordinalParse: /\d{1,2}η/,
+        ordinal: '%dη',
         week : {
             dow : 1, // Monday is the first day of the week.
             doy : 4  // The week that contains Jan 4st is the first week of the year.

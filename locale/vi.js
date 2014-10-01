@@ -51,6 +51,7 @@
             y : 'một năm',
             yy : '%d năm'
         },
+        ordinalParse: /\d{1,2}/,
         ordinal : function (number) {
             return number;
         },

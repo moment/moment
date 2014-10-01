@@ -127,6 +127,7 @@
             }
         },
 
+        ordinalParse: /\d{1,2}-(і|ы|га)/,
         ordinal: function (number, period) {
             switch (period) {
             case 'M':

@@ -112,7 +112,7 @@
             yy : pluralize('y')
         },
         preparse: function (string) {
-            return string.replace(/[۰-۹]/g, function (match) {
+            return string.replace(/[١٢٣٤٥٦٧٨٩٠]/g, function (match) {
                 return numberMap[match];
             }).replace(/،/g, ',');
         },

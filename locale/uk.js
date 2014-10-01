@@ -134,6 +134,7 @@
             }
         },
 
+        ordinalParse: /\d{1,2}-(й|го)/,
         ordinal: function (number, period) {
             switch (period) {
             case 'M':

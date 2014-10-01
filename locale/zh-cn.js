@@ -69,6 +69,7 @@
             },
             sameElse : 'LL'
         },
+        ordinalParse: /\d{1,2}(日|月|周)/,
         ordinal : function (number, period) {
             switch (period) {
             case 'd':

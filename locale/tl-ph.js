@@ -47,6 +47,7 @@
             y : 'isang taon',
             yy : '%d taon'
         },
+        ordinalParse: /\d{1,2}/,
         ordinal : function (number) {
             return number;
         },

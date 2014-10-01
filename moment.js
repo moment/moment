@@ -57,7 +57,6 @@
         parseTokenTimezone = /Z|[\+\-]\d\d:?\d\d/gi, // +00:00 -00:00 +0000 -0000 or Z
         parseTokenT = /T/i, // T (ISO separator)
         parseTokenTimestampMs = /[\+\-]?\d+(\.\d{1,3})?/, // 123456789 123456789.123
-        parseTokenOrdinal = /\d{1,2}/,
 
         //strict parsing regexes
         parseTokenOneDigit = /\d/, // 0 - 9
@@ -798,6 +797,9 @@
                     this['_' + i] = prop;
                 }
             }
+            // Lenient ordinal parsing accepts just a number in addition to
+            // number + (possibly) stuff coming from _ordinalParseLenient.
+            this._ordinalParseLenient = new RegExp(this._ordinalParse.source + '|' + /\d{1,2}/.source);
         },
 
         _months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
@@ -945,6 +947,7 @@
             return this._ordinal.replace('%d', number);
         },
         _ordinal : '%d',
+        _ordinalParse : /\d{1,2}/,
 
         preparse : function (string) {
             return string;
@@ -1120,7 +1123,7 @@
         case 'E':
             return parseTokenOneOrTwoDigits;
         case 'Do':
-            return parseTokenOrdinal;
+            return strict ? config._locale._ordinalParse : config._locale._ordinalParseLenient;
         default :
             a = new RegExp(regexpEscape(unescapeFormat(token.replace('\\', '')), 'i'));
             return a;
@@ -1174,7 +1177,8 @@
             break;
         case 'Do' :
             if (input != null) {
-                datePartArray[DATE] = toInt(parseInt(input, 10));
+                datePartArray[DATE] = toInt(parseInt(
+                            input.match(/\d{1,2}/)[0], 10));
             }
             break;
         // DAY OF YEAR
@@ -2804,6 +2808,7 @@
 
     // Set default locale, other locale will inherit from English.
     moment.locale('en', {
+        ordinalParse: /\d{1,2}(th|st|nd|rd)/,
         ordinal : function (number) {
             var b = number % 10,
                 output = (toInt(number % 100 / 10) === 1) ? 'th' :

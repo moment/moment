@@ -82,6 +82,7 @@
                 return symbolMap[match];
             });
         },*/
+        ordinalParse: /\d{1,2}வது/,
         ordinal : function (number) {
             return number + 'வது';
         },
