@@ -47,6 +47,7 @@
             y : 'un an',
             yy : '%d ans'
         },
+        ordinalParse: /\d{1,2}(er|)/,
         ordinal : function (number) {
             return number + (number === 1 ? 'er' : '');
         },

@@ -50,6 +50,7 @@
             y : 'пĕр çул',
             yy : '%d çул'
         },
+        ordinalParse: /\d{1,2}-мĕш/,
         ordinal : '%d-мĕш',
         week : {
             dow : 1, // Monday is the first day of the week.
