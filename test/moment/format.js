@@ -128,6 +128,18 @@ exports.format = {
         test.done();
     },
 
+    'unix offset milliseconds' :  function (test) {
+        test.expect(2);
+
+        var m = moment('1234567890123', 'x');
+        test.equals(m.format('x'), '1234567890123', 'unix offset in milliseconds');
+
+        m = moment(1234567890123, 'x');
+        test.equals(m.format('x'), '1234567890123', 'unix offset in milliseconds as integer');
+
+        test.done();
+    },
+
     'zone' : function (test) {
         test.expect(3);
 

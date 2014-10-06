@@ -44,7 +44,7 @@
         isoDurationRegex = /^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/,
 
         // format tokens
-        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|X|zz?|ZZ?|.)/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|x|X|zz?|ZZ?|.)/g,
         localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?|l{1,4})/g,
 
         // parsing token regexes
@@ -270,6 +270,9 @@
             },
             zz : function () {
                 return this.zoneName();
+            },
+            x    : function () {
+                return this.unixms();
             },
             X    : function () {
                 return this.unix();
@@ -1089,6 +1092,7 @@
         case 'a':
         case 'A':
             return config._locale._meridiemParse;
+        case 'x':
         case 'X':
             return parseTokenTimestampMs;
         case 'Z':
@@ -1226,6 +1230,10 @@
         case 'SSS' :
         case 'SSSS' :
             datePartArray[MILLISECOND] = toInt(('0.' + input) * 1000);
+            break;
+        // UNIX OFFSET (MILLISECONDS)
+        case 'x':
+            config._d = new Date(parseInt(input, 10));
             break;
         // UNIX TIMESTAMP WITH MS
         case 'X':
@@ -1840,6 +1848,11 @@
         return makeMoment(c).utc();
     };
 
+    // creating with unix offset (in milliseconds)
+    moment.unixms = function (input) {
+        return moment(input);
+    };
+
     // creating with unix timestamp (in seconds)
     moment.unix = function (input) {
         return moment(input * 1000);
@@ -2074,6 +2087,10 @@
 
         valueOf : function () {
             return +this._d + ((this._offset || 0) * 60000);
+        },
+
+        unixms: function () {
+            return +this;
         },
 
         unix : function () {
