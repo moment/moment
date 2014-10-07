@@ -58,8 +58,14 @@
             y : 'un any',
             yy : '%d anys'
         },
-        ordinalParse : /\d{1,2}º/,
-        ordinal : '%dº',
+        ordinalParse: /\d{1,2}(r|n|t|è)/,
+        ordinal : function (number) {
+            var output = (number === 1) ? 'r' :
+                (number === 2) ? 'n' :
+                (number === 3) ? 'r' :
+                (number === 4) ? 't' : 'è';
+            return number + output;
+        },
         week : {
             dow : 1, // Monday is the first day of the week.
             doy : 4  // The week that contains Jan 4th is the first week of the year.

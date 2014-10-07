@@ -73,40 +73,40 @@ exports['locale:ca'] = {
     },
 
     'format ordinal' : function (test) {
-        test.equal(moment([2011, 0, 1]).format('DDDo'), '1º', '1º');
-        test.equal(moment([2011, 0, 2]).format('DDDo'), '2º', '2º');
-        test.equal(moment([2011, 0, 3]).format('DDDo'), '3º', '3º');
-        test.equal(moment([2011, 0, 4]).format('DDDo'), '4º', '4º');
-        test.equal(moment([2011, 0, 5]).format('DDDo'), '5º', '5º');
-        test.equal(moment([2011, 0, 6]).format('DDDo'), '6º', '6º');
-        test.equal(moment([2011, 0, 7]).format('DDDo'), '7º', '7º');
-        test.equal(moment([2011, 0, 8]).format('DDDo'), '8º', '8º');
-        test.equal(moment([2011, 0, 9]).format('DDDo'), '9º', '9º');
-        test.equal(moment([2011, 0, 10]).format('DDDo'), '10º', '10º');
+        test.equal(moment([2011, 0, 1]).format('DDDo'), '1r', '1r');
+        test.equal(moment([2011, 0, 2]).format('DDDo'), '2n', '2n');
+        test.equal(moment([2011, 0, 3]).format('DDDo'), '3r', '3r');
+        test.equal(moment([2011, 0, 4]).format('DDDo'), '4t', '4t');
+        test.equal(moment([2011, 0, 5]).format('DDDo'), '5è', '5è');
+        test.equal(moment([2011, 0, 6]).format('DDDo'), '6è', '6è');
+        test.equal(moment([2011, 0, 7]).format('DDDo'), '7è', '7è');
+        test.equal(moment([2011, 0, 8]).format('DDDo'), '8è', '8è');
+        test.equal(moment([2011, 0, 9]).format('DDDo'), '9è', '9è');
+        test.equal(moment([2011, 0, 10]).format('DDDo'), '10è', '10è');
 
-        test.equal(moment([2011, 0, 11]).format('DDDo'), '11º', '11º');
-        test.equal(moment([2011, 0, 12]).format('DDDo'), '12º', '12º');
-        test.equal(moment([2011, 0, 13]).format('DDDo'), '13º', '13º');
-        test.equal(moment([2011, 0, 14]).format('DDDo'), '14º', '14º');
-        test.equal(moment([2011, 0, 15]).format('DDDo'), '15º', '15º');
-        test.equal(moment([2011, 0, 16]).format('DDDo'), '16º', '16º');
-        test.equal(moment([2011, 0, 17]).format('DDDo'), '17º', '17º');
-        test.equal(moment([2011, 0, 18]).format('DDDo'), '18º', '18º');
-        test.equal(moment([2011, 0, 19]).format('DDDo'), '19º', '19º');
-        test.equal(moment([2011, 0, 20]).format('DDDo'), '20º', '20º');
+        test.equal(moment([2011, 0, 11]).format('DDDo'), '11è', '11è');
+        test.equal(moment([2011, 0, 12]).format('DDDo'), '12è', '12è');
+        test.equal(moment([2011, 0, 13]).format('DDDo'), '13è', '13è');
+        test.equal(moment([2011, 0, 14]).format('DDDo'), '14è', '14è');
+        test.equal(moment([2011, 0, 15]).format('DDDo'), '15è', '15è');
+        test.equal(moment([2011, 0, 16]).format('DDDo'), '16è', '16è');
+        test.equal(moment([2011, 0, 17]).format('DDDo'), '17è', '17è');
+        test.equal(moment([2011, 0, 18]).format('DDDo'), '18è', '18è');
+        test.equal(moment([2011, 0, 19]).format('DDDo'), '19è', '19è');
+        test.equal(moment([2011, 0, 20]).format('DDDo'), '20è', '20è');
 
-        test.equal(moment([2011, 0, 21]).format('DDDo'), '21º', '21º');
-        test.equal(moment([2011, 0, 22]).format('DDDo'), '22º', '22º');
-        test.equal(moment([2011, 0, 23]).format('DDDo'), '23º', '23º');
-        test.equal(moment([2011, 0, 24]).format('DDDo'), '24º', '24º');
-        test.equal(moment([2011, 0, 25]).format('DDDo'), '25º', '25º');
-        test.equal(moment([2011, 0, 26]).format('DDDo'), '26º', '26º');
-        test.equal(moment([2011, 0, 27]).format('DDDo'), '27º', '27º');
-        test.equal(moment([2011, 0, 28]).format('DDDo'), '28º', '28º');
-        test.equal(moment([2011, 0, 29]).format('DDDo'), '29º', '29º');
-        test.equal(moment([2011, 0, 30]).format('DDDo'), '30º', '30º');
+        test.equal(moment([2011, 0, 21]).format('DDDo'), '21è', '21è');
+        test.equal(moment([2011, 0, 22]).format('DDDo'), '22è', '22è');
+        test.equal(moment([2011, 0, 23]).format('DDDo'), '23è', '23è');
+        test.equal(moment([2011, 0, 24]).format('DDDo'), '24è', '24è');
+        test.equal(moment([2011, 0, 25]).format('DDDo'), '25è', '25è');
+        test.equal(moment([2011, 0, 26]).format('DDDo'), '26è', '26è');
+        test.equal(moment([2011, 0, 27]).format('DDDo'), '27è', '27è');
+        test.equal(moment([2011, 0, 28]).format('DDDo'), '28è', '28è');
+        test.equal(moment([2011, 0, 29]).format('DDDo'), '29è', '29è');
+        test.equal(moment([2011, 0, 30]).format('DDDo'), '30è', '30è');
 
-        test.equal(moment([2011, 0, 31]).format('DDDo'), '31º', '31º');
+        test.equal(moment([2011, 0, 31]).format('DDDo'), '31è', '31è');
         test.done();
     },
 
@@ -310,11 +310,11 @@ exports['locale:ca'] = {
     },
 
     'weeks year starting sunday formatted' : function (test) {
-        test.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52º', 'Jan  1 2012 should be week 52');
-        test.equal(moment([2012, 0,  2]).format('w ww wo'),   '1 01 1º', 'Jan  2 2012 should be week 1');
-        test.equal(moment([2012, 0,  8]).format('w ww wo'),   '1 01 1º', 'Jan  8 2012 should be week 1');
-        test.equal(moment([2012, 0,  9]).format('w ww wo'),   '2 02 2º', 'Jan  9 2012 should be week 2');
-        test.equal(moment([2012, 0, 15]).format('w ww wo'),   '2 02 2º', 'Jan 15 2012 should be week 2');
+        test.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52è', 'Jan  1 2012 should be week 52');
+        test.equal(moment([2012, 0,  2]).format('w ww wo'),   '1 01 1r', 'Jan  2 2012 should be week 1');
+        test.equal(moment([2012, 0,  8]).format('w ww wo'),   '1 01 1r', 'Jan  8 2012 should be week 1');
+        test.equal(moment([2012, 0,  9]).format('w ww wo'),   '2 02 2n', 'Jan  9 2012 should be week 2');
+        test.equal(moment([2012, 0, 15]).format('w ww wo'),   '2 02 2n', 'Jan 15 2012 should be week 2');
 
         test.done();
     },
