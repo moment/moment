@@ -31,7 +31,8 @@ exports.parsingFlags = {
         test.equal(flags([2010, 1, 1, 8]).overflow, -1, 'hour valid');
         test.equal(flags([2010, 1, 1, 0]).overflow, -1, 'hour 0 valid');
         test.equal(flags([2010, 1, 1, -1]).overflow, 3, 'hour -1 invalid');
-        test.equal(flags([2010, 1, 1, 24]).overflow, 3, 'hour 24 invalid');
+        test.equal(flags([2010, 1, 1, 25, 01]).overflow, 3, 'hour 25 invalid');
+        test.equal(flags([2010, 1, 1, 24, 01]).overflow, 3, 'hour 24:01 invalid');
 
         //minutes
         test.equal(flags([2010, 1, 1, 8, 15]).overflow, -1, 'minute valid');
@@ -50,6 +51,12 @@ exports.parsingFlags = {
         test.equal(flags([2010, 1, 1, 8, 15, 12, 0]).overflow, -1, 'millisecond 0 valid');
         test.equal(flags([2010, 1, 1, 8, 15, 12, -1]).overflow, 6, 'millisecond -1 invalid');
         test.equal(flags([2010, 1, 1, 8, 15, 12, 1000]).overflow, 6, 'millisecond 1000 invalid');
+
+        // 24 hrs
+        test.equal(flags([2010, 1, 1, 24, 0, 0, 0]).overflow, -1, '24:00:00.000 is fine');
+        test.equal(flags([2010, 1, 1, 24, 1, 0, 0]).overflow, 3, '24:01:00.000 is wrong hour');
+        test.equal(flags([2010, 1, 1, 24, 0, 1, 0]).overflow, 3, '24:00:01.000 is wrong hour');
+        test.equal(flags([2010, 1, 1, 24, 0, 0, 1]).overflow, 3, '24:00:00.001 is wrong hour');
 
         test.done();
     },
@@ -77,7 +84,8 @@ exports.parsingFlags = {
         //hours
         test.equal(flags('08', 'HH').overflow, -1, 'hour valid');
         test.equal(flags('00', 'HH').overflow, -1, 'hour 0 valid');
-        test.equal(flags('24', 'HH').overflow, 3, 'hour 24 invalid');
+        test.equal(flags('25', 'HH').overflow, 3, 'hour 25 invalid');
+        test.equal(flags('24:01', 'HH:mm').overflow, 3, 'hour 24:01 invalid');
 
         //minutes
         test.equal(flags('08:15', 'HH:mm').overflow, -1, 'minute valid');
