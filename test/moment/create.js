@@ -303,6 +303,8 @@ exports.create = {
                 '2012-04-03 02:22:18.272', 'unix milliseconds format');
         test.equal(moment('1333444938272', 'x', true).format('YYYY-MM-DD HH:mm:ss.SSS'),
                 '2012-04-03 02:22:18.272', 'unix milliseconds strict format');
+        test.equal(moment(1333444938272, 'x', true).format('YYYY-MM-DD HH:mm:ss.SSS'),
+                '2012-04-03 02:22:18.272', 'unix milliseconds strict format');
         test.equal(moment('1333444938272.123', 'x', true).isValid(),
                 false, 'unix milliseconds invalid strict format');
         test.done();
