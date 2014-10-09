@@ -200,11 +200,9 @@ exports['locale:it'] = {
         var i, m, weekday, datestring;
         for (i = 2; i < 7; i++) {
             m = moment().subtract({d: i});
-            
              // Different date string
             weekday = parseInt(m.format('d'), 10);
             datestring = (weekday === 0) ? '[la scorsa] dddd [alle] LT' : '[lo scorso] dddd [alle] LT';
-            
             test.equal(m.calendar(), m.format(datestring), 'Today - ' + i + ' days current time');
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
             test.equal(m.calendar(), m.format(datestring), 'Today - ' + i + ' days beginning of day');
