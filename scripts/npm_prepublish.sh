@@ -18,31 +18,26 @@ if [ ! -f moment.js ]; then
 fi
 
 basename=$(basename $PWD)
+src=moment-npm-git
+dest=moment-npm
 
 cd ..
 
-rm -rf moment-npm
+rm -rf $src $dest
 
-git clone $basename moment-npm
+git clone $basename $src
+mkdir $dest
 
-cd moment-npm
-git checkout $tag
 
-rm -f **/.??*
-rm -rf node_modules
-rm -rf bower_components
-rm -rf scripts
-rm -r benchmarks
-rm -r test
-rm -r tasks
-rm Gruntfile.js
-rm CHANGELOG.md
-rm CONTRIBUTING.md
-rm composer.json
-rm component.json
-rm bower.json
-rm .jscs.json
-rm .travis.yml
-rm -rf .git
+cp $src/moment.js $dest
+cp $src/package.json $dest
+cp $src/README.md $dest
+cp $src/LICENSE $dest
+cp -r $src/locale $dest
+cp -r $src/min $dest
+cp $src/ender.js $dest
+cp $src/package.js $dest
 
-echo "Check out $PWD"
+rm -rf $src
+
+echo "Check out $dest"
