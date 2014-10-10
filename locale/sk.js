@@ -9,7 +9,7 @@
     } else if (typeof exports === 'object') {
         module.exports = factory(require('../moment')); // Node
     } else {
-        factory((typeof global !== undefined ? global : this).moment); // Browser global
+        factory((typeof global !== undefined ? global : this).moment); // node or other global
     }
 }(function (moment) {
     var months = 'január_február_marec_apríl_máj_jún_júl_august_september_október_november_december'.split('_'),
