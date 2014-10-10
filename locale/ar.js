@@ -10,7 +10,7 @@
     } else if (typeof exports === 'object') {
         module.exports = factory(require('../moment')); // Node
     } else {
-        factory(window.moment); // Browser global
+        factory((typeof global !== undefined ? global : this).moment); // Browser global
     }
 }(function (moment) {
     var symbolMap = {
