@@ -1,6 +1,7 @@
 // moment.js locale configuration
 // locale : Persian (fa)
 // author : Ebrahim Byagowi : https://github.com/ebraminio
+// editor : Mohammad Reza Safari : https://github.com/rSafari
 
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
@@ -36,8 +37,8 @@
     };
 
     return moment.defineLocale('fa', {
-        months : 'ژانویه_فوریه_مارس_آوریل_مه_ژوئن_ژوئیه_اوت_سپتامبر_اکتبر_نوامبر_دسامبر'.split('_'),
-        monthsShort : 'ژانویه_فوریه_مارس_آوریل_مه_ژوئن_ژوئیه_اوت_سپتامبر_اکتبر_نوامبر_دسامبر'.split('_'),
+        months : 'دی_بهمن_اسفند_فرودین_اردیبهشت_خرداد_تیر_مرداد_شهریور_مهر_آبان_آذر'.split('_'),
+        monthsShort : 'دی_بهمن_اسفند_فرودین_اردیبهشت_خرداد_تیر_مرداد_شهریور_مهر_آبان_آذر'.split('_'),
         weekdays : 'یک\u200cشنبه_دوشنبه_سه\u200cشنبه_چهارشنبه_پنج\u200cشنبه_جمعه_شنبه'.split('_'),
         weekdaysShort : 'یک\u200cشنبه_دوشنبه_سه\u200cشنبه_چهارشنبه_پنج\u200cشنبه_جمعه_شنبه'.split('_'),
         weekdaysMin : 'ی_د_س_چ_پ_ج_ش'.split('_'),
