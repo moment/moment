@@ -57,12 +57,15 @@
             y : 'un any',
             yy : '%d anys'
         },
-        ordinalParse: /\d{1,2}(r|n|t|è)/,
-        ordinal : function (number) {
+        ordinalParse: /\d{1,2}(r|n|t|è|a)/,
+        ordinal : function (number, period) {
             var output = (number === 1) ? 'r' :
                 (number === 2) ? 'n' :
                 (number === 3) ? 'r' :
                 (number === 4) ? 't' : 'è';
+            if (period === 'w' || period === 'W') {
+                output = 'a';
+            }
             return number + output;
         },
         week : {
