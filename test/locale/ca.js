@@ -310,11 +310,11 @@ exports['locale:ca'] = {
     },
 
     'weeks year starting sunday formatted' : function (test) {
-        test.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52è', 'Jan  1 2012 should be week 52');
-        test.equal(moment([2012, 0,  2]).format('w ww wo'),   '1 01 1r', 'Jan  2 2012 should be week 1');
-        test.equal(moment([2012, 0,  8]).format('w ww wo'),   '1 01 1r', 'Jan  8 2012 should be week 1');
-        test.equal(moment([2012, 0,  9]).format('w ww wo'),   '2 02 2n', 'Jan  9 2012 should be week 2');
-        test.equal(moment([2012, 0, 15]).format('w ww wo'),   '2 02 2n', 'Jan 15 2012 should be week 2');
+        test.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52a', 'Jan  1 2012 should be week 52');
+        test.equal(moment([2012, 0,  2]).format('w ww wo'),   '1 01 1a', 'Jan  2 2012 should be week 1');
+        test.equal(moment([2012, 0,  8]).format('w ww wo'),   '1 01 1a', 'Jan  8 2012 should be week 1');
+        test.equal(moment([2012, 0,  9]).format('w ww wo'),   '2 02 2a', 'Jan  9 2012 should be week 2');
+        test.equal(moment([2012, 0, 15]).format('w ww wo'),   '2 02 2a', 'Jan 15 2012 should be week 2');
 
         test.done();
     },
