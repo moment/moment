@@ -11,7 +11,7 @@ module.exports = function (grunt) {
     else if (embedOption) {
         embedLocaleSrc = 'locale/' + embedOption + '.js';
     }
-
+    require('load-grunt-tasks')(grunt);
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         concat : {
@@ -195,6 +195,14 @@ module.exports = function (grunt) {
             all: {
                 src: ['benchmarks/*.js']
             }
+        },
+        shell: {
+            multiple: {
+                command: [
+                    'npm link',
+                    'npm link moment'
+                ].join('&&')
+            }
         }
     });
 
@@ -204,11 +212,11 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
     // Default task.
-    grunt.registerTask('default', ['jshint', 'jscs', 'nodeunit']);
+    grunt.registerTask('default', ['jshint', 'jscs', 'shell', 'nodeunit']);
 
     // test tasks
     grunt.registerTask('test', ['test:node', 'test:browser']);
-    grunt.registerTask('test:node', ['nodeunit']);
+    grunt.registerTask('test:node', ['shell', 'nodeunit']);
     grunt.registerTask('test:server', ['concat', 'embedLocales', 'karma:server']);
     grunt.registerTask('test:browser', ['concat', 'embedLocales', 'karma:chrome', 'karma:firefox']);
     grunt.registerTask('test:sauce-browser', ['concat', 'embedLocales', 'env:sauceLabs', 'karma:sauce']);
@@ -224,7 +232,7 @@ module.exports = function (grunt) {
 
     // Task to be run when releasing a new version
     grunt.registerTask('release', [
-        'jshint', 'nodeunit', 'concat', 'embedLocales',
+        'jshint', 'shell', 'nodeunit', 'concat', 'embedLocales',
         'component', 'uglify:main'
     ]);
 };
