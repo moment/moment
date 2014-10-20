@@ -77,10 +77,11 @@
             y: 'бір жыл',
             yy: '%d жыл'
         },
-        ordinal: function(number) {
+        ordinal: function (number) {
             if (number === 0) { // special case for zero
                 return number + '\'шы';
             }
+
             var a = number % 10,
                 b = number % 100 - a,
                 c = number >= 100 ? 100 : null;
@@ -91,5 +92,6 @@
             dow: 1, // Monday is the first day of the week.
             doy: 7 // The week that contains Jan 1st is the first week of the year.
         }
-    });
+
+    })
 }));
