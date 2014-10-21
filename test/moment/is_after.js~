@@ -49,22 +49,6 @@ exports.isAfter = {
         test.equal(+m, +mCopy, 'isAfter year should not change moment');
         test.done();
     },
-    'is after semester' : function (test) {
-        test.expect(10);
-
-        var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
-        test.equal(m.isAfter(moment(new Date(2011, 5, 6, 7, 8, 9, 10)), 'semester'), false, 'semester match');
-        test.equal(m.isAfter(moment(new Date(2012, 5, 6, 7, 8, 9, 10)), 'semester'), false, 'semester is later');
-        test.equal(m.isAfter(moment(new Date(2010, 5, 6, 7, 8, 9, 10)), 'semester'), true, 'semester is earlier');
-        test.equal(m.isAfter(moment(new Date(2011, 0, 1, 0, 0, 0, 0)), 'semester'), false, 'exact start of semester');
-        test.equal(m.isAfter(moment(new Date(2011, 5, 30, 23, 59, 59, 999)), 'semester'), false, 'exact end of semester');
-        test.equal(m.isAfter(moment(new Date(2011, 6, 1, 0, 0, 0, 0)), 'semester'), false, 'start of next semester');
-        test.equal(m.isAfter(moment(new Date(2010, 11, 31, 23, 59, 59, 999)), 'semester'), true, 'end of previous semester');
-        test.equal(m.isAfter(moment(new Date(1980, 11, 31, 23, 59, 59, 999)), 'semester'), true, 'end of year far semester');
-        test.equal(m.isAfter(m, 'semester'), false, 'same moments are not after the same semester');
-        test.equal(+m, +mCopy, 'isAfter semester should not change moment');
-        test.done();
-    },
 
     'is after month' : function (test) {
         test.expect(13);

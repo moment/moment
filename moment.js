@@ -114,6 +114,7 @@
             W : 'isoWeek',
             M : 'month',
             Q : 'quarter',
+            S : 'semester',
             y : 'year',
             DDD : 'dayOfYear',
             e : 'weekday',
@@ -2242,6 +2243,7 @@
             case 'year':
                 this.month(0);
                 /* falls through */
+            case 'semester':
             case 'quarter':
             case 'month':
                 this.date(1);
@@ -2272,6 +2274,10 @@
             // quarters are also special
             if (units === 'quarter') {
                 this.month(Math.floor(this.month() / 3) * 3);
+            }
+            // semester are also special
+            if (units === 'semester') {
+                this.month(Math.floor(this.month() / 6) * 6);
             }
 
             return this;
