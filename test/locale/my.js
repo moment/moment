@@ -69,7 +69,7 @@ exports['locale:my'] = {
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
-        test.expect( a.length );
+        test.expect(a.length);
         for (i = 0; i < a.length; i++) {
             test.equal(b.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
         }
