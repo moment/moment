@@ -44,6 +44,7 @@
         weekdaysMin : 'Bz_BE_ÇA_Çə_CA_Cü_Şə'.split('_'),
         longDateFormat : {
             LT : 'HH:mm',
+            LTS : 'LT:ss',
             L : 'DD.MM.YYYY',
             LL : 'D MMMM YYYY',
             LLL : 'D MMMM YYYY LT',

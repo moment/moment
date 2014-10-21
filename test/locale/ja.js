@@ -54,6 +54,7 @@ exports['locale:ja'] = {
                 ['s ss',                               '50 50'],
                 ['a A',                                '午後 午後'],
                 ['[the] DDDo [day of the year]',       'the 45 day of the year'],
+                ['LTS',                                '午後3時25分50秒'],
                 ['L',                                  '2010/02/14'],
                 ['LL',                                 '2010年2月14日'],
                 ['LLL',                                '2010年2月14日午後3時25分'],

@@ -55,6 +55,7 @@ exports['locale:tl-ph'] = {
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
                 ['[the] DDDo [day of the year]',       'the 45 day of the year'],
+                ['LTS',                                '15:25:50'],
                 ['L',                                  '02/14/2010'],
                 ['LL',                                 'Pebrero 14, 2010'],
                 ['LLL',                                'Pebrero 14, 2010 15:25'],

@@ -21,6 +21,7 @@
         weekdaysMin : 'א_ב_ג_ד_ה_ו_ש'.split('_'),
         longDateFormat : {
             LT : 'HH:mm',
+            LTS : 'LT:ss',
             L : 'DD/MM/YYYY',
             LL : 'D [ב]MMMM YYYY',
             LLL : 'D [ב]MMMM YYYY LT',

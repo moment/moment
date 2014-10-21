@@ -52,6 +52,7 @@ exports['locale:hu'] = {
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['[az év] DDDo [napja]',               'az év 45. napja'],
+                ['LTS',                                '15:25:50'],
                 ['L',                                  '2010.02.14.'],
                 ['LL',                                 '2010. február 14.'],
                 ['LLL',                                '2010. február 14., 15:25'],

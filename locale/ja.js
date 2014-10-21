@@ -19,6 +19,7 @@
         weekdaysMin : '日_月_火_水_木_金_土'.split('_'),
         longDateFormat : {
             LT : 'Ah時m分',
+            LTS : 'LTs秒',
             L : 'YYYY/MM/DD',
             LL : 'YYYY年M月D日',
             LLL : 'YYYY年M月D日LT',

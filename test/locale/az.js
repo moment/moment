@@ -56,6 +56,8 @@ exports['locale:az'] = {
                 ['s ss',                               '50 50'],
                 ['a A',                                'gündüz gündüz'],
                 ['[ilin] DDDo [günü]',                 'ilin 45-inci günü'],
+                ['LT',                                 '15:25'],
+                ['LTS',                                '15:25:50'],
                 ['L',                                  '14.02.2010'],
                 ['LL',                                 '14 fevral 2010'],
                 ['LLL',                                '14 fevral 2010 15:25'],

@@ -42,7 +42,6 @@ exports['locale:my'] = {
     },
 
     'format': function (test) {
-        test.expect(22);
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a', 'တနင်္ဂနွေ, ဖေဖော်ဝါရီ ၁၄ ၂၀၁၀, ၃:၂၅:၅၀ pm'],
                 ['ddd, hA', 'နွေ, ၃PM'],
@@ -58,6 +57,7 @@ exports['locale:my'] = {
                 ['s ss', '၅၀ ၅၀'],
                 ['a A', 'pm PM'],
                 ['[နှစ်၏] DDDo [ရက်မြောက်]', 'နှစ်၏ ၄၅ ရက်မြောက်'],
+                ['LTS', '၁၅:၂၅:၅၀'],
                 ['L', '၁၄/၀၂/၂၀၁၀'],
                 ['LL', '၁၄ ဖေဖော်ဝါရီ ၂၀၁၀'],
                 ['LLL', '၁၄ ဖေဖော်ဝါရီ ၂၀၁၀ ၁၅:၂၅'],
@@ -69,6 +69,7 @@ exports['locale:my'] = {
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
+        test.expect( a.length );
         for (i = 0; i < a.length; i++) {
             test.equal(b.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
         }

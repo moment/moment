@@ -54,6 +54,7 @@ exports['locale:lt'] = {
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
                 ['DDDo [metų diena]',                  '45-oji metų diena'],
+                ['LTS',                                '15:25:50'],
                 ['L',                                  '2010-02-14'],
                 ['LL',                                 '2010 m. vasario 14 d.'],
                 ['LLL',                                '2010 m. vasario 14 d., 15:25 val.'],

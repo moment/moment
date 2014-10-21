@@ -19,6 +19,7 @@
         weekdaysMin : 'อา._จ._อ._พ._พฤ._ศ._ส.'.split('_'),
         longDateFormat : {
             LT : 'H นาฬิกา m นาที',
+            LTS : 'LT s วินาที',
             L : 'YYYY/MM/DD',
             LL : 'D MMMM YYYY',
             LLL : 'D MMMM YYYY เวลา LT',

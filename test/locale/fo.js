@@ -54,6 +54,7 @@ exports['locale:fo'] = {
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
                 ['[tann] DDDo [dagin á árinum]',       'tann 45. dagin á árinum'],
+                ['LTS',                                '15:25:50'],
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 februar 2010'],
                 ['LLL',                                '14 februar 2010 15:25'],
