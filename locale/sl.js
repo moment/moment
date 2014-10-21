@@ -80,6 +80,7 @@
         weekdaysMin : 'ne_po_to_sr_če_pe_so'.split('_'),
         longDateFormat : {
             LT : 'H:mm',
+            LTS : 'LT:ss',
             L : 'DD. MM. YYYY',
             LL : 'D. MMMM YYYY',
             LLL : 'D. MMMM YYYY LT',

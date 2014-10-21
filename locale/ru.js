@@ -81,6 +81,7 @@
         monthsParse : [/^янв/i, /^фев/i, /^мар/i, /^апр/i, /^ма[й|я]/i, /^июн/i, /^июл/i, /^авг/i, /^сен/i, /^окт/i, /^ноя/i, /^дек/i],
         longDateFormat : {
             LT : 'HH:mm',
+            LTS : 'LT:ss',
             L : 'DD.MM.YYYY',
             LL : 'D MMMM YYYY г.',
             LLL : 'D MMMM YYYY г., LT',

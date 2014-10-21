@@ -57,6 +57,7 @@ exports['locale:pt-br'] = {
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
                 ['[the] DDDo [day of the year]',       'the 45º day of the year'],
+                ['LTS',                                '15:25:50'],
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 de fevereiro de 2010'],
                 ['LLL',                                '14 de fevereiro de 2010 às 15:25'],

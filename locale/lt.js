@@ -75,6 +75,7 @@
         weekdaysMin : 'S_P_A_T_K_Pn_Š'.split('_'),
         longDateFormat : {
             LT : 'HH:mm',
+            LTS : 'LT:ss',
             L : 'YYYY-MM-DD',
             LL : 'YYYY [m.] MMMM D [d.]',
             LLL : 'YYYY [m.] MMMM D [d.], LT [val.]',

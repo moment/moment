@@ -19,6 +19,7 @@
         weekdaysMin : 'dom_2ª_3ª_4ª_5ª_6ª_sáb'.split('_'),
         longDateFormat : {
             LT : 'HH:mm',
+            LTS : 'LT:ss',
             L : 'DD/MM/YYYY',
             LL : 'D [de] MMMM [de] YYYY',
             LLL : 'D [de] MMMM [de] YYYY LT',
