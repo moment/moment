@@ -424,5 +424,14 @@ exports.endStartOf = {
         moment.updateOffset = oldUpdateOffset;
 
         test.done();
+    },
+
+    'endOf millisecond and no-arg' : function (test) {
+        var m = moment();
+        test.equal(+m, +m.clone().endOf(), 'endOf without argument should change time');
+        test.equal(+m, +m.clone().endOf('ms'), 'endOf with ms argument should change time');
+        test.equal(+m, +m.clone().endOf('millisecond'), 'endOf with millisecond argument should change time');
+        test.equal(+m, +m.clone().endOf('milliseconds'), 'endOf with milliseconds argument should change time');
+        test.done();
     }
 };
