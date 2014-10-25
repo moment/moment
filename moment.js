@@ -2555,7 +2555,7 @@
         },
 
         lang : deprecate(
-            'moment().lang() is deprecated. Use moment().localeData() instead.',
+            'moment().lang() is deprecated. Instead, use moment().localeData() to get the language configuration. Use moment().locale() to change languages.',
             function (key) {
                 if (key === undefined) {
                     return this.localeData();
