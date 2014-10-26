@@ -32,6 +32,15 @@ function dstForYear(year) {
     }
 }
 
+function forEachMonthPair(callback) {
+    var m1, m2;
+    for (m1 = 0; m1 < 12; ++m1) {
+        for (m2 = m1; m2 < 12; ++m2) {
+            callback(m1, m2);
+        }
+    }
+}
+
 exports.diff = {
     setUp : function (done) {
         moment.createFromInputFallback = function () {
@@ -227,16 +236,20 @@ exports.diff = {
     },
 
     'exact month diffs' : function (test) {
-        // generate all pairs of months and compute month diff, with fixed day
-        // of month = 15.
+        forEachMonthPair(function (m1, m2) {
+            test.equal(moment([2013, m2, 15]).diff(moment([2013, m1, 15]), 'months', true), m2 - m1,
+                    'month diff from 2013-' + m1 + '-15 to 2013-' + m2 + '-15');
+        });
 
-        var m1, m2;
-        for (m1 = 0; m1 < 12; ++m1) {
-            for (m2 = m1; m2 < 12; ++m2) {
-                test.equal(moment([2013, m2, 15]).diff(moment([2013, m1, 15]), 'months', true), m2 - m1,
-                        'month diff from 2013-' + m1 + '-15 to 2013-' + m2 + '-15');
-            }
-        }
+        test.done();
+    },
+
+    'quarter diffs' : function (test) {
+        forEachMonthPair(function (m1, m2) {
+            test.equal(moment([2013, m2, 15]).diff(moment([2013, m1, 15]), 'quarter'), Math.floor((m2 - m1) / 4),
+                    'quarter diff from 2013-' + m1 + '-15 to 2013-' + m2 + '-15');
+        });
+
         test.done();
     },
 
