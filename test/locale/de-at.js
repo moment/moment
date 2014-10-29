@@ -62,12 +62,12 @@ exports['locale:de-at'] = {
                 ['[the] DDDo [day of the year]', 'the 45. day of the year'],
                 ['L', '14.02.2010'],
                 ['LL', '14. Februar 2010'],
-                ['LLL', '14. Februar 2010 15:25 Uhr'],
-                ['LLLL', 'Sonntag, 14. Februar 2010 15:25 Uhr'],
+                ['LLL', '14. Februar 2010 15:25'],
+                ['LLLL', 'Sonntag, 14. Februar 2010 15:25'],
                 ['l', '14.2.2010'],
                 ['ll', '14. Febr. 2010'],
-                ['lll', '14. Febr. 2010 15:25 Uhr'],
-                ['llll', 'So., 14. Febr. 2010 15:25 Uhr']
+                ['lll', '14. Febr. 2010 15:25'],
+                ['llll', 'So., 14. Febr. 2010 15:25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -203,11 +203,11 @@ exports['locale:de-at'] = {
         var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({d: i});
-            test.equal(m.calendar(), m.format('dddd [um] LT'), 'Today + ' + i + ' days current time');
+            test.equal(m.calendar(), m.format('dddd [um] LT [Uhr]'), 'Today + ' + i + ' days current time');
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(), m.format('dddd [um] LT'), 'Today + ' + i + ' days beginning of day');
+            test.equal(m.calendar(), m.format('dddd [um] LT [Uhr]'), 'Today + ' + i + ' days beginning of day');
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(), m.format('dddd [um] LT'), 'Today + ' + i + ' days end of day');
+            test.equal(m.calendar(), m.format('dddd [um] LT [Uhr]'), 'Today + ' + i + ' days end of day');
         }
         test.done();
     },
@@ -218,11 +218,11 @@ exports['locale:de-at'] = {
         var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().subtract({d: i});
-            test.equal(m.calendar(), m.format('[letzten] dddd [um] LT'), 'Today + ' + i + ' days current time');
+            test.equal(m.calendar(), m.format('[letzten] dddd [um] LT [Uhr]'), 'Today + ' + i + ' days current time');
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(), m.format('[letzten] dddd [um] LT'), 'Today + ' + i + ' days beginning of day');
+            test.equal(m.calendar(), m.format('[letzten] dddd [um] LT [Uhr]'), 'Today + ' + i + ' days beginning of day');
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(), m.format('[letzten] dddd [um] LT'), 'Today + ' + i + ' days end of day');
+            test.equal(m.calendar(), m.format('[letzten] dddd [um] LT [Uhr]'), 'Today + ' + i + ' days end of day');
         }
         test.done();
     },
