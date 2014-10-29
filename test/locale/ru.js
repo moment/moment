@@ -20,7 +20,7 @@ exports['locale:ru'] = {
     },
 
     'parse' : function (test) {
-        var tests = 'январь янв_февраль фев_март мар_апрель апр_май май_июнь июнь_июль июль_август авг_сентябрь сен_октябрь окт_ноябрь ноя_декабрь дек'.split('_'), i;
+        var tests = 'январь янв_февраль фев_март март_апрель апр_май май_июнь июнь_июль июль_август авг_сентябрь сен_октябрь окт_ноябрь ноя_декабрь дек'.split('_'), i;
         function equalTest(input, mmm, i) {
             test.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -128,7 +128,7 @@ exports['locale:ru'] = {
     },
 
     'format month' : function (test) {
-        var expected = 'январь янв_февраль фев_март мар_апрель апр_май май_июнь июнь_июль июль_август авг_сентябрь сен_октябрь окт_ноябрь ноя_декабрь дек'.split('_'), i;
+        var expected = 'январь янв_февраль фев_март март_апрель апр_май май_июнь июнь_июль июль_август авг_сентябрь сен_октябрь окт_ноябрь ноя_декабрь дек'.split('_'), i;
         for (i = 0; i < expected.length; i++) {
             test.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -149,7 +149,7 @@ exports['locale:ru'] = {
 
     'format month short case' : function (test) {
         var monthsShort = {
-            'nominative': 'янв_фев_мар_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split('_'),
+            'nominative': 'янв_фев_март_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split('_'),
             'accusative': 'янв_фев_мар_апр_мая_июня_июля_авг_сен_окт_ноя_дек'.split('_')
         }, i;
         for (i = 0; i < 12; i++) {
@@ -175,7 +175,7 @@ exports['locale:ru'] = {
 
     'format month short case with escaped symbols' : function (test) {
         var monthsShort = {
-            'nominative': 'янв_фев_мар_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split('_'),
+            'nominative': 'янв_фев_март_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split('_'),
             'accusative': 'янв_фев_мар_апр_мая_июня_июля_авг_сен_окт_ноя_дек'.split('_')
         }, i;
         for (i = 0; i < 12; i++) {
