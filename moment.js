@@ -472,9 +472,6 @@
         if (typeof from._locale !== 'undefined') {
             to._locale = from._locale;
         }
-        if (typeof from._zn !== 'undefined') {
-            to._zn = from._zn;
-        }
 
         if (momentProperties.length > 0) {
             for (i in momentProperties) {
@@ -1740,8 +1737,6 @@
         if (typeof input === 'string') {
             config._i = input = config._locale.preparse(input);
         }
-
-        config._zn = config._zn || moment._zn || null;
 
         if (moment.isMoment(input)) {
             return new Moment(input, true);
