@@ -397,6 +397,30 @@ exports.duration = {
         test.done();
     },
 
+    'preciseHumanize' : function (test) {
+        test.expect(9);
+        moment.locale('en');
+        test.equal(moment.duration({seconds: 1}).preciseHumanize(),   'a few seconds',          '1 seconds = a few seconds');
+        test.equal(moment.duration({seconds: 89}).preciseHumanize(),  'a minute a few seconds', '89 seconds = a minute a few seconds');
+        test.equal(moment.duration({seconds: 180}).preciseHumanize(), '3 minutes',              '180 seconds = 3 minutes');
+        test.equal(moment.duration({minutes: 98}).preciseHumanize(),  'an hour 38 minutes',     '98 minutes = an hour 38 minutes');
+        test.equal(moment.duration({hours: 50}).preciseHumanize(),    '2 days 2 hours',         '50 hours = 2 days 2 hours');
+        test.equal(moment.duration({days: 31}).preciseHumanize(),     'a month a day',          '31 days = a month a day');
+        test.equal(moment.duration({weeks: 5}).preciseHumanize(),     'a month 5 days',         '5 weeks = a month 5 days');
+        test.equal(moment.duration({months: 18}).preciseHumanize(),   'a year 6 months',        '18 months = a year 6 months');
+        test.equal(moment.duration({milliseconds: 34218070000}).preciseHumanize(), 'a year a month a day an hour a minute a few seconds',  '34218070000 milliseconds = a year a month a day an hour a minute a few seconds');
+        // 34218070000 = ((((365+30+1)*24 + 1)*60 + 1)*60 + 10)*1E3
+        test.done();
+    },
+
+    'preciseHumanize duration with suffix' : function (test) {
+        test.expect(2);
+        moment.locale('en');
+        test.equal(moment.duration({minutes:  89}).preciseHumanize(true),  'in an hour 29 minutes',  '89 seconds = in an hour 29 minutes');
+        test.equal(moment.duration({minutes: -89}).preciseHumanize(true),  'an hour 29 minutes ago', '-89 seconds = an hour 29 minutes ago');
+        test.done();
+    },
+
     'bubble value up' : function (test) {
         test.expect(5);
         test.equal(moment.duration({milliseconds: 61001}).milliseconds(), 1, '61001 milliseconds has 1 millisecond left over');
