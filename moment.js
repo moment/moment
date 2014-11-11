@@ -2666,6 +2666,40 @@
             return this.localeData().postformat(output);
         },
 
+        preciseHumanize : function (withSuffix) {
+            var isFuture = this._milliseconds < 0,
+                duration = this.abs()._data,
+                locale = this.localeData(),
+                addRelative = function (number, string) {
+                    if (number === 0) {
+                        return;
+                    }
+                    output.push(locale.relativeTime(
+                        number,
+                        !withSuffix,
+                        number > 1 ? (string + string) : string,
+                        isFuture
+                    ));
+                },
+                output = [];
+
+            addRelative(duration.years, 'y');
+            addRelative(duration.months, 'M');
+            addRelative(duration.days, 'd');
+            addRelative(duration.hours, 'h');
+            addRelative(duration.minutes, 'm');
+            if (duration.seconds > 0) {
+                output.push(locale.relativeTime(duration.seconds, !withSuffix, 's', isFuture));
+            }
+            output = output.join(' ');
+
+            if (withSuffix) {
+                output = this.localeData().pastFuture(isFuture ? -1 : 1, output);
+            }
+
+            return this.localeData().postformat(output);
+        },
+
         add : function (input, val) {
             // supports only 2.0-style add(1, 's') or add(moment)
             var dur = moment.duration(input, val);
