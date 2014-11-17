@@ -146,6 +146,14 @@ exports.create = {
         test.done();
     },
 
+    'iso format 24hrs' : function (test) {
+        test.equal(moment('2014-01-01T24:00:00.000').format('YYYY-MM-DD[T]HH:mm:ss.SSS'),
+                '2014-01-02T00:00:00.000', 'iso format with 24:00 localtime');
+        test.equal(moment.utc('2014-01-01T24:00:00.000').format('YYYY-MM-DD[T]HH:mm:ss.SSS'),
+                '2014-01-02T00:00:00.000', 'iso format with 24:00 utc');
+        test.done();
+    },
+
     'string without format - json' : function (test) {
         test.expect(5);
         test.equal(moment('Date(1325132654000)').valueOf(), 1325132654000, 'Date(1325132654000)');
