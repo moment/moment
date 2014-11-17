@@ -294,16 +294,15 @@ exports['locale:ru'] = {
 
         function makeFormatThis(d) {
             switch (d.day()) {
-            case 0:
-                return '[В это] dddd [в] LT';
-            case 1:
             case 2:
-            case 4:
-                return '[В этот] dddd [в] LT';
+                return '[Во] dddd [в] LT';
+            case 0:
+            case 1:
             case 3:
+            case 4:
             case 5:
             case 6:
-                return '[В эту] dddd [в] LT';
+                return '[В] dddd [в] LT';
             }
         }
 
