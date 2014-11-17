@@ -177,53 +177,53 @@ exports['locale:el'] = {
     'from' : function (test) {
         var start = moment([2007, 1, 28]);
 
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'δευτερόλεπτα',   '44 seconds = a few seconds');
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'ένα λεπτό',      '45 seconds = a minute');
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'ένα λεπτό',      '89 seconds = a minute');
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '2 λεπτά',        '90 seconds = 2 minutes');
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  '44 λεπτά',       '44 minutes = 44 minutes');
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  'μία ώρα',        '45 minutes = an hour');
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  'μία ώρα',        '89 minutes = an hour');
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  '2 ώρες',         '90 minutes = 2 hours');
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   '5 ώρες',         '5 hours = 5 hours');
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  '21 ώρες',        '21 hours = 21 hours');
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  'μία μέρα',       '22 hours = a day');
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  'μία μέρα',       '35 hours = a day');
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  '2 μέρες',        '36 hours = 2 days');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   'μία μέρα',       '1 day = a day');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   '5 μέρες',        '5 days = 5 days');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  '25 μέρες',       '25 days = 25 days');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  'ένας μήνας',     '26 days = a month');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  'ένας μήνας',     '30 days = a month');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  'ένας μήνας',     '43 days = a month');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  '2 μήνες',        '46 days = 2 months');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  '2 μήνες',        '75 days = 2 months');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  '3 μήνες',        '76 days = 3 months');
-        test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   'ένας μήνας',     '1 month = a month');
-        test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   '5 μήνες',        '5 months = 5 months');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'ένας χρόνος',    '345 days = a year');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), '2 χρόνια',       '548 days = 2 years');
-        test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'ένας χρόνος',    '1 year = a year');
-        test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5 χρόνια',       '5 years = 5 years');
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'λίγα δευτερόλεπτα',   '44 seconds = a few seconds');
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'ένα λεπτό',           '45 seconds = a minute');
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'ένα λεπτό',           '89 seconds = a minute');
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '2 λεπτά',             '90 seconds = 2 minutes');
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  '44 λεπτά',            '44 minutes = 44 minutes');
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  'μία ώρα',             '45 minutes = an hour');
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  'μία ώρα',             '89 minutes = an hour');
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  '2 ώρες',              '90 minutes = 2 hours');
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   '5 ώρες',              '5 hours = 5 hours');
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  '21 ώρες',             '21 hours = 21 hours');
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  'μία μέρα',            '22 hours = a day');
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  'μία μέρα',            '35 hours = a day');
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  '2 μέρες',             '36 hours = 2 days');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   'μία μέρα',            '1 day = a day');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   '5 μέρες',             '5 days = 5 days');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  '25 μέρες',            '25 days = 25 days');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  'ένας μήνας',          '26 days = a month');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  'ένας μήνας',          '30 days = a month');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  'ένας μήνας',          '43 days = a month');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  '2 μήνες',             '46 days = 2 months');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  '2 μήνες',             '75 days = 2 months');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  '3 μήνες',             '76 days = 3 months');
+        test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   'ένας μήνας',          '1 month = a month');
+        test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   '5 μήνες',             '5 months = 5 months');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'ένας χρόνος',         '345 days = a year');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), '2 χρόνια',            '548 days = 2 years');
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'ένας χρόνος',         '1 year = a year');
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5 χρόνια',            '5 years = 5 years');
 
         test.done();
     },
 
     'suffix' : function (test) {
-        test.equal(moment(30000).from(0), 'σε δευτερόλεπτα',  'prefix');
-        test.equal(moment(0).from(30000), 'δευτερόλεπτα πριν', 'suffix');
+        test.equal(moment(30000).from(0), 'σε λίγα δευτερόλεπτα',  'prefix');
+        test.equal(moment(0).from(30000), 'λίγα δευτερόλεπτα πριν', 'suffix');
 
         test.done();
     },
 
     'now from now' : function (test) {
-        test.equal(moment().fromNow(), 'δευτερόλεπτα πριν',  'now from now should display as in the past');
+        test.equal(moment().fromNow(), 'λίγα δευτερόλεπτα πριν',  'now from now should display as in the past');
 
         test.done();
     },
 
     'fromNow' : function (test) {
-        test.equal(moment().add({s: 30}).fromNow(), 'σε δευτερόλεπτα', 'in a few seconds');
+        test.equal(moment().add({s: 30}).fromNow(), 'σε λίγα δευτερόλεπτα', 'in a few seconds');
         test.equal(moment().add({d: 5}).fromNow(), 'σε 5 μέρες', 'in 5 days');
 
         test.done();
