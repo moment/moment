@@ -446,70 +446,109 @@ exports.duration = {
     },
 
     'asGetters' : function (test) {
-        var d = moment.duration({
-            years: 2,
-            months: 3,
-            weeks: 2,
-            days: 1,
-            hours: 8,
-            minutes: 9,
-            seconds: 20,
-            milliseconds: 12
-        });
+        // 400 years have exactly 146097 days
+        test.expect(84);
 
-        test.expect(8);
-        // These are of course very fragile. Their existence merely hints that
-        // changing the way 'as' works changes the output.
-        test.equal(d.asYears().toFixed(2),          '2.29', 'years');
-        test.equal(d.asMonths().toFixed(2),        '27.50', 'months');
-        test.equal(d.asWeeks().toFixed(2),        '119.59', 'weeks');
-        test.equal(d.asDays().toFixed(2),         '837.14', 'days');
-        test.equal(d.asHours().toFixed(2),      '20091.25', 'hours');
-        test.equal(d.asMinutes().toFixed(2),  '1205475.03', 'minutes');
-        test.equal(d.asSeconds().toFixed(2), '72328502.01', 'seconds');
-        test.equal(d.asMilliseconds(),         72328502012, 'milliseconds');
-        test.done();
-    },
+        // years
+        test.equal(moment.duration(1, 'year').asYears(),            1,           '1 year as years');
+        test.equal(moment.duration(1, 'year').asMonths(),           12,          '1 year as months');
+        test.equal(moment.duration(400, 'year').asMonths(),         4800,        '400 years as months');
+        test.equal(moment.duration(1, 'year').asWeeks().toFixed(3), 52.143,      '1 year as weeks');
+        test.equal(moment.duration(1, 'year').asDays(),             365,         '1 year as days');
+        test.equal(moment.duration(2, 'year').asDays(),             730,         '2 years as days');
+        test.equal(moment.duration(3, 'year').asDays(),             1096,        '3 years as days');
+        test.equal(moment.duration(4, 'year').asDays(),             1461,        '4 years as days');
+        test.equal(moment.duration(400, 'year').asDays(),           146097,      '400 years as days');
+        test.equal(moment.duration(1, 'year').asHours(),            8760,        '1 year as hours');
+        test.equal(moment.duration(1, 'year').asMinutes(),          525600,      '1 year as minutes');
+        test.equal(moment.duration(1, 'year').asSeconds(),          31536000,    '1 year as seconds');
+        test.equal(moment.duration(1, 'year').asMilliseconds(),     31536000000, '1 year as milliseconds');
 
-    'generic as getter' : function (test) {
-        var d = moment.duration({
-            years: 2,
-            months: 3,
-            weeks: 2,
-            days: 1,
-            hours: 8,
-            minutes: 9,
-            seconds: 20,
-            milliseconds: 12
-        });
+        // months
+        test.equal(moment.duration(1, 'month').asYears().toFixed(4), 0.0833,     '1 month as years');
+        test.equal(moment.duration(1, 'month').asMonths(),           1,          '1 month as months');
+        test.equal(moment.duration(1, 'month').asWeeks().toFixed(3), 4.286,      '1 month as weeks');
+        test.equal(moment.duration(1, 'month').asDays(),             30,         '1 month as days');
+        test.equal(moment.duration(2, 'month').asDays(),             61,         '2 months as days');
+        test.equal(moment.duration(3, 'month').asDays(),             91,         '3 months as days');
+        test.equal(moment.duration(4, 'month').asDays(),             122,        '4 months as days');
+        test.equal(moment.duration(5, 'month').asDays(),             152,        '5 months as days');
+        test.equal(moment.duration(6, 'month').asDays(),             183,        '6 months as days');
+        test.equal(moment.duration(7, 'month').asDays(),             213,        '7 months as days');
+        test.equal(moment.duration(8, 'month').asDays(),             243,        '8 months as days');
+        test.equal(moment.duration(9, 'month').asDays(),             274,        '9 months as days');
+        test.equal(moment.duration(10, 'month').asDays(),            304,        '10 months as days');
+        test.equal(moment.duration(11, 'month').asDays(),            335,        '11 months as days');
+        test.equal(moment.duration(12, 'month').asDays(),            365,        '12 months as days');
+        test.equal(moment.duration(24, 'month').asDays(),            730,        '24 months as days');
+        test.equal(moment.duration(36, 'month').asDays(),            1096,       '36 months as days');
+        test.equal(moment.duration(48, 'month').asDays(),            1461,       '48 months as days');
+        test.equal(moment.duration(4800, 'month').asDays(),          146097,     '4800 months as days');
+        test.equal(moment.duration(1, 'month').asHours(),            720,        '1 month as hours');
+        test.equal(moment.duration(1, 'month').asMinutes(),          43200,      '1 month as minutes');
+        test.equal(moment.duration(1, 'month').asSeconds(),          2592000,    '1 month as seconds');
+        test.equal(moment.duration(1, 'month').asMilliseconds(),     2592000000, '1 month as milliseconds');
 
-        // These are of course very fragile. Their existence merely hints that
-        // changing the way 'as' works changes the output.
-        test.expect(24);
-        test.equal(d.as('years').toFixed(2),          '2.29', 'years');
-        test.equal(d.as('year').toFixed(2),           '2.29', 'years = year');
-        test.equal(d.as('y').toFixed(2),              '2.29', 'years = y');
-        test.equal(d.as('months').toFixed(2),         '27.50', 'months');
-        test.equal(d.as('month').toFixed(2),          '27.50', 'months = month');
-        test.equal(d.as('M').toFixed(2),              '27.50', 'months = M');
-        test.equal(d.as('weeks').toFixed(2),          '119.59', 'weeks');
-        test.equal(d.as('week').toFixed(2),           '119.59', 'weeks = week');
-        test.equal(d.as('w').toFixed(2),              '119.59', 'weeks = w');
-        test.equal(d.as('days').toFixed(2),           '837.14', 'days');
-        test.equal(d.as('day').toFixed(2),            '837.14', 'days = day');
-        test.equal(d.as('d').toFixed(2),              '837.14', 'days = d');
-        test.equal(d.as('hours').toFixed(2),          '20091.25', 'hours');
-        test.equal(d.as('hour').toFixed(2),           '20091.25', 'hours = hour');
-        test.equal(d.as('h').toFixed(2),              '20091.25', 'hours = h');
-        test.equal(d.as('minutes').toFixed(2),        '1205475.03', 'minutes');
-        test.equal(d.as('minute').toFixed(2),         '1205475.03', 'minutes = minute');
-        test.equal(d.as('m').toFixed(2),              '1205475.03', 'minutes = m');
-        test.equal(d.as('seconds').toFixed(2),        '72328502.01', 'seconds');
-        test.equal(d.as('second').toFixed(2),         '72328502.01', 'seconds = second');
-        test.equal(d.as('s').toFixed(2),              '72328502.01', 'seconds = s');
-        test.equal(d.as('milliseconds'),              72328502012, 'milliseconds');
-        test.equal(d.as('millisecond'),               72328502012, 'milliseconds = millisecond');
-        test.equal(d.as('ms'),                        72328502012, 'milliseconds = ms');
+        // weeks
+        test.equal(moment.duration(1, 'week').asYears().toFixed(4),  0.0192,    '1 week as years');
+        test.equal(moment.duration(1, 'week').asMonths().toFixed(3), 0.230,     '1 week as months');
+        test.equal(moment.duration(1, 'week').asWeeks(),             1,         '1 week as weeks');
+        test.equal(moment.duration(1, 'week').asDays(),              7,         '1 week as days');
+        test.equal(moment.duration(1, 'week').asHours(),             168,       '1 week as hours');
+        test.equal(moment.duration(1, 'week').asMinutes(),           10080,     '1 week as minutes');
+        test.equal(moment.duration(1, 'week').asSeconds(),           604800,    '1 week as seconds');
+        test.equal(moment.duration(1, 'week').asMilliseconds(),      604800000, '1 week as milliseconds');
+
+        // days
+        test.equal(moment.duration(1, 'day').asYears().toFixed(4),  0.0027,   '1 day as years');
+        test.equal(moment.duration(1, 'day').asMonths().toFixed(3), 0.033,    '1 day as months');
+        test.equal(moment.duration(1, 'day').asWeeks().toFixed(3),  0.143,    '1 day as weeks');
+        test.equal(moment.duration(1, 'day').asDays(),              1,        '1 day as days');
+        test.equal(moment.duration(1, 'day').asHours(),             24,       '1 day as hours');
+        test.equal(moment.duration(1, 'day').asMinutes(),           1440,     '1 day as minutes');
+        test.equal(moment.duration(1, 'day').asSeconds(),           86400,    '1 day as seconds');
+        test.equal(moment.duration(1, 'day').asMilliseconds(),      86400000, '1 day as milliseconds');
+
+        // hours
+        test.equal(moment.duration(1, 'hour').asYears().toFixed(6),  0.000114, '1 hour as years');
+        test.equal(moment.duration(1, 'hour').asMonths().toFixed(5), 0.00137,  '1 hour as months');
+        test.equal(moment.duration(1, 'hour').asWeeks().toFixed(5),  0.00595,  '1 hour as weeks');
+        test.equal(moment.duration(1, 'hour').asDays().toFixed(4),   0.0417,   '1 hour as days');
+        test.equal(moment.duration(1, 'hour').asHours(),             1,        '1 hour as hours');
+        test.equal(moment.duration(1, 'hour').asMinutes(),           60,       '1 hour as minutes');
+        test.equal(moment.duration(1, 'hour').asSeconds(),           3600,     '1 hour as seconds');
+        test.equal(moment.duration(1, 'hour').asMilliseconds(),      3600000,  '1 hour as milliseconds');
+
+        // minutes
+        test.equal(moment.duration(1, 'minute').asYears().toFixed(8),  0.00000190, '1 minute as years');
+        test.equal(moment.duration(1, 'minute').asMonths().toFixed(7), 0.0000228,  '1 minute as months');
+        test.equal(moment.duration(1, 'minute').asWeeks().toFixed(7),  0.0000992,  '1 minute as weeks');
+        test.equal(moment.duration(1, 'minute').asDays().toFixed(6),   0.000694,   '1 minute as days');
+        test.equal(moment.duration(1, 'minute').asHours().toFixed(4),  0.0167,     '1 minute as hours');
+        test.equal(moment.duration(1, 'minute').asMinutes(),           1,          '1 minute as minutes');
+        test.equal(moment.duration(1, 'minute').asSeconds(),           60,         '1 minute as seconds');
+        test.equal(moment.duration(1, 'minute').asMilliseconds(),      60000,      '1 minute as milliseconds');
+
+        // seconds
+        test.equal(moment.duration(1, 'second').asYears().toFixed(10),  0.0000000317, '1 second as years');
+        test.equal(moment.duration(1, 'second').asMonths().toFixed(9),  0.000000380,  '1 second as months');
+        test.equal(moment.duration(1, 'second').asWeeks().toFixed(8),   0.00000165,   '1 second as weeks');
+        test.equal(moment.duration(1, 'second').asDays().toFixed(7),    0.0000116,    '1 second as days');
+        test.equal(moment.duration(1, 'second').asHours().toFixed(6),   0.000278,     '1 second as hours');
+        test.equal(moment.duration(1, 'second').asMinutes().toFixed(4), 0.0167,       '1 second as minutes');
+        test.equal(moment.duration(1, 'second').asSeconds(),            1,            '1 second as seconds');
+        test.equal(moment.duration(1, 'second').asMilliseconds(),       1000,         '1 second as milliseconds');
+
+        // milliseconds
+        test.equal(moment.duration(1, 'millisecond').asYears().toFixed(13),  0.0000000000317, '1 millisecond as years');
+        test.equal(moment.duration(1, 'millisecond').asMonths().toFixed(12), 0.000000000380,  '1 millisecond as months');
+        test.equal(moment.duration(1, 'millisecond').asWeeks().toFixed(11),  0.00000000165,   '1 millisecond as weeks');
+        test.equal(moment.duration(1, 'millisecond').asDays().toFixed(10),   0.0000000116,    '1 millisecond as days');
+        test.equal(moment.duration(1, 'millisecond').asHours().toFixed(9),   0.000000278,     '1 millisecond as hours');
+        test.equal(moment.duration(1, 'millisecond').asMinutes().toFixed(7), 0.0000167,       '1 millisecond as minutes');
+        test.equal(moment.duration(1, 'millisecond').asSeconds(),            0.001,           '1 millisecond as seconds');
+        test.equal(moment.duration(1, 'millisecond').asMilliseconds(),       1,               '1 millisecond as milliseconds');
+
         test.done();
     },
 
