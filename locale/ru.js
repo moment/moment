@@ -109,15 +109,9 @@
                         return '[В прошлую] dddd [в] LT';
                     }
                 } else {
-                    switch (this.day()) {
-                    case 2:
+                    if (this.day() === 2) {
                         return '[Во] dddd [в] LT';
-                    case 0:
-                    case 1:
-                    case 3:
-                    case 4:
-                    case 5:
-                    case 6:
+                    } else {
                         return '[В] dddd [в] LT';
                     }
                 }
