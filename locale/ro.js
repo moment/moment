@@ -9,7 +9,7 @@
     } else if (typeof exports === 'object') {
         module.exports = factory(require('../moment')); // Node
     } else {
-        factory((typeof global !== undefined ? global : this).moment); // node or other global
+        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
     }
 }(function (moment) {
     function relativeTimeWithPlural(number, withoutSuffix, key) {
