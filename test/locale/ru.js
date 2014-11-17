@@ -275,9 +275,9 @@ exports['locale:ru'] = {
     },
 
     'calendar last week' : function (test) {
-        var i, m;
+        var i, m, now;
 
-        function makeFormat(d) {
+        function makeFormatLast(d) {
             switch (d.day()) {
             case 0:
                 return '[В прошлое] dddd [в] LT';
@@ -292,14 +292,40 @@ exports['locale:ru'] = {
             }
         }
 
-        for (i = 2; i < 7; i++) {
-            m = moment().subtract({d: i});
-            test.equal(m.calendar(),       m.format(makeFormat(m)),  'Today - ' + i + ' days current time');
-            m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format(makeFormat(m)),  'Today - ' + i + ' days beginning of day');
-            m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format(makeFormat(m)),  'Today - ' + i + ' days end of day');
+        function makeFormatThis(d) {
+            switch (d.day()) {
+            case 2:
+                return '[Во] dddd [в] LT';
+            case 0:
+            case 1:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+                return '[В] dddd [в] LT';
+            }
         }
+
+        now = moment().startOf('week');
+        for (i = 2; i < 7; i++) {
+            m = moment(now).subtract({d: i});
+            test.equal(m.calendar(now),       m.format(makeFormatLast(m)),  'Today - ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            test.equal(m.calendar(now),       m.format(makeFormatLast(m)),  'Today - ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            test.equal(m.calendar(now),       m.format(makeFormatLast(m)),  'Today - ' + i + ' days end of day');
+        }
+
+        now = moment().endOf('week');
+        for (i = 2; i < 7; i++) {
+            m = moment(now).subtract({d: i});
+            test.equal(m.calendar(now),       m.format(makeFormatThis(m)),  'Today - ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            test.equal(m.calendar(now),       m.format(makeFormatThis(m)),  'Today - ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            test.equal(m.calendar(now),       m.format(makeFormatThis(m)),  'Today - ' + i + ' days end of day');
+        }
+
         test.done();
     },
 

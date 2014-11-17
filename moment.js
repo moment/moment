@@ -910,9 +910,9 @@
             lastWeek : '[Last] dddd [at] LT',
             sameElse : 'L'
         },
-        calendar : function (key, mom) {
+        calendar : function (key, mom, now) {
             var output = this._calendar[key];
-            return typeof output === 'function' ? output.apply(mom) : output;
+            return typeof output === 'function' ? output.apply(mom, [now]) : output;
         },
 
         _relativeTime : {
@@ -2210,7 +2210,7 @@
                     diff < 1 ? 'sameDay' :
                     diff < 2 ? 'nextDay' :
                     diff < 7 ? 'nextWeek' : 'sameElse';
-            return this.format(this.localeData().calendar(format, this));
+            return this.format(this.localeData().calendar(format, this, moment(now)));
         },
 
         isLeapYear : function () {
