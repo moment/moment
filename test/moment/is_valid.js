@@ -246,6 +246,13 @@ exports.isValid = {
         test.done();
     },
 
+    '24:00:00.000 is valid' : function (test) {
+        test.equal(moment('2014-01-01 24', 'YYYY-MM-DD HH').isValid(), true, '24 is valid');
+        test.equal(moment('2014-01-01 24:00', 'YYYY-MM-DD HH:mm').isValid(), true, '24:00 is valid');
+        test.equal(moment('2014-01-01 24:01', 'YYYY-MM-DD HH:mm').isValid(), false, '24:01 is not valid');
+        test.done();
+    },
+
     'oddball permissiveness' : function (test) {
         //https://github.com/moment/moment/issues/1128
         test.ok(moment('2010-10-3199', ['MM/DD/YYYY', 'MM-DD-YYYY', 'YYYY-MM-DD']).isValid());
