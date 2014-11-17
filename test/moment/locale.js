@@ -112,9 +112,9 @@ exports.locale = {
 
         var jan = moment([2000, 0]);
 
-        test.equal(moment.localeData().months(jan), 'January', 'no arguments returns global');
-        test.equal(moment.localeData('zh-cn').months(jan), '一月', 'a string returns the locale based on key');
-        test.equal(moment.localeData(moment().locale('es')).months(jan), 'enero', 'if you pass in a moment it uses the moment\'s locale');
+        test.equal(moment.localeData().month(jan), 'January', 'no arguments returns global');
+        test.equal(moment.localeData('zh-cn').month(jan), '一月', 'a string returns the locale based on key');
+        test.equal(moment.localeData(moment().locale('es')).month(jan), 'enero', 'if you pass in a moment it uses the moment\'s locale');
 
         test.done();
     },
