@@ -55,6 +55,7 @@ exports['locale:nb'] = {
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
                 ['[den] DDDo [dagen i året]',          'den 45. dagen i året'],
+                ['LTS',                                '15.25.50'],
                 ['L',                                  '14.02.2010'],
                 ['LL',                                 '14. februar 2010'],
                 ['LLL',                                '14. februar 2010 kl. 15.25'],

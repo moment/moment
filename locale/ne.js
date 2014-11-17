@@ -44,6 +44,7 @@
         weekdaysMin : 'आइ._सो._मङ्_बु._बि._शु._श.'.split('_'),
         longDateFormat : {
             LT : 'Aको h:mm बजे',
+            LTS : 'Aको h:mm:ss बजे',
             L : 'DD/MM/YYYY',
             LL : 'D MMMM YYYY',
             LLL : 'D MMMM YYYY, LT',

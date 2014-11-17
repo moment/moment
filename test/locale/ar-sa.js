@@ -40,7 +40,6 @@ exports['locale:ar-sa'] = {
     },
 
     'format' : function (test) {
-        test.expect(22);
         var a = [
                 ['dddd, MMMM Do YYYY, h:mm:ss a',      'الأحد، فبراير ١٤ ٢٠١٠، ٣:٢٥:٥٠ م'],
                 ['ddd, hA',                            'أحد، ٣م'],
@@ -56,6 +55,8 @@ exports['locale:ar-sa'] = {
                 ['s ss',                               '٥٠ ٥٠'],
                 ['a A',                                'م م'],
                 ['[the] DDDo [day of the year]',       'the ٤٥ day of the year'],
+                ['LT',                                 '١٥:٢٥'],
+                ['LTS',                                '١٥:٢٥:٥٠'],
                 ['L',                                  '١٤/٠٢/٢٠١٠'],
                 ['LL',                                 '١٤ فبراير ٢٠١٠'],
                 ['LLL',                                '١٤ فبراير ٢٠١٠ ١٥:٢٥'],
@@ -67,6 +68,7 @@ exports['locale:ar-sa'] = {
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
+        test.expect(a.length);
         for (i = 0; i < a.length; i++) {
             test.equal(b.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
         }

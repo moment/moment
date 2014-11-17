@@ -58,6 +58,7 @@ exports['locale:en-ca'] = {
                 ['a A',                                'pm PM'],
                 ['[the] DDDo [day of the year]',       'the 45th day of the year'],
                 ['L',                                  '2010-02-14'],
+                ['LTS',                                '3:25:50 PM'],
                 ['LL',                                 '14 February, 2010'],
                 ['LLL',                                '14 February, 2010 3:25 PM'],
                 ['LLLL',                               'Sunday, 14 February, 2010 3:25 PM'],

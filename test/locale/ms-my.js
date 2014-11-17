@@ -58,6 +58,7 @@ exports['locale:ms-my'] = {
                 ['s ss',                               '50 50'],
                 ['a A',                                'petang petang'],
                 ['[hari] [ke] DDDo [tahun] ini', 'hari ke 45 tahun ini'],
+                ['LTS',                                '15.25.50'],
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 Februari 2010'],
                 ['LLL',                                '14 Februari 2010 pukul 15.25'],

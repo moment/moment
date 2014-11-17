@@ -54,6 +54,7 @@ exports['locale:sk'] = {
                 ['s ss',                         '50 50'],
                 ['a A',                          'pm PM'],
                 ['DDDo [deň v roku]',            '45. deň v roku'],
+                ['LTS',                          '15:25:50'],
                 ['L',                            '14.02.2010'],
                 ['LL',                           '14. február 2010'],
                 ['LLL',                          '14. február 2010 15:25'],

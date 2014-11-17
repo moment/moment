@@ -54,6 +54,7 @@ exports['locale:eo'] = {
                 ['s ss',                               '50 50'],
                 ['a A',                                'p.t.m. P.T.M.'],
                 ['[la] DDDo [tago] [de] [la] [jaro]',  'la 45a tago de la jaro'],
+                ['LTS',                                '15:25:50'],
                 ['L',                                  '2010-02-14'],
                 ['LL',                                 '14-an de februaro, 2010'],
                 ['LLL',                                '14-an de februaro, 2010 15:25'],

@@ -19,6 +19,7 @@
         weekdaysMin : 'sø_ma_ti_on_to_fr_lø'.split('_'),
         longDateFormat : {
             LT : 'HH:mm',
+            LTS : 'LT:ss',
             L : 'DD/MM/YYYY',
             LL : 'D. MMMM YYYY',
             LLL : 'D. MMMM YYYY LT',
