@@ -51,6 +51,8 @@ exports['locale:ar-ma'] = {
                 ['s ss',                               '50 50'],
                 ['a A',                                'pm PM'],
                 ['[the] DDDo [day of the year]',       'the 45 day of the year'],
+                ['LT',                                 '15:25'],
+                ['LTS',                                '15:25:50'],
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 فبراير 2010'],
                 ['LLL',                                '14 فبراير 2010 15:25'],

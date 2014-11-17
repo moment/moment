@@ -54,6 +54,8 @@ exports['locale:af'] = {
                 ['s ss',                               '50 50'],
                 ['a A',                                'nm NM'],
                 ['[the] DDDo [day of the year]',       'the 45ste day of the year'],
+                ['LT',                                 '15:25'],
+                ['LTS',                                '15:25:50'],
                 ['L',                                  '14/02/2010'],
                 ['LL',                                 '14 Februarie 2010'],
                 ['LLL',                                '14 Februarie 2010 15:25'],

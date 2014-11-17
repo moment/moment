@@ -43,7 +43,7 @@ exports['locale:de-at'] = {
     },
 
     'format': function (test) {
-        test.expect(22);
+        test.expect(23);
 
         var a = [
                 ['dddd, Do MMMM YYYY, h:mm:ss a', 'Sonntag, 14. Februar 2010, 3:25:50 pm'],
@@ -60,6 +60,7 @@ exports['locale:de-at'] = {
                 ['s ss', '50 50'],
                 ['a A', 'pm PM'],
                 ['[the] DDDo [day of the year]', 'the 45. day of the year'],
+                ['LTS', '15:25:50'],
                 ['L', '14.02.2010'],
                 ['LL', '14. Februar 2010'],
                 ['LLL', '14. Februar 2010 15:25'],
