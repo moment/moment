@@ -776,8 +776,16 @@
 
     // Return a moment from input, that is local/utc/zone equivalent to model.
     function makeAs(input, model) {
-        return model._isUTC ? moment(input).zone(model._offset || 0) :
-            moment(input).local();
+        if (model._isUTC) {
+            var result = model.clone();
+            result._d.setTime(moment(input).valueOf());
+            result._offset = 0;
+            result.zone(model._offset || 0);
+            moment.updateOffset(result);
+            return result;
+        } else {
+            return moment(input).local();
+        }
     }
 
     /************************************
