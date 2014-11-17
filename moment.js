@@ -2418,6 +2418,10 @@
             return input == null ? year : this.add((input - year), 'y');
         },
 
+        weekOfMonth : function () {
+            return this.diff(moment([this.year(), this.month(), 1]), 'weeks');
+        },
+
         isoWeekYear : function (input) {
             var year = weekOfYear(this, 1, 4).year;
             return input == null ? year : this.add((input - year), 'y');
