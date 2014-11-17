@@ -259,6 +259,7 @@ exports.create = {
                 ['HH:mm:ss S',          '00:30:00 7'],
                 ['HH:mm:ss SS',         '00:30:00 78'],
                 ['HH:mm:ss SSS',        '00:30:00 789'],
+                ['x',                   '1234567890123'],
                 ['X',                   '1234567890'],
                 ['LT',                  '12:30 AM'],
                 ['L',                   '09/02/1999'],
@@ -294,6 +295,12 @@ exports.create = {
             test.equal(moment('1234567890.123', format).valueOf(), 1234567890 * 1000 + 123, format + ' matches timestamp with milliseconds');
         }
 
+        test.done();
+    },
+
+    'unix offset milliseconds' :  function (test) {
+        test.expect(1);
+        test.equal(moment('1234567890123', 'x').valueOf(), 1234567890123, 'x matches unix offset in milliseconds');
         test.done();
     },
 
