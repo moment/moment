@@ -829,22 +829,32 @@
             return this._monthsShort[m.month()];
         },
 
-        monthsParse : function (monthName) {
+        monthsParse : function (monthName, format, strict) {
             var i, mom, regex;
 
             if (!this._monthsParse) {
                 this._monthsParse = [];
+                this._longMonthsParse = [];
+                this._shortMonthsParse = [];
             }
 
             for (i = 0; i < 12; i++) {
                 // make the regex if we don't have it already
-                if (!this._monthsParse[i]) {
-                    mom = moment.utc([2000, i]);
+                mom = moment.utc([2000, i]);
+                if (strict && !this._longMonthsParse[i]) {
+                    this._longMonthsParse[i] = new RegExp('^' + this.months(mom, '').replace('.', '') + '$', 'i');
+                    this._shortMonthsParse[i] = new RegExp('^' + this.monthsShort(mom, '').replace('.', '') + '$', 'i');
+                }
+                if (!strict && !this._monthsParse[i]) {
                     regex = '^' + this.months(mom, '') + '|^' + this.monthsShort(mom, '');
                     this._monthsParse[i] = new RegExp(regex.replace('.', ''), 'i');
                 }
                 // test the regex
-                if (this._monthsParse[i].test(monthName)) {
+                if (strict && format === 'MMMM' && this._longMonthsParse[i].test(monthName)) {
+                    return i;
+                } else if (strict && format === 'MMM' && this._shortMonthsParse[i].test(monthName)) {
+                    return i;
+                } else if (!strict && this._monthsParse[i].test(monthName)) {
                     return i;
                 }
             }
@@ -1180,7 +1190,7 @@
             break;
         case 'MMM' : // fall through to MMMM
         case 'MMMM' :
-            a = config._locale.monthsParse(input);
+            a = config._locale.monthsParse(input, token, config._strict);
             // if we didn't find a month name, mark the date as invalid.
             if (a != null) {
                 datePartArray[MONTH] = a;
