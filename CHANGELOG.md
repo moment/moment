@@ -1,6 +1,18 @@
 Changelog
 =========
 
+### 2.8.4 [See full changelog](https://gist.github.com/ichernev/a4fcb0a46d74e4b9b996)
+
+Features:
+
+* [#2000](https://github.com/moment/moment/issues/2000) Add LTS localised format that includes seconds
+* [#1960](https://github.com/moment/moment/issues/1960) added formatToken 'x' for unix offset in milliseconds #1938
+* [#1965](https://github.com/moment/moment/issues/1965) Support 24:00:00.000 to mean next day, at midnight.
+* [#2002](https://github.com/moment/moment/issues/2002) Accept 'date' key when creating moment with object
+* [#2009](https://github.com/moment/moment/issues/2009) Use native toISOString when we can
+
+Some bugfixes and language improvements -- [full changelog](https://gist.github.com/ichernev/a4fcb0a46d74e4b9b996)
+
 ### 2.8.3
 
 Bugfixes:
