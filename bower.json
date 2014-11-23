@@ -7,6 +7,7 @@
     "node_modules",
     "bower_components",
     "benchmarks",
+    "scripts",
     "test",
     "tests",
     "tasks",
