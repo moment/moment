@@ -5,7 +5,7 @@ type meteor >/dev/null 2>&1 || { curl https://install.meteor.com/ | sh; }
 
 # sanity check: make sure we're in the root directory of the checkout
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-cd DIR/..
+cd $DIR/..
 
 # move away the package.js for Dojo
 mv package.js package.dojo
