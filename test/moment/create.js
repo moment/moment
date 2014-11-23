@@ -76,8 +76,8 @@ exports.create = {
     'number' : function (test) {
         test.expect(3);
         test.ok(moment(1000).toDate() instanceof Date, '1000');
-        test.ok((moment(1000).valueOf() === 1000), 'testing valueOf');
-        test.ok((moment.utc(1000).valueOf() === 1000), 'testing valueOf');
+        test.equal(moment(1000).valueOf(), 1000, 'testing valueOf');
+        test.equal(moment.utc(1000).valueOf(), 1000, 'testing utc valueOf');
         test.done();
     },
 
