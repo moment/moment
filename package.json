@@ -58,7 +58,8 @@
         "karma-chrome-launcher": "latest",
         "karma-firefox-launcher": "latest",
         "karma-nodeunit": "latest",
-        "karma-sauce-launcher": "latest"
+        "karma-sauce-launcher": "latest",
+        "grunt-shell": "latest"
     },
     "scripts": {
         "test": "grunt test:node"

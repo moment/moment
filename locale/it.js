@@ -7,7 +7,7 @@
     if (typeof define === 'function' && define.amd) {
         define(['moment'], factory); // AMD
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
+        module.exports = factory(require('moment')); // Node
     } else {
         factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
     }
