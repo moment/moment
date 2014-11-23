@@ -396,7 +396,8 @@ exports.format = {
         for (i = 0; i < zones.length; ++i) {
             z = zones[i];
             a = moment().zone(z).startOf('day').subtract({m: 1});
-            test.equal(moment(a).zone(z).calendar(), 'Yesterday at 11:59 PM', 'Yesterday at 11:59 PM, not Today, or the wrong time');
+            test.equal(moment(a).zone(z).calendar(), 'Yesterday at 11:59 PM',
+                    'Yesterday at 11:59 PM, not Today, or the wrong time, tz = ' + z);
         }
 
         test.equal(moment(b).utc().calendar(), 'Yesterday at 11:59 PM', 'Yesterday at 11:59 PM, not Today, or the wrong time');
