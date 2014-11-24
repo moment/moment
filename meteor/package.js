@@ -1,5 +1,7 @@
+var packageName = 'moment:moment';
+
 Package.describe({
-  name: 'moment:moment',
+  name: packageName,
   summary: 'Moment.js: parse, validate, manipulate, and display dates - official Meteor packaging',
   version: '2.8.4',
   git: 'https://github.com/moment/moment.git'
@@ -7,14 +9,15 @@ Package.describe({
 
 Package.onUse(function (api) {
   api.versionsFrom('0.9.0');
+  api.export('moment', ['client', 'server']);
   api.addFiles([
-    'moment.js'
+    'moment.js', 'meteor/export.js'
   ], ['client', 'server']
   );
 });
 
 Package.onTest(function (api) {
-  api.use('moment', ['client', 'server']);
+  api.use(packageName, ['client', 'server']);
   api.use('tinytest', ['client', 'server']);
 
   api.addFiles('meteor/test.js', ['client', 'server']);

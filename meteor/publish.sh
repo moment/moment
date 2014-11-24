@@ -1,16 +1,25 @@
 # Publish package on Meteor's Atmosphere.js
 
-# Make sure Meteor is installed, per https://www.meteor.com/install
+# Make sure Meteor is installed, per https://www.meteor.com/install. The curl'ed script is totally safe; takes 2 minutes to read its source and check.
 type meteor >/dev/null 2>&1 || { curl https://install.meteor.com/ | sh; }
 
 # sanity check: make sure we're in the root directory of the checkout
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+DIR=$( cd "$( dirname "$0" )" && pwd )
 cd $DIR/..
 
 # move away the package.js for Dojo
 mv package.js package.dojo
 cp meteor/package.js ./
 
-# publish and restore the Dojo package.js
-meteor publish
+# publish package, creating it if it's the first time we're publishing
+PACKAGE_NAME=$(grep -i name package.js | head -1 | cut -d "'" -f 2)
+PACKAGE_EXISTS=$(meteor search $PACKAGE_NAME 2>/dev/null | wc -l)
+
+if [ $PACKAGE_EXISTS -gt 0 ]; then
+  meteor publish
+else
+  meteor publish --create
+fi
+
+# restore the Dojo package.js
 mv package.dojo package.js
