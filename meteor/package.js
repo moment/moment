@@ -9,13 +9,12 @@ Package.onUse(function (api) {
   api.versionsFrom('0.9.0');
   api.addFiles([
     'moment.js'
-  ], ['client', 'server']
-  );
+  ]);
 });
 
 Package.onTest(function (api) {
-  api.use('moment', ['client', 'server']);
-  api.use('tinytest', ['client', 'server']);
+  api.use('moment');
+  api.use('tinytest');
 
-  api.addFiles('meteor/test.js', ['client', 'server']);
+  api.addFiles('meteor/test.js');
 });
