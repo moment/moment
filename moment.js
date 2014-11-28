@@ -2403,20 +2403,23 @@
                 }
         ),
 
-        // TODO: Deprecate
-        zone : function (input, keepLocalTime) {
-            if (input != null) {
-                if (typeof input !== 'string') {
-                    input = -input;
+        zone : deprecate(
+                'moment().zone is deprecated, use moment().utcOffset instead. ' +
+                'https://github.com/moment/moment/issues/1779',
+                function (input, keepLocalTime) {
+                    if (input != null) {
+                        if (typeof input !== 'string') {
+                            input = -input;
+                        }
+
+                        this.utcOffset(input, keepLocalTime);
+
+                        return this;
+                    } else {
+                        return -this.utcOffset();
+                    }
                 }
-
-                this.utcOffset(input, keepLocalTime);
-
-                return this;
-            } else {
-                return -this.utcOffset();
-            }
-        },
+        ),
 
         // keepLocalTime = true means only change the timezone, without
         // affecting the local hour. So 5:31:26 +0300 --[zone(2, true)]-->
