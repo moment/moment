@@ -486,16 +486,18 @@ exports.create = {
     },
 
     'parsing iso' : function (test) {
-        var offset = moment([2011, 9, 8]).zone(),
+        var offset = moment([2011, 9, 8]).utcOffset(),
             pad = function (input) {
                 if (input < 10) {
                     return '0' + input;
                 }
                 return '' + input;
             },
-            hourOffset = (offset > 0) ? Math.floor(offset / 60) : Math.ceil(offset / 60),
+            hourOffset = (offset > 0 ? Math.floor(offset / 60) : Math.ceil(offset / 60)),
             minOffset = offset - (hourOffset * 60),
-            tz = (offset > 0) ? '-' + pad(hourOffset) + ':' + pad(minOffset) : '+' + pad(-hourOffset) + ':' + pad(-minOffset),
+            tz = (offset > 0 ?
+                    '+' + pad(hourOffset) + ':' + pad(minOffset) :
+                    '-' + pad(-hourOffset) + ':' + pad(-minOffset)),
             tz2 = tz.replace(':', ''),
             tz3 = tz2.slice(0, 3),
             formats = [

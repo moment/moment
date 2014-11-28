@@ -18,7 +18,7 @@ exports.utc = {
     'utc and local' : function (test) {
         test.expect(7);
 
-        var m = moment(Date.UTC(2011, 1, 2, 3, 4, 5, 6)), zone, expected;
+        var m = moment(Date.UTC(2011, 1, 2, 3, 4, 5, 6)), offset, expected;
         m.utc();
         // utc
         test.equal(m.date(), 2, 'the day should be correct for utc');
@@ -27,17 +27,17 @@ exports.utc = {
 
         // local
         m.local();
-        if (m.zone() > 180) {
+        if (m.utcOffset() < -180) {
             test.equal(m.date(), 1, 'the date should be correct for local');
             test.equal(m.day(), 2, 'the day should be correct for local');
         } else {
             test.equal(m.date(), 2, 'the date should be correct for local');
             test.equal(m.day(), 3, 'the day should be correct for local');
         }
-        zone = Math.ceil(m.zone() / 60);
-        expected = (24 + 3 - zone) % 24;
+        offset = Math.ceil(m.utcOffset() / 60);
+        expected = (24 + 3 + offset) % 24;
         test.equal(m.hours(), expected, 'the hours (' + m.hours() + ') should be correct for local');
-        test.equal(moment().utc().zone(), 0, 'timezone in utc should always be zero');
+        test.equal(moment().utc().utcOffset(), 0, 'timezone in utc should always be zero');
 
         test.done();
     },
@@ -87,16 +87,16 @@ exports.utc = {
         test.done();
     },
 
-    'cloning with utc' : function (test) {
+    'cloning with utc offset' : function (test) {
         test.expect(4);
 
         var m = moment.utc('2012-01-02T08:20:00');
-        test.equal(moment.utc(m)._isUTC, true, 'the local zone should be converted to UTC');
-        test.equal(moment.utc(m.clone().utc())._isUTC, true, 'the local zone should stay in UTC');
+        test.equal(moment.utc(m)._isUTC, true, 'the local offset should be converted to UTC');
+        test.equal(moment.utc(m.clone().utc())._isUTC, true, 'the local offset should stay in UTC');
 
-        m.zone(120);
-        test.equal(moment.utc(m)._isUTC, true, 'the explicit zone should stay in UTC');
-        test.equal(moment.utc(m).zone(), 0, 'the explicit zone should have an offset of 0');
+        m.utcOffset(120);
+        test.equal(moment.utc(m)._isUTC, true, 'the explicit utc offset should stay in UTC');
+        test.equal(moment.utc(m).utcOffset(), 0, 'the explicit utc offset should have an offset of 0');
 
         test.done();
     },
