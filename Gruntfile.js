@@ -195,10 +195,20 @@ module.exports = function (grunt) {
             all: {
                 src: ['benchmarks/*.js']
             }
+        },
+        shell: {
+            'meteor-test': {
+                command: 'meteor/runtests.sh'
+            },
+            'meteor-publish': {
+                command: 'meteor/publish.sh'
+            }
         }
+
     });
 
     grunt.loadTasks('tasks');
+    grunt.loadNpmTasks('grunt-shell');
 
     // These plugins provide necessary tasks.
     require('load-grunt-tasks')(grunt);
@@ -213,6 +223,7 @@ module.exports = function (grunt) {
     grunt.registerTask('test:browser', ['concat', 'embedLocales', 'karma:chrome', 'karma:firefox']);
     grunt.registerTask('test:sauce-browser', ['concat', 'embedLocales', 'env:sauceLabs', 'karma:sauce']);
     grunt.registerTask('test:travis-sauce-browser', ['concat', 'embedLocales', 'karma:sauce']);
+    grunt.registerTask('test:meteor', ['shell:meteor-test']);
 
     // travis build task
     grunt.registerTask('build:travis', [
@@ -225,6 +236,6 @@ module.exports = function (grunt) {
     // Task to be run when releasing a new version
     grunt.registerTask('release', [
         'jshint', 'nodeunit', 'concat', 'embedLocales',
-        'component', 'uglify:main'
+        'component', 'uglify:main', 'shell:meteor-publish'
     ]);
 };
