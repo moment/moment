@@ -1,14 +1,16 @@
 #!/bin/bash
+
 # Publish package on Meteor's Atmosphere.js
 
-# Make sure Meteor is installed, per https://www.meteor.com/install. The curl'ed script is totally safe; takes 2 minutes to read its source and check.
+# Make sure Meteor is installed, per https://www.meteor.com/install.
+# The curl'ed script is totally safe; takes 2 minutes to read its source and check.
 type meteor >/dev/null 2>&1 || { curl https://install.meteor.com/ | sh; }
 
 # sanity check: make sure we're in the root directory of the checkout
 cd "$( dirname "$0" )/.."
 
 
-function cleanup() {
+cleanup() {
   # restore package.js for Dojo
   mv package.dojo package.js
 
@@ -20,7 +22,8 @@ function cleanup() {
 # publish separately any package*.js files we have, e.g. package.js, package-compat.js
 for PACKAGE_FILE in meteor/package*.js; do
 
-  # Meteor expects package.js to be in the root directory of the checkout, but we already have a package.js for Dojo
+  # Meteor expects package.js to be in the root directory of the checkout,
+  # but we already have a package.js for Dojo
   mv package.js package.dojo
   cp $PACKAGE_FILE ./package.js
 
@@ -30,14 +33,16 @@ for PACKAGE_FILE in meteor/package*.js; do
 
   echo "Publishing $PACKAGE_NAME..."
 
-  # attempt to re-publish the package - the most common operation once the initial release has been made
-  OUTPUT=$( meteor publish 2>&1 )
+  # attempt to re-publish the package - the most common operation
+  # once the initial release has been made
+  OUTPUT="$( meteor publish 2>&1 )"
 
-  if (( $? > 0 )); then
+  if [ $? -gt 0 ]; then
     # there was an error
 
-    if [[ $OUTPUT =~ "There is no package named" ]]; then
-      # actually this is the first time the package is created, so pass the special --create flag and congratulate the maintainer
+    if [[ "$OUTPUT" =~ "There is no package named" ]]; then
+      # actually this is the first time the package is created,
+      # so pass the special --create flag and congratulate the maintainer
       echo "Thank you for creating the official Meteor package for this library!"
       if meteor publish --create; then
         echo "Please post the following to https://github.com/raix/Meteor-community-discussions/issues/14:
@@ -68,8 +73,8 @@ $OUTPUT
   else
     # no error on the first `meteor publish` attempt
     echo "$OUTPUT"  # just in case meteor said something interesting
-    echo "Thanks for releasing a new version of $PACKAGE_NAME! You can see it at
-https://atmospherejs.com/$ATMOSPHERE_NAME"
+    echo "Thanks for releasing a new version of $PACKAGE_NAME! You can see it at"
+    echo "https://atmospherejs.com/$ATMOSPHERE_NAME"
   fi
 
   cleanup
