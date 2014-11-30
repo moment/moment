@@ -60,7 +60,7 @@
         "karma-firefox-launcher": "latest",
         "karma-nodeunit": "latest",
         "karma-sauce-launcher": "latest",
-        "spacejam": "^1.1.1"
+        "spacejam": "latest"
     },
     "scripts": {
         "test": "grunt test:node"
