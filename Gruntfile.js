@@ -196,19 +196,32 @@ module.exports = function (grunt) {
                 src: ['benchmarks/*.js']
             }
         },
-        shell: {
+        exec: {
+            'meteor-init': {
+                command: [
+                    // Make sure Meteor is installed, per https://meteor.com/install.
+                    // The curl'ed script is safe; takes 2 minutes to read source & check.
+                    'type meteor >/dev/null 2>&1 || { curl https://install.meteor.com/ | sh; }',
+                    // Meteor expects package.js to be in the root directory of
+                    // the checkout, but we already have a package.js for Dojo
+                    'mv package.js package.dojo && cp meteor/package.js .'
+                ].join(';')
+            },
+            'meteor-cleanup': {
+                // remove build files and restore Dojo's package.js
+                command: 'rm -rf ".build.*" versions.json; mv package.dojo package.js'
+            },
             'meteor-test': {
-                command: 'meteor/runtests.sh'
+                command: 'spacejam --mongo-url mongodb:// test-packages ./'
             },
             'meteor-publish': {
-                command: 'meteor/publish.sh'
+                command: 'meteor publish'
             }
         }
 
     });
 
     grunt.loadTasks('tasks');
-    grunt.loadNpmTasks('grunt-shell');
 
     // These plugins provide necessary tasks.
     require('load-grunt-tasks')(grunt);
@@ -223,7 +236,7 @@ module.exports = function (grunt) {
     grunt.registerTask('test:browser', ['concat', 'embedLocales', 'karma:chrome', 'karma:firefox']);
     grunt.registerTask('test:sauce-browser', ['concat', 'embedLocales', 'env:sauceLabs', 'karma:sauce']);
     grunt.registerTask('test:travis-sauce-browser', ['concat', 'embedLocales', 'karma:sauce']);
-    grunt.registerTask('test:meteor', ['shell:meteor-test']);
+    grunt.registerTask('test:meteor', ['exec:meteor-init', 'exec:meteor-test', 'exec:meteor-cleanup']);
 
     // travis build task
     grunt.registerTask('build:travis', [
@@ -236,6 +249,7 @@ module.exports = function (grunt) {
     // Task to be run when releasing a new version
     grunt.registerTask('release', [
         'jshint', 'nodeunit', 'concat', 'embedLocales',
-        'component', 'uglify:main', 'shell:meteor-publish'
+        'component', 'uglify:main',
+        'exec:meteor-init', 'exec:meteor-publish', 'exec:meteor-cleanup'
     ]);
 };
