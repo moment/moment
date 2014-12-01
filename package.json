@@ -53,13 +53,14 @@
         "grunt-karma": "latest",
         "grunt-benchmark": "latest",
         "grunt-string-replace": "latest",
-        "grunt-shell": "latest",
+        "grunt-exec": "latest",
         "load-grunt-tasks": "latest",
         "karma": "latest",
         "karma-chrome-launcher": "latest",
         "karma-firefox-launcher": "latest",
         "karma-nodeunit": "latest",
-        "karma-sauce-launcher": "latest"
+        "karma-sauce-launcher": "latest",
+        "spacejam": "latest"
     },
     "scripts": {
         "test": "grunt test:node"
