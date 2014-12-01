@@ -495,7 +495,7 @@ exports.create = {
             },
             hourOffset = (offset > 0 ? Math.floor(offset / 60) : Math.ceil(offset / 60)),
             minOffset = offset - (hourOffset * 60),
-            tz = (offset > 0 ?
+            tz = (offset >= 0 ?
                     '+' + pad(hourOffset) + ':' + pad(minOffset) :
                     '-' + pad(-hourOffset) + ':' + pad(-minOffset)),
             tz2 = tz.replace(':', ''),
