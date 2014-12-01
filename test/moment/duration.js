@@ -623,6 +623,14 @@ exports.duration = {
         test.equal(d.subtract({h: 1, m: 59})._milliseconds, 3 * 60 * 60 * 1000 + 1 * 60 * 1000 - 10000, 'Subtract hour:minute');
 
         test.done();
+    },
+
+    "JSON.stringify duration" : function (test) {
+        var d = moment.duration(1024, 'h');
+
+        test.expect(1);
+        test.equal(JSON.stringify(d), '"' + d.toISOString() + '"', "JSON.stringify on duration should return ISO string");
+        test.done();
     }
 
 };
