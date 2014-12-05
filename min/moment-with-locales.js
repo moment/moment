@@ -806,7 +806,7 @@
     extend(Locale.prototype, {
 
         set : function (config) {
-            var prop, i;
+            var prop, i, ordinal;
             for (i in config) {
                 prop = config[i];
                 if (typeof prop === 'function') {
@@ -817,7 +817,7 @@
             }
             // Lenient ordinal parsing accepts just a number in addition to
             // number + (possibly) stuff coming from _ordinalParseLenient.
-            var ordinal = /\d{1,2}/;
+            ordinal = /\d{1,2}/;
             this._ordinalParseLenient = new RegExp(this._ordinalParse.source + '|' + ordinal.source);
         },
 
