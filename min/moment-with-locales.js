@@ -806,7 +806,7 @@
     extend(Locale.prototype, {
 
         set : function (config) {
-            var prop, i, ordinal;
+            var prop, i;
             for (i in config) {
                 prop = config[i];
                 if (typeof prop === 'function') {
@@ -817,8 +817,7 @@
             }
             // Lenient ordinal parsing accepts just a number in addition to
             // number + (possibly) stuff coming from _ordinalParseLenient.
-            ordinal = /\d{1,2}/;
-            this._ordinalParseLenient = new RegExp(this._ordinalParse.source + '|' + ordinal.source);
+            this._ordinalParseLenient = new RegExp(this._ordinalParse.source + '|' + '/\d{1,2}/');
         },
 
         _months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
