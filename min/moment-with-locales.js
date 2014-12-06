@@ -817,7 +817,7 @@
             }
             // Lenient ordinal parsing accepts just a number in addition to
             // number + (possibly) stuff coming from _ordinalParseLenient.
-            this._ordinalParseLenient = new RegExp(this._ordinalParse.source + '|' + /\d{1,2}/.source);
+            this._ordinalParseLenient = new RegExp(this._ordinalParse.source + '|' + '/\d{1,2}/');
         },
 
         _months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
