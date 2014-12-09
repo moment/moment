@@ -2261,6 +2261,10 @@
         },
 
         fromNow : function (withoutSuffix) {
+            if (!this.isValid()) {
+                return this.localeData().invalidDate();
+            }
+
             return this.from(moment(), withoutSuffix);
         },
 
