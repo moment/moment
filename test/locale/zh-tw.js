@@ -57,12 +57,12 @@ exports['locale:zh-tw'] = {
                 ['LTS',                                '下午3點25分50秒'],
                 ['L',                                  '2010年2月14日'],
                 ['LL',                                 '2010年2月14日'],
-                ['LLL',                                '2010年2月14日下午3點25'],
-                ['LLLL',                               '2010年2月14日星期日下午3點25'],
+                ['LLL',                                '2010年2月14日下午3點25分'],
+                ['LLLL',                               '2010年2月14日星期日下午3點25分'],
                 ['l',                                  '2010年2月14日'],
                 ['ll',                                 '2010年2月14日'],
-                ['lll',                                '2010年2月14日下午3點25'],
-                ['llll',                               '2010年2月14日星期日下午3點25']
+                ['lll',                                '2010年2月14日下午3點25分'],
+                ['llll',                               '2010年2月14日星期日下午3點25分']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -151,12 +151,12 @@ exports['locale:zh-tw'] = {
     'calendar day' : function (test) {
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     '今天早上2點00',     'today at the same time');
-        test.equal(moment(a).add({m: 25}).calendar(),      '今天早上2點25',     'Now plus 25 min');
-        test.equal(moment(a).add({h: 1}).calendar(),       '今天早上3點00',     'Now plus 1 hour');
-        test.equal(moment(a).add({d: 1}).calendar(),       '明天早上2點00',     'tomorrow at the same time');
-        test.equal(moment(a).subtract({h: 1}).calendar(),  '今天早上1點00',     'Now minus 1 hour');
-        test.equal(moment(a).subtract({d: 1}).calendar(),  '昨天早上2點00',     'yesterday at the same time');
+        test.equal(moment(a).calendar(),                     '今天早上2點00分',     'today at the same time');
+        test.equal(moment(a).add({m: 25}).calendar(),      '今天早上2點25分',     'Now plus 25 min');
+        test.equal(moment(a).add({h: 1}).calendar(),       '今天早上3點00分',     'Now plus 1 hour');
+        test.equal(moment(a).add({d: 1}).calendar(),       '明天早上2點00分',     'tomorrow at the same time');
+        test.equal(moment(a).subtract({h: 1}).calendar(),  '今天早上1點00分',     'Now minus 1 hour');
+        test.equal(moment(a).subtract({d: 1}).calendar(),  '昨天早上2點00分',     'yesterday at the same time');
 
         test.done();
     },
