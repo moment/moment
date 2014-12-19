@@ -62,6 +62,18 @@ exports.duration = {
         test.done();
     },
 
+    'undefined instantiation' : function (test) {
+        test.expect(1);
+        test.equal(moment.duration(undefined).milliseconds(), 0, 'milliseconds');
+        test.done();
+    },
+
+    'null instantiation' : function (test) {
+        test.expect(1);
+        test.equal(moment.duration(null).milliseconds(), 0, 'milliseconds');
+        test.done();
+    },
+
     'instantiation by type' : function (test) {
         test.expect(16);
         test.equal(moment.duration(1, 'years').years(),                 1, 'years');
