@@ -1,6 +1,7 @@
 // moment.js locale configuration
 // locale : latvian (lv)
 // author : Kristaps Karlsons : https://github.com/skakri
+// TODO: pirms 1 dienas => vakar, pēc 1 dienas = rīt.
 
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
@@ -12,11 +13,11 @@
     }
 }(function (moment) {
     var units = {
-        'mm': 'minūti_minūtes_minūte_minūtes',
-        'hh': 'stundu_stundas_stunda_stundas',
-        'dd': 'dienu_dienas_diena_dienas',
-        'MM': 'mēnesi_mēnešus_mēnesis_mēneši',
-        'yy': 'gadu_gadus_gads_gadi'
+        'mm': 'minūtes_minūtēm_minūte_minūtes',
+        'hh': 'stundas_stundām_stunda_stundas',
+        'dd': 'dienas_dienām_diena_dienas',
+        'MM': 'mēneša_mēnešiem_mēnesis_mēneši',
+        'yy': 'gada_gadiem_gads_gadi'
     };
 
     function format(word, number, withoutSuffix) {
@@ -55,18 +56,18 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : '%s vēlāk',
-            past : '%s agrāk',
-            s : 'dažas sekundes',
-            m : 'minūti',
+            future : 'pirms %s',
+            past : 'pēc %s',
+            s : 'dažām sekundēm',
+            m : 'minūtes',
             mm : relativeTimeWithPlural,
-            h : 'stundu',
+            h : 'stundas',
             hh : relativeTimeWithPlural,
-            d : 'dienu',
+            d : 'dienas',
             dd : relativeTimeWithPlural,
-            M : 'mēnesi',
+            M : 'mēneša',
             MM : relativeTimeWithPlural,
-            y : 'gadu',
+            y : 'gada',
             yy : relativeTimeWithPlural
         },
         ordinalParse: /\d{1,2}\./,
