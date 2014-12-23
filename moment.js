@@ -2259,6 +2259,10 @@
         from : function (time, withoutSuffix) {
             return moment.duration({to: this, from: time}).locale(this.locale()).humanize(!withoutSuffix);
         },
+        
+        to: function (time) {
+            return moment.duration({from: this, to: time}).locale(this.locale()).humanize(true);
+        },
 
         fromNow : function (withoutSuffix) {
             return this.from(moment(), withoutSuffix);
