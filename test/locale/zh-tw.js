@@ -161,31 +161,48 @@ exports['locale:zh-tw'] = {
         test.done();
     },
 
-    'calendar next week' : function (test) {
-        var i, m;
-        for (i = 2; i < 7; i++) {
-            m = moment().add({d: i});
-            test.equal(m.calendar(),       m.format('[下]ddddLT'),  'Today + ' + i + ' days current time');
-            m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('[下]ddddLT'),  'Today + ' + i + ' days beginning of day');
-            m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('[下]ddddLT'),  'Today + ' + i + ' days end of day');
-        }
+    'calendar current week': function (test) {
+        var i, m,
+            today = moment().startOf('day');
 
+        for (i = 0; i < 7; i++) {
+            m = moment().startOf('week').add({d: i});
+            if (Math.abs(m.diff(today, 'days')) <= 1) {
+                continue; // skip today, yesterday, tomorrow
+            }
+            test.equal(m.calendar(),       m.format('dddd早上12點00'),  'Monday + ' + i + ' days current time');
+        }
+        test.done();
+    },
+
+    'calendar next week' : function (test) {
+        var i, m,
+            today = moment().startOf('day');
+
+        for (i = 7; i < 14; i++) {
+            m = moment().startOf('week').add({d: i});
+            if (Math.abs(m.diff(today, 'days')) >= 7) {
+                continue;
+            }
+            if (Math.abs(m.diff(today, 'days')) <= 1) {
+                continue; // skip today, yesterday, tomorrow
+            }
+            test.equal(m.calendar(),  m.format('[下]dddd早上12點00'), 'Today + ' + i + ' days beginning of day');
+        }
         test.done();
     },
 
     'calendar last week' : function (test) {
-        var i, m;
-        for (i = 2; i < 7; i++) {
-            m = moment().subtract({d: i});
-            test.equal(m.calendar(),       m.format('[上]ddddLT'),  'Today - ' + i + ' days current time');
-            m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('[上]ddddLT'),  'Today - ' + i + ' days beginning of day');
-            m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('[上]ddddLT'),  'Today - ' + i + ' days end of day');
-        }
+        var i, m,
+            today = moment().startOf('day');
 
+        for (i = 1; i < 8; i++) {
+            m = moment().startOf('week').subtract({d: i});
+            if ((Math.abs(m.diff(today, 'days')) >= 7) || (Math.abs(m.diff(today, 'days')) <= 1)) {
+                continue;
+            }
+            test.equal(m.calendar(),  m.format('[上]dddd早上12點00'),  'Monday - ' + i + ' days next week');
+        }
         test.done();
     },
 
