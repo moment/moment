@@ -70,6 +70,8 @@
             yy : function (number) {
                 if (number === 2) {
                     return 'שנתיים';
+                } else if (number % 10 === 0 && number !== 10) {
+                    return number + ' שנה';
                 }
                 return number + ' שנים';
             }

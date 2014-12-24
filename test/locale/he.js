@@ -116,6 +116,8 @@ exports['locale:he'] = {
         test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   '5 חודשים',      '5 months = 5 months');
         test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'שנה',        '345 days = a year');
         test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), 'שנתיים',       '548 days = 2 years');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 3699}), true), '10 שנים',        '345 days = 10 years');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 7340}), true), '20 שנה',       '548 days = 20 years');
         test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'שנה',        '1 year = a year');
         test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5 שנים',       '5 years = 5 years');
         test.done();
