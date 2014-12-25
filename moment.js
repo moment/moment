@@ -379,9 +379,6 @@
         }
         copyConfig(this, config);
         this._d = new Date(+config._d);
-        if (moment.updateOffset) {
-            moment.updateOffset(this);
-        }
     }
 
     // Duration Constructor
