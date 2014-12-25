@@ -625,11 +625,11 @@ exports.duration = {
         test.done();
     },
 
-    "JSON.stringify duration" : function (test) {
+    'JSON.stringify duration' : function (test) {
         var d = moment.duration(1024, 'h');
 
         test.expect(1);
-        test.equal(JSON.stringify(d), '"' + d.toISOString() + '"', "JSON.stringify on duration should return ISO string");
+        test.equal(JSON.stringify(d), '"' + d.toISOString() + '"', 'JSON.stringify on duration should return ISO string');
         test.done();
     }
 
