@@ -61,9 +61,19 @@
             });
         },
         meridiemParse: /राती|बिहान|दिउँसो|बेलुका|साँझ|राती/,
-        isPM : function (input) {
-            // TODO: This is wrong.
-            return /^(दिउँसो|बेलुका|साँझ|राती)$/.test(input);
+        meridiemHour : function (hour, meridiem) {
+            if (hour === 12) {
+                hour = 0;
+            }
+            if (meridiem === 'राती') {
+                return hour < 3 ? hour : hour + 12;
+            } else if (meridiem === 'बिहान') {
+                return hour;
+            } else if (meridiem === 'दिउँसो') {
+                return hour >= 10 ? hour : hour + 12;
+            } else if (meridiem === 'बेलुका' || meridiem === 'साँझ') {
+                return hour + 12;
+            }
         },
         meridiem : function (hour, minute, isLower) {
             if (hour < 3) {

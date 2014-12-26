@@ -26,9 +26,17 @@
             LLLL : 'dddd, D MMMM YYYY [pukul] LT'
         },
         meridiemParse: /pagi|tengahari|petang|malam/,
-        isPM: function (input) {
-            // TODO: This is wrong.
-            return /^(tengahari|petang|malam)$/.test(input);
+        meridiemHour: function (hour, meridiem) {
+            if (hour === 12) {
+                hour = 0;
+            }
+            if (meridiem === 'pagi') {
+                return hour;
+            } else if (meridiem === 'tengahari') {
+                return hour >= 11 ? hour : hour + 12;
+            } else if (meridiem === 'petang' || meridiem === 'malam') {
+                return hour + 12;
+            }
         },
         meridiem : function (hours, minutes, isLower) {
             if (hours < 11) {
