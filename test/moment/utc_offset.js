@@ -2,7 +2,7 @@
 
 var moment = require('../../moment');
 
-exports.offset = {
+exports.utcOffset = {
     setUp : function (done) {
         moment.createFromInputFallback = function () {
             throw new Error('input not handled by moment');
