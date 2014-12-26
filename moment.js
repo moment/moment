@@ -2176,6 +2176,19 @@
             ];
         },
 
+        toObject : function () {
+            var m = this;
+            return {
+                years:m.year(),
+                months:m.month(),
+                date:m.date(),
+                hours:m.hours(),
+                minutes:m.minutes(),
+                seconds:m.seconds(),
+                milliseconds:m.milliseconds()
+            };
+        },
+
         isValid : function () {
             return isValid(this);
         },
