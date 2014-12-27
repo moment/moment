@@ -11,6 +11,23 @@
         factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
     }
 }(function (moment) {
+    function processRelativeTime(number, withoutSuffix, key, isFuture) {
+        var format = {
+            's': ['viensas secunds', '\'iensas secunds'],
+            'm': ['\'n míut', '\'iens míut'],
+            'mm': [number + ' míuts', ' ' + number + ' míuts'],
+            'h': ['\'n þora', '\'iensa þora'],
+            'hh': [number + ' þoras', ' ' + number + ' þoras'],
+            'd': ['\'n ziua', '\'iensa ziua'],
+            'dd': [number + ' ziuas', ' ' + number + ' ziuas'],
+            'M': ['\'n mes', '\'iens mes'],
+            'MM': [number + ' mesen', ' ' + number + ' mesen'],
+            'y': ['\'n ar', '\'iens ar'],
+            'yy': [number + ' ars', ' ' + number + ' ars'],
+        };
+        return isFuture ? format[key][0] : format[key][1];
+    }
+
     return moment.defineLocale('tzl', {
         months : 'Januar_Fevraglh_Març_Avrïu_Mai_Gün_Julia_Guscht_Setemvar_Listopäts_Noemvar_Zecemvar'.split('_'),
         monthsShort : 'Jan_Fev_Mar_Avr_Mai_Gün_Jul_Gus_Set_Lis_Noe_Zec'.split('_'),
@@ -34,19 +51,19 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : 'in %s',
-            past : '%s ago',
-            s : 'a few seconds',
-            m : 'a minute',
-            mm : '%d minutes',
-            h : 'an hour',
-            hh : '%d hours',
-            d : 'a day',
-            dd : '%d days',
-            M : 'a month',
-            MM : '%d months',
-            y : 'a year',
-            yy : '%d years'
+            future : 'osprei %s',
+            past : 'ja%s',
+            s : processRelativeTime,
+            m : processRelativeTime,
+            mm : processRelativeTime,
+            h : processRelativeTime,
+            hh : processRelativeTime,
+            d : processRelativeTime,
+            dd : processRelativeTime,
+            M : processRelativeTime,
+            MM : processRelativeTime,
+            y : processRelativeTime,
+            yy : processRelativeTime
         },
         ordinalParse: /\d{1,2}\./,
         ordinal : '%d.',
