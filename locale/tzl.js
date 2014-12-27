@@ -23,7 +23,7 @@
             'M': ['\'n mes', '\'iens mes'],
             'MM': [number + ' mesen', ' ' + number + ' mesen'],
             'y': ['\'n ar', '\'iens ar'],
-            'yy': [number + ' ars', ' ' + number + ' ars'],
+            'yy': [number + ' ars', ' ' + number + ' ars']
         };
         return isFuture ? format[key][0] : format[key][1];
     }
@@ -41,6 +41,13 @@
             LL : 'D. MMMM [dallas] YYYY',
             LLL : 'D. MMMM [dallas] YYYY LT',
             LLLL : 'dddd, [li] D. MMMM [dallas] YYYY LT'
+        },
+        meridiem : function (hours, minutes, isLower) {
+            if (hours > 11) {
+                return isLower ? 'd\'o' : 'D\'O';
+            } else {
+                return isLower ? 'd\'a' : 'D\'A';
+            }
         },
         calendar : {
             sameDay : '[oxhi à] LT',
