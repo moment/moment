@@ -142,6 +142,15 @@ exports.locale = {
         test.done();
     },
 
+    'firstDayOfWeek firstDayOfYear locale getters' : function (test) {
+        moment.locale('something', {week: {dow: 3, doy: 4}});
+        moment.locale('something');
+        test.equal(moment.localeData().firstDayOfWeek(), 3, 'firstDayOfWeek');
+        test.equal(moment.localeData().firstDayOfYear(), 4, 'firstDayOfYear');
+
+        test.done();
+    },
+
     'instance locale method' : function (test) {
         moment.locale('en');
 
