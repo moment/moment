@@ -910,7 +910,7 @@ exports.create = {
 
         test.equal(moment('22', 'WW').isoWeek(), 22, 'iso week sets the week by itself');
         test.equal(moment('2012 22', 'YYYY WW').weekYear(), 2012, 'iso week keeps parsed year');
-        test.equal(moment('22', 'WW').weekYear(), moment().weekYear(), 'iso week keeps this year');
+        test.equal(moment('22', 'WW').isoWeekYear(), moment().isoWeekYear(), 'iso week keeps this year');
 
         // order
         ver('6 2013 2', 'e gggg w', '2013 01 12', 'order doesn\'t matter');
