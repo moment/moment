@@ -28,9 +28,6 @@
             LLL : 'YYYY년 MMMM D일 LT',
             LLLL : 'YYYY년 MMMM D일 dddd LT'
         },
-        meridiem : function (hour, minute, isUpper) {
-            return hour < 12 ? '오전' : '오후';
-        },
         calendar : {
             sameDay : '오늘 LT',
             nextDay : '내일 LT',
@@ -57,9 +54,12 @@
         },
         ordinalParse : /\d{1,2}일/,
         ordinal : '%d일',
-        meridiemParse : /(오전|오후)/,
+        meridiemParse : /오전|오후/,
         isPM : function (token) {
             return token === '오후';
+        },
+        meridiem : function (hour, minute, isUpper) {
+            return hour < 12 ? '오전' : '오후';
         }
     });
 }));

@@ -230,7 +230,7 @@ exports['locale:hi'] = {
         test.done();
     },
 
-    'meridiem' : function (test) {
+    'meridiem invariant' : function (test) {
         test.equal(moment([2011, 2, 23,  2, 30]).format('a'), 'रात', 'before dawn');
         test.equal(moment([2011, 2, 23,  9, 30]).format('a'), 'सुबह', 'morning');
         test.equal(moment([2011, 2, 23, 14, 30]).format('a'), 'दोपहर', 'during day');
@@ -362,6 +362,20 @@ exports['locale:hi'] = {
             test.equal(testMoment.date(), i,
                     'lenient ordinal parsing of number ' + i + ' date check');
         }
+        test.done();
+    },
+
+    'meridiem' : function (test) {
+        var h, m, t1, t2;
+        for (h = 0; h < 24; ++h) {
+            for (m = 0; m < 60; m += 15) {
+                t1 = moment.utc([2000, 0, 1, h, m]);
+                t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                test.equal(t2.format('HH:mm'), t1.format('HH:mm'),
+                        'meridiem at ' + t1.format('HH:mm'));
+            }
+        }
+
         test.done();
     },
 

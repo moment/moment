@@ -82,6 +82,10 @@
             LLL : 'D MMMM YYYY LT',
             LLLL : 'dddd D MMMM YYYY LT'
         },
+        meridiemParse: /ص|م/,
+        isPM : function (input) {
+            return 'م' === input;
+        },
         meridiem : function (hour, minute, isLower) {
             if (hour < 12) {
                 return 'ص';
