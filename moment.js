@@ -1031,6 +1031,14 @@
             doy : 6  // The week that contains Jan 1st is the first week of the year.
         },
 
+        firstDayOfWeek : function () {
+            return this._week.dow;
+        },
+
+        firstDayOfYear : function () {
+            return this._week.doy;
+        },
+
         _invalidDate: 'Invalid date',
         invalidDate: function () {
             return this._invalidDate;
