@@ -119,6 +119,21 @@ exports.quarter = {
         test.done();
     },
 
+    'quarter diff' : function (test) {
+        test.equal(moment('2014-01-01').diff(moment('2014-04-01'), 'quarter'),
+                -1, 'diff -1 quarter');
+        test.equal(moment('2014-04-01').diff(moment('2014-01-01'), 'quarter'),
+                1, 'diff 1 quarter');
+        test.equal(moment('2014-05-01').diff(moment('2014-01-01'), 'quarter'),
+                1, 'diff 1 quarter');
+        test.ok(Math.abs((4 / 3) - moment('2014-05-01').diff(
+                        moment('2014-01-01'), 'quarter', true)) < 0.00001,
+                'diff 1 1/3 quarter');
+        test.equal(moment('2015-01-01').diff(moment('2014-01-01'), 'quarter'),
+                4, 'diff 4 quarters');
+        test.done();
+    },
+
     'quarter setter bubble to previous year' : function (test) {
         var m;
         test.expect(7);
