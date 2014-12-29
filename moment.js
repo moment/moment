@@ -2289,6 +2289,8 @@
                     output = output / 3;
                 } else if (units === 'year') {
                     output = output / 12;
+                } else if (units === 'quarter') {
+                    output = output / 4;
                 }
             } else {
                 diff = (this - that);
