@@ -401,6 +401,41 @@ exports.duration = {
         test.done();
     },
 
+    'humanize duration with custom threshold' : function (test) {
+        test.expect(6);
+        moment.locale('en');
+        // remember default threshold
+        var defaults = {
+          s: moment.relativeTimeThreshold('s'),
+          m: moment.relativeTimeThreshold('m'),
+          h: moment.relativeTimeThreshold('h'),
+          d: moment.relativeTimeThreshold('d'),
+          M: moment.relativeTimeThreshold('M')
+        };
+        // set to 29 seconds (< 0.5 minutes)
+        moment.relativeTimeThreshold('s', 29);
+        test.equal(moment.duration({seconds:  29}).humanize(),  'a minute', '29 seconds = a minute');
+        // set to 29 minutes (< 0.5 hours)
+        moment.relativeTimeThreshold('m', 29);
+        test.equal(moment.duration({minutes:  29}).humanize(),  'an hour', '29 minutes = an hour');
+        // set to 11 hours (< 0.5 days)
+        moment.relativeTimeThreshold('h', 11);
+        test.equal(moment.duration({hours:  11}).humanize(),  'a day', '11 hours = a day');
+        // set to 13 days (< 0.5 months)
+        moment.relativeTimeThreshold('d', 13);
+        test.equal(moment.duration({days:  13}).humanize(),  'a month', '13 days = a month');
+        // set to 5 months (< 0.5 years)
+        moment.relativeTimeThreshold('M', 5);
+        test.equal(moment.duration({months:  5}).humanize(),  'a year', '5 months = a year');
+        // set the threshold back
+        moment.relativeTimeThreshold('s', defaults.s);
+        moment.relativeTimeThreshold('m', defaults.m);
+        moment.relativeTimeThreshold('h', defaults.h);
+        moment.relativeTimeThreshold('d', defaults.d);
+        moment.relativeTimeThreshold('M', defaults.M);
+        test.done();
+    },
+    
     'humanize duration with suffix' : function (test) {
         test.expect(2);
         moment.locale('en');
