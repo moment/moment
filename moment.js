@@ -2270,7 +2270,7 @@
 
             units = normalizeUnits(units);
 
-            if (units === 'year' || units === 'month') {
+            if (units === 'year' || units === 'month' || units === 'quarter') {
                 // average number of days in the months in the given dates
                 diff = (this.daysInMonth() + that.daysInMonth()) * 432e5; // 24 * 60 * 60 * 1000 / 2
                 // difference in months
@@ -2283,7 +2283,9 @@
                 daysAdjust += ((this.utcOffset() - moment(this).startOf('month').utcOffset()) -
                         (that.utcOffset() - moment(that).startOf('month').utcOffset())) * 6e4;
                 output += daysAdjust / diff;
-                if (units === 'year') {
+                if (units === 'quarter') {
+                    output = output / 3;
+                } else if (units === 'year') {
                     output = output / 12;
                 }
             } else {
