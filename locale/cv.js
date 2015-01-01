@@ -28,8 +28,8 @@
         calendar : {
             sameDay: '[Паян] LT [сехетре]',
             nextDay: '[Ыран] LT [сехетре]',
-            lastDay: '[Ĕнер] LT [сехетре]',
-            nextWeek: '[Çитес] dddd LT [сехетре]',
+            lastDay: '[Ӗнер] LT [сехетре]',
+            nextWeek: '[Ҫитес] dddd LT [сехетре]',
             lastWeek: '[Иртнӗ] dddd LT [сехетре]',
             sameElse: 'L'
         },
