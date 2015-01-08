@@ -13,10 +13,16 @@
     }
 }(function (moment) {
     var units = {
+        's' : 'dažām sekundēm_dažām sekundēm_dažas sekundes_dažas sekundes',
+        'm' : 'minūtes_minūtes_minūte_minūte',
         'mm': 'minūtes_minūtēm_minūte_minūtes',
+        'h' : 'stundas_stundas_stunda_stunda',
         'hh': 'stundas_stundām_stunda_stundas',
+        'd' : 'dienas_dienas_diena_diena',
         'dd': 'dienas_dienām_diena_dienas',
+        'M' : 'mēneša_mēneša_mēnesis_mēnesis',
         'MM': 'mēneša_mēnešiem_mēnesis_mēneši',
+        'y' : 'gada_gada_gads_gads',
         'yy': 'gada_gadiem_gads_gadi'
     };
 
@@ -31,6 +37,10 @@
 
     function relativeTimeWithPlural(number, withoutSuffix, key) {
         return number + ' ' + format(units[key], number, withoutSuffix);
+    }
+
+    function relativeTimeWithSingular(number, withoutSuffix, key) {
+        return format(units[key], number, withoutSuffix);
     }
 
     return moment.defineLocale('lv', {
@@ -56,18 +66,18 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : 'pirms %s',
-            past : 'pēc %s',
-            s : 'dažām sekundēm',
-            m : 'minūtes',
+            future : 'pēc %s',
+            past : 'pirms %s',
+            s : relativeTimeWithSingular,
+            m : relativeTimeWithSingular,
             mm : relativeTimeWithPlural,
-            h : 'stundas',
+            h : relativeTimeWithSingular,
             hh : relativeTimeWithPlural,
-            d : 'dienas',
+            d : relativeTimeWithSingular,
             dd : relativeTimeWithPlural,
-            M : 'mēneša',
+            M : relativeTimeWithSingular,
             MM : relativeTimeWithPlural,
-            y : 'gada',
+            y : relativeTimeWithSingular,
             yy : relativeTimeWithPlural
         },
         ordinalParse: /\d{1,2}\./,
@@ -78,3 +88,4 @@
         }
     });
 }));
+

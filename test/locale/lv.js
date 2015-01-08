@@ -128,34 +128,34 @@ exports['locale:lv'] = {
 
     'from' : function (test) {
         var start = moment([2007, 1, 28]);
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'dažām sekundēm',    '44 seconds = seconds');
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'minūtes',      '45 seconds = a minute');
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'minūtes',      '89 seconds = a minute');
-        test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '2 minūtēm',     '90 seconds = 2 minutes');
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  '44 minūtēm',    '44 minutes = 44 minutes');
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  'stundas',       '45 minutes = an hour');
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  'stundas',       '89 minutes = an hour');
-        test.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  '2 stundām',       '90 minutes = 2 hours');
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   '5 stundām',       '5 hours = 5 hours');
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  '21 stundas',      '21 hours = 21 hours');
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  'dienas',         '22 hours = a day');
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  'dienas',         '35 hours = a day');
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  '2 dienām',        '36 hours = 2 days');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   'dienas',         '1 day = a day');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   '5 dienām',        '5 days = 5 days');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  '25 dienām',       '25 days = 25 days');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  'mēneša',       '26 days = a month');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  'mēneša',       '30 days = a month');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  'mēneša',       '43 days = a month');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  '2 mēnešiem',      '46 days = 2 months');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  '2 mēnešiem',      '75 days = 2 months');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  '3 mēnešiem',      '76 days = 3 months');
-        test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   'mēneša',       '1 month = a month');
-        test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   '5 mēnešiem',      '5 months = 5 months');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'gada',        '345 days = a year');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), '2 gadiem',       '548 days = 2 years');
-        test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'gada',        '1 year = a year');
-        test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5 gadiem',       '5 years = 5 years');
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'dažas sekundes',    '44 seconds = seconds');
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'minūte',      '45 seconds = a minute');
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'minūte',      '89 seconds = a minute');
+        test.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '2 minūtes',     '90 seconds = 2 minutes');
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  '44 minūtes',    '44 minutes = 44 minutes');
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  'stunda',       '45 minutes = an hour');
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  'stunda',       '89 minutes = an hour');
+        test.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  '2 stundas',       '90 minutes = 2 hours');
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   '5 stundas',       '5 hours = 5 hours');
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  '21 stunda',      '21 hours = 21 hours');
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  'diena',         '22 hours = a day');
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  'diena',         '35 hours = a day');
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  '2 dienas',        '36 hours = 2 days');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   'diena',         '1 day = a day');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   '5 dienas',        '5 days = 5 days');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  '25 dienas',       '25 days = 25 days');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  'mēnesis',       '26 days = a month');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  'mēnesis',       '30 days = a month');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  'mēnesis',       '43 days = a month');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  '2 mēneši',      '46 days = 2 months');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  '2 mēneši',      '75 days = 2 months');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  '3 mēneši',      '76 days = 3 months');
+        test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   'mēnesis',       '1 month = a month');
+        test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   '5 mēneši',      '5 months = 5 months');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'gads',        '345 days = a year');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), '2 gadi',       '548 days = 2 years');
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'gads',        '1 year = a year');
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5 gadi',       '5 years = 5 years');
         test.done();
     },
 
@@ -356,3 +356,4 @@ exports['locale:lv'] = {
         test.done();
     }
 };
+
