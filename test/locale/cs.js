@@ -55,7 +55,7 @@ exports['locale:cs'] = {
                 ['a A',                          'pm PM'],
                 ['DDDo [den v roce]',            '45. den v roce'],
                 ['LTS',                          '15:25:50'],
-                ['L',                            '14.02.2010'],
+                ['L',                            '14. 02. 2010'],
                 ['LL',                           '14. únor 2010'],
                 ['LLL',                          '14. únor 2010 15:25'],
                 ['LLLL',                         'neděle 14. únor 2010 15:25'],
