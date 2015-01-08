@@ -55,11 +55,24 @@ module.exports = function (grunt) {
             }
         });
 
+        grunt.config('string-replace.moment-js-nuspec', {
+            files: {'Moment.js.nuspec': 'Moment.js.nuspec'},
+            options: {
+                replacements: [
+                    {
+                        pattern:     /<version>.*<\/version>/,
+                        replacement: '<version>' + version + '</version>'
+                    }
+                ]
+            }
+        });
+
         grunt.task.run([
             'string-replace:moment-js',
             'string-replace:package-json',
             'string-replace:bower-json',
             'string-replace:component-json',
+            'string-replace:moment-js-nuspec'
         ]);
     });
 };
