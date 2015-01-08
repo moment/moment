@@ -172,7 +172,20 @@ exports['locale:lv'] = {
 
     'fromNow' : function (test) {
         test.equal(moment().add({s: 30}).fromNow(), 'pēc dažām sekundēm', 'in seconds');
+        test.equal(moment().add({s: -30}).fromNow(), 'pirms dažām sekundēm', 'seconds ago');
+        test.equal(moment().add({m: 89}).fromNow(), 'pēc stundas', 'in an hour');
+        test.equal(moment().add({m: -89}).fromNow(), 'pirms stundas', 'an hour ago');
+        test.equal(moment().add({h: 21}).fromNow(), 'pēc 21 stundas', 'in 21 hours');
+        test.equal(moment().add({h: -21}).fromNow(), 'pirms 21 stundas', '21 hours ago');
+        test.equal(moment().add({h: 8}).fromNow(), 'pēc 8 stundām', 'in 8 hours');
+        test.equal(moment().add({h: -8}).fromNow(), 'pirms 8 stundām', '8 hours ago');
         test.equal(moment().add({d: 5}).fromNow(), 'pēc 5 dienām', 'in 5 days');
+        test.equal(moment().add({d: -5}).fromNow(), 'pirms 5 dienām', '5 days ago');
+        test.equal(moment().add({d: -21}).fromNow(), 'pirms 21 dienas', '21 days ago');
+        test.equal(moment().add({d: -31}).fromNow(), 'pirms mēneša', 'a month ago');
+        test.equal(moment().add({d: -345}).fromNow(), 'pirms gada', 'a year ago');
+        test.equal(moment().add({y: -341}).fromNow(), 'pirms 341 gada', '341 years ago');
+        test.equal(moment().add({y: -5}).fromNow(), 'pirms 5 gadiem', '5 years ago');
         test.done();
     },
 
