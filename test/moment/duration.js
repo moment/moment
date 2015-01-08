@@ -62,6 +62,18 @@ exports.duration = {
         test.done();
     },
 
+    'undefined instantiation' : function (test) {
+        test.expect(1);
+        test.equal(moment.duration(undefined).milliseconds(), 0, 'milliseconds');
+        test.done();
+    },
+
+    'null instantiation' : function (test) {
+        test.expect(1);
+        test.equal(moment.duration(null).milliseconds(), 0, 'milliseconds');
+        test.done();
+    },
+
     'instantiation by type' : function (test) {
         test.expect(16);
         test.equal(moment.duration(1, 'years').years(),                 1, 'years');
@@ -622,6 +634,14 @@ exports.duration = {
         test.equal(d.subtract(10000)._milliseconds, 5 * 60 * 60 * 1000 - 10000, 'Subtract milliseconds');
         test.equal(d.subtract({h: 1, m: 59})._milliseconds, 3 * 60 * 60 * 1000 + 1 * 60 * 1000 - 10000, 'Subtract hour:minute');
 
+        test.done();
+    },
+
+    'JSON.stringify duration' : function (test) {
+        var d = moment.duration(1024, 'h');
+
+        test.expect(1);
+        test.equal(JSON.stringify(d), '"' + d.toISOString() + '"', 'JSON.stringify on duration should return ISO string');
         test.done();
     }
 

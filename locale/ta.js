@@ -90,20 +90,36 @@
 
 
         // refer http://ta.wikipedia.org/s/1er1
-
+        meridiemParse: /யாமம்|வைகறை|காலை|நண்பகல்|எற்பாடு|மாலை/,
         meridiem : function (hour, minute, isLower) {
-            if (hour >= 6 && hour <= 10) {
-                return ' காலை';
-            } else if (hour >= 10 && hour <= 14) {
-                return ' நண்பகல்';
-            } else if (hour >= 14 && hour <= 18) {
-                return ' எற்பாடு';
-            } else if (hour >= 18 && hour <= 20) {
-                return ' மாலை';
-            } else if (hour >= 20 && hour <= 24) {
-                return ' இரவு';
-            } else if (hour >= 0 && hour <= 6) {
-                return ' வைகறை';
+            if (hour < 2) {
+                return ' யாமம்';
+            } else if (hour < 6) {
+                return ' வைகறை';  // வைகறை
+            } else if (hour < 10) {
+                return ' காலை'; // காலை
+            } else if (hour < 14) {
+                return ' நண்பகல்'; // நண்பகல்
+            } else if (hour < 18) {
+                return ' எற்பாடு'; // எற்பாடு
+            } else if (hour < 22) {
+                return ' மாலை'; // மாலை
+            } else {
+                return ' யாமம்';
+            }
+        },
+        meridiemHour : function (hour, meridiem) {
+            if (hour === 12) {
+                hour = 0;
+            }
+            if (meridiem === 'யாமம்') {
+                return hour < 2 ? hour : hour + 12;
+            } else if (meridiem === 'வைகறை' || meridiem === 'காலை') {
+                return hour;
+            } else if (meridiem === 'நண்பகல்') {
+                return hour >= 10 ? hour : hour + 12;
+            } else {
+                return hour + 12;
             }
         },
         week : {

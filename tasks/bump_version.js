@@ -55,24 +55,11 @@ module.exports = function (grunt) {
             }
         });
 
-        grunt.config('string-replace.meteor-package-js', {
-            files: {'meteor/package.js': 'meteor/package.js'},
-            options: {
-                replacements: [
-                    {
-                        pattern:     /version: .*/,
-                        replacement: "version: '" + version + "',"
-                    }
-                ]
-            }
-        });
-
         grunt.task.run([
             'string-replace:moment-js',
             'string-replace:package-json',
             'string-replace:bower-json',
             'string-replace:component-json',
-            'string-replace:meteor-package-js'
         ]);
     });
 };

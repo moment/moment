@@ -246,12 +246,11 @@ module.exports = function (grunt) {
         'test:node'
     ]);
 
-    grunt.registerTask('publish-meteor', ['exec:meteor-init', 'exec:meteor-publish', 'exec:meteor-cleanup']);
+    grunt.registerTask('meteor-publish', ['exec:meteor-init', 'exec:meteor-publish', 'exec:meteor-cleanup']);
 
     // Task to be run when releasing a new version
     grunt.registerTask('release', [
         'jshint', 'nodeunit', 'concat', 'embedLocales',
-        'component', 'uglify:main',
-        'publish-meteor'
+        'component', 'uglify:main'
     ]);
 };

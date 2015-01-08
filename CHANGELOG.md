@@ -1,6 +1,27 @@
 Changelog
 =========
 
+### 2.9.0 [See full changelog](https://gist.github.com/ichernev/0c9a9b49951111a27ce7)
+
+languages:
+* [2104](https://github.com/moment/moment/issues/2104) Frisian (fy) language file with unit test
+* [2097](https://github.com/moment/moment/issues/2097) add ar-tn locale
+
+deprecations:
+* [2074](https://github.com/moment/moment/issues/2074) Implement `moment.fn.utcOffset`, deprecate `momen.fn.zone`
+
+features:
+* [2088](https://github.com/moment/moment/issues/2088) add moment.fn.isBetween
+* [2054](https://github.com/moment/moment/issues/2054) Call updateOffset when creating moment (needed for default timezone in
+  moment-timezone)
+* [1893](https://github.com/moment/moment/issues/1893) Add moment.isDate method
+* [1825](https://github.com/moment/moment/issues/1825) Implement toJSON function on Duration
+* [1809](https://github.com/moment/moment/issues/1809) Allowing moment.set() to accept a hash of units
+* [2128](https://github.com/moment/moment/issues/2128) Add firstDayOfWeek, firstDayOfYear locale getters
+* [2131](https://github.com/moment/moment/issues/2131) Add quarter diff support
+
+Some bugfixes and language improvements -- [full changelog](https://gist.github.com/ichernev/0c9a9b49951111a27ce7)
+
 ### 2.8.4 [See full changelog](https://gist.github.com/ichernev/a4fcb0a46d74e4b9b996)
 
 Features:

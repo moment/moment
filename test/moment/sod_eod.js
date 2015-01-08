@@ -352,9 +352,9 @@ exports.endStartOf = {
 
         moment.updateOffset = function (mom, keepTime) {
             if (mom.isBefore(dstAt)) {
-                mom.zone(8, keepTime);
+                mom.utcOffset(-8, keepTime);
             } else {
-                mom.zone(7, keepTime);
+                mom.utcOffset(-7, keepTime);
             }
         };
 
@@ -393,9 +393,9 @@ exports.endStartOf = {
 
         moment.updateOffset = function (mom, keepTime) {
             if (mom.isBefore(dstAt)) {
-                mom.zone(7, keepTime);
+                mom.utcOffset(-7, keepTime);
             } else {
-                mom.zone(8, keepTime);
+                mom.utcOffset(-8, keepTime);
             }
         };
 
@@ -409,13 +409,13 @@ exports.endStartOf = {
         test.equal(m.format(), '2014-11-02T00:00:00-07:00',
                 'startOf(\'day\') across -1');
 
-        // note that zone is -8
+        // note that utc offset is -8
         m = moment('2014-11-02T01:30:00-08:00').parseZone();
         m.startOf('h');
         test.equal(m.format(), '2014-11-02T01:00:00-08:00',
                 'startOf(\'hour\') after +1');
 
-        // note that zone is -7
+        // note that utc offset is -7
         m = moment('2014-11-02T01:30:00-07:00').parseZone();
         m.startOf('h');
         test.equal(m.format(), '2014-11-02T01:00:00-07:00',

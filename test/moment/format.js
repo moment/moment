@@ -69,17 +69,13 @@ exports.format = {
     'format timezone' : function (test) {
         test.expect(2);
 
-        var b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
-            explanation = 'moment().format(\'z\') = ' + b.format('z') + ' It should be something like \'PST\'';
-        if (moment().zone() === -60) {
-            explanation += 'For UTC+1 this is a known issue, see https://github.com/timrwood/moment/issues/162';
-        }
+        var b = moment(new Date(2010, 1, 14, 15, 25, 50, 125));
         test.ok(b.format('Z').match(/^[\+\-]\d\d:\d\d$/), b.format('Z') + ' should be something like \'+07:30\'');
         test.ok(b.format('ZZ').match(/^[\+\-]\d{4}$/), b.format('ZZ') + ' should be something like \'+0700\'');
         test.done();
     },
 
-    'format multiple with zone' : function (test) {
+    'format multiple with utc offset' : function (test) {
         test.expect(1);
 
         var b = moment('2012-10-08 -1200', ['YYYY-MM-DD HH:mm ZZ', 'YYYY-MM-DD ZZ', 'YYYY-MM-DD']);
@@ -140,24 +136,13 @@ exports.format = {
         test.done();
     },
 
-    'zone' : function (test) {
-        test.expect(3);
+    'utcOffset sanity checks': function (test) {
+        test.equal(moment().utcOffset() % 15, 0,
+                'utc offset should be a multiple of 15 (was ' + moment().utcOffset() + ')');
 
-        if (moment().zone() > 0) {
-            test.ok(moment().format('ZZ').indexOf('-') > -1, 'When the zone() offset is greater than 0, the ISO offset should be less than zero');
-        }
-        if (moment().zone() < 0) {
-            test.ok(moment().format('ZZ').indexOf('+') > -1, 'When the zone() offset is less than 0, the ISO offset should be greater than zero');
-        }
-        if (moment().zone() === 0) {
-            test.ok(moment().format('ZZ').indexOf('+') > -1, 'When the zone() offset is equal to 0, the ISO offset should be positive zero');
-        }
-        if (moment().zone() === 0) {
-            test.equal(moment().zone(), 0, 'moment.fn.zone should be a multiple of 15 (was ' + moment().zone() + ')');
-        } else {
-            test.equal(moment().zone() % 15, 0, 'moment.fn.zone should be a multiple of 15 (was ' + moment().zone() + ')');
-        }
-        test.equal(moment().zone(), new Date().getTimezoneOffset(), 'zone should equal getTimezoneOffset');
+        test.equal(moment().utcOffset(), -(new Date()).getTimezoneOffset(),
+            'utcOffset should return the opposite of getTimezoneOffset');
+
         test.done();
     },
 
@@ -395,8 +380,9 @@ exports.format = {
 
         for (i = 0; i < zones.length; ++i) {
             z = zones[i];
-            a = moment().zone(z).startOf('day').subtract({m: 1});
-            test.equal(moment(a).zone(z).calendar(), 'Yesterday at 11:59 PM', 'Yesterday at 11:59 PM, not Today, or the wrong time');
+            a = moment().utcOffset(z).startOf('day').subtract({m: 1});
+            test.equal(moment(a).utcOffset(z).calendar(), 'Yesterday at 11:59 PM',
+                    'Yesterday at 11:59 PM, not Today, or the wrong time, tz = ' + z);
         }
 
         test.equal(moment(b).utc().calendar(), 'Yesterday at 11:59 PM', 'Yesterday at 11:59 PM, not Today, or the wrong time');

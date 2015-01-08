@@ -29,6 +29,19 @@
             lll : 'YYYY年MMMD日LT',
             llll : 'YYYY年MMMD日ddddLT'
         },
+        meridiemParse: /早上|上午|中午|下午|晚上/,
+        meridiemHour : function (hour, meridiem) {
+            if (hour === 12) {
+                hour = 0;
+            }
+            if (meridiem === '早上' || meridiem === '上午') {
+                return hour;
+            } else if (meridiem === '中午') {
+                return hour >= 11 ? hour : hour + 12;
+            } else if (meridiem === '下午' || meridiem === '晚上') {
+                return hour + 12;
+            }
+        },
         meridiem : function (hour, minute, isLower) {
             var hm = hour * 100 + minute;
             if (hm < 900) {

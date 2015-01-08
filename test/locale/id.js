@@ -308,6 +308,20 @@ exports['locale:id'] = {
         test.done();
     },
 
+    'meridiem invariant' : function (test) {
+        var h, m, t1, t2;
+        for (h = 0; h < 24; ++h) {
+            for (m = 0; m < 60; m += 15) {
+                t1 = moment.utc([2000, 0, 1, h, m]);
+                t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                test.equal(t2.format('HH:mm'), t1.format('HH:mm'),
+                        'meridiem at ' + t1.format('HH:mm'));
+            }
+        }
+
+        test.done();
+    },
+
     'strict ordinal parsing' : function (test) {
         var i, ordinalStr, testMoment;
         for (i = 1; i <= 31; ++i) {

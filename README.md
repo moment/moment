@@ -20,13 +20,13 @@ There are a number of small backwards incompatible changes with version 2.0.0. [
 
  * Duplicate `Date` passed to `moment()` instead of referencing it.
 
-## [Changelog](CHANGELOG.md)
+## [Changelog](https://github.com/moment/moment/blob/develop/CHANGELOG.md)
 
-## [Contributing](CONTRIBUTING.md)
+## [Contributing](https://github.com/moment/moment/blob/develop/CONTRIBUTING.md)
 
 ## License
 
-Moment.js is freely distributable under the terms of the [MIT license](LICENSE).
+Moment.js is freely distributable under the terms of the [MIT license](https://github.com/moment/moment/blob/develop/LICENSE).
 
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
 [license-url]: LICENSE
