@@ -1,27 +1,16 @@
-var moment = require('../../moment');
+import { module, test } from "../qunit";
+import moment from "../../moment";
 
-exports.stringPrototype = {
-    setUp : function (done) {
-        moment.createFromInputFallback = function () {
-            throw new Error('input not handled by moment');
-        };
-        done();
-    },
+module("string prototype");
 
-    'string prototype overrides call' : function (test) {
-        test.expect(1);
+test('string prototype overrides call', function (assert) {
+    var prior = String.prototype.call, b;
+    String.prototype.call = function () {
+        return null;
+    };
 
-        moment.locale('en');
-        var prior = String.prototype.call, b;
-        String.prototype.call = function () {
-            return null;
-        };
+    b = moment(new Date(2011, 7, 28, 15, 25, 50, 125));
+    assert.equal(b.format('MMMM Do YYYY, h:mm a'), 'August 28th 2011, 3:25 pm');
 
-        b = moment(new Date(2011, 7, 28, 15, 25, 50, 125));
-        test.equal(b.format('MMMM Do YYYY, h:mm a'), 'August 28th 2011, 3:25 pm');
-
-        String.prototype.call = prior;
-        test.done();
-    }
-
-};
+    String.prototype.call = prior;
+});

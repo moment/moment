@@ -1,56 +1,45 @@
-var moment = require('../../moment');
+import { module, test } from "../qunit";
+import moment from "../../moment";
 
-exports.durationFromMoments = {
-    setUp: function (done) {
-        moment.createFromInputFallback = function () {
-            throw new Error('input not handled by moment');
-        };
-        done();
-    },
+module('duration from moments');
 
-    'pure year diff' : function (test) {
-        var m1 = moment('2012-01-01T00:00:00.000Z'),
-            m2 = moment('2013-01-01T00:00:00.000Z');
+test('pure year diff', function (assert) {
+    var m1 = moment('2012-01-01T00:00:00.000Z'),
+        m2 = moment('2013-01-01T00:00:00.000Z');
 
-        test.equal(moment.duration({from: m1, to: m2}).as('years'), 1, 'year moment difference');
-        test.equal(moment.duration({from: m2, to: m1}).as('years'), -1, 'negative year moment difference');
-        test.done();
-    },
+    assert.equal(moment.duration({from: m1, to: m2}).as('years'), 1, 'year moment difference');
+    assert.equal(moment.duration({from: m2, to: m1}).as('years'), -1, 'negative year moment difference');
+});
 
-    'month and day diff' : function (test) {
-        var m1 = moment('2012-01-15T00:00:00.000Z'),
-            m2 = moment('2012-02-17T00:00:00.000Z'),
-            d = moment.duration({from: m1, to: m2});
+test('month and day diff', function (assert) {
+    var m1 = moment('2012-01-15T00:00:00.000Z'),
+        m2 = moment('2012-02-17T00:00:00.000Z'),
+        d = moment.duration({from: m1, to: m2});
 
-        test.equal(d.get('days'), 2);
-        test.equal(d.get('months'), 1);
-        test.done();
-    },
+    assert.equal(d.get('days'), 2);
+    assert.equal(d.get('months'), 1);
+});
 
-    'day diff, separate months' : function (test) {
-        var m1 = moment('2012-01-15T00:00:00.000Z'),
-            m2 = moment('2012-02-13T00:00:00.000Z'),
-            d = moment.duration({from: m1, to: m2});
+test('day diff, separate months', function (assert) {
+    var m1 = moment('2012-01-15T00:00:00.000Z'),
+        m2 = moment('2012-02-13T00:00:00.000Z'),
+        d = moment.duration({from: m1, to: m2});
 
-        test.equal(d.as('days'), 29);
-        test.done();
-    },
+    assert.equal(d.as('days'), 29);
+});
 
-    'hour diff' : function (test) {
-        var m1 = moment('2012-01-15T17:00:00.000Z'),
-            m2 = moment('2012-01-16T03:00:00.000Z'),
-            d = moment.duration({from: m1, to: m2});
+test('hour diff', function (assert) {
+    var m1 = moment('2012-01-15T17:00:00.000Z'),
+        m2 = moment('2012-01-16T03:00:00.000Z'),
+        d = moment.duration({from: m1, to: m2});
 
-        test.equal(d.as('hours'), 10);
-        test.done();
-    },
+    assert.equal(d.as('hours'), 10);
+});
 
-    'minute diff' : function (test) {
-        var m1 = moment('2012-01-15T17:45:00.000Z'),
-            m2 = moment('2012-01-16T03:15:00.000Z'),
-            d = moment.duration({from: m1, to: m2});
+test('minute diff', function (assert) {
+    var m1 = moment('2012-01-15T17:45:00.000Z'),
+        m2 = moment('2012-01-16T03:15:00.000Z'),
+        d = moment.duration({from: m1, to: m2});
 
-        test.equal(d.as('hours'), 9.5);
-        test.done();
-    }
-};
+    assert.equal(d.as('hours'), 9.5);
+});
