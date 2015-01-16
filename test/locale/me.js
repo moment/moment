@@ -7,7 +7,7 @@ var moment = require('../../moment');
 
 exports['locale:me'] = {
     setUp : function (cb) {
-        moment.locale('sr');
+        moment.locale('me');
         moment.createFromInputFallback = function () {
             throw new Error('input not handled by moment');
         };
