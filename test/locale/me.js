@@ -140,7 +140,7 @@ exports['locale:me'] = {
         test.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  'jedan sat',      '89 minutes = an hour');
         test.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  '2 sata',        '90 minutes = 2 hours');
         test.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   '5 sati',         '5 hours = 5 hours');
-        test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  '21 sat',        '21 hours = 21 hours');
+        test.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  '21 sati',        '21 hours = 21 hours');
         test.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  'dan',       '22 hours = a day');
         test.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  'dan',       '35 hours = a day');
         test.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  '2 dana',        '36 hours = 2 days');
@@ -155,9 +155,9 @@ exports['locale:me'] = {
         test.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  '3 mjeseca',     '76 days = 3 months');
         test.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   'mjesec',     '1 month = a month');
         test.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   '5 mjeseci',    '5 months = 5 months');
-        test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'godina',     '345 days = a year');
+        test.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'godinu',     '345 days = a year');
         test.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), '2 godine',       '548 days = 2 years');
-        test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'godina',     '1 year = a year');
+        test.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'godinu',     '1 year = a year');
         test.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5 godina',        '5 years = 5 years');
         test.done();
     },
