@@ -1,6 +1,7 @@
 // moment.js locale configuration
 // locale : latvian (lv)
 // author : Kristaps Karlsons : https://github.com/skakri
+// TODO: pirms 1 dienas => vakar, pēc 1 dienas = rīt.
 
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
@@ -12,11 +13,17 @@
     }
 }(function (moment) {
     var units = {
-        'mm': 'minūti_minūtes_minūte_minūtes',
-        'hh': 'stundu_stundas_stunda_stundas',
-        'dd': 'dienu_dienas_diena_dienas',
-        'MM': 'mēnesi_mēnešus_mēnesis_mēneši',
-        'yy': 'gadu_gadus_gads_gadi'
+        's' : 'dažām sekundēm_dažām sekundēm_dažas sekundes_dažas sekundes',
+        'm' : 'minūtes_minūtes_minūte_minūte',
+        'mm': 'minūtes_minūtēm_minūte_minūtes',
+        'h' : 'stundas_stundas_stunda_stunda',
+        'hh': 'stundas_stundām_stunda_stundas',
+        'd' : 'dienas_dienas_diena_diena',
+        'dd': 'dienas_dienām_diena_dienas',
+        'M' : 'mēneša_mēneša_mēnesis_mēnesis',
+        'MM': 'mēneša_mēnešiem_mēnesis_mēneši',
+        'y' : 'gada_gada_gads_gads',
+        'yy': 'gada_gadiem_gads_gadi'
     };
 
     function format(word, number, withoutSuffix) {
@@ -30,6 +37,10 @@
 
     function relativeTimeWithPlural(number, withoutSuffix, key) {
         return number + ' ' + format(units[key], number, withoutSuffix);
+    }
+
+    function relativeTimeWithSingular(number, withoutSuffix, key) {
+        return format(units[key], number, withoutSuffix);
     }
 
     return moment.defineLocale('lv', {
@@ -55,18 +66,18 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : '%s vēlāk',
-            past : '%s agrāk',
-            s : 'dažas sekundes',
-            m : 'minūti',
+            future : 'pēc %s',
+            past : 'pirms %s',
+            s : relativeTimeWithSingular,
+            m : relativeTimeWithSingular,
             mm : relativeTimeWithPlural,
-            h : 'stundu',
+            h : relativeTimeWithSingular,
             hh : relativeTimeWithPlural,
-            d : 'dienu',
+            d : relativeTimeWithSingular,
             dd : relativeTimeWithPlural,
-            M : 'mēnesi',
+            M : relativeTimeWithSingular,
             MM : relativeTimeWithPlural,
-            y : 'gadu',
+            y : relativeTimeWithSingular,
             yy : relativeTimeWithPlural
         },
         ordinalParse: /\d{1,2}\./,
@@ -77,3 +88,4 @@
         }
     });
 }));
+
