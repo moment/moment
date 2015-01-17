@@ -1,7 +1,7 @@
 // moment.js locale configuration
-// locale : Bahasa Indonesia (id)
-// author : Mohammad Satrio Utomo : https://github.com/tyok
-// reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
+// locale : Boso Jowo (jv)
+// author : Rony Lantip : https://github.com/lantip
+// reference: http://jv.wikipedia.org/wiki/Basa_Jawa
 
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
