@@ -133,34 +133,7 @@ module.exports = function (grunt) {
                 '!test/browser*.js'
             ],
             options: {
-                'node'     : true,
-                'browser'  : true,
-                'boss'     : false,
-                'curly'    : true,
-                'debug'    : false,
-                'devel'    : false,
-                'eqeqeq'   : true,
-                'eqnull'   : true,
-                'evil'     : false,
-                'forin'    : false,
-                'immed'    : false,
-                'laxbreak' : false,
-                'newcap'   : true,
-                'noarg'    : true,
-                'noempty'  : false,
-                'nonew'    : false,
-                'onevar'   : true,
-                'plusplus' : false,
-                'regexp'   : false,
-                'undef'    : true,
-                'sub'      : true,
-                'strict'   : false,
-                'white'    : true,
-                'es3'      : true,
-                'camelcase' : true,
-                'globals': {
-                    'define': false
-                }
+                jshintrc: true
             }
         },
         jscs: {

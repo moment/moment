@@ -1,7 +1,7 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
-module("quarter");
+module('quarter');
 
 test('library quarter getter', function (assert) {
     assert.equal(moment([1985,  1,  4]).quarter(), 1, 'Feb  4 1985 is Q1');

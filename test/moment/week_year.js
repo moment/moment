@@ -1,7 +1,7 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
-module("week year");
+module('week year');
 
 test('iso week year', function (assert) {
     // Some examples taken from http://en.wikipedia.org/wiki/ISO_week

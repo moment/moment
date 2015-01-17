@@ -1,7 +1,7 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
-module("string prototype");
+module('string prototype');
 
 test('string prototype overrides call', function (assert) {
     var prior = String.prototype.call, b;

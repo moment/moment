@@ -1,7 +1,7 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
-module("is moment");
+module('is moment');
 
 test('is moment object', function (assert) {
     var MyObj = function () {},

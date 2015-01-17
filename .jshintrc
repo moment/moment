@@ -1,0 +1,31 @@
+{
+    "node"     : true,
+    "browser"  : true,
+    "boss"     : false,
+    "curly"    : true,
+    "debug"    : false,
+    "devel"    : false,
+    "eqeqeq"   : true,
+    "eqnull"   : true,
+    "esnext"   : true,
+    "evil"     : false,
+    "forin"    : false,
+    "immed"    : false,
+    "laxbreak" : false,
+    "newcap"   : true,
+    "noarg"    : true,
+    "noempty"  : false,
+    "nonew"    : false,
+    "onevar"   : true,
+    "plusplus" : false,
+    "regexp"   : false,
+    "undef"    : true,
+    "sub"      : true,
+    "strict"   : false,
+    "white"    : true,
+    "es3"      : false,
+    "camelcase" : true,
+    "globals": {
+        "define": false
+    }
+}

@@ -1,7 +1,7 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
-module("create");
+module('create');
 
 test('array', function (assert) {
     assert.ok(moment([2010]).toDate() instanceof Date, '[2010]');
@@ -344,12 +344,12 @@ test('string with array of formats', function (assert) {
         ['MM/DD/YYYY', 'MM-DD-YYYY', 'YYYY-MM-DD', 'YYYY-MM-DDTHH:mm:ssZ'])
         .format('YYYY-MM-DD'), '2011-07-01', 'Works for long strings');
 
-        assert.equal(moment('11-02-10', ['MM.DD.YY', 'DD-MM-YY']).format('MM DD YYYY'), '02 11 2010', 'escape RegExp special characters on comparing');
+    assert.equal(moment('11-02-10', ['MM.DD.YY', 'DD-MM-YY']).format('MM DD YYYY'), '02 11 2010', 'escape RegExp special characters on comparing');
 
-        assert.equal(moment('13-10-98', ['DD MM YY', 'DD MM YYYY'])._f, 'DD MM YY', 'use two digit year');
-        assert.equal(moment('13-10-1998', ['DD MM YY', 'DD MM YYYY'])._f, 'DD MM YYYY', 'use four digit year');
+    assert.equal(moment('13-10-98', ['DD MM YY', 'DD MM YYYY'])._f, 'DD MM YY', 'use two digit year');
+    assert.equal(moment('13-10-1998', ['DD MM YY', 'DD MM YYYY'])._f, 'DD MM YYYY', 'use four digit year');
 
-        assert.equal(moment('01', ['MM', 'DD'])._f, 'MM', 'Should use first valid format');
+    assert.equal(moment('01', ['MM', 'DD'])._f, 'MM', 'Should use first valid format');
 });
 
 test('string with array of formats + ISO', function (assert) {

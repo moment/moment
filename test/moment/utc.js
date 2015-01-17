@@ -1,7 +1,7 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
-module("utc");
+module('utc');
 
 test('utc and local', function (assert) {
     var m = moment(Date.UTC(2011, 1, 2, 3, 4, 5, 6)), offset, expected;

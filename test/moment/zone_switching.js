@@ -1,7 +1,7 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
-module("zone switching");
+module('zone switching');
 
 test('local to utc, keepLocalTime = true', function (assert) {
     var m = moment(),

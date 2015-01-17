@@ -1,7 +1,7 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
-module("relative time");
+module('relative time');
 
 test('default thresholds', function (assert) {
     var a = moment();

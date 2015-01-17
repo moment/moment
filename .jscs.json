@@ -63,5 +63,6 @@
     "validateQuoteMarks": {
         "mark": "'",
         "escape": true
-    }
+    },
+    "esnext": true
 }

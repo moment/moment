@@ -1,7 +1,7 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
-module("utc offset");
+module('utc offset');
 
 test('setter / getter blackbox', function (assert) {
     var m = moment([2010]);

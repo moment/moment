@@ -1,11 +1,11 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
-module("is date");
+module('is date');
 
 test('isDate recognizes Date objects', function (assert) {
     assert.ok(moment.isDate(new Date()), 'no args (now)');
-    assert.ok(moment.isDate(new Date([2014, 02, 15])), 'array args');
+    assert.ok(moment.isDate(new Date([2014, 2, 15])), 'array args');
     assert.ok(moment.isDate(new Date('2014-03-15')), 'string args');
     assert.ok(moment.isDate(new Date('does NOT look like a date')), 'invalid date');
 });

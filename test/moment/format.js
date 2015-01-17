@@ -1,5 +1,5 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
 module('format');
 
@@ -119,9 +119,9 @@ test('escaping quotes', function (assert) {
     moment.locale('en');
     var date = moment([2012, 0]);
     assert.equal(date.format('MMM \'YY'), 'Jan \'12', 'Should be able to format with single parenthesis');
-    assert.equal(date.format("MMM 'YY"), 'Jan \'12', 'Should be able to format with double parenthesis');
+    assert.equal(date.format('MMM "YY'), 'Jan "12', 'Should be able to format with double parenthesis');
     assert.equal(date.format('MMM \'YY'), 'Jan \'12', 'Should be able to format with single parenthesis');
-    assert.equal(date.format("MMM 'YY"), 'Jan \'12', 'Should be able to format with double parenthesis');
+    assert.equal(date.format('MMM "YY'), 'Jan "12', 'Should be able to format with double parenthesis');
 });
 
 test('toJSON', function (assert) {

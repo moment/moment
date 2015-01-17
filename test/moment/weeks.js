@@ -1,7 +1,7 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
-module("weeks");
+module('weeks');
 
 test('day of year', function (assert) {
     assert.equal(moment([2000,  0,  1]).dayOfYear(),   1, 'Jan  1 2000 should be day 1 of the year');

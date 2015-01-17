@@ -1,7 +1,7 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
-module("weeks in year");
+module('weeks in year');
 
 test('isoWeeksInYear', function (assert) {
     assert.equal(moment([2004]).isoWeeksInYear(), 53, '2004 has 53 iso weeks');

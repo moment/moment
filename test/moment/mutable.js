@@ -1,7 +1,7 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
-module("mutable");
+module('mutable');
 
 test('manipulation methods', function (assert) {
     var m = moment();

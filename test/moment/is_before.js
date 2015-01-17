@@ -1,7 +1,7 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
-module("is before");
+module('is before');
 
 test('is after without units', function (assert) {
     var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);

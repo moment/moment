@@ -1,33 +1,33 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
-import each from "../helpers/each";
+import { module, test } from '../qunit';
+import moment from '../../moment';
+import each from '../helpers/each';
 
-module("locale", {
+module('locale', {
     setup : function () {
         // TODO: Remove once locales are switched to ES6
         each([{
-            name: "en-gb",
+            name: 'en-gb',
             data: {}
         }, {
-            name: "en-ca",
+            name: 'en-ca',
             data: {}
         }, {
-            name: "es",
+            name: 'es',
             data: {
-                relativeTime: { past: 'hace %s', s: 'unos segundos', d: 'un día' },
+                relativeTime: {past: 'hace %s', s: 'unos segundos', d: 'un día'},
                 months: 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_')
             }
         }, {
-            name: "fr",
+            name: 'fr',
             data: {}
         }, {
-            name: "fr-ca",
+            name: 'fr-ca',
             data: {}
         }, {
-            name: "it",
+            name: 'it',
             data: {}
         }, {
-            name: "zh-cn",
+            name: 'zh-cn',
             data: {
                 months: '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_')
             }

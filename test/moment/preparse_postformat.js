@@ -1,33 +1,32 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
 var symbolMap = {
-    '1': '!',
-    '2': '@',
-    '3': '#',
-    '4': '$',
-    '5': '%',
-    '6': '^',
-    '7': '&',
-    '8': '*',
-    '9': '(',
-    '0': ')'
-};
+        '1': '!',
+        '2': '@',
+        '3': '#',
+        '4': '$',
+        '5': '%',
+        '6': '^',
+        '7': '&',
+        '8': '*',
+        '9': '(',
+        '0': ')'
+    },
+    numberMap = {
+        '!': '1',
+        '@': '2',
+        '#': '3',
+        '$': '4',
+        '%': '5',
+        '^': '6',
+        '&': '7',
+        '*': '8',
+        '(': '9',
+        ')': '0'
+    };
 
-var numberMap = {
-    '!': '1',
-    '@': '2',
-    '#': '3',
-    '$': '4',
-    '%': '5',
-    '^': '6',
-    '&': '7',
-    '*': '8',
-    '(': '9',
-    ')': '0'
-};
-
-module("preparse and postformat", {
+module('preparse and postformat', {
     setup: function () {
         moment.locale('symbol', {
             preparse: function (string) {

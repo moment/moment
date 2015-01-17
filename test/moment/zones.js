@@ -1,7 +1,7 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
-module("zones");
+module('zones');
 
 test('set zone', function (assert) {
     var zone = moment();

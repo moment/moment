@@ -1,7 +1,7 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
-module("min max");
+module('min max');
 
 test('min', function (assert) {
     var now = moment(),

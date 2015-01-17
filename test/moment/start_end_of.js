@@ -1,7 +1,7 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
-module("start and end of units");
+module('start and end of units');
 
 test('start of year', function (assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('year'),

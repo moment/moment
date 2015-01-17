@@ -1,7 +1,7 @@
-import { module, test } from "../qunit";
-import moment from "../../moment";
+import { module, test } from '../qunit';
+import moment from '../../moment';
 
-module("add and subtract");
+module('add and subtract');
 
 test('add short reverse args', function (assert) {
     var a = moment(), b, c, d;
