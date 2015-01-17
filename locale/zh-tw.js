@@ -46,16 +46,16 @@
         calendar : {
             sameDay : '[今天]LT',
             nextDay : '[明天]LT',
-            nextWeek : function () {
+            nextWeek : function (now) {
                 var startOfWeek, prefix;
-                startOfWeek = moment().startOf('week');
+                startOfWeek = moment(now).startOf('week');
                 prefix = this.unix() - startOfWeek.unix() >= 7 * 24 * 3600 ? '[下]' : '';
                 return prefix + 'ddddLT';
             },
             lastDay : '[昨天]LT',
-            lastWeek : function () {
+            lastWeek : function (now) {
                 var startOfWeek, prefix;
-                startOfWeek = moment().startOf('week');
+                startOfWeek = moment(now).startOf('week');
                 prefix = this.unix() < startOfWeek.unix()  ? '[上]' : '';
                 return prefix + 'ddddLT';
             },
