@@ -5,9 +5,9 @@ var moment = require('../../moment');
       Talossan
      *************************************************/
 
-exports['locale:tlz'] = {
+exports['locale:tzl'] = {
     setUp : function (cb) {
-        moment.locale('tlz');
+        moment.locale('tzl');
         moment.createFromInputFallback = function () {
             throw new Error('input not handled by moment');
         };
