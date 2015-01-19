@@ -1,6 +1,6 @@
 var moment = require('../../moment');
 
-exports.isValid = {
+exports.toObject = {
     setUp : function (done) {
         moment.createFromInputFallback = function () {
             throw new Error('input not handled by moment');
@@ -8,7 +8,7 @@ exports.isValid = {
         done();
     },
 
-    'array order' : function (test) {
+    'to object' : function (test) {
         test.expect(1);
         var expected = {
             years:2010,
