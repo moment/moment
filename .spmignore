@@ -1,4 +1,8 @@
+benchmarks
+bower_components
+meteor
+min
+node_modules
+scripts
 tasks
 test
-min
-benchmarks
