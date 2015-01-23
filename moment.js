@@ -328,6 +328,10 @@
     }
 
     function deprecate(msg, fn) {
+        // Build stack trace to help end users track down where the deprecated usage is coming from,
+        // and append it to the message.
+        msg += '\n' + (new Error()).stack;
+        
         var firstTime = true;
         return extend(function () {
             if (firstTime) {
