@@ -2,13 +2,13 @@
 // locale : afrikaans (af)
 // author : Werner Mollentze : https://github.com/wernerm
 
-(function (factory) {
+(function (factory, browserGlobal) {
     if (typeof define === 'function' && define.amd) {
         define(['moment'], factory); // AMD
     } else if (typeof exports === 'object') {
         module.exports = factory(require('../moment')); // Node
     } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
+        factory((typeof global !== 'undefined' ? global : browserGlobal).moment); // node or other global
     }
 }(function (moment) {
     return moment.defineLocale('af', {
@@ -68,4 +68,4 @@
             doy : 4  // Die week wat die 4de Januarie bevat is die eerste week van die jaar.
         }
     });
-}));
+}, window));

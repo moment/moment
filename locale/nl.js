@@ -2,13 +2,13 @@
 // locale : dutch (nl)
 // author : Joris Röling : https://github.com/jjupiter
 
-(function (factory) {
+(function (factory, browserGlobal) {
     if (typeof define === 'function' && define.amd) {
         define(['moment'], factory); // AMD
     } else if (typeof exports === 'object') {
         module.exports = factory(require('../moment')); // Node
     } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
+        factory((typeof global !== 'undefined' ? global : browserGlobal).moment); // node or other global
     }
 }(function (moment) {
     var monthsShortWithDots = 'jan._feb._mrt._apr._mei_jun._jul._aug._sep._okt._nov._dec.'.split('_'),
@@ -66,4 +66,4 @@
             doy : 4  // The week that contains Jan 4th is the first week of the year.
         }
     });
-}));
+}, window));

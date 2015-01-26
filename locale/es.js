@@ -2,13 +2,13 @@
 // locale : spanish (es)
 // author : Julio Napurí : https://github.com/julionc
 
-(function (factory) {
+(function (factory, browserGlobal) {
     if (typeof define === 'function' && define.amd) {
         define(['moment'], factory); // AMD
     } else if (typeof exports === 'object') {
         module.exports = factory(require('../moment')); // Node
     } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
+        factory((typeof global !== 'undefined' ? global : browserGlobal).moment); // node or other global
     }
 }(function (moment) {
     var monthsShortDot = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split('_'),
@@ -74,4 +74,4 @@
             doy : 4  // The week that contains Jan 4th is the first week of the year.
         }
     });
-}));
+}, window));

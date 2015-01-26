@@ -2,13 +2,13 @@
 // locale : canadian english (en-ca)
 // author : Jonathan Abourbih : https://github.com/jonbca
 
-(function (factory) {
+(function (factory, browserGlobal) {
     if (typeof define === 'function' && define.amd) {
         define(['moment'], factory); // AMD
     } else if (typeof exports === 'object') {
         module.exports = factory(require('../moment')); // Node
     } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
+        factory((typeof global !== 'undefined' ? global : browserGlobal).moment); // node or other global
     }
 }(function (moment) {
     return moment.defineLocale('en-ca', {
@@ -58,4 +58,4 @@
             return number + output;
         }
     });
-}));
+}, window));

@@ -2,13 +2,13 @@
 // locale : malayalam (ml)
 // author : Floyd Pink : https://github.com/floydpink
 
-(function (factory) {
+(function (factory, browserGlobal) {
     if (typeof define === 'function' && define.amd) {
         define(['moment'], factory); // AMD
     } else if (typeof exports === 'object') {
         module.exports = factory(require('../moment')); // Node
     } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
+        factory((typeof global !== 'undefined' ? global : browserGlobal).moment); // node or other global
     }
 }(function (moment) {
     return moment.defineLocale('ml', {
@@ -66,4 +66,4 @@
             }
         }
     });
-}));
+}, window));

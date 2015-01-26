@@ -2,13 +2,13 @@
 // locale : breton (br)
 // author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 
-(function (factory) {
+(function (factory, browserGlobal) {
     if (typeof define === 'function' && define.amd) {
         define(['moment'], factory); // AMD
     } else if (typeof exports === 'object') {
         module.exports = factory(require('../moment')); // Node
     } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
+        factory((typeof global !== 'undefined' ? global : browserGlobal).moment); // node or other global
     }
 }(function (moment) {
     function relativeTimeWithMutation(number, withoutSuffix, key) {
@@ -106,4 +106,4 @@
             doy : 4  // The week that contains Jan 4th is the first week of the year.
         }
     });
-}));
+}, window));

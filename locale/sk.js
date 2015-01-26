@@ -3,13 +3,13 @@
 // author : Martin Minka : https://github.com/k2s
 // based on work of petrbela : https://github.com/petrbela
 
-(function (factory) {
+(function (factory, browserGlobal) {
     if (typeof define === 'function' && define.amd) {
         define(['moment'], factory); // AMD
     } else if (typeof exports === 'object') {
         module.exports = factory(require('../moment')); // Node
     } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
+        factory((typeof global !== 'undefined' ? global : browserGlobal).moment); // node or other global
     }
 }(function (moment) {
     var months = 'január_február_marec_apríl_máj_jún_júl_august_september_október_november_december'.split('_'),
@@ -155,4 +155,4 @@
             doy : 4  // The week that contains Jan 4th is the first week of the year.
         }
     });
-}));
+}, window));
