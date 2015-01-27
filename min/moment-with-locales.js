@@ -1817,14 +1817,22 @@
 
     //http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
     function dayOfYearFromWeeks(year, week, weekday, firstDayOfWeekOfYear, firstDayOfWeek) {
-        var d = makeUTCDate(year, 0, 1).getUTCDay(), daysToAdd, dayOfYear;
+      // var d = makeUTCDate(year, 0, 1).getUTCDay(), daysToAdd, dayOfYear;
+      var week1Jan = 6 + firstDayOfWeek - firstDayOfWeekOfYear, janX = makeUTCDate(year, 0, 1 + week1Jan), d = janX.getUTCDay(), dayOfYear;
+      if (d < firstDayOfWeek) {
+        d += 7;
+      }
 
-        d = d === 0 ? 7 : d;
-        weekday = weekday != null ? weekday : firstDayOfWeek;
-        daysToAdd = firstDayOfWeek - d + (d > firstDayOfWeekOfYear ? 7 : 0) - (d < firstDayOfWeek ? 7 : 0);
-        dayOfYear = 7 * (week - 1) + (weekday - firstDayOfWeek) + daysToAdd + 1;
+      weekday = weekday != null ? 1 * weekday : firstDayOfWeek;
 
-        return {
+      //d = d === 0 ? 7 : d;
+      //  weekday = weekday != null ? weekday : firstDayOfWeek;
+      //  daysToAdd = firstDayOfWeek - d + (d > firstDayOfWeekOfYear ? 7 : 0) - (d < firstDayOfWeek ? 7 : 0);
+      //  dayOfYear = 7 * (week - 1) + (weekday - firstDayOfWeek) + daysToAdd + 1;
+
+      dayOfYear = 1 + week1Jan + 7 * (week - 1) - d + weekday;
+
+      return {
             year: dayOfYear > 0 ? year : year - 1,
             dayOfYear: dayOfYear > 0 ?  dayOfYear : daysInYear(year - 1) + dayOfYear
         };
