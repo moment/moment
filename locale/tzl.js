@@ -25,7 +25,7 @@
             'y': ['\'n ar', '\'iens ar'],
             'yy': [number + ' ars', ' ' + number + ' ars']
         };
-        return isFuture ? format[key][0] : format[key][1];
+        return isFuture ? format[key][0] : (withoutSuffix ? format[key][1] : format[key][1].trim());
     }
 
     // After the year there should be a slash and the amount of years since December 26, 1979 in Roman numerals.
