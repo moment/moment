@@ -40,29 +40,29 @@ exports['locale:tzl'] = {
 
     'format' : function (test) {
         var a = [
-                ['dddd, MMMM Do YYYY, h:mm:ss a',      'Súladi, Súl 14th 2010, 3:25:50 pm'],
+                ['dddd, MMMM Do YYYY, h:mm:ss a',      'Súladi, Súl 14. 2010, 3.25.50 pm'],
                 ['ddd, hA',                            'Súl, 3D\'O'],
                 ['M Mo MM MMMM MMM',                   '2 2nd 02 Fevraglh Fev'],
                 ['YYYY YY',                            '2010 10'],
-                ['D Do DD',                            '14 14th 14'],
-                ['d do dddd ddd dd',                   '0 0th Súladi Súl Sú'],
-                ['DDD DDDo DDDD',                      '45 45th 045'],
-                ['w wo ww',                            '6 6th 06'],
+                ['D Do DD',                            '14 14. 14'],
+                ['d do dddd ddd dd',                   '0 0. Súladi Súl Sú'],
+                ['DDD DDDo DDDD',                      '45 45. 045'],
+                ['w wo ww',                            '6 6. 06'],
                 ['h hh',                               '3 03'],
                 ['H HH',                               '15 15'],
                 ['m mm',                               '25 25'],
                 ['s ss',                               '50 50'],
                 ['a A',                                'd\'o D\'O'],
-                ['[the] DDDo [day of the year]',       'the 45th day of the year'],
-                ['LTS',                                '15:25:50'],
-                ['L',                                  '14/02/2010'],
-                ['LL',                                 '14 Fevraglh 2010'],
-                ['LLL',                                '14 Fevraglh 2010 15:25'],
-                ['LLLL',                               'Súladi, 14 Fevraglh 2010 15:25'],
-                ['l',                                  '14/2/2010'],
-                ['ll',                                 '14 Fev 2010'],
-                ['lll',                                '14 Fev 2010 15:25'],
-                ['llll',                               'Súl, 14 Fev 2010 15:25']
+                ['[the] DDDo [day of the year]',       'the 45. day of the year'],
+                ['LTS',                                '15.25.50'],
+                ['L',                                  '14.02.2010'],
+                ['LL',                                 '14. Fevraglh 2010'],
+                ['LLL',                                '14. Fevraglh 2010 15.25'],
+                ['LLLL',                               'Súladi, li 14. Fevraglh 2010 15.25'],
+                ['l',                                  '14.2.2010'],
+                ['ll',                                 '14. Fev dallas 2010'],
+                ['lll',                                '14. Fev dallas 2010 15.25'],
+                ['llll',                               'Súl, 14. Fev dallas 2010 15.25']
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -179,12 +179,12 @@ exports['locale:tzl'] = {
     'calendar day' : function (test) {
         var a = moment().hours(2).minutes(0).seconds(0);
 
-        test.equal(moment(a).calendar(),                     'oxhi à 02:00',      'today at the same time');
-        test.equal(moment(a).add({m: 25}).calendar(),      'oxhi à 02:25',      'Now plus 25 min');
-        test.equal(moment(a).add({h: 1}).calendar(),       'oxhi à 03:00',      'Now plus 1 hour');
-        test.equal(moment(a).add({d: 1}).calendar(),       'demà à 02:00',   'tomorrow at the same time');
-        test.equal(moment(a).subtract({h: 1}).calendar(),  'oxhi à 01:00',      'Now minus 1 hour');
-        test.equal(moment(a).subtract({d: 1}).calendar(),  'ieiri à 02:00',  'yesterday at the same time');
+        test.equal(moment(a).calendar(),                     'oxhi à 02.00',      'today at the same time');
+        test.equal(moment(a).add({m: 25}).calendar(),      'oxhi à 02.25',      'Now plus 25 min');
+        test.equal(moment(a).add({h: 1}).calendar(),       'oxhi à 03.00',      'Now plus 1 hour');
+        test.equal(moment(a).add({d: 1}).calendar(),       'demà à 02.00',   'tomorrow at the same time');
+        test.equal(moment(a).subtract({h: 1}).calendar(),  'oxhi à 01.00',      'Now minus 1 hour');
+        test.equal(moment(a).subtract({d: 1}).calendar(),  'ieiri à 02.00',  'yesterday at the same time');
         test.done();
     },
 
@@ -206,11 +206,11 @@ exports['locale:tzl'] = {
 
         for (i = 2; i < 7; i++) {
             m = moment().subtract({d: i});
-            test.equal(m.calendar(),       m.format('[sür el] dddd [à] LT'),  'Today - ' + i + ' days current time');
+            test.equal(m.calendar(),       m.format('[sür el] dddd [lasteu à] LT'),  'Today - ' + i + ' days current time');
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            test.equal(m.calendar(),       m.format('[sür el] dddd [à] LT'),  'Today - ' + i + ' days beginning of day');
+            test.equal(m.calendar(),       m.format('[sür el] dddd [lasteu à] LT'),  'Today - ' + i + ' days beginning of day');
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            test.equal(m.calendar(),       m.format('[sür el] dddd [à] LT'),  'Today - ' + i + ' days end of day');
+            test.equal(m.calendar(),       m.format('[sür el] dddd [lasteu à] LT'),  'Today - ' + i + ' days end of day');
         }
         test.done();
     },
@@ -310,11 +310,11 @@ exports['locale:tzl'] = {
     },
 
     'weeks year starting sunday formatted' : function (test) {
-        test.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52nd', 'Jan  1 2012 should be week 52');
-        test.equal(moment([2012, 0,  2]).format('w ww wo'),   '1 01 1st', 'Jan  2 2012 should be week 1');
-        test.equal(moment([2012, 0,  8]).format('w ww wo'),   '1 01 1st', 'Jan  8 2012 should be week 1');
-        test.equal(moment([2012, 0,  9]).format('w ww wo'),   '2 02 2nd', 'Jan  9 2012 should be week 2');
-        test.equal(moment([2012, 0, 15]).format('w ww wo'),   '2 02 2nd', 'Jan 15 2012 should be week 2');
+        test.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52.', 'Jan  1 2012 should be week 52');
+        test.equal(moment([2012, 0,  2]).format('w ww wo'),   '1 01 1.', 'Jan  2 2012 should be week 1');
+        test.equal(moment([2012, 0,  8]).format('w ww wo'),   '1 01 1.', 'Jan  8 2012 should be week 1');
+        test.equal(moment([2012, 0,  9]).format('w ww wo'),   '2 02 2.', 'Jan  9 2012 should be week 2');
+        test.equal(moment([2012, 0, 15]).format('w ww wo'),   '2 02 2.', 'Jan 15 2012 should be week 2');
 
         test.done();
     },
