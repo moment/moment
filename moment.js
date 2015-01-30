@@ -4,7 +4,7 @@
 //! license : MIT
 //! momentjs.com
 
-(function (undefined) {
+;(function (undefined) {
     /************************************
         Constants
     ************************************/
