@@ -7,4 +7,4 @@ sauce_connect.log
 .sauce-labs.creds
 npm-debug.log
 .build*
-temp
+build
