@@ -13,7 +13,6 @@ module.exports = function (grunt) {
 
         testrunner.run({
             code: "build/umd/moment.js",
-            // tests: "build/umd/test/locale/ar-sa.js"
             tests: grunt.file.expand("build/umd/test/moment/*.js",
                     "build/umd/test/locale/*.js"),
         }, function(err, report) {
