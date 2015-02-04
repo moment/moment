@@ -9,12 +9,16 @@ module.exports = function (grunt) {
         testrunner.options.log.tests = false;
         testrunner.options.log.summary = false;
         testrunner.options.log.testing = false;
+        testrunner.options.maxBlockDuration = 5000;
 
         testrunner.run({
             code: "build/umd/moment.js",
-            tests: grunt.file.expand("build/umd/test/moment/*.js"),
+            // tests: "build/umd/test/locale/ar-sa.js"
+            tests: grunt.file.expand("build/umd/test/moment/*.js",
+                    "build/umd/test/locale/*.js"),
         }, function(err, report) {
             if (err) {
+                console.log('woot', err, report);
                 done(err);
                 return;
             }

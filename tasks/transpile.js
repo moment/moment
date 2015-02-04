@@ -35,22 +35,6 @@ module.exports = function (grunt) {
             var umd = bundle.toUmd({name: 'moment'});
             grunt.file.write('build/umd/moment.js', moveComments(umd.code));
         }).then(function() {
-            var files = grunt.file.expand({cwd: 'src'}, "test/moment/*.js");
-            var header = grunt.file.read('templates/test-header.js');
-
-            return Promise.all(files.map(function (file) {
-                return esperanto.bundle({
-                    base: 'src',
-                    entry: file,
-                    skip: ['moment']
-                }).then(function (bundle) {
-                    var umd = bundle.toUmd({name: 'not_used'});
-                    var fixed = header + umd.code.split('\n').slice(5).join('\n');
-                    grunt.file.write('build/umd/' + file, fixed);
-                });
-            }));
-
-        }).then(function() {
             var files = grunt.file.expand({cwd: 'src'}, "locale/*.js");
             var header = grunt.file.read('templates/locale-header.js');
 
@@ -65,8 +49,39 @@ module.exports = function (grunt) {
                     grunt.file.write('build/umd/' + file, moveComments(fixed));
                 });
             }));
-        }).catch(function() {
-        }).then(done);
+        }).then(function() {
+            var files = grunt.file.expand({cwd: 'src'}, "test/moment/*.js");
+            var header = grunt.file.read('templates/test-header.js');
 
+            return Promise.all(files.map(function (file) {
+                return esperanto.bundle({
+                    base: 'src',
+                    entry: file,
+                    skip: ['moment']
+                }).then(function (bundle) {
+                    var umd = bundle.toUmd({name: 'not_used'});
+                    var fixed = header + umd.code.split('\n').slice(5).join('\n');
+                    grunt.file.write('build/umd/' + file, fixed);
+                });
+            }));
+        }).then(function () {
+            var files = grunt.file.expand({cwd: 'src'}, "test/locale/*.js");
+            var header = grunt.file.read('templates/test-header.js');
+
+            return Promise.all(files.map(function (file) {
+                return esperanto.bundle({
+                    base: 'src',
+                    entry: file,
+                    skip: ['moment']
+                }).then(function (bundle) {
+                    var umd = bundle.toUmd({name: 'not_used'});
+                    var fixed = header + umd.code.split('\n').slice(5).join('\n');
+                    grunt.file.write('build/umd/' + file, fixed);
+                });
+            }));
+        }).then(done, function(e) {
+            grunt.log.error("error transpiling", e);
+            done(e);
+        });
     });
 };

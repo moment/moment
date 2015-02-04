@@ -22,3 +22,23 @@ export function module (name, lifecycle) {
         }
     });
 }
+
+export function localeModule (name, lifecycle) {
+    QUnit.module('locale:' + name, {
+        setup : function () {
+            moment.locale(name);
+            moment.createFromInputFallback = function () {
+                throw new Error('input not handled by moment');
+            };
+            if (lifecycle && lifecycle.setup) {
+                lifecycle.setup();
+            }
+        },
+        teardown : function () {
+            moment.locale('en');
+            if (lifecycle && lifecycle.teardown) {
+                lifecycle.teardown();
+            }
+        }
+    });
+}
