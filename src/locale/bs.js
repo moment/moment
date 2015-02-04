@@ -5,6 +5,59 @@
 
 import moment from "../moment";
 
+function translate(number, withoutSuffix, key) {
+    var result = number + ' ';
+    switch (key) {
+    case 'm':
+        return withoutSuffix ? 'jedna minuta' : 'jedne minute';
+    case 'mm':
+        if (number === 1) {
+            result += 'minuta';
+        } else if (number === 2 || number === 3 || number === 4) {
+            result += 'minute';
+        } else {
+            result += 'minuta';
+        }
+        return result;
+    case 'h':
+        return withoutSuffix ? 'jedan sat' : 'jednog sata';
+    case 'hh':
+        if (number === 1) {
+            result += 'sat';
+        } else if (number === 2 || number === 3 || number === 4) {
+            result += 'sata';
+        } else {
+            result += 'sati';
+        }
+        return result;
+    case 'dd':
+        if (number === 1) {
+            result += 'dan';
+        } else {
+            result += 'dana';
+        }
+        return result;
+    case 'MM':
+        if (number === 1) {
+            result += 'mjesec';
+        } else if (number === 2 || number === 3 || number === 4) {
+            result += 'mjeseca';
+        } else {
+            result += 'mjeseci';
+        }
+        return result;
+    case 'yy':
+        if (number === 1) {
+            result += 'godina';
+        } else if (number === 2 || number === 3 || number === 4) {
+            result += 'godine';
+        } else {
+            result += 'godina';
+        }
+        return result;
+    }
+}
+
 export default moment.defineLocale('bs', {
     months : 'januar_februar_mart_april_maj_juni_juli_august_septembar_oktobar_novembar_decembar'.split('_'),
     monthsShort : 'jan._feb._mar._apr._maj._jun._jul._aug._sep._okt._nov._dec.'.split('_'),
