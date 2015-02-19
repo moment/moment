@@ -217,25 +217,25 @@ exports['locale:sl'] = {
         test.equal(moment().add({h: 3}).fromNow(),  'čez 3 ure',   'in 3 hours');
         test.equal(moment().add({h: 4}).fromNow(),  'čez 4 ure',   'in 4 hours');
         test.equal(moment().add({h: 5}).fromNow(),  'čez 5 ur',    'in 5 hours');
-        
+
         test.equal(moment().add({d: 1}).fromNow(),  'čez en dan', 'in a day');
         test.equal(moment().add({d: 2}).fromNow(),  'čez 2 dni',  'in 2 days');
         test.equal(moment().add({d: 3}).fromNow(),  'čez 3 dni',  'in 3 days');
         test.equal(moment().add({d: 4}).fromNow(),  'čez 4 dni',  'in 4 days');
         test.equal(moment().add({d: 5}).fromNow(),  'čez 5 dni',  'in 5 days');
-        
+
         test.equal(moment().add({M: 1}).fromNow(),  'čez en mesec',  'in a month');
         test.equal(moment().add({M: 2}).fromNow(),  'čez 2 meseca',  'in 2 months');
         test.equal(moment().add({M: 3}).fromNow(),  'čez 3 mesece',  'in 3 months');
         test.equal(moment().add({M: 4}).fromNow(),  'čez 4 mesece',  'in 4 months');
         test.equal(moment().add({M: 5}).fromNow(),  'čez 5 mesecev', 'in 5 months');
-        
+
         test.equal(moment().add({y: 1}).fromNow(),  'čez eno leto', 'in a year');
         test.equal(moment().add({y: 2}).fromNow(),  'čez 2 leti',   'in 2 years');
         test.equal(moment().add({y: 3}).fromNow(),  'čez 3 leta',   'in 3 years');
         test.equal(moment().add({y: 4}).fromNow(),  'čez 4 leta',   'in 4 years');
         test.equal(moment().add({y: 5}).fromNow(),  'čez 5 let',    'in 5 years');
-        
+
         test.equal(moment().subtract({s: 30}).fromNow(), 'pred nekaj sekundami', 'a few seconds ago');
 
         test.equal(moment().subtract({m: 1}).fromNow(),  'pred eno minuto', 'a minute ago');
@@ -249,34 +249,27 @@ exports['locale:sl'] = {
         test.equal(moment().subtract({h: 3}).fromNow(),  'pred 3 urami', '3 hours ago');
         test.equal(moment().subtract({h: 4}).fromNow(),  'pred 4 urami', '4 hours ago');
         test.equal(moment().subtract({h: 5}).fromNow(),  'pred 5 urami', '5 hours ago');
-        
+
         test.equal(moment().subtract({d: 1}).fromNow(),  'pred enim dnem', 'a day ago');
         test.equal(moment().subtract({d: 2}).fromNow(),  'pred 2 dnevoma', '2 days ago');
         test.equal(moment().subtract({d: 3}).fromNow(),  'pred 3 dnevi',   '3 days ago');
         test.equal(moment().subtract({d: 4}).fromNow(),  'pred 4 dnevi',   '4 days ago');
         test.equal(moment().subtract({d: 5}).fromNow(),  'pred 5 dnevi',   '5 days ago');
-        
+
         test.equal(moment().subtract({M: 1}).fromNow(),  'pred enim mesecem', 'a month ago');
         test.equal(moment().subtract({M: 2}).fromNow(),  'pred 2 mesecema',   '2 months ago');
         test.equal(moment().subtract({M: 3}).fromNow(),  'pred 3 meseci',     '3 months ago');
         test.equal(moment().subtract({M: 4}).fromNow(),  'pred 4 meseci',     '4 months ago');
         test.equal(moment().subtract({M: 5}).fromNow(),  'pred 5 meseci',     '5 months ago');
-        
+
         test.equal(moment().subtract({y: 1}).fromNow(),  'pred enim letom', 'a year ago');
         test.equal(moment().subtract({y: 2}).fromNow(),  'pred 2 letoma',   '2 years ago');
         test.equal(moment().subtract({y: 3}).fromNow(),  'pred 3 leti',     '3 years ago');
         test.equal(moment().subtract({y: 4}).fromNow(),  'pred 4 leti',     '4 years ago');
         test.equal(moment().subtract({y: 5}).fromNow(),  'pred 5 leti',     '5 years ago');
-        
-        test.done();
-    },
-
-    'fromNow (past)' : function (test) {
-        
 
         test.done();
     },
-
 
     'calendar day' : function (test) {
         var a = moment().hours(2).minutes(0).seconds(0);

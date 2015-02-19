@@ -22,7 +22,7 @@
             if (number === 1) {
                 result += withoutSuffix ? 'minuta' : 'minuto';
             } else if (number === 2) {
-                result += withoutSuffix || isFuture? 'minuti' : 'minutama';
+                result += withoutSuffix || isFuture ? 'minuti' : 'minutama';
             } else if (number < 5) {
                 result += withoutSuffix || isFuture ? 'minute' : 'minutami';
             } else {
