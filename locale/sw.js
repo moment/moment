@@ -3,7 +3,13 @@
     // author : Fahad Kassim : https://github.com/fadsel
 
     (function (factory) {
-        factory(moment);
+        if (typeof define === 'function' && define.amd) {
+        define(['moment'], factory); // AMD
+		} else if (typeof exports === 'object') {
+			module.exports = factory(require('../moment')); // Node
+		} else {
+			factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
+		}
     }(function (moment) {
       return moment.defineLocale('sw', {
             months : 'Januari_Februari_Machi_Aprili_Mei_Juni_Julai_Agosti_Septemba_Oktoba_Novemba_Desemba'.split('_'),
