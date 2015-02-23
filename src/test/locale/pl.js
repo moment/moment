@@ -50,7 +50,7 @@ test('format', function (assert) {
             ['M Mo MM MMMM MMM',                   '2 2. 02 luty lut'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14. 14'],
-            ['d do dddd ddd dd',                   '0 0. niedziela nie N'],
+            ['d do dddd ddd dd',                   '0 0. niedziela nie Nd'],
             ['DDD DDDo DDDD',                      '45 45. 045'],
             ['w wo ww',                            '6 6. 06'],
             ['h hh',                               '3 03'],
@@ -121,7 +121,7 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'niedziela nie N_poniedziałek pon Pn_wtorek wt Wt_środa śr Śr_czwartek czw Cz_piątek pt Pt_sobota sb So'.split('_'), i;
+    var expected = 'niedziela nie Nd_poniedziałek pon Pn_wtorek wt Wt_środa śr Śr_czwartek czw Cz_piątek pt Pt_sobota sb So'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
