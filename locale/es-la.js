@@ -1,6 +1,6 @@
 // moment.js locale configuration
-// locale : spanish (es)
-// author : Julio Napurí : https://github.com/julionc
+// locale : spanish (la)
+// author : Manfred JB : https://github.com/manfrejb
 
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
