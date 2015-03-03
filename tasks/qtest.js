@@ -9,7 +9,7 @@ module.exports = function (grunt) {
         testrunner.options.log.tests = false;
         testrunner.options.log.summary = false;
         testrunner.options.log.testing = false;
-        testrunner.options.maxBlockDuration = 5000;
+        testrunner.options.maxBlockDuration = 10000;
 
         testrunner.run({
             code: "build/umd/moment.js",
