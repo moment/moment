@@ -2432,7 +2432,9 @@
         },
 
         isBetween: function (from, to, units) {
-            return this.isAfter(from, units) && this.isBefore(to, units);
+            var value = ((this.isAfter(from, units) && this.isBefore(to, units)) || this.isSame(to, units) || this.isSame(from, units));
+
+            return value;
         },
 
         isSame: function (input, units) {
