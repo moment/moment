@@ -2889,10 +2889,10 @@
                     case 'week': return days / 7 + this._milliseconds / 6048e5;
                     case 'day': return days + this._milliseconds / 864e5;
                     case 'hour': return days * 24 + this._milliseconds / 36e5;
-                    case 'minute': return days * 24 * 60 + this._milliseconds / 6e4;
-                    case 'second': return days * 24 * 60 * 60 + this._milliseconds / 1000;
+                    case 'minute': return days * 1440 + this._milliseconds / 6e4;
+                    case 'second': return days * 86400 + this._milliseconds / 1000;
                     // Math.floor prevents floating point math errors here
-                    case 'millisecond': return Math.floor(days * 24 * 60 * 60 * 1000) + this._milliseconds;
+                    case 'millisecond': return Math.floor(days * 864e5) + this._milliseconds;
                     default: throw new Error('Unknown unit ' + units);
                 }
             }
