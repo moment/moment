@@ -2,7 +2,7 @@
 //! locale : chuvash (cv)
 //! author : Anatoly Mironov : https://github.com/mirontoli
 
-import moment from "../moment";
+import moment from '../moment';
 
 export default moment.defineLocale('cv', {
     months : 'кăрлач_нарăс_пуш_ака_май_çĕртме_утă_çурла_авăн_юпа_чӳк_раштав'.split('_'),

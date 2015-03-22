@@ -2,7 +2,7 @@
 //! locale : latvian (lv)
 //! author : Kristaps Karlsons : https://github.com/skakri
 
-import moment from "../moment";
+import moment from '../moment';
 
 var units = {
     'mm': 'minūti_minūtes_minūte_minūtes',

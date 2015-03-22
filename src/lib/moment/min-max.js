@@ -1,6 +1,6 @@
-import { deprecate } from "../utils/deprecate";
-import isArray from "../utils/is-array";
-import { createLocal } from "../create/local";
+import { deprecate } from '../utils/deprecate';
+import isArray from '../utils/is-array';
+import { createLocal } from '../create/local';
 
 export var prototypeMin = deprecate(
      'moment().min is deprecated, use moment.min instead. https://github.com/moment/moment/issues/1548',

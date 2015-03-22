@@ -1,4 +1,4 @@
-import hasOwnProp from "../utils/has-own-prop";
+import hasOwnProp from '../utils/has-own-prop';
 
 var aliases = {};
 
@@ -8,7 +8,7 @@ export function addUnitAlias (unit, shorthand) {
 }
 
 export function normalizeUnits(units) {
-    return typeof units === "string" ? aliases[units] || aliases[units.toLowerCase()] : undefined;
+    return typeof units === 'string' ? aliases[units] || aliases[units.toLowerCase()] : undefined;
 }
 
 export function normalizeObjectUnits(inputObject) {

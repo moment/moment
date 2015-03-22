@@ -4,7 +4,7 @@
 //! Changes in months, weekdays: Ahmed Elkhatib
 //! Native plural forms: forabi https://github.com/forabi
 
-import moment from "../moment";
+import moment from '../moment';
 
 var symbolMap = {
     '1': '١',

@@ -2,7 +2,7 @@
 //! locale : Marathi (mr)
 //! author : Harshad Kale : https://github.com/kalehv
 
-import moment from "../moment";
+import moment from '../moment';
 
 var symbolMap = {
     '1': '१',

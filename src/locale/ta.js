@@ -2,7 +2,7 @@
 //! locale : tamil (ta)
 //! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 
-import moment from "../moment";
+import moment from '../moment';
 
 export default moment.defineLocale('ta', {
     months : 'ஜனவரி_பிப்ரவரி_மார்ச்_ஏப்ரல்_மே_ஜூன்_ஜூலை_ஆகஸ்ட்_செப்டெம்பர்_அக்டோபர்_நவம்பர்_டிசம்பர்'.split('_'),

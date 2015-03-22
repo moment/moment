@@ -2,7 +2,7 @@
 //! locale : Armenian (hy-am)
 //! author : Armendarabyan : https://github.com/armendarabyan
 
-import moment from "../moment";
+import moment from '../moment';
 
 function monthsCaseReplace(m, format) {
     var months = {

@@ -2,7 +2,7 @@
 //! locale : Lithuanian (lt)
 //! author : Mindaugas Mozūras : https://github.com/mmozuras
 
-import moment from "../moment";
+import moment from '../moment';
 
 var units = {
     'm' : 'minutė_minutės_minutę',

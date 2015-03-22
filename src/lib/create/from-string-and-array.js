@@ -1,8 +1,8 @@
-import { copyConfig } from "../moment/constructor";
-import { configFromStringAndFormat } from "./from-string-and-format";
-import defaultParsingFlags from "./default-parsing-flags";
-import { isValid } from "./valid";
-import extend from "../utils/extend";
+import { copyConfig } from '../moment/constructor';
+import { configFromStringAndFormat } from './from-string-and-format';
+import defaultParsingFlags from './default-parsing-flags';
+import { isValid } from './valid';
+import extend from '../utils/extend';
 
 // date from string and array of format strings
 export function configFromStringAndArray(config) {

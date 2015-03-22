@@ -3,7 +3,7 @@
 //! author : Viktorminator : https://github.com/Viktorminator
 //! Author : Menelion Elensúle : https://github.com/Oire
 
-import moment from "../moment";
+import moment from '../moment';
 
 function plural(word, num) {
     var forms = word.split('_');

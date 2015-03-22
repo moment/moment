@@ -1,28 +1,28 @@
-import { addFormatToken } from "../format/format";
-import { addUnitAlias } from "./aliases";
-import { addRegexToken, match1to2, match2 } from "../parse/regex";
-import { addWeekParseToken } from "../parse/token";
-import toInt from "../utils/to-int";
-import { createLocal } from "../create/local";
+import { addFormatToken } from '../format/format';
+import { addUnitAlias } from './aliases';
+import { addRegexToken, match1to2, match2 } from '../parse/regex';
+import { addWeekParseToken } from '../parse/token';
+import toInt from '../utils/to-int';
+import { createLocal } from '../create/local';
 
 // FORMATTING
 
-addFormatToken("w", ["ww", 2], "wo", "week");
-addFormatToken("W", ["WW", 2], "Wo", "isoWeek");
+addFormatToken('w', ['ww', 2], 'wo', 'week');
+addFormatToken('W', ['WW', 2], 'Wo', 'isoWeek');
 
 // ALIASES
 
-addUnitAlias("week", "w");
-addUnitAlias("isoWeek", "W");
+addUnitAlias('week', 'w');
+addUnitAlias('isoWeek', 'W');
 
 // PARSING
 
-addRegexToken("w",  match1to2);
-addRegexToken("ww", match1to2, match2);
-addRegexToken("W",  match1to2);
-addRegexToken("WW", match1to2, match2);
+addRegexToken('w',  match1to2);
+addRegexToken('ww', match1to2, match2);
+addRegexToken('W',  match1to2);
+addRegexToken('WW', match1to2, match2);
 
-addWeekParseToken(["w", "ww", "W", "WW"], function (input, week, config, token) {
+addWeekParseToken(['w', 'ww', 'W', 'WW'], function (input, week, config, token) {
     week[token.substr(0, 1)] = toInt(input);
 });
 

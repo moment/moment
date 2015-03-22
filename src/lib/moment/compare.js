@@ -1,6 +1,6 @@
-import { isMoment } from "./constructor";
-import { normalizeUnits } from "../units/aliases";
-import { createLocal } from "../create/local";
+import { isMoment } from './constructor';
+import { normalizeUnits } from '../units/aliases';
+import { createLocal } from '../create/local';
 
 export function isAfter (input, units) {
     var inputMs;

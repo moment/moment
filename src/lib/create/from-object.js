@@ -1,5 +1,5 @@
-import { normalizeObjectUnits } from "../units/aliases";
-import { configFromArray } from "./from-array";
+import { normalizeObjectUnits } from '../units/aliases';
+import { configFromArray } from './from-array';
 
 export function configFromObject(config) {
     if (config._d) {

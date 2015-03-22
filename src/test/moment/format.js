@@ -115,15 +115,6 @@ test('default format', function (assert) {
     assert.ok(isoRegex.exec(moment().format()), 'default format (' + moment().format() + ') should match ISO');
 });
 
-test('escaping quotes', function (assert) {
-    moment.locale('en');
-    var date = moment([2012, 0]);
-    assert.equal(date.format('MMM \'YY'), 'Jan \'12', 'Should be able to format with single parenthesis');
-    assert.equal(date.format('MMM "YY'), 'Jan "12', 'Should be able to format with double parenthesis');
-    assert.equal(date.format('MMM \'YY'), 'Jan \'12', 'Should be able to format with single parenthesis');
-    assert.equal(date.format('MMM "YY'), 'Jan "12', 'Should be able to format with double parenthesis');
-});
-
 test('toJSON', function (assert) {
     var supportsJson = typeof JSON !== 'undefined' && JSON.stringify && JSON.stringify.call,
         date = moment('2012-10-09T21:30:40.678+0100');

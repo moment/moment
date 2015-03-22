@@ -1,8 +1,8 @@
-import { get, set } from "./get-set";
-import { setMonth } from "../units/month";
-import { createDuration } from "../duration/create";
-import { deprecateSimple } from "../utils/deprecate";
-import { hooks } from "../utils/hooks";
+import { get, set } from './get-set';
+import { setMonth } from '../units/month';
+import { createDuration } from '../duration/create';
+import { deprecateSimple } from '../utils/deprecate';
+import { hooks } from '../utils/hooks';
 
 // TODO: remove 'name' arg after deprecation is removed
 function createAdder(direction, name) {

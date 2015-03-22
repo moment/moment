@@ -1,4 +1,4 @@
-import { createDuration } from "./create";
+import { createDuration } from './create';
 
 var round = Math.round;
 var thresholds = {

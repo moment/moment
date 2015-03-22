@@ -2,7 +2,7 @@
 //! locale : Tagalog/Filipino (tl-ph)
 //! author : Dan Hagman
 
-import moment from "../moment";
+import moment from '../moment';
 
 export default moment.defineLocale('tl-ph', {
     months : 'Enero_Pebrero_Marso_Abril_Mayo_Hunyo_Hulyo_Agosto_Setyembre_Oktubre_Nobyembre_Disyembre'.split('_'),

@@ -1,5 +1,5 @@
-import { isValid as _isValid } from "../create/valid";
-import extend from "../utils/extend";
+import { isValid as _isValid } from '../create/valid';
+import extend from '../utils/extend';
 
 export function isValid () {
     return _isValid(this);

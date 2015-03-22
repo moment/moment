@@ -1,45 +1,45 @@
-import { addFormatToken } from "../format/format";
-import { addUnitAlias } from "./aliases";
-import { addRegexToken, match1to2, matchWord } from "../parse/regex";
-import { addWeekParseToken } from "../parse/token";
-import toInt from "../utils/to-int";
-import { createLocal } from "../create/local";
+import { addFormatToken } from '../format/format';
+import { addUnitAlias } from './aliases';
+import { addRegexToken, match1to2, matchWord } from '../parse/regex';
+import { addWeekParseToken } from '../parse/token';
+import toInt from '../utils/to-int';
+import { createLocal } from '../create/local';
 
 // FORMATTING
 
-addFormatToken("d", 0, "do", "day");
+addFormatToken('d', 0, 'do', 'day');
 
-addFormatToken("dd", 0, 0, function (format) {
+addFormatToken('dd', 0, 0, function (format) {
     return this.localeData().weekdaysMin(this, format);
 });
 
-addFormatToken("ddd", 0, 0, function (format) {
+addFormatToken('ddd', 0, 0, function (format) {
     return this.localeData().weekdaysShort(this, format);
 });
 
-addFormatToken("dddd", 0, 0, function (format) {
+addFormatToken('dddd', 0, 0, function (format) {
     return this.localeData().weekdays(this, format);
 });
 
-addFormatToken("e", 0, 0, "weekday");
-addFormatToken("E", 0, 0, "isoWeekday");
+addFormatToken('e', 0, 0, 'weekday');
+addFormatToken('E', 0, 0, 'isoWeekday');
 
 // ALIASES
 
-addUnitAlias("day", "d");
-addUnitAlias("weekday", "e");
-addUnitAlias("isoWeekday", "E");
+addUnitAlias('day', 'd');
+addUnitAlias('weekday', 'e');
+addUnitAlias('isoWeekday', 'E');
 
 // PARSING
 
-addRegexToken("d",    match1to2);
-addRegexToken("e",    match1to2);
-addRegexToken("E",    match1to2);
-addRegexToken("dd",   matchWord);
-addRegexToken("ddd",  matchWord);
-addRegexToken("dddd", matchWord);
+addRegexToken('d',    match1to2);
+addRegexToken('e',    match1to2);
+addRegexToken('E',    match1to2);
+addRegexToken('dd',   matchWord);
+addRegexToken('ddd',  matchWord);
+addRegexToken('dddd', matchWord);
 
-addWeekParseToken(["dd", "ddd", "dddd"], function (input, week, config) {
+addWeekParseToken(['dd', 'ddd', 'dddd'], function (input, week, config) {
     var weekday = config._locale.weekdaysParse(input);
     // if we didn't get a weekday name, mark the date as invalid
     if (weekday != null) {
@@ -49,7 +49,7 @@ addWeekParseToken(["dd", "ddd", "dddd"], function (input, week, config) {
     }
 });
 
-addWeekParseToken(["d", "e", "E"], function (input, week, config, token) {
+addWeekParseToken(['d', 'e', 'E'], function (input, week, config, token) {
     week[token] = toInt(input);
 });
 

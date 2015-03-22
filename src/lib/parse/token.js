@@ -1,14 +1,14 @@
-import hasOwnProp from "../utils/has-own-prop";
-import toInt from "../utils/to-int";
+import hasOwnProp from '../utils/has-own-prop';
+import toInt from '../utils/to-int';
 
 var tokens = {};
 
 export function addParseToken (token, callback) {
     var i, func = callback;
-    if (typeof token === "string") {
+    if (typeof token === 'string') {
         token = [token];
     }
-    if (typeof callback === "number") {
+    if (typeof callback === 'number') {
         func = function (input, array) {
             array[callback] = toInt(input);
         };

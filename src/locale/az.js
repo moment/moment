@@ -2,7 +2,7 @@
 //! locale : azerbaijani (az)
 //! author : topchiyev : https://github.com/topchiyev
 
-import moment from "../moment";
+import moment from '../moment';
 
 var suffixes = {
     1: '-inci',

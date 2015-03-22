@@ -2,7 +2,7 @@
 //! locale : modern greek (el)
 //! author : Aggelos Karalias : https://github.com/mehiel
 
-import moment from "../moment";
+import moment from '../moment';
 
 export default moment.defineLocale('el', {
     monthsNominativeEl : 'Ιανουάριος_Φεβρουάριος_Μάρτιος_Απρίλιος_Μάιος_Ιούνιος_Ιούλιος_Αύγουστος_Σεπτέμβριος_Οκτώβριος_Νοέμβριος_Δεκέμβριος'.split('_'),

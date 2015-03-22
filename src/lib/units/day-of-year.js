@@ -1,24 +1,24 @@
-import { addFormatToken } from "../format/format";
-import { addUnitAlias } from "./aliases";
-import { addRegexToken, match3, match1to3 } from "../parse/regex";
-import { daysInYear } from "./year";
-import { createUTCDate } from "../create/date-from-array";
-import { addParseToken } from "../parse/token";
-import toInt from "../utils/to-int";
+import { addFormatToken } from '../format/format';
+import { addUnitAlias } from './aliases';
+import { addRegexToken, match3, match1to3 } from '../parse/regex';
+import { daysInYear } from './year';
+import { createUTCDate } from '../create/date-from-array';
+import { addParseToken } from '../parse/token';
+import toInt from '../utils/to-int';
 
 // FORMATTING
 
-addFormatToken("DDD", ["DDDD", 3], "DDDo", "dayOfYear");
+addFormatToken('DDD', ['DDDD', 3], 'DDDo', 'dayOfYear');
 
 // ALIASES
 
-addUnitAlias("dayOfYear", "DDD");
+addUnitAlias('dayOfYear', 'DDD');
 
 // PARSING
 
-addRegexToken("DDD",  match1to3);
-addRegexToken("DDDD", match3);
-addParseToken(["DDD", "DDDD"], function (input, array, config) {
+addRegexToken('DDD',  match1to3);
+addRegexToken('DDDD', match3);
+addParseToken(['DDD', 'DDDD'], function (input, array, config) {
     config._dayOfYear = toInt(input);
 });
 

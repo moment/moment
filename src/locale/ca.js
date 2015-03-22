@@ -2,7 +2,7 @@
 //! locale : catalan (ca)
 //! author : Juan G. Hurtado : https://github.com/juanghurtado
 
-import moment from "../moment";
+import moment from '../moment';
 
 export default moment.defineLocale('ca', {
     months : 'gener_febrer_març_abril_maig_juny_juliol_agost_setembre_octubre_novembre_desembre'.split('_'),

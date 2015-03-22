@@ -1,36 +1,36 @@
-import { makeGetSet } from "../moment/get-set";
-import { addFormatToken } from "../format/format";
-import { addUnitAlias } from "./aliases";
-import { addRegexToken, match1to2, match1to4, match1to6, match2, match4, match6, matchSigned } from "../parse/regex";
-import { addParseToken } from "../parse/token";
-import { hooks } from "../utils/hooks";
-import { YEAR } from "./constants";
-import toInt from "../utils/to-int";
+import { makeGetSet } from '../moment/get-set';
+import { addFormatToken } from '../format/format';
+import { addUnitAlias } from './aliases';
+import { addRegexToken, match1to2, match1to4, match1to6, match2, match4, match6, matchSigned } from '../parse/regex';
+import { addParseToken } from '../parse/token';
+import { hooks } from '../utils/hooks';
+import { YEAR } from './constants';
+import toInt from '../utils/to-int';
 
 // FORMATTING
 
-addFormatToken(0, ["YY", 2], 0, function () {
+addFormatToken(0, ['YY', 2], 0, function () {
     return this.year() % 100;
 });
 
-addFormatToken(0, ["YYYY",   4],       0, "year");
-addFormatToken(0, ["YYYYY",  5],       0, "year");
-addFormatToken(0, ["YYYYYY", 6, true], 0, "year");
+addFormatToken(0, ['YYYY',   4],       0, 'year');
+addFormatToken(0, ['YYYYY',  5],       0, 'year');
+addFormatToken(0, ['YYYYYY', 6, true], 0, 'year');
 
 // ALIASES
 
-addUnitAlias("year", "y");
+addUnitAlias('year', 'y');
 
 // PARSING
 
-addRegexToken("Y",      matchSigned);
-addRegexToken("YY",     match1to2, match2);
-addRegexToken("YYYY",   match1to4, match4);
-addRegexToken("YYYYY",  match1to6, match6);
-addRegexToken("YYYYYY", match1to6, match6);
+addRegexToken('Y',      matchSigned);
+addRegexToken('YY',     match1to2, match2);
+addRegexToken('YYYY',   match1to4, match4);
+addRegexToken('YYYYY',  match1to6, match6);
+addRegexToken('YYYYYY', match1to6, match6);
 
-addParseToken(["YYYY", "YYYYY", "YYYYYY"], YEAR);
-addParseToken("YY", function (input, array) {
+addParseToken(['YYYY', 'YYYYY', 'YYYYYY'], YEAR);
+addParseToken('YY', function (input, array) {
     array[YEAR] = hooks.parseTwoDigitYear(input);
 });
 

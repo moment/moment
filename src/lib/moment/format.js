@@ -1,5 +1,5 @@
-import { formatMoment } from "../format/format";
-import { hooks } from "../utils/hooks";
+import { formatMoment } from '../format/format';
+import { hooks } from '../utils/hooks';
 
 hooks.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ';
 

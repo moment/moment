@@ -2,7 +2,7 @@
 //! locale : slovenian (sl)
 //! author : Robert Sedovšek : https://github.com/sedovsek
 
-import moment from "../moment";
+import moment from '../moment';
 
 function translate(number, withoutSuffix, key) {
     var result = number + ' ';

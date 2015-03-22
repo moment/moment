@@ -1,5 +1,5 @@
-import { normalizeUnits } from "../units/aliases";
-import { hooks } from "../utils/hooks";
+import { normalizeUnits } from '../units/aliases';
+import { hooks } from '../utils/hooks';
 
 export function makeGetSet (unit, keepTime) {
     return function (value) {

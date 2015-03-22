@@ -2,7 +2,7 @@
 //! locale : uzbek (uz)
 //! author : Sardor Muminov : https://github.com/muminoff
 
-import moment from "../moment";
+import moment from '../moment';
 
 export default moment.defineLocale('uz', {
     months : 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_'),

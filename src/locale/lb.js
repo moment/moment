@@ -2,7 +2,7 @@
 //! locale : Luxembourgish (lb)
 //! author : mweimerskirch : https://github.com/mweimerskirch, David Raison : https://github.com/kwisatz
 
-import moment from "../moment";
+import moment from '../moment';
 
 function processRelativeTime(number, withoutSuffix, key, isFuture) {
     var format = {

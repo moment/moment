@@ -1,12 +1,12 @@
-import { get } from "../moment/get-set";
-import { addFormatToken } from "../format/format";
-import { addUnitAlias } from "./aliases";
-import { addRegexToken, match1to2, match2, matchWord } from "../parse/regex";
-import { addParseToken } from "../parse/token";
-import { hooks } from "../utils/hooks";
-import { MONTH } from "./constants";
-import toInt from "../utils/to-int";
-import { createUTC } from "../create/utc";
+import { get } from '../moment/get-set';
+import { addFormatToken } from '../format/format';
+import { addUnitAlias } from './aliases';
+import { addRegexToken, match1to2, match2, matchWord } from '../parse/regex';
+import { addParseToken } from '../parse/token';
+import { hooks } from '../utils/hooks';
+import { MONTH } from './constants';
+import toInt from '../utils/to-int';
+import { createUTC } from '../create/utc';
 
 export function daysInMonth(year, month) {
     return new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
@@ -14,34 +14,34 @@ export function daysInMonth(year, month) {
 
 // FORMATTING
 
-addFormatToken("M", ["MM", 2], "Mo", function () {
+addFormatToken('M', ['MM', 2], 'Mo', function () {
     return this.month() + 1;
 });
 
-addFormatToken("MMM", 0, 0, function (format) {
+addFormatToken('MMM', 0, 0, function (format) {
     return this.localeData().monthsShort(this, format);
 });
 
-addFormatToken("MMMM", 0, 0, function (format) {
+addFormatToken('MMMM', 0, 0, function (format) {
     return this.localeData().months(this, format);
 });
 
 // ALIASES
 
-addUnitAlias("month", "M");
+addUnitAlias('month', 'M');
 
 // PARSING
 
-addRegexToken("M",    match1to2);
-addRegexToken("MM",   match1to2, match2);
-addRegexToken("MMM",  matchWord);
-addRegexToken("MMMM", matchWord);
+addRegexToken('M',    match1to2);
+addRegexToken('MM',   match1to2, match2);
+addRegexToken('MMM',  matchWord);
+addRegexToken('MMMM', matchWord);
 
-addParseToken(["M", "MM"], function (input, array) {
+addParseToken(['M', 'MM'], function (input, array) {
     array[MONTH] = toInt(input) - 1;
 });
 
-addParseToken(["MMM", "MMMM"], function (input, array, config, token) {
+addParseToken(['MMM', 'MMMM'], function (input, array, config, token) {
     var month = config._locale.monthsParse(input, token, config._strict);
     // if we didn't find a month name, mark the date as invalid.
     if (month != null) {
@@ -119,7 +119,7 @@ export function getSetMonth (value) {
         hooks.updateOffset(this, true);
         return this;
     } else {
-        return get(this, "Month");
+        return get(this, 'Month');
     }
 }
 

@@ -1,9 +1,9 @@
-import { Duration, isDuration } from "./constructor";
-import toInt from "../utils/to-int";
-import hasOwnProp from "../utils/has-own-prop";
-import { DATE, HOUR, MINUTE, SECOND, MILLISECOND } from "../units/constants";
-import { cloneWithOffset } from "../units/offset";
-import { createLocal } from "../create/local";
+import { Duration, isDuration } from './constructor';
+import toInt from '../utils/to-int';
+import hasOwnProp from '../utils/has-own-prop';
+import { DATE, HOUR, MINUTE, SECOND, MILLISECOND } from '../units/constants';
+import { cloneWithOffset } from '../units/offset';
+import { createLocal } from '../create/local';
 
 // ASP.NET json date format regex
 var aspNetRegex = /(\-)?(?:(\d*)\.)?(\d+)\:(\d+)(?:\:(\d+)\.?(\d{3})?)?/;

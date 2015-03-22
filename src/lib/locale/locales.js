@@ -1,6 +1,6 @@
-import isArray from "../utils/is-array";
-import compareArrays from "../utils/compare-arrays";
-import { Locale } from "./constructor";
+import isArray from '../utils/is-array';
+import compareArrays from '../utils/compare-arrays';
+import { Locale } from './constructor';
 
 // internal storage for locale config files
 var locales = {};

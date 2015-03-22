@@ -1,5 +1,5 @@
-import extend from "../utils/extend";
-import { createUTC } from "./utc";
+import extend from '../utils/extend';
+import { createUTC } from './utc';
 
 export function isValid(m) {
     if (m._isValid == null) {

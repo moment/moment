@@ -1,7 +1,7 @@
 //! moment.js locale configuration
 //! locale : australian english (en-au)
 
-import moment from "../moment";
+import moment from '../moment';
 
 export default moment.defineLocale('en-au', {
     months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),

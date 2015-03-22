@@ -1,14 +1,14 @@
-import { Locale } from "./constructor";
+import { Locale } from './constructor';
 
 var proto = Locale.prototype;
 
-import { defaultCalendar, calendar } from "./calendar";
-import { defaultLongDateFormat, longDateFormat } from "./formats";
-import { defaultInvalidDate, invalidDate } from "./invalid";
-import { defaultOrdinal, ordinal, defaultOrdinalParse } from "./ordinal";
-import { preParsePostFormat } from "./pre-post-format";
-import { defaultRelativeTime, relativeTime, pastFuture } from "./relative";
-import { set } from "./set";
+import { defaultCalendar, calendar } from './calendar';
+import { defaultLongDateFormat, longDateFormat } from './formats';
+import { defaultInvalidDate, invalidDate } from './invalid';
+import { defaultOrdinal, ordinal, defaultOrdinalParse } from './ordinal';
+import { preParsePostFormat } from './pre-post-format';
+import { defaultRelativeTime, relativeTime, pastFuture } from './relative';
+import { set } from './set';
 
 proto._calendar       = defaultCalendar;
 proto.calendar        = calendar;
@@ -31,7 +31,7 @@ import {
     localeMonthsParse,
     defaultLocaleMonths,      localeMonths,
     defaultLocaleMonthsShort, localeMonthsShort
-} from "../units/month";
+} from '../units/month';
 
 proto.months       =        localeMonths;
 proto._months      = defaultLocaleMonths;
@@ -40,7 +40,7 @@ proto._monthsShort = defaultLocaleMonthsShort;
 proto.monthsParse  =        localeMonthsParse;
 
 // Week
-import { localeWeek, defaultLocaleWeek, localeFirstDayOfYear, localeFirstDayOfWeek } from "../units/week";
+import { localeWeek, defaultLocaleWeek, localeFirstDayOfYear, localeFirstDayOfWeek } from '../units/week';
 proto.week = localeWeek;
 proto._week = defaultLocaleWeek;
 proto.firstDayOfYear = localeFirstDayOfYear;
@@ -52,7 +52,7 @@ import {
     defaultLocaleWeekdays,      localeWeekdays,
     defaultLocaleWeekdaysMin,   localeWeekdaysMin,
     defaultLocaleWeekdaysShort, localeWeekdaysShort
-} from "../units/day-of-week";
+} from '../units/day-of-week';
 
 proto.weekdays       =        localeWeekdays;
 proto._weekdays      = defaultLocaleWeekdays;
@@ -63,7 +63,7 @@ proto._weekdaysShort = defaultLocaleWeekdaysShort;
 proto.weekdaysParse  =        localeWeekdaysParse;
 
 // Hours
-import { localeIsPM, defaultLocaleMeridiemParse, localeMeridiem } from "../units/hour";
+import { localeIsPM, defaultLocaleMeridiemParse, localeMeridiem } from '../units/hour';
 
 proto.isPM = localeIsPM;
 proto._meridiemParse = defaultLocaleMeridiemParse;

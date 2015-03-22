@@ -1,4 +1,4 @@
-import absFloor from "../utils/abs-floor";
+import absFloor from '../utils/abs-floor';
 
 export function bubble () {
     var milliseconds = this._milliseconds;

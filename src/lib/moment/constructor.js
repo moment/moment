@@ -1,5 +1,5 @@
-import { hooks } from "../utils/hooks";
-import hasOwnProp from "../utils/has-own-prop";
+import { hooks } from '../utils/hooks';
+import hasOwnProp from '../utils/has-own-prop';
 
 // Plugins that add properties should also add the key here (null value),
 // so we can properly clone ourselves.

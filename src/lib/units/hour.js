@@ -1,15 +1,15 @@
-import { makeGetSet } from "../moment/get-set";
-import { addFormatToken } from "../format/format";
-import { addUnitAlias } from "./aliases";
-import { addRegexToken, match1to2, match2 } from "../parse/regex";
-import { addParseToken } from "../parse/token";
-import { HOUR } from "./constants";
-import toInt from "../utils/to-int";
+import { makeGetSet } from '../moment/get-set';
+import { addFormatToken } from '../format/format';
+import { addUnitAlias } from './aliases';
+import { addRegexToken, match1to2, match2 } from '../parse/regex';
+import { addParseToken } from '../parse/token';
+import { HOUR } from './constants';
+import toInt from '../utils/to-int';
 
 // FORMATTING
 
-addFormatToken("H", ["HH", 2], 0, "hour");
-addFormatToken("h", ["hh", 2], 0, function () {
+addFormatToken('H', ['HH', 2], 0, 'hour');
+addFormatToken('h', ['hh', 2], 0, function () {
     return this.hours() % 12 || 12;
 });
 
@@ -24,7 +24,7 @@ meridiem('A', false);
 
 // ALIASES
 
-addUnitAlias("hour", "h");
+addUnitAlias('hour', 'h');
 
 // PARSING
 
@@ -32,19 +32,19 @@ function matchMeridiem (isStrict, locale) {
     return locale._meridiemParse;
 }
 
-addRegexToken("a",  matchMeridiem);
-addRegexToken("A",  matchMeridiem);
-addRegexToken("H",  match1to2);
-addRegexToken("h",  match1to2);
-addRegexToken("HH", match1to2, match2);
-addRegexToken("hh", match1to2, match2);
+addRegexToken('a',  matchMeridiem);
+addRegexToken('A',  matchMeridiem);
+addRegexToken('H',  match1to2);
+addRegexToken('h',  match1to2);
+addRegexToken('HH', match1to2, match2);
+addRegexToken('hh', match1to2, match2);
 
-addParseToken(["H", "HH"], HOUR);
-addParseToken(["a", "A"], function (input, array, config) {
+addParseToken(['H', 'HH'], HOUR);
+addParseToken(['a', 'A'], function (input, array, config) {
    config._isPm = config._locale.isPM(input);
    config._meridiem = input;
 });
-addParseToken(["h", "hh"], function (input, array, config) {
+addParseToken(['h', 'hh'], function (input, array, config) {
     array[HOUR] = toInt(input);
     config._pf.bigHour = true;
 });

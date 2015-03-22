@@ -1,4 +1,4 @@
-import zeroFill from "../utils/zero-fill";
+import zeroFill from '../utils/zero-fill';
 
 export var formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|x|X|zz?|ZZ?|.)/g;
 
@@ -8,13 +8,13 @@ var formatFunctions = {};
 
 export var formatTokenFunctions = {};
 
-// token:    "M"
-// padded:   ["MM", 2]
-// ordinal:  "Mo"
+// token:    'M'
+// padded:   ['MM', 2]
+// ordinal:  'Mo'
 // callback: function () { this.month() + 1 }
 export function addFormatToken (token, padded, ordinal, callback) {
     var func = callback;
-    if (typeof callback === "string") {
+    if (typeof callback === 'string') {
         func = function () {
             return this[callback]();
         };

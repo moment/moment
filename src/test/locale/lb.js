@@ -1,8 +1,8 @@
-import {localeModule, test} from "../qunit";
-import {moment} from "../../moment";
-localeModule("lb");
+import {localeModule, test} from '../qunit';
+import {moment} from '../../moment';
+localeModule('lb');
 
-test("parse", function (assert) {
+test('parse', function (assert) {
     var tests = 'Januar Jan._Februar Febr._Mäerz Mrz._Abrëll Abr._Mee Mee_Juni Jun._Juli Jul._August Aug._September Sept._Oktober Okt._November Nov._Dezember Dez.'.split('_'), i;
 
     function equalTest(input, mmm, i) {
@@ -22,7 +22,7 @@ test("parse", function (assert) {
     }
 });
 
-test("format", function (assert) {
+test('format', function (assert) {
     var a = [
             ['dddd, Do MMMM YYYY, HH:mm:ss', 'Sonndeg, 14. Februar 2010, 15:25:50'],
             ['ddd, HH:mm', 'So., 15:25'],
@@ -55,21 +55,21 @@ test("format", function (assert) {
     }
 });
 
-test("format month", function (assert) {
+test('format month', function (assert) {
     var expected = 'Januar Jan._Februar Febr._Mäerz Mrz._Abrëll Abr._Mee Mee_Juni Jun._Juli Jul._August Aug._September Sept._Oktober Okt._November Nov._Dezember Dez.'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
 });
 
-test("format week", function (assert) {
+test('format week', function (assert) {
     var expected = 'Sonndeg So. So_Méindeg Mé. Mé_Dënschdeg Dë. Dë_Mëttwoch Më. Më_Donneschdeg Do. Do_Freideg Fr. Fr_Samschdeg Sa. Sa'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
 });
 
-test("from", function (assert) {
+test('from', function (assert) {
     var start = moment([2007, 1, 28]);
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true), 'e puer Sekonnen', '44 seconds = a few seconds');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true), 'eng Minutt', '45 seconds = a minute');
@@ -101,12 +101,12 @@ test("from", function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true), '5 Joer', '5 years = 5 years');
 });
 
-test("suffix", function (assert) {
+test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'an e puer Sekonnen', 'prefix');
     assert.equal(moment(0).from(30000), 'virun e puer Sekonnen', 'suffix');
 });
 
-test("fromNow", function (assert) {
+test('fromNow', function (assert) {
     assert.equal(moment().add({s: 30}).fromNow(), 'an e puer Sekonnen', 'in a few seconds');
     assert.equal(moment().add({d: 1}).fromNow(), 'an engem Dag', 'in one day');
     assert.equal(moment().add({d: 2}).fromNow(), 'an 2 Deeg', 'in 2 days');
@@ -122,7 +122,7 @@ test("fromNow", function (assert) {
     assert.equal(moment().add({y: 400}).fromNow(), 'a 400 Joer', 'in 400 years');
 });
 
-test("calendar last week", function (assert) {
+test('calendar last week', function (assert) {
     var i, m, weekday, datestring;
     for (i = 2; i < 7; i++) {
         m = moment().subtract({d: i});
@@ -139,7 +139,7 @@ test("calendar last week", function (assert) {
     }
 });
 
-test("lenient ordinal parsing", function (assert) {
+test('lenient ordinal parsing', function (assert) {
     var i, ordinalStr, testMoment;
     for (i = 1; i <= 31; ++i) {
         ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
@@ -153,7 +153,7 @@ test("lenient ordinal parsing", function (assert) {
     }
 });
 
-test("lenient ordinal parsing of number", function (assert) {
+test('lenient ordinal parsing of number', function (assert) {
     var i, testMoment;
     for (i = 1; i <= 31; ++i) {
         testMoment = moment('2014 01 ' + i, 'YYYY MM Do');
@@ -166,7 +166,7 @@ test("lenient ordinal parsing of number", function (assert) {
     }
 });
 
-test("strict ordinal parsing", function (assert) {
+test('strict ordinal parsing', function (assert) {
     var i, ordinalStr, testMoment;
     for (i = 1; i <= 31; ++i) {
         ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');

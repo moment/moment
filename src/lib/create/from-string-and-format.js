@@ -1,11 +1,11 @@
-import { configFromISO } from "./from-string";
-import { configFromArray } from "./from-array";
-import { getParseRegexForToken }   from "../parse/regex";
-import { addTimeToArrayFromToken } from "../parse/token";
-import { expandFormat, formatTokenFunctions, formattingTokens } from "../format/format";
-import checkOverflow from "./check-overflow";
-import { HOUR } from "../units/constants";
-import { hooks } from "../utils/hooks";
+import { configFromISO } from './from-string';
+import { configFromArray } from './from-array';
+import { getParseRegexForToken }   from '../parse/regex';
+import { addTimeToArrayFromToken } from '../parse/token';
+import { expandFormat, formatTokenFunctions, formattingTokens } from '../format/format';
+import checkOverflow from './check-overflow';
+import { HOUR } from '../units/constants';
+import { hooks } from '../utils/hooks';
 
 // constant that refers to the ISO standard
 hooks.ISO_8601 = function () {};

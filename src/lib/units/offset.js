@@ -1,16 +1,16 @@
-import zeroFill from "../utils/zero-fill";
-import { createDuration } from "../duration/create";
-import { addSubtract } from "../moment/add-subtract";
-import { isMoment } from "../moment/constructor";
-import { addFormatToken } from "../format/format";
-import { addRegexToken, matchOffset } from "../parse/regex";
-import { addParseToken } from "../parse/token";
-import { createLocal } from "../create/local";
-import { createUTC } from "../create/utc";
-import isDate from "../utils/is-date";
-import toInt from "../utils/to-int";
-import compareArrays from "../utils/compare-arrays";
-import { hooks } from "../utils/hooks";
+import zeroFill from '../utils/zero-fill';
+import { createDuration } from '../duration/create';
+import { addSubtract } from '../moment/add-subtract';
+import { isMoment } from '../moment/constructor';
+import { addFormatToken } from '../format/format';
+import { addRegexToken, matchOffset } from '../parse/regex';
+import { addParseToken } from '../parse/token';
+import { createLocal } from '../create/local';
+import { createUTC } from '../create/utc';
+import isDate from '../utils/is-date';
+import toInt from '../utils/to-int';
+import compareArrays from '../utils/compare-arrays';
+import { hooks } from '../utils/hooks';
 
 // FORMATTING
 
@@ -26,14 +26,14 @@ function offset (token, separator) {
     });
 }
 
-offset("Z", ":");
-offset("ZZ", "");
+offset('Z', ':');
+offset('ZZ', '');
 
 // PARSING
 
-addRegexToken("Z",  matchOffset);
-addRegexToken("ZZ", matchOffset);
-addParseToken(["Z", "ZZ"], function (input, array, config) {
+addRegexToken('Z',  matchOffset);
+addRegexToken('ZZ', matchOffset);
+addParseToken(['Z', 'ZZ'], function (input, array, config) {
     config._useUTC = true;
     config._tzm = offsetFromString(input);
 });
@@ -46,7 +46,7 @@ addParseToken(["Z", "ZZ"], function (input, array, config) {
 var chunkOffset = /([\+\-]|\d\d)/gi;
 
 function offsetFromString(string) {
-    var matches = ((string || "").match(matchOffset) || []);
+    var matches = ((string || '').match(matchOffset) || []);
     var chunk   = matches[matches.length - 1] || [];
     var parts   = (chunk + '').match(chunkOffset) || ['-', 0, 0];
     var minutes = +(parts[1] * 60) + toInt(parts[2]);

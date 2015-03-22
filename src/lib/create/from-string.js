@@ -1,7 +1,7 @@
-import { matchOffset } from "../parse/regex";
-import { configFromStringAndFormat } from "./from-string-and-format";
-import { hooks } from "../utils/hooks";
-import { deprecate } from "../utils/deprecate";
+import { matchOffset } from '../parse/regex';
+import { configFromStringAndFormat } from './from-string-and-format';
+import { hooks } from '../utils/hooks';
+import { deprecate } from '../utils/deprecate';
 
 // iso 8601 regex
 // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)

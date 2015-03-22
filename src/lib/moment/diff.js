@@ -1,6 +1,6 @@
-import absFloor from "../utils/abs-floor";
-import { cloneWithOffset } from "../units/offset";
-import { normalizeUnits } from "../units/aliases";
+import absFloor from '../utils/abs-floor';
+import { cloneWithOffset } from '../units/offset';
+import { normalizeUnits } from '../units/aliases';
 
 export function diff (input, units, asFloat) {
     var that = cloneWithOffset(input, this),

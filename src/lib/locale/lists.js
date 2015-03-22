@@ -1,5 +1,5 @@
-import { getLocale } from "./locales";
-import { createUTC } from "../create/utc";
+import { getLocale } from './locales';
+import { createUTC } from '../create/utc';
 
 function get (format, index, field, setter) {
     var locale = getLocale();
@@ -28,21 +28,21 @@ function list (format, index, field, count, setter) {
 }
 
 export function listMonths (format, index) {
-    return list(format, index, "months", 12, "month");
+    return list(format, index, 'months', 12, 'month');
 }
 
 export function listMonthsShort (format, index) {
-    return list(format, index, "monthsShort", 12, "month");
+    return list(format, index, 'monthsShort', 12, 'month');
 }
 
 export function listWeekdays (format, index) {
-    return list(format, index, "weekdays", 7, "day");
+    return list(format, index, 'weekdays', 7, 'day');
 }
 
 export function listWeekdaysShort (format, index) {
-    return list(format, index, "weekdaysShort", 7, "day");
+    return list(format, index, 'weekdaysShort', 7, 'day');
 }
 
 export function listWeekdaysMin (format, index) {
-    return list(format, index, "weekdaysMin", 7, "day");
+    return list(format, index, 'weekdaysMin', 7, 'day');
 }

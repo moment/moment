@@ -1,11 +1,11 @@
 // Side effect imports
-import "./prototype";
+import './prototype';
 
 import {
     getSetGlobalLocale,
     defineLocale,
     getLocale
-} from "./locales";
+} from './locales';
 
 import {
     listMonths,
@@ -13,7 +13,7 @@ import {
     listWeekdays,
     listWeekdaysShort,
     listWeekdaysMin
-} from "./lists";
+} from './lists';
 
 export {
     getSetGlobalLocale,
@@ -26,10 +26,10 @@ export {
     listWeekdaysMin
 };
 
-import { deprecate } from "../utils/deprecate";
-import { hooks } from "../utils/hooks";
+import { deprecate } from '../utils/deprecate';
+import { hooks } from '../utils/hooks';
 
 hooks.lang = deprecate('moment.lang is deprecated. Use moment.locale instead.', getSetGlobalLocale);
 hooks.langData = deprecate('moment.langData is deprecated. Use moment.localeData instead.', getLocale);
 
-import "./en";
+import './en';

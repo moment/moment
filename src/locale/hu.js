@@ -2,7 +2,7 @@
 //! locale : hungarian (hu)
 //! author : Adam Brunner : https://github.com/adambrunner
 
-import moment from "../moment";
+import moment from '../moment';
 
 var weekEndings = 'vasárnap hétfőn kedden szerdán csütörtökön pénteken szombaton'.split(' ');
 function translate(number, withoutSuffix, key, isFuture) {

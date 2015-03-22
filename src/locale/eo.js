@@ -4,7 +4,7 @@
 //! komento: Mi estas malcerta se mi korekte traktis akuzativojn en tiu traduko.
 //!          Se ne, bonvolu korekti kaj avizi min por ke mi povas lerni!
 
-import moment from "../moment";
+import moment from '../moment';
 
 export default moment.defineLocale('eo', {
     months : 'januaro_februaro_marto_aprilo_majo_junio_julio_aŭgusto_septembro_oktobro_novembro_decembro'.split('_'),

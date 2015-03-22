@@ -1,5 +1,5 @@
-import extend from "./extend";
-import { hooks } from "./hooks";
+import extend from './extend';
+import { hooks } from './hooks';
 
 function warn(msg) {
     if (hooks.suppressDeprecationWarnings === false && typeof console !== 'undefined' && console.warn) {

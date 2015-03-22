@@ -1,6 +1,6 @@
-import { daysToYears, yearsToDays } from "./bubble";
-import { normalizeUnits } from "../units/aliases";
-import toInt from "../utils/to-int";
+import { daysToYears, yearsToDays } from './bubble';
+import { normalizeUnits } from '../units/aliases';
+import toInt from '../utils/to-int';
 
 export function as (units) {
     var days;
@@ -9,22 +9,22 @@ export function as (units) {
 
     units = normalizeUnits(units);
 
-    if (units === "month" || units === "year") {
+    if (units === 'month' || units === 'year') {
         days   = this._days   + milliseconds / 864e5;
         months = this._months + daysToYears(days) * 12;
-        return units === "month" ? months : months / 12;
+        return units === 'month' ? months : months / 12;
     } else {
         // handle milliseconds separately because of floating point math errors (issue #1867)
         days = this._days + Math.round(yearsToDays(this._months / 12));
         switch (units) {
-            case "week"   : return days / 7            + milliseconds / 6048e5;
-            case "day"    : return days                + milliseconds / 864e5;
-            case "hour"   : return days * 24           + milliseconds / 36e5;
-            case "minute" : return days * 24 * 60      + milliseconds / 6e4;
-            case "second" : return days * 24 * 60 * 60 + milliseconds / 1000;
+            case 'week'   : return days / 7            + milliseconds / 6048e5;
+            case 'day'    : return days                + milliseconds / 864e5;
+            case 'hour'   : return days * 24           + milliseconds / 36e5;
+            case 'minute' : return days * 24 * 60      + milliseconds / 6e4;
+            case 'second' : return days * 24 * 60 * 60 + milliseconds / 1000;
             // Math.floor prevents floating point math errors here
-            case "millisecond": return Math.floor(days * 24 * 60 * 60 * 1000) + milliseconds;
-            default: throw new Error("Unknown unit " + units);
+            case 'millisecond': return Math.floor(days * 24 * 60 * 60 * 1000) + milliseconds;
+            default: throw new Error('Unknown unit ' + units);
         }
     }
 }
@@ -45,11 +45,11 @@ function makeAs (alias) {
     };
 }
 
-export var asMilliseconds = makeAs("ms");
-export var asSeconds      = makeAs("s");
-export var asMinutes      = makeAs("m");
-export var asHours        = makeAs("h");
-export var asDays         = makeAs("d");
-export var asWeeks        = makeAs("w");
-export var asMonths       = makeAs("M");
-export var asYears        = makeAs("y");
+export var asMilliseconds = makeAs('ms');
+export var asSeconds      = makeAs('s');
+export var asMinutes      = makeAs('m');
+export var asHours        = makeAs('h');
+export var asDays         = makeAs('d');
+export var asWeeks        = makeAs('w');
+export var asMonths       = makeAs('M');
+export var asYears        = makeAs('y');

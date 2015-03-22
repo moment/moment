@@ -2,7 +2,7 @@
 //! locale : Burmese (my)
 //! author : Squar team, mysquar.com
 
-import moment from "../moment";
+import moment from '../moment';
 
 var symbolMap = {
     '1': '၁',

@@ -1,6 +1,6 @@
-import "./prototype";
-import { getSetGlobalLocale } from "./locales";
-import toInt from "../utils/to-int";
+import './prototype';
+import { getSetGlobalLocale } from './locales';
+import toInt from '../utils/to-int';
 
 getSetGlobalLocale('en', {
     ordinalParse: /\d{1,2}(th|st|nd|rd)/,
