@@ -52,6 +52,7 @@
         "nodeunit": "latest",
         "benchmark": "latest",
         "grunt-contrib-clean": "latest",
+        "grunt-contrib-copy": "latest",
         "grunt-contrib-jshint": "latest",
         "grunt-contrib-nodeunit": "latest",
         "grunt-contrib-concat": "latest",
