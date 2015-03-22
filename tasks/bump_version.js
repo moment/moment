@@ -5,15 +5,15 @@ module.exports = function (grunt) {
         }
 
         grunt.config('string-replace.moment-js', {
-            files: {'moment.js': 'moment.js'},
+            files: {'src/moment.js': 'src/moment.js'},
             options: {
                 replacements: [
                     {
                         pattern:     /\/\/! version : .*/,
                         replacement: '//! version : ' + version
                     }, {
-                        pattern:     /VERSION = '.*'/,
-                        replacement: "VERSION = '" + version + "'"
+                        pattern:     /moment\.version = '.*'/,
+                        replacement: "moment.version = '" + version + "'"
                     }
                 ]
             }
