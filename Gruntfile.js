@@ -139,8 +139,9 @@ module.exports = function (grunt) {
         },
         jscs: {
             all: [
-                'Gruntfile.js', 'moment.js', 'locale/**/*.js',
-                'test/**/*.js', '!test/browser*.js'
+                'Gruntfile.js',
+                'tasks/**.js',
+                'src/**/*.js'
             ],
             options: {
                 config: '.jscs.json'
