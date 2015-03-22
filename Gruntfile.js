@@ -202,11 +202,14 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
     // Default task.
-    grunt.registerTask('default', ['jshint', 'jscs', 'nodeunit']);
+    grunt.registerTask('default', ['lint', 'test:node']);
+
+    // linting
+    grunt.registerTask('lint', ['jshint', 'jscs']);
 
     // test tasks
-    grunt.registerTask('test', ['test:node', 'test:browser']);
-    grunt.registerTask('test:node', ['nodeunit']);
+    grunt.registerTask('test', ['test:node']);
+    grunt.registerTask('test:node', ['transpile', 'qtest']);
     grunt.registerTask('test:server', ['concat', 'embedLocales', 'karma:server']);
     grunt.registerTask('test:browser', ['concat', 'embedLocales', 'karma:chrome', 'karma:firefox']);
     grunt.registerTask('test:sauce-browser', ['concat', 'embedLocales', 'env:sauceLabs', 'karma:sauce']);
@@ -214,13 +217,7 @@ module.exports = function (grunt) {
     grunt.registerTask('test:meteor', ['exec:meteor-init', 'exec:meteor-test', 'exec:meteor-cleanup']);
 
     // travis build task
-    grunt.registerTask('build:travis', [
-        // code style
-        'jshint', 'jscs',
-        // node tests
-        'test:node'
-    ]);
-
+    grunt.registerTask('build:travis', ['default']);
     grunt.registerTask('meteor-publish', ['exec:meteor-init', 'exec:meteor-publish', 'exec:meteor-cleanup']);
 
     // Task to be run when releasing a new version
