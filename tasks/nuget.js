@@ -11,12 +11,12 @@ module.exports = function (grunt) {
     grunt.config('nugetpack', {
         dist: {
             src: 'Moment.js.nuspec',
-            dest: './',
+            dest: './'
         }
     });
     grunt.config('nugetpush', {
         dist: {
-            src: 'Moment.js.*.nupkg',
+            src: 'Moment.js.*.nupkg'
         }
     });
     grunt.config('clean.nuget', {

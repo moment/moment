@@ -1,9 +1,8 @@
 module.exports = function (grunt) {
-    grunt.task.registerTask("qtest", "run tests locally", function () {
-
+    grunt.task.registerTask('qtest', 'run tests locally', function () {
         var done = this.async();
 
-        var testrunner = require("qunit");
+        var testrunner = require('qunit');
 
         testrunner.options.log.assertions = false;
         testrunner.options.log.tests = false;
@@ -12,10 +11,10 @@ module.exports = function (grunt) {
         testrunner.options.maxBlockDuration = 10000;
 
         testrunner.run({
-            code: "build/umd/moment.js",
-            tests: grunt.file.expand("build/umd/test/moment/*.js",
-                    "build/umd/test/locale/*.js"),
-        }, function(err, report) {
+            code: 'build/umd/moment.js',
+            tests: grunt.file.expand('build/umd/test/moment/*.js',
+                    'build/umd/test/locale/*.js')
+        }, function (err, report) {
             if (err) {
                 console.log('woot', err, report);
                 done(err);
@@ -23,10 +22,9 @@ module.exports = function (grunt) {
             }
             err = null;
             if (report.failed !== 0) {
-                err = new Error(report.failed + " tests failed");
+                err = new Error(report.failed + ' tests failed');
             }
             done(err);
         });
-
     });
 };

@@ -19,7 +19,7 @@ module.exports = function (grunt) {
                     if (err != null) {
                         throw err;
                     }
-                    iterator(i+1);
+                    iterator(i + 1);
                 });
             }(0));
         });
@@ -32,9 +32,13 @@ module.exports = function (grunt) {
             }
             callback(null, content.split(/\r\n|\r|\n/)
                 // remove empty and commented lines
-                .filter(function (line) { return line && !/^#/.test(line); })
+                .filter(function (line) {
+                    return line && !/^#/.test(line);
+                })
                 // country code TAB coordinates TAB timezone
-                .map(function (line) { return line.split('\t')[2]; }));
+                .map(function (line) {
+                    return line.split('\t')[2];
+                }));
         });
     }
 
@@ -42,16 +46,22 @@ module.exports = function (grunt) {
         grunt.log.ok('Running tests in zone ' + zone);
         grunt.util.spawn({
             cmd: 'grunt',
-            opts: { env: {
-                'PATH': process.env.PATH,
-                'TZ': zone
-            } },
+            opts: {
+                env: {
+                    'PATH': process.env.PATH,
+                    'TZ': zone
+                }
+            },
             args: ['--no-color', 'nodeunit']
         }, function (err, result, code) {
             if (code !== 0) {
                 grunt.log.error(result.stdout.split(/\r\n|\r|\n/)
-                    .filter(function (line) { return /^(>>|Warning:|$)/.test(line); })
-                    .map(function (line) { return (line.substr(0, 3) === '>> ' ? line.substr(3) : line); })
+                    .filter(function (line) {
+                        return /^(>>|Warning:|$)/.test(line);
+                    })
+                    .map(function (line) {
+                        return (line.substr(0, 3) === '>> ' ? line.substr(3) : line);
+                    })
                     .join('\n'));
             }
             next();
