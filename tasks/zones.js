@@ -36,7 +36,7 @@ module.exports = function (grunt) {
                 // country code TAB coordinates TAB timezone
                 .map(function (line) { return line.split('\t')[2]; }));
         });
-    };
+    }
 
     function runTestsInZone (zone, next) {
         grunt.log.ok('Running tests in zone ' + zone);
@@ -50,11 +50,11 @@ module.exports = function (grunt) {
         }, function (err, result, code) {
             if (code !== 0) {
                 grunt.log.error(result.stdout.split(/\r\n|\r|\n/)
-                    .filter(function (line) { return /^(>>|Warning:|$)/.test(line) })
+                    .filter(function (line) { return /^(>>|Warning:|$)/.test(line); })
                     .map(function (line) { return (line.substr(0, 3) === '>> ' ? line.substr(3) : line); })
                     .join('\n'));
             }
             next();
         });
-    };
+    }
 };

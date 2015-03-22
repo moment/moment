@@ -21,7 +21,7 @@ module.exports = function (grunt) {
                 done(err);
                 return;
             }
-            var err = null;
+            err = null;
             if (report.failed !== 0) {
                 err = new Error(report.failed + " tests failed");
             }

@@ -5,14 +5,6 @@ module.exports = function (grunt) {
     var TMP_DIR = "build/tmp";
 
     function moveComments(code) {
-        var comments = code.split('\n')
-            .map(function(line) {
-                return line.trim();
-            })
-            .filter(function(line) {
-                return line.slice(0, 3) === '//!';
-            });
-
         var comments = [], rest = [];
         code.split('\n').forEach(function (line) {
             if (line.trim().slice(0, 3) === '//!') {
@@ -58,10 +50,8 @@ module.exports = function (grunt) {
         var batchSize = 50,
             promise = Promise.resolve(null),
             files = grunt.file.expand({cwd: opts.base}, opts.pattern),
-            i;
-
-        for (i = 0; i < files.length; i += batchSize) {
-            (function(i) {
+            i,
+            transpileOne = function (i) {
                 promise = promise.then(function() {
                     grunt.log.writeln("transpiling from", opts.pattern, i);
                     return Promise.all(files.slice(i, i + batchSize).map(function(file) {
@@ -77,8 +67,12 @@ module.exports = function (grunt) {
                         });
                     }));
                 });
-            }(i));
+            };
+
+        for (i = 0; i < files.length; i += batchSize) {
+            transpileOne(i);
         }
+
         return promise;
     }
 
