@@ -47,7 +47,7 @@ function loadLocale(name) {
             require('./locale/' + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
-            moment.locale(oldLocale);
+            getSetGlobalLocale(oldLocale);
         } catch (e) { }
     }
     return locales[name];
