@@ -41,8 +41,8 @@ addRegexToken('hh', match1to2, match2);
 
 addParseToken(['H', 'HH'], HOUR);
 addParseToken(['a', 'A'], function (input, array, config) {
-   config._isPm = config._locale.isPM(input);
-   config._meridiem = input;
+    config._isPm = config._locale.isPM(input);
+    config._meridiem = input;
 });
 addParseToken(['h', 'hh'], function (input, array, config) {
     array[HOUR] = toInt(input);

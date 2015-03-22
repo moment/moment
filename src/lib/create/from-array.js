@@ -11,7 +11,7 @@ function currentDateArray(config) {
     if (config._useUTC) {
         return [now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()];
     }
-    return     [now.getFullYear(),    now.getMonth(),    now.getDate()];
+    return [now.getFullYear(), now.getMonth(), now.getDate()];
 }
 
 // convert an array to a date.
