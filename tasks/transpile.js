@@ -31,7 +31,6 @@ module.exports = function (grunt) {
     }
 
     function transpile(opts) {
-        grunt.log.writeln('transpile', opts);
         // base, entry, skip, headerFile, skipLines, target
         var umdName = opts.headerFile ? 'not_used' : opts.umdName,
             header = opts.headerFile ? getHeaderByFile(opts.headerFile) : '',
@@ -58,9 +57,7 @@ module.exports = function (grunt) {
             i,
             transpileOne = function (i) {
                 promise = promise.then(function () {
-                    grunt.log.writeln('transpiling from', opts.pattern, i);
                     return Promise.all(files.slice(i, i + batchSize).map(function (file) {
-                        grunt.log.writeln('transpiling', file);
                         return transpile({
                             base: opts.base,
                             entry: file,
@@ -84,7 +81,6 @@ module.exports = function (grunt) {
     function prepareTemp(base) {
         var files = grunt.file.expand({cwd: base}, '**/*.js'),
             tmpDir = TMP_DIR;
-        grunt.log.writeln('preparint temp', base);
         if (grunt.file.exists(tmpDir)) {
             return;
         }
@@ -112,7 +108,6 @@ module.exports = function (grunt) {
     grunt.task.registerTask('transpile-raw', 'convert es6 to umd', function () {
         var done = this.async();
 
-        grunt.log.writeln('cleaning up build');
         grunt.file.delete('build');
 
         transpile({
@@ -121,6 +116,8 @@ module.exports = function (grunt) {
             umdName: 'moment',
             target: 'build/umd/moment.js',
             moveComments: true
+        }).then(function () {
+            grunt.log.ok('build/umd/moment.js');
         }).then(function () {
             return transpileMany({
                 base: 'src',
@@ -132,6 +129,8 @@ module.exports = function (grunt) {
                 skip: ['moment']
             });
         }).then(function () {
+            grunt.log.ok('build/umd/locale/*.js');
+        }).then(function () {
             return transpileMany({
                 base: 'src',
                 pattern: 'test/moment/*.js',
@@ -142,6 +141,8 @@ module.exports = function (grunt) {
                 skip: ['moment']
             });
         }).then(function () {
+            grunt.log.ok('build/umd/test/moment/*.js');
+        }).then(function () {
             return transpileMany({
                 base: 'src',
                 pattern: 'test/locale/*.js',
@@ -151,6 +152,8 @@ module.exports = function (grunt) {
                 targetDir: 'build/umd',
                 skip: ['moment']
             });
+        }).then(function () {
+            grunt.log.ok('build/umd/test/locale/*.js');
         }).then(function () {
             var files = grunt.file.expand({cwd: 'src'}, 'locale/*.js'),
                 code = files.map(function (file) {
@@ -165,6 +168,8 @@ module.exports = function (grunt) {
                 headerFile: 'templates/locale-header.js',
                 skipLines: 5
             });
+        }).then(function () {
+            grunt.log.ok('build/umd/min/locales.js');
         }).then(function () {
             var files = grunt.file.expand({cwd: 'src'}, 'locale/*.js'),
                 importCode = files.map(function (file) {
@@ -187,6 +192,8 @@ module.exports = function (grunt) {
                 code = code.replace('var moment_with_locales = moment', 'var moment_with_locales = moment__default');
                 grunt.file.write('build/umd/min/moment-with-locales.js', code);
             });
+        }).then(function () {
+            grunt.log.ok('build/umd/min/moment-with-locales.js');
         }).then(done, function (e) {
             grunt.log.error('error transpiling', e);
             done(e);
