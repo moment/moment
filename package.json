@@ -43,6 +43,7 @@
         "es6-promise": "latest",
         "grunt": "latest",
         "benchmark": "latest",
+        "esperanto": "latest",
         "grunt-contrib-clean": "latest",
         "grunt-contrib-concat": "latest",
         "grunt-contrib-copy": "latest",

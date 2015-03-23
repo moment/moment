@@ -105,7 +105,7 @@ test('diff month', function (assert) {
 test('diff across DST', function (assert) {
     var dst = dstForYear(2012), a, b, daysInMonth;
     if (!dst) {
-        assert.equal(42, 42, "at least one assertion");
+        assert.equal(42, 42, 'at least one assertion');
         return;
     }
 

@@ -156,7 +156,7 @@ test('calendar next week', function (assert) {
         }
         assert.equal(m.calendar(),  m.format('[下]ddd凌晨12点整'), 'Today + ' + i + ' days beginning of day');
     }
-    assert.equal(42, 42, "at least one assert");
+    assert.equal(42, 42, 'at least one assert');
 });
 
 test('calendar last week', function (assert) {
@@ -170,7 +170,7 @@ test('calendar last week', function (assert) {
         }
         assert.equal(m.calendar(),  m.format('[上]ddd凌晨12点整'),  'Monday - ' + i + ' days next week');
     }
-    assert.equal(42, 42, "at least one assert");
+    assert.equal(42, 42, 'at least one assert');
 });
 
 test('calendar all else', function (assert) {
