@@ -4,11 +4,6 @@ module.exports = function (grunt) {
     var Promise = require('es6-promise').Promise;
     var TMP_DIR = 'build/tmp';
 
-    grunt.config('concat.tests', {
-        src: 'build/umd/test/**/*.js',
-        dest: 'build/umd/min/tests.js'
-    });
-
     function moveComments(code) {
         var comments = [], rest = [];
         code.split('\n').forEach(function (line) {
@@ -105,10 +100,48 @@ module.exports = function (grunt) {
         });
     }
 
+    function generateLocales(target, localeFiles) {
+        var files = localeFiles,
+            code = files.map(function (file) {
+                var identifier = path.basename(file, '.js').replace('-', '_');
+                return 'import ' + identifier + ' from "./' + file + '";';
+            }).join('\n');
+        return transpileCode({
+            base: 'src',
+            code: code,
+            target: target,
+            skip: ['moment'],
+            headerFile: 'templates/locale-header.js',
+            skipLines: 5
+        });
+    }
+
+    function generateMomentWithLocales(target, localeFiles) {
+        var files = localeFiles,
+            importCode = files.map(function (file) {
+                var identifier = path.basename(file, '.js').replace('-', '_');
+                var fileNoExt = file.replace('.js', '');
+                return 'import ' + identifier + ' from "./' + fileNoExt + '";';
+            }).join('\n'),
+            code = 'import * as moment_export from "./moment";\n\n' +
+                importCode + '\n\n' +
+                'export default moment_export;';
+
+        return transpileCode({
+            base: 'src',
+            code: code,
+            umdName: 'moment',
+            target: target,
+        }).then(function () {
+            var code = grunt.file.read(target);
+            code = code.replace('    var moment = {\n        get default () { return moment__default; }\n    };', '');
+            code = code.replace('var moment_with_locales = moment', 'var moment_with_locales = moment__default');
+            grunt.file.write(target, code);
+        });
+    }
+
     grunt.task.registerTask('transpile-raw', 'convert es6 to umd', function () {
         var done = this.async();
-
-        grunt.file.delete('build');
 
         transpile({
             base: 'src',
@@ -155,43 +188,13 @@ module.exports = function (grunt) {
         }).then(function () {
             grunt.log.ok('build/umd/test/locale/*.js');
         }).then(function () {
-            var files = grunt.file.expand({cwd: 'src'}, 'locale/*.js'),
-                code = files.map(function (file) {
-                    var identifier = path.basename(file, '.js').replace('-', '_');
-                    return 'import ' + identifier + ' from "./' + file + '";';
-                }).join('\n');
-            return transpileCode({
-                base: 'src',
-                code: code,
-                target: 'build/umd/min/locales.js',
-                skip: ['moment'],
-                headerFile: 'templates/locale-header.js',
-                skipLines: 5
-            });
+            return generateLocales('build/umd/min/locales.js',
+                grunt.file.expand({cwd: 'src'}, 'locale/*.js'));
         }).then(function () {
             grunt.log.ok('build/umd/min/locales.js');
         }).then(function () {
-            var files = grunt.file.expand({cwd: 'src'}, 'locale/*.js'),
-                importCode = files.map(function (file) {
-                    var identifier = path.basename(file, '.js').replace('-', '_');
-                    var fileNoExt = file.replace('.js', '');
-                    return 'import ' + identifier + ' from "./' + fileNoExt + '";';
-                }).join('\n'),
-                code = 'import * as moment_export from "./moment";\n\n' +
-                    importCode + '\n\n' +
-                    'export default moment_export;';
-
-            return transpileCode({
-                base: 'src',
-                code: code,
-                umdName: 'moment',
-                target: 'build/umd/min/moment-with-locales.js'
-            }).then(function () {
-                var code = grunt.file.read('build/umd/min/moment-with-locales.js');
-                code = code.replace('    var moment = {\n        get default () { return moment__default; }\n    };', '');
-                code = code.replace('var moment_with_locales = moment', 'var moment_with_locales = moment__default');
-                grunt.file.write('build/umd/min/moment-with-locales.js', code);
-            });
+            generateMomentWithLocales('build/umd/min/moment-with-locales.js',
+                grunt.file.expand({cwd: 'src'}, 'locale/*.js'));
         }).then(function () {
             grunt.log.ok('build/umd/min/moment-with-locales.js');
         }).then(done, function (e) {
@@ -200,5 +203,65 @@ module.exports = function (grunt) {
         });
     });
 
-    grunt.registerTask('transpile', ['transpile-raw', 'concat:tests']);
+    grunt.task.registerTask('transpile-custom-raw',
+            'build just custom language bundles',
+            function (locales) {
+        var done = this.async();
+
+        var localeFiles = locales.split(',').map(function(locale) {
+            var file = grunt.file.expand({cwd: 'src'}, 'locale/' + locale + '.js');
+            if (file.length !== 1) {
+                // we failed to find a locale
+                done(new Error("could not find locale: " + locale));
+                done = null;
+            } else {
+                return file[0];
+            }
+        });
+
+        // There was an issue with a locale
+        if (done == null) {
+            return;
+        }
+
+        return generateLocales(
+            'build/umd/min/locales.custom.js', localeFiles
+        ).then(function () {
+            grunt.log.ok('build/umd/min/locales.custom.js');
+        }).then(function () {
+            return generateMomentWithLocales('build/umd/min/moment-with-locales.custom.js',
+                localeFiles)
+        }).then(function () {
+            grunt.log.ok('build/umd/min/moment-with-locales.custom.js');
+        }).then(done, function (e) {
+            grunt.log.error('error transpiling-custom', e);
+            done(e);
+        });
+    });
+
+    grunt.config('clean.build', [
+        'build'
+    ]);
+
+    grunt.config('concat.tests', {
+        src: 'build/umd/test/**/*.js',
+        dest: 'build/umd/min/tests.js'
+    });
+
+    grunt.task.registerTask('transpile',
+            'builds all es5 files, optinally creating custom locales',
+            function (locales) {
+
+        var tasks = [
+            'clean:build',
+            'transpile-raw',
+            'concat:tests'
+        ];
+
+        if (locales) {
+            tasks.push('transpile-custom-raw:' + locales);
+        }
+
+        grunt.task.run(tasks);
+    });
 };
