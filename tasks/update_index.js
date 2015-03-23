@@ -5,7 +5,8 @@ module.exports = function (grunt) {
         src: [
             'moment.js',
             'min/locales.js',
-            'min/moment-with-locales.js'
+            'min/moment-with-locales.js',
+            'min/tests.js'
         ],
         dest: '.'
     });
