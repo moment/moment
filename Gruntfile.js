@@ -1,45 +1,16 @@
 module.exports = function (grunt) {
-    var embedOption = grunt.option('embedLocales'),
-        embedLocaleDest = embedOption ?
-            'min/moment-with-customlocales.js' :
-            'min/moment-with-locales.js',
-        embedLocaleSrc = 'locale/*.js';
-
-    if (embedOption && embedOption.match(/,/)) {
-        embedLocaleSrc = 'locale/{' + embedOption + '}.js';
-    }
-    else if (embedOption) {
-        embedLocaleSrc = 'locale/' + embedOption + '.js';
-    }
-
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        concat : {
-            locales: {
-                src: 'locale/*.js',
-                dest: 'min/locales.js'
-            },
-            tests: {
-                src: [
-                    'test/browser-prefix.js',
-                    'test/moment/*.js',
-                    'test/locale/*.js',
-                    'test/browser-suffix.js'
-                ],
-                dest: 'min/tests.js'
-            }
-        },
         env : {
             sauceLabs : (grunt.file.exists('.sauce-labs.creds') ?
                     grunt.file.readJSON('.sauce-labs.creds') : {})
         },
         karma : {
             options: {
-                frameworks: ['nodeunit'],
+                frameworks: ['qunit'],
                 files: [
-                    'min/moment-with-locales.js',
-                    'min/tests.js',
-                    'test/browser.js'
+                    'build/umd/min/moment-with-locales.js',
+                    'build/umd/min/tests.js'
                 ],
                 sauceLabs: {
                     startConnect: true,
@@ -98,18 +69,12 @@ module.exports = function (grunt) {
                 ]
             }
         },
-
         uglify : {
             main: {
                 files: {
                     'min/moment-with-locales.min.js'     : 'min/moment-with-locales.js',
                     'min/locales.min.js'                 : 'min/locales.js',
                     'min/moment.min.js'                  : 'moment.js'
-                }
-            },
-            customlocales: {
-                files: {
-                    'min/moment-with-customlocales.min.js' : 'min/moment-with-customlocales.js'
                 }
             },
             options: {
@@ -123,9 +88,6 @@ module.exports = function (grunt) {
                 report: 'min',
                 preserveComments: 'some'
             }
-        },
-        nodeunit : {
-            all : ['test/moment/**/*.js', 'test/locale/**/*.js']
         },
         jshint: {
             all: [
@@ -150,21 +112,14 @@ module.exports = function (grunt) {
         watch : {
             test : {
                 files : [
-                    'moment.js',
-                    'locale/*.js',
-                    'test/**/*.js'
+                    'src/**/*.js',
                 ],
-                tasks: ['nodeunit']
+                tasks: ['test']
             },
             jshint : {
                 files : '<%= jshint.all %>',
                 tasks: ['jshint']
             }
-        },
-        embedLocales: {
-            moment: 'moment.js',
-            dest: embedLocaleDest,
-            targetLocales: embedLocaleSrc
         },
         benchmark: {
             all: {
@@ -210,10 +165,10 @@ module.exports = function (grunt) {
     // test tasks
     grunt.registerTask('test', ['test:node']);
     grunt.registerTask('test:node', ['transpile', 'qtest']);
-    grunt.registerTask('test:server', ['concat', 'embedLocales', 'karma:server']);
-    grunt.registerTask('test:browser', ['concat', 'embedLocales', 'karma:chrome', 'karma:firefox']);
-    grunt.registerTask('test:sauce-browser', ['concat', 'embedLocales', 'env:sauceLabs', 'karma:sauce']);
-    grunt.registerTask('test:travis-sauce-browser', ['concat', 'embedLocales', 'karma:sauce']);
+    grunt.registerTask('test:server', ['transpile', 'karma:server']);
+    grunt.registerTask('test:browser', ['transpile', 'karma:chrome', 'karma:firefox']);
+    grunt.registerTask('test:sauce-browser', ['transpile', 'env:sauceLabs', 'karma:sauce']);
+    grunt.registerTask('test:travis-sauce-browser', ['transpile', 'karma:sauce']);
     grunt.registerTask('test:meteor', ['exec:meteor-init', 'exec:meteor-test', 'exec:meteor-cleanup']);
 
     // travis build task
@@ -222,7 +177,9 @@ module.exports = function (grunt) {
 
     // Task to be run when releasing a new version
     grunt.registerTask('release', [
-        'jshint', 'nodeunit', 'concat', 'embedLocales',
-        'component', 'uglify:main'
+        'default',
+        'update-index',
+        'component',
+        'uglify:main'
     ]);
 };

@@ -4,6 +4,11 @@ module.exports = function (grunt) {
     var Promise = require('es6-promise').Promise;
     var TMP_DIR = 'build/tmp';
 
+    grunt.config('concat.tests', {
+        src: 'build/umd/test/**/*.js',
+        dest: 'build/umd/min/tests.js'
+    });
+
     function moveComments(code) {
         var comments = [], rest = [];
         code.split('\n').forEach(function (line) {
@@ -104,7 +109,7 @@ module.exports = function (grunt) {
         });
     }
 
-    grunt.task.registerTask('transpile', 'convert es6 to umd', function () {
+    grunt.task.registerTask('transpile-raw', 'convert es6 to umd', function () {
         var done = this.async();
 
         grunt.log.writeln('cleaning up build');
@@ -178,7 +183,7 @@ module.exports = function (grunt) {
                 target: 'build/umd/min/moment-with-locales.js'
             }).then(function () {
                 var code = grunt.file.read('build/umd/min/moment-with-locales.js');
-                code = code.replace('   var moment = {\n       get default () { return moment__default; }\n   };', '');
+                code = code.replace('    var moment = {\n        get default () { return moment__default; }\n    };', '');
                 code = code.replace('var moment_with_locales = moment', 'var moment_with_locales = moment__default');
                 grunt.file.write('build/umd/min/moment-with-locales.js', code);
             });
@@ -187,4 +192,6 @@ module.exports = function (grunt) {
             done(e);
         });
     });
+
+    grunt.registerTask('transpile', ['transpile-raw', 'concat:tests']);
 };
