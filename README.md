@@ -15,6 +15,19 @@ You might be required to rewrite your pull request on top once we merge it in.
 
 ## [Documentation](http://momentjs.com/docs/)
 
+## Port to ES6 (version 2.10.0)
+
+Moment 2.10.0 does not bring any new features, but the code is now written in
+es6 modules and placed inside `src/`. Previously `moment.js`, `locale/*.js` and
+`test/moment/*.js`, `test/locale/*.js` contained the source of the project. Now
+the source is in `src/`, temporary build (es5) files are placed under
+`build/umd/` (for running tests during development), and the `moment.js` and
+`locale/*.js` files are updated only on release.
+
+If you want to use a particular revision of the code, make sure to run
+`grunt transpile update-index`, so `moment.js` and `locales/*.js` are synced
+with `src/*`. We might place that in a commit hook in the future.
+
 ## Upgrading to 2.0.0
 
 There are a number of small backwards incompatible changes with version 2.0.0. [See the full descriptions here](https://gist.github.com/timrwood/e72f2eef320ed9e37c51#backwards-incompatible-changes)
