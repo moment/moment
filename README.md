@@ -2,17 +2,6 @@
 
 A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates.
 
-- - - - - - -
-
-**Important notice**: Moment is undergoing major refactoring for version
-**2.10**, that would result in ES6 code that is transpiled to ES5 for
-different environments: node, browser global, AMD, various build/packaging
-systems.
-
-You might be required to rewrite your pull request on top once we merge it in.
-
-- - - - - - -
-
 ## [Documentation](http://momentjs.com/docs/)
 
 ## Port to ES6 (version 2.10.0)
