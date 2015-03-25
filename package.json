@@ -81,6 +81,9 @@
             "uglify": true
         }
     },
+    "scripts": {
+        "test": "grunt test"
+    },
     "spm": {
         "main": "moment.js",
         "output": [
