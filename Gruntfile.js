@@ -9,8 +9,8 @@ module.exports = function (grunt) {
             options: {
                 frameworks: ['qunit'],
                 files: [
-                    'build/umd/min/moment-with-locales.js',
-                    'build/umd/min/tests.js'
+                    'min/moment-with-locales.js',
+                    'min/tests.js'
                 ],
                 sauceLabs: {
                     startConnect: true,
@@ -58,7 +58,9 @@ module.exports = function (grunt) {
                 browsers: ['Firefox']
             },
             sauce: {
-                options: {reporters: ['dots']},
+                options: {
+                    reporters: ['dots']
+                },
                 singleRun: true,
                 browsers: [
                     'slChromeWinXp',
@@ -165,10 +167,11 @@ module.exports = function (grunt) {
     // test tasks
     grunt.registerTask('test', ['test:node']);
     grunt.registerTask('test:node', ['transpile', 'qtest']);
-    grunt.registerTask('test:server', ['transpile', 'karma:server']);
-    grunt.registerTask('test:browser', ['transpile', 'karma:chrome', 'karma:firefox']);
-    grunt.registerTask('test:sauce-browser', ['transpile', 'env:sauceLabs', 'karma:sauce']);
-    grunt.registerTask('test:travis-sauce-browser', ['transpile', 'karma:sauce']);
+    // TODO: For some weird reason karma doesn't like the files in
+    // build/umd/min/* but works with min/*, so update-index, then git checkout
+    grunt.registerTask('test:server', ['transpile', 'update-index', 'karma:server']);
+    grunt.registerTask('test:browser', ['transpile', 'update-index', 'karma:chrome', 'karma:firefox']);
+    grunt.registerTask('test:sauce-browser', ['transpile', 'update-index', 'env:sauceLabs', 'karma:sauce']);
     grunt.registerTask('test:meteor', ['exec:meteor-init', 'exec:meteor-test', 'exec:meteor-cleanup']);
 
     // travis build task
