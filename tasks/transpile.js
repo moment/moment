@@ -131,7 +131,7 @@ module.exports = function (grunt) {
             base: 'src',
             code: code,
             umdName: 'moment',
-            target: target,
+            target: target
         }).then(function () {
             var code = grunt.file.read(target);
             code = code.replace('    var moment = {\n        get default () { return moment__default; }\n    };', '');
@@ -208,11 +208,11 @@ module.exports = function (grunt) {
             function (locales) {
         var done = this.async();
 
-        var localeFiles = locales.split(',').map(function(locale) {
+        var localeFiles = locales.split(',').map(function (locale) {
             var file = grunt.file.expand({cwd: 'src'}, 'locale/' + locale + '.js');
             if (file.length !== 1) {
                 // we failed to find a locale
-                done(new Error("could not find locale: " + locale));
+                done(new Error('could not find locale: ' + locale));
                 done = null;
             } else {
                 return file[0];
@@ -230,7 +230,7 @@ module.exports = function (grunt) {
             grunt.log.ok('build/umd/min/locales.custom.js');
         }).then(function () {
             return generateMomentWithLocales('build/umd/min/moment-with-locales.custom.js',
-                localeFiles)
+                localeFiles);
         }).then(function () {
             grunt.log.ok('build/umd/min/moment-with-locales.custom.js');
         }).then(done, function (e) {
@@ -251,7 +251,6 @@ module.exports = function (grunt) {
     grunt.task.registerTask('transpile',
             'builds all es5 files, optinally creating custom locales',
             function (locales) {
-
         var tasks = [
             'clean:build',
             'transpile-raw',
