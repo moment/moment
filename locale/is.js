@@ -1,16 +1,14 @@
-// moment.js locale configuration
-// locale : icelandic (is)
-// author : Hinrik Örn Sigurðsson : https://github.com/hinrik
+//! moment.js locale configuration
+//! locale : icelandic (is)
+//! author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
+(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+
     function plural(n) {
         if (n % 100 === 11) {
             return true;
@@ -19,7 +17,6 @@
         }
         return true;
     }
-
     function translate(number, withoutSuffix, key, isFuture) {
         var result = number + ' ';
         switch (key) {
@@ -79,7 +76,7 @@
         }
     }
 
-    return moment.defineLocale('is', {
+    var is = moment.defineLocale('is', {
         months : 'janúar_febrúar_mars_apríl_maí_júní_júlí_ágúst_september_október_nóvember_desember'.split('_'),
         monthsShort : 'jan_feb_mar_apr_maí_jún_júl_ágú_sep_okt_nóv_des'.split('_'),
         weekdays : 'sunnudagur_mánudagur_þriðjudagur_miðvikudagur_fimmtudagur_föstudagur_laugardagur'.split('_'),
@@ -123,4 +120,7 @@
             doy : 4  // The week that contains Jan 4th is the first week of the year.
         }
     });
+
+    return is;
+
 }));

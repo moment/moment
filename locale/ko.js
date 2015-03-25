@@ -1,20 +1,19 @@
-// moment.js locale configuration
-// locale : korean (ko)
-//
-// authors
-//
-// - Kyungwook, Park : https://github.com/kyungw00k
-// - Jeeeyul Lee <jeeeyul@gmail.com>
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
-    return moment.defineLocale('ko', {
+//! moment.js locale configuration
+//! locale : korean (ko)
+//!
+//! authors
+//!
+//! - Kyungwook, Park : https://github.com/kyungw00k
+//! - Jeeeyul Lee <jeeeyul@gmail.com>
+
+(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+
+    var ko = moment.defineLocale('ko', {
         months : '1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월'.split('_'),
         monthsShort : '1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월'.split('_'),
         weekdays : '일요일_월요일_화요일_수요일_목요일_금요일_토요일'.split('_'),
@@ -62,4 +61,7 @@
             return hour < 12 ? '오전' : '오후';
         }
     });
+
+    return ko;
+
 }));

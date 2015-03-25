@@ -1,16 +1,14 @@
-// moment.js locale configuration
-// locale : latvian (lv)
-// author : Kristaps Karlsons : https://github.com/skakri
+//! moment.js locale configuration
+//! locale : latvian (lv)
+//! author : Kristaps Karlsons : https://github.com/skakri
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
+(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+
     var units = {
         'mm': 'minūti_minūtes_minūte_minūtes',
         'hh': 'stundu_stundas_stunda_stundas',
@@ -18,7 +16,6 @@
         'MM': 'mēnesi_mēnešus_mēnesis_mēneši',
         'yy': 'gadu_gadus_gads_gadi'
     };
-
     function format(word, number, withoutSuffix) {
         var forms = word.split('_');
         if (withoutSuffix) {
@@ -27,12 +24,11 @@
             return number % 10 === 1 && number !== 11 ? forms[0] : forms[1];
         }
     }
-
     function relativeTimeWithPlural(number, withoutSuffix, key) {
         return number + ' ' + format(units[key], number, withoutSuffix);
     }
 
-    return moment.defineLocale('lv', {
+    var lv = moment.defineLocale('lv', {
         months : 'janvāris_februāris_marts_aprīlis_maijs_jūnijs_jūlijs_augusts_septembris_oktobris_novembris_decembris'.split('_'),
         monthsShort : 'jan_feb_mar_apr_mai_jūn_jūl_aug_sep_okt_nov_dec'.split('_'),
         weekdays : 'svētdiena_pirmdiena_otrdiena_trešdiena_ceturtdiena_piektdiena_sestdiena'.split('_'),
@@ -76,4 +72,7 @@
             doy : 4  // The week that contains Jan 4th is the first week of the year.
         }
     });
+
+    return lv;
+
 }));

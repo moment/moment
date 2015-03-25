@@ -1,16 +1,14 @@
-// moment.js locale configuration
-// locale : Persian (fa)
-// author : Ebrahim Byagowi : https://github.com/ebraminio
+//! moment.js locale configuration
+//! locale : Persian (fa)
+//! author : Ebrahim Byagowi : https://github.com/ebraminio
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
+(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+
     var symbolMap = {
         '1': '۱',
         '2': '۲',
@@ -35,7 +33,7 @@
         '۰': '0'
     };
 
-    return moment.defineLocale('fa', {
+    var fa = moment.defineLocale('fa', {
         months : 'ژانویه_فوریه_مارس_آوریل_مه_ژوئن_ژوئیه_اوت_سپتامبر_اکتبر_نوامبر_دسامبر'.split('_'),
         monthsShort : 'ژانویه_فوریه_مارس_آوریل_مه_ژوئن_ژوئیه_اوت_سپتامبر_اکتبر_نوامبر_دسامبر'.split('_'),
         weekdays : 'یک\u200cشنبه_دوشنبه_سه\u200cشنبه_چهارشنبه_پنج\u200cشنبه_جمعه_شنبه'.split('_'),
@@ -100,4 +98,7 @@
             doy : 12 // The week that contains Jan 1st is the first week of the year.
         }
     });
+
+    return fa;
+
 }));
