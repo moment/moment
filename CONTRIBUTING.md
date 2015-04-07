@@ -30,7 +30,7 @@ Grunt tasks
 We use Grunt for managing the build. Here are some useful Grunt tasks:
 
   * `grunt` The default task lints the code and runs the tests. You should make sure you do this before submitting a PR.
-  * `grunt nodeunit:all` Just run the tests.
+  * `grunt test` run the tests.
   * `grunt release` Build everything, including minified files
-  * `grunt release --embedLocales=fr,ru` Build everything, and also create `moment-with-customLocales.js` and `moment-with-customLocales.min.js` containing just French and Russian.
+  * `grunt transpile:fr,ru` Build custom locale bundles `moment-with-locales.custom.js` and `locales.custom.js` inside `build/umd/min` containing just French and Russian.
   * `grunt size` Print size statistics.
