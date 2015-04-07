@@ -173,7 +173,7 @@ test('calendar last week', function (assert) {
     var i, m, weekday, datestring;
     for (i = 2; i < 7; i++) {
         m = moment().subtract({d: i});
-         // Different date string
+        // Different date string
         weekday = parseInt(m.format('d'), 10);
         datestring = (weekday === 0) ? '[la scorsa] dddd [alle] LT' : '[lo scorso] dddd [alle] LT';
         assert.equal(m.calendar(), m.format(datestring), 'Today - ' + i + ' days current time');

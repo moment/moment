@@ -25,7 +25,6 @@ export function startOf (units) {
         /* falls through */
     case 'second':
         this.milliseconds(0);
-        /* falls through */
     }
 
     // weeks are a special case
