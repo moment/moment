@@ -37,6 +37,9 @@ There are a number of small backwards incompatible changes with version 2.0.0. [
 
 ## [Contributing](https://github.com/moment/moment/blob/develop/CONTRIBUTING.md)
 
+We're looking for co-maintainers! If you want to become a master of time please
+write to [ichernev](https://github.com/ichernev).
+
 ## License
 
 Moment.js is freely distributable under the terms of the [MIT license](https://github.com/moment/moment/blob/develop/LICENSE).
