@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 2.10.0
+
+Ported code to es6 modules.
+
 ### 2.9.0 [See full changelog](https://gist.github.com/ichernev/0c9a9b49951111a27ce7)
 
 languages:
