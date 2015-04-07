@@ -1,16 +1,14 @@
-// moment.js locale configuration
-// locale : Lithuanian (lt)
-// author : Mindaugas Mozūras : https://github.com/mmozuras
+//! moment.js locale configuration
+//! locale : Lithuanian (lt)
+//! author : Mindaugas Mozūras : https://github.com/mmozuras
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
+(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+
     var units = {
         'm' : 'minutė_minutės_minutę',
         'mm': 'minutės_minučių_minutes',
@@ -24,7 +22,6 @@
         'yy': 'metai_metų_metus'
     },
     weekDays = 'sekmadienis_pirmadienis_antradienis_trečiadienis_ketvirtadienis_penktadienis_šeštadienis'.split('_');
-
     function translateSeconds(number, withoutSuffix, key, isFuture) {
         if (withoutSuffix) {
             return 'kelios sekundės';
@@ -32,19 +29,15 @@
             return isFuture ? 'kelių sekundžių' : 'kelias sekundes';
         }
     }
-
     function translateSingular(number, withoutSuffix, key, isFuture) {
         return withoutSuffix ? forms(key)[0] : (isFuture ? forms(key)[1] : forms(key)[2]);
     }
-
     function special(number) {
         return number % 10 === 0 || (number > 10 && number < 20);
     }
-
     function forms(key) {
         return units[key].split('_');
     }
-
     function translate(number, withoutSuffix, key, isFuture) {
         var result = number + ' ';
         if (number === 1) {
@@ -59,15 +52,13 @@
             }
         }
     }
-
     function relativeWeekDay(moment, format) {
         var nominative = format.indexOf('dddd HH:mm') === -1,
             weekDay = weekDays[moment.day()];
-
         return nominative ? weekDay : weekDay.substring(0, weekDay.length - 2) + 'į';
     }
 
-    return moment.defineLocale('lt', {
+    var lt = moment.defineLocale('lt', {
         months : 'sausio_vasario_kovo_balandžio_gegužės_birželio_liepos_rugpjūčio_rugsėjo_spalio_lapkričio_gruodžio'.split('_'),
         monthsShort : 'sau_vas_kov_bal_geg_bir_lie_rgp_rgs_spa_lap_grd'.split('_'),
         weekdays : relativeWeekDay,
@@ -117,4 +108,7 @@
             doy : 4  // The week that contains Jan 4th is the first week of the year.
         }
     });
+
+    return lt;
+
 }));

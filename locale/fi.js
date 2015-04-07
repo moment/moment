@@ -1,22 +1,19 @@
-// moment.js locale configuration
-// locale : finnish (fi)
-// author : Tarmo Aidantausta : https://github.com/bleadof
+//! moment.js locale configuration
+//! locale : finnish (fi)
+//! author : Tarmo Aidantausta : https://github.com/bleadof
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
+(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+
     var numbersPast = 'nolla yksi kaksi kolme neljä viisi kuusi seitsemän kahdeksan yhdeksän'.split(' '),
         numbersFuture = [
             'nolla', 'yhden', 'kahden', 'kolmen', 'neljän', 'viiden', 'kuuden',
             numbersPast[7], numbersPast[8], numbersPast[9]
         ];
-
     function translate(number, withoutSuffix, key, isFuture) {
         var result = '';
         switch (key) {
@@ -51,12 +48,11 @@
         result = verbalNumber(number, isFuture) + ' ' + result;
         return result;
     }
-
     function verbalNumber(number, isFuture) {
         return number < 10 ? (isFuture ? numbersFuture[number] : numbersPast[number]) : number;
     }
 
-    return moment.defineLocale('fi', {
+    var fi = moment.defineLocale('fi', {
         months : 'tammikuu_helmikuu_maaliskuu_huhtikuu_toukokuu_kesäkuu_heinäkuu_elokuu_syyskuu_lokakuu_marraskuu_joulukuu'.split('_'),
         monthsShort : 'tammi_helmi_maalis_huhti_touko_kesä_heinä_elo_syys_loka_marras_joulu'.split('_'),
         weekdays : 'sunnuntai_maanantai_tiistai_keskiviikko_torstai_perjantai_lauantai'.split('_'),
@@ -104,4 +100,7 @@
             doy : 4  // The week that contains Jan 4th is the first week of the year.
         }
     });
+
+    return fi;
+
 }));

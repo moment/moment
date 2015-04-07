@@ -1,17 +1,15 @@
-// moment.js locale configuration
-// locale : bosnian (bs)
-// author : Nedim Cholich : https://github.com/frontyard
-// based on (hr) translation by Bojan Marković
+//! moment.js locale configuration
+//! locale : bosnian (bs)
+//! author : Nedim Cholich : https://github.com/frontyard
+//! based on (hr) translation by Bojan Marković
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
+(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+
     function translate(number, withoutSuffix, key) {
         var result = number + ' ';
         switch (key) {
@@ -65,7 +63,7 @@
         }
     }
 
-    return moment.defineLocale('bs', {
+    var bs = moment.defineLocale('bs', {
         months : 'januar_februar_mart_april_maj_juni_juli_august_septembar_oktobar_novembar_decembar'.split('_'),
         monthsShort : 'jan._feb._mar._apr._maj._jun._jul._aug._sep._okt._nov._dec.'.split('_'),
         weekdays : 'nedjelja_ponedjeljak_utorak_srijeda_četvrtak_petak_subota'.split('_'),
@@ -82,7 +80,6 @@
         calendar : {
             sameDay  : '[danas u] LT',
             nextDay  : '[sutra u] LT',
-
             nextWeek : function () {
                 switch (this.day()) {
                 case 0:
@@ -137,4 +134,7 @@
             doy : 7  // The week that contains Jan 1st is the first week of the year.
         }
     });
+
+    return bs;
+
 }));

@@ -1,6 +1,5 @@
 
 module.exports = function (grunt) {
-
     grunt.registerTask('embedLocales', function () {
         var config = grunt.config('embedLocales');
 
@@ -17,7 +16,7 @@ module.exports = function (grunt) {
         grunt.file.write(config.dest, modifiedContents);
     });
 
-    var languageReset = 'moment.locale(\'en\');'
+    var languageReset = 'moment.locale(\'en\');';
 
     function determineEmbeddedContent(files) {
         var embeddedContent = '';
@@ -44,6 +43,5 @@ module.exports = function (grunt) {
 
         return fileContents.replace(reTransform, replaceWith);
     }
-
 };
 

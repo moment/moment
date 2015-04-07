@@ -1,16 +1,14 @@
-// moment.js locale configuration
-// locale : Burmese (my)
-// author : Squar team, mysquar.com
+//! moment.js locale configuration
+//! locale : Burmese (my)
+//! author : Squar team, mysquar.com
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
+(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+
     var symbolMap = {
         '1': '၁',
         '2': '၂',
@@ -34,7 +32,8 @@
         '၉': '9',
         '၀': '0'
     };
-    return moment.defineLocale('my', {
+
+    var my = moment.defineLocale('my', {
         months: 'ဇန်နဝါရီ_ဖေဖော်ဝါရီ_မတ်_ဧပြီ_မေ_ဇွန်_ဇူလိုင်_သြဂုတ်_စက်တင်ဘာ_အောက်တိုဘာ_နိုဝင်ဘာ_ဒီဇင်ဘာ'.split('_'),
         monthsShort: 'ဇန်_ဖေ_မတ်_ပြီ_မေ_ဇွန်_လိုင်_သြ_စက်_အောက်_နို_ဒီ'.split('_'),
         weekdays: 'တနင်္ဂနွေ_တနင်္လာ_အင်္ဂါ_ဗုဒ္ဓဟူး_ကြာသပတေး_သောကြာ_စနေ'.split('_'),
@@ -86,4 +85,7 @@
             doy: 4 // The week that contains Jan 1st is the first week of the year.
         }
     });
+
+    return my;
+
 }));

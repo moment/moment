@@ -1,17 +1,15 @@
-// moment.js locale configuration
-// locale : romanian (ro)
-// author : Vlad Gurdiga : https://github.com/gurdiga
-// author : Valentin Agachi : https://github.com/avaly
+//! moment.js locale configuration
+//! locale : romanian (ro)
+//! author : Vlad Gurdiga : https://github.com/gurdiga
+//! author : Valentin Agachi : https://github.com/avaly
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
+(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+
     function relativeTimeWithPlural(number, withoutSuffix, key) {
         var format = {
                 'mm': 'minute',
@@ -24,11 +22,10 @@
         if (number % 100 >= 20 || (number >= 100 && number % 100 === 0)) {
             separator = ' de ';
         }
-
         return number + separator + format[key];
     }
 
-    return moment.defineLocale('ro', {
+    var ro = moment.defineLocale('ro', {
         months : 'ianuarie_februarie_martie_aprilie_mai_iunie_iulie_august_septembrie_octombrie_noiembrie_decembrie'.split('_'),
         monthsShort : 'ian._febr._mart._apr._mai_iun._iul._aug._sept._oct._nov._dec.'.split('_'),
         weekdays : 'duminică_luni_marți_miercuri_joi_vineri_sâmbătă'.split('_'),
@@ -70,4 +67,7 @@
             doy : 7  // The week that contains Jan 1st is the first week of the year.
         }
     });
+
+    return ro;
+
 }));

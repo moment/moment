@@ -32,7 +32,6 @@
     "disallowSpacesInNamedFunctionExpression": {
         "beforeOpeningRoundBrace": true
     },
-    "requireMultipleVarDecl": "onevar",
     "requireBlocksOnNewline": true,
     "disallowPaddingNewlinesInBlocks": true,
     "disallowEmptyBlocks": true,
@@ -63,5 +62,6 @@
     "validateQuoteMarks": {
         "mark": "'",
         "escape": true
-    }
+    },
+    "esnext": true
 }
