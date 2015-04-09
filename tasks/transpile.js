@@ -134,9 +134,17 @@ module.exports = function (grunt) {
             target: target
         }).then(function () {
             var code = grunt.file.read(target);
-            code = code.replace(new RegExp('=\\s+{[^]\\s+get default \\(\\) { return ([a-z$_]+); }[^]\\s+}', ''), '= $1');
+            var getDefaultRegExp = new RegExp('var ([a-z$_]+) =\\s+{[^]\\s+get default \\(\\) { return ([a-z$_]+); }[^]\\s+}', '');
+            var crap = code.match(getDefaultRegExp);
+            if (crap.length !== 3) {
+                grunt.file.write('/tmp/crap.js', code);
+                throw new Error('Failed to detect get default crap, check /tmp/crap.js');
+            }
+            code = code.replace(getDefaultRegExp, '');
+            code = code.replace('var moment_with_locales = ' + crap[1], 'var moment_with_locales = ' + crap[2]);
             if (code.match('get default')) {
-                throw new Error('Stupid shit es6 get default plaguing the code');
+                grunt.file.write('/tmp/crap.js', code);
+                throw new Error('Stupid shit es6 get default plaguing the code, check /tmp/crap.js');
             }
             grunt.file.write(target, code);
         });
@@ -195,7 +203,7 @@ module.exports = function (grunt) {
         }).then(function () {
             grunt.log.ok('build/umd/min/locales.js');
         }).then(function () {
-            generateMomentWithLocales('build/umd/min/moment-with-locales.js',
+            return generateMomentWithLocales('build/umd/min/moment-with-locales.js',
                 grunt.file.expand({cwd: 'src'}, 'locale/*.js'));
         }).then(function () {
             grunt.log.ok('build/umd/min/moment-with-locales.js');
