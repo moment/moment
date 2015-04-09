@@ -557,3 +557,13 @@ test('JSON.stringify duration', function (assert) {
 
     assert.equal(JSON.stringify(d), '"' + d.toISOString() + '"', 'JSON.stringify on duration should return ISO string');
 });
+
+test('duration plugins', function (assert) {
+    var durationObject = moment.duration();
+    moment.duration.fn.foo = function (arg) {
+        assert.equal(this, durationObject);
+        assert.equal(arg, 5);
+    };
+    durationObject.foo(5);
+});
+

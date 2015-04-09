@@ -73,6 +73,8 @@ export function createDuration (input, key) {
     return ret;
 }
 
+createDuration.fn = Duration.prototype;
+
 function parseIso (inp, sign) {
     // We'd normally use ~~inp for this, but unfortunately it also
     // converts floats to ints.
