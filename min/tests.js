@@ -15530,7 +15530,7 @@
         var i, m, weekday, datestring;
         for (i = 2; i < 7; i++) {
             m = moment().subtract({d: i});
-             // Different date string
+            // Different date string
             weekday = parseInt(m.format('d'), 10);
             datestring = (weekday === 0) ? '[la scorsa] dddd [alle] LT' : '[lo scorso] dddd [alle] LT';
             assert.equal(m.calendar(), m.format(datestring), 'Today - ' + i + ' days current time');
@@ -30994,10 +30994,12 @@
         }
     }
 
+    var helpers_each = each;
+
     module('days in month');
 
     test('days in month', function (assert) {
-        each([31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31], function (days, i) {
+        helpers_each([31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31], function (days, i) {
             var firstDay = moment([2012, i]),
                 lastDay  = moment([2012, i, days]);
             assert.equal(firstDay.daysInMonth(), days, firstDay.format('L') + ' should have ' + days + ' days.');
@@ -31901,6 +31903,15 @@
         var d = moment.duration(1024, 'h');
 
         assert.equal(JSON.stringify(d), '"' + d.toISOString() + '"', 'JSON.stringify on duration should return ISO string');
+    });
+
+    test('duration plugins', function (assert) {
+        var durationObject = moment.duration();
+        moment.duration.fn.foo = function (arg) {
+            assert.equal(this, durationObject);
+            assert.equal(arg, 5);
+        };
+        durationObject.foo(5);
     });
 
 }));
@@ -34332,10 +34343,12 @@
         }
     }
 
+    var helpers_each = each;
+
     module('locale', {
         setup : function () {
             // TODO: Remove once locales are switched to ES6
-            each([{
+            helpers_each([{
                 name: 'en-gb',
                 data: {}
             }, {

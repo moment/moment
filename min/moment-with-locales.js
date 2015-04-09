@@ -6,7 +6,7 @@
 
     var hookCallback;
 
-    function hooks__hooks () {
+    function utils_hooks__hooks () {
         return hookCallback.apply(null, arguments);
     }
 
@@ -70,7 +70,7 @@
         return a;
     }
 
-    function utc__createUTC (input, format, locale, strict) {
+    function create_utc__createUTC (input, format, locale, strict) {
         return createLocalOrUTC(input, format, locale, strict, true).utc();
     }
 
@@ -95,7 +95,7 @@
     }
 
     function valid__createInvalid (flags) {
-        var m = utc__createUTC(NaN);
+        var m = create_utc__createUTC(NaN);
         if (flags != null) {
             extend(m._pf, flags);
         }
@@ -106,7 +106,7 @@
         return m;
     }
 
-    var momentProperties = hooks__hooks.momentProperties = [];
+    var momentProperties = utils_hooks__hooks.momentProperties = [];
 
     function copyConfig(to, from) {
         var i, prop, val;
@@ -165,7 +165,7 @@
         // objects.
         if (updateInProgress === false) {
             updateInProgress = true;
-            hooks__hooks.updateOffset(this);
+            utils_hooks__hooks.updateOffset(this);
             updateInProgress = false;
         }
     }
@@ -250,7 +250,7 @@
                 require('./locale/' + name);
                 // because defineLocale currently also sets the global locale, we
                 // want to undo that for lazy loaded locales
-                locales__getSetGlobalLocale(oldLocale);
+                locale_locales__getSetGlobalLocale(oldLocale);
             } catch (e) { }
         }
         return locales[name];
@@ -259,11 +259,11 @@
     // This function will load locale and then set the global locale.  If
     // no arguments are passed in, it will simply return the current global
     // locale key.
-    function locales__getSetGlobalLocale (key, values) {
+    function locale_locales__getSetGlobalLocale (key, values) {
         var data;
         if (key) {
             if (typeof values === 'undefined') {
-                data = locales__getLocale(key);
+                data = locale_locales__getLocale(key);
             }
             else {
                 data = defineLocale(key, values);
@@ -287,7 +287,7 @@
             locales[name].set(values);
 
             // backwards compat for now: also set the locale
-            locales__getSetGlobalLocale(name);
+            locale_locales__getSetGlobalLocale(name);
 
             return locales[name];
         } else {
@@ -298,7 +298,7 @@
     }
 
     // returns locale data
-    function locales__getLocale (key) {
+    function locale_locales__getLocale (key) {
         var locale;
 
         if (key && key._locale && key._locale._abbr) {
@@ -353,7 +353,7 @@
         return function (value) {
             if (value != null) {
                 get_set__set(this, unit, value);
-                hooks__hooks.updateOffset(this, keepTime);
+                utils_hooks__hooks.updateOffset(this, keepTime);
                 return this;
             } else {
                 return get_set__get(this, unit);
@@ -636,7 +636,7 @@
 
         for (i = 0; i < 12; i++) {
             // make the regex if we don't have it already
-            mom = utc__createUTC([2000, i]);
+            mom = create_utc__createUTC([2000, i]);
             if (strict && !this._longMonthsParse[i]) {
                 this._longMonthsParse[i] = new RegExp('^' + this.months(mom, '').replace('.', '') + '$', 'i');
                 this._shortMonthsParse[i] = new RegExp('^' + this.monthsShort(mom, '').replace('.', '') + '$', 'i');
@@ -678,7 +678,7 @@
     function getSetMonth (value) {
         if (value != null) {
             setMonth(this, value);
-            hooks__hooks.updateOffset(this, true);
+            utils_hooks__hooks.updateOffset(this, true);
             return this;
         } else {
             return get_set__get(this, 'Month');
@@ -714,7 +714,7 @@
     }
 
     function warn(msg) {
-        if (hooks__hooks.suppressDeprecationWarnings === false && typeof console !== 'undefined' && console.warn) {
+        if (utils_hooks__hooks.suppressDeprecationWarnings === false && typeof console !== 'undefined' && console.warn) {
             console.warn('Deprecation warning: ' + msg);
         }
     }
@@ -739,7 +739,7 @@
         }
     }
 
-    hooks__hooks.suppressDeprecationWarnings = false;
+    utils_hooks__hooks.suppressDeprecationWarnings = false;
 
     var from_string__isoRegex = /^\s*(?:[+-]\d{6}|\d{4})-(?:(\d\d-\d\d)|(W\d\d$)|(W\d\d-\d)|(\d\d\d))((T| )(\d\d(:\d\d(:\d\d(\.\d+)?)?)?)?([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
 
@@ -803,11 +803,11 @@
         configFromISO(config);
         if (config._isValid === false) {
             delete config._isValid;
-            hooks__hooks.createFromInputFallback(config);
+            utils_hooks__hooks.createFromInputFallback(config);
         }
     }
 
-    hooks__hooks.createFromInputFallback = deprecate(
+    utils_hooks__hooks.createFromInputFallback = deprecate(
         'moment construction falls back to js Date. This is ' +
         'discouraged and will be removed in upcoming major ' +
         'release. Please refer to ' +
@@ -859,7 +859,7 @@
 
     addParseToken(['YYYY', 'YYYYY', 'YYYYYY'], YEAR);
     addParseToken('YY', function (input, array) {
-        array[YEAR] = hooks__hooks.parseTwoDigitYear(input);
+        array[YEAR] = utils_hooks__hooks.parseTwoDigitYear(input);
     });
 
     // HELPERS
@@ -874,7 +874,7 @@
 
     // HOOKS
 
-    hooks__hooks.parseTwoDigitYear = function (input) {
+    utils_hooks__hooks.parseTwoDigitYear = function (input) {
         return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
     };
 
@@ -1133,12 +1133,12 @@
         config._dayOfYear = temp.dayOfYear;
     }
 
-    hooks__hooks.ISO_8601 = function () {};
+    utils_hooks__hooks.ISO_8601 = function () {};
 
     // date from string and format string
     function configFromStringAndFormat(config) {
         // TODO: Move this to another part of the creation flow to prevent circular deps
-        if (config._f === hooks__hooks.ISO_8601) {
+        if (config._f === utils_hooks__hooks.ISO_8601) {
             configFromISO(config);
             return;
         }
@@ -1284,7 +1284,7 @@
             format = config._f,
             res;
 
-        config._locale = config._locale || locales__getLocale(config._l);
+        config._locale = config._locale || locale_locales__getLocale(config._l);
 
         if (input === null || (format === undefined && input === '')) {
             return valid__createInvalid({nullInput: true});
@@ -1333,7 +1333,7 @@
             // from milliseconds
             config._d = new Date(input);
         } else {
-            hooks__hooks.createFromInputFallback(config);
+            utils_hooks__hooks.createFromInputFallback(config);
         }
     }
 
@@ -1442,7 +1442,7 @@
 
         this._data = {};
 
-        this._locale = locales__getLocale();
+        this._locale = locale_locales__getLocale();
 
         this._bubble();
     }
@@ -1499,7 +1499,7 @@
             diff = (isMoment(input) || isDate(input) ? +input : +local__createLocal(input)) - (+res);
             // Use low-level api, because this fn is low-level api.
             res._d.setTime(+res._d + diff);
-            hooks__hooks.updateOffset(res, false);
+            utils_hooks__hooks.updateOffset(res, false);
             return res;
         } else {
             return local__createLocal(input).local();
@@ -1517,7 +1517,7 @@
 
     // This function will be called whenever a moment is mutated.
     // It is intended to keep the offset in sync with the timezone.
-    hooks__hooks.updateOffset = function () {};
+    utils_hooks__hooks.updateOffset = function () {};
 
     // MOMENTS
 
@@ -1554,7 +1554,7 @@
                     add_subtract__addSubtract(this, create__createDuration(input - offset, 'm'), 1, false);
                 } else if (!this._changeInProgress) {
                     this._changeInProgress = true;
-                    hooks__hooks.updateOffset(this, true);
+                    utils_hooks__hooks.updateOffset(this, true);
                     this._changeInProgress = null;
                 }
             }
@@ -1623,7 +1623,7 @@
 
     function isDaylightSavingTimeShifted () {
         if (this._a) {
-            var other = this._isUTC ? utc__createUTC(this._a) : local__createLocal(this._a);
+            var other = this._isUTC ? create_utc__createUTC(this._a) : local__createLocal(this._a);
             return this.isValid() && compareArrays(this._a, other.toArray()) > 0;
         }
 
@@ -1709,6 +1709,8 @@
         return ret;
     }
 
+    create__createDuration.fn = Duration.prototype;
+
     function parseIso (inp, sign) {
         // We'd normally use ~~inp for this, but unfortunately it also
         // converts floats to ints.
@@ -1778,14 +1780,14 @@
             setMonth(mom, get_set__get(mom, 'Month') + months * isAdding);
         }
         if (updateOffset) {
-            hooks__hooks.updateOffset(mom, days || months);
+            utils_hooks__hooks.updateOffset(mom, days || months);
         }
     }
 
     var add_subtract__add      = createAdder(1, 'add');
     var add_subtract__subtract = createAdder(-1, 'subtract');
 
-    function calendar__calendar (time) {
+    function moment_calendar__calendar (time) {
         // We want to compare the start of today, vs this.
         // Getting start-of-today depends on whether we're local/utc/offset or not.
         var now = time || local__createLocal(),
@@ -1898,7 +1900,7 @@
         return -(wholeMonthDiff + adjust);
     }
 
-    hooks__hooks.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ';
+    utils_hooks__hooks.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ';
 
     function toString () {
         return this.clone().locale('en').format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
@@ -1919,7 +1921,7 @@
     }
 
     function moment_format__format (inputString) {
-        var output = formatMoment(this, inputString || hooks__hooks.defaultFormat);
+        var output = formatMoment(this, inputString || utils_hooks__hooks.defaultFormat);
         return this.localeData().postformat(output);
     }
 
@@ -1937,7 +1939,7 @@
         if (key === undefined) {
             return this._locale._abbr;
         } else {
-            newLocaleData = locales__getLocale(key);
+            newLocaleData = locale_locales__getLocale(key);
             if (newLocaleData != null) {
                 this._locale = newLocaleData;
             }
@@ -1985,7 +1987,6 @@
             /* falls through */
         case 'second':
             this.milliseconds(0);
-            /* falls through */
         }
 
         // weeks are a special case
@@ -2079,7 +2080,7 @@
     });
 
     addWeekParseToken(['gg', 'GG'], function (input, week, config, token) {
-        week[token] = hooks__hooks.parseTwoDigitYear(input);
+        week[token] = utils_hooks__hooks.parseTwoDigitYear(input);
     });
 
     // HELPERS
@@ -2424,7 +2425,7 @@
     var momentPrototype__proto = Moment.prototype;
 
     momentPrototype__proto.add          = add_subtract__add;
-    momentPrototype__proto.calendar     = calendar__calendar;
+    momentPrototype__proto.calendar     = moment_calendar__calendar;
     momentPrototype__proto.clone        = clone;
     momentPrototype__proto.diff         = diff;
     momentPrototype__proto.endOf        = endOf;
@@ -2607,7 +2608,7 @@
         return typeof format === 'function' ? format(output) : format.replace(/%s/i, output);
     }
 
-    function set__set (config) {
+    function locale_set__set (config) {
         var prop, i;
         for (i in config) {
             prop = config[i];
@@ -2638,7 +2639,7 @@
     prototype__proto._relativeTime   = defaultRelativeTime;
     prototype__proto.relativeTime    = relative__relativeTime;
     prototype__proto.pastFuture      = pastFuture;
-    prototype__proto.set             = set__set;
+    prototype__proto.set             = locale_set__set;
 
     // Month
     prototype__proto.months       =        localeMonths;
@@ -2668,8 +2669,8 @@
     prototype__proto.meridiem = localeMeridiem;
 
     function lists__get (format, index, field, setter) {
-        var locale = locales__getLocale();
-        var utc = utc__createUTC().set(setter, index);
+        var locale = locale_locales__getLocale();
+        var utc = create_utc__createUTC().set(setter, index);
         return locale[field](utc, format);
     }
 
@@ -2713,7 +2714,7 @@
         return list(format, index, 'weekdaysMin', 7, 'day');
     }
 
-    locales__getSetGlobalLocale('en', {
+    locale_locales__getSetGlobalLocale('en', {
         ordinalParse: /\d{1,2}(th|st|nd|rd)/,
         ordinal : function (number) {
             var b = number % 10,
@@ -2726,12 +2727,12 @@
     });
 
     // Side effect imports
-    hooks__hooks.lang = deprecate('moment.lang is deprecated. Use moment.locale instead.', locales__getSetGlobalLocale);
-    hooks__hooks.langData = deprecate('moment.langData is deprecated. Use moment.localeData instead.', locales__getLocale);
+    utils_hooks__hooks.lang = deprecate('moment.lang is deprecated. Use moment.locale instead.', locale_locales__getSetGlobalLocale);
+    utils_hooks__hooks.langData = deprecate('moment.langData is deprecated. Use moment.localeData instead.', locale_locales__getLocale);
 
     var mathAbs = Math.abs;
 
-    function abs__abs () {
+    function duration_abs__abs () {
         var data           = this._data;
 
         this._milliseconds = mathAbs(this._milliseconds);
@@ -2849,7 +2850,7 @@
     }
 
     // TODO: Use this.as('ms')?
-    function as__valueOf () {
+    function duration_as__valueOf () {
         return (
             this._milliseconds +
             this._days * 864e5 +
@@ -2873,7 +2874,7 @@
     var asMonths       = makeAs('M');
     var asYears        = makeAs('y');
 
-    function get__get (units) {
+    function duration_get__get (units) {
         units = normalizeUnits(units);
         return this[units + 's']();
     }
@@ -2884,12 +2885,12 @@
         };
     }
 
-    var get__milliseconds = makeGetter('milliseconds');
+    var duration_get__milliseconds = makeGetter('milliseconds');
     var seconds      = makeGetter('seconds');
     var minutes      = makeGetter('minutes');
     var hours        = makeGetter('hours');
     var days         = makeGetter('days');
-    var get__months       = makeGetter('months');
+    var duration_get__months       = makeGetter('months');
     var years        = makeGetter('years');
 
     function weeks () {
@@ -2910,7 +2911,7 @@
         return locale.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
     }
 
-    function humanize__relativeTime (posNegDuration, withoutSuffix, locale) {
+    function duration_humanize__relativeTime (posNegDuration, withoutSuffix, locale) {
         var duration = create__createDuration(posNegDuration).abs();
         var seconds  = round(duration.as('s'));
         var minutes  = round(duration.as('m'));
@@ -2937,7 +2938,7 @@
     }
 
     // This function allows you to set a threshold for relative time strings
-    function humanize__getSetRelativeTimeThreshold (threshold, limit) {
+    function duration_humanize__getSetRelativeTimeThreshold (threshold, limit) {
         if (thresholds[threshold] === undefined) {
             return false;
         }
@@ -2950,7 +2951,7 @@
 
     function humanize (withSuffix) {
         var locale = this.localeData();
-        var output = humanize__relativeTime(this, !withSuffix, locale);
+        var output = duration_humanize__relativeTime(this, !withSuffix, locale);
 
         if (withSuffix) {
             output = locale.pastFuture(+this, output);
@@ -2990,7 +2991,7 @@
 
     var duration_prototype__proto = Duration.prototype;
 
-    duration_prototype__proto.abs            = abs__abs;
+    duration_prototype__proto.abs            = duration_abs__abs;
     duration_prototype__proto.add            = duration_add_subtract__add;
     duration_prototype__proto.subtract       = duration_add_subtract__subtract;
     duration_prototype__proto.as             = as;
@@ -3002,16 +3003,16 @@
     duration_prototype__proto.asWeeks        = asWeeks;
     duration_prototype__proto.asMonths       = asMonths;
     duration_prototype__proto.asYears        = asYears;
-    duration_prototype__proto.valueOf        = as__valueOf;
+    duration_prototype__proto.valueOf        = duration_as__valueOf;
     duration_prototype__proto._bubble        = bubble;
-    duration_prototype__proto.get            = get__get;
-    duration_prototype__proto.milliseconds   = get__milliseconds;
+    duration_prototype__proto.get            = duration_get__get;
+    duration_prototype__proto.milliseconds   = duration_get__milliseconds;
     duration_prototype__proto.seconds        = seconds;
     duration_prototype__proto.minutes        = minutes;
     duration_prototype__proto.hours          = hours;
     duration_prototype__proto.days           = days;
     duration_prototype__proto.weeks          = weeks;
-    duration_prototype__proto.months         = get__months;
+    duration_prototype__proto.months         = duration_get__months;
     duration_prototype__proto.years          = years;
     duration_prototype__proto.humanize       = humanize;
     duration_prototype__proto.toISOString    = iso_string__toISOString;
@@ -3042,47 +3043,49 @@
 
     // Side effect imports
 
-
+    var _moment = {
+        get default () { return _moment__default; }
+    };
 
     //! moment.js
-    //! version : 2.10.0
+    //! version : 2.10.1
     //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
     //! license : MIT
     //! momentjs.com
 
-    hooks__hooks.version = '2.10.0';
+    utils_hooks__hooks.version = '2.10.1';
 
     setHookCallback(local__createLocal);
 
-    hooks__hooks.fn                    = momentPrototype;
-    hooks__hooks.min                   = min;
-    hooks__hooks.max                   = max;
-    hooks__hooks.utc                   = utc__createUTC;
-    hooks__hooks.unix                  = moment_moment__createUnix;
-    hooks__hooks.months                = lists__listMonths;
-    hooks__hooks.isDate                = isDate;
-    hooks__hooks.locale                = locales__getSetGlobalLocale;
-    hooks__hooks.invalid               = valid__createInvalid;
-    hooks__hooks.duration              = create__createDuration;
-    hooks__hooks.isMoment              = isMoment;
-    hooks__hooks.weekdays              = lists__listWeekdays;
-    hooks__hooks.parseZone             = moment_moment__createInZone;
-    hooks__hooks.localeData            = locales__getLocale;
-    hooks__hooks.isDuration            = isDuration;
-    hooks__hooks.monthsShort           = lists__listMonthsShort;
-    hooks__hooks.weekdaysMin           = lists__listWeekdaysMin;
-    hooks__hooks.defineLocale          = defineLocale;
-    hooks__hooks.weekdaysShort         = lists__listWeekdaysShort;
-    hooks__hooks.normalizeUnits        = normalizeUnits;
-    hooks__hooks.relativeTimeThreshold = humanize__getSetRelativeTimeThreshold;
+    utils_hooks__hooks.fn                    = momentPrototype;
+    utils_hooks__hooks.min                   = min;
+    utils_hooks__hooks.max                   = max;
+    utils_hooks__hooks.utc                   = create_utc__createUTC;
+    utils_hooks__hooks.unix                  = moment_moment__createUnix;
+    utils_hooks__hooks.months                = lists__listMonths;
+    utils_hooks__hooks.isDate                = isDate;
+    utils_hooks__hooks.locale                = locale_locales__getSetGlobalLocale;
+    utils_hooks__hooks.invalid               = valid__createInvalid;
+    utils_hooks__hooks.duration              = create__createDuration;
+    utils_hooks__hooks.isMoment              = isMoment;
+    utils_hooks__hooks.weekdays              = lists__listWeekdays;
+    utils_hooks__hooks.parseZone             = moment_moment__createInZone;
+    utils_hooks__hooks.localeData            = locale_locales__getLocale;
+    utils_hooks__hooks.isDuration            = isDuration;
+    utils_hooks__hooks.monthsShort           = lists__listMonthsShort;
+    utils_hooks__hooks.weekdaysMin           = lists__listWeekdaysMin;
+    utils_hooks__hooks.defineLocale          = defineLocale;
+    utils_hooks__hooks.weekdaysShort         = lists__listWeekdaysShort;
+    utils_hooks__hooks.normalizeUnits        = normalizeUnits;
+    utils_hooks__hooks.relativeTimeThreshold = duration_humanize__getSetRelativeTimeThreshold;
 
-    var moment__default = hooks__hooks;
+    var _moment__default = utils_hooks__hooks;
 
     //! moment.js locale configuration
     //! locale : afrikaans (af)
     //! author : Werner Mollentze : https://github.com/wernerm
 
-    var af = moment__default.defineLocale('af', {
+    var af = _moment__default.defineLocale('af', {
         months : 'Januarie_Februarie_Maart_April_Mei_Junie_Julie_Augustus_September_Oktober_November_Desember'.split('_'),
         monthsShort : 'Jan_Feb_Mar_Apr_Mei_Jun_Jul_Aug_Sep_Okt_Nov_Des'.split('_'),
         weekdays : 'Sondag_Maandag_Dinsdag_Woensdag_Donderdag_Vrydag_Saterdag'.split('_'),
@@ -3145,7 +3148,7 @@
     //! author : ElFadili Yassine : https://github.com/ElFadiliY
     //! author : Abdel Said : https://github.com/abdelsaid
 
-    var ar_ma = moment__default.defineLocale('ar-ma', {
+    var ar_ma = _moment__default.defineLocale('ar-ma', {
         months : 'يناير_فبراير_مارس_أبريل_ماي_يونيو_يوليوز_غشت_شتنبر_أكتوبر_نونبر_دجنبر'.split('_'),
         monthsShort : 'يناير_فبراير_مارس_أبريل_ماي_يونيو_يوليوز_غشت_شتنبر_أكتوبر_نونبر_دجنبر'.split('_'),
         weekdays : 'الأحد_الإتنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت'.split('_'),
@@ -3216,7 +3219,7 @@
         '٠': '0'
     };
 
-    var ar_sa = moment__default.defineLocale('ar-sa', {
+    var ar_sa = _moment__default.defineLocale('ar-sa', {
         months : 'يناير_فبراير_مارس_أبريل_مايو_يونيو_يوليو_أغسطس_سبتمبر_أكتوبر_نوفمبر_ديسمبر'.split('_'),
         monthsShort : 'يناير_فبراير_مارس_أبريل_مايو_يونيو_يوليو_أغسطس_سبتمبر_أكتوبر_نوفمبر_ديسمبر'.split('_'),
         weekdays : 'الأحد_الإثنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت'.split('_'),
@@ -3283,7 +3286,7 @@
     //! moment.js locale configuration
     //! locale  : Tunisian Arabic (ar-tn)
 
-    var ar_tn = moment__default.defineLocale('ar-tn', {
+    var ar_tn = _moment__default.defineLocale('ar-tn', {
         months: 'جانفي_فيفري_مارس_أفريل_ماي_جوان_جويلية_أوت_سبتمبر_أكتوبر_نوفمبر_ديسمبر'.split('_'),
         monthsShort: 'جانفي_فيفري_مارس_أفريل_ماي_جوان_جويلية_أوت_سبتمبر_أكتوبر_نوفمبر_ديسمبر'.split('_'),
         weekdays: 'الأحد_الإثنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت'.split('_'),
@@ -3387,7 +3390,7 @@
         'كانون الأول ديسمبر'
     ];
 
-    var ar = moment__default.defineLocale('ar', {
+    var ar = _moment__default.defineLocale('ar', {
         months : ar__months,
         monthsShort : ar__months,
         weekdays : 'الأحد_الإثنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت'.split('_'),
@@ -3476,7 +3479,7 @@
         90: '-ıncı'
     };
 
-    var az = moment__default.defineLocale('az', {
+    var az = _moment__default.defineLocale('az', {
         months : 'yanvar_fevral_mart_aprel_may_iyun_iyul_avqust_sentyabr_oktyabr_noyabr_dekabr'.split('_'),
         monthsShort : 'yan_fev_mar_apr_may_iyn_iyl_avq_sen_okt_noy_dek'.split('_'),
         weekdays : 'Bazar_Bazar ertəsi_Çərşənbə axşamı_Çərşənbə_Cümə axşamı_Cümə_Şənbə'.split('_'),
@@ -3593,7 +3596,7 @@
         return weekdays[nounCase][m.day()];
     }
 
-    var be = moment__default.defineLocale('be', {
+    var be = _moment__default.defineLocale('be', {
         months : be__monthsCaseReplace,
         monthsShort : 'студ_лют_сак_крас_трав_чэрв_ліп_жнів_вер_каст_ліст_снеж'.split('_'),
         weekdays : be__weekdaysCaseReplace,
@@ -3684,7 +3687,7 @@
     //! locale : bulgarian (bg)
     //! author : Krasen Borisov : https://github.com/kraz
 
-    var bg = moment__default.defineLocale('bg', {
+    var bg = _moment__default.defineLocale('bg', {
         months : 'януари_февруари_март_април_май_юни_юли_август_септември_октомври_ноември_декември'.split('_'),
         monthsShort : 'янр_фев_мар_апр_май_юни_юли_авг_сеп_окт_ное_дек'.split('_'),
         weekdays : 'неделя_понеделник_вторник_сряда_четвъртък_петък_събота'.split('_'),
@@ -3788,7 +3791,7 @@
         '০': '0'
     };
 
-    var bn = moment__default.defineLocale('bn', {
+    var bn = _moment__default.defineLocale('bn', {
         months : 'জানুয়ারী_ফেবুয়ারী_মার্চ_এপ্রিল_মে_জুন_জুলাই_অগাস্ট_সেপ্টেম্বর_অক্টোবর_নভেম্বর_ডিসেম্বর'.split('_'),
         monthsShort : 'জানু_ফেব_মার্চ_এপর_মে_জুন_জুল_অগ_সেপ্ট_অক্টো_নভ_ডিসেম্'.split('_'),
         weekdays : 'রবিবার_সোমবার_মঙ্গলবার_বুধবার_বৃহস্পত্তিবার_শুক্রুবার_শনিবার'.split('_'),
@@ -3890,7 +3893,7 @@
         '༠': '0'
     };
 
-    var bo = moment__default.defineLocale('bo', {
+    var bo = _moment__default.defineLocale('bo', {
         months : 'ཟླ་བ་དང་པོ_ཟླ་བ་གཉིས་པ_ཟླ་བ་གསུམ་པ_ཟླ་བ་བཞི་པ_ཟླ་བ་ལྔ་པ_ཟླ་བ་དྲུག་པ_ཟླ་བ་བདུན་པ_ཟླ་བ་བརྒྱད་པ_ཟླ་བ་དགུ་པ_ཟླ་བ་བཅུ་པ_ཟླ་བ་བཅུ་གཅིག་པ_ཟླ་བ་བཅུ་གཉིས་པ'.split('_'),
         monthsShort : 'ཟླ་བ་དང་པོ_ཟླ་བ་གཉིས་པ_ཟླ་བ་གསུམ་པ_ཟླ་བ་བཞི་པ_ཟླ་བ་ལྔ་པ_ཟླ་བ་དྲུག་པ_ཟླ་བ་བདུན་པ_ཟླ་བ་བརྒྱད་པ_ཟླ་བ་དགུ་པ_ཟླ་བ་བཅུ་པ_ཟླ་བ་བཅུ་གཅིག་པ_ཟླ་བ་བཅུ་གཉིས་པ'.split('_'),
         weekdays : 'གཟའ་ཉི་མ་_གཟའ་ཟླ་བ་_གཟའ་མིག་དམར་_གཟའ་ལྷག་པ་_གཟའ་ཕུར་བུ_གཟའ་པ་སངས་_གཟའ་སྤེན་པ་'.split('_'),
@@ -4008,7 +4011,7 @@
         return mutationTable[text.charAt(0)] + text.substring(1);
     }
 
-    var br = moment__default.defineLocale('br', {
+    var br = _moment__default.defineLocale('br', {
         months : 'Genver_C\'hwevrer_Meurzh_Ebrel_Mae_Mezheven_Gouere_Eost_Gwengolo_Here_Du_Kerzu'.split('_'),
         monthsShort : 'Gen_C\'hwe_Meu_Ebr_Mae_Eve_Gou_Eos_Gwe_Her_Du_Ker'.split('_'),
         weekdays : 'Sul_Lun_Meurzh_Merc\'her_Yaou_Gwener_Sadorn'.split('_'),
@@ -4114,7 +4117,7 @@
         }
     }
 
-    var bs = moment__default.defineLocale('bs', {
+    var bs = _moment__default.defineLocale('bs', {
         months : 'januar_februar_mart_april_maj_juni_juli_august_septembar_oktobar_novembar_decembar'.split('_'),
         monthsShort : 'jan._feb._mar._apr._maj._jun._jul._aug._sep._okt._nov._dec.'.split('_'),
         weekdays : 'nedjelja_ponedjeljak_utorak_srijeda_četvrtak_petak_subota'.split('_'),
@@ -4190,7 +4193,7 @@
     //! locale : catalan (ca)
     //! author : Juan G. Hurtado : https://github.com/juanghurtado
 
-    var ca = moment__default.defineLocale('ca', {
+    var ca = _moment__default.defineLocale('ca', {
         months : 'gener_febrer_març_abril_maig_juny_juliol_agost_setembre_octubre_novembre_desembre'.split('_'),
         monthsShort : 'gen._febr._mar._abr._mai._jun._jul._ag._set._oct._nov._des.'.split('_'),
         weekdays : 'diumenge_dilluns_dimarts_dimecres_dijous_divendres_dissabte'.split('_'),
@@ -4316,7 +4319,7 @@
         }
     }
 
-    var cs = moment__default.defineLocale('cs', {
+    var cs = _moment__default.defineLocale('cs', {
         months : cs__months,
         monthsShort : cs__monthsShort,
         monthsParse : (function (months, monthsShort) {
@@ -4404,7 +4407,7 @@
     //! locale : chuvash (cv)
     //! author : Anatoly Mironov : https://github.com/mirontoli
 
-    var cv = moment__default.defineLocale('cv', {
+    var cv = _moment__default.defineLocale('cv', {
         months : 'кăрлач_нарăс_пуш_ака_май_çĕртме_утă_çурла_авăн_юпа_чӳк_раштав'.split('_'),
         monthsShort : 'кăр_нар_пуш_ака_май_çĕр_утă_çур_ав_юпа_чӳк_раш'.split('_'),
         weekdays : 'вырсарникун_тунтикун_ытларикун_юнкун_кĕçнерникун_эрнекун_шăматкун'.split('_'),
@@ -4456,7 +4459,7 @@
     //! locale : Welsh (cy)
     //! author : Robert Allen
 
-    var cy = moment__default.defineLocale('cy', {
+    var cy = _moment__default.defineLocale('cy', {
         months: 'Ionawr_Chwefror_Mawrth_Ebrill_Mai_Mehefin_Gorffennaf_Awst_Medi_Hydref_Tachwedd_Rhagfyr'.split('_'),
         monthsShort: 'Ion_Chwe_Maw_Ebr_Mai_Meh_Gor_Aws_Med_Hyd_Tach_Rhag'.split('_'),
         weekdays: 'Dydd Sul_Dydd Llun_Dydd Mawrth_Dydd Mercher_Dydd Iau_Dydd Gwener_Dydd Sadwrn'.split('_'),
@@ -4524,7 +4527,7 @@
     //! locale : danish (da)
     //! author : Ulrik Nielsen : https://github.com/mrbase
 
-    var da = moment__default.defineLocale('da', {
+    var da = _moment__default.defineLocale('da', {
         months : 'januar_februar_marts_april_maj_juni_juli_august_september_oktober_november_december'.split('_'),
         monthsShort : 'jan_feb_mar_apr_maj_jun_jul_aug_sep_okt_nov_dec'.split('_'),
         weekdays : 'søndag_mandag_tirsdag_onsdag_torsdag_fredag_lørdag'.split('_'),
@@ -4589,7 +4592,7 @@
         return withoutSuffix ? format[key][0] : format[key][1];
     }
 
-    var de_at = moment__default.defineLocale('de-at', {
+    var de_at = _moment__default.defineLocale('de-at', {
         months : 'Jänner_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember'.split('_'),
         monthsShort : 'Jän._Febr._Mrz._Apr._Mai_Jun._Jul._Aug._Sept._Okt._Nov._Dez.'.split('_'),
         weekdays : 'Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag'.split('_'),
@@ -4653,7 +4656,7 @@
         return withoutSuffix ? format[key][0] : format[key][1];
     }
 
-    var de = moment__default.defineLocale('de', {
+    var de = _moment__default.defineLocale('de', {
         months : 'Januar_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember'.split('_'),
         monthsShort : 'Jan._Febr._Mrz._Apr._Mai_Jun._Jul._Aug._Sept._Okt._Nov._Dez.'.split('_'),
         weekdays : 'Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag'.split('_'),
@@ -4702,7 +4705,7 @@
     //! locale : modern greek (el)
     //! author : Aggelos Karalias : https://github.com/mehiel
 
-    var el = moment__default.defineLocale('el', {
+    var el = _moment__default.defineLocale('el', {
         monthsNominativeEl : 'Ιανουάριος_Φεβρουάριος_Μάρτιος_Απρίλιος_Μάιος_Ιούνιος_Ιούλιος_Αύγουστος_Σεπτέμβριος_Οκτώβριος_Νοέμβριος_Δεκέμβριος'.split('_'),
         monthsGenitiveEl : 'Ιανουαρίου_Φεβρουαρίου_Μαρτίου_Απριλίου_Μαΐου_Ιουνίου_Ιουλίου_Αυγούστου_Σεπτεμβρίου_Οκτωβρίου_Νοεμβρίου_Δεκεμβρίου'.split('_'),
         months : function (momentToFormat, format) {
@@ -4784,7 +4787,7 @@
     //! moment.js locale configuration
     //! locale : australian english (en-au)
 
-    var en_au = moment__default.defineLocale('en-au', {
+    var en_au = _moment__default.defineLocale('en-au', {
         months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
         monthsShort : 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
         weekdays : 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
@@ -4840,7 +4843,7 @@
     //! locale : canadian english (en-ca)
     //! author : Jonathan Abourbih : https://github.com/jonbca
 
-    var en_ca = moment__default.defineLocale('en-ca', {
+    var en_ca = _moment__default.defineLocale('en-ca', {
         months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
         monthsShort : 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
         weekdays : 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
@@ -4892,7 +4895,7 @@
     //! locale : great britain english (en-gb)
     //! author : Chris Gedrim : https://github.com/chrisgedrim
 
-    var en_gb = moment__default.defineLocale('en-gb', {
+    var en_gb = _moment__default.defineLocale('en-gb', {
         months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
         monthsShort : 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
         weekdays : 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
@@ -4950,7 +4953,7 @@
     //! komento: Mi estas malcerta se mi korekte traktis akuzativojn en tiu traduko.
     //!          Se ne, bonvolu korekti kaj avizi min por ke mi povas lerni!
 
-    var eo = moment__default.defineLocale('eo', {
+    var eo = _moment__default.defineLocale('eo', {
         months : 'januaro_februaro_marto_aprilo_majo_junio_julio_aŭgusto_septembro_oktobro_novembro_decembro'.split('_'),
         monthsShort : 'jan_feb_mar_apr_maj_jun_jul_aŭg_sep_okt_nov_dec'.split('_'),
         weekdays : 'Dimanĉo_Lundo_Mardo_Merkredo_Ĵaŭdo_Vendredo_Sabato'.split('_'),
@@ -5013,7 +5016,7 @@
     var monthsShortDot = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split('_'),
         es__monthsShort = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_');
 
-    var es = moment__default.defineLocale('es', {
+    var es = _moment__default.defineLocale('es', {
         months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
         monthsShort : function (m, format) {
             if (/-MMM-/.test(format)) {
@@ -5098,7 +5101,7 @@
         return isFuture ? format[key][0] : format[key][1];
     }
 
-    var et = moment__default.defineLocale('et', {
+    var et = _moment__default.defineLocale('et', {
         months        : 'jaanuar_veebruar_märts_aprill_mai_juuni_juuli_august_september_oktoober_november_detsember'.split('_'),
         monthsShort   : 'jaan_veebr_märts_apr_mai_juuni_juuli_aug_sept_okt_nov_dets'.split('_'),
         weekdays      : 'pühapäev_esmaspäev_teisipäev_kolmapäev_neljapäev_reede_laupäev'.split('_'),
@@ -5147,7 +5150,7 @@
     //! locale : euskara (eu)
     //! author : Eneko Illarramendi : https://github.com/eillarra
 
-    var eu = moment__default.defineLocale('eu', {
+    var eu = _moment__default.defineLocale('eu', {
         months : 'urtarrila_otsaila_martxoa_apirila_maiatza_ekaina_uztaila_abuztua_iraila_urria_azaroa_abendua'.split('_'),
         monthsShort : 'urt._ots._mar._api._mai._eka._uzt._abu._ira._urr._aza._abe.'.split('_'),
         weekdays : 'igandea_astelehena_asteartea_asteazkena_osteguna_ostirala_larunbata'.split('_'),
@@ -5224,7 +5227,7 @@
         '۰': '0'
     };
 
-    var fa = moment__default.defineLocale('fa', {
+    var fa = _moment__default.defineLocale('fa', {
         months : 'ژانویه_فوریه_مارس_آوریل_مه_ژوئن_ژوئیه_اوت_سپتامبر_اکتبر_نوامبر_دسامبر'.split('_'),
         monthsShort : 'ژانویه_فوریه_مارس_آوریل_مه_ژوئن_ژوئیه_اوت_سپتامبر_اکتبر_نوامبر_دسامبر'.split('_'),
         weekdays : 'یک\u200cشنبه_دوشنبه_سه\u200cشنبه_چهارشنبه_پنج\u200cشنبه_جمعه_شنبه'.split('_'),
@@ -5337,7 +5340,7 @@
         return number < 10 ? (isFuture ? numbersFuture[number] : numbersPast[number]) : number;
     }
 
-    var fi = moment__default.defineLocale('fi', {
+    var fi = _moment__default.defineLocale('fi', {
         months : 'tammikuu_helmikuu_maaliskuu_huhtikuu_toukokuu_kesäkuu_heinäkuu_elokuu_syyskuu_lokakuu_marraskuu_joulukuu'.split('_'),
         monthsShort : 'tammi_helmi_maalis_huhti_touko_kesä_heinä_elo_syys_loka_marras_joulu'.split('_'),
         weekdays : 'sunnuntai_maanantai_tiistai_keskiviikko_torstai_perjantai_lauantai'.split('_'),
@@ -5390,7 +5393,7 @@
     //! locale : faroese (fo)
     //! author : Ragnar Johannesen : https://github.com/ragnar123
 
-    var fo = moment__default.defineLocale('fo', {
+    var fo = _moment__default.defineLocale('fo', {
         months : 'januar_februar_mars_apríl_mai_juni_juli_august_september_oktober_november_desember'.split('_'),
         monthsShort : 'jan_feb_mar_apr_mai_jun_jul_aug_sep_okt_nov_des'.split('_'),
         weekdays : 'sunnudagur_mánadagur_týsdagur_mikudagur_hósdagur_fríggjadagur_leygardagur'.split('_'),
@@ -5439,7 +5442,7 @@
     //! locale : canadian french (fr-ca)
     //! author : Jonathan Abourbih : https://github.com/jonbca
 
-    var fr_ca = moment__default.defineLocale('fr-ca', {
+    var fr_ca = _moment__default.defineLocale('fr-ca', {
         months : 'janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre'.split('_'),
         monthsShort : 'janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.'.split('_'),
         weekdays : 'dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi'.split('_'),
@@ -5486,7 +5489,7 @@
     //! locale : french (fr)
     //! author : John Fischer : https://github.com/jfroffice
 
-    var fr = moment__default.defineLocale('fr', {
+    var fr = _moment__default.defineLocale('fr', {
         months : 'janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre'.split('_'),
         monthsShort : 'janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.'.split('_'),
         weekdays : 'dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi'.split('_'),
@@ -5540,7 +5543,7 @@
     var fy__monthsShortWithDots = 'jan._feb._mrt._apr._mai_jun._jul._aug._sep._okt._nov._des.'.split('_'),
         fy__monthsShortWithoutDots = 'jan_feb_mrt_apr_mai_jun_jul_aug_sep_okt_nov_des'.split('_');
 
-    var fy = moment__default.defineLocale('fy', {
+    var fy = _moment__default.defineLocale('fy', {
         months : 'jannewaris_febrewaris_maart_april_maaie_juny_july_augustus_septimber_oktober_novimber_desimber'.split('_'),
         monthsShort : function (m, format) {
             if (/-MMM-/.test(format)) {
@@ -5597,7 +5600,7 @@
     //! locale : galician (gl)
     //! author : Juan G. Hurtado : https://github.com/juanghurtado
 
-    var gl = moment__default.defineLocale('gl', {
+    var gl = _moment__default.defineLocale('gl', {
         months : 'Xaneiro_Febreiro_Marzo_Abril_Maio_Xuño_Xullo_Agosto_Setembro_Outubro_Novembro_Decembro'.split('_'),
         monthsShort : 'Xan._Feb._Mar._Abr._Mai._Xuñ._Xul._Ago._Set._Out._Nov._Dec.'.split('_'),
         weekdays : 'Domingo_Luns_Martes_Mércores_Xoves_Venres_Sábado'.split('_'),
@@ -5663,7 +5666,7 @@
     //! author : Moshe Simantov : https://github.com/DevelopmentIL
     //! author : Tal Ater : https://github.com/TalAter
 
-    var he = moment__default.defineLocale('he', {
+    var he = _moment__default.defineLocale('he', {
         months : 'ינואר_פברואר_מרץ_אפריל_מאי_יוני_יולי_אוגוסט_ספטמבר_אוקטובר_נובמבר_דצמבר'.split('_'),
         monthsShort : 'ינו׳_פבר׳_מרץ_אפר׳_מאי_יוני_יולי_אוג׳_ספט׳_אוק׳_נוב׳_דצמ׳'.split('_'),
         weekdays : 'ראשון_שני_שלישי_רביעי_חמישי_שישי_שבת'.split('_'),
@@ -5757,7 +5760,7 @@
         '०': '0'
     };
 
-    var hi = moment__default.defineLocale('hi', {
+    var hi = _moment__default.defineLocale('hi', {
         months : 'जनवरी_फ़रवरी_मार्च_अप्रैल_मई_जून_जुलाई_अगस्त_सितम्बर_अक्टूबर_नवम्बर_दिसम्बर'.split('_'),
         monthsShort : 'जन._फ़र._मार्च_अप्रै._मई_जून_जुल._अग._सित._अक्टू._नव._दिस.'.split('_'),
         weekdays : 'रविवार_सोमवार_मंगलवार_बुधवार_गुरूवार_शुक्रवार_शनिवार'.split('_'),
@@ -5897,7 +5900,7 @@
         }
     }
 
-    var hr = moment__default.defineLocale('hr', {
+    var hr = _moment__default.defineLocale('hr', {
         months : 'sječanj_veljača_ožujak_travanj_svibanj_lipanj_srpanj_kolovoz_rujan_listopad_studeni_prosinac'.split('_'),
         monthsShort : 'sje._vel._ožu._tra._svi._lip._srp._kol._ruj._lis._stu._pro.'.split('_'),
         weekdays : 'nedjelja_ponedjeljak_utorak_srijeda_četvrtak_petak_subota'.split('_'),
@@ -6007,7 +6010,7 @@
         return (isFuture ? '' : '[múlt] ') + '[' + weekEndings[this.day()] + '] LT[-kor]';
     }
 
-    var hu = moment__default.defineLocale('hu', {
+    var hu = _moment__default.defineLocale('hu', {
         months : 'január_február_március_április_május_június_július_augusztus_szeptember_október_november_december'.split('_'),
         monthsShort : 'jan_feb_márc_ápr_máj_jún_júl_aug_szept_okt_nov_dec'.split('_'),
         weekdays : 'vasárnap_hétfő_kedd_szerda_csütörtök_péntek_szombat'.split('_'),
@@ -6090,7 +6093,7 @@
         return weekdays[m.day()];
     }
 
-    var hy_am = moment__default.defineLocale('hy-am', {
+    var hy_am = _moment__default.defineLocale('hy-am', {
         months : hy_am__monthsCaseReplace,
         monthsShort : hy_am__monthsShortCaseReplace,
         weekdays : hy_am__weekdaysCaseReplace,
@@ -6172,7 +6175,7 @@
     //! author : Mohammad Satrio Utomo : https://github.com/tyok
     //! reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
 
-    var id = moment__default.defineLocale('id', {
+    var id = _moment__default.defineLocale('id', {
         months : 'Januari_Februari_Maret_April_Mei_Juni_Juli_Agustus_September_Oktober_November_Desember'.split('_'),
         monthsShort : 'Jan_Feb_Mar_Apr_Mei_Jun_Jul_Ags_Sep_Okt_Nov_Des'.split('_'),
         weekdays : 'Minggu_Senin_Selasa_Rabu_Kamis_Jumat_Sabtu'.split('_'),
@@ -6310,7 +6313,7 @@
         }
     }
 
-    var is = moment__default.defineLocale('is', {
+    var is = _moment__default.defineLocale('is', {
         months : 'janúar_febrúar_mars_apríl_maí_júní_júlí_ágúst_september_október_nóvember_desember'.split('_'),
         monthsShort : 'jan_feb_mar_apr_maí_jún_júl_ágú_sep_okt_nóv_des'.split('_'),
         weekdays : 'sunnudagur_mánudagur_þriðjudagur_miðvikudagur_fimmtudagur_föstudagur_laugardagur'.split('_'),
@@ -6360,7 +6363,7 @@
     //! author : Lorenzo : https://github.com/aliem
     //! author: Mattia Larentis: https://github.com/nostalgiaz
 
-    var it = moment__default.defineLocale('it', {
+    var it = _moment__default.defineLocale('it', {
         months : 'gennaio_febbraio_marzo_aprile_maggio_giugno_luglio_agosto_settembre_ottobre_novembre_dicembre'.split('_'),
         monthsShort : 'gen_feb_mar_apr_mag_giu_lug_ago_set_ott_nov_dic'.split('_'),
         weekdays : 'Domenica_Lunedì_Martedì_Mercoledì_Giovedì_Venerdì_Sabato'.split('_'),
@@ -6418,7 +6421,7 @@
     //! locale : japanese (ja)
     //! author : LI Long : https://github.com/baryon
 
-    var ja = moment__default.defineLocale('ja', {
+    var ja = _moment__default.defineLocale('ja', {
         months : '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
         monthsShort : '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
         weekdays : '日曜日_月曜日_火曜日_水曜日_木曜日_金曜日_土曜日'.split('_'),
@@ -6493,7 +6496,7 @@
         return weekdays[nounCase][m.day()];
     }
 
-    var ka = moment__default.defineLocale('ka', {
+    var ka = _moment__default.defineLocale('ka', {
         months : ka__monthsCaseReplace,
         monthsShort : 'იან_თებ_მარ_აპრ_მაი_ივნ_ივლ_აგვ_სექ_ოქტ_ნოე_დეკ'.split('_'),
         weekdays : ka__weekdaysCaseReplace,
@@ -6564,7 +6567,7 @@
     //! locale : khmer (km)
     //! author : Kruy Vanna : https://github.com/kruyvanna
 
-    var km = moment__default.defineLocale('km', {
+    var km = _moment__default.defineLocale('km', {
         months: 'មករា_កុម្ភៈ_មិនា_មេសា_ឧសភា_មិថុនា_កក្កដា_សីហា_កញ្ញា_តុលា_វិច្ឆិកា_ធ្នូ'.split('_'),
         monthsShort: 'មករា_កុម្ភៈ_មិនា_មេសា_ឧសភា_មិថុនា_កក្កដា_សីហា_កញ្ញា_តុលា_វិច្ឆិកា_ធ្នូ'.split('_'),
         weekdays: 'អាទិត្យ_ច័ន្ទ_អង្គារ_ពុធ_ព្រហស្បតិ៍_សុក្រ_សៅរ៍'.split('_'),
@@ -6615,7 +6618,7 @@
     //! - Kyungwook, Park : https://github.com/kyungw00k
     //! - Jeeeyul Lee <jeeeyul@gmail.com>
 
-    var ko = moment__default.defineLocale('ko', {
+    var ko = _moment__default.defineLocale('ko', {
         months : '1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월'.split('_'),
         monthsShort : '1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월'.split('_'),
         weekdays : '일요일_월요일_화요일_수요일_목요일_금요일_토요일'.split('_'),
@@ -6733,7 +6736,7 @@
         }
     }
 
-    var lb = moment__default.defineLocale('lb', {
+    var lb = _moment__default.defineLocale('lb', {
         months: 'Januar_Februar_Mäerz_Abrëll_Mee_Juni_Juli_August_September_Oktober_November_Dezember'.split('_'),
         monthsShort: 'Jan._Febr._Mrz._Abr._Mee_Jun._Jul._Aug._Sept._Okt._Nov._Dez.'.split('_'),
         weekdays: 'Sonndeg_Méindeg_Dënschdeg_Mëttwoch_Donneschdeg_Freideg_Samschdeg'.split('_'),
@@ -6840,7 +6843,7 @@
         return nominative ? weekDay : weekDay.substring(0, weekDay.length - 2) + 'į';
     }
 
-    var lt = moment__default.defineLocale('lt', {
+    var lt = _moment__default.defineLocale('lt', {
         months : 'sausio_vasario_kovo_balandžio_gegužės_birželio_liepos_rugpjūčio_rugsėjo_spalio_lapkričio_gruodžio'.split('_'),
         monthsShort : 'sau_vas_kov_bal_geg_bir_lie_rgp_rgs_spa_lap_grd'.split('_'),
         weekdays : relativeWeekDay,
@@ -6914,7 +6917,7 @@
         return number + ' ' + lv__format(lv__units[key], number, withoutSuffix);
     }
 
-    var lv = moment__default.defineLocale('lv', {
+    var lv = _moment__default.defineLocale('lv', {
         months : 'janvāris_februāris_marts_aprīlis_maijs_jūnijs_jūlijs_augusts_septembris_oktobris_novembris_decembris'.split('_'),
         monthsShort : 'jan_feb_mar_apr_mai_jūn_jūl_aug_sep_okt_nov_dec'.split('_'),
         weekdays : 'svētdiena_pirmdiena_otrdiena_trešdiena_ceturtdiena_piektdiena_sestdiena'.split('_'),
@@ -6963,7 +6966,7 @@
     //! locale : macedonian (mk)
     //! author : Borislav Mickov : https://github.com/B0k0
 
-    var mk = moment__default.defineLocale('mk', {
+    var mk = _moment__default.defineLocale('mk', {
         months : 'јануари_февруари_март_април_мај_јуни_јули_август_септември_октомври_ноември_декември'.split('_'),
         monthsShort : 'јан_фев_мар_апр_мај_јун_јул_авг_сеп_окт_ное_дек'.split('_'),
         weekdays : 'недела_понеделник_вторник_среда_четврток_петок_сабота'.split('_'),
@@ -7042,7 +7045,7 @@
     //! locale : malayalam (ml)
     //! author : Floyd Pink : https://github.com/floydpink
 
-    var ml = moment__default.defineLocale('ml', {
+    var ml = _moment__default.defineLocale('ml', {
         months : 'ജനുവരി_ഫെബ്രുവരി_മാർച്ച്_ഏപ്രിൽ_മേയ്_ജൂൺ_ജൂലൈ_ഓഗസ്റ്റ്_സെപ്റ്റംബർ_ഒക്ടോബർ_നവംബർ_ഡിസംബർ'.split('_'),
         monthsShort : 'ജനു._ഫെബ്രു._മാർ._ഏപ്രി._മേയ്_ജൂൺ_ജൂലൈ._ഓഗ._സെപ്റ്റ._ഒക്ടോ._നവം._ഡിസം.'.split('_'),
         weekdays : 'ഞായറാഴ്ച_തിങ്കളാഴ്ച_ചൊവ്വാഴ്ച_ബുധനാഴ്ച_വ്യാഴാഴ്ച_വെള്ളിയാഴ്ച_ശനിയാഴ്ച'.split('_'),
@@ -7127,7 +7130,7 @@
         '०': '0'
     };
 
-    var mr = moment__default.defineLocale('mr', {
+    var mr = _moment__default.defineLocale('mr', {
         months : 'जानेवारी_फेब्रुवारी_मार्च_एप्रिल_मे_जून_जुलै_ऑगस्ट_सप्टेंबर_ऑक्टोबर_नोव्हेंबर_डिसेंबर'.split('_'),
         monthsShort: 'जाने._फेब्रु._मार्च._एप्रि._मे._जून._जुलै._ऑग._सप्टें._ऑक्टो._नोव्हें._डिसें.'.split('_'),
         weekdays : 'रविवार_सोमवार_मंगळवार_बुधवार_गुरूवार_शुक्रवार_शनिवार'.split('_'),
@@ -7189,8 +7192,7 @@
                 return hour + 12;
             }
         },
-        meridiem: function (hour, minute, isLower)
-        {
+        meridiem: function (hour, minute, isLower) {
             if (hour < 4) {
                 return 'रात्री';
             } else if (hour < 10) {
@@ -7213,7 +7215,7 @@
     //! locale : Bahasa Malaysia (ms-MY)
     //! author : Weldan Jamili : https://github.com/weldan
 
-    var ms_my = moment__default.defineLocale('ms-my', {
+    var ms_my = _moment__default.defineLocale('ms-my', {
         months : 'Januari_Februari_Mac_April_Mei_Jun_Julai_Ogos_September_Oktober_November_Disember'.split('_'),
         monthsShort : 'Jan_Feb_Mac_Apr_Mei_Jun_Jul_Ogs_Sep_Okt_Nov_Dis'.split('_'),
         weekdays : 'Ahad_Isnin_Selasa_Rabu_Khamis_Jumaat_Sabtu'.split('_'),
@@ -7308,7 +7310,7 @@
         '၀': '0'
     };
 
-    var my = moment__default.defineLocale('my', {
+    var my = _moment__default.defineLocale('my', {
         months: 'ဇန်နဝါရီ_ဖေဖော်ဝါရီ_မတ်_ဧပြီ_မေ_ဇွန်_ဇူလိုင်_သြဂုတ်_စက်တင်ဘာ_အောက်တိုဘာ_နိုဝင်ဘာ_ဒီဇင်ဘာ'.split('_'),
         monthsShort: 'ဇန်_ဖေ_မတ်_ပြီ_မေ_ဇွန်_လိုင်_သြ_စက်_အောက်_နို_ဒီ'.split('_'),
         weekdays: 'တနင်္ဂနွေ_တနင်္လာ_အင်္ဂါ_ဗုဒ္ဓဟူး_ကြာသပတေး_သောကြာ_စနေ'.split('_'),
@@ -7366,7 +7368,7 @@
     //! authors : Espen Hovlandsdal : https://github.com/rexxars
     //!           Sigurd Gartmann : https://github.com/sigurdga
 
-    var nb = moment__default.defineLocale('nb', {
+    var nb = _moment__default.defineLocale('nb', {
         months : 'januar_februar_mars_april_mai_juni_juli_august_september_oktober_november_desember'.split('_'),
         monthsShort : 'jan_feb_mar_apr_mai_jun_jul_aug_sep_okt_nov_des'.split('_'),
         weekdays : 'søndag_mandag_tirsdag_onsdag_torsdag_fredag_lørdag'.split('_'),
@@ -7440,7 +7442,7 @@
         '०': '0'
     };
 
-    var ne = moment__default.defineLocale('ne', {
+    var ne = _moment__default.defineLocale('ne', {
         months : 'जनवरी_फेब्रुवरी_मार्च_अप्रिल_मई_जुन_जुलाई_अगष्ट_सेप्टेम्बर_अक्टोबर_नोभेम्बर_डिसेम्बर'.split('_'),
         monthsShort : 'जन._फेब्रु._मार्च_अप्रि._मई_जुन_जुलाई._अग._सेप्ट._अक्टो._नोभे._डिसे.'.split('_'),
         weekdays : 'आइतबार_सोमबार_मङ्गलबार_बुधबार_बिहिबार_शुक्रबार_शनिबार'.split('_'),
@@ -7530,7 +7532,7 @@
     var nl__monthsShortWithDots = 'jan._feb._mrt._apr._mei_jun._jul._aug._sep._okt._nov._dec.'.split('_'),
         nl__monthsShortWithoutDots = 'jan_feb_mrt_apr_mei_jun_jul_aug_sep_okt_nov_dec'.split('_');
 
-    var nl = moment__default.defineLocale('nl', {
+    var nl = _moment__default.defineLocale('nl', {
         months : 'januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december'.split('_'),
         monthsShort : function (m, format) {
             if (/-MMM-/.test(format)) {
@@ -7587,7 +7589,7 @@
     //! locale : norwegian nynorsk (nn)
     //! author : https://github.com/mechuwind
 
-    var nn = moment__default.defineLocale('nn', {
+    var nn = _moment__default.defineLocale('nn', {
         months : 'januar_februar_mars_april_mai_juni_juli_august_september_oktober_november_desember'.split('_'),
         monthsShort : 'jan_feb_mar_apr_mai_jun_jul_aug_sep_okt_nov_des'.split('_'),
         weekdays : 'sundag_måndag_tysdag_onsdag_torsdag_fredag_laurdag'.split('_'),
@@ -7659,7 +7661,7 @@
         }
     }
 
-    var pl = moment__default.defineLocale('pl', {
+    var pl = _moment__default.defineLocale('pl', {
         months : function (momentToFormat, format) {
             if (/D MMMM/.test(format)) {
                 return monthsSubjective[momentToFormat.month()];
@@ -7725,7 +7727,7 @@
     //! locale : brazilian portuguese (pt-br)
     //! author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 
-    var pt_br = moment__default.defineLocale('pt-br', {
+    var pt_br = _moment__default.defineLocale('pt-br', {
         months : 'janeiro_fevereiro_março_abril_maio_junho_julho_agosto_setembro_outubro_novembro_dezembro'.split('_'),
         monthsShort : 'jan_fev_mar_abr_mai_jun_jul_ago_set_out_nov_dez'.split('_'),
         weekdays : 'domingo_segunda-feira_terça-feira_quarta-feira_quinta-feira_sexta-feira_sábado'.split('_'),
@@ -7774,7 +7776,7 @@
     //! locale : portuguese (pt)
     //! author : Jefferson : https://github.com/jalex79
 
-    var pt = moment__default.defineLocale('pt', {
+    var pt = _moment__default.defineLocale('pt', {
         months : 'janeiro_fevereiro_março_abril_maio_junho_julho_agosto_setembro_outubro_novembro_dezembro'.split('_'),
         monthsShort : 'jan_fev_mar_abr_mai_jun_jul_ago_set_out_nov_dez'.split('_'),
         weekdays : 'domingo_segunda-feira_terça-feira_quarta-feira_quinta-feira_sexta-feira_sábado'.split('_'),
@@ -7843,7 +7845,7 @@
         return number + separator + format[key];
     }
 
-    var ro = moment__default.defineLocale('ro', {
+    var ro = _moment__default.defineLocale('ro', {
         months : 'ianuarie_februarie_martie_aprilie_mai_iunie_iulie_august_septembrie_octombrie_noiembrie_decembrie'.split('_'),
         monthsShort : 'ian._febr._mart._apr._mai_iun._iul._aug._sept._oct._nov._dec.'.split('_'),
         weekdays : 'duminică_luni_marți_miercuri_joi_vineri_sâmbătă'.split('_'),
@@ -7941,7 +7943,7 @@
         return weekdays[nounCase][m.day()];
     }
 
-    var ru = moment__default.defineLocale('ru', {
+    var ru = _moment__default.defineLocale('ru', {
         months : ru__monthsCaseReplace,
         monthsShort : ru__monthsShortCaseReplace,
         weekdays : ru__weekdaysCaseReplace,
@@ -8102,7 +8104,7 @@
         }
     }
 
-    var sk = moment__default.defineLocale('sk', {
+    var sk = _moment__default.defineLocale('sk', {
         months : sk__months,
         monthsShort : sk__monthsShort,
         monthsParse : (function (months, monthsShort) {
@@ -8251,7 +8253,7 @@
         }
     }
 
-    var sl = moment__default.defineLocale('sl', {
+    var sl = _moment__default.defineLocale('sl', {
         months : 'januar_februar_marec_april_maj_junij_julij_avgust_september_oktober_november_december'.split('_'),
         monthsShort : 'jan._feb._mar._apr._maj._jun._jul._avg._sep._okt._nov._dec.'.split('_'),
         weekdays : 'nedelja_ponedeljek_torek_sreda_četrtek_petek_sobota'.split('_'),
@@ -8328,7 +8330,7 @@
     //! author: Menelion Elensúle: https://github.com/Oire (tests)
     //! author : Oerd Cukalla : https://github.com/oerd (fixes)
 
-    var sq = moment__default.defineLocale('sq', {
+    var sq = _moment__default.defineLocale('sq', {
         months : 'Janar_Shkurt_Mars_Prill_Maj_Qershor_Korrik_Gusht_Shtator_Tetor_Nëntor_Dhjetor'.split('_'),
         monthsShort : 'Jan_Shk_Mar_Pri_Maj_Qer_Kor_Gus_Sht_Tet_Nën_Dhj'.split('_'),
         weekdays : 'E Diel_E Hënë_E Martë_E Mërkurë_E Enjte_E Premte_E Shtunë'.split('_'),
@@ -8407,7 +8409,7 @@
         }
     };
 
-    var sr_cyrl = moment__default.defineLocale('sr-cyrl', {
+    var sr_cyrl = _moment__default.defineLocale('sr-cyrl', {
         months: ['јануар', 'фебруар', 'март', 'април', 'мај', 'јун', 'јул', 'август', 'септембар', 'октобар', 'новембар', 'децембар'],
         monthsShort: ['јан.', 'феб.', 'мар.', 'апр.', 'мај', 'јун', 'јул', 'авг.', 'сеп.', 'окт.', 'нов.', 'дец.'],
         weekdays: ['недеља', 'понедељак', 'уторак', 'среда', 'четвртак', 'петак', 'субота'],
@@ -8504,7 +8506,7 @@
         }
     };
 
-    var sr = moment__default.defineLocale('sr', {
+    var sr = _moment__default.defineLocale('sr', {
         months: ['januar', 'februar', 'mart', 'april', 'maj', 'jun', 'jul', 'avgust', 'septembar', 'oktobar', 'novembar', 'decembar'],
         monthsShort: ['jan.', 'feb.', 'mar.', 'apr.', 'maj', 'jun', 'jul', 'avg.', 'sep.', 'okt.', 'nov.', 'dec.'],
         weekdays: ['nedelja', 'ponedeljak', 'utorak', 'sreda', 'četvrtak', 'petak', 'subota'],
@@ -8578,7 +8580,7 @@
     //! locale : swedish (sv)
     //! author : Jens Alm : https://github.com/ulmus
 
-    var sv = moment__default.defineLocale('sv', {
+    var sv = _moment__default.defineLocale('sv', {
         months : 'januari_februari_mars_april_maj_juni_juli_augusti_september_oktober_november_december'.split('_'),
         monthsShort : 'jan_feb_mar_apr_maj_jun_jul_aug_sep_okt_nov_dec'.split('_'),
         weekdays : 'söndag_måndag_tisdag_onsdag_torsdag_fredag_lördag'.split('_'),
@@ -8634,7 +8636,7 @@
     //! locale : tamil (ta)
     //! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 
-    var ta = moment__default.defineLocale('ta', {
+    var ta = _moment__default.defineLocale('ta', {
         months : 'ஜனவரி_பிப்ரவரி_மார்ச்_ஏப்ரல்_மே_ஜூன்_ஜூலை_ஆகஸ்ட்_செப்டெம்பர்_அக்டோபர்_நவம்பர்_டிசம்பர்'.split('_'),
         monthsShort : 'ஜனவரி_பிப்ரவரி_மார்ச்_ஏப்ரல்_மே_ஜூன்_ஜூலை_ஆகஸ்ட்_செப்டெம்பர்_அக்டோபர்_நவம்பர்_டிசம்பர்'.split('_'),
         weekdays : 'ஞாயிற்றுக்கிழமை_திங்கட்கிழமை_செவ்வாய்கிழமை_புதன்கிழமை_வியாழக்கிழமை_வெள்ளிக்கிழமை_சனிக்கிழமை'.split('_'),
@@ -8718,7 +8720,7 @@
     //! locale : thai (th)
     //! author : Kridsada Thanabulpong : https://github.com/sirn
 
-    var th = moment__default.defineLocale('th', {
+    var th = _moment__default.defineLocale('th', {
         months : 'มกราคม_กุมภาพันธ์_มีนาคม_เมษายน_พฤษภาคม_มิถุนายน_กรกฎาคม_สิงหาคม_กันยายน_ตุลาคม_พฤศจิกายน_ธันวาคม'.split('_'),
         monthsShort : 'มกรา_กุมภา_มีนา_เมษา_พฤษภา_มิถุนา_กรกฎา_สิงหา_กันยา_ตุลา_พฤศจิกา_ธันวา'.split('_'),
         weekdays : 'อาทิตย์_จันทร์_อังคาร_พุธ_พฤหัสบดี_ศุกร์_เสาร์'.split('_'),
@@ -8772,7 +8774,7 @@
     //! locale : Tagalog/Filipino (tl-ph)
     //! author : Dan Hagman
 
-    var tl_ph = moment__default.defineLocale('tl-ph', {
+    var tl_ph = _moment__default.defineLocale('tl-ph', {
         months : 'Enero_Pebrero_Marso_Abril_Mayo_Hunyo_Hulyo_Agosto_Setyembre_Oktubre_Nobyembre_Disyembre'.split('_'),
         monthsShort : 'Ene_Peb_Mar_Abr_May_Hun_Hul_Ago_Set_Okt_Nob_Dis'.split('_'),
         weekdays : 'Linggo_Lunes_Martes_Miyerkules_Huwebes_Biyernes_Sabado'.split('_'),
@@ -8845,7 +8847,7 @@
         90: '\'ıncı'
     };
 
-    var tr = moment__default.defineLocale('tr', {
+    var tr = _moment__default.defineLocale('tr', {
         months : 'Ocak_Şubat_Mart_Nisan_Mayıs_Haziran_Temmuz_Ağustos_Eylül_Ekim_Kasım_Aralık'.split('_'),
         monthsShort : 'Oca_Şub_Mar_Nis_May_Haz_Tem_Ağu_Eyl_Eki_Kas_Ara'.split('_'),
         weekdays : 'Pazar_Pazartesi_Salı_Çarşamba_Perşembe_Cuma_Cumartesi'.split('_'),
@@ -8902,7 +8904,7 @@
     //! locale : Morocco Central Atlas Tamaziɣt in Latin (tzm-latn)
     //! author : Abdel Said : https://github.com/abdelsaid
 
-    var tzm_latn = moment__default.defineLocale('tzm-latn', {
+    var tzm_latn = _moment__default.defineLocale('tzm-latn', {
         months : 'innayr_brˤayrˤ_marˤsˤ_ibrir_mayyw_ywnyw_ywlywz_ɣwšt_šwtanbir_ktˤwbrˤ_nwwanbir_dwjnbir'.split('_'),
         monthsShort : 'innayr_brˤayrˤ_marˤsˤ_ibrir_mayyw_ywnyw_ywlywz_ɣwšt_šwtanbir_ktˤwbrˤ_nwwanbir_dwjnbir'.split('_'),
         weekdays : 'asamas_aynas_asinas_akras_akwas_asimwas_asiḍyas'.split('_'),
@@ -8949,7 +8951,7 @@
     //! locale : Morocco Central Atlas Tamaziɣt (tzm)
     //! author : Abdel Said : https://github.com/abdelsaid
 
-    var tzm = moment__default.defineLocale('tzm', {
+    var tzm = _moment__default.defineLocale('tzm', {
         months : 'ⵉⵏⵏⴰⵢⵔ_ⴱⵕⴰⵢⵕ_ⵎⴰⵕⵚ_ⵉⴱⵔⵉⵔ_ⵎⴰⵢⵢⵓ_ⵢⵓⵏⵢⵓ_ⵢⵓⵍⵢⵓⵣ_ⵖⵓⵛⵜ_ⵛⵓⵜⴰⵏⴱⵉⵔ_ⴽⵟⵓⴱⵕ_ⵏⵓⵡⴰⵏⴱⵉⵔ_ⴷⵓⵊⵏⴱⵉⵔ'.split('_'),
         monthsShort : 'ⵉⵏⵏⴰⵢⵔ_ⴱⵕⴰⵢⵕ_ⵎⴰⵕⵚ_ⵉⴱⵔⵉⵔ_ⵎⴰⵢⵢⵓ_ⵢⵓⵏⵢⵓ_ⵢⵓⵍⵢⵓⵣ_ⵖⵓⵛⵜ_ⵛⵓⵜⴰⵏⴱⵉⵔ_ⴽⵟⵓⴱⵕ_ⵏⵓⵡⴰⵏⴱⵉⵔ_ⴷⵓⵊⵏⴱⵉⵔ'.split('_'),
         weekdays : 'ⴰⵙⴰⵎⴰⵙ_ⴰⵢⵏⴰⵙ_ⴰⵙⵉⵏⴰⵙ_ⴰⴽⵔⴰⵙ_ⴰⴽⵡⴰⵙ_ⴰⵙⵉⵎⵡⴰⵙ_ⴰⵙⵉⴹⵢⴰⵙ'.split('_'),
@@ -9048,7 +9050,7 @@
         };
     }
 
-    var uk = moment__default.defineLocale('uk', {
+    var uk = _moment__default.defineLocale('uk', {
         months : uk__monthsCaseReplace,
         monthsShort : 'січ_лют_бер_квіт_трав_черв_лип_серп_вер_жовт_лист_груд'.split('_'),
         weekdays : uk__weekdaysCaseReplace,
@@ -9138,7 +9140,7 @@
     //! locale : uzbek (uz)
     //! author : Sardor Muminov : https://github.com/muminoff
 
-    var uz = moment__default.defineLocale('uz', {
+    var uz = _moment__default.defineLocale('uz', {
         months : 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_'),
         monthsShort : 'янв_фев_мар_апр_май_июн_июл_авг_сен_окт_ноя_дек'.split('_'),
         weekdays : 'Якшанба_Душанба_Сешанба_Чоршанба_Пайшанба_Жума_Шанба'.split('_'),
@@ -9185,7 +9187,7 @@
     //! locale : vietnamese (vi)
     //! author : Bang Nguyen : https://github.com/bangnk
 
-    var vi = moment__default.defineLocale('vi', {
+    var vi = _moment__default.defineLocale('vi', {
         months : 'tháng 1_tháng 2_tháng 3_tháng 4_tháng 5_tháng 6_tháng 7_tháng 8_tháng 9_tháng 10_tháng 11_tháng 12'.split('_'),
         monthsShort : 'Th01_Th02_Th03_Th04_Th05_Th06_Th07_Th08_Th09_Th10_Th11_Th12'.split('_'),
         weekdays : 'chủ nhật_thứ hai_thứ ba_thứ tư_thứ năm_thứ sáu_thứ bảy'.split('_'),
@@ -9241,7 +9243,7 @@
     //! author : suupic : https://github.com/suupic
     //! author : Zeno Zeng : https://github.com/zenozeng
 
-    var zh_cn = moment__default.defineLocale('zh-cn', {
+    var zh_cn = _moment__default.defineLocale('zh-cn', {
         months : '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'),
         monthsShort : '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
         weekdays : '星期日_星期一_星期二_星期三_星期四_星期五_星期六'.split('_'),
@@ -9302,13 +9304,13 @@
             },
             nextWeek : function () {
                 var startOfWeek, prefix;
-                startOfWeek = moment__default().startOf('week');
+                startOfWeek = _moment__default().startOf('week');
                 prefix = this.unix() - startOfWeek.unix() >= 7 * 24 * 3600 ? '[下]' : '[本]';
                 return this.minutes() === 0 ? prefix + 'dddAh点整' : prefix + 'dddAh点mm';
             },
             lastWeek : function () {
                 var startOfWeek, prefix;
-                startOfWeek = moment__default().startOf('week');
+                startOfWeek = _moment__default().startOf('week');
                 prefix = this.unix() < startOfWeek.unix()  ? '[上]' : '[本]';
                 return this.minutes() === 0 ? prefix + 'dddAh点整' : prefix + 'dddAh点mm';
             },
@@ -9356,7 +9358,7 @@
     //! locale : traditional chinese (zh-tw)
     //! author : Ben : https://github.com/ben-lin
 
-    var zh_tw = moment__default.defineLocale('zh-tw', {
+    var zh_tw = _moment__default.defineLocale('zh-tw', {
         months : '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'),
         monthsShort : '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
         weekdays : '星期日_星期一_星期二_星期三_星期四_星期五_星期六'.split('_'),
@@ -9442,7 +9444,7 @@
         }
     });
 
-    var moment_with_locales = moment__default;
+    var moment_with_locales = _moment;
 
     return moment_with_locales;
 

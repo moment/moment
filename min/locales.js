@@ -4115,8 +4115,7 @@
                 return hour + 12;
             }
         },
-        meridiem: function (hour, minute, isLower)
-        {
+        meridiem: function (hour, minute, isLower) {
             if (hour < 4) {
                 return 'रात्री';
             } else if (hour < 10) {
