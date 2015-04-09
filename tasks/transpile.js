@@ -134,8 +134,10 @@ module.exports = function (grunt) {
             target: target
         }).then(function () {
             var code = grunt.file.read(target);
-            code = code.replace('    var moment = {\n        get default () { return moment__default; }\n    };', '');
-            code = code.replace('var moment_with_locales = moment', 'var moment_with_locales = moment__default');
+            code = code.replace(new RegExp('=\\s+{[^]\\s+get default \\(\\) { return ([a-z$_]+); }[^]\\s+}', ''), '= $1');
+            if (code.match('get default')) {
+                throw new Error('Stupid shit es6 get default plaguing the code');
+            }
             grunt.file.write(target, code);
         });
     }
