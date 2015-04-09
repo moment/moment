@@ -3043,17 +3043,15 @@
 
     // Side effect imports
 
-    var _moment = {
-        get default () { return _moment__default; }
-    };
+    ;
 
     //! moment.js
-    //! version : 2.10.1
+    //! version : 2.10.2
     //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
     //! license : MIT
     //! momentjs.com
 
-    utils_hooks__hooks.version = '2.10.1';
+    utils_hooks__hooks.version = '2.10.2';
 
     setHookCallback(local__createLocal);
 
@@ -9444,7 +9442,7 @@
         }
     });
 
-    var moment_with_locales = _moment;
+    var moment_with_locales = _moment__default;
 
     return moment_with_locales;
 

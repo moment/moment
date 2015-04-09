@@ -1,5 +1,5 @@
 //! moment.js
-//! version : 2.10.1
+//! version : 2.10.2
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -3050,7 +3050,7 @@
     // Side effect imports
 
 
-    utils_hooks__hooks.version = '2.10.1';
+    utils_hooks__hooks.version = '2.10.2';
 
     setHookCallback(local__createLocal);
 
