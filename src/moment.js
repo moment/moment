@@ -11,6 +11,7 @@ moment.version = '2.10.2';
 import {
     min,
     max,
+    merge,
     isMoment,
     momentPrototype as fn,
     createUTC       as utc,
@@ -48,6 +49,7 @@ moment.min                   = min;
 moment.max                   = max;
 moment.utc                   = utc;
 moment.unix                  = unix;
+moment.merge                 = merge;
 moment.months                = months;
 moment.isDate                = isDate;
 moment.locale                = locale;
