@@ -3,26 +3,26 @@ import moment from '../../moment';
 
 module('merge');
 
-test('merge two Date objects', function (assert) {
+test('merge', function (assert) {
     var year = 2010, month = 5, day = 3,
         hour = 10, minute = 20, second = 30,
-        datePart = new Date(year, month, day),
-        timePart = new Date(0, 0, 0, hour, minute, second),
-        expected = moment([year, month, day, hour, minute, second]);
+        dateDate = new Date(year, month, day),
+        timeDate = new Date(0, 0, 0, hour, minute, second),
+        dateMoment = moment([year, month, day]),
+        timeMoment = moment([0, 0, 0, hour, minute, second]);
 
-    var merged = moment.merge(datePart, timePart);
+    var expected = moment([year, month, day, hour, minute, second]);
 
-    assert.equal(merged.isSame(expected), true, 'merge(datePart, timePart)');
-});
+    var combinations = [
+        {date: dateDate, time: timeDate, desc: 'merge(date, date)'},
+        {date: dateMoment, time: timeMoment, desc: 'merge(moment, moment)'},
+        {date: dateDate, time: timeMoment, desc: 'merge(date, moment)'},
+        {date: dateMoment, time: timeDate, desc: 'merge(moment, date)'}
+    ];
 
-test('merge two Moment objects', function (assert) {
-    var year = 2010, month = 5, day = 3,
-        hour = 10, minute = 20, second = 30,
-        datePart = moment([year, month, day]),
-        timePart = moment([0, 0, 0, hour, minute, second]),
-        expected = moment([year, month, day, hour, minute, second]);
+    combinations.forEach(function (combination) {
+        var merged = moment.merge(combination.date, combination.time);
 
-    var merged = moment.merge(datePart, timePart);
-
-    assert.equal(merged.isSame(expected), true, 'merge(datePart, timePart), merged: ' + merged.format() + ', expected: ' + expected.format() + ', datePart: ' + datePart.format() + ', timePart: ' + timePart.format());
+        assert.equal(merged.isSame(expected), true, combination.desc);
+    });
 });
