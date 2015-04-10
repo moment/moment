@@ -14,3 +14,15 @@ test('merge two Date objects', function (assert) {
 
     assert.equal(merged.isSame(expected), true, 'merge(datePart, timePart)');
 });
+
+test('merge two Moment objects', function (assert) {
+    var year = 2010, month = 5, day = 3,
+        hour = 10, minute = 20, second = 30,
+        datePart = moment([year, month, day]),
+        timePart = moment([0, 0, 0, hour, minute, second]),
+        expected = moment([year, month, day, hour, minute, second]);
+
+    var merged = moment.merge(datePart, timePart);
+
+    assert.equal(merged.isSame(expected), true, 'merge(datePart, timePart), merged: ' + merged.format() + ', expected: ' + expected.format() + ', datePart: ' + datePart.format() + ', timePart: ' + timePart.format());
+});
