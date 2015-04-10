@@ -1,6 +1,4 @@
 import { createLocalOrUTC } from '../create/from-anything.js';
-import { isMoment } from '../moment/constructor.js';
-import isDate from '../utils/is-date.js';
 
 export function merge (datePart, timePart) {
     datePart = createLocalOrUTC(datePart);
