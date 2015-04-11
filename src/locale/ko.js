@@ -5,6 +5,7 @@
 //!
 //! - Kyungwook, Park : https://github.com/kyungw00k
 //! - Jeeeyul Lee <jeeeyul@gmail.com>
+//! - Lee Han Kyeol <lee0hankyeol@gmail.com>
 
 import moment from '../moment';
 
@@ -33,17 +34,17 @@ export default moment.defineLocale('ko', {
     relativeTime : {
         future : '%s 후',
         past : '%s 전',
-        s : '몇초',
+        s : '몇 초',
         ss : '%d초',
-        m : '일분',
+        m : '1분',
         mm : '%d분',
-        h : '한시간',
+        h : '한 시간',
         hh : '%d시간',
         d : '하루',
         dd : '%d일',
-        M : '한달',
+        M : '한 달',
         MM : '%d달',
-        y : '일년',
+        y : '1년',
         yy : '%d년'
     },
     ordinalParse : /\d{1,2}일/,
@@ -56,4 +57,3 @@ export default moment.defineLocale('ko', {
         return hour < 12 ? '오전' : '오후';
     }
 });
-
