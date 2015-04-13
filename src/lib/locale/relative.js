@@ -14,10 +14,10 @@ export var defaultRelativeTime = {
     yy : '%d years'
 };
 
-export function relativeTime (number, withoutSuffix, string, isFuture) {
+export function relativeTime (number, withoutSuffix, string, isFuture, duration) {
     var output = this._relativeTime[string];
     return (typeof output === 'function') ?
-        output(number, withoutSuffix, string, isFuture) :
+        output(number, withoutSuffix, string, isFuture, duration) :
         output.replace(/%d/i, number);
 }
 
