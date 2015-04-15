@@ -3,6 +3,7 @@ import { createUTC } from '../create/utc';
 import { createInvalid } from '../create/valid';
 import { isMoment } from './constructor';
 import { min, max } from './min-max';
+import { merge} from '../create/merge.js';
 import momentPrototype from './prototype';
 
 function createUnix (input) {
@@ -16,6 +17,7 @@ function createInZone () {
 export {
     min,
     max,
+    merge,
     isMoment,
     createUTC,
     createUnix,
