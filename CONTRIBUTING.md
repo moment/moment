@@ -17,6 +17,18 @@ git checkout develop  # all patches against develop branch, please!
 grunt                 # this runs tests and jshint
 ```
 
+Changing locale files
+=====================
+
+If you have any changes to existing locale files, `@mention` the original
+author in the pull request (check the top of the language file), and ask if
+he/she approves of your changes. Because I don't know any languages I can't
+judge your locale changes, only the original author can :)
+
+In order for your pull request to get merged it must have approval of original
+author, or at least one other native speaker has to approve of the change
+(happens rarely).
+
 Very important notes
 ====================
 
