@@ -7,4 +7,4 @@ module.exports = function (grunt) {
 
         grunt.file.write('component.json', JSON.stringify(config, true, 2) + '\n');
     });
-}
+};

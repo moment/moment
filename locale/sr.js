@@ -1,16 +1,14 @@
-// moment.js locale configuration
-// locale : Serbian-latin (sr)
-// author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
+//! moment.js locale configuration
+//! locale : Serbian-latin (sr)
+//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
+(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+
     var translator = {
         words: { //Different grammatical cases
             m: ['jedan minut', 'jedne minute'],
@@ -34,7 +32,7 @@
         }
     };
 
-    return moment.defineLocale('sr', {
+    var sr = moment.defineLocale('sr', {
         months: ['januar', 'februar', 'mart', 'april', 'maj', 'jun', 'jul', 'avgust', 'septembar', 'oktobar', 'novembar', 'decembar'],
         monthsShort: ['jan.', 'feb.', 'mar.', 'apr.', 'maj', 'jun', 'jul', 'avg.', 'sep.', 'okt.', 'nov.', 'dec.'],
         weekdays: ['nedelja', 'ponedeljak', 'utorak', 'sreda', 'četvrtak', 'petak', 'subota'],
@@ -51,7 +49,6 @@
         calendar: {
             sameDay: '[danas u] LT',
             nextDay: '[sutra u] LT',
-
             nextWeek: function () {
                 switch (this.day()) {
                 case 0:
@@ -104,4 +101,7 @@
             doy : 7  // The week that contains Jan 1st is the first week of the year.
         }
     });
+
+    return sr;
+
 }));
