@@ -1,19 +1,19 @@
 module.exports = function (grunt) {
     grunt.registerTask('bump_version', function (version) {
         if (!version || version.split('.').length !== 3) {
-            grunt.fail.fatal('malformed version. Use\n\n    grunt bump_version:1.2.3')
+            grunt.fail.fatal('malformed version. Use\n\n    grunt bump_version:1.2.3');
         }
 
         grunt.config('string-replace.moment-js', {
-            files: {'moment.js': 'moment.js'},
+            files: {'src/moment.js': 'src/moment.js'},
             options: {
                 replacements: [
                     {
                         pattern:     /\/\/! version : .*/,
                         replacement: '//! version : ' + version
                     }, {
-                        pattern:     /VERSION = '.*'/,
-                        replacement: "VERSION = '" + version + "'"
+                        pattern:     /moment\.version = '.*'/,
+                        replacement: "moment.version = '" + version + "'"
                     }
                 ]
             }

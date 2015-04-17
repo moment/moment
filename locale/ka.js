@@ -1,43 +1,36 @@
-// moment.js locale configuration
-// locale : Georgian (ka)
-// author : Irakli Janiashvili : https://github.com/irakli-janiashvili
+//! moment.js locale configuration
+//! locale : Georgian (ka)
+//! author : Irakli Janiashvili : https://github.com/irakli-janiashvili
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
+(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+
     function monthsCaseReplace(m, format) {
         var months = {
             'nominative': 'იანვარი_თებერვალი_მარტი_აპრილი_მაისი_ივნისი_ივლისი_აგვისტო_სექტემბერი_ოქტომბერი_ნოემბერი_დეკემბერი'.split('_'),
             'accusative': 'იანვარს_თებერვალს_მარტს_აპრილის_მაისს_ივნისს_ივლისს_აგვისტს_სექტემბერს_ოქტომბერს_ნოემბერს_დეკემბერს'.split('_')
         },
-
         nounCase = (/D[oD] *MMMM?/).test(format) ?
             'accusative' :
             'nominative';
-
         return months[nounCase][m.month()];
     }
-
     function weekdaysCaseReplace(m, format) {
         var weekdays = {
             'nominative': 'კვირა_ორშაბათი_სამშაბათი_ოთხშაბათი_ხუთშაბათი_პარასკევი_შაბათი'.split('_'),
             'accusative': 'კვირას_ორშაბათს_სამშაბათს_ოთხშაბათს_ხუთშაბათს_პარასკევს_შაბათს'.split('_')
         },
-
         nounCase = (/(წინა|შემდეგ)/).test(format) ?
             'accusative' :
             'nominative';
-
         return weekdays[nounCase][m.day()];
     }
 
-    return moment.defineLocale('ka', {
+    var ka = moment.defineLocale('ka', {
         months : monthsCaseReplace,
         monthsShort : 'იან_თებ_მარ_აპრ_მაი_ივნ_ივლ_აგვ_სექ_ოქტ_ნოე_დეკ'.split('_'),
         weekdays : weekdaysCaseReplace,
@@ -90,15 +83,12 @@
             if (number === 0) {
                 return number;
             }
-
             if (number === 1) {
                 return number + '-ლი';
             }
-
             if ((number < 20) || (number <= 100 && (number % 20 === 0)) || (number % 100 === 0)) {
                 return 'მე-' + number;
             }
-
             return number + '-ე';
         },
         week : {
@@ -106,4 +96,7 @@
             doy : 7
         }
     });
+
+    return ka;
+
 }));

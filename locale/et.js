@@ -1,17 +1,15 @@
-// moment.js locale configuration
-// locale : estonian (et)
-// author : Henry Kehlmann : https://github.com/madhenry
-// improvements : Illimar Tambek : https://github.com/ragulka
+//! moment.js locale configuration
+//! locale : estonian (et)
+//! author : Henry Kehlmann : https://github.com/madhenry
+//! improvements : Illimar Tambek : https://github.com/ragulka
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
+(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+
     function processRelativeTime(number, withoutSuffix, key, isFuture) {
         var format = {
             's' : ['mõne sekundi', 'mõni sekund', 'paar sekundit'],
@@ -31,7 +29,7 @@
         return isFuture ? format[key][0] : format[key][1];
     }
 
-    return moment.defineLocale('et', {
+    var et = moment.defineLocale('et', {
         months        : 'jaanuar_veebruar_märts_aprill_mai_juuni_juuli_august_september_oktoober_november_detsember'.split('_'),
         monthsShort   : 'jaan_veebr_märts_apr_mai_juuni_juuli_aug_sept_okt_nov_dets'.split('_'),
         weekdays      : 'pühapäev_esmaspäev_teisipäev_kolmapäev_neljapäev_reede_laupäev'.split('_'),
@@ -75,4 +73,7 @@
             doy : 4  // The week that contains Jan 4th is the first week of the year.
         }
     });
+
+    return et;
+
 }));

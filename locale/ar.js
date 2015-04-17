@@ -1,18 +1,16 @@
-// moment.js locale configuration
-// Locale: Arabic (ar)
-// Author: Abdel Said: https://github.com/abdelsaid
-// Changes in months, weekdays: Ahmed Elkhatib
-// Native plural forms: forabi https://github.com/forabi
+//! moment.js locale configuration
+//! Locale: Arabic (ar)
+//! Author: Abdel Said: https://github.com/abdelsaid
+//! Changes in months, weekdays: Ahmed Elkhatib
+//! Native plural forms: forabi https://github.com/forabi
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
+(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+
     var symbolMap = {
         '1': '١',
         '2': '٢',
@@ -68,7 +66,7 @@
         'كانون الأول ديسمبر'
     ];
 
-    return moment.defineLocale('ar', {
+    var ar = moment.defineLocale('ar', {
         months : months,
         monthsShort : months,
         weekdays : 'الأحد_الإثنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت'.split('_'),
@@ -131,4 +129,7 @@
             doy : 12  // The week that contains Jan 1st is the first week of the year.
         }
     });
+
+    return ar;
+
 }));

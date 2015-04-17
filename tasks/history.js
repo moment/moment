@@ -26,14 +26,14 @@ function makeBar(length) {
 }
 
 function normalize() {
-    var i, 
+    var i,
         max = 0,
         max2 = 0;
-    for (i = 0; i < count; i ++) {
+    for (i = 0; i < count; i++) {
         max = Math.max(max, outputs[i].gzip);
         max2 = Math.max(max2, outputs[i].original);
     }
-    for (i = 0; i < count; i ++) {
+    for (i = 0; i < count; i++) {
         outputs[i].bargraph = makeBar((outputs[i].gzip / max) * 80);
         outputs[i].bargraph2 = makeBar((outputs[i].original / max2) * 80);
     }
@@ -41,7 +41,7 @@ function normalize() {
 
 function display() {
     var i;
-    for (i = 0; i < count; i ++) {
+    for (i = 0; i < count; i++) {
         console.log(outputs[i].version + ' ' + outputs[i].gzip + ' ' + outputs[i].original);
         console.log('gzip ' + outputs[i].bargraph);
         console.log('orig ' + outputs[i].bargraph2);
@@ -67,7 +67,7 @@ function getSizeAtVersion(version, path) {
                 op.version = version;
                 op.gzip = result.length;
                 op.original = data.length;
-                resolved ++;
+                resolved++;
                 check();
             });
         });
@@ -82,20 +82,20 @@ function getSizeAtVersion(version, path) {
 }
 
 function getRemote() {
-    var old_versions = '1.0.1 1.1.0 1.1.1 1.1.2 1.2.0 1.3.0 1.4.0'.split(' '),
-        new_versions = '1.5.0 1.5.1 1.6.0 1.6.1 1.7.0 1.7.1'.split(' '),
+    var oldVersions = '1.0.1 1.1.0 1.1.1 1.1.2 1.2.0 1.3.0 1.4.0'.split(' '),
+        newVersions = '1.5.0 1.5.1 1.6.0 1.6.1 1.7.0 1.7.1'.split(' '),
         i;
 
-    for (i = 0; i < old_versions.length; i++) {
-        getSizeAtVersion(old_versions[i], '/moment.min.js');
+    for (i = 0; i < oldVersions.length; i++) {
+        getSizeAtVersion(oldVersions[i], '/moment.min.js');
     }
-    for (i = 0; i < new_versions.length; i++) {
-        getSizeAtVersion(new_versions[i], '/min/moment.min.js');
+    for (i = 0; i < newVersions.length; i++) {
+        getSizeAtVersion(newVersions[i], '/min/moment.min.js');
     }
 }
 
 function getLocal() {
-    count ++;
+    count++;
     var op = {};
     outputs.push(op);
     fs.readFile(path.normalize(__dirname + '/../min/moment.min.js'), 'utf8', function (err, data) {
@@ -106,7 +106,7 @@ function getLocal() {
             op.version = '.next';
             op.gzip = result.length;
             op.original = data.length;
-            resolved ++;
+            resolved++;
             check();
         });
     });

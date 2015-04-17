@@ -1,42 +1,15 @@
-// moment.js locale configuration
-// locale : tamil (ta)
-// author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
+//! moment.js locale configuration
+//! locale : tamil (ta)
+//! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
-    /*var symbolMap = {
-            '1': '௧',
-            '2': '௨',
-            '3': '௩',
-            '4': '௪',
-            '5': '௫',
-            '6': '௬',
-            '7': '௭',
-            '8': '௮',
-            '9': '௯',
-            '0': '௦'
-        },
-        numberMap = {
-            '௧': '1',
-            '௨': '2',
-            '௩': '3',
-            '௪': '4',
-            '௫': '5',
-            '௬': '6',
-            '௭': '7',
-            '௮': '8',
-            '௯': '9',
-            '௦': '0'
-        }; */
+(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
 
-    return moment.defineLocale('ta', {
+
+    var ta = moment.defineLocale('ta', {
         months : 'ஜனவரி_பிப்ரவரி_மார்ச்_ஏப்ரல்_மே_ஜூன்_ஜூலை_ஆகஸ்ட்_செப்டெம்பர்_அக்டோபர்_நவம்பர்_டிசம்பர்'.split('_'),
         monthsShort : 'ஜனவரி_பிப்ரவரி_மார்ச்_ஏப்ரல்_மே_ஜூன்_ஜூலை_ஆகஸ்ட்_செப்டெம்பர்_அக்டோபர்_நவம்பர்_டிசம்பர்'.split('_'),
         weekdays : 'ஞாயிற்றுக்கிழமை_திங்கட்கிழமை_செவ்வாய்கிழமை_புதன்கிழமை_வியாழக்கிழமை_வெள்ளிக்கிழமை_சனிக்கிழமை'.split('_'),
@@ -73,22 +46,10 @@
             y : 'ஒரு வருடம்',
             yy : '%d ஆண்டுகள்'
         },
-/*        preparse: function (string) {
-            return string.replace(/[௧௨௩௪௫௬௭௮௯௦]/g, function (match) {
-                return numberMap[match];
-            });
-        },
-        postformat: function (string) {
-            return string.replace(/\d/g, function (match) {
-                return symbolMap[match];
-            });
-        },*/
         ordinalParse: /\d{1,2}வது/,
         ordinal : function (number) {
             return number + 'வது';
         },
-
-
         // refer http://ta.wikipedia.org/s/1er1
         meridiemParse: /யாமம்|வைகறை|காலை|நண்பகல்|எற்பாடு|மாலை/,
         meridiem : function (hour, minute, isLower) {
@@ -127,4 +88,7 @@
             doy : 6  // The week that contains Jan 1st is the first week of the year.
         }
     });
+
+    return ta;
+
 }));

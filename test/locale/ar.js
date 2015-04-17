@@ -372,5 +372,16 @@ exports['locale:ar'] = {
             test.ok(testMoment.isValid(), 'strict ordinal parsing ' + i);
         }
         test.done();
-    }
+    },
+    
+    test('no leading zeros in long date formats', function (assert) {
+        var i, j, longDateStr, shortDateStr;
+        for (i = 0; i <= 9; ++i) {
+            for (j = 0; j <= 9; ++j) {
+                longDateStr = moment([2014, i, j]).format('L');
+                shortDateStr = moment([2014, i, j]).format('l');
+                assertEqual(longDateStr, shortDateStr, 'should not have leading zeros in month or day');
+            }
+        }
+    });
 };

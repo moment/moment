@@ -8,7 +8,6 @@ var stable = '1.7.1',
 
 function getVersion(path, cb) {
     var data = '',
-        
         req = https.request({
         host: 'raw.github.com',
         port: 443,

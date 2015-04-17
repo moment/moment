@@ -1,18 +1,16 @@
-// moment.js locale configuration
-// locale : Moroccan Arabic (ar-ma)
-// author : ElFadili Yassine : https://github.com/ElFadiliY
-// author : Abdel Said : https://github.com/abdelsaid
+//! moment.js locale configuration
+//! locale : Moroccan Arabic (ar-ma)
+//! author : ElFadili Yassine : https://github.com/ElFadiliY
+//! author : Abdel Said : https://github.com/abdelsaid
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
-    return moment.defineLocale('ar-ma', {
+(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+
+    var ar_ma = moment.defineLocale('ar-ma', {
         months : 'يناير_فبراير_مارس_أبريل_ماي_يونيو_يوليوز_غشت_شتنبر_أكتوبر_نونبر_دجنبر'.split('_'),
         monthsShort : 'يناير_فبراير_مارس_أبريل_ماي_يونيو_يوليوز_غشت_شتنبر_أكتوبر_نونبر_دجنبر'.split('_'),
         weekdays : 'الأحد_الإتنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت'.split('_'),
@@ -54,4 +52,7 @@
             doy : 12  // The week that contains Jan 1st is the first week of the year.
         }
     });
+
+    return ar_ma;
+
 }));

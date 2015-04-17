@@ -1,18 +1,16 @@
-// moment.js locale configuration
-// locale : chinese (zh-cn)
-// author : suupic : https://github.com/suupic
-// author : Zeno Zeng : https://github.com/zenozeng
+//! moment.js locale configuration
+//! locale : chinese (zh-cn)
+//! author : suupic : https://github.com/suupic
+//! author : Zeno Zeng : https://github.com/zenozeng
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
-    return moment.defineLocale('zh-cn', {
+(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+
+    var zh_cn = moment.defineLocale('zh-cn', {
         months : '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'),
         monthsShort : '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
         weekdays : '星期日_星期一_星期二_星期三_星期四_星期五_星期六'.split('_'),
@@ -122,4 +120,7 @@
             doy : 4  // The week that contains Jan 4th is the first week of the year.
         }
     });
+
+    return zh_cn;
+
 }));
