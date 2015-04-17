@@ -325,8 +325,8 @@ test('strict ordinal parsing', function (assert) {
 
 test('no leading zeros in long date formats', function (assert) {
     var i, j, longDateStr, shortDateStr;
-    for (i = 0; i <= 9; ++i) {
-        for (j = 0; j <= 9; ++j) {
+    for (i = 1; i <= 9; ++i) {
+        for (j = 1; j <= 9; ++j) {
             longDateStr = moment([2014, i, j]).format('L');
             shortDateStr = moment([2014, i, j]).format('l');
             assert.equal(longDateStr, shortDateStr, 'should not have leading zeros in month or day');
