@@ -3,7 +3,7 @@ import {moment} from '../../moment';
 localeModule('pl');
 
 test('parse', function (assert) {
-    var tests = 'styczeń sty_luty lut_marzec mar_kwiecień kwi_maj maj_czerwiec cze_lipiec lip_sierpień sie_wrzesień wrz_październik paź_listopad lis_grudzień gru'.split('_'), i;
+    var tests = 'styczeń stycznia sty_luty lutego lut_marzec marca mar_kwiecień kwietnia kwi_maj maja maj_czerwiec czerwca cze_lipiec lipca lip_sierpień sierpnia sie_wrzesień września wrz_październik października paź_listopad listopada lis_grudzień grudnia gru'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
@@ -11,12 +11,35 @@ test('parse', function (assert) {
         tests[i] = tests[i].split(' ');
         equalTest(tests[i][0], 'MMM', i);
         equalTest(tests[i][1], 'MMM', i);
+        equalTest(tests[i][2], 'MMM', i);
         equalTest(tests[i][0], 'MMMM', i);
         equalTest(tests[i][1], 'MMMM', i);
+        equalTest(tests[i][2], 'MMMM', i);
         equalTest(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
         equalTest(tests[i][1].toLocaleLowerCase(), 'MMMM', i);
+        equalTest(tests[i][2].toLocaleLowerCase(), 'MMMM', i);
         equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
         equalTest(tests[i][1].toLocaleUpperCase(), 'MMMM', i);
+        equalTest(tests[i][2].toLocaleUpperCase(), 'MMMM', i);
+    }
+});
+
+test('parse strict', function (assert) {
+    var tests = 'styczeń stycznia sty_luty lutego lut_marzec marca mar_kwiecień kwietnia kwi_maj maja maj_czerwiec czerwca cze_lipiec lipca lip_sierpień sierpnia sie_wrzesień września wrz_październik października paź_listopad listopada lis_grudzień grudnia gru'.split('_'), i;
+    function equalTest(input, mmm, i) {
+        assert.equal(moment(input, mmm, true).month(), i, input + ' should be month ' + (i + 1));
+    }
+    for (i = 0; i < 12; i++) {
+        tests[i] = tests[i].split(' ');
+        equalTest(tests[i][0], 'MMMM', i);
+        equalTest(tests[i][1], 'MMMM', i);
+        equalTest(tests[i][2], 'MMM', i);
+        equalTest(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
+        equalTest(tests[i][1].toLocaleLowerCase(), 'MMMM', i);
+        equalTest(tests[i][2].toLocaleLowerCase(), 'MMM', i);
+        equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
+        equalTest(tests[i][1].toLocaleUpperCase(), 'MMMM', i);
+        equalTest(tests[i][2].toLocaleUpperCase(), 'MMM', i);
     }
 });
 
