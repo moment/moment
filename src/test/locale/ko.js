@@ -71,7 +71,7 @@ test('format', function (assert) {
             ['m mm',                               '25 25'],
             ['s ss',                               '50 50'],
             ['a A',                                '오후 오후'],
-            ['일년 중 DDDo째 되는 날',                 '일년 중 45일째 되는 날'],
+            ['1년 중 DDDo째 되는 날',                 '1년 중 45일째 되는 날'],
             ['LTS',                                '오후 3시 25분 50초'],
             ['L',                                  '2010.02.14'],
             ['LL',                                 '2010년 2월 14일'],
@@ -111,7 +111,6 @@ test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 18]).format('DDDo'), '18일', '18일');
     assert.equal(moment([2011, 0, 19]).format('DDDo'), '19일', '19일');
     assert.equal(moment([2011, 0, 20]).format('DDDo'), '20일', '20일');
-
     assert.equal(moment([2011, 0, 21]).format('DDDo'), '21일', '21일');
     assert.equal(moment([2011, 0, 22]).format('DDDo'), '22일', '22일');
     assert.equal(moment([2011, 0, 23]).format('DDDo'), '23일', '23일');
@@ -122,7 +121,6 @@ test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 28]).format('DDDo'), '28일', '28일');
     assert.equal(moment([2011, 0, 29]).format('DDDo'), '29일', '29일');
     assert.equal(moment([2011, 0, 30]).format('DDDo'), '30일', '30일');
-
     assert.equal(moment([2011, 0, 31]).format('DDDo'), '31일', '31일');
 });
 
@@ -142,13 +140,13 @@ test('format week', function (assert) {
 
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  '몇초', '44초 = 몇초');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  '일분',      '45초 = 일분');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  '일분',      '89초 = 일분');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  '몇 초', '44초 = 몇 초');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  '1분',      '45초 = 1분');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  '1분',      '89초 = 1분');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '2분',     '90초 = 2분');
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  '44분',    '44분 = 44분');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  '한시간',       '45분 = 한시간');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  '한시간',       '89분 = 한시간');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  '한 시간',       '45분 = 한 시간');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  '한 시간',       '89분 = 한 시간');
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  '2시간',       '90분 = 2시간');
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   '5시간',       '5시간 = 5시간');
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  '21시간',      '21시간 = 21시간');
@@ -158,31 +156,31 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   '하루',         '하루 = 하루');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   '5일',        '5일 = 5일');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  '25일',       '25일 = 25일');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  '한달',       '26일 = 한달');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  '한달',       '30일 = 한달');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  '한달',       '45일 = 한달');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  '한 달',       '26일 = 한 달');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  '한 달',       '30일 = 한 달');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  '한 달',       '45일 = 한 달');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  '2달',      '46일 = 2달');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  '2달',      '75일 = 2달');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  '3달',      '76일 = 3달');
-    assert.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   '한달',       '1달 = 한달');
+    assert.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   '한 달',       '1달 = 한 달');
     assert.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   '5달',      '5달 = 5달');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), '일년',        '345일 = 일년');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), '1년',        '345일 = 1년');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), '2년',       '548일 = 2년');
-    assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   '일년',        '일년 = 일년');
+    assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   '1년',        '1년 = 1년');
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5년',       '5년 = 5년');
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), '몇초 후',  'prefix');
-    assert.equal(moment(0).from(30000), '몇초 전', 'suffix');
+    assert.equal(moment(30000).from(0), '몇 초 후',  'prefix');
+    assert.equal(moment(0).from(30000), '몇 초 전', 'suffix');
 });
 
 test('now from now', function (assert) {
-    assert.equal(moment().fromNow(), '몇초 전',  'now from now should display as in the past');
+    assert.equal(moment().fromNow(), '몇 초 전',  'now from now should display as in the past');
 });
 
 test('fromNow', function (assert) {
-    assert.equal(moment().add({s: 30}).fromNow(), '몇초 후', 'in a few seconds');
+    assert.equal(moment().add({s: 30}).fromNow(), '몇 초 후', 'in a few seconds');
     assert.equal(moment().add({d: 5}).fromNow(), '5일 후', 'in 5 days');
 });
 
