@@ -69,5 +69,5 @@ export function Moment(config) {
 }
 
 export function isMoment (obj) {
-    return obj instanceof Moment || (obj != null && hasOwnProp(obj, '_isAMomentObject'));
+    return obj instanceof Moment || (obj != null && obj._isAMomentObject != null);
 }
