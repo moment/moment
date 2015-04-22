@@ -6,6 +6,7 @@ import { expandFormat, formatTokenFunctions, formattingTokens } from '../format/
 import checkOverflow from './check-overflow';
 import { HOUR } from '../units/constants';
 import { hooks } from '../utils/hooks';
+import getParsingFlags from './parsing-flags';
 
 // constant that refers to the ISO standard
 hooks.ISO_8601 = function () {};
@@ -19,7 +20,7 @@ export function configFromStringAndFormat(config) {
     }
 
     config._a = [];
-    config._pf.empty = true;
+    getParsingFlags(config).empty = true;
 
     // This array is used to make a Date, either with `new Date` or `Date.UTC`
     var string = '' + config._i,
@@ -35,7 +36,7 @@ export function configFromStringAndFormat(config) {
         if (parsedInput) {
             skipped = string.substr(0, string.indexOf(parsedInput));
             if (skipped.length > 0) {
-                config._pf.unusedInput.push(skipped);
+                getParsingFlags(config).unusedInput.push(skipped);
             }
             string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
             totalParsedInputLength += parsedInput.length;
@@ -43,27 +44,27 @@ export function configFromStringAndFormat(config) {
         // don't parse if it's not a known token
         if (formatTokenFunctions[token]) {
             if (parsedInput) {
-                config._pf.empty = false;
+                getParsingFlags(config).empty = false;
             }
             else {
-                config._pf.unusedTokens.push(token);
+                getParsingFlags(config).unusedTokens.push(token);
             }
             addTimeToArrayFromToken(token, parsedInput, config);
         }
         else if (config._strict && !parsedInput) {
-            config._pf.unusedTokens.push(token);
+            getParsingFlags(config).unusedTokens.push(token);
         }
     }
 
     // add remaining unparsed input length to the string
-    config._pf.charsLeftOver = stringLength - totalParsedInputLength;
+    getParsingFlags(config).charsLeftOver = stringLength - totalParsedInputLength;
     if (string.length > 0) {
-        config._pf.unusedInput.push(string);
+        getParsingFlags(config).unusedInput.push(string);
     }
 
     // clear _12h flag if hour is <= 12
-    if (config._pf.bigHour === true && config._a[HOUR] <= 12) {
-        config._pf.bigHour = undefined;
+    if (getParsingFlags(config).bigHour === true && config._a[HOUR] <= 12) {
+        getParsingFlags(config).bigHour = undefined;
     }
     // handle meridiem
     config._a[HOUR] = meridiemFixWrap(config._locale, config._a[HOUR], config._meridiem);

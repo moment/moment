@@ -1,6 +1,6 @@
 import { copyConfig } from '../moment/constructor';
 import { configFromStringAndFormat } from './from-string-and-format';
-import defaultParsingFlags from './default-parsing-flags';
+import getParsingFlags from './parsing-flags';
 import { isValid } from './valid';
 import extend from '../utils/extend';
 
@@ -14,7 +14,7 @@ export function configFromStringAndArray(config) {
         currentScore;
 
     if (config._f.length === 0) {
-        config._pf.invalidFormat = true;
+        getParsingFlags(config).invalidFormat = true;
         config._d = new Date(NaN);
         return;
     }
@@ -25,7 +25,6 @@ export function configFromStringAndArray(config) {
         if (config._useUTC != null) {
             tempConfig._useUTC = config._useUTC;
         }
-        tempConfig._pf = defaultParsingFlags();
         tempConfig._f = config._f[i];
         configFromStringAndFormat(tempConfig);
 
@@ -34,12 +33,12 @@ export function configFromStringAndArray(config) {
         }
 
         // if there is any input that was not parsed add a penalty for that format
-        currentScore += tempConfig._pf.charsLeftOver;
+        currentScore += getParsingFlags(tempConfig).charsLeftOver;
 
         //or tokens
-        currentScore += tempConfig._pf.unusedTokens.length * 10;
+        currentScore += getParsingFlags(tempConfig).unusedTokens.length * 10;
 
-        tempConfig._pf.score = currentScore;
+        getParsingFlags(tempConfig).score = currentScore;
 
         if (scoreToBeat == null || currentScore < scoreToBeat) {
             scoreToBeat = currentScore;
