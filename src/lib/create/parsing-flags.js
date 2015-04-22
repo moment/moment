@@ -1,4 +1,4 @@
-export default function defaultParsingFlags() {
+function defaultParsingFlags() {
     // We need to deep clone this object.
     return {
         empty           : false,
@@ -12,4 +12,11 @@ export default function defaultParsingFlags() {
         userInvalidated : false,
         iso             : false
     };
+}
+
+export default function getParsingFlags(m) {
+    if (m._pf == null) {
+        m._pf = defaultParsingFlags();
+    }
+    return m._pf;
 }

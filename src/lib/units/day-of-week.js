@@ -4,6 +4,7 @@ import { addRegexToken, match1to2, matchWord } from '../parse/regex';
 import { addWeekParseToken } from '../parse/token';
 import toInt from '../utils/to-int';
 import { createLocal } from '../create/local';
+import getParsingFlags from '../create/parsing-flags';
 
 // FORMATTING
 
@@ -45,7 +46,7 @@ addWeekParseToken(['dd', 'ddd', 'dddd'], function (input, week, config) {
     if (weekday != null) {
         week.d = weekday;
     } else {
-        config._pf.invalidWeekday = input;
+        getParsingFlags(config).invalidWeekday = input;
     }
 });
 

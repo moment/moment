@@ -7,6 +7,7 @@ import { hooks } from '../utils/hooks';
 import { MONTH } from './constants';
 import toInt from '../utils/to-int';
 import { createUTC } from '../create/utc';
+import getParsingFlags from '../create/parsing-flags';
 
 export function daysInMonth(year, month) {
     return new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
@@ -47,7 +48,7 @@ addParseToken(['MMM', 'MMMM'], function (input, array, config, token) {
     if (month != null) {
         array[MONTH] = month;
     } else {
-        config._pf.invalidMonth = input;
+        getParsingFlags(config).invalidMonth = input;
     }
 });
 
