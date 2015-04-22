@@ -24,12 +24,12 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a',      'domingo, fevereiro 14º 2010, 3:25:50 pm'],
-            ['ddd, hA',                            'dom, 3PM'],
-            ['M Mo MM MMMM MMM',                   '2 2º 02 fevereiro fev'],
+            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Domingo, Fevereiro 14º 2010, 3:25:50 pm'],
+            ['ddd, hA',                            'Dom, 3PM'],
+            ['M Mo MM MMMM MMM',                   '2 2º 02 Fevereiro Fev'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14º 14'],
-            ['d do dddd ddd',                      '0 0º domingo dom'],
+            ['d do dddd ddd',                      '0 0º Domingo Dom'],
             ['DDD DDDo DDDD',                      '45 45º 045'],
             ['w wo ww',                            '8 8º 08'],
             ['h hh',                               '3 03'],
@@ -40,13 +40,13 @@ test('format', function (assert) {
             ['[the] DDDo [day of the year]',       'the 45º day of the year'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14/02/2010'],
-            ['LL',                                 '14 de fevereiro de 2010'],
-            ['LLL',                                '14 de fevereiro de 2010 às 15:25'],
-            ['LLLL',                               'domingo, 14 de fevereiro de 2010 às 15:25'],
+            ['LL',                                 '14 de Fevereiro de 2010'],
+            ['LLL',                                '14 de Fevereiro de 2010 às 15:25'],
+            ['LLLL',                               'Domingo, 14 de Fevereiro de 2010 às 15:25'],
             ['l',                                  '14/2/2010'],
-            ['ll',                                 '14 de fev de 2010'],
-            ['lll',                                '14 de fev de 2010 às 15:25'],
-            ['llll',                               'dom, 14 de fev de 2010 às 15:25']
+            ['ll',                                 '14 de Fev de 2010'],
+            ['lll',                                '14 de Fev de 2010 às 15:25'],
+            ['llll',                               'Dom, 14 de Fev de 2010 às 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -93,14 +93,14 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'janeiro jan_fevereiro fev_março mar_abril abr_maio mai_junho jun_julho jul_agosto ago_setembro set_outubro out_novembro nov_dezembro dez'.split('_'), i;
+    var expected = 'Janeiro Jan_Fevereiro Fev_Março Mar_Abril Abr_Maio Mai_Junho Jun_Julho Jul_Agosto Ago_Setembro Set_Outubro Out_Novembro Nov_Dezembro Dez'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
 });
 
 test('format week', function (assert) {
-    var expected = 'domingo dom_segunda-feira seg_terça-feira ter_quarta-feira qua_quinta-feira qui_sexta-feira sex_sábado sáb'.split('_'), i;
+    var expected = 'Domingo Dom_Segunda-Feira Seg_Terça-Feira Ter_Quarta-Feira Qua_Quinta-Feira Qui_Sexta-Feira Sex_Sábado Sáb'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd'), expected[i], expected[i]);
     }
