@@ -34,6 +34,8 @@ function createFromConfig (config) {
         configFromStringAndArray(config);
     } else if (format) {
         configFromStringAndFormat(config);
+    } else if (isDate(input)) {
+        config._d = input;
     } else {
         configFromInput(config);
     }
