@@ -9,7 +9,7 @@ import { createLocal } from '../create/local';
 var aspNetRegex = /(\-)?(?:(\d*)\.)?(\d+)\:(\d+)(?:\:(\d+)\.?(\d{3})?)?/;
 
 // Django json date format regex
-var djangoRegex = /(\-)?(?:(\d*) )?(\d\d)\:(\d\d)\:(\d\d)(?:\.(\d{6}))?/;
+var djangoRegex = /(\-)?(?:(\d*) )?(\d\d)\:(\d\d)\:(\d\d)(?:\.(\d{3})\d{3})?/;
 
 // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
 // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
