@@ -62,7 +62,9 @@ export function configFromStringAndFormat(config) {
     }
 
     // clear _12h flag if hour is <= 12
-    if (config._pf.bigHour === true && config._a[HOUR] <= 12) {
+    if (config._pf.bigHour === true &&
+        config._a[HOUR] <= 12 &&
+        config._a[HOUR] > 0) {
         config._pf.bigHour = undefined;
     }
     // handle meridiem
