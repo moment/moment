@@ -241,10 +241,10 @@ test('string with format', function (assert) {
 });
 
 test('string with 2 or 4 digit year format (U)', function (assert) {
-  assert.equal(moment('9/2/99', 'D/M/U').format('DD/MM/YYYY'), '09/02/1999', 'D/M/U ---> 9/2/99');
-  assert.equal(moment('9/2/1999', 'D/M/U').format('DD/MM/YYYY'), '09/02/1999', 'D/M/U ---> 9/2/1999');
-  assert.equal(moment('9/2/68', 'D/M/U').format('DD/MM/YYYY'), '09/02/2068', 'D/M/U ---> 9/2/68');
-  assert.equal(moment('9/2/69', 'D/M/U').format('DD/MM/YYYY'), '09/02/1969', 'D/M/U ---> 9/2/69');
+    assert.equal(moment('9/2/99', 'D/M/U').format('DD/MM/YYYY'), '09/02/1999', 'D/M/U ---> 9/2/99');
+    assert.equal(moment('9/2/1999', 'D/M/U').format('DD/MM/YYYY'), '09/02/1999', 'D/M/U ---> 9/2/1999');
+    assert.equal(moment('9/2/68', 'D/M/U').format('DD/MM/YYYY'), '09/02/2068', 'D/M/U ---> 9/2/68');
+    assert.equal(moment('9/2/69', 'D/M/U').format('DD/MM/YYYY'), '09/02/1969', 'D/M/U ---> 9/2/69');
 });
 
 test('unix timestamp format', function (assert) {

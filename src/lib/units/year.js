@@ -37,7 +37,7 @@ addParseToken('YY', function (input, array) {
 });
 
 addParseToken('U', function (input, array) {
-  array[YEAR] = input.length === 4 ? toInt(input) : hooks.parseTwoDigitYear(input);
+    array[YEAR] = input.length === 4 ? toInt(input) : hooks.parseTwoDigitYear(input);
 });
 
 // HELPERS
