@@ -236,6 +236,11 @@ test('duration deprecations', function (assert) {
     assert.equal(moment.duration().lang(), moment.duration().localeData(), 'duration.lang is the same as duration.localeData');
 });
 
+test('from and fromNow with invalid date', function (assert) {
+    assert.equal(moment(NaN).from(), 'Invalid Date', 'moment.from with invalid moment');
+    assert.equal(moment(NaN).fromNow(), 'Invalid Date', 'moment.fromNow with invalid moment');
+});
+
 test('from relative time future', function (assert) {
     var start = moment([2007, 1, 28]);
 
