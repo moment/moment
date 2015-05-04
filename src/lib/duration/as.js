@@ -17,13 +17,13 @@ export function as (units) {
         // handle milliseconds separately because of floating point math errors (issue #1867)
         days = this._days + Math.round(yearsToDays(this._months / 12));
         switch (units) {
-            case 'week'   : return days / 7            + milliseconds / 6048e5;
-            case 'day'    : return days                + milliseconds / 864e5;
-            case 'hour'   : return days * 24           + milliseconds / 36e5;
-            case 'minute' : return days * 24 * 60      + milliseconds / 6e4;
-            case 'second' : return days * 24 * 60 * 60 + milliseconds / 1000;
+            case 'week'   : return days / 7     + milliseconds / 6048e5;
+            case 'day'    : return days         + milliseconds / 864e5;
+            case 'hour'   : return days * 24    + milliseconds / 36e5;
+            case 'minute' : return days * 1440  + milliseconds / 6e4;
+            case 'second' : return days * 86400 + milliseconds / 1000;
             // Math.floor prevents floating point math errors here
-            case 'millisecond': return Math.floor(days * 24 * 60 * 60 * 1000) + milliseconds;
+            case 'millisecond': return Math.floor(days * 864e5) + milliseconds;
             default: throw new Error('Unknown unit ' + units);
         }
     }
