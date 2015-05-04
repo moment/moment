@@ -8,10 +8,12 @@ function warn(msg) {
 }
 
 export function deprecate(msg, fn) {
-    var firstTime = true;
+    var firstTime = true,
+        msgWithStack = msg + '\n' + (new Error()).stack;
+
     return extend(function () {
         if (firstTime) {
-            warn(msg);
+            warn(msgWithStack);
             firstTime = false;
         }
         return fn.apply(this, arguments);
