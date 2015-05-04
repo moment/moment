@@ -37,11 +37,11 @@ test('format', function (assert) {
             ['a A',                                'pm PM'],
             ['[the] DDDo [day of the year]',       'the 45. day of the year'],
             ['LTS',                                '15:25:50'],
-            ['L',                                  '14.02.2010'],
+            ['L',                                  '14.02.2010.'],
             ['LL',                                 '2010. gada 14. februāris'],
             ['LLL',                                '2010. gada 14. februāris, 15:25'],
             ['LLLL',                               '2010. gada 14. februāris, svētdiena, 15:25'],
-            ['l',                                  '14.2.2010'],
+            ['l',                                  '14.2.2010.'],
             ['ll',                                 '2010. gada 14. feb'],
             ['lll',                                '2010. gada 14. feb, 15:25'],
             ['llll',                               '2010. gada 14. feb, Sv, 15:25']
@@ -104,50 +104,71 @@ test('format week', function (assert) {
     }
 });
 
+// Includes testing the cases of withoutSuffix = true and false.
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'dažas sekundes',    '44 seconds = seconds');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'minūti',      '45 seconds = a minute');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'minūti',      '89 seconds = a minute');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '2 minūtes',     '90 seconds = 2 minutes');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  '44 minūtes',    '44 minutes = 44 minutes');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  'stundu',       '45 minutes = an hour');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  'stundu',       '89 minutes = an hour');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  '2 stundas',       '90 minutes = 2 hours');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   '5 stundas',       '5 hours = 5 hours');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  '21 stunda',      '21 hours = 21 hours');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  'dienu',         '22 hours = a day');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  'dienu',         '35 hours = a day');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  '2 dienas',        '36 hours = 2 days');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   'dienu',         '1 day = a day');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   '5 dienas',        '5 days = 5 days');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  '25 dienas',       '25 days = 25 days');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  'mēnesi',       '26 days = a month');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  'mēnesi',       '30 days = a month');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  'mēnesi',       '43 days = a month');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  '2 mēneši',      '46 days = 2 months');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  '2 mēneši',      '75 days = 2 months');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  '3 mēneši',      '76 days = 3 months');
-    assert.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   'mēnesi',       '1 month = a month');
-    assert.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   '5 mēneši',      '5 months = 5 months');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'gadu',        '345 days = a year');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), '2 gadi',       '548 days = 2 years');
-    assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'gadu',        '1 year = a year');
-    assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5 gadi',       '5 years = 5 years');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),   'dažas sekundes',       '44 seconds = seconds');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), false),  'pirms dažām sekundēm', '44 seconds with suffix = seconds ago');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),   'minūte',               '45 seconds = a minute');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), false),  'pirms minūtes',        '45 seconds with suffix = a minute ago');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),   'minūte',               '89 seconds = a minute');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: -89}), false), 'pēc minūtes',          '89 seconds with suffix/prefix = in a minute');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),   '2 minūtes',            '90 seconds = 2 minutes');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), false),  'pirms 2 minūtēm',      '90 seconds with suffix = 2 minutes ago');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),   '44 minūtes',           '44 minutes = 44 minutes');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 44}), false),  'pirms 44 minūtēm',     '44 minutes with suffix = 44 minutes ago');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),   'stunda',               '45 minutes = an hour');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), false),  'pirms stundas',        '45 minutes with suffix = an hour ago');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),   'stunda',               '89 minutes = an hour');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),   '2 stundas',            '90 minutes = 2 hours');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: -90}), false), 'pēc 2 stundām',        '90 minutes with suffix = in 2 hours');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),    '5 stundas',            '5 hours = 5 hours');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 5}), false),   'pirms 5 stundām',      '5 hours with suffix = 5 hours ago');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),   '21 stunda',            '21 hours = 21 hours');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 21}), false),  'pirms 21 stundas',     '21 hours with suffix = 21 hours ago');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),   'diena',                '22 hours = a day');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 22}), false),  'pirms dienas',         '22 hours with suffix = a day ago');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),   'diena',                '35 hours = a day');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),   '2 dienas',             '36 hours = 2 days');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 36}), false),  'pirms 2 dienām',       '36 hours with suffix = 2 days ago');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),    'diena',                '1 day = a day');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),    '5 dienas',             '5 days = 5 days');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 5}), false),   'pirms 5 dienām',       '5 days with suffix = 5 days ago');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),   '25 dienas',            '25 days = 25 days');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 25}), false),  'pirms 25 dienām',      '25 days with suffix = 25 days ago');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),   'mēnesis',              '26 days = a month');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 26}), false),  'pirms mēneša',         '26 days with suffix = a month ago');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),   'mēnesis',              '30 days = a month');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),   'mēnesis',              '43 days = a month');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),   '2 mēneši',             '46 days = 2 months');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 46}), false),  'pirms 2 mēnešiem',     '46 days with suffix = 2 months ago');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),   '2 mēneši',             '75 days = 2 months');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),   '3 mēneši',             '76 days = 3 months');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 76}), false),  'pirms 3 mēnešiem',     '76 days with suffix = 3 months ago');
+    assert.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),    'mēnesis',              '1 month = a month');
+    assert.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),    '5 mēneši',             '5 months = 5 months');
+    assert.equal(start.from(moment([2007, 1, 28]).add({M: 5}), false),   'pirms 5 mēnešiem',     '5 months with suffix = 5 months ago');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true),  'gads',                 '345 days = a year');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 345}), false), 'pirms gada',           '345 days with suffix = a year ago');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true),  '2 gadi',               '548 days = 2 years');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 548}), false), 'pirms 2 gadiem',       '548 days with suffix = 2 years ago');
+    assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),    'gads',                 '1 year = a year');
+    assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),    '5 gadi',               '5 years = 5 years');
+    assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), false),   'pirms 5 gadiem',       '5 years with suffix = 5 years ago');
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), 'dažas sekundes vēlāk',  'prefix');
-    assert.equal(moment(0).from(30000), 'dažas sekundes agrāk', 'suffix');
+    assert.equal(moment(30000).from(0), 'pēc dažām sekundēm',  'prefix');
+    assert.equal(moment(0).from(30000), 'pirms dažām sekundēm', 'suffix');
 });
 
 test('now from now', function (assert) {
-    assert.equal(moment().fromNow(), 'dažas sekundes agrāk',  'now from now should display as in the past');
+    assert.equal(moment().fromNow(), 'pirms dažām sekundēm',  'now from now should display as in the past');
 });
 
 test('fromNow', function (assert) {
-    assert.equal(moment().add({s: 30}).fromNow(), 'dažas sekundes vēlāk', 'in seconds');
-    assert.equal(moment().add({d: 5}).fromNow(), '5 dienas vēlāk', 'in 5 days');
+    assert.equal(moment().add({s: 30}).fromNow(), 'pēc dažām sekundēm', 'in seconds');
+    assert.equal(moment().add({d: 5}).fromNow(), 'pēc 5 dienām', 'in 5 days');
 });
 
 test('calendar day', function (assert) {
