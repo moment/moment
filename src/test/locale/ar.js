@@ -52,11 +52,11 @@ test('format', function (assert) {
             ['[the] DDDo [day of the year]',       'the ٤٥ day of the year'],
             ['LT',                                 '١٥:٢٥'],
             ['LTS',                                '١٥:٢٥:٥٠'],
-            ['L',                                  '١٤/٠٢/٢٠١٠'],
+            ['L',                                  '١٤/\u200f٢/\u200f٢٠١٠'],
             ['LL',                                 '١٤ شباط فبراير ٢٠١٠'],
             ['LLL',                                '١٤ شباط فبراير ٢٠١٠ ١٥:٢٥'],
             ['LLLL',                               'الأحد ١٤ شباط فبراير ٢٠١٠ ١٥:٢٥'],
-            ['l',                                  '١٤/٢/٢٠١٠'],
+            ['l',                                  '١٤/\u200f٢/\u200f٢٠١٠'],
             ['ll',                                 '١٤ شباط فبراير ٢٠١٠'],
             ['lll',                                '١٤ شباط فبراير ٢٠١٠ ١٥:٢٥'],
             ['llll',                               'أحد ١٤ شباط فبراير ٢٠١٠ ١٥:٢٥']
@@ -320,5 +320,16 @@ test('strict ordinal parsing', function (assert) {
         ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
         testMoment = moment(ordinalStr, 'YYYY MM Do', true);
         assert.ok(testMoment.isValid(), 'strict ordinal parsing ' + i);
+    }
+});
+
+test('no leading zeros in long date formats', function (assert) {
+    var i, j, longDateStr, shortDateStr;
+    for (i = 1; i <= 9; ++i) {
+        for (j = 1; j <= 9; ++j) {
+            longDateStr = moment([2014, i, j]).format('L');
+            shortDateStr = moment([2014, i, j]).format('l');
+            assert.equal(longDateStr, shortDateStr, 'should not have leading zeros in month or day');
+        }
     }
 });
