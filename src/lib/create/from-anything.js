@@ -1,4 +1,3 @@
-import defaultParsingFlags from './default-parsing-flags';
 import isArray from '../utils/is-array';
 import isDate from '../utils/is-date';
 import map from '../utils/map';
@@ -35,6 +34,8 @@ function createFromConfig (config) {
         configFromStringAndArray(config);
     } else if (format) {
         configFromStringAndFormat(config);
+    } else if (isDate(input)) {
+        config._d = input;
     } else {
         configFromInput(config);
     }
@@ -87,7 +88,6 @@ export function createLocalOrUTC (input, format, locale, strict, isUTC) {
     c._i = input;
     c._f = format;
     c._strict = strict;
-    c._pf = defaultParsingFlags();
 
     return createFromConfig(c);
 }

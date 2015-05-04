@@ -1,5 +1,6 @@
 import { hooks } from '../utils/hooks';
 import hasOwnProp from '../utils/has-own-prop';
+import getParsingFlags from '../create/parsing-flags';
 
 // Plugins that add properties should also add the key here (null value),
 // so we can properly clone ourselves.
@@ -33,7 +34,7 @@ export function copyConfig(to, from) {
         to._offset = from._offset;
     }
     if (typeof from._pf !== 'undefined') {
-        to._pf = from._pf;
+        to._pf = getParsingFlags(from);
     }
     if (typeof from._locale !== 'undefined') {
         to._locale = from._locale;
@@ -68,5 +69,5 @@ export function Moment(config) {
 }
 
 export function isMoment (obj) {
-    return obj instanceof Moment || (obj != null && hasOwnProp(obj, '_isAMomentObject'));
+    return obj instanceof Moment || (obj != null && obj._isAMomentObject != null);
 }
