@@ -106,7 +106,7 @@ test('format week', function (assert) {
 
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'några sekunder', '44 sekunder = a few seconds');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'några sekunder', '44 seconds = a few seconds');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'en minut',      '45 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'en minut',      '89 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '2 minuter',     '90 seconds = 2 minutes');
@@ -165,11 +165,11 @@ test('calendar next week', function (assert) {
     var i, m;
     for (i = 2; i < 7; i++) {
         m = moment().add({d: i});
-        assert.equal(m.calendar(),       m.format('dddd LT'),  'Today + ' + i + ' days current time');
+        assert.equal(m.calendar(),       m.format('[På] dddd LT'),  'Today + ' + i + ' days current time');
         m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(m.calendar(),       m.format('dddd LT'),  'Today + ' + i + ' days beginning of day');
+        assert.equal(m.calendar(),       m.format('[På] dddd LT'),  'Today + ' + i + ' days beginning of day');
         m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(m.calendar(),       m.format('dddd LT'),  'Today + ' + i + ' days end of day');
+        assert.equal(m.calendar(),       m.format('[På] dddd LT'),  'Today + ' + i + ' days end of day');
     }
 });
 
@@ -177,11 +177,11 @@ test('calendar last week', function (assert) {
     var i, m;
     for (i = 2; i < 7; i++) {
         m = moment().subtract({d: i});
-        assert.equal(m.calendar(),       m.format('[Förra] dddd[en] LT'),  'Today - ' + i + ' days current time');
+        assert.equal(m.calendar(),       m.format('[I] dddd[s] LT'),  'Today - ' + i + ' days current time');
         m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(m.calendar(),       m.format('[Förra] dddd[en] LT'),  'Today - ' + i + ' days beginning of day');
+        assert.equal(m.calendar(),       m.format('[I] dddd[s] LT'),  'Today - ' + i + ' days beginning of day');
         m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(m.calendar(),       m.format('[Förra] dddd[en] LT'),  'Today - ' + i + ' days end of day');
+        assert.equal(m.calendar(),       m.format('[I] dddd[s] LT'),  'Today - ' + i + ' days end of day');
     }
 });
 
