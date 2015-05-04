@@ -237,8 +237,8 @@ test('duration deprecations', function (assert) {
 });
 
 test('from and fromNow with invalid date', function (assert) {
-    assert.equal(moment(NaN).from(), 'Invalid Date', 'moment.from with invalid moment');
-    assert.equal(moment(NaN).fromNow(), 'Invalid Date', 'moment.fromNow with invalid moment');
+    assert.equal(moment(NaN).from(), 'Invalid date', 'moment.from with invalid moment');
+    assert.equal(moment(NaN).fromNow(), 'Invalid date', 'moment.fromNow with invalid moment');
 });
 
 test('from relative time future', function (assert) {
