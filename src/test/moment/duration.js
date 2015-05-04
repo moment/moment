@@ -258,6 +258,7 @@ test('serialization to ISO 8601 duration strings', function (assert) {
     assert.equal(moment.duration({s: -0.5}).toISOString(), '-PT0.5S', 'one half second ago');
     assert.equal(moment.duration({y: -0.5, M: 1}).toISOString(), '-P5M', 'a month after half a year ago');
     assert.equal(moment.duration({}).toISOString(), 'P0D', 'zero duration');
+    assert.equal(moment.duration({M: 16, d:40, s: 86465}).toISOString(), 'P1Y4M40DT24H1M5S', 'all fields');
 });
 
 test('toString acts as toISOString', function (assert) {
@@ -267,6 +268,7 @@ test('toString acts as toISOString', function (assert) {
     assert.equal(moment.duration({s: -0.5}).toString(), '-PT0.5S', 'one half second ago');
     assert.equal(moment.duration({y: -0.5, M: 1}).toString(), '-P5M', 'a month after half a year ago');
     assert.equal(moment.duration({}).toString(), 'P0D', 'zero duration');
+    assert.equal(moment.duration({M: 16, d:40, s: 86465}).toString(), 'P1Y4M40DT24H1M5S', 'all fields');
 });
 
 test('toIsoString deprecation', function (assert) {
