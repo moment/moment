@@ -243,3 +243,10 @@ test('oddball permissiveness', function (assert) {
     //https://github.com/moment/moment/issues/1122
     assert.ok(moment('3:25', ['h:mma', 'hh:mma', 'H:mm', 'HH:mm']).isValid());
 });
+
+test('0 hour is invalid in strict', function (assert) {
+    assert.equal(moment('00:01', 'hh:mm', true).isValid(), false, '00 hour is invalid in strict');
+    assert.equal(moment('00:01', 'hh:mm').isValid(), true, '00 hour is valid in normal');
+    assert.equal(moment('0:01', 'h:mm', true).isValid(), false, '0 hour is invalid in strict');
+    assert.equal(moment('0:01', 'h:mm').isValid(), true, '0 hour is valid in normal');
+});
