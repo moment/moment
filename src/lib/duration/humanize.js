@@ -17,7 +17,7 @@ function substituteTimeAgo(string, number, withoutSuffix, isFuture, locale) {
 function relativeTime (posNegDuration, withoutSuffix, locale) {
     var duration = createDuration(posNegDuration).abs();
     var seconds  = round(duration.as('s'));
-    var minutes  = round(duration.as('m'));
+    var minutes  = round(duration.as('m')) || Math.ceil(duration.as('m'));
     var hours    = round(duration.as('h'));
     var days     = round(duration.as('d'));
     var months   = round(duration.as('M'));
