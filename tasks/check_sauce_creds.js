@@ -1,5 +1,4 @@
 module.exports = function (grunt) {
-
     // Pull requests do not have secure variables enabled for security reasons.
     // Use this task before launching travis-sauce-browser task, so it would
     // exit early and won't try connecting to SauceLabs without credentials.

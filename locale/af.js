@@ -1,17 +1,15 @@
-// moment.js locale configuration
-// locale : afrikaans (af)
-// author : Werner Mollentze : https://github.com/wernerm
+//! moment.js locale configuration
+//! locale : afrikaans (af)
+//! author : Werner Mollentze : https://github.com/wernerm
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
-    return moment.defineLocale('af', {
+(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+
+    var af = moment.defineLocale('af', {
         months : 'Januarie_Februarie_Maart_April_Mei_Junie_Julie_Augustus_September_Oktober_November_Desember'.split('_'),
         monthsShort : 'Jan_Feb_Mar_Apr_Mei_Jun_Jul_Aug_Sep_Okt_Nov_Des'.split('_'),
         weekdays : 'Sondag_Maandag_Dinsdag_Woensdag_Donderdag_Vrydag_Saterdag'.split('_'),
@@ -68,4 +66,7 @@
             doy : 4  // Die week wat die 4de Januarie bevat is die eerste week van die jaar.
         }
     });
+
+    return af;
+
 }));

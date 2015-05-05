@@ -1,6 +1,6 @@
 {
     "name": "moment",
-    "version": "2.9.0",
+    "version": "2.10.2",
     "description": "Parse, validate, manipulate, and display dates",
     "homepage": "http://momentjs.com",
     "author": "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)",
@@ -40,13 +40,14 @@
     ],
     "devDependencies": {
         "uglify-js": "latest",
+        "es6-promise": "latest",
         "grunt": "latest",
-        "nodeunit": "latest",
         "benchmark": "latest",
+        "esperanto": "latest",
         "grunt-contrib-clean": "latest",
-        "grunt-contrib-jshint": "latest",
-        "grunt-contrib-nodeunit": "latest",
         "grunt-contrib-concat": "latest",
+        "grunt-contrib-copy": "latest",
+        "grunt-contrib-jshint": "latest",
         "grunt-contrib-uglify": "latest",
         "grunt-contrib-watch": "latest",
         "grunt-env": "latest",
@@ -60,12 +61,11 @@
         "karma": "latest",
         "karma-chrome-launcher": "latest",
         "karma-firefox-launcher": "latest",
-        "karma-nodeunit": "latest",
+        "karma-qunit": "latest",
         "karma-sauce-launcher": "latest",
+        "qunit": "^0.7.5",
+        "qunit-cli": "^0.1.4",
         "spacejam": "latest"
-    },
-    "scripts": {
-        "test": "grunt test:node"
     },
     "ender": "./ender.js",
     "dojoBuild": "package.js",
@@ -80,6 +80,9 @@
         "buildConfig": {
             "uglify": true
         }
+    },
+    "scripts": {
+        "test": "grunt test"
     },
     "spm": {
         "main": "moment.js",

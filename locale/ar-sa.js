@@ -1,16 +1,14 @@
-// moment.js locale configuration
-// locale : Arabic Saudi Arabia (ar-sa)
-// author : Suhail Alkowaileet : https://github.com/xsoh
+//! moment.js locale configuration
+//! locale : Arabic Saudi Arabia (ar-sa)
+//! author : Suhail Alkowaileet : https://github.com/xsoh
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['moment'], factory); // AMD
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('../moment')); // Node
-    } else {
-        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
-    }
-}(function (moment) {
+(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+
     var symbolMap = {
         '1': '١',
         '2': '٢',
@@ -35,7 +33,7 @@
         '٠': '0'
     };
 
-    return moment.defineLocale('ar-sa', {
+    var ar_sa = moment.defineLocale('ar-sa', {
         months : 'يناير_فبراير_مارس_أبريل_مايو_يونيو_يوليو_أغسطس_سبتمبر_أكتوبر_نوفمبر_ديسمبر'.split('_'),
         monthsShort : 'يناير_فبراير_مارس_أبريل_مايو_يونيو_يوليو_أغسطس_سبتمبر_أكتوبر_نوفمبر_ديسمبر'.split('_'),
         weekdays : 'الأحد_الإثنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت'.split('_'),
@@ -98,4 +96,7 @@
             doy : 12  // The week that contains Jan 1st is the first week of the year.
         }
     });
+
+    return ar_sa;
+
 }));
