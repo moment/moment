@@ -58,7 +58,7 @@ var updateInProgress = false;
 // Moment prototype object
 export function Moment(config) {
     copyConfig(this, config);
-    this._d = new Date(+config._d);
+    this._d = new Date(config._d.getTime());
     // Prevent infinite loop in case updateOffset creates new moment
     // objects.
     if (updateInProgress === false) {
