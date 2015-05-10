@@ -1,12 +1,11 @@
 var Benchmark = require('benchmark'),
-    moment = require('./../moment.js'),
-    base = new Date();
+    moment = require('./../moment.js');
 
 module.exports = {
-  name: 'fromDateUtc',
+  name: 'makeDuration',
   onComplete: function(){},
   fn: function(){
-      moment.utc(base);
+      moment.duration(5, 'years');
   },
   async: true
 };
