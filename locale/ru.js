@@ -51,8 +51,8 @@
     }
     function weekdaysCaseReplace(m, format) {
         var weekdays = {
-            'nominative': 'воскресенье_понедельник_вторник_среда_четверг_пятница_суббота'.split('_'),
-            'accusative': 'воскресенье_понедельник_вторник_среду_четверг_пятницу_субботу'.split('_')
+            'nominative': 'понедельник_вторник_среда_четверг_пятница_суббота_воскресенье'.split('_'),
+            'accusative': 'понедельник_вторник_среду_четверг_пятницу_субботу_воскресенье'.split('_')
         },
         nounCase = (/\[ ?[Вв] ?(?:прошлую|следующую|эту)? ?\] ?dddd/).test(format) ?
             'accusative' :
@@ -64,8 +64,8 @@
         months : monthsCaseReplace,
         monthsShort : monthsShortCaseReplace,
         weekdays : weekdaysCaseReplace,
-        weekdaysShort : 'вс_пн_вт_ср_чт_пт_сб'.split('_'),
-        weekdaysMin : 'вс_пн_вт_ср_чт_пт_сб'.split('_'),
+        weekdaysShort : 'пн_вт_ср_чт_пт_сб_вс'.split('_'),
+        weekdaysMin : 'пн_вт_ср_чт_пт_сб_вс'.split('_'),
         monthsParse : [/^янв/i, /^фев/i, /^мар/i, /^апр/i, /^ма[й|я]/i, /^июн/i, /^июл/i, /^авг/i, /^сен/i, /^окт/i, /^ноя/i, /^дек/i],
         longDateFormat : {
             LT : 'HH:mm',
@@ -153,7 +153,7 @@
             }
         },
         week : {
-            dow : 1, // Monday is the first day of the week.
+            dow : 0, // Monday is the first day of the week.
             doy : 7  // The week that contains Jan 1st is the first week of the year.
         }
     });
