@@ -1,28 +1,35 @@
 import { isMoment } from './constructor';
 import { normalizeUnits } from '../units/aliases';
 import { createLocal } from '../create/local';
+import { isValid } from '../create/valid';
 
 export function isAfter (input, units) {
+    var bothValid;
     var inputMs;
+    input = isMoment(input) ? input : createLocal(input);
     units = normalizeUnits(typeof units !== 'undefined' ? units : 'millisecond');
+    bothValid = isValid(this) && isValid(input);
+
     if (units === 'millisecond') {
-        input = isMoment(input) ? input : createLocal(input);
-        return +this > +input;
+        return bothValid && +this > +input;
     } else {
         inputMs = isMoment(input) ? +input : +createLocal(input);
-        return inputMs < +this.clone().startOf(units);
+        return bothValid && inputMs < +this.clone().startOf(units);
     }
 }
 
 export function isBefore (input, units) {
+    var bothValid;
     var inputMs;
+    input = isMoment(input) ? input : createLocal(input);
     units = normalizeUnits(typeof units !== 'undefined' ? units : 'millisecond');
+    bothValid = isValid(this) && isValid(input);
+
     if (units === 'millisecond') {
-        input = isMoment(input) ? input : createLocal(input);
-        return +this < +input;
+        return bothValid && +this < +input;
     } else {
-        inputMs = isMoment(input) ? +input : +createLocal(input);
-        return +this.clone().endOf(units) < inputMs;
+        inputMs = +input;
+        return bothValid && +this.clone().endOf(units) < inputMs;
     }
 }
 
@@ -32,12 +39,15 @@ export function isBetween (from, to, units) {
 
 export function isSame (input, units) {
     var inputMs;
+    var bothValid;
+    input = isMoment(input) ? input : createLocal(input);
     units = normalizeUnits(units || 'millisecond');
+    bothValid = isValid(this) && isValid(input);
+
     if (units === 'millisecond') {
-        input = isMoment(input) ? input : createLocal(input);
-        return +this === +input;
+        return bothValid && +this === +input;
     } else {
-        inputMs = +createLocal(input);
-        return +(this.clone().startOf(units)) <= inputMs && inputMs <= +(this.clone().endOf(units));
+        inputMs = +input;
+        return bothValid && +(this.clone().startOf(units)) <= inputMs && inputMs <= +(this.clone().endOf(units));
     }
 }

@@ -162,3 +162,11 @@ test('is before millisecond', function (assert) {
     assert.equal(m.isBefore(m, 'millisecond'), false, 'same moments are not before the same millisecond');
     assert.equal(+m, +mCopy, 'isBefore millisecond should not change moment');
 });
+
+test('is before invalid', function(assert) {
+    assert.equal(moment.invalid().isBefore(moment.invalid()), false, 'not comparable');
+    assert.equal(moment.invalid().isBefore(moment.invalid().year(2015)), false, 'default-invalid matches mutated-invalid');
+    assert.equal(moment.invalid().year(2015).isBefore(moment.invalid()), false, 'mutated-invalid matches default-invalid');
+    assert.equal(moment.invalid().year(2015).isBefore(moment.invalid().year(2016)), false, 'invalid + year before');
+    assert.equal(moment.invalid().year(2016).isBefore(moment.invalid().year(2015)), false, 'invalid + year after');
+});
