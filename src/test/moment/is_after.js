@@ -163,7 +163,7 @@ test('is after millisecond', function (assert) {
     assert.equal(+m, +mCopy, 'isAfter millisecond should not change moment');
 });
 
-test('is after invalid', function(assert) {
+test('is after invalid', function (assert) {
     assert.equal(moment.invalid().isAfter(moment.invalid()), false, 'not comparable');
     assert.equal(moment.invalid().isAfter(moment.invalid().year(2015)), false, 'default-invalid matches mutated-invalid');
     assert.equal(moment.invalid().year(2015).isAfter(moment.invalid()), false, 'mutated-invalid matches default-invalid');
