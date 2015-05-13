@@ -167,12 +167,7 @@ export function setOffsetToParsedOffset () {
 }
 
 export function hasAlignedHourOffset (input) {
-    if (!input) {
-        input = 0;
-    }
-    else {
-        input = createLocal(input).utcOffset();
-    }
+    input = input ? createLocal(input).utcOffset() : 0;
 
     return (this.utcOffset() - input) % 60 === 0;
 }
