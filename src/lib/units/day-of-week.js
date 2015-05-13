@@ -91,9 +91,7 @@ export function localeWeekdaysMin (m) {
 export function localeWeekdaysParse (weekdayName) {
     var i, mom, regex;
 
-    if (!this._weekdaysParse) {
-        this._weekdaysParse = [];
-    }
+    this._weekdaysParse = this._weekdaysParse || [];
 
     for (i = 0; i < 7; i++) {
         // make the regex if we don't have it already
