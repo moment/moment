@@ -3,7 +3,7 @@ import moment from '../../moment';
 
 module('relative time');
 
-test('default thresholds', function (assert) {
+test('default thresholds fromNow', function (assert) {
     var a = moment();
 
     // Seconds to minutes threshold
@@ -39,6 +39,44 @@ test('default thresholds', function (assert) {
     assert.equal(a.fromNow(), '10 months ago', 'Below default days to years threshold');
     a.subtract(1, 'month');
     assert.equal(a.fromNow(), 'a year ago', 'Above default days to years threshold');
+});
+
+test('default thresholds toNow', function (assert) {
+    var a = moment();
+
+    // Seconds to minutes threshold
+    a.subtract(44, 'seconds');
+    assert.equal(a.toNow(), 'in a few seconds', 'Below default seconds to minutes threshold');
+    a.subtract(1, 'seconds');
+    assert.equal(a.toNow(), 'in a minute', 'Above default seconds to minutes threshold');
+
+    // Minutes to hours threshold
+    a = moment();
+    a.subtract(44, 'minutes');
+    assert.equal(a.toNow(), 'in 44 minutes', 'Below default minute to hour threshold');
+    a.subtract(1, 'minutes');
+    assert.equal(a.toNow(), 'in an hour', 'Above default minute to hour threshold');
+
+    // Hours to days threshold
+    a = moment();
+    a.subtract(21, 'hours');
+    assert.equal(a.toNow(), 'in 21 hours', 'Below default hours to day threshold');
+    a.subtract(1, 'hours');
+    assert.equal(a.toNow(), 'in a day', 'Above default hours to day threshold');
+
+    // Days to month threshold
+    a = moment();
+    a.subtract(25, 'days');
+    assert.equal(a.toNow(), 'in 25 days', 'Below default days to month (singular) threshold');
+    a.subtract(1, 'days');
+    assert.equal(a.toNow(), 'in a month', 'Above default days to month (singular) threshold');
+
+    // months to year threshold
+    a = moment();
+    a.subtract(10, 'months');
+    assert.equal(a.toNow(), 'in 10 months', 'Below default days to years threshold');
+    a.subtract(1, 'month');
+    assert.equal(a.toNow(), 'in a year', 'Above default days to years threshold');
 });
 
 test('custom thresholds', function (assert) {
