@@ -17,7 +17,7 @@
         weekdaysShort : '周日_周一_周二_周三_周四_周五_周六'.split('_'),
         weekdaysMin : '日_一_二_三_四_五_六'.split('_'),
         longDateFormat : {
-            LT : 'Ah点mm',
+            LT : 'Ah点mm分',
             LTS : 'Ah点m分s秒',
             L : 'YYYY-MM-DD',
             LL : 'YYYY年MMMD日',
@@ -103,16 +103,16 @@
             future : '%s内',
             past : '%s前',
             s : '几秒',
-            m : '1分钟',
-            mm : '%d分钟',
-            h : '1小时',
-            hh : '%d小时',
-            d : '1天',
-            dd : '%d天',
-            M : '1个月',
-            MM : '%d个月',
-            y : '1年',
-            yy : '%d年'
+            m : '1 分钟',
+            mm : '%d 分钟',
+            h : '1 小时',
+            hh : '%d 小时',
+            d : '1 天',
+            dd : '%d 天',
+            M : '1 个月',
+            MM : '%d 个月',
+            y : '1 年',
+            yy : '%d 年'
         },
         week : {
             // GB/T 7408-1994《数据元和交换格式·信息交换·日期和时间表示法》与ISO 8601:1988等效

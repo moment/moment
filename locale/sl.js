@@ -9,62 +9,72 @@
 }(this, function (moment) { 'use strict';
 
 
-    function translate(number, withoutSuffix, key) {
+    function processRelativeTime(number, withoutSuffix, key, isFuture) {
         var result = number + ' ';
         switch (key) {
+        case 's':
+            return withoutSuffix || isFuture ? 'nekaj sekund' : 'nekaj sekundami';
         case 'm':
             return withoutSuffix ? 'ena minuta' : 'eno minuto';
         case 'mm':
             if (number === 1) {
-                result += 'minuta';
+                result += withoutSuffix ? 'minuta' : 'minuto';
             } else if (number === 2) {
-                result += 'minuti';
-            } else if (number === 3 || number === 4) {
-                result += 'minute';
+                result += withoutSuffix || isFuture ? 'minuti' : 'minutama';
+            } else if (number < 5) {
+                result += withoutSuffix || isFuture ? 'minute' : 'minutami';
             } else {
-                result += 'minut';
+                result += withoutSuffix || isFuture ? 'minut' : 'minutami';
             }
             return result;
         case 'h':
             return withoutSuffix ? 'ena ura' : 'eno uro';
         case 'hh':
             if (number === 1) {
-                result += 'ura';
+                result += withoutSuffix ? 'ura' : 'uro';
             } else if (number === 2) {
-                result += 'uri';
-            } else if (number === 3 || number === 4) {
-                result += 'ure';
+                result += withoutSuffix || isFuture ? 'uri' : 'urama';
+            } else if (number < 5) {
+                result += withoutSuffix || isFuture ? 'ure' : 'urami';
             } else {
-                result += 'ur';
+                result += withoutSuffix || isFuture ? 'ur' : 'urami';
             }
             return result;
+        case 'd':
+            return withoutSuffix || isFuture ? 'en dan' : 'enim dnem';
         case 'dd':
             if (number === 1) {
-                result += 'dan';
+                result += withoutSuffix || isFuture ? 'dan' : 'dnem';
+            } else if (number === 2) {
+                result += withoutSuffix || isFuture ? 'dni' : 'dnevoma';
             } else {
-                result += 'dni';
+                result += withoutSuffix || isFuture ? 'dni' : 'dnevi';
             }
             return result;
+        case 'M':
+            return withoutSuffix || isFuture ? 'en mesec' : 'enim mesecem';
         case 'MM':
             if (number === 1) {
-                result += 'mesec';
+                result += withoutSuffix || isFuture ? 'mesec' : 'mesecem';
             } else if (number === 2) {
-                result += 'meseca';
-            } else if (number === 3 || number === 4) {
-                result += 'mesece';
+                result += withoutSuffix || isFuture ? 'meseca' : 'mesecema';
+            } else if (number < 5) {
+                result += withoutSuffix || isFuture ? 'mesece' : 'meseci';
             } else {
-                result += 'mesecev';
+                result += withoutSuffix || isFuture ? 'mesecev' : 'meseci';
             }
             return result;
+        case 'y':
+            return withoutSuffix || isFuture ? 'eno leto' : 'enim letom';
         case 'yy':
             if (number === 1) {
-                result += 'leto';
+                result += withoutSuffix || isFuture ? 'leto' : 'letom';
             } else if (number === 2) {
-                result += 'leti';
-            } else if (number === 3 || number === 4) {
-                result += 'leta';
+                result += withoutSuffix || isFuture ? 'leti' : 'letoma';
+            } else if (number < 5) {
+                result += withoutSuffix || isFuture ? 'leta' : 'leti';
             } else {
-                result += 'let';
+                result += withoutSuffix || isFuture ? 'let' : 'leti';
             }
             return result;
         }
@@ -87,6 +97,7 @@
         calendar : {
             sameDay  : '[danes ob] LT',
             nextDay  : '[jutri ob] LT',
+
             nextWeek : function () {
                 switch (this.day()) {
                 case 0:
@@ -106,9 +117,11 @@
             lastWeek : function () {
                 switch (this.day()) {
                 case 0:
+                    return '[prejšnjo] [nedeljo] [ob] LT';
                 case 3:
+                    return '[prejšnjo] [sredo] [ob] LT';
                 case 6:
-                    return '[prejšnja] dddd [ob] LT';
+                    return '[prejšnjo] [soboto] [ob] LT';
                 case 1:
                 case 2:
                 case 4:
@@ -120,18 +133,18 @@
         },
         relativeTime : {
             future : 'čez %s',
-            past   : '%s nazaj',
-            s      : 'nekaj sekund',
-            m      : translate,
-            mm     : translate,
-            h      : translate,
-            hh     : translate,
-            d      : 'en dan',
-            dd     : translate,
-            M      : 'en mesec',
-            MM     : translate,
-            y      : 'eno leto',
-            yy     : translate
+            past   : 'pred %s',
+            s      : processRelativeTime,
+            m      : processRelativeTime,
+            mm     : processRelativeTime,
+            h      : processRelativeTime,
+            hh     : processRelativeTime,
+            d      : processRelativeTime,
+            dd     : processRelativeTime,
+            M      : processRelativeTime,
+            MM     : processRelativeTime,
+            y      : processRelativeTime,
+            yy     : processRelativeTime
         },
         ordinalParse: /\d{1,2}\./,
         ordinal : '%d.',

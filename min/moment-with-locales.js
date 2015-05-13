@@ -16,28 +16,12 @@
         hookCallback = callback;
     }
 
-    function defaultParsingFlags() {
-        // We need to deep clone this object.
-        return {
-            empty           : false,
-            unusedTokens    : [],
-            unusedInput     : [],
-            overflow        : -2,
-            charsLeftOver   : 0,
-            nullInput       : false,
-            invalidMonth    : null,
-            invalidFormat   : false,
-            userInvalidated : false,
-            iso             : false
-        };
-    }
-
     function isArray(input) {
         return Object.prototype.toString.call(input) === '[object Array]';
     }
 
     function isDate(input) {
-        return Object.prototype.toString.call(input) === '[object Date]' || input instanceof Date;
+        return input instanceof Date || Object.prototype.toString.call(input) === '[object Date]';
     }
 
     function map(arr, fn) {
@@ -74,21 +58,45 @@
         return createLocalOrUTC(input, format, locale, strict, true).utc();
     }
 
+    function defaultParsingFlags() {
+        // We need to deep clone this object.
+        return {
+            empty           : false,
+            unusedTokens    : [],
+            unusedInput     : [],
+            overflow        : -2,
+            charsLeftOver   : 0,
+            nullInput       : false,
+            invalidMonth    : null,
+            invalidFormat   : false,
+            userInvalidated : false,
+            iso             : false
+        };
+    }
+
+    function getParsingFlags(m) {
+        if (m._pf == null) {
+            m._pf = defaultParsingFlags();
+        }
+        return m._pf;
+    }
+
     function valid__isValid(m) {
         if (m._isValid == null) {
+            var flags = getParsingFlags(m);
             m._isValid = !isNaN(m._d.getTime()) &&
-                m._pf.overflow < 0 &&
-                !m._pf.empty &&
-                !m._pf.invalidMonth &&
-                !m._pf.nullInput &&
-                !m._pf.invalidFormat &&
-                !m._pf.userInvalidated;
+                flags.overflow < 0 &&
+                !flags.empty &&
+                !flags.invalidMonth &&
+                !flags.nullInput &&
+                !flags.invalidFormat &&
+                !flags.userInvalidated;
 
             if (m._strict) {
                 m._isValid = m._isValid &&
-                    m._pf.charsLeftOver === 0 &&
-                    m._pf.unusedTokens.length === 0 &&
-                    m._pf.bigHour === undefined;
+                    flags.charsLeftOver === 0 &&
+                    flags.unusedTokens.length === 0 &&
+                    flags.bigHour === undefined;
             }
         }
         return m._isValid;
@@ -97,10 +105,10 @@
     function valid__createInvalid (flags) {
         var m = create_utc__createUTC(NaN);
         if (flags != null) {
-            extend(m._pf, flags);
+            extend(getParsingFlags(m), flags);
         }
         else {
-            m._pf.userInvalidated = true;
+            getParsingFlags(m).userInvalidated = true;
         }
 
         return m;
@@ -136,7 +144,7 @@
             to._offset = from._offset;
         }
         if (typeof from._pf !== 'undefined') {
-            to._pf = from._pf;
+            to._pf = getParsingFlags(from);
         }
         if (typeof from._locale !== 'undefined') {
             to._locale = from._locale;
@@ -171,7 +179,7 @@
     }
 
     function isMoment (obj) {
-        return obj instanceof Moment || (obj != null && hasOwnProp(obj, '_isAMomentObject'));
+        return obj instanceof Moment || (obj != null && obj._isAMomentObject != null);
     }
 
     function toInt(argumentForCoercion) {
@@ -609,7 +617,7 @@
         if (month != null) {
             array[MONTH] = month;
         } else {
-            config._pf.invalidMonth = input;
+            getParsingFlags(config).invalidMonth = input;
         }
     });
 
@@ -693,7 +701,7 @@
         var overflow;
         var a = m._a;
 
-        if (a && m._pf.overflow === -2) {
+        if (a && getParsingFlags(m).overflow === -2) {
             overflow =
                 a[MONTH]       < 0 || a[MONTH]       > 11  ? MONTH :
                 a[DATE]        < 1 || a[DATE]        > daysInMonth(a[YEAR], a[MONTH]) ? DATE :
@@ -703,11 +711,11 @@
                 a[MILLISECOND] < 0 || a[MILLISECOND] > 999 ? MILLISECOND :
                 -1;
 
-            if (m._pf._overflowDayOfYear && (overflow < YEAR || overflow > DATE)) {
+            if (getParsingFlags(m)._overflowDayOfYear && (overflow < YEAR || overflow > DATE)) {
                 overflow = DATE;
             }
 
-            m._pf.overflow = overflow;
+            getParsingFlags(m).overflow = overflow;
         }
 
         return m;
@@ -720,10 +728,12 @@
     }
 
     function deprecate(msg, fn) {
-        var firstTime = true;
+        var firstTime = true,
+            msgWithStack = msg + '\n' + (new Error()).stack;
+
         return extend(function () {
             if (firstTime) {
-                warn(msg);
+                warn(msgWithStack);
                 firstTime = false;
             }
             return fn.apply(this, arguments);
@@ -768,7 +778,7 @@
             match = from_string__isoRegex.exec(string);
 
         if (match) {
-            config._pf.iso = true;
+            getParsingFlags(config).iso = true;
             for (i = 0, l = isoDates.length; i < l; i++) {
                 if (isoDates[i][1].exec(string)) {
                     // match[5] should be 'T' or undefined
@@ -1048,7 +1058,7 @@
             yearToUse = defaults(config._a[YEAR], currentDate[YEAR]);
 
             if (config._dayOfYear > daysInYear(yearToUse)) {
-                config._pf._overflowDayOfYear = true;
+                getParsingFlags(config)._overflowDayOfYear = true;
             }
 
             date = createUTCDate(yearToUse, 0, config._dayOfYear);
@@ -1144,7 +1154,7 @@
         }
 
         config._a = [];
-        config._pf.empty = true;
+        getParsingFlags(config).empty = true;
 
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
         var string = '' + config._i,
@@ -1160,7 +1170,7 @@
             if (parsedInput) {
                 skipped = string.substr(0, string.indexOf(parsedInput));
                 if (skipped.length > 0) {
-                    config._pf.unusedInput.push(skipped);
+                    getParsingFlags(config).unusedInput.push(skipped);
                 }
                 string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
                 totalParsedInputLength += parsedInput.length;
@@ -1168,27 +1178,29 @@
             // don't parse if it's not a known token
             if (formatTokenFunctions[token]) {
                 if (parsedInput) {
-                    config._pf.empty = false;
+                    getParsingFlags(config).empty = false;
                 }
                 else {
-                    config._pf.unusedTokens.push(token);
+                    getParsingFlags(config).unusedTokens.push(token);
                 }
                 addTimeToArrayFromToken(token, parsedInput, config);
             }
             else if (config._strict && !parsedInput) {
-                config._pf.unusedTokens.push(token);
+                getParsingFlags(config).unusedTokens.push(token);
             }
         }
 
         // add remaining unparsed input length to the string
-        config._pf.charsLeftOver = stringLength - totalParsedInputLength;
+        getParsingFlags(config).charsLeftOver = stringLength - totalParsedInputLength;
         if (string.length > 0) {
-            config._pf.unusedInput.push(string);
+            getParsingFlags(config).unusedInput.push(string);
         }
 
         // clear _12h flag if hour is <= 12
-        if (config._pf.bigHour === true && config._a[HOUR] <= 12) {
-            config._pf.bigHour = undefined;
+        if (getParsingFlags(config).bigHour === true &&
+                config._a[HOUR] <= 12 &&
+                config._a[HOUR] > 0) {
+            getParsingFlags(config).bigHour = undefined;
         }
         // handle meridiem
         config._a[HOUR] = meridiemFixWrap(config._locale, config._a[HOUR], config._meridiem);
@@ -1232,7 +1244,7 @@
             currentScore;
 
         if (config._f.length === 0) {
-            config._pf.invalidFormat = true;
+            getParsingFlags(config).invalidFormat = true;
             config._d = new Date(NaN);
             return;
         }
@@ -1243,7 +1255,6 @@
             if (config._useUTC != null) {
                 tempConfig._useUTC = config._useUTC;
             }
-            tempConfig._pf = defaultParsingFlags();
             tempConfig._f = config._f[i];
             configFromStringAndFormat(tempConfig);
 
@@ -1252,12 +1263,12 @@
             }
 
             // if there is any input that was not parsed add a penalty for that format
-            currentScore += tempConfig._pf.charsLeftOver;
+            currentScore += getParsingFlags(tempConfig).charsLeftOver;
 
             //or tokens
-            currentScore += tempConfig._pf.unusedTokens.length * 10;
+            currentScore += getParsingFlags(tempConfig).unusedTokens.length * 10;
 
-            tempConfig._pf.score = currentScore;
+            getParsingFlags(tempConfig).score = currentScore;
 
             if (scoreToBeat == null || currentScore < scoreToBeat) {
                 scoreToBeat = currentScore;
@@ -1300,6 +1311,8 @@
             configFromStringAndArray(config);
         } else if (format) {
             configFromStringAndFormat(config);
+        } else if (isDate(input)) {
+            config._d = input;
         } else {
             configFromInput(config);
         }
@@ -1352,7 +1365,6 @@
         c._i = input;
         c._f = format;
         c._strict = strict;
-        c._pf = defaultParsingFlags();
 
         return createFromConfig(c);
     }
@@ -1926,11 +1938,25 @@
     }
 
     function from (time, withoutSuffix) {
+        if (!this.isValid()) {
+            return this.localeData().invalidDate();
+        }
         return create__createDuration({to: this, from: time}).locale(this.locale()).humanize(!withoutSuffix);
     }
 
     function fromNow (withoutSuffix) {
         return this.from(local__createLocal(), withoutSuffix);
+    }
+
+    function to (time, withoutSuffix) {
+        if (!this.isValid()) {
+            return this.localeData().invalidDate();
+        }
+        return create__createDuration({from: this, to: time}).locale(this.locale()).humanize(!withoutSuffix);
+    }
+
+    function toNow (withoutSuffix) {
+        return this.to(local__createLocal(), withoutSuffix);
     }
 
     function locale (key) {
@@ -2035,11 +2061,11 @@
     }
 
     function parsingFlags () {
-        return extend({}, this._pf);
+        return extend({}, getParsingFlags(this));
     }
 
     function invalidAt () {
-        return this._pf.overflow;
+        return getParsingFlags(this).overflow;
     }
 
     addFormatToken(0, ['gg', 2], 0, function () {
@@ -2190,7 +2216,7 @@
         if (weekday != null) {
             week.d = weekday;
         } else {
-            config._pf.invalidWeekday = input;
+            getParsingFlags(config).invalidWeekday = input;
         }
     });
 
@@ -2315,7 +2341,7 @@
     });
     addParseToken(['h', 'hh'], function (input, array, config) {
         array[HOUR] = toInt(input);
-        config._pf.bigHour = true;
+        getParsingFlags(config).bigHour = true;
     });
 
     // LOCALES
@@ -2432,6 +2458,8 @@
     momentPrototype__proto.format       = moment_format__format;
     momentPrototype__proto.from         = from;
     momentPrototype__proto.fromNow      = fromNow;
+    momentPrototype__proto.to           = to;
+    momentPrototype__proto.toNow        = toNow;
     momentPrototype__proto.get          = getSet;
     momentPrototype__proto.invalidAt    = invalidAt;
     momentPrototype__proto.isAfter      = isAfter;
@@ -2620,7 +2648,7 @@
         }
         // Lenient ordinal parsing accepts just a number in addition to
         // number + (possibly) stuff coming from _ordinalParseLenient.
-        this._ordinalParseLenient = new RegExp(this._ordinalParse.source + '|' + /\d{1,2}/.source);
+        this._ordinalParseLenient = new RegExp(this._ordinalParse.source + '|' + (/\d{1,2}/).source);
     }
 
     var prototype__proto = Locale.prototype;
@@ -2837,13 +2865,13 @@
             // handle milliseconds separately because of floating point math errors (issue #1867)
             days = this._days + Math.round(yearsToDays(this._months / 12));
             switch (units) {
-                case 'week'   : return days / 7            + milliseconds / 6048e5;
-                case 'day'    : return days                + milliseconds / 864e5;
-                case 'hour'   : return days * 24           + milliseconds / 36e5;
-                case 'minute' : return days * 24 * 60      + milliseconds / 6e4;
-                case 'second' : return days * 24 * 60 * 60 + milliseconds / 1000;
+                case 'week'   : return days / 7     + milliseconds / 6048e5;
+                case 'day'    : return days         + milliseconds / 864e5;
+                case 'hour'   : return days * 24    + milliseconds / 36e5;
+                case 'minute' : return days * 1440  + milliseconds / 6e4;
+                case 'second' : return days * 86400 + milliseconds / 1000;
                 // Math.floor prevents floating point math errors here
-                case 'millisecond': return Math.floor(days * 24 * 60 * 60 * 1000) + milliseconds;
+                case 'millisecond': return Math.floor(days * 864e5) + milliseconds;
                 default: throw new Error('Unknown unit ' + units);
             }
         }
@@ -3046,12 +3074,12 @@
     ;
 
     //! moment.js
-    //! version : 2.10.2
+    //! version : 2.10.3
     //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
     //! license : MIT
     //! momentjs.com
 
-    utils_hooks__hooks.version = '2.10.2';
+    utils_hooks__hooks.version = '2.10.3';
 
     setHookCallback(local__createLocal);
 
@@ -3397,7 +3425,7 @@
         longDateFormat : {
             LT : 'HH:mm',
             LTS : 'HH:mm:ss',
-            L : 'DD/MM/YYYY',
+            L : 'D/\u200FM/\u200FYYYY',
             LL : 'D MMMM YYYY',
             LLL : 'D MMMM YYYY LT',
             LLLL : 'dddd D MMMM YYYY LT'
@@ -3437,7 +3465,7 @@
             yy : pluralize('y')
         },
         preparse: function (string) {
-            return string.replace(/[١٢٣٤٥٦٧٨٩٠]/g, function (match) {
+            return string.replace(/\u200f/g, '').replace(/[١٢٣٤٥٦٧٨٩٠]/g, function (match) {
                 return ar__numberMap[match];
             }).replace(/،/g, ',');
         },
@@ -4406,47 +4434,47 @@
     //! author : Anatoly Mironov : https://github.com/mirontoli
 
     var cv = _moment__default.defineLocale('cv', {
-        months : 'кăрлач_нарăс_пуш_ака_май_çĕртме_утă_çурла_авăн_юпа_чӳк_раштав'.split('_'),
-        monthsShort : 'кăр_нар_пуш_ака_май_çĕр_утă_çур_ав_юпа_чӳк_раш'.split('_'),
-        weekdays : 'вырсарникун_тунтикун_ытларикун_юнкун_кĕçнерникун_эрнекун_шăматкун'.split('_'),
-        weekdaysShort : 'выр_тун_ытл_юн_кĕç_эрн_шăм'.split('_'),
-        weekdaysMin : 'вр_тн_ыт_юн_кç_эр_шм'.split('_'),
+        months : 'кӑрлач_нарӑс_пуш_ака_май_ҫӗртме_утӑ_ҫурла_авӑн_юпа_чӳк_раштав'.split('_'),
+        monthsShort : 'кӑр_нар_пуш_ака_май_ҫӗр_утӑ_ҫур_авн_юпа_чӳк_раш'.split('_'),
+        weekdays : 'вырсарникун_тунтикун_ытларикун_юнкун_кӗҫнерникун_эрнекун_шӑматкун'.split('_'),
+        weekdaysShort : 'выр_тун_ытл_юн_кӗҫ_эрн_шӑм'.split('_'),
+        weekdaysMin : 'вр_тн_ыт_юн_кҫ_эр_шм'.split('_'),
         longDateFormat : {
             LT : 'HH:mm',
             LTS : 'LT:ss',
             L : 'DD-MM-YYYY',
-            LL : 'YYYY [çулхи] MMMM [уйăхĕн] D[-мĕшĕ]',
-            LLL : 'YYYY [çулхи] MMMM [уйăхĕн] D[-мĕшĕ], LT',
-            LLLL : 'dddd, YYYY [çулхи] MMMM [уйăхĕн] D[-мĕшĕ], LT'
+            LL : 'YYYY [ҫулхи] MMMM [уйӑхӗн] D[-мӗшӗ]',
+            LLL : 'YYYY [ҫулхи] MMMM [уйӑхӗн] D[-мӗшӗ], LT',
+            LLLL : 'dddd, YYYY [ҫулхи] MMMM [уйӑхӗн] D[-мӗшӗ], LT'
         },
         calendar : {
             sameDay: '[Паян] LT [сехетре]',
             nextDay: '[Ыран] LT [сехетре]',
-            lastDay: '[Ĕнер] LT [сехетре]',
-            nextWeek: '[Çитес] dddd LT [сехетре]',
-            lastWeek: '[Иртнĕ] dddd LT [сехетре]',
+            lastDay: '[Ӗнер] LT [сехетре]',
+            nextWeek: '[Ҫитес] dddd LT [сехетре]',
+            lastWeek: '[Иртнӗ] dddd LT [сехетре]',
             sameElse: 'L'
         },
         relativeTime : {
             future : function (output) {
-                var affix = /сехет$/i.exec(output) ? 'рен' : /çул$/i.exec(output) ? 'тан' : 'ран';
+                var affix = /сехет$/i.exec(output) ? 'рен' : /ҫул$/i.exec(output) ? 'тан' : 'ран';
                 return output + affix;
             },
             past : '%s каялла',
-            s : 'пĕр-ик çеккунт',
-            m : 'пĕр минут',
+            s : 'пӗр-ик ҫеккунт',
+            m : 'пӗр минут',
             mm : '%d минут',
-            h : 'пĕр сехет',
+            h : 'пӗр сехет',
             hh : '%d сехет',
-            d : 'пĕр кун',
+            d : 'пӗр кун',
             dd : '%d кун',
-            M : 'пĕр уйăх',
-            MM : '%d уйăх',
-            y : 'пĕр çул',
-            yy : '%d çул'
+            M : 'пӗр уйӑх',
+            MM : '%d уйӑх',
+            y : 'пӗр ҫул',
+            yy : '%d ҫул'
         },
-        ordinalParse: /\d{1,2}-мĕш/,
-        ordinal : '%d-мĕш',
+        ordinalParse: /\d{1,2}-мӗш/,
+        ordinal : '%d-мӗш',
         week : {
             dow : 1, // Monday is the first day of the week.
             doy : 7  // The week that contains Jan 1st is the first week of the year.
@@ -5011,11 +5039,11 @@
     //! locale : spanish (es)
     //! author : Julio Napurí : https://github.com/julionc
 
-    var monthsShortDot = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split('_'),
-        es__monthsShort = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_');
+    var monthsShortDot = 'Ene._Feb._Mar._Abr._May._Jun._Jul._Ago._Sep._Oct._Nov._Dic.'.split('_'),
+        es__monthsShort = 'Ene_Feb_Mar_Abr_May_Jun_Jul_Ago_Sep_Oct_Nov_Dic'.split('_');
 
     var es = _moment__default.defineLocale('es', {
-        months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
+        months : 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
         monthsShort : function (m, format) {
             if (/-MMM-/.test(format)) {
                 return es__monthsShort[m.month()];
@@ -5023,8 +5051,8 @@
                 return monthsShortDot[m.month()];
             }
         },
-        weekdays : 'domingo_lunes_martes_miércoles_jueves_viernes_sábado'.split('_'),
-        weekdaysShort : 'dom._lun._mar._mié._jue._vie._sáb.'.split('_'),
+        weekdays : 'Domingo_Lunes_Martes_Miércoles_Jueves_Viernes_Sábado'.split('_'),
+        weekdaysShort : 'Dom._Lun._Mar._Mié._Jue._Vie._Sáb.'.split('_'),
         weekdaysMin : 'Do_Lu_Ma_Mi_Ju_Vi_Sá'.split('_'),
         longDateFormat : {
             LT : 'H:mm',
@@ -5899,8 +5927,8 @@
     }
 
     var hr = _moment__default.defineLocale('hr', {
-        months : 'sječanj_veljača_ožujak_travanj_svibanj_lipanj_srpanj_kolovoz_rujan_listopad_studeni_prosinac'.split('_'),
-        monthsShort : 'sje._vel._ožu._tra._svi._lip._srp._kol._ruj._lis._stu._pro.'.split('_'),
+        months : 'siječanj_veljača_ožujak_travanj_svibanj_lipanj_srpanj_kolovoz_rujan_listopad_studeni_prosinac'.split('_'),
+        monthsShort : 'sij._velj._ožu._tra._svi._lip._srp._kol._ruj._lis._stu._pro.'.split('_'),
         weekdays : 'nedjelja_ponedjeljak_utorak_srijeda_četvrtak_petak_subota'.split('_'),
         weekdaysShort : 'ned._pon._uto._sri._čet._pet._sub.'.split('_'),
         weekdaysMin : 'ne_po_ut_sr_če_pe_su'.split('_'),
@@ -6470,6 +6498,78 @@
     });
 
     //! moment.js locale configuration
+    //! locale : Boso Jowo (jv)
+    //! author : Rony Lantip : https://github.com/lantip
+    //! reference: http://jv.wikipedia.org/wiki/Basa_Jawa
+
+    var jv = _moment__default.defineLocale('jv', {
+        months : 'Januari_Februari_Maret_April_Mei_Juni_Juli_Agustus_September_Oktober_Nopember_Desember'.split('_'),
+        monthsShort : 'Jan_Feb_Mar_Apr_Mei_Jun_Jul_Ags_Sep_Okt_Nop_Des'.split('_'),
+        weekdays : 'Minggu_Senen_Seloso_Rebu_Kemis_Jemuwah_Septu'.split('_'),
+        weekdaysShort : 'Min_Sen_Sel_Reb_Kem_Jem_Sep'.split('_'),
+        weekdaysMin : 'Mg_Sn_Sl_Rb_Km_Jm_Sp'.split('_'),
+        longDateFormat : {
+            LT : 'HH.mm',
+            LTS : 'LT.ss',
+            L : 'DD/MM/YYYY',
+            LL : 'D MMMM YYYY',
+            LLL : 'D MMMM YYYY [pukul] LT',
+            LLLL : 'dddd, D MMMM YYYY [pukul] LT'
+        },
+        meridiemParse: /enjing|siyang|sonten|ndalu/,
+        meridiemHour : function (hour, meridiem) {
+            if (hour === 12) {
+                hour = 0;
+            }
+            if (meridiem === 'enjing') {
+                return hour;
+            } else if (meridiem === 'siyang') {
+                return hour >= 11 ? hour : hour + 12;
+            } else if (meridiem === 'sonten' || meridiem === 'ndalu') {
+                return hour + 12;
+            }
+        },
+        meridiem : function (hours, minutes, isLower) {
+            if (hours < 11) {
+                return 'enjing';
+            } else if (hours < 15) {
+                return 'siyang';
+            } else if (hours < 19) {
+                return 'sonten';
+            } else {
+                return 'ndalu';
+            }
+        },
+        calendar : {
+            sameDay : '[Dinten puniko pukul] LT',
+            nextDay : '[Mbenjang pukul] LT',
+            nextWeek : 'dddd [pukul] LT',
+            lastDay : '[Kala wingi pukul] LT',
+            lastWeek : 'dddd [kepengker pukul] LT',
+            sameElse : 'L'
+        },
+        relativeTime : {
+            future : 'wonten ing %s',
+            past : '%s ingkang kepengker',
+            s : 'sawetawis detik',
+            m : 'setunggal menit',
+            mm : '%d menit',
+            h : 'setunggal jam',
+            hh : '%d jam',
+            d : 'sedinten',
+            dd : '%d dinten',
+            M : 'sewulan',
+            MM : '%d wulan',
+            y : 'setaun',
+            yy : '%d taun'
+        },
+        week : {
+            dow : 1, // Monday is the first day of the week.
+            doy : 7  // The week that contains Jan 1st is the first week of the year.
+        }
+    });
+
+    //! moment.js locale configuration
     //! locale : Georgian (ka)
     //! author : Irakli Janiashvili : https://github.com/irakli-janiashvili
 
@@ -6895,24 +6995,41 @@
     //! moment.js locale configuration
     //! locale : latvian (lv)
     //! author : Kristaps Karlsons : https://github.com/skakri
+    //! author : Jānis Elmeris : https://github.com/JanisE
 
     var lv__units = {
-        'mm': 'minūti_minūtes_minūte_minūtes',
-        'hh': 'stundu_stundas_stunda_stundas',
-        'dd': 'dienu_dienas_diena_dienas',
-        'MM': 'mēnesi_mēnešus_mēnesis_mēneši',
-        'yy': 'gadu_gadus_gads_gadi'
+        'm': 'minūtes_minūtēm_minūte_minūtes'.split('_'),
+        'mm': 'minūtes_minūtēm_minūte_minūtes'.split('_'),
+        'h': 'stundas_stundām_stunda_stundas'.split('_'),
+        'hh': 'stundas_stundām_stunda_stundas'.split('_'),
+        'd': 'dienas_dienām_diena_dienas'.split('_'),
+        'dd': 'dienas_dienām_diena_dienas'.split('_'),
+        'M': 'mēneša_mēnešiem_mēnesis_mēneši'.split('_'),
+        'MM': 'mēneša_mēnešiem_mēnesis_mēneši'.split('_'),
+        'y': 'gada_gadiem_gads_gadi'.split('_'),
+        'yy': 'gada_gadiem_gads_gadi'.split('_')
     };
-    function lv__format(word, number, withoutSuffix) {
-        var forms = word.split('_');
+    /**
+     * @param withoutSuffix boolean true = a length of time; false = before/after a period of time.
+     */
+    function lv__format(forms, number, withoutSuffix) {
         if (withoutSuffix) {
+            // E.g. "21 minūte", "3 minūtes".
             return number % 10 === 1 && number !== 11 ? forms[2] : forms[3];
         } else {
+            // E.g. "21 minūtes" as in "pēc 21 minūtes".
+            // E.g. "3 minūtēm" as in "pēc 3 minūtēm".
             return number % 10 === 1 && number !== 11 ? forms[0] : forms[1];
         }
     }
     function lv__relativeTimeWithPlural(number, withoutSuffix, key) {
         return number + ' ' + lv__format(lv__units[key], number, withoutSuffix);
+    }
+    function relativeTimeWithSingular(number, withoutSuffix, key) {
+        return lv__format(lv__units[key], number, withoutSuffix);
+    }
+    function relativeSeconds(number, withoutSuffix) {
+        return withoutSuffix ? 'dažas sekundes' : 'dažām sekundēm';
     }
 
     var lv = _moment__default.defineLocale('lv', {
@@ -6924,7 +7041,7 @@
         longDateFormat : {
             LT : 'HH:mm',
             LTS : 'LT:ss',
-            L : 'DD.MM.YYYY',
+            L : 'DD.MM.YYYY.',
             LL : 'YYYY. [gada] D. MMMM',
             LLL : 'YYYY. [gada] D. MMMM, LT',
             LLLL : 'YYYY. [gada] D. MMMM, dddd, LT'
@@ -6938,18 +7055,18 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : '%s vēlāk',
-            past : '%s agrāk',
-            s : 'dažas sekundes',
-            m : 'minūti',
+            future : 'pēc %s',
+            past : 'pirms %s',
+            s : relativeSeconds,
+            m : relativeTimeWithSingular,
             mm : lv__relativeTimeWithPlural,
-            h : 'stundu',
+            h : relativeTimeWithSingular,
             hh : lv__relativeTimeWithPlural,
-            d : 'dienu',
+            d : relativeTimeWithSingular,
             dd : lv__relativeTimeWithPlural,
-            M : 'mēnesi',
+            M : relativeTimeWithSingular,
             MM : lv__relativeTimeWithPlural,
-            y : 'gadu',
+            y : relativeTimeWithSingular,
             yy : lv__relativeTimeWithPlural
         },
         ordinalParse: /\d{1,2}\./,
@@ -6957,6 +7074,104 @@
         week : {
             dow : 1, // Monday is the first day of the week.
             doy : 4  // The week that contains Jan 4th is the first week of the year.
+        }
+    });
+
+    //! moment.js locale configuration
+    //! locale : Montenegrin (me)
+    //! author : Miodrag Nikač <miodrag@restartit.me> : https://github.com/miodragnikac
+
+    var me__translator = {
+        words: { //Different grammatical cases
+            m: ['jedan minut', 'jednog minuta'],
+            mm: ['minut', 'minuta', 'minuta'],
+            h: ['jedan sat', 'jednog sata'],
+            hh: ['sat', 'sata', 'sati'],
+            dd: ['dan', 'dana', 'dana'],
+            MM: ['mjesec', 'mjeseca', 'mjeseci'],
+            yy: ['godina', 'godine', 'godina']
+        },
+        correctGrammaticalCase: function (number, wordKey) {
+            return number === 1 ? wordKey[0] : (number >= 2 && number <= 4 ? wordKey[1] : wordKey[2]);
+        },
+        translate: function (number, withoutSuffix, key) {
+            var wordKey = me__translator.words[key];
+            if (key.length === 1) {
+                return withoutSuffix ? wordKey[0] : wordKey[1];
+            } else {
+                return number + ' ' + me__translator.correctGrammaticalCase(number, wordKey);
+            }
+        }
+    };
+
+    var me = _moment__default.defineLocale('me', {
+        months: ['januar', 'februar', 'mart', 'april', 'maj', 'jun', 'jul', 'avgust', 'septembar', 'oktobar', 'novembar', 'decembar'],
+        monthsShort: ['jan.', 'feb.', 'mar.', 'apr.', 'maj', 'jun', 'jul', 'avg.', 'sep.', 'okt.', 'nov.', 'dec.'],
+        weekdays: ['nedjelja', 'ponedjeljak', 'utorak', 'srijeda', 'četvrtak', 'petak', 'subota'],
+        weekdaysShort: ['ned.', 'pon.', 'uto.', 'sri.', 'čet.', 'pet.', 'sub.'],
+        weekdaysMin: ['ne', 'po', 'ut', 'sr', 'če', 'pe', 'su'],
+        longDateFormat: {
+            LT: 'H:mm',
+            LTS : 'LT:ss',
+            L: 'DD. MM. YYYY',
+            LL: 'D. MMMM YYYY',
+            LLL: 'D. MMMM YYYY LT',
+            LLLL: 'dddd, D. MMMM YYYY LT'
+        },
+        calendar: {
+            sameDay: '[danas u] LT',
+            nextDay: '[sjutra u] LT',
+
+            nextWeek: function () {
+                switch (this.day()) {
+                case 0:
+                    return '[u] [nedjelju] [u] LT';
+                case 3:
+                    return '[u] [srijedu] [u] LT';
+                case 6:
+                    return '[u] [subotu] [u] LT';
+                case 1:
+                case 2:
+                case 4:
+                case 5:
+                    return '[u] dddd [u] LT';
+                }
+            },
+            lastDay  : '[juče u] LT',
+            lastWeek : function () {
+                var lastWeekDays = [
+                    '[prošle] [nedjelje] [u] LT',
+                    '[prošlog] [ponedjeljka] [u] LT',
+                    '[prošlog] [utorka] [u] LT',
+                    '[prošle] [srijede] [u] LT',
+                    '[prošlog] [četvrtka] [u] LT',
+                    '[prošlog] [petka] [u] LT',
+                    '[prošle] [subote] [u] LT'
+                ];
+                return lastWeekDays[this.day()];
+            },
+            sameElse : 'L'
+        },
+        relativeTime : {
+            future : 'za %s',
+            past   : 'prije %s',
+            s      : 'nekoliko sekundi',
+            m      : me__translator.translate,
+            mm     : me__translator.translate,
+            h      : me__translator.translate,
+            hh     : me__translator.translate,
+            d      : 'dan',
+            dd     : me__translator.translate,
+            M      : 'mjesec',
+            MM     : me__translator.translate,
+            y      : 'godinu',
+            yy     : me__translator.translate
+        },
+        ordinalParse: /\d{1,2}\./,
+        ordinal : '%d.',
+        week : {
+            dow : 1, // Monday is the first day of the week.
+            doy : 7  // The week that contains Jan 1st is the first week of the year.
         }
     });
 
@@ -7312,8 +7527,9 @@
         months: 'ဇန်နဝါရီ_ဖေဖော်ဝါရီ_မတ်_ဧပြီ_မေ_ဇွန်_ဇူလိုင်_သြဂုတ်_စက်တင်ဘာ_အောက်တိုဘာ_နိုဝင်ဘာ_ဒီဇင်ဘာ'.split('_'),
         monthsShort: 'ဇန်_ဖေ_မတ်_ပြီ_မေ_ဇွန်_လိုင်_သြ_စက်_အောက်_နို_ဒီ'.split('_'),
         weekdays: 'တနင်္ဂနွေ_တနင်္လာ_အင်္ဂါ_ဗုဒ္ဓဟူး_ကြာသပတေး_သောကြာ_စနေ'.split('_'),
-        weekdaysShort: 'နွေ_လာ_င်္ဂါ_ဟူး_ကြာ_သော_နေ'.split('_'),
-        weekdaysMin: 'နွေ_လာ_င်္ဂါ_ဟူး_ကြာ_သော_နေ'.split('_'),
+        weekdaysShort: 'နွေ_လာ_ဂါ_ဟူး_ကြာ_သော_နေ'.split('_'),
+        weekdaysMin: 'နွေ_လာ_ဂါ_ဟူး_ကြာ_သော_နေ'.split('_'),
+
         longDateFormat: {
             LT: 'HH:mm',
             LTS: 'HH:mm:ss',
@@ -7661,7 +7877,12 @@
 
     var pl = _moment__default.defineLocale('pl', {
         months : function (momentToFormat, format) {
-            if (/D MMMM/.test(format)) {
+            if (format === '') {
+                // Hack: if format empty we know this is used to generate
+                // RegExp by moment. Give then back both valid forms of months
+                // in RegExp ready format.
+                return '(' + monthsSubjective[momentToFormat.month()] + '|' + monthsNominative[momentToFormat.month()] + ')';
+            } else if (/D MMMM/.test(format)) {
                 return monthsSubjective[momentToFormat.month()];
             } else {
                 return monthsNominative[momentToFormat.month()];
@@ -7726,11 +7947,11 @@
     //! author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 
     var pt_br = _moment__default.defineLocale('pt-br', {
-        months : 'janeiro_fevereiro_março_abril_maio_junho_julho_agosto_setembro_outubro_novembro_dezembro'.split('_'),
-        monthsShort : 'jan_fev_mar_abr_mai_jun_jul_ago_set_out_nov_dez'.split('_'),
-        weekdays : 'domingo_segunda-feira_terça-feira_quarta-feira_quinta-feira_sexta-feira_sábado'.split('_'),
-        weekdaysShort : 'dom_seg_ter_qua_qui_sex_sáb'.split('_'),
-        weekdaysMin : 'dom_2ª_3ª_4ª_5ª_6ª_sáb'.split('_'),
+        months : 'Janeiro_Fevereiro_Março_Abril_Maio_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro'.split('_'),
+        monthsShort : 'Jan_Fev_Mar_Abr_Mai_Jun_Jul_Ago_Set_Out_Nov_Dez'.split('_'),
+        weekdays : 'Domingo_Segunda-Feira_Terça-Feira_Quarta-Feira_Quinta-Feira_Sexta-Feira_Sábado'.split('_'),
+        weekdaysShort : 'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'),
+        weekdaysMin : 'Dom_2ª_3ª_4ª_5ª_6ª_Sáb'.split('_'),
         longDateFormat : {
             LT : 'HH:mm',
             LTS : 'LT:ss',
@@ -7775,11 +7996,11 @@
     //! author : Jefferson : https://github.com/jalex79
 
     var pt = _moment__default.defineLocale('pt', {
-        months : 'janeiro_fevereiro_março_abril_maio_junho_julho_agosto_setembro_outubro_novembro_dezembro'.split('_'),
-        monthsShort : 'jan_fev_mar_abr_mai_jun_jul_ago_set_out_nov_dez'.split('_'),
-        weekdays : 'domingo_segunda-feira_terça-feira_quarta-feira_quinta-feira_sexta-feira_sábado'.split('_'),
-        weekdaysShort : 'dom_seg_ter_qua_qui_sex_sáb'.split('_'),
-        weekdaysMin : 'dom_2ª_3ª_4ª_5ª_6ª_sáb'.split('_'),
+        months : 'Janeiro_Fevereiro_Março_Abril_Maio_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro'.split('_'),
+        monthsShort : 'Jan_Fev_Mar_Abr_Mai_Jun_Jul_Ago_Set_Out_Nov_Dez'.split('_'),
+        weekdays : 'Domingo_Segunda-Feira_Terça-Feira_Quarta-Feira_Quinta-Feira_Sexta-Feira_Sábado'.split('_'),
+        weekdaysShort : 'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'),
+        weekdaysMin : 'Dom_2ª_3ª_4ª_5ª_6ª_Sáb'.split('_'),
         longDateFormat : {
             LT : 'HH:mm',
             LTS : 'LT:ss',
@@ -8040,6 +8261,60 @@
     });
 
     //! moment.js locale configuration
+    //! locale : Sinhalese (si)
+    //! author : Sampath Sitinamaluwa : https://github.com/sampathsris
+
+    var si = _moment__default.defineLocale('si', {
+        months : 'ජනවාරි_පෙබරවාරි_මාර්තු_අප්‍රේල්_මැයි_ජූනි_ජූලි_අගෝස්තු_සැප්තැම්බර්_ඔක්තෝබර්_නොවැම්බර්_දෙසැම්බර්'.split('_'),
+        monthsShort : 'ජන_පෙබ_මාර්_අප්_මැයි_ජූනි_ජූලි_අගෝ_සැප්_ඔක්_නොවැ_දෙසැ'.split('_'),
+        weekdays : 'ඉරිදා_සඳුදා_අඟහරුවාදා_බදාදා_බ්‍රහස්පතින්දා_සිකුරාදා_සෙනසුරාදා'.split('_'),
+        weekdaysShort : 'ඉරි_සඳු_අඟ_බදා_බ්‍රහ_සිකු_සෙන'.split('_'),
+        weekdaysMin : 'ඉ_ස_අ_බ_බ්‍ර_සි_සෙ'.split('_'),
+        longDateFormat : {
+            LT : 'a h:mm',
+            LTS : 'a h:mm:ss',
+            L : 'YYYY/MM/DD',
+            LL : 'YYYY MMMM D',
+            LLL : 'YYYY MMMM D, LT',
+            LLLL : 'YYYY MMMM D [වැනි] dddd, LTS'
+        },
+        calendar : {
+            sameDay : '[අද] LT[ට]',
+            nextDay : '[හෙට] LT[ට]',
+            nextWeek : 'dddd LT[ට]',
+            lastDay : '[ඊයේ] LT[ට]',
+            lastWeek : '[පසුගිය] dddd LT[ට]',
+            sameElse : 'L'
+        },
+        relativeTime : {
+            future : '%sකින්',
+            past : '%sකට පෙර',
+            s : 'තත්පර කිහිපය',
+            m : 'මිනිත්තුව',
+            mm : 'මිනිත්තු %d',
+            h : 'පැය',
+            hh : 'පැය %d',
+            d : 'දිනය',
+            dd : 'දින %d',
+            M : 'මාසය',
+            MM : 'මාස %d',
+            y : 'වසර',
+            yy : 'වසර %d'
+        },
+        ordinalParse: /\d{1,2} වැනි/,
+        ordinal : function (number) {
+            return number + ' වැනි';
+        },
+        meridiem : function (hours, minutes, isLower) {
+            if (hours > 11) {
+                return isLower ? 'ප.ව.' : 'පස් වරු';
+            } else {
+                return isLower ? 'පෙ.ව.' : 'පෙර වරු';
+            }
+        }
+    });
+
+    //! moment.js locale configuration
     //! locale : slovak (sk)
     //! author : Martin Minka : https://github.com/k2s
     //! based on work of petrbela : https://github.com/petrbela
@@ -8190,62 +8465,72 @@
     //! locale : slovenian (sl)
     //! author : Robert Sedovšek : https://github.com/sedovsek
 
-    function sl__translate(number, withoutSuffix, key) {
+    function sl__processRelativeTime(number, withoutSuffix, key, isFuture) {
         var result = number + ' ';
         switch (key) {
+        case 's':
+            return withoutSuffix || isFuture ? 'nekaj sekund' : 'nekaj sekundami';
         case 'm':
             return withoutSuffix ? 'ena minuta' : 'eno minuto';
         case 'mm':
             if (number === 1) {
-                result += 'minuta';
+                result += withoutSuffix ? 'minuta' : 'minuto';
             } else if (number === 2) {
-                result += 'minuti';
-            } else if (number === 3 || number === 4) {
-                result += 'minute';
+                result += withoutSuffix || isFuture ? 'minuti' : 'minutama';
+            } else if (number < 5) {
+                result += withoutSuffix || isFuture ? 'minute' : 'minutami';
             } else {
-                result += 'minut';
+                result += withoutSuffix || isFuture ? 'minut' : 'minutami';
             }
             return result;
         case 'h':
             return withoutSuffix ? 'ena ura' : 'eno uro';
         case 'hh':
             if (number === 1) {
-                result += 'ura';
+                result += withoutSuffix ? 'ura' : 'uro';
             } else if (number === 2) {
-                result += 'uri';
-            } else if (number === 3 || number === 4) {
-                result += 'ure';
+                result += withoutSuffix || isFuture ? 'uri' : 'urama';
+            } else if (number < 5) {
+                result += withoutSuffix || isFuture ? 'ure' : 'urami';
             } else {
-                result += 'ur';
+                result += withoutSuffix || isFuture ? 'ur' : 'urami';
             }
             return result;
+        case 'd':
+            return withoutSuffix || isFuture ? 'en dan' : 'enim dnem';
         case 'dd':
             if (number === 1) {
-                result += 'dan';
+                result += withoutSuffix || isFuture ? 'dan' : 'dnem';
+            } else if (number === 2) {
+                result += withoutSuffix || isFuture ? 'dni' : 'dnevoma';
             } else {
-                result += 'dni';
+                result += withoutSuffix || isFuture ? 'dni' : 'dnevi';
             }
             return result;
+        case 'M':
+            return withoutSuffix || isFuture ? 'en mesec' : 'enim mesecem';
         case 'MM':
             if (number === 1) {
-                result += 'mesec';
+                result += withoutSuffix || isFuture ? 'mesec' : 'mesecem';
             } else if (number === 2) {
-                result += 'meseca';
-            } else if (number === 3 || number === 4) {
-                result += 'mesece';
+                result += withoutSuffix || isFuture ? 'meseca' : 'mesecema';
+            } else if (number < 5) {
+                result += withoutSuffix || isFuture ? 'mesece' : 'meseci';
             } else {
-                result += 'mesecev';
+                result += withoutSuffix || isFuture ? 'mesecev' : 'meseci';
             }
             return result;
+        case 'y':
+            return withoutSuffix || isFuture ? 'eno leto' : 'enim letom';
         case 'yy':
             if (number === 1) {
-                result += 'leto';
+                result += withoutSuffix || isFuture ? 'leto' : 'letom';
             } else if (number === 2) {
-                result += 'leti';
-            } else if (number === 3 || number === 4) {
-                result += 'leta';
+                result += withoutSuffix || isFuture ? 'leti' : 'letoma';
+            } else if (number < 5) {
+                result += withoutSuffix || isFuture ? 'leta' : 'leti';
             } else {
-                result += 'let';
+                result += withoutSuffix || isFuture ? 'let' : 'leti';
             }
             return result;
         }
@@ -8268,6 +8553,7 @@
         calendar : {
             sameDay  : '[danes ob] LT',
             nextDay  : '[jutri ob] LT',
+
             nextWeek : function () {
                 switch (this.day()) {
                 case 0:
@@ -8287,9 +8573,11 @@
             lastWeek : function () {
                 switch (this.day()) {
                 case 0:
+                    return '[prejšnjo] [nedeljo] [ob] LT';
                 case 3:
+                    return '[prejšnjo] [sredo] [ob] LT';
                 case 6:
-                    return '[prejšnja] dddd [ob] LT';
+                    return '[prejšnjo] [soboto] [ob] LT';
                 case 1:
                 case 2:
                 case 4:
@@ -8301,18 +8589,18 @@
         },
         relativeTime : {
             future : 'čez %s',
-            past   : '%s nazaj',
-            s      : 'nekaj sekund',
-            m      : sl__translate,
-            mm     : sl__translate,
-            h      : sl__translate,
-            hh     : sl__translate,
-            d      : 'en dan',
-            dd     : sl__translate,
-            M      : 'en mesec',
-            MM     : sl__translate,
-            y      : 'eno leto',
-            yy     : sl__translate
+            past   : 'pred %s',
+            s      : sl__processRelativeTime,
+            m      : sl__processRelativeTime,
+            mm     : sl__processRelativeTime,
+            h      : sl__processRelativeTime,
+            hh     : sl__processRelativeTime,
+            d      : sl__processRelativeTime,
+            dd     : sl__processRelativeTime,
+            M      : sl__processRelativeTime,
+            MM     : sl__processRelativeTime,
+            y      : sl__processRelativeTime,
+            yy     : sl__processRelativeTime
         },
         ordinalParse: /\d{1,2}\./,
         ordinal : '%d.',
@@ -8596,8 +8884,8 @@
             sameDay: '[Idag] LT',
             nextDay: '[Imorgon] LT',
             lastDay: '[Igår] LT',
-            nextWeek: 'dddd LT',
-            lastWeek: '[Förra] dddd[en] LT',
+            nextWeek: '[På] dddd LT',
+            lastWeek: '[I] dddd[s] LT',
             sameElse: 'L'
         },
         relativeTime : {
@@ -9248,7 +9536,7 @@
         weekdaysShort : '周日_周一_周二_周三_周四_周五_周六'.split('_'),
         weekdaysMin : '日_一_二_三_四_五_六'.split('_'),
         longDateFormat : {
-            LT : 'Ah点mm',
+            LT : 'Ah点mm分',
             LTS : 'Ah点m分s秒',
             L : 'YYYY-MM-DD',
             LL : 'YYYY年MMMD日',
@@ -9334,16 +9622,16 @@
             future : '%s内',
             past : '%s前',
             s : '几秒',
-            m : '1分钟',
-            mm : '%d分钟',
-            h : '1小时',
-            hh : '%d小时',
-            d : '1天',
-            dd : '%d天',
-            M : '1个月',
-            MM : '%d个月',
-            y : '1年',
-            yy : '%d年'
+            m : '1 分钟',
+            mm : '%d 分钟',
+            h : '1 小时',
+            hh : '%d 小时',
+            d : '1 天',
+            dd : '%d 天',
+            M : '1 个月',
+            MM : '%d 个月',
+            y : '1 年',
+            yy : '%d 年'
         },
         week : {
             // GB/T 7408-1994《数据元和交换格式·信息交换·日期和时间表示法》与ISO 8601:1988等效
@@ -9363,7 +9651,7 @@
         weekdaysShort : '週日_週一_週二_週三_週四_週五_週六'.split('_'),
         weekdaysMin : '日_一_二_三_四_五_六'.split('_'),
         longDateFormat : {
-            LT : 'Ah點mm',
+            LT : 'Ah點mm分',
             LTS : 'Ah點m分s秒',
             L : 'YYYY年MMMD日',
             LL : 'YYYY年MMMD日',

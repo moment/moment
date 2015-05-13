@@ -34,7 +34,12 @@
 
     var pl = moment.defineLocale('pl', {
         months : function (momentToFormat, format) {
-            if (/D MMMM/.test(format)) {
+            if (format === '') {
+                // Hack: if format empty we know this is used to generate
+                // RegExp by moment. Give then back both valid forms of months
+                // in RegExp ready format.
+                return '(' + monthsSubjective[momentToFormat.month()] + '|' + monthsNominative[momentToFormat.month()] + ')';
+            } else if (/D MMMM/.test(format)) {
                 return monthsSubjective[momentToFormat.month()];
             } else {
                 return monthsNominative[momentToFormat.month()];

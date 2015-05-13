@@ -1,6 +1,7 @@
 //! moment.js locale configuration
 //! locale : latvian (lv)
 //! author : Kristaps Karlsons : https://github.com/skakri
+//! author : Jānis Elmeris : https://github.com/JanisE
 
 (function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
@@ -10,22 +11,38 @@
 
 
     var units = {
-        'mm': 'minūti_minūtes_minūte_minūtes',
-        'hh': 'stundu_stundas_stunda_stundas',
-        'dd': 'dienu_dienas_diena_dienas',
-        'MM': 'mēnesi_mēnešus_mēnesis_mēneši',
-        'yy': 'gadu_gadus_gads_gadi'
+        'm': 'minūtes_minūtēm_minūte_minūtes'.split('_'),
+        'mm': 'minūtes_minūtēm_minūte_minūtes'.split('_'),
+        'h': 'stundas_stundām_stunda_stundas'.split('_'),
+        'hh': 'stundas_stundām_stunda_stundas'.split('_'),
+        'd': 'dienas_dienām_diena_dienas'.split('_'),
+        'dd': 'dienas_dienām_diena_dienas'.split('_'),
+        'M': 'mēneša_mēnešiem_mēnesis_mēneši'.split('_'),
+        'MM': 'mēneša_mēnešiem_mēnesis_mēneši'.split('_'),
+        'y': 'gada_gadiem_gads_gadi'.split('_'),
+        'yy': 'gada_gadiem_gads_gadi'.split('_')
     };
-    function format(word, number, withoutSuffix) {
-        var forms = word.split('_');
+    /**
+     * @param withoutSuffix boolean true = a length of time; false = before/after a period of time.
+     */
+    function format(forms, number, withoutSuffix) {
         if (withoutSuffix) {
+            // E.g. "21 minūte", "3 minūtes".
             return number % 10 === 1 && number !== 11 ? forms[2] : forms[3];
         } else {
+            // E.g. "21 minūtes" as in "pēc 21 minūtes".
+            // E.g. "3 minūtēm" as in "pēc 3 minūtēm".
             return number % 10 === 1 && number !== 11 ? forms[0] : forms[1];
         }
     }
     function relativeTimeWithPlural(number, withoutSuffix, key) {
         return number + ' ' + format(units[key], number, withoutSuffix);
+    }
+    function relativeTimeWithSingular(number, withoutSuffix, key) {
+        return format(units[key], number, withoutSuffix);
+    }
+    function relativeSeconds(number, withoutSuffix) {
+        return withoutSuffix ? 'dažas sekundes' : 'dažām sekundēm';
     }
 
     var lv = moment.defineLocale('lv', {
@@ -37,7 +54,7 @@
         longDateFormat : {
             LT : 'HH:mm',
             LTS : 'LT:ss',
-            L : 'DD.MM.YYYY',
+            L : 'DD.MM.YYYY.',
             LL : 'YYYY. [gada] D. MMMM',
             LLL : 'YYYY. [gada] D. MMMM, LT',
             LLLL : 'YYYY. [gada] D. MMMM, dddd, LT'
@@ -51,18 +68,18 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : '%s vēlāk',
-            past : '%s agrāk',
-            s : 'dažas sekundes',
-            m : 'minūti',
+            future : 'pēc %s',
+            past : 'pirms %s',
+            s : relativeSeconds,
+            m : relativeTimeWithSingular,
             mm : relativeTimeWithPlural,
-            h : 'stundu',
+            h : relativeTimeWithSingular,
             hh : relativeTimeWithPlural,
-            d : 'dienu',
+            d : relativeTimeWithSingular,
             dd : relativeTimeWithPlural,
-            M : 'mēnesi',
+            M : relativeTimeWithSingular,
             MM : relativeTimeWithPlural,
-            y : 'gadu',
+            y : relativeTimeWithSingular,
             yy : relativeTimeWithPlural
         },
         ordinalParse: /\d{1,2}\./,
