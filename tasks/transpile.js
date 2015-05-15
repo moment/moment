@@ -142,6 +142,7 @@ module.exports = function (grunt) {
             }
             code = code.replace(getDefaultRegExp, '');
             code = code.replace('var moment_with_locales = ' + crap[1], 'var moment_with_locales = ' + crap[2]);
+            code = code.replace('var moment_with_locales_custom = ' + crap[1], 'var moment_with_locales_custom = ' + crap[2]);
             if (code.match('get default')) {
                 grunt.file.write('/tmp/crap.js', code);
                 throw new Error('Stupid shit es6 get default plaguing the code, check /tmp/crap.js');
