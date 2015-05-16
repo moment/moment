@@ -67,7 +67,6 @@ export function cloneWithOffset(input, model) {
     } else {
         return createLocal(input).local();
     }
-    return model._isUTC ? createLocal(input).zone(model._offset || 0) : createLocal(input).local();
 }
 
 function getDateOffset (m) {
