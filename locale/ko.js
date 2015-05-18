@@ -33,7 +33,7 @@
             nextDay : '내일 LT',
             nextWeek : 'dddd LT',
             lastDay : '어제 LT',
-            lastWeek : '지난 주 dddd LT',
+            lastWeek : '지난주 dddd LT',
             sameElse : 'L'
         },
         relativeTime : {
@@ -45,9 +45,9 @@
             mm : '%d분',
             h : '1시간',
             hh : '%d시간',
-            d : '하루',
+            d : '1일',
             dd : '%d일',
-            M : '한 달',
+            M : '1달',
             MM : '%d개월',
             y : '1년',
             yy : '%d년'
