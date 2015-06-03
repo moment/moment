@@ -33,11 +33,7 @@
     "bugs": {
         "url": "https://github.com/moment/moment/issues"
     },
-    "licenses": [
-        {
-            "type": "MIT"
-        }
-    ],
+    "license": "MIT",
     "devDependencies": {
         "uglify-js": "latest",
         "es6-promise": "latest",
