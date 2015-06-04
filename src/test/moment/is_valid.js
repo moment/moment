@@ -126,8 +126,10 @@ test('valid string iso 8601 + timezone', function (assert) {
     ], i;
 
     for (i = 0; i < tests.length; i++) {
-        assert.equal(moment(tests[i]).isValid(), true, tests[i] + ' should be valid');
-        assert.equal(moment.utc(tests[i]).isValid(), true, tests[i] + ' should be valid');
+        assert.equal(moment(tests[i]).isValid(), true, tests[i] + ' should be valid in normal');
+        assert.equal(moment.utc(tests[i]).isValid(), true, tests[i] + ' should be valid in normal');
+        assert.equal(moment(tests[i], moment.ISO_8601, true).isValid(), true, tests[i] + ' should be valid in strict');
+        assert.equal(moment.utc(tests[i], moment.ISO_8601, true).isValid(), true, tests[i] + ' should be valid in strict');
     }
 });
 
