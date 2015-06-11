@@ -41,9 +41,9 @@ export default moment.defineLocale('fr-ca', {
         y : 'un an',
         yy : '%d ans'
     },
-    ordinalParse: /\d{1,2}(er|)/,
+    ordinalParse: /\d{1,2}(er|e)/,
     ordinal : function (number) {
-        return number + (number === 1 ? 'er' : '');
+        return number + (number === 1 ? 'er' : 'e');
     }
 });
 
