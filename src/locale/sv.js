@@ -12,11 +12,11 @@ export default moment.defineLocale('sv', {
     weekdaysMin : 'sö_må_ti_on_to_fr_lö'.split('_'),
     longDateFormat : {
         LT : 'HH:mm',
-        LTS : 'LT:ss',
+        LTS : 'HH:mm:ss',
         L : 'YYYY-MM-DD',
         LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY LT',
-        LLLL : 'dddd D MMMM YYYY LT'
+        LLL : 'D MMMM YYYY HH:mm',
+        LLLL : 'dddd D MMMM YYYY HH:mm'
     },
     calendar : {
         sameDay: '[Idag] LT',

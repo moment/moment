@@ -36,11 +36,11 @@ export default moment.defineLocale('fa', {
     weekdaysMin : 'ی_د_س_چ_پ_ج_ش'.split('_'),
     longDateFormat : {
         LT : 'HH:mm',
-        LTS : 'LT:ss',
+        LTS : 'HH:mm:ss',
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY LT',
-        LLLL : 'dddd, D MMMM YYYY LT'
+        LLL : 'D MMMM YYYY HH:mm',
+        LLLL : 'dddd, D MMMM YYYY HH:mm'
     },
     meridiemParse: /قبل از ظهر|بعد از ظهر/,
     isPM: function (input) {

@@ -79,11 +79,11 @@ export default moment.defineLocale('is', {
     weekdaysMin : 'Su_Má_Þr_Mi_Fi_Fö_La'.split('_'),
     longDateFormat : {
         LT : 'H:mm',
-        LTS : 'LT:ss',
+        LTS : 'H:mm:ss',
         L : 'DD/MM/YYYY',
         LL : 'D. MMMM YYYY',
-        LLL : 'D. MMMM YYYY [kl.] LT',
-        LLLL : 'dddd, D. MMMM YYYY [kl.] LT'
+        LLL : 'D. MMMM YYYY [kl.] H:mm',
+        LLLL : 'dddd, D. MMMM YYYY [kl.] H:mm'
     },
     calendar : {
         sameDay : '[í dag kl.] LT',
