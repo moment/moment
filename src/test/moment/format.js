@@ -349,6 +349,6 @@ test('full expanded format is returned from abbreviated formats', function(asser
                 assert.equal(false, !!~format.indexOf(token), 'locale ' + locale + ' contains ' + token + ' in ' + i);
             });
         });
-    })
+    });
 
 });
