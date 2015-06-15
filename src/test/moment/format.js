@@ -325,7 +325,7 @@ test('quarter formats', function (assert) {
     assert.equal(moment([2000, 0,  2]).format('[Q]Q-YYYY'), 'Q1-2000', 'Jan  2 2000 is Q1');
 });
 
-test('full expanded format is returned from abbreviated formats', function(assert){
+test('full expanded format is returned from abbreviated formats', function (assert) {
     var locales = '';
 
     locales += 'af ar-ma ar-sa ar-tn ar az be bg bn bo br bs';
@@ -336,19 +336,18 @@ test('full expanded format is returned from abbreviated formats', function(asser
     locales += 'ro ru si sk sl sq sr-cyrl  sr sv ta th tl-ph';
     locales += 'tr tzm-latn tzm   uk uz vi zh-cn zh-tw';
 
-    locales.split(' ').forEach(function(locale) {
+    locales.split(' ').forEach(function (locale) {
         var data, tokens;
         data = moment().locale(locale).localeData()._longDateFormat;
         tokens = Object.keys(data);
-        tokens.forEach(function(token){
+        tokens.forEach(function (token) {
             // Check each format string to make sure it does not contain any
             // tokens that need to be expanded.
-            tokens.forEach(function(i){
+            tokens.forEach(function (i) {
                 // strip escaped sequences
                 var format = data[i].replace(/(\[[^\]]*\])/g, '');
                 assert.equal(false, !!~format.indexOf(token), 'locale ' + locale + ' contains ' + token + ' in ' + i);
             });
         });
     });
-
 });
