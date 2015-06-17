@@ -1,7 +1,7 @@
 import { createLocal } from '../create/local';
 import { cloneWithOffset } from '../units/offset';
 
-export function calendar (time) {
+export function calendar (time, formats) {
     // We want to compare the start of today, vs this.
     // Getting start-of-today depends on whether we're local/utc/offset or not.
     var now = time || createLocal(),
@@ -13,5 +13,5 @@ export function calendar (time) {
             diff < 1 ? 'sameDay' :
             diff < 2 ? 'nextDay' :
             diff < 7 ? 'nextWeek' : 'sameElse';
-    return this.format(this.localeData().calendar(format, this, createLocal(now)));
+    return this.format(formats && formats[format] || this.localeData().calendar(format, this, createLocal(now)));
 }
