@@ -12,11 +12,11 @@ export default moment.defineLocale('gl', {
     weekdaysMin : 'Do_Lu_Ma_Mé_Xo_Ve_Sá'.split('_'),
     longDateFormat : {
         LT : 'H:mm',
-        LTS : 'LT:ss',
+        LTS : 'H:mm:ss',
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY LT',
-        LLLL : 'dddd D MMMM YYYY LT'
+        LLL : 'D MMMM YYYY H:mm',
+        LLLL : 'dddd D MMMM YYYY H:mm'
     },
     calendar : {
         sameDay : function () {
