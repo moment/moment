@@ -12,7 +12,7 @@
     function processRelativeTime(number, withoutSuffix, key, isFuture) {
         var format = {
             'm': ['minuutti', 'minuutin'],
-            'mm': [number + ' minuutin', number + ' minuuttia'],
+            'mm': [number + ' minuuttia', number + ' minuutin'],
             'h': ['tunti', 'tunnin'],
             'hh': [number + ' tuntia', number + ' tunnin'],
             'd': ['päivä', 'päivän'],
