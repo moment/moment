@@ -54,7 +54,7 @@
         relativeTime : {
             future : '%s päästä',
             past : '%s sitten',
-            s : 'juuri nyt',
+            s : 'hetki',
             m : processRelativeTime,
             mm : processRelativeTime,
             h : processRelativeTime,
