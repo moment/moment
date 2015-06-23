@@ -141,7 +141,15 @@ module.exports = function (grunt) {
                 throw new Error('Failed to detect get default crap, check /tmp/crap.js');
             }
             code = code.replace(getDefaultRegExp, '');
-            code = code.replace('var moment_with_locales = ' + crap[1], 'var moment_with_locales = ' + crap[2]);
+
+            var buildExportVars = ['moment_with_locales', 'moment_with_locales_custom'];
+            buildExportVars.forEach(function (buildExportVar) {
+                var languageReset = buildExportVar  + '.locale(\'en\');';
+                code = code.replace('var ' + buildExportVar + ' = ' + crap[1] + ';',
+                                    'var ' + buildExportVar + ' = ' + crap[2] + ';\n' +
+                                    '    ' + languageReset);
+            });
+
             if (code.match('get default')) {
                 grunt.file.write('/tmp/crap.js', code);
                 throw new Error('Stupid shit es6 get default plaguing the code, check /tmp/crap.js');
