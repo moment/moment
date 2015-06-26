@@ -162,3 +162,16 @@ test('is after millisecond', function (assert) {
     assert.equal(m.isAfter(m, 'millisecond'), false, 'same moments are not after the same millisecond');
     assert.equal(+m, +mCopy, 'isAfter millisecond should not change moment');
 });
+
+test('is after invalid', function (assert) {
+    var m = moment(), invalid = moment.invalid();
+    assert.equal(m.isAfter(invalid), false, 'valid moment is not after invalid moment');
+    assert.equal(invalid.isAfter(m), false, 'invalid moment is not after valid moment');
+    assert.equal(m.isAfter(invalid, 'year'), false, 'invalid moment year');
+    assert.equal(m.isAfter(invalid, 'month'), false, 'invalid moment month');
+    assert.equal(m.isAfter(invalid, 'day'), false, 'invalid moment day');
+    assert.equal(m.isAfter(invalid, 'hour'), false, 'invalid moment hour');
+    assert.equal(m.isAfter(invalid, 'minute'), false, 'invalid moment minute');
+    assert.equal(m.isAfter(invalid, 'second'), false, 'invalid moment second');
+    assert.equal(m.isAfter(invalid, 'milliseconds'), false, 'invalid moment milliseconds');
+});
