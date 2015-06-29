@@ -1,4 +1,7 @@
 export function valueOf () {
+    if (!this.isValid()) {
+        return NaN;
+    }
     return +this._d - ((this._offset || 0) * 60000);
 }
 
