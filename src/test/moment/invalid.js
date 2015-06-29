@@ -25,3 +25,11 @@ test('invalid with custom flag', function (assert) {
     assert.equal(m.parsingFlags().tooBusyWith, 'reiculating splines');
     assert.ok(isNaN(m.valueOf()));
 });
+
+test('invalid with valid date', function (assert) {
+    var m = moment.invalid();
+    m._d = new Date();
+    assert.equal(m.isValid(), false);
+    assert.equal(m.parsingFlags().userInvalidated, true);
+    assert.ok(isNaN(m.valueOf()));
+});
