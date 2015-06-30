@@ -310,6 +310,12 @@ test('calendar day timezone', function (assert) {
     assert.equal(moment(c).local().calendar(d), 'Tomorrow at 11:59 PM', 'Tomorrow at 11:59 PM, not Yesterday, or the wrong time');
 });
 
+test('calendar with custom formats', function (assert) {
+    assert.equal(moment().calendar(null, {sameDay: '[Today]'}), 'Today', 'Today');
+    assert.equal(moment().add(1, 'days').calendar(null, {nextDay: '[Tomorrow]'}), 'Tomorrow', 'Tomorrow');
+    assert.equal(moment([1985, 1, 4]).calendar(null, {sameElse: 'YYYY-MM-DD'}), '1985-02-04', 'Else');
+});
+
 test('invalid', function (assert) {
     assert.equal(moment.invalid().format(), 'Invalid date');
     assert.equal(moment.invalid().format('YYYY-MM-DD'), 'Invalid date');
@@ -323,4 +329,31 @@ test('quarter formats', function (assert) {
     assert.equal(moment([1970, 0,  2]).format('Q'), '1', 'Jan  2 1970 is Q1');
     assert.equal(moment([2001, 11, 12]).format('Q'), '4', 'Dec 12 2001 is Q4');
     assert.equal(moment([2000, 0,  2]).format('[Q]Q-YYYY'), 'Q1-2000', 'Jan  2 2000 is Q1');
+});
+
+test('full expanded format is returned from abbreviated formats', function (assert) {
+    var locales = '';
+
+    locales += 'af ar-ma ar-sa ar-tn ar az be bg bn bo br bs';
+    locales += 'ca cs cv cy da de-at de el en-au en-ca en-gb';
+    locales += 'en eo es et eu fa fi fo fr-ca fr fy gl he hi';
+    locales += 'hr hu hy-am id is it ja jv ka km ko lb lt lv';
+    locales += 'me mk ml mr ms-my my nb ne nl nn pl pt-rb pt';
+    locales += 'ro ru si sk sl sq sr-cyrl  sr sv ta th tl-ph';
+    locales += 'tr tzm-latn tzm   uk uz vi zh-cn zh-tw';
+
+    locales.split(' ').forEach(function (locale) {
+        var data, tokens;
+        data = moment().locale(locale).localeData()._longDateFormat;
+        tokens = Object.keys(data);
+        tokens.forEach(function (token) {
+            // Check each format string to make sure it does not contain any
+            // tokens that need to be expanded.
+            tokens.forEach(function (i) {
+                // strip escaped sequences
+                var format = data[i].replace(/(\[[^\]]*\])/g, '');
+                assert.equal(false, !!~format.indexOf(token), 'locale ' + locale + ' contains ' + token + ' in ' + i);
+            });
+        });
+    });
 });

@@ -55,7 +55,7 @@
         relativeTime : {
             future : '%s sonra',
             past : '%s əvvəl',
-            s : 'birneçə saniyyə',
+            s : 'bir neçə saniyə',
             m : 'bir dəqiqə',
             mm : '%d dəqiqə',
             h : 'bir saat',
