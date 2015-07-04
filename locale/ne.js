@@ -78,9 +78,9 @@
         meridiem : function (hour, minute, isLower) {
             if (hour < 3) {
                 return 'राति';
-            } else if (hour < 10) {
+            } else if (hour < 12) {
                 return 'बिहान';
-            } else if (hour < 15) {
+            } else if (hour < 16) {
                 return 'दिउँसो';
             } else if (hour < 20) {
                 return 'साँझ';
