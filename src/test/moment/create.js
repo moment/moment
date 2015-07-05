@@ -893,3 +893,15 @@ test('parsing invalid string weekdays', function (assert) {
     assert.equal(false, moment('a', 'dddd', true).isValid(),
             'dddd with invalid weekday, strict');
 });
+
+test('milliseconds', function (assert) {
+    assert.equal(moment('1', 'S').millisecond(), 100);
+    assert.equal(moment('12', 'SS').millisecond(), 120);
+    assert.equal(moment('123', 'SSS').millisecond(), 123);
+    assert.equal(moment('1234', 'SSSS').millisecond(), 123);
+    assert.equal(moment('12345', 'SSSSS').millisecond(), 123);
+    assert.equal(moment('123456', 'SSSSSS').millisecond(), 123);
+    assert.equal(moment('1234567', 'SSSSSSS').millisecond(), 123);
+    assert.equal(moment('12345678', 'SSSSSSSS').millisecond(), 123);
+    assert.equal(moment('123456789', 'SSSSSSSSS').millisecond(), 123);
+});
