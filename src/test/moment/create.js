@@ -872,3 +872,15 @@ test('array with strings', function (assert) {
 test('utc with array of formats', function (assert) {
     assert.equal(moment.utc('2014-01-01', ['YYYY-MM-DD', 'YYYY-MM']).format(), '2014-01-01T00:00:00+00:00', 'moment.utc works with array of formats');
 });
+
+test('milliseconds', function (assert) {
+    assert.equal(moment('1', 'S').millisecond(), 100);
+    assert.equal(moment('12', 'SS').millisecond(), 120);
+    assert.equal(moment('123', 'SSS').millisecond(), 123);
+    assert.equal(moment('1234', 'SSSS').millisecond(), 123);
+    assert.equal(moment('12345', 'SSSSS').millisecond(), 123);
+    assert.equal(moment('123456', 'SSSSSS').millisecond(), 123);
+    assert.equal(moment('1234567', 'SSSSSSS').millisecond(), 123);
+    assert.equal(moment('12345678', 'SSSSSSSS').millisecond(), 123);
+    assert.equal(moment('123456789', 'SSSSSSSSS').millisecond(), 123);
+});
