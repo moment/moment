@@ -220,7 +220,7 @@ test('instatiation from serialized C# TimeSpan maxValue', function (assert) {
 
     assert.equal(d.years(), 29227, '29227 years');
     assert.equal(d.months(), 8, '8 months');
-    assert.equal(d.days(), 17, '17 day');  // this should be 13
+    assert.equal(d.days(), 14, '14 day');  // this should be 13, maybe
 
     assert.equal(d.hours(), 2, '2 hours');
     assert.equal(d.minutes(), 48, '48 minutes');
@@ -233,7 +233,7 @@ test('instatiation from serialized C# TimeSpan minValue', function (assert) {
 
     assert.equal(d.years(), -29227, '29653 years');
     assert.equal(d.months(), -8, '8 day');
-    assert.equal(d.days(), -17, '17 day'); // this should be 13
+    assert.equal(d.days(), -14, '17 day'); // this should be 13, maybe
 
     assert.equal(d.hours(), -2, '2 hours');
     assert.equal(d.minutes(), -48, '48 minutes');
@@ -372,10 +372,10 @@ test('clipping', function (assert) {
 
     assert.equal(moment.duration({days: 29}).days(),   29, '29 days is 29 days');
     assert.equal(moment.duration({days: 29}).months(), 0,  '29 days makes no month');
-    assert.equal(moment.duration({days: 30}).days(),   0,  '30 days is 0 days left over');
-    assert.equal(moment.duration({days: 30}).months(), 1,  '30 days is a month');
-    assert.equal(moment.duration({days: 31}).days(),   1,  '31 days is 1 day left over');
+    assert.equal(moment.duration({days: 31}).days(),   0,  '31 days is 0 day left over');
     assert.equal(moment.duration({days: 31}).months(), 1,  '31 days is a month');
+    assert.equal(moment.duration({days: 32}).days(),   1,  '32 days is 1 days left over');
+    assert.equal(moment.duration({days: 32}).months(), 1,  '32 days is a month');
 
     assert.equal(moment.duration({hours: 23}).hours(), 23, '23 hours is 23 hours');
     assert.equal(moment.duration({hours: 23}).days(),  0,  '23 hours makes no day');
@@ -391,7 +391,7 @@ test('effective equivalency', function (assert) {
     assert.deepEqual(moment.duration({minutes: 60})._data, moment.duration({hours: 1})._data,           '1 hour is the same as 60 minutes');
     assert.deepEqual(moment.duration({hours: 24})._data,   moment.duration({days: 1})._data,            '1 day is the same as 24 hours');
     assert.deepEqual(moment.duration({days: 7})._data,     moment.duration({weeks: 1})._data,           '1 week is the same as 7 days');
-    assert.deepEqual(moment.duration({days: 30})._data,    moment.duration({months: 1})._data,          '1 month is the same as 30 days');
+    assert.deepEqual(moment.duration({days: 31})._data,    moment.duration({months: 1})._data,          '1 month is the same as 30 days');
     assert.deepEqual(moment.duration({months: 12})._data,  moment.duration({years: 1})._data,           '1 years is the same as 12 months');
 });
 
@@ -530,17 +530,53 @@ test('add', function (assert) {
 });
 
 test('add and bubble', function (assert) {
+    var d;
+
     assert.equal(moment.duration(1, 'second').add(1000, 'milliseconds').seconds(), 2, 'Adding milliseconds should bubble up to seconds');
     assert.equal(moment.duration(1, 'minute').add(60, 'second').minutes(), 2, 'Adding seconds should bubble up to minutes');
     assert.equal(moment.duration(1, 'hour').add(60, 'minutes').hours(), 2, 'Adding minutes should bubble up to hours');
     assert.equal(moment.duration(1, 'day').add(24, 'hours').days(), 2, 'Adding hours should bubble up to days');
+
+    d = moment.duration(-1, 'day').add(1, 'hour');
+    assert.equal(d.hours(), -23, '-1 day + 1 hour == -23 hour (component)');
+    assert.equal(d.asHours(), -23, '-1 day + 1 hour == -23 hours');
+
+    d = moment.duration(-1, 'year').add(1, 'day');
+    assert.equal(d.days(), -30, '- 1 year + 1 day == -30 days (component)');
+    assert.equal(d.months(), -11, '- 1 year + 1 day == -11 months (component)');
+    assert.equal(d.years(), 0, '- 1 year + 1 day == 0 years (component)');
+    assert.equal(d.asDays(), -364, '- 1 year + 1 day == -364 days');
+
+    d = moment.duration(-1, 'year').add(1, 'hour');
+    assert.equal(d.hours(), -23, '- 1 year + 1 hour == -23 hours (component)');
+    assert.equal(d.days(), -30, '- 1 year + 1 hour == -30 days (component)');
+    assert.equal(d.months(), -11, '- 1 year + 1 hour == -11 months (component)');
+    assert.equal(d.years(), 0, '- 1 year + 1 hour == 0 years (component)');
 });
 
 test('subtract and bubble', function (assert) {
+    var d;
+
     assert.equal(moment.duration(2, 'second').subtract(1000, 'milliseconds').seconds(), 1, 'Subtracting milliseconds should bubble up to seconds');
     assert.equal(moment.duration(2, 'minute').subtract(60, 'second').minutes(), 1, 'Subtracting seconds should bubble up to minutes');
     assert.equal(moment.duration(2, 'hour').subtract(60, 'minutes').hours(), 1, 'Subtracting minutes should bubble up to hours');
     assert.equal(moment.duration(2, 'day').subtract(24, 'hours').days(), 1, 'Subtracting hours should bubble up to days');
+
+    d = moment.duration(1, 'day').subtract(1, 'hour');
+    assert.equal(d.hours(), 23, '1 day - 1 hour == 23 hour (component)');
+    assert.equal(d.asHours(), 23, '1 day - 1 hour == 23 hours');
+
+    d = moment.duration(1, 'year').subtract(1, 'day');
+    assert.equal(d.days(), 30, '1 year - 1 day == 30 days (component)');
+    assert.equal(d.months(), 11, '1 year - 1 day == 11 months (component)');
+    assert.equal(d.years(), 0, '1 year - 1 day == 0 years (component)');
+    assert.equal(d.asDays(), 364, '1 year - 1 day == 364 days');
+
+    d = moment.duration(1, 'year').subtract(1, 'hour');
+    assert.equal(d.hours(), 23, '1 year - 1 hour == 23 hours (component)');
+    assert.equal(d.days(), 30, '1 year - 1 hour == 30 days (component)');
+    assert.equal(d.months(), 11, '1 year - 1 hour == 11 months (component)');
+    assert.equal(d.years(), 0, '1 year - 1 hour == 0 years (component)');
 });
 
 test('subtract', function (assert) {
