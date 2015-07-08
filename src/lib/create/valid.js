@@ -9,6 +9,7 @@ export function isValid(m) {
             flags.overflow < 0 &&
             !flags.empty &&
             !flags.invalidMonth &&
+            !flags.invalidWeekday &&
             !flags.nullInput &&
             !flags.invalidFormat &&
             !flags.userInvalidated;

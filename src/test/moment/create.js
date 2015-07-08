@@ -872,3 +872,18 @@ test('array with strings', function (assert) {
 test('utc with array of formats', function (assert) {
     assert.equal(moment.utc('2014-01-01', ['YYYY-MM-DD', 'YYYY-MM']).format(), '2014-01-01T00:00:00+00:00', 'moment.utc works with array of formats');
 });
+
+test('parsing invalid string weekdays', function (assert) {
+    assert.equal(false, moment('a', 'dd').isValid(),
+            'dd with invalid weekday, non-strict');
+    assert.equal(false, moment('a', 'dd', true).isValid(),
+            'dd with invalid weekday, strict');
+    assert.equal(false, moment('a', 'ddd').isValid(),
+            'ddd with invalid weekday, non-strict');
+    assert.equal(false, moment('a', 'ddd', true).isValid(),
+            'ddd with invalid weekday, strict');
+    assert.equal(false, moment('a', 'dddd').isValid(),
+            'dddd with invalid weekday, non-strict');
+    assert.equal(false, moment('a', 'dddd', true).isValid(),
+            'dddd with invalid weekday, strict');
+});
