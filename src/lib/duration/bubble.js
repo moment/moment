@@ -1,11 +1,21 @@
 import absFloor from '../utils/abs-floor';
+import { createUTCDate } from '../create/date-from-array';
 
 export function bubble () {
     var milliseconds = this._milliseconds;
     var days         = this._days;
     var months       = this._months;
     var data         = this._data;
-    var seconds, minutes, hours, years = 0;
+    var seconds, minutes, hours, years = 0, monthDaySplit, sign;
+
+    // if we have a mix of positive and negative values, bubble down first
+    // check: https://github.com/moment/moment/issues/2166
+    if (!((milliseconds >= 0 && days >= 0 && months >= 0) ||
+            (milliseconds <= 0 && days <= 0 && months <= 0))) {
+        milliseconds += absFloor(yearsToDays(months / 12) + days) * 864e5;
+        days = 0;
+        months = 0;
+    }
 
     // The following code bubbles up values, see the tests for
     // examples of what that means.
@@ -26,10 +36,13 @@ export function bubble () {
     years = absFloor(daysToYears(days));
     days -= absFloor(yearsToDays(years));
 
-    // 30 days to a month
-    // TODO (iskren): Use anchor date (like 1st Jan) to compute this.
-    months += absFloor(days / 30);
-    days   %= 30;
+    // Use Jan 1st 1970 as anchor.
+    if (days !== 0) {
+        monthDaySplit = createUTCDate(1970, 0, Math.abs(days) + 1);
+        sign = days < 0 ? -1 : 1;
+        months += sign * monthDaySplit.getUTCMonth();
+        days = sign * (monthDaySplit.getUTCDate() - 1);
+    }
 
     // 12 months -> 1 year
     years  += absFloor(months / 12);
