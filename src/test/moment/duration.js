@@ -220,7 +220,7 @@ test('instatiation from serialized C# TimeSpan maxValue', function (assert) {
 
     assert.equal(d.years(), 29227, '29227 years');
     assert.equal(d.months(), 8, '8 months');
-    assert.equal(d.days(), 14, '14 day');  // this should be 13, maybe
+    assert.equal(d.days(), 12, '12 day');  // if you have to change this value -- just do it
 
     assert.equal(d.hours(), 2, '2 hours');
     assert.equal(d.minutes(), 48, '48 minutes');
@@ -233,7 +233,7 @@ test('instatiation from serialized C# TimeSpan minValue', function (assert) {
 
     assert.equal(d.years(), -29227, '29653 years');
     assert.equal(d.months(), -8, '8 day');
-    assert.equal(d.days(), -14, '17 day'); // this should be 13, maybe
+    assert.equal(d.days(), -12, '12 day');  // if you have to change this value -- just do it
 
     assert.equal(d.hours(), -2, '2 hours');
     assert.equal(d.minutes(), -48, '48 minutes');
@@ -370,11 +370,11 @@ test('clipping', function (assert) {
     assert.equal(moment.duration({months: 13}).months(), 1,  '13 months is 1 month left over');
     assert.equal(moment.duration({months: 13}).years(),  1,  '13 months makes 1 year');
 
-    assert.equal(moment.duration({days: 29}).days(),   29, '29 days is 29 days');
-    assert.equal(moment.duration({days: 29}).months(), 0,  '29 days makes no month');
-    assert.equal(moment.duration({days: 31}).days(),   0,  '31 days is 0 day left over');
+    assert.equal(moment.duration({days: 30}).days(),   30, '30 days is 30 days');
+    assert.equal(moment.duration({days: 30}).months(), 0,  '30 days makes no month');
+    assert.equal(moment.duration({days: 31}).days(),   0,  '31 days is 0 days left over');
     assert.equal(moment.duration({days: 31}).months(), 1,  '31 days is a month');
-    assert.equal(moment.duration({days: 32}).days(),   1,  '32 days is 1 days left over');
+    assert.equal(moment.duration({days: 32}).days(),   1,  '32 days is 1 day left over');
     assert.equal(moment.duration({days: 32}).months(), 1,  '32 days is a month');
 
     assert.equal(moment.duration({hours: 23}).hours(), 23, '23 hours is 23 hours');
@@ -383,6 +383,23 @@ test('clipping', function (assert) {
     assert.equal(moment.duration({hours: 24}).days(),  1,  '24 hours makes 1 day');
     assert.equal(moment.duration({hours: 25}).hours(), 1,  '25 hours is 1 hour left over');
     assert.equal(moment.duration({hours: 25}).days(),  1,  '25 hours makes 1 day');
+});
+
+test('bubbling consistency', function (assert) {
+    var days = 0, months = 0, newDays, newMonths, totalDays, d;
+    for (totalDays = 1; totalDays <= 500; ++totalDays) {
+        d = moment.duration(totalDays, 'days');
+        newDays = d.days();
+        newMonths = d.months() + d.years() * 12;
+        assert.ok(
+                (months === newMonths && days + 1 === newDays) ||
+                (months + 1 === newMonths && newDays === 0),
+                'consistent total days ' + totalDays +
+                ' was ' + months + ' ' + days +
+                ' now ' + newMonths + ' ' + newDays);
+        days = newDays;
+        months = newMonths;
+    }
 });
 
 test('effective equivalency', function (assert) {
