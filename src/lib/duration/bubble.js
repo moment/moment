@@ -1,4 +1,5 @@
 import absFloor from '../utils/abs-floor';
+import absCeil from '../utils/abs-ceil';
 import { createUTCDate } from '../create/date-from-array';
 
 export function bubble () {
@@ -6,13 +7,13 @@ export function bubble () {
     var days         = this._days;
     var months       = this._months;
     var data         = this._data;
-    var seconds, minutes, hours, years = 0, monthDaySplit, sign;
+    var seconds, minutes, hours, years, monthsFromDays;
 
     // if we have a mix of positive and negative values, bubble down first
     // check: https://github.com/moment/moment/issues/2166
     if (!((milliseconds >= 0 && days >= 0 && months >= 0) ||
             (milliseconds <= 0 && days <= 0 && months <= 0))) {
-        milliseconds += absFloor(yearsToDays(months / 12) + days) * 864e5;
+        milliseconds += absCeil(monthsToDays(months) + days) * 864e5;
         days = 0;
         months = 0;
     }
@@ -32,20 +33,13 @@ export function bubble () {
 
     days += absFloor(hours / 24);
 
-    // Accurately convert days to years, assume start from year 0.
-    years = absFloor(daysToYears(days));
-    days -= absFloor(yearsToDays(years));
-
-    // Use Jan 1st 1970 as anchor.
-    if (days !== 0) {
-        monthDaySplit = createUTCDate(1970, 0, Math.abs(days) + 1);
-        sign = days < 0 ? -1 : 1;
-        months += sign * monthDaySplit.getUTCMonth();
-        days = sign * (monthDaySplit.getUTCDate() - 1);
-    }
+    // convert days to months
+    monthsFromDays = absFloor(daysToMonths(days));
+    months += monthsFromDays;
+    days -= absCeil(monthsToDays(monthsFromDays));
 
     // 12 months -> 1 year
-    years  += absFloor(months / 12);
+    years = absFloor(months / 12);
     months %= 12;
 
     data.days   = days;
@@ -55,13 +49,13 @@ export function bubble () {
     return this;
 }
 
-export function daysToYears (days) {
+export function daysToMonths (days) {
     // 400 years have 146097 days (taking into account leap year rules)
-    return days * 400 / 146097;
+    // 400 years have 12 months === 4800
+    return days * 4800 / 146097;
 }
 
-export function yearsToDays (years) {
-    // years * 365 + absFloor(years / 4) -
-    //     absFloor(years / 100) + absFloor(years / 400);
-    return years * 146097 / 400;
+export function monthsToDays (months) {
+    // the reverse of daysToMonths
+    return months * 146097 / 4800;
 }
