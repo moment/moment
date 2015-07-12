@@ -63,3 +63,31 @@ test('week year', function (assert) {
     assert.equal(moment([2009, 11, 27]).weekYear(), 2009);
     assert.equal(moment([2009, 11, 28]).weekYear(), 2010);
 });
+
+// Verifies that the week number, week day computation is correct for all dow, doy combinations
+test('week year roundtrip', function (assert) {
+    var dow, doy, wd, m;
+    for (dow = 0; dow < 7; ++dow) {
+        for (doy = dow; doy < dow + 7; ++doy) {
+            for (wd = 0; wd < 7; ++wd) {
+                moment.locale('dow: ' + dow + ', doy: ' + doy, {week: {dow: dow, doy: doy}});
+                // We use the 10th week as the 1st one can spill to the previous year
+                m = moment('2015 10 ' + wd, 'gggg w d', true);
+                assert.equal(m.format('gggg w d'), '2015 10 ' + wd, 'dow: ' + dow + ' doy: ' + doy + ' wd: ' + wd);
+                m = moment('2015 10 ' + wd, 'gggg w e', true);
+                assert.equal(m.format('gggg w e'), '2015 10 ' + wd, 'dow: ' + dow + ' doy: ' + doy + ' wd: ' + wd);
+            }
+        }
+    }
+});
+
+test('week numbers 2012/2013', function (assert) {
+    moment.locale('dow: 6, doy: 12', {week: {dow: 6, doy: 12}});
+    assert.equal(52, moment('2012-12-28', 'YYYY-MM-DD').week()); // 51 -- should be 52?
+    assert.equal(1, moment('2012-12-29', 'YYYY-MM-DD').week()); // 52 -- should be 1
+    assert.equal(1, moment('2013-01-01', 'YYYY-MM-DD').week()); // 52 -- should be 1
+    assert.equal(2, moment('2013-01-08', 'YYYY-MM-DD').week()); // 53 -- should be 2
+    assert.equal(2, moment('2013-01-11', 'YYYY-MM-DD').week()); // 53 -- should be 2
+    assert.equal(3, moment('2013-01-12', 'YYYY-MM-DD').week()); // 1 -- should be 3
+    assert.equal(52, moment().weeksInYear(2012)); // 52
+});
