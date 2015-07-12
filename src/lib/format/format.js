@@ -68,10 +68,7 @@ export function formatMoment(m, format) {
     }
 
     format = expandFormat(format, m.localeData());
-
-    if (!formatFunctions[format]) {
-        formatFunctions[format] = makeFormatFunction(format);
-    }
+    formatFunctions[format] = formatFunctions[format] || makeFormatFunction(format);
 
     return formatFunctions[format](m);
 }
