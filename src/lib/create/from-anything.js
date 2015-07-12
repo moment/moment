@@ -14,9 +14,19 @@ import { configFromArray }           from './from-array';
 import { configFromObject }          from './from-object';
 
 function createFromConfig (config) {
+    var res = new Moment(checkOverflow(prepareConfig(config)));
+    if (res._nextDay) {
+        // Adding is smart enough around DST
+        res.add(1, 'd');
+        res._nextDay = undefined;
+    }
+
+    return res;
+}
+
+export function prepareConfig (config) {
     var input = config._i,
-        format = config._f,
-        res;
+        format = config._f;
 
     config._locale = config._locale || getLocale(config._l);
 
@@ -40,14 +50,7 @@ function createFromConfig (config) {
         configFromInput(config);
     }
 
-    res = new Moment(checkOverflow(config));
-    if (res._nextDay) {
-        // Adding is smart enough around DST
-        res.add(1, 'd');
-        res._nextDay = undefined;
-    }
-
-    return res;
+    return config;
 }
 
 function configFromInput(config) {
