@@ -12,7 +12,7 @@ module.exports = function (grunt) {
 
         var tests;
 
-        if (grunt.option("only") != null) {
+        if (grunt.option('only') != null) {
             tests = grunt.file.expand.apply(null, grunt.option('only').split(',').map(function (file) {
                 if (file === 'moment') {
                     return 'build/umd/test/moment/*.js';
