@@ -20,7 +20,7 @@ test('utc and local', function (assert) {
         assert.equal(m.date(), 2, 'the date should be correct for local');
         assert.equal(m.day(), 3, 'the day should be correct for local');
     }
-    offset = Math.ceil(m.utcOffset() / 60);
+    offset = Math.floor(m.utcOffset() / 60);
     expected = (24 + 3 + offset) % 24;
     assert.equal(m.hours(), expected, 'the hours (' + m.hours() + ') should be correct for local');
     assert.equal(moment().utc().utcOffset(), 0, 'timezone in utc should always be zero');
