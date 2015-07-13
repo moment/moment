@@ -36,14 +36,14 @@ export function configFromISO(config) {
         getParsingFlags(config).iso = true;
         for (i = 0, l = isoDates.length; i < l; i++) {
             if (isoDates[i][1].exec(string)) {
-                // match[5] should be 'T' or undefined
-                config._f = isoDates[i][0] + (match[6] || ' ');
+                config._f = isoDates[i][0];
                 break;
             }
         }
         for (i = 0, l = isoTimes.length; i < l; i++) {
             if (isoTimes[i][1].exec(string)) {
-                config._f += isoTimes[i][0];
+                // match[6] should be 'T' or space
+                config._f += (match[6] || ' ') + isoTimes[i][0];
                 break;
             }
         }

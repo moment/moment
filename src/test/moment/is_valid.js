@@ -122,12 +122,14 @@ test('valid string iso 8601 + timezone', function (assert) {
         '2010-01-30T23:59:59.999+00:00',
         '2010-01-30T23:59:59.999-07:00',
         '2010-01-30T00:00:00.000+07:00',
-        '2010-01-30T00:00:00.000+07'
+        '2010-01-30 00:00:00.000Z'
     ], i;
 
     for (i = 0; i < tests.length; i++) {
-        assert.equal(moment(tests[i]).isValid(), true, tests[i] + ' should be valid');
-        assert.equal(moment.utc(tests[i]).isValid(), true, tests[i] + ' should be valid');
+        assert.equal(moment(tests[i]).isValid(), true, tests[i] + ' should be valid in normal');
+        assert.equal(moment.utc(tests[i]).isValid(), true, tests[i] + ' should be valid in normal');
+        assert.equal(moment(tests[i], moment.ISO_8601, true).isValid(), true, tests[i] + ' should be valid in strict');
+        assert.equal(moment.utc(tests[i], moment.ISO_8601, true).isValid(), true, tests[i] + ' should be valid in strict');
     }
 });
 
