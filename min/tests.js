@@ -3246,7 +3246,7 @@
 
         assert.equal(moment(a).calendar(),                     'আজ রাত ২:০০ সময়',     'today at the same time');
         assert.equal(moment(a).add({m: 25}).calendar(),      'আজ রাত ২:২৫ সময়',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 3}).calendar(),       'আজ শকাল ৫:০০ সময়',     'Now plus 3 hour');
+        assert.equal(moment(a).add({h: 3}).calendar(),       'আজ সকাল ৫:০০ সময়',     'Now plus 3 hour');
         assert.equal(moment(a).add({d: 1}).calendar(),       'আগামীকাল রাত ২:০০ সময়',  'tomorrow at the same time');
         assert.equal(moment(a).subtract({h: 1}).calendar(),  'আজ রাত ১:০০ সময়',     'Now minus 1 hour');
         assert.equal(moment(a).subtract({d: 1}).calendar(),  'গতকাল রাত ২:০০ সময়', 'yesterday at the same time');
@@ -3293,14 +3293,14 @@
 
     test('meridiem', function (assert) {
         assert.equal(moment([2011, 2, 23,  2, 30]).format('a'), 'রাত', 'before dawn');
-        assert.equal(moment([2011, 2, 23,  9, 30]).format('a'), 'শকাল', 'morning');
+        assert.equal(moment([2011, 2, 23,  9, 30]).format('a'), 'সকাল', 'morning');
         assert.equal(moment([2011, 2, 23, 14, 30]).format('a'), 'দুপুর', 'during day');
         assert.equal(moment([2011, 2, 23, 17, 30]).format('a'), 'বিকেল', 'evening');
         assert.equal(moment([2011, 2, 23, 19, 30]).format('a'), 'বিকেল', 'late evening');
         assert.equal(moment([2011, 2, 23, 21, 20]).format('a'), 'রাত', 'night');
 
         assert.equal(moment([2011, 2, 23,  2, 30]).format('A'), 'রাত', 'before dawn');
-        assert.equal(moment([2011, 2, 23,  9, 30]).format('A'), 'শকাল', 'morning');
+        assert.equal(moment([2011, 2, 23,  9, 30]).format('A'), 'সকাল', 'morning');
         assert.equal(moment([2011, 2, 23, 14, 30]).format('A'), 'দুপুর', ' during day');
         assert.equal(moment([2011, 2, 23, 17, 30]).format('A'), 'বিকেল', 'evening');
         assert.equal(moment([2011, 2, 23, 19, 30]).format('A'), 'বিকেল', 'late evening');
