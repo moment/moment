@@ -76,7 +76,7 @@ export default moment.defineLocale('bn', {
             return symbolMap[match];
         });
     },
-    meridiemParse: /রাত|শকাল|দুপুর|বিকেল|রাত/,
+    meridiemParse: /রাত|সকাল|দুপুর|বিকেল|রাত/,
     isPM: function (input) {
         return /^(দুপুর|বিকেল|রাত)$/.test(input);
     },
@@ -87,7 +87,7 @@ export default moment.defineLocale('bn', {
         if (hour < 4) {
             return 'রাত';
         } else if (hour < 10) {
-            return 'শকাল';
+            return 'সকাল';
         } else if (hour < 17) {
             return 'দুপুর';
         } else if (hour < 20) {
