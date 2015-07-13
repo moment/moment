@@ -49,7 +49,7 @@ export default moment.defineLocale('hu', {
         LTS : 'H:mm:ss',
         L : 'YYYY.MM.DD.',
         LL : 'YYYY. MMMM D.',
-        LLL : 'YYYY. MMMM D., H:mm',
+        LLL : 'YYYY. MMMM D. H:mm',
         LLLL : 'YYYY. MMMM D., dddd H:mm'
     },
     meridiemParse: /de|du/i,
