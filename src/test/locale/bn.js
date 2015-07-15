@@ -98,7 +98,7 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'রবিবার রবি রব_সোমবার সোম সম_মঙ্গলবার মঙ্গল মঙ্গ_বুধবার বুধ বু_বৃহস্পত্তিবার বৃহস্পত্তি ব্রিহ_শুক্রুবার শুক্রু শু_শনিবার শনি শনি'.split('_'), i;
+    var expected = 'রবিবার রবি রব_সোমবার সোম সম_মঙ্গলবার মঙ্গল মঙ্গ_বুধবার বুধ বু_বৃহস্পত্তিবার বৃহস্পত্তি ব্রিহ_শুক্রবার শুক্র শু_শনিবার শনি শনি'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
@@ -106,7 +106,7 @@ test('format week', function (assert) {
 
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'কএক সেকেন্ড', '44 seconds = a few seconds');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'কয়েক সেকেন্ড', '44 seconds = a few seconds');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'এক মিনিট',      '45 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'এক মিনিট',      '89 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '২ মিনিট',     '90 seconds = 2 minutes');
@@ -136,16 +136,16 @@ test('from', function (assert) {
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), 'কএক সেকেন্ড পরে',  'prefix');
-    assert.equal(moment(0).from(30000), 'কএক সেকেন্ড আগে', 'suffix');
+    assert.equal(moment(30000).from(0), 'কয়েক সেকেন্ড পরে',  'prefix');
+    assert.equal(moment(0).from(30000), 'কয়েক সেকেন্ড আগে', 'suffix');
 });
 
 test('now from now', function (assert) {
-    assert.equal(moment().fromNow(), 'কএক সেকেন্ড আগে',  'now from now should display as in the past');
+    assert.equal(moment().fromNow(), 'কয়েক সেকেন্ড আগে',  'now from now should display as in the past');
 });
 
 test('fromNow', function (assert) {
-    assert.equal(moment().add({s: 30}).fromNow(), 'কএক সেকেন্ড পরে', 'কএক সেকেন্ড পরে');
+    assert.equal(moment().add({s: 30}).fromNow(), 'কয়েক সেকেন্ড পরে', 'কয়েক সেকেন্ড পরে');
     assert.equal(moment().add({d: 5}).fromNow(), '৫ দিন পরে', '৫ দিন পরে');
 });
 
@@ -203,15 +203,15 @@ test('meridiem', function (assert) {
     assert.equal(moment([2011, 2, 23,  2, 30]).format('a'), 'রাত', 'before dawn');
     assert.equal(moment([2011, 2, 23,  9, 30]).format('a'), 'সকাল', 'morning');
     assert.equal(moment([2011, 2, 23, 14, 30]).format('a'), 'দুপুর', 'during day');
-    assert.equal(moment([2011, 2, 23, 17, 30]).format('a'), 'বিকেল', 'evening');
-    assert.equal(moment([2011, 2, 23, 19, 30]).format('a'), 'বিকেল', 'late evening');
+    assert.equal(moment([2011, 2, 23, 17, 30]).format('a'), 'বিকাল', 'evening');
+    assert.equal(moment([2011, 2, 23, 19, 30]).format('a'), 'বিকাল', 'late evening');
     assert.equal(moment([2011, 2, 23, 21, 20]).format('a'), 'রাত', 'night');
 
     assert.equal(moment([2011, 2, 23,  2, 30]).format('A'), 'রাত', 'before dawn');
     assert.equal(moment([2011, 2, 23,  9, 30]).format('A'), 'সকাল', 'morning');
     assert.equal(moment([2011, 2, 23, 14, 30]).format('A'), 'দুপুর', ' during day');
-    assert.equal(moment([2011, 2, 23, 17, 30]).format('A'), 'বিকেল', 'evening');
-    assert.equal(moment([2011, 2, 23, 19, 30]).format('A'), 'বিকেল', 'late evening');
+    assert.equal(moment([2011, 2, 23, 17, 30]).format('A'), 'বিকাল', 'evening');
+    assert.equal(moment([2011, 2, 23, 19, 30]).format('A'), 'বিকাল', 'late evening');
     assert.equal(moment([2011, 2, 23, 21, 20]).format('A'), 'রাত', 'night');
 });
 

@@ -32,8 +32,8 @@ numberMap = {
 export default moment.defineLocale('bn', {
     months : 'জানুয়ারী_ফেবুয়ারী_মার্চ_এপ্রিল_মে_জুন_জুলাই_অগাস্ট_সেপ্টেম্বর_অক্টোবর_নভেম্বর_ডিসেম্বর'.split('_'),
     monthsShort : 'জানু_ফেব_মার্চ_এপর_মে_জুন_জুল_অগ_সেপ্ট_অক্টো_নভ_ডিসেম্'.split('_'),
-    weekdays : 'রবিবার_সোমবার_মঙ্গলবার_বুধবার_বৃহস্পত্তিবার_শুক্রুবার_শনিবার'.split('_'),
-    weekdaysShort : 'রবি_সোম_মঙ্গল_বুধ_বৃহস্পত্তি_শুক্রু_শনি'.split('_'),
+    weekdays : 'রবিবার_সোমবার_মঙ্গলবার_বুধবার_বৃহস্পত্তিবার_শুক্রবার_শনিবার'.split('_'),
+    weekdaysShort : 'রবি_সোম_মঙ্গল_বুধ_বৃহস্পত্তি_শুক্র_শনি'.split('_'),
     weekdaysMin : 'রব_সম_মঙ্গ_বু_ব্রিহ_শু_শনি'.split('_'),
     longDateFormat : {
         LT : 'A h:mm সময়',
@@ -54,7 +54,7 @@ export default moment.defineLocale('bn', {
     relativeTime : {
         future : '%s পরে',
         past : '%s আগে',
-        s : 'কএক সেকেন্ড',
+        s : 'কয়েক সেকেন্ড',
         m : 'এক মিনিট',
         mm : '%d মিনিট',
         h : 'এক ঘন্টা',
@@ -76,9 +76,9 @@ export default moment.defineLocale('bn', {
             return symbolMap[match];
         });
     },
-    meridiemParse: /রাত|সকাল|দুপুর|বিকেল|রাত/,
+    meridiemParse: /রাত|সকাল|দুপুর|বিকাল|রাত/,
     isPM: function (input) {
-        return /^(দুপুর|বিকেল|রাত)$/.test(input);
+        return /^(দুপুর|বিকাল|রাত)$/.test(input);
     },
     //Bengali is a vast language its spoken
     //in different forms in various parts of the world.
@@ -91,7 +91,7 @@ export default moment.defineLocale('bn', {
         } else if (hour < 17) {
             return 'দুপুর';
         } else if (hour < 20) {
-            return 'বিকেল';
+            return 'বিকাল';
         } else {
             return 'রাত';
         }
