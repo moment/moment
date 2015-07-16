@@ -569,3 +569,16 @@ test('duration plugins', function (assert) {
     durationObject.foo(5);
 });
 
+test('test negative durations', function (assert) {
+    assert.equal(moment.duration('P-1D').days(), -1, '-1 day');
+    assert.equal(moment.duration('-P1D').days(), -1, '-(1 day)');
+    assert.equal(moment.duration('P1D').days(), 1, '1 day');
+
+    assert.equal(moment.duration('PT-6H3M').asSeconds(), moment.duration({h: -6, m: 3}).asSeconds(), '-6 hours and +3 minutes');
+    assert.equal(moment.duration('-PT6H3M').asSeconds(), moment.duration({h: -6, m: -3}).asSeconds(), '-6 hours and -3 minutes');
+    assert.equal(moment.duration('-PT-6H3M').asSeconds(), moment.duration({h: 6, m: -3}).asSeconds(), '+6 hours and -3 minutes');
+
+    assert.equal(moment.duration('P-1Y-2M-3DT-4H-5M-6S').asSeconds(), moment.duration({y: -1, M: -2, d: -3, h: -4, m: -5, s: -6}).asSeconds(), 'P-1Y-2M-3DT-4H-5M-6S');
+    assert.equal(moment.duration('-P1Y2M3DT4H5M6S').asSeconds(), moment.duration({y: -1, M: -2, d: -3, h: -4, m: -5, s: -6}).asSeconds(), '-P1Y2M3DT4H5M6S');
+    assert.equal(moment.duration('-P1Y-2M3DT-4H5M-6S').asSeconds(), moment.duration({y: -1, M: 2, d: -3, h: 4, m: -5, s: 6}).asSeconds(), '-P1Y-2M3DT-4H5M-6S');
+});
