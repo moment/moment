@@ -14,3 +14,5 @@ script: grunt build:travis
 
 git:
   depth: 10
+
+after_success: npm run coveralls
