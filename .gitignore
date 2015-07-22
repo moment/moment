@@ -9,3 +9,5 @@ npm-debug.log
 build
 coverage
 nyc_output
+.nyc_output
+.coveralls.yml
