@@ -14,7 +14,7 @@ import { getSet } from './get-set';
 import { locale, localeData, lang } from './locale';
 import { prototypeMin, prototypeMax } from './min-max';
 import { startOf, endOf } from './start-end-of';
-import { valueOf, toDate, toArray, unix } from './to-type';
+import { valueOf, toDate, toArray, toObject, unix } from './to-type';
 import { isValid, parsingFlags, invalidAt } from './valid';
 
 proto.add          = add;
@@ -44,6 +44,7 @@ proto.set          = getSet;
 proto.startOf      = startOf;
 proto.subtract     = subtract;
 proto.toArray      = toArray;
+proto.toObject     = toObject;
 proto.toDate       = toDate;
 proto.toISOString  = toISOString;
 proto.toJSON       = toISOString;
