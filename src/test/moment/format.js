@@ -359,7 +359,7 @@ test('full expanded format is returned from abbreviated formats', function (asse
 });
 
 test('milliseconds', function (assert) {
-    var m = moment('123','SSS');
+    var m = moment('123', 'SSS');
 
     assert.equal(m.format('S'), '1');
     assert.equal(m.format('SS'), '12');
