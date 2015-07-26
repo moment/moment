@@ -1,7 +1,6 @@
 //! moment.js locale configuration
-//! locale : Bahasa Indonesia (id)
-//! author : Mohammad Satrio Utomo : https://github.com/tyok
-//! reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
+//! locale : Bahasa Malaysia (ms-MY)
+//! author : Weldan Jamili : https://github.com/weldan
 
 (function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
@@ -10,12 +9,12 @@
 }(this, function (moment) { 'use strict';
 
 
-    var id = moment.defineLocale('id', {
-        months : 'Januari_Februari_Maret_April_Mei_Juni_Juli_Agustus_September_Oktober_November_Desember'.split('_'),
-        monthsShort : 'Jan_Feb_Mar_Apr_Mei_Jun_Jul_Ags_Sep_Okt_Nov_Des'.split('_'),
-        weekdays : 'Minggu_Senin_Selasa_Rabu_Kamis_Jumat_Sabtu'.split('_'),
-        weekdaysShort : 'Min_Sen_Sel_Rab_Kam_Jum_Sab'.split('_'),
-        weekdaysMin : 'Mg_Sn_Sl_Rb_Km_Jm_Sb'.split('_'),
+    var ms = moment.defineLocale('ms', {
+        months : 'Januari_Februari_Mac_April_Mei_Jun_Julai_Ogos_September_Oktober_November_Disember'.split('_'),
+        monthsShort : 'Jan_Feb_Mac_Apr_Mei_Jun_Jul_Ogs_Sep_Okt_Nov_Dis'.split('_'),
+        weekdays : 'Ahad_Isnin_Selasa_Rabu_Khamis_Jumaat_Sabtu'.split('_'),
+        weekdaysShort : 'Ahd_Isn_Sel_Rab_Kha_Jum_Sab'.split('_'),
+        weekdaysMin : 'Ah_Is_Sl_Rb_Km_Jm_Sb'.split('_'),
         longDateFormat : {
             LT : 'HH.mm',
             LTS : 'HH.mm.ss',
@@ -24,16 +23,16 @@
             LLL : 'D MMMM YYYY [pukul] HH.mm',
             LLLL : 'dddd, D MMMM YYYY [pukul] HH.mm'
         },
-        meridiemParse: /pagi|siang|sore|malam/,
-        meridiemHour : function (hour, meridiem) {
+        meridiemParse: /pagi|tengahari|petang|malam/,
+        meridiemHour: function (hour, meridiem) {
             if (hour === 12) {
                 hour = 0;
             }
             if (meridiem === 'pagi') {
                 return hour;
-            } else if (meridiem === 'siang') {
+            } else if (meridiem === 'tengahari') {
                 return hour >= 11 ? hour : hour + 12;
-            } else if (meridiem === 'sore' || meridiem === 'malam') {
+            } else if (meridiem === 'petang' || meridiem === 'malam') {
                 return hour + 12;
             }
         },
@@ -41,27 +40,27 @@
             if (hours < 11) {
                 return 'pagi';
             } else if (hours < 15) {
-                return 'siang';
+                return 'tengahari';
             } else if (hours < 19) {
-                return 'sore';
+                return 'petang';
             } else {
                 return 'malam';
             }
         },
         calendar : {
             sameDay : '[Hari ini pukul] LT',
-            nextDay : '[Besok pukul] LT',
+            nextDay : '[Esok pukul] LT',
             nextWeek : 'dddd [pukul] LT',
-            lastDay : '[Kemarin pukul] LT',
-            lastWeek : 'dddd [lalu pukul] LT',
+            lastDay : '[Kelmarin pukul] LT',
+            lastWeek : 'dddd [lepas pukul] LT',
             sameElse : 'L'
         },
         relativeTime : {
             future : 'dalam %s',
-            past : '%s yang lalu',
-            s : 'beberapa detik',
-            m : 'semenit',
-            mm : '%d menit',
+            past : '%s yang lepas',
+            s : 'beberapa saat',
+            m : 'seminit',
+            mm : '%d minit',
             h : 'sejam',
             hh : '%d jam',
             d : 'sehari',
@@ -77,6 +76,6 @@
         }
     });
 
-    return id;
+    return ms;
 
 }));
