@@ -32077,6 +32077,11 @@
         assert.ok(moment().toDate() instanceof Date, 'undefined');
     });
 
+    test('iso with bad input', function (assert) {
+        assert.ok(!moment('a', moment.ISO_8601).isValid(), 'iso parsing with invalid string');
+        assert.ok(!moment('a', moment.ISO_8601, true).isValid(), 'iso parsing with invalid string, strict');
+    });
+
     test('iso format 24hrs', function (assert) {
         assert.equal(moment('2014-01-01T24:00:00.000').format('YYYY-MM-DD[T]HH:mm:ss.SSS'),
                 '2014-01-02T00:00:00.000', 'iso format with 24:00 localtime');
