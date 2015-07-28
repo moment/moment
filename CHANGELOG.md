@@ -1,6 +1,11 @@
 Changelog
 =========
 
+### 2.10.6
+
+[#2515](https://github.com/moment/moment/pull/2515) Fix regression introduced
+in `2.10.5` related to `moment.ISO_8601` parsing.
+
 ### 2.10.5 [See full changelog](https://gist.github.com/ichernev/6ec13ac7efc396da44b2)
 
 Important changes:
