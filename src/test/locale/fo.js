@@ -3,7 +3,7 @@ import moment from '../../moment';
 localeModule('fo');
 
 test('parse', function (assert) {
-    var tests = 'januar jan_februar feb_mars mar_apríl apr_mai mai_juni jun_juli jul_august aug_september sep_oktober okt_november nov_desember des'.split('_'), i;
+    var tests = 'Januar Jan_Februar Feb_Mars Mar_Apríl Apr_Mai Mai_Juni Jun_Juli Jul_August Aug_September Sep_Oktober Okt_November Nov_Desember Des'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
@@ -22,12 +22,12 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd [tann] Do MMMM YYYY, h:mm:ss a', 'sunnudagur tann 14. februar 2010, 3:25:50 pm'],
-            ['ddd hA',                             'sun 3PM'],
-            ['M Mo MM MMMM MMM',                   '2 2. 02 februar feb'],
+            ['dddd [tann] Do MMMM YYYY, h:mm:ss a', 'Sunnudagur tann 14. Februar 2010, 3:25:50 pm'],
+            ['ddd hA',                             'Sun 3PM'],
+            ['M Mo MM MMMM MMM',                   '2 2. 02 Februar Feb'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14. 14'],
-            ['d do dddd ddd dd',                   '0 0. sunnudagur sun su'],
+            ['d do dddd ddd dd',                   '0 0. Sunnudagur Sun Su'],
             ['DDD DDDo DDDD',                      '45 45. 045'],
             ['w wo ww',                            '6 6. 06'],
             ['h hh',                               '3 03'],
@@ -38,13 +38,13 @@ test('format', function (assert) {
             ['[tann] DDDo [dagin á árinum]',       'tann 45. dagin á árinum'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14/02/2010'],
-            ['LL',                                 '14 februar 2010'],
-            ['LLL',                                '14 februar 2010 15:25'],
-            ['LLLL',                               'sunnudagur 14. februar, 2010 15:25'],
+            ['LL',                                 '14 Februar 2010'],
+            ['LLL',                                '14 Februar 2010 15:25'],
+            ['LLLL',                               'Sunnudagur 14. Februar, 2010 15:25'],
             ['l',                                  '14/2/2010'],
-            ['ll',                                 '14 feb 2010'],
-            ['lll',                                '14 feb 2010 15:25'],
-            ['llll',                               'sun 14. feb, 2010 15:25']
+            ['ll',                                 '14 Feb 2010'],
+            ['lll',                                '14 Feb 2010 15:25'],
+            ['llll',                               'Sun 14. Feb, 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -91,14 +91,14 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'januar jan_februar feb_mars mar_apríl apr_mai mai_juni jun_juli jul_august aug_september sep_oktober okt_november nov_desember des'.split('_'), i;
+    var expected = 'Januar Jan_Februar Feb_Mars Mar_Apríl Apr_Mai Mai_Juni Jun_Juli Jul_August Aug_September Sep_Oktober Okt_November Nov_Desember Des'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
 });
 
 test('format week', function (assert) {
-    var expected = 'sunnudagur sun su_mánadagur mán má_týsdagur týs tý_mikudagur mik mi_hósdagur hós hó_fríggjadagur frí fr_leygardagur ley le'.split('_'), i;
+    var expected = 'Sunnudagur Sun Su_Mánadagur Mán Má_Týsdagur Týs Tý_Mikudagur Mik Mi_Hósdagur Hós Hó_Fríggjadagur Frí Fr_Leygardagur Ley Le'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }

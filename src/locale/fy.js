@@ -4,11 +4,11 @@
 
 import moment from '../moment';
 
-var monthsShortWithDots = 'jan._feb._mrt._apr._mai_jun._jul._aug._sep._okt._nov._des.'.split('_'),
-    monthsShortWithoutDots = 'jan_feb_mrt_apr_mai_jun_jul_aug_sep_okt_nov_des'.split('_');
+var monthsShortWithDots = 'Jan._Feb._Mrt._Apr._Mai._Jun._Jul._Aug._Sep._Okt._Nov._Des.'.split('_'),
+    monthsShortWithoutDots = 'Jan_Feb_Mrt_Apr_Mai_Jun_Jul_Aug_Sep_Okt_Nov_Des'.split('_');
 
 export default moment.defineLocale('fy', {
-    months : 'jannewaris_febrewaris_maart_april_maaie_juny_july_augustus_septimber_oktober_novimber_desimber'.split('_'),
+    months : 'Jannewaris_Febrewaris_Maart_April_Maaie_Juny_July_Augustus_Septimber_Oktober_Novimber_Desimber'.split('_'),
     monthsShort : function (m, format) {
         if (/-MMM-/.test(format)) {
             return monthsShortWithoutDots[m.month()];
@@ -16,8 +16,8 @@ export default moment.defineLocale('fy', {
             return monthsShortWithDots[m.month()];
         }
     },
-    weekdays : 'snein_moandei_tiisdei_woansdei_tongersdei_freed_sneon'.split('_'),
-    weekdaysShort : 'si._mo._ti._wo._to._fr._so.'.split('_'),
+    weekdays : 'Snein_Moandei_Tiisdei_Woansdei_Tongersdei_Freed_Sneon'.split('_'),
+    weekdaysShort : 'Si._Mo._Ti._Wo._To._Fr._So.'.split('_'),
     weekdaysMin : 'Si_Mo_Ti_Wo_To_Fr_So'.split('_'),
     longDateFormat : {
         LT : 'HH:mm',

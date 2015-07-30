@@ -3,7 +3,7 @@ import moment from '../../moment';
 localeModule('fr');
 
 test('parse', function (assert) {
-    var tests = 'janvier janv._février févr._mars mars_avril avr._mai mai_juin juin_juillet juil._août août_septembre sept._octobre oct._novembre nov._décembre déc.'.split('_'),
+    var tests = 'Janvier Janv._Février Févr._Mars Mars_Avril Avr._Mai Mai_Juin Juin_Juillet Juil._Août Août_Septembre Sept._Octobre Oct._Novembre Nov._Décembre Déc.'.split('_'),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
@@ -23,12 +23,12 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a',      'dimanche, février 14 2010, 3:25:50 pm'],
-            ['ddd, hA',                            'dim., 3PM'],
-            ['M Mo MM MMMM MMM',                   '2 2 02 février févr.'],
+            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Dimanche, Février 14 2010, 3:25:50 pm'],
+            ['ddd, hA',                            'Dim., 3PM'],
+            ['M Mo MM MMMM MMM',                   '2 2 02 Février Févr.'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14 14'],
-            ['d do dddd ddd dd',                   '0 0 dimanche dim. Di'],
+            ['d do dddd ddd dd',                   '0 0 Dimanche Dim. Di'],
             ['DDD DDDo DDDD',                      '45 45 045'],
             ['w wo ww',                            '6 6 06'],
             ['h hh',                               '3 03'],
@@ -39,13 +39,13 @@ test('format', function (assert) {
             ['[the] DDDo [day of the year]',       'the 45 day of the year'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14/02/2010'],
-            ['LL',                                 '14 février 2010'],
-            ['LLL',                                '14 février 2010 15:25'],
-            ['LLLL',                               'dimanche 14 février 2010 15:25'],
+            ['LL',                                 '14 Février 2010'],
+            ['LLL',                                '14 Février 2010 15:25'],
+            ['LLLL',                               'Dimanche 14 Février 2010 15:25'],
             ['l',                                  '14/2/2010'],
-            ['ll',                                 '14 févr. 2010'],
-            ['lll',                                '14 févr. 2010 15:25'],
-            ['llll',                               'dim. 14 févr. 2010 15:25']
+            ['ll',                                 '14 Févr. 2010'],
+            ['lll',                                '14 Févr. 2010 15:25'],
+            ['llll',                               'Dim. 14 Févr. 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -92,14 +92,14 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'janvier janv._février févr._mars mars_avril avr._mai mai_juin juin_juillet juil._août août_septembre sept._octobre oct._novembre nov._décembre déc.'.split('_'), i;
+    var expected = 'Janvier Janv._Février Févr._Mars Mars_Avril Avr._Mai Mai_Juin Juin_Juillet Juil._Août Août_Septembre Sept._Octobre Oct._Novembre Nov._Décembre Déc.'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
 });
 
 test('format week', function (assert) {
-    var expected = 'dimanche dim. Di_lundi lun. Lu_mardi mar. Ma_mercredi mer. Me_jeudi jeu. Je_vendredi ven. Ve_samedi sam. Sa'.split('_'), i;
+    var expected = 'Dimanche Dim. Di_Lundi Lun. Lu_Mardi Mar. Ma_Mercredi Mer. Me_Jeudi Jeu. Je_Vendredi Ven. Ve_Samedi Sam. Sa'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
