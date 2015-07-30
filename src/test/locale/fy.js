@@ -3,7 +3,7 @@ import moment from '../../moment';
 localeModule('fy');
 
 test('parse', function (assert) {
-    var tests = 'jannewaris jan._febrewaris feb._maart mrt._april apr._maaie mai._juny jun._july jul._augustus aug._septimber sep._oktober okt._novimber nov._desimber des.'.split('_'), i;
+    var tests = 'Jannewaris Jan._Febrewaris Feb._Maart Mrt._April Apr._Maaie Mai._Juny Jun._July Jul._Augustus Aug._Septimber Sep._Oktober Okt._Novimber Nov._Desimber Des.'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
@@ -22,12 +22,12 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, HH:mm:ss',       'snein, febrewaris 14de 2010, 15:25:50'],
-            ['ddd, HH',                            'si., 15'],
-            ['M Mo MM MMMM MMM',                   '2 2de 02 febrewaris feb.'],
+            ['dddd, MMMM Do YYYY, HH:mm:ss',       'Snein, Febrewaris 14de 2010, 15:25:50'],
+            ['ddd, HH',                            'Si., 15'],
+            ['M Mo MM MMMM MMM',                   '2 2de 02 Febrewaris Feb.'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14de 14'],
-            ['d do dddd ddd dd',                   '0 0de snein si. Si'],
+            ['d do dddd ddd dd',                   '0 0de Snein Si. Si'],
             ['DDD DDDo DDDD',                      '45 45ste 045'],
             ['w wo ww',                            '6 6de 06'],
             ['h hh',                               '3 03'],
@@ -38,13 +38,13 @@ test('format', function (assert) {
             ['[the] DDDo [day of the year]',       'the 45ste day of the year'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14-02-2010'],
-            ['LL',                                 '14 febrewaris 2010'],
-            ['LLL',                                '14 febrewaris 2010 15:25'],
-            ['LLLL',                               'snein 14 febrewaris 2010 15:25'],
+            ['LL',                                 '14 Febrewaris 2010'],
+            ['LLL',                                '14 Febrewaris 2010 15:25'],
+            ['LLLL',                               'Snein 14 Febrewaris 2010 15:25'],
             ['l',                                  '14-2-2010'],
-            ['ll',                                 '14 feb. 2010'],
-            ['lll',                                '14 feb. 2010 15:25'],
-            ['llll',                               'si. 14 feb. 2010 15:25']
+            ['ll',                                 '14 Feb. 2010'],
+            ['lll',                                '14 Feb. 2010 15:25'],
+            ['llll',                               'Si. 14 Feb. 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -91,14 +91,14 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'jannewaris jan._febrewaris feb._maart mrt._april apr._maaie mai_juny jun._july jul._augustus aug._septimber sep._oktober okt._novimber nov._desimber des.'.split('_'), i;
+    var expected = 'Jannewaris Jan._Febrewaris Feb._Maart Mrt._April Apr._Maaie Mai._Juny Jun._July Jul._Augustus Aug._Septimber Sep._Oktober Okt._Novimber Nov._Desimber Des.'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
 });
 
 test('format week', function (assert) {
-    var expected = 'snein si. Si_moandei mo. Mo_tiisdei ti. Ti_woansdei wo. Wo_tongersdei to. To_freed fr. Fr_sneon so. So'.split('_'), i;
+    var expected = 'Snein Si. Si_Moandei Mo. Mo_Tiisdei Ti. Ti_Woansdei Wo. Wo_Tongersdei To. To_Freed Fr. Fr_Sneon So. So'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
@@ -200,8 +200,8 @@ test('calendar all else', function (assert) {
 });
 
 test('month abbreviation', function (assert) {
-    assert.equal(moment([2012, 5, 23]).format('D-MMM-YYYY'), '23-jun-2012', 'format month abbreviation surrounded by dashes should not include a dot');
-    assert.equal(moment([2012, 5, 23]).format('D MMM YYYY'), '23 jun. 2012', 'format month abbreviation not surrounded by dashes should include a dot');
+    assert.equal(moment([2012, 5, 23]).format('D-MMM-YYYY'), '23-Jun-2012', 'format month abbreviation surrounded by dashes should not include a dot');
+    assert.equal(moment([2012, 5, 23]).format('D MMM YYYY'), '23 Jun. 2012', 'format month abbreviation not surrounded by dashes should include a dot');
 });
 
 test('weeks year starting sunday', function (assert) {

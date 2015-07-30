@@ -4,7 +4,7 @@
 
 import moment from '../moment';
 
-var monthsShortWithDots = 'Jan._Feb._Mrt._Apr._Mai_Jun._Jul._Aug._Sep._Okt._Nov._Des.'.split('_'),
+var monthsShortWithDots = 'Jan._Feb._Mrt._Apr._Mai._Jun._Jul._Aug._Sep._Okt._Nov._Des.'.split('_'),
     monthsShortWithoutDots = 'Jan_Feb_Mrt_Apr_Mai_Jun_Jul_Aug_Sep_Okt_Nov_Des'.split('_');
 
 export default moment.defineLocale('fy', {
@@ -16,7 +16,7 @@ export default moment.defineLocale('fy', {
             return monthsShortWithDots[m.month()];
         }
     },
-    weekdays : 'Snein_Moandei_Tiisdei_Woansdei_Yongersdei_Freed_Sneon'.split('_'),
+    weekdays : 'Snein_Moandei_Tiisdei_Woansdei_Tongersdei_Freed_Sneon'.split('_'),
     weekdaysShort : 'Si._Mo._Ti._Wo._To._Fr._So.'.split('_'),
     weekdaysMin : 'Si_Mo_Ti_Wo_To_Fr_So'.split('_'),
     longDateFormat : {
