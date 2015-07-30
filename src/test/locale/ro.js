@@ -3,7 +3,7 @@ import moment from '../../moment';
 localeModule('ro');
 
 test('parse', function (assert) {
-    var tests = 'ianuarie ian._februarie febr._martie mart._aprilie apr._mai mai_iunie iun._iulie iul._august aug._septembrie sept._octombrie oct._noiembrie nov._decembrie dec.'.split('_'), i;
+    var tests = 'Ianuarie Ian._Februarie Febr._Martie Mart._Aprilie Apr._Mai Mai_Iunie Iun._Iulie Iul._August Aug._Septembrie Sept._Octombrie Oct._Noiembrie Nov._Decembrie Dec.'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
@@ -22,12 +22,12 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss A',  'duminică, februarie 14 2010, 3:25:50 PM'],
+            ['dddd, MMMM Do YYYY, h:mm:ss A',  'Duminică, Februarie 14 2010, 3:25:50 PM'],
             ['ddd, hA',                        'Dum, 3PM'],
-            ['M Mo MM MMMM MMM',               '2 2 02 februarie febr.'],
+            ['M Mo MM MMMM MMM',               '2 2 02 Februarie Febr.'],
             ['YYYY YY',                        '2010 10'],
             ['D Do DD',                        '14 14 14'],
-            ['d do dddd ddd dd',               '0 0 duminică Dum Du'],
+            ['d do dddd ddd dd',               '0 0 Duminică Dum Du'],
             ['DDD DDDo DDDD',                  '45 45 045'],
             ['w wo ww',                        '7 7 07'],
             ['h hh',                           '3 03'],
@@ -38,13 +38,13 @@ test('format', function (assert) {
             ['[a] DDDo[a zi a anului]',        'a 45a zi a anului'],
             ['LTS',                            '15:25:50'],
             ['L',                              '14.02.2010'],
-            ['LL',                             '14 februarie 2010'],
-            ['LLL',                            '14 februarie 2010 15:25'],
-            ['LLLL',                           'duminică, 14 februarie 2010 15:25'],
+            ['LL',                             '14 Februarie 2010'],
+            ['LLL',                            '14 Februarie 2010 15:25'],
+            ['LLLL',                           'Duminică, 14 Februarie 2010 15:25'],
             ['l',                              '14.2.2010'],
-            ['ll',                             '14 febr. 2010'],
-            ['lll',                            '14 febr. 2010 15:25'],
-            ['llll',                           'Dum, 14 febr. 2010 15:25']
+            ['ll',                             '14 Febr. 2010'],
+            ['lll',                            '14 Febr. 2010 15:25'],
+            ['llll',                           'Dum, 14 Febr. 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -91,14 +91,14 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'ianuarie ian._februarie febr._martie mart._aprilie apr._mai mai_iunie iun._iulie iul._august aug._septembrie sept._octombrie oct._noiembrie nov._decembrie dec.'.split('_'), i;
+    var expected = 'Ianuarie Ian._Februarie Febr._Martie Mart._Aprilie Apr._Mai Mai_Iunie Iun._Iulie Iul._August Aug._Septembrie Sept._Octombrie Oct._Noiembrie Nov._Decembrie Dec.'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
 });
 
 test('format week', function (assert) {
-    var expected = 'duminică Dum Du_luni Lun Lu_marți Mar Ma_miercuri Mie Mi_joi Joi Jo_vineri Vin Vi_sâmbătă Sâm Sâ'.split('_'), i;
+    var expected = 'Duminică Dum Du_Luni Lun Lu_Marți Mar Ma_Miercuri Mie Mi_Joi Joi Jo_Vineri Vin Vi_Sâmbătă Sâm Sâ'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
