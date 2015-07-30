@@ -3,7 +3,7 @@ import moment from '../../moment';
 localeModule('eu');
 
 test('parse', function (assert) {
-    var tests = 'urtarrila urt._otsaila ots._martxoa mar._apirila api._maiatza mai._ekaina eka._uztaila uzt._abuztua abu._iraila ira._urria urr._azaroa aza._abendua abe.'.split('_'), i;
+    var tests = 'Urtarrila Urt._Otsaila Ots._Martxoa Mar._Apirila Api._Maiatza Mai._Ekaina Eka._Uztaila Uzt._Abuztua Abu._Iraila Ira._Urria Urr._Azaroa Aza._Abendua Abe.'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
@@ -22,12 +22,12 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a',      'igandea, otsaila 14. 2010, 3:25:50 pm'],
-            ['ddd, hA',                            'ig., 3PM'],
-            ['M Mo MM MMMM MMM',                   '2 2. 02 otsaila ots.'],
+            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Igandea, Otsaila 14. 2010, 3:25:50 pm'],
+            ['ddd, hA',                            'Ig., 3PM'],
+            ['M Mo MM MMMM MMM',                   '2 2. 02 Otsaila Ots.'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14. 14'],
-            ['d do dddd ddd dd',                   '0 0. igandea ig. ig'],
+            ['d do dddd ddd dd',                   '0 0. Igandea Ig. Ig'],
             ['DDD DDDo DDDD',                      '45 45. 045'],
             ['w wo ww',                            '7 7. 07'],
             ['h hh',                               '3 03'],
@@ -38,13 +38,13 @@ test('format', function (assert) {
             ['[the] DDDo [day of the year]',       'the 45. day of the year'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '2010-02-14'],
-            ['LL',                                 '2010ko otsailaren 14a'],
-            ['LLL',                                '2010ko otsailaren 14a 15:25'],
-            ['LLLL',                               'igandea, 2010ko otsailaren 14a 15:25'],
+            ['LL',                                 '2010ko Otsailaren 14a'],
+            ['LLL',                                '2010ko Otsailaren 14a 15:25'],
+            ['LLLL',                               'Igandea, 2010ko Otsailaren 14a 15:25'],
             ['l',                                  '2010-2-14'],
-            ['ll',                                 '2010ko ots. 14a'],
-            ['lll',                                '2010ko ots. 14a 15:25'],
-            ['llll',                               'ig., 2010ko ots. 14a 15:25']
+            ['ll',                                 '2010ko Ots. 14a'],
+            ['lll',                                '2010ko Ots. 14a 15:25'],
+            ['llll',                               'Ig., 2010ko Ots. 14a 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -91,14 +91,14 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'urtarrila urt._otsaila ots._martxoa mar._apirila api._maiatza mai._ekaina eka._uztaila uzt._abuztua abu._iraila ira._urria urr._azaroa aza._abendua abe.'.split('_'), i;
+    var expected = 'Urtarrila Urt._Otsaila Ots._Martxoa Mar._Apirila Api._Maiatza Mai._Ekaina Eka._Uztaila Uzt._Abuztua Abu._Iraila Ira._Urria Urr._Azaroa Aza._Abendua Abe.'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
 });
 
 test('format week', function (assert) {
-    var expected = 'igandea ig. ig_astelehena al. al_asteartea ar. ar_asteazkena az. az_osteguna og. og_ostirala ol. ol_larunbata lr. lr'.split('_'), i;
+    var expected = 'Igandea Ig. Ig_Astelehena Al. Al_Asteartea Ar. Ar_Asteazkena Az. Az_Osteguna Og. Og_Ostirala Ol. Ol_Larunbata Lr. Lr'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
