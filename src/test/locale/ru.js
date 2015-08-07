@@ -226,18 +226,50 @@ test('calendar day', function (assert) {
 });
 
 test('calendar next week', function (assert) {
-    var i, m;
-    function makeFormat(d) {
-        return d.day() === 2 ? '[Во] dddd [в] LT' : '[В] dddd [в] LT';
+    var i, m, now;
+
+    function makeFormatNext(d) {
+        switch (d.day()) {
+        case 0:
+            return '[В следующее] dddd [в] LT';
+        case 1:
+        case 2:
+        case 4:
+            return '[В следующий] dddd [в] LT';
+        case 3:
+        case 5:
+        case 6:
+            return '[В следующую] dddd [в] LT';
+        }
     }
 
+    function makeFormatThis(d) {
+        if (d.day() === 2) {
+            return '[Во] dddd [в] LT';
+        }
+        else {
+            return '[В] dddd [в] LT';
+        }
+    }
+
+    now = moment().startOf('week');
     for (i = 2; i < 7; i++) {
-        m = moment().add({d: i});
-        assert.equal(m.calendar(),       m.format(makeFormat(m)),  'Today + ' + i + ' days current time');
+        m = moment(now).add({d: i});
+        assert.equal(m.calendar(now),       m.format(makeFormatThis(m)),  'Today + ' + i + ' days current time');
         m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(m.calendar(),       m.format(makeFormat(m)),  'Today + ' + i + ' days beginning of day');
+        assert.equal(m.calendar(now),       m.format(makeFormatThis(m)),  'Today + ' + i + ' days beginning of day');
         m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(m.calendar(),       m.format(makeFormat(m)),  'Today + ' + i + ' days end of day');
+        assert.equal(m.calendar(now),       m.format(makeFormatThis(m)),  'Today + ' + i + ' days end of day');
+    }
+
+    now = moment().endOf('week');
+    for (i = 2; i < 7; i++) {
+        m = moment(now).add({d: i});
+        assert.equal(m.calendar(now),       m.format(makeFormatNext(m)),  'Today + ' + i + ' days current time');
+        m.hours(0).minutes(0).seconds(0).milliseconds(0);
+        assert.equal(m.calendar(now),       m.format(makeFormatNext(m)),  'Today + ' + i + ' days beginning of day');
+        m.hours(23).minutes(59).seconds(59).milliseconds(999);
+        assert.equal(m.calendar(now),       m.format(makeFormatNext(m)),  'Today + ' + i + ' days end of day');
     }
 });
 
@@ -260,15 +292,10 @@ test('calendar last week', function (assert) {
     }
 
     function makeFormatThis(d) {
-        switch (d.day()) {
-        case 2:
+        if (d.day() === 2) {
             return '[Во] dddd [в] LT';
-        case 0:
-        case 1:
-        case 3:
-        case 4:
-        case 5:
-        case 6:
+        }
+        else {
             return '[В] dddd [в] LT';
         }
     }
