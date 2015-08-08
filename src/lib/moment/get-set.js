@@ -1,5 +1,6 @@
 import { normalizeUnits } from '../units/aliases';
 import { hooks } from '../utils/hooks';
+import isFunction from '../utils/is-function';
 
 export function makeGetSet (unit, keepTime) {
     return function (value) {
@@ -31,7 +32,7 @@ export function getSet (units, value) {
         }
     } else {
         units = normalizeUnits(units);
-        if (typeof this[units] === 'function') {
+        if (isFunction(this[units])) {
             return this[units](value);
         }
     }
