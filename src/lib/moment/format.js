@@ -1,5 +1,6 @@
 import { formatMoment } from '../format/format';
 import { hooks } from '../utils/hooks';
+import isFunction from '../utils/is-function';
 
 hooks.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ';
 
@@ -10,7 +11,7 @@ export function toString () {
 export function toISOString () {
     var m = this.clone().utc();
     if (0 < m.year() && m.year() <= 9999) {
-        if ('function' === typeof Date.prototype.toISOString) {
+        if (isFunction(Date.prototype.toISOString)) {
             // native implementation is ~50x faster, use it when we can
             return this.toDate().toISOString();
         } else {
