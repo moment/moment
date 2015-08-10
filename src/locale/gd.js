@@ -64,7 +64,7 @@ export default moment.defineLocale('gd', {
         y : 'bliadhna',
         yy : '%d bliadhna'
     },
-    ordinalParse: /\d{1,2}(d|na|mh)/,
+    ordinalParse : /\d{1,2}(d|na|mh)/,
     ordinal : function (number) {
         var output = (number === 1) ? 'd' : (number.toString().substr(-1) === '2') ? 'na' : 'mh';
         return number + output;
