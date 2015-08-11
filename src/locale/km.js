@@ -19,7 +19,7 @@ export default moment.defineLocale('km', {
         LLLL: 'dddd, D MMMM YYYY HH:mm'
     },
     calendar: {
-        sameDay: '[ថ្ងៃនៈ ម៉ោង] LT',
+        sameDay: '[ថ្ងៃនេះ ម៉ោង] LT',
         nextDay: '[ស្អែក ម៉ោង] LT',
         nextWeek: 'dddd [ម៉ោង] LT',
         lastDay: '[ម្សិលមិញ ម៉ោង] LT',
