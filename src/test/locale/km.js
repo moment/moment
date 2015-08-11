@@ -161,19 +161,19 @@ test('fromNow', function (assert) {
 test('calendar day', function (assert) {
     var a = moment().hours(2).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(), 'ថ្ងៃនៈ ម៉ោង 02:00', 'today at the same time');
+    assert.equal(moment(a).calendar(), 'ថ្ងៃនេះ ម៉ោង 02:00', 'today at the same time');
     assert.equal(moment(a).add({
         m: 25
-    }).calendar(), 'ថ្ងៃនៈ ម៉ោង 02:25', 'Now plus 25 min');
+    }).calendar(), 'ថ្ងៃនេះ ម៉ោង 02:25', 'Now plus 25 min');
     assert.equal(moment(a).add({
         h: 1
-    }).calendar(), 'ថ្ងៃនៈ ម៉ោង 03:00', 'Now plus 1 hour');
+    }).calendar(), 'ថ្ងៃនេះ ម៉ោង 03:00', 'Now plus 1 hour');
     assert.equal(moment(a).add({
         d: 1
     }).calendar(), 'ស្អែក ម៉ោង 02:00', 'tomorrow at the same time');
     assert.equal(moment(a).subtract({
         h: 1
-    }).calendar(), 'ថ្ងៃនៈ ម៉ោង 01:00', 'Now minus 1 hour');
+    }).calendar(), 'ថ្ងៃនេះ ម៉ោង 01:00', 'Now minus 1 hour');
     assert.equal(moment(a).subtract({
         d: 1
     }).calendar(), 'ម្សិលមិញ ម៉ោង 02:00', 'yesterday at the same time');
