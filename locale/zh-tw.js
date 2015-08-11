@@ -57,19 +57,9 @@
         calendar : {
             sameDay : '[今天]LT',
             nextDay : '[明天]LT',
-            nextWeek : function (now) {
-                var startOfWeek, prefix;
-                startOfWeek = moment(now).startOf('week');
-                prefix = this.unix() - startOfWeek.unix() >= 7 * 24 * 3600 ? '[下]' : '';
-                return prefix + 'ddddLT';
-            },
+            nextWeek : '[下]ddddLT',
             lastDay : '[昨天]LT',
-            lastWeek : function (now) {
-                var startOfWeek, prefix;
-                startOfWeek = moment(now).startOf('week');
-                prefix = this.unix() < startOfWeek.unix()  ? '[上]' : '';
-                return prefix + 'ddddLT';
-            },
+            lastWeek : '[上]ddddLT',
             sameElse : 'L'
         },
         ordinalParse: /\d{1,2}(日|月|週)/,
