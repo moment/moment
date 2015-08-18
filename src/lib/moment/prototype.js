@@ -16,6 +16,7 @@ import { prototypeMin, prototypeMax } from './min-max';
 import { startOf, endOf } from './start-end-of';
 import { valueOf, toDate, toArray, toObject, unix } from './to-type';
 import { isValid, parsingFlags, invalidAt } from './valid';
+import { creationData } from './creationData';
 
 proto.add          = add;
 proto.calendar     = calendar;
@@ -51,6 +52,7 @@ proto.toJSON       = toISOString;
 proto.toString     = toString;
 proto.unix         = unix;
 proto.valueOf      = valueOf;
+proto.creationData = creationData;
 
 // Year
 import { getSetYear, getIsLeapYear } from '../units/year';
