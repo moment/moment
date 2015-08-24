@@ -40,6 +40,18 @@ function relativeTime (posNegDuration, withoutSuffix, locale) {
     return substituteTimeAgo.apply(null, a);
 }
 
+// This function allows you to set the rounding function for relative time strings
+export function getSetRelativeTimeRounding (roundingFunction) {
+    if (roundingFunction === undefined) {
+        return round;
+    }
+    if (typeof(roundingFunction) === 'function') {
+        round = roundingFunction;
+        return true;
+    }
+    return false;
+}
+
 // This function allows you to set a threshold for relative time strings
 export function getSetRelativeTimeThreshold (threshold, limit) {
     if (thresholds[threshold] === undefined) {
