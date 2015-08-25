@@ -26,8 +26,8 @@ function relativeTimeWithPlural(number, withoutSuffix, key) {
 }
 function monthsCaseReplace(m, format) {
     var months = {
-        'nominative': 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_'),
-        'accusative': 'января_февраля_марта_апреля_мая_июня_июля_августа_сентября_октября_ноября_декабря'.split('_')
+        'nominative': 'Январь_Февраль_Март_Апрель_Май_Июнь_Июль_Август_Сентябрь_Октябрь_Ноябрь_Декабрь'.split('_'),
+        'accusative': 'Января_Февраля_Марта_Апреля_Мая_Июня_Июля_Августа_Сентября_Октября_Ноября_Декабря'.split('_')
     },
     nounCase = (/D[oD]?(\[[^\[\]]*\]|\s+)+MMMM?/).test(format) ?
         'accusative' :
@@ -46,8 +46,8 @@ function monthsShortCaseReplace(m, format) {
 }
 function weekdaysCaseReplace(m, format) {
     var weekdays = {
-        'nominative': 'воскресенье_понедельник_вторник_среда_четверг_пятница_суббота'.split('_'),
-        'accusative': 'воскресенье_понедельник_вторник_среду_четверг_пятницу_субботу'.split('_')
+        'nominative': 'Воскресенье_Понедельник_Вторник_Среда_Четверг_Пятница_Суббота'.split('_'),
+        'accusative': 'Воскресенье_Понедельник_Вторник_Среду_Четверг_Пятницу_Субботу'.split('_')
     },
     nounCase = (/\[ ?[Вв] ?(?:прошлую|следующую|эту)? ?\] ?dddd/).test(format) ?
         'accusative' :
@@ -61,8 +61,8 @@ export default moment.defineLocale('ru', {
     months : monthsCaseReplace,
     monthsShort : monthsShortCaseReplace,
     weekdays : weekdaysCaseReplace,
-    weekdaysShort : 'вс_пн_вт_ср_чт_пт_сб'.split('_'),
-    weekdaysMin : 'вс_пн_вт_ср_чт_пт_сб'.split('_'),
+    weekdaysShort : 'Вс_Пн_Вт_Ср_Чт_Пт_Сб'.split('_'),
+    weekdaysMin : 'Вс_Пн_Вт_Ср_Чт_Пт_Сб'.split('_'),
     monthsParse : monthsParse,
     longMonthsParse : monthsParse,
     shortMonthsParse : monthsParse,
@@ -175,4 +175,3 @@ export default moment.defineLocale('ru', {
         doy : 7  // The week that contains Jan 1st is the first week of the year.
     }
 });
-
