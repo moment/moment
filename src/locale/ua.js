@@ -1,5 +1,6 @@
 //! moment.js locale configuration
-//! locale : russian (ru)
+//! locale : Ukrainian (ua)
+//! Author : Andrew Zhilin : https://github.com/zhil
 //! author : Viktorminator : https://github.com/Viktorminator
 //! Author : Menelion Elensúle : https://github.com/Oire
 
