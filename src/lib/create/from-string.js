@@ -48,7 +48,7 @@ function normalizeISO (str) {
         .replace(/(T| )(\d{2})(\d{2})/,"$1$2:$3")
         //if a timezone is detected without colon, add colon
         .replace(/(?!^\s*)([+-])([0-1][0-9])(\d{2})/,"$1$2:$3");
-};
+}
 
 // date from iso format
 export function configFromISO(config) {
