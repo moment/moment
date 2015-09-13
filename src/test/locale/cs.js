@@ -3,10 +3,13 @@ import moment from '../../moment';
 localeModule('cs');
 
 test('parse', function (assert) {
-    var tests = 'leden led_únor úno_březen bře_duben dub_květen kvě_červen čvn_červenec čvc_srpen srp_září zář_říjen říj_listopad lis_prosinec pro'.split('_'), i;
+    var i,
+        tests = 'leden led_únor úno_březen bře_duben dub_květen kvě_červen čvn_červenec čvc_srpen srp_září zář_říjen říj_listopad lis_prosinec pro'.split('_');
+
     function equalTest(input, mmm, monthIndex) {
         assert.equal(moment(input, mmm).month(), monthIndex, input + ' should be month ' + (monthIndex + 1));
     }
+
     for (i = 0; i < 12; i++) {
         tests[i] = tests[i].split(' ');
         equalTest(tests[i][0], 'MMM', i);

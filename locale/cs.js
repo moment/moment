@@ -70,14 +70,37 @@
     var cs = moment.defineLocale('cs', {
         months : months,
         monthsShort : monthsShort,
-        monthsParse : (function (months, monthsShort) {
-            var i, _monthsParse = [];
-            for (i = 0; i < 12; i++) {
-                // use custom parser to solve problem with July (červenec)
-                _monthsParse[i] = new RegExp('^' + months[i] + '$|^' + monthsShort[i] + '$', 'i');
+        monthsParse : function (monthName, format, strict) {
+            var i, mom, regex;
+
+            if (!this._monthsParse) {
+                this._monthsParse = [];
+                this._longMonthsParse = [];
+                this._shortMonthsParse = [];
             }
-            return _monthsParse;
-        }(months, monthsShort)),
+
+            for (i = 0; i < 12; i++) {
+                // make the regex if we don't have it already
+                mom = create_utc__createUTC([2000, i]);
+                if (strict && !this._longMonthsParse[i]) {
+                    this._longMonthsParse[i] = new RegExp('^' + this.months(mom, '').replace('.', '') + '$', 'i');
+                    this._shortMonthsParse[i] = new RegExp('^' + this.monthsShort(mom, '').replace('.', '') + '$', 'i');
+                }
+                if (!strict && !this._monthsParse[i]) {
+                    // https://github.com/moment/moment/issues/477
+                    regex = '^' + this.months(mom, '') + '$|^' + this.monthsShort(mom, '') + '$';
+                    this._monthsParse[i] = new RegExp(regex.replace('.', ''), 'i');
+                }
+                // test the regex
+                if (strict && format === 'MMMM' && this._longMonthsParse[i].test(monthName)) {
+                    return i;
+                } else if (strict && format === 'MMM' && this._shortMonthsParse[i].test(monthName)) {
+                    return i;
+                } else if (!strict && this._monthsParse[i].test(monthName)) {
+                    return i;
+                }
+            }
+        },
         weekdays : 'neděle_pondělí_úterý_středa_čtvrtek_pátek_sobota'.split('_'),
         weekdaysShort : 'ne_po_út_st_čt_pá_so'.split('_'),
         weekdaysMin : 'ne_po_út_st_čt_pá_so'.split('_'),
