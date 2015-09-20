@@ -100,6 +100,11 @@ export function localeMonthsParse (monthName, format, strict) {
 export function setMonth (mom, value) {
     var dayOfMonth;
 
+    if (!mom.isValid()) {
+        // No op
+        return mom;
+    }
+
     // TODO: Move this out of here!
     if (typeof value === 'string') {
         value = mom.localeData().monthsParse(value);

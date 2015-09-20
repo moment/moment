@@ -25,6 +25,12 @@ export function addSubtract (mom, duration, isAdding, updateOffset) {
     var milliseconds = duration._milliseconds,
         days = duration._days,
         months = duration._months;
+
+    if (!mom.isValid()) {
+        // No op
+        return;
+    }
+
     updateOffset = updateOffset == null ? true : updateOffset;
 
     if (milliseconds) {
