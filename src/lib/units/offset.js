@@ -97,6 +97,9 @@ hooks.updateOffset = function () {};
 export function getSetOffset (input, keepLocalTime) {
     var offset = this._offset || 0,
         localAdjust;
+    if (!this.isValid()) {
+        return input != null ? this : NaN;
+    }
     if (input != null) {
         if (typeof input === 'string') {
             input = offsetFromString(input);
@@ -167,6 +170,9 @@ export function setOffsetToParsedOffset () {
 }
 
 export function hasAlignedHourOffset (input) {
+    if (!this.isValid()) {
+        return false;
+    }
     input = input ? createLocal(input).utcOffset() : 0;
 
     return (this.utcOffset() - input) % 60 === 0;
@@ -201,13 +207,13 @@ export function isDaylightSavingTimeShifted () {
 }
 
 export function isLocal () {
-    return !this._isUTC;
+    return this.isValid() ? !this._isUTC : false;
 }
 
 export function isUtcOffset () {
-    return this._isUTC;
+    return this.isValid() ? this._isUTC : false;
 }
 
 export function isUtc () {
-    return this._isUTC && this._offset === 0;
+    return this.isValid() ? this._isUTC && this._offset === 0 : false;
 }

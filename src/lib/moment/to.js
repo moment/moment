@@ -2,10 +2,13 @@ import { createDuration } from '../duration/create';
 import { createLocal } from '../create/local';
 
 export function to (time, withoutSuffix) {
-    if (!this.isValid()) {
+    if (this.isValid() &&
+            ((isMoment(time) && time.isValid()) ||
+             createLocal(time).isValid())) {
+        return createDuration({from: this, to: time}).locale(this.locale()).humanize(!withoutSuffix);
+    } else {
         return this.localeData().invalidDate();
     }
-    return createDuration({from: this, to: time}).locale(this.locale()).humanize(!withoutSuffix);
 }
 
 export function toNow (withoutSuffix) {

@@ -6,6 +6,7 @@ import { Moment, isMoment } from '../moment/constructor';
 import { getLocale } from '../locale/locales';
 import { hooks } from '../utils/hooks';
 import checkOverflow from './check-overflow';
+import { isValid } from './valid';
 
 import { configFromStringAndArray }  from './from-string-and-array';
 import { configFromStringAndFormat } from './from-string-and-format';
@@ -48,6 +49,10 @@ export function prepareConfig (config) {
         config._d = input;
     } else {
         configFromInput(config);
+    }
+
+    if (!isValid(config)) {
+        config._d = null;
     }
 
     return config;
