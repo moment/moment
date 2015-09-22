@@ -4,8 +4,12 @@ import moment from '../../moment';
 test('calendar function with functions', function (assert) {
     var m = moment(),
         format = {
-            sameDay: function() { return '[Today2]'; },
-            nextDay: function() { return '[Tomorrow]'; }
+            sameDay: function () {
+                return '[Today2]';
+            },
+            nextDay: function () {
+                return '[Tomorrow]';
+            }
         },
         preformat = m.calendar();
 
