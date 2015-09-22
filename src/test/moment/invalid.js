@@ -31,7 +31,7 @@ test('invalid operations', function (assert) {
             moment.invalid(),
             moment('xyz', 'l'),
             moment('2015-01-35', 'YYYY-MM-DD'),
-            moment('2015-01-25 a', 'YYYY-MM-DD', true),
+            moment('2015-01-25 a', 'YYYY-MM-DD', true)
         ],
         i,
         invalid,
@@ -95,7 +95,7 @@ test('invalid operations', function (assert) {
             hours: NaN,
             minutes: NaN,
             seconds: NaN,
-            milliseconds: NaN,
+            milliseconds: NaN
         });
         assert.ok(moment.isDate(invalid.toDate()));
         assert.ok(isNaN(invalid.toDate().valueOf()));
