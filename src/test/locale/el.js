@@ -53,9 +53,9 @@ test('parse meridiem', function (assert) {
 
     for (i = 0; i < meridiemTests.length; i++) {
         parsed = moment(meridiemTests[i][0], 'h a', 'el', true);
-        assert.equal(parsed.isValid(), meridiemTests[i][2], "validity for " + meridiemTests[i][0]);
+        assert.equal(parsed.isValid(), meridiemTests[i][2], 'validity for ' + meridiemTests[i][0]);
         if (parsed.isValid()) {
-            assert.equal(parsed.hours(), meridiemTests[i][1], "hours for " + meridiemTests[i][0]);
+            assert.equal(parsed.hours(), meridiemTests[i][1], 'hours for ' + meridiemTests[i][0]);
         }
     }
 });
