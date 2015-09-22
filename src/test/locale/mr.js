@@ -105,7 +105,7 @@ test('format week', function (assert) {
 
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'सेकंद', '44 seconds = a few seconds');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'काही सेकंद', '44 seconds = a few seconds');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'एक मिनिट',      '45 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'एक मिनिट',      '89 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '२ मिनिटे',     '90 seconds = 2 minutes');
@@ -136,17 +136,17 @@ test('from', function (assert) {
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), 'सेकंद नंतर', 'prefix');
-    assert.equal(moment(0).from(30000), 'सेकंद पूर्वी', 'suffix');
+    assert.equal(moment(30000).from(0), 'काही सेकंदांमध्ये', 'prefix');
+    assert.equal(moment(0).from(30000), 'काही सेकंदांपूर्वी', 'suffix');
 });
 
 test('now from now', function (assert) {
-    assert.equal(moment().fromNow(), 'सेकंद पूर्वी',  'now from now should display as in the past');
+    assert.equal(moment().fromNow(), 'काही सेकंदांपूर्वी',  'now from now should display as in the past');
 });
 
 test('fromNow', function (assert) {
-    assert.equal(moment().add({s: 30}).fromNow(), 'सेकंद नंतर', 'सेकंद नंतर');
-    assert.equal(moment().add({d: 5}).fromNow(), '५ दिवस नंतर', '५ दिवस नंतर');
+    assert.equal(moment().add({s: 30}).fromNow(), 'काही सेकंदांमध्ये', 'in a few seconds');
+    assert.equal(moment().add({d: 5}).fromNow(), '५ दिवसांमध्ये', 'in 5 days');
 });
 
 test('calendar day', function (assert) {
