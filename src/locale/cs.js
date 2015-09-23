@@ -73,6 +73,20 @@ export default moment.defineLocale('cs', {
         }
         return _monthsParse;
     }(months, monthsShort)),
+    shortMonthsParse : (function (monthsShort) {
+        var i, _shortMonthsParse = [];
+        for (i = 0; i < 12; i++) {
+            _shortMonthsParse[i] = new RegExp('^' + monthsShort[i] + '$', 'i');
+        }
+        return _shortMonthsParse;
+    }(monthsShort)),
+    longMonthsParse : (function (months) {
+        var i, _longMonthsParse = [];
+        for (i = 0; i < 12; i++) {
+            _longMonthsParse[i] = new RegExp('^' + months[i] + '$', 'i');
+        }
+        return _longMonthsParse;
+    }(months)),
     weekdays : 'neděle_pondělí_úterý_středa_čtvrtek_pátek_sobota'.split('_'),
     weekdaysShort : 'ne_po_út_st_čt_pá_so'.split('_'),
     weekdaysMin : 'ne_po_út_st_čt_pá_so'.split('_'),
