@@ -80,10 +80,21 @@ test('default thresholds toNow', function (assert) {
 });
 
 test('custom thresholds', function (assert) {
+    var a;
+
+    // Seconds to minute threshold, under 30
+    moment.relativeTimeThreshold('s', 25);
+
+    a = moment();
+    a.subtract(24, 'seconds');
+    assert.equal(a.fromNow(), 'a few seconds ago', 'Below custom seconds to minute threshold, s < 30');
+    a.subtract(1, 'seconds');
+    assert.equal(a.fromNow(), 'a minute ago', 'Above custom seconds to minute threshold, s < 30');
+
     // Seconds to minutes threshold
     moment.relativeTimeThreshold('s', 55);
 
-    var a = moment();
+    a = moment();
     a.subtract(54, 'seconds');
     assert.equal(a.fromNow(), 'a few seconds ago', 'Below custom seconds to minutes threshold');
     a.subtract(1, 'seconds');
