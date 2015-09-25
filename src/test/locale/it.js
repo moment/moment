@@ -27,7 +27,7 @@ test('format', function (assert) {
             ['M Mo MM MMMM MMM',                   '2 2º 02 febbraio feb'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14º 14'],
-            ['d do dddd ddd dd',                   '0 0º Domenica Dom D'],
+            ['d do dddd ddd dd',                   '0 0º Domenica Dom Do'],
             ['DDD DDDo DDDD',                      '45 45º 045'],
             ['w wo ww',                            '6 6º 06'],
             ['h hh',                               '3 03'],
