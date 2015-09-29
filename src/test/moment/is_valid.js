@@ -90,8 +90,8 @@ test('invalid string iso 8601', function (assert) {
     ], i;
 
     for (i = 0; i < tests.length; i++) {
-        assert.equal(moment(tests[i]).isValid(), false, tests[i] + ' should be invalid');
-        assert.equal(moment.utc(tests[i]).isValid(), false, tests[i] + ' should be invalid');
+        assert.equal(moment(tests[i], moment.ISO_8601).isValid(), false, tests[i] + ' should be invalid');
+        assert.equal(moment.utc(tests[i], moment.ISO_8601).isValid(), false, tests[i] + ' should be invalid');
     }
 });
 
@@ -108,8 +108,8 @@ test('invalid string iso 8601 + timezone', function (assert) {
     ], i;
 
     for (i = 0; i < tests.length; i++) {
-        assert.equal(moment(tests[i]).isValid(), false, tests[i] + ' should be invalid');
-        assert.equal(moment.utc(tests[i]).isValid(), false, tests[i] + ' should be invalid');
+        assert.equal(moment(tests[i], moment.ISO_8601).isValid(), false, tests[i] + ' should be invalid');
+        assert.equal(moment.utc(tests[i], moment.ISO_8601).isValid(), false, tests[i] + ' should be invalid');
     }
 });
 
