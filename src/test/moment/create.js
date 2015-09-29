@@ -424,6 +424,7 @@ test('parsing iso', function (assert) {
     tz2 = tz.replace(':', ''),
     tz3 = tz2.slice(0, 3),
     formats = [
+        ['2011-10',                       '2011-10-01T00:00:00.000' + tz],
         ['2011-10-08',                    '2011-10-08T00:00:00.000' + tz],
         ['2011-10-08T18',                 '2011-10-08T18:00:00.000' + tz],
         ['2011-10-08T18:04',              '2011-10-08T18:04:00.000' + tz],
@@ -579,6 +580,15 @@ test('parsing iso', function (assert) {
     for (i = 0; i < formats.length; i++) {
         assert.equal(moment(formats[i][0]).format('YYYY-MM-DDTHH:mm:ss.SSSZ'), formats[i][1], 'moment should be able to parse ISO ' + formats[i][0]);
     }
+});
+
+test('non iso 8601 strings', function (assert) {
+    assert.ok(!moment('2015-10T10:15', moment.ISO_8601).isValid(), 'incomplete date with time');
+    assert.ok(!moment('2015-W10T10:15', moment.ISO_8601).isValid(), 'incomplete week date with time');
+    assert.ok(!moment('201510', moment.ISO_8601).isValid(), 'basic YYYYMM is not allowed');
+    assert.ok(!moment('2015W10T1015', moment.ISO_8601).isValid(), 'incomplete week date with time (basic)');
+    assert.ok(!moment('2015-10-08T1015', moment.ISO_8601).isValid(), 'mixing extended and basic format');
+    assert.ok(!moment('20151008T10:15', moment.ISO_8601).isValid(), 'mixing basic and extended format');
 });
 
 test('parsing iso week year/week/weekday', function (assert) {
