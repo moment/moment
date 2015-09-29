@@ -583,12 +583,12 @@ test('parsing iso', function (assert) {
 });
 
 test('non iso 8601 strings', function (assert) {
-    assert.ok(!moment('2015-10T10:15', moment.ISO_8601).isValid(), 'incomplete date with time');
-    assert.ok(!moment('2015-W10T10:15', moment.ISO_8601).isValid(), 'incomplete week date with time');
-    assert.ok(!moment('201510', moment.ISO_8601).isValid(), 'basic YYYYMM is not allowed');
-    assert.ok(!moment('2015W10T1015', moment.ISO_8601).isValid(), 'incomplete week date with time (basic)');
-    assert.ok(!moment('2015-10-08T1015', moment.ISO_8601).isValid(), 'mixing extended and basic format');
-    assert.ok(!moment('20151008T10:15', moment.ISO_8601).isValid(), 'mixing basic and extended format');
+    assert.ok(!moment('2015-10T10:15', moment.ISO_8601, true).isValid(), 'incomplete date with time');
+    assert.ok(!moment('2015-W10T10:15', moment.ISO_8601, true).isValid(), 'incomplete week date with time');
+    assert.ok(!moment('201510', moment.ISO_8601, true).isValid(), 'basic YYYYMM is not allowed');
+    assert.ok(!moment('2015W10T1015', moment.ISO_8601, true).isValid(), 'incomplete week date with time (basic)');
+    assert.ok(!moment('2015-10-08T1015', moment.ISO_8601, true).isValid(), 'mixing extended and basic format');
+    assert.ok(!moment('20151008T10:15', moment.ISO_8601, true).isValid(), 'mixing basic and extended format');
 });
 
 test('parsing iso week year/week/weekday', function (assert) {
