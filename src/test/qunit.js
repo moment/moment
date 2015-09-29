@@ -8,8 +8,8 @@ export function module (name, lifecycle) {
     QUnit.module(name, {
         setup : function () {
             moment.locale('en');
-            moment.createFromInputFallback = function () {
-                throw new Error('input not handled by moment');
+            moment.createFromInputFallback = function (config) {
+                throw new Error('input not handled by moment: ' + config._i);
             };
             if (lifecycle && lifecycle.setup) {
                 lifecycle.setup();
@@ -27,8 +27,8 @@ export function localeModule (name, lifecycle) {
     QUnit.module('locale:' + name, {
         setup : function () {
             moment.locale(name);
-            moment.createFromInputFallback = function () {
-                throw new Error('input not handled by moment');
+            moment.createFromInputFallback = function (config) {
+                throw new Error('input not handled by moment: ' + config._i);
             };
             if (lifecycle && lifecycle.setup) {
                 lifecycle.setup();

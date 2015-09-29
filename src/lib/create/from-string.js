@@ -6,22 +6,32 @@ import getParsingFlags from './parsing-flags';
 
 // iso 8601 regex
 // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
-var isoRegex = /^\s*(?:[+-]\d{6}|\d{4})-(?:(\d\d-\d\d)|(W\d\d$)|(W\d\d-\d)|(\d\d\d))((T| )(\d\d(:\d\d(:\d\d(\.\d+)?)?)?)?([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
+var isoRegex = /^\s*((?:[+-]\d{6}|\d{4})-?(?:\d\d$|\d\d-?\d\d|W\d\d$|W\d\d-?\d|\d\d\d))(?:(T| )(\d\d(?::?\d\d(?::?\d\d(?::?[.,]\d+)?)?)?)?([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
 
 var isoDates = [
-    ['YYYYYY-MM-DD', /[+-]\d{6}-\d{2}-\d{2}/],
-    ['YYYY-MM-DD', /\d{4}-\d{2}-\d{2}/],
-    ['GGGG-[W]WW-E', /\d{4}-W\d{2}-\d/],
-    ['GGGG-[W]WW', /\d{4}-W\d{2}/],
-    ['YYYY-DDD', /\d{4}-\d{3}/]
+    ['YYYYYY-MM-DD', /[+-]\d{6}-\d{2}-\d{2}/, true],
+    ['YYYY-MM-DD', /\d{4}-\d{2}-\d{2}/, true],
+    ['GGGG-[W]WW-E', /\d{4}-W\d{2}-\d/, true],
+    ['GGGG-[W]WW', /\d{4}-W\d{2}/, true],
+    ['YYYY-DDD', /\d{4}-\d{3}/, true],
+    ['YYYYYYMMDD', /[+-]\d{6}\d{2}\d{2}/, false],
+    ['YYYYMMDD', /\d{4}\d{2}\d{2}/, false],
+    // YYYYMM is NOT allowed by the standard
+    ['GGGG[W]WWE', /\d{4}W\d{2}\d/, false],
+    ['GGGG[W]WW', /\d{4}W\d{2}/, false],
+    ['YYYYDDD', /\d{4}\d{3}/, false]
 ];
 
 // iso time formats and regexes
 var isoTimes = [
-    ['HH:mm:ss.SSSS', /(T| )\d\d:\d\d:\d\d\.\d+/],
-    ['HH:mm:ss', /(T| )\d\d:\d\d:\d\d/],
-    ['HH:mm', /(T| )\d\d:\d\d/],
-    ['HH', /(T| )\d\d/]
+    ['HH:mm:ss.SSSS', /\d\d:\d\d:\d\d\.\d+/, true],
+    ['HH:mm:ss', /\d\d:\d\d:\d\d/, true],
+    ['HH:mm', /\d\d:\d\d/, true],
+    ['HHmmss.SSSS', /\d\d\d\d\d\d\.\d+/, false],
+    ['HHmmss,SSSS', /\d\d\d\d\d\d,\d+/, false],
+    ['HHmmss', /\d\d\d\d\d\d/, false],
+    ['HHmm', /\d\d\d\d/, false],
+    ['HH', /\d\d/, null]
 ];
 
 var aspNetJsonRegex = /^\/?Date\((\-?\d+)/i;
@@ -30,24 +40,36 @@ var aspNetJsonRegex = /^\/?Date\((\-?\d+)/i;
 export function configFromISO(config) {
     var i, l,
         string = config._i,
-        match = isoRegex.exec(string);
+        match = isoRegex.exec(string),
+        extendedDate, extendedTime;
 
     if (match) {
         getParsingFlags(config).iso = true;
+
         for (i = 0, l = isoDates.length; i < l; i++) {
-            if (isoDates[i][1].exec(string)) {
+            if (isoDates[i][1].exec(match[1])) {
                 config._f = isoDates[i][0];
+                extendedDate = isoDates[i][2];
                 break;
             }
         }
         for (i = 0, l = isoTimes.length; i < l; i++) {
-            if (isoTimes[i][1].exec(string)) {
-                // match[6] should be 'T' or space
-                config._f += (match[6] || ' ') + isoTimes[i][0];
+            if (isoTimes[i][1].exec(match[3])) {
+                // match[2] should be 'T' or space
+                config._f += (match[2] || ' ') + isoTimes[i][0];
+                extendedTime = isoTimes[i][2];
                 break;
             }
         }
-        if (string.match(matchOffset)) {
+        if (extendedDate != null &&
+                extendedTime != null &&
+                extendedDate !== extendedTime) {
+            // extended and basic formats for date and time can NOT be mixed
+            config._isValid = false;
+            return;
+        }
+        matchOffset.lastIndex = 0;
+        if (matchOffset.exec(match[4])) {
             config._f += 'Z';
         }
         configFromStringAndFormat(config);
