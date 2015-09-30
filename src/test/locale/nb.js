@@ -3,7 +3,7 @@ import moment from '../../moment';
 localeModule('nb');
 
 test('parse', function (assert) {
-    var tests = 'januar jan_februar feb_mars mar_april apr_mai mai_juni jun_juli jul_august aug_september sep_oktober okt_november nov_desember des'.split('_'),
+    var tests = 'januar jan._februar feb._mars mars_april april_mai mai_juni juni_juli juli_august aug._september sep._oktober okt._november nov._desember des.'.split('_'),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
@@ -24,11 +24,11 @@ test('parse', function (assert) {
 test('format', function (assert) {
     var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss a',      'søndag, februar 14. 2010, 3:25:50 pm'],
-            ['ddd, hA',                            'søn, 3PM'],
-            ['M Mo MM MMMM MMM',                   '2 2. 02 februar feb'],
+            ['ddd, hA',                            'sø., 3PM'],
+            ['M Mo MM MMMM MMM',                   '2 2. 02 februar feb.'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14. 14'],
-            ['d do dddd ddd dd',                   '0 0. søndag søn sø'],
+            ['d do dddd ddd dd',                   '0 0. søndag sø. sø'],
             ['DDD DDDo DDDD',                      '45 45. 045'],
             ['w wo ww',                            '6 6. 06'],
             ['h hh',                               '3 03'],
@@ -37,15 +37,15 @@ test('format', function (assert) {
             ['s ss',                               '50 50'],
             ['a A',                                'pm PM'],
             ['[den] DDDo [dagen i året]',          'den 45. dagen i året'],
-            ['LTS',                                '15.25.50'],
+            ['LTS',                                '15:25:50'],
             ['L',                                  '14.02.2010'],
             ['LL',                                 '14. februar 2010'],
-            ['LLL',                                '14. februar 2010 kl. 15.25'],
-            ['LLLL',                               'søndag 14. februar 2010 kl. 15.25'],
+            ['LLL',                                '14. februar 2010 kl. 15:25'],
+            ['LLLL',                               'søndag 14. februar 2010 kl. 15:25'],
             ['l',                                  '14.2.2010'],
-            ['ll',                                 '14. feb 2010'],
-            ['lll',                                '14. feb 2010 kl. 15.25'],
-            ['llll',                               'søn 14. feb 2010 kl. 15.25']
+            ['ll',                                 '14. feb. 2010'],
+            ['lll',                                '14. feb. 2010 kl. 15:25'],
+            ['llll',                               'sø. 14. feb. 2010 kl. 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -92,14 +92,14 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'januar jan_februar feb_mars mar_april apr_mai mai_juni jun_juli jul_august aug_september sep_oktober okt_november nov_desember des'.split('_'), i;
+    var expected = 'januar jan._februar feb._mars mars_april april_mai mai_juni juni_juli juli_august aug._september sep._oktober okt._november nov._desember des.'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
 });
 
 test('format week', function (assert) {
-    var expected = 'søndag søn sø_mandag man ma_tirsdag tirs ti_onsdag ons on_torsdag tors to_fredag fre fr_lørdag lør lø'.split('_'), i;
+    var expected = 'søndag sø. sø_mandag ma. ma_tirsdag ti. ti_onsdag on. on_torsdag to. to_fredag fr. fr_lørdag lø. lø'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
@@ -154,12 +154,12 @@ test('fromNow', function (assert) {
 test('calendar day', function (assert) {
     var a = moment().hours(2).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                     'i dag kl. 2.00',     'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'i dag kl. 2.25',     'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),       'i dag kl. 3.00',     'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'i morgen kl. 2.00',  'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'i dag kl. 1.00',     'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'i går kl. 2.00',     'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                     'i dag kl. 02:00',     'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'i dag kl. 02:25',     'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       'i dag kl. 03:00',     'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'i morgen kl. 02:00',  'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'i dag kl. 01:00',     'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'i går kl. 02:00',     'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {
