@@ -20,12 +20,12 @@
             LTS : 'Ah點m分s秒',
             L : 'YYYY年MMMD日',
             LL : 'YYYY年MMMD日',
-            LLL : 'YYYY年MMMD日LT',
-            LLLL : 'YYYY年MMMD日ddddLT',
+            LLL : 'YYYY年MMMD日Ah點mm分',
+            LLLL : 'YYYY年MMMD日ddddAh點mm分',
             l : 'YYYY年MMMD日',
             ll : 'YYYY年MMMD日',
-            lll : 'YYYY年MMMD日LT',
-            llll : 'YYYY年MMMD日ddddLT'
+            lll : 'YYYY年MMMD日Ah點mm分',
+            llll : 'YYYY年MMMD日ddddAh點mm分'
         },
         meridiemParse: /早上|上午|中午|下午|晚上/,
         meridiemHour : function (hour, meridiem) {

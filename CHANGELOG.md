@@ -1,6 +1,24 @@
 Changelog
 =========
 
+### 2.10.6
+
+[#2515](https://github.com/moment/moment/pull/2515) Fix regression introduced
+in `2.10.5` related to `moment.ISO_8601` parsing.
+
+### 2.10.5 [See full changelog](https://gist.github.com/ichernev/6ec13ac7efc396da44b2)
+
+Important changes:
+* [#2357](https://github.com/moment/moment/pull/2357) Improve unit bubbling for ISO dates
+  this fixes day to year conversions to work around end-of-year (~365 days). As
+  a side effect 365 days is 11 months and 30 days, and 366 days is one year.
+* [#2438](https://github.com/moment/moment/pull/2438) Fix inconsistent moment.min and moment.max results
+  Return invalid result if any of the inputs is invalid
+* [#2494](https://github.com/moment/moment/pull/2494) Fix two digit year parsing with YYYY format
+  This brings the benefits of YY to YYYY
+* [#2368](https://github.com/moment/moment/pull/2368) perf: use faster form of copying dates, across the board improvement
+
+
 ### 2.10.3 [See full changelog](https://gist.github.com/ichernev/f264b9bed5b00f8b1b7f)
 
 * add `moment.fn.to` and `moment.fn.toNow` (similar to `from` and `fromNow`)

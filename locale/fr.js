@@ -17,11 +17,11 @@
         weekdaysMin : 'Di_Lu_Ma_Me_Je_Ve_Sa'.split('_'),
         longDateFormat : {
             LT : 'HH:mm',
-            LTS : 'LT:ss',
+            LTS : 'HH:mm:ss',
             L : 'DD/MM/YYYY',
             LL : 'D MMMM YYYY',
-            LLL : 'D MMMM YYYY LT',
-            LLLL : 'dddd D MMMM YYYY LT'
+            LLL : 'D MMMM YYYY HH:mm',
+            LLLL : 'dddd D MMMM YYYY HH:mm'
         },
         calendar : {
             sameDay: '[Aujourd\'hui à] LT',

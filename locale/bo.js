@@ -42,11 +42,11 @@
         weekdaysMin : 'ཉི་མ་_ཟླ་བ་_མིག་དམར་_ལྷག་པ་_ཕུར་བུ_པ་སངས་_སྤེན་པ་'.split('_'),
         longDateFormat : {
             LT : 'A h:mm',
-            LTS : 'LT:ss',
+            LTS : 'A h:mm:ss',
             L : 'DD/MM/YYYY',
             LL : 'D MMMM YYYY',
-            LLL : 'D MMMM YYYY, LT',
-            LLLL : 'dddd, D MMMM YYYY, LT'
+            LLL : 'D MMMM YYYY, A h:mm',
+            LLLL : 'dddd, D MMMM YYYY, A h:mm'
         },
         calendar : {
             sameDay : '[དི་རིང] LT',

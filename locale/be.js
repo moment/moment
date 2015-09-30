@@ -62,11 +62,11 @@
         weekdaysMin : 'нд_пн_ат_ср_чц_пт_сб'.split('_'),
         longDateFormat : {
             LT : 'HH:mm',
-            LTS : 'LT:ss',
+            LTS : 'HH:mm:ss',
             L : 'DD.MM.YYYY',
             LL : 'D MMMM YYYY г.',
-            LLL : 'D MMMM YYYY г., LT',
-            LLLL : 'dddd, D MMMM YYYY г., LT'
+            LLL : 'D MMMM YYYY г., HH:mm',
+            LLLL : 'dddd, D MMMM YYYY г., HH:mm'
         },
         calendar : {
             sameDay: '[Сёння ў] LT',

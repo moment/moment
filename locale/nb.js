@@ -21,8 +21,8 @@
             LTS : 'LT:ss',
             L : 'DD.MM.YYYY',
             LL : 'D. MMMM YYYY',
-            LLL : 'D. MMMM YYYY [kl.] LT',
-            LLLL : 'dddd D. MMMM YYYY [kl.] LT'
+            LLL : 'D. MMMM YYYY [kl.] H.mm',
+            LLLL : 'dddd D. MMMM YYYY [kl.] H.mm'
         },
         calendar : {
             sameDay: '[i dag kl.] LT',

@@ -33,7 +33,7 @@
         weekdaysMin : 'Du_Lu_Ma_Mi_Jo_Vi_Sâ'.split('_'),
         longDateFormat : {
             LT : 'H:mm',
-            LTS : 'LT:ss',
+            LTS : 'H:mm:ss',
             L : 'DD.MM.YYYY',
             LL : 'D MMMM YYYY',
             LLL : 'D MMMM YYYY H:mm',

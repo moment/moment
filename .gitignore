@@ -7,3 +7,7 @@ sauce_connect.log
 npm-debug.log
 .build*
 build
+coverage
+nyc_output
+.nyc_output
+.coveralls.yml

@@ -22,8 +22,15 @@ import hasOwnProp from '../utils/has-own-prop';
 
 var regexes = {};
 
+function isFunction (sth) {
+    // https://github.com/moment/moment/issues/2325
+    return typeof sth === 'function' &&
+        Object.prototype.toString.call(sth) === '[object Function]';
+}
+
+
 export function addRegexToken (token, regex, strictRegex) {
-    regexes[token] = typeof regex === 'function' ? regex : function (isStrict) {
+    regexes[token] = isFunction(regex) ? regex : function (isStrict) {
         return (isStrict && strictRegex) ? strictRegex : regex;
     };
 }

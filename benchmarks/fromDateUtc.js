@@ -4,7 +4,7 @@ var Benchmark = require('benchmark'),
 
 module.exports = {
   name: 'fromDateUtc',
-  onComplete: function(){console.log('done');},
+  onComplete: function(){},
   fn: function(){
       moment.utc(base);
   },

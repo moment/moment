@@ -1,6 +1,6 @@
 {
     "name": "moment",
-    "version": "2.10.3",
+    "version": "2.10.6",
     "description": "Parse, validate, manipulate, and display dates",
     "homepage": "http://momentjs.com",
     "author": "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)",
@@ -61,7 +61,9 @@
         "karma-sauce-launcher": "latest",
         "qunit": "^0.7.5",
         "qunit-cli": "^0.1.4",
-        "spacejam": "latest"
+        "spacejam": "latest",
+        "coveralls": "^2.11.2",
+        "nyc": "^2.1.4"
     },
     "ender": "./ender.js",
     "dojoBuild": "package.js",
@@ -78,7 +80,9 @@
         }
     },
     "scripts": {
-        "test": "grunt test"
+        "test": "grunt test",
+        "coverage": "nyc npm test && nyc report",
+        "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
     },
     "spm": {
         "main": "moment.js",

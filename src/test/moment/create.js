@@ -112,6 +112,11 @@ test('undefined', function (assert) {
     assert.ok(moment().toDate() instanceof Date, 'undefined');
 });
 
+test('iso with bad input', function (assert) {
+    assert.ok(!moment('a', moment.ISO_8601).isValid(), 'iso parsing with invalid string');
+    assert.ok(!moment('a', moment.ISO_8601, true).isValid(), 'iso parsing with invalid string, strict');
+});
+
 test('iso format 24hrs', function (assert) {
     assert.equal(moment('2014-01-01T24:00:00.000').format('YYYY-MM-DD[T]HH:mm:ss.SSS'),
             '2014-01-02T00:00:00.000', 'iso format with 24:00 localtime');
@@ -238,6 +243,13 @@ test('string with format', function (assert) {
         assert.ok(m.isValid());
         assert.equal(m.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
     }
+});
+
+test('2 digit year with YYYY format', function (assert) {
+    assert.equal(moment('9/2/99', 'D/M/YYYY').format('DD/MM/YYYY'), '09/02/1999', 'D/M/YYYY ---> 9/2/99');
+    assert.equal(moment('9/2/1999', 'D/M/YYYY').format('DD/MM/YYYY'), '09/02/1999', 'D/M/YYYY ---> 9/2/1999');
+    assert.equal(moment('9/2/68', 'D/M/YYYY').format('DD/MM/YYYY'), '09/02/2068', 'D/M/YYYY ---> 9/2/68');
+    assert.equal(moment('9/2/69', 'D/M/YYYY').format('DD/MM/YYYY'), '09/02/1969', 'D/M/YYYY ---> 9/2/69');
 });
 
 test('unix timestamp format', function (assert) {
@@ -637,7 +649,6 @@ test('first century', function (assert) {
     assert.equal(moment([99, 0, 1]).format('YYYY-MM-DD'), '0099-01-01', 'Year AD 99');
     assert.equal(moment([999, 0, 1]).format('YYYY-MM-DD'), '0999-01-01', 'Year AD 999');
     assert.equal(moment('0 1 1', 'YYYY MM DD').format('YYYY-MM-DD'), '0000-01-01', 'Year AD 0');
-    assert.equal(moment('99 1 1', 'YYYY MM DD').format('YYYY-MM-DD'), '0099-01-01', 'Year AD 99');
     assert.equal(moment('999 1 1', 'YYYY MM DD').format('YYYY-MM-DD'), '0999-01-01', 'Year AD 999');
     assert.equal(moment('0 1 1', 'YYYYY MM DD').format('YYYYY-MM-DD'), '00000-01-01', 'Year AD 0');
     assert.equal(moment('99 1 1', 'YYYYY MM DD').format('YYYYY-MM-DD'), '00099-01-01', 'Year AD 99');
@@ -871,4 +882,31 @@ test('array with strings', function (assert) {
 
 test('utc with array of formats', function (assert) {
     assert.equal(moment.utc('2014-01-01', ['YYYY-MM-DD', 'YYYY-MM']).format(), '2014-01-01T00:00:00+00:00', 'moment.utc works with array of formats');
+});
+
+test('parsing invalid string weekdays', function (assert) {
+    assert.equal(false, moment('a', 'dd').isValid(),
+            'dd with invalid weekday, non-strict');
+    assert.equal(false, moment('a', 'dd', true).isValid(),
+            'dd with invalid weekday, strict');
+    assert.equal(false, moment('a', 'ddd').isValid(),
+            'ddd with invalid weekday, non-strict');
+    assert.equal(false, moment('a', 'ddd', true).isValid(),
+            'ddd with invalid weekday, strict');
+    assert.equal(false, moment('a', 'dddd').isValid(),
+            'dddd with invalid weekday, non-strict');
+    assert.equal(false, moment('a', 'dddd', true).isValid(),
+            'dddd with invalid weekday, strict');
+});
+
+test('milliseconds', function (assert) {
+    assert.equal(moment('1', 'S').millisecond(), 100);
+    assert.equal(moment('12', 'SS').millisecond(), 120);
+    assert.equal(moment('123', 'SSS').millisecond(), 123);
+    assert.equal(moment('1234', 'SSSS').millisecond(), 123);
+    assert.equal(moment('12345', 'SSSSS').millisecond(), 123);
+    assert.equal(moment('123456', 'SSSSSS').millisecond(), 123);
+    assert.equal(moment('1234567', 'SSSSSSS').millisecond(), 123);
+    assert.equal(moment('12345678', 'SSSSSSSS').millisecond(), 123);
+    assert.equal(moment('123456789', 'SSSSSSSSS').millisecond(), 123);
 });

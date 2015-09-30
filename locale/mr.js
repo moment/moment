@@ -45,8 +45,8 @@
             LTS : 'A h:mm:ss वाजता',
             L : 'DD/MM/YYYY',
             LL : 'D MMMM YYYY',
-            LLL : 'D MMMM YYYY, LT',
-            LLLL : 'dddd, D MMMM YYYY, LT'
+            LLL : 'D MMMM YYYY, A h:mm वाजता',
+            LLLL : 'dddd, D MMMM YYYY, A h:mm वाजता'
         },
         calendar : {
             sameDay : '[आज] LT',

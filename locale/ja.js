@@ -17,11 +17,11 @@
         weekdaysMin : '日_月_火_水_木_金_土'.split('_'),
         longDateFormat : {
             LT : 'Ah時m分',
-            LTS : 'LTs秒',
+            LTS : 'Ah時m分s秒',
             L : 'YYYY/MM/DD',
             LL : 'YYYY年M月D日',
-            LLL : 'YYYY年M月D日LT',
-            LLLL : 'YYYY年M月D日LT dddd'
+            LLL : 'YYYY年M月D日Ah時m分',
+            LLLL : 'YYYY年M月D日Ah時m分 dddd'
         },
         meridiemParse: /午前|午後/i,
         isPM : function (input) {

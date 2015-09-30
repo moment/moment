@@ -26,11 +26,11 @@
         weekdaysMin : 'Do_Lu_Ma_Mi_Ju_Vi_Sá'.split('_'),
         longDateFormat : {
             LT : 'H:mm',
-            LTS : 'LT:ss',
+            LTS : 'H:mm:ss',
             L : 'DD/MM/YYYY',
             LL : 'D [de] MMMM [de] YYYY',
-            LLL : 'D [de] MMMM [de] YYYY LT',
-            LLLL : 'dddd, D [de] MMMM [de] YYYY LT'
+            LLL : 'D [de] MMMM [de] YYYY H:mm',
+            LLLL : 'dddd, D [de] MMMM [de] YYYY H:mm'
         },
         calendar : {
             sameDay : function () {

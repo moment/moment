@@ -4,7 +4,7 @@ var Benchmark = require('benchmark'),
 
 module.exports = {
   name: 'fromDate',
-  onComplete: function(){console.log('done');},
+  onComplete: function(){},
   fn: function(){
       moment(base);
   },

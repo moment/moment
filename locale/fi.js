@@ -63,12 +63,12 @@
             LTS : 'HH.mm.ss',
             L : 'DD.MM.YYYY',
             LL : 'Do MMMM[ta] YYYY',
-            LLL : 'Do MMMM[ta] YYYY, [klo] LT',
-            LLLL : 'dddd, Do MMMM[ta] YYYY, [klo] LT',
+            LLL : 'Do MMMM[ta] YYYY, [klo] HH.mm',
+            LLLL : 'dddd, Do MMMM[ta] YYYY, [klo] HH.mm',
             l : 'D.M.YYYY',
             ll : 'Do MMM YYYY',
-            lll : 'Do MMM YYYY, [klo] LT',
-            llll : 'ddd, Do MMM YYYY, [klo] LT'
+            lll : 'Do MMM YYYY, [klo] HH.mm',
+            llll : 'ddd, Do MMM YYYY, [klo] HH.mm'
         },
         calendar : {
             sameDay : '[tänään] [klo] LT',

@@ -1,5 +1,5 @@
 import {localeModule, test} from '../qunit';
-import {moment} from '../../moment';
+import moment from '../../moment';
 localeModule('pt-br');
 
 test('parse', function (assert) {
@@ -108,7 +108,7 @@ test('format week', function (assert) {
 
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'segundos',    '44 seconds = seconds');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'poucos segundos', '44 seconds = seconds');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'um minuto',   '45 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'um minuto',   '89 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '2 minutos',  '90 seconds = 2 minutes');
@@ -139,12 +139,12 @@ test('from', function (assert) {
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), 'em segundos', 'prefix');
-    assert.equal(moment(0).from(30000), 'segundos atrás', 'suffix');
+    assert.equal(moment(30000).from(0), 'em poucos segundos', 'prefix');
+    assert.equal(moment(0).from(30000), 'poucos segundos atrás', 'suffix');
 });
 
 test('fromNow', function (assert) {
-    assert.equal(moment().add({s: 30}).fromNow(), 'em segundos', 'in seconds');
+    assert.equal(moment().add({s: 30}).fromNow(), 'em poucos segundos', 'in seconds');
     assert.equal(moment().add({d: 5}).fromNow(), 'em 5 dias', 'in 5 days');
 });
 

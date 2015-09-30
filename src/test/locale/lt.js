@@ -1,9 +1,9 @@
 import {localeModule, test} from '../qunit';
-import {moment} from '../../moment';
+import moment from '../../moment';
 localeModule('lt');
 
 test('parse', function (assert) {
-    var tests = 'sausio sau_vasario vas_kovo kov_balandžio bal_gegužės geg_birželio bir_liepos lie_rugpjūčio rgp_rugsėjo rgs_spalio spa_lapkričio lap_gruodžio grd'.split('_'), i;
+    var tests = 'sausis sau_vasaris vas_kovas kov_balandis bal_gegužė geg_birželis bir_liepa lie_rugpjūtis rgp_rugsėjis rgs_spalis spa_lapkritis lap_gruodis grd'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
@@ -24,7 +24,7 @@ test('format', function (assert) {
     var a = [
             ['dddd, Do MMMM YYYY, h:mm:ss a',      'sekmadienis, 14-oji vasario 2010, 3:25:50 pm'],
             ['ddd, hA',                            'Sek, 3PM'],
-            ['M Mo MM MMMM MMM',                   '2 2-oji 02 vasario vas'],
+            ['M Mo MM MMMM MMM',                   '2 2-oji 02 vasaris vas'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14-oji 14'],
             ['d do dddd ddd dd',                   '0 0-oji sekmadienis Sek S'],
@@ -38,13 +38,13 @@ test('format', function (assert) {
             ['DDDo [metų diena]',                  '45-oji metų diena'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '2010-02-14'],
-            ['LL',                                 '2010 m. vasario 14 d.'],
-            ['LLL',                                '2010 m. vasario 14 d., 15:25 val.'],
-            ['LLLL',                               '2010 m. vasario 14 d., sekmadienis, 15:25 val.'],
+            ['LL',                                 '2010 m. vasaris 14 d.'],
+            ['LLL',                                '2010 m. vasaris 14 d., 15:25 val.'],
+            ['LLLL',                               '2010 m. vasaris 14 d., sekmadienis, 15:25 val.'],
             ['l',                                  '2010-02-14'],
-            ['ll',                                 '2010 m. vasario 14 d.'],
-            ['lll',                                '2010 m. vasario 14 d., 15:25 val.'],
-            ['llll',                               '2010 m. vasario 14 d., Sek, 15:25 val.']
+            ['ll',                                 '2010 m. vasaris 14 d.'],
+            ['lll',                                '2010 m. vasaris 14 d., 15:25 val.'],
+            ['llll',                               '2010 m. vasaris 14 d., Sek, 15:25 val.']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -91,7 +91,7 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'sausio sau_vasario vas_kovo kov_balandžio bal_gegužės geg_birželio bir_liepos lie_rugpjūčio rgp_rugsėjo rgs_spalio spa_lapkričio lap_gruodžio grd'.split('_'), i;
+    var expected = 'sausis sau_vasaris vas_kovas kov_balandis bal_gegužė geg_birželis bir_liepa lie_rugpjūtis rgp_rugsėjis rgs_spalis spa_lapkritis lap_gruodis grd'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }

@@ -69,11 +69,11 @@
         weekdaysMin : 'нд_пн_вт_ср_чт_пт_сб'.split('_'),
         longDateFormat : {
             LT : 'HH:mm',
-            LTS : 'LT:ss',
+            LTS : 'HH:mm:ss',
             L : 'DD.MM.YYYY',
             LL : 'D MMMM YYYY р.',
-            LLL : 'D MMMM YYYY р., LT',
-            LLLL : 'dddd, D MMMM YYYY р., LT'
+            LLL : 'D MMMM YYYY р., HH:mm',
+            LLLL : 'dddd, D MMMM YYYY р., HH:mm'
         },
         calendar : {
             sameDay: processHoursFunction('[Сьогодні '),

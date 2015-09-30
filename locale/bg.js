@@ -17,11 +17,11 @@
         weekdaysMin : 'нд_пн_вт_ср_чт_пт_сб'.split('_'),
         longDateFormat : {
             LT : 'H:mm',
-            LTS : 'LT:ss',
+            LTS : 'H:mm:ss',
             L : 'D.MM.YYYY',
             LL : 'D MMMM YYYY',
-            LLL : 'D MMMM YYYY LT',
-            LLLL : 'dddd, D MMMM YYYY LT'
+            LLL : 'D MMMM YYYY H:mm',
+            LLLL : 'dddd, D MMMM YYYY H:mm'
         },
         calendar : {
             sameDay : '[Днес в] LT',

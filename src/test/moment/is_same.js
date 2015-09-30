@@ -145,3 +145,7 @@ test('is same with utc offset moments', function (assert) {
     assert.ok(moment.parseZone('2013-02-01T-05:00').isSame(moment.parseZone('2013-02-01T-06:30'), 'year'),
             'zoned vs (differently) zoned moment');
 });
+
+test('is same with invalid moments', function (assert) {
+    assert.equal(moment.invalid().isSame(moment.invalid()), false, 'invalid moments are not considered equal');
+});

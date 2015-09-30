@@ -357,3 +357,17 @@ test('full expanded format is returned from abbreviated formats', function (asse
         });
     });
 });
+
+test('milliseconds', function (assert) {
+    var m = moment('123', 'SSS');
+
+    assert.equal(m.format('S'), '1');
+    assert.equal(m.format('SS'), '12');
+    assert.equal(m.format('SSS'), '123');
+    assert.equal(m.format('SSSS'), '1230');
+    assert.equal(m.format('SSSSS'), '12300');
+    assert.equal(m.format('SSSSSS'), '123000');
+    assert.equal(m.format('SSSSSSS'), '1230000');
+    assert.equal(m.format('SSSSSSSS'), '12300000');
+    assert.equal(m.format('SSSSSSSSS'), '123000000');
+});

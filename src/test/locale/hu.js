@@ -1,5 +1,5 @@
 import {localeModule, test} from '../qunit';
-import {moment} from '../../moment';
+import moment from '../../moment';
 localeModule('hu');
 
 test('parse', function (assert) {
@@ -38,11 +38,11 @@ test('format', function (assert) {
             ['LTS',                                '15:25:50'],
             ['L',                                  '2010.02.14.'],
             ['LL',                                 '2010. február 14.'],
-            ['LLL',                                '2010. február 14., 15:25'],
+            ['LLL',                                '2010. február 14. 15:25'],
             ['LLLL',                               '2010. február 14., vasárnap 15:25'],
             ['l',                                  '2010.2.14.'],
             ['ll',                                 '2010. feb 14.'],
-            ['lll',                                '2010. feb 14., 15:25'],
+            ['lll',                                '2010. feb 14. 15:25'],
             ['llll',                               '2010. feb 14., vas 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
