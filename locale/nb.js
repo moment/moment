@@ -29,7 +29,7 @@
             nextDay: '[i morgen kl.] LT',
             nextWeek: 'dddd [kl.] LT',
             lastDay: '[i går kl.] LT',
-            lastWeek: '[sist] dddd [kl.] LT',
+            lastWeek: '[forrige] dddd [kl.] LT',
             sameElse: 'L'
         },
         relativeTime : {
