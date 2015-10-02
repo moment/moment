@@ -14,6 +14,11 @@ test('array', function (assert) {
     assert.equal(+moment(new Date(2010, 1, 14, 15, 25, 50, 125)), +moment([2010, 1, 14, 15, 25, 50, 125]), 'constructing with array === constructing with new Date()');
 });
 
+test('array with invalid arguments', function (assert) {
+    assert.ok(!moment([2010, null, null]).isValid(), '[2010, null, null]');
+    assert.ok(!moment([1945, null, null]).isValid(), '[1945, null, null] (pre-1970)');
+});
+
 test('array copying', function (assert) {
     var importantArray = [2009, 11];
     moment(importantArray);
