@@ -4,7 +4,7 @@ export function createDate (y, m, d, h, M, s, ms) {
     var date = new Date(y, m, d, h, M, s, ms);
 
     //the date constructor doesn't accept years < 1970
-    if (y < 1970 && isFinite(date.getYear()) ) {
+    if (y < 1970 && isFinite(date.getYear())) {
         date.setFullYear(y);
     }
     return date;
