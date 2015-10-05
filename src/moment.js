@@ -64,5 +64,6 @@ moment.defineLocale          = defineLocale;
 moment.weekdaysShort         = weekdaysShort;
 moment.normalizeUnits        = normalizeUnits;
 moment.relativeTimeThreshold = relativeTimeThreshold;
+moment.prototype             = fn;
 
 export default moment;
