@@ -137,7 +137,7 @@ test('from', function (assert) {
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), 'hivi punde baadaye',  'prefix');
+    assert.equal(moment(30000).from(0), 'hivi punde',  'prefix');
     assert.equal(moment(0).from(30000), 'tokea hivi punde', 'suffix');
 });
 
@@ -146,8 +146,8 @@ test('now from now', function (assert) {
 });
 
 test('fromNow', function (assert) {
-    assert.equal(moment().add({s: 30}).fromNow(), 'hivi punde baadaye', 'in a few seconds');
-    assert.equal(moment().add({d: 5}).fromNow(), 'masiku 5 baadaye', 'in 5 days');
+    assert.equal(moment().add({s: 30}).fromNow(), 'hivi punde', 'in a few seconds');
+    assert.equal(moment().add({d: 5}).fromNow(), 'masiku 5', 'in 5 days');
 });
 
 test('calendar day', function (assert) {
