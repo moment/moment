@@ -26,13 +26,38 @@ var isoTimes = [
 
 var aspNetJsonRegex = /^\/?Date\((\-?\d+)/i;
 
+// Normalizes an ISO string to always use dashes, colons and a period instead of a comma
+// https://github.com/moment/moment/issues/2450
+function normalizeISO (str) {
+    return str
+        //if a ss,SSSS is detected, turn it into ss.SSSS
+        .replace(/(\d{2}),(\d\d?\d?\d?)/,'$1.$2')
+        //if a YYYYYYMMDD is detected, add dashes
+        .replace(/^(\s*)([+-]\d{6})(\d{2})(\d{2})/,'$1$2-$3-$4')
+        //if a YYYYMMDD is detected, add dashes
+        .replace(/^(\s*)(\d{4})(\d{2})(\d{2})/,'$1$2-$3-$4')
+        //if a GGGG[W]WWE is detected, add dashes
+        .replace(/^(\s*)(\d{4})W(\d{2})(\d{1})/,'$1$2-W$3-$4')
+        //if a GGGG[W]WW is detected, add dashes
+        .replace(/^(\s*)(\d{4})W(\d{2})/,'$1$2-W$3')
+        //if a YYYYDDD is detected, add dashes
+        .replace(/^(\s*)(\d{4})(\d{3})/,'$1$2-$3')
+        //if a HHmmss is detected, add colons
+        .replace(/(T| )(\d{2})(\d{2})(\d{2})/,'$1$2:$3:$4')
+        //if a HHmm is detected, add colons
+        .replace(/(T| )(\d{2})(\d{2})/,'$1$2:$3')
+        //if a timezone is detected without colon, add colon
+        .replace(/(?!^\s*)([+-])([0-1][0-9])(\d{2})/,'$1$2:$3');
+}
+
 // date from iso format
 export function configFromISO(config) {
     var i, l,
-        string = config._i,
+        string = normalizeISO(config._i),
         match = isoRegex.exec(string);
 
     if (match) {
+        config._i = string;
         getParsingFlags(config).iso = true;
         for (i = 0, l = isoDates.length; i < l; i++) {
             if (isoDates[i][1].exec(string)) {

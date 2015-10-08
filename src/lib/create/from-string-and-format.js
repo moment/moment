@@ -29,7 +29,6 @@ export function configFromStringAndFormat(config) {
         totalParsedInputLength = 0;
 
     tokens = expandFormat(config._f, config._locale).match(formattingTokens) || [];
-
     for (i = 0; i < tokens.length; i++) {
         token = tokens[i];
         parsedInput = (string.match(getParseRegexForToken(token, config)) || [])[0];
@@ -70,7 +69,6 @@ export function configFromStringAndFormat(config) {
     }
     // handle meridiem
     config._a[HOUR] = meridiemFixWrap(config._locale, config._a[HOUR], config._meridiem);
-
     configFromArray(config);
     checkOverflow(config);
 }
