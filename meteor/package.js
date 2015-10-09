@@ -13,7 +13,7 @@ Package.describe({
 });
 
 Package.onUse(function (api) {
-  api.versionsFrom(['METEOR@0.9.0', 'METEOR@1.0']);
+  api.versionsFrom(['METEOR@0.9.0', 'METEOR@1.0', 'METEOR@1.2']);
   api.export('moment');
   api.addFiles([
     'moment.js',
