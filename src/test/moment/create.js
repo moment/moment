@@ -578,7 +578,12 @@ test('parsing iso', function (assert) {
         ['2011281 180420,111' + tz2,      '2011-10-08T18:04:20.111' + tz]
     ], i;
     for (i = 0; i < formats.length; i++) {
-        assert.equal(moment(formats[i][0]).format('YYYY-MM-DDTHH:mm:ss.SSSZ'), formats[i][1], 'moment should be able to parse ISO ' + formats[i][0]);
+        assert.equal(moment(formats[i][0]).format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
+                formats[i][1], 'moment should be able to parse ISO ' + formats[i][0]);
+        assert.equal(moment(formats[i][0], moment.ISO_8601).format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
+                formats[i][1], 'moment should be able to parse specified ISO ' + formats[i][0]);
+        assert.equal(moment(formats[i][0], moment.ISO_8601, true).format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
+                formats[i][1], 'moment should be able to parse specified strict ISO ' + formats[i][0]);
     }
 });
 
