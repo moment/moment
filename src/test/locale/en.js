@@ -293,6 +293,21 @@ test('lenient ordinal parsing', function (assert) {
     }
 });
 
+test('weekdays strict parsing', function (assert) {
+    var m = moment('2015-01-01T12', moment.ISO_8601, true),
+        enLocale = moment.localeData('en');
+
+    for (var i = 0; i < 7; ++i) {
+        assert.equal(moment(enLocale.weekdays(m.day(i), ''), 'dddd', true).isValid(), true, 'parse weekday ' + i);
+        assert.equal(moment(enLocale.weekdaysShort(m.day(i), ''), 'ddd', true).isValid(), true, 'parse short weekday ' + i);
+        assert.equal(moment(enLocale.weekdaysMin(m.day(i), ''), 'dd', true).isValid(), true, 'parse min weekday ' + i);
+
+        // negative tests
+        assert.equal(moment(enLocale.weekdaysMin(m.day(i), ''), 'ddd', true).isValid(), false, 'parse short weekday ' + i);
+        assert.equal(moment(enLocale.weekdaysShort(m.day(i), ''), 'dd', true).isValid(), false, 'parse min weekday ' + i);
+    }
+});
+
 test('lenient ordinal parsing of number', function (assert) {
     var i, testMoment;
     for (i = 1; i <= 31; ++i) {
