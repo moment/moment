@@ -10,8 +10,8 @@ var thresholds = {
 };
 
 // helper function for moment.fn.from, moment.fn.fromNow, and moment.duration.fn.humanize
-function substituteTimeAgo(string, number, withoutSuffix, isFuture, locale) {
-    return locale.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
+function substituteTimeAgo(string, number, withoutSuffix, isFuture, locale, duration) {
+    return locale.relativeTime(number || 1, !!withoutSuffix, string, isFuture, duration);
 }
 
 function relativeTime (posNegDuration, withoutSuffix, locale) {
@@ -37,6 +37,7 @@ function relativeTime (posNegDuration, withoutSuffix, locale) {
     a[2] = withoutSuffix;
     a[3] = +posNegDuration > 0;
     a[4] = locale;
+    a[5] = duration;
     return substituteTimeAgo.apply(null, a);
 }
 
