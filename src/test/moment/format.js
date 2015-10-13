@@ -332,7 +332,7 @@ test('quarter formats', function (assert) {
 });
 
 test('quarter ordinal formats', function (assert) {
-    assert.equal(moment([1985, 1,  4]).format('Qo'), '1st', 'Feb  4 1985 is 1st quarter');
+    assert.equal(moment([1985, 1, 4]).format('Qo'), '1st', 'Feb 4 1985 is 1st quarter');
     assert.equal(moment([2029, 8, 18]).format('Qo'), '3rd', 'Sep 18 2029 is 3rd quarter');
     assert.equal(moment([2013, 3, 24]).format('Qo'), '2nd', 'Apr 24 2013 is 2nd quarter');
     assert.equal(moment([2015, 2,  5]).format('Qo'), '1st', 'Mar  5 2015 is 1st quarter');
