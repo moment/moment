@@ -371,3 +371,13 @@ test('milliseconds', function (assert) {
     assert.equal(m.format('SSSSSSSS'), '12300000');
     assert.equal(m.format('SSSSSSSSS'), '123000000');
 });
+
+test('hmm and hmmss', function (assert) {
+    assert.equal(moment('12:34:56', 'HH:mm:ss').format('hmm'), '1234');
+    assert.equal(moment('01:34:56', 'HH:mm:ss').format('hmm'), '134');
+    assert.equal(moment('13:34:56', 'HH:mm:ss').format('hmm'), '134');
+
+    assert.equal(moment('12:34:56', 'HH:mm:ss').format('hmmss'), '123456');
+    assert.equal(moment('01:34:56', 'HH:mm:ss').format('hmmss'), '13456');
+    assert.equal(moment('13:34:56', 'HH:mm:ss').format('hmmss'), '13456');
+});

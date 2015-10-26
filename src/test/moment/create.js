@@ -1000,3 +1000,20 @@ test('milliseconds', function (assert) {
     assert.equal(moment('12345678', 'SSSSSSSS').millisecond(), 123);
     assert.equal(moment('123456789', 'SSSSSSSSS').millisecond(), 123);
 });
+
+test('hmm', function (assert) {
+    assert.equal(moment('123', 'hmm', true).format('HH:mm:ss'), '01:23:00', '123 with hmm');
+    assert.equal(moment('123a', 'hmmA', true).format('HH:mm:ss'), '01:23:00', '123a with hmmA');
+    assert.equal(moment('123p', 'hmmA', true).format('HH:mm:ss'), '13:23:00', '123p with hmmA');
+
+    assert.equal(moment('1234', 'hmm', true).format('HH:mm:ss'), '12:34:00', '1234 with hmm');
+    assert.equal(moment('1234a', 'hmmA', true).format('HH:mm:ss'), '00:34:00', '1234a with hmmA');
+    assert.equal(moment('1234p', 'hmmA', true).format('HH:mm:ss'), '12:34:00', '1234p with hmmA');
+
+    assert.equal(moment('12345', 'hmmss', true).format('HH:mm:ss'), '01:23:45', '12345 with hmmss');
+    assert.equal(moment('12345a', 'hmmssA', true).format('HH:mm:ss'), '01:23:45', '12345a with hmmssA');
+    assert.equal(moment('12345p', 'hmmssA', true).format('HH:mm:ss'), '13:23:45', '12345p with hmmssA');
+    assert.equal(moment('112345', 'hmmss', true).format('HH:mm:ss'), '11:23:45', '112345 with hmmss');
+    assert.equal(moment('112345a', 'hmmssA', true).format('HH:mm:ss'), '11:23:45', '112345a with hmmssA');
+    assert.equal(moment('112345p', 'hmmssA', true).format('HH:mm:ss'), '23:23:45', '112345p with hmmssA');
+});
