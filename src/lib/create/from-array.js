@@ -83,7 +83,7 @@ export function configFromArray (config) {
 }
 
 function dayOfYearFromWeekInfo(config) {
-    var w, weekYear, week, weekday, dow, doy, temp;
+    var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow;
 
     w = config._w;
     if (w.GG != null || w.W != null || w.E != null) {
@@ -97,6 +97,9 @@ function dayOfYearFromWeekInfo(config) {
         weekYear = defaults(w.GG, config._a[YEAR], weekOfYear(createLocal(), 1, 4).year);
         week = defaults(w.W, 1);
         weekday = defaults(w.E, 1);
+        if (weekday < 1 || weekday > 7) {
+            weekdayOverflow = true;
+        }
     } else {
         dow = config._locale._week.dow;
         doy = config._locale._week.doy;
@@ -110,19 +113,27 @@ function dayOfYearFromWeekInfo(config) {
             if (weekday < dow) {
                 ++week;
             }
+            if (weekday < 0 || weekday > 6) {
+                weekdayOverflow = true;
+            }
         } else if (w.e != null) {
             // local weekday -- counting starts from begining of week
             weekday = w.e + dow;
+            if (w.e < 0 || w.e > 6) {
+                weekdayOverflow = true;
+            }
         } else {
             // default to begining of week
             weekday = dow;
         }
     }
-    if (1 <= week && week <= weeksInYear(weekYear, dow, doy)) {
+    if (week < 1 || week > weeksInYear(weekYear, dow, doy)) {
+        getParsingFlags(config)._overflowWeeks = true;
+    } else if (weekdayOverflow != null) {
+        getParsingFlags(config)._overflowWeekday = true;
+    } else {
         temp = dayOfYearFromWeeks(weekYear, week, weekday, doy, dow);
         config._a[YEAR] = temp.year;
         config._dayOfYear = temp.dayOfYear;
-    } else {
-        getParsingFlags(config)._overflowWeeks = true;
     }
 }
