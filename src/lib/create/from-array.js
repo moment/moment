@@ -1,6 +1,7 @@
 import { createDate, createUTCDate } from './date-from-array';
 import { daysInYear } from '../units/year';
 import { weekOfYear } from '../units/week';
+import { weeksInYear } from '../units/week-year';
 import { dayOfYearFromWeeks } from '../units/day-of-year';
 import { YEAR, MONTH, DATE, HOUR, MINUTE, SECOND, MILLISECOND } from '../units/constants';
 import { createLocal } from './local';
@@ -117,8 +118,11 @@ function dayOfYearFromWeekInfo(config) {
             weekday = dow;
         }
     }
-    temp = dayOfYearFromWeeks(weekYear, week, weekday, doy, dow);
-
-    config._a[YEAR] = temp.year;
-    config._dayOfYear = temp.dayOfYear;
+    if (1 <= week && week <= weeksInYear(weekYear, dow, doy)) {
+        temp = dayOfYearFromWeeks(weekYear, week, weekday, doy, dow);
+        config._a[YEAR] = temp.year;
+        config._dayOfYear = temp.dayOfYear;
+    } else {
+        getParsingFlags(config)._overflowWeeks = true;
+    }
 }

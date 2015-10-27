@@ -52,7 +52,7 @@ addWeekParseToken(['gg', 'GG'], function (input, week, config, token) {
 
 // HELPERS
 
-function weeksInYear(year, dow, doy) {
+export function weeksInYear(year, dow, doy) {
     return weekOfYear(createLocal([year, 11, 31 + dow - doy]), dow, doy).week;
 }
 

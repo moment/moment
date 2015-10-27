@@ -1,5 +1,5 @@
 import { daysInMonth } from '../units/month';
-import { YEAR, MONTH, DATE, HOUR, MINUTE, SECOND, MILLISECOND } from '../units/constants';
+import { YEAR, MONTH, DATE, HOUR, MINUTE, SECOND, MILLISECOND, WEEK } from '../units/constants';
 import getParsingFlags from '../create/parsing-flags';
 
 export default function checkOverflow (m) {
@@ -18,6 +18,9 @@ export default function checkOverflow (m) {
 
         if (getParsingFlags(m)._overflowDayOfYear && (overflow < YEAR || overflow > DATE)) {
             overflow = DATE;
+        }
+        if (getParsingFlags(m)._overflowWeeks && overflow === -1) {
+            overflow = WEEK;
         }
 
         getParsingFlags(m).overflow = overflow;
