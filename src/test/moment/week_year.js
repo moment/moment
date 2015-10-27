@@ -91,3 +91,8 @@ test('week numbers 2012/2013', function (assert) {
     assert.equal(3, moment('2013-01-12', 'YYYY-MM-DD').week()); // 1 -- should be 3
     assert.equal(52, moment().weeksInYear(2012)); // 52
 });
+
+test('week year overflows', function (assert) {
+    assert.equal('2005-01-01', moment.utc('2004-W53-6', moment.ISO_8601, true).format('YYYY-MM-DD'), '2004-W53-6 is 1st Jan 2005');
+    assert.equal('2007-12-31', moment.utc('2008-W01-1', moment.ISO_8601, true).format('YYYY-MM-DD'), '2008-W01-1 is 31st Dec 2007');
+});
