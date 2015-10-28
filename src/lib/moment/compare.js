@@ -46,3 +46,11 @@ export function isSame (input, units) {
         return +(this.clone().startOf(units)) <= inputMs && inputMs <= +(this.clone().endOf(units));
     }
 }
+
+export function isSameOrAfter (input, units) {
+    return this.isSame(input, units) || this.isAfter(input,units);
+}
+
+export function isSameOrBefore (input, units) {
+    return this.isSame(input, units) || this.isBefore(input,units);
+}
