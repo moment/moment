@@ -2,16 +2,20 @@ import { daysInYear } from './year';
 import { createLocal } from '../create/local';
 import { createUTCDate } from '../create/date-from-array';
 
+// start-of-first-week - start-of-year
+function firstWeekOffset(year, dow, doy) {
+    var // first-week day -- which january is always in the first week (4 for iso, 1 for other)
+        fwd = 7 + dow - doy,
+        // first-week day local weekday -- which local weekday is fwd
+        fwdlw = (7 + createUTCDate(year, 0, fwd).getUTCDay() - dow) % 7;
+
+    return -fwdlw + fwd - 1;
+}
+
 //http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
 export function dayOfYearFromWeeks(year, week, weekday, firstDayOfWeekOfYear, firstDayOfWeek) {
-    var // first-week day -- which january is always in the first week (4 for iso, 1 for other)
-        fwd = 7 + firstDayOfWeek - firstDayOfWeekOfYear,
-        // first-week day local weekday -- which local weekday is fwd
-        fwdlw = (7 + createUTCDate(year, 0, fwd).getUTCDay() - firstDayOfWeek) % 7,
-        // beginig of first week - begining of year
-        weekOffset = -fwdlw + fwd - 1,
-        // weekday converted to local-weekday (0 is begining of week)
-        localWeekday = (7 + weekday - firstDayOfWeek) % 7,
+    var localWeekday = (7 + weekday - firstDayOfWeek) % 7,
+        weekOffset = firstWeekOffset(year, firstDayOfWeek, firstDayOfWeekOfYear),
         dayOfYear = 1 + 7 * (week - 1) + localWeekday + weekOffset,
         resYear, resDayOfYear;
 
@@ -32,37 +36,30 @@ export function dayOfYearFromWeeks(year, week, weekday, firstDayOfWeekOfYear, fi
     };
 }
 
-// firstDayOfWeek       0 = sun, 6 = sat
-//                      the day of the week that starts the week
-//                      (usually sunday or monday)
-// firstDayOfWeekOfYear 0 = sun, 6 = sat
-//                      the first week is the week that contains the first
-//                      of this day of the week
-//                      (eg. ISO weeks use thursday (4))
-export function weekOfYear(mom, firstDayOfWeek, firstDayOfWeekOfYear) {
-    var end = firstDayOfWeekOfYear - firstDayOfWeek,
-        daysToDayOfWeek = firstDayOfWeekOfYear - mom.day(),
-        adjustedMoment;
+export function weekOfYear(mom, dow, doy) {
+    var weekOffset = firstWeekOffset(mom.year(), dow, doy),
+        week = Math.floor((mom.dayOfYear() - weekOffset - 1) / 7) + 1,
+        resWeek, resYear;
 
-
-    if (daysToDayOfWeek > end) {
-        daysToDayOfWeek -= 7;
+    if (week < 1) {
+        resYear = mom.year() - 1;
+        resWeek = week + weeksInYear(resYear, dow, doy);
+    } else if (week > weeksInYear(mom.year(), dow, doy)) {
+        resWeek = week - weeksInYear(mom.year(), dow, doy);
+        resYear = mom.year() + 1;
+    } else {
+        resYear = mom.year();
+        resWeek = week;
     }
 
-    if (daysToDayOfWeek < end - 7) {
-        daysToDayOfWeek += 7;
-    }
-
-    adjustedMoment = createLocal(mom).add(daysToDayOfWeek, 'd');
     return {
-        week: Math.ceil(adjustedMoment.dayOfYear() / 7),
-        year: adjustedMoment.year()
+        week: resWeek,
+        year: resYear
     };
 }
 
-// HELPERS
-
 export function weeksInYear(year, dow, doy) {
-    return weekOfYear(createLocal([year, 11, 31 + dow - doy]), dow, doy).week;
+    var weekOffset = firstWeekOffset(year, dow, doy),
+        weekOffsetNext = firstWeekOffset(year + 1, dow, doy);
+    return (daysInYear(year) - weekOffset + weekOffsetNext) / 7;
 }
-
