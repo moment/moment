@@ -4,14 +4,16 @@ import { createUTCDate } from '../create/date-from-array';
 
 //http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
 export function dayOfYearFromWeeks(year, week, weekday, firstDayOfWeekOfYear, firstDayOfWeek) {
-    var week1Jan = 6 + firstDayOfWeek - firstDayOfWeekOfYear, janX = createUTCDate(year, 0, 1 + week1Jan), d = janX.getUTCDay(), dayOfYear, resYear, resDayOfYear;
-    if (d < firstDayOfWeek) {
-        d += 7;
-    }
-
-    weekday = weekday != null ? 1 * weekday : firstDayOfWeek;
-
-    dayOfYear = 1 + week1Jan + 7 * (week - 1) - d + weekday;
+    var // first-week day -- which january is always in the first week (4 for iso, 1 for other)
+        fwd = 7 + firstDayOfWeek - firstDayOfWeekOfYear,
+        // first-week day local weekday -- which local weekday is fwd
+        fwdlw = (7 + createUTCDate(year, 0, fwd).getUTCDay() - firstDayOfWeek) % 7,
+        // beginig of first week - begining of year
+        weekOffset = -fwdlw + fwd - 1,
+        // weekday converted to local-weekday (0 is begining of week)
+        localWeekday = (7 + weekday - firstDayOfWeek) % 7,
+        dayOfYear = 1 + 7 * (week - 1) + localWeekday + weekOffset,
+        resYear, resDayOfYear;
 
     if (dayOfYear <= 0) {
         resYear = year - 1;

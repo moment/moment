@@ -108,9 +108,6 @@ function dayOfYearFromWeekInfo(config) {
         if (w.d != null) {
             // weekday -- low day numbers are considered next week
             weekday = w.d;
-            if (weekday < dow) {
-                ++week;
-            }
             if (weekday < 0 || weekday > 6) {
                 weekdayOverflow = true;
             }
