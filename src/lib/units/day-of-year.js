@@ -24,34 +24,6 @@ addParseToken(['DDD', 'DDDD'], function (input, array, config) {
 
 // HELPERS
 
-//http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
-export function dayOfYearFromWeeks(year, week, weekday, firstDayOfWeekOfYear, firstDayOfWeek) {
-    var week1Jan = 6 + firstDayOfWeek - firstDayOfWeekOfYear, janX = createUTCDate(year, 0, 1 + week1Jan), d = janX.getUTCDay(), dayOfYear, resYear, resDayOfYear;
-    if (d < firstDayOfWeek) {
-        d += 7;
-    }
-
-    weekday = weekday != null ? 1 * weekday : firstDayOfWeek;
-
-    dayOfYear = 1 + week1Jan + 7 * (week - 1) - d + weekday;
-
-    if (dayOfYear <= 0) {
-        resYear = year - 1;
-        resDayOfYear = daysInYear(resYear) + dayOfYear;
-    } else if (dayOfYear > daysInYear(year)) {
-        resYear = year + 1;
-        resDayOfYear = dayOfYear - daysInYear(year);
-    } else {
-        resYear = year;
-        resDayOfYear = dayOfYear;
-    }
-
-    return {
-        year: resYear,
-        dayOfYear: resDayOfYear
-    };
-}
-
 // MOMENTS
 
 export function getSetDayOfYear (input) {

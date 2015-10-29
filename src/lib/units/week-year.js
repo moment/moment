@@ -2,11 +2,10 @@ import { addFormatToken } from '../format/format';
 import { addUnitAlias } from './aliases';
 import { addRegexToken, match1to2, match1to4, match1to6, match2, match4, match6, matchSigned } from '../parse/regex';
 import { addWeekParseToken } from '../parse/token';
-import { weekOfYear } from './week';
+import { weekOfYear, weeksInYear, dayOfYearFromWeeks } from './week-calendar-utils';
 import toInt from '../utils/to-int';
 import { hooks } from '../utils/hooks';
 import { createLocal } from '../create/local';
-import { dayOfYearFromWeeks } from './day-of-year';
 import { createUTCDate } from '../create/date-from-array';
 
 // FORMATTING
@@ -51,12 +50,6 @@ addWeekParseToken(['gggg', 'ggggg', 'GGGG', 'GGGGG'], function (input, week, con
 addWeekParseToken(['gg', 'GG'], function (input, week, config, token) {
     week[token] = hooks.parseTwoDigitYear(input);
 });
-
-// HELPERS
-
-export function weeksInYear(year, dow, doy) {
-    return weekOfYear(createLocal([year, 11, 31 + dow - doy]), dow, doy).week;
-}
 
 // MOMENTS
 

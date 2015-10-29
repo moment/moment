@@ -1,8 +1,6 @@
 import { createDate, createUTCDate } from './date-from-array';
 import { daysInYear } from '../units/year';
-import { weekOfYear } from '../units/week';
-import { weeksInYear } from '../units/week-year';
-import { dayOfYearFromWeeks } from '../units/day-of-year';
+import { weekOfYear, weeksInYear, dayOfYearFromWeeks } from '../units/week-calendar-utils';
 import { YEAR, MONTH, DATE, HOUR, MINUTE, SECOND, MILLISECOND } from '../units/constants';
 import { createLocal } from './local';
 import defaults from '../utils/defaults';
