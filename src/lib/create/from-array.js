@@ -127,7 +127,7 @@ function dayOfYearFromWeekInfo(config) {
     } else if (weekdayOverflow != null) {
         getParsingFlags(config)._overflowWeekday = true;
     } else {
-        temp = dayOfYearFromWeeks(weekYear, week, weekday, doy, dow);
+        temp = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy);
         config._a[YEAR] = temp.year;
         config._dayOfYear = temp.dayOfYear;
     }

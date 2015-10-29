@@ -90,7 +90,7 @@ function getSetWeekYearHelper(input, week, weekday, dow, doy) {
 }
 
 function setWeekAll(weekYear, week, weekday, dow, doy) {
-    var dayOfYearData = dayOfYearFromWeeks(weekYear, week, weekday, doy, dow),
+    var dayOfYearData = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy),
         date = createUTCDate(dayOfYearData.year, 0, dayOfYearData.dayOfYear);
 
     // console.log("got", weekYear, week, weekday, "set", date.toISOString());

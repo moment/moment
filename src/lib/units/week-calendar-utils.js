@@ -13,9 +13,9 @@ function firstWeekOffset(year, dow, doy) {
 }
 
 //http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
-export function dayOfYearFromWeeks(year, week, weekday, firstDayOfWeekOfYear, firstDayOfWeek) {
-    var localWeekday = (7 + weekday - firstDayOfWeek) % 7,
-        weekOffset = firstWeekOffset(year, firstDayOfWeek, firstDayOfWeekOfYear),
+export function dayOfYearFromWeeks(year, week, weekday, dow, doy) {
+    var localWeekday = (7 + weekday - dow) % 7,
+        weekOffset = firstWeekOffset(year, dow, doy),
         dayOfYear = 1 + 7 * (week - 1) + localWeekday + weekOffset,
         resYear, resDayOfYear;
 
