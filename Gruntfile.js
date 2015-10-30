@@ -61,7 +61,7 @@ module.exports = function (grunt) {
                         base: 'SauceLabs',
                         browserName: 'safari',
                         platform: 'OS X 10.8'
-                    }
+                    },
                     slSafariOsx11: {
                         base: 'SauceLabs',
                         browserName: 'safari',
