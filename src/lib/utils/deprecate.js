@@ -12,7 +12,7 @@ export function deprecate(msg, fn) {
 
     return extend(function () {
         if (firstTime) {
-            warn(msg + '\n' + (new Error()).stack);
+            warn(msg + '\nArguments: ' + Array.prototype.slice.call(arguments).join(', ') + '\n' + (new Error()).stack);
             firstTime = false;
         }
         return fn.apply(this, arguments);
