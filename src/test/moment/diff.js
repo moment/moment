@@ -40,7 +40,7 @@ test('diff', function (assert) {
     assert.equal(moment(1000).diff(500), 500, '1 second - 0.5 seconds = 500');
     assert.equal(moment(0).diff(1000), -1000, '0 - 1 second = -1000');
     assert.equal(moment(new Date(1000)).diff(1000), 0, '1 second - 1 second = 0');
-    var oneHourDate = new Date(),
+    var oneHourDate = new Date(2015, 5, 21),
     nowDate = new Date(+oneHourDate);
     oneHourDate.setHours(oneHourDate.getHours() + 1);
     assert.equal(moment(oneHourDate).diff(nowDate), 60 * 60 * 1000, '1 hour from now = 3600000');
