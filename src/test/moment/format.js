@@ -341,6 +341,7 @@ test('full expanded format is returned from abbreviated formats', function (asse
     locales += 'me mk ml mr ms-my my nb ne nl nn pl pt-rb pt';
     locales += 'ro ru si sk sl sq sr-cyrl  sr sv ta th tl-ph';
     locales += 'tr tzm-latn tzm   uk uz vi zh-cn zh-tw';
+    locales += 'en-ie'
 
     locales.split(' ').forEach(function (locale) {
         var data, tokens;
