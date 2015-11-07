@@ -1,7 +1,7 @@
 import hasOwnProp from '../utils/has-own-prop';
 import toInt from '../utils/to-int';
 
-var tokens = {};
+export var parseTokens = {};
 
 export function addParseToken (token, callback) {
     var i, func = callback;
@@ -14,7 +14,7 @@ export function addParseToken (token, callback) {
         };
     }
     for (i = 0; i < token.length; i++) {
-        tokens[token[i]] = func;
+        parseTokens[token[i]] = func;
     }
 }
 
@@ -26,7 +26,7 @@ export function addWeekParseToken (token, callback) {
 }
 
 export function addTimeToArrayFromToken(token, input, config) {
-    if (input != null && hasOwnProp(tokens, token)) {
-        tokens[token](input, config._a, config, token);
+    if (input != null && hasOwnProp(parseTokens, token)) {
+        parseTokens[token](input, config._a, config, token);
     }
 }

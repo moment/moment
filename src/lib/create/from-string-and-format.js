@@ -1,7 +1,7 @@
 import { configFromISO } from './from-string';
 import { configFromArray } from './from-array';
 import { getParseRegexForToken }   from '../parse/regex';
-import { addTimeToArrayFromToken } from '../parse/token';
+import { addTimeToArrayFromToken, parseTokens } from '../parse/token';
 import { expandFormat, formatTokenFunctions, formattingTokens } from '../format/format';
 import checkOverflow from './check-overflow';
 import { HOUR } from '../units/constants';
@@ -42,7 +42,7 @@ export function configFromStringAndFormat(config) {
             totalParsedInputLength += parsedInput.length;
         }
         // don't parse if it's not a known token
-        if (formatTokenFunctions[token]) {
+        if (parseTokens[token]) {
             if (parsedInput) {
                 getParsingFlags(config).empty = false;
             }
