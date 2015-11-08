@@ -299,3 +299,70 @@ test('strict ordinal parsing', function (assert) {
         assert.ok(testMoment.isValid(), 'strict ordinal parsing ' + i);
     }
 });
+
+test('tokens ending in dot sanity', function (assert) {
+    var i, mSrc, mDst,
+        tester = function (token) {
+            var testMonth = token[0] !== 'd',
+                testWeekday = token[0] !== 'M',
+            mDst = moment(mSrc.format(token), token);
+            assert.ok(mDst.isValid(), 'month ' + mSrc.month() + ' weekday ' + mSrc.weekday() + ' token ' + token);
+            if (testMonth) {
+                assert.equal(mDst.month(), mSrc.month(), 'month equality for month ' + mSrc.month() + ' weekday ' + mSrc.weekday() + ' token ' + token);
+            }
+            if (testWeekday) {
+                assert.equal(mDst.weekday(), mSrc.weekday(), 'weekday equality for month ' + mSrc.month() + ' weekday ' + mSrc.weekday() + ' token ' + token);
+            }
+
+            mDst = moment(mSrc.format(token), token, true);
+            assert.ok(mDst.isValid(), 'month ' + mSrc.month() + ' weekday ' + mSrc.weekday() + ' token ' + token + ' strict');
+            if (testMonth) {
+                assert.equal(mDst.month(), mSrc.month(), 'month equality for month ' + mSrc.month() + ' weekday ' + mSrc.weekday() + ' token ' + token + ' strict');
+            }
+            if (testWeekday) {
+                assert.equal(mDst.weekday(), mSrc.weekday(), 'weekday equality for month ' + mSrc.month() + ' weekday ' + mSrc.weekday() + ' token ' + token + ' strict');
+            }
+        };
+
+    // traverse all months
+    for (i = 0; i < 12; ++i) {
+        mSrc = moment([2015, i, 15, 18]);
+
+        tester('MMM');
+        tester('MMM.');
+        tester('MMMM');
+        tester('MMMM.');
+
+        tester('l');
+        tester('ll');
+        tester('lll');
+        tester('llll');
+
+        tester('L');
+        tester('LL');
+        tester('LLL');
+        tester('LLLL');
+    }
+
+    // traverse all weekdays
+    for (i = 0; i < 7; ++i) {
+        mSrc = moment([2015, 0, 5 + i, 18]);
+
+        tester('dd');
+        tester('dd.');
+        tester('ddd');
+        tester('ddd.');
+        tester('dddd');
+        tester('dddd.');
+
+        tester('l');
+        tester('ll');
+        tester('lll');
+        tester('llll');
+
+        tester('L');
+        tester('LL');
+        tester('LLL');
+        tester('LLLL');
+    }
+});

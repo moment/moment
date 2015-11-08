@@ -16,8 +16,10 @@ export default moment.defineLocale('es', {
             return monthsShortDot[m.month()];
         }
     },
+    monthsShortHaveDot : true,
     weekdays : 'domingo_lunes_martes_miércoles_jueves_viernes_sábado'.split('_'),
     weekdaysShort : 'dom._lun._mar._mié._jue._vie._sáb.'.split('_'),
+    weekdaysShortHaveDot : true,
     weekdaysMin : 'Do_Lu_Ma_Mi_Ju_Vi_Sá'.split('_'),
     longDateFormat : {
         LT : 'H:mm',

@@ -26,21 +26,15 @@ export function configFromStringAndFormat(config) {
     var string = '' + config._i,
         i, parsedInput, tokens, token, skipped,
         stringLength = string.length,
-        totalParsedInputLength = 0;
+        totalParsedInputLength = 0,
+        numUsedChars;
 
     tokens = expandFormat(config._f, config._locale).match(formattingTokens) || [];
 
     for (i = 0; i < tokens.length; i++) {
         token = tokens[i];
         parsedInput = (string.match(getParseRegexForToken(token, config)) || [])[0];
-        if (parsedInput) {
-            skipped = string.substr(0, string.indexOf(parsedInput));
-            if (skipped.length > 0) {
-                getParsingFlags(config).unusedInput.push(skipped);
-            }
-            string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
-            totalParsedInputLength += parsedInput.length;
-        }
+        // console.log('token', token, 'parsed', parsedInput, 'regex', getParseRegexForToken(token, config));
         // don't parse if it's not a known token
         if (parseTokens[token]) {
             if (parsedInput) {
@@ -49,10 +43,22 @@ export function configFromStringAndFormat(config) {
             else {
                 getParsingFlags(config).unusedTokens.push(token);
             }
-            addTimeToArrayFromToken(token, parsedInput, config);
-        }
-        else if (config._strict && !parsedInput) {
+            numUsedChars = addTimeToArrayFromToken(token, parsedInput, config);
+            if (numUsedChars != null) {
+                // console.log('YO', 'stripping', parsedInput, 'to', parsedInput.substr(0, numUsedChars));
+                parsedInput = parsedInput.substr(0, numUsedChars);
+            }
+        } else if (config._strict && !parsedInput) {
             getParsingFlags(config).unusedTokens.push(token);
+        }
+
+        if (parsedInput) {
+            skipped = string.substr(0, string.indexOf(parsedInput));
+            if (skipped.length > 0) {
+                getParsingFlags(config).unusedInput.push(skipped);
+            }
+            string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
+            totalParsedInputLength += parsedInput.length;
         }
     }
 

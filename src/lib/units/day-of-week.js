@@ -1,6 +1,6 @@
 import { addFormatToken } from '../format/format';
 import { addUnitAlias } from './aliases';
-import { addRegexToken, match1to2, matchWord } from '../parse/regex';
+import { addRegexToken, match1to2, matchWord, matchWordDotted, matchWordDoubleDotted } from '../parse/regex';
 import { addWeekParseToken } from '../parse/token';
 import toInt from '../utils/to-int';
 import { createLocal } from '../create/local';
@@ -14,8 +14,16 @@ addFormatToken('dd', 0, 0, function (format) {
     return this.localeData().weekdaysMin(this, format);
 });
 
+addFormatToken('dd.', 0, 0, function (format) {
+    return this.localeData().weekdaysMin(this, format) + '.';
+});
+
 addFormatToken('ddd', 0, 0, function (format) {
     return this.localeData().weekdaysShort(this, format);
+});
+
+addFormatToken('ddd.', 0, 0, function (format) {
+    return this.localeData().weekdaysShort(this, format) + '.';
 });
 
 addFormatToken('dddd', 0, 0, function (format) {
@@ -36,18 +44,31 @@ addUnitAlias('isoWeekday', 'E');
 addRegexToken('d',    match1to2);
 addRegexToken('e',    match1to2);
 addRegexToken('E',    match1to2);
-addRegexToken('dd',   matchWord);
-addRegexToken('ddd',  matchWord);
+addRegexToken('dd',   matchWordDotted);
+addRegexToken('dd.',  matchWordDoubleDotted);
+addRegexToken('ddd',  matchWordDotted);
+addRegexToken('ddd.',  matchWordDoubleDotted);
 addRegexToken('dddd', matchWord);
 
-addWeekParseToken(['dd', 'ddd', 'dddd'], function (input, week, config, token) {
-    var weekday = config._locale.weekdaysParse(input, token, config._strict);
+addWeekParseToken(['dd', 'dd.', 'ddd', 'ddd.', 'dddd'], function (input, week, config, token) {
+    var locale = config._locale,
+        weekday = locale.weekdaysParse(input, token, config._strict),
+        consumedChars = token === 'dd' || token === 'dd.' ?
+            locale.dotFix(input, token, !!locale._weekdaysMinHaveDot) :
+            token === 'ddd' || token === 'ddd.' ?
+            locale.dotFix(input, token, !!locale._weekdaysShortHaveDot) :
+            null;
+
+    console.log('HALO', 'token', token, 'input', input, 'res', consumedChars);
+
     // if we didn't get a weekday name, mark the date as invalid
     if (weekday != null) {
         week.d = weekday;
     } else {
         getParsingFlags(config).invalidWeekday = input;
     }
+
+    return consumedChars;
 });
 
 addWeekParseToken(['d', 'e', 'E'], function (input, week, config, token) {

@@ -9,6 +9,7 @@ import { defaultOrdinal, ordinal, defaultOrdinalParse } from './ordinal';
 import { preParsePostFormat } from './pre-post-format';
 import { defaultRelativeTime, relativeTime, pastFuture } from './relative';
 import { set } from './set';
+import { localeDotFix } from './parse';
 
 proto._calendar       = defaultCalendar;
 proto.calendar        = calendar;
@@ -38,6 +39,7 @@ proto._months      = defaultLocaleMonths;
 proto.monthsShort  =        localeMonthsShort;
 proto._monthsShort = defaultLocaleMonthsShort;
 proto.monthsParse  =        localeMonthsParse;
+proto.dotFix   = localeDotFix;
 
 // Week
 import { localeWeek, defaultLocaleWeek, localeFirstDayOfYear, localeFirstDayOfWeek } from '../units/week';
