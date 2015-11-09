@@ -3,6 +3,7 @@ import { addUnitAlias } from './aliases';
 import { addRegexToken, match1to2, matchWord } from '../parse/regex';
 import { addWeekParseToken } from '../parse/token';
 import toInt from '../utils/to-int';
+import isArray from '../utils/is-array';
 import { createLocal } from '../create/local';
 import getParsingFlags from '../create/parsing-flags';
 
@@ -76,8 +77,9 @@ function parseWeekday(input, locale) {
 // LOCALES
 
 export var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_');
-export function localeWeekdays (m) {
-    return this._weekdays[m.day()];
+export function localeWeekdays (m, format) {
+    return isArray(this._weekdays) ? this._weekdays[m.day()] :
+        this._weekdays[this._weekdays.isFormat.test(format) ? 'format' : 'standalone'][m.day()];
 }
 
 export var defaultLocaleWeekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_');
