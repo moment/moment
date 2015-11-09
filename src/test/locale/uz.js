@@ -3,7 +3,7 @@ import moment from '../../moment';
 localeModule('uz');
 
 test('parse', function (assert) {
-    var tests = 'январь янв_февраль фев_март мар_апрель апр_май май_июнь июнь_июль июль_август авг_сентябрь сен_октябрь окт_ноябрь ноя_декабрь дек'.split('_'), i;
+    var tests = 'январ янв_феврал фев_март мар_апрел апр_май май_июн июн_июл июл_август авг_сентябр сен_октябр окт_ноябр ноя_декабр дек'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
@@ -22,9 +22,9 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, Do-MMMM YYYY, h:mm:ss',        'Якшанба, 14-февраль 2010, 3:25:50'],
+            ['dddd, Do-MMMM YYYY, h:mm:ss',        'Якшанба, 14-феврал 2010, 3:25:50'],
             ['ddd, h:mm',                          'Якш, 3:25'],
-            ['M Mo MM MMMM MMM',                   '2 2 02 февраль фев'],
+            ['M Mo MM MMMM MMM',                   '2 2 02 феврал фев'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14 14'],
             ['d do dddd ddd dd',                   '0 0 Якшанба Якш Як'],
@@ -38,9 +38,9 @@ test('format', function (assert) {
             ['[йилнинг] DDDo-[куни]',             'йилнинг 45-куни'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14/02/2010'],
-            ['LL',                                 '14 февраль 2010'],
-            ['LLL',                                '14 февраль 2010 15:25'],
-            ['LLLL',                               '14 февраль 2010, Якшанба 15:25'],
+            ['LL',                                 '14 феврал 2010'],
+            ['LLL',                                '14 феврал 2010 15:25'],
+            ['LLLL',                               '14 феврал 2010, Якшанба 15:25'],
             ['l',                                  '14/2/2010'],
             ['ll',                                 '14 фев 2010'],
             ['lll',                                '14 фев 2010 15:25'],
@@ -91,7 +91,7 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'январь янв_февраль фев_март мар_апрель апр_май май_июнь июн_июль июл_август авг_сентябрь сен_октябрь окт_ноябрь ноя_декабрь дек'.split('_'), i;
+    var expected = 'январ янв_феврал фев_март мар_апрел апр_май май_июн июн_июл июл_август авг_сентябр сен_октябр окт_ноябр ноя_декабр дек'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
@@ -153,7 +153,7 @@ test('fromNow', function (assert) {
 test('calendar day', function (assert) {
     var a = moment().hours(2).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                     'Бугун соат 02:00 да',      'today at the same time');
+    assert.equal(moment(a).calendar(),                   'Бугун соат 02:00 да',      'today at the same time');
     assert.equal(moment(a).add({m: 25}).calendar(),      'Бугун соат 02:25 да',      'Now plus 25 min');
     assert.equal(moment(a).add({h: 1}).calendar(),       'Бугун соат 03:00 да',      'Now plus 1 hour');
     assert.equal(moment(a).add({d: 1}).calendar(),       'Эртага 02:00 да',   'tomorrow at the same time');
