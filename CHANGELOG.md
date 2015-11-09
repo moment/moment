@@ -44,7 +44,7 @@ languages:
 * [2097](https://github.com/moment/moment/issues/2097) add ar-tn locale
 
 deprecations:
-* [2074](https://github.com/moment/moment/issues/2074) Implement `moment.fn.utcOffset`, deprecate `momen.fn.zone`
+* [2074](https://github.com/moment/moment/issues/2074) Implement `moment.fn.utcOffset`, deprecate `moment.fn.zone`
 
 features:
 * [2088](https://github.com/moment/moment/issues/2088) add moment.fn.isBetween
@@ -271,7 +271,7 @@ Bugfix: Fixed parsing of first century dates
 
 Bugfix: Parsing 10Sep2001 should work as expected
 
-Bugfix: Fixed wierdness with `moment.utc()` parsing.
+Bugfix: Fixed weirdness with `moment.utc()` parsing.
 
 Changed language ordinal method to return the number + ordinal instead of just the ordinal.
 
