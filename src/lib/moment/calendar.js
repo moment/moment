@@ -1,5 +1,6 @@
 import { createLocal } from '../create/local';
 import { cloneWithOffset } from '../units/offset';
+import isFunction from '../utils/is-function';
 
 export function calendar (time, formats) {
     // We want to compare the start of today, vs this.
@@ -13,5 +14,8 @@ export function calendar (time, formats) {
             diff < 1 ? 'sameDay' :
             diff < 2 ? 'nextDay' :
             diff < 7 ? 'nextWeek' : 'sameElse';
-    return this.format(formats && formats[format] || this.localeData().calendar(format, this, createLocal(now)));
+
+    var output = formats && (isFunction(formats[format]) ? formats[format]() : formats[format]);
+
+    return this.format(output || this.localeData().calendar(format, this, createLocal(now)));
 }
