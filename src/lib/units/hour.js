@@ -26,6 +26,15 @@ addFormatToken('hmmss', 0, 0, function () {
         zeroFill(this.seconds(), 2);
 });
 
+addFormatToken('Hmm', 0, 0, function () {
+    return '' + this.hours() + zeroFill(this.minutes(), 2);
+});
+
+addFormatToken('Hmmss', 0, 0, function () {
+    return '' + this.hours() + zeroFill(this.minutes(), 2) +
+        zeroFill(this.seconds(), 2);
+});
+
 function meridiem (token, lowercase) {
     addFormatToken(token, 0, 0, function () {
         return this.localeData().meridiem(this.hours(), this.minutes(), lowercase);
@@ -54,6 +63,8 @@ addRegexToken('hh', match1to2, match2);
 
 addRegexToken('hmm', match3to4);
 addRegexToken('hmmss', match5to6);
+addRegexToken('Hmm', match3to4);
+addRegexToken('Hmmss', match5to6);
 
 addParseToken(['H', 'HH'], HOUR);
 addParseToken(['a', 'A'], function (input, array, config) {
@@ -77,6 +88,18 @@ addParseToken('hmmss', function (input, array, config) {
     array[MINUTE] = toInt(input.substr(pos1, 2));
     array[SECOND] = toInt(input.substr(pos2));
     getParsingFlags(config).bigHour = true;
+});
+addParseToken('Hmm', function (input, array, config) {
+    var pos = input.length - 2;
+    array[HOUR] = toInt(input.substr(0, pos));
+    array[MINUTE] = toInt(input.substr(pos));
+});
+addParseToken('Hmmss', function (input, array, config) {
+    var pos1 = input.length - 4;
+    var pos2 = input.length - 2;
+    array[HOUR] = toInt(input.substr(0, pos1));
+    array[MINUTE] = toInt(input.substr(pos1, 2));
+    array[SECOND] = toInt(input.substr(pos2));
 });
 
 // LOCALES
