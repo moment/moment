@@ -42,7 +42,8 @@ test('parse meridiem', function (assert) {
             ['10 Μ',    22, true],
             ['10 am',   10, false],
             ['10 pm',   10, false]
-        ];
+        ],
+        parsed;
 
     // test that a formatted moment including meridiem string can be parsed back to the same moment
     assert.ok(b.isSame(moment(b.format('h:mm:ss a'), 'h:mm:ss a', 'el', true), 'seconds'), b.format('h:mm:ss a') + ' should be equal to ' + moment(b.format('h:mm:ss a'), 'h:mm:ss a', 'el', true).format('h:mm:ss a'));
@@ -51,8 +52,11 @@ test('parse meridiem', function (assert) {
     assert.ok(moment(b.format('h:mm:ss a'), 'h:mm:ss a', 'el', true).isValid(), b.format('h:mm:ss a') + ' should be parsed as valid');
 
     for (i = 0; i < meridiemTests.length; i++) {
-        assert.equal(moment(meridiemTests[i][0], 'h a', 'el', true).hours(), meridiemTests[i][1], moment(meridiemTests[i][0], 'h a', 'el', true).hours() + ' should be ' + meridiemTests[i][1]);
-        assert.ok(moment(meridiemTests[i][0], 'h a', 'el', true).isValid() === meridiemTests[i][2], meridiemTests[i][0] + ' ----> ' + meridiemTests[i][2]);
+        parsed = moment(meridiemTests[i][0], 'h a', 'el', true);
+        assert.equal(parsed.isValid(), meridiemTests[i][2], 'validity for ' + meridiemTests[i][0]);
+        if (parsed.isValid()) {
+            assert.equal(parsed.hours(), meridiemTests[i][1], 'hours for ' + meridiemTests[i][0]);
+        }
     }
 });
 
