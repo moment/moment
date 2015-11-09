@@ -55,13 +55,17 @@ function weekdaysCaseReplace(m, format) {
     return weekdays[nounCase][m.day()];
 }
 
+var monthsParse = [/^янв/i, /^фев/i, /^мар/i, /^апр/i, /^ма[й|я]/i, /^июн/i, /^июл/i, /^авг/i, /^сен/i, /^окт/i, /^ноя/i, /^дек/i];
+
 export default moment.defineLocale('ru', {
     months : monthsCaseReplace,
     monthsShort : monthsShortCaseReplace,
     weekdays : weekdaysCaseReplace,
     weekdaysShort : 'вс_пн_вт_ср_чт_пт_сб'.split('_'),
     weekdaysMin : 'вс_пн_вт_ср_чт_пт_сб'.split('_'),
-    monthsParse : [/^янв/i, /^фев/i, /^мар/i, /^апр/i, /^ма[й|я]/i, /^июн/i, /^июл/i, /^авг/i, /^сен/i, /^окт/i, /^ноя/i, /^дек/i],
+    monthsParse : monthsParse,
+    longMonthsParse : monthsParse,
+    shortMonthsParse : monthsParse,
     longDateFormat : {
         LT : 'HH:mm',
         LTS : 'HH:mm:ss',
