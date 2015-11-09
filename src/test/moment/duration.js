@@ -180,6 +180,13 @@ test('instatiation from serialized C# TimeSpan with days', function (assert) {
     assert.equal(moment.duration('1.02:03:04.9999999').minutes(), 3, '3 minutes');
     assert.equal(moment.duration('1.02:03:04.9999999').seconds(), 4, '4 seconds');
     assert.equal(moment.duration('1.02:03:04.9999999').milliseconds(), 999, '999 milliseconds');
+
+    assert.equal(moment.duration('1 02:03:04.9999999').years(), 0, '0 years');
+    assert.equal(moment.duration('1 02:03:04.9999999').days(), 1, '1 day');
+    assert.equal(moment.duration('1 02:03:04.9999999').hours(), 2, '2 hours');
+    assert.equal(moment.duration('1 02:03:04.9999999').minutes(), 3, '3 minutes');
+    assert.equal(moment.duration('1 02:03:04.9999999').seconds(), 4, '4 seconds');
+    assert.equal(moment.duration('1 02:03:04.9999999').milliseconds(), 999, '999 milliseconds');
 });
 
 test('instatiation from serialized C# TimeSpan without days', function (assert) {
