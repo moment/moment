@@ -5,6 +5,7 @@
 //!
 //! - Kyungwook, Park : https://github.com/kyungw00k
 //! - Jeeeyul Lee <jeeeyul@gmail.com>
+// - Kuriyama Hibiya <kuriyama@hibiya.moe>
 
 (function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
@@ -38,17 +39,17 @@
         relativeTime : {
             future : '%s 후',
             past : '%s 전',
-            s : '몇초',
+            s : '잠시',
             ss : '%d초',
-            m : '일분',
+            m : '1분',
             mm : '%d분',
-            h : '한시간',
+            h : '1시간',
             hh : '%d시간',
-            d : '하루',
+            d : '1일',
             dd : '%d일',
-            M : '한달',
-            MM : '%d달',
-            y : '일년',
+            M : '1달',
+            MM : '%d개월',
+            y : '1년',
             yy : '%d년'
         },
         ordinalParse : /\d{1,2}일/,
