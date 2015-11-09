@@ -7,7 +7,7 @@ import toInt from '../utils/to-int';
 
 // FORMATTING
 
-addFormatToken('Q', 0, 0, 'quarter');
+addFormatToken('Q', 0, 'Qo', 'quarter');
 
 // ALIASES
 
