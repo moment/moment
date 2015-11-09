@@ -22,28 +22,28 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, Do MMMM YYYY, aको h:mm:ss बजे',       'आइतबार, १४ फेब्रुवरी २०१०, बेलुकाको ३:२५:५० बजे'],
-            ['ddd, aको h बजे',                                                      'आइत., बेलुकाको ३ बजे'],
+            ['dddd, Do MMMM YYYY, aको h:mm:ss बजे',      'आइतबार, १४ फेब्रुवरी २०१०, दिउँसोको ३:२५:५० बजे'],
+            ['ddd, aको h बजे',                                                'आइत., दिउँसोको ३ बजे'],
             ['M Mo MM MMMM MMM',                   '२ २ ०२ फेब्रुवरी फेब्रु.'],
             ['YYYY YY',                            '२०१० १०'],
             ['D Do DD',                            '१४ १४ १४'],
-            ['d do dddd ddd dd',                   '० ० आइतबार आइत. आइ.'],
+            ['d do dddd ddd dd',                   '० ० आइतबार आइत. आ.'],
             ['DDD DDDo DDDD',                      '४५ ४५ ०४५'],
-            ['w wo ww',                            '७ ७ ०७'],
+            ['w wo ww',                            '८ ८ ०८'],
             ['h hh',                               '३ ०३'],
             ['H HH',                               '१५ १५'],
             ['m mm',                               '२५ २५'],
             ['s ss',                               '५० ५०'],
-            ['a A',                                'बेलुका बेलुका'],
-            ['LTS',                                'बेलुकाको ३:२५:५० बजे'],
+            ['a A',                                'दिउँसो दिउँसो'],
+            ['LTS',                                'दिउँसोको ३:२५:५० बजे'],
             ['L',                                  '१४/०२/२०१०'],
             ['LL',                                 '१४ फेब्रुवरी २०१०'],
-            ['LLL',                                '१४ फेब्रुवरी २०१०, बेलुकाको ३:२५ बजे'],
-            ['LLLL',                               'आइतबार, १४ फेब्रुवरी २०१०, बेलुकाको ३:२५ बजे'],
+            ['LLL',                                '१४ फेब्रुवरी २०१०, दिउँसोको ३:२५ बजे'],
+            ['LLLL',                               'आइतबार, १४ फेब्रुवरी २०१०, दिउँसोको ३:२५ बजे'],
             ['l',                                  '१४/२/२०१०'],
             ['ll',                                 '१४ फेब्रु. २०१०'],
-            ['lll',                                '१४ फेब्रु. २०१०, बेलुकाको ३:२५ बजे'],
-            ['llll',                               'आइत., १४ फेब्रु. २०१०, बेलुकाको ३:२५ बजे']
+            ['lll',                                '१४ फेब्रु. २०१०, दिउँसोको ३:२५ बजे'],
+            ['llll',                               'आइत., १४ फेब्रु. २०१०, दिउँसोको ३:२५ बजे']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -97,7 +97,7 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'आइतबार आइत. आइ._सोमबार सोम. सो._मङ्गलबार मङ्गल. मङ्_बुधबार बुध. बु._बिहिबार बिहि. बि._शुक्रबार शुक्र. शु._शनिबार शनि. श.'.split('_'), i;
+    var expected = 'आइतबार आइत. आ._सोमबार सोम. सो._मङ्गलबार मङ्गल. मं._बुधबार बुध. बु._बिहिबार बिहि. बि._शुक्रबार शुक्र. शु._शनिबार शनि. श.'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
@@ -105,7 +105,7 @@ test('format week', function (assert) {
 
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'केही समय', '44 seconds = a few seconds');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'केही क्षण', '44 seconds = a few seconds');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'एक मिनेट',      '45 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'एक मिनेट',      '89 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '२ मिनेट',     '90 seconds = 2 minutes');
@@ -136,28 +136,28 @@ test('from', function (assert) {
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), 'केही समयमा',  'prefix');
-    assert.equal(moment(0).from(30000), 'केही समय अगाडी', 'suffix');
+    assert.equal(moment(30000).from(0), 'केही क्षणमा',  'prefix');
+    assert.equal(moment(0).from(30000), 'केही क्षण अगाडि', 'suffix');
 });
 
 test('now from now', function (assert) {
-    assert.equal(moment().fromNow(), 'केही समय अगाडी',  'now from now should display as in the past');
+    assert.equal(moment().fromNow(), 'केही क्षण अगाडि',  'now from now should display as in the past');
 });
 
 test('fromNow', function (assert) {
-    assert.equal(moment().add({s: 30}).fromNow(), 'केही समयमा', 'केही समयमा');
+    assert.equal(moment().add({s: 30}).fromNow(), 'केही क्षणमा', 'केही क्षणमा');
     assert.equal(moment().add({d: 5}).fromNow(), '५ दिनमा', '५ दिनमा');
 });
 
 test('calendar day', function (assert) {
     var a = moment().hours(2).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                     'आज रातीको २:०० बजे',     'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'आज रातीको २:२५ बजे',     'Now plus 25 min');
+    assert.equal(moment(a).calendar(),                   'आज रातिको २:०० बजे',     'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'आज रातिको २:२५ बजे',     'Now plus 25 min');
     assert.equal(moment(a).add({h: 1}).calendar(),       'आज बिहानको ३:०० बजे',     'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'भोली रातीको २:०० बजे',  'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'आज रातीको १:०० बजे',     'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'हिजो रातीको २:०० बजे', 'yesterday at the same time');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'भोलि रातिको २:०० बजे',  'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'आज रातिको १:०० बजे',     'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'हिजो रातिको २:०० बजे', 'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {
@@ -199,88 +199,89 @@ test('calendar all else', function (assert) {
 });
 
 test('meridiem', function (assert) {
-    assert.equal(moment([2011, 2, 23,  2, 30]).format('a'), 'राती', 'before dawn');
+    assert.equal(moment([2011, 2, 23,  2, 30]).format('a'), 'राति', 'before dawn');
     assert.equal(moment([2011, 2, 23,  9, 30]).format('a'), 'बिहान', 'morning');
     assert.equal(moment([2011, 2, 23, 14, 30]).format('a'), 'दिउँसो', 'during day');
-    assert.equal(moment([2011, 2, 23, 17, 30]).format('a'), 'बेलुका', 'evening');
+    assert.equal(moment([2011, 2, 23, 17, 30]).format('a'), 'साँझ', 'evening');
     assert.equal(moment([2011, 2, 23, 19, 30]).format('a'), 'साँझ', 'late evening');
-    assert.equal(moment([2011, 2, 23, 21, 20]).format('a'), 'राती', 'night');
+    assert.equal(moment([2011, 2, 23, 21, 20]).format('a'), 'राति', 'night');
 
-    assert.equal(moment([2011, 2, 23,  2, 30]).format('A'), 'राती', 'before dawn');
+    assert.equal(moment([2011, 2, 23,  2, 30]).format('A'), 'राति', 'before dawn');
     assert.equal(moment([2011, 2, 23,  9, 30]).format('A'), 'बिहान', 'morning');
     assert.equal(moment([2011, 2, 23, 14, 30]).format('A'), 'दिउँसो', 'during day');
-    assert.equal(moment([2011, 2, 23, 17, 30]).format('A'), 'बेलुका', 'evening');
+    assert.equal(moment([2011, 2, 23, 17, 30]).format('A'), 'साँझ', 'evening');
     assert.equal(moment([2011, 2, 23, 19, 30]).format('A'), 'साँझ', 'late evening');
-    assert.equal(moment([2011, 2, 23, 21, 20]).format('A'), 'राती', 'night');
+    assert.equal(moment([2011, 2, 23, 21, 20]).format('A'), 'राति', 'night');
 });
 
 test('weeks year starting sunday', function (assert) {
-    assert.equal(moment([2011, 11, 26]).week(), 1, 'Dec 26 2011 should be week 1');
-    assert.equal(moment([2012,  0,  1]).week(), 1, 'Jan  1 2012 should be week 1');
-    assert.equal(moment([2012,  0,  2]).week(), 2, 'Jan  2 2012 should be week 2');
-    assert.equal(moment([2012,  0,  8]).week(), 2, 'Jan  8 2012 should be week 2');
-    assert.equal(moment([2012,  0,  9]).week(), 3, 'Jan  9 2012 should be week 3');
+    assert.equal(moment([2012, 0,  1]).week(), 1, 'Jan  1 2012 should be week 1');
+    assert.equal(moment([2012, 0,  7]).week(), 1, 'Jan  7 2012 should be week 1');
+    assert.equal(moment([2012, 0,  8]).week(), 2, 'Jan  8 2012 should be week 2');
+    assert.equal(moment([2012, 0, 14]).week(), 2, 'Jan 14 2012 should be week 2');
+    assert.equal(moment([2012, 0, 15]).week(), 3, 'Jan 15 2012 should be week 3');
 });
 
 test('weeks year starting monday', function (assert) {
-    assert.equal(moment([2007, 0, 1]).week(),  1, 'Jan  1 2007 should be week 1');
-    assert.equal(moment([2007, 0, 7]).week(),  1, 'Jan  7 2007 should be week 1');
-    assert.equal(moment([2007, 0, 8]).week(),  2, 'Jan  8 2007 should be week 2');
-    assert.equal(moment([2007, 0, 14]).week(), 2, 'Jan 14 2007 should be week 2');
-    assert.equal(moment([2007, 0, 15]).week(), 3, 'Jan 15 2007 should be week 3');
+    assert.equal(moment([2006, 11, 31]).week(), 1, 'Dec 31 2006 should be week 1');
+    assert.equal(moment([2007,  0,  1]).week(), 1, 'Jan  1 2007 should be week 1');
+    assert.equal(moment([2007,  0,  6]).week(), 1, 'Jan  6 2007 should be week 1');
+    assert.equal(moment([2007,  0,  7]).week(), 2, 'Jan  7 2007 should be week 2');
+    assert.equal(moment([2007,  0, 13]).week(), 2, 'Jan 13 2007 should be week 2');
+    assert.equal(moment([2007,  0, 14]).week(), 3, 'Jan 14 2007 should be week 3');
 });
 
 test('weeks year starting tuesday', function (assert) {
-    assert.equal(moment([2007, 11, 31]).week(), 1, 'Dec 31 2007 should be week 1');
+    assert.equal(moment([2007, 11, 29]).week(), 52, 'Dec 29 2007 should be week 52');
     assert.equal(moment([2008,  0,  1]).week(), 1, 'Jan  1 2008 should be week 1');
-    assert.equal(moment([2008,  0,  6]).week(), 1, 'Jan  6 2008 should be week 1');
-    assert.equal(moment([2008,  0,  7]).week(), 2, 'Jan  7 2008 should be week 2');
-    assert.equal(moment([2008,  0, 13]).week(), 2, 'Jan 13 2008 should be week 2');
-    assert.equal(moment([2008,  0, 14]).week(), 3, 'Jan 14 2008 should be week 3');
+    assert.equal(moment([2008,  0,  5]).week(), 1, 'Jan  5 2008 should be week 1');
+    assert.equal(moment([2008,  0,  6]).week(), 2, 'Jan  6 2008 should be week 2');
+    assert.equal(moment([2008,  0, 12]).week(), 2, 'Jan 12 2008 should be week 2');
+    assert.equal(moment([2008,  0, 13]).week(), 3, 'Jan 13 2008 should be week 3');
 });
 
 test('weeks year starting wednesday', function (assert) {
-    assert.equal(moment([2002, 11, 30]).week(), 1, 'Dec 30 2002 should be week 1');
+    assert.equal(moment([2002, 11, 29]).week(), 1, 'Dec 29 2002 should be week 1');
     assert.equal(moment([2003,  0,  1]).week(), 1, 'Jan  1 2003 should be week 1');
-    assert.equal(moment([2003,  0,  5]).week(), 1, 'Jan  5 2003 should be week 1');
-    assert.equal(moment([2003,  0,  6]).week(), 2, 'Jan  6 2003 should be week 2');
-    assert.equal(moment([2003,  0, 12]).week(), 2, 'Jan 12 2003 should be week 2');
-    assert.equal(moment([2003,  0, 13]).week(), 3, 'Jan 13 2003 should be week 3');
+    assert.equal(moment([2003,  0,  4]).week(), 1, 'Jan  4 2003 should be week 1');
+    assert.equal(moment([2003,  0,  5]).week(), 2, 'Jan  5 2003 should be week 2');
+    assert.equal(moment([2003,  0, 11]).week(), 2, 'Jan 11 2003 should be week 2');
+    assert.equal(moment([2003,  0, 12]).week(), 3, 'Jan 12 2003 should be week 3');
 });
 
 test('weeks year starting thursday', function (assert) {
-    assert.equal(moment([2008, 11, 29]).week(), 1, 'Dec 29 2008 should be week 1');
+    assert.equal(moment([2008, 11, 28]).week(), 1, 'Dec 28 2008 should be week 1');
     assert.equal(moment([2009,  0,  1]).week(), 1, 'Jan  1 2009 should be week 1');
-    assert.equal(moment([2009,  0,  4]).week(), 1, 'Jan  4 2009 should be week 1');
-    assert.equal(moment([2009,  0,  5]).week(), 2, 'Jan  5 2009 should be week 2');
-    assert.equal(moment([2009,  0, 11]).week(), 2, 'Jan 11 2009 should be week 2');
-    assert.equal(moment([2009,  0, 12]).week(), 3, 'Jan 12 2009 should be week 3');
+    assert.equal(moment([2009,  0,  3]).week(), 1, 'Jan  3 2009 should be week 1');
+    assert.equal(moment([2009,  0,  4]).week(), 2, 'Jan  4 2009 should be week 2');
+    assert.equal(moment([2009,  0, 10]).week(), 2, 'Jan 10 2009 should be week 2');
+    assert.equal(moment([2009,  0, 11]).week(), 3, 'Jan 11 2009 should be week 3');
 });
 
 test('weeks year starting friday', function (assert) {
-    assert.equal(moment([2009, 11, 28]).week(), 1, 'Dec 28 2009 should be week 1');
+    assert.equal(moment([2009, 11, 27]).week(), 1, 'Dec 27 2009 should be week 1');
     assert.equal(moment([2010,  0,  1]).week(), 1, 'Jan  1 2010 should be week 1');
-    assert.equal(moment([2010,  0,  3]).week(), 1, 'Jan  3 2010 should be week 1');
-    assert.equal(moment([2010,  0,  4]).week(), 2, 'Jan  4 2010 should be week 2');
-    assert.equal(moment([2010,  0, 10]).week(), 2, 'Jan 10 2010 should be week 2');
-    assert.equal(moment([2010,  0, 11]).week(), 3, 'Jan 11 2010 should be week 3');
+    assert.equal(moment([2010,  0,  2]).week(), 1, 'Jan  2 2010 should be week 1');
+    assert.equal(moment([2010,  0,  3]).week(), 2, 'Jan  3 2010 should be week 2');
+    assert.equal(moment([2010,  0,  9]).week(), 2, 'Jan  9 2010 should be week 2');
+    assert.equal(moment([2010,  0, 10]).week(), 3, 'Jan 10 2010 should be week 3');
 });
 
 test('weeks year starting saturday', function (assert) {
-    assert.equal(moment([2010, 11, 27]).week(), 1, 'Dec 27 2010 should be week 1');
+    assert.equal(moment([2010, 11, 26]).week(), 1, 'Dec 26 2010 should be week 1');
     assert.equal(moment([2011,  0,  1]).week(), 1, 'Jan  1 2011 should be week 1');
-    assert.equal(moment([2011,  0,  2]).week(), 1, 'Jan  2 2011 should be week 1');
-    assert.equal(moment([2011,  0,  3]).week(), 2, 'Jan  3 2011 should be week 2');
-    assert.equal(moment([2011,  0,  9]).week(), 2, 'Jan  9 2011 should be week 2');
-    assert.equal(moment([2011,  0, 10]).week(), 3, 'Jan 10 2011 should be week 3');
+    assert.equal(moment([2011,  0,  2]).week(), 2, 'Jan  2 2011 should be week 2');
+    assert.equal(moment([2011,  0,  8]).week(), 2, 'Jan  8 2011 should be week 2');
+    assert.equal(moment([2011,  0,  9]).week(), 3, 'Jan  9 2011 should be week 3');
 });
 
+
 test('weeks year starting sunday formatted', function (assert) {
-    assert.equal(moment([2011, 11, 26]).format('w ww wo'), '१ ०१ १', 'Dec 26 2011 should be week 1');
+    assert.equal(moment([2011, 11, 26]).format('w ww wo'), '५३ ५३ ५३', 'Dec 26 2011 should be week 53');
     assert.equal(moment([2012,  0,  1]).format('w ww wo'), '१ ०१ १', 'Jan  1 2012 should be week 1');
-    assert.equal(moment([2012,  0,  2]).format('w ww wo'), '२ ०२ २', 'Jan  2 2012 should be week 2');
+    assert.equal(moment([2012,  0,  2]).format('w ww wo'), '१ ०१ १', 'Jan  2 2012 should be week 1');
     assert.equal(moment([2012,  0,  8]).format('w ww wo'), '२ ०२ २', 'Jan  8 2012 should be week 2');
-    assert.equal(moment([2012,  0,  9]).format('w ww wo'), '३ ०३ ३', 'Jan  9 2012 should be week 3');
+    assert.equal(moment([2012,  0,  9]).format('w ww wo'), '२ ०२ २', 'Jan  9 2012 should be week 2');
 });
 
 test('lenient ordinal parsing', function (assert) {

@@ -34,7 +34,7 @@ export default moment.defineLocale('ne', {
     monthsShort : 'जन._फेब्रु._मार्च_अप्रि._मई_जुन_जुलाई._अग._सेप्ट._अक्टो._नोभे._डिसे.'.split('_'),
     weekdays : 'आइतबार_सोमबार_मङ्गलबार_बुधबार_बिहिबार_शुक्रबार_शनिबार'.split('_'),
     weekdaysShort : 'आइत._सोम._मङ्गल._बुध._बिहि._शुक्र._शनि.'.split('_'),
-    weekdaysMin : 'आइ._सो._मङ्_बु._बि._शु._श.'.split('_'),
+    weekdaysMin : 'आ._सो._मं._बु._बि._शु._श.'.split('_'),
     longDateFormat : {
         LT : 'Aको h:mm बजे',
         LTS : 'Aको h:mm:ss बजे',
@@ -53,39 +53,37 @@ export default moment.defineLocale('ne', {
             return symbolMap[match];
         });
     },
-    meridiemParse: /राती|बिहान|दिउँसो|बेलुका|साँझ|राती/,
+    meridiemParse: /राति|बिहान|दिउँसो|साँझ/,
     meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
-        if (meridiem === 'राती') {
-            return hour < 3 ? hour : hour + 12;
+        if (meridiem === 'राति') {
+            return hour < 4 ? hour : hour + 12;
         } else if (meridiem === 'बिहान') {
             return hour;
         } else if (meridiem === 'दिउँसो') {
             return hour >= 10 ? hour : hour + 12;
-        } else if (meridiem === 'बेलुका' || meridiem === 'साँझ') {
+        } else if (meridiem === 'साँझ') {
             return hour + 12;
         }
     },
     meridiem : function (hour, minute, isLower) {
         if (hour < 3) {
-            return 'राती';
-        } else if (hour < 10) {
+            return 'राति';
+        } else if (hour < 12) {
             return 'बिहान';
-        } else if (hour < 15) {
+        } else if (hour < 16) {
             return 'दिउँसो';
-        } else if (hour < 18) {
-            return 'बेलुका';
         } else if (hour < 20) {
             return 'साँझ';
         } else {
-            return 'राती';
+            return 'राति';
         }
     },
     calendar : {
         sameDay : '[आज] LT',
-        nextDay : '[भोली] LT',
+        nextDay : '[भोलि] LT',
         nextWeek : '[आउँदो] dddd[,] LT',
         lastDay : '[हिजो] LT',
         lastWeek : '[गएको] dddd[,] LT',
@@ -93,8 +91,8 @@ export default moment.defineLocale('ne', {
     },
     relativeTime : {
         future : '%sमा',
-        past : '%s अगाडी',
-        s : 'केही समय',
+        past : '%s अगाडि',
+        s : 'केही क्षण',
         m : 'एक मिनेट',
         mm : '%d मिनेट',
         h : 'एक घण्टा',
@@ -107,8 +105,8 @@ export default moment.defineLocale('ne', {
         yy : '%d बर्ष'
     },
     week : {
-        dow : 1, // Monday is the first day of the week.
-        doy : 7  // The week that contains Jan 1st is the first week of the year.
+        dow : 0, // Sunday is the first day of the week.
+        doy : 6  // The week that contains Jan 1st is the first week of the year.
     }
 });
 
