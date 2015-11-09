@@ -12,6 +12,7 @@ export var matchUnsigned  = /\d+/;           //       0 - inf
 export var matchSigned    = /[+-]?\d+/;      //    -inf - inf
 
 export var matchOffset    = /Z|[+-]\d\d:?\d\d/gi; // +00:00 -00:00 +0000 -0000 or Z
+export var matchShortOffset = /Z|[+-]\d\d(?::?\d\d)?/gi; // +00 -00 +00:00 -00:00 +0000 -0000 or Z
 
 export var matchTimestamp = /[+-]?\d+(\.\d{1,3})?/; // 123456789 123456789.123
 
