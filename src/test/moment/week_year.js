@@ -91,3 +91,37 @@ test('week numbers 2012/2013', function (assert) {
     assert.equal(3, moment('2013-01-12', 'YYYY-MM-DD').week()); // 1 -- should be 3
     assert.equal(52, moment().weeksInYear(2012)); // 52
 });
+
+test('week year overflows', function (assert) {
+    assert.equal('2005-01-01', moment.utc('2004-W53-6', moment.ISO_8601, true).format('YYYY-MM-DD'), '2004-W53-6 is 1st Jan 2005');
+    assert.equal('2007-12-31', moment.utc('2008-W01-1', moment.ISO_8601, true).format('YYYY-MM-DD'), '2008-W01-1 is 31st Dec 2007');
+});
+
+test('weeks overflow', function (assert) {
+    assert.equal(7, moment.utc('2004-W54-1', moment.ISO_8601, true).parsingFlags().overflow, '2004 has only 53 weeks');
+    assert.equal(7, moment.utc('2004-W00-1', moment.ISO_8601, true).parsingFlags().overflow, 'there is no 0th week');
+});
+
+test('weekday overflow', function (assert) {
+    assert.equal(8, moment.utc('2004-W30-0', moment.ISO_8601, true).parsingFlags().overflow, 'there is no 0 iso weekday');
+    assert.equal(8, moment.utc('2004-W30-8', moment.ISO_8601, true).parsingFlags().overflow, 'there is no 8 iso weekday');
+    assert.equal(8, moment.utc('2004-w30-7', 'gggg-[w]ww-e', true).parsingFlags().overflow, 'there is no 7 \'e\' weekday');
+    assert.equal(8, moment.utc('2004-w30-7', 'gggg-[w]ww-d', true).parsingFlags().overflow, 'there is no 7 \'d\' weekday');
+});
+
+test('week year setter works', function (assert) {
+    for (var year = 2000; year <= 2020; year += 1) {
+        assert.equal(moment.utc('2012-12-31T00:00:00.000Z').isoWeekYear(year).isoWeekYear(), year, 'setting iso-week-year to ' + year);
+        assert.equal(moment.utc('2012-12-31T00:00:00.000Z').weekYear(year).weekYear(), year, 'setting week-year to ' + year);
+    }
+
+    assert.equal(moment.utc('2004-W53-1', moment.ISO_8601, true).isoWeekYear(2013).format('GGGG-[W]WW-E'), '2013-W52-1', '2004-W53-1 to 2013');
+    assert.equal(moment.utc('2004-W53-1', moment.ISO_8601, true).isoWeekYear(2020).format('GGGG-[W]WW-E'), '2020-W53-1', '2004-W53-1 to 2020');
+    assert.equal(moment.utc('2005-W52-1', moment.ISO_8601, true).isoWeekYear(2004).format('GGGG-[W]WW-E'), '2004-W52-1', '2005-W52-1 to 2004');
+    assert.equal(moment.utc('2013-W30-4', moment.ISO_8601, true).isoWeekYear(2015).format('GGGG-[W]WW-E'), '2015-W30-4', '2013-W30-4 to 2015');
+
+    assert.equal(moment.utc('2005-w53-0', 'gggg-[w]ww-e', true).weekYear(2013).format('gggg-[w]ww-e'), '2013-w52-0', '2005-w53-0 to 2013');
+    assert.equal(moment.utc('2005-w53-0', 'gggg-[w]ww-e', true).weekYear(2016).format('gggg-[w]ww-e'), '2016-w53-0', '2005-w53-0 to 2016');
+    assert.equal(moment.utc('2004-w52-0', 'gggg-[w]ww-e', true).weekYear(2005).format('gggg-[w]ww-e'), '2005-w52-0', '2004-w52-0 to 2005');
+    assert.equal(moment.utc('2013-w30-4', 'gggg-[w]ww-e', true).weekYear(2015).format('gggg-[w]ww-e'), '2015-w30-4', '2013-w30-4 to 2015');
+});
