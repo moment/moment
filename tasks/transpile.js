@@ -105,7 +105,11 @@ module.exports = function (grunt) {
             code = files.map(function (file) {
                 var identifier = path.basename(file, '.js').replace('-', '_');
                 return 'import ' + identifier + ' from "./' + file + '";';
-            }).join('\n');
+            }).concat([
+                // Reset the language back to 'en', because every defineLocale
+                // also sets it.
+                'moment.locale(\'en\');'
+            ]).join('\n');
         return transpileCode({
             base: 'src',
             code: code,
