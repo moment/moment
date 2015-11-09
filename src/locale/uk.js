@@ -27,16 +27,6 @@ function relativeTimeWithPlural(number, withoutSuffix, key) {
         return number + ' ' + plural(format[key], +number);
     }
 }
-function monthsCaseReplace(m, format) {
-    var months = {
-        'nominative': 'січень_лютий_березень_квітень_травень_червень_липень_серпень_вересень_жовтень_листопад_грудень'.split('_'),
-        'accusative': 'січня_лютого_березня_квітня_травня_червня_липня_серпня_вересня_жовтня_листопада_грудня'.split('_')
-    },
-    nounCase = (/D[oD]? *MMMM?/).test(format) ?
-        'accusative' :
-        'nominative';
-    return months[nounCase][m.month()];
-}
 function weekdaysCaseReplace(m, format) {
     var weekdays = {
         'nominative': 'неділя_понеділок_вівторок_середа_четвер_п’ятниця_субота'.split('_'),
@@ -57,7 +47,10 @@ function processHoursFunction(str) {
 }
 
 export default moment.defineLocale('uk', {
-    months : monthsCaseReplace,
+    months : {
+        'format': 'січня_лютого_березня_квітня_травня_червня_липня_серпня_вересня_жовтня_листопада_грудня'.split('_'),
+        'standalone': 'січень_лютий_березень_квітень_травень_червень_липень_серпень_вересень_жовтень_листопад_грудень'.split('_')
+    },
     monthsShort : 'січ_лют_бер_квіт_трав_черв_лип_серп_вер_жовт_лист_груд'.split('_'),
     weekdays : weekdaysCaseReplace,
     weekdaysShort : 'нд_пн_вт_ср_чт_пт_сб'.split('_'),

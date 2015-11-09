@@ -24,43 +24,22 @@ function relativeTimeWithPlural(number, withoutSuffix, key) {
         return number + ' ' + plural(format[key], +number);
     }
 }
-function monthsCaseReplace(m, format) {
-    var months = {
-        'nominative': 'Январь_Февраль_Март_Апрель_Май_Июнь_Июль_Август_Сентябрь_Октябрь_Ноябрь_Декабрь'.split('_'),
-        'accusative': 'Января_Февраля_Марта_Апреля_Мая_Июня_Июля_Августа_Сентября_Октября_Ноября_Декабря'.split('_')
-    },
-    nounCase = (/D[oD]?(\[[^\[\]]*\]|\s+)+MMMM?/).test(format) ?
-        'accusative' :
-        'nominative';
-    return months[nounCase][m.month()];
-}
-function monthsShortCaseReplace(m, format) {
-    var monthsShort = {
-        'nominative': 'янв_фев_март_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split('_'),
-        'accusative': 'янв_фев_мар_апр_мая_июня_июля_авг_сен_окт_ноя_дек'.split('_')
-    },
-    nounCase = (/D[oD]?(\[[^\[\]]*\]|\s+)+MMMM?/).test(format) ?
-        'accusative' :
-        'nominative';
-    return monthsShort[nounCase][m.month()];
-}
-function weekdaysCaseReplace(m, format) {
-    var weekdays = {
-        'nominative': 'Воскресенье_Понедельник_Вторник_Среда_Четверг_Пятница_Суббота'.split('_'),
-        'accusative': 'Воскресенье_Понедельник_Вторник_Среду_Четверг_Пятницу_Субботу'.split('_')
-    },
-    nounCase = (/\[ ?[Вв] ?(?:прошлую|следующую|эту)? ?\] ?dddd/).test(format) ?
-        'accusative' :
-        'nominative';
-    return weekdays[nounCase][m.day()];
-}
-
 var monthsParse = [/^янв/i, /^фев/i, /^мар/i, /^апр/i, /^ма[й|я]/i, /^июн/i, /^июл/i, /^авг/i, /^сен/i, /^окт/i, /^ноя/i, /^дек/i];
 
 export default moment.defineLocale('ru', {
-    months : monthsCaseReplace,
-    monthsShort : monthsShortCaseReplace,
-    weekdays : weekdaysCaseReplace,
+    months : {
+        format: 'Января_Февраля_Марта_Апреля_Мая_Июня_Июля_Августа_Сентября_Октября_Ноября_Декабря'.split('_'),
+        standalone: 'Январь_Февраль_Март_Апрель_Май_Июнь_Июль_Август_Сентябрь_Октябрь_Ноябрь_Декабрь'.split('_')
+    },
+    monthsShort : {
+        format: 'янв_фев_мар_апр_мая_июня_июля_авг_сен_окт_ноя_дек'.split('_'),
+        standalone: 'янв_фев_март_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split('_')
+    },
+    weekdays : {
+        standalone: 'Воскресенье_Понедельник_Вторник_Среда_Четверг_Пятница_Суббота'.split('_'),
+        format: 'Воскресенье_Понедельник_Вторник_Среду_Четверг_Пятницу_Субботу'.split('_'),
+        isFormat: /\[ ?[Вв] ?(?:прошлую|следующую|эту)? ?\] ?dddd/
+    },
     weekdaysShort : 'Вс_Пн_Вт_Ср_Чт_Пт_Сб'.split('_'),
     weekdaysMin : 'Вс_Пн_Вт_Ср_Чт_Пт_Сб'.split('_'),
     monthsParse : monthsParse,
