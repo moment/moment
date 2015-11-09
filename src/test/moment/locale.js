@@ -135,7 +135,7 @@ test('library localeData', function (assert) {
 
     assert.equal(moment.localeData().months(jan), 'January', 'no arguments returns global');
     assert.equal(moment.localeData('zh-cn').months(jan), '一月', 'a string returns the locale based on key');
-    assert.equal(moment.localeData(moment().locale('es')).months(jan), 'Enero', 'if you pass in a moment it uses the moment\'s locale');
+    assert.equal(moment.localeData(moment().locale('es')).months(jan), 'enero', 'if you pass in a moment it uses the moment\'s locale');
 });
 
 test('library deprecations', function (assert) {
@@ -169,7 +169,7 @@ test('instance locale method', function (assert) {
     moment.locale('en');
 
     assert.equal(moment([2012, 5, 6]).format('MMMM'), 'June', 'Normally default to global');
-    assert.equal(moment([2012, 5, 6]).locale('es').format('MMMM'), 'Junio', 'Use the instance specific locale');
+    assert.equal(moment([2012, 5, 6]).locale('es').format('MMMM'), 'junio', 'Use the instance specific locale');
     assert.equal(moment([2012, 5, 6]).format('MMMM'), 'June', 'Using an instance specific locale does not affect other moments');
 });
 
@@ -193,9 +193,9 @@ test('instance getter locale substrings', function (assert) {
 test('instance locale persists with manipulation', function (assert) {
     moment.locale('en');
 
-    assert.equal(moment([2012, 5, 6]).locale('es').add({days: 1}).format('MMMM'), 'Junio', 'With addition');
-    assert.equal(moment([2012, 5, 6]).locale('es').day(0).format('MMMM'), 'Junio', 'With day getter');
-    assert.equal(moment([2012, 5, 6]).locale('es').endOf('day').format('MMMM'), 'Junio', 'With endOf');
+    assert.equal(moment([2012, 5, 6]).locale('es').add({days: 1}).format('MMMM'), 'junio', 'With addition');
+    assert.equal(moment([2012, 5, 6]).locale('es').day(0).format('MMMM'), 'junio', 'With day getter');
+    assert.equal(moment([2012, 5, 6]).locale('es').endOf('day').format('MMMM'), 'junio', 'With endOf');
 });
 
 test('instance locale persists with cloning', function (assert) {
@@ -205,8 +205,8 @@ test('instance locale persists with cloning', function (assert) {
         b = a.clone(),
         c = moment(a);
 
-    assert.equal(b.format('MMMM'), 'Junio', 'using moment.fn.clone()');
-    assert.equal(b.format('MMMM'), 'Junio', 'using moment()');
+    assert.equal(b.format('MMMM'), 'junio', 'using moment.fn.clone()');
+    assert.equal(b.format('MMMM'), 'junio', 'using moment()');
 });
 
 test('duration locale method', function (assert) {
