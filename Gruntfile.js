@@ -22,6 +22,12 @@ module.exports = function (grunt) {
                         browserName: 'chrome',
                         platform: 'Windows XP'
                     },
+                    slIe10Win7: {
+                        base: 'SauceLabs',
+                        browserName: 'internet explorer',
+                        platform: 'Windows 7',
+                        version: '10'
+                    },
                     slIe9Win7: {
                         base: 'SauceLabs',
                         browserName: 'internet explorer',
@@ -34,6 +40,18 @@ module.exports = function (grunt) {
                         platform: 'Windows 7',
                         version: '8'
                     },
+                    slIe11Win10: {
+                        base: 'SauceLabs',
+                        browserName: 'internet explorer',
+                        platform: 'Windows 10',
+                        version: '11'
+                    },
+                    slME25Win10: {
+                        base: 'SauceLabs',
+                        browserName: 'microsoft edge',
+                        platform: 'Windows 10',
+                        version: '25'
+                    },
                     slFfLinux: {
                         base: 'SauceLabs',
                         browserName: 'firefox',
@@ -43,6 +61,11 @@ module.exports = function (grunt) {
                         base: 'SauceLabs',
                         browserName: 'safari',
                         platform: 'OS X 10.8'
+                    },
+                    slSafariOsx11: {
+                        base: 'SauceLabs',
+                        browserName: 'safari',
+                        platform: 'OS X 10.11'
                     }
                 }
             },
@@ -64,8 +87,11 @@ module.exports = function (grunt) {
                 singleRun: true,
                 browsers: [
                     'slChromeWinXp',
+                    'slIe10Win7',
                     'slIe9Win7',
                     'slIe8Win7',
+                    'slIe11Win10',
+                    'slME25Win10',
                     'slFfLinux',
                     'slSafariOsx'
                 ]
