@@ -290,7 +290,7 @@ test('string with format no separators', function (assert) {
         ['MMDDYYYY',          '12021999'],
         ['DDMMYYYY',          '12021999'],
         ['YYYYMMDD',          '19991202'],
-        ['DDMMMYYYY',         '10Sep2001']
+        ['DDMMMYYYY',         '10Sept2001']
     ], i;
 
     for (i = 0; i < a.length; i++) {
