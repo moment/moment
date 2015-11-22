@@ -3,15 +3,16 @@ import { daysInYear } from '../units/year';
 import { weekOfYear, weeksInYear, dayOfYearFromWeeks } from '../units/week-calendar-utils';
 import { YEAR, MONTH, DATE, HOUR, MINUTE, SECOND, MILLISECOND } from '../units/constants';
 import { createLocal } from './local';
+import { Moment } from '../moment/constructor';
 import defaults from '../utils/defaults';
 import getParsingFlags from './parsing-flags';
 
 function currentDateArray(config) {
-    var now = new Date();
+    var nowValue = new Date(Moment.prototype.now());
     if (config._useUTC) {
-        return [now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()];
+        return [nowValue.getUTCFullYear(), nowValue.getUTCMonth(), nowValue.getUTCDate()];
     }
-    return [now.getFullYear(), now.getMonth(), now.getDate()];
+    return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
 }
 
 // convert an array to a date.
