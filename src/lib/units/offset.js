@@ -10,6 +10,7 @@ import { prepareConfig } from '../create/from-anything';
 import { createUTC } from '../create/utc';
 import isDate from '../utils/is-date';
 import toInt from '../utils/to-int';
+import isUndefined from '../utils/is-undefined';
 import compareArrays from '../utils/compare-arrays';
 import { hooks } from '../utils/hooks';
 
@@ -186,7 +187,7 @@ export function isDaylightSavingTime () {
 }
 
 export function isDaylightSavingTimeShifted () {
-    if (typeof this._isDSTShifted !== 'undefined') {
+    if (!isUndefined(this._isDSTShifted)) {
         return this._isDSTShifted;
     }
 

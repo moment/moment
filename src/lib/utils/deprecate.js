@@ -1,8 +1,9 @@
 import extend from './extend';
 import { hooks } from './hooks';
+import isUndefined from './is-undefined';
 
 function warn(msg) {
-    if (hooks.suppressDeprecationWarnings === false && typeof console !== 'undefined' && console.warn) {
+    if (hooks.suppressDeprecationWarnings === false && !isUndefined(console) && console.warn) {
         console.warn('Deprecation warning: ' + msg);
     }
 }
@@ -29,4 +30,3 @@ export function deprecateSimple(name, msg) {
 }
 
 hooks.suppressDeprecationWarnings = false;
-
