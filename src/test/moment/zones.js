@@ -50,6 +50,9 @@ test('set zone with string', function (assert) {
     zone.zone('2013-03-07T07:00:00+0100');
     assert.equal(zone.zone(), -60, 'set the zone with a string that uses the +0000 syntax');
 
+    zone.zone('2013-03-07T07:00:00+02');
+    assert.equal(zone.zone(), -120, 'set the zone with a string that uses the +00 syntax');
+
     zone.zone('03-07-2013T07:00:00-08:00');
     assert.equal(zone.zone(), 480, 'set the zone with a string with a non-ISO 8601 date');
 });
