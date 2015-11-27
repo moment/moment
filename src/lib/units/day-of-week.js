@@ -112,7 +112,20 @@ export function localeWeekdaysMin (m) {
 }
 
 export function localeWeekdaysParse (weekdayName, format, strict) {
-    var i, mom, regex;
+    var i, mom, regex, cleanWeekday = weekdayName, cleanFormat = format;
+
+    if (weekdayName == null || weekdayName.length === 0) {
+        return;
+    }
+
+    if (strict && format && format[format.length - 1] === '.' && weekdayName[weekdayName.length - 1] !== '.') {
+        return;
+    }
+
+    if (format != null && format[format.length - 1] === '.' && weekdayName[weekdayName.length - 1] === '.') {
+        cleanFormat = format.substr(0, format.length - 1);
+        cleanWeekday = weekdayName.substr(0, weekdayName.length - 1);
+    }
 
     if (!this._weekdaysParse) {
         this._weekdaysParse = [];
@@ -130,18 +143,18 @@ export function localeWeekdaysParse (weekdayName, format, strict) {
             this._shortWeekdaysParse[i] = new RegExp('^' + this.weekdaysShort(mom, '').replace('.', '\.?') + '$', 'i');
             this._minWeekdaysParse[i] = new RegExp('^' + this.weekdaysMin(mom, '').replace('.', '\.?') + '$', 'i');
         }
-        if (!this._weekdaysParse[i]) {
+        if (!strict && !this._weekdaysParse[i]) {
             regex = '^' + this.weekdays(mom, '') + '|^' + this.weekdaysShort(mom, '') + '|^' + this.weekdaysMin(mom, '');
-            this._weekdaysParse[i] = new RegExp(regex.replace('.', ''), 'i');
+            this._weekdaysParse[i] = new RegExp(regex.replace('.', '\.?'), 'i');
         }
         // test the regex
-        if (strict && format === 'dddd' && this._fullWeekdaysParse[i].test(weekdayName)) {
+        if (strict && cleanFormat === 'dddd' && this._fullWeekdaysParse[i].test(cleanWeekday)) {
             return i;
-        } else if (strict && format === 'ddd' && this._shortWeekdaysParse[i].test(weekdayName)) {
+        } else if (strict && cleanFormat === 'ddd' && this._shortWeekdaysParse[i].test(cleanWeekday)) {
             return i;
-        } else if (strict && format === 'dd' && this._minWeekdaysParse[i].test(weekdayName)) {
+        } else if (strict && cleanFormat === 'dd' && this._minWeekdaysParse[i].test(cleanWeekday)) {
             return i;
-        } else if (!strict && this._weekdaysParse[i].test(weekdayName)) {
+        } else if (!strict && this._weekdaysParse[i].test(cleanWeekday)) {
             return i;
         }
     }

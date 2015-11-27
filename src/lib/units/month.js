@@ -103,12 +103,12 @@ export function localeMonthsParse (monthName, format, strict) {
         // make the regex if we don't have it already
         mom = createUTC([2000, i]);
         if (strict && !this._longMonthsParse[i]) {
-            this._longMonthsParse[i] = new RegExp('^' + this.months(mom, '').replace('.', '.?') + '$', 'i');
-            this._shortMonthsParse[i] = new RegExp('^' + this.monthsShort(mom, '').replace('.', '.?') + '$', 'i');
+            this._longMonthsParse[i] = new RegExp('^' + this.months(mom, '').replace('.', '\.?') + '$', 'i');
+            this._shortMonthsParse[i] = new RegExp('^' + this.monthsShort(mom, '').replace('.', '\.?') + '$', 'i');
         }
         if (!strict && !this._monthsParse[i]) {
             regex = '^' + this.months(mom, '') + '|^' + this.monthsShort(mom, '');
-            this._monthsParse[i] = new RegExp(regex.replace('.', '.?'), 'i');
+            this._monthsParse[i] = new RegExp(regex.replace('.', '\.?'), 'i');
         }
         // test the regex
         if (strict && cleanFormat === 'MMMM' && this._longMonthsParse[i].test(cleanMonth)) {
