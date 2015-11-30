@@ -34,7 +34,6 @@ export function configFromStringAndFormat(config) {
     for (i = 0; i < tokens.length; i++) {
         token = tokens[i];
         parsedInput = (string.match(getParseRegexForToken(token, config)) || [])[0];
-        // console.log('token', token, 'parsed', parsedInput, 'regex', getParseRegexForToken(token, config));
         // don't parse if it's not a known token
         if (parseTokens[token]) {
             if (parsedInput) {
@@ -45,7 +44,6 @@ export function configFromStringAndFormat(config) {
             }
             numUsedChars = addTimeToArrayFromToken(token, parsedInput, config);
             if (numUsedChars != null) {
-                // console.log('YO', 'stripping', parsedInput, 'to', parsedInput.substr(0, numUsedChars));
                 parsedInput = parsedInput.substr(0, numUsedChars);
             }
         } else if (config._strict && !parsedInput) {

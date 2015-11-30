@@ -59,8 +59,6 @@ addWeekParseToken(['dd', 'dd.', 'ddd', 'ddd.', 'dddd'], function (input, week, c
             locale.dotFix(input, token, !!locale._weekdaysShortHaveDot) :
             null;
 
-    console.log('HALO', 'token', token, 'input', input, 'res', consumedChars);
-
     // if we didn't get a weekday name, mark the date as invalid
     if (weekday != null) {
         week.d = weekday;

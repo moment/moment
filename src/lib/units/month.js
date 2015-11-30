@@ -53,9 +53,6 @@ addParseToken(['MMM', 'MMM.', 'MMMM'], function (input, array, config, token) {
         consumedChars = token === 'MMM' || token === 'MMM.' ?
             locale.dotFix(input, token, locale._monthsShortHaveDot) : null;
 
-    if (consumedChars != null) {
-        console.log('HOLY', config._locale._abbr, 'inp', input, 'tok', token, 'id', month, 'consumed', consumedChars);
-    }
     // if we didn't find a month name, mark the date as invalid.
     if (month != null) {
         array[MONTH] = month;
