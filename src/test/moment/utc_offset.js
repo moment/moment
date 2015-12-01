@@ -27,6 +27,10 @@ test('setter / getter blackbox', function (assert) {
     assert.equal(m.clone().utcOffset(-90).utcOffset(), -90, 'utcOffset -90');
     assert.equal(m.clone().utcOffset('-01:30').utcOffset(), -90, 'utcOffset +01:30 is 90');
     assert.equal(m.clone().utcOffset('-0130').utcOffset(), -90, 'utcOffset +0130 is 90');
+    assert.equal(m.clone().utcOffset('+00:10').utcOffset(), 10, 'utcOffset +00:10 is 10');
+    assert.equal(m.clone().utcOffset('-00:10').utcOffset(), -10, 'utcOffset +00:10 is 10');
+    assert.equal(m.clone().utcOffset('+0010').utcOffset(), 10, 'utcOffset +0010 is 10');
+    assert.equal(m.clone().utcOffset('-0010').utcOffset(), -10, 'utcOffset +0010 is 10');
 });
 
 test('utcOffset shorthand hours -> minutes', function (assert) {
