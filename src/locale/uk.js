@@ -11,8 +11,8 @@ function plural(word, num) {
 }
 function relativeTimeWithPlural(number, withoutSuffix, key) {
     var format = {
-        'mm': 'хвилина_хвилини_хвилин',
-        'hh': 'година_години_годин',
+        'mm': withoutSuffix ? 'хвилина_хвилини_хвилин' : 'хвилину_хвилини_хвилин',
+        'hh': withoutSuffix ? 'година_години_годин' : 'годину_години_годин',
         'dd': 'день_дні_днів',
         'MM': 'місяць_місяці_місяців',
         'yy': 'рік_роки_років'
