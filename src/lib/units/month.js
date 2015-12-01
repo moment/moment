@@ -59,7 +59,7 @@ export function localeMonths (m) {
     return this._months[m.month()];
 }
 
-export var defaultLocaleMonthsShort = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_');
+export var defaultLocaleMonthsShort = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sept_Oct_Nov_Dec'.split('_');
 export function localeMonthsShort (m) {
     return this._monthsShort[m.month()];
 }
