@@ -60,8 +60,10 @@ function translate(number, withoutSuffix, key) {
 export default moment.defineLocale('hr', {
     months : 'siječanj_veljača_ožujak_travanj_svibanj_lipanj_srpanj_kolovoz_rujan_listopad_studeni_prosinac'.split('_'),
     monthsShort : 'sij._velj._ožu._tra._svi._lip._srp._kol._ruj._lis._stu._pro.'.split('_'),
+    monthsShortHaveDot : true,
     weekdays : 'nedjelja_ponedjeljak_utorak_srijeda_četvrtak_petak_subota'.split('_'),
     weekdaysShort : 'ned._pon._uto._sri._čet._pet._sub.'.split('_'),
+    weekdaysShortHaveDot : true,
     weekdaysMin : 'ne_po_ut_sr_če_pe_su'.split('_'),
     longDateFormat : {
         LT : 'H:mm',

@@ -1,7 +1,7 @@
 import { configFromISO } from './from-string';
 import { configFromArray } from './from-array';
 import { getParseRegexForToken }   from '../parse/regex';
-import { addTimeToArrayFromToken } from '../parse/token';
+import { addTimeToArrayFromToken, parseTokens } from '../parse/token';
 import { expandFormat, formatTokenFunctions, formattingTokens } from '../format/format';
 import checkOverflow from './check-overflow';
 import { HOUR } from '../units/constants';
@@ -26,13 +26,30 @@ export function configFromStringAndFormat(config) {
     var string = '' + config._i,
         i, parsedInput, tokens, token, skipped,
         stringLength = string.length,
-        totalParsedInputLength = 0;
+        totalParsedInputLength = 0,
+        numUsedChars;
 
     tokens = expandFormat(config._f, config._locale).match(formattingTokens) || [];
 
     for (i = 0; i < tokens.length; i++) {
         token = tokens[i];
         parsedInput = (string.match(getParseRegexForToken(token, config)) || [])[0];
+        // don't parse if it's not a known token
+        if (parseTokens[token]) {
+            if (parsedInput) {
+                getParsingFlags(config).empty = false;
+            }
+            else {
+                getParsingFlags(config).unusedTokens.push(token);
+            }
+            numUsedChars = addTimeToArrayFromToken(token, parsedInput, config);
+            if (numUsedChars != null) {
+                parsedInput = parsedInput.substr(0, numUsedChars);
+            }
+        } else if (config._strict && !parsedInput) {
+            getParsingFlags(config).unusedTokens.push(token);
+        }
+
         if (parsedInput) {
             skipped = string.substr(0, string.indexOf(parsedInput));
             if (skipped.length > 0) {
@@ -40,19 +57,6 @@ export function configFromStringAndFormat(config) {
             }
             string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
             totalParsedInputLength += parsedInput.length;
-        }
-        // don't parse if it's not a known token
-        if (formatTokenFunctions[token]) {
-            if (parsedInput) {
-                getParsingFlags(config).empty = false;
-            }
-            else {
-                getParsingFlags(config).unusedTokens.push(token);
-            }
-            addTimeToArrayFromToken(token, parsedInput, config);
-        }
-        else if (config._strict && !parsedInput) {
-            getParsingFlags(config).unusedTokens.push(token);
         }
     }
 
