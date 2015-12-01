@@ -22,29 +22,29 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a', 'ஞாயிற்றுக்கிழமை, பிப்ரவரி 14வது 2010, 3:25:50  எற்பாடு'],
-            ['ddd, hA',                       'ஞாயிறு, 3 எற்பாடு'],
-            ['M Mo MM MMMM MMM',              '2 2வது 02 பிப்ரவரி பிப்ரவரி'],
-            ['YYYY YY',                       '2010 10'],
-            ['D Do DD',                       '14 14வது 14'],
-            ['d do dddd ddd dd',              '0 0வது ஞாயிற்றுக்கிழமை ஞாயிறு ஞா'],
-            ['DDD DDDo DDDD',                 '45 45வது 045'],
-            ['w wo ww',                       '8 8வது 08'],
-            ['h hh',                          '3 03'],
-            ['H HH',                          '15 15'],
-            ['m mm',                          '25 25'],
-            ['s ss',                          '50 50'],
+            ['dddd, MMMM Do YYYY, h:mm:ss a', 'ஞாயிற்றுக்கிழமை, பிப்ரவரி ௧௪வது ௨௦௧௦, ௩:௨௫:௫௦  எற்பாடு'],
+            ['ddd, hA',                       'ஞாயிறு, ௩ எற்பாடு'],
+            ['M Mo MM MMMM MMM',              '௨ ௨வது ௦௨ பிப்ரவரி பிப்ரவரி'],
+            ['YYYY YY',                       '௨௦௧௦ ௧௦'],
+            ['D Do DD',                       '௧௪ ௧௪வது ௧௪'],
+            ['d do dddd ddd dd',              '௦ ௦வது ஞாயிற்றுக்கிழமை ஞாயிறு ஞா'],
+            ['DDD DDDo DDDD',                 '௪௫ ௪௫வது ௦௪௫'],
+            ['w wo ww',                       '௮ ௮வது ௦௮'],
+            ['h hh',                          '௩ ௦௩'],
+            ['H HH',                          '௧௫ ௧௫'],
+            ['m mm',                          '௨௫ ௨௫'],
+            ['s ss',                          '௫௦ ௫௦'],
             ['a A',                           ' எற்பாடு  எற்பாடு'],
-            ['[ஆண்டின்] DDDo  [நாள்]', 'ஆண்டின் 45வது  நாள்'],
-            ['LTS',                           '15:25:50'],
-            ['L',                             '14/02/2010'],
-            ['LL',                            '14 பிப்ரவரி 2010'],
-            ['LLL',                           '14 பிப்ரவரி 2010, 15:25'],
-            ['LLLL',                          'ஞாயிற்றுக்கிழமை, 14 பிப்ரவரி 2010, 15:25'],
-            ['l',                             '14/2/2010'],
-            ['ll',                            '14 பிப்ரவரி 2010'],
-            ['lll',                           '14 பிப்ரவரி 2010, 15:25'],
-            ['llll',                          'ஞாயிறு, 14 பிப்ரவரி 2010, 15:25']
+            ['[ஆண்டின்] DDDo  [நாள்]', 'ஆண்டின் ௪௫வது  நாள்'],
+            ['LTS',                           '௧௫:௨௫:௫௦'],
+            ['L',                             '௧௪/௦௨/௨௦௧௦'],
+            ['LL',                            '௧௪ பிப்ரவரி ௨௦௧௦'],
+            ['LLL',                           '௧௪ பிப்ரவரி ௨௦௧௦, ௧௫:௨௫'],
+            ['LLLL',                          'ஞாயிற்றுக்கிழமை, ௧௪ பிப்ரவரி ௨௦௧௦, ௧௫:௨௫'],
+            ['l',                             '௧௪/௨/௨௦௧௦'],
+            ['ll',                            '௧௪ பிப்ரவரி ௨௦௧௦'],
+            ['lll',                           '௧௪ பிப்ரவரி ௨௦௧௦, ௧௫:௨௫'],
+            ['llll',                          'ஞாயிறு, ௧௪ பிப்ரவரி ௨௦௧௦, ௧௫:௨௫']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -54,40 +54,40 @@ test('format', function (assert) {
 });
 
 test('format ordinal', function (assert) {
-    assert.equal(moment([2011, 0, 1]).format('DDDo'), '1வது', '1வது');
-    assert.equal(moment([2011, 0, 2]).format('DDDo'), '2வது', '2வது');
-    assert.equal(moment([2011, 0, 3]).format('DDDo'), '3வது', '3வது');
-    assert.equal(moment([2011, 0, 4]).format('DDDo'), '4வது', '4வது');
-    assert.equal(moment([2011, 0, 5]).format('DDDo'), '5வது', '5வது');
-    assert.equal(moment([2011, 0, 6]).format('DDDo'), '6வது', '6வது');
-    assert.equal(moment([2011, 0, 7]).format('DDDo'), '7வது', '7வது');
-    assert.equal(moment([2011, 0, 8]).format('DDDo'), '8வது', '8வது');
-    assert.equal(moment([2011, 0, 9]).format('DDDo'), '9வது', '9வது');
-    assert.equal(moment([2011, 0, 10]).format('DDDo'), '10வது', '10வது');
+    assert.equal(moment([2011, 0, 1]).format('DDDo'), '௧வது', '௧வது');
+    assert.equal(moment([2011, 0, 2]).format('DDDo'), '௨வது', '௨வது');
+    assert.equal(moment([2011, 0, 3]).format('DDDo'), '௩வது', '௩வது');
+    assert.equal(moment([2011, 0, 4]).format('DDDo'), '௪வது', '௪வது');
+    assert.equal(moment([2011, 0, 5]).format('DDDo'), '௫வது', '௫வது');
+    assert.equal(moment([2011, 0, 6]).format('DDDo'), '௬வது', '௬வது');
+    assert.equal(moment([2011, 0, 7]).format('DDDo'), '௭வது', '௭வது');
+    assert.equal(moment([2011, 0, 8]).format('DDDo'), '௮வது', '௮வது');
+    assert.equal(moment([2011, 0, 9]).format('DDDo'), '௯வது', '௯வது');
+    assert.equal(moment([2011, 0, 10]).format('DDDo'), '௧௦வது', '௧௦வது');
 
-    assert.equal(moment([2011, 0, 11]).format('DDDo'), '11வது', '11வது');
-    assert.equal(moment([2011, 0, 12]).format('DDDo'), '12வது', '12வது');
-    assert.equal(moment([2011, 0, 13]).format('DDDo'), '13வது', '13வது');
-    assert.equal(moment([2011, 0, 14]).format('DDDo'), '14வது', '14வது');
-    assert.equal(moment([2011, 0, 15]).format('DDDo'), '15வது', '15வது');
-    assert.equal(moment([2011, 0, 16]).format('DDDo'), '16வது', '16வது');
-    assert.equal(moment([2011, 0, 17]).format('DDDo'), '17வது', '17வது');
-    assert.equal(moment([2011, 0, 18]).format('DDDo'), '18வது', '18வது');
-    assert.equal(moment([2011, 0, 19]).format('DDDo'), '19வது', '19வது');
-    assert.equal(moment([2011, 0, 20]).format('DDDo'), '20வது', '20வது');
+    assert.equal(moment([2011, 0, 11]).format('DDDo'), '௧௧வது', '௧௧வது');
+    assert.equal(moment([2011, 0, 12]).format('DDDo'), '௧௨வது', '௧௨வது');
+    assert.equal(moment([2011, 0, 13]).format('DDDo'), '௧௩வது', '௧௩வது');
+    assert.equal(moment([2011, 0, 14]).format('DDDo'), '௧௪வது', '௧௪வது');
+    assert.equal(moment([2011, 0, 15]).format('DDDo'), '௧௫வது', '௧௫வது');
+    assert.equal(moment([2011, 0, 16]).format('DDDo'), '௧௬வது', '௧௬வது');
+    assert.equal(moment([2011, 0, 17]).format('DDDo'), '௧௭வது', '௧௭வது');
+    assert.equal(moment([2011, 0, 18]).format('DDDo'), '௧௮வது', '௧௮வது');
+    assert.equal(moment([2011, 0, 19]).format('DDDo'), '௧௯வது', '௧௯வது');
+    assert.equal(moment([2011, 0, 20]).format('DDDo'), '௨௦வது', '௨௦வது');
 
-    assert.equal(moment([2011, 0, 21]).format('DDDo'), '21வது', '21வது');
-    assert.equal(moment([2011, 0, 22]).format('DDDo'), '22வது', '22வது');
-    assert.equal(moment([2011, 0, 23]).format('DDDo'), '23வது', '23வது');
-    assert.equal(moment([2011, 0, 24]).format('DDDo'), '24வது', '24வது');
-    assert.equal(moment([2011, 0, 25]).format('DDDo'), '25வது', '25வது');
-    assert.equal(moment([2011, 0, 26]).format('DDDo'), '26வது', '26வது');
-    assert.equal(moment([2011, 0, 27]).format('DDDo'), '27வது', '27வது');
-    assert.equal(moment([2011, 0, 28]).format('DDDo'), '28வது', '28வது');
-    assert.equal(moment([2011, 0, 29]).format('DDDo'), '29வது', '29வது');
-    assert.equal(moment([2011, 0, 30]).format('DDDo'), '30வது', '30வது');
+    assert.equal(moment([2011, 0, 21]).format('DDDo'), '௨௧வது', '௨௧வது');
+    assert.equal(moment([2011, 0, 22]).format('DDDo'), '௨௨வது', '௨௨வது');
+    assert.equal(moment([2011, 0, 23]).format('DDDo'), '௨௩வது', '௨௩வது');
+    assert.equal(moment([2011, 0, 24]).format('DDDo'), '௨௪வது', '௨௪வது');
+    assert.equal(moment([2011, 0, 25]).format('DDDo'), '௨௫வது', '௨௫வது');
+    assert.equal(moment([2011, 0, 26]).format('DDDo'), '௨௬வது', '௨௬வது');
+    assert.equal(moment([2011, 0, 27]).format('DDDo'), '௨௭வது', '௨௭வது');
+    assert.equal(moment([2011, 0, 28]).format('DDDo'), '௨௮வது', '௨௮வது');
+    assert.equal(moment([2011, 0, 29]).format('DDDo'), '௨௯வது', '௨௯வது');
+    assert.equal(moment([2011, 0, 30]).format('DDDo'), '௩௦வது', '௩௦வது');
 
-    assert.equal(moment([2011, 0, 31]).format('DDDo'), '31வது', '31வது');
+    assert.equal(moment([2011, 0, 31]).format('DDDo'), '௩௧வது', '௩௧வது');
 });
 
 test('format month', function (assert) {
@@ -109,31 +109,31 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'ஒரு சில விநாடிகள்', '44 விநாடிகள் = ஒரு சில விநாடிகள்');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'ஒரு நிமிடம்',      '45 விநாடிகள் = ஒரு நிமிடம்');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'ஒரு நிமிடம்',      '89 விநாடிகள் = ஒரு நிமிடம்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '2 நிமிடங்கள்',     '90 விநாடிகள் = 2 நிமிடங்கள்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  '44 நிமிடங்கள்',    '44 நிமிடங்கள் = 44 நிமிடங்கள்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '௨ நிமிடங்கள்',     '90 விநாடிகள் = ௨ நிமிடங்கள்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  '௪௪ நிமிடங்கள்',    '44 நிமிடங்கள் = 44 நிமிடங்கள்');
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  'ஒரு மணி நேரம்',       '45 நிமிடங்கள் = ஒரு மணி நேரம்');
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  'ஒரு மணி நேரம்',       '89 நிமிடங்கள் = ஒரு மணி நேரம்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  '2 மணி நேரம்',       '90 நிமிடங்கள் = 2 மணி நேரம்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   '5 மணி நேரம்',       '5 மணி நேரம் = 5 மணி நேரம்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  '21 மணி நேரம்',      '21 மணி நேரம் = 21 மணி நேரம்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  'ஒரு நாள்',         '22 மணி நேரம் = ஒரு நாள்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  'ஒரு நாள்',         '35 மணி நேரம் = ஒரு நாள்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  '2 நாட்கள்',        '36 மணி நேரம் = 2 days');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   'ஒரு நாள்',         '1 நாள் = ஒரு நாள்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   '5 நாட்கள்',        '5 நாட்கள் = 5 நாட்கள்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  '25 நாட்கள்',       '25 நாட்கள் = 25 நாட்கள்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  'ஒரு மாதம்',       '26 நாட்கள் = ஒரு மாதம்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  'ஒரு மாதம்',       '30 நாட்கள் = ஒரு மாதம்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  '௨ மணி நேரம்',       '90 நிமிடங்கள் = ௨ மணி நேரம்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   '௫ மணி நேரம்',       '5 மணி நேரம் = 5 மணி நேரம்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  '௨௧ மணி நேரம்',      '௨௧ மணி நேரம் = ௨௧ மணி நேரம்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  'ஒரு நாள்',         '௨௨ மணி நேரம் = ஒரு நாள்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  'ஒரு நாள்',         '௩5 மணி நேரம் = ஒரு நாள்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  '௨ நாட்கள்',        '௩6 மணி நேரம் = ௨ days');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   'ஒரு நாள்',         '௧ நாள் = ஒரு நாள்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   '௫ நாட்கள்',        '5 நாட்கள் = 5 நாட்கள்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  '௨௫ நாட்கள்',       '௨5 நாட்கள் = ௨5 நாட்கள்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  'ஒரு மாதம்',       '௨6 நாட்கள் = ஒரு மாதம்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  'ஒரு மாதம்',       '௩0 நாட்கள் = ஒரு மாதம்');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  'ஒரு மாதம்',       '45 நாட்கள் = ஒரு மாதம்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  '2 மாதங்கள்',      '46 நாட்கள் = 2 மாதங்கள்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  '2 மாதங்கள்',      '75 நாட்கள் = 2 மாதங்கள்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  '3 மாதங்கள்',      '76 நாட்கள் = 3 மாதங்கள்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   'ஒரு மாதம்',       '1 மாதம் = ஒரு மாதம்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   '5 மாதங்கள்',      '5 மாதங்கள் = 5 மாதங்கள்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'ஒரு வருடம்',        '345 நாட்கள் = ஒரு வருடம்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), '2 ஆண்டுகள்',       '548 நாட்கள் = 2 ஆண்டுகள்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'ஒரு வருடம்',        '1 வருடம் = ஒரு வருடம்');
-    assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5 ஆண்டுகள்',       '5 ஆண்டுகள் = 5 ஆண்டுகள்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  '௨ மாதங்கள்',      '46 நாட்கள் = ௨ மாதங்கள்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  '௨ மாதங்கள்',      '75 நாட்கள் = ௨ மாதங்கள்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  '௩ மாதங்கள்',      '76 நாட்கள் = ௩ மாதங்கள்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   'ஒரு மாதம்',       '௧ மாதம் = ஒரு மாதம்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   '௫ மாதங்கள்',      '5 மாதங்கள் = 5 மாதங்கள்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'ஒரு வருடம்',        '௩45 நாட்கள் = ஒரு வருடம்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), '௨ ஆண்டுகள்',       '548 நாட்கள் = ௨ ஆண்டுகள்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'ஒரு வருடம்',        '௧ வருடம் = ஒரு வருடம்');
+    assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '௫ ஆண்டுகள்',       '5 ஆண்டுகள் = 5 ஆண்டுகள்');
 });
 
 test('suffix', function (assert) {
@@ -147,18 +147,18 @@ test('now from now', function (assert) {
 
 test('fromNow', function (assert) {
     assert.equal(moment().add({s: 30}).fromNow(), 'ஒரு சில விநாடிகள் இல்', 'ஒரு சில விநாடிகள் இல்');
-    assert.equal(moment().add({d: 5}).fromNow(), '5 நாட்கள் இல்', '5 நாட்கள் இல்');
+    assert.equal(moment().add({d: 5}).fromNow(), '௫ நாட்கள் இல்', '5 நாட்கள் இல்');
 });
 
 test('calendar day', function (assert) {
     var a = moment().hours(2).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),  'இன்று 02:00', 'இன்று  02:00');
-    assert.equal(moment(a).add({m: 25}).calendar(), 'இன்று 02:25', 'இன்று  02:25');
-    assert.equal(moment(a).add({h: 1}).calendar(), 'இன்று 03:00', 'இன்று  03:00');
-    assert.equal(moment(a).add({d: 1}).calendar(), 'நாளை 02:00', 'நாளை  02:00');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'இன்று 01:00',      'இன்று  01:00');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'நேற்று 02:00',  'நேற்று  02:00');
+    assert.equal(moment(a).calendar(),  'இன்று ௦௨:௦௦', 'இன்று  02:00');
+    assert.equal(moment(a).add({m: 25}).calendar(), 'இன்று ௦௨:௨௫', 'இன்று  02:25');
+    assert.equal(moment(a).add({h: 1}).calendar(), 'இன்று ௦௩:௦௦', 'இன்று  03:00');
+    assert.equal(moment(a).add({d: 1}).calendar(), 'நாளை ௦௨:௦௦', 'நாளை  02:00');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'இன்று ௦௧:௦௦',      'இன்று  0௧:00');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'நேற்று ௦௨:௦௦',  'நேற்று  02:00');
 });
 
 test('calendar next week', function (assert) {
