@@ -4,6 +4,8 @@ import moment from '../moment';
 
 export var test = QUnit.test;
 
+export var expect = QUnit.expect;
+
 export function module (name, lifecycle) {
     QUnit.module(name, {
         setup : function () {
