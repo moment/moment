@@ -426,7 +426,6 @@ test('parsing iso', function (assert) {
     tz = (offset >= 0) ?
         '+' + pad(hourOffset) + ':' + pad(minOffset) :
         '-' + pad(-hourOffset) + ':' + pad(-minOffset),
-    tz_hour = tz.slice(0, 4) + "00",
     tz2 = tz.replace(':', ''),
     tz3 = tz2.slice(0, 3),
     //Tz3 removes minutes digit so will break the tests when parsed if they all use the same minutes digit
