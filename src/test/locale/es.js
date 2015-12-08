@@ -27,7 +27,7 @@ test('format', function (assert) {
             ['M Mo MM MMMM MMM',                   '2 2º 02 febrero feb.'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14º 14'],
-            ['d do dddd ddd dd',                   '0 0º domingo dom. Do'],
+            ['d do dddd ddd dd',                   '0 0º domingo dom. do'],
             ['DDD DDDo DDDD',                      '45 45º 045'],
             ['w wo ww',                            '6 6º 06'],
             ['YYYY-MMM-DD',                        '2010-feb-14'],
@@ -99,7 +99,7 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'domingo dom. Do_lunes lun. Lu_martes mar. Ma_miércoles mié. Mi_jueves jue. Ju_viernes vie. Vi_sábado sáb. Sá'.split('_'), i;
+    var expected = 'domingo dom. do_lunes lun. lu_martes mar. ma_miércoles mié. mi_jueves jue. ju_viernes vie. vi_sábado sáb. sá'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
@@ -154,7 +154,7 @@ test('fromNow', function (assert) {
 test('calendar day', function (assert) {
     var a = moment().hours(2).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                         'hoy a las 2:00',     'today at the same time');
+    assert.equal(moment(a).calendar(),                       'hoy a las 2:00',     'today at the same time');
     assert.equal(moment(a).add({m: 25}).calendar(),          'hoy a las 2:25',     'Now plus 25 min');
     assert.equal(moment(a).add({h: 1}).calendar(),           'hoy a las 3:00',     'Now plus 1 hour');
     assert.equal(moment(a).add({d: 1}).calendar(),           'mañana a las 2:00',  'tomorrow at the same time');
