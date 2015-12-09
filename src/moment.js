@@ -11,6 +11,7 @@ moment.version = '2.10.6';
 import {
     min,
     max,
+    now,
     isMoment,
     momentPrototype as fn,
     createUTC       as utc,
@@ -46,6 +47,7 @@ setHookCallback(local);
 moment.fn                    = fn;
 moment.min                   = min;
 moment.max                   = max;
+moment.now                   = now;
 moment.utc                   = utc;
 moment.unix                  = unix;
 moment.months                = months;
