@@ -1,4 +1,4 @@
-import { module, test } from '../qunit';
+import { module, test, expect } from '../qunit';
 import moment from '../../moment';
 
 module('add and subtract');
@@ -298,7 +298,7 @@ test('add across DST', function (assert) {
     // Detect Safari bug and bail. Hours on 13th March 2011 are shifted
     // with 1 ahead.
     if (new Date(2011, 2, 13, 5, 0, 0).getHours() !== 5) {
-        assert.expect(0);
+        expect(0);
         return;
     }
 
