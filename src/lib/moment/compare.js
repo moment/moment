@@ -1,13 +1,14 @@
 import { isMoment } from './constructor';
 import { normalizeUnits } from '../units/aliases';
 import { createLocal } from '../create/local';
+import isUndefined from '../utils/is-undefined';
 
 export function isAfter (input, units) {
     var localInput = isMoment(input) ? input : createLocal(input);
     if (!(this.isValid() && localInput.isValid())) {
         return false;
     }
-    units = normalizeUnits(typeof units !== 'undefined' ? units : 'millisecond');
+    units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
     if (units === 'millisecond') {
         return +this > +localInput;
     } else {
@@ -20,7 +21,7 @@ export function isBefore (input, units) {
     if (!(this.isValid() && localInput.isValid())) {
         return false;
     }
-    units = normalizeUnits(typeof units !== 'undefined' ? units : 'millisecond');
+    units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
     if (units === 'millisecond') {
         return +this < +localInput;
     } else {
