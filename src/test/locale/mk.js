@@ -137,8 +137,8 @@ test('from', function (assert) {
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), 'после неколку секунди',  'prefix');
-    assert.equal(moment(0).from(30000), 'пред неколку секунди', 'suffix');
+    assert.equal(moment(30000).from(0), 'после неколку секунди', 'prefix');
+    assert.equal(moment(0).from(30000), 'пред неколку секунди',  'suffix');
 });
 
 test('now from now', function (assert) {
@@ -147,13 +147,13 @@ test('now from now', function (assert) {
 
 test('fromNow', function (assert) {
     assert.equal(moment().add({s: 30}).fromNow(), 'после неколку секунди', 'in a few seconds');
-    assert.equal(moment().add({d: 5}).fromNow(), 'после 5 дена', 'in 5 days');
+    assert.equal(moment().add({d: 5}).fromNow(),  'после 5 дена', 'in 5 days');
 });
 
 test('calendar day', function (assert) {
     var a = moment().hours(2).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                     'Денес во 2:00',  'today at the same time');
+    assert.equal(moment(a).calendar(),                   'Денес во 2:00',  'today at the same time');
     assert.equal(moment(a).add({m: 25}).calendar(),      'Денес во 2:25',  'Now plus 25 min');
     assert.equal(moment(a).add({h: 1}).calendar(),       'Денес во 3:00',  'Now plus 1 hour');
     assert.equal(moment(a).add({d: 1}).calendar(),       'Утре во 2:00',  'tomorrow at the same time');
@@ -165,11 +165,11 @@ test('calendar next week', function (assert) {
     var i, m;
     for (i = 2; i < 7; i++) {
         m = moment().add({d: i});
-        assert.equal(m.calendar(),       m.format('dddd [во] LT'),  'Today + ' + i + ' days current time');
+        assert.equal(m.calendar(),       m.format('[Во] dddd [во] LT'),  'Today + ' + i + ' days current time');
         m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(m.calendar(),       m.format('dddd [во] LT'),  'Today + ' + i + ' days beginning of day');
+        assert.equal(m.calendar(),       m.format('[Во] dddd [во] LT'),  'Today + ' + i + ' days beginning of day');
         m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(m.calendar(),       m.format('dddd [во] LT'),  'Today + ' + i + ' days end of day');
+        assert.equal(m.calendar(),       m.format('[Во] dddd [во] LT'),  'Today + ' + i + ' days end of day');
     }
 });
 
@@ -181,12 +181,12 @@ test('calendar last week', function (assert) {
         case 0:
         case 3:
         case 6:
-            return '[Во изминатата] dddd [во] LT';
+            return '[Изминатата] dddd [во] LT';
         case 1:
         case 2:
         case 4:
         case 5:
-            return '[Во изминатиот] dddd [во] LT';
+            return '[Изминатиот] dddd [во] LT';
         }
     }
 
