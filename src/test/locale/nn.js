@@ -38,13 +38,13 @@ test('format', function (assert) {
             ['[the] DDDo [day of the year]',       'the 45. day of the year'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14.02.2010'],
-            ['LL',                                 '14 februar 2010'],
-            ['LLL',                                '14 februar 2010 15:25'],
-            ['LLLL',                               'sundag 14 februar 2010 15:25'],
+            ['LL',                                 '14. februar 2010'],
+            ['LLL',                                '14. februar 2010 kl. 15:25'],
+            ['LLLL',                               'sundag 14. februar 2010 kl. 15:25'],
             ['l',                                  '14.2.2010'],
-            ['ll',                                 '14 feb 2010'],
-            ['lll',                                '14 feb 2010 15:25'],
-            ['llll',                               'sun 14 feb 2010 15:25']
+            ['ll',                                 '14. feb 2010'],
+            ['lll',                                '14. feb 2010 kl. 15:25'],
+            ['llll',                               'sun 14. feb 2010 kl. 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
