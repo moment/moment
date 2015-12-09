@@ -3,17 +3,15 @@
 
 import moment from '../moment';
 
-var monthsParse = [/^Jan/i, /^Feb/i, /^Mar/i, /^Apr/i, /^May/i, /^Jun/i, /^Jul/i, /^Aug/i, /^Sep/i, /^Oct/i, /^Nov/i, /^Dec/i];
-
 export default moment.defineLocale('en-nz', {
     months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
     monthsShort : 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sept_Oct_Nov_Dec'.split('_'),
+    monthsParse : [/^jan/i, /^feb/i, /^mar/i, /^apr/i, /^may/i, /^jun/i, /^jul/i, /^aug/i, /^sep/i, /^oct/i, /^nov/i, /^dec/i],
+    longMonthsParse : [/^january$/i, /^february$/i, /^march$/i, /^april$/i, /^may$/i, /^june$/i, /^july$/i, /^august$/i, /^september$/i, /^october$/i, /^november$/i, /^december$/i],
+    shortMonthsParse : [/^jan$/i, /^feb$/i, /^mar$/i, /^apr$/i, /^may$/i, /^jun$/i, /^jul$/i, /^aug/i, /^sept?$/i, /^oct$/i, /^nov$/i, /^dec$/i],
     weekdays : 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
     weekdaysShort : 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
     weekdaysMin : 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
-    monthsParse : monthsParse,
-    longMonthsParse : monthsParse,
-    shortMonthsParse : monthsParse,
     longDateFormat : {
         LT : 'h:mm A',
         LTS : 'h:mm:ss A',
