@@ -104,8 +104,7 @@ export function getSetOffset (input, keepLocalTime) {
     if (input != null) {
         if (typeof input === 'string') {
             input = offsetFromString(matchShortOffset, input);
-        }
-        if (Math.abs(input) < 16) {
+        } else if (Math.abs(input) < 16) {
             input = input * 60;
         }
         if (!this._isUTC && keepLocalTime) {
