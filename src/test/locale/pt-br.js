@@ -100,7 +100,7 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'Domingo Dom_Segunda-Feira Seg_Terça-Feira Ter_Quarta-Feira Qua_Quinta-Feira Qui_Sexta-Feira Sex_Sábado Sáb'.split('_'), i;
+    var expected = 'Domingo Dom_Segunda-feira Seg_Terça-feira Ter_Quarta-feira Qua_Quinta-feira Qui_Sexta-feira Sex_Sábado Sáb'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd'), expected[i], expected[i]);
     }
