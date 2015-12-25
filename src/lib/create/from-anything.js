@@ -61,7 +61,7 @@ export function prepareConfig (config) {
 function configFromInput(config) {
     var input = config._i;
     if (input === undefined) {
-        config._d = new Date(Moment.prototype.now());
+        config._d = new Date(hooks.now());
     } else if (isDate(input)) {
         config._d = new Date(+input);
     } else if (typeof input === 'string') {
