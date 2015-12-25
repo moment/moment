@@ -1,14 +1,15 @@
+import { hooks } from '../utils/hooks';
 import { createDate, createUTCDate } from './date-from-array';
 import { daysInYear } from '../units/year';
 import { weekOfYear, weeksInYear, dayOfYearFromWeeks } from '../units/week-calendar-utils';
 import { YEAR, MONTH, DATE, HOUR, MINUTE, SECOND, MILLISECOND } from '../units/constants';
 import { createLocal } from './local';
-import { Moment } from '../moment/constructor';
 import defaults from '../utils/defaults';
 import getParsingFlags from './parsing-flags';
 
 function currentDateArray(config) {
-    var nowValue = new Date(Moment.prototype.now());
+    // hooks is actually the exported moment object
+    var nowValue = new Date(hooks.now());
     if (config._useUTC) {
         return [nowValue.getUTCFullYear(), nowValue.getUTCMonth(), nowValue.getUTCDate()];
     }
