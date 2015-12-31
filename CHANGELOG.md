@@ -1,6 +1,28 @@
 Changelog
 =========
 
+### 2.11.0 [See full changelog](https://gist.github.com/ichernev/6594bc29719dde6b2f66)
+
+* [#2624](https://github.com/moment/moment/pull/2624) Proper handling of invalid moments
+* [#2634](https://github.com/moment/moment/pull/2634) Fix strict month parsing issue in cs,ru,sk
+* [#2735](https://github.com/moment/moment/pull/2735) Reset the locale back to 'en' after defining all locales in min/locales.js
+* [#2702](https://github.com/moment/moment/pull/2702) Week rework
+* [#2746](https://github.com/moment/moment/pull/2746) Changed September Abbreviation to "Sept" in locale-specific english
+  files and default locale file
+* [#2646](https://github.com/moment/moment/pull/2646) Fix [#2645](https://github.com/moment/moment/pull/2645) - invalid dates pre-1970
+
+* [#2641](https://github.com/moment/moment/pull/2641) Implement basic format and comma as ms separator in ISO 8601
+* [#2665](https://github.com/moment/moment/pull/2665) Implement stricter weekday parsing
+* [#2700](https://github.com/moment/moment/pull/2700) Add [Hh]mm and [Hh]mmss formatting tokens, so you can parse 123 with
+  hmm for example
+* [#2565](https://github.com/moment/moment/pull/2565) [#2835](https://github.com/moment/moment/pull/2835) Expose arguments used for moment creation with creationData
+  (fix [#2443](https://github.com/moment/moment/pull/2443))
+* [#2648](https://github.com/moment/moment/pull/2648) fix issue [#2640](https://github.com/moment/moment/pull/2640): support instanceof operator
+* [#2709](https://github.com/moment/moment/pull/2709) Add isSameOrAfter and isSameOrBefore comparison methods
+* [#2721](https://github.com/moment/moment/pull/2721) Fix moment creation from object with strings values
+* [#2740](https://github.com/moment/moment/pull/2740) Enable 'd hh:mm:ss.sss' format for durations
+* [#2766](https://github.com/moment/moment/pull/2766) [#2833](https://github.com/moment/moment/pull/2833) Alternate Clock Source Support
+
 ### 2.10.6
 
 [#2515](https://github.com/moment/moment/pull/2515) Fix regression introduced
