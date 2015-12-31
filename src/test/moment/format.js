@@ -342,6 +342,31 @@ test('quarter ordinal formats', function (assert) {
 });
 
 test('full expanded format is returned from abbreviated formats', function (assert) {
+    function forEach(ar, fn) {
+        if (ar.forEach) {
+            return ar.forEach(fn);
+        } else {
+            // IE8
+            for (var i = 0; i < ar.length; i += 1) {
+                fn(ar[i]);
+            }
+        }
+    }
+    function objectKeys(obj) {
+        if (Object.keys) {
+            return Object.keys(obj);
+        } else {
+            // IE8
+            var res = [], i;
+            for (i in obj) {
+                if (obj.hasOwnProperty(i)) {
+                    res.push(i);
+                }
+            }
+            return res;
+        }
+    }
+
     var locales = '';
 
     locales += 'af ar-ma ar-sa ar-tn ar az be bg bn bo br bs';
@@ -353,14 +378,14 @@ test('full expanded format is returned from abbreviated formats', function (asse
     locales += 'tr tzm-latn tzm   uk uz vi zh-cn zh-tw';
     locales += 'en-ie';
 
-    locales.split(' ').forEach(function (locale) {
+    forEach(locales.split(' '), function (locale) {
         var data, tokens;
         data = moment().locale(locale).localeData()._longDateFormat;
-        tokens = Object.keys(data);
-        tokens.forEach(function (token) {
+        tokens = objectKeys(data);
+        forEach(tokens, function (token) {
             // Check each format string to make sure it does not contain any
             // tokens that need to be expanded.
-            tokens.forEach(function (i) {
+            forEach(tokens, function (i) {
                 // strip escaped sequences
                 var format = data[i].replace(/(\[[^\]]*\])/g, '');
                 assert.equal(false, !!~format.indexOf(token), 'locale ' + locale + ' contains ' + token + ' in ' + i);
