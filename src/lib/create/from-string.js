@@ -61,7 +61,7 @@ export function configFromISO(config) {
             config._isValid = false;
             return;
         }
-        if (match[3] != null) {
+        if (match[3]) {
             for (i = 0, l = isoTimes.length; i < l; i++) {
                 if (isoTimes[i][1].exec(match[3])) {
                     // match[2] should be 'T' or space
@@ -78,7 +78,7 @@ export function configFromISO(config) {
             config._isValid = false;
             return;
         }
-        if (match[4] != null) {
+        if (match[4]) {
             if (tzRegex.exec(match[4])) {
                 tzFormat = 'Z';
             } else {
