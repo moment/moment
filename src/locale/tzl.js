@@ -15,11 +15,11 @@ export default moment.defineLocale('tzl', {
     weekdaysMin : 'Sú_Lú_Ma_Má_Xh_Vi_Sá'.split('_'),
     longDateFormat : {
         LT : 'HH.mm',
-        LTS : 'LT.ss',
+        LTS : 'HH.mm.ss',
         L : 'DD.MM.YYYY',
         LL : 'D. MMMM [dallas] YYYY',
-        LLL : 'D. MMMM [dallas] YYYY LT',
-        LLLL : 'dddd, [li] D. MMMM [dallas] YYYY LT'
+        LLL : 'D. MMMM [dallas] YYYY HH.mm',
+        LLLL : 'dddd, [li] D. MMMM [dallas] YYYY HH.mm'
     },
     meridiem : function (hours, minutes, isLower) {
         if (hours > 11) {
