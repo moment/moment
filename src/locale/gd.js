@@ -66,7 +66,7 @@ export default moment.defineLocale('gd', {
     },
     ordinalParse : /\d{1,2}(d|na|mh)/,
     ordinal : function (number) {
-        var output = (number === 1) ? 'd' : (number.toString().substr(-1) === '2') ? 'na' : 'mh';
+        var output = number === 1 ? 'd' : number % 10 === 2 ? 'na' : 'mh';
         return number + output;
     },
     week : {

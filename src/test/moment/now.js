@@ -1,4 +1,4 @@
-import { module, test } from '../qunit';
+import { module, test, expect } from '../qunit';
 import moment from '../../moment';
 
 module('now');
@@ -13,17 +13,17 @@ test('now', function (assert) {
 });
 
 test('now - custom value', function (assert) {
-    var CUSTOM_DATE = '2015-01-01T01:30:00.000Z';
-
-    var oldFn = moment.now;
+    var customTimeStr = '2015-01-01T01:30:00.000Z',
+        customTime = moment(customTimeStr, moment.ISO_8601).valueOf(),
+        oldFn = moment.now;
 
     moment.now = function () {
-        return new Date(CUSTOM_DATE).valueOf();
+        return customTime;
     };
 
     try {
-        assert.ok(moment().toISOString() === CUSTOM_DATE, 'moment() constructor should use the function defined by moment.now, but it did not');
-        assert.ok(moment.utc().toISOString() === CUSTOM_DATE, 'moment() constructor should use the function defined by moment.now, but it did not');
+        assert.ok(moment().toISOString() === customTimeStr, 'moment() constructor should use the function defined by moment.now, but it did not');
+        assert.ok(moment.utc().toISOString() === customTimeStr, 'moment() constructor should use the function defined by moment.now, but it did not');
         assert.ok(moment.utc([]).toISOString() === '2015-01-01T00:00:00.000Z', 'moment() constructor should fall back to the date defined by moment.now when an empty array is given, but it did not');
     } finally {
         moment.now = oldFn;
