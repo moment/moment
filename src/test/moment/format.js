@@ -367,16 +367,12 @@ test('full expanded format is returned from abbreviated formats', function (asse
         }
     }
 
-    var locales = '';
-
-    locales += 'af ar-ma ar-sa ar-tn ar az be bg bn bo br bs';
-    locales += 'ca cs cv cy da de-at de el en-au en-ca en-gb';
-    locales += 'en eo es et eu fa fi fo fr-ca fr fy gl he hi';
-    locales += 'hr hu hy-am id is it ja jv ka km ko lb lt lv';
-    locales += 'me mk ml mr ms-my my nb ne nl nn pl pt-rb pt';
-    locales += 'ro ru si sk sl sq sr-cyrl  sr sv ta th tl-ph';
-    locales += 'tr tzm-latn tzm   uk uz vi zh-cn zh-tw';
-    locales += 'en-ie';
+    var locales =
+        'ar-sa ar-tn ar az be bg bn bo br bs ca cs cv cy da de-at de dv el ' +
+        'en-au en-ca en-gb en-ie en-nz eo es et eu fa fi fo fr-ca fr-ch fr fy ' +
+        'gd gl he hi hr hu hy-am id is it ja jv ka kk km ko lb lo lt lv me mk ml ' +
+        'mr ms-my ms my nb ne nl nn pl pt-br pt ro ru se si sk sl sq sr-cyrl ' +
+        'sr sv sw ta te th tl-ph tlh tr tzl tzm-latn tzm uk uz vi zh-cn zh-tw';
 
     forEach(locales.split(' '), function (locale) {
         var data, tokens;
