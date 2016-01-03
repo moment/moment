@@ -212,67 +212,6 @@ test('calendar all else', function (assert) {
     assert.equal(weeksFromNow.calendar(), weeksFromNow.format('L'), 'in 2 weeks');
 });
 
-test('weeks year starting sunday', function (assert) {
-    assert.equal(moment([2012, 0, 1]).week(), 52, 'Faoi  1 2012 should be week 52');
-    assert.equal(moment([2012, 0, 2]).week(), 1, 'Faoi  2 2012 should be week 1');
-    assert.equal(moment([2012, 0, 8]).week(), 1, 'Faoi  8 2012 should be week 1');
-    assert.equal(moment([2012, 0, 9]).week(), 2, 'Faoi  9 2012 should be week 2');
-    assert.equal(moment([2012, 0, 15]).week(), 2, 'Faoi 15 2012 should be week 2');
-});
-
-test('weeks year starting monday', function (assert) {
-    assert.equal(moment([2007, 0, 1]).week(), 1, 'Faoi  1 2007 should be week 1');
-    assert.equal(moment([2007, 0, 7]).week(), 1, 'Faoi  7 2007 should be week 1');
-    assert.equal(moment([2007, 0, 8]).week(), 2, 'Faoi  8 2007 should be week 2');
-    assert.equal(moment([2007, 0, 14]).week(), 2, 'Faoi 14 2007 should be week 2');
-    assert.equal(moment([2007, 0, 15]).week(), 3, 'Faoi 15 2007 should be week 3');
-});
-
-test('weeks year starting tuesday', function (assert) {
-    assert.equal(moment([2007, 11, 31]).week(), 1, 'Dùbh 31 2007 should be week 1');
-    assert.equal(moment([2008, 0, 1]).week(), 1, 'Faoi  1 2008 should be week 1');
-    assert.equal(moment([2008, 0, 6]).week(), 1, 'Faoi  6 2008 should be week 1');
-    assert.equal(moment([2008, 0, 7]).week(), 2, 'Faoi  7 2008 should be week 2');
-    assert.equal(moment([2008, 0, 13]).week(), 2, 'Faoi 13 2008 should be week 2');
-    assert.equal(moment([2008, 0, 14]).week(), 3, 'Faoi 14 2008 should be week 3');
-});
-
-test('weeks year starting wednesday', function (assert) {
-    assert.equal(moment([2002, 11, 30]).week(), 1, 'Dùbh 30 2002 should be week 1');
-    assert.equal(moment([2003, 0, 1]).week(), 1, 'Faoi  1 2003 should be week 1');
-    assert.equal(moment([2003, 0, 5]).week(), 1, 'Faoi  5 2003 should be week 1');
-    assert.equal(moment([2003, 0, 6]).week(), 2, 'Faoi  6 2003 should be week 2');
-    assert.equal(moment([2003, 0, 12]).week(), 2, 'Faoi 12 2003 should be week 2');
-    assert.equal(moment([2003, 0, 13]).week(), 3, 'Faoi 13 2003 should be week 3');
-});
-
-test('weeks year starting thursday', function (assert) {
-    assert.equal(moment([2008, 11, 29]).week(), 1, 'Dùbh 29 2008 should be week 1');
-    assert.equal(moment([2009, 0, 1]).week(), 1, 'Faoi  1 2009 should be week 1');
-    assert.equal(moment([2009, 0, 4]).week(), 1, 'Faoi  4 2009 should be week 1');
-    assert.equal(moment([2009, 0, 5]).week(), 2, 'Faoi  5 2009 should be week 2');
-    assert.equal(moment([2009, 0, 11]).week(), 2, 'Faoi 11 2009 should be week 2');
-    assert.equal(moment([2009, 0, 13]).week(), 3, 'Faoi 12 2009 should be week 3');
-});
-
-test('weeks year starting friday', function (assert) {
-    assert.equal(moment([2009, 11, 28]).week(), 53, 'Dùbh 28 2009 should be week 53');
-    assert.equal(moment([2010, 0, 1]).week(), 53, 'Faoi  1 2010 should be week 53');
-    assert.equal(moment([2010, 0, 3]).week(), 53, 'Faoi  3 2010 should be week 53');
-    assert.equal(moment([2010, 0, 4]).week(), 1, 'Faoi  4 2010 should be week 1');
-    assert.equal(moment([2010, 0, 10]).week(), 1, 'Faoi 10 2010 should be week 1');
-    assert.equal(moment([2010, 0, 11]).week(), 2, 'Faoi 11 2010 should be week 2');
-});
-
-test('weeks year starting saturday', function (assert) {
-    assert.equal(moment([2010, 11, 27]).week(), 52, 'Dùbh 27 2010 should be week 52');
-    assert.equal(moment([2011, 0, 1]).week(), 52, 'Faoi  1 2011 should be week 52');
-    assert.equal(moment([2011, 0, 2]).week(), 52, 'Faoi  2 2011 should be week 52');
-    assert.equal(moment([2011, 0, 3]).week(), 1, 'Faoi  3 2011 should be week 1');
-    assert.equal(moment([2011, 0, 9]).week(), 1, 'Faoi  9 2011 should be week 1');
-    assert.equal(moment([2011, 0, 10]).week(), 2, 'Faoi 10 2011 should be week 2');
-});
-
 test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012, 0, 1]).format('w ww wo'), '52 52 52na', 'Faoi  1 2012 should be week 52');
     assert.equal(moment([2012, 0, 2]).format('w ww wo'), '1 01 1d', 'Faoi  2 2012 should be week 1');
