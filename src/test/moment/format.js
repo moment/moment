@@ -1,4 +1,5 @@
 import { module, test } from '../qunit';
+import each from '../helpers/each';
 import moment from '../../moment';
 
 module('format');
@@ -342,16 +343,6 @@ test('quarter ordinal formats', function (assert) {
 });
 
 test('full expanded format is returned from abbreviated formats', function (assert) {
-    function forEach(ar, fn) {
-        if (ar.forEach) {
-            return ar.forEach(fn);
-        } else {
-            // IE8
-            for (var i = 0; i < ar.length; i += 1) {
-                fn(ar[i]);
-            }
-        }
-    }
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -374,14 +365,14 @@ test('full expanded format is returned from abbreviated formats', function (asse
         'mr ms-my ms my nb ne nl nn pl pt-br pt ro ru se si sk sl sq sr-cyrl ' +
         'sr sv sw ta te th tl-ph tlh tr tzl tzm-latn tzm uk uz vi zh-cn zh-tw';
 
-    forEach(locales.split(' '), function (locale) {
+    each(locales.split(' '), function (locale) {
         var data, tokens;
         data = moment().locale(locale).localeData()._longDateFormat;
         tokens = objectKeys(data);
-        forEach(tokens, function (token) {
+        each(tokens, function (token) {
             // Check each format string to make sure it does not contain any
             // tokens that need to be expanded.
-            forEach(tokens, function (i) {
+            each(tokens, function (i) {
                 // strip escaped sequences
                 var format = data[i].replace(/(\[[^\]]*\])/g, '');
                 assert.equal(false, !!~format.indexOf(token), 'locale ' + locale + ' contains ' + token + ' in ' + i);
