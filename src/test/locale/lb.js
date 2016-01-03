@@ -139,19 +139,6 @@ test('calendar last week', function (assert) {
     }
 });
 
-test('lenient ordinal parsing', function (assert) {
-    var i, ordinalStr, testMoment;
-    for (i = 1; i <= 31; ++i) {
-        ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
-        testMoment = moment(ordinalStr, 'YYYY MM Do');
-        assert.equal(testMoment.year(), 2014,
-                'lenient ordinal parsing ' + i + ' year check');
-        assert.equal(testMoment.month(), 0,
-                'lenient ordinal parsing ' + i + ' month check');
-        assert.equal(testMoment.date(), i,
-                'lenient ordinal parsing ' + i + ' date check');
-    }
-});
 
 test('lenient ordinal parsing of number', function (assert) {
     var i, testMoment;

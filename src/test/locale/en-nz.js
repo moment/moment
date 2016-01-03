@@ -269,15 +269,6 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012, 0, 15]).format('w ww wo'),   '2 02 2nd', 'Jan 15 2012 should be week 2');
 });
 
-test('lenient ordinal parsing', function (assert) {
-    var i, ordinalStr, testStr;
-    for (i = 1; i <= 31; ++i) {
-        ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
-        testStr = moment(ordinalStr, 'YYYY MM Do').format('YYYY MM D');
-        assert.equal(testStr, '2014 01 ' + i, 'lenient ordinal parsing ' + i);
-    }
-});
-
 test('lenient ordinal parsing of number', function (assert) {
     var i, testStr;
     for (i = 1; i <= 31; ++i) {
