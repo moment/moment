@@ -202,5 +202,3 @@ test('calendar all else', function (assert) {
     assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 2 weeks');
 });
 
-
-

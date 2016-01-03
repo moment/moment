@@ -217,5 +217,3 @@ test('weeks year starting sunday format', function (assert) {
     assert.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3rd', 'Jan 15 2012 should be week 3');
 });
 
-
-

@@ -225,5 +225,3 @@ test('special mutations for years', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 261}), true), '261 bloaz', 'mutation 261 years');
 });
 
-
-
