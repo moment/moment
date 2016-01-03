@@ -216,7 +216,6 @@ test('weeks year starting sunday format', function (assert) {
     assert.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3', 'Jan 15 2012 sepatutnya minggu 3');
 });
 
-
 test('meridiem invariant', function (assert) {
     var h, m, t1, t2;
     for (h = 0; h < 24; ++h) {
@@ -228,5 +227,4 @@ test('meridiem invariant', function (assert) {
         }
     }
 });
-
 

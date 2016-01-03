@@ -210,8 +210,6 @@ test('meridiem', function (assert) {
     assert.equal(moment([2011, 2, 23, 23, 30]).format('a'), ' யாமம்', '(before) midnight');
 });
 
-
-
 test('meridiem invariant', function (assert) {
     var h, m, t1, t2;
     for (h = 0; h < 24; ++h) {

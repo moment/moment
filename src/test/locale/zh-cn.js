@@ -202,8 +202,6 @@ test('weeks year starting sunday format', function (assert) {
     assert.equal(moment([2012, 0, 14]).format('w ww wo'), '2 02 2周', 'Jan 14 2012 应该是第 2周');
 });
 
-
-
 test('meridiem invariant', function (assert) {
     var h, m, t1, t2;
     for (h = 0; h < 24; ++h) {
