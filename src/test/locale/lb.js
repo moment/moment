@@ -139,5 +139,3 @@ test('calendar last week', function (assert) {
     }
 });
 
-
-

@@ -214,7 +214,6 @@ test('meridiem', function (assert) {
     assert.equal(moment([2011, 2, 23, 21, 20]).format('A'), 'राति', 'night');
 });
 
-
 test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2011, 11, 26]).format('w ww wo'), '५३ ५३ ५३', 'Dec 26 2011 should be week 53');
     assert.equal(moment([2012,  0,  1]).format('w ww wo'), '१ ०१ १', 'Jan  1 2012 should be week 1');
@@ -222,8 +221,6 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012,  0,  8]).format('w ww wo'), '२ ०२ २', 'Jan  8 2012 should be week 2');
     assert.equal(moment([2012,  0,  9]).format('w ww wo'), '२ ०२ २', 'Jan  9 2012 should be week 2');
 });
-
-
 
 test('meridiem invariant', function (assert) {
     var h, m, t1, t2;

@@ -2,7 +2,6 @@ import {localeModule, test} from '../qunit';
 import moment from '../../moment';
 localeModule('jv');
 
-
 test('parse', function (assert) {
     var tests = 'Januari Jan_Februari Feb_Maret Mar_April Apr_Mei Mei_Juni Jun_Juli Jul_Agustus Ags_September Sep_Oktober Okt_Nopember Nop_Desember Des'.split('_'), i;
     function equalTest(input, mmm, i) {
@@ -173,8 +172,6 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012,  0,  8]).format('w ww wo'), '2 02 2', 'Jan  8 2012 should be week 2');
     assert.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 3', 'Jan  9 2012 should be week 3');
 });
-
-
 
 test('meridiem invariant', function (assert) {
     var h, m, t1, t2;

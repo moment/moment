@@ -43,7 +43,6 @@ test('parse meridiem', function (assert) {
         expected : '16'
     }], i, l, it, actual;
 
-
     for (i = 0, l = elements.length; i < l; ++i) {
         it = elements[i];
         actual = moment(it.expression, it.inputFormat).format(it.outputFormat);
@@ -242,6 +241,4 @@ test('weeks year starting sunday format', function (assert) {
     assert.equal(moment([2012, 0, 14]).format('w ww wo'), '2 02 2일', 'Jan 14 2012 should be week 2');
     assert.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3일', 'Jan 15 2012 should be week 3');
 });
-
-
 
