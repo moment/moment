@@ -199,7 +199,7 @@ test('calendar all else', function (assert) {
     assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 2 weeks');
 });
 
-test('meridiem invariant', function (assert) {
+test('meridiem', function (assert) {
     assert.equal(moment([2011, 2, 23,  2, 30]).format('a'), 'रात', 'before dawn');
     assert.equal(moment([2011, 2, 23,  9, 30]).format('a'), 'सुबह', 'morning');
     assert.equal(moment([2011, 2, 23, 14, 30]).format('a'), 'दोपहर', 'during day');
@@ -221,17 +221,5 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012, 0,  8]).format('w ww wo'), '२ ०२ २', 'Jan  8 2012 should be week 2');
     assert.equal(moment([2012, 0, 14]).format('w ww wo'), '२ ०२ २', 'Jan 14 2012 should be week 2');
     assert.equal(moment([2012, 0, 15]).format('w ww wo'), '३ ०३ ३', 'Jan 15 2012 should be week 3');
-});
-
-test('meridiem', function (assert) {
-    var h, m, t1, t2;
-    for (h = 0; h < 24; ++h) {
-        for (m = 0; m < 60; m += 15) {
-            t1 = moment.utc([2000, 0, 1, h, m]);
-            t2 = moment(t1.format('A h:mm'), 'A h:mm');
-            assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
-                    'meridiem at ' + t1.format('HH:mm'));
-        }
-    }
 });
 
