@@ -225,19 +225,6 @@ test('special mutations for years', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 261}), true), '261 bloaz', 'mutation 261 years');
 });
 
-test('lenient ordinal parsing', function (assert) {
-    var i, ordinalStr, testMoment;
-    for (i = 1; i <= 31; ++i) {
-        ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
-        testMoment = moment(ordinalStr, 'YYYY MM Do');
-        assert.equal(testMoment.year(), 2014,
-                'lenient ordinal parsing ' + i + ' year check');
-        assert.equal(testMoment.month(), 0,
-                'lenient ordinal parsing ' + i + ' month check');
-        assert.equal(testMoment.date(), i,
-                'lenient ordinal parsing ' + i + ' date check');
-    }
-});
 
 test('lenient ordinal parsing of number', function (assert) {
     var i, testMoment;
