@@ -44,7 +44,7 @@ export default moment.defineLocale('dv', {
     },
     meridiemParse: /މކ|މފ/,
     isPM : function (input) {
-        return '' === input;
+        return 'މފ' === input;
     },
     meridiem : function (hour, minute, isLower) {
         if (hour < 12) {
