@@ -221,11 +221,3 @@ test('weeks year starting sunday formatted', function (assert) {
 
 
 
-test('strict ordinal parsing', function (assert) {
-    var i, ordinalStr, testMoment;
-    for (i = 1; i <= 31; ++i) {
-        ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
-        testMoment = moment(ordinalStr, 'YYYY MM Do', true);
-        assert.ok(testMoment.isValid(), 'strict ordinal parsing ' + i);
-    }
-});

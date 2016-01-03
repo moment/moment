@@ -268,12 +268,3 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012, 0,  9]).format('w ww wo'),   '2 02 2nd', 'Jan  9 2012 should be week 2');
     assert.equal(moment([2012, 0, 15]).format('w ww wo'),   '2 02 2nd', 'Jan 15 2012 should be week 2');
 });
-
-test('strict ordinal parsing', function (assert) {
-    var i, ordinalStr, testMoment;
-    for (i = 1; i <= 31; ++i) {
-        ordinalStr = moment([2014, 0, i]).format('YYYY MMM Do');
-        testMoment = moment(ordinalStr, 'YYYY MMM Do', true);
-        assert.ok(testMoment.isValid(), 'strict ordinal parsing ' + i);
-    }
-});
