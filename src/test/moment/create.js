@@ -1037,3 +1037,7 @@ test('hmm', function (assert) {
     assert.equal(moment('112345', 'Hmmss', true).format('HH:mm:ss'), '11:23:45', '112345 with Hmmss');
     assert.equal(moment('172345', 'Hmmss', true).format('HH:mm:ss'), '17:23:45', '112345 with Hmmss');
 });
+
+test('Y token', function (assert) {
+    assert.equal(moment('1-1-2010', 'M-D-Y', true).year(), 2010, 'parsing Y');
+});
