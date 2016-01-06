@@ -30,14 +30,22 @@ proto.set             = set;
 import {
     localeMonthsParse,
     defaultLocaleMonths,      localeMonths,
-    defaultLocaleMonthsShort, localeMonthsShort
+    defaultLocaleMonthsShort, localeMonthsShort,
+    defaultMonthsRegex,       monthsRegex,
+    defaultMonthsShortRegex,  monthsShortRegex,
+    computeMonthsParse
 } from '../units/month';
 
-proto.months       =        localeMonths;
-proto._months      = defaultLocaleMonths;
-proto.monthsShort  =        localeMonthsShort;
-proto._monthsShort = defaultLocaleMonthsShort;
-proto.monthsParse  =        localeMonthsParse;
+proto.months            =        localeMonths;
+proto._months           = defaultLocaleMonths;
+proto.monthsShort       =        localeMonthsShort;
+proto._monthsShort      = defaultLocaleMonthsShort;
+proto.monthsParse       =        localeMonthsParse;
+proto._monthsRegex      = defaultMonthsRegex;
+proto.monthsRegex       = monthsRegex;
+proto._monthsShortRegex = defaultMonthsShortRegex;
+proto.monthsShortRegex  = monthsShortRegex;
+proto._computeMonthsParse = computeMonthsParse;
 
 // Week
 import { localeWeek, defaultLocaleWeek, localeFirstDayOfYear, localeFirstDayOfWeek } from '../units/week';

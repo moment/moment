@@ -1,7 +1,8 @@
 import { get } from '../moment/get-set';
+import hasOwnProp from '../utils/has-own-prop';
 import { addFormatToken } from '../format/format';
 import { addUnitAlias } from './aliases';
-import { addRegexToken, match1to2, match2, matchWord } from '../parse/regex';
+import { addRegexToken, match1to2, match2, matchWord, regexEscape } from '../parse/regex';
 import { addParseToken } from '../parse/token';
 import { hooks } from '../utils/hooks';
 import { MONTH } from './constants';
@@ -36,8 +37,12 @@ addUnitAlias('month', 'M');
 
 addRegexToken('M',    match1to2);
 addRegexToken('MM',   match1to2, match2);
-addRegexToken('MMM',  matchWord);
-addRegexToken('MMMM', matchWord);
+addRegexToken('MMM',  function (isStrict, locale) {
+    return locale.monthsShortRegex(isStrict);
+});
+addRegexToken('MMMM', function (isStrict, locale) {
+    return locale.monthsRegex(isStrict);
+});
 
 addParseToken(['M', 'MM'], function (input, array) {
     array[MONTH] = toInt(input) - 1;
@@ -135,4 +140,55 @@ export function getSetMonth (value) {
 
 export function getDaysInMonth () {
     return daysInMonth(this.year(), this.month());
+}
+
+export var defaultMonthsShortRegex = matchWord;
+export function monthsShortRegex (isStrict) {
+    if (this._monthsParseExact) {
+        this._computeMonthsParse();
+        if (isStrict) {
+            return this._monthsShortStrictRegex;
+        } else {
+            return this._monthsShortRegex;
+        }
+    } else {
+        return this._monthsShortStrictRegex && isStrict ?
+            this._monthsShortStrictRegex : this._monthsShortRegex;
+    }
+}
+
+export var defaultMonthsRegex = matchWord;
+export function monthsRegex (isStrict) {
+    if (this._monthsParseExact) {
+        this._computeMonthsParse();
+        if (isStrict) {
+            return this._monthsStrictRegex;
+        } else {
+            return this._monthsRegex;
+        }
+    } else {
+        return this._monthsStrictRegex && isStrict ?
+            this._monthsStrictRegex : this._monthsRegex;
+    }
+}
+
+export function computeMonthsParse () {
+    if (!hasOwnProp(this, '_monthsRegex')) {
+        var shortOnly = '', longOnly = '', mixed = '', i, mom;
+        for (i = 0; i < 12; i++) {
+            // make the regex if we don't have it already
+            mom = createUTC([2000, i]);
+            shortOnly += '|' + regexEscape(this.monthsShort(mom, ''));
+            longOnly += '|' + regexEscape(this.months(mom, ''));
+            mixed += '|' + regexEscape(this.months(mom, '')) + '|' + regexEscape(this.monthsShort(mom, ''));
+        }
+        shortOnly = shortOnly.substr(1);
+        longOnly = longOnly.substr(1);
+        mixed = mixed.substr(1);
+
+        this._monthsRegex = new RegExp('^(' + mixed + ')', 'i');
+        this._monthsShortRegex = this._monthsRegex;
+        this._monthsStrictRegex = new RegExp('^(' + longOnly + ')$', 'i');
+        this._monthsShortStrictRegex = new RegExp('^(' + shortOnly + ')$', 'i');
+    }
 }
