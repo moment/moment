@@ -36,7 +36,7 @@ export function addSubtract (mom, duration, isAdding, updateOffset) {
     updateOffset = updateOffset == null ? true : updateOffset;
 
     if (milliseconds) {
-        mom._d.setTime(+mom._d + milliseconds * isAdding);
+        mom._d.setTime(mom._d.valueOf() + milliseconds * isAdding);
     }
     if (days) {
         set(mom, 'Date', get(mom, 'Date') + days * isAdding);
