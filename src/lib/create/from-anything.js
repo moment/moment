@@ -63,7 +63,7 @@ function configFromInput(config) {
     if (input === undefined) {
         config._d = new Date(hooks.now());
     } else if (isDate(input)) {
-        config._d = new Date(+input);
+        config._d = new Date(input.valueOf());
     } else if (typeof input === 'string') {
         configFromString(config);
     } else if (isArray(input)) {
