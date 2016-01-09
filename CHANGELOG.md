@@ -1,6 +1,17 @@
 Changelog
 =========
 
+### 2.11.1 [See full changelog](https://gist.github.com/ichernev/8ec3ee25b749b4cff3c2)
+
+## Bugfixes:
+* [#2881](https://github.com/moment/moment/pull/2881) Revert "Merge pull request #2746 from mbad0la:develop" Sep->Sept
+* [#2868](https://github.com/moment/moment/pull/2868) Add format and parse token Y, so it actually works
+* [#2865](https://github.com/moment/moment/pull/2865) Use typeof checks for undefined for global variables
+* [#2858](https://github.com/moment/moment/pull/2858) Fix Date mocking regression introduced in 2.11.0
+* [#2864](https://github.com/moment/moment/pull/2864) Include changelog in npm release
+* [#2830](https://github.com/moment/moment/pull/2830) dep: add grunt-cli
+* [#2869](https://github.com/moment/moment/pull/2869) Fix months parsing for some locales
+
 ### 2.11.0 [See full changelog](https://gist.github.com/ichernev/6594bc29719dde6b2f66)
 
 * [#2624](https://github.com/moment/moment/pull/2624) Proper handling of invalid moments
