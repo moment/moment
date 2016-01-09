@@ -7699,7 +7699,7 @@
     localeModule('en-au');
 
     test('parse', function (assert) {
-        var tests = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sept_October Oct_November Nov_December Dec'.split('_'), i;
+        var tests = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sep_October Oct_November Nov_December Dec'.split('_'), i;
         function equalTest(input, mmm, i) {
             assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -7787,7 +7787,7 @@
     });
 
     test('format month', function (assert) {
-        var expected = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sept_October Oct_November Nov_December Dec'.split('_'), i;
+        var expected = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sep_October Oct_November Nov_December Dec'.split('_'), i;
         for (i = 0; i < expected.length; i++) {
             assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -8050,7 +8050,7 @@
 
     test('parse', function (assert) {
         var i,
-            tests = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sept_October Oct_November Nov_December Dec'.split('_');
+            tests = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sep_October Oct_November Nov_December Dec'.split('_');
 
         function equalTest(input, mmm, i) {
             assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
@@ -8142,7 +8142,7 @@
 
     test('format month', function (assert) {
         var i,
-            expected = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sept_October Oct_November Nov_December Dec'.split('_');
+            expected = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sep_October Oct_November Nov_December Dec'.split('_');
 
         for (i = 0; i < expected.length; i++) {
             assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
@@ -8417,7 +8417,7 @@
     localeModule('en-gb');
 
     test('parse', function (assert) {
-        var tests = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sept_October Oct_November Nov_December Dec'.split('_'), i;
+        var tests = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sep_October Oct_November Nov_December Dec'.split('_'), i;
         function equalTest(input, mmm, i) {
             assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -8505,7 +8505,7 @@
     });
 
     test('format month', function (assert) {
-        var expected = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sept_October Oct_November Nov_December Dec'.split('_'), i;
+        var expected = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sep_October Oct_November Nov_December Dec'.split('_'), i;
         for (i = 0; i < expected.length; i++) {
             assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -9135,7 +9135,7 @@
     localeModule('en-nz');
 
     test('parse', function (assert) {
-        var tests = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sept_October Oct_November Nov_December Dec'.split('_'), i;
+        var tests = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sep_October Oct_November Nov_December Dec'.split('_'), i;
         function equalTest(input, mmm, i) {
             assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -9223,7 +9223,7 @@
     });
 
     test('format month', function (assert) {
-        var expected = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sept_October Oct_November Nov_December Dec'.split('_'), i;
+        var expected = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sep_October Oct_November Nov_December Dec'.split('_'), i;
         for (i = 0; i < expected.length; i++) {
             assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }
@@ -9486,7 +9486,7 @@
 
     test('parse', function (assert) {
         var i,
-            tests = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sept_October Oct_November Nov_December Dec'.split('_');
+            tests = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sep_October Oct_November Nov_December Dec'.split('_');
 
         function equalTest(input, mmm, i) {
             assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
@@ -9578,7 +9578,7 @@
 
     test('format month', function (assert) {
         var i,
-            expected = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sept_October Oct_November Nov_December Dec'.split('_');
+            expected = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sep_October Oct_November Nov_December Dec'.split('_');
 
         for (i = 0; i < expected.length; i++) {
             assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
@@ -13814,7 +13814,7 @@
 
     test('parse', function (assert) {
         function equalTest(monthName, monthFormat, monthNum) {
-            assert.equal(moment(monthName, monthFormat).month(), monthNum, monthName + ' should be month ' + monthNum + 1);
+            assert.equal(moment(monthName, monthFormat).month(), monthNum, monthName + ' should be month ' + (monthNum + 1));
         }
 
         for (var i = 0; i < 12; i++) {
@@ -36404,11 +36404,11 @@
             ['L',                   '09/02/1999'],
             ['l',                   '9/2/1999'],
             ['LL',                  'September 2, 1999'],
-            ['ll',                  'Sept 2, 1999'],
+            ['ll',                  'Sep 2, 1999'],
             ['LLL',                 'September 2, 1999 12:30 AM'],
-            ['lll',                 'Sept 2, 1999 12:30 AM'],
+            ['lll',                 'Sep 2, 1999 12:30 AM'],
             ['LLLL',                'Thursday, September 2, 1999 12:30 AM'],
-            ['llll',                'Thu, Sept 2, 1999 12:30 AM']
+            ['llll',                'Thu, Sep 2, 1999 12:30 AM']
         ],
         m,
         i;
@@ -36460,7 +36460,7 @@
             ['MMDDYYYY',          '12021999'],
             ['DDMMYYYY',          '12021999'],
             ['YYYYMMDD',          '19991202'],
-            ['DDMMMYYYY',         '10Sept2001']
+            ['DDMMMYYYY',         '10Sep2001']
         ], i;
 
         for (i = 0; i < a.length; i++) {
@@ -37208,6 +37208,10 @@
         assert.equal(moment('172345', 'Hmmss', true).format('HH:mm:ss'), '17:23:45', '112345 with Hmmss');
     });
 
+    test('Y token', function (assert) {
+        assert.equal(moment('1-1-2010', 'M-D-Y', true).year(), 2010, 'parsing Y');
+    });
+
 }));
 
 ;(function (global, factory) {
@@ -37466,7 +37470,8 @@
     }
 
     function warn(msg) {
-        if (hooks.suppressDeprecationWarnings === false && !isUndefined(console) && console.warn) {
+        if (hooks.suppressDeprecationWarnings === false &&
+                (typeof console !==  'undefined') && console.warn) {
             console.warn('Deprecation warning: ' + msg);
         }
     }
@@ -39045,6 +39050,16 @@
         assert.equal(moment('01:34:56', 'HH:mm:ss').format('Hmmss'), '13456');
         assert.equal(moment('08:34:56', 'HH:mm:ss').format('Hmmss'), '83456');
         assert.equal(moment('18:34:56', 'HH:mm:ss').format('Hmmss'), '183456');
+    });
+
+    test('Y token', function (assert) {
+        assert.equal(moment('2010-01-01', 'YYYY-MM-DD', true).format('Y'), '2010', 'format 2010 with Y');
+        assert.equal(moment('-123-01-01', 'Y-MM-DD', true).format('Y'), '-123', 'format -123 with Y');
+        assert.equal(moment('12345-01-01', 'Y-MM-DD', true).format('Y'), '+12345', 'format 12345 with Y');
+        assert.equal(moment('0-01-01', 'Y-MM-DD', true).format('Y'), '0', 'format 0 with Y');
+        assert.equal(moment('1-01-01', 'Y-MM-DD', true).format('Y'), '1', 'format 1 with Y');
+        assert.equal(moment('9999-01-01', 'Y-MM-DD', true).format('Y'), '9999', 'format 9999 with Y');
+        assert.equal(moment('10000-01-01', 'Y-MM-DD', true).format('Y'), '+10000', 'format 10000 with Y');
     });
 
 }));
@@ -41454,7 +41469,6 @@
 
     test('string with spaceless format', function (assert) {
         assert.equal(moment('10Sep2001', 'DDMMMYYYY').isValid(), true, 'Parsing 10Sep2001 should result in a valid date');
-        assert.equal(moment('10Sept2001', 'DDMMMYYYY').isValid(), true, 'Parsing 10Sept2001 should result in a valid date');
     });
 
     test('invalid string iso 8601', function (assert) {
@@ -41775,7 +41789,7 @@
 
     test('default', function (assert) {
         assert.deepEqual(moment.months(), ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']);
-        assert.deepEqual(moment.monthsShort(), ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']);
+        assert.deepEqual(moment.monthsShort(), ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']);
         assert.deepEqual(moment.weekdays(), ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
         assert.deepEqual(moment.weekdaysShort(), ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']);
         assert.deepEqual(moment.weekdaysMin(), ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']);
@@ -42353,6 +42367,39 @@
                 'preserve global locale in case of bad locale id');
     });
 
+
+    // TODO: Enable this after fixing pl months parse hack hack
+    // test('monthsParseExact', function (assert) {
+    //     var locale = 'test-months-parse-exact';
+
+    //     moment.defineLocale(locale, {
+    //         monthsParseExact: true,
+    //         months: 'A_AA_AAA_B_B B_BB  B_C_C-C_C,C2C_D_D+D_D`D*D'.split('_'),
+    //         monthsShort: 'E_EE_EEE_F_FF_FFF_G_GG_GGG_H_HH_HHH'.split('_')
+    //     });
+
+    //     assert.equal(moment('A', 'MMMM', true).month(), 0, 'parse long month 0 with MMMM');
+    //     assert.equal(moment('AA', 'MMMM', true).month(), 1, 'parse long month 1 with MMMM');
+    //     assert.equal(moment('AAA', 'MMMM', true).month(), 2, 'parse long month 2 with MMMM');
+    //     assert.equal(moment('B B', 'MMMM', true).month(), 4, 'parse long month 4 with MMMM');
+    //     assert.equal(moment('BB  B', 'MMMM', true).month(), 5, 'parse long month 5 with MMMM');
+    //     assert.equal(moment('C-C', 'MMMM', true).month(), 7, 'parse long month 7 with MMMM');
+    //     assert.equal(moment('C,C2C', 'MMMM', true).month(), 8, 'parse long month 8 with MMMM');
+    //     assert.equal(moment('D+D', 'MMMM', true).month(), 10, 'parse long month 10 with MMMM');
+    //     assert.equal(moment('D`D*D', 'MMMM', true).month(), 11, 'parse long month 11 with MMMM');
+
+    //     assert.equal(moment('E', 'MMM', true).month(), 0, 'parse long month 0 with MMM');
+    //     assert.equal(moment('EE', 'MMM', true).month(), 1, 'parse long month 1 with MMM');
+    //     assert.equal(moment('EEE', 'MMM', true).month(), 2, 'parse long month 2 with MMM');
+
+    //     assert.equal(moment('A', 'MMM').month(), 0, 'non-strict parse long month 0 with MMM');
+    //     assert.equal(moment('AA', 'MMM').month(), 1, 'non-strict parse long month 1 with MMM');
+    //     assert.equal(moment('AAA', 'MMM').month(), 2, 'non-strict parse long month 2 with MMM');
+    //     assert.equal(moment('E', 'MMMM').month(), 0, 'non-strict parse short month 0 with MMMM');
+    //     assert.equal(moment('EE', 'MMMM').month(), 1, 'non-strict parse short month 1 with MMMM');
+    //     assert.equal(moment('EEE', 'MMMM').month(), 2, 'non-strict parse short month 2 with MMMM');
+    // });
+
 }));
 
 ;(function (global, factory) {
@@ -42677,6 +42724,31 @@
 
         assert.ok(startOfTest <= momentNowTime, 'moment now() time should be now, not in the past');
         assert.ok(momentNowTime <= afterMomentCreationTime, 'moment now() time should be now, not in the future');
+    });
+
+    test('now - Date mocked', function (assert) {
+        // We need to test mocking the global Date object, so disable 'Read Only' jshint check
+        /* jshint -W020 */
+        var RealDate = Date,
+            customTimeMs = moment('2015-01-01T01:30:00.000Z').valueOf();
+
+        function MockDate() {
+            return new RealDate(customTimeMs);
+        }
+
+        MockDate.now = function () {
+            return new MockDate().valueOf();
+        };
+
+        MockDate.prototype = RealDate.prototype;
+
+        Date = MockDate;
+
+        try {
+            assert.equal(moment().valueOf(), customTimeMs, 'moment now() time should use the global Date object');
+        } finally {
+            Date = RealDate;
+        }
     });
 
     test('now - custom value', function (assert) {

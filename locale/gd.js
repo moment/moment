@@ -11,18 +11,7 @@
 
 
     var months = [
-        'Am Faoilleach',
-        'An Gearran',
-        'Am Màrt',
-        'An Giblean',
-        'An Cèitean',
-        'An t-Ògmhios',
-        'An t-Iuchar',
-        'An Lùnastal',
-        'An t-Sultain',
-        'An Dàmhair',
-        'An t-Samhain',
-        'An Dùbhlachd'
+        'Am Faoilleach', 'An Gearran', 'Am Màrt', 'An Giblean', 'An Cèitean', 'An t-Ògmhios', 'An t-Iuchar', 'An Lùnastal', 'An t-Sultain', 'An Dàmhair', 'An t-Samhain', 'An Dùbhlachd'
     ];
 
     var monthsShort = ['Faoi', 'Gear', 'Màrt', 'Gibl', 'Cèit', 'Ògmh', 'Iuch', 'Lùn', 'Sult', 'Dàmh', 'Samh', 'Dùbh'];
@@ -36,6 +25,7 @@
     var gd = moment.defineLocale('gd', {
         months : months,
         monthsShort : monthsShort,
+        monthsParseExact : true,
         weekdays : weekdays,
         weekdaysShort : weekdaysShort,
         weekdaysMin : weekdaysMin,
