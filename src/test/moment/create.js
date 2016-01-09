@@ -234,11 +234,11 @@ test('string with format', function (assert) {
         ['L',                   '09/02/1999'],
         ['l',                   '9/2/1999'],
         ['LL',                  'September 2, 1999'],
-        ['ll',                  'Sept 2, 1999'],
+        ['ll',                  'Sep 2, 1999'],
         ['LLL',                 'September 2, 1999 12:30 AM'],
-        ['lll',                 'Sept 2, 1999 12:30 AM'],
+        ['lll',                 'Sep 2, 1999 12:30 AM'],
         ['LLLL',                'Thursday, September 2, 1999 12:30 AM'],
-        ['llll',                'Thu, Sept 2, 1999 12:30 AM']
+        ['llll',                'Thu, Sep 2, 1999 12:30 AM']
     ],
     m,
     i;
@@ -290,7 +290,7 @@ test('string with format no separators', function (assert) {
         ['MMDDYYYY',          '12021999'],
         ['DDMMYYYY',          '12021999'],
         ['YYYYMMDD',          '19991202'],
-        ['DDMMMYYYY',         '10Sept2001']
+        ['DDMMMYYYY',         '10Sep2001']
     ], i;
 
     for (i = 0; i < a.length; i++) {
