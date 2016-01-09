@@ -196,6 +196,11 @@ function computeMonthsParse () {
     shortPieces.sort(cmpLenRev);
     longPieces.sort(cmpLenRev);
     mixedPieces.sort(cmpLenRev);
+    for (i = 0; i < 12; i++) {
+        shortPieces[i] = regexEscape(shortPieces[i]);
+        longPieces[i] = regexEscape(longPieces[i]);
+        mixedPieces[i] = regexEscape(mixedPieces[i]);
+    }
 
     this._monthsRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
     this._monthsShortRegex = this._monthsRegex;
