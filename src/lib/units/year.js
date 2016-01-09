@@ -11,14 +11,7 @@ import toInt from '../utils/to-int';
 
 addFormatToken('Y', 0, 0, function () {
     var y = this.year();
-    if (y < 0) {
-        return y;
-    } else if (y <= 9999) {
-        return y;
-    } else {
-        // force plus for longer years.
-        return '+' + y;
-    }
+    return y <= 9999 ? '' + y : '+' + y;
 });
 
 addFormatToken(0, ['YY', 2], 0, function () {
