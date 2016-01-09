@@ -32,8 +32,7 @@ import {
     defaultLocaleMonths,      localeMonths,
     defaultLocaleMonthsShort, localeMonthsShort,
     defaultMonthsRegex,       monthsRegex,
-    defaultMonthsShortRegex,  monthsShortRegex,
-    computeMonthsParse
+    defaultMonthsShortRegex,  monthsShortRegex
 } from '../units/month';
 
 proto.months            =        localeMonths;
@@ -45,7 +44,6 @@ proto._monthsRegex      = defaultMonthsRegex;
 proto.monthsRegex       = monthsRegex;
 proto._monthsShortRegex = defaultMonthsShortRegex;
 proto.monthsShortRegex  = monthsShortRegex;
-proto._computeMonthsParse = computeMonthsParse;
 
 // Week
 import { localeWeek, defaultLocaleWeek, localeFirstDayOfYear, localeFirstDayOfWeek } from '../units/week';

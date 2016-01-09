@@ -145,7 +145,9 @@ export function getDaysInMonth () {
 export var defaultMonthsShortRegex = matchWord;
 export function monthsShortRegex (isStrict) {
     if (this._monthsParseExact) {
-        this._computeMonthsParse();
+        if (!hasOwnProp(this, '_monthsRegex')) {
+            computeMonthsParse.call(this);
+        }
         if (isStrict) {
             return this._monthsShortStrictRegex;
         } else {
@@ -160,7 +162,9 @@ export function monthsShortRegex (isStrict) {
 export var defaultMonthsRegex = matchWord;
 export function monthsRegex (isStrict) {
     if (this._monthsParseExact) {
-        this._computeMonthsParse();
+        if (!hasOwnProp(this, '_monthsRegex')) {
+            computeMonthsParse.call(this);
+        }
         if (isStrict) {
             return this._monthsStrictRegex;
         } else {
@@ -172,23 +176,29 @@ export function monthsRegex (isStrict) {
     }
 }
 
-export function computeMonthsParse () {
-    if (!hasOwnProp(this, '_monthsRegex')) {
-        var shortOnly = '', longOnly = '', mixed = '', i, mom;
-        for (i = 0; i < 12; i++) {
-            // make the regex if we don't have it already
-            mom = createUTC([2000, i]);
-            shortOnly += '|' + regexEscape(this.monthsShort(mom, ''));
-            longOnly += '|' + regexEscape(this.months(mom, ''));
-            mixed += '|' + regexEscape(this.months(mom, '')) + '|' + regexEscape(this.monthsShort(mom, ''));
-        }
-        shortOnly = shortOnly.substr(1);
-        longOnly = longOnly.substr(1);
-        mixed = mixed.substr(1);
-
-        this._monthsRegex = new RegExp('^(' + mixed + ')', 'i');
-        this._monthsShortRegex = this._monthsRegex;
-        this._monthsStrictRegex = new RegExp('^(' + longOnly + ')$', 'i');
-        this._monthsShortStrictRegex = new RegExp('^(' + shortOnly + ')$', 'i');
+function computeMonthsParse () {
+    function cmpLenRev(a, b) {
+        return b.length - a.length;
     }
+
+    var shortPieces = [], longPieces = [], mixedPieces = [],
+        i, mom;
+    for (i = 0; i < 12; i++) {
+        // make the regex if we don't have it already
+        mom = createUTC([2000, i]);
+        shortPieces.push(this.monthsShort(mom, ''));
+        longPieces.push(this.months(mom, ''));
+        mixedPieces.push(this.months(mom, ''));
+        mixedPieces.push(this.monthsShort(mom, ''));
+    }
+    // Sorting makes sure if one month (or abbr) is a prefix of another it
+    // will match the longer piece.
+    shortPieces.sort(cmpLenRev);
+    longPieces.sort(cmpLenRev);
+    mixedPieces.sort(cmpLenRev);
+
+    this._monthsRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
+    this._monthsShortRegex = this._monthsRegex;
+    this._monthsStrictRegex = new RegExp('^(' + longPieces.join('|') + ')$', 'i');
+    this._monthsShortStrictRegex = new RegExp('^(' + shortPieces.join('|') + ')$', 'i');
 }
