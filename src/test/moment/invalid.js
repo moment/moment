@@ -99,7 +99,7 @@ test('invalid operations', function (assert) {
         });
         assert.ok(moment.isDate(invalid.toDate()));
         assert.ok(isNaN(invalid.toDate().valueOf()));
-        assert.equal(invalid.toJSON(), 'null');
+        assert.equal(invalid.toJSON(), null);
         assert.equal(invalid.toString(), 'Invalid date');
         assert.ok(isNaN(invalid.unix()));
         assert.ok(isNaN(invalid.valueOf()));
