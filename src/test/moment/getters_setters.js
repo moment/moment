@@ -236,3 +236,22 @@ test('day setter', function (assert) {
     assert.equal(moment(a).day(20).date(), 29, 'set from wednesday to second next saturday');
     assert.equal(moment(a).day(17).date(), 26, 'set from wednesday to second next wednesday');
 });
+
+test('string setters', function (assert) {
+    var a = moment();
+    a.year('2011');
+    a.month('9');
+    a.date('12');
+    a.hours('6');
+    a.minutes('7');
+    a.seconds('8');
+    a.milliseconds('9');
+    assert.equal(a.year(), 2011, 'year');
+    assert.equal(a.month(), 9, 'month');
+    assert.equal(a.date(), 12, 'date');
+    assert.equal(a.day(), 3, 'day');
+    assert.equal(a.hours(), 6, 'hour');
+    assert.equal(a.minutes(), 7, 'minute');
+    assert.equal(a.seconds(), 8, 'second');
+    assert.equal(a.milliseconds(), 9, 'milliseconds');
+});
