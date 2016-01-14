@@ -2,8 +2,9 @@
 //! locale : macedonian (mk)
 //! author : Borislav Mickov : https://github.com/B0k0
 
-(function (global, factory) {
-   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+;(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined'
+       && typeof require === 'function' ? factory(require('../moment')) :
    typeof define === 'function' && define.amd ? define(['moment'], factory) :
    factory(global.moment)
 }(this, function (moment) { 'use strict';
@@ -26,19 +27,19 @@
         calendar : {
             sameDay : '[Денес во] LT',
             nextDay : '[Утре во] LT',
-            nextWeek : 'dddd [во] LT',
+            nextWeek : '[Во] dddd [во] LT',
             lastDay : '[Вчера во] LT',
             lastWeek : function () {
                 switch (this.day()) {
                 case 0:
                 case 3:
                 case 6:
-                    return '[Во изминатата] dddd [во] LT';
+                    return '[Изминатата] dddd [во] LT';
                 case 1:
                 case 2:
                 case 4:
                 case 5:
-                    return '[Во изминатиот] dddd [во] LT';
+                    return '[Изминатиот] dddd [во] LT';
                 }
             },
             sameElse : 'L'

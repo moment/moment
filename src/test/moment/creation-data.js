@@ -27,3 +27,8 @@ test('valid date with formats', function (assert) {
 
     assert.equal(orig.format, 'DD-MM-YYYY', 'DD-MM-YYYY format is defined.');
 });
+
+test('strict', function (assert) {
+    assert.ok(moment('2015-01-02', 'YYYY-MM-DD', true).creationData().strict, 'strict is true');
+    assert.ok(!moment('2015-01-02', 'YYYY-MM-DD').creationData().strict, 'strict is true');
+});

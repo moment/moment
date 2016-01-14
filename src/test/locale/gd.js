@@ -19,7 +19,7 @@ var months = [
 
 test('parse', function (assert) {
     function equalTest(monthName, monthFormat, monthNum) {
-        assert.equal(moment(monthName, monthFormat).month(), monthNum, monthName + ' should be month ' + monthNum + 1);
+        assert.equal(moment(monthName, monthFormat).month(), monthNum, monthName + ' should be month ' + (monthNum + 1));
     }
 
     for (var i = 0; i < 12; i++) {

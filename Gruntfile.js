@@ -7,6 +7,9 @@ module.exports = function (grunt) {
         },
         karma : {
             options: {
+                browserNoActivityTimeout: 60000,
+                browserDisconnectTimeout: 10000,
+                browserDisconnectTolerance: 2,
                 frameworks: ['qunit'],
                 files: [
                     'min/moment-with-locales.js',
@@ -48,9 +51,9 @@ module.exports = function (grunt) {
                     },
                     slME25Win10: {
                         base: 'SauceLabs',
-                        browserName: 'microsoft edge',
+                        browserName: 'MicrosoftEdge',
                         platform: 'Windows 10',
-                        version: '25'
+                        version: '20.10240'
                     },
                     slFfLinux: {
                         base: 'SauceLabs',

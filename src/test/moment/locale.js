@@ -445,3 +445,35 @@ test('moment().lang with missing key doesn\'t change locale', function (assert) 
             'preserve global locale in case of bad locale id');
 });
 
+
+// TODO: Enable this after fixing pl months parse hack hack
+// test('monthsParseExact', function (assert) {
+//     var locale = 'test-months-parse-exact';
+
+//     moment.defineLocale(locale, {
+//         monthsParseExact: true,
+//         months: 'A_AA_AAA_B_B B_BB  B_C_C-C_C,C2C_D_D+D_D`D*D'.split('_'),
+//         monthsShort: 'E_EE_EEE_F_FF_FFF_G_GG_GGG_H_HH_HHH'.split('_')
+//     });
+
+//     assert.equal(moment('A', 'MMMM', true).month(), 0, 'parse long month 0 with MMMM');
+//     assert.equal(moment('AA', 'MMMM', true).month(), 1, 'parse long month 1 with MMMM');
+//     assert.equal(moment('AAA', 'MMMM', true).month(), 2, 'parse long month 2 with MMMM');
+//     assert.equal(moment('B B', 'MMMM', true).month(), 4, 'parse long month 4 with MMMM');
+//     assert.equal(moment('BB  B', 'MMMM', true).month(), 5, 'parse long month 5 with MMMM');
+//     assert.equal(moment('C-C', 'MMMM', true).month(), 7, 'parse long month 7 with MMMM');
+//     assert.equal(moment('C,C2C', 'MMMM', true).month(), 8, 'parse long month 8 with MMMM');
+//     assert.equal(moment('D+D', 'MMMM', true).month(), 10, 'parse long month 10 with MMMM');
+//     assert.equal(moment('D`D*D', 'MMMM', true).month(), 11, 'parse long month 11 with MMMM');
+
+//     assert.equal(moment('E', 'MMM', true).month(), 0, 'parse long month 0 with MMM');
+//     assert.equal(moment('EE', 'MMM', true).month(), 1, 'parse long month 1 with MMM');
+//     assert.equal(moment('EEE', 'MMM', true).month(), 2, 'parse long month 2 with MMM');
+
+//     assert.equal(moment('A', 'MMM').month(), 0, 'non-strict parse long month 0 with MMM');
+//     assert.equal(moment('AA', 'MMM').month(), 1, 'non-strict parse long month 1 with MMM');
+//     assert.equal(moment('AAA', 'MMM').month(), 2, 'non-strict parse long month 2 with MMM');
+//     assert.equal(moment('E', 'MMMM').month(), 0, 'non-strict parse short month 0 with MMMM');
+//     assert.equal(moment('EE', 'MMMM').month(), 1, 'non-strict parse short month 1 with MMMM');
+//     assert.equal(moment('EEE', 'MMMM').month(), 2, 'non-strict parse short month 2 with MMMM');
+// });

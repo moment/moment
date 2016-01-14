@@ -12,7 +12,7 @@ export default moment.defineLocale('ca', {
     weekdaysMin : 'Dg_Dl_Dt_Dc_Dj_Dv_Ds'.split('_'),
     longDateFormat : {
         LT : 'H:mm',
-        LTS : 'LT:ss',
+        LTS : 'H:mm:ss',
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY H:mm',

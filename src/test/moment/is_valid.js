@@ -77,7 +77,6 @@ test('string with bad month name', function (assert) {
 
 test('string with spaceless format', function (assert) {
     assert.equal(moment('10Sep2001', 'DDMMMYYYY').isValid(), true, 'Parsing 10Sep2001 should result in a valid date');
-    assert.equal(moment('10Sept2001', 'DDMMMYYYY').isValid(), true, 'Parsing 10Sept2001 should result in a valid date');
 });
 
 test('invalid string iso 8601', function (assert) {
