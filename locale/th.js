@@ -17,8 +17,8 @@
         weekdaysShort : 'อาทิตย์_จันทร์_อังคาร_พุธ_พฤหัส_ศุกร์_เสาร์'.split('_'), // yes, three characters difference
         weekdaysMin : 'อา._จ._อ._พ._พฤ._ศ._ส.'.split('_'),
         longDateFormat : {
-            LT : 'H นาฬิกา m นาที',
-            LTS : 'H นาฬิกา m นาที s วินาที',
+            LT : 'H:m',
+            LTS : 'H:m:s',
             L : 'YYYY/MM/DD',
             LL : 'D MMMM YYYY',
             LLL : 'D MMMM YYYY เวลา H นาฬิกา m นาที',
