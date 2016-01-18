@@ -108,6 +108,10 @@ proto.second = proto.seconds = getSetSecond;
 import { getSetMillisecond } from '../units/millisecond';
 proto.millisecond = proto.milliseconds = getSetMillisecond;
 
+// Time
+import { setTime } from '../units/setTime';
+proto.setTime = setTime;
+
 // Offset
 import {
     getSetOffset,
