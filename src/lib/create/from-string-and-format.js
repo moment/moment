@@ -51,7 +51,7 @@ export function configFromStringAndFormat(config) {
             else {
                 getParsingFlags(config).unusedTokens.push(token);
             }
-            addTimeToArrayFromToken(token, parsedInput, config);
+            addTimeToArrayFromToken(token, parsedInput, config._a, config);
         }
         else if (config._strict && !parsedInput) {
             getParsingFlags(config).unusedTokens.push(token);
@@ -78,7 +78,7 @@ export function configFromStringAndFormat(config) {
 }
 
 
-function meridiemFixWrap (locale, hour, meridiem) {
+export function meridiemFixWrap (locale, hour, meridiem) {
     var isPm;
 
     if (meridiem == null) {

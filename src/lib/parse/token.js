@@ -25,8 +25,9 @@ export function addWeekParseToken (token, callback) {
     });
 }
 
-export function addTimeToArrayFromToken(token, input, config) {
+export function addTimeToArrayFromToken(token, input, array, config) {
     if (input != null && hasOwnProp(tokens, token)) {
-        tokens[token](input, config._a, config, token);
+        tokens[token](input, array, config, token);
     }
 }
+
