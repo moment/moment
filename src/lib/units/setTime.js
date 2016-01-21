@@ -75,7 +75,7 @@ export function setTime(input, format) {
 function findIsoFormat(input) {
     for (var i = 0; i < isoTimes.length; i++)
     {
-        if(isoTimes[i][1].exec(input)) {
+        if (isoTimes[i][1].exec(input)) {
             return isoTimes[i][0];
         }
     }
