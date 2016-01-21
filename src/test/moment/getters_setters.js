@@ -237,9 +237,8 @@ test('day setter', function (assert) {
     assert.equal(moment(a).day(17).date(), 26, 'set from wednesday to second next wednesday');
 });
 
-test('time ISO formats', function(assert){
-   var a = moment([2016]);
-   
+test('time ISO formats', function (assert) {
+    var a = moment([2016]);
     assert.equal(a.setTime('22:35:12.45').format('YYYY-MM-DDTHH:mm:ss.SSSS'), '2016-01-01T22:35:12.4500', 'iso long');
     assert.equal(a.setTime('22:35:12,45').format('YYYY-MM-DDTHH:mm:ss.SSSS'), '2016-01-01T22:35:12.4500', 'iso long comma');
     assert.equal(a.setTime('22:35:12').format('YYYY-MM-DDTHH:mm:ss.SSSS'), '2016-01-01T22:35:12.0000', 'iso no fraction');
@@ -282,12 +281,12 @@ test('string with format', function (assert) {
     }
 });
 
-test('time setter numeric', function(assert){
-   var a = moment([2016]);
+test('time setter numeric', function (assert) {
+    var a = moment([2016]);
     assert.equal(a.setTime(65.505).hours(), 1, 'hours in time set numeric');
     assert.equal(a.setTime(65.505).minutes(), 5, 'minutes in time set numeric');
     assert.equal(a.setTime(65.505).seconds(), 30, 'seconds in time set numeric');
-    assert.equal(a.setTime(65.505).milliseconds(), 300, 'milliseconds in time set numeric' );
+    assert.equal(a.setTime(65.505).milliseconds(), 300, 'milliseconds in time set numeric');
 });
 
 
@@ -315,7 +314,7 @@ test('time setter with am/pm not used even though in format', function (assert) 
     assert.equal(a.setTime('12:25:00', 'h:m:s a').format('YYYY-MM-DDTHH:mm:ss'), '2012-05-01T12:25:00', 'should not break if am/pm is left off from the parsing tokens');
     assert.equal(a.setTime('12:25:00 am', 'h:m:s a').format('YYYY-MM-DDTHH:mm:ss'), '2012-05-01T00:25:00', 'should not break if am/pm is left off from the parsing tokens');
     assert.equal(a.setTime('12:25:00 pm', 'h:m:s a').format('YYYY-MM-DDTHH:mm:ss'), '2012-05-01T12:25:00', 'should not break if am/pm is left off from the parsing tokens');
-    
+
     assert.ok(a.setTime('12:25:00', ' h:m:s a').isValid());
     assert.ok(a.setTime('12:25:00 am', 'h:m:s a').isValid());
     assert.ok(a.setTime('12:25:00 pm', 'h:m:s a').isValid());
