@@ -23,6 +23,7 @@
         "ender"
     ],
     "main": "./moment.js",
+    "typings": "./moment.d.ts",
     "engines": {
         "node": "*"
     },
