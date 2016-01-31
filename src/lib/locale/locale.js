@@ -5,7 +5,8 @@ import {
     getSetGlobalLocale,
     defineLocale,
     updateLocale,
-    getLocale
+    getLocale,
+    listLocales
 } from './locales';
 
 import {
@@ -21,6 +22,7 @@ export {
     defineLocale,
     updateLocale,
     getLocale,
+    listLocales,
     listMonths,
     listMonthsShort,
     listWeekdays,

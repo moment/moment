@@ -157,3 +157,7 @@ export function getLocale (key) {
 
     return chooseLocale(key);
 }
+
+export function listLocales() {
+    return Object.keys(locales);
+}
