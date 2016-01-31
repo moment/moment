@@ -26,6 +26,7 @@ import {
     updateLocale,
     getSetGlobalLocale as locale,
     getLocale          as localeData,
+    listLocales        as locales,
     listMonths         as months,
     listMonthsShort    as monthsShort,
     listWeekdays       as weekdays,
@@ -65,6 +66,7 @@ moment.monthsShort           = monthsShort;
 moment.weekdaysMin           = weekdaysMin;
 moment.defineLocale          = defineLocale;
 moment.updateLocale          = updateLocale;
+moment.locales               = locales;
 moment.weekdaysShort         = weekdaysShort;
 moment.normalizeUnits        = normalizeUnits;
 moment.relativeTimeThreshold = relativeTimeThreshold;
