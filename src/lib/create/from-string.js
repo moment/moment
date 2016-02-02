@@ -2,6 +2,7 @@ import { configFromStringAndFormat } from './from-string-and-format';
 import { hooks } from '../utils/hooks';
 import { deprecate } from '../utils/deprecate';
 import getParsingFlags from './parsing-flags';
+import { isoTimes } from '../parse/regex';
 
 // iso 8601 regex
 // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
@@ -25,18 +26,7 @@ var isoDates = [
     ['YYYYDDD', /\d{7}/]
 ];
 
-// iso time formats and regexes
-var isoTimes = [
-    ['HH:mm:ss.SSSS', /\d\d:\d\d:\d\d\.\d+/],
-    ['HH:mm:ss,SSSS', /\d\d:\d\d:\d\d,\d+/],
-    ['HH:mm:ss', /\d\d:\d\d:\d\d/],
-    ['HH:mm', /\d\d:\d\d/],
-    ['HHmmss.SSSS', /\d\d\d\d\d\d\.\d+/],
-    ['HHmmss,SSSS', /\d\d\d\d\d\d,\d+/],
-    ['HHmmss', /\d\d\d\d\d\d/],
-    ['HHmm', /\d\d\d\d/],
-    ['HH', /\d\d/]
-];
+
 
 var aspNetJsonRegex = /^\/?Date\((\-?\d+)/i;
 

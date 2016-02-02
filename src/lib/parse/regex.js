@@ -22,6 +22,19 @@ export var matchTimestamp = /[+-]?\d+(\.\d{1,3})?/; // 123456789 123456789.123
 // includes scottish gaelic two word and hyphenated months
 export var matchWord = /[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i;
 
+// iso time formats and regexes
+export var isoTimes = [
+                        ['HH:mm:ss.SSSS', /\d\d:\d\d:\d\d\.\d+/],
+                        ['HH:mm:ss,SSSS', /\d\d:\d\d:\d\d,\d+/],
+                        ['HH:mm:ss', /\d\d:\d\d:\d\d/],
+                        ['HH:mm', /\d\d:\d\d/],
+                        ['HHmmss.SSSS', /\d\d\d\d\d\d\.\d+/],
+                        ['HHmmss,SSSS', /\d\d\d\d\d\d,\d+/],
+                        ['HHmmss', /\d\d\d\d\d\d/],
+                        ['HHmm', /\d\d\d\d/],
+                        ['HH', /\d\d/]
+                    ];
+
 
 import hasOwnProp from '../utils/has-own-prop';
 import isFunction from '../utils/is-function';

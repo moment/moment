@@ -19,6 +19,13 @@ export function configFromStringAndFormat(config) {
         return;
     }
 
+    parseFromStringAndFormat(config);
+
+    configFromArray(config);
+    checkOverflow(config);
+}
+
+export function parseFromStringAndFormat(config) {
     config._a = [];
     getParsingFlags(config).empty = true;
 
@@ -72,11 +79,7 @@ export function configFromStringAndFormat(config) {
     }
     // handle meridiem
     config._a[HOUR] = meridiemFixWrap(config._locale, config._a[HOUR], config._meridiem);
-
-    configFromArray(config);
-    checkOverflow(config);
 }
-
 
 function meridiemFixWrap (locale, hour, meridiem) {
     var isPm;

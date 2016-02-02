@@ -35,7 +35,20 @@ export function copyConfig(to, from) {
         to._offset = from._offset;
     }
     if (!isUndefined(from._pf)) {
-        to._pf = getParsingFlags(from);
+        to._pf = {};
+        to._pf.empty = getParsingFlags(from).empty;
+        to._pf.unusedTokens = getParsingFlags(from).unusedTokens.slice(0);
+        to._pf.unusedInput = getParsingFlags(from).unusedInput.slice(0);
+        to._pf.overflow = getParsingFlags(from).overflow;
+        to._pf.charsLeftOver = getParsingFlags(from).charsLeftOver;
+        to._pf.nullInput = getParsingFlags(from).nullInput;
+        to._pf.invalidMonth = getParsingFlags(from).invalidMonth;
+        to._pf.invalidFormat = getParsingFlags(from).invalidFormat;
+        to._pf.userInvalidated = getParsingFlags(from).userInvalidated;
+        to._pf.iso = getParsingFlags(from).iso;
+        if (!isUndefined(getParsingFlags(from).bigHour)) {
+            to._pf.bigHour = getParsingFlags(from).bigHour;
+        }
     }
     if (!isUndefined(from._locale)) {
         to._locale = from._locale;

@@ -255,3 +255,125 @@ test('string setters', function (assert) {
     assert.equal(a.seconds(), 8, 'second');
     assert.equal(a.milliseconds(), 9, 'milliseconds');
 });
+
+test('time ISO formats', function (assert) {
+    var a = moment([2016]);
+    assert.equal(a.setTime('22:35:12.45').format('YYYY-MM-DDTHH:mm:ss.SSSS'), '2016-01-01T22:35:12.4500', 'iso long');
+    assert.equal(a.setTime('22:35:12,45').format('YYYY-MM-DDTHH:mm:ss.SSSS'), '2016-01-01T22:35:12.4500', 'iso long comma');
+    assert.equal(a.setTime('22:35:12').format('YYYY-MM-DDTHH:mm:ss.SSSS'), '2016-01-01T22:35:12.0000', 'iso no fraction');
+    assert.equal(a.setTime('22:35').format('YYYY-MM-DDTHH:mm:ss.SSSS'), '2016-01-01T22:35:00.0000', 'iso no seconds');
+    assert.equal(a.setTime('223512.45').format('YYYY-MM-DDTHH:mm:ss.SSSS'), '2016-01-01T22:35:12.4500', 'iso no colons dot fraction');
+    assert.equal(a.setTime('223512,45').format('YYYY-MM-DDTHH:mm:ss.SSSS'), '2016-01-01T22:35:12.4500', 'iso no colons comma fraction');
+    assert.equal(a.setTime('223512').format('YYYY-MM-DDTHH:mm:ss.SSSS'), '2016-01-01T22:35:12.0000', 'iso no colons no fraction');
+    assert.equal(a.setTime('09').format('YYYY-MM-DDTHH:mm:ss.SSSS'), '2016-01-01T09:00:00.0000', 'HH');
+    assert.equal(a.setTime('0622').format('YYYY-MM-DDTHH:mm:ss.SSSS'), '2016-01-01T06:22:00.0000' ,'set in HHmm format');
+});
+
+test('string with format', function (assert) {
+    moment.locale('en');
+    var a = [
+        ['h:mm a',              '12:00 pm'],
+        ['h:mm a',              '12:30 pm'],
+        ['h:mm a',              '12:00 am'],
+        ['h:mm a',              '12:30 am'],
+        ['HH:mm',               '12:00'],
+        ['HH:mm:ss',            '12:00:00'],
+        ['HH:mm:ss',            '12:30:00'],
+        ['HH:mm:ss',            '00:00:00'],
+        ['HH:mm:ss S',          '00:30:00 1'],
+        ['HH:mm:ss SS',         '00:30:00 12'],
+        ['HH:mm:ss SSS',        '00:30:00 123'],
+        ['HH:mm:ss S',          '00:30:00 7'],
+        ['HH:mm:ss SS',         '00:30:00 78'],
+        ['HH:mm:ss SSS',        '00:30:00 789'],
+        ['LT',                  '12:30 AM'],
+        ['LTS',                 '12:30:29 AM']
+    ],
+    m,
+    i;
+
+    for (i = 0; i < a.length; i++) {
+        m = moment({year:2012, month:3, day:1});
+        m.setTime(a[i][1], a[i][0]);
+        assert.ok(m.isValid());
+        assert.equal(m.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
+    }
+
+    moment.locale('af');
+    var b = [
+        ['h:mm a',              '12:00 nm'],
+        ['h:mm a',              '12:30 nm'],
+        ['h:mm a',              '12:00 vm'],
+        ['h:mm a',              '12:30 vm']
+    ];
+
+    for (i = 0; i < b.length; i++) {
+        m = moment({year:2012, month:3, day:1});
+        m.setTime(b[i][1], b[i][0]);
+        assert.ok(m.isValid());
+        assert.equal(m.format(b[i][0]), b[i][1], b[i][0] + ' ---> ' + b[i][1]);
+    }
+});
+
+test('time setter numeric', function (assert) {
+    var a = moment([2016]);
+    assert.equal(a.setTime(65.505).hours(), 1, 'hours in time set numeric');
+    assert.equal(a.setTime(65.505).minutes(), 5, 'minutes in time set numeric');
+    assert.equal(a.setTime(65.505).seconds(), 30, 'seconds in time set numeric');
+    assert.equal(a.setTime(65.505).milliseconds(), 300, 'milliseconds in time set numeric');
+});
+
+test('time setter matching am/pm', function (assert) {
+    var a = moment({year: 2012, month:8, day: 3});
+    assert.equal(a.setTime('03:00PM',   'hh:mmA').format('hh:mmA'), '03:00PM', 'am/pm should parse correctly for PM');
+    assert.equal(a.setTime('03:00P.M.', 'hh:mmA').format('hh:mmA'), '03:00PM', 'am/pm should parse correctly for P.M.');
+    assert.equal(a.setTime('03:00P',    'hh:mmA').format('hh:mmA'), '03:00PM', 'am/pm should parse correctly for P');
+    assert.equal(a.setTime('03:00pm',   'hh:mmA').format('hh:mmA'), '03:00PM', 'am/pm should parse correctly for pm');
+    assert.equal(a.setTime('03:00p.m.', 'hh:mmA').format('hh:mmA'), '03:00PM', 'am/pm should parse correctly for p.m.');
+    assert.equal(a.setTime('03:00p',    'hh:mmA').format('hh:mmA'), '03:00PM', 'am/pm should parse correctly for p');
+
+    assert.equal(a.setTime('03:00AM',   'hh:mmA').format('hh:mmA'), '03:00AM', 'am/pm should parse correctly for AM');
+    assert.equal(a.setTime('03:00A.M.', 'hh:mmA').format('hh:mmA'), '03:00AM', 'am/pm should parse correctly for A.M.');
+    assert.equal(a.setTime('03:00A',    'hh:mmA').format('hh:mmA'), '03:00AM', 'am/pm should parse correctly for A');
+    assert.equal(a.setTime('03:00am',   'hh:mmA').format('hh:mmA'), '03:00AM', 'am/pm should parse correctly for am');
+    assert.equal(a.setTime('03:00a.m.', 'hh:mmA').format('hh:mmA'), '03:00AM', 'am/pm should parse correctly for a.m.');
+    assert.equal(a.setTime('03:00a',    'hh:mmA').format('hh:mmA'), '03:00AM', 'am/pm should parse correctly for a');
+});
+
+test('time setter with am/pm not used even though in format', function (assert) {
+    moment.locale('en');
+    var a = moment({year:2012, month:4, day: 1});
+    assert.equal(a.setTime('12:25:00', 'h:m:s a').format('YYYY-MM-DDTHH:mm:ss'), '2012-05-01T12:25:00', 'should not break if am/pm is left off from the parsing tokens');
+    assert.equal(a.setTime('12:25:00 am', 'h:m:s a').format('YYYY-MM-DDTHH:mm:ss'), '2012-05-01T00:25:00', 'should not break if am/pm is left off from the parsing tokens');
+    assert.equal(a.setTime('12:25:00 pm', 'h:m:s a').format('YYYY-MM-DDTHH:mm:ss'), '2012-05-01T12:25:00', 'should not break if am/pm is left off from the parsing tokens');
+
+    assert.ok(a.setTime('12:25:00', ' h:m:s a').isValid());
+    assert.ok(a.setTime('12:25:00 am', 'h:m:s a').isValid());
+    assert.ok(a.setTime('12:25:00 pm', 'h:m:s a').isValid());
+});
+
+test('time setter retains UTC mode', function (assert) {
+    var a = moment.utc([2016]);
+    assert.equal(a.setTime('12:25:00', 'h:m:s a').format(), '2016-01-01T12:25:00+00:00', 'utc mode retained in time set');
+});
+
+test('time setter retains fixed offset', function (assert) {
+    var a = moment(2016);
+    assert.equal(a.utcOffset(120).setTime('12:25:00', 'h:m:s a').utcOffset(), 120, 'offset retained in time set');
+    assert.equal(a.utcOffset(240).setTime('22:25:03.1400', 'h:m:s.SSSS').utcOffset(), 240, 'offset retained in time set');
+});
+
+test('time setter validity', function (assert) {
+    assert.ok(!moment('asdf', 'YYYY').setTime('0822', 'hhmm').isValid(), 'initially invalid date should remain invalid');
+    assert.ok(!moment('2015-10-01', 'YYYY-MM-DD').setTime('', 'hh:mm a').isValid(), 'not valid due to empty string');
+    assert.ok(!moment('2015-10-01', 'YYYY-MM-DD', true).setTime('06:30', 'hh:mm a').isValid(), 'not valid strict mode unused token');
+    assert.ok(!moment('2015-10-01', 'YYYY-MM-DD', true).setTime('06:30 more stuff', 'hh:mm').isValid(), 'not valid leftover chars strict mode');
+});
+
+test('_z value is retained', function (assert) {
+    var a = moment();
+    a._z = {
+        prop: 'test'
+    };
+    assert.equal(a.setTime('0435', 'hhmm')._z.prop, 'test', 'values on _z object not disturbed');
+});
