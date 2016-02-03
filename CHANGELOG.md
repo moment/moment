@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 2.11.2 (Fix ReDoS attack vector)
+
+* [#2939](https://github.com/moment/moment/pull/2939) use full-string match to speed up aspnet regex match
+
 ### 2.11.1 [See full changelog](https://gist.github.com/ichernev/8ec3ee25b749b4cff3c2)
 
 ## Bugfixes:
