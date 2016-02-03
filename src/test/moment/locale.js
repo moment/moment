@@ -153,7 +153,9 @@ test('defineLocale', function (assert) {
 });
 
 test('locales', function (assert) {
-    assert.equal(moment.locales().length > 0, true, 'locales returns an array of defined locales');
+    moment.defineLocale('dude', {months: ['Movember']});
+    assert.equal(true, !!~moment.locales().indexOf('dude'), 'locales returns an array of defined locales');
+    assert.equal(true, !!~moment.locales().indexOf('en'), 'locales should always include english');
 });
 
 test('library convenience', function (assert) {
