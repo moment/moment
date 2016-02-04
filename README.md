@@ -5,6 +5,16 @@
 
 A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates.
 
+##In layman's terms
+Moment.js makes working with *dates* a breeze.  Simple to use Javascript functions take care of the heavy lifting when you need to:
+
+- Read and parse dates into your app.
+- Easily calculate dates.
+- Ensure dates are valid.
+- Display dates and times in a multitude of formats.
+
+Packed in a lightweight Javascript library that supports over 90 worldwide locales. Moment.js is designed to super-charge all your *dates* in the browser and behind the scenes in Node.js.
+
 ## [Documentation](http://momentjs.com/docs/)
 
 ## Port to ECMAScript 6 (version 2.10.0)
