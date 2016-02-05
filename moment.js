@@ -2023,7 +2023,11 @@
     function isBetween (from, to, units) {
         return this.isAfter(from, units) && this.isBefore(to, units);
     }
-
+    
+    function isSameOrBetween (from, to, units) {
+        return this.isSame(from, units) || this.isSame(to, units) || this.isAfter(from, units) && this.isBefore(to, units);
+    }
+    
     function isSame (input, units) {
         var localInput = isMoment(input) ? input : local__createLocal(input),
             inputMs;
@@ -2914,6 +2918,7 @@
     momentPrototype__proto.isAfter           = isAfter;
     momentPrototype__proto.isBefore          = isBefore;
     momentPrototype__proto.isBetween         = isBetween;
+    momentPrototype__proto.isSameOrBetween   = isSameOrBetween;
     momentPrototype__proto.isSame            = isSame;
     momentPrototype__proto.isSameOrAfter     = isSameOrAfter;
     momentPrototype__proto.isSameOrBefore    = isSameOrBefore;
