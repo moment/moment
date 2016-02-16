@@ -118,6 +118,14 @@ test('weeks setter', function (assert) {
     assert.equal(moment([2012, 0, 15]).week(30).week(), 30, 'Setting Jan 15 2012 to week 30 should work');
 });
 
+test('weekOfMonth', function (assert) {
+    assert.equal(moment([2012, 0,  1]).weekOfMonth(), 1, 'Setting Jan 1 2012 to week 30 should work');
+    assert.equal(moment([2012, 0,  7]).weekOfMonth(), 1, 'Setting Jan 7 2012 to week 30 should work');
+    assert.equal(moment([2012, 0,  8]).weekOfMonth(), 2, 'Setting Jan 8 2012 to week 30 should work');
+    assert.equal(moment([2012, 0, 14]).weekOfMonth(), 2, 'Setting Jan 14 2012 to week 30 should work');
+    assert.equal(moment([2012, 0, 15]).weekOfMonth(), 3, 'Setting Jan 15 2012 to week 30 should work');
+});
+
 test('iso weeks setter', function (assert) {
     assert.equal(moment([2012, 0,  1]).isoWeeks(25).isoWeeks(), 25, 'Setting Jan  1 2012 to week 25 should work');
     assert.equal(moment([2012, 0,  2]).isoWeeks(24).isoWeeks(), 24, 'Setting Jan  2 2012 to week 24 should work');
