@@ -4,7 +4,8 @@ import './prototype';
 import {
     getSetGlobalLocale,
     defineLocale,
-    getLocale
+    getLocale,
+    listLocales
 } from './locales';
 
 import {
@@ -19,6 +20,7 @@ export {
     getSetGlobalLocale,
     defineLocale,
     getLocale,
+    listLocales,
     listMonths,
     listMonthsShort,
     listWeekdays,
