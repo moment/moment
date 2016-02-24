@@ -10,7 +10,7 @@ var aspNetRegex = /^(\-)?(?:(\d*)[. ])?(\d+)\:(\d+)(?:\:(\d+)\.?(\d{3})?\d*)?$/;
 
 // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
 // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
-var isoRegex = /^(-)?P(?:(?:(-)?([0-9,.]*)Y)?(?:(-)?([0-9,.]*)M)?(?:(-)?([0-9,.]*)D)?(?:T(?:(-)?([0-9,.]*)H)?(?:(-)?([0-9,.]*)M)?(?:(-)?([0-9,.]*)S)?)?|(-)?([0-9,.]*)W)$/;
+var isoRegex = /^(-)?P(?:(?:((?:-)?[0-9,.]*)Y)?(?:((?:-)?[0-9,.]*)M)?(?:((?:-)?[0-9,.]*)D)?(?:T(?:((?:-)?[0-9,.]*)H)?(?:((?:-)?[0-9,.]*)M)?(?:((?:-)?[0-9,.]*)S)?)?|((?:-)?[0-9,.]*)W)$/;
 
 export function createDuration (input, key) {
     var duration = input,
@@ -45,21 +45,14 @@ export function createDuration (input, key) {
         };
     } else if (!!(match = isoRegex.exec(input))) {
         sign = (match[1] === '-') ? -1 : 1;
-        var ySign = (match[2] === '-') ? -sign : sign;
-        var MSign = (match[4] === '-') ? -sign : sign;
-        var dSign = (match[6] === '-') ? -sign : sign;
-        var hSign = (match[8] === '-') ? -sign : sign;
-        var mSign = (match[10] === '-') ? -sign : sign;
-        var sSign = (match[12] === '-') ? -sign : sign;
-        var wSign = (match[14] === '-') ? -sign : sign;
         duration = {
-            y : parseIso(match[3], ySign),
-            M : parseIso(match[5], MSign),
-            d : parseIso(match[7], dSign),
-            h : parseIso(match[9], hSign),
-            m : parseIso(match[11], mSign),
-            s : parseIso(match[13], sSign),
-            w : parseIso(match[15], wSign)
+            y : parseIso(match[2], sign),
+            M : parseIso(match[3], sign),
+            d : parseIso(match[4], sign),
+            h : parseIso(match[5], sign),
+            m : parseIso(match[6], sign),
+            s : parseIso(match[7], sign),
+            w : parseIso(match[8], sign)
         };
     } else if (duration == null) {// checks for null or undefined
         duration = {};
