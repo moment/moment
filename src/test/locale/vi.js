@@ -25,8 +25,8 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a',      'chủ nhật, tháng 2 14 2010, 3:25:50 pm'],
-            ['ddd, hA',                            'CN, 3PM'],
+            ['dddd, MMMM Do YYYY, h:mm:ss a',      'chủ nhật, tháng 2 14 2010, 3:25:50 ch'],
+            ['ddd, hA',                            'CN, 3CH'],
             ['M Mo MM MMMM MMM',                   '2 2 02 tháng 2 Th02'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14 14'],
@@ -37,7 +37,7 @@ test('format', function (assert) {
             ['H HH',                               '15 15'],
             ['m mm',                               '25 25'],
             ['s ss',                               '50 50'],
-            ['a A',                                'pm PM'],
+            ['a A',                                'ch CH'],
             ['[ngày thứ] DDDo [của năm]',          'ngày thứ 45 của năm'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14/02/2010'],
