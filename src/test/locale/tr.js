@@ -2,7 +2,7 @@ import {localeModule, test} from '../qunit';
 import moment from '../../moment';
 localeModule('tr');
 
-test('parse', function (assert) {
+test('parse month', function (assert) {
     var tests = 'Ocak Oca_Şubat Şub_Mart Mar_Nisan Nis_Mayıs May_Haziran Haz_Temmuz Tem_Ağustos Ağu_Eylül Eyl_Ekim Eki_Kasım Kas_Aralık Ara'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
@@ -17,6 +17,25 @@ test('parse', function (assert) {
         equalTest(tests[i][1].toLocaleLowerCase(), 'MMMM', i);
         equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
         equalTest(tests[i][1].toLocaleUpperCase(), 'MMMM', i);
+    }
+});
+
+test('parse weekdays', function (assert) {
+    var tests = 'Pazartesi Pts_Salı Sal_Çarşamba Çar_Perşembe Per_Cuma Cum_Cumartesi Cts_Pazar Paz'.split('_'), i;
+    function equalTest(input, wd, i) {
+        assert.equal(moment(input, wd).weekday(), i, input + ' should be weekday ' + (i + 1));
+    }
+    for (i = 0; i < 7; i++) {
+        tests[i] = tests[i].split(' ');
+        equalTest(tests[i][0], 'ddd', i);
+        equalTest(tests[i][1], 'ddd', i);
+        equalTest(tests[i][0], 'dddd', i);
+        equalTest(tests[i][1], 'dddd', i);
+        equalTest(tests[i][0].toLocaleLowerCase(), 'dddd', i);
+        equalTest(tests[i][1].toLocaleLowerCase(), 'dddd', i);
+        // TOOD: Enable line below once we get locale-aware case-insensitive RegExes
+        //equalTest(tests[i][0].toLocaleUpperCase(), 'dddd', i);
+        equalTest(tests[i][1].toLocaleUpperCase(), 'dddd', i);
     }
 });
 
