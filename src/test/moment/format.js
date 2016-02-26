@@ -342,25 +342,46 @@ test('quarter ordinal formats', function (assert) {
 });
 
 test('full expanded format is returned from abbreviated formats', function (assert) {
-    var locales = '';
+    function forEach(ar, fn) {
+        if (ar.forEach) {
+            return ar.forEach(fn);
+        } else {
+            // IE8
+            for (var i = 0; i < ar.length; i += 1) {
+                fn(ar[i]);
+            }
+        }
+    }
+    function objectKeys(obj) {
+        if (Object.keys) {
+            return Object.keys(obj);
+        } else {
+            // IE8
+            var res = [], i;
+            for (i in obj) {
+                if (obj.hasOwnProperty(i)) {
+                    res.push(i);
+                }
+            }
+            return res;
+        }
+    }
 
-    locales += 'af ar-ma ar-sa ar-tn ar az be bg bn bo br bs';
-    locales += 'ca cs cv cy da de-at de el en-au en-ca en-gb';
-    locales += 'en eo es et eu fa fi fo fr-ca fr fy gl he hi';
-    locales += 'hr hu hy-am id is it ja jv ka km ko lb lt lv';
-    locales += 'me mk ml mr ms-my my nb ne nl nn pl pt-rb pt';
-    locales += 'ro ru si sk sl sq sr-cyrl  sr sv ta th tl-ph';
-    locales += 'tr tzm-latn tzm   uk uz vi zh-cn zh-tw';
-    locales += 'en-ie';
+    var locales =
+        'ar-sa ar-tn ar az be bg bn bo br bs ca cs cv cy da de-at de dv el ' +
+        'en-au en-ca en-gb en-ie en-nz eo es et eu fa fi fo fr-ca fr-ch fr fy ' +
+        'gd gl he hi hr hu hy-am id is it ja jv ka kk km ko lb lo lt lv me mk ml ' +
+        'mr ms-my ms my nb ne nl nn pl pt-br pt ro ru se si sk sl sq sr-cyrl ' +
+        'sr sv sw ta te th tl-ph tlh tr tzl tzm-latn tzm uk uz vi zh-cn zh-tw';
 
-    locales.split(' ').forEach(function (locale) {
+    forEach(locales.split(' '), function (locale) {
         var data, tokens;
         data = moment().locale(locale).localeData()._longDateFormat;
-        tokens = Object.keys(data);
-        tokens.forEach(function (token) {
+        tokens = objectKeys(data);
+        forEach(tokens, function (token) {
             // Check each format string to make sure it does not contain any
             // tokens that need to be expanded.
-            tokens.forEach(function (i) {
+            forEach(tokens, function (i) {
                 // strip escaped sequences
                 var format = data[i].replace(/(\[[^\]]*\])/g, '');
                 assert.equal(false, !!~format.indexOf(token), 'locale ' + locale + ' contains ' + token + ' in ' + i);
@@ -402,4 +423,14 @@ test('Hmm and Hmmss', function (assert) {
     assert.equal(moment('01:34:56', 'HH:mm:ss').format('Hmmss'), '13456');
     assert.equal(moment('08:34:56', 'HH:mm:ss').format('Hmmss'), '83456');
     assert.equal(moment('18:34:56', 'HH:mm:ss').format('Hmmss'), '183456');
+});
+
+test('Y token', function (assert) {
+    assert.equal(moment('2010-01-01', 'YYYY-MM-DD', true).format('Y'), '2010', 'format 2010 with Y');
+    assert.equal(moment('-123-01-01', 'Y-MM-DD', true).format('Y'), '-123', 'format -123 with Y');
+    assert.equal(moment('12345-01-01', 'Y-MM-DD', true).format('Y'), '+12345', 'format 12345 with Y');
+    assert.equal(moment('0-01-01', 'Y-MM-DD', true).format('Y'), '0', 'format 0 with Y');
+    assert.equal(moment('1-01-01', 'Y-MM-DD', true).format('Y'), '1', 'format 1 with Y');
+    assert.equal(moment('9999-01-01', 'Y-MM-DD', true).format('Y'), '9999', 'format 9999 with Y');
+    assert.equal(moment('10000-01-01', 'Y-MM-DD', true).format('Y'), '+10000', 'format 10000 with Y');
 });

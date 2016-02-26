@@ -9,6 +9,11 @@ import toInt from '../utils/to-int';
 
 // FORMATTING
 
+addFormatToken('Y', 0, 0, function () {
+    var y = this.year();
+    return y <= 9999 ? '' + y : '+' + y;
+});
+
 addFormatToken(0, ['YY', 2], 0, function () {
     return this.year() % 100;
 });
@@ -35,6 +40,9 @@ addParseToken('YYYY', function (input, array) {
 });
 addParseToken('YY', function (input, array) {
     array[YEAR] = hooks.parseTwoDigitYear(input);
+});
+addParseToken('Y', function (input, array) {
+    array[YEAR] = parseInt(input, 10);
 });
 
 // HELPERS

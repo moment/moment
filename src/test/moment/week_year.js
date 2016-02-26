@@ -83,13 +83,13 @@ test('week year roundtrip', function (assert) {
 
 test('week numbers 2012/2013', function (assert) {
     moment.locale('dow: 6, doy: 12', {week: {dow: 6, doy: 12}});
-    assert.equal(52, moment('2012-12-28', 'YYYY-MM-DD').week()); // 51 -- should be 52?
-    assert.equal(1, moment('2012-12-29', 'YYYY-MM-DD').week()); // 52 -- should be 1
-    assert.equal(1, moment('2013-01-01', 'YYYY-MM-DD').week()); // 52 -- should be 1
-    assert.equal(2, moment('2013-01-08', 'YYYY-MM-DD').week()); // 53 -- should be 2
-    assert.equal(2, moment('2013-01-11', 'YYYY-MM-DD').week()); // 53 -- should be 2
-    assert.equal(3, moment('2013-01-12', 'YYYY-MM-DD').week()); // 1 -- should be 3
-    assert.equal(52, moment().weeksInYear(2012)); // 52
+    assert.equal(52, moment('2012-12-28', 'YYYY-MM-DD').week(), '2012-12-28 is week 52'); // 51 -- should be 52?
+    assert.equal(1, moment('2012-12-29', 'YYYY-MM-DD').week(), '2012-12-29 is week 1'); // 52 -- should be 1
+    assert.equal(1, moment('2013-01-01', 'YYYY-MM-DD').week(), '2013-01-01 is week 1'); // 52 -- should be 1
+    assert.equal(2, moment('2013-01-08', 'YYYY-MM-DD').week(), '2013-01-08 is week 2'); // 53 -- should be 2
+    assert.equal(2, moment('2013-01-11', 'YYYY-MM-DD').week(), '2013-01-11 is week 2'); // 53 -- should be 2
+    assert.equal(3, moment('2013-01-12', 'YYYY-MM-DD').week(), '2013-01-12 is week 3'); // 1 -- should be 3
+    assert.equal(52, moment('2012-01-01', 'YYYY-MM-DD').weeksInYear(), 'weeks in 2012 are 52'); // 52
 });
 
 test('week year overflows', function (assert) {

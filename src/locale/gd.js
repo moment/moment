@@ -5,18 +5,7 @@
 import moment from '../moment';
 
 var months = [
-    'Am Faoilleach',
-    'An Gearran',
-    'Am Màrt',
-    'An Giblean',
-    'An Cèitean',
-    'An t-Ògmhios',
-    'An t-Iuchar',
-    'An Lùnastal',
-    'An t-Sultain',
-    'An Dàmhair',
-    'An t-Samhain',
-    'An Dùbhlachd'
+    'Am Faoilleach', 'An Gearran', 'Am Màrt', 'An Giblean', 'An Cèitean', 'An t-Ògmhios', 'An t-Iuchar', 'An Lùnastal', 'An t-Sultain', 'An Dàmhair', 'An t-Samhain', 'An Dùbhlachd'
 ];
 
 var monthsShort = ['Faoi', 'Gear', 'Màrt', 'Gibl', 'Cèit', 'Ògmh', 'Iuch', 'Lùn', 'Sult', 'Dàmh', 'Samh', 'Dùbh'];
@@ -30,6 +19,7 @@ var weekdaysMin = ['Dò', 'Lu', 'Mà', 'Ci', 'Ar', 'Ha', 'Sa'];
 export default moment.defineLocale('gd', {
     months : months,
     monthsShort : monthsShort,
+    monthsParseExact : true,
     weekdays : weekdays,
     weekdaysShort : weekdaysShort,
     weekdaysMin : weekdaysMin,
@@ -66,7 +56,7 @@ export default moment.defineLocale('gd', {
     },
     ordinalParse : /\d{1,2}(d|na|mh)/,
     ordinal : function (number) {
-        var output = (number === 1) ? 'd' : (number.toString().substr(-1) === '2') ? 'na' : 'mh';
+        var output = number === 1 ? 'd' : number % 10 === 2 ? 'na' : 'mh';
         return number + output;
     },
     week : {
