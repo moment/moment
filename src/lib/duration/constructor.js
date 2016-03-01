@@ -17,7 +17,7 @@ export function Duration (duration) {
     this._milliseconds = +milliseconds +
         seconds * 1e3 + // 1000
         minutes * 6e4 + // 1000 * 60
-        hours * 36e5; // 1000 * 60 * 60
+        hours * 1000 * 60 * 60; //using 1000 * 60 * 60 instead of 36e5 to avoid floating point rounding errors https://github.com/moment/moment/issues/2978
     // Because of dateAddRemove treats 24 hours as different from a
     // day when working around DST, we need to store them separately
     this._days = +days +
