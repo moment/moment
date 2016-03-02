@@ -31,6 +31,12 @@ export default moment.defineLocale('ka', {
         lastDay : '[გუშინ] LT[-ზე]',
         nextWeek : '[შემდეგ] dddd LT[-ზე]',
         lastWeek : '[წინა] dddd LT-ზე',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

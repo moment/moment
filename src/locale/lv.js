@@ -60,6 +60,12 @@ export default moment.defineLocale('lv', {
         nextWeek : 'dddd [pulksten] LT',
         lastDay : '[Vakar pulksten] LT',
         lastWeek : '[Pagājušā] dddd [pulksten] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

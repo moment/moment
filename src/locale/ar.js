@@ -92,6 +92,12 @@ export default moment.defineLocale('ar', {
         nextWeek: 'dddd [عند الساعة] LT',
         lastDay: '[أمس عند الساعة] LT',
         lastWeek: 'dddd [عند الساعة] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse: 'L'
     },
     relativeTime : {

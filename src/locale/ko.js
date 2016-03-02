@@ -28,6 +28,12 @@ export default moment.defineLocale('ko', {
         nextWeek : 'dddd LT',
         lastDay : '어제 LT',
         lastWeek : '지난주 dddd LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

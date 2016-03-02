@@ -30,6 +30,12 @@ export default moment.defineLocale('he', {
         nextWeek : 'dddd [בשעה] LT',
         lastDay : '[אתמול ב־]LT',
         lastWeek : '[ביום] dddd [האחרון בשעה] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

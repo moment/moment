@@ -83,6 +83,12 @@ export default moment.defineLocale('tlh', {
         nextWeek: 'LLL',
         lastDay: '[wa’Hu’] LT',
         lastWeek: 'LLL',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse: 'L'
     },
     relativeTime : {

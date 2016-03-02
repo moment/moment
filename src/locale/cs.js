@@ -135,6 +135,12 @@ export default moment.defineLocale('cs', {
                 return '[minulou sobotu v] LT';
             }
         },
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse: 'L'
     },
     relativeTime : {

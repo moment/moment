@@ -81,6 +81,12 @@ export default moment.defineLocale('uk', {
                 return processHoursFunction('[Минулого] dddd [').call(this);
             }
         },
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse: 'L'
     },
     relativeTime : {

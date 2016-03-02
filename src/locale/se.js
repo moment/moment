@@ -25,6 +25,12 @@ export default moment.defineLocale('se', {
         nextWeek: 'dddd [ti] LT',
         lastDay: '[ikte ti] LT',
         lastWeek: '[ovddit] dddd [ti] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse: 'L'
     },
     relativeTime : {

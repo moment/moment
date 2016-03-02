@@ -48,6 +48,12 @@ export default moment.defineLocale('ta', {
         nextWeek : 'dddd, LT',
         lastDay : '[நேற்று] LT',
         lastWeek : '[கடந்த வாரம்] dddd, LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

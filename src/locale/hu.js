@@ -73,6 +73,12 @@ export default moment.defineLocale('hu', {
         lastWeek : function () {
             return week.call(this, false);
         },
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

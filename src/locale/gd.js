@@ -37,6 +37,12 @@ export default moment.defineLocale('gd', {
         nextWeek : 'dddd [aig] LT',
         lastDay : '[An-dè aig] LT',
         lastWeek : 'dddd [seo chaidh] [aig] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

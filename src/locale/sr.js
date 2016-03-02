@@ -72,6 +72,12 @@ export default moment.defineLocale('sr', {
             ];
             return lastWeekDays[this.day()];
         },
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

@@ -24,6 +24,12 @@ export default moment.defineLocale('cv', {
         lastDay: '[Ӗнер] LT [сехетре]',
         nextWeek: '[Ҫитес] dddd LT [сехетре]',
         lastWeek: '[Иртнӗ] dddd LT [сехетре]',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse: 'L'
     },
     relativeTime : {

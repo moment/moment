@@ -24,6 +24,12 @@ export default moment.defineLocale('sw', {
         nextWeek : '[wiki ijayo] dddd [saat] LT',
         lastDay : '[jana] LT',
         lastWeek : '[wiki iliyopita] dddd [saat] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

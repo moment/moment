@@ -105,6 +105,12 @@ export default moment.defineLocale('bs', {
                 return '[prošli] dddd [u] LT';
             }
         },
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

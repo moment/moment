@@ -33,6 +33,12 @@ export default moment.defineLocale('sq', {
         nextWeek : 'dddd [në] LT',
         lastDay : '[Dje në] LT',
         lastWeek : 'dddd [e kaluar në] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

@@ -59,6 +59,12 @@ export default moment.defineLocale('fa', {
         nextWeek : 'dddd [ساعت] LT',
         lastDay : '[دیروز ساعت] LT',
         lastWeek : 'dddd [پیش] [ساعت] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

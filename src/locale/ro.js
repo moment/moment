@@ -40,6 +40,12 @@ export default moment.defineLocale('ro', {
         nextWeek: 'dddd [la] LT',
         lastDay: '[ieri la] LT',
         lastWeek: '[fosta] dddd [la] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse: 'L'
     },
     relativeTime : {

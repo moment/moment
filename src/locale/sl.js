@@ -124,6 +124,12 @@ export default moment.defineLocale('sl', {
                 return '[prejšnji] dddd [ob] LT';
             }
         },
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

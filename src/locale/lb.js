@@ -85,7 +85,6 @@ export default moment.defineLocale('lb', {
     },
     calendar: {
         sameDay: '[Haut um] LT',
-        sameElse: 'L',
         nextDay: '[Muer um] LT',
         nextWeek: 'dddd [um] LT',
         lastDay: '[Gëschter um] LT',
@@ -98,7 +97,14 @@ export default moment.defineLocale('lb', {
                 default:
                     return '[Leschte] dddd [um] LT';
             }
-        }
+        },
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
+        sameElse: 'L'
     },
     relativeTime : {
         future : processFutureTime,

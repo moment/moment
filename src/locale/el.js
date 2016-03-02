@@ -51,6 +51,12 @@ export default moment.defineLocale('el', {
                     return '[την προηγούμενη] dddd [{}] LT';
             }
         },
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     calendar : function (key, mom) {
