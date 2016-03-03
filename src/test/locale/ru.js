@@ -3,7 +3,7 @@ import moment from '../../moment';
 localeModule('ru');
 
 test('parse', function (assert) {
-    var tests = 'Январь янв_Февраль фев_Март март_Апрель апр_Май май_Июнь июнь_Июль июль_Август авг_Сентябрь сен_Октябрь окт_Ноябрь ноя_Декабрь дек'.split('_'), i;
+    var tests = 'январь янв_февраль фев_март март_апрель апр_май май_июнь июнь_июль июль_август авг_сентябрь сен_октябрь окт_ноябрь ноя_декабрь дек'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
@@ -36,12 +36,12 @@ test('parse exceptional case', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, Do MMMM YYYY, HH:mm:ss',       'Воскресенье, 14-го Февраля 2010, 15:25:50'],
-            ['ddd, h A',                           'Вс, 3 дня'],
-            ['M Mo MM MMMM MMM',                   '2 2-й 02 Февраль фев'],
+            ['dddd, Do MMMM YYYY, HH:mm:ss',       'воскресенье, 14-го февраля 2010, 15:25:50'],
+            ['ddd, h A',                           'вс, 3 дня'],
+            ['M Mo MM MMMM MMM',                   '2 2-й 02 февраль фев'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14-го 14'],
-            ['d do dddd ddd dd',                   '0 0-й Воскресенье Вс Вс'],
+            ['d do dddd ddd dd',                   '0 0-й воскресенье вс вс'],
             ['DDD DDDo DDDD',                      '45 45-й 045'],
             ['w wo ww',                            '7 7-я 07'],
             ['h hh',                               '3 03'],
@@ -52,13 +52,13 @@ test('format', function (assert) {
             ['DDDo [день года]',                   '45-й день года'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14.02.2010'],
-            ['LL',                                 '14 Февраля 2010 г.'],
-            ['LLL',                                '14 Февраля 2010 г., 15:25'],
-            ['LLLL',                               'Воскресенье, 14 Февраля 2010 г., 15:25'],
+            ['LL',                                 '14 февраля 2010 г.'],
+            ['LLL',                                '14 февраля 2010 г., 15:25'],
+            ['LLLL',                               'воскресенье, 14 февраля 2010 г., 15:25'],
             ['l',                                  '14.2.2010'],
             ['ll',                                 '14 фев 2010 г.'],
             ['lll',                                '14 фев 2010 г., 15:25'],
-            ['llll',                               'Вс, 14 фев 2010 г., 15:25']
+            ['llll',                               'вс, 14 фев 2010 г., 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -116,7 +116,7 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'Январь янв_Февраль фев_Март март_Апрель апр_Май май_Июнь июнь_Июль июль_Август авг_Сентябрь сен_Октябрь окт_Ноябрь ноя_Декабрь дек'.split('_'), i;
+    var expected = 'январь янв_февраль фев_март март_апрель апр_май май_июнь июнь_июль июль_август авг_сентябрь сен_октябрь окт_ноябрь ноя_декабрь дек'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
@@ -124,8 +124,8 @@ test('format month', function (assert) {
 
 test('format month case', function (assert) {
     var months = {
-        'nominative': 'Январь_Февраль_Март_Апрель_Май_Июнь_Июль_Август_Сентябрь_Октябрь_Ноябрь_Декабрь'.split('_'),
-        'accusative': 'Января_Февраля_Марта_Апреля_Мая_Июня_Июля_Августа_Сентября_Октября_Ноября_Декабря'.split('_')
+        'nominative': 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_'),
+        'accusative': 'января_февраля_марта_апреля_мая_июня_июля_августа_сентября_октября_ноября_декабря'.split('_')
     }, i;
     for (i = 0; i < 12; i++) {
         assert.equal(moment([2011, i, 1]).format('D MMMM'), '1 ' + months.accusative[i], '1 ' + months.accusative[i]);
@@ -146,8 +146,8 @@ test('format month short case', function (assert) {
 
 test('format month case with escaped symbols', function (assert) {
     var months = {
-        'nominative': 'Январь_Февраль_Март_Апрель_Май_Июнь_Июль_Август_Сентябрь_Октябрь_Ноябрь_Декабрь'.split('_'),
-        'accusative': 'Января_Февраля_Марта_Апреля_Мая_Июня_Июля_Августа_Сентября_Октября_Ноября_Декабря'.split('_')
+        'nominative': 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_'),
+        'accusative': 'января_февраля_марта_апреля_мая_июня_июля_августа_сентября_октября_ноября_декабря'.split('_')
     }, i;
     for (i = 0; i < 12; i++) {
         assert.equal(moment([2013, i, 1]).format('D[] MMMM'), '1 ' + months.accusative[i], '1 ' + months.accusative[i]);
@@ -171,7 +171,7 @@ test('format month short case with escaped symbols', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'Воскресенье Вс Вс_Понедельник Пн Пн_Вторник Вт Вт_Среда Ср Ср_Четверг Чт Чт_Пятница Пт Пт_Суббота Сб Сб'.split('_'), i;
+    var expected = 'воскресенье вс вс_понедельник пн пн_вторник вт вт_среда ср ср_четверг чт чт_пятница пт пт_суббота сб сб'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
