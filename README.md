@@ -1,8 +1,24 @@
-[![NPM version][npm-version-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-url] [![MIT License][license-image]][license-url] [![Build Status][travis-image]][travis-url]
+[![Join the chat at https://gitter.im/moment/moment](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/moment/moment?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-A lightweight javascript date library for parsing, validating, manipulating, and formatting dates.
+[![NPM version][npm-version-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-url] [![MIT License][license-image]][license-url] [![Build Status][travis-image]][travis-url]
+[![Coverage Status](https://coveralls.io/repos/moment/moment/badge.svg?branch=develop)](https://coveralls.io/r/moment/moment?branch=develop)
+
+A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates.
 
 ## [Documentation](http://momentjs.com/docs/)
+
+## Port to ECMAScript 6 (version 2.10.0)
+
+Moment 2.10.0 does not bring any new features, but the code is now written in
+ECMAScript 6 modules and placed inside `src/`. Previously `moment.js`, `locale/*.js` and
+`test/moment/*.js`, `test/locale/*.js` contained the source of the project. Now
+the source is in `src/`, temporary build (ECMAScript 5) files are placed under
+`build/umd/` (for running tests during development), and the `moment.js` and
+`locale/*.js` files are updated only on release.
+
+If you want to use a particular revision of the code, make sure to run
+`grunt transpile update-index`, so `moment.js` and `locales/*.js` are synced
+with `src/*`. We might place that in a commit hook in the future.
 
 ## Upgrading to 2.0.0
 
@@ -20,13 +36,16 @@ There are a number of small backwards incompatible changes with version 2.0.0. [
 
  * Duplicate `Date` passed to `moment()` instead of referencing it.
 
-## [Changelog](CHANGELOG.md)
+## [Changelog](https://github.com/moment/moment/blob/develop/CHANGELOG.md)
 
-## [Contributing](CONTRIBUTING.md)
+## [Contributing](https://github.com/moment/moment/blob/develop/CONTRIBUTING.md)
+
+We're looking for co-maintainers! If you want to become a master of time please
+write to [ichernev](https://github.com/ichernev).
 
 ## License
 
-Moment.js is freely distributable under the terms of the [MIT license](LICENSE).
+Moment.js is freely distributable under the terms of the [MIT license](https://github.com/moment/moment/blob/develop/LICENSE).
 
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
 [license-url]: LICENSE

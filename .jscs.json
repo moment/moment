@@ -32,7 +32,6 @@
     "disallowSpacesInNamedFunctionExpression": {
         "beforeOpeningRoundBrace": true
     },
-    "requireMultipleVarDecl": "onevar",
     "requireBlocksOnNewline": true,
     "disallowPaddingNewlinesInBlocks": true,
     "disallowEmptyBlocks": true,
@@ -59,5 +58,10 @@
     "disallowTrailingWhitespace": true,
     "disallowTrailingComma": true,
     "requireLineFeedAtFileEnd": true,
-    "requireCapitalizedConstructors": true
+    "requireCapitalizedConstructors": true,
+    "validateQuoteMarks": {
+        "mark": "'",
+        "escape": true
+    },
+    "esnext": true
 }

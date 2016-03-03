@@ -1,6 +1,140 @@
 Changelog
 =========
 
+### 2.11.2 (Fix ReDoS attack vector)
+
+* [#2939](https://github.com/moment/moment/pull/2939) use full-string match to speed up aspnet regex match
+
+### 2.11.1 [See full changelog](https://gist.github.com/ichernev/8ec3ee25b749b4cff3c2)
+
+## Bugfixes:
+* [#2881](https://github.com/moment/moment/pull/2881) Revert "Merge pull request #2746 from mbad0la:develop" Sep->Sept
+* [#2868](https://github.com/moment/moment/pull/2868) Add format and parse token Y, so it actually works
+* [#2865](https://github.com/moment/moment/pull/2865) Use typeof checks for undefined for global variables
+* [#2858](https://github.com/moment/moment/pull/2858) Fix Date mocking regression introduced in 2.11.0
+* [#2864](https://github.com/moment/moment/pull/2864) Include changelog in npm release
+* [#2830](https://github.com/moment/moment/pull/2830) dep: add grunt-cli
+* [#2869](https://github.com/moment/moment/pull/2869) Fix months parsing for some locales
+
+### 2.11.0 [See full changelog](https://gist.github.com/ichernev/6594bc29719dde6b2f66)
+
+* [#2624](https://github.com/moment/moment/pull/2624) Proper handling of invalid moments
+* [#2634](https://github.com/moment/moment/pull/2634) Fix strict month parsing issue in cs,ru,sk
+* [#2735](https://github.com/moment/moment/pull/2735) Reset the locale back to 'en' after defining all locales in min/locales.js
+* [#2702](https://github.com/moment/moment/pull/2702) Week rework
+* [#2746](https://github.com/moment/moment/pull/2746) Changed September Abbreviation to "Sept" in locale-specific english
+  files and default locale file
+* [#2646](https://github.com/moment/moment/pull/2646) Fix [#2645](https://github.com/moment/moment/pull/2645) - invalid dates pre-1970
+
+* [#2641](https://github.com/moment/moment/pull/2641) Implement basic format and comma as ms separator in ISO 8601
+* [#2665](https://github.com/moment/moment/pull/2665) Implement stricter weekday parsing
+* [#2700](https://github.com/moment/moment/pull/2700) Add [Hh]mm and [Hh]mmss formatting tokens, so you can parse 123 with
+  hmm for example
+* [#2565](https://github.com/moment/moment/pull/2565) [#2835](https://github.com/moment/moment/pull/2835) Expose arguments used for moment creation with creationData
+  (fix [#2443](https://github.com/moment/moment/pull/2443))
+* [#2648](https://github.com/moment/moment/pull/2648) fix issue [#2640](https://github.com/moment/moment/pull/2640): support instanceof operator
+* [#2709](https://github.com/moment/moment/pull/2709) Add isSameOrAfter and isSameOrBefore comparison methods
+* [#2721](https://github.com/moment/moment/pull/2721) Fix moment creation from object with strings values
+* [#2740](https://github.com/moment/moment/pull/2740) Enable 'd hh:mm:ss.sss' format for durations
+* [#2766](https://github.com/moment/moment/pull/2766) [#2833](https://github.com/moment/moment/pull/2833) Alternate Clock Source Support
+
+### 2.10.6
+
+[#2515](https://github.com/moment/moment/pull/2515) Fix regression introduced
+in `2.10.5` related to `moment.ISO_8601` parsing.
+
+### 2.10.5 [See full changelog](https://gist.github.com/ichernev/6ec13ac7efc396da44b2)
+
+Important changes:
+* [#2357](https://github.com/moment/moment/pull/2357) Improve unit bubbling for ISO dates
+  this fixes day to year conversions to work around end-of-year (~365 days). As
+  a side effect 365 days is 11 months and 30 days, and 366 days is one year.
+* [#2438](https://github.com/moment/moment/pull/2438) Fix inconsistent moment.min and moment.max results
+  Return invalid result if any of the inputs is invalid
+* [#2494](https://github.com/moment/moment/pull/2494) Fix two digit year parsing with YYYY format
+  This brings the benefits of YY to YYYY
+* [#2368](https://github.com/moment/moment/pull/2368) perf: use faster form of copying dates, across the board improvement
+
+
+### 2.10.3 [See full changelog](https://gist.github.com/ichernev/f264b9bed5b00f8b1b7f)
+
+* add `moment.fn.to` and `moment.fn.toNow` (similar to `from` and `fromNow`)
+* new locales (Sinhalese (si), Montenegrin (me), Javanese (ja))
+* performance improvements
+
+### 2.10.2
+
+* fixed moment-with-locales in browser env caused by esperanto change
+
+### 2.10.1
+
+* regression: Add moment.duration.fn back
+
+### 2.10.0
+
+Ported code to es6 modules.
+
+### 2.9.0 [See full changelog](https://gist.github.com/ichernev/0c9a9b49951111a27ce7)
+
+languages:
+* [2104](https://github.com/moment/moment/issues/2104) Frisian (fy) language file with unit test
+* [2097](https://github.com/moment/moment/issues/2097) add ar-tn locale
+
+deprecations:
+* [2074](https://github.com/moment/moment/issues/2074) Implement `moment.fn.utcOffset`, deprecate `moment.fn.zone`
+
+features:
+* [2088](https://github.com/moment/moment/issues/2088) add moment.fn.isBetween
+* [2054](https://github.com/moment/moment/issues/2054) Call updateOffset when creating moment (needed for default timezone in
+  moment-timezone)
+* [1893](https://github.com/moment/moment/issues/1893) Add moment.isDate method
+* [1825](https://github.com/moment/moment/issues/1825) Implement toJSON function on Duration
+* [1809](https://github.com/moment/moment/issues/1809) Allowing moment.set() to accept a hash of units
+* [2128](https://github.com/moment/moment/issues/2128) Add firstDayOfWeek, firstDayOfYear locale getters
+* [2131](https://github.com/moment/moment/issues/2131) Add quarter diff support
+
+Some bugfixes and language improvements -- [full changelog](https://gist.github.com/ichernev/0c9a9b49951111a27ce7)
+
+### 2.8.4 [See full changelog](https://gist.github.com/ichernev/a4fcb0a46d74e4b9b996)
+
+Features:
+
+* [#2000](https://github.com/moment/moment/issues/2000) Add LTS localised format that includes seconds
+* [#1960](https://github.com/moment/moment/issues/1960) added formatToken 'x' for unix offset in milliseconds #1938
+* [#1965](https://github.com/moment/moment/issues/1965) Support 24:00:00.000 to mean next day, at midnight.
+* [#2002](https://github.com/moment/moment/issues/2002) Accept 'date' key when creating moment with object
+* [#2009](https://github.com/moment/moment/issues/2009) Use native toISOString when we can
+
+Some bugfixes and language improvements -- [full changelog](https://gist.github.com/ichernev/a4fcb0a46d74e4b9b996)
+
+### 2.8.3
+
+Bugfixes:
+
+* [#1801](https://github.com/moment/moment/issues/1801) proper pluralization for Arabic
+* [#1833](https://github.com/moment/moment/issues/1833) improve spm integration
+* [#1871](https://github.com/moment/moment/issues/1871) fix zone bug caused by Firefox 24
+* [#1882](https://github.com/moment/moment/issues/1882) Use hh:mm in Czech
+* [#1883](https://github.com/moment/moment/issues/1883) Fix 2.8.0 regression in duration as conversions
+* [#1890](https://github.com/moment/moment/issues/1890) Faster travis builds
+* [#1892](https://github.com/moment/moment/issues/1892) Faster isBefore/After/Same
+* [#1848](https://github.com/moment/moment/issues/1848) Fix flaky month diffs
+* [#1895](https://github.com/moment/moment/issues/1895) Fix 2.8.0 regression in moment.utc with format array
+* [#1896](https://github.com/moment/moment/issues/1896) Support setting invalid instance locale (noop)
+* [#1897](https://github.com/moment/moment/issues/1897) Support moment([str]) in addition to moment([int])
+
+### 2.8.2
+
+Minor bugfixes:
+
+* [#1874](https://github.com/moment/moment/issues/1874) use `Object.prototype.hasOwnProperty`
+  instead of `obj.hasOwnProperty` (ie8 bug)
+* [#1873](https://github.com/moment/moment/issues/1873) add `duration#toString()`
+* [#1859](https://github.com/moment/moment/issues/1859) better month/weekday names in norwegian
+* [#1812](https://github.com/moment/moment/issues/1812) meridiem parsing for greek
+* [#1804](https://github.com/moment/moment/issues/1804) spanish del -> de
+* [#1800](https://github.com/moment/moment/issues/1800) korean LT improvement
+
 ### 2.8.1
 
 * bugfix [#1813](https://github.com/moment/moment/issues/1813): fix moment().lang([key]) incompatibility
@@ -174,7 +308,7 @@ Bugfix: Fixed parsing of first century dates
 
 Bugfix: Parsing 10Sep2001 should work as expected
 
-Bugfix: Fixed wierdness with `moment.utc()` parsing.
+Bugfix: Fixed weirdness with `moment.utc()` parsing.
 
 Changed language ordinal method to return the number + ordinal instead of just the ordinal.
 
