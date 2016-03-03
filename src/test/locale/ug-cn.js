@@ -24,7 +24,7 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, a h:mm:ss',      '星期日, 二月 14日 2010, 下午 3:25:50'],
+            ['dddd, MMMM Do YYYY, a h:mm:ss',      'يەكشەنبە, 二月 14日 2010, 下午 3:25:50'],
             ['ddd, Ah',                            '周日, 下午3'],
             ['M Mo MM MMMM MMM',                   '2 2月 02 二月 2月'],
             ['YYYY YY',                            '2010 10'],
@@ -121,8 +121,8 @@ test('fromNow', function (assert) {
 test('calendar day', function (assert) {
     var a = moment().hours(2).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                   '今天凌晨2点整',     'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      '今天凌晨2点25分',   'Now plus 25 min');
+    assert.equal(moment(a).calendar(),                   'بۇگۈن يېرىم كېچە 2',     'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'بۈگۈن يېرىم كېچە2:25',   'Now plus 25 min');
     assert.equal(moment(a).add({h: 1}).calendar(),       '今天凌晨3点整',     'Now plus 1 hour');
     assert.equal(moment(a).add({d: 1}).calendar(),       '明天凌晨2点整',     'tomorrow at the same time');
     assert.equal(moment(a).subtract({h: 1}).calendar(),  '今天凌晨1点整',     'Now minus 1 hour');
