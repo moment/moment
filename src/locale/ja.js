@@ -37,6 +37,17 @@ export default moment.defineLocale('ja', {
         lastWeek : '[前週]dddd LT',
         sameElse : 'L'
     },
+    ordinalParse : /\d{1,2}日/,
+    ordinal : function (number, period) {
+        switch (period) {
+        case 'd':
+        case 'D':
+        case 'DDD':
+            return number + '日';
+        default:
+            return number;
+        }
+    },
     relativeTime : {
         future : '%s後',
         past : '%s前',
