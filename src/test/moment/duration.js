@@ -250,6 +250,7 @@ test('instatiation from serialized C# TimeSpan minValue', function (assert) {
 
 test('instantiation from ISO 8601 duration', function (assert) {
     assert.equal(moment.duration('P1Y2M3DT4H5M6S').asSeconds(), moment.duration({y: 1, M: 2, d: 3, h: 4, m: 5, s: 6}).asSeconds(), 'all fields');
+    assert.equal(moment.duration('P3W3D').asSeconds(), moment.duration({w: 3, d: 3}).asSeconds(), 'week and day fields');
     assert.equal(moment.duration('P1M').asSeconds(), moment.duration({M: 1}).asSeconds(), 'single month field');
     assert.equal(moment.duration('PT1M').asSeconds(), moment.duration({m: 1}).asSeconds(), 'single minute field');
     assert.equal(moment.duration('P1MT2H').asSeconds(), moment.duration({M: 1, h: 2}).asSeconds(), 'random fields missing');
