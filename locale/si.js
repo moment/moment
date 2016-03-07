@@ -52,6 +52,10 @@
         ordinal : function (number) {
             return number + ' වැනි';
         },
+        meridiemParse : /පෙර වරු|පස් වරු|පෙ.ව|ප.ව./,
+        isPM : function (input) {
+            return input === 'ප.ව.' || input === 'පස් වරු';
+        },
         meridiem : function (hours, minutes, isLower) {
             if (hours > 11) {
                 return isLower ? 'ප.ව.' : 'පස් වරු';
