@@ -1,6 +1,24 @@
 Changelog
 =========
 
+### 2.12.0 [See full changelog](https://gist.github.com/ichernev/6e5bfdf8d6522fc4ac73)
+
+## Enhancements:
+* [#2932](https://github.com/moment/moment/pull/2932) List loaded locales
+* [#2818](https://github.com/moment/moment/pull/2818) Parse ISO-8061 duration containing both day and week values
+* [#2774](https://github.com/moment/moment/pull/2774) Implement locale inheritance and locale updating
+
+## Bugfixes:
+* [#2970](https://github.com/moment/moment/pull/2970) change add subtract to handle decimal values by rounding
+* [#2887](https://github.com/moment/moment/pull/2887) Fix toJSON casting of invalid moment
+* [#2897](https://github.com/moment/moment/pull/2897) parse string arguments for month() correctly, closes #2884
+* [#2946](https://github.com/moment/moment/pull/2946) Fix usage suggestions for min and max
+
+## New locales:
+* [#2917](https://github.com/moment/moment/pull/2917) Locale Punjabi(Gurmukhi) India format conversion
+
+And more
+
 ### 2.11.2 (Fix ReDoS attack vector)
 
 * [#2939](https://github.com/moment/moment/pull/2939) use full-string match to speed up aspnet regex match
