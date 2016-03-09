@@ -3,7 +3,7 @@ import moment from '../../moment';
 localeModule('kk');
 
 test('parse', function (assert) {
-    var tests = 'Қаңтар Қаң_Ақпан Ақп_Наурыз Нау_Сәуір Сәу_Мамыр Мам_Маусым Мау_Шілде Шіл_Тамыз Там_Қыркүйек Қыр_Қазан Қаз_Қараша Қар_Желтоқсан Жел'.split('_'), i;
+    var tests = 'қаңтар қаң_ақпан ақп_наурыз нау_сәуір сәу_мамыр мам_маусым мау_шілде шіл_тамыз там_қыркүйек қыр_қазан қаз_қараша қар_желтоқсан жел'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
@@ -22,12 +22,12 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, Do MMMM YYYY, HH:mm:ss',       'Жексенбі, 14-ші Ақпан 2010, 15:25:50'],
-            ['ddd, hA',                            'Жек, 3PM'],
-            ['M Mo MM MMMM MMM',                   '2 2-ші 02 Ақпан Ақп'],
+            ['dddd, Do MMMM YYYY, HH:mm:ss',       'жексенбі, 14-ші ақпан 2010, 15:25:50'],
+            ['ddd, hA',                            'жек, 3PM'],
+            ['M Mo MM MMMM MMM',                   '2 2-ші 02 ақпан ақп'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14-ші 14'],
-            ['d do dddd ddd dd',                   '0 0-ші Жексенбі Жек Жк'],
+            ['d do dddd ddd dd',                   '0 0-ші жексенбі жек жк'],
             ['DDD DDDo DDDD',                      '45 45-ші 045'],
             ['w wo ww',                            '7 7-ші 07'],
             ['h hh',                               '3 03'],
@@ -38,13 +38,13 @@ test('format', function (assert) {
             ['[жылдың] DDDo [күні]',               'жылдың 45-ші күні'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14.02.2010'],
-            ['LL',                                 '14 Ақпан 2010'],
-            ['LLL',                                '14 Ақпан 2010 15:25'],
-            ['LLLL',                               'Жексенбі, 14 Ақпан 2010 15:25'],
+            ['LL',                                 '14 ақпан 2010'],
+            ['LLL',                                '14 ақпан 2010 15:25'],
+            ['LLLL',                               'жексенбі, 14 ақпан 2010 15:25'],
             ['l',                                  '14.2.2010'],
-            ['ll',                                 '14 Ақп 2010'],
-            ['lll',                                '14 Ақп 2010 15:25'],
-            ['llll',                               'Жек, 14 Ақп 2010 15:25']
+            ['ll',                                 '14 ақп 2010'],
+            ['lll',                                '14 ақп 2010 15:25'],
+            ['llll',                               'жек, 14 ақп 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -91,14 +91,14 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'Қаңтар Қаң_Ақпан Ақп_Наурыз Нау_Сәуір Сәу_Мамыр Мам_Маусым Мау_Шілде Шіл_Тамыз Там_Қыркүйек Қыр_Қазан Қаз_Қараша Қар_Желтоқсан Жел'.split('_'), i;
+    var expected = 'қаңтар қаң_ақпан ақп_наурыз нау_сәуір сәу_мамыр мам_маусым мау_шілде шіл_тамыз там_қыркүйек қыр_қазан қаз_қараша қар_желтоқсан жел'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
 });
 
 test('format week', function (assert) {
-    var expected = 'Жексенбі Жек Жк_Дүйсенбі Дүй Дй_Сейсенбі Сей Сй_Сәрсенбі Сәр Ср_Бейсенбі Бей Бй_Жұма Жұм Жм_Сенбі Сен Сн'.split('_'), i;
+    var expected = 'жексенбі жек жк_дүйсенбі дүй дй_сейсенбі сей сй_сәрсенбі сәр ср_бейсенбі бей бй_жұма жұм жм_сенбі сен сн'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
