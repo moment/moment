@@ -152,6 +152,12 @@ test('defineLocale', function (assert) {
     assert.equal(moment().locale('dude').locale(), 'dude', 'defineLocale defines a locale');
 });
 
+test('locales', function (assert) {
+    moment.defineLocale('dude', {months: ['Movember']});
+    assert.equal(true, !!~moment.locales().indexOf('dude'), 'locales returns an array of defined locales');
+    assert.equal(true, !!~moment.locales().indexOf('en'), 'locales should always include english');
+});
+
 test('library convenience', function (assert) {
     moment.locale('something', {week: {dow: 3}});
     moment.locale('something');

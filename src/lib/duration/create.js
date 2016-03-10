@@ -10,7 +10,8 @@ var aspNetRegex = /^(\-)?(?:(\d*)[. ])?(\d+)\:(\d+)(?:\:(\d+)\.?(\d{3})?\d*)?$/;
 
 // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
 // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
-var isoRegex = /^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/;
+// and further modified to allow for strings containing both week and day
+var isoRegex = /^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$/;
 
 export function createDuration (input, key) {
     var duration = input,
@@ -48,11 +49,11 @@ export function createDuration (input, key) {
         duration = {
             y : parseIso(match[2], sign),
             M : parseIso(match[3], sign),
-            d : parseIso(match[4], sign),
-            h : parseIso(match[5], sign),
-            m : parseIso(match[6], sign),
-            s : parseIso(match[7], sign),
-            w : parseIso(match[8], sign)
+            w : parseIso(match[4], sign),
+            d : parseIso(match[5], sign),
+            h : parseIso(match[6], sign),
+            m : parseIso(match[7], sign),
+            s : parseIso(match[8], sign)
         };
     } else if (duration == null) {// checks for null or undefined
         duration = {};

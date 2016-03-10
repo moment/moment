@@ -1,6 +1,8 @@
 import isArray from '../utils/is-array';
 import isUndefined from '../utils/is-undefined';
 import compareArrays from '../utils/compare-arrays';
+import { deprecateSimple } from '../utils/deprecate';
+import { mergeConfigs } from './set';
 import { Locale } from './constructor';
 
 // internal storage for locale config files
@@ -76,11 +78,25 @@ export function getSetGlobalLocale (key, values) {
     return globalLocale._abbr;
 }
 
-export function defineLocale (name, values) {
-    if (values !== null) {
-        values.abbr = name;
-        locales[name] = locales[name] || new Locale();
-        locales[name].set(values);
+export function defineLocale (name, config) {
+    if (config !== null) {
+        config.abbr = name;
+        if (locales[name] != null) {
+            deprecateSimple('defineLocaleOverride',
+                    'use moment.updateLocale(localeName, config) to change ' +
+                    'an existing locale. moment.defineLocale(localeName, ' +
+                    'config) should only be used for creating a new locale');
+            config = mergeConfigs(locales[name]._config, config);
+        } else if (config.parentLocale != null) {
+            if (locales[config.parentLocale] != null) {
+                config = mergeConfigs(locales[config.parentLocale]._config, config);
+            } else {
+                // treat as if there is no base config
+                deprecateSimple('parentLocaleUndefined',
+                        'specified parentLocale is not defined yet');
+            }
+        }
+        locales[name] = new Locale(config);
 
         // backwards compat for now: also set the locale
         getSetGlobalLocale(name);
@@ -91,6 +107,31 @@ export function defineLocale (name, values) {
         delete locales[name];
         return null;
     }
+}
+
+export function updateLocale(name, config) {
+    if (config != null) {
+        var locale;
+        if (locales[name] != null) {
+            config = mergeConfigs(locales[name]._config, config);
+        }
+        locale = new Locale(config);
+        locale.parentLocale = locales[name];
+        locales[name] = locale;
+
+        // backwards compat for now: also set the locale
+        getSetGlobalLocale(name);
+    } else {
+        // pass null for config to unupdate, useful for tests
+        if (locales[name] != null) {
+            if (locales[name].parentLocale != null) {
+                locales[name] = locales[name].parentLocale;
+            } else if (locales[name] != null) {
+                delete locales[name];
+            }
+        }
+    }
+    return locales[name];
 }
 
 // returns locale data
@@ -115,4 +156,8 @@ export function getLocale (key) {
     }
 
     return chooseLocale(key);
+}
+
+export function listLocales() {
+    return Object.keys(locales);
 }

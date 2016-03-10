@@ -4,7 +4,7 @@ import { createLocal } from '../create/local';
 import { createInvalid } from '../create/valid';
 
 export var prototypeMin = deprecate(
-     'moment().min is deprecated, use moment.min instead. https://github.com/moment/moment/issues/1548',
+     'moment().min is deprecated, use moment.max instead. https://github.com/moment/moment/issues/1548',
      function () {
          var other = createLocal.apply(null, arguments);
          if (this.isValid() && other.isValid()) {
@@ -16,7 +16,7 @@ export var prototypeMin = deprecate(
  );
 
 export var prototypeMax = deprecate(
-    'moment().max is deprecated, use moment.max instead. https://github.com/moment/moment/issues/1548',
+    'moment().max is deprecated, use moment.min instead. https://github.com/moment/moment/issues/1548',
     function () {
         var other = createLocal.apply(null, arguments);
         if (this.isValid() && other.isValid()) {

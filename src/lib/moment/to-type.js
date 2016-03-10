@@ -29,6 +29,6 @@ export function toObject () {
 }
 
 export function toJSON () {
-    // JSON.stringify(new Date(NaN)) === 'null'
-    return this.isValid() ? this.toISOString() : 'null';
+    // new Date(NaN).toJSON() === null
+    return this.isValid() ? this.toISOString() : null;
 }
