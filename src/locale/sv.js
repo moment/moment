@@ -15,8 +15,10 @@ export default moment.defineLocale('sv', {
         LTS : 'HH:mm:ss',
         L : 'YYYY-MM-DD',
         LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LLL : 'D MMMM YYYY [kl.] HH:mm',
+        LLLL : 'dddd D MMMM YYYY [kl.] HH:mm',
+        lll : 'D MMM YYYY HH:mm',
+        llll : 'ddd D MMM YYYY HH:mm'
     },
     calendar : {
         sameDay: '[Idag] LT',
