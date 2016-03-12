@@ -120,36 +120,30 @@ test('setter programmatic', function (assert) {
     assert.equal(a.month(), 3, 'month edge case');
 });
 
-// Disable this, until we weekYear setter is fixed.
-// https://github.com/moment/moment/issues/1379
-// test('setters programatic with weeks', function (assert) {
-//     var a = moment();
-//     a.set('weekYear', 2001);
-//     a.set('week', 49);
-//     a.set('day', 4);
-//     assert.equals(a.weekYear(), 2001);
-//     assert.equals(a.week(), 49);
-//     assert.equals(a.day(), 4);
+test('setters programatic with weeks', function (assert) {
+    var a = moment();
+    a.set('weekYear', 2001);
+    a.set('week', 49);
+    a.set('day', 4);
 
-//     a.set('weekday', 1);
-//     assert.equals(a.weekday(), 1);
+    assert.equal(a.weekYear(), 2001, 'weekYear');
+    assert.equal(a.week(), 49, 'week');
+    assert.equal(a.day(), 4, 'day');
 
-//     assert.done();
-//},
+    a.set('weekday', 1);
+    assert.equal(a.weekday(), 1, 'weekday');
+});
 
-// I think this suffers from the same issue as the non-iso version.
-// test('setters programatic with weeks ISO', function (assert) {
-//     var a = moment();
-//     a.set('isoWeekYear', 2001);
-//     a.set('isoWeek', 49);
-//     a.set('isoWeekday', 4);
+test('setters programatic with weeks ISO', function (assert) {
+    var a = moment();
+    a.set('isoWeekYear', 2001);
+    a.set('isoWeek', 49);
+    a.set('isoWeekday', 4);
 
-//     assert.equals(a.weekYear(), 2001);
-//     assert.equals(a.week(), 49);
-//     assert.equals(a.day(), 4);
-
-//     assert.done();
-//},
+    assert.equal(a.weekYear(), 2001, 'weekYear');
+    assert.equal(a.week(), 49, 'week');
+    assert.equal(a.day(), 4, 'day');
+});
 
 test('setters strings', function (assert) {
     var a = moment([2012]).locale('en');
