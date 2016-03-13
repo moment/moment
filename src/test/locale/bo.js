@@ -151,14 +151,14 @@ test('fromNow', function (assert) {
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                     'དི་རིང མཚན་མོ ༢:༠༠',     'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'དི་རིང མཚན་མོ ༢:༢༥',     'Now plus 25 min');
-    assert.equal(moment(a).add({h: 3}).calendar(),       'དི་རིང ཞོགས་ཀས ༥:༠༠',     'Now plus 3 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'སང་ཉིན མཚན་མོ ༢:༠༠',  'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'དི་རིང མཚན་མོ ༡:༠༠',     'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'ཁ་སང མཚན་མོ ༢:༠༠', 'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   'དི་རིང ཉིན་གུང ༡༢:༠༠',  'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'དི་རིང ཉིན་གུང ༡༢:༢༥',  'Now plus 25 min');
+    assert.equal(moment(a).add({h: 3}).calendar(),       'དི་རིང ཉིན་གུང ༣:༠༠',   'Now plus 3 hours');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'སང་ཉིན ཉིན་གུང ༡༢:༠༠',  'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'དི་རིང ཉིན་གུང ༡༡:༠༠',  'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'ཁ་སང ཉིན་གུང ༡༢:༠༠',    'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {

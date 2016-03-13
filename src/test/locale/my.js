@@ -216,24 +216,14 @@ test('fromNow', function (assert) {
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(), 'ယနေ. ၀၂:၀၀ မှာ', 'ယနေ. ဒီအချိန်');
-    assert.equal(moment(a).add({
-        m: 25
-    }).calendar(), 'ယနေ. ၀၂:၂၅ မှာ', 'ယခုမှ ၂၅ မိနစ်ပေါင်းထည့်');
-    assert.equal(moment(a).add({
-        h: 1
-    }).calendar(), 'ယနေ. ၀၃:၀၀ မှာ', 'ယခုမှ ၁ နာရီပေါင်းထည့်');
-    assert.equal(moment(a).add({
-        d: 1
-    }).calendar(), 'မနက်ဖြန် ၀၂:၀၀ မှာ', 'မနက်ဖြန် ဒီအချိန်');
-    assert.equal(moment(a).subtract({
-        h: 1
-    }).calendar(), 'ယနေ. ၀၁:၀၀ မှာ', 'ယခုမှ ၁ နာရီနှုတ်');
-    assert.equal(moment(a).subtract({
-        d: 1
-    }).calendar(), 'မနေ.က ၀၂:၀၀ မှာ', 'မနေ.က ဒီအချိန်');
+    assert.equal(moment(a).calendar(),                  'ယနေ. ၁၂:၀၀ မှာ',      'ယနေ. ဒီအချိန်');
+    assert.equal(moment(a).add({m: 25}).calendar(),     'ယနေ. ၁၂:၂၅ မှာ',      'ယခုမှ ၂၅ မိနစ်ပေါင်းထည့်');
+    assert.equal(moment(a).add({h: 1}).calendar(),      'ယနေ. ၁၃:၀၀ မှာ',      'ယခုမှ ၁ နာရီပေါင်းထည့်');
+    assert.equal(moment(a).add({d: 1}).calendar(),      'မနက်ဖြန် ၁၂:၀၀ မှာ',  'မနက်ဖြန် ဒီအချိန်');
+    assert.equal(moment(a).subtract({h: 1}).calendar(), 'ယနေ. ၁၁:၀၀ မှာ',      'ယခုမှ ၁ နာရီနှုတ်');
+    assert.equal(moment(a).subtract({d: 1}).calendar(), 'မနေ.က ၁၂:၀၀ မှာ',     'မနေ.က ဒီအချိန်');
 });
 
 test('calendar next week', function (assert) {

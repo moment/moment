@@ -147,18 +147,18 @@ test('fromNow', function (assert) {
     assert.equal(moment().add({d: 5}).fromNow(), 'mewn 5 diwrnod', 'in 5 days');
 });
 
-test('same day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+test('calendar day', function (assert) {
+    var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                     'Heddiw am 02:00',    'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'Heddiw am 02:25',    'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),       'Heddiw am 03:00',    'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'Yfory am 02:00',         'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Heddiw am 01:00',    'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Ddoe am 02:00',           'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   'Heddiw am 12:00',    'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'Heddiw am 12:25',    'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       'Heddiw am 13:00',    'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'Yfory am 12:00',     'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Heddiw am 11:00',    'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Ddoe am 12:00',      'yesterday at the same time');
 });
 
-test('same next week', function (assert) {
+test('calendar next week', function (assert) {
     var i, m;
 
     for (i = 2; i < 7; i++) {
@@ -171,7 +171,7 @@ test('same next week', function (assert) {
     }
 });
 
-test('same last week', function (assert) {
+test('calendar last week', function (assert) {
     var i, m;
 
     for (i = 2; i < 7; i++) {
@@ -184,7 +184,7 @@ test('same last week', function (assert) {
     }
 });
 
-test('same all else', function (assert) {
+test('calendar all else', function (assert) {
     var weeksAgo = moment().subtract({w: 1}),
         weeksFromNow = moment().add({w: 1});
 

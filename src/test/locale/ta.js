@@ -151,14 +151,14 @@ test('fromNow', function (assert) {
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),  'இன்று ௦௨:௦௦', 'இன்று  02:00');
-    assert.equal(moment(a).add({m: 25}).calendar(), 'இன்று ௦௨:௨௫', 'இன்று  02:25');
-    assert.equal(moment(a).add({h: 1}).calendar(), 'இன்று ௦௩:௦௦', 'இன்று  03:00');
-    assert.equal(moment(a).add({d: 1}).calendar(), 'நாளை ௦௨:௦௦', 'நாளை  02:00');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'இன்று ௦௧:௦௦',      'இன்று  0௧:00');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'நேற்று ௦௨:௦௦',  'நேற்று  02:00');
+    assert.equal(moment(a).calendar(),                   'இன்று ௧௨:௦௦',   'இன்று  12:00');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'இன்று ௧௨:௨௫',   'இன்று  12:25');
+    assert.equal(moment(a).add({h: 1}).calendar(),       'இன்று ௧௩:௦௦',   'இன்று  13:00');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'நாளை ௧௨:௦௦',    'நாளை  12:00');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'இன்று ௧௧:௦௦',   'இன்று  11:00');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'நேற்று ௧௨:௦௦',  'நேற்று  12:00');
 });
 
 test('calendar next week', function (assert) {

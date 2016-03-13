@@ -160,14 +160,14 @@ test('fromNow', function (assert) {
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                     'Hari ini pukul 02.00',     'hari ini pada waktu yang sama');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'Hari ini pukul 02.25',     'Sekarang tambah 25 minit');
-    assert.equal(moment(a).add({h: 1}).calendar(),       'Hari ini pukul 03.00',     'Sekarang tambah 1 jam');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'Esok pukul 02.00',  'esok pada waktu yang sama');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hari ini pukul 01.00',     'Sekarang tolak 1 jam');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Kelmarin pukul 02.00', 'kelmarin pada waktu yang sama');
+    assert.equal(moment(a).calendar(),                   'Hari ini pukul 12.00',  'hari ini pada waktu yang sama');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'Hari ini pukul 12.25',  'Sekarang tambah 25 minit');
+    assert.equal(moment(a).add({h: 1}).calendar(),       'Hari ini pukul 13.00',  'Sekarang tambah 1 jam');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'Esok pukul 12.00',      'esok pada waktu yang sama');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hari ini pukul 11.00',  'Sekarang tolak 1 jam');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Kelmarin pukul 12.00',  'kelmarin pada waktu yang sama');
 });
 
 test('calendar next week', function (assert) {
