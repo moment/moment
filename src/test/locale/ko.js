@@ -186,14 +186,14 @@ test('fromNow', function (assert) {
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                     '오늘 오전 2시 0분',     'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      '오늘 오전 2시 25분',     'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),       '오늘 오전 3시 0분',     'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       '내일 오전 2시 0분',     'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  '오늘 오전 1시 0분',     'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  '어제 오전 2시 0분',     'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   '오늘 오후 12시 0분',     'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      '오늘 오후 12시 25분',    'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       '오늘 오후 1시 0분',      'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       '내일 오후 12시 0분',     'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  '오늘 오전 11시 0분',     'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  '어제 오후 12시 0분',     'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {

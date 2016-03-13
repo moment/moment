@@ -164,14 +164,14 @@ test('fromNow', function (assert) {
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                     'დღეს 2:00 AM-ზე',  'დღეს ამავე დროს');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'დღეს 2:25 AM-ზე',  'ახლანდელ დროს დამატებული 25 წუთი');
-    assert.equal(moment(a).add({h: 1}).calendar(),       'დღეს 3:00 AM-ზე',  'ახლანდელ დროს დამატებული 1 საათი');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'ხვალ 2:00 AM-ზე',  'ხვალ ამავე დროს');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'დღეს 1:00 AM-ზე',  'ახლანდელ დროს გამოკლებული 1 საათი');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'გუშინ 2:00 AM-ზე', 'გუშინ ამავე დროს');
+    assert.equal(moment(a).calendar(),                   'დღეს 12:00 PM-ზე',  'დღეს ამავე დროს');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'დღეს 12:25 PM-ზე',  'ახლანდელ დროს დამატებული 25 წუთი');
+    assert.equal(moment(a).add({h: 1}).calendar(),       'დღეს 1:00 PM-ზე',   'ახლანდელ დროს დამატებული 1 საათი');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'ხვალ 12:00 PM-ზე',  'ხვალ ამავე დროს');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'დღეს 11:00 AM-ზე',  'ახლანდელ დროს გამოკლებული 1 საათი');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'გუშინ 12:00 PM-ზე', 'გუშინ ამავე დროს');
 });
 
 test('calendar next week', function (assert) {

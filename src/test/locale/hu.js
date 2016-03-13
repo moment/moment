@@ -164,14 +164,14 @@ test('fromNow', function (assert) {
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                     'ma 2:00-kor',     'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'ma 2:25-kor',     'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),       'ma 3:00-kor',     'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'holnap 2:00-kor', 'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'ma 1:00-kor',     'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'tegnap 2:00-kor', 'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   'ma 12:00-kor',     'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'ma 12:25-kor',     'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       'ma 13:00-kor',     'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'holnap 12:00-kor', 'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'ma 11:00-kor',     'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'tegnap 12:00-kor', 'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {
