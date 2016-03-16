@@ -1041,3 +1041,19 @@ test('hmm', function (assert) {
 test('Y token', function (assert) {
     assert.equal(moment('1-1-2010', 'M-D-Y', true).year(), 2010, 'parsing Y');
 });
+
+test('parsing flags retain parsed date parts', function (assert) {
+    var a = moment('10 p', 'hh:mm a');
+    assert.equal(a.parsingFlags().parsedDateParts[3], 10, 'parsed 10 as the hour');
+    assert.equal(a.parsingFlags().parsedDateParts[0], undefined, 'year was not parsed');
+    assert.equal(a.parsingFlags().meridiem, 'p', 'meridiem flag was added');
+    var b = moment('10:30', ['MMDDYY', 'HH:mm']);
+    assert.equal(b.parsingFlags().parsedDateParts[3], 10, 'multiple format parshing matched hour');
+    assert.equal(b.parsingFlags().parsedDateParts[0], undefined, 'array is properly copied, no residual data from first token parse');
+});
+
+test('parsing only meridiem results in invalid date', function (assert) {
+    assert.ok(!moment('alkj', 'hh:mm a').isValid(), 'because an a token is used, a meridiem will be parsed but nothing else was so invalid');
+    assert.ok(moment('02:30 p more extra stuff', 'hh:mm a').isValid(), 'because other tokens were parsed, date is valid');
+    assert.ok(moment('1/1/2016 extra data', ['a', 'M/D/YYYY']).isValid(), 'took second format, does not pick up on meridiem parsed from first format (good copy)');
+});
