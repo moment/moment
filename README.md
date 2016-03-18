@@ -5,7 +5,7 @@
 
 A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates.
 
-## [Documentation](http://momentjs.com/docs/)
+**[Documentation](http://momentjs.com/docs/)**
 
 ## Port to ECMAScript 6 (version 2.10.0)
 
