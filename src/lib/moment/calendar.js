@@ -7,13 +7,23 @@ export function calendar (time, formats) {
     // Getting start-of-today depends on whether we're local/utc/offset or not.
     var now = time || createLocal(),
         sod = cloneWithOffset(now, this).startOf('day'),
-        diff = this.diff(sod, 'days', true),
-        format = diff < -6 ? 'sameElse' :
-            diff < -1 ? 'lastWeek' :
-            diff < 0 ? 'lastDay' :
-            diff < 1 ? 'sameDay' :
-            diff < 2 ? 'nextDay' :
-            diff < 7 ? 'nextWeek' : 'sameElse';
+        daysDiff = this.diff(sod, 'days', true),
+        monthsDiff = this.month() - sod.month(),
+        yearsDiff = this.year() - sod.year(),
+        format = daysDiff < -6 ?
+                    (yearsDiff === 0 ?
+                        (monthsDiff === 0 ? 'sameMonth' :
+                            monthsDiff === -1 ? 'lastMonth' : 'sameYear') :
+                    yearsDiff === -1 ? 'lastYear' : 'sameElse') :
+            daysDiff < -1 ? 'lastWeek' :
+            daysDiff < 0 ? 'lastDay' :
+            daysDiff < 1 ? 'sameDay' :
+            daysDiff < 2 ? 'nextDay' :
+            daysDiff < 7 ? 'nextWeek' :
+            monthsDiff === 0 ? 'sameMonth' :
+            monthsDiff === 1 ? 'nextMonth' :
+            yearsDiff === 0 ? 'sameYear' :
+            yearsDiff === 1 ? 'nextYear' : 'sameElse';
 
     var output = formats && (isFunction(formats[format]) ? formats[format]() : formats[format]);
 

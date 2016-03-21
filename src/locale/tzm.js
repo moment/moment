@@ -24,6 +24,12 @@ export default moment.defineLocale('tzm', {
         nextWeek: 'dddd [ⴴ] LT',
         lastDay: '[ⴰⵚⴰⵏⵜ ⴴ] LT',
         lastWeek: 'dddd [ⴴ] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse: 'L'
     },
     relativeTime : {

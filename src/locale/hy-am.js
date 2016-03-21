@@ -31,6 +31,12 @@ export default moment.defineLocale('hy-am', {
         lastWeek: function () {
             return '[անցած] dddd [օրը ժամը] LT';
         },
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse: 'L'
     },
     relativeTime : {

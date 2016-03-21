@@ -24,6 +24,12 @@ export default moment.defineLocale('km', {
         nextWeek: 'dddd [ម៉ោង] LT',
         lastDay: '[ម្សិលមិញ ម៉ោង] LT',
         lastWeek: 'dddd [សប្តាហ៍មុន] [ម៉ោង] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse: 'L'
     },
     relativeTime: {

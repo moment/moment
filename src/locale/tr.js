@@ -46,6 +46,12 @@ export default moment.defineLocale('tr', {
         nextWeek : '[haftaya] dddd [saat] LT',
         lastDay : '[dün] LT',
         lastWeek : '[geçen hafta] dddd [saat] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

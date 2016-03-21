@@ -87,6 +87,12 @@ export default moment.defineLocale('ne', {
         nextWeek : '[आउँदो] dddd[,] LT',
         lastDay : '[हिजो] LT',
         lastWeek : '[गएको] dddd[,] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

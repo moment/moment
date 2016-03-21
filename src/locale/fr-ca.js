@@ -24,6 +24,12 @@ export default moment.defineLocale('fr-ca', {
         nextWeek: 'dddd [à] LT',
         lastDay: '[Hier à] LT',
         lastWeek: 'dddd [dernier à] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse: 'L'
     },
     relativeTime : {

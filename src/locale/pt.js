@@ -28,6 +28,12 @@ export default moment.defineLocale('pt', {
                 '[Último] dddd [às] LT' : // Saturday + Sunday
                 '[Última] dddd [às] LT'; // Monday - Friday
         },
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse: 'L'
     },
     relativeTime : {

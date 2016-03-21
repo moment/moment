@@ -35,6 +35,12 @@ export default moment.defineLocale('th', {
         nextWeek : 'dddd[หน้า เวลา] LT',
         lastDay : '[เมื่อวานนี้ เวลา] LT',
         lastWeek : '[วัน]dddd[ที่แล้ว เวลา] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

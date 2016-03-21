@@ -55,6 +55,12 @@ export default moment.defineLocale('zh-tw', {
         nextWeek : '[下]ddddLT',
         lastDay : '[昨天]LT',
         lastWeek : '[上]ddddLT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     ordinalParse: /\d{1,2}(日|月|週)/,

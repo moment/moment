@@ -47,6 +47,12 @@ export default moment.defineLocale('kk', {
         nextWeek : 'dddd [сағат] LT',
         lastDay : '[Кеше сағат] LT',
         lastWeek : '[Өткен аптаның] dddd [сағат] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

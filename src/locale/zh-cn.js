@@ -76,6 +76,12 @@ export default moment.defineLocale('zh-cn', {
             prefix = this.unix() < startOfWeek.unix()  ? '[上]' : '[本]';
             return this.minutes() === 0 ? prefix + 'dddAh点整' : prefix + 'dddAh点mm';
         },
+        sameMonth : 'LL',
+        lastMonth : 'LL',
+        nextMonth : 'LL',
+        sameYear : 'LL',
+        lastYear : 'LL',
+        nextYear : 'LL',
         sameElse : 'LL'
     },
     ordinalParse: /\d{1,2}(日|月|周)/,

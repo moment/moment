@@ -36,6 +36,12 @@ export default moment.defineLocale('bg', {
                 return '[В изминалия] dddd [в] LT';
             }
         },
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

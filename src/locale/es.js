@@ -43,6 +43,12 @@ export default moment.defineLocale('es', {
         lastWeek : function () {
             return '[el] dddd [pasado a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

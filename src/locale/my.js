@@ -49,6 +49,12 @@ export default moment.defineLocale('my', {
         nextWeek: 'dddd LT [မှာ]',
         lastDay: '[မနေ.က] LT [မှာ]',
         lastWeek: '[ပြီးခဲ့သော] dddd LT [မှာ]',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse: 'L'
     },
     relativeTime: {

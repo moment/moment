@@ -23,6 +23,12 @@ export default moment.defineLocale('ar-tn', {
         nextWeek: 'dddd [على الساعة] LT',
         lastDay: '[أمس على الساعة] LT',
         lastWeek: 'dddd [على الساعة] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse: 'L'
     },
     relativeTime: {

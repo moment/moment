@@ -28,6 +28,12 @@ export default moment.defineLocale('eu', {
         nextWeek : 'dddd LT[etan]',
         lastDay : '[atzo] LT[etan]',
         lastWeek : '[aurreko] dddd LT[etan]',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

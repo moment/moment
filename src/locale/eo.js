@@ -37,6 +37,12 @@ export default moment.defineLocale('eo', {
         nextWeek : 'dddd [je] LT',
         lastDay : '[Hieraŭ je] LT',
         lastWeek : '[pasinta] dddd [je] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

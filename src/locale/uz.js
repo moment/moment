@@ -24,6 +24,12 @@ export default moment.defineLocale('uz', {
         nextWeek : 'dddd [куни соат] LT [да]',
         lastDay : '[Кеча соат] LT [да]',
         lastWeek : '[Утган] dddd [куни соат] LT [да]',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

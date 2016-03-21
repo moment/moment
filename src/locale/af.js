@@ -35,6 +35,12 @@ export default moment.defineLocale('af', {
         nextWeek : 'dddd [om] LT',
         lastDay : '[Gister om] LT',
         lastWeek : '[Laas] dddd [om] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

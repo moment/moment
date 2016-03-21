@@ -39,6 +39,12 @@ export default moment.defineLocale('vi', {
         nextWeek: 'dddd [tuần tới lúc] LT',
         lastDay: '[Hôm qua lúc] LT',
         lastWeek: 'dddd [tuần rồi lúc] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse: 'L'
     },
     relativeTime : {

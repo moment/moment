@@ -44,6 +44,12 @@ export default moment.defineLocale('et', {
         nextWeek : '[Järgmine] dddd LT',
         lastDay  : '[Eile,] LT',
         lastWeek : '[Eelmine] dddd LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

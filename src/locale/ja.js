@@ -35,6 +35,12 @@ export default moment.defineLocale('ja', {
         nextWeek : '[来週]dddd LT',
         lastDay : '[昨日] LT',
         lastWeek : '[前週]dddd LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     ordinalParse : /\d{1,2}日/,

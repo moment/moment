@@ -36,11 +36,17 @@ export default moment.defineLocale('de', {
     },
     calendar : {
         sameDay: '[heute um] LT [Uhr]',
-        sameElse: 'L',
         nextDay: '[morgen um] LT [Uhr]',
         nextWeek: 'dddd [um] LT [Uhr]',
         lastDay: '[gestern um] LT [Uhr]',
-        lastWeek: '[letzten] dddd [um] LT [Uhr]'
+        lastWeek: '[letzten] dddd [um] LT [Uhr]',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
+        sameElse: 'L'
     },
     relativeTime : {
         future : 'in %s',

@@ -68,6 +68,12 @@ export default moment.defineLocale('br', {
         nextWeek : 'dddd [da] LT',
         lastDay : '[Dec\'h da] LT',
         lastWeek : 'dddd [paset da] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {

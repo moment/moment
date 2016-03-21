@@ -24,6 +24,12 @@ export default moment.defineLocale('tl-ph', {
         nextWeek: 'dddd [sa] LT',
         lastDay: '[Kahapon sa] LT',
         lastWeek: 'dddd [huling linggo] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse: 'L'
     },
     relativeTime : {

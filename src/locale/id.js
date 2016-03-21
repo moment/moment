@@ -49,6 +49,12 @@ export default moment.defineLocale('id', {
         nextWeek : 'dddd [pukul] LT',
         lastDay : '[Kemarin pukul] LT',
         lastWeek : 'dddd [lalu pukul] LT',
+        sameMonth : 'L',
+        lastMonth : 'L',
+        nextMonth : 'L',
+        sameYear : 'L',
+        lastYear : 'L',
+        nextYear : 'L',
         sameElse : 'L'
     },
     relativeTime : {
