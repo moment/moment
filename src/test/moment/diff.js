@@ -232,3 +232,12 @@ test('year diffs', function (assert) {
     equal(assert, moment([2012, 0, 1]).diff([2013, 6, 1, 12], 'years', true), -1.5 - (0.5 / 31) / 12, 'Jan 1 2012 to Jul 1 2013 noon should be 1.5+(0.5 / 31) / 12 years');
     equal(assert, moment([2012, 1, 29]).diff([2013, 1, 28], 'years', true), -1, 'Feb 29 2012 to Feb 28 2013 should be 1-(1 / 28.5) / 12 years');
 });
+
+test('negative zero', function (assert) {
+    function isNegative (n) {
+            return (1 / n) < 0;
+        }
+    assert.ok(!isNegative(moment([2012, 0, 1]).diff(moment([2012, 0, 1]), 'months')), 'month diff on same date is zero, not -0');
+    assert.ok(!isNegative(moment([2012, 0, 1]).diff(moment([2012, 0, 1]), 'years')), 'year diff on same date is zero, not -0');
+    assert.ok(!isNegative(moment([2012, 0, 1]).diff(moment([2012, 0, 1]), 'quarters')), 'quarter diff on same date is zero, not -0');
+});
