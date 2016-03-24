@@ -36,6 +36,8 @@ test('getters programmatic', function (assert) {
 
 test('setters plural', function (assert) {
     var a = moment();
+    test.expectedDeprecations('years accessor', 'months accessor', 'dates accessor');
+
     a.years(2011);
     a.months(9);
     a.dates(12);

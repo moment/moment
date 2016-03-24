@@ -66,16 +66,18 @@ test('week year', function (assert) {
 
 // Verifies that the week number, week day computation is correct for all dow, doy combinations
 test('week year roundtrip', function (assert) {
-    var dow, doy, wd, m;
+    var dow, doy, wd, m, localeName;
     for (dow = 0; dow < 7; ++dow) {
         for (doy = dow; doy < dow + 7; ++doy) {
             for (wd = 0; wd < 7; ++wd) {
-                moment.locale('dow: ' + dow + ', doy: ' + doy, {week: {dow: dow, doy: doy}});
+                localeName = 'dow: ' + dow + ', doy: ' + doy;
+                moment.locale(localeName, {week: {dow: dow, doy: doy}});
                 // We use the 10th week as the 1st one can spill to the previous year
                 m = moment('2015 10 ' + wd, 'gggg w d', true);
                 assert.equal(m.format('gggg w d'), '2015 10 ' + wd, 'dow: ' + dow + ' doy: ' + doy + ' wd: ' + wd);
                 m = moment('2015 10 ' + wd, 'gggg w e', true);
                 assert.equal(m.format('gggg w e'), '2015 10 ' + wd, 'dow: ' + dow + ' doy: ' + doy + ' wd: ' + wd);
+                moment.defineLocale(localeName, null);
             }
         }
     }
@@ -90,6 +92,7 @@ test('week numbers 2012/2013', function (assert) {
     assert.equal(2, moment('2013-01-11', 'YYYY-MM-DD').week(), '2013-01-11 is week 2'); // 53 -- should be 2
     assert.equal(3, moment('2013-01-12', 'YYYY-MM-DD').week(), '2013-01-12 is week 3'); // 1 -- should be 3
     assert.equal(52, moment('2012-01-01', 'YYYY-MM-DD').weeksInYear(), 'weeks in 2012 are 52'); // 52
+    moment.defineLocale('dow: 6, doy: 12', null);
 });
 
 test('weeks numbers dow:1 doy:4', function (assert) {
@@ -134,6 +137,7 @@ test('weeks numbers dow:1 doy:4', function (assert) {
     assert.equal(moment([2011,  0,  3]).week(),  1, 'Jan  3 2011 should be week 1');
     assert.equal(moment([2011,  0,  9]).week(),  1, 'Jan  9 2011 should be week 1');
     assert.equal(moment([2011,  0, 10]).week(),  2, 'Jan 10 2011 should be week 2');
+    moment.defineLocale('dow: 1, doy: 4', null);
 });
 
 test('weeks numbers dow:6 doy:12', function (assert) {
@@ -176,6 +180,7 @@ test('weeks numbers dow:6 doy:12', function (assert) {
     assert.equal(moment([2011, 0,  8]).week(), 2, 'Jan  8 2011 should be week 2');
     assert.equal(moment([2011, 0, 14]).week(), 2, 'Jan 14 2011 should be week 2');
     assert.equal(moment([2011, 0, 15]).week(), 3, 'Jan 15 2011 should be week 3');
+    moment.defineLocale('dow: 6, doy: 12', null);
 });
 
 test('weeks numbers dow:1 doy:7', function (assert) {
@@ -220,6 +225,7 @@ test('weeks numbers dow:1 doy:7', function (assert) {
     assert.equal(moment([2011,  0,  3]).week(), 2, 'Jan  3 2011 should be week 2');
     assert.equal(moment([2011,  0,  9]).week(), 2, 'Jan  9 2011 should be week 2');
     assert.equal(moment([2011,  0, 10]).week(), 3, 'Jan 10 2011 should be week 3');
+    moment.defineLocale('dow: 1, doy: 7', null);
 });
 
 test('weeks numbers dow:0 doy:6', function (assert) {
@@ -264,6 +270,7 @@ test('weeks numbers dow:0 doy:6', function (assert) {
     assert.equal(moment([2011,  0,  2]).week(), 2, 'Jan  2 2011 should be week 2');
     assert.equal(moment([2011,  0,  8]).week(), 2, 'Jan  8 2011 should be week 2');
     assert.equal(moment([2011,  0,  9]).week(), 3, 'Jan  9 2011 should be week 3');
+    moment.defineLocale('dow: 0, doy: 6', null);
 });
 
 test('week year overflows', function (assert) {
