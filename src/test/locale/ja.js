@@ -114,14 +114,14 @@ test('fromNow', function (assert) {
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                     '今日 午前2時0分',     'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      '今日 午前2時25分',     'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),       '今日 午前3時0分',     'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       '明日 午前2時0分',     'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  '今日 午前1時0分',     'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  '昨日 午前2時0分',     'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   '今日 午後12時0分',     'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      '今日 午後12時25分',    'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       '今日 午後1時0分',      'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       '明日 午後12時0分',     'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  '今日 午前11時0分',     'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  '昨日 午後12時0分',     'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {

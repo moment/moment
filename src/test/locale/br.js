@@ -155,14 +155,14 @@ test('fromNow', function (assert) {
 test('calendar day', function (assert) {
     moment.locale('br');
 
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                     'Hiziv da 2e00 AM',     'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'Hiziv da 2e25 AM',     'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),       'Hiziv da 3e00 AM',     'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'Warc\'hoazh da 2e00 AM',  'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hiziv da 1e00 AM',     'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Dec\'h da 2e00 AM', 'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   'Hiziv da 12e00 PM',        'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'Hiziv da 12e25 PM',        'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       'Hiziv da 1e00 PM',         'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'Warc\'hoazh da 12e00 PM',  'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hiziv da 11e00 AM',        'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Dec\'h da 12e00 PM',       'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {

@@ -150,14 +150,14 @@ test('fromNow', function (assert) {
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                     'ਅਜ ਰਾਤ ੨:੦੦ ਵਜੇ',     'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'ਅਜ ਰਾਤ ੨:੨੫ ਵਜੇ',     'Now plus 25 min');
-    assert.equal(moment(a).add({h: 3}).calendar(),       'ਅਜ ਸਵੇਰ ੫:੦੦ ਵਜੇ',     'Now plus 3 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'ਕਲ ਰਾਤ ੨:੦੦ ਵਜੇ',  'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'ਅਜ ਰਾਤ ੧:੦੦ ਵਜੇ',     'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'ਕਲ ਰਾਤ ੨:੦੦ ਵਜੇ', 'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   'ਅਜ ਦੁਪਹਿਰ ੧੨:੦੦ ਵਜੇ',  'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'ਅਜ ਦੁਪਹਿਰ ੧੨:੨੫ ਵਜੇ',  'Now plus 25 min');
+    assert.equal(moment(a).add({h: 3}).calendar(),       'ਅਜ ਦੁਪਹਿਰ ੩:੦੦ ਵਜੇ',   'Now plus 3 hours');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'ਕਲ ਦੁਪਹਿਰ ੧੨:੦੦ ਵਜੇ',  'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'ਅਜ ਦੁਪਹਿਰ ੧੧:੦੦ ਵਜੇ',  'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'ਕਲ ਦੁਪਹਿਰ ੧੨:੦੦ ਵਜੇ',  'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {

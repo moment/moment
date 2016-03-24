@@ -150,6 +150,57 @@ test('fromNow', function (assert) {
     assert.equal(moment().add({d: 5}).fromNow(), 'um 5 dagar', 'in 5 days');
 });
 
+
+test('calendar day', function (assert) {
+    var a = moment().hours(12).minutes(0).seconds(0);
+
+    assert.equal(moment(a).calendar(),                   'Í dag kl. 12:00',    'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'Í dag kl. 12:25',    'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       'Í dag kl. 13:00',    'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'Í morgin kl. 12:00', 'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Í dag kl. 11:00',    'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Í gjár kl. 12:00',   'yesterday at the same time');
+});
+
+test('calendar next week', function (assert) {
+    var i, m;
+
+    for (i = 2; i < 7; i++) {
+        m = moment().add({d: i});
+        assert.equal(m.calendar(),       m.format('dddd [kl.] LT'),  'today + ' + i + ' days current time');
+        m.hours(0).minutes(0).seconds(0).milliseconds(0);
+        assert.equal(m.calendar(),       m.format('dddd [kl.] LT'),  'today + ' + i + ' days beginning of day');
+        m.hours(23).minutes(59).seconds(59).milliseconds(999);
+        assert.equal(m.calendar(),       m.format('dddd [kl.] LT'),  'today + ' + i + ' days end of day');
+    }
+});
+
+test('calendar last week', function (assert) {
+    var i, m;
+    for (i = 2; i < 7; i++) {
+        m = moment().subtract({d: i});
+        assert.equal(m.calendar(),       m.format('[síðstu] dddd [kl] LT'),  'today - ' + i + ' days current time');
+        m.hours(0).minutes(0).seconds(0).milliseconds(0);
+        assert.equal(m.calendar(),       m.format('[síðstu] dddd [kl] LT'),  'today - ' + i + ' days beginning of day');
+        m.hours(23).minutes(59).seconds(59).milliseconds(999);
+        assert.equal(m.calendar(),       m.format('[síðstu] dddd [kl] LT'),  'today - ' + i + ' days end of day');
+    }
+});
+
+test('calendar all else', function (assert) {
+    var weeksAgo = moment().subtract({w: 1}),
+        weeksFromNow = moment().add({w: 1});
+
+    assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  'yksi viikko sitten');
+    assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'yhden viikon päästä');
+
+    weeksAgo = moment().subtract({w: 2});
+    weeksFromNow = moment().add({w: 2});
+
+    assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  'kaksi viikkoa sitten');
+    assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'kaden viikon päästä');
+});
+
 test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52.', 'Jan  1 2012 should be week 52');
     assert.equal(moment([2012, 0,  2]).format('w ww wo'),   '1 01 1.', 'Jan  2 2012 should be week 1');

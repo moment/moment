@@ -1,5 +1,6 @@
-import { module, test } from '../qunit';
+import { module, test, expect } from '../qunit';
 import moment from '../../moment';
+import { isNearSpringDST } from '../helpers/dst';
 
 module('zone switching');
 
@@ -45,6 +46,12 @@ test('local to zone, keepLocalTime = false', function (assert) {
 });
 
 test('utc to local, keepLocalTime = true', function (assert) {
+    // Don't test near the spring DST transition
+    if (isNearSpringDST()) {
+        expect(0);
+        return;
+    }
+
     var um = moment.utc(),
         fmt = 'YYYY-DD-MM HH:mm:ss';
 
@@ -58,6 +65,12 @@ test('utc to local, keepLocalTime = false', function (assert) {
 });
 
 test('zone to local, keepLocalTime = true', function (assert) {
+    // Don't test near the spring DST transition
+    if (isNearSpringDST()) {
+        expect(0);
+        return;
+    }
+
     var m = moment(),
         fmt = 'YYYY-DD-MM HH:mm:ss',
         z;

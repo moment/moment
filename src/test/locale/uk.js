@@ -167,16 +167,16 @@ test('fromNow', function (assert) {
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                     'Сьогодні о 02:00',     'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'Сьогодні о 02:25',     'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),       'Сьогодні о 03:00',     'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'Завтра о 02:00',      'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Сьогодні о 01:00',     'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Вчора о 02:00',       'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   'Сьогодні о 12:00',   'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'Сьогодні о 12:25',   'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       'Сьогодні о 13:00',   'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'Завтра о 12:00',     'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 2}).calendar(),  'Сьогодні о 10:00',   'Now minus 2 hours');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Вчора о 12:00',      'yesterday at the same time');
     // A special case for Ukrainian since 11 hours have different preposition
-    assert.equal(moment(a).add({h: 9}).calendar(),  'Сьогодні об 11:00',       'same day at 11 o\'clock');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Сьогодні об 11:00',  'same day at 11 o\'clock');
 });
 
 test('calendar next week', function (assert) {
