@@ -199,14 +199,14 @@ test('fromNow', function (assert) {
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                     'Σήμερα στις 2:00 ΠΜ',     'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'Σήμερα στις 2:25 ΠΜ',     'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),       'Σήμερα στις 3:00 ΠΜ',     'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'Αύριο στις 2:00 ΠΜ',      'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Σήμερα στη 1:00 ΠΜ',        'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Χθες στις 2:00 ΠΜ',       'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   'Σήμερα στις 12:00 ΜΜ',     'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'Σήμερα στις 12:25 ΜΜ',     'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       'Σήμερα στη 1:00 ΜΜ',      'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'Αύριο στις 12:00 ΜΜ',      'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Σήμερα στις 11:00 ΠΜ',      'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Χθες στις 12:00 ΜΜ',       'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {

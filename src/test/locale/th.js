@@ -114,14 +114,14 @@ test('fromNow', function (assert) {
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                     'วันนี้ เวลา 2 นาฬิกา 0 นาที',      'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'วันนี้ เวลา 2 นาฬิกา 25 นาที',     'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),       'วันนี้ เวลา 3 นาฬิกา 0 นาที',      'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'พรุ่งนี้ เวลา 2 นาฬิกา 0 นาที', 'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'วันนี้ เวลา 1 นาฬิกา 0 นาที',      'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'เมื่อวานนี้ เวลา 2 นาฬิกา 0 นาที', 'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   'วันนี้ เวลา 12 นาฬิกา 0 นาที',      'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'วันนี้ เวลา 12 นาฬิกา 25 นาที',     'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       'วันนี้ เวลา 13 นาฬิกา 0 นาที',      'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'พรุ่งนี้ เวลา 12 นาฬิกา 0 นาที',    'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'วันนี้ เวลา 11 นาฬิกา 0 นาที',      'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'เมื่อวานนี้ เวลา 12 นาฬิกา 0 นาที', 'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {
