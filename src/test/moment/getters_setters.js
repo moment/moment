@@ -140,9 +140,9 @@ test('setters programatic with weeks ISO', function (assert) {
     a.set('isoWeek', 49);
     a.set('isoWeekday', 4);
 
-    assert.equal(a.weekYear(), 2001, 'weekYear');
-    assert.equal(a.week(), 49, 'week');
-    assert.equal(a.day(), 4, 'day');
+    assert.equal(a.isoWeekYear(), 2001, 'isoWeekYear');
+    assert.equal(a.isoWeek(), 49, 'isoWeek');
+    assert.equal(a.isoWeekday(), 4, 'isoWeekday');
 });
 
 test('setters strings', function (assert) {
