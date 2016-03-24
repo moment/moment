@@ -41,6 +41,9 @@ module('preparse and postformat', {
                 });
             }
         });
+    },
+    teardown: function () {
+        moment.defineLocale('symbol', null);
     }
 });
 

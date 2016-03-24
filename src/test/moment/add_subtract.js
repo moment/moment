@@ -80,6 +80,9 @@ test('add long singular reverse args', function (assert) {
 
 test('add string long reverse args', function (assert) {
     var a = moment(), b;
+
+    test.expectedDeprecations('moment().add(period, number)');
+
     a.year(2011);
     a.month(9);
     a.date(12);
@@ -104,6 +107,9 @@ test('add string long reverse args', function (assert) {
 
 test('add string long singular reverse args', function (assert) {
     var a = moment(), b;
+
+    test.expectedDeprecations('moment().add(period, number)');
+
     a.year(2011);
     a.month(9);
     a.date(12);
@@ -128,6 +134,8 @@ test('add string long singular reverse args', function (assert) {
 
 test('add string short reverse args', function (assert) {
     var a = moment();
+    test.expectedDeprecations('moment().add(period, number)');
+
     a.year(2011);
     a.month(9);
     a.date(12);
@@ -210,8 +218,10 @@ test('add string short', function (assert) {
     assert.equal(a.add(1, 'Q').month(), 1, 'Add quarter');
 });
 
-test('add strings string short args', function (assert) {
+test('add strings string short reversed', function (assert) {
     var a = moment();
+    test.expectedDeprecations('moment().add(period, number)');
+
     a.year(2011);
     a.month(9);
     a.date(12);
@@ -231,8 +241,10 @@ test('add strings string short args', function (assert) {
     assert.equal(a.add('Q', '1').month(), 1, 'Add quarter');
 });
 
-test('subtract strings string short args', function (assert) {
+test('subtract strings string short reversed', function (assert) {
     var a = moment();
+    test.expectedDeprecations('moment().subtract(period, number)');
+
     a.year(2011);
     a.month(9);
     a.date(12);

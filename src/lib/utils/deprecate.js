@@ -13,6 +13,9 @@ export function deprecate(msg, fn) {
     var firstTime = true;
 
     return extend(function () {
+        if (hooks.deprecationHandler != null) {
+            hooks.deprecationHandler(null, msg);
+        }
         if (firstTime) {
             warn(msg + '\nArguments: ' + Array.prototype.slice.call(arguments).join(', ') + '\n' + (new Error()).stack);
             firstTime = false;
@@ -24,6 +27,9 @@ export function deprecate(msg, fn) {
 var deprecations = {};
 
 export function deprecateSimple(name, msg) {
+    if (hooks.deprecationHandler != null) {
+        hooks.deprecationHandler(name, msg);
+    }
     if (!deprecations[name]) {
         warn(msg);
         deprecations[name] = true;
@@ -31,3 +37,4 @@ export function deprecateSimple(name, msg) {
 }
 
 hooks.suppressDeprecationWarnings = false;
+hooks.deprecationHandler = null;
