@@ -5,7 +5,7 @@ localeModule('bs');
 test('parse', function (assert) {
     var tests = 'januar jan._februar feb._mart mar._april apr._maj maj._juni jun._juli jul._august aug._septembar sep._oktobar okt._novembar nov._decembar dec.'.split('_'), i;
     function equalTest(input, mmm, i) {
-        assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
+        assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1) + ' inp ' + mmm);
     }
     for (i = 0; i < 12; i++) {
         tests[i] = tests[i].split(' ');
