@@ -664,6 +664,7 @@ test('parsing week year/week/weekday (dow 6, doy 12)', function (assert) {
     assert.equal(moment.utc('2010-01', 'gggg-ww').format(), '2009-12-26T00:00:00+00:00', '2010 week 1 (1st Jan Fri)');
     assert.equal(moment.utc('2011-01', 'gggg-ww').format(), '2011-01-01T00:00:00+00:00', '2011 week 1 (1st Jan Sat)');
     assert.equal(moment.utc('2012-01', 'gggg-ww').format(), '2011-12-31T00:00:00+00:00', '2012 week 1 (1st Jan Sun)');
+    moment.defineLocale('dow:6,doy:12', null);
 });
 
 test('parsing ISO with Z', function (assert) {
@@ -952,6 +953,7 @@ test('parsing localized weekdays', function (assert) {
         ver('1999 37 Di', 'gggg ww dd', '1999 09 19', 'localized d uses 0-indexed days: 0 = sund');
     }
     finally {
+        moment.defineLocale('dow:1,doy:4', null);
         moment.locale('en');
     }
 });

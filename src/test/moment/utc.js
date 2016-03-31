@@ -13,7 +13,7 @@ test('utc and local', function (assert) {
 
     // local
     m.local();
-    if (m.zone() > 180) {
+    if (m.utcOffset() < -180) {
         assert.equal(m.date(), 1, 'the date should be correct for local');
         assert.equal(m.day(), 2, 'the day should be correct for local');
     } else {

@@ -280,6 +280,8 @@ test('toString acts as toISOString', function (assert) {
 });
 
 test('toIsoString deprecation', function (assert) {
+    test.expectedDeprecations('toIsoString()');
+
     assert.equal(moment.duration({}).toIsoString(), moment.duration({}).toISOString(), 'toIsoString delegates to toISOString');
 });
 

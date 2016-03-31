@@ -110,8 +110,7 @@ test('ordinal', function (assert) {
     moment.defineLocale('ordinal-2', {
         ordinal : '%dx'
     });
-    moment.defineLocale('ordinal-2', {
-        parentLocale: 'ordinal-2',
+    moment.updateLocale('ordinal-2', {
         ordinal : function (num) {
             return num + 'y';
         }
