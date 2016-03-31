@@ -16,6 +16,7 @@ export default moment.defineLocale('fy', {
             return monthsShortWithDots[m.month()];
         }
     },
+    monthsParseExact : true,
     weekdays : 'snein_moandei_tiisdei_woansdei_tongersdei_freed_sneon'.split('_'),
     weekdaysShort : 'si._mo._ti._wo._to._fr._so.'.split('_'),
     weekdaysMin : 'Si_Mo_Ti_Wo_To_Fr_So'.split('_'),
