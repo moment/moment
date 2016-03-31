@@ -42,14 +42,14 @@ export default moment.defineLocale('ss', {
         y : 'umnyaka',
         yy : '%d iminyaka'
     },
-    meridiemParse: /ekuseni|emini|emtsambama|ebusuku/,
+    meridiemParse: /ekuseni|emini|entsambama|ebusuku/,
     meridiem : function (hours, minutes, isLower) {
         if (hours < 11) {
             return 'ekuseni';
         } else if (hours < 15) {
             return 'emini';
         } else if (hours < 19) {
-            return 'emtsambama';
+            return 'entsambama';
         } else {
             return 'ebusuku';
         }
@@ -62,7 +62,7 @@ export default moment.defineLocale('ss', {
             return hour;
         } else if (meridiem === 'emini') {
             return hour >= 11 ? hour : hour + 12;
-        } else if (meridiem === 'emtsambama' || meridiem === 'ebusuku') {
+        } else if (meridiem === 'entsambama' || meridiem === 'ebusuku') {
             if (hour === 0) {
                 return 0;
             }

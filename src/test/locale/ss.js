@@ -27,10 +27,9 @@ test('parse meridiem', function (assert) {
             // h a patterns, expected hours, isValid
             ['10 ekuseni',   10, true],
             ['11 emini',   11, true],
-            // ['12 ekuseni',   11, true],
-            ['3 emtsambama',   15, true],
-            ['4 emtsambama',   16, true],
-            ['6 emtsambama',   18, true],
+            ['3 entsambama',   15, true],
+            ['4 entsambama',   16, true],
+            ['6 entsambama',   18, true],
             ['7 ebusuku',   19, true],
             ['12 ebusuku',   0, true],
             ['10 am',   10, false],
@@ -55,8 +54,8 @@ test('parse meridiem', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Lisontfo, Indlovana 14 2010, 3:25:50 emtsambama'],
-            ['ddd, h A',                            'Lis, 3 emtsambama'],
+            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Lisontfo, Indlovana 14 2010, 3:25:50 entsambama'],
+            ['ddd, h A',                            'Lis, 3 entsambama'],
             ['M Mo MM MMMM MMM',                   '2 2 02 Indlovana Ina'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14 14'],
@@ -67,17 +66,17 @@ test('format', function (assert) {
             ['H HH',                               '15 15'],
             ['m mm',                               '25 25'],
             ['s ss',                               '50 50'],
-            ['a A',                                'emtsambama emtsambama'],
+            ['a A',                                'entsambama entsambama'],
             ['[Lilanga] DDDo [lilanga lelinyaka]', 'Lilanga 45 lilanga lelinyaka'],
-            ['LTS',                                '3:25:50 emtsambama'],
+            ['LTS',                                '3:25:50 entsambama'],
             ['L',                                  '14/02/2010'],
             ['LL',                                 '14 Indlovana 2010'],
-            ['LLL',                                '14 Indlovana 2010 3:25 emtsambama'],
-            ['LLLL',                               'Lisontfo, 14 Indlovana 2010 3:25 emtsambama'],
+            ['LLL',                                '14 Indlovana 2010 3:25 entsambama'],
+            ['LLLL',                               'Lisontfo, 14 Indlovana 2010 3:25 entsambama'],
             ['l',                                  '14/2/2010'],
             ['ll',                                 '14 Ina 2010'],
-            ['lll',                                '14 Ina 2010 3:25 emtsambama'],
-            ['llll',                               'Lis, 14 Ina 2010 3:25 emtsambama']
+            ['lll',                                '14 Ina 2010 3:25 entsambama'],
+            ['llll',                               'Lis, 14 Ina 2010 3:25 entsambama']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
