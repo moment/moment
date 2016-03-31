@@ -81,7 +81,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -105,6 +105,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -118,11 +169,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -137,12 +190,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -303,14 +358,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                   'Vandag om 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Vandag om 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Vandag om 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Môre om 02:00',    'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Vandag om 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Gister om 02:00',   'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Vandag om 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Vandag om 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Vandag om 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Môre om 12:00',       'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Vandag om 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Gister om 12:00',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -443,7 +498,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -467,6 +522,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -480,11 +586,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -499,12 +607,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -665,14 +775,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'اليوم على الساعة 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'اليوم على الساعة 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'اليوم على الساعة 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'غدا على الساعة 02:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'اليوم على الساعة 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'أمس على الساعة 02:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'اليوم على الساعة 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'اليوم على الساعة 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'اليوم على الساعة 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'غدا على الساعة 12:00',      'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'اليوم على الساعة 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'أمس على الساعة 12:00',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -805,7 +915,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -829,6 +939,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -842,11 +1003,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -861,12 +1024,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -1027,14 +1192,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'اليوم على الساعة ٠٢:٠٠',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'اليوم على الساعة ٠٢:٢٥',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'اليوم على الساعة ٠٣:٠٠',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'غدا على الساعة ٠٢:٠٠',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'اليوم على الساعة ٠١:٠٠',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'أمس على الساعة ٠٢:٠٠', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'اليوم على الساعة ١٢:٠٠',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'اليوم على الساعة ١٢:٢٥',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'اليوم على الساعة ١٣:٠٠',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'غدا على الساعة ١٢:٠٠',       'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'اليوم على الساعة ١١:٠٠',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'أمس على الساعة ١٢:٠٠',      'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -1174,7 +1339,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -1198,6 +1363,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -1211,11 +1427,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -1230,12 +1448,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -1460,24 +1680,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(), 'اليوم على الساعة 02:00', 'today at the same time');
-        assert.equal(moment(a).add({
-            m: 25
-        }).calendar(), 'اليوم على الساعة 02:25', 'Now plus 25 min');
-        assert.equal(moment(a).add({
-            h: 1
-        }).calendar(), 'اليوم على الساعة 03:00', 'Now plus 1 hour');
-        assert.equal(moment(a).add({
-            d: 1
-        }).calendar(), 'غدا على الساعة 02:00', 'tomorrow at the same time');
-        assert.equal(moment(a).subtract({
-            h: 1
-        }).calendar(), 'اليوم على الساعة 01:00', 'Now minus 1 hour');
-        assert.equal(moment(a).subtract({
-            d: 1
-        }).calendar(), 'أمس على الساعة 02:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                  'اليوم على الساعة 12:00', 'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),     'اليوم على الساعة 12:25', 'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),      'اليوم على الساعة 13:00', 'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),      'غدا على الساعة 12:00',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(), 'اليوم على الساعة 11:00', 'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(), 'أمس على الساعة 12:00',  'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -1622,7 +1832,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -1646,6 +1856,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -1659,11 +1920,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -1678,12 +1941,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -1859,14 +2124,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'اليوم عند الساعة ٠٢:٠٠',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'اليوم عند الساعة ٠٢:٢٥',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'اليوم عند الساعة ٠٣:٠٠',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'غدًا عند الساعة ٠٢:٠٠',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'اليوم عند الساعة ٠١:٠٠',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'أمس عند الساعة ٠٢:٠٠', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'اليوم عند الساعة ١٢:٠٠',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'اليوم عند الساعة ١٢:٢٥',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'اليوم عند الساعة ١٣:٠٠',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'غدًا عند الساعة ١٢:٠٠',      'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'اليوم عند الساعة ١١:٠٠',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'أمس عند الساعة ١٢:٠٠',       'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -2017,7 +2282,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -2041,6 +2306,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -2054,11 +2370,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -2073,12 +2391,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -2249,14 +2569,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'bugün saat 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'bugün saat 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'bugün saat 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'sabah saat 02:00',     'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'bugün saat 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'dünən 02:00',          'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'bugün saat 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'bugün saat 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'bugün saat 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'sabah saat 12:00',     'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'bugün saat 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'dünən 12:00',          'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -2389,7 +2709,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -2413,6 +2733,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -2426,11 +2797,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -2445,12 +2818,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -2647,14 +3022,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Сёння ў 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Сёння ў 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Сёння ў 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Заўтра ў 02:00',      'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Сёння ў 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Учора ў 02:00',       'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Сёння ў 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Сёння ў 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Сёння ў 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Заўтра ў 12:00',    'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Сёння ў 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Учора ў 12:00',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -2806,7 +3181,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -2830,6 +3205,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -2843,11 +3269,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -2862,12 +3290,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -3028,14 +3458,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Днес в 2:00',  'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Днес в 2:25',  'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Днес в 3:00',  'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Утре в 2:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Днес в 1:00',  'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Вчера в 2:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Днес в 12:00',  'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Днес в 12:25',  'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Днес в 13:00',  'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Утре в 12:00',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Днес в 11:00',  'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Вчера в 12:00', 'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -3183,7 +3613,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -3207,6 +3637,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -3220,11 +3701,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -3239,12 +3722,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -3403,14 +3888,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'আজ রাত ২:০০ সময়',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'আজ রাত ২:২৫ সময়',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 3}).calendar(),       'আজ সকাল ৫:০০ সময়',     'Now plus 3 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'আগামীকাল রাত ২:০০ সময়',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'আজ রাত ১:০০ সময়',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'গতকাল রাত ২:০০ সময়', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'আজ দুপুর ১২:০০ সময়',       'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'আজ দুপুর ১২:২৫ সময়',       'Now plus 25 min');
+        assert.equal(moment(a).add({h: 3}).calendar(),       'আজ দুপুর ৩:০০ সময়',        'Now plus 3 hours');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'আগামীকাল দুপুর ১২:০০ সময়', 'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'আজ দুপুর ১১:০০ সময়',       'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'গতকাল দুপুর ১২:০০ সময়',    'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -3560,7 +4045,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -3584,6 +4069,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -3597,11 +4133,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -3616,12 +4154,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -3781,14 +4321,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'དི་རིང མཚན་མོ ༢:༠༠',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'དི་རིང མཚན་མོ ༢:༢༥',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 3}).calendar(),       'དི་རིང ཞོགས་ཀས ༥:༠༠',     'Now plus 3 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'སང་ཉིན མཚན་མོ ༢:༠༠',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'དི་རིང མཚན་མོ ༡:༠༠',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'ཁ་སང མཚན་མོ ༢:༠༠', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'དི་རིང ཉིན་གུང ༡༢:༠༠',  'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'དི་རིང ཉིན་གུང ༡༢:༢༥',  'Now plus 25 min');
+        assert.equal(moment(a).add({h: 3}).calendar(),       'དི་རིང ཉིན་གུང ༣:༠༠',   'Now plus 3 hours');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'སང་ཉིན ཉིན་གུང ༡༢:༠༠',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'དི་རིང ཉིན་གུང ༡༡:༠༠',  'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'ཁ་སང ཉིན་གུང ༡༢:༠༠',    'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -3938,7 +4478,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -3962,6 +4502,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -3975,11 +4566,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -3994,12 +4587,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -4163,14 +4758,14 @@
     test('calendar day', function (assert) {
         moment.locale('br');
 
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Hiziv da 2e00 AM',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Hiziv da 2e25 AM',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Hiziv da 3e00 AM',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Warc\'hoazh da 2e00 AM',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hiziv da 1e00 AM',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Dec\'h da 2e00 AM', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Hiziv da 12e00 PM',        'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Hiziv da 12e25 PM',        'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Hiziv da 1e00 PM',         'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Warc\'hoazh da 12e00 PM',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hiziv da 11e00 AM',        'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Dec\'h da 12e00 PM',       'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -4317,7 +4912,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -4341,6 +4936,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -4354,11 +5000,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -4373,12 +5021,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -4538,14 +5188,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'danas u 2:00',  'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'danas u 2:25',  'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'danas u 3:00',  'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'sutra u 2:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'danas u 1:00',  'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'jučer u 2:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'danas u 12:00',  'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'danas u 12:25',  'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'danas u 13:00',  'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'sutra u 12:00',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'danas u 11:00',  'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'jučer u 12:00',  'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -4711,7 +5361,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -4735,6 +5385,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -4748,11 +5449,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -4767,12 +5470,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -4932,15 +5637,15 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                         'avui a les 2:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),          'avui a les 2:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),           'avui a les 3:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),           'demà a les 2:00',  'tomorrow at the same time');
-        assert.equal(moment(a).add({d: 1, h : -1}).calendar(),   'demà a la 1:00',   'tomorrow minus 1 hour');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),      'avui a la 1:00',      'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),      'ahir a les 2:00',    'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                       'avui a les 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),          'avui a les 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),           'avui a les 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),           'demà a les 12:00',     'tomorrow at the same time');
+        assert.equal(moment(a).add({d: 1, h : -1}).calendar(),   'demà a les 11:00',     'tomorrow minus 1 hour');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),      'avui a les 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),      'ahir a les 12:00',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -5073,7 +5778,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -5097,6 +5802,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -5110,11 +5866,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -5129,12 +5887,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -5337,14 +6097,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'dnes v 2:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'dnes v 2:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'dnes v 3:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'zítra v 2:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'dnes v 1:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'včera v 2:00',     'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'dnes v 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'dnes v 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'dnes v 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'zítra v 12:00',    'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'dnes v 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'včera v 12:00',    'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -5532,7 +6292,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -5556,6 +6316,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -5569,11 +6380,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -5588,12 +6401,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -5755,13 +6570,13 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
-        assert.equal(moment(a).calendar(),                   'Паян 02:00 сехетре',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Паян 02:25 сехетре',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Паян 03:00 сехетре',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Ыран 02:00 сехетре',     'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Паян 01:00 сехетре',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Ӗнер 02:00 сехетре',     'yesterday at the same time');
+        var a = moment().hours(12).minutes(0).seconds(0);
+        assert.equal(moment(a).calendar(),                   'Паян 12:00 сехетре',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Паян 12:25 сехетре',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Паян 13:00 сехетре',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Ыран 12:00 сехетре',     'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Паян 11:00 сехетре',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Ӗнер 12:00 сехетре',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -5899,7 +6714,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -5923,6 +6738,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -5936,11 +6802,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -5955,12 +6823,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -6116,18 +6986,18 @@
         assert.equal(moment().add({d: 5}).fromNow(), 'mewn 5 diwrnod', 'in 5 days');
     });
 
-    test('same day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+    test('calendar day', function (assert) {
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Heddiw am 02:00',    'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Heddiw am 02:25',    'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Heddiw am 03:00',    'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Yfory am 02:00',         'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Heddiw am 01:00',    'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Ddoe am 02:00',           'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Heddiw am 12:00',    'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Heddiw am 12:25',    'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Heddiw am 13:00',    'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Yfory am 12:00',     'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Heddiw am 11:00',    'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Ddoe am 12:00',      'yesterday at the same time');
     });
 
-    test('same next week', function (assert) {
+    test('calendar next week', function (assert) {
         var i, m;
 
         for (i = 2; i < 7; i++) {
@@ -6140,7 +7010,7 @@
         }
     });
 
-    test('same last week', function (assert) {
+    test('calendar last week', function (assert) {
         var i, m;
 
         for (i = 2; i < 7; i++) {
@@ -6153,7 +7023,7 @@
         }
     });
 
-    test('same all else', function (assert) {
+    test('calendar all else', function (assert) {
         var weeksAgo = moment().subtract({w: 1}),
             weeksFromNow = moment().add({w: 1});
 
@@ -6259,7 +7129,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -6283,6 +7153,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -6296,11 +7217,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -6315,12 +7238,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -6479,6 +7404,58 @@
         assert.equal(moment().add({d: 5}).fromNow(), 'om 5 dage', 'in 5 days');
     });
 
+
+    test('calendar day', function (assert) {
+        var a = moment().hours(12).minutes(0).seconds(0);
+
+        assert.equal(moment(a).calendar(),                   'I dag kl. 12:00',    'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'I dag kl. 12:25',    'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'I dag kl. 13:00',    'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'I morgen kl. 12:00', 'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'I dag kl. 11:00',    'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'I går kl. 12:00',    'yesterday at the same time');
+    });
+
+    test('calendar next week', function (assert) {
+        var i, m;
+
+        for (i = 2; i < 7; i++) {
+            m = moment().add({d: i});
+            assert.equal(m.calendar(),       m.format('dddd [kl.] LT'),  'Today + ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(m.calendar(),       m.format('dddd [kl.] LT'),  'Today + ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(m.calendar(),       m.format('dddd [kl.] LT'),  'Today + ' + i + ' days end of day');
+        }
+    });
+
+    test('calendar last week', function (assert) {
+        var i, m;
+
+        for (i = 2; i < 7; i++) {
+            m = moment().subtract({d: i});
+            assert.equal(m.calendar(),       m.format('[sidste] dddd [kl] LT'),  'Today - ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(m.calendar(),       m.format('[sidste] dddd [kl] LT'),  'Today - ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(m.calendar(),       m.format('[sidste] dddd [kl] LT'),  'Today - ' + i + ' days end of day');
+        }
+    });
+
+    test('calendar all else', function (assert) {
+        var weeksAgo = moment().subtract({w: 1}),
+            weeksFromNow = moment().add({w: 1});
+
+        assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '1 week ago');
+        assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 1 week');
+
+        weeksAgo = moment().subtract({w: 2});
+        weeksFromNow = moment().add({w: 2});
+
+        assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '2 weeks ago');
+        assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 2 weeks');
+    });
+
     test('weeks year starting sunday formatted', function (assert) {
         assert.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52.', 'Jan  1 2012 should be week 52');
         assert.equal(moment([2012, 0,  2]).format('w ww wo'),   '1 01 1.', 'Jan  2 2012 should be week 1');
@@ -6571,7 +7548,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -6595,6 +7572,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -6608,11 +7636,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -6627,12 +7657,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -6789,14 +7821,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(), 'heute um 02:00 Uhr', 'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(), 'heute um 02:25 Uhr', 'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(), 'heute um 03:00 Uhr', 'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(), 'morgen um 02:00 Uhr', 'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(), 'heute um 01:00 Uhr', 'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(), 'gestern um 02:00 Uhr', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                  'heute um 12:00 Uhr',   'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),     'heute um 12:25 Uhr',   'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),      'heute um 13:00 Uhr',   'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),      'morgen um 12:00 Uhr',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(), 'heute um 11:00 Uhr',   'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(), 'gestern um 12:00 Uhr', 'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -6929,7 +7961,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -6953,6 +7985,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -6966,11 +8049,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -6985,12 +8070,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -7146,14 +8233,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'heute um 02:00 Uhr',   'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'heute um 02:25 Uhr',   'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'heute um 03:00 Uhr',   'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'morgen um 02:00 Uhr',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'heute um 01:00 Uhr',   'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'gestern um 02:00 Uhr', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'heute um 12:00 Uhr',   'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'heute um 12:25 Uhr',   'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'heute um 13:00 Uhr',   'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'morgen um 12:00 Uhr',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'heute um 11:00 Uhr',   'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'gestern um 12:00 Uhr', 'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -7286,7 +8373,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -7310,6 +8397,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -7323,11 +8461,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -7342,12 +8482,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -7459,6 +8601,106 @@
         }
     });
 
+
+    test('from', function (assert) {
+        var start = moment([2007, 1, 28]);
+        assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'ސިކުންތުކޮޅެއް',  '44 seconds = a few seconds');
+        assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'މިނިޓެއް',        '45 seconds = a minute');
+        assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'މިނިޓެއް',        '89 seconds = a minute');
+        assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  'މިނިޓު 2',        '90 seconds = 2 minutes');
+        assert.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  'މިނިޓު 44',       '44 minutes = 44 minutes');
+        assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  'ގަޑިއިރެއް',      '45 minutes = an hour');
+        assert.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  'ގަޑިއިރެއް',      '89 minutes = an hour');
+        assert.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  'ގަޑިއިރު 2',      '90 minutes = 2 hours');
+        assert.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   'ގަޑިއިރު 5',      '5 hours = 5 hours');
+        assert.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  'ގަޑިއިރު 21',     '21 hours = 21 hours');
+        assert.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  'ދުވަހެއް',        '22 hours = a day');
+        assert.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  'ދުވަހެއް',        '35 hours = a day');
+        assert.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  'ދުވަސް 2',        '36 hours = 2 days');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   'ދުވަހެއް',        '1 day = a day');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   'ދުވަސް 5',        '5 days = 5 days');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  'ދުވަސް 25',       '25 days = 25 days');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  'މަހެއް',          '26 days = a month');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  'މަހެއް',          '30 days = a month');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  'މަހެއް',          '43 days = a month');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  'މަސް 2',          '46 days = 2 months');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  'މަސް 2',          '75 days = 2 months');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  'މަސް 3',          '76 days = 3 months');
+        assert.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   'މަހެއް',          '1 month = a month');
+        assert.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   'މަސް 5',          '5 months = 5 months');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'އަހަރެއް',        '345 days = a year');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), 'އަހަރު 2',        '548 days = 2 years');
+        assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'އަހަރެއް',        '1 year = a year');
+        assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   'އަހަރު 5',        '5 years = 5 years');
+    });
+
+    test('suffix', function (assert) {
+        assert.equal(moment(30000).from(0), 'ތެރޭގައި ސިކުންތުކޮޅެއް', 'prefix');
+        assert.equal(moment(0).from(30000), 'ކުރިން ސިކުންތުކޮޅެއް', 'suffix');
+    });
+
+    test('fromNow', function (assert) {
+        assert.equal(moment().add({s: 30}).fromNow(), 'ތެރޭގައި ސިކުންތުކޮޅެއް', 'in a few seconds');
+        assert.equal(moment().add({d: 5}).fromNow(), 'ތެރޭގައި ދުވަސް 5', 'in 5 days');
+    });
+
+    test('calendar day', function (assert) {
+        var a = moment().hours(12).minutes(0).seconds(0);
+
+        assert.equal(moment(a).calendar(),                   'މިއަދު 12:00',  'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'މިއަދު 12:25',  'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'މިއަދު 13:00',  'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'މާދަމާ 12:00',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'މިއަދު 11:00',  'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'އިއްޔެ 12:00',  'yesterday at the same time');
+    });
+
+    test('calendar next week', function (assert) {
+        var i, m;
+        for (i = 2; i < 7; i++) {
+            m = moment().add({d: i});
+            assert.equal(m.calendar(),       m.format('dddd LT'),  'Today + ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(m.calendar(),       m.format('dddd LT'),  'Today + ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(m.calendar(),       m.format('dddd LT'),  'Today + ' + i + ' days end of day');
+        }
+    });
+
+    test('calendar last week', function (assert) {
+        var i, m;
+        for (i = 2; i < 7; i++) {
+            m = moment().subtract({d: i});
+            assert.equal(m.calendar(),       m.format('[ފާއިތުވި] dddd LT'),  'Today + ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(m.calendar(),       m.format('[ފާއިތުވި] dddd LT'),  'Today + ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(m.calendar(),       m.format('[ފާއިތުވި] dddd LT'),  'Today + ' + i + ' days end of day');
+        }
+    });
+
+    test('calendar all else', function (assert) {
+        var weeksAgo = moment().subtract({w: 1}),
+            weeksFromNow = moment().add({w: 1});
+
+        assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '1 week ago');
+        assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 1 week');
+
+        weeksAgo = moment().subtract({w: 2});
+        weeksFromNow = moment().add({w: 2});
+
+        assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '2 weeks ago');
+        assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 2 weeks');
+    });
+
+    test('weeks year starting sunday formatted', function (assert) {
+        assert.equal(moment([2012, 0,  1]).format('w ww wo'),   '1 01 1', 'Jan  1 2012 should be week 1');
+        assert.equal(moment([2012, 0,  2]).format('w ww wo'),   '1 01 1', 'Jan  2 2012 should be week 1');
+        assert.equal(moment([2012, 0,  8]).format('w ww wo'),   '2 02 2', 'Jan  8 2012 should be week 2');
+        assert.equal(moment([2012, 0,  9]).format('w ww wo'),   '2 02 2', 'Jan  9 2012 should be week 2');
+        assert.equal(moment([2012, 0, 15]).format('w ww wo'),   '3 03 3', 'Jan 15 2012 should be week 3');
+    });
+
 }));
 
 ;(function (global, factory) {
@@ -7543,7 +8785,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -7567,6 +8809,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -7580,11 +8873,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -7599,12 +8894,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -7812,14 +9109,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Σήμερα στις 2:00 ΠΜ',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Σήμερα στις 2:25 ΠΜ',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Σήμερα στις 3:00 ΠΜ',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Αύριο στις 2:00 ΠΜ',      'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Σήμερα στη 1:00 ΠΜ',        'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Χθες στις 2:00 ΠΜ',       'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Σήμερα στις 12:00 ΜΜ',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Σήμερα στις 12:25 ΜΜ',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Σήμερα στη 1:00 ΜΜ',      'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Αύριο στις 12:00 ΜΜ',      'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Σήμερα στις 11:00 ΠΜ',      'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Χθες στις 12:00 ΜΜ',       'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -7955,7 +9252,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -7979,6 +9276,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -7992,11 +9340,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -8011,12 +9361,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -8176,14 +9528,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Today at 2:00 AM',      'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Today at 2:25 AM',      'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Today at 3:00 AM',      'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Tomorrow at 2:00 AM',   'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Today at 1:00 AM',      'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Yesterday at 2:00 AM',  'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Today at 12:00 PM',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Today at 12:25 PM',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Today at 1:00 PM',      'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Tomorrow at 12:00 PM',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Today at 11:00 AM',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Yesterday at 12:00 PM', 'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -8317,7 +9669,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -8341,6 +9693,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -8354,11 +9757,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -8373,12 +9778,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -8546,14 +9953,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Today at 2:00 AM',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Today at 2:25 AM',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Today at 3:00 AM',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Tomorrow at 2:00 AM',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Today at 1:00 AM',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Yesterday at 2:00 AM', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Today at 12:00 PM',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Today at 12:25 PM',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Today at 1:00 PM',      'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Tomorrow at 12:00 PM',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Today at 11:00 AM',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Yesterday at 12:00 PM', 'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -8688,7 +10095,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -8712,6 +10119,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -8725,11 +10183,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -8744,12 +10204,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -8909,14 +10371,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Today at 02:00',      'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Today at 02:25',      'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Today at 03:00',      'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Tomorrow at 02:00',   'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Today at 01:00',      'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Yesterday at 02:00',  'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Today at 12:00',      'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Today at 12:25',      'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Today at 13:00',      'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Tomorrow at 12:00',   'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Today at 11:00',      'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Yesterday at 12:00',  'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -9050,7 +10512,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -9074,6 +10536,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -9087,11 +10600,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -9106,12 +10621,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -9271,14 +10788,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Today at 02:00',      'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Today at 02:25',      'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Today at 03:00',      'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Tomorrow at 02:00',   'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Today at 01:00',      'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Yesterday at 02:00',  'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Today at 12:00',      'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Today at 12:25',      'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Today at 13:00',      'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Tomorrow at 12:00',   'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Today at 11:00',      'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Yesterday at 12:00',  'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -9412,7 +10929,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -9436,6 +10953,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -9449,11 +11017,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -9468,12 +11038,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -9633,14 +11205,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Today at 2:00 AM',      'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Today at 2:25 AM',      'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Today at 3:00 AM',      'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Tomorrow at 2:00 AM',   'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Today at 1:00 AM',      'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Yesterday at 2:00 AM',  'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Today at 12:00 PM',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Today at 12:25 PM',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Today at 1:00 PM',      'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Tomorrow at 12:00 PM',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Today at 11:00 AM',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Yesterday at 12:00 PM', 'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -9774,7 +11346,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -9798,6 +11370,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -9811,11 +11434,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -9830,12 +11455,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -10004,14 +11631,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Today at 2:00 AM',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Today at 2:25 AM',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Today at 3:00 AM',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Tomorrow at 2:00 AM',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Today at 1:00 AM',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Yesterday at 2:00 AM', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Today at 12:00 PM',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Today at 12:25 PM',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Today at 1:00 PM',      'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Tomorrow at 12:00 PM',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Today at 11:00 AM',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Yesterday at 12:00 PM', 'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -10161,7 +11788,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -10185,6 +11812,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -10198,11 +11876,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -10217,12 +11897,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -10382,14 +12064,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Hodiaŭ je 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Hodiaŭ je 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Hodiaŭ je 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Morgaŭ je 02:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hodiaŭ je 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Hieraŭ je 02:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Hodiaŭ je 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Hodiaŭ je 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Hodiaŭ je 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Morgaŭ je 12:00',     'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hodiaŭ je 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Hieraŭ je 12:00',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -10524,7 +12206,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -10548,6 +12230,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -10561,11 +12294,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -10580,12 +12315,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -10746,15 +12483,15 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                       'hoy a las 2:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),          'hoy a las 2:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),           'hoy a las 3:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),           'mañana a las 2:00',  'tomorrow at the same time');
-        assert.equal(moment(a).add({d: 1, h : -1}).calendar(),   'mañana a la 1:00',   'tomorrow minus 1 hour');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),      'hoy a la 1:00',      'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),      'ayer a las 2:00',    'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                       'hoy a las 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),          'hoy a las 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),           'hoy a las 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),           'mañana a las 12:00',  'tomorrow at the same time');
+        assert.equal(moment(a).add({d: 1, h : -1}).calendar(),   'mañana a las 11:00',   'tomorrow minus 1 hour');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),      'hoy a las 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),      'ayer a las 12:00',    'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -10889,7 +12626,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -10913,6 +12650,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -10926,11 +12714,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -10945,12 +12735,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -11134,14 +12926,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Täna, 2:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Täna, 2:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Täna, 3:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Homme, 2:00',    'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Täna, 1:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Eile, 2:00',     'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Täna, 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Täna, 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Täna, 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Homme, 12:00',    'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Täna, 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Eile, 12:00',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -11274,7 +13066,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -11298,6 +13090,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -11311,11 +13154,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -11330,12 +13175,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -11495,14 +13342,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'gaur 02:00etan',  'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'gaur 02:25etan',  'now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'gaur 03:00etan',  'now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'bihar 02:00etan', 'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'gaur 01:00etan',  'now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'atzo 02:00etan',  'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'gaur 12:00etan',  'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'gaur 12:25etan',  'now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'gaur 13:00etan',  'now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'bihar 12:00etan', 'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'gaur 11:00etan',  'now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'atzo 12:00etan',  'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -11635,7 +13482,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -11659,6 +13506,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -11672,11 +13570,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -11691,12 +13591,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -11849,14 +13751,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'امروز ساعت ۰۲:۰۰', 'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'امروز ساعت ۰۲:۲۵', 'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'امروز ساعت ۰۳:۰۰', 'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'فردا ساعت ۰۲:۰۰', 'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'امروز ساعت ۰۱:۰۰', 'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'دیروز ساعت ۰۲:۰۰', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'امروز ساعت ۱۲:۰۰', 'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'امروز ساعت ۱۲:۲۵', 'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'امروز ساعت ۱۳:۰۰', 'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'فردا ساعت ۱۲:۰۰', 'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'امروز ساعت ۱۱:۰۰', 'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'دیروز ساعت ۱۲:۰۰', 'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -11989,7 +13891,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -12013,6 +13915,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -12026,11 +13979,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -12045,12 +14000,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -12210,14 +14167,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'tänään klo 02.00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'tänään klo 02.25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'tänään klo 03.00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'huomenna klo 02.00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'tänään klo 01.00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'eilen klo 02.00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'tänään klo 12.00',    'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'tänään klo 12.25',    'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'tänään klo 13.00',    'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'huomenna klo 12.00',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'tänään klo 11.00',    'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'eilen klo 12.00',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -12351,7 +14308,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -12375,6 +14332,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -12388,11 +14396,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -12407,12 +14417,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -12571,6 +14583,57 @@
         assert.equal(moment().add({d: 5}).fromNow(), 'um 5 dagar', 'in 5 days');
     });
 
+
+    test('calendar day', function (assert) {
+        var a = moment().hours(12).minutes(0).seconds(0);
+
+        assert.equal(moment(a).calendar(),                   'Í dag kl. 12:00',    'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Í dag kl. 12:25',    'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Í dag kl. 13:00',    'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Í morgin kl. 12:00', 'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Í dag kl. 11:00',    'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Í gjár kl. 12:00',   'yesterday at the same time');
+    });
+
+    test('calendar next week', function (assert) {
+        var i, m;
+
+        for (i = 2; i < 7; i++) {
+            m = moment().add({d: i});
+            assert.equal(m.calendar(),       m.format('dddd [kl.] LT'),  'today + ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(m.calendar(),       m.format('dddd [kl.] LT'),  'today + ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(m.calendar(),       m.format('dddd [kl.] LT'),  'today + ' + i + ' days end of day');
+        }
+    });
+
+    test('calendar last week', function (assert) {
+        var i, m;
+        for (i = 2; i < 7; i++) {
+            m = moment().subtract({d: i});
+            assert.equal(m.calendar(),       m.format('[síðstu] dddd [kl] LT'),  'today - ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(m.calendar(),       m.format('[síðstu] dddd [kl] LT'),  'today - ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(m.calendar(),       m.format('[síðstu] dddd [kl] LT'),  'today - ' + i + ' days end of day');
+        }
+    });
+
+    test('calendar all else', function (assert) {
+        var weeksAgo = moment().subtract({w: 1}),
+            weeksFromNow = moment().add({w: 1});
+
+        assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  'yksi viikko sitten');
+        assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'yhden viikon päästä');
+
+        weeksAgo = moment().subtract({w: 2});
+        weeksFromNow = moment().add({w: 2});
+
+        assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  'kaksi viikkoa sitten');
+        assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'kaden viikon päästä');
+    });
+
     test('weeks year starting sunday formatted', function (assert) {
         assert.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52.', 'Jan  1 2012 should be week 52');
         assert.equal(moment([2012, 0,  2]).format('w ww wo'),   '1 01 1.', 'Jan  2 2012 should be week 1');
@@ -12663,7 +14726,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -12687,6 +14750,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -12700,11 +14814,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -12719,12 +14835,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -12889,14 +15007,14 @@
     });
 
     test('same day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Aujourd\'hui à 02:00',    'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Aujourd\'hui à 02:25',    'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Aujourd\'hui à 03:00',    'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Demain à 02:00',         'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Aujourd\'hui à 01:00',    'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Hier à 02:00',           'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Aujourd\'hui à 12:00',    'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Aujourd\'hui à 12:25',    'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Aujourd\'hui à 13:00',    'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Demain à 12:00',          'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Aujourd\'hui à 11:00',    'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Hier à 12:00',            'yesterday at the same time');
     });
 
     test('same next week', function (assert) {
@@ -13031,7 +15149,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -13055,6 +15173,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -13068,11 +15237,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -13087,12 +15258,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -13257,14 +15430,14 @@
     });
 
     test('same day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Aujourd\'hui à 02:00',    'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Aujourd\'hui à 02:25',    'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Aujourd\'hui à 03:00',    'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Demain à 02:00',         'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Aujourd\'hui à 01:00',    'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Hier à 02:00',           'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Aujourd\'hui à 12:00',    'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Aujourd\'hui à 12:25',    'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Aujourd\'hui à 13:00',    'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Demain à 12:00',          'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Aujourd\'hui à 11:00',    'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Hier à 12:00',            'yesterday at the same time');
     });
 
     test('same next week', function (assert) {
@@ -13399,7 +15572,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -13423,6 +15596,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -13436,11 +15660,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -13455,12 +15681,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -13617,14 +15845,14 @@
     });
 
     test('same day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Aujourd\'hui à 02:00',    'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Aujourd\'hui à 02:25',    'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Aujourd\'hui à 03:00',    'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Demain à 02:00',         'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Aujourd\'hui à 01:00',    'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Hier à 02:00',           'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Aujourd\'hui à 12:00',    'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Aujourd\'hui à 12:25',    'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Aujourd\'hui à 13:00',    'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Demain à 12:00',          'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Aujourd\'hui à 11:00',    'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Hier à 12:00',            'yesterday at the same time');
     });
 
     test('same next week', function (assert) {
@@ -13759,7 +15987,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -13783,6 +16011,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -13796,11 +16075,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -13815,12 +16096,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -13980,14 +16263,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'hjoed om 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'hjoed om 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'hjoed om 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'moarn om 02:00',    'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'hjoed om 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'juster om 02:00',   'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'hjoed om 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'hjoed om 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'hjoed om 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'moarn om 12:00',     'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'hjoed om 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'juster om 12:00',    'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -14125,7 +16408,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -14149,6 +16432,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -14162,11 +16496,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -14181,12 +16517,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -14358,14 +16696,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(), 'An-diugh aig 02:00', 'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(), 'An-diugh aig 02:25', 'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(), 'An-diugh aig 03:00', 'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(), 'A-màireach aig 02:00', 'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(), 'An-diugh aig 01:00', 'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(), 'An-dè aig 02:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                  'An-diugh aig 12:00',   'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),     'An-diugh aig 12:25',   'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),      'An-diugh aig 13:00',   'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),      'A-màireach aig 12:00', 'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(), 'An-diugh aig 11:00',   'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(), 'An-dè aig 12:00',      'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -14499,7 +16837,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -14523,6 +16861,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -14536,11 +16925,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -14555,12 +16946,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -14722,15 +17115,15 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                         'hoxe ás 2:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),          'hoxe ás 2:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),           'hoxe ás 3:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),           'mañá ás 2:00',  'tomorrow at the same time');
-        assert.equal(moment(a).add({d: 1, h : -1}).calendar(),   'mañá á 1:00',   'tomorrow minus 1 hour');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),      'hoxe á 1:00',      'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),      'onte á 2:00',    'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                       'hoxe ás 12:00',  'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),          'hoxe ás 12:25',  'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),           'hoxe ás 13:00',  'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),           'mañá ás 12:00',  'tomorrow at the same time');
+        assert.equal(moment(a).add({d: 1, h : -1}).calendar(),   'mañá ás 11:00',   'tomorrow minus 1 hour');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),      'hoxe ás 11:00',   'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),      'onte á 12:00',   'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -14869,7 +17262,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -14893,6 +17286,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -14906,11 +17350,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -14925,12 +17371,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -15055,14 +17503,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'היום ב־02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'היום ב־02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'היום ב־03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'מחר ב־02:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'היום ב־01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'אתמול ב־02:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'היום ב־12:00',   'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'היום ב־12:25',   'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'היום ב־13:00',   'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'מחר ב־12:00',   'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'היום ב־11:00',   'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'אתמול ב־12:00',  'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -15195,7 +17643,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -15219,6 +17667,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -15232,11 +17731,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -15251,12 +17752,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -15415,14 +17918,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'आज रात २:०० बजे',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'आज रात २:२५ बजे',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 3}).calendar(),       'आज सुबह ५:०० बजे',     'Now plus 3 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'कल रात २:०० बजे',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'आज रात १:०० बजे',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'कल रात २:०० बजे', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'आज दोपहर १२:०० बजे',    'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'आज दोपहर १२:२५ बजे',    'Now plus 25 min');
+        assert.equal(moment(a).add({h: 3}).calendar(),       'आज दोपहर ३:०० बजे',     'Now plus 3 hours');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'कल दोपहर १२:०० बजे',    'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'आज दोपहर ११:०० बजे',    'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'कल दोपहर १२:०० बजे',    'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -15572,7 +18075,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -15596,6 +18099,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -15609,11 +18163,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -15628,12 +18184,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -15793,14 +18351,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'danas u 2:00',  'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'danas u 2:25',  'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'danas u 3:00',  'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'sutra u 2:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'danas u 1:00',  'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'jučer u 2:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'danas u 12:00',  'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'danas u 12:25',  'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'danas u 13:00',  'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'sutra u 12:00',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'danas u 11:00',  'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'jučer u 12:00',  'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -15966,7 +18524,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -15990,6 +18548,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -16003,11 +18612,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -16022,12 +18633,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -16200,14 +18813,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'ma 2:00-kor',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'ma 2:25-kor',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'ma 3:00-kor',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'holnap 2:00-kor', 'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'ma 1:00-kor',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'tegnap 2:00-kor', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'ma 12:00-kor',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'ma 12:25-kor',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'ma 13:00-kor',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'holnap 12:00-kor', 'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'ma 11:00-kor',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'tegnap 12:00-kor', 'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -16341,7 +18954,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -16365,6 +18978,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -16378,11 +19042,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -16397,12 +19063,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -16623,14 +19291,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'այսօր 02:00',   'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'այսօր 02:25',   'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'այսօր 03:00',   'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'վաղը 02:00',   'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'այսօր 01:00',   'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'երեկ 02:00',   'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'այսօր 12:00',   'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'այսօր 12:25',   'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'այսօր 13:00',   'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'վաղը 12:00',    'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'այսօր 11:00',   'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'երեկ 12:00',    'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -16772,7 +19440,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -16796,6 +19464,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -16809,11 +19528,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -16828,12 +19549,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -16956,14 +19679,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Hari ini pukul 02.00', 'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Hari ini pukul 02.25', 'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Hari ini pukul 03.00', 'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Besok pukul 02.00',    'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hari ini pukul 01.00', 'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Kemarin pukul 02.00',  'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Hari ini pukul 12.00', 'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Hari ini pukul 12.25', 'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Hari ini pukul 13.00', 'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Besok pukul 12.00',    'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hari ini pukul 11.00', 'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Kemarin pukul 12.00',  'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -17096,7 +19819,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -17120,6 +19843,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -17133,11 +19907,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -17152,12 +19928,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -17323,14 +20101,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'í dag kl. 2:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'í dag kl. 2:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'í dag kl. 3:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'á morgun kl. 2:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'í dag kl. 1:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'í gær kl. 2:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'í dag kl. 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'í dag kl. 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'í dag kl. 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'á morgun kl. 12:00',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'í dag kl. 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'í gær kl. 12:00',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -17464,7 +20242,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -17488,6 +20266,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -17501,11 +20330,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -17520,12 +20351,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -17681,14 +20514,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                   'Oggi alle 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Oggi alle 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Oggi alle 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Domani alle 02:00',   'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Oggi alle 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Ieri alle 02:00',     'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Oggi alle 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Oggi alle 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Oggi alle 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Domani alle 12:00',   'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Oggi alle 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Ieri alle 12:00',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -17824,7 +20657,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -17848,6 +20681,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -17861,11 +20745,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -17880,12 +20766,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -18008,14 +20896,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     '今日 午前2時0分',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      '今日 午前2時25分',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       '今日 午前3時0分',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       '明日 午前2時0分',     'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  '今日 午前1時0分',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  '昨日 午前2時0分',     'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   '今日 午後12時0分',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      '今日 午後12時25分',    'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       '今日 午後1時0分',      'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       '明日 午後12時0分',     'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  '今日 午前11時0分',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  '昨日 午後12時0分',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -18148,7 +21036,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -18172,6 +21060,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -18185,11 +21124,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -18204,12 +21145,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -18332,14 +21275,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Dinten puniko pukul 02.00', 'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Dinten puniko pukul 02.25', 'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Dinten puniko pukul 03.00', 'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Mbenjang pukul 02.00',    'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Dinten puniko pukul 01.00', 'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Kala wingi pukul 02.00',  'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Dinten puniko pukul 12.00', 'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Dinten puniko pukul 12.25', 'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Dinten puniko pukul 13.00', 'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Mbenjang pukul 12.00',      'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Dinten puniko pukul 11.00', 'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Kala wingi pukul 12.00',    'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -18475,7 +21418,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -18499,6 +21442,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -18512,11 +21506,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -18531,12 +21527,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -18709,14 +21707,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'დღეს 2:00 AM-ზე',  'დღეს ამავე დროს');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'დღეს 2:25 AM-ზე',  'ახლანდელ დროს დამატებული 25 წუთი');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'დღეს 3:00 AM-ზე',  'ახლანდელ დროს დამატებული 1 საათი');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'ხვალ 2:00 AM-ზე',  'ხვალ ამავე დროს');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'დღეს 1:00 AM-ზე',  'ახლანდელ დროს გამოკლებული 1 საათი');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'გუშინ 2:00 AM-ზე', 'გუშინ ამავე დროს');
+        assert.equal(moment(a).calendar(),                   'დღეს 12:00 PM-ზე',  'დღეს ამავე დროს');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'დღეს 12:25 PM-ზე',  'ახლანდელ დროს დამატებული 25 წუთი');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'დღეს 1:00 PM-ზე',   'ახლანდელ დროს დამატებული 1 საათი');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'ხვალ 12:00 PM-ზე',  'ხვალ ამავე დროს');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'დღეს 11:00 AM-ზე',  'ახლანდელ დროს გამოკლებული 1 საათი');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'გუშინ 12:00 PM-ზე', 'გუშინ ამავე დროს');
     });
 
     test('calendar next week', function (assert) {
@@ -18849,7 +21847,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -18873,6 +21871,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -18886,11 +21935,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -18905,12 +21956,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -19070,14 +22123,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Бүгін сағат 02:00',      'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Бүгін сағат 02:25',      'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Бүгін сағат 03:00',      'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Ертең сағат 02:00',   'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Бүгін сағат 01:00',      'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Кеше сағат 02:00',  'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Бүгін сағат 12:00',  'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Бүгін сағат 12:25',  'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Бүгін сағат 13:00',  'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Ертең сағат 12:00',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Бүгін сағат 11:00',  'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Кеше сағат 12:00',   'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -19211,7 +22264,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -19235,6 +22288,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -19248,11 +22352,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -19267,12 +22373,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -19440,24 +22548,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(), 'ថ្ងៃនេះ ម៉ោង 02:00', 'today at the same time');
-        assert.equal(moment(a).add({
-            m: 25
-        }).calendar(), 'ថ្ងៃនេះ ម៉ោង 02:25', 'Now plus 25 min');
-        assert.equal(moment(a).add({
-            h: 1
-        }).calendar(), 'ថ្ងៃនេះ ម៉ោង 03:00', 'Now plus 1 hour');
-        assert.equal(moment(a).add({
-            d: 1
-        }).calendar(), 'ស្អែក ម៉ោង 02:00', 'tomorrow at the same time');
-        assert.equal(moment(a).subtract({
-            h: 1
-        }).calendar(), 'ថ្ងៃនេះ ម៉ោង 01:00', 'Now minus 1 hour');
-        assert.equal(moment(a).subtract({
-            d: 1
-        }).calendar(), 'ម្សិលមិញ ម៉ោង 02:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                  'ថ្ងៃនេះ ម៉ោង 12:00',  'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),     'ថ្ងៃនេះ ម៉ោង 12:25',  'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),      'ថ្ងៃនេះ ម៉ោង 13:00',  'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),      'ស្អែក ម៉ោង 12:00',    'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(), 'ថ្ងៃនេះ ម៉ោង 11:00',  'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(), 'ម្សិលមិញ ម៉ោង 12:00', 'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -19603,7 +22701,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -19627,6 +22725,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -19640,11 +22789,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -19659,12 +22810,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -19859,14 +23012,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     '오늘 오전 2시 0분',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      '오늘 오전 2시 25분',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       '오늘 오전 3시 0분',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       '내일 오전 2시 0분',     'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  '오늘 오전 1시 0분',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  '어제 오전 2시 0분',     'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   '오늘 오후 12시 0분',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      '오늘 오후 12시 25분',    'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       '오늘 오후 1시 0분',      'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       '내일 오후 12시 0분',     'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  '오늘 오전 11시 0분',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  '어제 오후 12시 0분',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -19999,7 +23152,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -20023,6 +23176,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -20036,11 +23240,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -20055,12 +23261,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -20191,6 +23399,30 @@
         assert.equal(moment().add({y: 400}).fromNow(), 'a 400 Joer', 'in 400 years');
     });
 
+    test('calendar day', function (assert) {
+        var a = moment().hours(12).minutes(0).seconds(0);
+
+        assert.equal(moment(a).calendar(),                   'Haut um 12:00 Auer',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Haut um 12:25 Auer',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Haut um 13:00 Auer',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Muer um 12:00 Auer',     'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Haut um 11:00 Auer',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Gëschter um 12:00 Auer', 'yesterday at the same time');
+    });
+
+    test('calendar next week', function (assert) {
+        var i, m;
+
+        for (i = 2; i < 7; i++) {
+            m = moment().add({d: i});
+            assert.equal(m.calendar(),       m.format('dddd [um] LT'),  'Today + ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(m.calendar(),       m.format('dddd [um] LT'),  'Today + ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(m.calendar(),       m.format('dddd [um] LT'),  'Today + ' + i + ' days end of day');
+        }
+    });
+
     test('calendar last week', function (assert) {
         var i, m, weekday, datestring;
         for (i = 2; i < 7; i++) {
@@ -20206,6 +23438,28 @@
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
             assert.equal(m.calendar(), m.format(datestring), 'Today + ' + i + ' days end of day');
         }
+    });
+
+    test('calendar all else', function (assert) {
+        var weeksAgo = moment().subtract({w: 1}),
+            weeksFromNow = moment().add({w: 1});
+
+        assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '1 week ago');
+        assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 1 week');
+
+        weeksAgo = moment().subtract({w: 2});
+        weeksFromNow = moment().add({w: 2});
+
+        assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '2 weeks ago');
+        assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 2 weeks');
+    });
+
+    test('weeks year starting sunday format', function (assert) {
+        assert.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52.', 'Jan  1 2012 should be week 52');
+        assert.equal(moment([2012, 0,  7]).format('w ww wo'), '1 01 1.',   'Jan  7 2012 should be week 1');
+        assert.equal(moment([2012, 0,  8]).format('w ww wo'), '1 01 1.',   'Jan  8 2012 should be week 1');
+        assert.equal(moment([2012, 0, 14]).format('w ww wo'), '2 02 2.',   'Jan 14 2012 should be week 2');
+        assert.equal(moment([2012, 0, 15]).format('w ww wo'), '2 02 2.',   'Jan 15 2012 should be week 2');
     });
 
 }));
@@ -20292,7 +23546,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -20316,6 +23570,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -20329,11 +23634,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -20348,12 +23655,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -20513,14 +23822,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                   'ມື້ນີ້ເວລາ 02:00',      'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'ມື້ນີ້ເວລາ 02:25',      'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'ມື້ນີ້ເວລາ 03:00',      'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'ມື້ອື່ນເວລາ 02:00',   'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'ມື້ນີ້ເວລາ 01:00',      'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'ມື້ວານນີ້ເວລາ 02:00',  'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'ມື້ນີ້ເວລາ 12:00',    'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'ມື້ນີ້ເວລາ 12:25',    'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'ມື້ນີ້ເວລາ 13:00',    'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'ມື້ອື່ນເວລາ 12:00',   'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'ມື້ນີ້ເວລາ 11:00',    'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'ມື້ວານນີ້ເວລາ 12:00',  'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -20654,7 +23963,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -20678,6 +23987,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -20691,11 +24051,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -20710,12 +24072,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -20830,12 +24194,12 @@
 
     test('format week on US calendar', function (assert) {
         // Tests, whether the weekday names are correct, even if the week does not start on Monday
-        moment.locale('lt', {week: {dow: 0, doy: 6}});
+        moment.updateLocale('lt', {week: {dow: 0, doy: 6}});
         var expected = 'sekmadienis Sek S_pirmadienis Pir P_antradienis Ant A_trečiadienis Tre T_ketvirtadienis Ket K_penktadienis Pen Pn_šeštadienis Šeš Š'.split('_'), i;
         for (i = 0; i < expected.length; i++) {
             assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
         }
-        moment.locale('lt', {week: {dow: 1, doy: 4}});
+        moment.updateLocale('lt', null);
     });
 
     test('from', function (assert) {
@@ -20892,14 +24256,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Šiandien 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Šiandien 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Šiandien 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Rytoj 02:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Šiandien 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Vakar 02:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Šiandien 12:00',  'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Šiandien 12:25',  'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Šiandien 13:00',  'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Rytoj 12:00',     'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Šiandien 11:00',  'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Vakar 12:00',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -21032,7 +24396,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -21056,6 +24420,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -21069,11 +24484,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -21088,12 +24505,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -21274,14 +24693,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Šodien pulksten 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Šodien pulksten 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Šodien pulksten 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Rīt pulksten 02:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Šodien pulksten 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Vakar pulksten 02:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Šodien pulksten 12:00',  'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Šodien pulksten 12:25',  'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Šodien pulksten 13:00',  'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Rīt pulksten 12:00',     'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Šodien pulksten 11:00',  'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Vakar pulksten 12:00',   'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -21414,7 +24833,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -21438,6 +24857,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -21451,11 +24921,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -21470,12 +24942,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -21638,14 +25112,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                   'danas u 2:00',  'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'danas u 2:25',  'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'danas u 3:00',  'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'sjutra u 2:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'danas u 1:00',  'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'juče u 2:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'danas u 12:00',  'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'danas u 12:25',  'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'danas u 13:00',  'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'sjutra u 12:00', 'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'danas u 11:00',  'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'juče u 12:00',   'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -21813,7 +25287,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -21837,6 +25311,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -21850,11 +25375,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -21869,12 +25396,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -22034,14 +25563,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                   'Денес во 2:00',  'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Денес во 2:25',  'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Денес во 3:00',  'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Утре во 2:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Денес во 1:00',  'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Вчера во 2:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Денес во 12:00',  'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Денес во 12:25',  'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Денес во 13:00',  'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Утре во 12:00',   'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Денес во 11:00',  'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Вчера во 12:00',  'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -22189,7 +25718,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -22213,6 +25742,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -22226,11 +25806,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -22245,12 +25827,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -22409,14 +25993,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'ഇന്ന് രാത്രി 2:00 -നു',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'ഇന്ന് രാത്രി 2:25 -നു',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 3}).calendar(),       'ഇന്ന് രാവിലെ 5:00 -നു',     'Now plus 3 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'നാളെ രാത്രി 2:00 -നു',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'ഇന്ന് രാത്രി 1:00 -നു',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'ഇന്നലെ രാത്രി 2:00 -നു', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'ഇന്ന് ഉച്ച കഴിഞ്ഞ് 12:00 -നു',   'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'ഇന്ന് ഉച്ച കഴിഞ്ഞ് 12:25 -നു',   'Now plus 25 min');
+        assert.equal(moment(a).add({h: 3}).calendar(),       'ഇന്ന് ഉച്ച കഴിഞ്ഞ് 3:00 -നു',    'Now plus 3 hours');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'നാളെ ഉച്ച കഴിഞ്ഞ് 12:00 -നു',    'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'ഇന്ന് രാവിലെ 11:00 -നു',         'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'ഇന്നലെ ഉച്ച കഴിഞ്ഞ് 12:00 -നു',  'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -22566,7 +26150,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -22590,6 +26174,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -22603,11 +26238,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -22622,12 +26259,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -22786,14 +26425,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'आज रात्री २:०० वाजता',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'आज रात्री २:२५ वाजता',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 3}).calendar(),       'आज सकाळी ५:०० वाजता',     'Now plus 3 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'उद्या रात्री २:०० वाजता',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'आज रात्री १:०० वाजता',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'काल रात्री २:०० वाजता', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'आज दुपारी १२:०० वाजता',    'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'आज दुपारी १२:२५ वाजता',    'Now plus 25 min');
+        assert.equal(moment(a).add({h: 3}).calendar(),       'आज दुपारी ३:०० वाजता',     'Now plus 3 hours');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'उद्या दुपारी १२:०० वाजता', 'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'आज दुपारी ११:०० वाजता',    'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'काल दुपारी १२:०० वाजता',   'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -22943,7 +26582,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -22967,6 +26606,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -22980,11 +26670,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -22999,12 +26691,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -23173,14 +26867,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Hari ini pukul 02.00',     'hari ini pada waktu yang sama');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Hari ini pukul 02.25',     'Sekarang tambah 25 minit');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Hari ini pukul 03.00',     'Sekarang tambah 1 jam');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Esok pukul 02.00',  'esok pada waktu yang sama');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hari ini pukul 01.00',     'Sekarang tolak 1 jam');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Kelmarin pukul 02.00', 'kelmarin pada waktu yang sama');
+        assert.equal(moment(a).calendar(),                   'Hari ini pukul 12.00',  'hari ini pada waktu yang sama');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Hari ini pukul 12.25',  'Sekarang tambah 25 minit');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Hari ini pukul 13.00',  'Sekarang tambah 1 jam');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Esok pukul 12.00',      'esok pada waktu yang sama');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hari ini pukul 11.00',  'Sekarang tolak 1 jam');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Kelmarin pukul 12.00',  'kelmarin pada waktu yang sama');
     });
 
     test('calendar next week', function (assert) {
@@ -23313,7 +27007,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -23337,6 +27031,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -23350,11 +27095,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -23369,12 +27116,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -23543,14 +27292,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Hari ini pukul 02.00',     'hari ini pada waktu yang sama');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Hari ini pukul 02.25',     'Sekarang tambah 25 minit');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Hari ini pukul 03.00',     'Sekarang tambah 1 jam');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Esok pukul 02.00',  'esok pada waktu yang sama');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hari ini pukul 01.00',     'Sekarang tolak 1 jam');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Kelmarin pukul 02.00', 'kelmarin pada waktu yang sama');
+        assert.equal(moment(a).calendar(),                   'Hari ini pukul 12.00',  'hari ini pada waktu yang sama');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Hari ini pukul 12.25',  'Sekarang tambah 25 minit');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Hari ini pukul 13.00',  'Sekarang tambah 1 jam');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Esok pukul 12.00',      'esok pada waktu yang sama');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hari ini pukul 11.00',  'Sekarang tolak 1 jam');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Kelmarin pukul 12.00',  'kelmarin pada waktu yang sama');
     });
 
     test('calendar next week', function (assert) {
@@ -23683,7 +27432,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -23707,6 +27456,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -23720,11 +27520,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -23739,12 +27541,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -23969,24 +27773,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(), 'ယနေ. ၀၂:၀၀ မှာ', 'ယနေ. ဒီအချိန်');
-        assert.equal(moment(a).add({
-            m: 25
-        }).calendar(), 'ယနေ. ၀၂:၂၅ မှာ', 'ယခုမှ ၂၅ မိနစ်ပေါင်းထည့်');
-        assert.equal(moment(a).add({
-            h: 1
-        }).calendar(), 'ယနေ. ၀၃:၀၀ မှာ', 'ယခုမှ ၁ နာရီပေါင်းထည့်');
-        assert.equal(moment(a).add({
-            d: 1
-        }).calendar(), 'မနက်ဖြန် ၀၂:၀၀ မှာ', 'မနက်ဖြန် ဒီအချိန်');
-        assert.equal(moment(a).subtract({
-            h: 1
-        }).calendar(), 'ယနေ. ၀၁:၀၀ မှာ', 'ယခုမှ ၁ နာရီနှုတ်');
-        assert.equal(moment(a).subtract({
-            d: 1
-        }).calendar(), 'မနေ.က ၀၂:၀၀ မှာ', 'မနေ.က ဒီအချိန်');
+        assert.equal(moment(a).calendar(),                  'ယနေ. ၁၂:၀၀ မှာ',      'ယနေ. ဒီအချိန်');
+        assert.equal(moment(a).add({m: 25}).calendar(),     'ယနေ. ၁၂:၂၅ မှာ',      'ယခုမှ ၂၅ မိနစ်ပေါင်းထည့်');
+        assert.equal(moment(a).add({h: 1}).calendar(),      'ယနေ. ၁၃:၀၀ မှာ',      'ယခုမှ ၁ နာရီပေါင်းထည့်');
+        assert.equal(moment(a).add({d: 1}).calendar(),      'မနက်ဖြန် ၁၂:၀၀ မှာ',  'မနက်ဖြန် ဒီအချိန်');
+        assert.equal(moment(a).subtract({h: 1}).calendar(), 'ယနေ. ၁၁:၀၀ မှာ',      'ယခုမှ ၁ နာရီနှုတ်');
+        assert.equal(moment(a).subtract({d: 1}).calendar(), 'မနေ.က ၁၂:၀၀ မှာ',     'မနေ.က ဒီအချိန်');
     });
 
     test('calendar next week', function (assert) {
@@ -24132,7 +27926,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -24156,6 +27950,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -24169,11 +28014,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -24188,12 +28035,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -24354,14 +28203,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'i dag kl. 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'i dag kl. 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'i dag kl. 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'i morgen kl. 02:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'i dag kl. 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'i går kl. 02:00',     'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'i dag kl. 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'i dag kl. 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'i dag kl. 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'i morgen kl. 12:00',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'i dag kl. 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'i går kl. 12:00',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -24494,7 +28343,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -24518,6 +28367,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -24531,11 +28431,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -24550,12 +28452,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -24714,14 +28618,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                   'आज रातिको २:०० बजे',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'आज रातिको २:२५ बजे',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'आज बिहानको ३:०० बजे',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'भोलि रातिको २:०० बजे',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'आज रातिको १:०० बजे',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'हिजो रातिको २:०० बजे', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'आज दिउँसोको १२:०० बजे',    'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'आज दिउँसोको १२:२५ बजे',    'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'आज दिउँसोको १:०० बजे',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'भोलि दिउँसोको १२:०० बजे',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'आज बिहानको ११:०० बजे',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'हिजो दिउँसोको १२:०० बजे',  'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -24870,7 +28774,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -24894,6 +28798,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -24907,11 +28862,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -24926,12 +28883,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -25091,14 +29050,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'vandaag om 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'vandaag om 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'vandaag om 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'morgen om 02:00',    'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'vandaag om 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'gisteren om 02:00',   'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'vandaag om 12:00',   'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'vandaag om 12:25',   'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'vandaag om 13:00',   'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'morgen om 12:00',    'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'vandaag om 11:00',   'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'gisteren om 12:00',  'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -25236,7 +29195,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -25260,6 +29219,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -25273,11 +29283,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -25292,12 +29304,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -25457,14 +29471,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'I dag klokka 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'I dag klokka 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'I dag klokka 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'I morgon klokka 02:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'I dag klokka 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'I går klokka 02:00',     'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'I dag klokka 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'I dag klokka 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'I dag klokka 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'I morgon klokka 12:00',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'I dag klokka 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'I går klokka 12:00',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -25597,7 +29611,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -25621,6 +29635,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -25634,11 +29699,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -25653,12 +29720,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -25817,14 +29886,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'ਅਜ ਰਾਤ ੨:੦੦ ਵਜੇ',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'ਅਜ ਰਾਤ ੨:੨੫ ਵਜੇ',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 3}).calendar(),       'ਅਜ ਸਵੇਰ ੫:੦੦ ਵਜੇ',     'Now plus 3 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'ਕਲ ਰਾਤ ੨:੦੦ ਵਜੇ',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'ਅਜ ਰਾਤ ੧:੦੦ ਵਜੇ',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'ਕਲ ਰਾਤ ੨:੦੦ ਵਜੇ', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'ਅਜ ਦੁਪਹਿਰ ੧੨:੦੦ ਵਜੇ',  'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'ਅਜ ਦੁਪਹਿਰ ੧੨:੨੫ ਵਜੇ',  'Now plus 25 min');
+        assert.equal(moment(a).add({h: 3}).calendar(),       'ਅਜ ਦੁਪਹਿਰ ੩:੦੦ ਵਜੇ',   'Now plus 3 hours');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'ਕਲ ਦੁਪਹਿਰ ੧੨:੦੦ ਵਜੇ',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'ਅਜ ਦੁਪਹਿਰ ੧੧:੦੦ ਵਜੇ',  'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'ਕਲ ਦੁਪਹਿਰ ੧੨:੦੦ ਵਜੇ',  'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -25978,18 +30047,6 @@
         }
     });
 
-    test('meridiem', function (assert) {
-        var h, m, t1, t2;
-        for (h = 0; h < 24; ++h) {
-            for (m = 0; m < 60; m += 15) {
-                t1 = moment.utc([2000, 0, 1, h, m]);
-                t2 = moment(t1.format('A h:mm'), 'A h:mm');
-                assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
-                        'meridiem at ' + t1.format('HH:mm'));
-            }
-        }
-    });
-
     test('strict ordinal parsing', function (assert) {
         var i, ordinalStr, testMoment;
         for (i = 1; i <= 31; ++i) {
@@ -26083,7 +30140,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -26107,6 +30164,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -26120,11 +30228,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -26139,12 +30249,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -26332,14 +30444,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Dziś o 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Dziś o 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Dziś o 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Jutro o 02:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Dziś o 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Wczoraj o 02:00',     'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Dziś o 12:00',    'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Dziś o 12:25',    'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Dziś o 13:00',    'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Jutro o 12:00',   'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Dziś o 11:00',    'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Wczoraj o 12:00', 'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -26488,7 +30600,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -26512,6 +30624,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -26525,11 +30688,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -26544,12 +30709,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -26707,14 +30874,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Hoje às 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Hoje às 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Hoje às 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Amanhã às 02:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hoje às 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Ontem às 02:00',     'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Hoje às 12:00',    'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Hoje às 12:25',    'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Hoje às 13:00',    'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Amanhã às 12:00',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hoje às 11:00',    'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Ontem às 12:00',   'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -26847,7 +31014,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -26871,6 +31038,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -26884,11 +31102,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -26903,12 +31123,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -27064,14 +31286,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Hoje às 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Hoje às 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Hoje às 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Amanhã às 02:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hoje às 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Ontem às 02:00',     'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Hoje às 12:00',    'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Hoje às 12:25',    'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Hoje às 13:00',    'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Amanhã às 12:00',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hoje às 11:00',    'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Ontem às 12:00',   'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -27204,7 +31426,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -27228,6 +31450,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -27241,11 +31514,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -27260,12 +31535,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -27433,14 +31710,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'azi la 2:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'azi la 2:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'azi la 3:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'mâine la 2:00',   'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'azi la 1:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'ieri la 2:00',    'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'azi la 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'azi la 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'azi la 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'mâine la 12:00',   'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'azi la 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'ieri la 12:00',    'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -27573,7 +31850,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -27597,6 +31874,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -27610,11 +31938,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -27629,12 +31959,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -27868,14 +32200,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Сегодня в 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Сегодня в 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Сегодня в 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Завтра в 02:00',      'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Сегодня в 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Вчера в 02:00',       'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Сегодня в 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Сегодня в 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Сегодня в 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Завтра в 12:00',      'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Сегодня в 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Вчера в 12:00',       'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -28080,7 +32412,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -28104,6 +32436,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -28117,11 +32500,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -28136,12 +32521,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -28310,14 +32697,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                   'otne ti 02:00',     'Today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'otne ti 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'otne ti 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'ihttin ti 02:00',   'Tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'otne ti 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'ikte ti 02:00',     'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'otne ti 12:00',     'Today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'otne ti 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'otne ti 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'ihttin ti 12:00',   'Tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'otne ti 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'ikte ti 12:00',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -28452,7 +32839,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -28476,6 +32863,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -28489,11 +32927,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -28508,12 +32948,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -28675,14 +33117,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                   'අද පෙ.ව. 2:00ට',      'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'අද පෙ.ව. 2:25ට',      'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'අද පෙ.ව. 3:00ට',      'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'හෙට පෙ.ව. 2:00ට',   'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'අද පෙ.ව. 1:00ට',      'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'ඊයේ පෙ.ව. 2:00ට',  'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'අද ප.ව. 12:00ට',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'අද ප.ව. 12:25ට',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'අද ප.ව. 1:00ට',      'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'හෙට ප.ව. 12:00ට',   'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'අද පෙ.ව. 11:00ට',    'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'ඊයේ ප.ව. 12:00ට',   'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -28808,7 +33250,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -28832,6 +33274,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -28845,11 +33338,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -28864,12 +33359,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -29062,14 +33559,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'dnes o 2:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'dnes o 2:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'dnes o 3:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'zajtra o 2:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'dnes o 1:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'včera o 2:00',     'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'dnes o 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'dnes o 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'dnes o 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'zajtra o 12:00',   'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'dnes o 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'včera o 12:00',    'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -29257,7 +33754,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -29281,6 +33778,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -29294,11 +33842,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -29313,12 +33863,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -29568,14 +34120,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'danes ob 2:00',  'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'danes ob 2:25',  'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'danes ob 3:00',  'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'jutri ob 2:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'danes ob 1:00',  'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'včeraj ob 2:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'danes ob 12:00',  'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'danes ob 12:25',  'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'danes ob 13:00',  'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'jutri ob 12:00',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'danes ob 11:00',  'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'včeraj ob 12:00', 'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -29742,7 +34294,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -29766,6 +34318,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -29779,11 +34382,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -29798,12 +34403,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -29977,14 +34584,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Sot në 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Sot në 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Sot në 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Nesër në 02:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Sot në 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Dje në 02:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Sot në 12:00',   'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Sot në 12:25',   'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Sot në 13:00',   'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Nesër në 12:00', 'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Sot në 11:00',   'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Dje në 12:00',   'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -30119,7 +34726,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -30143,6 +34750,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -30156,11 +34814,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -30175,12 +34835,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -30343,14 +35005,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'данас у 2:00',  'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'данас у 2:25',  'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'данас у 3:00',  'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'сутра у 2:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'данас у 1:00',  'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'јуче у 2:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'данас у 12:00',  'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'данас у 12:25',  'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'данас у 13:00',  'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'сутра у 12:00',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'данас у 11:00',  'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'јуче у 12:00',   'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -30515,7 +35177,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -30539,6 +35201,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -30552,11 +35265,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -30571,12 +35286,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -30739,14 +35456,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'danas u 2:00',  'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'danas u 2:25',  'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'danas u 3:00',  'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'sutra u 2:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'danas u 1:00',  'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'juče u 2:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'danas u 12:00',  'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'danas u 12:25',  'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'danas u 13:00',  'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'sutra u 12:00',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'danas u 11:00',  'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'juče u 12:00',   'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -30911,7 +35628,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -30935,6 +35652,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -30948,11 +35716,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -30967,12 +35737,463 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
+                if (lifecycle && lifecycle.teardown) {
+                    lifecycle.teardown();
+                }
+            }
+        });
+        defineCommonLocaleTests(name, -1, -1);
+    }
+
+    localeModule('ss');
+
+    test('parse', function (assert) {
+        var tests = "Bhimbidvwane Bhi_Indlovana Ina_Indlov'lenkhulu Inu_Mabasa Mab_Inkhwekhweti Ink_Inhlaba Inh_Kholwane Kho_Ingci Igc_Inyoni Iny_Imphala Imp_Lweti lwe_Ingongoni Igo".split('_'), i;
+        function equalTest(input, mmm, i) {
+            assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
+        }
+        for (i = 0; i < 12; i++) {
+            tests[i] = tests[i].split(' ');
+            equalTest(tests[i][0], 'MMM', i);
+            equalTest(tests[i][1], 'MMM', i);
+            equalTest(tests[i][0], 'MMMM', i);
+            equalTest(tests[i][1], 'MMMM', i);
+            equalTest(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
+            equalTest(tests[i][1].toLocaleLowerCase(), 'MMMM', i);
+            equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
+            equalTest(tests[i][1].toLocaleUpperCase(), 'MMMM', i);
+        }
+    });
+
+    test('parse meridiem', function (assert) {
+        var i,
+            b = moment(),
+            meridiemTests = [
+                // h a patterns, expected hours, isValid
+                ['10 ekuseni',   10, true],
+                ['11 emini',   11, true],
+                ['3 emtsambama',   15, true],
+                ['4 emtsambama',   16, true],
+                ['6 emtsambama',   18, true],
+                ['7 ebusuku',   19, true],
+                ['12 ebusuku',   0, true],
+                ['10 am',   10, false],
+                ['10 pm',   10, false]
+            ],
+            parsed;
+
+        // test that a formatted moment including meridiem string can be parsed back to the same moment
+        assert.ok(b.isSame(moment(b.format('h:mm:ss a'), 'h:mm:ss a', 'ss', true), 'seconds'), b.format('h:mm:ss a') + ' should be equal to ' + moment(b.format('h:mm:ss a'), 'h:mm:ss a', 'ss', true).format('h:mm:ss a'));
+
+        // test that a formatted moment having a meridiem string can be parsed with strict flag
+        assert.ok(moment(b.format('h:mm:ss a'), 'h:mm:ss a', 'ss', true).isValid(), b.format('h:mm:ss a') + ' should be parsed as valid');
+
+        for (i = 0; i < meridiemTests.length; i++) {
+            parsed = moment(meridiemTests[i][0], 'h a', 'ss', true);
+            assert.equal(parsed.isValid(), meridiemTests[i][2], 'validity for ' + meridiemTests[i][0]);
+            if (parsed.isValid()) {
+                assert.equal(parsed.hours(), meridiemTests[i][1], 'hours for ' + meridiemTests[i][0]);
+            }
+        }
+    });
+
+    test('format', function (assert) {
+        var a = [
+                ['dddd, MMMM Do YYYY, h:mm:ss a',      'Lisontfo, Indlovana 14 2010, 3:25:50 emtsambama'],
+                ['ddd, h A',                            'Lis, 3 emtsambama'],
+                ['M Mo MM MMMM MMM',                   '2 2 02 Indlovana Ina'],
+                ['YYYY YY',                            '2010 10'],
+                ['D Do DD',                            '14 14 14'],
+                ['d do dddd ddd dd',                   '0 0 Lisontfo Lis Li'],
+                ['DDD DDDo DDDD',                      '45 45 045'],
+                ['w wo ww',                            '6 6 06'],
+                ['h hh',                               '3 03'],
+                ['H HH',                               '15 15'],
+                ['m mm',                               '25 25'],
+                ['s ss',                               '50 50'],
+                ['a A',                                'emtsambama emtsambama'],
+                ['[Lilanga] DDDo [lilanga lelinyaka]', 'Lilanga 45 lilanga lelinyaka'],
+                ['LTS',                                '3:25:50 emtsambama'],
+                ['L',                                  '14/02/2010'],
+                ['LL',                                 '14 Indlovana 2010'],
+                ['LLL',                                '14 Indlovana 2010 3:25 emtsambama'],
+                ['LLLL',                               'Lisontfo, 14 Indlovana 2010 3:25 emtsambama'],
+                ['l',                                  '14/2/2010'],
+                ['ll',                                 '14 Ina 2010'],
+                ['lll',                                '14 Ina 2010 3:25 emtsambama'],
+                ['llll',                               'Lis, 14 Ina 2010 3:25 emtsambama']
+            ],
+            b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
+            i;
+        for (i = 0; i < a.length; i++) {
+            assert.equal(b.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
+        }
+    });
+
+    test('format ordinal', function (assert) {
+        assert.equal(moment([2011, 0, 1]).format('DDDo'), '1', '1');
+        assert.equal(moment([2011, 0, 2]).format('DDDo'), '2', '2');
+        assert.equal(moment([2011, 0, 3]).format('DDDo'), '3', '3');
+        assert.equal(moment([2011, 0, 4]).format('DDDo'), '4', '4');
+        assert.equal(moment([2011, 0, 5]).format('DDDo'), '5', '5');
+        assert.equal(moment([2011, 0, 6]).format('DDDo'), '6', '6');
+        assert.equal(moment([2011, 0, 7]).format('DDDo'), '7', '7');
+        assert.equal(moment([2011, 0, 8]).format('DDDo'), '8', '8');
+        assert.equal(moment([2011, 0, 9]).format('DDDo'), '9', '9');
+        assert.equal(moment([2011, 0, 10]).format('DDDo'), '10', '10');
+
+        assert.equal(moment([2011, 0, 11]).format('DDDo'), '11', '11');
+        assert.equal(moment([2011, 0, 12]).format('DDDo'), '12', '12');
+        assert.equal(moment([2011, 0, 13]).format('DDDo'), '13', '13');
+        assert.equal(moment([2011, 0, 14]).format('DDDo'), '14', '14');
+        assert.equal(moment([2011, 0, 15]).format('DDDo'), '15', '15');
+        assert.equal(moment([2011, 0, 16]).format('DDDo'), '16', '16');
+        assert.equal(moment([2011, 0, 17]).format('DDDo'), '17', '17');
+        assert.equal(moment([2011, 0, 18]).format('DDDo'), '18', '18');
+        assert.equal(moment([2011, 0, 19]).format('DDDo'), '19', '19');
+        assert.equal(moment([2011, 0, 20]).format('DDDo'), '20', '20');
+
+        assert.equal(moment([2011, 0, 21]).format('DDDo'), '21', '21');
+        assert.equal(moment([2011, 0, 22]).format('DDDo'), '22', '22');
+        assert.equal(moment([2011, 0, 23]).format('DDDo'), '23', '23');
+        assert.equal(moment([2011, 0, 24]).format('DDDo'), '24', '24');
+        assert.equal(moment([2011, 0, 25]).format('DDDo'), '25', '25');
+        assert.equal(moment([2011, 0, 26]).format('DDDo'), '26', '26');
+        assert.equal(moment([2011, 0, 27]).format('DDDo'), '27', '27');
+        assert.equal(moment([2011, 0, 28]).format('DDDo'), '28', '28');
+        assert.equal(moment([2011, 0, 29]).format('DDDo'), '29', '29');
+        assert.equal(moment([2011, 0, 30]).format('DDDo'), '30', '30');
+
+        assert.equal(moment([2011, 0, 31]).format('DDDo'), '31', '31');
+    });
+
+    test('format month', function (assert) {
+        var expected = "Bhimbidvwane Bhi_Indlovana Ina_Indlov'lenkhulu Inu_Mabasa Mab_Inkhwekhweti Ink_Inhlaba Inh_Kholwane Kho_Ingci Igc_Inyoni Iny_Imphala Imp_Lweti Lwe_Ingongoni Igo".split('_'), i;
+        for (i = 0; i < expected.length; i++) {
+            assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
+        }
+    });
+
+    test('format week', function (assert) {
+        var expected = 'Lisontfo Lis Li_Umsombuluko Umb Us_Lesibili Lsb Lb_Lesitsatfu Les Lt_Lesine Lsi Ls_Lesihlanu Lsh Lh_Umgcibelo Umg Ug'.split('_'), i;
+        for (i = 0; i < expected.length; i++) {
+            assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
+        }
+    });
+
+    test('from', function (assert) {
+        var start = moment([2007, 1, 28]);
+        assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'emizuzwana lomcane', '44 seconds = a few seconds');
+        assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'umzuzu',      '45 seconds = a minute');
+        assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'umzuzu',      '89 seconds = a minute');
+        assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '2 emizuzu',     '90 seconds = 2 minutes');
+        assert.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  '44 emizuzu',    '44 minutes = 44 minutes');
+        assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  'lihora',       '45 minutes = an hour');
+        assert.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  'lihora',       '89 minutes = an hour');
+        assert.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  '2 emahora',       '90 minutes = 2 hours');
+        assert.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   '5 emahora',       '5 hours = 5 hours');
+        assert.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  '21 emahora',      '21 hours = 21 hours');
+        assert.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  'lilanga',         '22 hours = a day');
+        assert.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  'lilanga',         '35 hours = a day');
+        assert.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  '2 emalanga',        '36 hours = 2 days');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   'lilanga',         '1 day = a day');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   '5 emalanga',        '5 days = 5 days');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  '25 emalanga',       '25 days = 25 days');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  'inyanga',       '26 days = a month');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  'inyanga',       '30 days = a month');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  'inyanga',       '43 days = a month');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  '2 tinyanga',      '46 days = 2 months');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  '2 tinyanga',      '75 days = 2 months');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  '3 tinyanga',      '76 days = 3 months');
+        assert.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   'inyanga',       '1 month = a month');
+        assert.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   '5 tinyanga',      '5 months = 5 months');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'umnyaka',        '345 days = a year');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), '2 iminyaka',       '548 days = 2 years');
+        assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'umnyaka',        '1 year = a year');
+        assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5 iminyaka',       '5 years = 5 years');
+    });
+
+    test('suffix', function (assert) {
+        assert.equal(moment(30000).from(0), 'nga emizuzwana lomcane',  'prefix');
+        assert.equal(moment(0).from(30000), 'wenteka nga emizuzwana lomcane', 'suffix');
+    });
+
+    test('now from now', function (assert) {
+        assert.equal(moment().fromNow(), 'wenteka nga emizuzwana lomcane',  'now from now should display as in the past');
+    });
+
+    test('fromNow', function (assert) {
+        assert.equal(moment().add({s: 30}).fromNow(), 'nga emizuzwana lomcane', 'in a few seconds');
+        assert.equal(moment().add({d: 5}).fromNow(), 'nga 5 emalanga', 'in 5 days');
+    });
+
+    test('calendar day', function (assert) {
+        var a = moment().hours(12).minutes(0).seconds(0);
+
+        assert.equal(moment(a).calendar(),                   'Namuhla nga 12:00 emini',      'Today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Namuhla nga 12:25 emini',      'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Namuhla nga 1:00 emini',      'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Kusasa nga 12:00 emini',   'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Namuhla nga 11:00 emini',      'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Itolo nga 12:00 emini',  'yesterday at the same time');
+    });
+
+    test('calendar next week', function (assert) {
+        var i, m;
+        for (i = 2; i < 7; i++) {
+            m = moment().add({d: i});
+            assert.equal(m.calendar(),       m.format('dddd [nga] LT'),  'Today + ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(m.calendar(),       m.format('dddd [nga] LT'),  'Today + ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(m.calendar(),       m.format('dddd [nga] LT'),  'Today + ' + i + ' days end of day');
+        }
+    });
+
+    test('calendar last week', function (assert) {
+        var i, m;
+
+        for (i = 2; i < 7; i++) {
+            m = moment().subtract({d: i});
+            assert.equal(m.calendar(),       m.format('dddd [leliphelile] [nga] LT'),  'Today - ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(m.calendar(),       m.format('dddd [leliphelile] [nga] LT'),  'Today - ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(m.calendar(),       m.format('dddd [leliphelile] [nga] LT'),  'Today - ' + i + ' days end of day');
+        }
+    });
+
+    test('calendar all else', function (assert) {
+        var weeksAgo = moment().subtract({w: 1}),
+            weeksFromNow = moment().add({w: 1});
+
+        assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '1 week ago');
+        assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 1 week');
+
+        weeksAgo = moment().subtract({w: 2});
+        weeksFromNow = moment().add({w: 2});
+
+        assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '2 weeks ago');
+        assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 2 weeks');
+    });
+
+    test('weeks year starting sunday formatted', function (assert) {
+        assert.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52', 'Jan  1 2012 should be week 52');
+        assert.equal(moment([2012, 0,  2]).format('w ww wo'),   '1 01 1', 'Jan  4 2012 should be week 1');
+        assert.equal(moment([2012, 0,  8]).format('w ww wo'),   '1 01 1', 'Jan  8 2012 should be week 1');
+        assert.equal(moment([2012, 0,  9]).format('w ww wo'),   '2 02 2', 'Jan  9 2012 should be week 2');
+        assert.equal(moment([2012, 0, 15]).format('w ww wo'),   '2 02 2', 'Jan 15 2012 should be week 2');
+    });
+
+}));
+
+;(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined'
+       && typeof require === 'function' ? factory(require('../../moment')) :
+   typeof define === 'function' && define.amd ? define(['../../moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
+
+    function each(array, callback) {
+        var i;
+        for (i = 0; i < array.length; i++) {
+            callback(array[i], i, array);
+        }
+    }
+
+    function objectKeys(obj) {
+        if (Object.keys) {
+            return Object.keys(obj);
+        } else {
+            // IE8
+            var res = [], i;
+            for (i in obj) {
+                if (obj.hasOwnProperty(i)) {
+                    res.push(i);
+                }
+            }
+            return res;
+        }
+    }
+
+    // Pick the first defined of two or three arguments.
+    function defaults(a, b, c) {
+        if (a != null) {
+            return a;
+        }
+        if (b != null) {
+            return b;
+        }
+        return c;
+    }
+
+    function defineCommonLocaleTests(locale, options) {
+        test('lenient ordinal parsing', function (assert) {
+            var i, ordinalStr, testMoment;
+            for (i = 1; i <= 31; ++i) {
+                ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
+                testMoment = moment(ordinalStr, 'YYYY MM Do');
+                assert.equal(testMoment.year(), 2014,
+                        'lenient ordinal parsing ' + i + ' year check');
+                assert.equal(testMoment.month(), 0,
+                        'lenient ordinal parsing ' + i + ' month check');
+                assert.equal(testMoment.date(), i,
+                        'lenient ordinal parsing ' + i + ' date check');
+            }
+        });
+
+        test('lenient ordinal parsing of number', function (assert) {
+            var i, testMoment;
+            for (i = 1; i <= 31; ++i) {
+                testMoment = moment('2014 01 ' + i, 'YYYY MM Do');
+                assert.equal(testMoment.year(), 2014,
+                        'lenient ordinal parsing of number ' + i + ' year check');
+                assert.equal(testMoment.month(), 0,
+                        'lenient ordinal parsing of number ' + i + ' month check');
+                assert.equal(testMoment.date(), i,
+                        'lenient ordinal parsing of number ' + i + ' date check');
+            }
+        });
+
+        test('strict ordinal parsing', function (assert) {
+            var i, ordinalStr, testMoment;
+            for (i = 1; i <= 31; ++i) {
+                ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
+                testMoment = moment(ordinalStr, 'YYYY MM Do', true);
+                assert.ok(testMoment.isValid(), 'strict ordinal parsing ' + i);
+            }
+        });
+
+        test('meridiem invariant', function (assert) {
+            var h, m, t1, t2;
+            for (h = 0; h < 24; ++h) {
+                for (m = 0; m < 60; m += 15) {
+                    t1 = moment.utc([2000, 0, 1, h, m]);
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
+                    assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
+                            'meridiem at ' + t1.format('HH:mm'));
+                }
+            }
+        });
+
+        test('date format correctness', function (assert) {
+            var data, tokens;
+            data = moment.localeData()._longDateFormat;
+            tokens = objectKeys(data);
+            each(tokens, function (srchToken) {
+                // Check each format string to make sure it does not contain any
+                // tokens that need to be expanded.
+                each(tokens, function (baseToken) {
+                    // strip escaped sequences
+                    var format = data[baseToken].replace(/(\[[^\]]*\])/g, '');
+                    assert.equal(false, !!~format.indexOf(srchToken),
+                            'contains ' + srchToken + ' in ' + baseToken);
+                });
+            });
+        });
+    }
+
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
+    var expect = QUnit.expect;
+
+    function module (name, lifecycle) {
+        QUnit.module(name, {
+            setup : function () {
+                moment.locale('en');
+                moment.createFromInputFallback = function (config) {
+                    throw new Error('input not handled by moment: ' + config._i);
+                };
+                setupDeprecationHandler(test, moment, 'core');
+                if (lifecycle && lifecycle.setup) {
+                    lifecycle.setup();
+                }
+            },
+            teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
+                if (lifecycle && lifecycle.teardown) {
+                    lifecycle.teardown();
+                }
+            }
+        });
+    }
+
+    function localeModule (name, lifecycle) {
+        QUnit.module('locale:' + name, {
+            setup : function () {
+                moment.locale(name);
+                moment.createFromInputFallback = function (config) {
+                    throw new Error('input not handled by moment: ' + config._i);
+                };
+                setupDeprecationHandler(test, moment, 'locale');
+                if (lifecycle && lifecycle.setup) {
+                    lifecycle.setup();
+                }
+            },
+            teardown : function () {
+                moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -31132,14 +36353,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Idag 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Idag 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Idag 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Imorgon 02:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Idag 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Igår 02:00',     'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Idag 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Idag 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Idag 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Imorgon 12:00',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Idag 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Igår 12:00',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -31272,7 +36493,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -31296,6 +36517,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -31309,11 +36581,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -31328,12 +36602,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -31493,13 +36769,13 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
-        assert.equal(moment(a).calendar(),                   'leo saa 02:00',      'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'leo saa 02:25',      'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'leo saa 03:00',      'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'kesho saa 02:00',    'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'leo saa 01:00',      'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'jana 02:00',         'yesterday at the same time');
+        var a = moment().hours(12).minutes(0).seconds(0);
+        assert.equal(moment(a).calendar(),                   'leo saa 12:00',      'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'leo saa 12:25',      'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'leo saa 13:00',      'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'kesho saa 12:00',    'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'leo saa 11:00',      'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'jana 12:00',         'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -31633,7 +36909,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -31657,6 +36933,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -31670,11 +36997,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -31689,12 +37018,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -31854,14 +37185,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),  'இன்று ௦௨:௦௦', 'இன்று  02:00');
-        assert.equal(moment(a).add({m: 25}).calendar(), 'இன்று ௦௨:௨௫', 'இன்று  02:25');
-        assert.equal(moment(a).add({h: 1}).calendar(), 'இன்று ௦௩:௦௦', 'இன்று  03:00');
-        assert.equal(moment(a).add({d: 1}).calendar(), 'நாளை ௦௨:௦௦', 'நாளை  02:00');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'இன்று ௦௧:௦௦',      'இன்று  0௧:00');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'நேற்று ௦௨:௦௦',  'நேற்று  02:00');
+        assert.equal(moment(a).calendar(),                   'இன்று ௧௨:௦௦',   'இன்று  12:00');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'இன்று ௧௨:௨௫',   'இன்று  12:25');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'இன்று ௧௩:௦௦',   'இன்று  13:00');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'நாளை ௧௨:௦௦',    'நாளை  12:00');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'இன்று ௧௧:௦௦',   'இன்று  11:00');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'நேற்று ௧௨:௦௦',  'நேற்று  12:00');
     });
 
     test('calendar next week', function (assert) {
@@ -31997,7 +37328,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -32021,6 +37352,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -32034,11 +37416,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -32053,12 +37437,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -32217,14 +37603,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'నేడు రాత్రి 2:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'నేడు రాత్రి 2:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 3}).calendar(),       'నేడు ఉదయం 5:00',     'Now plus 3 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'రేపు రాత్రి 2:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'నేడు రాత్రి 1:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'నిన్న రాత్రి 2:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'నేడు మధ్యాహ్నం 12:00',   'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'నేడు మధ్యాహ్నం 12:25',   'Now plus 25 min');
+        assert.equal(moment(a).add({h: 3}).calendar(),       'నేడు మధ్యాహ్నం 3:00',    'Now plus 3 hours');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'రేపు మధ్యాహ్నం 12:00',   'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'నేడు మధ్యాహ్నం 11:00',   'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'నిన్న మధ్యాహ్నం 12:00',  'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -32374,7 +37760,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -32398,6 +37784,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -32411,11 +37848,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -32430,12 +37869,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -32558,14 +37999,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'วันนี้ เวลา 2 นาฬิกา 0 นาที',      'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'วันนี้ เวลา 2 นาฬิกา 25 นาที',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'วันนี้ เวลา 3 นาฬิกา 0 นาที',      'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'พรุ่งนี้ เวลา 2 นาฬิกา 0 นาที', 'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'วันนี้ เวลา 1 นาฬิกา 0 นาที',      'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'เมื่อวานนี้ เวลา 2 นาฬิกา 0 นาที', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'วันนี้ เวลา 12 นาฬิกา 0 นาที',      'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'วันนี้ เวลา 12 นาฬิกา 25 นาที',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'วันนี้ เวลา 13 นาฬิกา 0 นาที',      'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'พรุ่งนี้ เวลา 12 นาฬิกา 0 นาที',    'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'วันนี้ เวลา 11 นาฬิกา 0 นาที',      'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'เมื่อวานนี้ เวลา 12 นาฬิกา 0 นาที', 'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -32698,7 +38139,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -32722,6 +38163,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -32735,11 +38227,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -32754,12 +38248,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -32916,14 +38412,14 @@
     });
 
     test('same day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Ngayon sa 02:00',    'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Ngayon sa 02:25',    'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Ngayon sa 03:00',    'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Bukas sa 02:00',     'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Ngayon sa 01:00',    'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Kahapon sa 02:00',   'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Ngayon sa 12:00',    'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Ngayon sa 12:25',    'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Ngayon sa 13:00',    'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Bukas sa 12:00',     'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Ngayon sa 11:00',    'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Kahapon sa 12:00',   'yesterday at the same time');
     });
 
     test('same next week', function (assert) {
@@ -33058,7 +38554,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -33082,6 +38578,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -33095,11 +38642,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -33114,12 +38663,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -33293,14 +38844,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                   'DaHjaj 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'DaHjaj 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'DaHjaj 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'wa’leS 02:00',     'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'DaHjaj 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'wa’Hu’ 02:00',     'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'DaHjaj 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'DaHjaj 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'DaHjaj 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'wa’leS 12:00',     'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'DaHjaj 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'wa’Hu’ 12:00',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -33435,7 +38986,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -33459,6 +39010,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -33472,11 +39074,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -33491,12 +39095,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -33667,14 +39273,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'bugün saat 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'bugün saat 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'bugün saat 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'yarın saat 02:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'bugün saat 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'dün 02:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'bugün saat 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'bugün saat 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'bugün saat 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'yarın saat 12:00',     'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'bugün saat 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'dün 12:00',            'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -33807,7 +39413,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -33831,6 +39437,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -33844,11 +39501,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -33863,12 +39522,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -34028,14 +39689,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'oxhi à 02.00',      'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'oxhi à 02.25',      'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'oxhi à 03.00',      'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'demà à 02.00',   'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'oxhi à 01.00',      'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'ieiri à 02.00',  'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'oxhi à 12.00',      'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'oxhi à 12.25',      'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'oxhi à 13.00',      'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'demà à 12.00',      'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'oxhi à 11.00',      'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'ieiri à 12.00',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -34172,7 +39833,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -34196,6 +39857,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -34209,11 +39921,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -34228,12 +39942,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -34393,14 +40109,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'asdkh g 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'asdkh g 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'asdkh g 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'aska g 02:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'asdkh g 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'assant g 02:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'asdkh g 12:00',   'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'asdkh g 12:25',   'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'asdkh g 13:00',   'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'aska g 12:00',    'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'asdkh g 11:00',   'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'assant g 12:00',  'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -34533,7 +40249,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -34557,6 +40273,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -34570,11 +40337,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -34589,12 +40358,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -34754,14 +40525,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'ⴰⵙⴷⵅ ⴴ 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'ⴰⵙⴷⵅ ⴴ 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'ⴰⵙⴷⵅ ⴴ 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'ⴰⵙⴽⴰ ⴴ 02:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'ⴰⵙⴷⵅ ⴴ 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'ⴰⵚⴰⵏⵜ ⴴ 02:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'ⴰⵙⴷⵅ ⴴ 12:00',  'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'ⴰⵙⴷⵅ ⴴ 12:25',  'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'ⴰⵙⴷⵅ ⴴ 13:00',  'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'ⴰⵙⴽⴰ ⴴ 12:00',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'ⴰⵙⴷⵅ ⴴ 11:00',  'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'ⴰⵚⴰⵏⵜ ⴴ 12:00',  'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -34894,7 +40665,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -34918,6 +40689,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -34931,11 +40753,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -34950,12 +40774,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -35131,16 +40957,16 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Сьогодні о 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Сьогодні о 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Сьогодні о 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Завтра о 02:00',      'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Сьогодні о 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Вчора о 02:00',       'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Сьогодні о 12:00',   'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Сьогодні о 12:25',   'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Сьогодні о 13:00',   'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Завтра о 12:00',     'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 2}).calendar(),  'Сьогодні о 10:00',   'Now minus 2 hours');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Вчора о 12:00',      'yesterday at the same time');
         // A special case for Ukrainian since 11 hours have different preposition
-        assert.equal(moment(a).add({h: 9}).calendar(),  'Сьогодні об 11:00',       'same day at 11 o\'clock');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Сьогодні об 11:00',  'same day at 11 o\'clock');
     });
 
     test('calendar next week', function (assert) {
@@ -35288,7 +41114,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -35312,6 +41138,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -35325,11 +41202,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -35344,12 +41223,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -35509,14 +41390,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                   'Бугун соат 02:00 да',      'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Бугун соат 02:25 да',      'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Бугун соат 03:00 да',      'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Эртага 02:00 да',   'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Бугун соат 01:00 да',      'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Кеча соат 02:00 да',  'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Бугун соат 12:00 да',  'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Бугун соат 12:25 да',  'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Бугун соат 13:00 да',  'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Эртага 12:00 да',      'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Бугун соат 11:00 да',  'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Кеча соат 12:00 да',   'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -35650,7 +41531,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -35674,6 +41555,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -35687,11 +41619,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -35706,12 +41640,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -35880,14 +41816,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                     'Hôm nay lúc 02:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Hôm nay lúc 02:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Hôm nay lúc 03:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Ngày mai lúc 02:00',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hôm nay lúc 01:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Hôm qua lúc 02:00', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Hôm nay lúc 12:00',   'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Hôm nay lúc 12:25',   'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Hôm nay lúc 13:00',   'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Ngày mai lúc 12:00',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hôm nay lúc 11:00',   'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Hôm qua lúc 12:00',   'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -36022,7 +41958,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -36046,6 +41982,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -36059,11 +42046,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -36078,12 +42067,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -36211,14 +42202,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                   '今天凌晨2点整',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      '今天凌晨2点25分',   'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       '今天凌晨3点整',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       '明天凌晨2点整',     'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  '今天凌晨1点整',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  '昨天凌晨2点整',     'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   '今天中午12点整',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      '今天中午12点25分',   'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       '今天下午1点整',      'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       '明天中午12点整',     'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  '今天上午11点整',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  '昨天中午12点整',     'yesterday at the same time');
     });
 
     test('calendar current week', function (assert) {
@@ -36378,7 +42369,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -36402,6 +42393,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -36415,11 +42457,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -36434,12 +42478,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -36565,14 +42611,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                   '今天早上2點00分',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      '今天早上2點25分',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       '今天早上3點00分',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       '明天早上2點00分',     'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  '今天早上1點00分',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  '昨天早上2點00分',     'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   '今天中午12點00分',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      '今天中午12點25分',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       '今天下午1點00分',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       '明天中午12點00分',     'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  '今天上午11點00分',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  '昨天中午12點00分',     'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -36719,7 +42765,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -36743,6 +42789,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -36756,11 +42853,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -36775,12 +42874,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -36868,6 +42969,9 @@
 
     test('add string long reverse args', function (assert) {
         var a = moment(), b;
+
+        test.expectedDeprecations('moment().add(period, number)');
+
         a.year(2011);
         a.month(9);
         a.date(12);
@@ -36892,6 +42996,9 @@
 
     test('add string long singular reverse args', function (assert) {
         var a = moment(), b;
+
+        test.expectedDeprecations('moment().add(period, number)');
+
         a.year(2011);
         a.month(9);
         a.date(12);
@@ -36916,6 +43023,8 @@
 
     test('add string short reverse args', function (assert) {
         var a = moment();
+        test.expectedDeprecations('moment().add(period, number)');
+
         a.year(2011);
         a.month(9);
         a.date(12);
@@ -36998,8 +43107,10 @@
         assert.equal(a.add(1, 'Q').month(), 1, 'Add quarter');
     });
 
-    test('add strings string short args', function (assert) {
+    test('add strings string short reversed', function (assert) {
         var a = moment();
+        test.expectedDeprecations('moment().add(period, number)');
+
         a.year(2011);
         a.month(9);
         a.date(12);
@@ -37019,8 +43130,10 @@
         assert.equal(a.add('Q', '1').month(), 1, 'Add quarter');
     });
 
-    test('subtract strings string short args', function (assert) {
+    test('subtract strings string short reversed', function (assert) {
         var a = moment();
+        test.expectedDeprecations('moment().subtract(period, number)');
+
         a.year(2011);
         a.month(9);
         a.date(12);
@@ -37216,7 +43329,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -37240,6 +43353,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -37253,11 +43417,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -37272,12 +43438,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -37291,12 +43459,12 @@
     module('calendar');
 
     test('passing a function', function (assert) {
-        var a  = moment().hours(2).minutes(0).seconds(0);
+        var a  = moment().hours(13).minutes(0).seconds(0);
         assert.equal(moment(a).calendar(null, {
             'sameDay': function () {
                 return 'h:mmA';
             }
-        }), '2:00AM', 'should equate');
+        }), '1:00PM', 'should equate');
     });
 
 }));
@@ -37383,7 +43551,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -37407,6 +43575,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -37420,11 +43639,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -37439,12 +43660,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -38116,6 +44339,7 @@
         assert.equal(moment.utc('2010-01', 'gggg-ww').format(), '2009-12-26T00:00:00+00:00', '2010 week 1 (1st Jan Fri)');
         assert.equal(moment.utc('2011-01', 'gggg-ww').format(), '2011-01-01T00:00:00+00:00', '2011 week 1 (1st Jan Sat)');
         assert.equal(moment.utc('2012-01', 'gggg-ww').format(), '2011-12-31T00:00:00+00:00', '2012 week 1 (1st Jan Sun)');
+        moment.defineLocale('dow:6,doy:12', null);
     });
 
     test('parsing ISO with Z', function (assert) {
@@ -38404,6 +44628,7 @@
             ver('1999 37 Di', 'gggg ww dd', '1999 09 19', 'localized d uses 0-indexed days: 0 = sund');
         }
         finally {
+            moment.defineLocale('dow:1,doy:4', null);
             moment.locale('en');
         }
     });
@@ -38578,7 +44803,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -38602,6 +44827,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -38615,11 +44891,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -38634,12 +44912,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -38764,7 +45044,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -38788,6 +45068,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -38801,11 +45132,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -38820,12 +45153,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -38936,7 +45271,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -38960,6 +45295,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -38973,11 +45359,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -38992,12 +45380,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -39055,6 +45445,9 @@
         var firstTime = true;
 
         return extend(function () {
+            if (hooks.deprecationHandler != null) {
+                hooks.deprecationHandler(null, msg);
+            }
             if (firstTime) {
                 warn(msg + '\nArguments: ' + Array.prototype.slice.call(arguments).join(', ') + '\n' + (new Error()).stack);
                 firstTime = false;
@@ -39066,6 +45459,9 @@
     var deprecations = {};
 
     function deprecateSimple(name, msg) {
+        if (hooks.deprecationHandler != null) {
+            hooks.deprecationHandler(name, msg);
+        }
         if (!deprecations[name]) {
             warn(msg);
             deprecations[name] = true;
@@ -39073,10 +45469,13 @@
     }
 
     hooks.suppressDeprecationWarnings = false;
+    hooks.deprecationHandler = null;
 
     module('deprecate');
 
     test('deprecate', function (assert) {
+        // NOTE: hooks inside deprecate.js and moment are different, so this is can
+        // not be test.expectedDeprecations(...)
         var fn = function () {};
         var deprecatedFn = deprecate('testing deprecation', fn);
         deprecatedFn();
@@ -39168,7 +45567,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -39192,6 +45591,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -39205,11 +45655,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -39224,12 +45676,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -39554,7 +46008,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -39578,6 +46032,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -39591,11 +46096,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -39610,12 +46117,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -39903,6 +46412,8 @@
     });
 
     test('toIsoString deprecation', function (assert) {
+        test.expectedDeprecations('toIsoString()');
+
         assert.equal(moment.duration({}).toIsoString(), moment.duration({}).toISOString(), 'toIsoString delegates to toISOString');
     });
 
@@ -40337,7 +46848,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -40361,6 +46872,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -40374,11 +46936,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -40393,12 +46957,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -40534,7 +47100,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -40558,6 +47124,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -40571,11 +47188,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -40590,12 +47209,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -40844,7 +47465,7 @@
             '405-12-31': '0405-52'
         }, i, isoWeekYear, formatted5, formatted4, formatted2;
 
-        moment.locale('dow:1,doy:4', {week: {dow: 1, doy: 4}});
+        moment.defineLocale('dow:1,doy:4', {week: {dow: 1, doy: 4}});
 
         for (i in cases) {
             isoWeekYear = cases[i].split('-')[0];
@@ -40855,6 +47476,7 @@
             formatted2 = moment(i, 'YYYY-MM-DD').format('gg');
             assert.equal(isoWeekYear.slice(2, 4), formatted2, i + ': gg should be ' + isoWeekYear + ', but ' + formatted2);
         }
+        moment.defineLocale('dow:1,doy:4', null);
     });
 
     test('iso weekday formats', function (assert) {
@@ -40868,7 +47490,7 @@
     });
 
     test('weekday formats', function (assert) {
-        moment.locale('dow: 3,doy: 5', {week: {dow: 3, doy: 5}});
+        moment.defineLocale('dow: 3,doy: 5', {week: {dow: 3, doy: 5}});
         assert.equal(moment([1985, 1,  6]).format('e'), '0', 'Feb  6 1985 is Wednesday -- 0th day');
         assert.equal(moment([2029, 8, 20]).format('e'), '1', 'Sep 20 2029 is Thursday  -- 1st day');
         assert.equal(moment([2013, 3, 26]).format('e'), '2', 'Apr 26 2013 is Friday    -- 2nd day');
@@ -40876,6 +47498,7 @@
         assert.equal(moment([1970, 0,  4]).format('e'), '4', 'Jan  4 1970 is Sunday    -- 4th day');
         assert.equal(moment([2001, 4, 14]).format('e'), '5', 'May 14 2001 is Monday    -- 5th day');
         assert.equal(moment([2000, 0,  4]).format('e'), '6', 'Jan  4 2000 is Tuesday   -- 6th day');
+        moment.defineLocale('dow: 3,doy: 5', null);
     });
 
     test('toString is just human readable format', function (assert) {
@@ -40884,13 +47507,13 @@
     });
 
     test('toJSON skips postformat', function (assert) {
-        moment.locale('postformat', {
+        moment.defineLocale('postformat', {
             postformat: function (s) {
                 s.replace(/./g, 'X');
             }
         });
         assert.equal(moment.utc([2000, 0, 1]).toJSON(), '2000-01-01T00:00:00.000Z', 'toJSON doesn\'t postformat');
-        moment.locale('postformat', null);
+        moment.defineLocale('postformat', null);
     });
 
     test('calendar day timezone', function (assert) {
@@ -41112,7 +47735,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -41136,6 +47759,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -41149,11 +47823,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -41168,12 +47844,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -41316,7 +47994,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -41340,6 +48018,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -41353,11 +48082,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -41372,12 +48103,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -41421,6 +48154,8 @@
 
     test('setters plural', function (assert) {
         var a = moment();
+        test.expectedDeprecations('years accessor', 'months accessor', 'dates accessor');
+
         a.years(2011);
         a.months(9);
         a.dates(12);
@@ -41505,36 +48240,30 @@
         assert.equal(a.month(), 3, 'month edge case');
     });
 
-    // Disable this, until we weekYear setter is fixed.
-    // https://github.com/moment/moment/issues/1379
-    // test('setters programatic with weeks', function (assert) {
-    //     var a = moment();
-    //     a.set('weekYear', 2001);
-    //     a.set('week', 49);
-    //     a.set('day', 4);
-    //     assert.equals(a.weekYear(), 2001);
-    //     assert.equals(a.week(), 49);
-    //     assert.equals(a.day(), 4);
+    test('setters programatic with weeks', function (assert) {
+        var a = moment();
+        a.set('weekYear', 2001);
+        a.set('week', 49);
+        a.set('day', 4);
 
-    //     a.set('weekday', 1);
-    //     assert.equals(a.weekday(), 1);
+        assert.equal(a.weekYear(), 2001, 'weekYear');
+        assert.equal(a.week(), 49, 'week');
+        assert.equal(a.day(), 4, 'day');
 
-    //     assert.done();
-    //},
+        a.set('weekday', 1);
+        assert.equal(a.weekday(), 1, 'weekday');
+    });
 
-    // I think this suffers from the same issue as the non-iso version.
-    // test('setters programatic with weeks ISO', function (assert) {
-    //     var a = moment();
-    //     a.set('isoWeekYear', 2001);
-    //     a.set('isoWeek', 49);
-    //     a.set('isoWeekday', 4);
+    test('setters programatic with weeks ISO', function (assert) {
+        var a = moment();
+        a.set('isoWeekYear', 2001);
+        a.set('isoWeek', 49);
+        a.set('isoWeekday', 4);
 
-    //     assert.equals(a.weekYear(), 2001);
-    //     assert.equals(a.week(), 49);
-    //     assert.equals(a.day(), 4);
-
-    //     assert.done();
-    //},
+        assert.equal(a.isoWeekYear(), 2001, 'isoWeekYear');
+        assert.equal(a.isoWeek(), 49, 'isoWeek');
+        assert.equal(a.isoWeekday(), 4, 'isoWeekday');
+    });
 
     test('setters strings', function (assert) {
         var a = moment([2012]).locale('en');
@@ -41725,7 +48454,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -41749,6 +48478,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -41762,11 +48542,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -41781,12 +48563,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -41905,7 +48689,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -41929,6 +48713,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -41942,11 +48777,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -41961,12 +48798,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -42010,6 +48849,8 @@
             i,
             invalid,
             valid = moment();
+
+        test.expectedDeprecations('moment().min', 'moment().max');
 
         for (i = 0; i < invalids.length; ++i) {
             invalid = invalids[i];
@@ -42236,7 +49077,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -42260,6 +49101,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -42273,11 +49165,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -42292,12 +49186,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -42565,7 +49461,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -42589,6 +49485,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -42602,11 +49549,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -42621,12 +49570,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -42739,7 +49690,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -42763,6 +49714,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -42776,11 +49778,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -42795,12 +49799,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -43068,7 +50074,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -43092,6 +50098,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -43105,11 +50162,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -43124,12 +50183,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -43440,7 +50501,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -43464,6 +50525,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -43477,11 +50589,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -43496,12 +50610,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -43616,7 +50732,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -43640,6 +50756,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -43653,11 +50820,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -43672,12 +50841,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -43811,7 +50982,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -43835,6 +51006,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -43848,11 +51070,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -43867,12 +51091,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -44114,7 +51340,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -44138,6 +51364,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -44151,11 +51428,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -44170,12 +51449,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -44448,7 +51729,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -44472,6 +51753,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -44485,11 +51817,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -44504,12 +51838,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -44782,7 +52118,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -44806,6 +52142,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -44819,11 +52206,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -44838,12 +52227,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -45211,7 +52602,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -45235,6 +52626,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -45248,11 +52690,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -45267,12 +52711,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -45374,7 +52820,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -45398,6 +52844,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -45411,11 +52908,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -45430,12 +52929,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -45606,7 +53107,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -45630,6 +53131,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -45643,11 +53195,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -45662,12 +53216,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -45813,10 +53369,12 @@
     });
 
     test('library deprecations', function (assert) {
+        test.expectedDeprecations('moment.lang');
         moment.lang('dude', {months: ['Movember']});
         assert.equal(moment.locale(), 'dude', 'setting the lang sets the locale');
         assert.equal(moment.lang(), moment.locale());
         assert.equal(moment.langData(), moment.localeData(), 'langData is localeData');
+        moment.defineLocale('dude', null);
     });
 
     test('defineLocale', function (assert) {
@@ -45824,18 +53382,21 @@
         moment.defineLocale('dude', {months: ['Movember']});
         assert.equal(moment().locale(), 'dude', 'defineLocale also sets it');
         assert.equal(moment().locale('dude').locale(), 'dude', 'defineLocale defines a locale');
+        moment.defineLocale('dude', null);
     });
 
     test('locales', function (assert) {
         moment.defineLocale('dude', {months: ['Movember']});
         assert.equal(true, !!~moment.locales().indexOf('dude'), 'locales returns an array of defined locales');
         assert.equal(true, !!~moment.locales().indexOf('en'), 'locales should always include english');
+        moment.defineLocale('dude', null);
     });
 
     test('library convenience', function (assert) {
         moment.locale('something', {week: {dow: 3}});
         moment.locale('something');
         assert.equal(moment.locale(), 'something', 'locale can be used to create the locale too');
+        moment.defineLocale('something', null);
     });
 
     test('firstDayOfWeek firstDayOfYear locale getters', function (assert) {
@@ -45843,6 +53404,7 @@
         moment.locale('something');
         assert.equal(moment.localeData().firstDayOfWeek(), 3, 'firstDayOfWeek');
         assert.equal(moment.localeData().firstDayOfYear(), 4, 'firstDayOfYear');
+        moment.defineLocale('something', null);
     });
 
     test('instance locale method', function (assert) {
@@ -45913,6 +53475,7 @@
     });
 
     test('duration deprecations', function (assert) {
+        test.expectedDeprecations('moment().lang()');
         assert.equal(moment.duration().lang(), moment.duration().localeData(), 'duration.lang is the same as duration.localeData');
     });
 
@@ -46004,6 +53567,7 @@
     test('instance localeData', function (assert) {
         moment.defineLocale('dude', {week: {dow: 3}});
         assert.equal(moment().locale('dude').localeData()._week.dow, 3);
+        moment.defineLocale('dude', null);
     });
 
     test('month name callback function', function (assert) {
@@ -46031,6 +53595,8 @@
     });
 
     test('changing parts of a locale config', function (assert) {
+        test.expectedDeprecations('defineLocaleOverride');
+
         moment.locale('partial-lang', {
             months : 'a b c d e f g h i j k l'.split(' ')
         });
@@ -46042,6 +53608,8 @@
         });
 
         assert.equal(moment([2011, 0, 1]).format('MMMM MMM'), 'a A', 'should be able to set locale values after creating the localeuage');
+
+        moment.defineLocale('partial-lang', null);
     });
 
     test('start/endOf week feature for first-day-is-monday locales', function (assert) {
@@ -46054,6 +53622,7 @@
         moment.locale('monday-lang');
         assert.equal(moment([2013, 0, 1]).startOf('week').day(), 1, 'for locale monday-lang first day of the week should be monday');
         assert.equal(moment([2013, 0, 1]).endOf('week').day(), 0, 'for locale monday-lang last day of the week should be sunday');
+        moment.defineLocale('monday-lang', null);
     });
 
     test('meridiem parsing', function (assert) {
@@ -46067,6 +53636,7 @@
         moment.locale('meridiem-parsing');
         assert.equal(moment('2012-01-01 3b', 'YYYY-MM-DD ha').hour(), 15, 'Custom parsing of meridiem should work');
         assert.equal(moment('2012-01-01 3d', 'YYYY-MM-DD ha').hour(), 3, 'Custom parsing of meridiem should work');
+        moment.defineLocale('meridiem-parsing', null);
     });
 
     test('invalid date formatting', function (assert) {
@@ -46076,12 +53646,14 @@
 
         assert.equal(moment.invalid().format(), 'KHAAAAAAAAAAAN!');
         assert.equal(moment.invalid().format('YYYY-MM-DD'), 'KHAAAAAAAAAAAN!');
+        moment.defineLocale('has-invalid', null);
     });
 
     test('return locale name', function (assert) {
         var registered = moment.locale('return-this', {});
 
         assert.equal(registered, 'return-this', 'returns the locale configured');
+        moment.locale('return-this', null);
     });
 
     test('changing the global locale doesn\'t affect existing instances', function (assert) {
@@ -46091,6 +53663,7 @@
     });
 
     test('setting a language on instance returns the original moment for chaining', function (assert) {
+        test.expectedDeprecations('moment().lang()');
         var mom = moment();
 
         assert.equal(mom.lang('fr'), mom, 'setting the language (lang) returns the original moment for chaining');
@@ -46098,6 +53671,7 @@
     });
 
     test('lang(key) changes the language of the instance', function (assert) {
+        test.expectedDeprecations('moment().lang()');
         var m = moment().month(0);
         m.lang('fr');
         assert.equal(m.locale(), 'fr', 'm.lang(key) changes instance locale');
@@ -46121,6 +53695,7 @@
     });
 
     test('moment().lang with missing key doesn\'t change locale', function (assert) {
+        test.expectedDeprecations('moment().lang()');
         assert.equal(moment().lang('boo').localeData(), moment.localeData(),
                 'preserve global locale in case of bad locale id');
     });
@@ -46242,7 +53817,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -46266,6 +53841,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -46279,11 +53905,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -46298,12 +53926,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -46559,7 +54189,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -46583,6 +54213,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -46596,11 +54277,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -46615,12 +54298,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -46738,8 +54423,7 @@
         moment.defineLocale('ordinal-2', {
             ordinal : '%dx'
         });
-        moment.defineLocale('ordinal-2', {
-            parentLocale: 'ordinal-2',
+        moment.updateLocale('ordinal-2', {
             ordinal : function (num) {
                 return num + 'y';
             }
@@ -46878,7 +54562,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -46902,6 +54586,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -46915,11 +54650,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -46934,12 +54671,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -47078,7 +54817,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -47102,6 +54841,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -47115,11 +54905,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -47134,12 +54926,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -47256,7 +55050,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -47280,6 +55074,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -47293,11 +55138,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -47312,12 +55159,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -47439,7 +55288,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -47463,6 +55312,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -47476,11 +55376,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -47495,12 +55397,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -47647,7 +55551,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -47671,6 +55575,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -47684,11 +55639,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -47703,12 +55660,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -47967,7 +55926,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -47991,6 +55950,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -48004,11 +56014,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -48023,12 +56035,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -48077,6 +56091,9 @@
                     });
                 }
             });
+        },
+        teardown: function () {
+            moment.defineLocale('symbol', null);
         }
     });
 
@@ -48095,14 +56112,14 @@
     });
 
     test('calendar day', function (assert) {
-        var a = moment().hours(2).minutes(0).seconds(0);
+        var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                   'Today at @:)) AM',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Today at @:@% AM',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Today at #:)) AM',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Tomorrow at @:)) AM',  'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Today at !:)) AM',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Yesterday at @:)) AM', 'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Today at !@:)) PM',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Today at !@:@% PM',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Today at !:)) PM',      'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Tomorrow at !@:)) PM',  'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Today at !!:)) AM',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Yesterday at !@:)) PM', 'yesterday at the same time');
     });
 
 }));
@@ -48189,7 +56206,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -48213,6 +56230,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -48226,11 +56294,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -48245,12 +56315,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -48442,7 +56514,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -48466,6 +56538,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -48479,11 +56602,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -48498,12 +56623,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -48741,7 +56868,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -48765,6 +56892,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -48778,11 +56956,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -48797,12 +56977,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -49251,7 +57433,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -49275,6 +57457,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -49288,11 +57521,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -49307,12 +57542,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -49419,7 +57656,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -49443,6 +57680,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -49456,11 +57744,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -49475,12 +57765,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -49593,7 +57885,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -49617,6 +57909,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -49630,11 +57973,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -49649,12 +57994,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -49675,7 +58022,7 @@
 
         // local
         m.local();
-        if (m.zone() > 180) {
+        if (m.utcOffset() < -180) {
             assert.equal(m.date(), 1, 'the date should be correct for local');
             assert.equal(m.day(), 2, 'the day should be correct for local');
         } else {
@@ -49823,7 +58170,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -49847,6 +58194,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -49860,11 +58258,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -49879,12 +58279,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -50369,97 +58771,6 @@
         assert.equal(moment().utcOffset(-120).format('ZZ'), '-0200', '+120 -> -0200');
     });
 
-    test('local to utc, keepLocalTime = true', function (assert) {
-        var m = moment(),
-            fmt = 'YYYY-DD-MM HH:mm:ss';
-        assert.equal(m.clone().utc(true).format(fmt), m.format(fmt), 'local to utc failed to keep local time');
-    });
-
-    test('local to utc, keepLocalTime = false', function (assert) {
-        var m = moment();
-        assert.equal(m.clone().utc().valueOf(), m.valueOf(), 'local to utc failed to keep utc time (implicit)');
-        assert.equal(m.clone().utc(false).valueOf(), m.valueOf(), 'local to utc failed to keep utc time (explicit)');
-    });
-
-    test('local to zone, keepLocalTime = true', function (assert) {
-        var m = moment(),
-            fmt = 'YYYY-DD-MM HH:mm:ss',
-            z;
-
-        // Apparently there is -12:00 and +14:00
-        // http://en.wikipedia.org/wiki/UTC+14:00
-        // http://en.wikipedia.org/wiki/UTC-12:00
-        for (z = -12; z <= 14; ++z) {
-            assert.equal(m.clone().utcOffset(z * 60, true).format(fmt),
-                    m.format(fmt),
-                    'local to utcOffset(' + z + ':00) failed to keep local time');
-        }
-    });
-
-    test('local to zone, keepLocalTime = false', function (assert) {
-        var m = moment(),
-            z;
-
-        // Apparently there is -12:00 and +14:00
-        // http://en.wikipedia.org/wiki/UTC+14:00
-        // http://en.wikipedia.org/wiki/UTC-12:00
-        for (z = -12; z <= 14; ++z) {
-            assert.equal(m.clone().utcOffset(z * 60).valueOf(),
-                    m.valueOf(),
-                    'local to utcOffset(' + z + ':00) failed to keep utc time (implicit)');
-            assert.equal(m.clone().utcOffset(z * 60, false).valueOf(),
-                    m.valueOf(),
-                    'local to utcOffset(' + z + ':00) failed to keep utc time (explicit)');
-        }
-    });
-
-    test('utc to local, keepLocalTime = true', function (assert) {
-        var um = moment.utc(),
-            fmt = 'YYYY-DD-MM HH:mm:ss';
-
-        assert.equal(um.clone().local(true).format(fmt), um.format(fmt), 'utc to local failed to keep local time');
-    });
-
-    test('utc to local, keepLocalTime = false', function (assert) {
-        var um = moment.utc();
-        assert.equal(um.clone().local().valueOf(), um.valueOf(), 'utc to local failed to keep utc time (implicit)');
-        assert.equal(um.clone().local(false).valueOf(), um.valueOf(), 'utc to local failed to keep utc time (explicit)');
-    });
-
-    test('zone to local, keepLocalTime = true', function (assert) {
-        var m = moment(),
-            fmt = 'YYYY-DD-MM HH:mm:ss',
-            z;
-
-        // Apparently there is -12:00 and +14:00
-        // http://en.wikipedia.org/wiki/UTC+14:00
-        // http://en.wikipedia.org/wiki/UTC-12:00
-        for (z = -12; z <= 14; ++z) {
-            m.utcOffset(z * 60);
-
-            assert.equal(m.clone().local(true).format(fmt),
-                    m.format(fmt),
-                    'utcOffset(' + z + ':00) to local failed to keep local time');
-        }
-    });
-
-    test('zone to local, keepLocalTime = false', function (assert) {
-        var m = moment(),
-            z;
-
-        // Apparently there is -12:00 and +14:00
-        // http://en.wikipedia.org/wiki/UTC+14:00
-        // http://en.wikipedia.org/wiki/UTC-12:00
-        for (z = -12; z <= 14; ++z) {
-            m.utcOffset(z * 60);
-
-            assert.equal(m.clone().local(false).valueOf(), m.valueOf(),
-                    'utcOffset(' + z + ':00) to local failed to keep utc time (explicit)');
-            assert.equal(m.clone().local().valueOf(), m.valueOf(),
-                    'utcOffset(' + z + ':00) to local failed to keep utc time (implicit)');
-        }
-    });
-
 }));
 
 ;(function (global, factory) {
@@ -50544,7 +58855,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -50568,6 +58879,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -50581,11 +58943,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -50600,12 +58964,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -50679,16 +59045,18 @@
 
     // Verifies that the week number, week day computation is correct for all dow, doy combinations
     test('week year roundtrip', function (assert) {
-        var dow, doy, wd, m;
+        var dow, doy, wd, m, localeName;
         for (dow = 0; dow < 7; ++dow) {
             for (doy = dow; doy < dow + 7; ++doy) {
                 for (wd = 0; wd < 7; ++wd) {
-                    moment.locale('dow: ' + dow + ', doy: ' + doy, {week: {dow: dow, doy: doy}});
+                    localeName = 'dow: ' + dow + ', doy: ' + doy;
+                    moment.locale(localeName, {week: {dow: dow, doy: doy}});
                     // We use the 10th week as the 1st one can spill to the previous year
                     m = moment('2015 10 ' + wd, 'gggg w d', true);
                     assert.equal(m.format('gggg w d'), '2015 10 ' + wd, 'dow: ' + dow + ' doy: ' + doy + ' wd: ' + wd);
                     m = moment('2015 10 ' + wd, 'gggg w e', true);
                     assert.equal(m.format('gggg w e'), '2015 10 ' + wd, 'dow: ' + dow + ' doy: ' + doy + ' wd: ' + wd);
+                    moment.defineLocale(localeName, null);
                 }
             }
         }
@@ -50703,6 +59071,7 @@
         assert.equal(2, moment('2013-01-11', 'YYYY-MM-DD').week(), '2013-01-11 is week 2'); // 53 -- should be 2
         assert.equal(3, moment('2013-01-12', 'YYYY-MM-DD').week(), '2013-01-12 is week 3'); // 1 -- should be 3
         assert.equal(52, moment('2012-01-01', 'YYYY-MM-DD').weeksInYear(), 'weeks in 2012 are 52'); // 52
+        moment.defineLocale('dow: 6, doy: 12', null);
     });
 
     test('weeks numbers dow:1 doy:4', function (assert) {
@@ -50747,6 +59116,7 @@
         assert.equal(moment([2011,  0,  3]).week(),  1, 'Jan  3 2011 should be week 1');
         assert.equal(moment([2011,  0,  9]).week(),  1, 'Jan  9 2011 should be week 1');
         assert.equal(moment([2011,  0, 10]).week(),  2, 'Jan 10 2011 should be week 2');
+        moment.defineLocale('dow: 1, doy: 4', null);
     });
 
     test('weeks numbers dow:6 doy:12', function (assert) {
@@ -50789,6 +59159,7 @@
         assert.equal(moment([2011, 0,  8]).week(), 2, 'Jan  8 2011 should be week 2');
         assert.equal(moment([2011, 0, 14]).week(), 2, 'Jan 14 2011 should be week 2');
         assert.equal(moment([2011, 0, 15]).week(), 3, 'Jan 15 2011 should be week 3');
+        moment.defineLocale('dow: 6, doy: 12', null);
     });
 
     test('weeks numbers dow:1 doy:7', function (assert) {
@@ -50833,6 +59204,7 @@
         assert.equal(moment([2011,  0,  3]).week(), 2, 'Jan  3 2011 should be week 2');
         assert.equal(moment([2011,  0,  9]).week(), 2, 'Jan  9 2011 should be week 2');
         assert.equal(moment([2011,  0, 10]).week(), 3, 'Jan 10 2011 should be week 3');
+        moment.defineLocale('dow: 1, doy: 7', null);
     });
 
     test('weeks numbers dow:0 doy:6', function (assert) {
@@ -50877,6 +59249,7 @@
         assert.equal(moment([2011,  0,  2]).week(), 2, 'Jan  2 2011 should be week 2');
         assert.equal(moment([2011,  0,  8]).week(), 2, 'Jan  8 2011 should be week 2');
         assert.equal(moment([2011,  0,  9]).week(), 3, 'Jan  9 2011 should be week 3');
+        moment.defineLocale('dow: 0, doy: 6', null);
     });
 
     test('week year overflows', function (assert) {
@@ -50997,7 +59370,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -51021,6 +59394,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -51034,11 +59458,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -51053,12 +59479,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -51281,7 +59709,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -51305,6 +59733,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -51318,11 +59797,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -51337,12 +59818,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -51657,7 +60140,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -51681,6 +60164,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -51694,11 +60228,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -51713,12 +60249,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -51896,7 +60434,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -51920,6 +60458,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -51933,11 +60522,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -51952,18 +60543,24 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
             }
         });
         defineCommonLocaleTests(name, -1, -1);
+    }
+
+    function isNearSpringDST() {
+        return moment().subtract(1, 'day').utcOffset() !== moment().add(1, 'day').utcOffset();
     }
 
     module('zone switching');
@@ -51981,6 +60578,7 @@
     });
 
     test('local to zone, keepLocalTime = true', function (assert) {
+        test.expectedDeprecations('moment().zone');
         var m = moment(),
             fmt = 'YYYY-DD-MM HH:mm:ss',
             z;
@@ -51995,6 +60593,7 @@
     });
 
     test('local to zone, keepLocalTime = false', function (assert) {
+        test.expectedDeprecations('moment().zone');
         var m = moment(),
             z;
 
@@ -52010,6 +60609,12 @@
     });
 
     test('utc to local, keepLocalTime = true', function (assert) {
+        // Don't test near the spring DST transition
+        if (isNearSpringDST()) {
+            expect(0);
+            return;
+        }
+
         var um = moment.utc(),
             fmt = 'YYYY-DD-MM HH:mm:ss';
 
@@ -52023,6 +60628,13 @@
     });
 
     test('zone to local, keepLocalTime = true', function (assert) {
+        test.expectedDeprecations('moment().zone');
+        // Don't test near the spring DST transition
+        if (isNearSpringDST()) {
+            expect(0);
+            return;
+        }
+
         var m = moment(),
             fmt = 'YYYY-DD-MM HH:mm:ss',
             z;
@@ -52039,6 +60651,7 @@
     });
 
     test('zone to local, keepLocalTime = false', function (assert) {
+        test.expectedDeprecations('moment().zone');
         var m = moment(),
             z;
 
@@ -52139,7 +60752,7 @@
             for (h = 0; h < 24; ++h) {
                 for (m = 0; m < 60; m += 15) {
                     t1 = moment.utc([2000, 0, 1, h, m]);
-                    t2 = moment(t1.format('A h:mm'), 'A h:mm');
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                     assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
                             'meridiem at ' + t1.format('HH:mm'));
                 }
@@ -52163,6 +60776,57 @@
         });
     }
 
+    function setupDeprecationHandler(test, moment, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment.suppressDeprecationWarnings;
+        moment.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment, scope) {
+        moment.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /*global QUnit:false*/
 
     var test = QUnit.test;
@@ -52176,11 +60840,13 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
+                teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -52195,12 +60861,14 @@
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
                 };
+                setupDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.setup) {
                     lifecycle.setup();
                 }
             },
             teardown : function () {
                 moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
                 }
@@ -52209,7 +60877,11 @@
         defineCommonLocaleTests(name, -1, -1);
     }
 
-    module('zones');
+    module('zones', {
+        'setup': function () {
+            test.expectedDeprecations('moment().zone');
+        }
+    });
 
     test('set zone', function (assert) {
         var zone = moment();
@@ -52568,6 +61240,7 @@
     });
 
     test('zone names', function (assert) {
+        test.expectedDeprecations();
         assert.equal(moment().zoneAbbr(),   '', 'Local zone abbr should be empty');
         assert.equal(moment().format('z'),  '', 'Local zone formatted abbr should be empty');
         assert.equal(moment().zoneName(),   '', 'Local zone name should be empty');
@@ -52630,6 +61303,7 @@
     });
 
     test('parse zone with more arguments', function (assert) {
+        test.expectedDeprecations();
         var m;
         m = moment.parseZone('2013 01 01 05 -13:00', 'YYYY MM DD HH ZZ');
         assert.equal(m.format(), '2013-01-01T05:00:00-13:00', 'accept input and format');
