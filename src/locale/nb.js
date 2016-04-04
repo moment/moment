@@ -12,6 +12,7 @@ export default moment.defineLocale('nb', {
     weekdays : 'søndag_mandag_tirsdag_onsdag_torsdag_fredag_lørdag'.split('_'),
     weekdaysShort : 'sø._ma._ti._on._to._fr._lø.'.split('_'),
     weekdaysMin : 'sø_ma_ti_on_to_fr_lø'.split('_'),
+    weekdaysParseExact : true,
     longDateFormat : {
         LT : 'HH:mm',
         LTS : 'HH:mm:ss',

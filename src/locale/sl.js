@@ -82,6 +82,7 @@ export default moment.defineLocale('sl', {
     weekdays : 'nedelja_ponedeljek_torek_sreda_četrtek_petek_sobota'.split('_'),
     weekdaysShort : 'ned._pon._tor._sre._čet._pet._sob.'.split('_'),
     weekdaysMin : 'ne_po_to_sr_če_pe_so'.split('_'),
+    weekdaysParseExact : true,
     longDateFormat : {
         LT : 'H:mm',
         LTS : 'H:mm:ss',
