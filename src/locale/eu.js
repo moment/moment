@@ -11,6 +11,7 @@ export default moment.defineLocale('eu', {
     weekdays : 'igandea_astelehena_asteartea_asteazkena_osteguna_ostirala_larunbata'.split('_'),
     weekdaysShort : 'ig._al._ar._az._og._ol._lr.'.split('_'),
     weekdaysMin : 'ig_al_ar_az_og_ol_lr'.split('_'),
+    weekdaysParseExact : true,
     longDateFormat : {
         LT : 'HH:mm',
         LTS : 'HH:mm:ss',

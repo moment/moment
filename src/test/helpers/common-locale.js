@@ -99,7 +99,41 @@ export function defineCommonLocaleTests(locale, options) {
             tester('MMM');
             tester('MMM.');
             tester('MMMM');
-            // tester('MMMM.');
+            tester('MMMM.');
+        }
+    });
+
+    test('weekday parsing correctness', function (assert) {
+        var i, m;
+
+        if (locale === 'tr' || locale === 'az') {
+            // There is a lower-case letter (ı), that converted to upper then
+            // lower changes to i
+            expect(0);
+            return;
+        }
+        function tester(format) {
+            var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format;
+            r = moment(m.format(format), format);
+            assert.equal(r.weekday(), m.weekday(), baseMsg);
+            r = moment(m.format(format).toLocaleUpperCase(), format);
+            assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+            r = moment(m.format(format).toLocaleLowerCase(), format);
+            assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
+
+            r = moment(m.format(format), format, true);
+            assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
+            r = moment(m.format(format).toLocaleUpperCase(), format, true);
+            assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+            r = moment(m.format(format).toLocaleLowerCase(), format, true);
+            assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
+        }
+
+        for (i = 0; i < 7; ++i) {
+            m = moment.utc([2015, i, 15, 18]);
+            tester('dd');
+            tester('ddd');
+            tester('dddd');
         }
     });
 }

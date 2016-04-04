@@ -76,6 +76,7 @@ export default moment.defineLocale('lb', {
     weekdays: 'Sonndeg_Méindeg_Dënschdeg_Mëttwoch_Donneschdeg_Freideg_Samschdeg'.split('_'),
     weekdaysShort: 'So._Mé._Dë._Më._Do._Fr._Sa.'.split('_'),
     weekdaysMin: 'So_Mé_Dë_Më_Do_Fr_Sa'.split('_'),
+    weekdaysParseExact : true,
     longDateFormat: {
         LT: 'H:mm [Auer]',
         LTS: 'H:mm:ss [Auer]',

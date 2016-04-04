@@ -11,6 +11,7 @@ export default moment.defineLocale('vi', {
     weekdays : 'chủ nhật_thứ hai_thứ ba_thứ tư_thứ năm_thứ sáu_thứ bảy'.split('_'),
     weekdaysShort : 'CN_T2_T3_T4_T5_T6_T7'.split('_'),
     weekdaysMin : 'CN_T2_T3_T4_T5_T6_T7'.split('_'),
+    weekdaysParseExact : true,
     meridiemParse: /sa|ch/i,
     isPM : function (input) {
         return /^ch$/i.test(input);
