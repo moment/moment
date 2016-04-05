@@ -4,7 +4,7 @@ module.exports = function (grunt) {
     function importAll(src, dest) {
         var out = grunt.file.expand(src).map(function (file) {
             return "import './" + path.relative(path.dirname(dest), file) + "';";
-        }).sort().join('\n');
+        }).sort().join('\n') + '\n';
         grunt.file.write(dest, out);
     }
 
