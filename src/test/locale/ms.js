@@ -1,5 +1,6 @@
 import {localeModule, test} from '../qunit';
-import {moment} from '../../moment';
+import moment from '../../moment';
+import '../../locale/ms';
 localeModule('ms');
 
 test('parse', function (assert) {
@@ -215,5 +216,3 @@ test('weeks year starting sunday format', function (assert) {
     assert.equal(moment([2012, 0, 14]).format('w ww wo'), '3 03 3', 'Jan 14 2012 sepatutnya minggu 3');
     assert.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3', 'Jan 15 2012 sepatutnya minggu 3');
 });
-
-

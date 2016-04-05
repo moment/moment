@@ -1,5 +1,6 @@
 import {localeModule, test} from '../qunit';
 import moment from '../../moment';
+import '../../locale/de-at';
 localeModule('de-at');
 
 test('parse', function (assert) {

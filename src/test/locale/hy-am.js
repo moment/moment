@@ -1,5 +1,6 @@
 import {localeModule, test} from '../qunit';
 import moment from '../../moment';
+import '../../locale/hy-am';
 localeModule('hy-am');
 
 test('parse', function (assert) {

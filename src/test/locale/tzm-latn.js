@@ -1,5 +1,6 @@
 import {localeModule, test} from '../qunit';
 import moment from '../../moment';
+import '../../locale/tzm-latn';
 localeModule('tzm-latn');
 
 test('parse', function (assert) {

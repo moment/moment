@@ -1,5 +1,6 @@
 import {localeModule, test} from '../qunit';
 import moment from '../../moment';
+import '../../locale/tlh';
 localeModule('tlh');
 
 //Current parsing method doesn't allow parsing correctly months 10, 11 and 12.
