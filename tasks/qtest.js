@@ -23,12 +23,11 @@ module.exports = function (grunt) {
                 }
             }));
         } else {
-            tests = grunt.file.expand('build/cjs/test/moment/*.js',
-                'build/cjs/test/locale/*.js');
+            tests = grunt.file.expand('build/umd/test/*.js');
         }
 
         testrunner.run({
-            code: 'build/cjs/moment.js',
+            code: 'build/umd/moment.js',
             tests: tests
         }, function (err, report) {
             if (err) {

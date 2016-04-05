@@ -35,6 +35,18 @@ module.exports = function (grunt) {
                 cwd: 'src/locale',
                 src: '*.js',
                 dest: 'build/umd/locale'
+            }, {
+                src: 'src/locales.js',
+                dest: 'build/umd/locales.js'
+            }]
+        },
+        tests: {
+            options: {
+                format: 'iife'
+            },
+            files: [{
+                src: 'src/test/all.js',
+                dest: 'build/umd/test/all.js'
             }]
         }
     });
