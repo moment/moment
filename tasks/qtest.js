@@ -15,20 +15,20 @@ module.exports = function (grunt) {
         if (grunt.option('only') != null) {
             tests = grunt.file.expand.apply(null, grunt.option('only').split(',').map(function (file) {
                 if (file === 'moment') {
-                    return 'build/umd/test/moment/*.js';
+                    return 'build/cjs/test/moment/*.js';
                 } else if (file === 'locale') {
-                    return 'build/umd/test/locale/*.js';
+                    return 'build/cjs/test/locale/*.js';
                 } else {
-                    return 'build/umd/test/' + file + '.js';
+                    return 'build/cjs/test/' + file + '.js';
                 }
             }));
         } else {
-            tests = grunt.file.expand('build/umd/test/moment/*.js',
-                'build/umd/test/locale/*.js');
+            tests = grunt.file.expand('build/cjs/test/moment/*.js',
+                'build/cjs/test/locale/*.js');
         }
 
         testrunner.run({
-            code: 'build/umd/moment.js',
+            code: 'build/cjs/moment.js',
             tests: tests
         }, function (err, report) {
             if (err) {

@@ -193,6 +193,9 @@ module.exports = function (grunt) {
     // linting
     grunt.registerTask('lint', ['jshint', 'jscs']);
 
+    // transpiling
+    grunt.registerTask('transpile', ['clean:build', 'babel', 'rollup']);
+
     // test tasks
     grunt.registerTask('test', ['test:node']);
     grunt.registerTask('test:node', ['transpile', 'qtest']);
