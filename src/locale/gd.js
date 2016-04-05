@@ -16,7 +16,7 @@ var weekdaysShort = ['Did', 'Dil', 'Dim', 'Dic', 'Dia', 'Dih', 'Dis'];
 
 var weekdaysMin = ['Dò', 'Lu', 'Mà', 'Ci', 'Ar', 'Ha', 'Sa'];
 
-export default moment.defineLocale('gd', {
+moment.defineLocale('gd', {
     months : months,
     monthsShort : monthsShort,
     monthsParseExact : true,
