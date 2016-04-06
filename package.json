@@ -37,7 +37,7 @@
     "devDependencies": {
         "uglify-js": "latest",
         "es6-promise": "latest",
-        "grunt": "latest",
+        "grunt": "~0.4",
         "grunt-cli": "latest",
         "benchmark": "latest",
         "esperanto": "latest",
