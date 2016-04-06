@@ -232,4 +232,3 @@ test('weekdays strict parsing', function (assert) {
         assert.equal(moment(enLocale.weekdaysShort(m.day(i), ''), 'dd', true).isValid(), false, 'parse min weekday ' + i);
     }
 });
-

@@ -36,6 +36,8 @@
     "license": "MIT",
     "devDependencies": {
         "uglify-js": "latest",
+        "babel-preset-es2015": "latest",
+        "babel-preset-es2015-loose-rollup": "latest",
         "es6-promise": "latest",
         "grunt": "~0.4",
         "grunt-cli": "latest",
@@ -54,6 +56,7 @@
         "grunt-benchmark": "latest",
         "grunt-string-replace": "latest",
         "grunt-exec": "latest",
+        "grunt-rollup": "latest",
         "load-grunt-tasks": "latest",
         "karma": "latest",
         "karma-chrome-launcher": "latest",
@@ -62,6 +65,9 @@
         "karma-sauce-launcher": "latest",
         "qunit": "^0.7.5",
         "qunit-cli": "^0.1.4",
+        "rollup": "latest",
+        "rollup-plugin-babel": "latest",
+        "rollup-plugin-multi-entry": "latest",
         "spacejam": "latest",
         "coveralls": "^2.11.2",
         "nyc": "^2.1.4"

@@ -5,7 +5,7 @@
 
 import moment from '../moment';
 
-export default moment.defineLocale('nb', {
+moment.defineLocale('nb', {
     months : 'januar_februar_mars_april_mai_juni_juli_august_september_oktober_november_desember'.split('_'),
     monthsShort : 'jan._feb._mars_april_mai_juni_juli_aug._sep._okt._nov._des.'.split('_'),
     weekdays : 'søndag_mandag_tirsdag_onsdag_torsdag_fredag_lørdag'.split('_'),

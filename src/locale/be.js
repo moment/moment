@@ -29,7 +29,7 @@ function relativeTimeWithPlural(number, withoutSuffix, key) {
     }
 }
 
-export default moment.defineLocale('be', {
+moment.defineLocale('be', {
     months : {
         format: 'студзеня_лютага_сакавіка_красавіка_траўня_чэрвеня_ліпеня_жніўня_верасня_кастрычніка_лістапада_снежня'.split('_'),
         standalone: 'студзень_люты_сакавік_красавік_травень_чэрвень_ліпень_жнівень_верасень_кастрычнік_лістапад_снежань'.split('_')

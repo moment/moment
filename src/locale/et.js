@@ -24,7 +24,7 @@ function processRelativeTime(number, withoutSuffix, key, isFuture) {
     return isFuture ? format[key][0] : format[key][1];
 }
 
-export default moment.defineLocale('et', {
+moment.defineLocale('et', {
     months        : 'jaanuar_veebruar_märts_aprill_mai_juuni_juuli_august_september_oktoober_november_detsember'.split('_'),
     monthsShort   : 'jaan_veebr_märts_apr_mai_juuni_juuli_aug_sept_okt_nov_dets'.split('_'),
     weekdays      : 'pühapäev_esmaspäev_teisipäev_kolmapäev_neljapäev_reede_laupäev'.split('_'),

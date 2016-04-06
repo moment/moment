@@ -46,7 +46,7 @@ function translate(number, withoutSuffix, key, isFuture) {
         }
     }
 }
-export default moment.defineLocale('lt', {
+moment.defineLocale('lt', {
     months : {
         format: 'sausio_vasario_kovo_balandžio_gegužės_birželio_liepos_rugpjūčio_rugsėjo_spalio_lapkričio_gruodžio'.split('_'),
         standalone: 'sausis_vasaris_kovas_balandis_gegužė_birželis_liepa_rugpjūtis_rugsėjis_spalis_lapkritis_gruodis'.split('_')

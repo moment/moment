@@ -58,7 +58,7 @@ function translate(number, withoutSuffix, key) {
     }
 }
 
-export default moment.defineLocale('bs', {
+moment.defineLocale('bs', {
     months : 'januar_februar_mart_april_maj_juni_juli_august_septembar_oktobar_novembar_decembar'.split('_'),
     monthsShort : 'jan._feb._mar._apr._maj._jun._jul._aug._sep._okt._nov._dec.'.split('_'),
     weekdays : 'nedjelja_ponedjeljak_utorak_srijeda_četvrtak_petak_subota'.split('_'),

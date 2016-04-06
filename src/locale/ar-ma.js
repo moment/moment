@@ -5,7 +5,7 @@
 
 import moment from '../moment';
 
-export default moment.defineLocale('ar-ma', {
+moment.defineLocale('ar-ma', {
     months : 'يناير_فبراير_مارس_أبريل_ماي_يونيو_يوليوز_غشت_شتنبر_أكتوبر_نونبر_دجنبر'.split('_'),
     monthsShort : 'يناير_فبراير_مارس_أبريل_ماي_يونيو_يوليوز_غشت_شتنبر_أكتوبر_نونبر_دجنبر'.split('_'),
     weekdays : 'الأحد_الإتنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت'.split('_'),
@@ -47,4 +47,3 @@ export default moment.defineLocale('ar-ma', {
         doy : 12  // The week that contains Jan 1st is the first week of the year.
     }
 });
-

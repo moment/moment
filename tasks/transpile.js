@@ -271,7 +271,7 @@ module.exports = function (grunt) {
         dest: 'build/umd/min/tests.js'
     });
 
-    grunt.task.registerTask('transpile',
+    grunt.task.registerTask('transpile-esperanto',
             'builds all es5 files, optinally creating custom locales',
             function (locales) {
         var tasks = [
