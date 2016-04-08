@@ -605,25 +605,25 @@ test('non iso 8601 strings', function (assert) {
 });
 
 test('parsing iso week year/week/weekday', function (assert) {
-    assert.equal(moment.utc('2007-W01').format(), '2007-01-01T00:00:00+00:00', '2008 week 1 (1st Jan Mon)');
-    assert.equal(moment.utc('2008-W01').format(), '2007-12-31T00:00:00+00:00', '2008 week 1 (1st Jan Tue)');
-    assert.equal(moment.utc('2003-W01').format(), '2002-12-30T00:00:00+00:00', '2008 week 1 (1st Jan Wed)');
-    assert.equal(moment.utc('2009-W01').format(), '2008-12-29T00:00:00+00:00', '2009 week 1 (1st Jan Thu)');
-    assert.equal(moment.utc('2010-W01').format(), '2010-01-04T00:00:00+00:00', '2010 week 1 (1st Jan Fri)');
-    assert.equal(moment.utc('2011-W01').format(), '2011-01-03T00:00:00+00:00', '2011 week 1 (1st Jan Sat)');
-    assert.equal(moment.utc('2012-W01').format(), '2012-01-02T00:00:00+00:00', '2012 week 1 (1st Jan Sun)');
+    assert.equal(moment.utc('2007-W01').format(), '2007-01-01T00:00:00Z', '2008 week 1 (1st Jan Mon)');
+    assert.equal(moment.utc('2008-W01').format(), '2007-12-31T00:00:00Z', '2008 week 1 (1st Jan Tue)');
+    assert.equal(moment.utc('2003-W01').format(), '2002-12-30T00:00:00Z', '2008 week 1 (1st Jan Wed)');
+    assert.equal(moment.utc('2009-W01').format(), '2008-12-29T00:00:00Z', '2009 week 1 (1st Jan Thu)');
+    assert.equal(moment.utc('2010-W01').format(), '2010-01-04T00:00:00Z', '2010 week 1 (1st Jan Fri)');
+    assert.equal(moment.utc('2011-W01').format(), '2011-01-03T00:00:00Z', '2011 week 1 (1st Jan Sat)');
+    assert.equal(moment.utc('2012-W01').format(), '2012-01-02T00:00:00Z', '2012 week 1 (1st Jan Sun)');
 });
 
 test('parsing week year/week/weekday (dow 1, doy 4)', function (assert) {
     moment.locale('dow:1,doy:4', {week: {dow: 1, doy: 4}});
 
-    assert.equal(moment.utc('2007-01', 'gggg-ww').format(), '2007-01-01T00:00:00+00:00', '2007 week 1 (1st Jan Mon)');
-    assert.equal(moment.utc('2008-01', 'gggg-ww').format(), '2007-12-31T00:00:00+00:00', '2008 week 1 (1st Jan Tue)');
-    assert.equal(moment.utc('2003-01', 'gggg-ww').format(), '2002-12-30T00:00:00+00:00', '2003 week 1 (1st Jan Wed)');
-    assert.equal(moment.utc('2009-01', 'gggg-ww').format(), '2008-12-29T00:00:00+00:00', '2009 week 1 (1st Jan Thu)');
-    assert.equal(moment.utc('2010-01', 'gggg-ww').format(), '2010-01-04T00:00:00+00:00', '2010 week 1 (1st Jan Fri)');
-    assert.equal(moment.utc('2011-01', 'gggg-ww').format(), '2011-01-03T00:00:00+00:00', '2011 week 1 (1st Jan Sat)');
-    assert.equal(moment.utc('2012-01', 'gggg-ww').format(), '2012-01-02T00:00:00+00:00', '2012 week 1 (1st Jan Sun)');
+    assert.equal(moment.utc('2007-01', 'gggg-ww').format(), '2007-01-01T00:00:00Z', '2007 week 1 (1st Jan Mon)');
+    assert.equal(moment.utc('2008-01', 'gggg-ww').format(), '2007-12-31T00:00:00Z', '2008 week 1 (1st Jan Tue)');
+    assert.equal(moment.utc('2003-01', 'gggg-ww').format(), '2002-12-30T00:00:00Z', '2003 week 1 (1st Jan Wed)');
+    assert.equal(moment.utc('2009-01', 'gggg-ww').format(), '2008-12-29T00:00:00Z', '2009 week 1 (1st Jan Thu)');
+    assert.equal(moment.utc('2010-01', 'gggg-ww').format(), '2010-01-04T00:00:00Z', '2010 week 1 (1st Jan Fri)');
+    assert.equal(moment.utc('2011-01', 'gggg-ww').format(), '2011-01-03T00:00:00Z', '2011 week 1 (1st Jan Sat)');
+    assert.equal(moment.utc('2012-01', 'gggg-ww').format(), '2012-01-02T00:00:00Z', '2012 week 1 (1st Jan Sun)');
 
     moment.defineLocale('dow:1,doy:4', null);
 });
@@ -631,39 +631,39 @@ test('parsing week year/week/weekday (dow 1, doy 4)', function (assert) {
 test('parsing week year/week/weekday (dow 1, doy 7)', function (assert) {
     moment.locale('dow:1,doy:7', {week: {dow: 1, doy: 7}});
 
-    assert.equal(moment.utc('2007-01', 'gggg-ww').format(), '2007-01-01T00:00:00+00:00', '2007 week 1 (1st Jan Mon)');
-    assert.equal(moment.utc('2008-01', 'gggg-ww').format(), '2007-12-31T00:00:00+00:00', '2008 week 1 (1st Jan Tue)');
-    assert.equal(moment.utc('2003-01', 'gggg-ww').format(), '2002-12-30T00:00:00+00:00', '2003 week 1 (1st Jan Wed)');
-    assert.equal(moment.utc('2009-01', 'gggg-ww').format(), '2008-12-29T00:00:00+00:00', '2009 week 1 (1st Jan Thu)');
-    assert.equal(moment.utc('2010-01', 'gggg-ww').format(), '2009-12-28T00:00:00+00:00', '2010 week 1 (1st Jan Fri)');
-    assert.equal(moment.utc('2011-01', 'gggg-ww').format(), '2010-12-27T00:00:00+00:00', '2011 week 1 (1st Jan Sat)');
-    assert.equal(moment.utc('2012-01', 'gggg-ww').format(), '2011-12-26T00:00:00+00:00', '2012 week 1 (1st Jan Sun)');
+    assert.equal(moment.utc('2007-01', 'gggg-ww').format(), '2007-01-01T00:00:00Z', '2007 week 1 (1st Jan Mon)');
+    assert.equal(moment.utc('2008-01', 'gggg-ww').format(), '2007-12-31T00:00:00Z', '2008 week 1 (1st Jan Tue)');
+    assert.equal(moment.utc('2003-01', 'gggg-ww').format(), '2002-12-30T00:00:00Z', '2003 week 1 (1st Jan Wed)');
+    assert.equal(moment.utc('2009-01', 'gggg-ww').format(), '2008-12-29T00:00:00Z', '2009 week 1 (1st Jan Thu)');
+    assert.equal(moment.utc('2010-01', 'gggg-ww').format(), '2009-12-28T00:00:00Z', '2010 week 1 (1st Jan Fri)');
+    assert.equal(moment.utc('2011-01', 'gggg-ww').format(), '2010-12-27T00:00:00Z', '2011 week 1 (1st Jan Sat)');
+    assert.equal(moment.utc('2012-01', 'gggg-ww').format(), '2011-12-26T00:00:00Z', '2012 week 1 (1st Jan Sun)');
     moment.defineLocale('dow:1,doy:7', null);
 });
 
 test('parsing week year/week/weekday (dow 0, doy 6)', function (assert) {
     moment.locale('dow:0,doy:6', {week: {dow: 0, doy: 6}});
 
-    assert.equal(moment.utc('2007-01', 'gggg-ww').format(), '2006-12-31T00:00:00+00:00', '2007 week 1 (1st Jan Mon)');
-    assert.equal(moment.utc('2008-01', 'gggg-ww').format(), '2007-12-30T00:00:00+00:00', '2008 week 1 (1st Jan Tue)');
-    assert.equal(moment.utc('2003-01', 'gggg-ww').format(), '2002-12-29T00:00:00+00:00', '2003 week 1 (1st Jan Wed)');
-    assert.equal(moment.utc('2009-01', 'gggg-ww').format(), '2008-12-28T00:00:00+00:00', '2009 week 1 (1st Jan Thu)');
-    assert.equal(moment.utc('2010-01', 'gggg-ww').format(), '2009-12-27T00:00:00+00:00', '2010 week 1 (1st Jan Fri)');
-    assert.equal(moment.utc('2011-01', 'gggg-ww').format(), '2010-12-26T00:00:00+00:00', '2011 week 1 (1st Jan Sat)');
-    assert.equal(moment.utc('2012-01', 'gggg-ww').format(), '2012-01-01T00:00:00+00:00', '2012 week 1 (1st Jan Sun)');
+    assert.equal(moment.utc('2007-01', 'gggg-ww').format(), '2006-12-31T00:00:00Z', '2007 week 1 (1st Jan Mon)');
+    assert.equal(moment.utc('2008-01', 'gggg-ww').format(), '2007-12-30T00:00:00Z', '2008 week 1 (1st Jan Tue)');
+    assert.equal(moment.utc('2003-01', 'gggg-ww').format(), '2002-12-29T00:00:00Z', '2003 week 1 (1st Jan Wed)');
+    assert.equal(moment.utc('2009-01', 'gggg-ww').format(), '2008-12-28T00:00:00Z', '2009 week 1 (1st Jan Thu)');
+    assert.equal(moment.utc('2010-01', 'gggg-ww').format(), '2009-12-27T00:00:00Z', '2010 week 1 (1st Jan Fri)');
+    assert.equal(moment.utc('2011-01', 'gggg-ww').format(), '2010-12-26T00:00:00Z', '2011 week 1 (1st Jan Sat)');
+    assert.equal(moment.utc('2012-01', 'gggg-ww').format(), '2012-01-01T00:00:00Z', '2012 week 1 (1st Jan Sun)');
     moment.defineLocale('dow:0,doy:6', null);
 });
 
 test('parsing week year/week/weekday (dow 6, doy 12)', function (assert) {
     moment.locale('dow:6,doy:12', {week: {dow: 6, doy: 12}});
 
-    assert.equal(moment.utc('2007-01', 'gggg-ww').format(), '2006-12-30T00:00:00+00:00', '2007 week 1 (1st Jan Mon)');
-    assert.equal(moment.utc('2008-01', 'gggg-ww').format(), '2007-12-29T00:00:00+00:00', '2008 week 1 (1st Jan Tue)');
-    assert.equal(moment.utc('2003-01', 'gggg-ww').format(), '2002-12-28T00:00:00+00:00', '2003 week 1 (1st Jan Wed)');
-    assert.equal(moment.utc('2009-01', 'gggg-ww').format(), '2008-12-27T00:00:00+00:00', '2009 week 1 (1st Jan Thu)');
-    assert.equal(moment.utc('2010-01', 'gggg-ww').format(), '2009-12-26T00:00:00+00:00', '2010 week 1 (1st Jan Fri)');
-    assert.equal(moment.utc('2011-01', 'gggg-ww').format(), '2011-01-01T00:00:00+00:00', '2011 week 1 (1st Jan Sat)');
-    assert.equal(moment.utc('2012-01', 'gggg-ww').format(), '2011-12-31T00:00:00+00:00', '2012 week 1 (1st Jan Sun)');
+    assert.equal(moment.utc('2007-01', 'gggg-ww').format(), '2006-12-30T00:00:00Z', '2007 week 1 (1st Jan Mon)');
+    assert.equal(moment.utc('2008-01', 'gggg-ww').format(), '2007-12-29T00:00:00Z', '2008 week 1 (1st Jan Tue)');
+    assert.equal(moment.utc('2003-01', 'gggg-ww').format(), '2002-12-28T00:00:00Z', '2003 week 1 (1st Jan Wed)');
+    assert.equal(moment.utc('2009-01', 'gggg-ww').format(), '2008-12-27T00:00:00Z', '2009 week 1 (1st Jan Thu)');
+    assert.equal(moment.utc('2010-01', 'gggg-ww').format(), '2009-12-26T00:00:00Z', '2010 week 1 (1st Jan Fri)');
+    assert.equal(moment.utc('2011-01', 'gggg-ww').format(), '2011-01-01T00:00:00Z', '2011 week 1 (1st Jan Sat)');
+    assert.equal(moment.utc('2012-01', 'gggg-ww').format(), '2011-12-31T00:00:00Z', '2012 week 1 (1st Jan Sun)');
     moment.defineLocale('dow:6,doy:12', null);
 });
 
@@ -729,7 +729,7 @@ test('parsing iso Z timezone into local', function (assert) {
 });
 
 test('parsing iso with more subsecond precision digits', function (assert) {
-    assert.equal(moment.utc('2013-07-31T22:00:00.0000000Z').format(), '2013-07-31T22:00:00+00:00', 'more than 3 subsecond digits');
+    assert.equal(moment.utc('2013-07-31T22:00:00.0000000Z').format(), '2013-07-31T22:00:00Z', 'more than 3 subsecond digits');
 });
 
 test('null or empty', function (assert) {
@@ -985,7 +985,7 @@ test('object with strings', function (assert) {
 });
 
 test('utc with array of formats', function (assert) {
-    assert.equal(moment.utc('2014-01-01', ['YYYY-MM-DD', 'YYYY-MM']).format(), '2014-01-01T00:00:00+00:00', 'moment.utc works with array of formats');
+    assert.equal(moment.utc('2014-01-01', ['YYYY-MM-DD', 'YYYY-MM']).format(), '2014-01-01T00:00:00Z', 'moment.utc works with array of formats');
 });
 
 test('parsing invalid string weekdays', function (assert) {

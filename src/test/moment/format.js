@@ -116,6 +116,11 @@ test('default format', function (assert) {
     assert.ok(isoRegex.exec(moment().format()), 'default format (' + moment().format() + ') should match ISO');
 });
 
+test('default UTC format', function (assert) {
+    var isoRegex = /\d{4}.\d\d.\d\dT\d\d.\d\d.\d\dZ/;
+    assert.ok(isoRegex.exec(moment.utc().format()), 'default UTC format (' + moment.utc().format() + ') should match ISO');
+});
+
 test('toJSON', function (assert) {
     var supportsJson = typeof JSON !== 'undefined' && JSON.stringify && JSON.stringify.call,
         date = moment('2012-10-09T21:30:40.678+0100');

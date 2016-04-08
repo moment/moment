@@ -3,6 +3,7 @@ import { hooks } from '../utils/hooks';
 import isFunction from '../utils/is-function';
 
 hooks.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ';
+hooks.defaultFormatUtc = 'YYYY-MM-DDTHH:mm:ss[Z]';
 
 export function toString () {
     return this.clone().locale('en').format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
@@ -23,6 +24,9 @@ export function toISOString () {
 }
 
 export function format (inputString) {
-    var output = formatMoment(this, inputString || hooks.defaultFormat);
+    if (!inputString) {
+        inputString = this.isUtc() ? hooks.defaultFormatUtc : hooks.defaultFormat;
+    }
+    var output = formatMoment(this, inputString);
     return this.localeData().postformat(output);
 }
