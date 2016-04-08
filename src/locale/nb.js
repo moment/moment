@@ -29,7 +29,7 @@ export default moment.defineLocale('nb', {
     },
     relativeTime : {
         future : 'om %s',
-        past : 'for %s siden',
+        past : '%s siden',
         s : 'noen sekunder',
         m : 'ett minutt',
         mm : '%d minutter',
