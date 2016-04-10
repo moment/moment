@@ -27,7 +27,7 @@ function list (format, index, field, count, setter) {
     return out;
 }
 
-// shift the list according to the first day of week from locale data 
+// shift the list according to the first day of week from locale data
 function listLocaleWeekdays (format, index, field, count, setter) {
     if (typeof format === 'boolean' && format) {
         var weekdaysList = list(format, null, field, count, setter);
@@ -54,7 +54,7 @@ export function listMonthsShort (format, index) {
 }
 
 // listWeekdays(true) to sort the list by the first day of week from locale data
-// listWeekdays(true, NUMBER) to get the #NUMBER element in sorted list 
+// listWeekdays(true, NUMBER) to get the #NUMBER element in sorted list
 export function listWeekdays (format, index) {
     return listLocaleWeekdays(format, index, 'weekdays', 7, 'day');
 }

@@ -35,7 +35,7 @@ test('localized', function (assert) {
         weekdaysMinLocale = '4_5_6_7_1_2_3'.split('_'),
         week = {
             dow : 3,
-            doy : 6  
+            doy : 6
         };
 
     moment.locale('numerologists', {
@@ -76,7 +76,6 @@ test('localized', function (assert) {
     assert.equal(moment.weekdays(true, 2), 'six');
     assert.equal(moment.weekdaysShort(true, 2), 'si');
     assert.equal(moment.weekdaysMin(true, 2), '6');
-
 });
 
 test('with functions', function (assert) {
