@@ -1,6 +1,6 @@
 import {localeModule, test} from '../qunit';
 import moment from '../../moment';
-localeModule('kg');
+localeModule('ky');
 
 test('parse', function (assert) {
     var tests = 'январь янв_февраль фев_март март_апрель апр_май май_июнь июнь_июль июль_август авг_сентябрь сен_октябрь окт_ноябрь ноя_декабрь дек'.split('_'), i;
