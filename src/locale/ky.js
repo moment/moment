@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : kyrgyz (kg)
+//! locale : kyrgyz (ky)
 //! author : Chyngyz Arystan uulu : https://github.com/chyngyz
 
 
@@ -28,7 +28,7 @@ var suffixes = {
     100: '-чү'
 };
 
-export default moment.defineLocale('kg', {
+export default moment.defineLocale('ky', {
     months : 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_'),
     monthsShort : 'янв_фев_март_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split('_'),
     weekdays : 'Жекшемби_Дүйшөмбү_Шейшемби_Шаршемби_Бейшемби_Жума_Ишемби'.split('_'),
