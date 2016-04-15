@@ -65,9 +65,9 @@ export function configFromStringAndFormat(config) {
     }
 
     // clear _12h flag if hour is <= 12
-    if (getParsingFlags(config).bigHour === true &&
-            config._a[HOUR] <= 12 &&
-            config._a[HOUR] > 0) {
+    if (config._a[HOUR] <= 12 &&
+        getParsingFlags(config).bigHour === true &&
+        config._a[HOUR] > 0) {
         getParsingFlags(config).bigHour = undefined;
     }
 
