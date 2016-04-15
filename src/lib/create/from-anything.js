@@ -88,6 +88,12 @@ export function createLocalOrUTC (input, format, locale, strict, isUTC) {
         strict = locale;
         locale = undefined;
     }
+
+    if (input !== null && typeof(input) === 'object' && (!isUTC)) {
+        if (Object.prototype.toString.call(input) !== '[object Date]') {
+            input = (Object.keys(input).length === 0 ? undefined : input);
+        }
+    }
     // object construction must be done this way.
     // https://github.com/moment/moment/issues/1423
     c._isAMomentObject = true;
