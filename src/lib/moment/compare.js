@@ -29,8 +29,10 @@ export function isBefore (input, units) {
     }
 }
 
-export function isBetween (from, to, units) {
-    return this.isAfter(from, units) && this.isBefore(to, units);
+export function isBetween (from, to, units, inclusivity) {
+    inclusivity = inclusivity || '()';
+    return (inclusivity[0] === '(' ? this.isAfter(from, units) : !this.isBefore(from, units)) &&
+        (inclusivity[1] === ')' ? this.isBefore(to, units) : !this.isAfter(to, units));
 }
 
 export function isSame (input, units) {
