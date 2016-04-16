@@ -70,6 +70,9 @@ export function configFromStringAndFormat(config) {
             config._a[HOUR] > 0) {
         getParsingFlags(config).bigHour = undefined;
     }
+
+    getParsingFlags(config).parsedDateParts = config._a.slice(0);
+    getParsingFlags(config).meridiem = config._meridiem;
     // handle meridiem
     config._a[HOUR] = meridiemFixWrap(config._locale, config._a[HOUR], config._meridiem);
 
