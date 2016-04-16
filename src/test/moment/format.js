@@ -418,6 +418,15 @@ test('Hmm and Hmmss', function (assert) {
     assert.equal(moment('18:34:56', 'HH:mm:ss').format('Hmmss'), '183456');
 });
 
+test('k and kk', function (assert) {
+    assert.equal(moment('01:23:45', 'HH:mm:ss').format('k'), '1');
+    assert.equal(moment('12:34:56', 'HH:mm:ss').format('k'), '12');
+    assert.equal(moment('01:23:45', 'HH:mm:ss').format('kk'), '01');
+    assert.equal(moment('12:34:56', 'HH:mm:ss').format('kk'), '12');
+    assert.equal(moment('00:34:56', 'HH:mm:ss').format('kk'), '24');
+    assert.equal(moment('00:00:00', 'HH:mm:ss').format('kk'), '24');
+});
+
 test('Y token', function (assert) {
     assert.equal(moment('2010-01-01', 'YYYY-MM-DD', true).format('Y'), '2010', 'format 2010 with Y');
     assert.equal(moment('-123-01-01', 'Y-MM-DD', true).format('Y'), '-123', 'format -123 with Y');

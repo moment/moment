@@ -14,8 +14,13 @@ function hFormat() {
     return this.hours() % 12 || 12;
 }
 
+function kFormat() {
+    return this.hours() || 24;
+}
+
 addFormatToken('H', ['HH', 2], 0, 'hour');
 addFormatToken('h', ['hh', 2], 0, hFormat);
+addFormatToken('k', ['kk', 2], 0, kFormat);
 
 addFormatToken('hmm', 0, 0, function () {
     return '' + hFormat.apply(this) + zeroFill(this.minutes(), 2);
