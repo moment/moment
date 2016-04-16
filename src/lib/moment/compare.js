@@ -30,14 +30,9 @@ export function isBefore (input, units) {
 }
 
 export function isBetween (from, to, units, inclusivity) {
-    if (inclusivity === '(]') {
-        return this.isAfter(from, units) && this.isSameOrBefore(to, units);
-    }else if (inclusivity === '[)') {
-        return this.isSameOrAfter(from, units) && this.isBefore(to, units);
-    }else if (inclusivity === '[]') {
-        return !(this.isBefore(from, units) || this.isAfter(to, units));
-    }
-    return this.isAfter(from, units) && this.isBefore(to, units);
+    inclusivity = inclusivity || '()';
+    return (inclusivity[0] === '(' ? this.isAfter(from, units) : !this.isBefore(from, units)) &&
+        (inclusivity[1] === ')' ? this.isBefore(to, units) : !this.isAfter(to, units));
 }
 
 export function isSame (input, units) {
