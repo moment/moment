@@ -548,6 +548,13 @@ test('as getters for small units', function (assert) {
     assert.equal(dm.asMinutes(),        13, 'asMinutes()');
 });
 
+test('minutes getter for floating point hours', function (assert) {
+    // Tests for issue #2978.
+    // For certain floating point hours, .minutes() getter produced incorrect values due to the rounding errors
+    assert.equal(moment.duration(2.3, 'h').minutes(), 18, 'minutes()');
+    assert.equal(moment.duration(4.1, 'h').minutes(), 6, 'minutes()');
+});
+
 test('isDuration', function (assert) {
     assert.ok(moment.isDuration(moment.duration(12345678)), 'correctly says true');
     assert.ok(!moment.isDuration(moment()), 'moment object is not a duration');
@@ -636,4 +643,3 @@ test('duration plugins', function (assert) {
     };
     durationObject.foo(5);
 });
-
