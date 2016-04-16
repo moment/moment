@@ -1,13 +1,13 @@
 export function valueOf () {
-    return +this._d - ((this._offset || 0) * 60000);
+    return this._d.valueOf() - ((this._offset || 0) * 60000);
 }
 
 export function unix () {
-    return Math.floor(+this / 1000);
+    return Math.floor(this.valueOf() / 1000);
 }
 
 export function toDate () {
-    return this._offset ? new Date(+this) : this._d;
+    return this._offset ? new Date(this.valueOf()) : this._d;
 }
 
 export function toArray () {

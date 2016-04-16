@@ -10,9 +10,9 @@ export function isAfter (input, units) {
     }
     units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
     if (units === 'millisecond') {
-        return +this > +localInput;
+        return this.valueOf() > localInput.valueOf();
     } else {
-        return +localInput < +this.clone().startOf(units);
+        return localInput.valueOf() < this.clone().startOf(units).valueOf();
     }
 }
 
@@ -23,9 +23,9 @@ export function isBefore (input, units) {
     }
     units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
     if (units === 'millisecond') {
-        return +this < +localInput;
+        return this.valueOf() < localInput.valueOf();
     } else {
-        return +this.clone().endOf(units) < +localInput;
+        return this.clone().endOf(units).valueOf() < localInput.valueOf();
     }
 }
 
@@ -41,10 +41,10 @@ export function isSame (input, units) {
     }
     units = normalizeUnits(units || 'millisecond');
     if (units === 'millisecond') {
-        return +this === +localInput;
+        return this.valueOf() === localInput.valueOf();
     } else {
-        inputMs = +localInput;
-        return +(this.clone().startOf(units)) <= inputMs && inputMs <= +(this.clone().endOf(units));
+        inputMs = localInput.valueOf();
+        return this.clone().startOf(units).valueOf() <= inputMs && inputMs <= this.clone().endOf(units).valueOf();
     }
 }
 
