@@ -53,7 +53,7 @@ function makeFormatFunction(format) {
     }
 
     return function (mom) {
-        var output = '';
+        var output = '', i;
         for (i = 0; i < length; i++) {
             output += array[i] instanceof Function ? array[i].call(mom, format) : array[i];
         }
