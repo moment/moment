@@ -189,6 +189,35 @@ test('end of day', function (assert) {
     assert.equal(m.milliseconds(), 999, 'set the seconds');
 });
 
+test('start of date', function (assert) {
+    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('date'),
+        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('dates');
+
+    assert.equal(+m, +ms, 'Plural or singular should work');
+    assert.equal(m.year(), 2011, 'keep the year');
+    assert.equal(m.month(), 1, 'keep the month');
+    assert.equal(m.date(), 2, 'keep the day');
+    assert.equal(m.hours(), 0, 'strip out the hours');
+    assert.equal(m.minutes(), 0, 'strip out the minutes');
+    assert.equal(m.seconds(), 0, 'strip out the seconds');
+    assert.equal(m.milliseconds(), 0, 'strip out the milliseconds');
+});
+
+test('end of date', function (assert) {
+    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('date'),
+        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('dates');
+
+    assert.equal(+m, +ms, 'Plural or singular should work');
+    assert.equal(m.year(), 2011, 'keep the year');
+    assert.equal(m.month(), 1, 'keep the month');
+    assert.equal(m.date(), 2, 'keep the day');
+    assert.equal(m.hours(), 23, 'set the hours');
+    assert.equal(m.minutes(), 59, 'set the minutes');
+    assert.equal(m.seconds(), 59, 'set the seconds');
+    assert.equal(m.milliseconds(), 999, 'set the seconds');
+});
+
+
 test('start of hour', function (assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('hour'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('hours'),
