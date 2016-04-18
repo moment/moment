@@ -58,6 +58,7 @@
     "locale/kk.js",
     "locale/km.js",
     "locale/ko.js",
+    "locale/ky.js",
     "locale/lb.js",
     "locale/lo.js",
     "locale/lt.js",
@@ -86,6 +87,7 @@
     "locale/sq.js",
     "locale/sr-cyrl.js",
     "locale/sr.js",
+    "locale/ss.js",
     "locale/sv.js",
     "locale/sw.js",
     "locale/ta.js",
@@ -100,6 +102,7 @@
     "locale/uk.js",
     "locale/uz.js",
     "locale/vi.js",
+    "locale/x-pseudo.js",
     "locale/zh-cn.js",
     "locale/zh-tw.js"
   ],
