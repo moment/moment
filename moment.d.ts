@@ -173,6 +173,21 @@ declare namespace moment {
     lts?: string;
   }
 
+  interface MomentParsingFlags {
+     empty: boolean;
+     unusedTokens: string[];
+     unusedInput: string[];
+     overflow: number;
+     charsLeftOver: number;
+     nullInput: boolean;
+     invalidMonth?: string;
+     invalidFormat: boolean;
+     userInvalidated: boolean;
+     iso: boolean;
+     parsedDateParts: any[];
+     meridiem?: string;
+  }
+
   interface BaseMomentLanguage {
     months?: any;
     monthsShort?: any;
@@ -284,6 +299,8 @@ declare namespace moment {
     isValid(): boolean;
     invalidAt(): number;
 
+    parsingFlags(): MomentParsingFlags;
+
     year(y: number): Moment;
     year(): number;
     quarter(): number;
@@ -364,7 +381,7 @@ declare namespace moment {
     isAfter(b: Moment | string | number | Date | number[], granularity?: string): boolean;
 
     isSame(b: Moment | string | number | Date | number[], granularity?: string): boolean;
-    isBetween(a: Moment | string | number | Date | number[], b: Moment | string | number | Date | number[], granularity?: string): boolean;
+    isBetween(a: Moment | string | number | Date | number[], b: Moment | string | number | Date | number[], granularity?: string, inclusivity?: string): boolean;
 
     // Deprecated as of 2.8.0.
     lang(language: string): Moment;
@@ -456,14 +473,26 @@ declare namespace moment {
   export function weekdays(index: number): string;
   export function weekdays(format: string): string[];
   export function weekdays(format: string, index: number): string;
+  export function weekdays(localeSorted: boolean): string[];
+  export function weekdays(localeSorted: boolean, index: number): string;
+  export function weekdays(localeSorted: boolean, format: string): string[];
+  export function weekdays(localeSorted: boolean, format: string, index: number): string;
   export function weekdaysShort(): string[];
   export function weekdaysShort(index: number): string;
   export function weekdaysShort(format: string): string[];
   export function weekdaysShort(format: string, index: number): string;
+  export function weekdaysShort(localeSorted: boolean): string[];
+  export function weekdaysShort(localeSorted: boolean, index: number): string;
+  export function weekdaysShort(localeSorted: boolean, format: string): string[];
+  export function weekdaysShort(localeSorted: boolean, format: string, index: number): string;
   export function weekdaysMin(): string[];
   export function weekdaysMin(index: number): string;
   export function weekdaysMin(format: string): string[];
   export function weekdaysMin(format: string, index: number): string;
+  export function weekdaysMin(localeSorted: boolean): string[];
+  export function weekdaysMin(localeSorted: boolean, index: number): string;
+  export function weekdaysMin(localeSorted: boolean, format: string): string[];
+  export function weekdaysMin(localeSorted: boolean, format: string, index: number): string;
 
   export function min(...moments: Moment[]): Moment;
   export function max(...moments: Moment[]): Moment;
