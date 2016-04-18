@@ -1,6 +1,7 @@
 import { module, test } from '../qunit';
 import moment from '../../moment';
 import each from '../helpers/each';
+import indexOf from '../../lib/utils/index-of';
 
 module('locale', {
     setup : function () {
@@ -157,8 +158,8 @@ test('defineLocale', function (assert) {
 
 test('locales', function (assert) {
     moment.defineLocale('dude', {months: ['Movember']});
-    assert.equal(true, !!~moment.locales().indexOf('dude'), 'locales returns an array of defined locales');
-    assert.equal(true, !!~moment.locales().indexOf('en'), 'locales should always include english');
+    assert.equal(true, !!~indexOf.call(moment.locales(), 'dude'), 'locales returns an array of defined locales');
+    assert.equal(true, !!~indexOf.call(moment.locales(), 'en'), 'locales should always include english');
     moment.defineLocale('dude', null);
 });
 
