@@ -23,6 +23,7 @@
         "ender"
     ],
     "main": "./moment.js",
+    "typings": "./moment.d.ts",
     "engines": {
         "node": "*"
     },
@@ -37,7 +38,7 @@
     "devDependencies": {
         "uglify-js": "latest",
         "es6-promise": "latest",
-        "grunt": "latest",
+        "grunt": "~0.4",
         "grunt-cli": "latest",
         "benchmark": "latest",
         "esperanto": "latest",

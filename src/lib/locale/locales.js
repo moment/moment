@@ -4,6 +4,7 @@ import compareArrays from '../utils/compare-arrays';
 import { deprecateSimple } from '../utils/deprecate';
 import { mergeConfigs } from './set';
 import { Locale } from './constructor';
+import keys from '../utils/keys';
 
 // internal storage for locale config files
 var locales = {};
@@ -159,5 +160,5 @@ export function getLocale (key) {
 }
 
 export function listLocales() {
-    return Object.keys(locales);
+    return keys(locales);
 }

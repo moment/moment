@@ -280,6 +280,8 @@ test('toString acts as toISOString', function (assert) {
 });
 
 test('toIsoString deprecation', function (assert) {
+    test.expectedDeprecations('toIsoString()');
+
     assert.equal(moment.duration({}).toIsoString(), moment.duration({}).toISOString(), 'toIsoString delegates to toISOString');
 });
 
@@ -308,6 +310,12 @@ test('`isodate` (python) test cases', function (assert) {
     assert.equal(moment.duration('-P2Y').asSeconds(), moment.duration({y: -2}).asSeconds(), 'python isodate 22');
     assert.equal(moment.duration('-P3Y6M4DT12H30M5S').asSeconds(), moment.duration({y: -3, M: -6, d: -4, h: -12, m: -30, s: -5}).asSeconds(), 'python isodate 23');
     assert.equal(moment.duration('-P1DT2H3M4S').asSeconds(), moment.duration({d: -1, h: -2, m: -3, s: -4}).asSeconds(), 'python isodate 24');
+    assert.equal(moment.duration('PT-6H3M').asSeconds(), moment.duration({h: -6, m: 3}).asSeconds(), 'python isodate 25');
+    assert.equal(moment.duration('-PT-6H3M').asSeconds(), moment.duration({h: 6, m: -3}).asSeconds(), 'python isodate 26');
+    assert.equal(moment.duration('-P-3Y-6M-4DT-12H-30M-5S').asSeconds(), moment.duration({y: 3, M: 6, d: 4, h: 12, m: 30, s: 5}).asSeconds(), 'python isodate 27');
+    assert.equal(moment.duration('P-3Y-6M-4DT-12H-30M-5S').asSeconds(), moment.duration({y: -3, M: -6, d: -4, h: -12, m: -30, s: -5}).asSeconds(), 'python isodate 28');
+    assert.equal(moment.duration('-P-2W').asSeconds(), moment.duration({w: 2}).asSeconds(), 'python isodate 29');
+    assert.equal(moment.duration('P-2W').asSeconds(), moment.duration({w: -2}).asSeconds(), 'python isodate 30');
 });
 
 test('ISO 8601 misuse cases', function (assert) {
@@ -318,7 +326,6 @@ test('ISO 8601 misuse cases', function (assert) {
     assert.equal(moment.duration('PT.5S').asSeconds(), 0.5, 'accept no leading zero for decimal');
     assert.equal(moment.duration('PT1,S').asSeconds(), 1, 'accept trailing decimal separator');
     assert.equal(moment.duration('PT1M0,,5S').asSeconds(), 60, 'extra decimal separators are ignored as 0');
-    assert.equal(moment.duration('P-1DS').asSeconds(), 0, 'wrong position of negative');
 });
 
 test('humanize', function (assert) {
@@ -541,6 +548,13 @@ test('as getters for small units', function (assert) {
     assert.equal(dm.asMinutes(),        13, 'asMinutes()');
 });
 
+test('minutes getter for floating point hours', function (assert) {
+    // Tests for issue #2978.
+    // For certain floating point hours, .minutes() getter produced incorrect values due to the rounding errors
+    assert.equal(moment.duration(2.3, 'h').minutes(), 18, 'minutes()');
+    assert.equal(moment.duration(4.1, 'h').minutes(), 6, 'minutes()');
+});
+
 test('isDuration', function (assert) {
     assert.ok(moment.isDuration(moment.duration(12345678)), 'correctly says true');
     assert.ok(!moment.isDuration(moment()), 'moment object is not a duration');
@@ -629,4 +643,3 @@ test('duration plugins', function (assert) {
     };
     durationObject.foo(5);
 });
-

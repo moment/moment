@@ -67,7 +67,7 @@ export default moment.defineLocale('zh-cn', {
         nextWeek : function () {
             var startOfWeek, prefix;
             startOfWeek = moment().startOf('week');
-            prefix = this.unix() - startOfWeek.unix() >= 7 * 24 * 3600 ? '[下]' : '[本]';
+            prefix = this.diff(startOfWeek, 'days') >= 7 ? '[下]' : '[本]';
             return this.minutes() === 0 ? prefix + 'dddAh点整' : prefix + 'dddAh点mm';
         },
         lastWeek : function () {

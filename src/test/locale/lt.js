@@ -106,12 +106,12 @@ test('format week', function (assert) {
 
 test('format week on US calendar', function (assert) {
     // Tests, whether the weekday names are correct, even if the week does not start on Monday
-    moment.locale('lt', {week: {dow: 0, doy: 6}});
+    moment.updateLocale('lt', {week: {dow: 0, doy: 6}});
     var expected = 'sekmadienis Sek S_pirmadienis Pir P_antradienis Ant A_trečiadienis Tre T_ketvirtadienis Ket K_penktadienis Pen Pn_šeštadienis Šeš Š'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
-    moment.locale('lt', {week: {dow: 1, doy: 4}});
+    moment.updateLocale('lt', null);
 });
 
 test('from', function (assert) {

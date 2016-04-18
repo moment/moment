@@ -54,6 +54,7 @@ export default moment.defineLocale('br', {
     weekdays : 'Sul_Lun_Meurzh_Merc\'her_Yaou_Gwener_Sadorn'.split('_'),
     weekdaysShort : 'Sul_Lun_Meu_Mer_Yao_Gwe_Sad'.split('_'),
     weekdaysMin : 'Su_Lu_Me_Mer_Ya_Gw_Sa'.split('_'),
+    weekdaysParseExact : true,
     longDateFormat : {
         LT : 'h[e]mm A',
         LTS : 'h[e]mm:ss A',

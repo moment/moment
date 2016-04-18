@@ -139,11 +139,11 @@ test('from', function (assert) {
 
 test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'om noen sekunder',  'prefix');
-    assert.equal(moment(0).from(30000), 'for noen sekunder siden', 'suffix');
+    assert.equal(moment(0).from(30000), 'noen sekunder siden', 'suffix');
 });
 
 test('now from now', function (assert) {
-    assert.equal(moment().fromNow(), 'for noen sekunder siden',  'now from now should display as in the past');
+    assert.equal(moment().fromNow(), 'noen sekunder siden',  'now from now should display as in the past');
 });
 
 test('fromNow', function (assert) {

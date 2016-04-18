@@ -10,9 +10,9 @@ export function isAfter (input, units) {
     }
     units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
     if (units === 'millisecond') {
-        return +this > +localInput;
+        return this.valueOf() > localInput.valueOf();
     } else {
-        return +localInput < +this.clone().startOf(units);
+        return localInput.valueOf() < this.clone().startOf(units).valueOf();
     }
 }
 
@@ -23,14 +23,16 @@ export function isBefore (input, units) {
     }
     units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
     if (units === 'millisecond') {
-        return +this < +localInput;
+        return this.valueOf() < localInput.valueOf();
     } else {
-        return +this.clone().endOf(units) < +localInput;
+        return this.clone().endOf(units).valueOf() < localInput.valueOf();
     }
 }
 
-export function isBetween (from, to, units) {
-    return this.isAfter(from, units) && this.isBefore(to, units);
+export function isBetween (from, to, units, inclusivity) {
+    inclusivity = inclusivity || '()';
+    return (inclusivity[0] === '(' ? this.isAfter(from, units) : !this.isBefore(from, units)) &&
+        (inclusivity[1] === ')' ? this.isBefore(to, units) : !this.isAfter(to, units));
 }
 
 export function isSame (input, units) {
@@ -41,10 +43,10 @@ export function isSame (input, units) {
     }
     units = normalizeUnits(units || 'millisecond');
     if (units === 'millisecond') {
-        return +this === +localInput;
+        return this.valueOf() === localInput.valueOf();
     } else {
-        inputMs = +localInput;
-        return +(this.clone().startOf(units)) <= inputMs && inputMs <= +(this.clone().endOf(units));
+        inputMs = localInput.valueOf();
+        return this.clone().startOf(units).valueOf() <= inputMs && inputMs <= this.clone().endOf(units).valueOf();
     }
 }
 

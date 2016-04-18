@@ -116,6 +116,11 @@ test('default format', function (assert) {
     assert.ok(isoRegex.exec(moment().format()), 'default format (' + moment().format() + ') should match ISO');
 });
 
+test('default UTC format', function (assert) {
+    var isoRegex = /\d{4}.\d\d.\d\dT\d\d.\d\d.\d\dZ/;
+    assert.ok(isoRegex.exec(moment.utc().format()), 'default UTC format (' + moment.utc().format() + ') should match ISO');
+});
+
 test('toJSON', function (assert) {
     var supportsJson = typeof JSON !== 'undefined' && JSON.stringify && JSON.stringify.call,
         date = moment('2012-10-09T21:30:40.678+0100');
@@ -242,7 +247,7 @@ test('week year formats', function (assert) {
         '405-12-31': '0405-52'
     }, i, isoWeekYear, formatted5, formatted4, formatted2;
 
-    moment.locale('dow:1,doy:4', {week: {dow: 1, doy: 4}});
+    moment.defineLocale('dow:1,doy:4', {week: {dow: 1, doy: 4}});
 
     for (i in cases) {
         isoWeekYear = cases[i].split('-')[0];
@@ -253,6 +258,7 @@ test('week year formats', function (assert) {
         formatted2 = moment(i, 'YYYY-MM-DD').format('gg');
         assert.equal(isoWeekYear.slice(2, 4), formatted2, i + ': gg should be ' + isoWeekYear + ', but ' + formatted2);
     }
+    moment.defineLocale('dow:1,doy:4', null);
 });
 
 test('iso weekday formats', function (assert) {
@@ -266,7 +272,7 @@ test('iso weekday formats', function (assert) {
 });
 
 test('weekday formats', function (assert) {
-    moment.locale('dow: 3,doy: 5', {week: {dow: 3, doy: 5}});
+    moment.defineLocale('dow: 3,doy: 5', {week: {dow: 3, doy: 5}});
     assert.equal(moment([1985, 1,  6]).format('e'), '0', 'Feb  6 1985 is Wednesday -- 0th day');
     assert.equal(moment([2029, 8, 20]).format('e'), '1', 'Sep 20 2029 is Thursday  -- 1st day');
     assert.equal(moment([2013, 3, 26]).format('e'), '2', 'Apr 26 2013 is Friday    -- 2nd day');
@@ -274,6 +280,7 @@ test('weekday formats', function (assert) {
     assert.equal(moment([1970, 0,  4]).format('e'), '4', 'Jan  4 1970 is Sunday    -- 4th day');
     assert.equal(moment([2001, 4, 14]).format('e'), '5', 'May 14 2001 is Monday    -- 5th day');
     assert.equal(moment([2000, 0,  4]).format('e'), '6', 'Jan  4 2000 is Tuesday   -- 6th day');
+    moment.defineLocale('dow: 3,doy: 5', null);
 });
 
 test('toString is just human readable format', function (assert) {
@@ -282,13 +289,13 @@ test('toString is just human readable format', function (assert) {
 });
 
 test('toJSON skips postformat', function (assert) {
-    moment.locale('postformat', {
+    moment.defineLocale('postformat', {
         postformat: function (s) {
             s.replace(/./g, 'X');
         }
     });
     assert.equal(moment.utc([2000, 0, 1]).toJSON(), '2000-01-01T00:00:00.000Z', 'toJSON doesn\'t postformat');
-    moment.locale('postformat', null);
+    moment.defineLocale('postformat', null);
 });
 
 test('calendar day timezone', function (assert) {
@@ -414,6 +421,15 @@ test('Hmm and Hmmss', function (assert) {
     assert.equal(moment('01:34:56', 'HH:mm:ss').format('Hmmss'), '13456');
     assert.equal(moment('08:34:56', 'HH:mm:ss').format('Hmmss'), '83456');
     assert.equal(moment('18:34:56', 'HH:mm:ss').format('Hmmss'), '183456');
+});
+
+test('k and kk', function (assert) {
+    assert.equal(moment('01:23:45', 'HH:mm:ss').format('k'), '1');
+    assert.equal(moment('12:34:56', 'HH:mm:ss').format('k'), '12');
+    assert.equal(moment('01:23:45', 'HH:mm:ss').format('kk'), '01');
+    assert.equal(moment('12:34:56', 'HH:mm:ss').format('kk'), '12');
+    assert.equal(moment('00:34:56', 'HH:mm:ss').format('kk'), '24');
+    assert.equal(moment('00:00:00', 'HH:mm:ss').format('kk'), '24');
 });
 
 test('Y token', function (assert) {
