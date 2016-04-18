@@ -1,6 +1,27 @@
 Changelog
 =========
 
+### 2.13.0 [See full changelog](https://gist.github.com/ichernev/0132fcf5b61f7fc140b0bb0090480d49)
+
+## Enhancements:
+* [#2982](https://github.com/moment/moment/pull/2982) Add 'date' as alias to 'day' for startOf() and endOf().
+* [#2955](https://github.com/moment/moment/pull/2955) Add parsing negative components in durations when ISO 8601
+* [#2991](https://github.com/moment/moment/pull/2991) isBetween support for both open and closed intervals
+* [#3105](https://github.com/moment/moment/pull/3105) Add localeSorted argument to weekday listers
+* [#3102](https://github.com/moment/moment/pull/3102) Add k and kk formatting tokens
+
+## Bugfixes
+* [#3109](https://github.com/moment/moment/pull/3109) Fix [#1756](https://github.com/moment/moment/issues/1756) Resolved thread-safe issue on server side.
+* [#3078](https://github.com/moment/moment/pull/3078) Fix parsing for months/weekdays with weird characters
+* [#3098](https://github.com/moment/moment/pull/3098) Use Z suffix when in UTC mode ([#3020](https://github.com/moment/moment/issues/3020))
+* [#2995](https://github.com/moment/moment/pull/2995) Fix floating point rounding errors in durations
+* [#3059](https://github.com/moment/moment/pull/3059) fix bug where diff returns -0 in month-related diffs
+* [#3045](https://github.com/moment/moment/pull/3045) Fix mistaking any input for 'a' token
+* [#2877](https://github.com/moment/moment/pull/2877) Use explicit .valueOf() calls instead of coercion
+* [#3036](https://github.com/moment/moment/pull/3036) Year setter should keep time when DST changes
+
+Plus 3 new locales and locale fixes.
+
 ### 2.12.0 [See full changelog](https://gist.github.com/ichernev/6e5bfdf8d6522fc4ac73)
 
 ## Enhancements:
