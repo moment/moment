@@ -431,10 +431,10 @@ declare namespace moment {
 
   export function invalid(parsingFlags?: Object): Moment;
   export function isMoment(): boolean;
-  export function isMoment(m: any): boolean;
-  export function isDate(m: any): boolean;
+  export function isMoment(m: any): m is Moment;
+  export function isDate(m: any): m is Date;
   export function isDuration(): boolean;
-  export function isDuration(d: any): boolean;
+  export function isDuration(d: any): m is Duration;
 
   // Deprecated in 2.8.0.
   export function lang(language?: string): string;
