@@ -1,13 +1,12 @@
 import { normalizeUnits } from '../units/aliases';
-import { hooks } from '../utils/hooks';
+import updateOffset from '../timezone/update-offset';
 import isFunction from '../utils/is-function';
 
 export function makeGetSet (unit, keepTime) {
     return function (value) {
         if (value != null) {
             set(this, unit, value);
-            hooks.updateOffset(this, keepTime);
-            return this;
+            return updateOffset(this, keepTime);
         } else {
             return get(this, unit);
         }
@@ -16,12 +15,12 @@ export function makeGetSet (unit, keepTime) {
 
 export function get (mom, unit) {
     return mom.isValid() ?
-        mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]() : NaN;
+        mom._d['getUTC' + unit]() : NaN;
 }
 
 export function set (mom, unit, value) {
     if (mom.isValid()) {
-        mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
+        mom._d['setUTC' + unit](value);
     }
 }
 

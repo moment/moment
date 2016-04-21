@@ -45,8 +45,6 @@ export function prepareConfig (config) {
         configFromStringAndArray(config);
     } else if (format) {
         configFromStringAndFormat(config);
-    } else if (isDate(input)) {
-        config._d = input;
     } else {
         configFromInput(config);
     }
@@ -59,43 +57,49 @@ export function prepareConfig (config) {
 }
 
 function configFromInput(config) {
-    var input = config._i;
+    var input = config._i,
+        type = typeof input;
     if (input === undefined) {
         config._d = new Date(hooks.now());
+        config._offset = 0;
     } else if (isDate(input)) {
         config._d = new Date(input.valueOf());
-    } else if (typeof input === 'string') {
+        config._offset = 0;
+    } else if (type === 'string') {
         configFromString(config);
     } else if (isArray(input)) {
         config._a = map(input.slice(0), function (obj) {
             return parseInt(obj, 10);
         });
         configFromArray(config);
-    } else if (typeof(input) === 'object') {
+    } else if (type === 'object') {
         configFromObject(config);
-    } else if (typeof(input) === 'number') {
+    } else if (type === 'number') {
         // from milliseconds
         config._d = new Date(input);
+        config._offset = 0;
     } else {
         hooks.createFromInputFallback(config);
     }
 }
 
-export function createLocalOrUTC (input, format, locale, strict, isUTC) {
-    var c = {};
+export function createWithTimeZone (timeZone) {
+    return function (input, format, locale, strict) {
+        var c = {};
 
-    if (typeof(locale) === 'boolean') {
-        strict = locale;
-        locale = undefined;
-    }
-    // object construction must be done this way.
-    // https://github.com/moment/moment/issues/1423
-    c._isAMomentObject = true;
-    c._useUTC = c._isUTC = isUTC;
-    c._l = locale;
-    c._i = input;
-    c._f = format;
-    c._strict = strict;
+        if (typeof(locale) === 'boolean') {
+            strict = locale;
+            locale = undefined;
+        }
+        // object construction must be done this way.
+        // https://github.com/moment/moment/issues/1423
+        c._isAMomentObject = true;
+        c._z = timeZone;
+        c._l = locale;
+        c._i = input;
+        c._f = format;
+        c._strict = strict;
 
-    return createFromConfig(c);
+        return createFromConfig(c);
+    };
 }

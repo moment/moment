@@ -1,5 +1,8 @@
-import { createLocalOrUTC } from './from-anything';
+import FixedOffsetTimeZone from '../timezone/fixed-offset';
+import { createWithTimeZone } from './from-anything';
 
-export function createUTC (input, format, locale, strict) {
-    return createLocalOrUTC(input, format, locale, strict, true).utc();
+var create = createWithTimeZone(new FixedOffsetTimeZone(0));
+
+export function createUTC () {
+    return create.apply(null, arguments).utcOffset(0);
 }

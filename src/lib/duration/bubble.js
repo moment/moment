@@ -1,6 +1,5 @@
 import absFloor from '../utils/abs-floor';
 import absCeil from '../utils/abs-ceil';
-import { createUTCDate } from '../create/date-from-array';
 
 export function bubble () {
     var milliseconds = this._milliseconds;

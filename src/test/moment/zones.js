@@ -110,37 +110,6 @@ test('distance from the unix epoch', function (assert) {
     assert.equal(+zoneA, +zoneE, 'moment should equal moment.zone(1000)');
 });
 
-test('update offset after changing any values', function (assert) {
-    var oldOffset = moment.updateOffset,
-        m = moment.utc([2000, 6, 1]);
-
-    moment.updateOffset = function (mom, keepTime) {
-        if (mom.__doChange) {
-            if (+mom > 962409600000) {
-                mom.zone(120, keepTime);
-            } else {
-                mom.zone(60, keepTime);
-            }
-        }
-    };
-
-    assert.equal(m.format('ZZ'), '+0000', 'should be at +0000');
-    assert.equal(m.format('HH:mm'), '00:00', 'should start 12AM at +0000 timezone');
-
-    m.__doChange = true;
-    m.add(1, 'h');
-
-    assert.equal(m.format('ZZ'), '-0200', 'should be at -0200');
-    assert.equal(m.format('HH:mm'), '23:00', '1AM at +0000 should be 11PM at -0200 timezone');
-
-    m.subtract(1, 'h');
-
-    assert.equal(m.format('ZZ'), '-0100', 'should be at -0100');
-    assert.equal(m.format('HH:mm'), '23:00', '12AM at +0000 should be 11PM at -0100 timezone');
-
-    moment.updateOffset = oldOffset;
-});
-
 test('getters and setters', function (assert) {
     var a = moment([2011, 5, 20]);
 
@@ -290,77 +259,6 @@ test('same / before / after', function (assert) {
 
     assert.ok(zoneA.isBefore(zoneB, 'hour'), 'isBefore:hour should work with two moments with different offsets');
     assert.ok(zoneA.isBefore(zoneC, 'hour'), 'isBefore:hour should work with two moments with different offsets');
-});
-
-test('add / subtract over dst', function (assert) {
-    var oldOffset = moment.updateOffset,
-        m = moment.utc([2000, 2, 31, 3]);
-
-    moment.updateOffset = function (mom, keepTime) {
-        if (mom.clone().utc().month() > 2) {
-            mom.zone(-60, keepTime);
-        } else {
-            mom.zone(0, keepTime);
-        }
-    };
-
-    assert.equal(m.hour(), 3, 'should start at 00:00');
-
-    m.add(24, 'hour');
-
-    assert.equal(m.hour(), 4, 'adding 24 hours should disregard dst');
-
-    m.subtract(24, 'hour');
-
-    assert.equal(m.hour(), 3, 'subtracting 24 hours should disregard dst');
-
-    m.add(1, 'day');
-
-    assert.equal(m.hour(), 3, 'adding 1 day should have the same hour');
-
-    m.subtract(1, 'day');
-
-    assert.equal(m.hour(), 3, 'subtracting 1 day should have the same hour');
-
-    m.add(1, 'month');
-
-    assert.equal(m.hour(), 3, 'adding 1 month should have the same hour');
-
-    m.subtract(1, 'month');
-
-    assert.equal(m.hour(), 3, 'subtracting 1 month should have the same hour');
-
-    moment.updateOffset = oldOffset;
-});
-
-test('isDST', function (assert) {
-    var oldOffset = moment.updateOffset;
-
-    moment.updateOffset = function (mom, keepTime) {
-        if (mom.month() > 2 && mom.month() < 9) {
-            mom.zone(-60, keepTime);
-        } else {
-            mom.zone(0, keepTime);
-        }
-    };
-
-    assert.ok(!moment().month(0).isDST(),  'Jan should not be summer dst');
-    assert.ok(moment().month(6).isDST(),   'Jul should be summer dst');
-    assert.ok(!moment().month(11).isDST(), 'Dec should not be summer dst');
-
-    moment.updateOffset = function (mom) {
-        if (mom.month() > 2 && mom.month() < 9) {
-            mom.zone(0);
-        } else {
-            mom.zone(-60);
-        }
-    };
-
-    assert.ok(moment().month(0).isDST(),  'Jan should be winter dst');
-    assert.ok(!moment().month(6).isDST(), 'Jul should not be winter dst');
-    assert.ok(moment().month(11).isDST(), 'Dec should be winter dst');
-
-    moment.updateOffset = oldOffset;
 });
 
 test('zone names', function (assert) {

@@ -8,9 +8,9 @@ addFormatToken('zz', 0, 0, 'zoneName');
 // MOMENTS
 
 export function getZoneAbbr () {
-    return this._isUTC ? 'UTC' : '';
+    return this._z.abbr(+this);
 }
 
 export function getZoneName () {
-    return this._isUTC ? 'Coordinated Universal Time' : '';
+    return typeof this._z.name === 'function' ? this._z.name(+this) : this._z.abbr();
 }
