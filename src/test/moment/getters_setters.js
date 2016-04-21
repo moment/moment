@@ -275,67 +275,45 @@ test('string setters', function (assert) {
 });
 
 test('setters across DST +1', function (assert) {
-    var oldUpdateOffset = moment.updateOffset,
-        // Based on a real story somewhere in America/Los_Angeles
-        dstAt = moment('2014-03-09T02:00:00-08:00').parseZone(),
+    var create = moment.withTimeZone({
+            parse: function (timestamp) {
+                // Based on a real story somewhere in America/Los_Angeles
+                return timestamp < Date.UTC(2014, 2, 9, 2) ? -480 : -420;
+            }
+        }),
         m;
 
-    moment.updateOffset = function (mom, keepTime) {
-        if (mom.isBefore(dstAt)) {
-            mom.utcOffset(-8, keepTime);
-        } else {
-            mom.utcOffset(-7, keepTime);
-        }
-    };
-
-    m = moment('2014-03-15T00:00:00-07:00').parseZone();
-    m.year(2013);
+    m = create('2014-03-15T00:00:00-07:00').year(2013);
     assert.equal(m.format(), '2013-03-15T00:00:00-08:00', 'year across +1');
 
-    m = moment('2014-03-15T00:00:00-07:00').parseZone();
-    m.month(0);
+    m = create('2014-03-15T00:00:00-07:00').month(0);
     assert.equal(m.format(), '2014-01-15T00:00:00-08:00', 'month across +1');
 
-    m = moment('2014-03-15T00:00:00-07:00').parseZone();
-    m.date(1);
+    m = create('2014-03-15T00:00:00-07:00').date(1);
     assert.equal(m.format(), '2014-03-01T00:00:00-08:00', 'date across +1');
 
-    m = moment('2014-03-09T03:05:00-07:00').parseZone();
-    m.hour(0);
+    m = create('2014-03-09T03:05:00-07:00').hour(0);
     assert.equal(m.format(), '2014-03-09T00:05:00-08:00', 'hour across +1');
-
-    moment.updateOffset = oldUpdateOffset;
 });
 
 test('setters across DST -1', function (assert) {
-    var oldUpdateOffset = moment.updateOffset,
-        // Based on a real story somewhere in America/Los_Angeles
-        dstAt = moment('2014-11-02T02:00:00-07:00').parseZone(),
+    var create = moment.withTimeZone({
+            parse: function (timestamp) {
+                // Based on a real story somewhere in America/Los_Angeles
+                return timestamp < Date.UTC(2014, 10, 2, 2) ? -420 : -480;
+            }
+        }),
         m;
 
-    moment.updateOffset = function (mom, keepTime) {
-        if (mom.isBefore(dstAt)) {
-            mom.utcOffset(-7, keepTime);
-        } else {
-            mom.utcOffset(-8, keepTime);
-        }
-    };
-
-    m = moment('2014-11-15T00:00:00-08:00').parseZone();
-    m.year(2013);
+    m = create('2014-11-15T00:00:00-08:00').year(2013);
     assert.equal(m.format(), '2013-11-15T00:00:00-07:00', 'year across -1');
 
-    m = moment('2014-11-15T00:00:00-08:00').parseZone();
-    m.month(0);
+    m = create('2014-11-15T00:00:00-08:00').month(0);
     assert.equal(m.format(), '2014-01-15T00:00:00-07:00', 'month across -1');
 
-    m = moment('2014-11-15T00:00:00-08:00').parseZone();
-    m.date(1);
+    m = create('2014-11-15T00:00:00-08:00').date(1);
     assert.equal(m.format(), '2014-11-01T00:00:00-07:00', 'date across -1');
 
-    m = moment('2014-11-02T03:30:00-08:00').parseZone();
-    m.hour(0);
+    m = create('2014-11-02T03:30:00-08:00').hour(0);
     assert.equal(m.format(), '2014-11-02T00:30:00-07:00', 'hour across -1');
-
-    moment.updateOffset = oldUpdateOffset;
 });

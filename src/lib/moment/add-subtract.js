@@ -1,10 +1,8 @@
-import { get, set } from './get-set';
 import { setMonth } from '../units/month';
 import { createDuration } from '../duration/create';
 import { deprecateSimple } from '../utils/deprecate';
-import { hooks } from '../utils/hooks';
+import updateOffset from '../timezone/update-offset';
 import absRound from '../utils/abs-round';
-
 
 // TODO: remove 'name' arg after deprecation is removed
 function createAdder(direction, name) {
@@ -24,32 +22,28 @@ function createAdder(direction, name) {
     };
 }
 
-export function addSubtract (mom, duration, isAdding, updateOffset) {
+export function addSubtract (mom, duration, isAdding) {
     var milliseconds = duration._milliseconds,
         days = absRound(duration._days),
-        months = absRound(duration._months);
+        months = absRound(duration._months),
+        date = mom._d;
 
     if (!mom.isValid()) {
         // No op
         return;
     }
 
-    updateOffset = updateOffset == null ? true : updateOffset;
-
     if (milliseconds) {
-        mom._d.setTime(mom._d.valueOf() + milliseconds * isAdding);
+        date.setTime(date.valueOf() + milliseconds * isAdding);
     }
     if (days) {
-        set(mom, 'Date', get(mom, 'Date') + days * isAdding);
+        date.setUTCDate(date.getUTCDate() + days * isAdding);
     }
     if (months) {
-        setMonth(mom, get(mom, 'Month') + months * isAdding);
+        setMonth(mom, date.getUTCMonth() + months * isAdding);
     }
-    if (updateOffset) {
-        hooks.updateOffset(mom, days || months);
-    }
+    updateOffset(mom, days || months);
 }
 
 export var add      = createAdder(1, 'add');
 export var subtract = createAdder(-1, 'subtract');
-

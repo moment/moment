@@ -120,23 +120,16 @@ test('distance from the unix epoch', function (assert) {
 });
 
 test('update offset after changing any values', function (assert) {
-    var oldOffset = moment.updateOffset,
-        m = moment.utc([2000, 6, 1]);
-
-    moment.updateOffset = function (mom, keepTime) {
-        if (mom.__doChange) {
-            if (+mom > 962409600000) {
-                mom.utcOffset(-120, keepTime);
-            } else {
-                mom.utcOffset(-60, keepTime);
-            }
-        }
-    };
+    var m = moment.utc([2000, 6, 1]);
 
     assert.equal(m.format('ZZ'), '+0000', 'should be at +0000');
     assert.equal(m.format('HH:mm'), '00:00', 'should start 12AM at +0000 timezone');
 
-    m.__doChange = true;
+    m._z = {
+        parse: function (timestamp) {
+            return timestamp > Date.UTC(2000, 6, 1) ? -120 : -60;
+        }
+    };
     m.add(1, 'h');
 
     assert.equal(m.format('ZZ'), '-0200', 'should be at -0200');
@@ -146,11 +139,8 @@ test('update offset after changing any values', function (assert) {
 
     assert.equal(m.format('ZZ'), '-0100', 'should be at -0100');
     assert.equal(m.format('HH:mm'), '23:00', '12AM at +0000 should be 11PM at -0100 timezone');
-
-    moment.updateOffset = oldOffset;
 });
 
-//////////////////
 test('getters and setters', function (assert) {
     var a = moment([2011, 5, 20]);
 
@@ -313,16 +303,13 @@ test('same / before / after', function (assert) {
 });
 
 test('add / subtract over dst', function (assert) {
-    var oldOffset = moment.updateOffset,
-        m = moment.utc([2000, 2, 31, 3]);
+    var m = moment.utc([2000, 2, 31, 3]);
 
-    moment.updateOffset = function (mom, keepTime) {
-        if (mom.clone().utc().month() > 2) {
-            mom.utcOffset(60, keepTime);
-        } else {
-            mom.utcOffset(0, keepTime);
-        }
-    };
+    function parse (instance) {
+        return new Date(+instance).getUTCMonth() > 2 ? 60 : 0;
+    }
+
+    m._z = {parse: parse, offset: parse};
 
     assert.equal(m.hour(), 3, 'should start at 00:00');
 
@@ -349,38 +336,29 @@ test('add / subtract over dst', function (assert) {
     m.subtract(1, 'month');
 
     assert.equal(m.hour(), 3, 'subtracting 1 month should have the same hour');
-
-    moment.updateOffset = oldOffset;
 });
 
 test('isDST', function (assert) {
-    var oldOffset = moment.updateOffset;
-
-    moment.updateOffset = function (mom, keepTime) {
-        if (mom.month() > 2 && mom.month() < 9) {
-            mom.utcOffset(60, keepTime);
-        } else {
-            mom.utcOffset(0, keepTime);
+    var withSummerDst = moment.withTimeZone({
+        parse: function (timestamp) {
+            var month = new Date(timestamp).getUTCMonth();
+            return (month > 2 && month < 9) ? 60 : 0;
         }
-    };
+    });
 
-    assert.ok(!moment().month(0).isDST(),  'Jan should not be summer dst');
-    assert.ok(moment().month(6).isDST(),   'Jul should be summer dst');
-    assert.ok(!moment().month(11).isDST(), 'Dec should not be summer dst');
-
-    moment.updateOffset = function (mom) {
-        if (mom.month() > 2 && mom.month() < 9) {
-            mom.utcOffset(0);
-        } else {
-            mom.utcOffset(60);
+    var withWinterDst = moment.withTimeZone({
+        parse: function (timestamp) {
+            var month = new Date(timestamp).getUTCMonth();
+            return (month > 2 && month < 9) ? 0 : 60;
         }
-    };
+    });
 
-    assert.ok(moment().month(0).isDST(),  'Jan should be winter dst');
-    assert.ok(!moment().month(6).isDST(), 'Jul should not be winter dst');
-    assert.ok(moment().month(11).isDST(), 'Dec should be winter dst');
-
-    moment.updateOffset = oldOffset;
+    assert.ok(!withSummerDst().month(0).isDST(),  'Jan should not be summer dst');
+    assert.ok(withSummerDst().month(6).isDST(),   'Jul should be summer dst');
+    assert.ok(!withSummerDst().month(11).isDST(), 'Dec should not be summer dst');
+    assert.ok(withWinterDst().month(0).isDST(),  'Jan should be winter dst');
+    assert.ok(!withWinterDst().month(6).isDST(), 'Jul should not be winter dst');
+    assert.ok(withWinterDst().month(11).isDST(), 'Dec should be winter dst');
 });
 
 test('zone names', function (assert) {

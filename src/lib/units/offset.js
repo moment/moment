@@ -1,18 +1,19 @@
 import zeroFill from '../utils/zero-fill';
 import { createDuration } from '../duration/create';
-import { addSubtract } from '../moment/add-subtract';
 import { isMoment, copyConfig } from '../moment/constructor';
 import { addFormatToken } from '../format/format';
 import { addRegexToken, matchOffset, matchShortOffset } from '../parse/regex';
 import { addParseToken } from '../parse/token';
 import { createLocal } from '../create/local';
-import { prepareConfig } from '../create/from-anything';
+import { prepareConfig, createWithTimeZone } from '../create/from-anything';
 import { createUTC } from '../create/utc';
+import FixedOffsetTimeZone from '../timezone/fixed-offset';
+import LocalTimeZone from '../timezone/local';
+import updateOffset from '../timezone/update-offset';
 import isDate from '../utils/is-date';
 import toInt from '../utils/to-int';
 import isUndefined from '../utils/is-undefined';
 import compareArrays from '../utils/compare-arrays';
-import { hooks } from '../utils/hooks';
 
 // FORMATTING
 
@@ -36,8 +37,7 @@ offset('ZZ', '');
 addRegexToken('Z',  matchShortOffset);
 addRegexToken('ZZ', matchShortOffset);
 addParseToken(['Z', 'ZZ'], function (input, array, config) {
-    config._useUTC = true;
-    config._tzm = offsetFromString(matchShortOffset, input);
+    config._offset = config._tzm = offsetFromString(matchShortOffset, input);
 });
 
 // HELPERS
@@ -65,30 +65,10 @@ function offsetFromString(matcher, string) {
 
 // Return a moment from input, that is local/utc/zone equivalent to model.
 export function cloneWithOffset(input, model) {
-    var res, diff;
-    if (model._isUTC) {
-        res = model.clone();
-        diff = (isMoment(input) || isDate(input) ? input.valueOf() : createLocal(input).valueOf()) - res.valueOf();
-        // Use low-level api, because this fn is low-level api.
-        res._d.setTime(res._d.valueOf() + diff);
-        hooks.updateOffset(res, false);
-        return res;
-    } else {
-        return createLocal(input).local();
-    }
+    var output = createLocal(input);
+    output._z = model._z;
+    return updateOffset(output);
 }
-
-function getDateOffset (m) {
-    // On Firefox.24 Date#getTimezoneOffset returns a floating point.
-    // https://github.com/moment/moment/pull/1871
-    return -Math.round(m._d.getTimezoneOffset() / 15) * 15;
-}
-
-// HOOKS
-
-// This function will be called whenever a moment is mutated.
-// It is intended to keep the offset in sync with the timezone.
-hooks.updateOffset = function () {};
 
 // MOMENTS
 
@@ -103,8 +83,6 @@ hooks.updateOffset = function () {};
 // _changeInProgress == true case, then we have to adjust, because
 // there is no such time in the given timezone.
 export function getSetOffset (input, keepLocalTime, keepMinutes) {
-    var offset = this._offset || 0,
-        localAdjust;
     if (!this.isValid()) {
         return input != null ? this : NaN;
     }
@@ -117,26 +95,10 @@ export function getSetOffset (input, keepLocalTime, keepMinutes) {
         } else if (Math.abs(input) < 16 && !keepMinutes) {
             input = input * 60;
         }
-        if (!this._isUTC && keepLocalTime) {
-            localAdjust = getDateOffset(this);
-        }
-        this._offset = input;
-        this._isUTC = true;
-        if (localAdjust != null) {
-            this.add(localAdjust, 'm');
-        }
-        if (offset !== input) {
-            if (!keepLocalTime || this._changeInProgress) {
-                addSubtract(this, createDuration(input - offset, 'm'), 1, false);
-            } else if (!this._changeInProgress) {
-                this._changeInProgress = true;
-                hooks.updateOffset(this, true);
-                this._changeInProgress = null;
-            }
-        }
-        return this;
+        this._z = new FixedOffsetTimeZone(input);
+        return updateOffset(this, keepLocalTime);
     } else {
-        return this._isUTC ? offset : getDateOffset(this);
+        return this._offset || 0;
     }
 }
 
@@ -146,9 +108,7 @@ export function getSetZone (input, keepLocalTime) {
             input = -input;
         }
 
-        this.utcOffset(input, keepLocalTime);
-
-        return this;
+        return this.utcOffset(input, keepLocalTime);
     } else {
         return -this.utcOffset();
     }
@@ -159,15 +119,8 @@ export function setOffsetToUTC (keepLocalTime) {
 }
 
 export function setOffsetToLocal (keepLocalTime) {
-    if (this._isUTC) {
-        this.utcOffset(0, keepLocalTime);
-        this._isUTC = false;
-
-        if (keepLocalTime) {
-            this.subtract(getDateOffset(this), 'm');
-        }
-    }
-    return this;
+    this._z = new LocalTimeZone();
+    return updateOffset(this, keepLocalTime);
 }
 
 export function setOffsetToParsedOffset () {
@@ -212,7 +165,7 @@ export function isDaylightSavingTimeShifted () {
     c = prepareConfig(c);
 
     if (c._a) {
-        var other = c._isUTC ? createUTC(c._a) : createLocal(c._a);
+        var other = cloneWithOffset(c._a, c);
         this._isDSTShifted = this.isValid() &&
             compareArrays(c._a, other.toArray()) > 0;
     } else {
@@ -223,13 +176,13 @@ export function isDaylightSavingTimeShifted () {
 }
 
 export function isLocal () {
-    return this.isValid() ? !this._isUTC : false;
+    return this.isValid() && this._z instanceof LocalTimeZone;
 }
 
 export function isUtcOffset () {
-    return this.isValid() ? this._isUTC : false;
+    return this.isValid() && this._z instanceof FixedOffsetTimeZone;
 }
 
 export function isUtc () {
-    return this.isValid() ? this._isUTC && this._offset === 0 : false;
+    return this.isValid() && this._z instanceof FixedOffsetTimeZone && this._offset === 0;
 }

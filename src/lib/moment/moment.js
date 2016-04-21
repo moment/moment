@@ -1,5 +1,6 @@
 import { createLocal } from '../create/local';
 import { createUTC } from '../create/utc';
+import { createWithTimeZone } from '../create/from-anything';
 import { createInvalid } from '../create/valid';
 import { isMoment } from './constructor';
 import { min, max } from './min-max';
@@ -23,6 +24,7 @@ export {
     createUnix,
     createLocal,
     createInZone,
+    createWithTimeZone,
     createInvalid,
     momentPrototype
 };
