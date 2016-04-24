@@ -32,6 +32,9 @@ test('getters programmatic', function (assert) {
     assert.equal(a.get('week'), a.week(), 'week');
     assert.equal(a.get('isoWeek'), a.isoWeek(), 'isoWeek');
     assert.equal(a.get('dayOfYear'), a.dayOfYear(), 'dayOfYear');
+
+    //getter no longer sets values when passed an object
+    assert.equal(moment([2016,0,1]).get({year:2015}).year(), 2016, 'getter no longer sets values when passed an object');
 });
 
 test('setters plural', function (assert) {
@@ -202,6 +205,10 @@ test('setter with multiple unit values', function (assert) {
     assert.equal(a.minutes(), 7, 'minute');
     assert.equal(a.seconds(), 8, 'second');
     assert.equal(a.milliseconds(), 9, 'milliseconds');
+
+    var c = moment([2016,0,1]);
+    assert.equal(c.set({weekYear: 2016}).weekYear(), 2016, 'week year correctly sets with object syntax');
+    assert.equal(c.set({quarter: 3}).quarter(), 3, 'quarter sets correctly with object syntax');
 });
 
 test('day setter', function (assert) {
@@ -231,6 +238,21 @@ test('day setter', function (assert) {
     assert.equal(moment(a).day(14).date(), 23, 'set from wednesday to second next sunday');
     assert.equal(moment(a).day(20).date(), 29, 'set from wednesday to second next saturday');
     assert.equal(moment(a).day(17).date(), 26, 'set from wednesday to second next wednesday');
+});
+
+test('object set ordering', function (assert) {
+    var a = moment([2016,3,30]);
+    assert.equal(a.set({date:31, month:4}).date(), 31, 'setter order automatically arranged by size');
+    var b = moment([2015,1,28]);
+    assert.equal(b.set({date:29, year: 2016}).format('YYYY-MM-DD'), '2016-02-29', 'year is prioritized over date');
+    //check a nonexistent time in US isn't set
+    var c = moment([2016,2,13]);
+    c.set({
+        hour:2,
+        minutes:30,
+        date: 14
+    });
+    assert.equal(c.format('YYYY-MM-DDTHH:mm'), '2016-03-14T02:30', 'setting hours, minutes date puts date first allowing time set to work');
 });
 
 test('string setters', function (assert) {

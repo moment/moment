@@ -1,5 +1,6 @@
 import { addFormatToken } from '../format/format';
 import { addUnitAlias } from './aliases';
+import { addUnitPriority } from './priorities';
 import { addRegexToken, match1to2, match2 } from '../parse/regex';
 import { addWeekParseToken } from '../parse/token';
 import toInt from '../utils/to-int';
@@ -15,6 +16,11 @@ addFormatToken('W', ['WW', 2], 'Wo', 'isoWeek');
 
 addUnitAlias('week', 'w');
 addUnitAlias('isoWeek', 'W');
+
+// PRIORITIES
+
+addUnitPriority('week', 5);
+addUnitPriority('isoWeek', 5);
 
 // PARSING
 
