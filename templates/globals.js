@@ -2,4 +2,4 @@
 
 import moment from "./moment";
 
-window.moment = moment;
+window.moment = window.moment || moment;
