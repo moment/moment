@@ -2,6 +2,7 @@ import { get } from '../moment/get-set';
 import hasOwnProp from '../utils/has-own-prop';
 import { addFormatToken } from '../format/format';
 import { addUnitAlias } from './aliases';
+import { addUnitPriority } from './priorities';
 import { addRegexToken, match1to2, match2, matchWord, regexEscape } from '../parse/regex';
 import { addParseToken } from '../parse/token';
 import { hooks } from '../utils/hooks';
@@ -33,6 +34,10 @@ addFormatToken('MMMM', 0, 0, function (format) {
 // ALIASES
 
 addUnitAlias('month', 'M');
+
+// PRIORITY
+
+addUnitPriority('month', 8);
 
 // PARSING
 

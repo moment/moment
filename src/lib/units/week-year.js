@@ -1,5 +1,6 @@
 import { addFormatToken } from '../format/format';
 import { addUnitAlias } from './aliases';
+import { addUnitPriority } from './priorities';
 import { addRegexToken, match1to2, match1to4, match1to6, match2, match4, match6, matchSigned } from '../parse/regex';
 import { addWeekParseToken } from '../parse/token';
 import { weekOfYear, weeksInYear, dayOfYearFromWeeks } from './week-calendar-utils';
@@ -31,6 +32,12 @@ addWeekYearFormatToken('GGGGG', 'isoWeekYear');
 
 addUnitAlias('weekYear', 'gg');
 addUnitAlias('isoWeekYear', 'GG');
+
+// PRIORITY
+
+addUnitPriority('weekYear', 1);
+addUnitPriority('isoWeekYear', 1);
+
 
 // PARSING
 
