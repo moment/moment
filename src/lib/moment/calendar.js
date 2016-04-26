@@ -15,7 +15,7 @@ export function calendar (time, formats) {
             diff < 2 ? 'nextDay' :
             diff < 7 ? 'nextWeek' : 'sameElse';
 
-    var output = formats && (isFunction(formats[format]) ? formats[format]() : formats[format]);
+    var output = formats && (isFunction(formats[format]) ? formats[format].call(this, now) : formats[format]);
 
     return this.format(output || this.localeData().calendar(format, this, createLocal(now)));
 }
