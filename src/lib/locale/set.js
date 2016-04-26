@@ -10,6 +10,9 @@ export function set (config) {
         if (isFunction(prop)) {
             this[i] = prop;
         } else {
+            if (typeof prop === 'object') {
+                extend(this[i], prop);
+            }
             this['_' + i] = prop;
         }
     }
