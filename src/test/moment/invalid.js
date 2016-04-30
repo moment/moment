@@ -37,7 +37,7 @@ test('invalid operations', function (assert) {
         invalid,
         valid = moment();
 
-    test.expectedDeprecations('moment().min', 'moment().max');
+    test.expectedDeprecations('moment().min', 'moment().max', 'isDSTShifted');
 
     for (i = 0; i < invalids.length; ++i) {
         invalid = invalids[i];
