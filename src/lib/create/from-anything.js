@@ -1,4 +1,5 @@
 import isArray from '../utils/is-array';
+import isObject from '../utils/is-object.js';
 import isDate from '../utils/is-date';
 import map from '../utils/map';
 import { createInvalid } from './valid';
@@ -89,8 +90,8 @@ export function createLocalOrUTC (input, format, locale, strict, isUTC) {
         locale = undefined;
     }
 
-    if (input !== null && typeof(input) === 'object' && (!isUTC)) {
-        if (Object.prototype.toString.call(input) !== '[object Date]') {
+    if (input !== null && !isDate(input)) {
+        if (isObject(input) || isArray(input)) {
             input = (Object.keys(input).length === 0 ? undefined : input);
         }
     }
