@@ -90,7 +90,7 @@ export function createLocalOrUTC (input, format, locale, strict, isUTC) {
         locale = undefined;
     }
 
-    if (input !== null && !isDate(input)) {
+    if (input !== null && !isDate(input) && (!isUTC)) {
         if (isObject(input) || isArray(input)) {
             input = (Object.keys(input).length === 0 ? undefined : input);
         }
