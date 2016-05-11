@@ -22,6 +22,10 @@ import {
 } from './lib/moment/moment';
 
 import {
+    getCalendarFormat
+} from './lib/moment/calendar';
+
+import {
     defineLocale,
     updateLocale,
     getSetGlobalLocale as locale,
@@ -72,6 +76,7 @@ moment.weekdaysShort         = weekdaysShort;
 moment.normalizeUnits        = normalizeUnits;
 moment.relativeTimeRounding = relativeTimeRounding;
 moment.relativeTimeThreshold = relativeTimeThreshold;
+moment.calendarFormat        = getCalendarFormat;
 moment.prototype             = fn;
 
 export default moment;
