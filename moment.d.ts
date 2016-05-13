@@ -381,6 +381,9 @@ declare namespace moment {
     isAfter(b: Moment | string | number | Date | number[], granularity?: string): boolean;
 
     isSame(b: Moment | string | number | Date | number[], granularity?: string): boolean;
+    isSameOrAfter(b: Moment | string | number | Date | number[], granularity?: string): boolean;
+    isSameOrBefore(b: Moment | string | number | Date | number[], granularity?: string): boolean;
+    
     isBetween(a: Moment | string | number | Date | number[], b: Moment | string | number | Date | number[], granularity?: string, inclusivity?: string): boolean;
 
     // Deprecated as of 2.8.0.
