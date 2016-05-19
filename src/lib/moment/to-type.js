@@ -7,7 +7,7 @@ export function unix () {
 }
 
 export function toDate () {
-    return this._offset ? new Date(this.valueOf()) : this._d;
+    return this._offset ? new Date(this.valueOf()) : new Date(this._d);
 }
 
 export function toArray () {
