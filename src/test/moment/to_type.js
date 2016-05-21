@@ -20,3 +20,10 @@ test('toArray', function (assert) {
     var expected = [2014, 11, 26, 11, 46, 58, 17];
     assert.deepEqual(moment(expected).toArray(), expected, 'toArray invalid');
 });
+
+test('toDate returns a copy of the internal date', function (assert) {
+    var m = moment();
+    var d = m.toDate();
+    m.year(0);
+    assert.notEqual(d, m.toDate());
+});
