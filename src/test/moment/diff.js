@@ -235,8 +235,8 @@ test('year diffs', function (assert) {
 
 test('negative zero', function (assert) {
     function isNegative (n) {
-            return (1 / n) < 0;
-        }
+        return (1 / n) < 0;
+    }
     assert.ok(!isNegative(moment([2012, 0, 1]).diff(moment([2012, 0, 1]), 'months')), 'month diff on same date is zero, not -0');
     assert.ok(!isNegative(moment([2012, 0, 1]).diff(moment([2012, 0, 1]), 'years')), 'year diff on same date is zero, not -0');
     assert.ok(!isNegative(moment([2012, 0, 1]).diff(moment([2012, 0, 1]), 'quarters')), 'quarter diff on same date is zero, not -0');

@@ -196,15 +196,15 @@ test('calendar last week', function (assert) {
 
     function makeFormat(d) {
         switch (d.day()) {
-        case 0:
-        case 3:
-        case 5:
-        case 6:
-            return '[Минулої] dddd [о' + (d.hours() === 11 ? 'б' : '') + '] LT';
-        case 1:
-        case 2:
-        case 4:
-            return '[Минулого] dddd [о' + (d.hours() === 11 ? 'б' : '') + '] LT';
+            case 0:
+            case 3:
+            case 5:
+            case 6:
+                return '[Минулої] dddd [о' + (d.hours() === 11 ? 'б' : '') + '] LT';
+            case 1:
+            case 2:
+            case 4:
+                return '[Минулого] dddd [о' + (d.hours() === 11 ? 'б' : '') + '] LT';
         }
     }
 

@@ -12,18 +12,18 @@ function plural(n) {
 function translate(number, withoutSuffix, key) {
     var result = number + ' ';
     switch (key) {
-    case 'm':
-        return withoutSuffix ? 'minuta' : 'minutę';
-    case 'mm':
-        return result + (plural(number) ? 'minuty' : 'minut');
-    case 'h':
-        return withoutSuffix  ? 'godzina'  : 'godzinę';
-    case 'hh':
-        return result + (plural(number) ? 'godziny' : 'godzin');
-    case 'MM':
-        return result + (plural(number) ? 'miesiące' : 'miesięcy');
-    case 'yy':
-        return result + (plural(number) ? 'lata' : 'lat');
+        case 'm':
+            return withoutSuffix ? 'minuta' : 'minutę';
+        case 'mm':
+            return result + (plural(number) ? 'minuty' : 'minut');
+        case 'h':
+            return withoutSuffix  ? 'godzina'  : 'godzinę';
+        case 'hh':
+            return result + (plural(number) ? 'godziny' : 'godzin');
+        case 'MM':
+            return result + (plural(number) ? 'miesiące' : 'miesięcy');
+        case 'yy':
+            return result + (plural(number) ? 'lata' : 'lat');
     }
 }
 
@@ -59,14 +59,14 @@ export default moment.defineLocale('pl', {
         lastDay: '[Wczoraj o] LT',
         lastWeek: function () {
             switch (this.day()) {
-            case 0:
-                return '[W zeszłą niedzielę o] LT';
-            case 3:
-                return '[W zeszłą środę o] LT';
-            case 6:
-                return '[W zeszłą sobotę o] LT';
-            default:
-                return '[W zeszły] dddd [o] LT';
+                case 0:
+                    return '[W zeszłą niedzielę o] LT';
+                case 3:
+                    return '[W zeszłą środę o] LT';
+                case 6:
+                    return '[W zeszłą sobotę o] LT';
+                default:
+                    return '[W zeszły] dddd [o] LT';
             }
         },
         sameElse: 'L'

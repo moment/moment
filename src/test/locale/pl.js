@@ -206,14 +206,14 @@ test('calendar last week', function (assert) {
 
     function makeFormat(d) {
         switch (d.day()) {
-        case 0:
-            return '[W zeszłą niedzielę o] LT';
-        case 3:
-            return '[W zeszłą środę o] LT';
-        case 6:
-            return '[W zeszłą sobotę o] LT';
-        default:
-            return '[W zeszły] dddd [o] LT';
+            case 0:
+                return '[W zeszłą niedzielę o] LT';
+            case 3:
+                return '[W zeszłą środę o] LT';
+            case 6:
+                return '[W zeszłą sobotę o] LT';
+            default:
+                return '[W zeszły] dddd [o] LT';
         }
     }
 

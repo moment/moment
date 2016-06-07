@@ -166,17 +166,17 @@ test('calendar next week', function (assert) {
 
     function makeFormat(d) {
         switch (d.day()) {
-        case 0:
-            return '[u] [nedjelju] [u] LT';
-        case 3:
-            return '[u] [srijedu] [u] LT';
-        case 6:
-            return '[u] [subotu] [u] LT';
-        case 1:
-        case 2:
-        case 4:
-        case 5:
-            return '[u] dddd [u] LT';
+            case 0:
+                return '[u] [nedjelju] [u] LT';
+            case 3:
+                return '[u] [srijedu] [u] LT';
+            case 6:
+                return '[u] [subotu] [u] LT';
+            case 1:
+            case 2:
+            case 4:
+            case 5:
+                return '[u] dddd [u] LT';
         }
     }
 
@@ -195,16 +195,16 @@ test('calendar last week', function (assert) {
 
     function makeFormat(d) {
         switch (d.day()) {
-        case 0:
-        case 3:
-            return '[prošlu] dddd [u] LT';
-        case 6:
-            return '[prošle] [subote] [u] LT';
-        case 1:
-        case 2:
-        case 4:
-        case 5:
-            return '[prošli] dddd [u] LT';
+            case 0:
+            case 3:
+                return '[prošlu] dddd [u] LT';
+            case 6:
+                return '[prošle] [subote] [u] LT';
+            case 1:
+            case 2:
+            case 4:
+            case 5:
+                return '[prošli] dddd [u] LT';
         }
     }
 
