@@ -169,17 +169,17 @@ test('calendar next week', function (assert) {
 
     function makeFormat(d) {
         switch (d.day()) {
-        case 0:
-            return '[у] [недељу] [у] LT';
-        case 3:
-            return '[у] [среду] [у] LT';
-        case 6:
-            return '[у] [суботу] [у] LT';
-        case 1:
-        case 2:
-        case 4:
-        case 5:
-            return '[у] dddd [у] LT';
+            case 0:
+                return '[у] [недељу] [у] LT';
+            case 3:
+                return '[у] [среду] [у] LT';
+            case 6:
+                return '[у] [суботу] [у] LT';
+            case 1:
+            case 2:
+            case 4:
+            case 5:
+                return '[у] dddd [у] LT';
         }
     }
 

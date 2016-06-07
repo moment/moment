@@ -1,4 +1,4 @@
-﻿//! moment.js locale configuration
+//! moment.js locale configuration
 //! locale : Sinhalese (si)
 //! author : Sampath Sitinamaluwa : https://github.com/sampathsris
 

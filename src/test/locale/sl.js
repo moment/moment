@@ -256,17 +256,17 @@ test('calendar next week', function (assert) {
 
     function makeFormat(d) {
         switch (d.day()) {
-        case 0:
-            return '[v] [nedeljo] [ob] LT';
-        case 3:
-            return '[v] [sredo] [ob] LT';
-        case 6:
-            return '[v] [soboto] [ob] LT';
-        case 1:
-        case 2:
-        case 4:
-        case 5:
-            return '[v] dddd [ob] LT';
+            case 0:
+                return '[v] [nedeljo] [ob] LT';
+            case 3:
+                return '[v] [sredo] [ob] LT';
+            case 6:
+                return '[v] [soboto] [ob] LT';
+            case 1:
+            case 2:
+            case 4:
+            case 5:
+                return '[v] dddd [ob] LT';
         }
     }
 
@@ -285,17 +285,17 @@ test('calendar last week', function (assert) {
 
     function makeFormat(d) {
         switch (d.day()) {
-        case 0:
-            return '[prejšnjo] [nedeljo] [ob] LT';
-        case 3:
-            return '[prejšnjo] [sredo] [ob] LT';
-        case 6:
-            return '[prejšnjo] [soboto] [ob] LT';
-        case 1:
-        case 2:
-        case 4:
-        case 5:
-            return '[prejšnji] dddd [ob] LT';
+            case 0:
+                return '[prejšnjo] [nedeljo] [ob] LT';
+            case 3:
+                return '[prejšnjo] [sredo] [ob] LT';
+            case 6:
+                return '[prejšnjo] [soboto] [ob] LT';
+            case 1:
+            case 2:
+            case 4:
+            case 5:
+                return '[prejšnji] dddd [ob] LT';
         }
     }
 
