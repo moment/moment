@@ -397,7 +397,7 @@ declare namespace moment {
     localeData(): MomentLanguage;
 
     defineLocale(language: string, locale: MomentLanguage): MomentLanguage;
-    updateLocale(language: string, locale: MomentLanguageData): MomentLanguage;
+    updateLocale(language: string, locale: MomentLanguage): MomentLanguage;
 
     // Deprecated as of 2.7.0.
     max(date: Moment | string | number | Date | any[]): Moment;
