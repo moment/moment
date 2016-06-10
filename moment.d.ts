@@ -217,6 +217,18 @@ declare namespace moment {
               "second" | "seconds" | "s" |
               "millisecond" | "milliseconds" | "ms");
 
+  interface MomentCreationData {
+    input?: string;
+    format?: string;
+    locale?: MomentLocale;
+    isUTC: boolean;
+    strict: boolean;
+  }
+
+  interface MomentLocale  {
+    // Details about the locale structure are not in the documentation so they are omitted here.
+  }
+
   interface Moment {
     format(format: string): string;
     format(): string;
@@ -312,6 +324,7 @@ declare namespace moment {
     isValid(): boolean;
     invalidAt(): number;
 
+    creationData(): MomentCreationData;
     parsingFlags(): MomentParsingFlags;
 
     year(y: number): Moment;
