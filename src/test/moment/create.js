@@ -72,6 +72,7 @@ test('unix', function (assert) {
 
 test('date', function (assert) {
     assert.ok(moment(new Date()).toDate() instanceof Date, 'new Date()');
+    assert.equal(moment(new Date(2016,0,1), 'YYYY-MM-DD').format('YYYY-MM-DD'), '2016-01-01', 'If date is provided, format string is ignored');
 });
 
 test('date mutation', function (assert) {
