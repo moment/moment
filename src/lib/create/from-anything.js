@@ -43,11 +43,11 @@ export function prepareConfig (config) {
         return new Moment(checkOverflow(input));
     } else if (isArray(format)) {
         configFromStringAndArray(config);
-    } else if (format) {
-        configFromStringAndFormat(config);
     } else if (isDate(input)) {
         config._d = input;
-    } else {
+    } else if (format) {
+        configFromStringAndFormat(config);
+    }  else {
         configFromInput(config);
     }
 
