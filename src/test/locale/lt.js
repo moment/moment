@@ -22,7 +22,7 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, Do MMMM YYYY, h:mm:ss a',      'sekmadienis, 14-oji vasario 2010, 3:25:50 pm'],
+            ['dddd, Do MMMM YYYY, h:mm:ss a',      'sekmadienis, 14-oji vasaris 2010, 3:25:50 pm'],
             ['ddd, hA',                            'Sek, 3PM'],
             ['M Mo MM MMMM MMM',                   '2 2-oji 02 vasaris vas'],
             ['YYYY YY',                            '2010 10'],
@@ -38,13 +38,13 @@ test('format', function (assert) {
             ['DDDo [metų diena]',                  '45-oji metų diena'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '2010-02-14'],
-            ['LL',                                 '2010 m. vasaris 14 d.'],
-            ['LLL',                                '2010 m. vasaris 14 d., 15:25 val.'],
-            ['LLLL',                               '2010 m. vasaris 14 d., sekmadienis, 15:25 val.'],
+            ['LL',                                 '2010 m. vasario 14 d.'],
+            ['LLL',                                '2010 m. vasario 14 d., 15:25 val.'],
+            ['LLLL',                               '2010 m. vasario 14 d., sekmadienis, 15:25 val.'],
             ['l',                                  '2010-02-14'],
-            ['ll',                                 '2010 m. vasaris 14 d.'],
-            ['lll',                                '2010 m. vasaris 14 d., 15:25 val.'],
-            ['llll',                               '2010 m. vasaris 14 d., Sek, 15:25 val.']
+            ['ll',                                 '2010 m. vasario 14 d.'],
+            ['lll',                                '2010 m. vasario 14 d., 15:25 val.'],
+            ['llll',                               '2010 m. vasario 14 d., Sek, 15:25 val.']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -224,3 +224,6 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012, 0, 15]).format('w ww wo'),  '2 02 2-oji', 'Jan 15 2012 should be week 2');
 });
 
+test('month cases', function (assert) {
+    assert.equal(moment([2015, 4, 1]).format('LL'), '2015 m. gegužės 1 d.', 'uses format instead of standalone form');
+});
