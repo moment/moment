@@ -60,17 +60,17 @@ export default moment.defineLocale('zh-tw', {
     ordinalParse: /\d{1,2}(日|月|週)/,
     ordinal : function (number, period) {
         switch (period) {
-        case 'd' :
-        case 'D' :
-        case 'DDD' :
-            return number + '日';
-        case 'M' :
-            return number + '月';
-        case 'w' :
-        case 'W' :
-            return number + '週';
-        default :
-            return number;
+            case 'd' :
+            case 'D' :
+            case 'DDD' :
+                return number + '日';
+            case 'M' :
+                return number + '月';
+            case 'w' :
+            case 'W' :
+                return number + '週';
+            default :
+                return number;
         }
     },
     relativeTime : {

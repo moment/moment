@@ -219,15 +219,15 @@ test('calendar last week', function (assert) {
 
     function makeFormat(d) {
         switch (d.day()) {
-        case 0:
-        case 3:
-        case 5:
-        case 6:
-            return '[У мінулую] dddd [ў] LT';
-        case 1:
-        case 2:
-        case 4:
-            return '[У мінулы] dddd [ў] LT';
+            case 0:
+            case 3:
+            case 5:
+            case 6:
+                return '[У мінулую] dddd [ў] LT';
+            case 1:
+            case 2:
+            case 4:
+                return '[У мінулы] dddd [ў] LT';
         }
     }
 

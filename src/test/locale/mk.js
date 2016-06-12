@@ -178,15 +178,15 @@ test('calendar last week', function (assert) {
 
     function makeFormat(d) {
         switch (d.day()) {
-        case 0:
-        case 3:
-        case 6:
-            return '[Изминатата] dddd [во] LT';
-        case 1:
-        case 2:
-        case 4:
-        case 5:
-            return '[Изминатиот] dddd [во] LT';
+            case 0:
+            case 3:
+            case 6:
+                return '[Изминатата] dddd [во] LT';
+            case 1:
+            case 2:
+            case 4:
+            case 5:
+                return '[Изминатиот] dddd [во] LT';
         }
     }
 

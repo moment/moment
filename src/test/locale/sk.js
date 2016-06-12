@@ -200,27 +200,27 @@ test('calendar next week', function (assert) {
         m = moment().add({d: i});
         nextDay = '';
         switch (m.day()) {
-        case 0:
-            nextDay = 'v nedeľu';
-            break;
-        case 1:
-            nextDay = 'v pondelok';
-            break;
-        case 2:
-            nextDay = 'v utorok';
-            break;
-        case 3:
-            nextDay = 'v stredu';
-            break;
-        case 4:
-            nextDay = 'vo štvrtok';
-            break;
-        case 5:
-            nextDay = 'v piatok';
-            break;
-        case 6:
-            nextDay = 'v sobotu';
-            break;
+            case 0:
+                nextDay = 'v nedeľu';
+                break;
+            case 1:
+                nextDay = 'v pondelok';
+                break;
+            case 2:
+                nextDay = 'v utorok';
+                break;
+            case 3:
+                nextDay = 'v stredu';
+                break;
+            case 4:
+                nextDay = 'vo štvrtok';
+                break;
+            case 5:
+                nextDay = 'v piatok';
+                break;
+            case 6:
+                nextDay = 'v sobotu';
+                break;
         }
         assert.equal(m.calendar(),       m.format('[' + nextDay + '] [o] LT'),  'Today + ' + i + ' days current time');
         m.hours(0).minutes(0).seconds(0).milliseconds(0);
@@ -236,27 +236,27 @@ test('calendar last week', function (assert) {
         m = moment().subtract({d: i});
         lastDay = '';
         switch (m.day()) {
-        case 0:
-            lastDay = 'minulú nedeľu';
-            break;
-        case 1:
-            lastDay = 'minulý pondelok';
-            break;
-        case 2:
-            lastDay = 'minulý utorok';
-            break;
-        case 3:
-            lastDay = 'minulú stredu';
-            break;
-        case 4:
-            lastDay = 'minulý štvrtok';
-            break;
-        case 5:
-            lastDay = 'minulý piatok';
-            break;
-        case 6:
-            lastDay = 'minulú sobotu';
-            break;
+            case 0:
+                lastDay = 'minulú nedeľu';
+                break;
+            case 1:
+                lastDay = 'minulý pondelok';
+                break;
+            case 2:
+                lastDay = 'minulý utorok';
+                break;
+            case 3:
+                lastDay = 'minulú stredu';
+                break;
+            case 4:
+                lastDay = 'minulý štvrtok';
+                break;
+            case 5:
+                lastDay = 'minulý piatok';
+                break;
+            case 6:
+                lastDay = 'minulú sobotu';
+                break;
         }
         assert.equal(m.calendar(),       m.format('[' + lastDay + '] [o] LT'),  'Today - ' + i + ' days current time');
         m.hours(0).minutes(0).seconds(0).milliseconds(0);

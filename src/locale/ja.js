@@ -40,12 +40,12 @@ export default moment.defineLocale('ja', {
     ordinalParse : /\d{1,2}日/,
     ordinal : function (number, period) {
         switch (period) {
-        case 'd':
-        case 'D':
-        case 'DDD':
-            return number + '日';
-        default:
-            return number;
+            case 'd':
+            case 'D':
+            case 'DDD':
+                return number + '日';
+            default:
+                return number;
         }
     },
     relativeTime : {
