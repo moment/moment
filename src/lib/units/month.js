@@ -199,10 +199,12 @@ export function getDaysInMonth () {
     return daysInMonth(this.year(), this.month());
 }
 
+export var defaultMonthsRegex = matchWord;
 export var defaultMonthsShortRegex = matchWord;
 export function monthsShortRegex (isStrict) {
     if (this._monthsParseExact) {
-        if (!hasOwnProp(this, '_monthsRegex')) {
+        if (!hasOwnProp(this, '_monthsRegex') ||
+                this._monthsRegex === defaultMonthsRegex) {
             computeMonthsParse.call(this);
         }
         if (isStrict) {
@@ -216,10 +218,10 @@ export function monthsShortRegex (isStrict) {
     }
 }
 
-export var defaultMonthsRegex = matchWord;
 export function monthsRegex (isStrict) {
     if (this._monthsParseExact) {
-        if (!hasOwnProp(this, '_monthsRegex')) {
+        if (!hasOwnProp(this, '_monthsRegex') ||
+                this._monthsRegex === defaultMonthsRegex) {
             computeMonthsParse.call(this);
         }
         if (isStrict) {

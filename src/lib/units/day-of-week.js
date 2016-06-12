@@ -294,7 +294,8 @@ export function weekdaysShortRegex (isStrict) {
 export var defaultWeekdaysMinRegex = matchWord;
 export function weekdaysMinRegex (isStrict) {
     if (this._weekdaysParseExact) {
-        if (!hasOwnProp(this, '_weekdaysRegex')) {
+        if (!hasOwnProp(this, '_weekdaysRegex') ||
+                this._weekdaysRegex === defaultWeekdaysRegex) {
             computeWeekdaysParse.call(this);
         }
         if (isStrict) {

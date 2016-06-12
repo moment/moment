@@ -113,7 +113,7 @@ export function defineCommonLocaleTests(locale, options) {
             return;
         }
         function tester(format) {
-            var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format;
+            var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
             r = moment(m.format(format), format);
             assert.equal(r.weekday(), m.weekday(), baseMsg);
             r = moment(m.format(format).toLocaleUpperCase(), format);
@@ -130,7 +130,7 @@ export function defineCommonLocaleTests(locale, options) {
         }
 
         for (i = 0; i < 7; ++i) {
-            m = moment.utc([2015, i, 15, 18]);
+            m = moment.utc([2015, 0, i + 1, 18]);
             tester('dd');
             tester('ddd');
             tester('dddd');
