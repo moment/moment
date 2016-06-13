@@ -285,6 +285,19 @@ test('add strings string short', function (assert) {
     assert.equal(a.add('1', 'Q').month(), 1, 'Add quarter');
 });
 
+test('add no string with milliseconds default', function (assert) {
+    var a = moment();
+    a.year(2011);
+    a.month(9);
+    a.date(12);
+    a.hours(6);
+    a.minutes(7);
+    a.seconds(8);
+    a.milliseconds(500);
+
+    assert.equal(a.add(50).milliseconds(), 550, 'Add milliseconds');
+});
+
 test('subtract strings string short', function (assert) {
     var a = moment();
     a.year(2011);
