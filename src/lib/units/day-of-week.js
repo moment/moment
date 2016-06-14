@@ -1,5 +1,6 @@
 import { addFormatToken } from '../format/format';
 import { addUnitAlias } from './aliases';
+import { addUnitPriority } from './priorities';
 import { addRegexToken, match1to2, matchWord, regexEscape } from '../parse/regex';
 import { addWeekParseToken } from '../parse/token';
 import toInt from '../utils/to-int';
@@ -33,6 +34,11 @@ addFormatToken('E', 0, 0, 'isoWeekday');
 addUnitAlias('day', 'd');
 addUnitAlias('weekday', 'e');
 addUnitAlias('isoWeekday', 'E');
+
+// PRIORITY
+addUnitPriority('day', 11);
+addUnitPriority('weekday', 11);
+addUnitPriority('isoWeekday', 11);
 
 // PARSING
 
