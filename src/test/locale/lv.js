@@ -155,7 +155,7 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),    'gads',                 '1 year = a year');
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),    '5 gadi',               '5 years = 5 years');
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), false),   'pirms 5 gadiem',       '5 years with suffix = 5 years ago');
-    
+
     // test that numbers ending with 1 are singular except for when they end with 11 in which case they are plural
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 11}), true),   '11 gadi',              '11 years = 11 years');
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 21}), true),   '21 gads',              '21 year = 21 year');
