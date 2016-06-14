@@ -56,15 +56,27 @@ test('now - custom value', function (assert) {
 
 test('empty object, empty array', function (assert) {
     function assertIsNow(gen, msg) {
-        var before = +(new Date),
+        var before = +(new Date()),
             mid = gen(),
-            after = +(new Date);
+            after = +(new Date());
         assert.ok(before <= +mid && +mid <= after, 'should be now : ' + msg);
     }
-    assertIsNow(function () { return moment(); }, 'moment()');
-    assertIsNow(function () { return moment([]); }, 'moment([])');
-    assertIsNow(function () { return moment({}); }, 'moment({})');
-    assertIsNow(function () { return moment.utc(); }, 'moment.utc()');
-    assertIsNow(function () { return moment.utc([]); }, 'moment.utc([])');
-    assertIsNow(function () { return moment.utc({}); }, 'moment.utc({})');
+    assertIsNow(function () {
+        return moment();
+    }, 'moment()');
+    assertIsNow(function () {
+        return moment([]);
+    }, 'moment([])');
+    assertIsNow(function () {
+        return moment({});
+    }, 'moment({})');
+    assertIsNow(function () {
+        return moment.utc();
+    }, 'moment.utc()');
+    assertIsNow(function () {
+        return moment.utc([]);
+    }, 'moment.utc([])');
+    assertIsNow(function () {
+        return moment.utc({});
+    }, 'moment.utc({})');
 });
