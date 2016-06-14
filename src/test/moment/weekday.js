@@ -53,6 +53,25 @@ test('iso weekday setter', function (assert) {
     assert.equal(moment(a).isoWeekday(14).date(), 23, 'set from sun to next sun');
 });
 
+test('iso weekday setter with day name', function (assert) {
+    moment.locale('en');
+
+    var a = moment([2011, 0, 10]);
+    assert.equal(moment(a).isoWeekday('Monday').date(),   10, 'set from mon to mon');
+    assert.equal(moment(a).isoWeekday('Thursday').date(), 13, 'set from mon to thu');
+    assert.equal(moment(a).isoWeekday('Sunday').date(),   16, 'set from mon to sun');
+
+    a = moment([2011, 0, 13]);
+    assert.equal(moment(a).isoWeekday('Monday').date(),   10, 'set from thu to mon');
+    assert.equal(moment(a).isoWeekday('Thursday').date(), 13, 'set from thu to thu');
+    assert.equal(moment(a).isoWeekday('Sunday').date(),   16, 'set from thu to sun');
+
+    a = moment([2011, 0, 16]);
+    assert.equal(moment(a).isoWeekday('Monday').date(),   10, 'set from sun to mon');
+    assert.equal(moment(a).isoWeekday('Thursday').date(), 13, 'set from sun to thu');
+    assert.equal(moment(a).isoWeekday('Sunday').date(),   16, 'set from sun to sun');
+});
+
 test('weekday first day of week Sunday (dow 0)', function (assert) {
     moment.locale('dow: 0,doy: 6', {week: {dow: 0, doy: 6}});
     assert.equal(moment([1985, 1,  3]).weekday(), 0, 'Feb  3 1985 is Sunday    -- 0th day');

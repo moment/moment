@@ -88,6 +88,13 @@ function parseWeekday(input, locale) {
     return null;
 }
 
+function parseIsoWeekday(input, locale) {
+    if (typeof input === 'string') {
+        return locale.weekdaysParse(input) % 7 || 7;
+    }
+    return isNaN(input) ? null : input;
+}
+
 // LOCALES
 
 export var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_');
@@ -237,10 +244,17 @@ export function getSetISODayOfWeek (input) {
     if (!this.isValid()) {
         return input != null ? this : NaN;
     }
+
     // behaves the same as moment#day except
     // as a getter, returns 7 instead of 0 (1-7 range instead of 0-6)
     // as a setter, sunday should belong to the previous week.
-    return input == null ? this.day() || 7 : this.day(this.day() % 7 ? input : input - 7);
+
+    if (input != null) {
+        var weekday = parseIsoWeekday(input, this.localeData());
+        return this.day(this.day() % 7 ? weekday : weekday - 7);
+    } else {
+        return this.day() || 7;
+    }
 }
 
 export var defaultWeekdaysRegex = matchWord;
