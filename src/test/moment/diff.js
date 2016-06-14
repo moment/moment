@@ -240,4 +240,8 @@ test('negative zero', function (assert) {
     assert.ok(!isNegative(moment([2012, 0, 1]).diff(moment([2012, 0, 1]), 'months')), 'month diff on same date is zero, not -0');
     assert.ok(!isNegative(moment([2012, 0, 1]).diff(moment([2012, 0, 1]), 'years')), 'year diff on same date is zero, not -0');
     assert.ok(!isNegative(moment([2012, 0, 1]).diff(moment([2012, 0, 1]), 'quarters')), 'quarter diff on same date is zero, not -0');
+    assert.ok(!isNegative(moment([2012, 0, 1]).diff(moment([2012, 0, 1, 1]), 'days')), 'days diff on same date is zero, not -0');
+    assert.ok(!isNegative(moment([2012, 0, 1]).diff(moment([2012, 0, 1, 0, 1]), 'hours')), 'hour diff on same hour is zero, not -0');
+    assert.ok(!isNegative(moment([2012, 0, 1]).diff(moment([2012, 0, 1, 0, 0, 1]), 'minutes')), 'minute diff on same minute is zero, not -0');
+    assert.ok(!isNegative(moment([2012, 0, 1]).diff(moment([2012, 0, 1, 0, 0, 0, 1]), 'seconds')), 'second diff on same second is zero, not -0');
 });
