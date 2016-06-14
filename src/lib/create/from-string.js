@@ -99,6 +99,7 @@ export function configFromString(config) {
 
     if (matched !== null) {
         config._d = new Date(+matched[1]);
+        config._offset = 0;
         return;
     }
 
@@ -115,6 +116,6 @@ hooks.createFromInputFallback = deprecate(
     'release. Please refer to ' +
     'https://github.com/moment/moment/issues/1407 for more info.',
     function (config) {
-        config._d = new Date(config._i + (config._useUTC ? ' UTC' : ''));
+        config._d = new Date(config._i);
     }
 );

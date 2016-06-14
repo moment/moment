@@ -11,7 +11,7 @@ test('valid date', function (assert) {
     assert.equal(orig.input, '1992-10-22', 'original input is not correct.');
     assert.equal(orig.format, 'YYYY-MM-DD', 'original format is defined.');
     assert.equal(orig.locale._abbr, 'en', 'default locale is en');
-    assert.equal(orig.isUTC, false, 'not a UTC date');
+    assert.ok(orig.timeZone, 'has a zone property');
 });
 
 test('valid date at fr locale', function (assert) {
