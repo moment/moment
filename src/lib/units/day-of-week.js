@@ -89,16 +89,10 @@ function parseWeekday(input, locale) {
 }
 
 function parseIsoWeekday(input, locale) {
-    if (typeof input !== 'string' || !isNaN(input)) {
-        return parseWeekday(input, locale);
+    if (typeof input === 'string') {
+        return locale.weekdaysParse(input) % 7 || 7;
     }
-
-    input = locale.weekdaysParse(input);
-    if (typeof input === 'number') {
-        return input % 7 ? input : input + 7;
-    }
-
-    return null;
+    return isNaN(input) ? null : input;
 }
 
 // LOCALES
