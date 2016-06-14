@@ -1,4 +1,6 @@
 import isArray from '../utils/is-array';
+import isObject from '../utils/is-object';
+import isObjectEmpty from '../utils/is-object-empty';
 import isDate from '../utils/is-date';
 import map from '../utils/map';
 import { createInvalid } from './valid';
@@ -87,6 +89,11 @@ export function createLocalOrUTC (input, format, locale, strict, isUTC) {
     if (typeof(locale) === 'boolean') {
         strict = locale;
         locale = undefined;
+    }
+
+    if ((isObject(input) && isObjectEmpty(input)) ||
+            (isArray(input) && input.length === 0)) {
+        input = undefined;
     }
     // object construction must be done this way.
     // https://github.com/moment/moment/issues/1423
