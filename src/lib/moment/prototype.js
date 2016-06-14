@@ -128,7 +128,6 @@ proto.local                = setOffsetToLocal;
 proto.parseZone            = setOffsetToParsedOffset;
 proto.hasAlignedHourOffset = hasAlignedHourOffset;
 proto.isDST                = isDaylightSavingTime;
-proto.isDSTShifted         = isDaylightSavingTimeShifted;
 proto.isLocal              = isLocal;
 proto.isUtcOffset          = isUtcOffset;
 proto.isUtc                = isUtc;
@@ -145,5 +144,6 @@ proto.dates  = deprecate('dates accessor is deprecated. Use date instead.', getS
 proto.months = deprecate('months accessor is deprecated. Use month instead', getSetMonth);
 proto.years  = deprecate('years accessor is deprecated. Use year instead', getSetYear);
 proto.zone   = deprecate('moment().zone is deprecated, use moment().utcOffset instead. https://github.com/moment/moment/issues/1779', getSetZone);
+proto.isDSTShifted = deprecate('isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information', isDaylightSavingTimeShifted);
 
 export default proto;
