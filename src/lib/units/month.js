@@ -256,9 +256,8 @@ function computeMonthsParse () {
     for (i = 0; i < 12; i++) {
         shortPieces[i] = regexEscape(shortPieces[i]);
         longPieces[i] = regexEscape(longPieces[i]);
-        mixedPieces[i] = regexEscape(mixedPieces[i]);
     }
-    for (; i < 24; i++) {
+    for (i = 0; i < 24; i++) {
         mixedPieces[i] = regexEscape(mixedPieces[i]);
     }
 
