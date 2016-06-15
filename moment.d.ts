@@ -462,6 +462,8 @@ declare namespace moment {
 
   export function localeData(language?: string): MomentLanguageData;
 
+  export function updateLocale(language: string, locale: MomentLanguage): MomentLanguage;
+
   export var longDateFormat: any;
   export var relativeTime: any;
   export var meridiem: (hour: number, minute: number, isLowercase: boolean) => string;
