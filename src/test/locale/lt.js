@@ -22,7 +22,7 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, Do MMMM YYYY, h:mm:ss a',      'sekmadienis, 14-oji vasaris 2010, 3:25:50 pm'],
+            ['dddd, Do MMMM YYYY, h:mm:ss a',      'sekmadienis, 14-oji vasario 2010, 3:25:50 pm'],
             ['ddd, hA',                            'Sek, 3PM'],
             ['M Mo MM MMMM MMM',                   '2 2-oji 02 vasaris vas'],
             ['YYYY YY',                            '2010 10'],
