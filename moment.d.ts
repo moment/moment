@@ -450,7 +450,7 @@ declare namespace moment {
   export function isMoment(m: any): m is Moment;
   export function isDate(m: any): m is Date;
   export function isDuration(): boolean;
-  export function isDuration(d: any): m is Duration;
+  export function isDuration(d: any): d is Duration;
 
   // Deprecated in 2.8.0.
   export function lang(language?: string): string;
