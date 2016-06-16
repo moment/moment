@@ -142,15 +142,15 @@ test('ordinal parse', function (assert) {
 
     assert.ok(moment.utc('2015-01-1y', 'YYYY-MM-Do', true).isValid(), 'ordinal parse uses child');
 
-    // moment.defineLocale('ordinal-parse-2', null);
-    // moment.defineLocale('ordinal-parse-2', {
-    //     ordinalParse : /\d{1,2}x/
-    // });
-    // moment.updateLocale('ordinal-parse-2', {
-    //     ordinalParse : null
-    // });
+    moment.defineLocale('ordinal-parse-2', null);
+    moment.defineLocale('ordinal-parse-2', {
+        ordinalParse : /\d{1,2}x/
+    });
+    moment.updateLocale('ordinal-parse-2', {
+        ordinalParse : /\d{1,2}/
+    });
 
-    // assert.ok(moment.utc('2015-01-1', 'YYYY-MM-Do', true).isValid(), 'ordinal parse uses child (default)');
+    assert.ok(moment.utc('2015-01-1', 'YYYY-MM-Do', true).isValid(), 'ordinal parse uses child (default)');
 });
 
 test('months', function (assert) {

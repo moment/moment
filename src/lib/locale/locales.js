@@ -82,16 +82,8 @@ export function getSetGlobalLocale (key, values) {
     return globalLocale._abbr;
 }
 
-function sanitizeLocaleConfig(config) {
-    if (!hasOwnProp(config, 'longDateFormat')) {
-        config.longDateFormat = {};
-    }
-    return config;
-}
-
 export function defineLocale (name, config) {
     if (config !== null) {
-        config = sanitizeLocaleConfig(config);
         var parentConfig = baseConfig;
         config.abbr = name;
         if (locales[name] != null) {

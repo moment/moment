@@ -8,8 +8,6 @@ import { defaultRelativeTime } from './relative';
 import {
     defaultLocaleMonths,
     defaultLocaleMonthsShort,
-    defaultMonthsRegex,
-    defaultMonthsShortRegex,
 } from '../units/month';
 
 // week
@@ -20,10 +18,6 @@ import {
     defaultLocaleWeekdays,
     defaultLocaleWeekdaysMin,
     defaultLocaleWeekdaysShort,
-
-    defaultWeekdaysRegex,
-    defaultWeekdaysShortRegex,
-    defaultWeekdaysMinRegex,
 } from '../units/day-of-week';
 
 // meridiem
@@ -39,18 +33,12 @@ export var baseConfig = {
 
     months: defaultLocaleMonths,
     monthsShort: defaultLocaleMonthsShort,
-    monthsRegex: defaultMonthsRegex,
-    monthsShortRegex: defaultMonthsShortRegex,
 
     week: defaultLocaleWeek,
 
     weekdays: defaultLocaleWeekdays,
     weekdaysMin: defaultLocaleWeekdaysMin,
     weekdaysShort: defaultLocaleWeekdaysShort,
-
-    weekdaysRegex: defaultWeekdaysRegex,
-    weekdaysShortRegex: defaultWeekdaysShortRegex,
-    weekdaysMinRegex: defaultWeekdaysMinRegex,
 
     meridiemParse: defaultLocaleMeridiemParse
 };
