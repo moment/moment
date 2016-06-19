@@ -55,6 +55,9 @@ declare namespace moment {
     days(): number;
     asDays(): number;
 
+    weeks(): number;
+    asWeeks(): number;
+
     months(): number;
     asMonths(): number;
 
