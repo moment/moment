@@ -450,7 +450,7 @@ declare namespace moment {
   export function isMoment(m: any): m is Moment;
   export function isDate(m: any): m is Date;
   export function isDuration(): boolean;
-  export function isDuration(d: any): m is Duration;
+  export function isDuration(d: any): d is Duration;
 
   // Deprecated in 2.8.0.
   export function lang(language?: string): string;
@@ -461,6 +461,8 @@ declare namespace moment {
   export function locale(language?: string, definition?: MomentLanguage): string;
 
   export function localeData(language?: string): MomentLanguageData;
+
+  export function updateLocale(language: string, locale: MomentLanguage): MomentLanguage;
 
   export var longDateFormat: any;
   export var relativeTime: any;
