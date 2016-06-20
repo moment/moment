@@ -1,6 +1,7 @@
 //! moment.js locale configuration
 //! locale : talossan (tzl)
-//! author : Robin van der Vliet : https://github.com/robin0van0der0v with the help of Iustì Canun
+//! author : Robin van der Vliet : https://github.com/robin0van0der0v
+//! author : Iustì Canun
 
 
 import moment from '../moment';
