@@ -358,9 +358,3 @@ function computeWeekdaysParse () {
     this._weekdaysShortStrictRegex = new RegExp('^(' + shortPieces.join('|') + ')', 'i');
     this._weekdaysMinStrictRegex = new RegExp('^(' + minPieces.join('|') + ')', 'i');
 }
-
-function setDefaultRegexes () {
-    this._weekdaysRegex = defaultWeekdaysRegex;
-    this._weekdaysShortRegex = defaultWeekdaysShortRegex;
-    this._weekdaysMinRegex = defaultWeekdaysMinRegex;
-}
