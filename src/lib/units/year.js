@@ -23,6 +23,17 @@ addFormatToken(0, ['YYYY',   4],       0, 'year');
 addFormatToken(0, ['YYYYY',  5],       0, 'year');
 addFormatToken(0, ['YYYYYY', 6, true], 0, 'year');
 
+// For BE
+addFormatToken('B', 0, 0, function () {
+    return this.year() + 543;
+});
+addFormatToken(0, ['BB', 2], 0, function () {
+    return (this.year() + 543) % 100;
+});
+addFormatToken(0, ['BBBB', 4], 0, function () {
+    return '' + (this.year() + 543);
+});
+
 // ALIASES
 
 addUnitAlias('year', 'y');
@@ -48,6 +59,21 @@ addParseToken('YY', function (input, array) {
 });
 addParseToken('Y', function (input, array) {
     array[YEAR] = parseInt(input, 10);
+});
+
+// For Buddhist Era (BE) Year, that 543 year before CE Year
+addRegexToken('B',   matchSigned);
+addRegexToken('BB',   match1to2, match2);
+addRegexToken('BBBB', match1to4, match4);
+
+addParseToken('BBBB', function (input, array) {
+    array[YEAR] = (input.length <= 2 ? 2500 : 0) + toInt(input) - 543;
+});
+addParseToken('BB', function (input, array) {
+    array[YEAR] = (2500 + toInt(input) - 543);
+});
+addParseToken('B', function (input, array) {
+    array[YEAR] = toInt(input) - 543;
 });
 
 // HELPERS

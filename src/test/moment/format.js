@@ -9,6 +9,17 @@ test('format YY', function (assert) {
     assert.equal(b.format('YY'), '09', 'YY ---> 09');
 });
 
+test('format BB', function (assert) {
+    var b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
+    assert.equal(b.format('BB'), '52', 'YY ---> 52');
+});
+
+test('format BBBB', function (assert) {
+    var b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
+    assert.equal(b.format('BBBB'), '2552', 'YYYY ---> 2552');
+});
+
+
 test('format escape brackets', function (assert) {
     moment.locale('en');
 
