@@ -5,7 +5,7 @@
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
        && typeof require === 'function' ? factory(require('../moment')) :
-   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, function (moment) { 'use strict';
 
@@ -54,17 +54,17 @@
             nextDay: '[sutra u] LT',
             nextWeek: function () {
                 switch (this.day()) {
-                case 0:
-                    return '[u] [nedelju] [u] LT';
-                case 3:
-                    return '[u] [sredu] [u] LT';
-                case 6:
-                    return '[u] [subotu] [u] LT';
-                case 1:
-                case 2:
-                case 4:
-                case 5:
-                    return '[u] dddd [u] LT';
+                    case 0:
+                        return '[u] [nedelju] [u] LT';
+                    case 3:
+                        return '[u] [sredu] [u] LT';
+                    case 6:
+                        return '[u] [subotu] [u] LT';
+                    case 1:
+                    case 2:
+                    case 4:
+                    case 5:
+                        return '[u] dddd [u] LT';
                 }
             },
             lastDay  : '[juče u] LT',

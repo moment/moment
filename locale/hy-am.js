@@ -5,7 +5,7 @@
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
        && typeof require === 'function' ? factory(require('../moment')) :
-   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, function (moment) { 'use strict';
 
@@ -72,16 +72,16 @@
         ordinalParse: /\d{1,2}|\d{1,2}-(ին|րդ)/,
         ordinal: function (number, period) {
             switch (period) {
-            case 'DDD':
-            case 'w':
-            case 'W':
-            case 'DDDo':
-                if (number === 1) {
-                    return number + '-ին';
-                }
-                return number + '-րդ';
-            default:
-                return number;
+                case 'DDD':
+                case 'w':
+                case 'W':
+                case 'DDDo':
+                    if (number === 1) {
+                        return number + '-ին';
+                    }
+                    return number + '-րդ';
+                default:
+                    return number;
             }
         },
         week : {
