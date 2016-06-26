@@ -1,17 +1,27 @@
 //! moment.js locale configuration
-//! Locale: Arabic (ar)
-//! Author: Abdel Said: https://github.com/abdelsaid
-//! Changes in months, weekdays: Ahmed Elkhatib
-//! Native plural forms: forabi https://github.com/forabi
+//! locale : Arabic [ar-ly]
+//! author : Ali Hmer: https://github.com/kikoanis
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
        && typeof require === 'function' ? factory(require('../moment')) :
-   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, function (moment) { 'use strict';
 
-    var pluralForm = function (n) {
+
+    var symbolMap = {
+        '1': '1',
+        '2': '2',
+        '3': '3',
+        '4': '4',
+        '5': '5',
+        '6': '6',
+        '7': '7',
+        '8': '8',
+        '9': '9',
+        '0': '0'
+    }, pluralForm = function (n) {
         return n === 0 ? 0 : n === 1 ? 1 : n === 2 ? 2 : n % 100 >= 3 && n % 100 <= 10 ? 3 : n % 100 >= 11 ? 4 : 5;
     }, plurals = {
         s : ['أقل من ثانية', 'ثانية واحدة', ['ثانيتان', 'ثانيتين'], '%d ثوان', '%d ثانية', '%d ثانية'],
@@ -44,7 +54,7 @@
         'ديسمبر'
     ];
 
-    var ar_ly = moment.defineLocale('ar', {
+    var ar_ly = moment.defineLocale('ar-ly', {
         months : months,
         monthsShort : months,
         weekdays : 'الأحد_الإثنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت'.split('_'),
@@ -92,6 +102,14 @@
             MM : pluralize('M'),
             y : pluralize('y'),
             yy : pluralize('y')
+        },
+        preparse: function (string) {
+            return string.replace(/\u200f/g, '').replace(/،/g, ',');
+        },
+        postformat: function (string) {
+            return string.replace(/\d/g, function (match) {
+                return symbolMap[match];
+            }).replace(/,/g, '،');
         },
         week : {
             dow : 6, // Saturday is the first day of the week.
