@@ -6,6 +6,7 @@
   "files": [
     "moment.js",
     "locale/af.js",
+    "locale/ar-ly.js",
     "locale/ar-ma.js",
     "locale/ar-sa.js",
     "locale/ar-tn.js",
