@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale  : Tunisian Arabic (ar-tn)
+//! locale  :  Arabic (Tunisia) [ar-tn]
 
 import moment from '../moment';
 

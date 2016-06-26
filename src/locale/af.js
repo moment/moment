@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : afrikaans (af)
+//! locale : Afrikaans [af]
 //! author : Werner Mollentze : https://github.com/wernerm
 
 import moment from '../moment';

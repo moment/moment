@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : siSwati (ss)
+//! locale : Swazi [ss]
 //! author : Nicolai Davies<mail@nicolai.io> : https://github.com/nicolaidavies
 
 

@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : Bengali (bn)
+//! locale : Bengali [bn]
 //! author : Kaushik Gandhi : https://github.com/kaushikgandhi
 
 import moment from '../moment';
