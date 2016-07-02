@@ -72,11 +72,11 @@ test('format', function (assert) {
             ['a A',                                '오후 오후'],
             ['일년 중 DDDo째 되는 날',                 '일년 중 45일째 되는 날'],
             ['LTS',                                '오후 3시 25분 50초'],
-            ['L',                                  '2010.02.14'],
+            ['L',                                  '2010-02-14'],
             ['LL',                                 '2010년 2월 14일'],
             ['LLL',                                '2010년 2월 14일 오후 3시 25분'],
             ['LLLL',                               '2010년 2월 14일 일요일 오후 3시 25분'],
-            ['l',                                  '2010.2.14'],
+            ['l',                                  '2010-2-14'],
             ['ll',                                 '2010년 2월 14일'],
             ['lll',                                '2010년 2월 14일 오후 3시 25분'],
             ['llll',                               '2010년 2월 14일 일 오후 3시 25분']
@@ -241,4 +241,3 @@ test('weeks year starting sunday format', function (assert) {
     assert.equal(moment([2012, 0, 14]).format('w ww wo'), '2 02 2일', 'Jan 14 2012 should be week 2');
     assert.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3일', 'Jan 15 2012 should be week 3');
 });
-
