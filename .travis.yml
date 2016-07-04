@@ -15,6 +15,9 @@ before_script:
 
 script: grunt build:travis
 
+after_script:
+  - npm run test-typings
+
 git:
   depth: 10
 
