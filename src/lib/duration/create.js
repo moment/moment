@@ -1,5 +1,6 @@
 import { Duration, isDuration } from './constructor';
 import toInt from '../utils/to-int';
+import absRound from '../utils/abs-round';
 import hasOwnProp from '../utils/has-own-prop';
 import { DATE, HOUR, MINUTE, SECOND, MILLISECOND } from '../units/constants';
 import { cloneWithOffset } from '../units/offset';
@@ -38,11 +39,11 @@ export function createDuration (input, key) {
         sign = (match[1] === '-') ? -1 : 1;
         duration = {
             y  : 0,
-            d  : toInt(match[DATE])               * sign,
-            h  : toInt(match[HOUR])               * sign,
-            m  : toInt(match[MINUTE])             * sign,
-            s  : toInt(match[SECOND])             * sign,
-            ms : toInt(match[MILLISECOND] * 1000) * sign // the millisecond decimal point is included in the match
+            d  : toInt(match[DATE])                         * sign,
+            h  : toInt(match[HOUR])                         * sign,
+            m  : toInt(match[MINUTE])                       * sign,
+            s  : toInt(match[SECOND])                       * sign,
+            ms : toInt(absRound(match[MILLISECOND] * 1000)) * sign // the millisecond decimal point is included in the match
         };
     } else if (!!(match = isoRegex.exec(input))) {
         sign = (match[1] === '-') ? -1 : 1;
