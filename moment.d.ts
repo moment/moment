@@ -521,6 +521,9 @@ declare namespace moment {
   export function normalizeUnits(unit: string): string;
   export function relativeTimeThreshold(threshold: string): number | boolean;
   export function relativeTimeThreshold(threshold: string, limit: number): boolean;
+  export function relativeTimeRounding(fn: (num: number) => number): boolean;
+  export function relativeTimeRounding(): (num: number) => number;
+  export function calendarFormat(m: Moment, now: Moment) => string;
 
   /**
   * Constant used to enable explicit ISO_8601 format parsing.
