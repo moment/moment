@@ -20,7 +20,6 @@ import { creationData } from './creation-data';
 
 proto.add               = add;
 proto.calendar          = calendar;
-proto.calendarFormat    = getCalendarFormat;
 proto.clone             = clone;
 proto.diff              = diff;
 proto.endOf             = endOf;
