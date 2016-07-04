@@ -222,6 +222,19 @@ test('instatiation from serialized C# TimeSpan without milliseconds', function (
     assert.equal(moment.duration('1.02:03:04').milliseconds(), 0, '0 milliseconds');
 });
 
+test('instantiation from serialized C# TimeSpan with low millisecond precision', function (assert) {
+    assert.equal(moment.duration('00:00:15.72').years(), 0, '0 years');
+    assert.equal(moment.duration('00:00:15.72').days(), 0, '0 days');
+    assert.equal(moment.duration('00:00:15.72').hours(), 0, '0 hours');
+    assert.equal(moment.duration('00:00:15.72').minutes(), 0, '0 minutes');
+    assert.equal(moment.duration('00:00:15.72').seconds(), 15, '15 seconds');
+    assert.equal(moment.duration('00:00:15.72').milliseconds(), 720, '720 milliseconds');
+
+    assert.equal(moment.duration('00:00:15.7').milliseconds(), 700, '700 milliseconds');
+
+    assert.equal(moment.duration('00:00:15.').milliseconds(), 0, '0 milliseconds');
+});
+
 test('instatiation from serialized C# TimeSpan maxValue', function (assert) {
     var d = moment.duration('10675199.02:48:05.4775807');
 
