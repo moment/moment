@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 2.14.1
+* [#3280](https://github.com/moment/moment/pull/3280) Fix typescript definitions
+
+
 ### 2.14.0 [See full changelog](https://gist.github.com/ichernev/812e79ac36a7829a22598fe964bfc18a)
 
 ## New Features
