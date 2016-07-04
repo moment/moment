@@ -1,11 +1,11 @@
 //! moment.js locale configuration
-//! locale : euskara (eu)
+//! locale : Basque [eu]
 //! author : Eneko Illarramendi : https://github.com/eillarra
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
        && typeof require === 'function' ? factory(require('../moment')) :
-   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, function (moment) { 'use strict';
 
