@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 2.14.2 (nuget only)
+* Redeploy non-corrup nuget package, Macs produces a bad package for some
+  reason
+
 ### 2.14.1
 * [#3280](https://github.com/moment/moment/pull/3280) Fix typescript definitions
 
