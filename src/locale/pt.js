@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : portuguese (pt)
+//! locale : Portuguese [pt]
 //! author : Jefferson : https://github.com/jalex79
 
 import moment from '../moment';

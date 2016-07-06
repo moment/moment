@@ -277,7 +277,7 @@
     localeModule('af');
 
     test('parse', function (assert) {
-        var tests = 'Januarie Jan_Februarie Feb_Maart Mar_April Apr_Mei Mei_Junie Jun_Julie Jul_Augustus Aug_September Sep_Oktober Okt_November Nov_Desember Des'.split('_'), i;
+        var tests = 'Januarie Jan_Februarie Feb_Maart Mrt_April Apr_Mei Mei_Junie Jun_Julie Jul_Augustus Aug_September Sep_Oktober Okt_November Nov_Desember Des'.split('_'), i;
         function equalTest(input, mmm, i) {
             assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
@@ -366,7 +366,7 @@
     });
 
     test('format month', function (assert) {
-        var expected = 'Januarie Jan_Februarie Feb_Maart Mar_April Apr_Mei Mei_Junie Jun_Julie Jul_Augustus Aug_September Sep_Oktober Okt_November Nov_Desember Des'.split('_'), i;
+        var expected = 'Januarie Jan_Februarie Feb_Maart Mrt_April Apr_Mei Mei_Junie Jun_Julie Jul_Augustus Aug_September Sep_Oktober Okt_November Nov_Desember Des'.split('_'), i;
         for (i = 0; i < expected.length; i++) {
             assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
         }

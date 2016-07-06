@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : australian english (en-au)
+//! locale : English (Australia) [en-au]
 
 import moment from '../moment';
 

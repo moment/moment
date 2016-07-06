@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : latvian (lv)
+//! locale : Latvian [lv]
 //! author : Kristaps Karlsons : https://github.com/skakri
 //! author : Jānis Elmeris : https://github.com/JanisE
 

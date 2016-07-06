@@ -1,5 +1,5 @@
 //! moment.js
-//! version : 2.13.0
+//! version : 2.14.1
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -1849,7 +1849,6 @@
             delete locales[name];
             return null;
         }
-    }
 
     function updateLocale(name, config) {
         if (config != null) {
@@ -2303,6 +2302,7 @@
             config._d = new Date(NaN);
             return;
         }
+    );
 
         for (i = 0; i < config._f.length; i++) {
             currentScore = 0;
@@ -4185,7 +4185,7 @@
     ;
 
 
-    utils_hooks__hooks.version = '2.13.0';
+    utils_hooks__hooks.version = '2.14.1';
 
     setHookCallback(local__createLocal);
 
@@ -4222,7 +4222,7 @@
 
     var af = moment__default.defineLocale('af', {
         months : 'Januarie_Februarie_Maart_April_Mei_Junie_Julie_Augustus_September_Oktober_November_Desember'.split('_'),
-        monthsShort : 'Jan_Feb_Mar_Apr_Mei_Jun_Jul_Aug_Sep_Okt_Nov_Des'.split('_'),
+        monthsShort : 'Jan_Feb_Mrt_Apr_Mei_Jun_Jul_Aug_Sep_Okt_Nov_Des'.split('_'),
         weekdays : 'Sondag_Maandag_Dinsdag_Woensdag_Donderdag_Vrydag_Saterdag'.split('_'),
         weekdaysShort : 'Son_Maa_Din_Woe_Don_Vry_Sat'.split('_'),
         weekdaysMin : 'So_Ma_Di_Wo_Do_Vr_Sa'.split('_'),

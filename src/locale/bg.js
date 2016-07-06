@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : bulgarian (bg)
+//! locale : Bulgarian [bg]
 //! author : Krasen Borisov : https://github.com/kraz
 
 import moment from '../moment';

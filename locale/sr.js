@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : Serbian-latin (sr)
+//! locale : Serbian [sr]
 //! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 
 ;(function (global, factory) {

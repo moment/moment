@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : polish (pl)
+//! locale : Polish [pl]
 //! author : Rafal Hirsz : https://github.com/evoL
 
 ;(function (global, factory) {

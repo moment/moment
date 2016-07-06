@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : Albanian (sq)
+//! locale : Albanian [sq]
 //! author : Flakërim Ismani : https://github.com/flakerimi
 //! author: Menelion Elensúle: https://github.com/Oire (tests)
 //! author : Oerd Cukalla : https://github.com/oerd (fixes)

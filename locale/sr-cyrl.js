@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : Serbian-cyrillic (sr-cyrl)
+//! locale : Serbian Cyrillic [sr-cyrl]
 //! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 
 ;(function (global, factory) {
