@@ -52375,7 +52375,52 @@
             ['LLL',                 'September 2, 1999 12:30 AM'],
             ['lll',                 'Sep 2, 1999 12:30 AM'],
             ['LLLL',                'Thursday, September 2, 1999 12:30 AM'],
-            ['llll',                'Thu, Sep 2, 1999 12:30 AM']
+            ['llll',                'Thu, Sep 2, 1999 12:30 AM'],
+            // for BE
+            ['BBBB-Q',              '2557-4'],
+            ['MM-DD-BBBB',          '12-02-2542'],
+            ['DD-MM-BBBB',          '12-02-2542'],
+            ['DD/MM/BBBB',          '12/02/2542'],
+            ['DD_MM_BBBB',          '12_02_2542'],
+            ['DD:MM:BBBB',          '12:02:2542'],
+            ['D-M-BB',              '2-2-42'],
+            ['BB',                  '42'],
+            ['DDD-BBBB',            '300-2542'],
+            ['DD-MM-BBBB h:m:s',    '12-02-2542 2:45:10'],
+            ['DD-MM-BBBB h:m:s a',  '12-02-2542 2:45:10 am'],
+            ['DD-MM-BBBB h:m:s a',  '12-02-2542 2:45:10 pm'],
+            ['BBBB-MM-DDTHH:mm:ss', '2554-11-11T11:11:11'],
+            ['MM-DD-BBBB [M]',      '12-02-2542 M'],
+            ['ddd MMM DD HH:mm:ss BBBB', 'Tue Apr 07 22:52:51 2552']
+        ],
+        m,
+        i;
+
+        for (i = 0; i < a.length; i++) {
+            m = moment(a[i][1], a[i][0]);
+            assert.ok(m.isValid());
+            assert.equal(m.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
+        }
+    });
+
+    test('string with format in BE', function (assert) {
+        moment.locale('en');
+        var a = [
+            ['BBBB-Q',              '2557-4'],
+            ['MM-DD-BBBB',          '12-02-2542'],
+            ['DD-MM-BBBB',          '12-02-2542'],
+            ['DD/MM/BBBB',          '12/02/2542'],
+            ['DD_MM_BBBB',          '12_02_2542'],
+            ['DD:MM:BBBB',          '12:02:2542'],
+            ['D-M-BB',              '2-2-42'],
+            ['BB',                  '42'],
+            ['DDD-BBBB',            '300-2542'],
+            ['DD-MM-BBBB h:m:s',    '12-02-2542 2:45:10'],
+            ['DD-MM-BBBB h:m:s a',  '12-02-2542 2:45:10 am'],
+            ['DD-MM-BBBB h:m:s a',  '12-02-2542 2:45:10 pm'],
+            ['BBBB-MM-DDTHH:mm:ss', '2554-11-11T11:11:11'],
+            ['MM-DD-BBBB [M]',      '12-02-2542 M'],
+            ['ddd MMM DD HH:mm:ss BBBB', 'Tue Apr 07 22:52:51 2552']
         ],
         m,
         i;
@@ -52392,6 +52437,13 @@
         assert.equal(moment('9/2/1999', 'D/M/YYYY').format('DD/MM/YYYY'), '09/02/1999', 'D/M/YYYY ---> 9/2/1999');
         assert.equal(moment('9/2/68', 'D/M/YYYY').format('DD/MM/YYYY'), '09/02/2068', 'D/M/YYYY ---> 9/2/68');
         assert.equal(moment('9/2/69', 'D/M/YYYY').format('DD/MM/YYYY'), '09/02/1969', 'D/M/YYYY ---> 9/2/69');
+    });
+
+    test('2 digit year (BE) with BBBB format', function (assert) {
+        assert.equal(moment('9/2/42', 'D/M/BBBB').format('DD/MM/YYYY'), '09/02/1999', 'D/M/YYYY ---> 9/2/99');
+        assert.equal(moment('9/2/2542', 'D/M/BBBB').format('DD/MM/YYYY'), '09/02/1999', 'D/M/YYYY ---> 9/2/1999');
+        assert.equal(moment('9/2/0', 'D/M/BBBB').format('DD/MM/YYYY'), '09/02/1957', 'D/M/YYYY ---> 9/2/0');
+        assert.equal(moment('9/2/99', 'D/M/BBBB').format('DD/MM/YYYY'), '09/02/2056', 'D/M/YYYY ---> 9/2/99');
     });
 
     test('unix timestamp format', function (assert) {
@@ -52428,6 +52480,19 @@
             ['DDMMYYYY',          '12021999'],
             ['YYYYMMDD',          '19991202'],
             ['DDMMMYYYY',         '10Sep2001']
+        ], i;
+
+        for (i = 0; i < a.length; i++) {
+            assert.equal(moment(a[i][1], a[i][0]).format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
+        }
+    });
+    test('string with format no separators (BE)', function (assert) {
+        moment.locale('en');
+        var a = [
+            ['MMDDBBBB',          '12022542'],
+            ['DDMMBBBB',          '12022542'],
+            ['BBBBMMDD',          '25421202'],
+            ['DDMMMBBBB',         '10Sep2544']
         ], i;
 
         for (i = 0; i < a.length; i++) {
@@ -56210,6 +56275,17 @@
         var b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
         assert.equal(b.format('YY'), '09', 'YY ---> 09');
     });
+
+    test('format BB', function (assert) {
+        var b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
+        assert.equal(b.format('BB'), '52', 'YY ---> 52');
+    });
+
+    test('format BBBB', function (assert) {
+        var b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
+        assert.equal(b.format('BBBB'), '2552', 'YYYY ---> 2552');
+    });
+
 
     test('format escape brackets', function (assert) {
         moment.locale('en');

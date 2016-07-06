@@ -554,7 +554,7 @@
             Math.pow(10, Math.max(0, zerosToFill)).toString().substr(1) + absNumber;
     }
 
-    var formattingTokens = /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g;
+    var formattingTokens = /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY|BBBB|BB|B|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g;
 
     var localFormattingTokens = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g;
 
@@ -1028,6 +1028,17 @@
     addFormatToken(0, ['YYYYY',  5],       0, 'year');
     addFormatToken(0, ['YYYYYY', 6, true], 0, 'year');
 
+    // For BE
+    addFormatToken('B', 0, 0, function () {
+        return this.year() + 543;
+    });
+    addFormatToken(0, ['BB', 2], 0, function () {
+        return (this.year() + 543) % 100;
+    });
+    addFormatToken(0, ['BBBB', 4], 0, function () {
+        return '' + (this.year() + 543);
+    });
+
     // ALIASES
 
     addUnitAlias('year', 'y');
@@ -1053,6 +1064,21 @@
     });
     addParseToken('Y', function (input, array) {
         array[YEAR] = parseInt(input, 10);
+    });
+
+    // For Buddhist Era (BE) Year, that 543 year before CE Year
+    addRegexToken('B',   matchSigned);
+    addRegexToken('BB',   match1to2, match2);
+    addRegexToken('BBBB', match1to4, match4);
+
+    addParseToken('BBBB', function (input, array) {
+        array[YEAR] = (input.length <= 2 ? 2500 : 0) + toInt(input) - 543;
+    });
+    addParseToken('BB', function (input, array) {
+        array[YEAR] = (2500 + toInt(input) - 543);
+    });
+    addParseToken('B', function (input, array) {
+        array[YEAR] = toInt(input) - 543;
     });
 
     // HELPERS
@@ -1339,6 +1365,7 @@
                 this._weekdaysParse[i] = this.weekdays(mom, '').toLocaleLowerCase();
             }
         }
+    }
 
         if (strict) {
             if (format === 'dddd') {
@@ -2535,7 +2562,20 @@
     offset('Z', ':');
     offset('ZZ', '');
 
-    // PARSING
+    // Return a moment from input, that is local/utc/zone equivalent to model.
+    function cloneWithOffset(input, model) {
+        var res, diff;
+        if (model._isUTC) {
+            res = model.clone();
+            diff = (isMoment(input) || isDate(input) ? input.valueOf() : local__createLocal(input).valueOf()) - res.valueOf();
+            // Use low-level api, because this fn is low-level api.
+            res._d.setTime(res._d.valueOf() + diff);
+            utils_hooks__hooks.updateOffset(res, false);
+            return res;
+        } else {
+            return local__createLocal(input).local();
+        }
+    }
 
     addRegexToken('Z',  matchShortOffset);
     addRegexToken('ZZ', matchShortOffset);
@@ -2573,6 +2613,7 @@
         } else {
             return local__createLocal(input).local();
         }
+        return this;
     }
 
     function getDateOffset (m) {
@@ -2821,6 +2862,7 @@
         if (!(base.isValid() && other.isValid())) {
             return {milliseconds: 0, months: 0};
         }
+    }
 
         other = cloneWithOffset(other, base);
         if (base.isBefore(other)) {
@@ -2884,7 +2926,6 @@
         if (updateOffset) {
             utils_hooks__hooks.updateOffset(mom, days || months);
         }
-    }
 
     var add_subtract__add      = createAdder(1, 'add');
     var add_subtract__subtract = createAdder(-1, 'subtract');
@@ -2926,6 +2967,9 @@
         } else {
             return localInput.valueOf() < this.clone().startOf(units).valueOf();
         }
+
+        //check for negative zero, return zero if negative zero
+        return -(wholeMonthDiff + adjust) || 0;
     }
 
     function isBefore (input, units) {
@@ -3535,6 +3579,7 @@
 
     momentPrototype__proto.add               = add_subtract__add;
     momentPrototype__proto.calendar          = moment_calendar__calendar;
+    momentPrototype__proto.calendarFormat    = getCalendarFormat;
     momentPrototype__proto.clone             = clone;
     momentPrototype__proto.diff              = diff;
     momentPrototype__proto.endOf             = endOf;
