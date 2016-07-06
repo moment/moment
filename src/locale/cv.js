@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : chuvash (cv)
+//! locale : Chuvash [cv]
 //! author : Anatoly Mironov : https://github.com/mirontoli
 
 import moment from '../moment';

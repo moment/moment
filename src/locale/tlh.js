@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : Klingon (tlh)
+//! locale : Klingon [tlh]
 //! author : Dominika Kruk : https://github.com/amaranthrose
 
 import moment from '../moment';

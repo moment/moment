@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : dhivehi (dv)
+//! locale : Maldivian [dv]
 //! author : Jawish Hameed : https://github.com/jawish
 
 import moment from '../moment';

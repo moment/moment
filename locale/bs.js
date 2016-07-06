@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : bosnian (bs)
+//! locale : Bosnian [bs]
 //! author : Nedim Cholich : https://github.com/frontyard
 //! based on (hr) translation by Bojan Marković
 

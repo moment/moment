@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : nepali/nepalese
+//! locale : Nepalese [ne]
 //! author : suvash : https://github.com/suvash
 
 ;(function (global, factory) {

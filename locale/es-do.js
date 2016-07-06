@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : dominican republic spanish (es-do)
+//! locale : Spanish (Dominican Republic) [es-do]
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : hindi (hi)
+//! locale : Hindi [hi]
 //! author : Mayank Singhal : https://github.com/mayanksinghal
 
 import moment from '../moment';

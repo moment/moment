@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : New Zealand english (en-nz)
+//! locale : English (New Zealand) [en-nz]
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : hungarian (hu)
+//! locale : Hungarian [hu]
 //! author : Adam Brunner : https://github.com/adambrunner
 
 import moment from '../moment';

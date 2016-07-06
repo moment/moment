@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : faroese (fo)
+//! locale : Faroese [fo]
 //! author : Ragnar Johannesen : https://github.com/ragnar123
 
 ;(function (global, factory) {

@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : tamil (ta)
+//! locale : Tamil [ta]
 //! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 
 import moment from '../moment';

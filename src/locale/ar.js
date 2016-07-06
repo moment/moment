@@ -1,7 +1,7 @@
 //! moment.js locale configuration
-//! Locale: Arabic (ar)
-//! Author: Abdel Said: https://github.com/abdelsaid
-//! Changes in months, weekdays: Ahmed Elkhatib
+//! locale : Arabic [ar]
+//! author : Abdel Said: https://github.com/abdelsaid
+//! changes in months, weekdays: Ahmed Elkhatib
 //! Native plural forms: forabi https://github.com/forabi
 
 import moment from '../moment';

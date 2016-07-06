@@ -6,12 +6,12 @@
 }(this, function (moment) { 'use strict';
 
     //! moment.js locale configuration
-    //! locale : afrikaans (af)
+    //! locale : Afrikaans [af]
     //! author : Werner Mollentze : https://github.com/wernerm
 
     var af = moment.defineLocale('af', {
         months : 'Januarie_Februarie_Maart_April_Mei_Junie_Julie_Augustus_September_Oktober_November_Desember'.split('_'),
-        monthsShort : 'Jan_Feb_Mar_Apr_Mei_Jun_Jul_Aug_Sep_Okt_Nov_Des'.split('_'),
+        monthsShort : 'Jan_Feb_Mrt_Apr_Mei_Jun_Jul_Aug_Sep_Okt_Nov_Des'.split('_'),
         weekdays : 'Sondag_Maandag_Dinsdag_Woensdag_Donderdag_Vrydag_Saterdag'.split('_'),
         weekdaysShort : 'Son_Maa_Din_Woe_Don_Vry_Sat'.split('_'),
         weekdaysMin : 'So_Ma_Di_Wo_Do_Vr_Sa'.split('_'),
@@ -68,7 +68,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Moroccan Arabic (ar-ma)
+    //! locale : Arabic (Morocco) [ar-ma]
     //! author : ElFadili Yassine : https://github.com/ElFadiliY
     //! author : Abdel Said : https://github.com/abdelsaid
 
@@ -117,7 +117,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Arabic Saudi Arabia (ar-sa)
+    //! locale : Arabic (Saudi Arabia) [ar-sa]
     //! author : Suhail Alkowaileet : https://github.com/xsoh
 
     var ar_sa__symbolMap = {
@@ -210,7 +210,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale  : Tunisian Arabic (ar-tn)
+    //! locale  :  Arabic (Tunisia) [ar-tn]
 
     var ar_tn = moment.defineLocale('ar-tn', {
         months: 'جانفي_فيفري_مارس_أفريل_ماي_جوان_جويلية_أوت_سبتمبر_أكتوبر_نوفمبر_ديسمبر'.split('_'),
@@ -257,9 +257,9 @@
     });
 
     //! moment.js locale configuration
-    //! Locale: Arabic (ar)
-    //! Author: Abdel Said: https://github.com/abdelsaid
-    //! Changes in months, weekdays: Ahmed Elkhatib
+    //! locale : Arabic [ar]
+    //! author : Abdel Said: https://github.com/abdelsaid
+    //! changes in months, weekdays: Ahmed Elkhatib
     //! Native plural forms: forabi https://github.com/forabi
 
     var ar__symbolMap = {
@@ -383,7 +383,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : azerbaijani (az)
+    //! locale : Azerbaijani [az]
     //! author : topchiyev : https://github.com/topchiyev
 
     var az__suffixes = {
@@ -477,7 +477,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : belarusian (be)
+    //! locale : Belarusian [be]
     //! author : Dmitry Demidov : https://github.com/demidov91
     //! author: Praleska: http://praleska.pro/
     //! Author : Menelion Elensúle : https://github.com/Oire
@@ -600,7 +600,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : bulgarian (bg)
+    //! locale : Bulgarian [bg]
     //! author : Krasen Borisov : https://github.com/kraz
 
     var bg = moment.defineLocale('bg', {
@@ -679,7 +679,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Bengali (bn)
+    //! locale : Bengali [bn]
     //! author : Kaushik Gandhi : https://github.com/kaushikgandhi
 
     var bn__symbolMap = {
@@ -787,7 +787,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : tibetan (bo)
+    //! locale : Tibetan [bo]
     //! author : Thupten N. Chakrishar : https://github.com/vajradog
 
     var bo__symbolMap = {
@@ -895,7 +895,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : breton (br)
+    //! locale : Breton [br]
     //! author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 
     function relativeTimeWithMutation(number, withoutSuffix, key) {
@@ -992,7 +992,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : bosnian (bs)
+    //! locale : Bosnian [bs]
     //! author : Nedim Cholich : https://github.com/frontyard
     //! based on (hr) translation by Bojan Marković
 
@@ -1124,7 +1124,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : catalan (ca)
+    //! locale : Catalan [ca]
     //! author : Juan G. Hurtado : https://github.com/juanghurtado
 
     var ca = moment.defineLocale('ca', {
@@ -1194,7 +1194,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : czech (cs)
+    //! locale : Czech [cs]
     //! author : petrbela : https://github.com/petrbela
 
     var cs__months = 'leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec'.split('_'),
@@ -1355,7 +1355,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : chuvash (cv)
+    //! locale : Chuvash [cv]
     //! author : Anatoly Mironov : https://github.com/mirontoli
 
     var cv = moment.defineLocale('cv', {
@@ -1407,7 +1407,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Welsh (cy)
+    //! locale : Welsh [cy]
     //! author : Robert Allen
 
     var cy = moment.defineLocale('cy', {
@@ -1476,7 +1476,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : danish (da)
+    //! locale : Danish [da]
     //! author : Ulrik Nielsen : https://github.com/mrbase
 
     var da = moment.defineLocale('da', {
@@ -1525,7 +1525,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : austrian german (de-at)
+    //! locale : German (Austria) [de-at]
     //! author : lluchs : https://github.com/lluchs
     //! author: Menelion Elensúle: https://github.com/Oire
     //! author : Martin Groller : https://github.com/MadMG
@@ -1593,7 +1593,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : german (de)
+    //! locale : German [de]
     //! author : lluchs : https://github.com/lluchs
     //! author: Menelion Elensúle: https://github.com/Oire
     //! author : Mikolaj Dadela : https://github.com/mik01aj
@@ -1660,7 +1660,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : dhivehi (dv)
+    //! locale : Maldivian [dv]
     //! author : Jawish Hameed : https://github.com/jawish
 
     var dv__months = [
@@ -1752,7 +1752,7 @@
     }
 
     //! moment.js locale configuration
-    //! locale : modern greek (el)
+    //! locale : Greek [el]
     //! author : Aggelos Karalias : https://github.com/mehiel
 
     var el = moment.defineLocale('el', {
@@ -1835,7 +1835,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : australian english (en-au)
+    //! locale : English (Australia) [en-au]
 
     var en_au = moment.defineLocale('en-au', {
         months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
@@ -1890,7 +1890,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : canadian english (en-ca)
+    //! locale : English (Canada) [en-ca]
     //! author : Jonathan Abourbih : https://github.com/jonbca
 
     var en_ca = moment.defineLocale('en-ca', {
@@ -1942,7 +1942,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : great britain english (en-gb)
+    //! locale : English (United Kingdom) [en-gb]
     //! author : Chris Gedrim : https://github.com/chrisgedrim
 
     var en_gb = moment.defineLocale('en-gb', {
@@ -1998,7 +1998,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Irish english (en-ie)
+    //! locale : English (Ireland) [en-ie]
     //! author : Chris Cartlidge : https://github.com/chriscartlidge
 
     var en_ie = moment.defineLocale('en-ie', {
@@ -2054,7 +2054,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : New Zealand english (en-nz)
+    //! locale : English (New Zealand) [en-nz]
 
     var en_nz = moment.defineLocale('en-nz', {
         months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
@@ -2109,7 +2109,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : esperanto (eo)
+    //! locale : Esperanto [eo]
     //! author : Colin Dean : https://github.com/colindean
     //! komento: Mi estas malcerta se mi korekte traktis akuzativojn en tiu traduko.
     //!          Se ne, bonvolu korekti kaj avizi min por ke mi povas lerni!
@@ -2171,7 +2171,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : dominican republic spanish (es-do)
+    //! locale : Spanish (Dominican Republic) [es-do]
 
     var es_do__monthsShortDot = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split('_'),
         es_do__monthsShort = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_');
@@ -2240,7 +2240,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : spanish (es)
+    //! locale : Spanish [es]
     //! author : Julio Napurí : https://github.com/julionc
 
     var es__monthsShortDot = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split('_'),
@@ -2310,7 +2310,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : estonian (et)
+    //! locale : Estonian [et]
     //! author : Henry Kehlmann : https://github.com/madhenry
     //! improvements : Illimar Tambek : https://github.com/ragulka
 
@@ -2379,7 +2379,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : euskara (eu)
+    //! locale : Basque [eu]
     //! author : Eneko Illarramendi : https://github.com/eillarra
 
     var eu = moment.defineLocale('eu', {
@@ -2434,7 +2434,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Persian (fa)
+    //! locale : Persian [fa]
     //! author : Ebrahim Byagowi : https://github.com/ebraminio
 
     var fa__symbolMap = {
@@ -2529,7 +2529,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : finnish (fi)
+    //! locale : Finnish [fi]
     //! author : Tarmo Aidantausta : https://github.com/bleadof
 
     var numbersPast = 'nolla yksi kaksi kolme neljä viisi kuusi seitsemän kahdeksan yhdeksän'.split(' '),
@@ -2625,7 +2625,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : faroese (fo)
+    //! locale : Faroese [fo]
     //! author : Ragnar Johannesen : https://github.com/ragnar123
 
     var fo = moment.defineLocale('fo', {
@@ -2674,7 +2674,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : canadian french (fr-ca)
+    //! locale : French (Canada) [fr-ca]
     //! author : Jonathan Abourbih : https://github.com/jonbca
 
     var fr_ca = moment.defineLocale('fr-ca', {
@@ -2723,7 +2723,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : swiss french (fr)
+    //! locale : French (Switzerland) [fr-ch]
     //! author : Gaspard Bucher : https://github.com/gaspard
 
     var fr_ch = moment.defineLocale('fr-ch', {
@@ -2776,7 +2776,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : french (fr)
+    //! locale : French [fr]
     //! author : John Fischer : https://github.com/jfroffice
 
     var fr = moment.defineLocale('fr', {
@@ -2829,7 +2829,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : frisian (fy)
+    //! locale : Frisian [fy]
     //! author : Robin van der Vliet : https://github.com/robin0van0der0v
 
     var fy__monthsShortWithDots = 'jan._feb._mrt._apr._mai_jun._jul._aug._sep._okt._nov._des.'.split('_'),
@@ -2891,7 +2891,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : great britain scottish gealic (gd)
+    //! locale : Scottish Gaelic [gd]
     //! author : Jon Ashdown : https://github.com/jonashdown
 
     var gd__months = [
@@ -2956,7 +2956,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : galician (gl)
+    //! locale : Galician [gl]
     //! author : Juan G. Hurtado : https://github.com/juanghurtado
 
     var gl = moment.defineLocale('gl', {
@@ -3022,7 +3022,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Hebrew (he)
+    //! locale : Hebrew [he]
     //! author : Tomer Cohen : https://github.com/tomer
     //! author : Moshe Simantov : https://github.com/DevelopmentIL
     //! author : Tal Ater : https://github.com/TalAter
@@ -3110,7 +3110,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : hindi (hi)
+    //! locale : Hindi [hi]
     //! author : Mayank Singhal : https://github.com/mayanksinghal
 
     var hi__symbolMap = {
@@ -3223,7 +3223,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : hrvatski (hr)
+    //! locale : Croatian [hr]
     //! author : Bojan Marković : https://github.com/bmarkovic
 
     function hr__translate(number, withoutSuffix, key) {
@@ -3357,7 +3357,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : hungarian (hu)
+    //! locale : Hungarian [hu]
     //! author : Adam Brunner : https://github.com/adambrunner
 
     var weekEndings = 'vasárnap hétfőn kedden szerdán csütörtökön pénteken szombaton'.split(' ');
@@ -3455,7 +3455,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Armenian (hy-am)
+    //! locale : Armenian [hy-am]
     //! author : Armendarabyan : https://github.com/armendarabyan
 
     var hy_am = moment.defineLocale('hy-am', {
@@ -3539,7 +3539,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Bahasa Indonesia (id)
+    //! locale : Indonesian [id]
     //! author : Mohammad Satrio Utomo : https://github.com/tyok
     //! reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
 
@@ -3611,7 +3611,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : icelandic (is)
+    //! locale : Icelandic [is]
     //! author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 
     function is__plural(n) {
@@ -3727,7 +3727,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : italian (it)
+    //! locale : Italian [it]
     //! author : Lorenzo : https://github.com/aliem
     //! author: Mattia Larentis: https://github.com/nostalgiaz
 
@@ -3786,7 +3786,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : japanese (ja)
+    //! locale : Japanese [ja]
     //! author : LI Long : https://github.com/baryon
 
     var ja = moment.defineLocale('ja', {
@@ -3851,7 +3851,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Boso Jowo (jv)
+    //! locale : Japanese [jv]
     //! author : Rony Lantip : https://github.com/lantip
     //! reference: http://jv.wikipedia.org/wiki/Basa_Jawa
 
@@ -3923,7 +3923,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Georgian (ka)
+    //! locale : Georgian [ka]
     //! author : Irakli Janiashvili : https://github.com/irakli-janiashvili
 
     var ka = moment.defineLocale('ka', {
@@ -4001,7 +4001,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : kazakh (kk)
+    //! locale : Kazakh [kk]
     //! authors : Nurlan Rakhimzhanov : https://github.com/nurlan
 
     var kk__suffixes = {
@@ -4077,7 +4077,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : khmer (km)
+    //! locale : Cambodian [km]
     //! author : Kruy Vanna : https://github.com/kruyvanna
 
     var km = moment.defineLocale('km', {
@@ -4124,7 +4124,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : korean (ko)
+    //! locale : Korean [ko]
     //!
     //! authors
     //!
@@ -4181,7 +4181,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : kyrgyz (ky)
+    //! locale : Kyrgyz [ky]
     //! author : Chyngyz Arystan uulu : https://github.com/chyngyz
 
 
@@ -4258,7 +4258,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Luxembourgish (lb)
+    //! locale : Luxembourgish [lb]
     //! author : mweimerskirch : https://github.com/mweimerskirch, David Raison : https://github.com/kwisatz
 
     function lb__processRelativeTime(number, withoutSuffix, key, isFuture) {
@@ -4383,7 +4383,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : lao (lo)
+    //! locale : Lao [lo]
     //! author : Ryan Hart : https://github.com/ryanhart2
 
     var lo = moment.defineLocale('lo', {
@@ -4442,7 +4442,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Lithuanian (lt)
+    //! locale : Lithuanian [lt]
     //! author : Mindaugas Mozūras : https://github.com/mmozuras
 
     var lt__units = {
@@ -4548,7 +4548,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : latvian (lv)
+    //! locale : Latvian [lv]
     //! author : Kristaps Karlsons : https://github.com/skakri
     //! author : Jānis Elmeris : https://github.com/JanisE
 
@@ -4634,7 +4634,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Montenegrin (me)
+    //! locale : Montenegrin [me]
     //! author : Miodrag Nikač <miodrag@restartit.me> : https://github.com/miodragnikac
 
     var me__translator = {
@@ -4734,7 +4734,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : macedonian (mk)
+    //! locale : Macedonian [mk]
     //! author : Borislav Mickov : https://github.com/B0k0
 
     var mk = moment.defineLocale('mk', {
@@ -4813,7 +4813,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : malayalam (ml)
+    //! locale : Malayalam [ml]
     //! author : Floyd Pink : https://github.com/floydpink
 
     var ml = moment.defineLocale('ml', {
@@ -4883,7 +4883,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Marathi (mr)
+    //! locale : Marathi [mr]
     //! author : Harshad Kale : https://github.com/kalehv
     //! author : Vivek Athalye : https://github.com/vnathalye
 
@@ -5031,7 +5031,8 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Bahasa Malaysia (ms-MY)
+    //! locale : Malay [ms-my]
+    //! note : DEPRECATED, the correct one is [ms]
     //! author : Weldan Jamili : https://github.com/weldan
 
     var ms_my = moment.defineLocale('ms-my', {
@@ -5102,7 +5103,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Bahasa Malaysia (ms-MY)
+    //! locale : Malay [ms]
     //! author : Weldan Jamili : https://github.com/weldan
 
     var ms = moment.defineLocale('ms', {
@@ -5173,7 +5174,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Burmese (my)
+    //! locale : Burmese [my]
     //! author : Squar team, mysquar.com
 
     var my__symbolMap = {
@@ -5255,7 +5256,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : norwegian bokmål (nb)
+    //! locale : Norwegian Bokmål [nb]
     //! authors : Espen Hovlandsdal : https://github.com/rexxars
     //!           Sigurd Gartmann : https://github.com/sigurdga
 
@@ -5307,7 +5308,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : nepali/nepalese
+    //! locale : Nepalese [ne]
     //! author : suvash : https://github.com/suvash
 
     var ne__symbolMap = {
@@ -5419,7 +5420,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : dutch (nl)
+    //! locale : Dutch [nl]
     //! author : Joris Röling : https://github.com/jjupiter
 
     var nl__monthsShortWithDots = 'jan._feb._mrt._apr._mei_jun._jul._aug._sep._okt._nov._dec.'.split('_'),
@@ -5481,7 +5482,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : norwegian nynorsk (nn)
+    //! locale : Nynorsk [nn]
     //! author : https://github.com/mechuwind
 
     var nn = moment.defineLocale('nn', {
@@ -5530,7 +5531,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : punjabi india (pa-in)
+    //! locale : Punjabi (India) [pa-in]
     //! author : Harpreet Singh : https://github.com/harpreetkhalsagtbit
 
     var pa_in__symbolMap = {
@@ -5643,7 +5644,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : polish (pl)
+    //! locale : Polish [pl]
     //! author : Rafal Hirsz : https://github.com/evoL
 
     var monthsNominative = 'styczeń_luty_marzec_kwiecień_maj_czerwiec_lipiec_sierpień_wrzesień_październik_listopad_grudzień'.split('_'),
@@ -5737,7 +5738,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : brazilian portuguese (pt-br)
+    //! locale : Portuguese (Brazil) [pt-br]
     //! author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 
     var pt_br = moment.defineLocale('pt-br', {
@@ -5787,7 +5788,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : portuguese (pt)
+    //! locale : Portuguese [pt]
     //! author : Jefferson : https://github.com/jalex79
 
     var pt = moment.defineLocale('pt', {
@@ -5841,7 +5842,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : romanian (ro)
+    //! locale : Romanian [ro]
     //! author : Vlad Gurdiga : https://github.com/gurdiga
     //! author : Valentin Agachi : https://github.com/avaly
 
@@ -5905,7 +5906,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : russian (ru)
+    //! locale : Russian [ru]
     //! author : Viktorminator : https://github.com/Viktorminator
     //! Author : Menelion Elensúle : https://github.com/Oire
     //! author : Коренберг Марк : https://github.com/socketpair
@@ -6077,7 +6078,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Northern Sami (se)
+    //! locale : Northern Sami [se]
     //! authors : Bård Rolstad Henriksen : https://github.com/karamell
 
 
@@ -6127,7 +6128,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Sinhalese (si)
+    //! locale : Sinhalese [si]
     //! author : Sampath Sitinamaluwa : https://github.com/sampathsris
 
     /*jshint -W100*/
@@ -6187,7 +6188,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : slovak (sk)
+    //! locale : Slovak [sk]
     //! author : Martin Minka : https://github.com/k2s
     //! based on work of petrbela : https://github.com/petrbela
 
@@ -6326,7 +6327,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : slovenian (sl)
+    //! locale : Slovenian [sl]
     //! author : Robert Sedovšek : https://github.com/sedovsek
 
     function sl__processRelativeTime(number, withoutSuffix, key, isFuture) {
@@ -6477,7 +6478,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Albanian (sq)
+    //! locale : Albanian [sq]
     //! author : Flakërim Ismani : https://github.com/flakerimi
     //! author: Menelion Elensúle: https://github.com/Oire (tests)
     //! author : Oerd Cukalla : https://github.com/oerd (fixes)
@@ -6536,7 +6537,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Serbian-cyrillic (sr-cyrl)
+    //! locale : Serbian Cyrillic [sr-cyrl]
     //! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 
     var sr_cyrl__translator = {
@@ -6635,7 +6636,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Serbian-latin (sr)
+    //! locale : Serbian [sr]
     //! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 
     var sr__translator = {
@@ -6734,7 +6735,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : siSwati (ss)
+    //! locale : Swazi [ss]
     //! author : Nicolai Davies<mail@nicolai.io> : https://github.com/nicolaidavies
 
 
@@ -6812,7 +6813,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : swedish (sv)
+    //! locale : Swedish [sv]
     //! author : Jens Alm : https://github.com/ulmus
 
     var sv = moment.defineLocale('sv', {
@@ -6870,7 +6871,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : swahili (sw)
+    //! locale : Swahili [sw]
     //! author : Fahad Kassim : https://github.com/fadsel
 
     var sw = moment.defineLocale('sw', {
@@ -6918,7 +6919,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : tamil (ta)
+    //! locale : Tamil [ta]
     //! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 
     var ta__symbolMap = {
@@ -7036,7 +7037,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : telugu (te)
+    //! locale : Telugu [te]
     //! author : Krishna Chaitanya Thota : https://github.com/kcthota
 
     var te = moment.defineLocale('te', {
@@ -7114,7 +7115,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : thai (th)
+    //! locale : Thai [th]
     //! author : Kridsada Thanabulpong : https://github.com/sirn
 
     var th = moment.defineLocale('th', {
@@ -7170,7 +7171,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Tagalog/Filipino (tl-ph)
+    //! locale : Tagalog (Philippines) [tl-ph]
     //! author : Dan Hagman
 
     var tl_ph = moment.defineLocale('tl-ph', {
@@ -7221,7 +7222,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Klingon (tlh)
+    //! locale : Klingon [tlh]
     //! author : Dominika Kruk : https://github.com/amaranthrose
 
     var numbersNouns = 'pagh_wa’_cha’_wej_loS_vagh_jav_Soch_chorgh_Hut'.split('_');
@@ -7330,7 +7331,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : turkish (tr)
+    //! locale : Turkish [tr]
     //! authors : Erhan Gundogan : https://github.com/erhangundogan,
     //!           Burak Yiğit Kaya: https://github.com/BYK
 
@@ -7409,7 +7410,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : talossan (tzl)
+    //! locale : Talossan [tzl]
     //! author : Robin van der Vliet : https://github.com/robin0van0der0v with the help of Iustì Canun
 
 
@@ -7489,7 +7490,7 @@
     }
 
     //! moment.js locale configuration
-    //! locale : Morocco Central Atlas Tamaziɣt in Latin (tzm-latn)
+    //! locale : Central Atlas Tamazight Latin [tzm-latn]
     //! author : Abdel Said : https://github.com/abdelsaid
 
     var tzm_latn = moment.defineLocale('tzm-latn', {
@@ -7536,7 +7537,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : Morocco Central Atlas Tamaziɣt (tzm)
+    //! locale : Central Atlas Tamazight [tzm]
     //! author : Abdel Said : https://github.com/abdelsaid
 
     var tzm = moment.defineLocale('tzm', {
@@ -7583,7 +7584,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : ukrainian (uk)
+    //! locale : Ukrainian [uk]
     //! author : zemlanin : https://github.com/zemlanin
     //! Author : Menelion Elensúle : https://github.com/Oire
 
@@ -7718,7 +7719,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : uzbek (uz)
+    //! locale : Uzbek [uz]
     //! author : Sardor Muminov : https://github.com/muminoff
 
     var uz = moment.defineLocale('uz', {
@@ -7765,7 +7766,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : vietnamese (vi)
+    //! locale : Vietnamese [vi]
     //! author : Bang Nguyen : https://github.com/bangnk
 
     var vi = moment.defineLocale('vi', {
@@ -7833,7 +7834,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : pseudo (x-pseudo)
+    //! locale : Pseudo [x-pseudo]
     //! author : Andrew Hood : https://github.com/andrewhood125
 
     var x_pseudo = moment.defineLocale('x-pseudo', {
@@ -7890,7 +7891,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : chinese (zh-cn)
+    //! locale : Chinese (China) [zh-cn]
     //! author : suupic : https://github.com/suupic
     //! author : Zeno Zeng : https://github.com/zenozeng
 
@@ -8006,7 +8007,7 @@
     });
 
     //! moment.js locale configuration
-    //! locale : traditional chinese (zh-tw)
+    //! locale : Chinese (Taiwan) [zh-tw]
     //! author : Ben : https://github.com/ben-lin
     //! author : Chris Lam : https://github.com/hehachris
 

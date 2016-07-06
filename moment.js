@@ -1,5 +1,5 @@
 //! moment.js
-//! version : 2.13.0
+//! version : 2.14.1
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -1365,6 +1365,7 @@
                 this._weekdaysParse[i] = this.weekdays(mom, '').toLocaleLowerCase();
             }
         }
+    }
 
         if (strict) {
             if (format === 'dddd') {
@@ -2561,7 +2562,20 @@
     offset('Z', ':');
     offset('ZZ', '');
 
-    // PARSING
+    // Return a moment from input, that is local/utc/zone equivalent to model.
+    function cloneWithOffset(input, model) {
+        var res, diff;
+        if (model._isUTC) {
+            res = model.clone();
+            diff = (isMoment(input) || isDate(input) ? input.valueOf() : local__createLocal(input).valueOf()) - res.valueOf();
+            // Use low-level api, because this fn is low-level api.
+            res._d.setTime(res._d.valueOf() + diff);
+            utils_hooks__hooks.updateOffset(res, false);
+            return res;
+        } else {
+            return local__createLocal(input).local();
+        }
+    }
 
     addRegexToken('Z',  matchShortOffset);
     addRegexToken('ZZ', matchShortOffset);
@@ -2599,6 +2613,7 @@
         } else {
             return local__createLocal(input).local();
         }
+        return this;
     }
 
     function getDateOffset (m) {
@@ -2847,6 +2862,7 @@
         if (!(base.isValid() && other.isValid())) {
             return {milliseconds: 0, months: 0};
         }
+    }
 
         other = cloneWithOffset(other, base);
         if (base.isBefore(other)) {
@@ -2910,7 +2926,6 @@
         if (updateOffset) {
             utils_hooks__hooks.updateOffset(mom, days || months);
         }
-    }
 
     var add_subtract__add      = createAdder(1, 'add');
     var add_subtract__subtract = createAdder(-1, 'subtract');
@@ -2952,6 +2967,9 @@
         } else {
             return localInput.valueOf() < this.clone().startOf(units).valueOf();
         }
+
+        //check for negative zero, return zero if negative zero
+        return -(wholeMonthDiff + adjust) || 0;
     }
 
     function isBefore (input, units) {
@@ -4183,7 +4201,7 @@
     // Side effect imports
 
 
-    utils_hooks__hooks.version = '2.13.0';
+    utils_hooks__hooks.version = '2.14.1';
 
     setHookCallback(local__createLocal);
 

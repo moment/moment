@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : australian english (en-au)
+//! locale : English (Australia) [en-au]
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

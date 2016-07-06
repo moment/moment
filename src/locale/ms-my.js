@@ -1,5 +1,6 @@
 //! moment.js locale configuration
-//! locale : Bahasa Malaysia (ms-MY)
+//! locale : Malay [ms-my]
+//! note : DEPRECATED, the correct one is [ms]
 //! author : Weldan Jamili : https://github.com/weldan
 
 import moment from '../moment';
