@@ -1,203 +1,17 @@
 import { createDuration } from './create';
+import each from '../utils/each';
+import extend from '../utils/extend';
+import isArray from '../utils/is-array';
+import isObject from '../utils/is-object';
+import indexOf from '../utils/index-of';
+import keys from '../utils/keys';
+import map from '../utils/map';
+import zeroFill from '../utils/zero-fill';
 
 
-// repeatZero(qty)
-// returns '0' repeated qty times
-function repeatZero(qty) {
-    var result = '';
-
-    // exit early
-    // if qty is 0 or a negative number
-    // or doesn't coerce to an integer
-    qty = parseInt(qty, 10);
-    if (!qty || qty < 1) {
-        return result;
-    }
-
-    while (qty) {
-        result += '0';
-        qty -= 1;
-    }
-
-    return result;
-}
-
-// padZero(str, len [, isRight])
-// pads a string with zeros up to a specified length
-// will not pad a string if its length is aready
-// greater than or equal to the specified length
-// default output pads with zeros on the left
-// set isRight to `true` to pad with zeros on the right
-function padZero(str, len, isRight) {
-    if (str == null) {
-        str = '';
-    }
-    str = '' + str;
-
-    return (isRight ? str : '') + repeatZero(len - str.length) + (isRight ? '' : str);
-}
-
-// isArray
-function isArray(array) {
-    return Object.prototype.toString.call(array) === '[object Array]';
-}
-
-// isObject
-function isObject(obj) {
-    return Object.prototype.toString.call(obj) === '[object Object]';
-}
-
-// findLast
-function findLast(array, callback) {
-    var index = array.length - 1;
-
-    while (index) {
-        if (callback(array[index])) {
-            return array[index];
-        }
-        index -= 1;
-    }
-}
-
-// find
-function find(array, callback) {
-    var index = 0,
-        max = array.length,
-        match;
-
-    if (typeof callback !== 'function') {
-        match = callback;
-        callback = function (item) {
-            return item === match;
-        };
-    }
-
-    while (index < max) {
-        if (callback(array[index])) {
-            return array[index];
-        }
-        index += 1;
-    }
-}
-
-// each
-function each(array, callback) {
-    var index = 0,
-        max = array.length;
-
-    if (!array || !max) {
-        return;
-    }
-
-    while (index < max) {
-        if (callback(array[index], index) === false) {
-            return;
-        }
-        index += 1;
-    }
-}
-
-// map
-function map(array, callback) {
-    var index = 0,
-        max = array.length,
-        ret = [];
-
-    if (!array || !max) {
-        return ret;
-    }
-
-    while (index < max) {
-        ret[index] = callback(array[index], index);
-        index += 1;
-    }
-
-    return ret;
-}
-
-// pluck
-function pluck(array, prop) {
-    return map(array, function (item) {
-        return item[prop];
-    });
-}
-
-// compact
-function compact(array) {
-    var ret = [];
-
-    each(array, function (item) {
-        if (item) {
-            ret.push(item);
-        }
-    });
-
-    return ret;
-}
-
-// unique
-function unique(array) {
-    var ret = [];
-
-    each(array, function (_a) {
-        if (!find(ret, _a)) {
-            ret.push(_a);
-        }
-    });
-
-    return ret;
-}
-
-// intersection
-function intersection(a, b) {
-    var ret = [];
-
-    each(a, function (_a) {
-        each(b, function (_b) {
-            if (_a === _b) {
-                ret.push(_a);
-            }
-        });
-    });
-
-    return unique(ret);
-}
-
-// rest
-function rest(array, callback) {
-    var ret = [];
-
-    each(array, function (item, index) {
-        if (!callback(item)) {
-            ret = array.slice(index);
-            return false;
-        }
-    });
-
-    return ret;
-}
-
-// initial
-function initial(array, callback) {
-    var reversed = array.slice().reverse();
-
-    return rest(reversed, callback).reverse();
-}
-
-// extend
-function extend(a, b) {
-    for (var key in b) {
-        if (b.hasOwnProperty(key)) {
-            a[key] = b[key];
-        }
-    }
-
-    return a;
-}
-
-// formatDuration([template] [, precision] [, settings])
+// formatDuration([template] [, settings])
 export function formatDuration () {
-    var tokenizer, tokens, types, typeMap, momentTypes, foundFirst, trimIndex,
+    var tokenizer, tokens, types, typeMap, momentTypes, foundFirst, trimIndex, i,
         args = [].slice.call(arguments),
         settings = extend({}, this.format.defaults),
         // keep a shadow copy of this moment for calculating remainders
@@ -208,14 +22,9 @@ export function formatDuration () {
     settings.duration = this;
 
     // parse arguments
-    each(args, function (arg) {
+    each.call(args, function (arg) {
         if (typeof arg === 'string' || typeof arg === 'function') {
             settings.template = arg;
-            return;
-        }
-
-        if (typeof arg === 'number') {
-            settings.precision = arg;
             return;
         }
 
@@ -237,11 +46,13 @@ export function formatDuration () {
         return settings[type].source;
     }).join('|'), 'g');
 
-    // token type map function
+    // token type map function: find the type whose regex matches token
     typeMap = function (token) {
-        return find(types, function (type) {
-            return settings[type].test(token);
-        });
+        for (var i = 0; i < types.length; ++i) {
+            if (settings[types[i]].test(token)) {
+                return types[i];
+            }
+        }
     };
 
     // tokens array
@@ -265,15 +76,22 @@ export function formatDuration () {
     }, this);
 
     // unique moment token types in the template (in order of descending magnitude)
-    momentTypes = intersection(types, unique(compact(pluck(tokens, 'type'))));
+    momentTypes = [];
+    each.call(tokens, function (token) {
+        if (indexOf.call(types, token.type) > -1 && indexOf.call(momentTypes, token.type) === -1) {
+            momentTypes.push(token.type);
+        }
+    });
 
     // exit early if there are no momentTypes
     if (!momentTypes.length) {
-        return pluck(tokens, 'token').join('');
+        return map(tokens, function (v) {
+            return v.token;
+        }).join('');
     }
 
     // calculate values for each token type in the template
-    each(momentTypes, function (momentType, index) {
+    each.call(momentTypes, function (momentType, index) {
         var value, wholeValue, decimalValue, isLeast, isMost;
 
         // calculate integer and decimal value portions
@@ -290,7 +108,7 @@ export function formatDuration () {
         // update tokens array
         // using this algorithm to not assume anything about
         // the order or frequency of any tokens
-        each(tokens, function (token) {
+        each.call(tokens, function (token) {
             if (token.type === momentType) {
                 extend(token, {
                     value: value,
@@ -320,14 +138,20 @@ export function formatDuration () {
         remainder.subtract(wholeValue, momentType);
     });
 
-    // trim tokens array
-    if (settings.trim) {
-        tokens = (settings.trim === 'left' ? rest : initial)(tokens, function (token) {
-            // return `true` if:
-            // the token is not the least moment token (don't trim the least moment token)
-            // the token is a moment token that does not have a value (don't trim moment tokens that have a whole value)
-            return !(token.isLeast || (token.type != null && token.wholeValue));
-        });
+    // trim tokens array:
+    // - don't trim the least moment token)
+    // - don't trim moment tokens that have a whole value
+    function shouldTrimToken (token) {
+        return !token.isLeast && (token.type == null || !token.wholeValue);
+    }
+    if (settings.trim === 'left') {
+        while (shouldTrimToken(tokens[0])) {
+            tokens.shift();
+        }
+    } else if (settings.trim === 'right') {
+        while (shouldTrimToken(tokens[tokens.length - 1])) {
+            tokens.pop();
+        }
     }
 
 
@@ -350,12 +174,7 @@ export function formatDuration () {
             return token.token;
         }
 
-        // apply negative precision formatting to the least-significant moment token
-        if (token.isLeast && (settings.precision < 0)) {
-            val = (Math.floor(token.wholeValue * Math.pow(10, settings.precision)) * Math.pow(10, -settings.precision)).toString();
-        } else {
-            val = token.wholeValue.toString();
-        }
+        val = token.wholeValue.toString();
 
         // remove negative sign from the beginning
         val = val.replace(/^\-/, '');
@@ -363,28 +182,7 @@ export function formatDuration () {
         // apply token length formatting
         // special handling for the first moment token that is not the most significant in a trimmed template
         if (token.length > 1 && (foundFirst || token.isMost || settings.forceLength)) {
-            val = padZero(val, token.length);
-        }
-
-        // add decimal value if precision > 0
-        if (token.isLeast && (settings.precision > 0)) {
-            decVal = token.decimalValue.toString().replace(/^\-/, '').split(/\.|e\-/);
-            switch (decVal.length) {
-                case 1:
-                    val += '.' + padZero(decVal[0], settings.precision, true).slice(0, settings.precision);
-                    break;
-
-                case 2:
-                    val += '.' + padZero(decVal[1], settings.precision, true).slice(0, settings.precision);
-                    break;
-
-                case 3:
-                    val += '.' + padZero(repeatZero((+decVal[2]) - 1) + (decVal[0] || '0') + decVal[1], settings.precision, true).slice(0, settings.precision);
-                    break;
-
-                default:
-                    throw 'Moment Duration Format: unable to parse token decimal value.';
-            }
+            val = zeroFill(val, token.length);
         }
 
         // add a negative sign if the value is negative and token is most significant
@@ -432,11 +230,6 @@ formatDuration.defaults = {
     // `false` - template tokens are not trimmed
     trim: 'left',
 
-    // precision
-    // number of decimal digits to include after (to the right of) the decimal point (positive integer)
-    // or the number of digits to truncate to 0 before (to the left of) the decimal point (negative integer)
-    precision: 0,
-
     // force first moment token with a value to render at full length even when template is trimmed and first moment token has length of 1
     forceLength: null,
 
@@ -449,9 +242,15 @@ formatDuration.defaults = {
     template: function () {
         var types = this.types,
             dur = this.duration,
-            lastType = findLast(types, function (type) {
-                return dur._data[type];
-            });
+            lastType;
+
+        // find the last matching type (AKA the smallest-magnitude unit with data)
+        for (var i = types.length - 1; i >= 0; --i) {
+            if (dur._data[types[i]]) {
+                lastType = types[i];
+                break;
+            }
+        }
 
         // default template strings for each duration dimension type
         switch (lastType) {
