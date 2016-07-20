@@ -112,7 +112,7 @@ test('with locale data', function (assert) {
             dow : 3,
             doy : 6
         };
-        
+
     var customLocale = moment.localeData('numerologists');
 
     assert.deepEqual(customLocale.months(), months);
