@@ -12,6 +12,7 @@ import isArray from '../utils/is-array';
 import indexOf from '../utils/index-of';
 import { createUTC } from '../create/utc';
 import getParsingFlags from '../create/parsing-flags';
+import isUndefined from '../utils/is-undefined';
 
 export function daysInMonth(year, month) {
     return new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
@@ -69,7 +70,7 @@ addParseToken(['MMM', 'MMMM'], function (input, array, config, token) {
 var MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s+)+MMMM?/;
 export var defaultLocaleMonths = 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_');
 export function localeMonths (m, format) {
-    if (typeof m === 'undefined') {
+    if (!m) {
         return this._months;
     }
     return isArray(this._months) ? this._months[m.month()] :
@@ -78,7 +79,7 @@ export function localeMonths (m, format) {
 
 export var defaultLocaleMonthsShort = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_');
 export function localeMonthsShort (m, format) {
-    if (typeof m === 'undefined') {
+    if (!m) {
         return this._monthsShort;
     }
     return isArray(this._monthsShort) ? this._monthsShort[m.month()] :
