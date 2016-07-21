@@ -73,7 +73,8 @@
     "jspm": {
         "files": [
             "moment.js",
-            "locale"
+            "locale",
+            "moment.d.ts"
         ],
         "map": {
             "moment": "./moment"
