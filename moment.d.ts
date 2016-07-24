@@ -1,14 +1,8 @@
 declare function moment(): moment.Moment;
 declare function moment(date: number): moment.Moment;
 declare function moment(date: number[]): moment.Moment;
-declare function moment(date: string, format?: string, strict?: boolean): moment.Moment;
-declare function moment(date: string, format?: string, language?: string, strict?: boolean): moment.Moment;
-declare function moment(date: string, formats: string[], strict?: boolean): moment.Moment;
-declare function moment(date: string, formats: string[], language?: string, strict?: boolean): moment.Moment;
-declare function moment(date: string, specialFormat: () => void, strict?: boolean): moment.Moment;
-declare function moment(date: string, specialFormat: () => void, language?: string, strict?: boolean): moment.Moment;
-declare function moment(date: string, formatsIncludingSpecial: any[], strict?: boolean): moment.Moment;
-declare function moment(date: string, formatsIncludingSpecial: any[], language?: string, strict?: boolean): moment.Moment;
+declare function moment(date: string, format?: moment.MomentFormatSpecification, strict?: boolean): moment.Moment;
+declare function moment(date: string, format?: moment.MomentFormatSpecification, language?: string, strict?: boolean): moment.Moment;
 declare function moment(date: Date): moment.Moment;
 declare function moment(date: moment.Moment): moment.Moment;
 declare function moment(date: Object): moment.Moment;
@@ -206,6 +200,12 @@ declare namespace moment {
   interface MomentLanguage extends BaseMomentLanguage {
     longDateFormat?: MomentLongDateFormat;
   }
+
+  interface MomentBuiltinFormat {
+    __momentBuiltinFormatBrand: any;
+  }
+
+  type MomentFormatSpecification = string | MomentBuiltinFormat | (string | MomentBuiltinFormat)[];
 
   type UnitOfTime = ("year" | "years" | "y" |
               "quarter" | "quarters" | "Q" |
@@ -528,7 +528,7 @@ declare namespace moment {
   /**
   * Constant used to enable explicit ISO_8601 format parsing.
   */
-  export function ISO_8601(): void;
+  export var ISO_8601: MomentBuiltinFormat;
 
   export var defaultFormat: string;
 }
