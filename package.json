@@ -71,13 +71,13 @@
     "ender": "./ender.js",
     "dojoBuild": "package.js",
     "jspm": {
-        "files": [
-            "moment.js",
-            "locale"
-        ],
-        "map": {
-            "moment": "./moment"
+        "directories": {
+            "lib": "src"
         },
+        "main": "moment.js",
+        "ignore": [
+            "./src/test/"
+        ],
         "buildConfig": {
             "uglify": true
         }
