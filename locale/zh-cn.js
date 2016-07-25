@@ -101,8 +101,8 @@
             }
         },
         relativeTime : {
-            future : '%s内',
-            past : '%s前',
+            future : '%s 内',
+            past : '%s 前',
             s : '几秒',
             m : '1 分钟',
             mm : '%d 分钟',
