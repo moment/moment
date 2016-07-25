@@ -20,6 +20,38 @@ test('parse', function (assert) {
     }
 });
 
+test('parse strict', function (assert) {
+    var tests = 'जानेवारी जाने._फेब्रुवारी फेब्रु._मार्च मार्च._एप्रिल एप्रि._मे मे._जून जून._जुलै जुलै._ऑगस्ट ऑग._सप्टेंबर सप्टें._ऑक्टोबर ऑक्टो._नोव्हेंबर नोव्हें._डिसेंबर डिसें.'.split('_'), i;
+    function equalTest(input, mmm, i) {
+        assert.equal(moment(input, mmm, true).month(), i, input + ' should be month ' + (i + 1));
+    }
+    for (i = 0; i < 12; i++) {
+        tests[i] = tests[i].split(' ');
+        equalTest(tests[i][1], 'MMM', i);
+        equalTest(tests[i][0], 'MMMM', i);
+        equalTest(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
+        equalTest(tests[i][1].toLocaleLowerCase(), 'MMM', i);
+        equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
+        equalTest(tests[i][1].toLocaleUpperCase(), 'MMM', i);
+    }
+});
+
+test('parse strict no dots', function (assert) {
+    var tests = 'जानेवारी जाने_फेब्रुवारी फेब्रु_मार्च मार्च_एप्रिल एप्रि_मे मे_जून जून_जुलै जुलै_ऑगस्ट ऑग_सप्टेंबर सप्टें_ऑक्टोबर ऑक्टो_नोव्हेंबर नोव्हें_डिसेंबर डिसें'.split('_'), i;
+    function equalTest(input, mmm, i) {
+        assert.equal(moment(input, mmm, true).month(), i, input + ' should be month ' + (i + 1));
+    }
+    for (i = 0; i < 12; i++) {
+        tests[i] = tests[i].split(' ');
+        equalTest(tests[i][1], 'MMM', i);
+        equalTest(tests[i][0], 'MMMM', i);
+        equalTest(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
+        equalTest(tests[i][1].toLocaleLowerCase(), 'MMM', i);
+        equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
+        equalTest(tests[i][1].toLocaleUpperCase(), 'MMM', i);
+    }
+});
+
 test('format', function (assert) {
     var a = [
             ['dddd, Do MMMM YYYY, a h:mm:ss वाजता', 'रविवार, १४ फेब्रुवारी २०१०, दुपारी ३:२५:५० वाजता'],

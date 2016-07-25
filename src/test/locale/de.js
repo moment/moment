@@ -20,6 +20,38 @@ test('parse', function (assert) {
     }
 });
 
+test('parse strict', function (assert) {
+    var tests = 'Januar Jan._Februar Febr._März Mrz._April Apr._Mai Mai_Juni Jun._Juli Jul._August Aug._September Sept._Oktober Okt._November Nov._Dezember Dez.'.split('_'), i;
+    function equalTest(input, mmm, i) {
+        assert.equal(moment(input, mmm, true).month(), i, input + ' should be month ' + (i + 1));
+    }
+    for (i = 0; i < 12; i++) {
+        tests[i] = tests[i].split(' ');
+        equalTest(tests[i][1], 'MMM', i);
+        equalTest(tests[i][0], 'MMMM', i);
+        equalTest(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
+        equalTest(tests[i][1].toLocaleLowerCase(), 'MMM', i);
+        equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
+        equalTest(tests[i][1].toLocaleUpperCase(), 'MMM', i);
+    }
+});
+
+test('parse strict no dots', function (assert) {
+    var tests = 'Januar Jan_Februar Febr_März Mrz_April Apr_Mai Mai_Juni Jun_Juli Jul_August Aug_September Sept_Oktober Okt_November Nov_Dezember Dez'.split('_'), i;
+    function equalTest(input, mmm, i) {
+        assert.equal(moment(input, mmm, true).month(), i, input + ' should be month ' + (i + 1));
+    }
+    for (i = 0; i < 12; i++) {
+        tests[i] = tests[i].split(' ');
+        equalTest(tests[i][1], 'MMM', i);
+        equalTest(tests[i][0], 'MMMM', i);
+        equalTest(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
+        equalTest(tests[i][1].toLocaleLowerCase(), 'MMM', i);
+        equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
+        equalTest(tests[i][1].toLocaleUpperCase(), 'MMM', i);
+    }
+});
+
 test('format', function (assert) {
     var a = [
             ['dddd, Do MMMM YYYY, h:mm:ss a',      'Sonntag, 14. Februar 2010, 3:25:50 pm'],

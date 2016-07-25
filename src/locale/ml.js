@@ -67,6 +67,9 @@ export default moment.defineLocale('ml', {
         } else {
             return 'രാത്രി';
         }
+    },
+    monthsShortRegex: function (isStrict) {
+        return /[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF.]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i;
     }
 });
 

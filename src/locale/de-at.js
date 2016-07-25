@@ -65,5 +65,8 @@ export default moment.defineLocale('de-at', {
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
+    },
+    monthsShortRegex: function (isStrict) {
+        return /[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF.]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i;
     }
 });

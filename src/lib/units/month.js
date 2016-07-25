@@ -141,7 +141,8 @@ export function localeMonthsParse (monthName, format, strict) {
         mom = createUTC([2000, i]);
         if (strict && !this._longMonthsParse[i]) {
             this._longMonthsParse[i] = new RegExp('^' + this.months(mom, '').replace('.', '') + '$', 'i');
-            this._shortMonthsParse[i] = new RegExp('^' + this.monthsShort(mom, '').replace('.', '') + '$', 'i');
+            this._shortMonthsParse[i] = new RegExp('^' + this.monthsShort(mom, '').replace('.', '') +
+                ((this.monthsShort(mom, '').indexOf('.') === this.monthsShort(mom, '').length - 1) ? '[.]?' : '') + '$', 'i');
         }
         if (!strict && !this._monthsParse[i]) {
             regex = '^' + this.months(mom, '') + '|^' + this.monthsShort(mom, '');
