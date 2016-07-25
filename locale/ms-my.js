@@ -2,6 +2,7 @@
 //! locale : Malay [ms-my]
 //! note : DEPRECATED, the correct one is [ms]
 //! author : Weldan Jamili : https://github.com/weldan
+//! author : Salahuddin Hairai : https://github.com/od3n
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -25,14 +26,14 @@
             LLL : 'D MMMM YYYY [pukul] HH.mm',
             LLLL : 'dddd, D MMMM YYYY [pukul] HH.mm'
         },
-        meridiemParse: /pagi|tengahari|petang|malam/,
+        meridiemParse: /pagi|tengahhari|petang|malam/,
         meridiemHour: function (hour, meridiem) {
             if (hour === 12) {
                 hour = 0;
             }
             if (meridiem === 'pagi') {
                 return hour;
-            } else if (meridiem === 'tengahari') {
+            } else if (meridiem === 'tengahhari') {
                 return hour >= 11 ? hour : hour + 12;
             } else if (meridiem === 'petang' || meridiem === 'malam') {
                 return hour + 12;
@@ -42,7 +43,7 @@
             if (hours < 11) {
                 return 'pagi';
             } else if (hours < 15) {
-                return 'tengahari';
+                return 'tengah hari';
             } else if (hours < 19) {
                 return 'petang';
             } else {
