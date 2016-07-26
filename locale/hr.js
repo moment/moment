@@ -121,22 +121,22 @@
             future : 'za %s',
             past   : 'prije %s',
             s      : 'par sekundi',
-            m      : translate,
-            mm     : translate,
-            h      : translate,
-            hh     : translate,
+            m      : 'minutu',
+            mm     : 'minuta',
+            h      : 'sat',
+            hh     : 'sati',
             d      : 'dan',
-            dd     : translate,
+            dd     : 'dana',
             M      : 'mjesec',
-            MM     : translate,
+            MM     : 'mjeseci',
             y      : 'godinu',
-            yy     : translate
+            yy     : 'godina'
         },
         ordinalParse: /\d{1,2}\./,
         ordinal : '%d.',
         week : {
-            dow : 1, // Monday is the first day of the week.
-            doy : 7  // The week that contains Jan 1st is the first week of the year.
+            dow : 1, // Ponedjeljak je prvi dan u tjednu.
+            doy : 7  // Tjedan koji sadrži 1. sij. je prvi tjedan u godini.
         }
     });
 
