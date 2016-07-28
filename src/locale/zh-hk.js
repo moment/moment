@@ -1,7 +1,8 @@
 //! moment.js locale configuration
-//! locale : Chinese (Taiwan) [zh-tw]
+//! locale : Chinese (Hong Kong) [zh-hk]
 //! author : Ben : https://github.com/ben-lin
 //! author : Chris Lam : https://github.com/hehachris
+//! author : Konstantin : https://github.com/skfd
 
 import moment from '../moment';
 
