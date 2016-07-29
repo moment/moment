@@ -163,3 +163,36 @@ test('months', function (assert) {
     });
     assert.ok(moment.utc('2015-01-01', 'YYYY-MM-DD').format('MMMM'), 'First', 'months uses child');
 });
+
+test('load order', function (assert) {
+    moment.defineLocale('aaa-child', {
+        parentLocale: 'zzz-parent',
+        calendar: {
+            sameDay: '[Today] HH:mm',
+            nextDay: '[Tomorrow] HH:mm',
+            nextWeek: '[Next week] HH:mm'
+        }
+    });
+
+    moment.defineLocale('zzz-parent', {
+        calendar : {
+            sameDay: '[Today at] HH:mm',
+            nextDay: '[Tomorrow at] HH:mm',
+            nextWeek: '[Next week at] HH:mm',
+            lastDay: '[Yesterday at] HH:mm',
+            lastWeek: '[Last week at] HH:mm',
+            sameElse: '[whatever]'
+        }
+    });
+
+    moment.locale('child-cal');
+    var anchor = moment.utc('2015-05-05T12:00:00', moment.ISO_8601);
+    assert.equal(anchor.clone().add(3, 'hours').calendar(anchor), 'Today 15:00', 'today uses child version');
+    assert.equal(anchor.clone().add(1, 'day').calendar(anchor), 'Tomorrow 12:00', 'tomorrow uses child version');
+    assert.equal(anchor.clone().add(3, 'days').calendar(anchor), 'Next week 12:00', 'next week uses child version');
+
+    assert.equal(anchor.clone().subtract(1, 'day').calendar(anchor), 'Yesterday at 12:00', 'yesterday uses parent version');
+    assert.equal(anchor.clone().subtract(3, 'days').calendar(anchor), 'Last week at 12:00', 'last week uses parent version');
+    assert.equal(anchor.clone().subtract(7, 'days').calendar(anchor), 'whatever', 'sameElse uses parent version -');
+    assert.equal(anchor.clone().add(7, 'days').calendar(anchor), 'whatever', 'sameElse uses parent version +');
+});
