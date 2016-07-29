@@ -162,6 +162,17 @@ test('empty string with formats', function (assert) {
     assert.ok(!moment(' ', ['MM', 'DD']).isValid());
 });
 
+test('undefined argument with formats', function (assert) {
+    assert.equal(moment(undefined, 'MM').format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
+    assert.equal(moment(undefined, 'DD').format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
+    assert.equal(moment(undefined, ['MM', 'DD']).format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
+
+    assert.ok(!moment(undefined, 'MM').isValid());
+    assert.ok(!moment(undefined, 'MM').isValid());
+    assert.ok(!moment(undefined, 'DD').isValid());
+    assert.ok(!moment(undefined, ['MM', 'DD']).isValid());
+});
+
 test('defaulting to current date', function (assert) {
     var now = moment();
     assert.equal(moment('12:13:14', 'hh:mm:ss').format('YYYY-MM-DD hh:mm:ss'),
