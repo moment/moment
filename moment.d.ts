@@ -346,6 +346,7 @@ declare namespace moment {
     weekday(d: number): Moment;
     isoWeekday(): number;
     isoWeekday(d: number): Moment;
+    isoWeekday(d: string): Moment;
     weekYear(): number;
     weekYear(d: number): Moment;
     isoWeekYear(): number;
@@ -407,6 +408,8 @@ declare namespace moment {
     locale(language: string): Moment;
     locale(reset: boolean): Moment;
     locale(): string;
+
+    locales(): string[];
 
     localeData(language: string): Moment;
     localeData(reset: boolean): Moment;
@@ -531,6 +534,7 @@ declare namespace moment {
   export function ISO_8601(): void;
 
   export var defaultFormat: string;
+  export var defaultFormatUtc: string;
 }
 
 export = moment;
