@@ -1,11 +1,11 @@
 //! moment.js locale configuration
-//! locale : japanese (ja)
+//! locale : Japanese [ja]
 //! author : LI Long : https://github.com/baryon
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
        && typeof require === 'function' ? factory(require('../moment')) :
-   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, function (moment) { 'use strict';
 
@@ -46,12 +46,12 @@
         ordinalParse : /\d{1,2}日/,
         ordinal : function (number, period) {
             switch (period) {
-            case 'd':
-            case 'D':
-            case 'DDD':
-                return number + '日';
-            default:
-                return number;
+                case 'd':
+                case 'D':
+                case 'DDD':
+                    return number + '日';
+                default:
+                    return number;
             }
         },
         relativeTime : {
