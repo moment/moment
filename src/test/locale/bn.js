@@ -3,7 +3,7 @@ import moment from '../../moment';
 localeModule('bn');
 
 test('parse', function (assert) {
-    var tests = 'জানুয়ারী জানু_ফেবুয়ারী ফেব_মার্চ মার্চ_এপ্রিল এপর_মে মে_জুন জুন_জুলাই জুল_অগাস্ট অগ_সেপ্টেম্বর সেপ্ট_অক্টোবর অক্টো_নভেম্বর নভ_ডিসেম্বর ডিসেম্'.split('_'), i;
+    var tests = 'জানুয়ারী জানু_ফেব্রুয়ারি ফেব_মার্চ মার্চ_এপ্রিল এপ্র_মে মে_জুন জুন_জুলাই জুল_আগস্ট আগ_সেপ্টেম্বর সেপ্ট_অক্টোবর অক্টো_নভেম্বর নভে_ডিসেম্বর ডিসে'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
@@ -22,12 +22,12 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, Do MMMM YYYY, a h:mm:ss সময়',  'রবিবার, ১৪ ফেবুয়ারী ২০১০, দুপুর ৩:২৫:৫০ সময়'],
+            ['dddd, Do MMMM YYYY, a h:mm:ss সময়',  'রবিবার, ১৪ ফেব্রুয়ারি ২০১০, দুপুর ৩:২৫:৫০ সময়'],
             ['ddd, a h সময়',                       'রবি, দুপুর ৩ সময়'],
-            ['M Mo MM MMMM MMM',                   '২ ২ ০২ ফেবুয়ারী ফেব'],
+            ['M Mo MM MMMM MMM',                   '২ ২ ০২ ফেব্রুয়ারি ফেব'],
             ['YYYY YY',                            '২০১০ ১০'],
             ['D Do DD',                            '১৪ ১৪ ১৪'],
-            ['d do dddd ddd dd',                   '০ ০ রবিবার রবি রব'],
+            ['d do dddd ddd dd',                   '০ ০ রবিবার রবি রবি'],
             ['DDD DDDo DDDD',                      '৪৫ ৪৫ ০৪৫'],
             ['w wo ww',                            '৮ ৮ ০৮'],
             ['h hh',                               '৩ ০৩'],
@@ -38,9 +38,9 @@ test('format', function (assert) {
             ['LT',                                 'দুপুর ৩:২৫ সময়'],
             ['LTS',                                'দুপুর ৩:২৫:৫০ সময়'],
             ['L',                                  '১৪/০২/২০১০'],
-            ['LL',                                 '১৪ ফেবুয়ারী ২০১০'],
-            ['LLL',                                '১৪ ফেবুয়ারী ২০১০, দুপুর ৩:২৫ সময়'],
-            ['LLLL',                               'রবিবার, ১৪ ফেবুয়ারী ২০১০, দুপুর ৩:২৫ সময়'],
+            ['LL',                                 '১৪ ফেব্রুয়ারি ২০১০'],
+            ['LLL',                                '১৪ ফেব্রুয়ারি ২০১০, দুপুর ৩:২৫ সময়'],
+            ['LLLL',                               'রবিবার, ১৪ ফেব্রুয়ারি ২০১০, দুপুর ৩:২৫ সময়'],
             ['l',                                  '১৪/২/২০১০'],
             ['ll',                                 '১৪ ফেব ২০১০'],
             ['lll',                                '১৪ ফেব ২০১০, দুপুর ৩:২৫ সময়'],
@@ -91,14 +91,14 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'জানুয়ারী জানু_ফেবুয়ারী ফেব_মার্চ মার্চ_এপ্রিল এপর_মে মে_জুন জুন_জুলাই জুল_অগাস্ট অগ_সেপ্টেম্বর সেপ্ট_অক্টোবর অক্টো_নভেম্বর নভ_ডিসেম্বর ডিসেম্'.split('_'), i;
+    var expected = 'জানুয়ারী জানু_ফেব্রুয়ারি ফেব_মার্চ মার্চ_এপ্রিল এপ্র_মে মে_জুন জুন_জুলাই জুল_আগস্ট আগ_সেপ্টেম্বর সেপ্ট_অক্টোবর অক্টো_নভেম্বর নভে_ডিসেম্বর ডিসে'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
 });
 
 test('format week', function (assert) {
-    var expected = 'রবিবার রবি রব_সোমবার সোম সম_মঙ্গলবার মঙ্গল মঙ্গ_বুধবার বুধ বু_বৃহস্পত্তিবার বৃহস্পত্তি ব্রিহ_শুক্রবার শুক্র শু_শনিবার শনি শনি'.split('_'), i;
+    var expected = 'রবিবার রবি রবি_সোমবার সোম সোম_মঙ্গলবার মঙ্গল মঙ্গ_বুধবার বুধ বুধ_বৃহস্পতিবার বৃহস্পতি বৃহঃ_শুক্রবার শুক্র শুক্র_শনিবার শনি শনি'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
@@ -222,4 +222,3 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012, 0, 14]).format('w ww wo'), '২ ০২ ২', 'Jan 14 2012 should be week 2');
     assert.equal(moment([2012, 0, 15]).format('w ww wo'), '৩ ০৩ ৩', 'Jan 15 2012 should be week 3');
 });
-
