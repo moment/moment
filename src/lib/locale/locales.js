@@ -11,7 +11,12 @@ import { baseConfig } from './base-config';
 
 // internal storage for locale config files
 var locales = {};
-// {'zh-tw': [{name:'zh-tw', config:config}, {name:'zh-mo', config:config}}
+// {'zh-tw': [{name:'zh-hk', config:config}, {name:'zh-mo', config:config}}
+// # ISSUES with "out of order parent locale":
+// * moment-with-locales.js fails to load child locale.
+// * `moment.locale('zh-hk')` will fail in modularized environments.
+// * `grunt transpile:zh-hk` will fail.
+
 var localeFamilies = {};
 var globalLocale;
 
@@ -117,7 +122,7 @@ export function defineLocale (name, config) {
         getSetGlobalLocale(name);
 
         if (localeFamilies[name]) {
-            localeFamilies[name].forEach(function(x) {
+            localeFamilies[name].forEach(function (x) {
                 defineLocale(x.name, x.config);
             });
         }
