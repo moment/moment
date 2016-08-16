@@ -187,7 +187,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('make-test-locales', '', function() {
         var fs = require('fs');
-        var child_locale =
+        var childLocale =
             "import moment from '../moment';" +
             "export default moment.defineLocale('aa-aa', {" +
             "    parentLocale: 'zz-zz'," +
@@ -195,7 +195,7 @@ module.exports = function (grunt) {
             "        sameDay: '[AA] HH:mm'" +
             "    }" +
             "});";
-        var parent_locale =
+        var parentLocale =
             "import moment from '../moment';" +
             "export default moment.defineLocale('zz-zz', {" +
             "    calendar: {" +
@@ -204,20 +204,8 @@ module.exports = function (grunt) {
             "        nextWeek: '[ZZ] HH:mm'" +
             "    }" +
             "});";
-        fs.writeFileSync("src/locale/zz-zz.js", parent_locale);
-        fs.writeFileSync("src/locale/aa-aa.js", child_locale);
-    });
-
-    grunt.registerTask("force",function(set){
-        if (set === "on") {
-            grunt.option("force",true);
-        }
-        else if (set === "off") {
-            grunt.option("force",false);
-        }
-        else if (set === "restore") {
-            grunt.option("force",previous_force_state);
-        }
+        fs.writeFileSync("src/locale/zz-zz.js", parentLocale);
+        fs.writeFileSync("src/locale/aa-aa.js", childLocale);
     });
 
     grunt.loadTasks('tasks');
