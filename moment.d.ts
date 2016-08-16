@@ -210,6 +210,7 @@ declare namespace moment {
   type UnitOfTime = ("year" | "years" | "y" |
               "quarter" | "quarters" | "Q" |
               "month" | "months" | "M" |
+              "date" | "dates" | "D" |
               "week" | "weeks" | "w" |
               "day" | "days" | "d" |
               "hour" | "hours" | "h" |
