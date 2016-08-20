@@ -84,8 +84,7 @@
         }
     },
     "scripts": {
-        "test-typings": "tsc --project typing-tests",
-        "test": "grunt test && npm run test-typings",
+        "test": "grunt test",
         "coverage": "nyc npm test && nyc report",
         "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
     },
