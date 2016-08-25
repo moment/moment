@@ -99,6 +99,6 @@
         }
     });
 
-    return ur;;
+    return ur;
 
 }));
