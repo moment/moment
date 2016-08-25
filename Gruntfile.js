@@ -177,6 +177,9 @@ module.exports = function (grunt) {
             },
             'meteor-publish': {
                 command: 'meteor publish'
+            },
+            'git-include-minified': {
+                command: 'git add -f moment.js locale/*.js min/*.js'
             }
         }
 
@@ -212,6 +215,7 @@ module.exports = function (grunt) {
         'default',
         'update-index',
         'component',
-        'uglify:main'
+        'uglify:main',
+        'exec:git-include-minified'
     ]);
 };
