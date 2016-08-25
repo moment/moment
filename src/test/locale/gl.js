@@ -3,7 +3,7 @@ import moment from '../../moment';
 localeModule('gl');
 
 test('parse', function (assert) {
-    var tests = 'Xaneiro Xan._Febreiro Feb._Marzo Mar._Abril Abr._Maio Mai._Xuño Xuñ._Xullo Xul._Agosto Ago._Setembro Set._Outubro Out._Novembro Nov._Decembro Dec.'.split('_'), i;
+    var tests = 'xaneiro xan._febreiro feb._marzo mar._abril abr._maio mai._xuño xuñ._xullo xul._agosto ago._setembro set._outubro out._novembro nov._decembro dec.'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
@@ -22,14 +22,14 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Domingo, Febreiro 14º 2010, 3:25:50 pm'],
-            ['ddd, hA',                            'Dom., 3PM'],
-            ['M Mo MM MMMM MMM',                   '2 2º 02 Febreiro Feb.'],
+            ['dddd, MMMM Do YYYY, h:mm:ss a',      'domingo, febreiro 14º 2010, 3:25:50 pm'],
+            ['ddd, hA',                            'dom., 3PM'],
+            ['M Mo MM MMMM MMM',                   '2 2º 02 febreiro feb.'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14º 14'],
-            ['d do dddd ddd dd',                   '0 0º Domingo Dom. Do'],
+            ['d do dddd ddd dd',                   '0 0º domingo dom. do'],
             ['DDD DDDo DDDD',                      '45 45º 045'],
-            ['w wo ww',                            '7 7º 07'],
+            ['w wo ww',                            '6 6º 06'],
             ['h hh',                               '3 03'],
             ['H HH',                               '15 15'],
             ['m mm',                               '25 25'],
@@ -38,13 +38,13 @@ test('format', function (assert) {
             ['[the] DDDo [day of the year]',       'the 45º day of the year'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14/02/2010'],
-            ['LL',                                 '14 Febreiro 2010'],
-            ['LLL',                                '14 Febreiro 2010 15:25'],
-            ['LLLL',                               'Domingo 14 Febreiro 2010 15:25'],
+            ['LL',                                 '14 de febreiro de 2010'],
+            ['LLL',                                '14 de febreiro de 2010 15:25'],
+            ['LLLL',                               'domingo, 14 de febreiro de 2010 15:25'],
             ['l',                                  '14/2/2010'],
-            ['ll',                                 '14 Feb. 2010'],
-            ['lll',                                '14 Feb. 2010 15:25'],
-            ['llll',                               'Dom. 14 Feb. 2010 15:25']
+            ['ll',                                 '14 de feb. de 2010'],
+            ['lll',                                '14 de feb. de 2010 15:25'],
+            ['llll',                               'dom., 14 de feb. de 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -91,14 +91,14 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'Xaneiro Xan._Febreiro Feb._Marzo Mar._Abril Abr._Maio Mai._Xuño Xuñ._Xullo Xul._Agosto Ago._Setembro Set._Outubro Out._Novembro Nov._Decembro Dec.'.split('_'), i;
+    var expected = 'xaneiro xan._febreiro feb._marzo mar._abril abr._maio mai._xuño xuñ._xullo xul._agosto ago._setembro set._outubro out._novembro nov._decembro dec.'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
 });
 
 test('format week', function (assert) {
-    var expected = 'Domingo Dom. Do_Luns Lun. Lu_Martes Mar. Ma_Mércores Mér. Mé_Xoves Xov. Xo_Venres Ven. Ve_Sábado Sáb. Sá'.split('_'),
+    var expected = 'domingo dom. do_luns lun. lu_martes mar. ma_mércores mér. mé_xoves xov. xo_venres ven. ve_sábado sáb. sá'.split('_'),
     i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
@@ -148,7 +148,7 @@ test('now from now', function (assert) {
 });
 
 test('fromNow', function (assert) {
-    assert.equal(moment().add({s: 30}).fromNow(), 'nuns segundos', 'en unos segundos');
+    assert.equal(moment().add({s: 30}).fromNow(), 'nuns segundos', 'nuns segundos');
     assert.equal(moment().add({d: 5}).fromNow(), 'en 5 días', 'en 5 días');
 });
 
@@ -209,10 +209,10 @@ test('regression tests', function (assert) {
 });
 
 test('weeks year starting sunday formatted', function (assert) {
-    assert.equal(moment([2011, 11, 26]).format('w ww wo'), '1 01 1º', 'Dec 26 2011 should be week 1');
-    assert.equal(moment([2012,  0,  1]).format('w ww wo'), '1 01 1º', 'Jan  1 2012 should be week 1');
-    assert.equal(moment([2012,  0,  2]).format('w ww wo'), '2 02 2º', 'Jan  2 2012 should be week 2');
-    assert.equal(moment([2012,  0,  8]).format('w ww wo'), '2 02 2º', 'Jan  8 2012 should be week 2');
-    assert.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 3º', 'Jan  9 2012 should be week 3');
+    assert.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52º', 'Jan  1 2012 should be week 52');
+    assert.equal(moment([2012, 0,  2]).format('w ww wo'),   '1 01 1º', 'Jan  2 2012 should be week 1');
+    assert.equal(moment([2012, 0,  8]).format('w ww wo'),   '1 01 1º', 'Jan  8 2012 should be week 1');
+    assert.equal(moment([2012, 0,  9]).format('w ww wo'),   '2 02 2º', 'Jan  9 2012 should be week 2');
+    assert.equal(moment([2012, 0, 15]).format('w ww wo'),   '2 02 2º', 'Jan 15 2012 should be week 2');
 });
 
