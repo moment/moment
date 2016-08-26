@@ -33,6 +33,8 @@ declare namespace moment {
     * @param formatType should be L, LL, LLL, LLLL.
     */
     longDateFormat(formatType: string): string;
+
+    isPM(input: string): boolean;
   }
 
   interface Duration {
