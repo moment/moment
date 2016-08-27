@@ -94,11 +94,11 @@
             }
         },
         calendar : {
-            sameDay: '[اليوم عند الساعة] LT',
-            nextDay: '[غدًا عند الساعة] LT',
-            nextWeek: 'dddd [عند الساعة] LT',
-            lastDay: '[أمس عند الساعة] LT',
-            lastWeek: 'dddd [عند الساعة] LT',
+            sameDay: '[اليوم الساعة] LT',
+            nextDay: '[غدًا الساعة] LT',
+            nextWeek: 'dddd [الساعة ] LT',
+            lastDay: '[أمس الساعة] LT',
+            lastWeek: 'dddd [الساعة ] LT',
             sameElse: 'L'
         },
         relativeTime : {
