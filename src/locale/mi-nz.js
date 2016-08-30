@@ -1,5 +1,6 @@
 //! moment.js locale configuration
 //! locale : Maori (mi-nz)
+//! author : John Corrigan <robbiecloset@gmail.com> : https://github.com/johnideal
 
 import moment from '../moment';
 
