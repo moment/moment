@@ -359,6 +359,10 @@ test('string with timezone around start of year', function (assert) {
 });
 
 test('string with array of formats', function (assert) {
+    var thursdayForCurrentWeek = moment()
+      .day(4)
+      .format('YYYY MM DD');
+
     assert.equal(moment('11-02-1999', ['MM-DD-YYYY', 'DD-MM-YYYY']).format('MM DD YYYY'), '11 02 1999', 'switching month and day');
     assert.equal(moment('02-11-1999', ['MM/DD/YYYY', 'YYYY MM DD', 'MM-DD-YYYY']).format('MM DD YYYY'), '02 11 1999', 'year last');
     assert.equal(moment('1999-02-11', ['MM/DD/YYYY', 'YYYY MM DD', 'MM-DD-YYYY']).format('MM DD YYYY'), '02 11 1999', 'year first');
@@ -393,6 +397,8 @@ test('string with array of formats', function (assert) {
     assert.equal(moment('13-10-1998', ['DD MM YY', 'DD MM YYYY'])._f, 'DD MM YYYY', 'use four digit year');
 
     assert.equal(moment('01', ['MM', 'DD'])._f, 'MM', 'Should use first valid format');
+
+    assert.equal(moment('Thursday 8:30pm', ['dddd h:mma']).format('YYYY MM DD dddd h:mma'), thursdayForCurrentWeek + ' Thursday 8:30pm', 'Default to current week');
 });
 
 test('string with array of formats + ISO', function (assert) {
@@ -897,13 +903,21 @@ function getVerifier(test) {
 
 test('parsing week and weekday information', function (assert) {
     var ver = getVerifier(assert);
+    var currentWeekOfYear = moment().weeks();
+    var expectedDate2012 = moment([2012, 0, 1])
+      .day(0)
+      .add((currentWeekOfYear - 1), 'weeks')
+      .format('YYYY MM DD');
+    var expectedDate1999 = moment([1999, 0, 1])
+      .day(0)
+      .add((currentWeekOfYear - 1), 'weeks')
+      .format('YYYY MM DD');
 
     // year
-    ver('12', 'gg', '2012 01 01', 'week-year two digits');
-    ver('2012', 'gggg', '2012 01 01', 'week-year four digits');
-
-    ver('99', 'gg', '1998 12 27', 'week-year two digits previous year');
-    ver('1999', 'gggg', '1998 12 27', 'week-year four digits previous year');
+    ver('12', 'gg', expectedDate2012, 'week-year two digits');
+    ver('2012', 'gggg', expectedDate2012, 'week-year four digits');
+    ver('99', 'gg', expectedDate1999, 'week-year two digits previous year');
+    ver('1999', 'gggg', expectedDate1999, 'week-year four digits previous year');
 
     ver('99', 'GG', '1999 01 04', 'iso week-year two digits');
     ver('1999', 'GGGG', '1999 01 04', 'iso week-year four digits');

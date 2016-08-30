@@ -104,8 +104,12 @@ function dayOfYearFromWeekInfo(config) {
         dow = config._locale._week.dow;
         doy = config._locale._week.doy;
 
-        weekYear = defaults(w.gg, config._a[YEAR], weekOfYear(createLocal(), dow, doy).year);
-        week = defaults(w.w, 1);
+        var curWeek = weekOfYear(createLocal(), dow, doy);
+
+        weekYear = defaults(w.gg, config._a[YEAR], curWeek.year);
+
+        // Default to current week.
+        week = defaults(w.w, curWeek.week);
 
         if (w.d != null) {
             // weekday -- low day numbers are considered next week
