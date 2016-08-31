@@ -207,6 +207,5 @@ test('weeks year starting sunday format', function (assert) {
 
 test('the first day of week is Sunday', function (assert) {
     var firstDayOfWeek = moment().weekday(0).format('dddd');
-    
     assert.equal(firstDayOfWeek, 'Domingo');
 });
