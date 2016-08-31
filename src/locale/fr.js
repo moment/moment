@@ -13,8 +13,8 @@ export default moment.defineLocale('fr', {
     weekdaysMin : 'Di_Lu_Ma_Me_Je_Ve_Sa'.split('_'),
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
+        LT : 'HH [h] mm',
+        LTS : 'HH [h] mm [min] ss [s]',
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY HH:mm',
@@ -52,4 +52,3 @@ export default moment.defineLocale('fr', {
         doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
-
