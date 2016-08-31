@@ -1,5 +1,6 @@
 //! moment.js locale configuration
 //! locale : English (New Zealand) [en-nz]
+//! author : Luke McGregor : https://github.com/lukemcgregor
 
 import moment from '../moment';
 
