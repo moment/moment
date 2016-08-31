@@ -9725,7 +9725,10 @@
             yy : '%d anos'
         },
         ordinalParse: /\d{1,2}º/,
-        ordinal : '%dº'
+        ordinal : '%dº',
+        week : {
+            dow : 0 // Sunday is the first day of the week
+        }
     });
 
 
