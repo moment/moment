@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : Arabic [ar-ly]
+//! locale : Arabic (Lybia) [ar-ly]
 //! author : Ali Hmer: https://github.com/kikoanis
 
 import moment from '../moment';
