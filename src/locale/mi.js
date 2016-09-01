@@ -1,10 +1,10 @@
 //! moment.js locale configuration
-//! locale : Maori (mi-nz)
+//! locale : Maori [mi]
 //! author : John Corrigan <robbiecloset@gmail.com> : https://github.com/johnideal
 
 import moment from '../moment';
 
-export default moment.defineLocale('mi-nz', {
+export default moment.defineLocale('mi', {
     months: 'Kohi-tāte_Hui-tanguru_Poutū-te-rangi_Paenga-whāwhā_Haratua_Pipiri_Hōngoingoi_Here-turi-kōkā_Mahuru_Whiringa-ā-nuku_Whiringa-ā-rangi_Hakihea'.split('_'),
     monthsShort: 'Kohi_Hui_Pou_Pae_Hara_Pipi_Hōngoi_Here_Mahu_Whi-nu_Whi-ra_Haki'.split('_'),
     monthsRegex: /(?:['a-z\u0101\u014D\u016B]+\-?){1,3}/i,
