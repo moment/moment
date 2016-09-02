@@ -1,6 +1,6 @@
 import {localeModule, test} from '../qunit';
 import moment from '../../moment';
-localeModule('nl');
+localeModule('nl-be');
 
 test('parse', function (assert) {
     var tests = 'januari jan._februari feb._maart mrt._april apr._mei mei._juni jun._juli jul._augustus aug._september sep._oktober okt._november nov._december dec.'.split('_'), i;
@@ -37,11 +37,11 @@ test('format', function (assert) {
             ['a A',                                'pm PM'],
             ['[the] DDDo [day of the year]',       'the 45ste day of the year'],
             ['LTS',                                '15:25:50'],
-            ['L',                                  '14-02-2010'],
+            ['L',                                  '14/02/2010'],
             ['LL',                                 '14 februari 2010'],
             ['LLL',                                '14 februari 2010 15:25'],
             ['LLLL',                               'zondag 14 februari 2010 15:25'],
-            ['l',                                  '14-2-2010'],
+            ['l',                                  '14/2/2010'],
             ['ll',                                 '14 feb. 2010'],
             ['lll',                                '14 feb. 2010 15:25'],
             ['llll',                               'zo. 14 feb. 2010 15:25']
