@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : Dutch [nl]
+//! locale : Dutch (Belgium) [nl-be]
 //! author : Joris Röling : https://github.com/jorisroling
 //! author : Jacob Middag : https://github.com/middagj
 
@@ -11,7 +11,7 @@ var monthsShortWithDots = 'jan._feb._mrt._apr._mei_jun._jul._aug._sep._okt._nov.
 var monthsParse = [/^jan/i, /^feb/i, /^maart|mrt.?$/i, /^apr/i, /^mei$/i, /^jun[i.]?$/i, /^jul[i.]?$/i, /^aug/i, /^sep/i, /^okt/i, /^nov/i, /^dec/i];
 var monthsRegex = /^(januari|februari|maart|april|mei|april|ju[nl]i|augustus|september|oktober|november|december|jan\.?|feb\.?|mrt\.?|apr\.?|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i;
 
-export default moment.defineLocale('nl', {
+export default moment.defineLocale('nl-be', {
     months : 'januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december'.split('_'),
     monthsShort : function (m, format) {
         if (/-MMM-/.test(format)) {
@@ -37,7 +37,7 @@ export default moment.defineLocale('nl', {
     longDateFormat : {
         LT : 'HH:mm',
         LTS : 'HH:mm:ss',
-        L : 'DD-MM-YYYY',
+        L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY HH:mm',
         LLLL : 'dddd D MMMM YYYY HH:mm'
