@@ -36,6 +36,8 @@ test('toJSON', function (assert) {
 test('toJSON works when moment is frozen', function (assert) {
     var expected = new Date().toISOString();
     var m = moment(expected);
-    Object.freeze(m);
+    if (Object.freeze != null) {
+        Object.freeze(m);
+    }
     assert.deepEqual(m.toJSON(), expected, 'toJSON when frozen invalid');
 });

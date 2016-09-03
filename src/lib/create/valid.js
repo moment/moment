@@ -26,7 +26,7 @@ export function isValid(m) {
                 flags.bigHour === undefined;
         }
 
-        if (!Object.isFrozen(m)) {
+        if (Object.isFrozen == null || !Object.isFrozen(m)) {
             m._isValid = isNowValid;
         }
         else {
