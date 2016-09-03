@@ -458,3 +458,13 @@ test('timezone format', function (assert) {
     assert.equal(moment().zone(+90).format('ZZ'), '-0130', '+90 -> -0130');
     assert.equal(moment().zone(+120).format('ZZ'), '-0200', '+120 -> -0200');
 });
+
+test('parse zone without a timezone', function (assert) {
+    test.expectedDeprecations();
+    var m = moment.parseZone('2016-02-01T00:00:00');
+    assert.equal(
+        m.format('M D YYYY HH:mm:ss ZZ'),
+        '2 1 2016 00:00:00 +0000',
+        'Not providing a timezone should keep the time and change the zone to 0'
+    );
+});
