@@ -27,3 +27,17 @@ test('toDate returns a copy of the internal date', function (assert) {
     m.year(0);
     assert.notEqual(d, m.toDate());
 });
+
+test('toJSON', function (assert) {
+    var expected = new Date().toISOString();
+    assert.deepEqual(moment(expected).toJSON(), expected, 'toJSON invalid');
+});
+
+test('toJSON works when moment is frozen', function (assert) {
+    var expected = new Date().toISOString();
+    var m = moment(expected);
+    if (Object.freeze != null) {
+        Object.freeze(m);
+    }
+    assert.deepEqual(m.toJSON(), expected, 'toJSON when frozen invalid');
+});

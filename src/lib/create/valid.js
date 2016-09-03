@@ -9,7 +9,7 @@ export function isValid(m) {
         var parsedParts = some.call(flags.parsedDateParts, function (i) {
             return i != null;
         });
-        m._isValid = !isNaN(m._d.getTime()) &&
+        var isNowValid = !isNaN(m._d.getTime()) &&
             flags.overflow < 0 &&
             !flags.empty &&
             !flags.invalidMonth &&
@@ -20,10 +20,17 @@ export function isValid(m) {
             (!flags.meridiem || (flags.meridiem && parsedParts));
 
         if (m._strict) {
-            m._isValid = m._isValid &&
+            isNowValid = isNowValid &&
                 flags.charsLeftOver === 0 &&
                 flags.unusedTokens.length === 0 &&
                 flags.bigHour === undefined;
+        }
+
+        if (Object.isFrozen == null || !Object.isFrozen(m)) {
+            m._isValid = isNowValid;
+        }
+        else {
+            return isNowValid;
         }
     }
     return m._isValid;
