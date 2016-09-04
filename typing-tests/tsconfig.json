@@ -2,7 +2,6 @@
   "compileOnSave": false,
   "compilerOptions": {
     "module": "commonjs",
-    "moduleResolution": "node",
     "noEmit": true,
     "noImplicitAny": true
   },
