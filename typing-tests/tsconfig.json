@@ -1,0 +1,12 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "module": "commonjs",
+    "noEmit": true,
+    "noImplicitAny": true
+  },
+  "files": [
+    "../moment.d.ts",
+    "./moment-tests.ts"
+  ]
+}

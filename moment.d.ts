@@ -201,16 +201,23 @@ declare namespace moment {
     meridiem?: (hour: number, minute: number, isLowercase: boolean) => string;
     calendar?: MomentCalendar;
     ordinal?: (num: number) => string;
+    week?: MomentLanguageWeek;
   }
 
   interface MomentLanguage extends BaseMomentLanguage {
     longDateFormat?: MomentLongDateFormat;
   }
 
+  interface MomentLanguageWeek {
+      dow?: number;
+      doy?: number;
+  }
+
   type UnitOfTime = ("year" | "years" | "y" |
               "quarter" | "quarters" | "Q" |
               "month" | "months" | "M" |
               "week" | "weeks" | "w" |
+              "date" |
               "day" | "days" | "d" |
               "hour" | "hours" | "h" |
               "minute" | "minutes" | "m" |
