@@ -177,9 +177,35 @@ module.exports = function (grunt) {
             },
             'meteor-publish': {
                 command: 'meteor publish'
+            },
+            'test-locales-cleanup': {
+                command: 'rm -f src/locale/aa-aa.js && rm -f src/locale/zz-zz.js'
             }
         }
 
+    });
+
+    grunt.registerTask('make-test-locales', '', function() {
+        var fs = require('fs');
+        var childLocale =
+            "import moment from '../moment';" +
+            "export default moment.defineLocale('aa-aa', {" +
+            "    parentLocale: 'zz-zz'," +
+            "    calendar: {" +
+            "        sameDay: '[AA] HH:mm'" +
+            "    }" +
+            "});";
+        var parentLocale =
+            "import moment from '../moment';" +
+            "export default moment.defineLocale('zz-zz', {" +
+            "    calendar: {" +
+            "        sameDay: '[ZZ] HH:mm'," +
+            "        nextDay: '[ZZ] HH:mm'," +
+            "        nextWeek: '[ZZ] HH:mm'" +
+            "    }" +
+            "});";
+        fs.writeFileSync("src/locale/zz-zz.js", parentLocale);
+        fs.writeFileSync("src/locale/aa-aa.js", childLocale);
     });
 
     grunt.loadTasks('tasks');
@@ -188,7 +214,7 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
     // Default task.
-    grunt.registerTask('default', ['lint', 'test:node']);
+    grunt.registerTask('default', ['exec:test-locales-cleanup', 'lint', 'test:node']);
 
     // linting
     grunt.registerTask('lint', ['jshint', 'jscs']);
@@ -196,6 +222,7 @@ module.exports = function (grunt) {
     // test tasks
     grunt.registerTask('test', ['test:node']);
     grunt.registerTask('test:node', ['transpile', 'qtest']);
+    grunt.registerTask('test:grunt', ['exec:test-locales-cleanup', 'make-test-locales', 'transpile:aa-aa', 'qtest_custom_build']);
     // TODO: For some weird reason karma doesn't like the files in
     // build/umd/min/* but works with min/*, so update-index, then git checkout
     grunt.registerTask('test:server', ['transpile', 'update-index', 'karma:server']);
