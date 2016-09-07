@@ -179,7 +179,7 @@ module.exports = function (grunt) {
                 command: 'meteor publish'
             },
             'typescript-test': {
-                command: 'tsc --project typing-tests'
+                command: 'node_modules/.bin/tsc --project typing-tests'
             }
         }
 
