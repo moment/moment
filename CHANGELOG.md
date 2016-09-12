@@ -1,6 +1,28 @@
 Changelog
 =========
 
+### 2.15.0 [See full changelog](https://gist.github.com/ichernev/10e1c5bf647545c72ca30e9628a09ed3)
+- Release Sept 12, 2016
+
+## New Locales
+* [#3255](https://github.com/moment/moment/pull/3255) [new locale] mi: Maori language
+* [#3267](https://github.com/moment/moment/pull/3267) [new locale] ar-ly: Arabic (Libya) locale
+* [#3333](https://github.com/moment/moment/pull/3333) [new locale] zh-hk: Chinese (Hong Kong) locale
+
+## Bugfixes
+* [#3276](https://github.com/moment/moment/pull/3276) [bugfix] duration: parser: Support ms durations in .NET syntax
+* [#3312](https://github.com/moment/moment/pull/3312) [bugfix] locales: Enable locale-data getters without moment (fixes [#3284](https://github.com/moment/moment/issues/3284))
+* [#3381](https://github.com/moment/moment/pull/3381) [bugfix] parsing: Fix parseZone without timezone in string, fixes [#3083](https://github.com/moment/moment/issues/3083)
+* [#3383](https://github.com/moment/moment/pull/3383) [bugfix] toJSON: Fix isValid so that toJSON works after a moment is frozen
+* [#3427](https://github.com/moment/moment/pull/3427) [bugfix] ie8: Fix IE8 (regression in 2.14.x)
+
+## Packaging
+* [#3299](https://github.com/moment/moment/pull/3299) [pkg] npm: Do not include .npmignore in npm package
+* [#3273](https://github.com/moment/moment/pull/3273) [pkg] jspm: Include moment.d.ts file in package
+* [#3344](https://github.com/moment/moment/pull/3344) [pkg] exports: use module.require for nodejs
+
+Also some locale and typescript improvements
+
 ### 2.14.1
 - Release July 20, 2016
 * [#3280](https://github.com/moment/moment/pull/3280) Fix typescript definitions
@@ -371,7 +393,7 @@ Week tokens parsing.
 
 ### 2.2.1
 
-- Release Sep 12, 2013 
+- Release Sep 12, 2013
 
 Fixed bug in string prototype test.
 Updated authors and contributors.
