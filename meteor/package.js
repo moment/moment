@@ -3,12 +3,10 @@
 
 var packageName = 'momentjs:moment';  // https://atmospherejs.com/momentjs/moment
 
-var packageJson = JSON.parse(Npm.require("fs").readFileSync('package.json'));
-
 Package.describe({
   name: packageName,
   summary: 'Moment.js (official): parse, validate, manipulate, and display dates - official Meteor packaging',
-  version: packageJson.version,
+  version: '2.15.0',
   git: 'https://github.com/moment/moment.git'
 });
 
