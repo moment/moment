@@ -106,9 +106,10 @@ export function defineCommonLocaleTests(locale, options) {
     test('weekday parsing correctness', function (assert) {
         var i, m;
 
-        if (locale === 'tr' || locale === 'az') {
-            // There is a lower-case letter (ı), that converted to upper then
-            // lower changes to i
+        if (locale === 'tr' || locale === 'az' || locale === 'ro') {
+            // tr, az: There is a lower-case letter (ı), that converted to
+            // upper then lower changes to i
+            // ro: there is the letter ț which behaves weird under IE8
             expect(0);
             return;
         }

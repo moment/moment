@@ -1,11 +1,12 @@
 {
   "name": "moment",
-  "version": "2.14.1",
+  "version": "2.15.0",
   "main": "moment.js",
   "description": "Parse, validate, manipulate, and display dates in JavaScript.",
   "files": [
     "moment.js",
     "locale/af.js",
+    "locale/ar-ly.js",
     "locale/ar-ma.js",
     "locale/ar-sa.js",
     "locale/ar-tn.js",
@@ -65,6 +66,7 @@
     "locale/lt.js",
     "locale/lv.js",
     "locale/me.js",
+    "locale/mi.js",
     "locale/mk.js",
     "locale/ml.js",
     "locale/mr.js",
@@ -105,6 +107,7 @@
     "locale/vi.js",
     "locale/x-pseudo.js",
     "locale/zh-cn.js",
+    "locale/zh-hk.js",
     "locale/zh-tw.js"
   ],
   "scripts": [
