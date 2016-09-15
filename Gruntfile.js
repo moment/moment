@@ -180,6 +180,9 @@ module.exports = function (grunt) {
             },
             'git-include-minified': {
                 command: 'git add -f moment.js locale/*.js min/*.js'
+	    },
+            'typescript-test': {
+                command: 'node_modules/.bin/tsc --project typing-tests'
             }
         }
 
@@ -191,14 +194,15 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
     // Default task.
-    grunt.registerTask('default', ['lint', 'test:node']);
+    grunt.registerTask('default', ['lint', 'test']);
 
     // linting
     grunt.registerTask('lint', ['jshint', 'jscs']);
 
     // test tasks
-    grunt.registerTask('test', ['test:node']);
+    grunt.registerTask('test', ['test:node', 'test:typescript']);
     grunt.registerTask('test:node', ['transpile', 'qtest']);
+    grunt.registerTask('test:typescript', ['exec:typescript-test']);
     // TODO: For some weird reason karma doesn't like the files in
     // build/umd/min/* but works with min/*, so update-index, then git checkout
     grunt.registerTask('test:server', ['transpile', 'update-index', 'karma:server']);

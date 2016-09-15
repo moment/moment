@@ -201,7 +201,9 @@ test('calendar all else', function (assert) {
 
 test('month abbreviation', function (assert) {
     assert.equal(moment([2012, 5, 23]).format('D-MMM-YYYY'), '23-jun-2012', 'format month abbreviation surrounded by dashes should not include a dot');
+    assert.equal(moment([2012, 5, 23]).unix(), moment('23-jun-2012', 'D-MMM-YYYY').unix(), 'parse month abbreviation surrounded by dashes without dot');
     assert.equal(moment([2012, 5, 23]).format('D MMM YYYY'), '23 jun. 2012', 'format month abbreviation not surrounded by dashes should include a dot');
+    assert.equal(moment([2012, 5, 23]).unix(), moment('23 jun. 2012', 'D MMM YYYY').unix(), 'parse month abbreviation not surrounded by dashes with dot');
 });
 
 test('weeks year starting sunday formatted', function (assert) {

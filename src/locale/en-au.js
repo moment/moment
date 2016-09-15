@@ -1,5 +1,6 @@
 //! moment.js locale configuration
 //! locale : English (Australia) [en-au]
+//! author : Jared Morse : https://github.com/jarcoal
 
 import moment from '../moment';
 

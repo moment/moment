@@ -173,7 +173,7 @@ test('custom rounding', function (assert) {
 
     // Do not round relative time evaluation
     var retainValue = function (value) {
-        return value;
+        return value.toFixed(3);
     };
     moment.relativeTimeRounding(retainValue);
 

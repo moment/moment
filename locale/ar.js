@@ -1,8 +1,8 @@
 //! moment.js locale configuration
 //! locale : Arabic [ar]
 //! author : Abdel Said: https://github.com/abdelsaid
-//! changes in months, weekdays: Ahmed Elkhatib
-//! Native plural forms: forabi https://github.com/forabi
+//! author : Ahmed Elkhatib
+//! author : forabi https://github.com/forabi
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

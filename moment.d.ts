@@ -1,14 +1,8 @@
 declare function moment(): moment.Moment;
 declare function moment(date: number): moment.Moment;
 declare function moment(date: number[]): moment.Moment;
-declare function moment(date: string, format?: string, strict?: boolean): moment.Moment;
-declare function moment(date: string, format?: string, language?: string, strict?: boolean): moment.Moment;
-declare function moment(date: string, formats: string[], strict?: boolean): moment.Moment;
-declare function moment(date: string, formats: string[], language?: string, strict?: boolean): moment.Moment;
-declare function moment(date: string, specialFormat: () => void, strict?: boolean): moment.Moment;
-declare function moment(date: string, specialFormat: () => void, language?: string, strict?: boolean): moment.Moment;
-declare function moment(date: string, formatsIncludingSpecial: any[], strict?: boolean): moment.Moment;
-declare function moment(date: string, formatsIncludingSpecial: any[], language?: string, strict?: boolean): moment.Moment;
+declare function moment(date: string, format?: moment.MomentFormatSpecification, strict?: boolean): moment.Moment;
+declare function moment(date: string, format?: moment.MomentFormatSpecification, language?: string, strict?: boolean): moment.Moment;
 declare function moment(date: Date): moment.Moment;
 declare function moment(date: moment.Moment): moment.Moment;
 declare function moment(date: Object): moment.Moment;
@@ -177,18 +171,18 @@ declare namespace moment {
   }
 
   interface MomentParsingFlags {
-     empty: boolean;
-     unusedTokens: string[];
-     unusedInput: string[];
-     overflow: number;
-     charsLeftOver: number;
-     nullInput: boolean;
-     invalidMonth?: string;
-     invalidFormat: boolean;
-     userInvalidated: boolean;
-     iso: boolean;
-     parsedDateParts: any[];
-     meridiem?: string;
+    empty: boolean;
+    unusedTokens: string[];
+    unusedInput: string[];
+    overflow: number;
+    charsLeftOver: number;
+    nullInput: boolean;
+    invalidMonth?: string;
+    invalidFormat: boolean;
+    userInvalidated: boolean;
+    iso: boolean;
+    parsedDateParts: any[];
+    meridiem?: string;
   }
 
   interface BaseMomentLanguage {
@@ -201,21 +195,46 @@ declare namespace moment {
     meridiem?: (hour: number, minute: number, isLowercase: boolean) => string;
     calendar?: MomentCalendar;
     ordinal?: (num: number) => string;
+    week?: MomentLanguageWeek;
   }
 
   interface MomentLanguage extends BaseMomentLanguage {
     longDateFormat?: MomentLongDateFormat;
   }
 
+  interface MomentLanguageWeek {
+    dow?: number;
+    doy?: number;
+  }
+
+  interface MomentBuiltinFormat {
+    __momentBuiltinFormatBrand: any;
+  }
+
+  type MomentFormatSpecification = string | MomentBuiltinFormat | (string | MomentBuiltinFormat)[];
+
   type UnitOfTime = ("year" | "years" | "y" |
               "quarter" | "quarters" | "Q" |
               "month" | "months" | "M" |
               "week" | "weeks" | "w" |
-              "day" | "days" | "d" |
+              "date" | "dates" | "d" |
+              "day" | "days" |
               "hour" | "hours" | "h" |
               "minute" | "minutes" | "m" |
               "second" | "seconds" | "s" |
               "millisecond" | "milliseconds" | "ms");
+
+  interface MomentCreationData {
+    input?: string;
+    format?: string;
+    locale?: MomentLocale;
+    isUTC: boolean;
+    strict: boolean;
+  }
+
+  interface MomentLocale  {
+    // Details about the locale structure are not in the documentation so they are omitted here.
+  }
 
   interface Moment {
     format(format: string): string;
@@ -312,6 +331,7 @@ declare namespace moment {
     isValid(): boolean;
     invalidAt(): number;
 
+    creationData(): MomentCreationData;
     parsingFlags(): MomentParsingFlags;
 
     year(y: number): Moment;
@@ -346,6 +366,7 @@ declare namespace moment {
     weekday(d: number): Moment;
     isoWeekday(): number;
     isoWeekday(d: number): Moment;
+    isoWeekday(d: string): Moment;
     weekYear(): number;
     weekYear(d: number): Moment;
     isoWeekYear(): number;
@@ -407,6 +428,8 @@ declare namespace moment {
     locale(language: string): Moment;
     locale(reset: boolean): Moment;
     locale(): string;
+
+    locales(): string[];
 
     localeData(language: string): Moment;
     localeData(reset: boolean): Moment;
@@ -528,9 +551,10 @@ declare namespace moment {
   /**
   * Constant used to enable explicit ISO_8601 format parsing.
   */
-  export function ISO_8601(): void;
+  export var ISO_8601: MomentBuiltinFormat;
 
   export var defaultFormat: string;
+  export var defaultFormatUtc: string;
 }
 
 export = moment;
