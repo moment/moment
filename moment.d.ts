@@ -32,7 +32,7 @@ declare namespace moment {
   interface Duration {
     humanize(withSuffix?: boolean): string;
 
-    as(units: string): number;
+    as(units: DurationUnit): number;
 
     milliseconds(): number;
     asMilliseconds(): number;
@@ -58,11 +58,11 @@ declare namespace moment {
     years(): number;
     asYears(): number;
 
-    add(n: number, p: UnitOfTime): Duration;
+    add(n: number, p: DurationUnit): Duration;
     add(n: number): Duration;
     add(d: Duration): Duration;
 
-    subtract(n: number, p: UnitOfTime): Duration;
+    subtract(n: number, p: DurationUnit): Duration;
     subtract(n: number): Duration;
     subtract(d: Duration): Duration;
 
@@ -213,16 +213,62 @@ declare namespace moment {
 
   type MomentFormatSpecification = string | MomentBuiltinFormat | (string | MomentBuiltinFormat)[];
 
-  type UnitOfTime = ("year" | "years" | "y" |
-              "quarter" | "quarters" | "Q" |
-              "month" | "months" | "M" |
-              "week" | "weeks" | "w" |
-              "date" | "dates" | "d" |
-              "day" | "days" |
-              "hour" | "hours" | "h" |
-              "minute" | "minutes" | "m" |
-              "second" | "seconds" | "s" |
-              "millisecond" | "milliseconds" | "ms");
+  // Duration Units
+  type UnitYear = "year";
+  type AliasYear = UnitYear | 'years' | 'y';
+  type UnitQuarter = "quarter";
+  type AliasQuarter = UnitQuarter | "quarters" | "Q";
+  type UnitMonth = "month";
+  type AliasMonth = UnitMonth | "months" | "M";
+  type UnitWeek = "week";
+  type AliasWeek = UnitWeek | "weeks" | "w";
+  type UnitDay = "day";
+  type AliasDay = UnitDay | "days" | "d";
+  type UnitHour = "hour";
+  type AliasHour = UnitHour | "hours" | "h";
+  type UnitMinute = "minute";
+  type AliasMinute = UnitMinute | "minutes" | "m";
+  type UnitSecond = "second";
+  type AliasSecond = UnitSecond | "seconds" | "s";
+  type UnitMillisecond = "millisecond";
+  type AliasMillisecond = UnitMillisecond | "milliseconds" | "ms";
+
+  // Moment Units
+  type UnitDate = "date";
+  type AliasDate = UnitDate | "dates" | "D";
+  type UnitDayOfYear = "dayOfYear";
+  type AliasDayOfYear = UnitDayOfYear | "dayOfYears" | "DDD";
+  type UnitIsoWeek = "isoWeek";
+  type AliasIsoWeek = UnitIsoWeek | "isoWeeks" | "W";
+  type UnitWeekday = "weekday";
+  type AliasWeekday = UnitWeekday | "weekdays" | "e";
+  type UnitIsoWeekday = "isoWeekday";
+  type AliasIsoWeekday = UnitIsoWeekday | "isoWeekdays" | "E";
+  type UnitWeekYear = "weekYear";
+  type AliasWeekYear = UnitWeekYear | "weekYears" | "gg";
+  type UnitIsoWeekYear = "isoWeekYear";
+  type AliasIsoWeekYear = UnitIsoWeekYear | "isoWeekYears" | "GG";
+
+  type DurationUnit =
+    AliasYear |
+    AliasQuarter |
+    AliasMonth |
+    AliasWeek |
+    AliasDay |
+    AliasHour |
+    AliasMinute |
+    AliasSecond |
+    AliasMillisecond;
+
+  type MomentUnit =
+    DurationUnit |
+    AliasDate |
+    AliasDayOfYear |
+    AliasIsoWeek |
+    AliasWeekday |
+    AliasIsoWeekday |
+    AliasWeekYear |
+    AliasIsoWeekYear;
 
   interface MomentCreationData {
     input?: string;
@@ -242,8 +288,8 @@ declare namespace moment {
 
     fromNow(withoutSuffix?: boolean): string;
 
-    startOf(unitOfTime: UnitOfTime): Moment;
-    endOf(unitOfTime: UnitOfTime): Moment;
+    startOf(unitOfTime: DurationUnit): Moment;
+    endOf(unitOfTime: DurationUnit): Moment;
 
     /**
     * Mutates the original moment by adding time. (deprecated in 2.8.0)
@@ -251,21 +297,21 @@ declare namespace moment {
     * @param unitOfTime the unit of time you want to add (eg "years" / "hours" etc)
     * @param amount the amount you want to add
     */
-    add(unitOfTime: UnitOfTime, amount: number): Moment;
+    add(unitOfTime: DurationUnit, amount: number): Moment;
     /**
     * Mutates the original moment by adding time.
     *
     * @param amount the amount you want to add
     * @param unitOfTime the unit of time you want to add (eg "years" / "hours" etc)
     */
-    add(amount: number, unitOfTime: UnitOfTime): Moment;
+    add(amount: number, unitOfTime: DurationUnit): Moment;
     /**
     * Mutates the original moment by adding time. Note that the order of arguments can be flipped.
     *
     * @param amount the amount you want to add
     * @param unitOfTime the unit of time you want to add (eg "years" / "hours" etc)
     */
-    add(amount: string, unitOfTime: UnitOfTime): Moment;
+    add(amount: string, unitOfTime: DurationUnit): Moment;
     /**
     * Mutates the original moment by adding time.
     *
@@ -285,21 +331,21 @@ declare namespace moment {
     * @param unitOfTime the unit of time you want to subtract (eg "years" / "hours" etc)
     * @param amount the amount you want to subtract
     */
-    subtract(unitOfTime: UnitOfTime, amount: number): Moment;
+    subtract(unitOfTime: DurationUnit, amount: number): Moment;
     /**
     * Mutates the original moment by subtracting time.
     *
     * @param unitOfTime the unit of time you want to subtract (eg "years" / "hours" etc)
     * @param amount the amount you want to subtract
     */
-    subtract(amount: number, unitOfTime: UnitOfTime): Moment;
+    subtract(amount: number, unitOfTime: DurationUnit): Moment;
     /**
     * Mutates the original moment by subtracting time. Note that the order of arguments can be flipped.
     *
     * @param amount the amount you want to add
     * @param unitOfTime the unit of time you want to subtract (eg "years" / "hours" etc)
     */
-    subtract(amount: string, unitOfTime: UnitOfTime): Moment;
+    subtract(amount: string, unitOfTime: DurationUnit): Moment;
     /**
     * Mutates the original moment by subtracting time.
     *
@@ -389,8 +435,8 @@ declare namespace moment {
     toNow(withoutPrefix?: boolean): string;
 
     diff(b: Moment): number;
-    diff(b: Moment, unitOfTime: UnitOfTime): number;
-    diff(b: Moment, unitOfTime: UnitOfTime, precise: boolean): number;
+    diff(b: Moment, unitOfTime: DurationUnit): number;
+    diff(b: Moment, unitOfTime: DurationUnit, precise: boolean): number;
 
     toArray(): number[];
     toDate(): Date;
@@ -446,8 +492,8 @@ declare namespace moment {
     min(date: Moment | string | number | Date | any[]): Moment;
     min(date: string, format: string): Moment;
 
-    get(unit: UnitOfTime): number;
-    set(unit: UnitOfTime, value: number): Moment;
+    get(unit: MomentUnit): number;
+    set(unit: MomentUnit, value: number): Moment;
     set(objectLiteral: MomentInput): Moment;
 
     /*This returns an object containing year, month, day-of-month, hour, minute, seconds, milliseconds.*/
@@ -497,7 +543,7 @@ declare namespace moment {
   export var ordinal: (num: number) => string;
 
   export function duration(milliseconds: Number): Duration;
-  export function duration(num: Number, unitOfTime: UnitOfTime): Duration;
+  export function duration(num: Number, unitOfTime: DurationUnit): Duration;
   export function duration(input: MomentInput): Duration;
   export function duration(object: any): Duration;
   export function duration(): Duration;
@@ -541,6 +587,22 @@ declare namespace moment {
   export function min(...moments: Moment[]): Moment;
   export function max(...moments: Moment[]): Moment;
 
+  export function normalizeUnits(unit: AliasDate): UnitDate;
+  export function normalizeUnits(unit: AliasDay): UnitDay;
+  export function normalizeUnits(unit: AliasWeekday): UnitWeekday;
+  export function normalizeUnits(unit: AliasIsoWeekday): UnitIsoWeekday;
+  export function normalizeUnits(unit: AliasDayOfYear): UnitDayOfYear;
+  export function normalizeUnits(unit: AliasHour): UnitHour;
+  export function normalizeUnits(unit: AliasMillisecond): UnitMillisecond;
+  export function normalizeUnits(unit: AliasMinute): UnitMinute;
+  export function normalizeUnits(unit: AliasMonth): UnitMonth;
+  export function normalizeUnits(unit: AliasQuarter): UnitQuarter;
+  export function normalizeUnits(unit: AliasSecond): UnitSecond;
+  export function normalizeUnits(unit: AliasWeekYear): UnitWeekYear;
+  export function normalizeUnits(unit: AliasIsoWeekYear): UnitIsoWeekYear;
+  export function normalizeUnits(unit: AliasWeek): UnitWeek;
+  export function normalizeUnits(unit: AliasIsoWeek): UnitIsoWeek;
+  export function normalizeUnits(unit: AliasYear): UnitYear;
   export function normalizeUnits(unit: string): string;
   export function relativeTimeThreshold(threshold: string): number | boolean;
   export function relativeTimeThreshold(threshold: string, limit: number): boolean;
