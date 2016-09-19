@@ -202,6 +202,10 @@ declare namespace moment {
     longDateFormat?: MomentLongDateFormat;
   }
 
+  interface MomentLanguageDefinition extends MomentLanguage {
+    parentLocale?: string;
+  }
+
   interface MomentLanguageWeek {
     dow?: number;
     doy?: number;
@@ -435,9 +439,6 @@ declare namespace moment {
     localeData(reset: boolean): Moment;
     localeData(): MomentLanguage;
 
-    defineLocale(language: string, locale: MomentLanguage): MomentLanguage;
-    updateLocale(language: string, locale: MomentLanguage): MomentLanguage;
-
     // Deprecated as of 2.7.0.
     max(date: Moment | string | number | Date | any[]): Moment;
     max(date: string, format: string): Moment;
@@ -488,7 +489,8 @@ declare namespace moment {
 
   export function localeData(language?: string): MomentLanguageData;
 
-  export function updateLocale(language: string, locale: MomentLanguage): MomentLanguage;
+  export function defineLocale(language: string, locale: MomentLanguageDefinition): MomentLanguageData;
+  export function updateLocale(language: string, locale?: MomentLanguage): MomentLanguageData;
 
   export var longDateFormat: any;
   export var relativeTime: any;
