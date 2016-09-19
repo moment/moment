@@ -180,7 +180,7 @@ module.exports = function (grunt) {
             },
             'git-include-minified': {
                 command: 'git add -f moment.js locale/*.js min/*.js'
-	    },
+            },
             'typescript-test': {
                 command: 'node_modules/.bin/tsc --project typing-tests'
             }
