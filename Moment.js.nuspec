@@ -7,27 +7,8 @@
         <owners>Cory Deppen, Iskren Chernev</owners>
         <description>A lightweight javascript date library for parsing, manipulating, and formatting dates.</description>
         <releaseNotes>
-            See full changelog -- https://gist.github.com/ichernev/10e1c5bf647545c72ca30e9628a09ed3
-            Release Sept 12, 2016
-
-            * New Locales
-              * #3255 [new locale] mi: Maori language
-              * #3267 [new locale] ar-ly: Arabic (Libya) locale
-              * #3333 [new locale] zh-hk: Chinese (Hong Kong) locale
-
-            * Bugfixes
-              * #3276 [bugfix] duration: parser: Support ms durations in .NET syntax
-              * #3312 [bugfix] locales: Enable locale-data getters without moment (fixes #3284)
-              * #3381 [bugfix] parsing: Fix parseZone without timezone in string, fixes #3083
-              * #3383 [bugfix] toJSON: Fix isValid so that toJSON works after a moment is frozen
-              * #3427 [bugfix] ie8: Fix IE8 (regression in 2.14.x)
-
-            * Packaging
-              * #3299 [pkg] npm: Do not include .npmignore in npm package
-              * #3273 [pkg] jspm: Include moment.d.ts file in package
-              * #3344 [pkg] exports: use module.require for nodejs
-
-            Also some locale and typescript improvements
+            * Release Sept 20, 2016
+            * [3438] [bugfix] Fix locale autoload, revert #3344
         </releaseNotes>
         <projectUrl>http://momentjs.com/</projectUrl>
         <iconUrl>http://pbs.twimg.com/profile_images/482670411402858496/Xrtdc94q_normal.png</iconUrl>

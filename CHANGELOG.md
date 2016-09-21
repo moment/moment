@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 2.15.1
+* Release Sept 20, 2016
+* [3438] [bugfix] Fix locale autoload, revert #3344
+
 ### 2.15.0 [See full changelog](https://gist.github.com/ichernev/10e1c5bf647545c72ca30e9628a09ed3)
 - Release Sept 12, 2016
 
