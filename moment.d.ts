@@ -8,8 +8,6 @@ declare function moment(date: moment.Moment): moment.Moment;
 declare function moment(date: Object): moment.Moment;
 
 declare namespace moment {
-  type formatFunction = () => string;
-
   interface MomentDateObject {
     years?: number;
     /* One digit */
@@ -130,13 +128,15 @@ declare namespace moment {
     ms?: number;
   }
 
+  type calendarFormatFunction = (now: Moment) => string;
+
   interface MomentCalendar {
-    lastDay?: string | formatFunction;
-    sameDay?: string | formatFunction;
-    nextDay?: string | formatFunction;
-    lastWeek?: string | formatFunction;
-    nextWeek?: string | formatFunction;
-    sameElse?: string | formatFunction;
+    lastDay?: string | calendarFormatFunction;
+    sameDay?: string | calendarFormatFunction;
+    nextDay?: string | calendarFormatFunction;
+    lastWeek?: string | calendarFormatFunction;
+    nextWeek?: string | calendarFormatFunction;
+    sameElse?: string | calendarFormatFunction;
   }
 
   interface MomentRelativeTime {
