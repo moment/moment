@@ -155,6 +155,7 @@ a3.hours();
 var a4 = moment([2010, 1, 14, 15, 25, 50, 125]);
 a4.format("dddd, MMMM Do YYYY, h:mm:ss a");
 a4.format("ddd, hA");
+a4.format('LLLL');
 
 moment().format('\\L');
 moment().format('[today] DDDD');

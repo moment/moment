@@ -237,6 +237,16 @@ declare namespace moment {
   }
 
   interface Moment {
+    format(format: 'LT'): string;
+    format(format: 'LTS'): string;
+    format(format: 'L' ): string;
+    format(format: 'l'): string;
+    format(format: 'LL'): string;
+    format(format: 'll'): string;
+    format(format: 'LLL'): string;
+    format(format: 'lll'): string;
+    format(format: 'LLLL'): string;
+    format(format: 'llll'): string;
     format(format: string): string;
     format(): string;
 
@@ -461,10 +471,8 @@ declare namespace moment {
   export function utc(): Moment;
   export function utc(date: number): Moment;
   export function utc(date: number[]): Moment;
-  export function utc(date: string, format?: string, strict?: boolean): Moment;
-  export function utc(date: string, format?: string, language?: string, strict?: boolean): Moment;
-  export function utc(date: string, formats: string[], strict?: boolean): Moment;
-  export function utc(date: string, formats: string[], language?: string, strict?: boolean): Moment;
+  export function utc(date: string, format?: moment.MomentFormatSpecification, strict?: boolean): Moment;
+  export function utc(date: string, format?: moment.MomentFormatSpecification, language?: string, strict?: boolean): Moment;
   export function utc(date: Date): Moment;
   export function utc(date: Moment): Moment;
   export function utc(date: Object): Moment;
