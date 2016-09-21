@@ -133,6 +133,8 @@ moment().set('hour', 13);
 moment().set('minute', 20);
 moment().set('second', 30);
 moment().set('millisecond', 123);
+moment().set('dayOfYear', 1);
+moment().set('DDD', 1);
 moment().set({'year': 2013, 'month': 3});
 
 var getMilliseconds: number = moment().milliseconds();
@@ -476,3 +478,8 @@ moment.locale('en', {
 console.log(moment.version);
 
 moment.defaultFormat = 'YYYY-MM-DD HH:mm';
+
+var d: 'date' = moment.normalizeUnits('dates');
+var y: 'year' = moment.normalizeUnits('y');
+
+
