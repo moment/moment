@@ -197,6 +197,10 @@ moment(1318874398806).unix();
 moment([2000]).isLeapYear();
 moment().zone();
 moment().utcOffset();
+moment().utcOffset(0);
+moment().utcOffset("+0000");
+moment().utcOffset(0, true);
+moment().utcOffset("+0000", true);
 moment("2012-2", "YYYY-MM").daysInMonth();
 moment([2011, 2, 12]).isDST();
 
