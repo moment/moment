@@ -405,6 +405,9 @@ declare namespace moment {
     utcOffset(): number;
     utcOffset(b: number): Moment;
     utcOffset(b: string): Moment;
+    utcOffset(b: number, keepLocalTime: boolean): Moment;
+    utcOffset(b: string, keepLocalTime: boolean): Moment;
+
     daysInMonth(): number;
     isDST(): boolean;
 
