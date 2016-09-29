@@ -16,6 +16,7 @@ export default moment.defineLocale('tzl', {
     longDateFormat : {
         LT : 'HH.mm',
         LTS : 'HH.mm.ss',
+        LY : 'DD.MM.YY',
         L : 'DD.MM.YYYY',
         LL : 'D. MMMM [dallas] YYYY',
         LLL : 'D. MMMM [dallas] YYYY HH.mm',

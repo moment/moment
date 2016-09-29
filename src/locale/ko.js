@@ -14,6 +14,7 @@ export default moment.defineLocale('ko', {
     longDateFormat : {
         LT : 'A h시 m분',
         LTS : 'A h시 m분 s초',
+        LY : 'YY.MM.DD',
         L : 'YYYY.MM.DD',
         LL : 'YYYY년 MMMM D일',
         LLL : 'YYYY년 MMMM D일 A h시 m분',

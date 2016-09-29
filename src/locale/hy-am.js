@@ -16,6 +16,7 @@ export default moment.defineLocale('hy-am', {
     longDateFormat : {
         LT : 'HH:mm',
         LTS : 'HH:mm:ss',
+        LY : 'DD.MM.YY',
         L : 'DD.MM.YYYY',
         LL : 'D MMMM YYYY թ.',
         LLL : 'D MMMM YYYY թ., HH:mm',

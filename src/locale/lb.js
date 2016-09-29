@@ -81,6 +81,7 @@ export default moment.defineLocale('lb', {
     longDateFormat: {
         LT: 'H:mm [Auer]',
         LTS: 'H:mm:ss [Auer]',
+        LY : 'DD.MM.YY',
         L: 'DD.MM.YYYY',
         LL: 'D. MMMM YYYY',
         LLL: 'D. MMMM YYYY H:mm [Auer]',

@@ -13,6 +13,7 @@ export default moment.defineLocale('sv', {
     longDateFormat : {
         LT : 'HH:mm',
         LTS : 'HH:mm:ss',
+        LY : 'YY-MM-DD',
         L : 'YYYY-MM-DD',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY [kl.] HH:mm',

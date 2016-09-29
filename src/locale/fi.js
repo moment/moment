@@ -56,10 +56,12 @@ export default moment.defineLocale('fi', {
     longDateFormat : {
         LT : 'HH.mm',
         LTS : 'HH.mm.ss',
+        LY : 'DD.MM.YY',
         L : 'DD.MM.YYYY',
         LL : 'Do MMMM[ta] YYYY',
         LLL : 'Do MMMM[ta] YYYY, [klo] HH.mm',
         LLLL : 'dddd, Do MMMM[ta] YYYY, [klo] HH.mm',
+        ly : 'D.M.YY',
         l : 'D.M.YYYY',
         ll : 'Do MMM YYYY',
         lll : 'Do MMM YYYY, [klo] HH.mm',

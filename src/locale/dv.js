@@ -37,6 +37,7 @@ export default moment.defineLocale('dv', {
 
         LT : 'HH:mm',
         LTS : 'HH:mm:ss',
+        LY : 'D/M/YY',
         L : 'D/M/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY HH:mm',

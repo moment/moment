@@ -14,10 +14,12 @@ export default moment.defineLocale('zh-cn', {
     longDateFormat : {
         LT : 'Ah点mm分',
         LTS : 'Ah点m分s秒',
+        LY : 'YY-MM-DD',
         L : 'YYYY-MM-DD',
         LL : 'YYYY年MMMD日',
         LLL : 'YYYY年MMMD日Ah点mm分',
         LLLL : 'YYYY年MMMD日ddddAh点mm分',
+        ly : 'YY-MM-DD',
         l : 'YYYY-MM-DD',
         ll : 'YYYY年MMMD日',
         lll : 'YYYY年MMMD日Ah点mm分',

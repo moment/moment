@@ -14,6 +14,7 @@ export default moment.defineLocale('x-pseudo', {
     weekdaysParseExact : true,
     longDateFormat : {
         LT : 'HH:mm',
+        LY : 'DD/MM/YY',
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY HH:mm',

@@ -76,6 +76,7 @@ export default moment.defineLocale('mr', {
     longDateFormat : {
         LT : 'A h:mm वाजता',
         LTS : 'A h:mm:ss वाजता',
+        LY : 'DD/MM/YY',
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY, A h:mm वाजता',

@@ -39,6 +39,7 @@ export default moment.defineLocale('pa-in', {
     longDateFormat : {
         LT : 'A h:mm ਵਜੇ',
         LTS : 'A h:mm:ss ਵਜੇ',
+        LY : 'DD/MM/YY',
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY, A h:mm ਵਜੇ',

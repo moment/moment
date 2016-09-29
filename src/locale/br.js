@@ -58,6 +58,7 @@ export default moment.defineLocale('br', {
     longDateFormat : {
         LT : 'h[e]mm A',
         LTS : 'h[e]mm:ss A',
+        LY : 'DD/MM/YY',
         L : 'DD/MM/YYYY',
         LL : 'D [a viz] MMMM YYYY',
         LLL : 'D [a viz] MMMM YYYY h[e]mm A',

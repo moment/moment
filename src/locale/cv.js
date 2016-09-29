@@ -13,6 +13,7 @@ export default moment.defineLocale('cv', {
     longDateFormat : {
         LT : 'HH:mm',
         LTS : 'HH:mm:ss',
+        LY : 'DD-MM-YY',
         L : 'DD-MM-YYYY',
         LL : 'YYYY [ҫулхи] MMMM [уйӑхӗн] D[-мӗшӗ]',
         LLL : 'YYYY [ҫулхи] MMMM [уйӑхӗн] D[-мӗшӗ], HH:mm',

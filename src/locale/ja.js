@@ -13,6 +13,7 @@ export default moment.defineLocale('ja', {
     longDateFormat : {
         LT : 'Ah時m分',
         LTS : 'Ah時m分s秒',
+        LY : 'YY/MM/DD',
         L : 'YYYY/MM/DD',
         LL : 'YYYY年M月D日',
         LLL : 'YYYY年M月D日Ah時m分',

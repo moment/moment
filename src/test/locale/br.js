@@ -36,6 +36,7 @@ test('format', function (assert) {
             ['m mm',                               '25 25'],
             ['s ss',                               '50 50'],
             ['DDDo [devezh] [ar] [vloaz]',       '45vet devezh ar vloaz'],
+            ['LY',                                 '14/02/10'],
             ['L',                                  '14/02/2010'],
             ['LL',                                 '14 a viz C\'hwevrer 2010'],
             ['LLL',                                '14 a viz C\'hwevrer 2010 3e25 PM'],
