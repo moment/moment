@@ -20,11 +20,11 @@ export default moment.defineLocale('ar-tn', {
         LLLL: 'dddd D MMMM YYYY HH:mm'
     },
     calendar: {
-        sameDay: '[اليوم على الساعة] LT',
-        nextDay: '[غدا على الساعة] LT',
-        nextWeek: 'dddd [على الساعة] LT',
-        lastDay: '[أمس على الساعة] LT',
-        lastWeek: 'dddd [على الساعة] LT',
+        sameDay: '[اليوم الساعة] LT',
+        nextDay: '[غدا الساعة] LT',
+        nextWeek: 'dddd [الساعة] LT',
+        lastDay: '[أمس الساعة] LT',
+        lastWeek: 'dddd [الساعة] LT',
         sameElse: 'L'
     },
     relativeTime: {
