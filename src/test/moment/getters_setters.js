@@ -99,6 +99,10 @@ test('setters', function (assert) {
     a = moment('20130531', 'YYYYMMDD');
     a.month(3);
     assert.equal(a.month(), 3, 'month edge case');
+
+    // Test setter for garbage input.
+    a = moment().year('foo');
+    assert.equal(a.isValid(), false, 'Test setter for garbage input');
 });
 
 test('setter programmatic', function (assert) {
