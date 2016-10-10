@@ -36,7 +36,10 @@ declare namespace moment {
   interface Duration {
     humanize(withSuffix?: boolean): string;
 
-    as(units: string): number;
+    abs(): Duration;
+
+    as(units: unitOfTime.Base): number;
+    get(units: unitOfTime.Base): number;
 
     milliseconds(): number;
     asMilliseconds(): number;
@@ -62,16 +65,22 @@ declare namespace moment {
     years(): number;
     asYears(): number;
 
-    add(n: number, p: UnitOfTime): Duration;
-    add(n: number): Duration;
-    add(d: Duration): Duration;
+    add(inp?: DurationInputArg1, unit?: DurationInputArg2): Duration;
+    subtract(inp?: DurationInputArg1, unit?: DurationInputArg2): Duration;
 
-    subtract(n: number, p: UnitOfTime): Duration;
-    subtract(n: number): Duration;
-    subtract(d: Duration): Duration;
+    locale(): string;
+    locale(locale: LocaleSpecifier): Duration;
+    localeData(): Locale;
 
     toISOString(): string;
     toJSON(): string;
+
+    // Deprecated as of 2.8.0.
+    lang(locale: LocaleSpecifier): Moment;
+    // Deprecated as of 2.8.0.
+    lang(): Locale;
+    // Deprecated
+    toIsoString(): string;
   }
 
   interface MomentInput {
@@ -286,15 +295,28 @@ declare namespace moment {
     quarter?: number;
   }
 
+  // TODO(Iskren): All the aliases
+  interface MomentSetObject extends MomentInputObject {
+    weekYear?: number;
+    isoWeekYear?: number;
+    quarter?: number;
+    isoWeek?: number;
+    date?: number;
+    dayOfYear?: number;
+    weekday?: number;
+    isoWeekday?: number;
+  }
+
   type MomentInput = Moment | Date | string | number | (number | string)[] | MomentInputObject;
   type DurationInputArg1 = Duration | number | string | FromTo | DurationInputObject;
   type DurationInputArg2 = unitOfTime.DurationConstructor;
+  type LocaleSpecifier = string | Moment | Duration | string[];
 
 
   interface MomentCreationData {
-    input?: string;
-    format?: string;
-    locale?: MomentLocale;
+    input: string;
+    format: string;
+    locale: MomentLocale;
     isUTC: boolean;
     strict: boolean;
   }
@@ -306,8 +328,8 @@ declare namespace moment {
   interface Moment {
     format(format?: string): string;
 
-    startOf(unitOfTime: UnitOfTime): Moment;
-    endOf(unitOfTime: UnitOfTime): Moment;
+    startOf(unitOfTime: unitOfTime.StartOf): Moment;
+    endOf(unitOfTime: unitOfTime.StartOf): Moment;
 
     // /**
     // * Mutates the original moment by adding time. (deprecated in 2.8.0)
@@ -400,28 +422,54 @@ declare namespace moment {
     */
     valueOf(): number;
 
-    local(): Moment; // current date/time in local mode
+    local(keepLocalTime?: boolean): Moment; // current date/time in local mode
+    isLocal(): boolean;
 
-    utc(): Moment; // current date/time in UTC mode
+    utc(keepLocalTime?: boolean): Moment; // current date/time in UTC mode
+    isUTC(): boolean;
+    // deprecated
+    isUtc(): boolean;
 
+    parseZone(): Moment;
     isValid(): boolean;
     invalidAt(): number;
+
+    hasAlignedHourOffset(other?: MomentInput): boolean;
 
     creationData(): MomentCreationData;
     parsingFlags(): MomentParsingFlags;
 
     year(y: number): Moment;
     year(): number;
+    // deprecated
+    years(y: number): Moment;
+    // deprecated
+    years(): number;
     quarter(): number;
     quarter(q: number): Moment;
+    quarters(): number;
+    quarters(q: number): Moment;
     month(M: number): Moment;
     month(M: string): Moment;
     month(): number;
+    // deprecated
+    months(M: number): Moment;
+    // deprecated
+    months(M: string): Moment;
+    // deprecated
+    months(): number;
     day(d: number): Moment;
     day(d: string): Moment;
     day(): number;
+    days(d: number): Moment;
+    days(d: string): Moment;
+    days(): number;
     date(d: number): Moment;
     date(): number;
+    // deprecated
+    dates(d: number): Moment;
+    // deprecated
+    dates(): number;
     hour(h: number): Moment;
     hour(): number;
     hours(h: number): Moment;
@@ -479,10 +527,14 @@ declare namespace moment {
     zone(b: number): Moment;
     zone(b: string): Moment;
     utcOffset(): number;
-    utcOffset(b: number): Moment;
-    utcOffset(b: string): Moment;
+    utcOffset(b: number, keepLocalTime?: boolean): Moment;
+    utcOffset(b: string, keepLocalTime?: boolean): Moment;
+    isUTCOffset(): boolean;
     daysInMonth(): number;
     isDST(): boolean;
+
+    zoneAbbr(): string;
+    zoneName(): string;
 
     isBefore(inp?: MomentInput, granularity?: unitOfTime.StartOf): boolean;
     isAfter(inp?: MomentInput, granularity? unitOfTime.StartOf): boolean;
@@ -492,32 +544,34 @@ declare namespace moment {
     isBetween(a: MomentInput, b: MomentInput, granularity?: unitOfTime.StartOf, inclusivity?: "()" | "[)" | "(]" | "[]"): boolean;
 
     // Deprecated as of 2.8.0.
-    lang(language: string): Moment;
-    lang(reset: boolean): Moment;
-    lang(): MomentLanguage;
+    lang(language: LocaleSpecifier): Moment;
+    // Deprecated as of 2.8.0.
+    lang(): Locale;
 
-    locale(language: string): Moment;
-    locale(reset: boolean): Moment;
     locale(): string;
+    locale(locale: LocaleSpecifier): Moment;
 
-    localeData(language: string): Moment;
-    localeData(reset: boolean): Moment;
-    localeData(): MomentLanguage;
+    localeData(): Locale;
+
+    // deprecated
+    isDSTShifted(): boolean;
 
     //defineLocale(language: string, locale: MomentLanguage): MomentLanguage;
     //updateLocale(language: string, locale: MomentLanguage): MomentLanguage;
 
     // Deprecated as of 2.7.0.
+    // TODO(Iskren): Copy constructor
     max(date: Moment | string | number | Date | any[]): Moment;
     max(date: string, format: string): Moment;
 
     // Deprecated as of 2.7.0.
+    // TODO(Iskren): Copy constructor
     min(date: Moment | string | number | Date | any[]): Moment;
     min(date: string, format: string): Moment;
 
-    get(unit: UnitOfTime): number;
-    set(unit: UnitOfTime, value: number): Moment;
-    set(objectLiteral: MomentInput): Moment;
+    get(unit: unitOfTime.All): number;
+    set(unit: unitOfTime.All, value: number): Moment;
+    set(objectLiteral: MomentSetObject): Moment;
 
     /*This returns an object containing year, month, day-of-month, hour, minute, seconds, milliseconds.*/
     //Works with version 2.10.5+
