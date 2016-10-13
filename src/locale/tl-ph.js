@@ -19,7 +19,7 @@ export default moment.defineLocale('tl-ph', {
         LLLL : 'dddd, MMMM DD, YYYY HH:mm'
     },
     calendar : {
-        sameDay: 'LT [ngayon]',
+        sameDay: 'LT [ngayong araw]',
         nextDay: '[Bukas ng] LT',
         nextWeek: 'LT [sa susunod na] dddd',
         lastDay: 'LT [kahapon]',
