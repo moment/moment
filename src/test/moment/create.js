@@ -614,6 +614,7 @@ test('non iso 8601 strings', function (assert) {
     assert.ok(!moment('2015W10T1015', moment.ISO_8601, true).isValid(), 'incomplete week date with time (basic)');
     assert.ok(!moment('2015-10-08T1015', moment.ISO_8601, true).isValid(), 'mixing extended and basic format');
     assert.ok(!moment('20151008T10:15', moment.ISO_8601, true).isValid(), 'mixing basic and extended format');
+    assert.ok(!moment('2015-10-1', moment.ISO_8601, true).isValid(), 'missing zero padding for day');
 });
 
 test('parsing iso week year/week/weekday', function (assert) {
