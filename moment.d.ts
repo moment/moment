@@ -196,6 +196,7 @@ declare namespace moment {
     calendar?: MomentCalendar;
     ordinal?: (num: number) => string;
     week?: MomentLanguageWeek;
+    firstDayOfWeek?: () => number;
   }
 
   interface MomentLanguage extends BaseMomentLanguage {
