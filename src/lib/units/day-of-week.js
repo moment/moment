@@ -260,6 +260,44 @@ export function getSetISODayOfWeek (input) {
     }
 }
 
+export function getSetNext (input, offset) {
+    offset = offset ? offset * 7 : 0;
+    if (!this.isValid()) {
+        return input != null ? this : NaN;
+    }
+    var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
+    if (input != null) {
+        input = parseWeekday(input, this.localeData()) % 7;
+        var change = (input >= 0 ? input : input * -1) - day + offset;
+        if (input > day) {
+            return this.add(change, 'd');
+        } else {
+            return this.add(change + 7, 'd');
+        }
+    } else {
+        return this.add(7, 'd');
+    }
+}
+
+export function getSetPrevious (input, offset) {
+    offset = offset ? offset * 7 : 0;
+    if (!this.isValid()) {
+        return input != null ? this : NaN;
+    }
+    var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
+    if (input != null) {
+        input = parseWeekday(input, this.localeData()) % 7;
+        var change = day - (input >= 0 ? input : input * -1) + offset;
+        if (input < day) {
+            return this.subtract(change, 'd');
+        } else {
+            return this.subtract(change + 7, 'd');
+        }
+    } else {
+        return this.subtract(7, 'd');
+    }
+}
+
 var defaultWeekdaysRegex = matchWord;
 export function weekdaysRegex (isStrict) {
     if (this._weekdaysParseExact) {
