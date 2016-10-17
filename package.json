@@ -42,7 +42,7 @@
         "grunt": "~0.4",
         "grunt-cli": "latest",
         "benchmark": "latest",
-        "esperanto": "latest",
+        "Babel": "latest",
         "grunt-contrib-clean": "latest",
         "grunt-contrib-concat": "latest",
         "grunt-contrib-copy": "latest",
