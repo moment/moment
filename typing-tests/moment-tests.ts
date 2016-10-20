@@ -200,14 +200,12 @@ moment().utcOffset();
 moment("2012-2", "YYYY-MM").daysInMonth();
 moment([2011, 2, 12]).isDST();
 
-moment.isMoment();
 moment.isMoment(new Date());
 moment.isMoment(moment());
 
 moment.isDate(new Date());
 moment.isDate(/regexp/);
 
-moment.isDuration();
 moment.isDuration(new Date());
 moment.isDuration(moment.duration());
 
@@ -221,7 +219,7 @@ moment(1316116057189).fromNow();
 moment.localeData('en');
 var globalLang = moment();
 var localLang = moment();
-localLang.localeData('fr');
+localLang.localeData();
 localLang.format('LLLL');
 globalLang.format('LLLL');
 
