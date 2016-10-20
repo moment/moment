@@ -161,6 +161,7 @@ export function setOffsetToLocal (keepLocalTime) {
 }
 
 export function setOffsetToParsedOffset () {
+    //`this._tzm` can be a modifier of 0, otherwise check if its a truthy value
     if (this._tzm === 0 || this._tzm) {
         this.utcOffset(this._tzm);
     } else if (typeof this._i === 'string') {
