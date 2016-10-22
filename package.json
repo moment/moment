@@ -1,98 +1,101 @@
 {
-    "name": "moment",
-    "version": "2.15.1",
-    "description": "Parse, validate, manipulate, and display dates",
-    "homepage": "http://momentjs.com",
-    "author": "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)",
-    "contributors": [
-        "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
-        "Rocky Meza (http://rockymeza.com)",
-        "Matt Johnson <mj1856@hotmail.com> (http://codeofmatt.com)",
-        "Isaac Cambron <isaac@isaaccambron.com> (http://isaaccambron.com)",
-        "Andre Polykanine <andre@oire.org> (https://github.com/oire)"
+  "name": "moment",
+  "version": "2.15.1",
+  "description": "Parse, validate, manipulate, and display dates",
+  "homepage": "http://momentjs.com",
+  "author": "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)",
+  "contributors": [
+    "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
+    "Rocky Meza (http://rockymeza.com)",
+    "Matt Johnson <mj1856@hotmail.com> (http://codeofmatt.com)",
+    "Isaac Cambron <isaac@isaaccambron.com> (http://isaaccambron.com)",
+    "Andre Polykanine <andre@oire.org> (https://github.com/oire)"
+  ],
+  "keywords": [
+    "moment",
+    "date",
+    "time",
+    "parse",
+    "format",
+    "validate",
+    "i18n",
+    "l10n",
+    "ender"
+  ],
+  "main": "./moment.js",
+  "jsnext:main": "./src/moment.js",
+  "typings": "./moment.d.ts",
+  "engines": {
+    "node": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moment/moment.git"
+  },
+  "bugs": {
+    "url": "https://github.com/moment/moment/issues"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-plugin-transform-es2015-modules-umd": "^6.12.0",
+    "babel-preset-es2015": "^6.16.0",
+    "benchmark": "latest",
+    "coveralls": "^2.11.2",
+    "es6-promise": "latest",
+    "esperanto": "latest",
+    "grunt": "~0.4",
+    "grunt-benchmark": "latest",
+    "grunt-cli": "latest",
+    "grunt-contrib-clean": "latest",
+    "grunt-contrib-concat": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-contrib-jshint": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-env": "latest",
+    "grunt-exec": "latest",
+    "grunt-jscs": "latest",
+    "grunt-karma": "latest",
+    "grunt-nuget": "latest",
+    "grunt-string-replace": "latest",
+    "karma": "latest",
+    "karma-chrome-launcher": "latest",
+    "karma-firefox-launcher": "latest",
+    "karma-qunit": "latest",
+    "karma-sauce-launcher": "latest",
+    "load-grunt-tasks": "latest",
+    "nyc": "^2.1.4",
+    "qunit": "^0.7.5",
+    "qunit-cli": "^0.1.4",
+    "spacejam": "latest",
+    "typescript": "^1.8.10",
+    "uglify-js": "latest"
+  },
+  "ender": "./ender.js",
+  "dojoBuild": "package.js",
+  "jspm": {
+    "files": [
+      "moment.js",
+      "moment.d.ts",
+      "locale"
     ],
-    "keywords": [
-        "moment",
-        "date",
-        "time",
-        "parse",
-        "format",
-        "validate",
-        "i18n",
-        "l10n",
-        "ender"
-    ],
-    "main": "./moment.js",
-    "jsnext:main": "./src/moment.js",
-    "typings": "./moment.d.ts",
-    "engines": {
-        "node": "*"
+    "map": {
+      "moment": "./moment"
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/moment/moment.git"
-    },
-    "bugs": {
-        "url": "https://github.com/moment/moment/issues"
-    },
-    "license": "MIT",
-    "devDependencies": {
-        "uglify-js": "latest",
-        "es6-promise": "latest",
-        "grunt": "~0.4",
-        "grunt-cli": "latest",
-        "benchmark": "latest",
-        "esperanto": "latest",
-        "grunt-contrib-clean": "latest",
-        "grunt-contrib-concat": "latest",
-        "grunt-contrib-copy": "latest",
-        "grunt-contrib-jshint": "latest",
-        "grunt-contrib-uglify": "latest",
-        "grunt-contrib-watch": "latest",
-        "grunt-env": "latest",
-        "grunt-jscs": "latest",
-        "grunt-karma": "latest",
-        "grunt-nuget": "latest",
-        "grunt-benchmark": "latest",
-        "grunt-string-replace": "latest",
-        "grunt-exec": "latest",
-        "load-grunt-tasks": "latest",
-        "karma": "latest",
-        "karma-chrome-launcher": "latest",
-        "karma-firefox-launcher": "latest",
-        "karma-qunit": "latest",
-        "karma-sauce-launcher": "latest",
-        "qunit": "^0.7.5",
-        "qunit-cli": "^0.1.4",
-        "spacejam": "latest",
-        "typescript": "^1.8.10",
-        "coveralls": "^2.11.2",
-        "nyc": "^2.1.4"
-    },
-    "ender": "./ender.js",
-    "dojoBuild": "package.js",
-    "jspm": {
-        "files": [
-            "moment.js",
-            "moment.d.ts",
-            "locale"
-        ],
-        "map": {
-            "moment": "./moment"
-        },
-        "buildConfig": {
-            "uglify": true
-        }
-    },
-    "scripts": {
-        "test": "grunt test",
-        "coverage": "nyc npm test && nyc report",
-        "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
-    },
-    "spm": {
-        "main": "moment.js",
-        "output": [
-            "locale/*.js"
-        ]
+    "buildConfig": {
+      "uglify": true
     }
+  },
+  "scripts": {
+    "test": "grunt test",
+    "coverage": "nyc npm test && nyc report",
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+  },
+  "spm": {
+    "main": "moment.js",
+    "output": [
+      "locale/*.js"
+    ]
+  }
 }
