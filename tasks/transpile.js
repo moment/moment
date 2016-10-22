@@ -1,6 +1,6 @@
 module.exports = function (grunt) {
-    var esperanto = require('esperanto');
     var path = require('path');
+    var babel = require('babel-core');
     var Promise = require('es6-promise').Promise;
     var TMP_DIR = 'build/tmp';
 
@@ -39,24 +39,31 @@ module.exports = function (grunt) {
     }
 
     function transpile(opts) {
-        // base, entry, skip, headerFile, skipLines, target
+        // entry, skip, headerFile, skipLines, target
         var umdName = opts.headerFile ? 'not_used' : opts.umdName,
             headerFile = opts.headerFile ? opts.headerFile : 'templates/default.js',
             header = getHeaderByFile(headerFile),
             skipLines = opts.skipLines ? opts.skipLines : 5;
 
-        return esperanto.bundle({
-            base: opts.base,
-            entry: opts.entry,
-            skip: opts.skip || []
-        }).then(function (bundle) {
-            var umd = bundle.toUmd({name: umdName}),
-                fixed = header + umd.code.split('\n').slice(skipLines).join('\n');
-            if (opts.moveComments) {
-                fixed = moveComments(fixed, opts.moveComments);
+        console.log('transpile entry' + opts.entry);
+        var promise = new Promise(function (resolve, reject) {
+        babel.transformFile(opts.entry, {
+            ignore: opts.skip || []
+        }, function (err, result) {
+            if (err) {
+                reject(err);
+            } else {
+                console.log(opts.target);
+                    var fixed = header + result.code.split('\n').slice(skipLines).join('\n');
+                if (opts.moveComments) {
+                    fixed = moveComments(fixed, opts.moveComments);
+                    }
+                grunt.file.write(opts.target, fixed);
+                resolve();
             }
-            grunt.file.write(opts.target, fixed);
+            });
         });
+        return promise;
     }
 
     function transpileMany(opts) {
@@ -68,7 +75,6 @@ module.exports = function (grunt) {
                 promise = promise.then(function () {
                     return Promise.all(files.slice(i, i + batchSize).map(function (file) {
                         return transpile({
-                            base: opts.base,
                             entry: file,
                             headerFile: opts.headerFile,
                             skip: opts.skip,
@@ -93,6 +99,7 @@ module.exports = function (grunt) {
         if (grunt.file.exists(tmpDir)) {
             return;
         }
+        console.log('start writing files');
         files.forEach(function (file) {
             grunt.file.copy(path.join(base, file), path.join(tmpDir, file));
         });
@@ -101,10 +108,13 @@ module.exports = function (grunt) {
     function transpileCode(opts) {
         var entry = opts.entry || path.basename(opts.target);
         prepareTemp(opts.base);
-        grunt.file.write(path.join(TMP_DIR, entry), opts.code);
+        console.log('temp prepped');
+        var filePath = path.join(TMP_DIR, entry);
+        console.log(filePath);
+        console.log('code'  + opts.code);
+        grunt.file.write(filePath, opts.code);
         return transpile({
-            base: TMP_DIR,
-            entry: entry,
+            entry: filePath,
             umdName: opts.umdName || 'not_used',
             headerFile: opts.headerFile,
             skipLines: opts.skipLines,
@@ -123,14 +133,15 @@ module.exports = function (grunt) {
                 // Reset the language back to 'en', because every defineLocale
                 // also sets it.
                 'moment.locale(\'en\');'
-            ]).join('\n');
+                ]).join('\n');
+        console.log(localeFiles);
         return transpileCode({
             base: 'src',
             code: code,
-            target: target,
             skip: ['moment'],
             headerFile: 'templates/locale-header.js',
-            skipLines: 5
+            skipLines: 5,
+            target: target
         });
     }
 
@@ -139,12 +150,12 @@ module.exports = function (grunt) {
             importCode = files.map(function (file) {
                 var identifier = path.basename(file, '.js').replace('-', '_');
                 var fileNoExt = file.replace('.js', '');
-                return 'import ' + identifier + ' from "./' + fileNoExt + '";';
+                return 'import ' + identifier + ' from "src/' + fileNoExt + '";';
             }).join('\n'),
-            code = 'import * as moment_export from "./moment";\n\n' +
+            code = 'import * as moment_export from "src/moment";\n\n' +
                 importCode + '\n\n' +
                 'export default moment_export;';
-
+        console.log(code);
         return transpileCode({
             base: 'src',
             code: code,
@@ -202,8 +213,8 @@ module.exports = function (grunt) {
             grunt.log.ok('build/umd/locale/*.js');
         }).then(function () {
             return transpileMany({
-                base: 'src',
-                pattern: 'test/moment/*.js',
+                base: '',
+                pattern: 'src/test/moment/*.js',
                 headerFile: 'templates/test-header.js',
                 skipLines: 5,
                 moveComments: true,
@@ -214,8 +225,8 @@ module.exports = function (grunt) {
             grunt.log.ok('build/umd/test/moment/*.js');
         }).then(function () {
             return transpileMany({
-                base: 'src',
-                pattern: 'test/locale/*.js',
+                base: '',
+                pattern: 'src/test/locale/*.js',
                 headerFile: 'templates/test-header.js',
                 skipLines: 5,
                 moveComments: true,
@@ -226,7 +237,7 @@ module.exports = function (grunt) {
             grunt.log.ok('build/umd/test/locale/*.js');
         }).then(function () {
             return generateLocales('build/umd/min/locales.js',
-                grunt.file.expand({cwd: 'src'}, 'locale/*.js'));
+                grunt.file.expand('src/locale/*.js'));
         }).then(function () {
             grunt.log.ok('build/umd/min/locales.js');
         }).then(function () {
