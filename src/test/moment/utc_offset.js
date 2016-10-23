@@ -439,6 +439,12 @@ test('parse zone', function (assert) {
     assert.equal(m.hours(), 0);
 });
 
+test('parse UTC zone', function (assert) {
+    var m = moment('2013-01-01T05:00:00+00:00').parseZone();
+    assert.equal(m.utcOffset(), 0);
+    assert.equal(m.hours(), 5);
+});
+
 test('parse zone static', function (assert) {
     var m = moment.parseZone('2013-01-01T00:00:00-13:00');
     assert.equal(m.utcOffset(), -13 * 60);
