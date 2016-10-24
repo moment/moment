@@ -1,6 +1,11 @@
 Changelog
 =========
 
+### 2.15.2
+* Release Oct 23, 2016
+* [3525] [misc] Speedup month standalone/format regexes IMPORTANT
+* [3466] [misc] Fix typo of Javanese
+
 ### 2.15.1
 * Release Sept 20, 2016
 * [3438] [bugfix] Fix locale autoload, revert #3344

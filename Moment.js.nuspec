@@ -7,8 +7,9 @@
         <owners>Cory Deppen, Iskren Chernev</owners>
         <description>A lightweight javascript date library for parsing, manipulating, and formatting dates.</description>
         <releaseNotes>
-            * Release Sept 20, 2016
-            * [3438] [bugfix] Fix locale autoload, revert #3344
+            * Release Oct 23, 2016
+            * [3525] [misc] Speedup month standalone/format regexes IMPORTANT
+            * [3466] [misc] Fix typo of Javanese
         </releaseNotes>
         <projectUrl>http://momentjs.com/</projectUrl>
         <iconUrl>http://pbs.twimg.com/profile_images/482670411402858496/Xrtdc94q_normal.png</iconUrl>
