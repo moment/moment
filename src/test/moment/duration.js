@@ -360,7 +360,11 @@ test('ISO 8601 misuse cases', function (assert) {
 
 test('humanize', function (assert) {
     moment.locale('en');
-    assert.equal(moment.duration({seconds: 44}).humanize(),  'a few seconds', '44 seconds = a few seconds');
+    //Ben-Lisa SOLUTION
+    assert.equal(moment.duration(NaN).humanize(),            'NaN',           'NaN = NaN');
+    // assert.equal(moment.duration({seconds: 0}).humanize(),  'immediate',     '0 seconds = immediate');
+    // assert.equal(moment.duration({seconds: 1}).humanize(), 'a second',       '1 seconds = 1 second');
+    // assert.equal(moment.duration({seconds: 3}).humanize(),  'a few seconds', '5 seconds = a few seconds');
     assert.equal(moment.duration({seconds: 45}).humanize(),  'a minute',      '45 seconds = a minute');
     assert.equal(moment.duration({seconds: 89}).humanize(),  'a minute',      '89 seconds = a minute');
     assert.equal(moment.duration({seconds: 90}).humanize(),  '2 minutes',     '90 seconds = 2 minutes');
