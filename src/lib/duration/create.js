@@ -22,6 +22,10 @@ export function createDuration (input, key) {
         ret,
         diffRes;
 
+    if (isNaN(input)) {
+        throw new Error('Duration cannot be NaN');
+    }
+
     if (isDuration(input)) {
         duration = {
             ms : input._milliseconds,
