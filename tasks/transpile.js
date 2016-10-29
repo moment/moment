@@ -155,7 +155,8 @@ module.exports = function (grunt) {
     function generateLocales(target, localeFiles, opts) {
         var files = localeFiles,
             code = [
-                'import moment from "./moment";'
+                'import moment from "./moment";',
+                'export default moment;'
             ].concat(files.map(function (file) {
                 var identifier = path.basename(file, '.js').replace('-', '_');
                 return 'import ' + identifier + ' from "./' + file + '";';
@@ -169,8 +170,8 @@ module.exports = function (grunt) {
             code: code,
             target: target,
             skipMoment: opts.skipMoment,
-            headerFile: 'templates/locale-header.js',
-            skipLines: 7
+            headerFile: opts.skipMoment === true ? 'templates/locale-header.js' : 'templates/default.js',
+            skipLines: opts.skipMoment === true ? 7 : 5
         });
     }
 
@@ -278,6 +279,13 @@ module.exports = function (grunt) {
                 {skipMoment: false});
         }).then(function () {
             grunt.log.ok('build/umd/min/moment-with-locales.custom.js');
+        }).then(function () {
+            var moment = require('../build/umd/min/moment-with-locales.custom.js');
+            if (moment.locales().length != localeFiles.length) {
+                throw new Error(
+                    'You probably specified locales requiring ' +
+                    'parent locale, but didn\'t specify parent')
+            }
         }).then(done, function (e) {
             grunt.log.error('error transpiling-custom', e);
             done(e);
