@@ -201,17 +201,17 @@ test('calendar all else', function (assert) {
 });
 
 test('weeks year starting wednesday custom', function (assert) {
-    assert.equal(moment('2003 1 6', 'gggg w d').format('YYYY-MM-DD'), '٢٠٠٢-١٢-٢٨', 'Week 1 of 2003 should be Dec 28 2002');
-    assert.equal(moment('2003 1 0', 'gggg w e').format('YYYY-MM-DD'), '٢٠٠٢-١٢-٢٨', 'Week 1 of 2003 should be Dec 28 2002');
-    assert.equal(moment('2003 1 6', 'gggg w d').format('gggg w d'), '٢٠٠٣ ١ ٦', 'Saturday of week 1 of 2003 parsed should be formatted as 2003 1 6');
-    assert.equal(moment('2003 1 0', 'gggg w e').format('gggg w e'), '٢٠٠٣ ١ ٠', '1st day of week 1 of 2003 parsed should be formatted as 2003 1 0');
+    assert.equal(moment('2003 1 6', 'gggg w d').format('YYYY-MM-DD'), '٢٠٠٣-٠١-٠٤', '2003 1 6 : gggg w d');
+    assert.equal(moment('2003 1 0', 'gggg w e').format('YYYY-MM-DD'), '٢٠٠٢-١٢-٢٩', '2003 1 0 : gggg w e');
+    assert.equal(moment('2003 1 6', 'gggg w d').format('gggg w d'), '٢٠٠٣ ١ ٦', '2003 1 6 : gggg w d');
+    assert.equal(moment('2003 1 0', 'gggg w e').format('gggg w e'), '٢٠٠٣ ١ ٠', '2003 1 0 : gggg w e');
 });
 
 test('weeks year starting sunday formatted', function (assert) {
-    assert.equal(moment([2011, 11, 31]).format('w ww wo'), '١ ٠١ ١', 'Dec 31 2011 should be week 1');
-    assert.equal(moment([2012,  0,  6]).format('w ww wo'), '١ ٠١ ١', 'Jan  6 2012 should be week 1');
-    assert.equal(moment([2012,  0,  7]).format('w ww wo'), '٢ ٠٢ ٢', 'Jan  7 2012 should be week 2');
-    assert.equal(moment([2012,  0, 13]).format('w ww wo'), '٢ ٠٢ ٢', 'Jan 13 2012 should be week 2');
-    assert.equal(moment([2012,  0, 14]).format('w ww wo'), '٣ ٠٣ ٣', 'Jan 14 2012 should be week 3');
+    assert.equal(moment([2011, 11, 31]).format('w ww wo'), '٥٣ ٥٣ ٥٣', '2011 11 31');
+    assert.equal(moment([2012,  0,  6]).format('w ww wo'), '١ ٠١ ١', '2012 0 6');
+    assert.equal(moment([2012,  0,  7]).format('w ww wo'), '١ ٠١ ١', '2012 0 7');
+    assert.equal(moment([2012,  0, 13]).format('w ww wo'), '٢ ٠٢ ٢', '2012 0 13');
+    assert.equal(moment([2012,  0, 14]).format('w ww wo'), '٢ ٠٢ ٢', '2012 0 14');
 });
 

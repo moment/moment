@@ -88,8 +88,8 @@ export default moment.defineLocale('ar-sa', {
         }).replace(/,/g, '،');
     },
     week : {
-        dow : 6, // Saturday is the first day of the week.
-        doy : 12  // The week that contains Jan 1st is the first week of the year.
+        dow : 0, // Sunday is the first day of the week.
+        doy : 6  // The week that contains Jan 1st is the first week of the year.
     }
 });
 
