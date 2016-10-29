@@ -1,5 +1,7 @@
 module.exports = function (grunt) {
-    var esperanto = require('esperanto');
+    // var esperanto = require('esperanto');
+    var rollup = require('rollup').rollup;
+    var babel = require('rollup-plugin-babel');
     var path = require('path');
     var Promise = require('es6-promise').Promise;
     var TMP_DIR = 'build/tmp';
@@ -32,26 +34,53 @@ module.exports = function (grunt) {
 
     var headerCache = {};
     function getHeaderByFile(headerFile) {
+        if (headerFile == 'none') {
+            return '';
+        }
         if (!(headerFile in headerCache)) {
             headerCache[headerFile] = grunt.file.read(headerFile);
         }
         return headerCache[headerFile];
     }
 
+    function rollupBundle(opts) {
+        // entry, umdName, skipMoment
+
+        var rollupOpts = {
+          entry: opts.entry,
+          plugins: [
+            babel({})
+          ]
+        }, bundleOpts = {
+          format: 'umd',
+          moduleName: opts.umdName != null ? opts.umdName : 'not_used'
+        };
+
+        if (opts.skipMoment) {
+            rollupOpts.external = ['./moment', '../moment', '../../moment', path.resolve('build/tmp/moment'), path.resolve('src/moment')];
+            bundleOpts.globals = {[path.resolve('src/moment')]: 'moment', [path.resolve('build/tmp/moment')]: 'moment'};
+        }
+
+        return rollup(rollupOpts).then(function (bundle) {
+            var result = bundle.generate(bundleOpts);
+            return result.code;
+        });
+    }
+
     function transpile(opts) {
         // base, entry, skip, headerFile, skipLines, target
-        var umdName = opts.headerFile ? 'not_used' : opts.umdName,
+        var umdName = opts.headerFile != null && opts.headerFile !== 'none' ? 'not_used' : opts.umdName,
             headerFile = opts.headerFile ? opts.headerFile : 'templates/default.js',
             header = getHeaderByFile(headerFile),
-            skipLines = opts.skipLines ? opts.skipLines : 5;
+            skipLines = opts.skipLines != null ? opts.skipLines : 5;
 
-        return esperanto.bundle({
-            base: opts.base,
-            entry: opts.entry,
-            skip: opts.skip || []
-        }).then(function (bundle) {
-            var umd = bundle.toUmd({name: umdName}),
-                fixed = header + umd.code.split('\n').slice(skipLines).join('\n');
+        return rollupBundle({
+            entry: path.join(opts.base, opts.entry),
+            skipMoment: opts.skipMoment != null ? opts.skipMoment : false,
+            // skip: opts.skip || [],
+            umdName: umdName
+        }).then(function (code) {
+            var fixed = header + code.split('\n').slice(skipLines).join('\n');
             if (opts.moveComments) {
                 fixed = moveComments(fixed, opts.moveComments);
             }
@@ -71,7 +100,7 @@ module.exports = function (grunt) {
                             base: opts.base,
                             entry: file,
                             headerFile: opts.headerFile,
-                            skip: opts.skip,
+                            skipMoment: opts.skipMoment,
                             skipLines: opts.skipLines,
                             moveComments: opts.moveComments,
                             target: path.join(opts.targetDir, file)
@@ -110,16 +139,18 @@ module.exports = function (grunt) {
             skipLines: opts.skipLines,
             moveComments: opts.moveComments,
             target: opts.target,
-            skip: opts.skip
+            skipMoment: opts.skipMoment
         });
     }
 
     function generateLocales(target, localeFiles) {
         var files = localeFiles,
-            code = files.map(function (file) {
+            code = [
+                'import moment from "./moment";'
+            ].concat(files.map(function (file) {
                 var identifier = path.basename(file, '.js').replace('-', '_');
                 return 'import ' + identifier + ' from "./' + file + '";';
-            }).concat([
+            })).concat([
                 // Reset the language back to 'en', because every defineLocale
                 // also sets it.
                 'moment.locale(\'en\');'
@@ -128,52 +159,32 @@ module.exports = function (grunt) {
             base: 'src',
             code: code,
             target: target,
-            skip: ['moment'],
-            headerFile: 'templates/locale-header.js',
-            skipLines: 5
+            skipMoment: true,
+            headerFile: 'none', //'templates/locale-header.js',
+            skipLines: 0, // 5
         });
     }
 
     function generateMomentWithLocales(target, localeFiles) {
         var files = localeFiles,
-            importCode = files.map(function (file) {
+            code = [
+                'import moment from "./moment";'
+            ].concat(files.map(function (file) {
                 var identifier = path.basename(file, '.js').replace('-', '_');
-                var fileNoExt = file.replace('.js', '');
-                return 'import ' + identifier + ' from "./' + fileNoExt + '";';
-            }).join('\n'),
-            code = 'import * as moment_export from "./moment";\n\n' +
-                importCode + '\n\n' +
-                'export default moment_export;';
+                return 'import ' + identifier + ' from "./' + file + '";';
+            })).concat([
+                // Reset the language back to 'en', because every defineLocale
+                // also sets it.
+                'moment.locale("en");',
+                'export default moment;'
+            ]).join('\n');
 
         return transpileCode({
             base: 'src',
             code: code,
-            umdName: 'moment',
             target: target,
-            moveComments: 'main-only'
-        }).then(function () {
-            var code = grunt.file.read(target);
-            var getDefaultRegExp = new RegExp('var ([a-z$_]+) =\\s+{[^]\\s+get default \\(\\) { return ([a-z$_]+); }[^]\\s+}', '');
-            var crap = code.match(getDefaultRegExp);
-            if (crap.length !== 3) {
-                grunt.file.write('/tmp/crap.js', code);
-                throw new Error('Failed to detect get default crap, check /tmp/crap.js');
-            }
-            code = code.replace(getDefaultRegExp, '');
-
-            var buildExportVars = ['moment_with_locales', 'moment_with_locales_custom'];
-            buildExportVars.forEach(function (buildExportVar) {
-                var languageReset = buildExportVar  + '.locale(\'en\');';
-                code = code.replace('var ' + buildExportVar + ' = ' + crap[1] + ';',
-                                    'var ' + buildExportVar + ' = ' + crap[2] + ';\n' +
-                                    '    ' + languageReset);
-            });
-
-            if (code.match('get default')) {
-                grunt.file.write('/tmp/crap.js', code);
-                throw new Error('Stupid shit es6 get default plaguing the code, check /tmp/crap.js');
-            }
-            grunt.file.write(target, code);
+            headerFile: 'none', //'templates/locale-header.js',
+            skipLines: 0, // 5
         });
     }
 
@@ -185,6 +196,10 @@ module.exports = function (grunt) {
             entry: 'moment.js',
             umdName: 'moment',
             target: 'build/umd/moment.js',
+
+            skipLines: 0, // 5
+            headerFile: 'none', // wasn't set --> default
+
             moveComments: true
         }).then(function () {
             grunt.log.ok('build/umd/moment.js');
@@ -192,11 +207,11 @@ module.exports = function (grunt) {
             return transpileMany({
                 base: 'src',
                 pattern: 'locale/*.js',
-                headerFile: 'templates/locale-header.js',
-                skipLines: 5,
+                headerFile: 'none', // 'templates/locale-header.js',
+                skipLines: 0, // 5
                 moveComments: true,
                 targetDir: 'build/umd',
-                skip: ['moment']
+                skipMoment: true,
             });
         }).then(function () {
             grunt.log.ok('build/umd/locale/*.js');
@@ -204,11 +219,11 @@ module.exports = function (grunt) {
             return transpileMany({
                 base: 'src',
                 pattern: 'test/moment/*.js',
-                headerFile: 'templates/test-header.js',
-                skipLines: 5,
+                headerFile: 'none', //'templates/test-header.js',
+                skipLines: 0, // 5
                 moveComments: true,
                 targetDir: 'build/umd',
-                skip: ['moment']
+                skipMoment: true
             });
         }).then(function () {
             grunt.log.ok('build/umd/test/moment/*.js');
@@ -216,17 +231,19 @@ module.exports = function (grunt) {
             return transpileMany({
                 base: 'src',
                 pattern: 'test/locale/*.js',
-                headerFile: 'templates/test-header.js',
-                skipLines: 5,
+                headerFile: 'none', //'templates/test-header.js',
+                skipLines: 0, // 5
                 moveComments: true,
                 targetDir: 'build/umd',
-                skip: ['moment']
+                skipMoment: true
             });
         }).then(function () {
             grunt.log.ok('build/umd/test/locale/*.js');
         }).then(function () {
-            return generateLocales('build/umd/min/locales.js',
-                grunt.file.expand({cwd: 'src'}, 'locale/*.js'));
+            return generateLocales(
+                'build/umd/min/locales.js',
+                grunt.file.expand({cwd: 'src'}, 'locale/*.js'
+            ));
         }).then(function () {
             grunt.log.ok('build/umd/min/locales.js');
         }).then(function () {
