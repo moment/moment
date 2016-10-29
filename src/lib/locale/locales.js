@@ -11,6 +11,7 @@ import { baseConfig } from './base-config';
 
 // internal storage for locale config files
 var locales = {};
+var localeFamilies = {};
 var globalLocale;
 
 function normalizeLocale(key) {
@@ -97,15 +98,29 @@ export function defineLocale (name, config) {
             if (locales[config.parentLocale] != null) {
                 parentConfig = locales[config.parentLocale]._config;
             } else {
-                // treat as if there is no base config
-                deprecateSimple('parentLocaleUndefined',
-                        'specified parentLocale is not defined yet. See http://momentjs.com/guides/#/warnings/parent-locale/');
+                if (!localeFamilies[config.parentLocale]) {
+                    localeFamilies[config.parentLocale] = [];
+                }
+                localeFamilies[config.parentLocale].push({
+                    name: name,
+                    config: config
+                });
+                return null;
             }
         }
         locales[name] = new Locale(mergeConfigs(parentConfig, config));
 
+        if (localeFamilies[name]) {
+            localeFamilies[name].forEach(function (x) {
+                defineLocale(x.name, x.config);
+            });
+        }
+
         // backwards compat for now: also set the locale
+        // make sure we set the locale AFTER all child locales have been
+        // created, so we won't end up with the child locale set.
         getSetGlobalLocale(name);
+
 
         return locales[name];
     } else {
