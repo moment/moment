@@ -75,6 +75,20 @@ test('date', function (assert) {
     assert.equal(moment(new Date(2016,0,1), 'YYYY-MM-DD').format('YYYY-MM-DD'), '2016-01-01', 'If date is provided, format string is ignored');
 });
 
+test('date with a format as an array', function (assert) {
+    var tests = [
+        new Date(2016, 9, 27),
+        new Date(2016, 9, 28),
+        new Date(2016, 9, 29),
+        new Date(2016, 9, 30),
+        new Date(2016, 9, 31)
+    ], i;
+
+    for (i = 0; i < tests.length; i++) {
+        assert.equal(moment(tests[i]).format(), moment(tests[i], ['MM/DD/YYYY'], false).format(), 'Passing date with a format array should still return the correct date');
+    }
+});
+
 test('date mutation', function (assert) {
     var a = new Date();
     assert.ok(moment(a).toDate() !== a, 'the date moment uses should not be the date passed in');
