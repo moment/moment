@@ -68,7 +68,7 @@ module.exports = function (grunt) {
     }
 
     function transpile(opts) {
-        // base, entry, skip, headerFile, skipLines, target
+        // base, entry, skipMoment, headerFile, skipLines, target
         var umdName = opts.headerFile != null && opts.headerFile !== 'none' ? 'not_used' : opts.umdName,
             headerFile = opts.headerFile ? opts.headerFile : 'templates/default.js',
             header = getHeaderByFile(headerFile),
@@ -77,7 +77,6 @@ module.exports = function (grunt) {
         return rollupBundle({
             entry: path.join(opts.base, opts.entry),
             skipMoment: opts.skipMoment != null ? opts.skipMoment : false,
-            // skip: opts.skip || [],
             umdName: umdName
         }).then(function (code) {
             var fixed = header + code.split('\n').slice(skipLines).join('\n');
@@ -143,7 +142,7 @@ module.exports = function (grunt) {
         });
     }
 
-    function generateLocales(target, localeFiles) {
+    function generateLocales(target, localeFiles, opts) {
         var files = localeFiles,
             code = [
                 'import moment from "./moment";'
@@ -159,32 +158,9 @@ module.exports = function (grunt) {
             base: 'src',
             code: code,
             target: target,
-            skipMoment: true,
-            headerFile: 'none', //'templates/locale-header.js',
-            skipLines: 0, // 5
-        });
-    }
-
-    function generateMomentWithLocales(target, localeFiles) {
-        var files = localeFiles,
-            code = [
-                'import moment from "./moment";'
-            ].concat(files.map(function (file) {
-                var identifier = path.basename(file, '.js').replace('-', '_');
-                return 'import ' + identifier + ' from "./' + file + '";';
-            })).concat([
-                // Reset the language back to 'en', because every defineLocale
-                // also sets it.
-                'moment.locale("en");',
-                'export default moment;'
-            ]).join('\n');
-
-        return transpileCode({
-            base: 'src',
-            code: code,
-            target: target,
-            headerFile: 'none', //'templates/locale-header.js',
-            skipLines: 0, // 5
+            skipMoment: opts.skipMoment,
+            headerFile: 'templates/locale-header.js',
+            skipLines: 7
         });
     }
 
@@ -196,10 +172,7 @@ module.exports = function (grunt) {
             entry: 'moment.js',
             umdName: 'moment',
             target: 'build/umd/moment.js',
-
-            skipLines: 0, // 5
-            headerFile: 'none', // wasn't set --> default
-
+            skipLines: 5,
             moveComments: true
         }).then(function () {
             grunt.log.ok('build/umd/moment.js');
@@ -207,8 +180,8 @@ module.exports = function (grunt) {
             return transpileMany({
                 base: 'src',
                 pattern: 'locale/*.js',
-                headerFile: 'none', // 'templates/locale-header.js',
-                skipLines: 0, // 5
+                headerFile: 'templates/locale-header.js',
+                skipLines: 7,
                 moveComments: true,
                 targetDir: 'build/umd',
                 skipMoment: true,
@@ -219,8 +192,8 @@ module.exports = function (grunt) {
             return transpileMany({
                 base: 'src',
                 pattern: 'test/moment/*.js',
-                headerFile: 'none', //'templates/test-header.js',
-                skipLines: 0, // 5
+                headerFile: 'templates/test-header.js',
+                skipLines: 7,
                 moveComments: true,
                 targetDir: 'build/umd',
                 skipMoment: true
@@ -231,8 +204,8 @@ module.exports = function (grunt) {
             return transpileMany({
                 base: 'src',
                 pattern: 'test/locale/*.js',
-                headerFile: 'none', //'templates/test-header.js',
-                skipLines: 0, // 5
+                headerFile: 'templates/test-header.js',
+                skipLines: 7,
                 moveComments: true,
                 targetDir: 'build/umd',
                 skipMoment: true
@@ -242,13 +215,17 @@ module.exports = function (grunt) {
         }).then(function () {
             return generateLocales(
                 'build/umd/min/locales.js',
-                grunt.file.expand({cwd: 'src'}, 'locale/*.js'
-            ));
+                grunt.file.expand({cwd: 'src'}, 'locale/*.js'),
+                {skipMoment: true}
+            );
         }).then(function () {
             grunt.log.ok('build/umd/min/locales.js');
         }).then(function () {
-            return generateMomentWithLocales('build/umd/min/moment-with-locales.js',
-                grunt.file.expand({cwd: 'src'}, 'locale/*.js'));
+            return generateLocales(
+                'build/umd/min/moment-with-locales.js',
+                grunt.file.expand({cwd: 'src'}, 'locale/*.js'),
+                {skipMoment: false}
+            );
         }).then(function () {
             grunt.log.ok('build/umd/min/moment-with-locales.js');
         }).then(done, function (e) {
