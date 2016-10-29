@@ -34,7 +34,7 @@ module.exports = function (grunt) {
 
     var headerCache = {};
     function getHeaderByFile(headerFile) {
-        if (headerFile == 'none') {
+        if (headerFile === 'none') {
             return '';
         }
         if (!(headerFile in headerCache)) {
@@ -47,18 +47,28 @@ module.exports = function (grunt) {
         // entry, umdName, skipMoment
 
         var rollupOpts = {
-          entry: opts.entry,
-          plugins: [
-            babel({})
-          ]
+            entry: opts.entry,
+            plugins: [
+                babel({})
+            ]
         }, bundleOpts = {
-          format: 'umd',
-          moduleName: opts.umdName != null ? opts.umdName : 'not_used'
+            format: 'umd',
+            moduleName: opts.umdName != null ? opts.umdName : 'not_used'
         };
 
         if (opts.skipMoment) {
-            rollupOpts.external = ['./moment', '../moment', '../../moment', path.resolve('build/tmp/moment'), path.resolve('src/moment')];
-            bundleOpts.globals = {[path.resolve('src/moment')]: 'moment', [path.resolve('build/tmp/moment')]: 'moment'};
+            // And this is what people call progress?
+            rollupOpts.external = [
+                './moment',
+                '../moment',
+                '../../moment',
+                path.resolve('src/moment'),
+                path.resolve('build/tmp/moment')
+            ];
+            bundleOpts.globals = {
+                [path.resolve('src/moment')]: 'moment',
+                [path.resolve('build/tmp/moment')]: 'moment'
+            };
         }
 
         return rollup(rollupOpts).then(function (bundle) {
@@ -184,7 +194,7 @@ module.exports = function (grunt) {
                 skipLines: 7,
                 moveComments: true,
                 targetDir: 'build/umd',
-                skipMoment: true,
+                skipMoment: true
             });
         }).then(function () {
             grunt.log.ok('build/umd/locale/*.js');
@@ -256,12 +266,16 @@ module.exports = function (grunt) {
         }
 
         return generateLocales(
-            'build/umd/min/locales.custom.js', localeFiles
+            'build/umd/min/locales.custom.js',
+            localeFiles,
+            {skipMoment: true}
         ).then(function () {
             grunt.log.ok('build/umd/min/locales.custom.js');
         }).then(function () {
-            return generateMomentWithLocales('build/umd/min/moment-with-locales.custom.js',
-                localeFiles);
+            return generateLocales(
+                'build/umd/min/moment-with-locales.custom.js',
+                localeFiles,
+                {skipMoment: false});
         }).then(function () {
             grunt.log.ok('build/umd/min/moment-with-locales.custom.js');
         }).then(done, function (e) {
