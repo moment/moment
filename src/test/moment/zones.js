@@ -8,105 +8,61 @@ module('zones', {
 });
 
 test('set zone', function (assert) {
-    var zone = moment();
-
-    zone.zone(0);
-    assert.equal(zone.zone(), 0, 'should be able to set the zone to 0');
-
-    zone.zone(60);
-    assert.equal(zone.zone(), 60, 'should be able to set the zone to 60');
-
-    zone.zone(-60);
-    assert.equal(zone.zone(), -60, 'should be able to set the zone to -60');
+    var m = moment();
+    assert.equal(m.zone(0).zone(), 0, 'should be able to set the zone to 0');
+    assert.equal(m.zone(60).zone(), 60, 'should be able to set the zone to 60');
+    assert.equal(m.zone(-60).zone(), -60, 'should be able to set the zone to -60');
 });
 
 test('set zone shorthand', function (assert) {
-    var zone = moment();
-
-    zone.zone(1);
-    assert.equal(zone.zone(), 60, 'setting the zone to 1 should imply hours and convert to 60');
-
-    zone.zone(-1);
-    assert.equal(zone.zone(), -60, 'setting the zone to -1 should imply hours and convert to -60');
-
-    zone.zone(15);
-    assert.equal(zone.zone(), 900, 'setting the zone to 15 should imply hours and convert to 900');
-
-    zone.zone(-15);
-    assert.equal(zone.zone(), -900, 'setting the zone to -15 should imply hours and convert to -900');
-
-    zone.zone(16);
-    assert.equal(zone.zone(), 16, 'setting the zone to 16 should imply minutes');
-
-    zone.zone(-16);
-    assert.equal(zone.zone(), -16, 'setting the zone to -16 should imply minutes');
+    var m = moment();
+    assert.equal(m.zone(1).zone(), 60, 'setting the zone to 1 should imply hours and convert to 60');
+    assert.equal(m.zone(-1).zone(), -60, 'setting the zone to -1 should imply hours and convert to -60');
+    assert.equal(m.zone(15).zone(), 900, 'setting the zone to 15 should imply hours and convert to 900');
+    assert.equal(m.zone(-15).zone(), -900, 'setting the zone to -15 should imply hours and convert to -900');
+    assert.equal(m.zone(16).zone(), 16, 'setting the zone to 16 should imply minutes');
+    assert.equal(m.zone(-16).zone(), -16, 'setting the zone to -16 should imply minutes');
 });
 
 test('set zone with string', function (assert) {
-    var zone = moment();
-
-    zone.zone('+00:00');
-    assert.equal(zone.zone(), 0, 'set the zone with a timezone string');
-
-    zone.zone('2013-03-07T07:00:00-08:00');
-    assert.equal(zone.zone(), 480, 'set the zone with a string that does not begin with the timezone');
-
-    zone.zone('2013-03-07T07:00:00+0100');
-    assert.equal(zone.zone(), -60, 'set the zone with a string that uses the +0000 syntax');
-
-    zone.zone('2013-03-07T07:00:00+02');
-    assert.equal(zone.zone(), -120, 'set the zone with a string that uses the +00 syntax');
-
-    zone.zone('03-07-2013T07:00:00-08:00');
-    assert.equal(zone.zone(), 480, 'set the zone with a string with a non-ISO 8601 date');
+    var m = moment();
+    assert.equal(m.zone('+00:00').zone(), 0,
+            'set the zone with a timezone string');
+    assert.equal(m.zone('2013-03-07T07:00:00-08:00').zone(), 480,
+            'set the zone with a string that does not begin with the timezone');
+    assert.equal(m.zone('2013-03-07T07:00:00+0100').zone(), -60,
+            'set the zone with a string that uses the +0000 syntax');
+    assert.equal(m.zone('2013-03-07T07:00:00+02').zone(), -120,
+            'set the zone with a string that uses the +00 syntax');
+    assert.equal(m.zone('03-07-2013T07:00:00-08:00').zone(), 480,
+            'set the zone with a string with a non-ISO 8601 date');
 });
 
 test('change hours when changing the zone', function (assert) {
-    var zone = moment.utc([2000, 0, 1, 6]);
-
-    zone.zone(0);
-    assert.equal(zone.hour(), 6, 'UTC 6AM should be 6AM at +0000');
-
-    zone.zone(60);
-    assert.equal(zone.hour(), 5, 'UTC 6AM should be 5AM at -0100');
-
-    zone.zone(-60);
-    assert.equal(zone.hour(), 7, 'UTC 6AM should be 7AM at +0100');
+    var m = moment.utc([2000, 0, 1, 6]);
+    assert.equal(m.zone(0).hour(), 6, 'UTC 6AM should be 6AM at +0000');
+    assert.equal(m.zone(60).hour(), 5, 'UTC 6AM should be 5AM at -0100');
+    assert.equal(m.zone(-60).hour(), 7, 'UTC 6AM should be 7AM at +0100');
 });
 
 test('change minutes when changing the zone', function (assert) {
-    var zone = moment.utc([2000, 0, 1, 6, 31]);
-
-    zone.zone(0);
-    assert.equal(zone.format('HH:mm'), '06:31', 'UTC 6:31AM should be 6:31AM at +0000');
-
-    zone.zone(30);
-    assert.equal(zone.format('HH:mm'), '06:01', 'UTC 6:31AM should be 6:01AM at -0030');
-
-    zone.zone(-30);
-    assert.equal(zone.format('HH:mm'), '07:01', 'UTC 6:31AM should be 7:01AM at +0030');
-
-    zone.zone(1380);
-    assert.equal(zone.format('HH:mm'), '07:31', 'UTC 6:31AM should be 7:31AM at +1380');
+    var m = moment.utc([2000, 0, 1, 6, 31]);
+    assert.equal(m.zone(0).format('HH:mm'), '06:31', 'UTC 6:31AM should be 6:31AM at +0000');
+    assert.equal(m.zone(30).format('HH:mm'), '06:01', 'UTC 6:31AM should be 6:01AM at -0030');
+    assert.equal(m.zone(-30).format('HH:mm'), '07:01', 'UTC 6:31AM should be 7:01AM at +0030');
+    assert.equal(m.zone(1380).format('HH:mm'), '07:31', 'UTC 6:31AM should be 7:31AM at +1380');
 });
 
 test('distance from the unix epoch', function (assert) {
     var zoneA = moment(),
-        zoneB = moment(zoneA),
-        zoneC = moment(zoneA),
-        zoneD = moment(zoneA),
-        zoneE = moment(zoneA);
+        zoneB = moment(zoneA).utc(),
+        zoneC = moment(zoneA).zone(-60),
+        zoneD = moment(zoneA).zone(480),
+        zoneE = moment(zoneA).zone(1000);
 
-    zoneB.utc();
     assert.equal(+zoneA, +zoneB, 'moment should equal moment.utc');
-
-    zoneC.zone(-60);
     assert.equal(+zoneA, +zoneC, 'moment should equal moment.zone(-60)');
-
-    zoneD.zone(480);
     assert.equal(+zoneA, +zoneD, 'moment should equal moment.zone(480)');
-
-    zoneE.zone(1000);
     assert.equal(+zoneA, +zoneE, 'moment should equal moment.zone(1000)');
 });
 
@@ -118,9 +74,9 @@ test('update offset after changing any values', function (assert) {
     moment.updateOffset = function (mom, keepTime) {
         if (doChange) {
             if (+mom > 962409600000) {
-                mom = mom.zone(120, keepTime);
+                return mom.zone(120, keepTime);
             } else {
-                mom = mom.zone(60, keepTime);
+                return mom.zone(60, keepTime);
             }
         }
         return mom;
@@ -135,7 +91,7 @@ test('update offset after changing any values', function (assert) {
     assert.equal(m.format('ZZ'), '-0200', 'should be at -0200');
     assert.equal(m.format('HH:mm'), '23:00', '1AM at +0000 should be 11PM at -0200 timezone');
 
-    m.subtract(1, 'h');
+    m = m.subtract(1, 'h');
 
     assert.equal(m.format('ZZ'), '-0100', 'should be at -0100');
     assert.equal(m.format('HH:mm'), '23:00', '12AM at +0000 should be 11PM at -0100 timezone');

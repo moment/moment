@@ -6,7 +6,7 @@ import moment from '../../moment';
 module('calendar');
 
 test('passing a function', function (assert) {
-    var a  = moment().hours(13).minutes(0).seconds(0);
+    var a = moment().hours(13).minutes(0).seconds(0);
     assert.equal(moment(a).calendar(null, {
         'sameDay': function () {
             return 'h:mmA';

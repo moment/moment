@@ -605,10 +605,14 @@ test('isDuration', function (assert) {
 test('add', function (assert) {
     var d = moment.duration({months: 4, weeks: 3, days: 2});
     // for some reason, d._data._months does not get updated; use d._months instead.
-    assert.equal(d.add(1, 'month')._months, 5, 'Add months');
-    assert.equal(d.add(5, 'days')._days, 28, 'Add days');
-    assert.equal(d.add(10000)._milliseconds, 10000, 'Add milliseconds');
-    assert.equal(d.add({h: 23, m: 59})._milliseconds, 23 * 60 * 60 * 1000 + 59 * 60 * 1000 + 10000, 'Add hour:minute');
+    d = d.add(1, 'month');
+    assert.equal(d._months, 5, 'Add months');
+    d = d.add(5, 'days');
+    assert.equal(d._days, 28, 'Add days');
+    d = d.add(10000);
+    assert.equal(d._milliseconds, 10000, 'Add milliseconds');
+    d = d.add({h: 23, m: 59});
+    assert.equal(d._milliseconds, 23 * 60 * 60 * 1000 + 59 * 60 * 1000 + 10000, 'Add hour:minute');
 });
 
 test('add and bubble', function (assert) {
@@ -664,10 +668,14 @@ test('subtract and bubble', function (assert) {
 test('subtract', function (assert) {
     var d = moment.duration({months: 2, weeks: 2, days: 0, hours: 5});
     // for some reason, d._data._months does not get updated; use d._months instead.
-    assert.equal(d.subtract(1, 'months')._months, 1, 'Subtract months');
-    assert.equal(d.subtract(14, 'days')._days, 0, 'Subtract days');
-    assert.equal(d.subtract(10000)._milliseconds, 5 * 60 * 60 * 1000 - 10000, 'Subtract milliseconds');
-    assert.equal(d.subtract({h: 1, m: 59})._milliseconds, 3 * 60 * 60 * 1000 + 1 * 60 * 1000 - 10000, 'Subtract hour:minute');
+    d = d.subtract(1, 'months');
+    assert.equal(d._months, 1, 'Subtract months');
+    d = d.subtract(14, 'days');
+    assert.equal(d._days, 0, 'Subtract days');
+    d = d.subtract(10000);
+    assert.equal(d._milliseconds, 5 * 60 * 60 * 1000 - 10000, 'Subtract milliseconds');
+    d = d.subtract({h: 1, m: 59});
+    assert.equal(d._milliseconds, 3 * 60 * 60 * 1000 + 1 * 60 * 1000 - 10000, 'Subtract hour:minute');
 });
 
 test('JSON.stringify duration', function (assert) {

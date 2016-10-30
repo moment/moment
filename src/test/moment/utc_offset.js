@@ -71,50 +71,43 @@ test('change hours when changing the utc offset', function (assert) {
     assert.equal(m.hour(), 6, 'UTC 6AM should be 6AM at +0000');
 
     // sanity check
-    m.utcOffset(0);
+    m = m.utcOffset(0);
     assert.equal(m.hour(), 6, 'UTC 6AM should be 6AM at +0000');
 
-    m.utcOffset(-60);
+    m = m.utcOffset(-60);
     assert.equal(m.hour(), 5, 'UTC 6AM should be 5AM at -0100');
 
-    m.utcOffset(60);
+    m = m.utcOffset(60);
     assert.equal(m.hour(), 7, 'UTC 6AM should be 7AM at +0100');
 });
 
 test('change minutes when changing the utc offset', function (assert) {
     var m = moment.utc([2000, 0, 1, 6, 31]);
 
-    m.utcOffset(0);
+    m = m.utcOffset(0);
     assert.equal(m.format('HH:mm'), '06:31', 'UTC 6:31AM should be 6:31AM at +0000');
 
-    m.utcOffset(-30);
+    m = m.utcOffset(-30);
     assert.equal(m.format('HH:mm'), '06:01', 'UTC 6:31AM should be 6:01AM at -0030');
 
-    m.utcOffset(30);
+    m = m.utcOffset(30);
     assert.equal(m.format('HH:mm'), '07:01', 'UTC 6:31AM should be 7:01AM at +0030');
 
-    m.utcOffset(-1380);
+    m = m.utcOffset(-1380);
     assert.equal(m.format('HH:mm'), '07:31', 'UTC 6:31AM should be 7:31AM at +1380');
 });
 
 test('distance from the unix epoch', function (assert) {
     var zoneA = moment(),
-        zoneB = moment(zoneA),
-        zoneC = moment(zoneA),
-        zoneD = moment(zoneA),
-        zoneE = moment(zoneA);
+        zoneB = moment(zoneA).utc(),
+        zoneC = moment(zoneA).utcOffset(60),
+        zoneD = moment(zoneA).utcOffset(-480),
+        zoneE = moment(zoneA).utcOffset(-1000);
 
-    zoneB.utc();
     assert.equal(+zoneA, +zoneB, 'moment should equal moment.utc');
-
-    zoneC.utcOffset(60);
     assert.equal(+zoneA, +zoneC, 'moment should equal moment.utcOffset(60)');
-
-    zoneD.utcOffset(-480);
     assert.equal(+zoneA, +zoneD,
             'moment should equal moment.utcOffset(-480)');
-
-    zoneE.utcOffset(-1000);
     assert.equal(+zoneA, +zoneE,
             'moment should equal moment.utcOffset(-1000)');
 });
@@ -127,9 +120,9 @@ test('update offset after changing any values', function (assert) {
     moment.updateOffset = function (mom, keepTime) {
         if (doChange) {
             if (+mom > 962409600000) {
-                mom = mom.utcOffset(-120, keepTime);
+                return mom.utcOffset(-120, keepTime);
             } else {
-                mom = mom.utcOffset(-60, keepTime);
+                return mom.utcOffset(-60, keepTime);
             }
         }
         return mom;
@@ -144,7 +137,7 @@ test('update offset after changing any values', function (assert) {
     assert.equal(m.format('ZZ'), '-0200', 'should be at -0200');
     assert.equal(m.format('HH:mm'), '23:00', '1AM at +0000 should be 11PM at -0200 timezone');
 
-    m.subtract(1, 'h');
+    m = m.subtract(1, 'h');
 
     assert.equal(m.format('ZZ'), '-0100', 'should be at -0100');
     assert.equal(m.format('HH:mm'), '23:00', '12AM at +0000 should be 11PM at -0100 timezone');
@@ -273,9 +266,9 @@ test('reset offset with moment#local', function (assert) {
 
 test('toDate', function (assert) {
     var zoneA = new Date(),
-        zoneB = zoneA.utcOffset(-720).toDate(),
-        zoneC = zoneA.utcOffset(-360).toDate(),
-        zoneD = zoneA.utcOffset(690).toDate();
+        zoneB = moment(zoneA).utcOffset(-720).toDate(),
+        zoneC = moment(zoneA).utcOffset(-360).toDate(),
+        zoneD = moment(zoneA).utcOffset(690).toDate();
 
     assert.equal(+zoneA, +zoneB, 'moment#toDate should output a date with the right unix timestamp');
     assert.equal(+zoneA, +zoneC, 'moment#toDate should output a date with the right unix timestamp');

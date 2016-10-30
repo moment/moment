@@ -196,10 +196,10 @@ test('instance locale method with array', function (assert) {
 test('instance getter locale substrings', function (assert) {
     var m = moment();
 
-    m.locale('fr-crap');
+    m = m.locale('fr-crap');
     assert.equal(m.locale(), 'fr', 'use substrings');
 
-    m.locale('fr-does-not-exist');
+    m = m.locale('fr-does-not-exist');
     assert.equal(m.locale(), 'fr', 'uses deep substrings');
 });
 
@@ -244,7 +244,7 @@ test('changing the global locale doesn\'t affect existing duration instances', f
 });
 
 test('duration deprecations', function (assert) {
-    test.expectedDeprecations('moment().lang()');
+    test.expectedDeprecations('duration.lang()');
     assert.equal(moment.duration().lang(), moment.duration().localeData(), 'duration.lang is the same as duration.localeData');
 });
 
@@ -431,18 +431,18 @@ test('changing the global locale doesn\'t affect existing instances', function (
     assert.equal('en', mom.locale());
 });
 
-test('setting a language on instance returns the original moment for chaining', function (assert) {
+test('setting a language on instance returns a moment for chaining', function (assert) {
     test.expectedDeprecations('moment().lang()');
     var mom = moment();
 
-    assert.equal(mom.lang('fr'), mom, 'setting the language (lang) returns the original moment for chaining');
-    assert.equal(mom.locale('it'), mom, 'setting the language (locale) returns the original moment for chaining');
+    assert.ok(moment.isMoment(mom.lang('fr')), 'setting the language (lang) returns a moment for chaining');
+    assert.ok(moment.isMoment(mom.locale('it')), 'setting the language (locale) returns a moment for chaining');
 });
 
 test('lang(key) changes the language of the instance', function (assert) {
     test.expectedDeprecations('moment().lang()');
     var m = moment().month(0);
-    m.lang('fr');
+    m = m.lang('fr');
     assert.equal(m.locale(), 'fr', 'm.lang(key) changes instance locale');
 });
 
@@ -450,11 +450,11 @@ test('moment#locale(false) resets to global locale', function (assert) {
     var m = moment();
 
     moment.locale('fr');
-    m.locale('it');
+    m = m.locale('it');
 
     assert.equal(moment.locale(), 'fr', 'global locale is it');
     assert.equal(m.locale(), 'it', 'instance locale is it');
-    m.locale(false);
+    m = m.locale(false);
     assert.equal(m.locale(), 'fr', 'instance locale reset to global locale');
 });
 

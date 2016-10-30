@@ -44,7 +44,7 @@ test('format milliseconds', function (assert) {
     assert.equal(b.format('S'), '1', 'Deciseconds');
     assert.equal(b.format('SS'), '12', 'Centiseconds');
     assert.equal(b.format('SSS'), '123', 'Milliseconds');
-    b.milliseconds(789);
+    b = b.milliseconds(789);
     assert.equal(b.format('S'), '7', 'Deciseconds');
     assert.equal(b.format('SS'), '78', 'Centiseconds');
     assert.equal(b.format('SSS'), '789', 'Milliseconds');
