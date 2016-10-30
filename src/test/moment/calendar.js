@@ -19,7 +19,7 @@ test('extending calendar options', function (assert) {
 
     moment.calendarFormat = function (myMoment, now) {
         var diff = myMoment.diff(now, 'days', true);
-        var nextMonth = now.clone().add(1, 'month');
+        var nextMonth = now.add(1, 'month');
 
         var retVal =  diff < -6 ? 'sameElse' :
             diff < -1 ? 'lastWeek' :

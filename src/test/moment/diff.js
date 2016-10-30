@@ -8,22 +8,22 @@ function equal(assert, a, b, message) {
 function dstForYear(year) {
     var start = moment([year]),
         end = moment([year + 1]),
-        current = start.clone(),
+        current = start,
         last;
 
     while (current < end) {
-        last = current.clone();
-        current.add(24, 'hour');
+        last = current;
+        current = current.add(24, 'hour');
         if (last.utcOffset() !== current.utcOffset()) {
-            end = current.clone();
-            current = last.clone();
+            end = current;
+            current = last;
             break;
         }
     }
 
     while (current < end) {
-        last = current.clone();
-        current.add(1, 'hour');
+        last = current;
+        current = current.add(1, 'hour');
         if (last.utcOffset() !== current.utcOffset()) {
             return {
                 moment : last,
@@ -110,7 +110,7 @@ test('diff across DST', function (assert) {
     }
 
     a = dst.moment;
-    b = a.clone().utc().add(12, 'hours').local();
+    b = a.utc().add(12, 'hours').local();
     daysInMonth = (a.daysInMonth() + b.daysInMonth()) / 2;
     assert.equal(b.diff(a, 'milliseconds', true), 12 * 60 * 60 * 1000,
             'ms diff across DST');
@@ -134,7 +134,7 @@ test('diff across DST', function (assert) {
             'year diff across DST, upper bound');
 
     a = dst.moment;
-    b = a.clone().utc().add(12 + dst.diff, 'hours').local();
+    b = a.utc().add(12 + dst.diff, 'hours').local();
     daysInMonth = (a.daysInMonth() + b.daysInMonth()) / 2;
 
     assert.equal(b.diff(a, 'milliseconds', true),

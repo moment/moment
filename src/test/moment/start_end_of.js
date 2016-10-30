@@ -388,8 +388,8 @@ test('startOf across DST -1', function (assert) {
 
 test('endOf millisecond and no-arg', function (assert) {
     var m = moment();
-    assert.equal(+m, +m.clone().endOf(), 'endOf without argument should change time');
-    assert.equal(+m, +m.clone().endOf('ms'), 'endOf with ms argument should change time');
-    assert.equal(+m, +m.clone().endOf('millisecond'), 'endOf with millisecond argument should change time');
-    assert.equal(+m, +m.clone().endOf('milliseconds'), 'endOf with milliseconds argument should change time');
+    assert.equal(+m, +m.endOf(), 'endOf without argument should not change time');
+    assert.equal(+m, +m.endOf('ms'), 'endOf with ms argument should not change time');
+    assert.equal(+m, +m.endOf('millisecond'), 'endOf with millisecond argument should not change time');
+    assert.equal(+m, +m.endOf('milliseconds'), 'endOf with milliseconds argument should not change time');
 });

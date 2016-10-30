@@ -144,34 +144,34 @@ test('update offset after changing any values', function (assert) {
 test('getters and setters', function (assert) {
     var a = moment([2011, 5, 20]);
 
-    assert.equal(a.clone().zone(120).year(2012).year(), 2012, 'should get and set year correctly');
-    assert.equal(a.clone().zone(120).month(1).month(), 1, 'should get and set month correctly');
-    assert.equal(a.clone().zone(120).date(2).date(), 2, 'should get and set date correctly');
-    assert.equal(a.clone().zone(120).day(1).day(), 1, 'should get and set day correctly');
-    assert.equal(a.clone().zone(120).hour(1).hour(), 1, 'should get and set hour correctly');
-    assert.equal(a.clone().zone(120).minute(1).minute(), 1, 'should get and set minute correctly');
+    assert.equal(a.zone(120).year(2012).year(), 2012, 'should get and set year correctly');
+    assert.equal(a.zone(120).month(1).month(), 1, 'should get and set month correctly');
+    assert.equal(a.zone(120).date(2).date(), 2, 'should get and set date correctly');
+    assert.equal(a.zone(120).day(1).day(), 1, 'should get and set day correctly');
+    assert.equal(a.zone(120).hour(1).hour(), 1, 'should get and set hour correctly');
+    assert.equal(a.zone(120).minute(1).minute(), 1, 'should get and set minute correctly');
 });
 
 test('getters', function (assert) {
     var a = moment.utc([2012, 0, 1, 0, 0, 0]);
 
-    assert.equal(a.clone().zone(120).year(),  2011, 'should get year correctly');
-    assert.equal(a.clone().zone(120).month(),   11, 'should get month correctly');
-    assert.equal(a.clone().zone(120).date(),    31, 'should get date correctly');
-    assert.equal(a.clone().zone(120).hour(),    22, 'should get hour correctly');
-    assert.equal(a.clone().zone(120).minute(),   0, 'should get minute correctly');
+    assert.equal(a.zone(120).year(),  2011, 'should get year correctly');
+    assert.equal(a.zone(120).month(),   11, 'should get month correctly');
+    assert.equal(a.zone(120).date(),    31, 'should get date correctly');
+    assert.equal(a.zone(120).hour(),    22, 'should get hour correctly');
+    assert.equal(a.zone(120).minute(),   0, 'should get minute correctly');
 
-    assert.equal(a.clone().zone(-120).year(),  2012, 'should get year correctly');
-    assert.equal(a.clone().zone(-120).month(),    0, 'should get month correctly');
-    assert.equal(a.clone().zone(-120).date(),     1, 'should get date correctly');
-    assert.equal(a.clone().zone(-120).hour(),     2, 'should get hour correctly');
-    assert.equal(a.clone().zone(-120).minute(),   0, 'should get minute correctly');
+    assert.equal(a.zone(-120).year(),  2012, 'should get year correctly');
+    assert.equal(a.zone(-120).month(),    0, 'should get month correctly');
+    assert.equal(a.zone(-120).date(),     1, 'should get date correctly');
+    assert.equal(a.zone(-120).hour(),     2, 'should get hour correctly');
+    assert.equal(a.zone(-120).minute(),   0, 'should get minute correctly');
 
-    assert.equal(a.clone().zone(-90).year(),  2012, 'should get year correctly');
-    assert.equal(a.clone().zone(-90).month(),    0, 'should get month correctly');
-    assert.equal(a.clone().zone(-90).date(),     1, 'should get date correctly');
-    assert.equal(a.clone().zone(-90).hour(),     1, 'should get hour correctly');
-    assert.equal(a.clone().zone(-90).minute(),  30, 'should get minute correctly');
+    assert.equal(a.zone(-90).year(),  2012, 'should get year correctly');
+    assert.equal(a.zone(-90).month(),    0, 'should get month correctly');
+    assert.equal(a.zone(-90).date(),     1, 'should get date correctly');
+    assert.equal(a.zone(-90).hour(),     1, 'should get hour correctly');
+    assert.equal(a.zone(-90).minute(),  30, 'should get minute correctly');
 });
 
 test('from', function (assert) {
@@ -222,35 +222,33 @@ test('unix offset and timestamp', function (assert) {
 });
 
 test('cloning', function (assert) {
-    assert.equal(moment().zone(120).clone().zone(),   120, 'explicit cloning should retain the zone');
-    assert.equal(moment().zone(-120).clone().zone(), -120, 'explicit cloning should retain the zone');
-    assert.equal(moment(moment().zone(120)).zone(),   120, 'implicit cloning should retain the zone');
-    assert.equal(moment(moment().zone(-120)).zone(), -120, 'implicit cloning should retain the zone');
+    assert.equal(moment(moment().zone(120)).zone(),   120, 'copying should retain the zone');
+    assert.equal(moment(moment().zone(-120)).zone(), -120, 'copying should retain the zone');
 });
 
 test('start of / end of', function (assert) {
     var a = moment.utc([2010, 1, 2, 0, 0, 0]).zone(450);
 
-    assert.equal(a.clone().startOf('day').hour(), 0, 'start of day should work on moments with a zone');
-    assert.equal(a.clone().startOf('day').minute(), 0, 'start of day should work on moments with a zone');
-    assert.equal(a.clone().startOf('hour').minute(), 0, 'start of hour should work on moments with a zone');
+    assert.equal(a.startOf('day').hour(), 0, 'start of day should work on moments with a zone');
+    assert.equal(a.startOf('day').minute(), 0, 'start of day should work on moments with a zone');
+    assert.equal(a.startOf('hour').minute(), 0, 'start of hour should work on moments with a zone');
 
-    assert.equal(a.clone().endOf('day').hour(), 23, 'end of day should work on moments with a zone');
-    assert.equal(a.clone().endOf('day').minute(), 59, 'end of day should work on moments with a zone');
-    assert.equal(a.clone().endOf('hour').minute(), 59, 'end of hour should work on moments with a zone');
+    assert.equal(a.endOf('day').hour(), 23, 'end of day should work on moments with a zone');
+    assert.equal(a.endOf('day').minute(), 59, 'end of day should work on moments with a zone');
+    assert.equal(a.endOf('hour').minute(), 59, 'end of hour should work on moments with a zone');
 });
 
 test('reset zone with moment#utc', function (assert) {
     var a = moment.utc([2012]).zone(480);
 
-    assert.equal(a.clone().hour(),      16, 'different zone should have different hour');
-    assert.equal(a.clone().utc().hour(), 0, 'calling moment#utc should reset the offset');
+    assert.equal(a.hour(),      16, 'different zone should have different hour');
+    assert.equal(a.utc().hour(), 0, 'calling moment#utc should reset the offset');
 });
 
 test('reset zone with moment#local', function (assert) {
     var a = moment([2012]).zone(480);
 
-    assert.equal(a.clone().local().hour(), 0, 'calling moment#local should reset the offset');
+    assert.equal(a.local().hour(), 0, 'calling moment#local should reset the offset');
 });
 
 test('toDate', function (assert) {
@@ -275,7 +273,7 @@ test('same / before / after', function (assert) {
     assert.ok(zoneA.isSame(zoneB, 'hour'), 'two moments with different offsets should be the same hour');
     assert.ok(zoneA.isSame(zoneC, 'hour'), 'two moments with different offsets should be the same hour');
 
-    zoneA.add(1, 'hour');
+    zoneA = zoneA.add(1, 'hour');
 
     assert.ok(zoneA.isAfter(zoneB), 'isAfter should work with two moments with different offsets');
     assert.ok(zoneA.isAfter(zoneC), 'isAfter should work with two moments with different offsets');
@@ -283,7 +281,7 @@ test('same / before / after', function (assert) {
     assert.ok(zoneA.isAfter(zoneB, 'hour'), 'isAfter:hour should work with two moments with different offsets');
     assert.ok(zoneA.isAfter(zoneC, 'hour'), 'isAfter:hour should work with two moments with different offsets');
 
-    zoneA.subtract(2, 'hour');
+    zoneA = zoneA.subtract(2, 'hour');
 
     assert.ok(zoneA.isBefore(zoneB), 'isBefore should work with two moments with different offsets');
     assert.ok(zoneA.isBefore(zoneC), 'isBefore should work with two moments with different offsets');
@@ -297,7 +295,7 @@ test('add / subtract over dst', function (assert) {
         m = moment.utc([2000, 2, 31, 3]);
 
     moment.updateOffset = function (mom, keepTime) {
-        if (mom.clone().utc().month() > 2) {
+        if (mom.utc().month() > 2) {
             mom.zone(-60, keepTime);
         } else {
             mom.zone(0, keepTime);
@@ -306,28 +304,22 @@ test('add / subtract over dst', function (assert) {
 
     assert.equal(m.hour(), 3, 'should start at 00:00');
 
-    m.add(24, 'hour');
-
+    m = m.add(24, 'hour');
     assert.equal(m.hour(), 4, 'adding 24 hours should disregard dst');
 
-    m.subtract(24, 'hour');
-
+    m = m.subtract(24, 'hour');
     assert.equal(m.hour(), 3, 'subtracting 24 hours should disregard dst');
 
-    m.add(1, 'day');
-
+    m = m.add(1, 'day');
     assert.equal(m.hour(), 3, 'adding 1 day should have the same hour');
 
-    m.subtract(1, 'day');
-
+    m = m.subtract(1, 'day');
     assert.equal(m.hour(), 3, 'subtracting 1 day should have the same hour');
 
-    m.add(1, 'month');
-
+    m = m.add(1, 'month');
     assert.equal(m.hour(), 3, 'adding 1 month should have the same hour');
 
-    m.subtract(1, 'month');
-
+    m = m.subtract(1, 'month');
     assert.equal(m.hour(), 3, 'subtracting 1 month should have the same hour');
 
     moment.updateOffset = oldOffset;

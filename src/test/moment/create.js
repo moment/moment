@@ -96,11 +96,13 @@ test('date mutation', function (assert) {
 
 test('moment', function (assert) {
     assert.ok(moment(moment()).toDate() instanceof Date, 'moment(moment())');
+    assert.ok(moment(moment()).isValid(), 'moment(moment()) is valid');
     assert.ok(moment(moment(moment())).toDate() instanceof Date, 'moment(moment(moment()))');
+    assert.ok(moment(moment(moment())).isValid(), 'moment(moment(moment())) is valid');
 });
 
 test('cloning moment should only copy own properties', function (assert) {
-    assert.ok(!moment().clone().hasOwnProperty('month'), 'Should not clone prototype methods');
+    assert.ok(!moment(moment()).hasOwnProperty('month'), 'Should not clone prototype methods');
 });
 
 test('cloning moment works with weird clones', function (assert) {
@@ -114,17 +116,17 @@ test('cloning moment works with weird clones', function (assert) {
     now = moment(),
     nowu = moment.utc();
 
-    assert.equal(+extend({}, now).clone(), +now, 'cloning extend-ed now is now');
-    assert.equal(+extend({}, nowu).clone(), +nowu, 'cloning extend-ed utc now is utc now');
+    assert.equal(+moment(extend({}, now)), +now, 'cloning extend-ed now is now');
+    assert.equal(+moment(extend({}, nowu)), +nowu, 'cloning extend-ed utc now is utc now');
 });
 
 test('cloning respects moment.momentProperties', function (assert) {
     var m = moment();
 
-    assert.equal(m.clone()._special, undefined, 'cloning ignores extra properties');
+    assert.equal(moment(m)._special, undefined, 'cloning ignores extra properties');
     m._special = 'bacon';
     moment.momentProperties.push('_special');
-    assert.equal(m.clone()._special, 'bacon', 'cloning respects momentProperties');
+    assert.equal(moment(m)._special, 'bacon', 'cloning respects momentProperties');
     moment.momentProperties.pop();
 });
 
@@ -190,16 +192,16 @@ test('undefined argument with formats', function (assert) {
 test('defaulting to current date', function (assert) {
     var now = moment();
     assert.equal(moment('12:13:14', 'hh:mm:ss').format('YYYY-MM-DD hh:mm:ss'),
-                 now.clone().hour(12).minute(13).second(14).format('YYYY-MM-DD hh:mm:ss'),
+                 now.hour(12).minute(13).second(14).format('YYYY-MM-DD hh:mm:ss'),
                  'given only time default to current date');
     assert.equal(moment('05', 'DD').format('YYYY-MM-DD'),
-                 now.clone().date(5).format('YYYY-MM-DD'),
+                 now.date(5).format('YYYY-MM-DD'),
                  'given day of month default to current month, year');
     assert.equal(moment('05', 'MM').format('YYYY-MM-DD'),
-                 now.clone().month(4).date(1).format('YYYY-MM-DD'),
+                 now.month(4).date(1).format('YYYY-MM-DD'),
                  'given month default to current year');
     assert.equal(moment('1996', 'YYYY').format('YYYY-MM-DD'),
-                 now.clone().year(1996).month(0).date(1).format('YYYY-MM-DD'),
+                 now.year(1996).month(0).date(1).format('YYYY-MM-DD'),
                  'given year do not default');
 });
 
@@ -432,28 +434,28 @@ test('string with format - years', function (assert) {
 test('implicit cloning', function (assert) {
     var momentA = moment([2011, 10, 10]),
     momentB = moment(momentA);
-    momentA.month(5);
-    assert.equal(momentB.month(), 10, 'Calling moment() on a moment will create a clone');
-    assert.equal(momentA.month(), 5, 'Calling moment() on a moment will create a clone');
+    assert.notEqual(momentA, momentB, 'Calling moment() on a moment will create a clone');
+    momentA = momentA.month(5);
+    assert.equal(momentB.month(), 10, 'momentA has updated month');
+    assert.equal(momentA.month(), 5, 'momentB keeps original month');
 });
 
 test('explicit cloning', function (assert) {
+    test.expectedDeprecations('clone does nothing');
+
     var momentA = moment([2011, 10, 10]),
     momentB = momentA.clone();
-    momentA.month(5);
-    assert.equal(momentB.month(), 10, 'Calling moment() on a moment will create a clone');
-    assert.equal(momentA.month(), 5, 'Calling moment() on a moment will create a clone');
+    assert.equal(momentA, momentB, 'Calling clone() on a moment will not create a clone, because immutability');
+    momentA = momentA.month(5);
+    assert.equal(momentB.month(), 10, 'momentA has updated month');
+    assert.equal(momentA.month(), 5, 'momentB keeps original month');
 });
 
 test('cloning carrying over utc mode', function (assert) {
-    assert.equal(moment().local().clone()._isUTC, false, 'An explicit cloned local moment should have _isUTC == false');
-    assert.equal(moment().utc().clone()._isUTC, true, 'An cloned utc moment should have _isUTC == true');
-    assert.equal(moment().clone()._isUTC, false, 'An explicit cloned local moment should have _isUTC == false');
-    assert.equal(moment.utc().clone()._isUTC, true, 'An explicit cloned utc moment should have _isUTC == true');
-    assert.equal(moment(moment().local())._isUTC, false, 'An implicit cloned local moment should have _isUTC == false');
-    assert.equal(moment(moment().utc())._isUTC, true, 'An implicit cloned utc moment should have _isUTC == true');
-    assert.equal(moment(moment())._isUTC, false, 'An implicit cloned local moment should have _isUTC == false');
-    assert.equal(moment(moment.utc())._isUTC, true, 'An implicit cloned utc moment should have _isUTC == true');
+    assert.equal(moment(moment().local())._isUTC, false, 'A cloned local moment should have _isUTC == false');
+    assert.equal(moment(moment().utc())._isUTC, true, 'A cloned utc moment should have _isUTC == true');
+    assert.equal(moment(moment())._isUTC, false, 'A cloned local moment should have _isUTC == false');
+    assert.equal(moment(moment.utc())._isUTC, true, 'A cloned utc moment should have _isUTC == true');
 });
 
 test('parsing RFC 2822', function (assert) {

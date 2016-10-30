@@ -25,14 +25,14 @@ test('calendar', function (assert) {
 
     moment.locale('child-cal');
     var anchor = moment.utc('2015-05-05T12:00:00', moment.ISO_8601);
-    assert.equal(anchor.clone().add(3, 'hours').calendar(anchor), 'Today 15:00', 'today uses child version');
-    assert.equal(anchor.clone().add(1, 'day').calendar(anchor), 'Tomorrow 12:00', 'tomorrow uses child version');
-    assert.equal(anchor.clone().add(3, 'days').calendar(anchor), 'Next week 12:00', 'next week uses child version');
+    assert.equal(anchor.add(3, 'hours').calendar(anchor), 'Today 15:00', 'today uses child version');
+    assert.equal(anchor.add(1, 'day').calendar(anchor), 'Tomorrow 12:00', 'tomorrow uses child version');
+    assert.equal(anchor.add(3, 'days').calendar(anchor), 'Next week 12:00', 'next week uses child version');
 
-    assert.equal(anchor.clone().subtract(1, 'day').calendar(anchor), 'Yesterday at 12:00', 'yesterday uses parent version');
-    assert.equal(anchor.clone().subtract(3, 'days').calendar(anchor), 'Last week at 12:00', 'last week uses parent version');
-    assert.equal(anchor.clone().subtract(7, 'days').calendar(anchor), 'whatever', 'sameElse uses parent version -');
-    assert.equal(anchor.clone().add(7, 'days').calendar(anchor), 'whatever', 'sameElse uses parent version +');
+    assert.equal(anchor.subtract(1, 'day').calendar(anchor), 'Yesterday at 12:00', 'yesterday uses parent version');
+    assert.equal(anchor.subtract(3, 'days').calendar(anchor), 'Last week at 12:00', 'last week uses parent version');
+    assert.equal(anchor.subtract(7, 'days').calendar(anchor), 'whatever', 'sameElse uses parent version -');
+    assert.equal(anchor.add(7, 'days').calendar(anchor), 'whatever', 'sameElse uses parent version +');
 });
 
 test('missing', function (assert) {
@@ -51,13 +51,13 @@ test('missing', function (assert) {
     });
     moment.locale('child-cal-2');
     var anchor = moment.utc('2015-05-05T12:00:00', moment.ISO_8601);
-    assert.equal(anchor.clone().add(3, 'hours').calendar(anchor), 'Today at 15:00', 'today uses parent version');
-    assert.equal(anchor.clone().add(1, 'day').calendar(anchor), 'Tomorrow at 12:00', 'tomorrow uses parent version');
-    assert.equal(anchor.clone().add(3, 'days').calendar(anchor), 'Next week at 12:00', 'next week uses parent version');
-    assert.equal(anchor.clone().subtract(1, 'day').calendar(anchor), 'Yesterday at 12:00', 'yesterday uses parent version');
-    assert.equal(anchor.clone().subtract(3, 'days').calendar(anchor), 'Last week at 12:00', 'last week uses parent version');
-    assert.equal(anchor.clone().subtract(7, 'days').calendar(anchor), 'whatever', 'sameElse uses parent version -');
-    assert.equal(anchor.clone().add(7, 'days').calendar(anchor), 'whatever', 'sameElse uses parent version +');
+    assert.equal(anchor.add(3, 'hours').calendar(anchor), 'Today at 15:00', 'today uses parent version');
+    assert.equal(anchor.add(1, 'day').calendar(anchor), 'Tomorrow at 12:00', 'tomorrow uses parent version');
+    assert.equal(anchor.add(3, 'days').calendar(anchor), 'Next week at 12:00', 'next week uses parent version');
+    assert.equal(anchor.subtract(1, 'day').calendar(anchor), 'Yesterday at 12:00', 'yesterday uses parent version');
+    assert.equal(anchor.subtract(3, 'days').calendar(anchor), 'Last week at 12:00', 'last week uses parent version');
+    assert.equal(anchor.subtract(7, 'days').calendar(anchor), 'whatever', 'sameElse uses parent version -');
+    assert.equal(anchor.add(7, 'days').calendar(anchor), 'whatever', 'sameElse uses parent version +');
 });
 
 // Test function vs obj both directions

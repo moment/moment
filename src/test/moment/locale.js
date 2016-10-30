@@ -211,14 +211,12 @@ test('instance locale persists with manipulation', function (assert) {
     assert.equal(moment([2012, 5, 6]).locale('es').endOf('day').format('MMMM'), 'junio', 'With endOf');
 });
 
-test('instance locale persists with cloning', function (assert) {
+test('instance locale persists after copying', function (assert) {
     moment.locale('en');
 
     var a = moment([2012, 5, 6]).locale('es'),
-        b = a.clone(),
-        c = moment(a);
+        b = moment(a);
 
-    assert.equal(b.format('MMMM'), 'junio', 'using moment.fn.clone()');
     assert.equal(b.format('MMMM'), 'junio', 'using moment()');
 });
 

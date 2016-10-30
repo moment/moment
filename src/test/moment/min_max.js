@@ -5,8 +5,8 @@ module('min max');
 
 test('min', function (assert) {
     var now = moment(),
-        future = now.clone().add(1, 'month'),
-        past = now.clone().subtract(1, 'month'),
+        future = now.add(1, 'month'),
+        past = now.subtract(1, 'month'),
         invalid = moment.invalid();
 
     assert.equal(moment.min(now, future, past), past, 'min(now, future, past)');
@@ -27,8 +27,8 @@ test('min', function (assert) {
 
 test('max', function (assert) {
     var now = moment(),
-        future = now.clone().add(1, 'month'),
-        past = now.clone().subtract(1, 'month'),
+        future = now.add(1, 'month'),
+        past = now.subtract(1, 'month'),
         invalid = moment.invalid();
 
     assert.equal(moment.max(now, future, past), future, 'max(now, future, past)');
