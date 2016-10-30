@@ -2,11 +2,11 @@ import absFloor from '../utils/abs-floor';
 import absCeil from '../utils/abs-ceil';
 import { createUTCDate } from '../create/date-from-array';
 
-export function bubble () {
-    var milliseconds = this._milliseconds;
-    var days         = this._days;
-    var months       = this._months;
-    var data         = this._data;
+export function bubble (duration) {
+    var milliseconds = duration._milliseconds;
+    var days         = duration._days;
+    var months       = duration._months;
+    var data         = {};
     var seconds, minutes, hours, years, monthsFromDays;
 
     // if we have a mix of positive and negative values, bubble down first
@@ -45,8 +45,7 @@ export function bubble () {
     data.days   = days;
     data.months = months;
     data.years  = years;
-
-    return this;
+    return data;
 }
 
 export function daysToMonths (days) {

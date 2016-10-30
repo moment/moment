@@ -27,7 +27,6 @@ proto.asWeeks        = asWeeks;
 proto.asMonths       = asMonths;
 proto.asYears        = asYears;
 proto.valueOf        = valueOf;
-proto._bubble        = bubble;
 proto.get            = get;
 proto.milliseconds   = milliseconds;
 proto.seconds        = seconds;

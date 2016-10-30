@@ -1,6 +1,7 @@
 import { normalizeObjectUnits } from '../units/aliases';
 import { getLocale } from '../locale/locales';
-import isDurationValid from './valid.js';
+import { bubble } from './bubble';
+import isDurationValid from './valid';
 
 export function Duration (duration) {
     var normalizedInput = normalizeObjectUnits(duration),
@@ -32,11 +33,9 @@ export function Duration (duration) {
         quarters * 3 +
         years * 12;
 
-    this._data = {};
+    this._data = bubble(this);
 
     this._locale = getLocale();
-
-    this._bubble();
 }
 
 export function isDuration (obj) {
