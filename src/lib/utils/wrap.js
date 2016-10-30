@@ -1,5 +1,5 @@
 export default function wrap(Type, fn, dontCloneWithNoArgs) {
-    return function() {
+    return function () {
         var m;
         if (dontCloneWithNoArgs && !arguments.length) {
             m = this;

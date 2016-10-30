@@ -195,9 +195,9 @@ test('setter with multiple unit values', function (assert) {
     assert.equal(a.milliseconds(), 9, 'milliseconds');
 
     var c = moment([2016,0,1]);
-	c = c.set({weekYear: 2016});
+    c = c.set({weekYear: 2016});
     assert.equal(c.weekYear(), 2016, 'week year correctly sets with object syntax');
-	c = c.set({quarter: 3});
+    c = c.set({quarter: 3});
     assert.equal(c.quarter(), 3, 'quarter sets correctly with object syntax');
 });
 
