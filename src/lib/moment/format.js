@@ -6,14 +6,14 @@ hooks.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ';
 hooks.defaultFormatUtc = 'YYYY-MM-DDTHH:mm:ss[Z]';
 
 export function toString () {
-    return this.clone().locale('en').format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
+    return this.locale('en').format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
 }
 
 export function toISOString() {
     if (!this.isValid()) {
         return null;
     }
-    var m = this.clone().utc();
+    var m = this.utc();
     if (m.year() < 0 || m.year() > 9999) {
         return formatMoment(m, 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
     }

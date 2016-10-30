@@ -5,7 +5,6 @@ var proto = Moment.prototype;
 
 import { add, subtract } from './add-subtract';
 import { calendar, getCalendarFormat } from './calendar';
-import { clone } from './clone';
 import { isBefore, isBetween, isSame, isAfter, isSameOrAfter, isSameOrBefore } from './compare';
 import { diff } from './diff';
 import { format, toString, toISOString, inspect } from './format';

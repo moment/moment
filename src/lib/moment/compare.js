@@ -12,7 +12,7 @@ export function isAfter (input, units) {
     if (units === 'millisecond') {
         return this.valueOf() > localInput.valueOf();
     } else {
-        return localInput.valueOf() < this.clone().startOf(units).valueOf();
+        return localInput.valueOf() < this.startOf(units).valueOf();
     }
 }
 
@@ -25,7 +25,7 @@ export function isBefore (input, units) {
     if (units === 'millisecond') {
         return this.valueOf() < localInput.valueOf();
     } else {
-        return this.clone().endOf(units).valueOf() < localInput.valueOf();
+        return this.endOf(units).valueOf() < localInput.valueOf();
     }
 }
 
@@ -46,7 +46,7 @@ export function isSame (input, units) {
         return this.valueOf() === localInput.valueOf();
     } else {
         inputMs = localInput.valueOf();
-        return this.clone().startOf(units).valueOf() <= inputMs && inputMs <= this.clone().endOf(units).valueOf();
+        return this.startOf(units).valueOf() <= inputMs && inputMs <= this.endOf(units).valueOf();
     }
 }
 

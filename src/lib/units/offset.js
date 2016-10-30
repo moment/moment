@@ -1,7 +1,7 @@
 import zeroFill from '../utils/zero-fill';
 import { createDuration } from '../duration/create';
 import { addSubtract } from '../moment/add-subtract';
-import { isMoment, copyConfig } from '../moment/constructor';
+import { Moment, isMoment, copyConfig } from '../moment/constructor';
 import { addFormatToken } from '../format/format';
 import { addRegexToken, matchOffset, matchShortOffset } from '../parse/regex';
 import { addParseToken } from '../parse/token';
@@ -67,7 +67,7 @@ function offsetFromString(matcher, string) {
 export function cloneWithOffset(input, model) {
     var res, diff;
     if (model._isUTC) {
-        res = model.clone();
+        res = new Moment(model);
         diff = (isMoment(input) || isDate(input) ? input.valueOf() : createLocal(input).valueOf()) - res.valueOf();
         // Use low-level api, because this fn is low-level api.
         res._d.setTime(res._d.valueOf() + diff);
@@ -196,8 +196,8 @@ export function hasAlignedHourOffset (input) {
 
 export function isDaylightSavingTime () {
     return (
-        this.utcOffset() > this.clone().month(0).utcOffset() ||
-        this.utcOffset() > this.clone().month(5).utcOffset()
+        this.utcOffset() > new Moment(this).month(0).utcOffset() ||
+        this.utcOffset() > new Moment(this).month(5).utcOffset()
     );
 }
 

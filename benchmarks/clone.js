@@ -5,6 +5,6 @@ var Benchmark = require('benchmark'),
 module.exports = {
   name: 'clone',
   onComplete: function(){},
-  fn: function(){base.clone();},
+  fn: function(){moment(base);},
   async: true
 };

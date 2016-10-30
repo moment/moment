@@ -94,11 +94,11 @@ function positiveMomentsDifference(base, other) {
 
     res.months = other.month() - base.month() +
         (other.year() - base.year()) * 12;
-    if (base.clone().add(res.months, 'M').isAfter(other)) {
+    if (base.add(res.months, 'M').isAfter(other)) {
         --res.months;
     }
 
-    res.milliseconds = +other - +(base.clone().add(res.months, 'M'));
+    res.milliseconds = +other - +(base.add(res.months, 'M'));
 
     return res;
 }
