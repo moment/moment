@@ -18,16 +18,13 @@ export function locale (key) {
     }
 }
 
-export var lang = deprecate(
-    'moment().lang() is deprecated. Instead, use moment().localeData() to get the language configuration. Use moment().locale() to change languages.',
-    function (key) {
-        if (key === undefined) {
-            return this.localeData();
-        } else {
-            return this.locale(key);
-        }
+export function lang (key) {
+    if (key === undefined) {
+        return this.localeData();
+    } else {
+        return this.locale(key);
     }
-);
+}
 
 export function localeData () {
     return this._locale;

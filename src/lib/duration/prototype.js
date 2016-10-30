@@ -1,4 +1,5 @@
 import { Duration } from './constructor';
+import wrap from '../utils/wrap';
 
 var proto = Duration.prototype;
 
@@ -14,8 +15,8 @@ import { isValid } from './valid';
 
 proto.isValid        = isValid;
 proto.abs            = abs;
-proto.add            = add;
-proto.subtract       = subtract;
+proto.add            = wrap(Duration, add);
+proto.subtract       = wrap(Duration, subtract);
 proto.as             = as;
 proto.asMilliseconds = asMilliseconds;
 proto.asSeconds      = asSeconds;
@@ -40,11 +41,11 @@ proto.humanize       = humanize;
 proto.toISOString    = toISOString;
 proto.toString       = toISOString;
 proto.toJSON         = toISOString;
-proto.locale         = locale;
+proto.locale         = wrap(Duration, locale, true);
 proto.localeData     = localeData;
 
 // Deprecations
 import { deprecate } from '../utils/deprecate';
 
 proto.toIsoString = deprecate('toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)', toISOString);
-proto.lang = lang;
+proto.lang = deprecate('duration.lang() is deprecated. Use locale() or localeData() instead.', wrap(Duration, lang));

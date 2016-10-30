@@ -1,5 +1,7 @@
+import { set } from './set';
+
 export function Locale(config) {
     if (config != null) {
-        this.set(config);
+        set.call(this, config);
     }
 }

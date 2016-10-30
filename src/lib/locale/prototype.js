@@ -9,6 +9,7 @@ import { ordinal } from './ordinal';
 import { preParsePostFormat } from './pre-post-format';
 import { relativeTime, pastFuture } from './relative';
 import { set } from './set';
+import wrap from '../utils/wrap';
 
 proto.calendar        = calendar;
 proto.longDateFormat  = longDateFormat;
@@ -18,7 +19,7 @@ proto.preparse        = preParsePostFormat;
 proto.postformat      = preParsePostFormat;
 proto.relativeTime    = relativeTime;
 proto.pastFuture      = pastFuture;
-proto.set             = set;
+proto.set             = wrap(Locale, set);
 
 // Month
 import {
@@ -29,9 +30,9 @@ import {
     monthsShortRegex
 } from '../units/month';
 
-proto.months            =        localeMonths;
-proto.monthsShort       =        localeMonthsShort;
-proto.monthsParse       =        localeMonthsParse;
+proto.months            = localeMonths;
+proto.monthsShort       = localeMonthsShort;
+proto.monthsParse       = localeMonthsParse;
 proto.monthsRegex       = monthsRegex;
 proto.monthsShortRegex  = monthsShortRegex;
 
@@ -53,14 +54,14 @@ import {
     weekdaysMinRegex
 } from '../units/day-of-week';
 
-proto.weekdays       =        localeWeekdays;
-proto.weekdaysMin    =        localeWeekdaysMin;
-proto.weekdaysShort  =        localeWeekdaysShort;
-proto.weekdaysParse  =        localeWeekdaysParse;
+proto.weekdays       = localeWeekdays;
+proto.weekdaysMin    = localeWeekdaysMin;
+proto.weekdaysShort  = localeWeekdaysShort;
+proto.weekdaysParse  = localeWeekdaysParse;
 
-proto.weekdaysRegex       =        weekdaysRegex;
-proto.weekdaysShortRegex  =        weekdaysShortRegex;
-proto.weekdaysMinRegex    =        weekdaysMinRegex;
+proto.weekdaysRegex       = weekdaysRegex;
+proto.weekdaysShortRegex  = weekdaysShortRegex;
+proto.weekdaysMinRegex    = weekdaysMinRegex;
 
 // Hours
 import { localeIsPM, localeMeridiem } from '../units/hour';
