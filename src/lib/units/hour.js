@@ -54,9 +54,6 @@ meridiem('A', false);
 
 addUnitAlias('hour', 'h');
 
-// PRIORITY
-addUnitPriority('hour', 13);
-
 // PARSING
 
 function matchMeridiem (isStrict, locale) {
@@ -142,3 +139,7 @@ export function localeMeridiem (hours, minutes, isLower) {
 // a new timezone) makes sense. Adding/subtracting hours does not follow
 // this rule.
 export var getSetHour = makeGetSet('Hours', true);
+
+// PRIORITY
+
+addUnitPriority('hour', 13, getSetHour);

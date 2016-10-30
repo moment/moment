@@ -17,11 +17,6 @@ addFormatToken('W', ['WW', 2], 'Wo', 'isoWeek');
 addUnitAlias('week', 'w');
 addUnitAlias('isoWeek', 'W');
 
-// PRIORITIES
-
-addUnitPriority('week', 5);
-addUnitPriority('isoWeek', 5);
-
 // PARSING
 
 addRegexToken('w',  match1to2);
@@ -65,3 +60,8 @@ export function getSetISOWeek (input) {
     var week = weekOfYear(this, 1, 4).week;
     return input == null ? week : this.add((input - week) * 7, 'd');
 }
+
+// PRIORITIES
+
+addUnitPriority('week', 5, getSetWeek);
+addUnitPriority('isoWeek', 5, getSetISOWeek);

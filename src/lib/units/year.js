@@ -27,10 +27,6 @@ addFormatToken(0, ['YYYYYY', 6, true], 0, 'year');
 
 addUnitAlias('year', 'y');
 
-// PRIORITIES
-
-addUnitPriority('year', 1);
-
 // PARSING
 
 addRegexToken('Y',      matchSigned);
@@ -73,3 +69,7 @@ export var getSetYear = makeGetSet('FullYear', true);
 export function getIsLeapYear () {
     return isLeapYear(this.year());
 }
+
+// PRIORITIES
+
+addUnitPriority('year', 1, getSetYear);

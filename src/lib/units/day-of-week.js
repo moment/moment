@@ -35,11 +35,6 @@ addUnitAlias('day', 'd');
 addUnitAlias('weekday', 'e');
 addUnitAlias('isoWeekday', 'E');
 
-// PRIORITY
-addUnitPriority('day', 11);
-addUnitPriority('weekday', 11);
-addUnitPriority('isoWeekday', 11);
-
 // PARSING
 
 addRegexToken('d',    match1to2);
@@ -362,3 +357,9 @@ function computeWeekdaysParse () {
     this._weekdaysShortStrictRegex = new RegExp('^(' + shortPieces.join('|') + ')', 'i');
     this._weekdaysMinStrictRegex = new RegExp('^(' + minPieces.join('|') + ')', 'i');
 }
+
+// PRIORITY
+
+addUnitPriority('day', 11, getSetDayOfWeek);
+addUnitPriority('weekday', 11, getSetLocaleDayOfWeek);
+addUnitPriority('isoWeekday', 11, getSetISODayOfWeek);

@@ -43,7 +43,7 @@ export function stringSet (units, value) {
         units = normalizeObjectUnits(units);
         var prioritized = getPrioritizedUnits(units);
         for (var i = 0; i < prioritized.length; i++) {
-            this[prioritized[i].unit](units[prioritized[i].unit]);
+            prioritized[i].getSet.call(this, prioritized[i].value);
         }
     } else {
         units = normalizeUnits(units);

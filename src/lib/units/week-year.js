@@ -8,6 +8,9 @@ import toInt from '../utils/to-int';
 import { hooks } from '../utils/hooks';
 import { createLocal } from '../create/local';
 import { createUTCDate } from '../create/date-from-array';
+import { getSetDayOfMonth } from './day-of-month';
+import { getSetMonth } from './month';
+import { getSetYear } from './year';
 
 // FORMATTING
 
@@ -32,11 +35,6 @@ addWeekYearFormatToken('GGGGG', 'isoWeekYear');
 
 addUnitAlias('weekYear', 'gg');
 addUnitAlias('isoWeekYear', 'GG');
-
-// PRIORITY
-
-addUnitPriority('weekYear', 1);
-addUnitPriority('isoWeekYear', 1);
 
 
 // PARSING
@@ -100,8 +98,13 @@ function setWeekAll(weekYear, week, weekday, dow, doy) {
     var dayOfYearData = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy),
         date = createUTCDate(dayOfYearData.year, 0, dayOfYearData.dayOfYear);
 
-    this.year(date.getUTCFullYear());
-    this.month(date.getUTCMonth());
-    this.date(date.getUTCDate());
+    getSetYear.call(this, date.getUTCFullYear());
+    getSetMonth.call(this, date.getUTCMonth());
+    getSetDayOfMonth.call(this, date.getUTCDate());
     return this;
 }
+
+// PRIORITY
+
+addUnitPriority('weekYear', 1, getSetWeekYear);
+addUnitPriority('isoWeekYear', 1, getSetISOWeekYear);

@@ -146,9 +146,7 @@ export function getSetZone (input, keepLocalTime) {
             input = -input;
         }
 
-        this.utcOffset(input, keepLocalTime);
-
-        return this;
+        return this.utcOffset(input, keepLocalTime);
     } else {
         return -this.utcOffset();
     }
@@ -159,28 +157,30 @@ export function setOffsetToUTC (keepLocalTime) {
 }
 
 export function setOffsetToLocal (keepLocalTime) {
-    if (this._isUTC) {
-        this.utcOffset(0, keepLocalTime);
-        this._isUTC = false;
+    var ret = this;
+    if (ret._isUTC) {
+        ret = ret.utcOffset(0, keepLocalTime);
+        ret._isUTC = false;
 
         if (keepLocalTime) {
-            this.subtract(getDateOffset(this), 'm');
+            ret = ret.subtract(getDateOffset(ret), 'm');
         }
     }
-    return this;
+    return ret;
 }
 
 export function setOffsetToParsedOffset () {
     if (this._tzm != null) {
-        this.utcOffset(this._tzm, false, true);
+        return this.utcOffset(this._tzm, false, true);
     } else if (typeof this._i === 'string') {
         var tZone = offsetFromString(matchOffset, this._i);
         if (tZone != null) {
-            this.utcOffset(tZone);
+            return this.utcOffset(tZone);
         }
         else {
-            this.utcOffset(0, true);
+            return this.utcOffset(0, true);
         }
+        return this.utcOffset(offsetFromString(matchOffset, this._i));
     }
     return this;
 }

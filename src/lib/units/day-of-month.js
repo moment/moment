@@ -15,9 +15,6 @@ addFormatToken('D', ['DD', 2], 'Do', 'date');
 
 addUnitAlias('date', 'D');
 
-// PRIOROITY
-addUnitPriority('date', 9);
-
 // PARSING
 
 addRegexToken('D',  match1to2);
@@ -37,3 +34,7 @@ addParseToken('Do', function (input, array) {
 // MOMENTS
 
 export var getSetDayOfMonth = makeGetSet('Date', true);
+
+// PRIORITY
+
+addUnitPriority('date', 9, getSetDayOfMonth);
