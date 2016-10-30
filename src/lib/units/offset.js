@@ -71,8 +71,7 @@ export function cloneWithOffset(input, model) {
         diff = (isMoment(input) || isDate(input) ? input.valueOf() : createLocal(input).valueOf()) - res.valueOf();
         // Use low-level api, because this fn is low-level api.
         res._d.setTime(res._d.valueOf() + diff);
-        hooks.updateOffset(res, false);
-        return res;
+        return hooks.updateOffset(res, false);
     } else {
         return createLocal(input).local();
     }
@@ -88,7 +87,13 @@ function getDateOffset (m) {
 
 // This function will be called whenever a moment is mutated.
 // It is intended to keep the offset in sync with the timezone.
-hooks.updateOffset = function () {};
+//
+// Because Moment's external API is immutable and this hook will be defined
+// externally (e.g. by Moment Timezone), this hook must return a (possibly new)
+// Moment instance that reflects the correctly-updated offset.
+hooks.updateOffset = function (m) {
+    return m;
+};
 
 // MOMENTS
 
@@ -109,6 +114,7 @@ export function getSetOffset (input, keepLocalTime, keepMinutes) {
         return input != null ? this : NaN;
     }
     if (input != null) {
+        var ret = this;
         if (typeof input === 'string') {
             input = offsetFromString(matchShortOffset, input);
             if (input === null) {
@@ -117,24 +123,24 @@ export function getSetOffset (input, keepLocalTime, keepMinutes) {
         } else if (Math.abs(input) < 16 && !keepMinutes) {
             input = input * 60;
         }
-        if (!this._isUTC && keepLocalTime) {
-            localAdjust = getDateOffset(this);
+        if (!ret._isUTC && keepLocalTime) {
+            localAdjust = getDateOffset(ret);
         }
-        this._offset = input;
-        this._isUTC = true;
+        ret._offset = input;
+        ret._isUTC = true;
         if (localAdjust != null) {
-            this.add(localAdjust, 'm');
+            ret = ret.add(localAdjust, 'm');
         }
         if (offset !== input) {
-            if (!keepLocalTime || this._changeInProgress) {
-                addSubtract(this, createDuration(input - offset, 'm'), 1, false);
-            } else if (!this._changeInProgress) {
-                this._changeInProgress = true;
-                hooks.updateOffset(this, true);
-                this._changeInProgress = null;
+            if (!keepLocalTime || ret._changeInProgress) {
+                ret = addSubtract(ret, createDuration(input - offset, 'm'), 1, false);
+            } else if (!ret._changeInProgress) {
+                ret._changeInProgress = true;
+                ret = hooks.updateOffset(ret, true);
+                ret._changeInProgress = null;
             }
         }
-        return this;
+        return ret;
     } else {
         return this._isUTC ? offset : getDateOffset(this);
     }

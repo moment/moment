@@ -18,8 +18,18 @@ import { configFromString }          from './from-string';
 import { configFromArray }           from './from-array';
 import { configFromObject }          from './from-object';
 
+var updateInProgress = false;
+
 function createFromConfig (config) {
     var res = new Moment(checkOverflow(prepareConfig(config)));
+
+    // Prevent infinite loop in case updateOffset creates new moment objects.
+    if (updateInProgress === false) {
+        updateInProgress = true;
+        res = hooks.updateOffset(res);
+        updateInProgress = false;
+    }
+
     if (res._nextDay) {
         // Adding is smart enough around DST
         res = res.add(1, 'd');

@@ -316,10 +316,11 @@ test('startOf across DST +1', function (assert) {
 
     moment.updateOffset = function (mom, keepTime) {
         if (mom.isBefore(dstAt)) {
-            mom.utcOffset(-8, keepTime);
+            mom = mom.utcOffset(-8, keepTime);
         } else {
-            mom.utcOffset(-7, keepTime);
+            mom = mom.utcOffset(-7, keepTime);
         }
+        return mom;
     };
 
     m = moment('2014-03-15T00:00:00-07:00').parseZone();
@@ -355,10 +356,11 @@ test('startOf across DST -1', function (assert) {
 
     moment.updateOffset = function (mom, keepTime) {
         if (mom.isBefore(dstAt)) {
-            mom.utcOffset(-7, keepTime);
+            mom = mom.utcOffset(-7, keepTime);
         } else {
-            mom.utcOffset(-8, keepTime);
+            mom = mom.utcOffset(-8, keepTime);
         }
+        return mom;
     };
 
     m = moment('2014-11-15T00:00:00-08:00').parseZone();

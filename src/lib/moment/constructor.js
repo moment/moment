@@ -54,21 +54,17 @@ export function copyConfig(to, from) {
     return to;
 }
 
-var updateInProgress = false;
-
-// Moment prototype object
+// Moment prototype object.
+//
+// Run hooks.updateOffset(new Moment(config)) if you're constructing from user
+// input, but be careful to detect and break out of loops in case the user's
+// version of hooks.updateOffset() decides to trigger the same code path.
+// (Or just use from-anything's createFromConfig(), which handles this for you.)
 export function Moment(config) {
     copyConfig(this, config);
     this._d = new Date(config._d != null ? config._d.getTime() : NaN);
     if (!this.isValid()) {
         this._d = new Date(NaN);
-    }
-    // Prevent infinite loop in case updateOffset creates new moment
-    // objects.
-    if (updateInProgress === false) {
-        updateInProgress = true;
-        hooks.updateOffset(this);
-        updateInProgress = false;
     }
 }
 

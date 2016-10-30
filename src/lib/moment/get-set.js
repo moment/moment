@@ -8,8 +8,7 @@ export function makeGetSet (unit, keepTime) {
     return function (value) {
         if (value != null) {
             set(this, unit, value);
-            hooks.updateOffset(this, keepTime);
-            return this;
+            return hooks.updateOffset(this, keepTime);
         } else {
             return get(this, unit);
         }

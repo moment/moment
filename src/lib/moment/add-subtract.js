@@ -19,8 +19,7 @@ function createAdder(direction, name) {
 
         val = typeof val === 'string' ? +val : val;
         dur = createDuration(val, period);
-        addSubtract(this, dur, direction);
-        return this;
+        return addSubtract(this, dur, direction);
     };
 }
 
@@ -31,7 +30,7 @@ export function addSubtract (mom, duration, isAdding, updateOffset) {
 
     if (!mom.isValid()) {
         // No op
-        return;
+        return mom;
     }
 
     updateOffset = updateOffset == null ? true : updateOffset;
@@ -46,8 +45,9 @@ export function addSubtract (mom, duration, isAdding, updateOffset) {
         setMonth(mom, get(mom, 'Month') + months * isAdding);
     }
     if (updateOffset) {
-        hooks.updateOffset(mom, days || months);
+        mom = hooks.updateOffset(mom, days || months);
     }
+    return mom;
 }
 
 export var add      = createAdder(1, 'add');
