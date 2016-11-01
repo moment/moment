@@ -213,15 +213,15 @@ declare namespace moment {
 
   type MomentFormatSpecification = string | MomentBuiltinFormat | (string | MomentBuiltinFormat)[];
 
-  type UnitOfTime = ("year" | "years" | "y" |
+  type UnitOfTime = ("year" | "years" | "y" | "Y" |
               "quarter" | "quarters" | "Q" |
               "month" | "months" | "M" |
               "week" | "weeks" | "w" |
               "date" | "dates" | "d" |
               "day" | "days" |
-              "hour" | "hours" | "h" |
+              "hour" | "hours" | "h" | "H" |
               "minute" | "minutes" | "m" |
-              "second" | "seconds" | "s" |
+              "second" | "seconds" | "s" | "S" |
               "millisecond" | "milliseconds" | "ms");
 
   interface MomentCreationData {
