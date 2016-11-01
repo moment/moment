@@ -185,10 +185,14 @@ moment([2007, 0, 29]).fromNow(true);
 
 var a8 = moment([2007, 0, 29]);
 var b8 = moment([2007, 0, 28]);
-a8.diff(b8) ;
+a8.diff(b8);
 a8.diff(b8, 'days');
 a8.diff(b8, 'years')
 a8.diff(b8, 'years', true);
+a8.diff(new Date());
+a8.diff(new Date().toISOString());
+a8.diff(new Date().getTime());
+a8.diff([2016, 1, 22]);
 
 moment([2007, 0, 29]).toDate();
 moment([2007, 1, 23]).toISOString();
@@ -224,6 +228,29 @@ var localLang = moment();
 localLang.localeData('fr');
 localLang.format('LLLL');
 globalLang.format('LLLL');
+
+var localeData = moment.localeData();
+var aMoment = moment();
+localeData.months(aMoment);
+localeData.monthsShort(aMoment);
+localeData.monthsParse('jan');
+localeData.weekdays(aMoment);
+localeData.weekdaysShort(aMoment);
+localeData.weekdaysMin(aMoment);
+localeData.weekdaysParse('monday');
+localeData.longDateFormat('LL');
+localeData.isPM('03:25 PM');
+localeData.meridiem(2, 5, true);
+localeData.calendar('sameDay', aMoment);
+var relTime = localeData.relativeTime(1, true, 's', true);
+localeData.pastFuture(4, relTime);
+localeData.ordinal(1);
+localeData.preparse('str');
+localeData.postformat('str');
+localeData.week(aMoment);
+localeData.invalidDate();
+localeData.firstDayOfWeek();
+localeData.firstDayOfYear();
 
 moment.duration(100);
 moment.duration(2, 'seconds');
