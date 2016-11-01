@@ -7,6 +7,7 @@ Read before submitting Pull Requests
 ====================================
 
  * **Pull requests to the `master` branch will be closed.** Please submit all pull requests to the `develop` branch.
+ * **You will be required to sign a JS Foundation CLA before your pull request can be merged.**
  * **Locale translations will not be merged without unit tests.** See [the British English unit tests](https://github.com/moment/moment/blob/develop/src/test/locale/en-gb.js) for an example.
  * **Do not include the minified files in your pull request.** These are
    `moment.js`, `locale/*.js`, `min/*.js`. Don't worry, we'll build them when
