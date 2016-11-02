@@ -65,10 +65,9 @@ module.exports = function (grunt) {
                 path.resolve('src/moment'),
                 path.resolve('build/tmp/moment')
             ];
-            bundleOpts.globals = {
-                [path.resolve('src/moment')]: 'moment',
-                [path.resolve('build/tmp/moment')]: 'moment'
-            };
+            bundleOpts.globals = {};
+            bundleOpts.globals[path.resolve('src/moment')] = 'moment';
+            bundleOpts.globals[path.resolve('build/tmp/moment')] = 'moment';
         }
 
         return rollup(rollupOpts).then(function (bundle) {
