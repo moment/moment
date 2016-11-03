@@ -217,6 +217,7 @@ declare namespace moment {
               "quarter" | "quarters" | "Q" |
               "month" | "months" | "M" |
               "week" | "weeks" | "w" |
+              "isoWeek" | "isoWeeks" | "W" |
               "date" | "dates" | "d" |
               "day" | "days" |
               "hour" | "hours" | "h" |
