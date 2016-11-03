@@ -1,6 +1,3 @@
-/// <reference path="../moment.d.ts" />
-import moment = require('../moment');
-
 moment().add('hours', 1).fromNow();
 
 var day = new Date(2011, 9, 16);
