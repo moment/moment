@@ -39,7 +39,7 @@ export default moment.defineLocale('ca', {
         sameElse : 'L'
     },
     relativeTime : {
-        future : 'en %s',
+        future : 'd\'aquí %s',
         past : 'fa %s',
         s : 'uns segons',
         m : 'un minut',
