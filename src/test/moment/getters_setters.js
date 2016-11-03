@@ -102,7 +102,7 @@ test('setters', function (assert) {
 
     // Test setter for garbage input.
     a = moment().year('foo');
-    assert.equal(a.isValid(), false, 'Test setter for garbage input');
+    assert.equal(a.isValid(), true, 'Silent ignore for garbage input');
 });
 
 test('setter programmatic', function (assert) {
