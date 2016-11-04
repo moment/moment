@@ -93,6 +93,44 @@ export function configFromISO(config) {
     }
 }
 
+// rfc 2822 regex
+//	[Group 1: optional][Group 2][Group 3: optional][Group 4]
+//----
+// Group 1: "Day[,] "
+// 	Day= Day of Week ('Mon','Tue','Wed','Thu','Fri','Sat','Sun')
+// Group 2: "dD Mon [CC]YY HH:MM"
+// 	dD= Day of Month (1-2-digits) - Strict: 1 to 31 with optional leading zero
+// 	Mon= Month of Year ('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec')
+// 	CC: Century [optional] (2-digits) - Strict: 19 to 99
+// 	YY: Year in Century (2-digits)
+// 	HH: Hour of Day (2-digits) - Strict: 00 to 23
+// 	MM: Minute in Hour (2-digits) - Strict: 00 to 59
+// Group 3: ":SS "
+//  SS: Seconds in Minute [optional] (2-digits) - Strict: 00 to 60
+// Group 4: " (TZ|MIL|TO)"
+// 	TZ: Timezone ('UT','GMT','EST','EDT','CST','CDT','MST','MDT','PST','PDT')
+// 	MIL: Military timezone code (A-Z excluding J)
+// 	TO: Time Offset (+|- 4-digits) - Strict: 0000 to 9959 (as per spec)
+//====
+var detailedRfcRegex = /^((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?((?:0?[1-9]|[1-2]?\d|3[01])\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:[2-9]\d|19)?\d\d\s(?:[01]\d|2[0-3]):[0-5]\d)(\:(?:60|[0-5]\d))?(\s(?:UT|GMT|(?:[ECMP][SD]T)|[A-IK-Z]|(?:[+-](?:[0-8]\d\d|9\d[0-5])\d)))$/;
+var basicRfcRegex = /^((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d?\d\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:\d\d)?\d\d\s\d\d:\d\d)(\:\d\d)?(\s(?:UT|GMT|([ECMP][SD]T)|[A-IK-Z]|(?:[+-]\d{4})))$/;
+var rfcStringFormat = 'ddd, D MMM YYYY HH:mm:ss [GMT]';
+
+// date and time from ref 2822 format
+export function configFromRFC2822(config) {
+    var string = config._i,
+        match = basicRfcRegex.exec(string);
+
+    if (match) {
+        getParsingFlags(config).rfc2822 = true;
+
+        config._f = string;
+        configFromStringAndFormat(config);
+    } else {
+        config._isValid = false;
+    }
+}
+
 // date from iso format or fallback
 export function configFromString(config) {
     var matched = aspNetJsonRegex.exec(config._i);
@@ -105,13 +143,18 @@ export function configFromString(config) {
     configFromISO(config);
     if (config._isValid === false) {
         delete config._isValid;
-        hooks.createFromInputFallback(config);
+
+        configFromRFC2822(config);
+        if (config._isValid === false) {
+            delete config._isValid;
+            hooks.createFromInputFallback(config);
+        }
     }
 }
 
 hooks.createFromInputFallback = deprecate(
-    'value provided is not in a recognized ISO format. moment construction falls back to js Date(), ' +
-    'which is not reliable across all browsers and versions. Non ISO date formats are ' +
+    'value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), ' +
+    'which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are ' +
     'discouraged and will be removed in an upcoming major release. Please refer to ' +
     'http://momentjs.com/guides/#/warnings/js-date/ for more info.',
     function (config) {

@@ -456,6 +456,19 @@ test('cloning carrying over utc mode', function (assert) {
     assert.equal(moment(moment.utc())._isUTC, true, 'An implicit cloned utc moment should have _isUTC == true');
 });
 
+test('parsing rfc 2822', function (assert) {
+    assert.ok(moment('2011-10-08T18:04:20', moment.ISO_8601, true).isValid(),
+        'CONTROL-WORKS complete ISO date and time');
+
+    assert.ok(moment('Tue, 01 Nov 2016 01:23:45 GMT', moment.RFC_2822, true).isValid(),
+        'clean RFC2822 datetime with all options');
+});
+
+test('non rfc 2822 strings', function (assert) {
+    assert.ok(!moment('Tue. 01 Nov 2016 01:23:45 GMT', moment.RFC_2822, true).isValid(),
+        'RFC2822 datetime with all options but invalid day delimiter');
+});
+
 test('parsing iso', function (assert) {
     var offset = moment([2011, 9, 8]).utcOffset(),
     pad = function (input) {
