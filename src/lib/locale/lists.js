@@ -1,3 +1,4 @@
+import isNumber from '../utils/is-number';
 import { getLocale } from './locales';
 import { createUTC } from '../create/utc';
 
@@ -8,7 +9,7 @@ function get (format, index, field, setter) {
 }
 
 function listMonthsImpl (format, index, field) {
-    if (typeof format === 'number') {
+    if (isNumber(format)) {
         index = format;
         format = undefined;
     }
@@ -37,7 +38,7 @@ function listMonthsImpl (format, index, field) {
 // (true, fmt)
 function listWeekdaysImpl (localeSorted, format, index, field) {
     if (typeof localeSorted === 'boolean') {
-        if (typeof format === 'number') {
+        if (isNumber(format)) {
             index = format;
             format = undefined;
         }
@@ -48,7 +49,7 @@ function listWeekdaysImpl (localeSorted, format, index, field) {
         index = format;
         localeSorted = false;
 
-        if (typeof format === 'number') {
+        if (isNumber(format)) {
             index = format;
             format = undefined;
         }

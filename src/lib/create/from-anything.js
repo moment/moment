@@ -1,6 +1,7 @@
 import isArray from '../utils/is-array';
 import isObject from '../utils/is-object';
 import isObjectEmpty from '../utils/is-object-empty';
+import isNumber from '../utils/is-number';
 import isDate from '../utils/is-date';
 import map from '../utils/map';
 import { createInvalid } from './valid';
@@ -75,7 +76,7 @@ function configFromInput(config) {
         configFromArray(config);
     } else if (typeof(input) === 'object') {
         configFromObject(config);
-    } else if (typeof(input) === 'number') {
+    } else if (isNumber(input)) {
         // from milliseconds
         config._d = new Date(input);
     } else {
