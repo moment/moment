@@ -150,6 +150,57 @@ test('toISOString', function (assert) {
     assert.equal(date.toISOString(), '-020123-10-09T20:30:40.678Z', 'ISO8601 format on big negative year');
 });
 
+// See https://nodejs.org/dist/latest/docs/api/util.html#util_custom_inspect_function_on_objects
+test('inspect', function (assert) {
+    function roundtrip(m) {
+        /*jshint evil:true */
+        return eval(m.inspect());
+    }
+    function testInspect(date, string) {
+        var inspected = date.inspect();
+        assert.equal(inspected, string);
+        assert.ok(date.isSame(roundtrip(date)), 'Tried to parse ' + inspected);
+    }
+
+    testInspect(
+        moment('2012-10-09T20:30:40.678'),
+        'moment("2012-10-09T20:30:40.678")'
+    );
+    testInspect(
+        moment('+020123-10-09T20:30:40.678'),
+        'moment("+020123-10-09T20:30:40.678")'
+    );
+    testInspect(
+        moment.utc('2012-10-09T20:30:40.678'),
+        'moment.utc("2012-10-09T20:30:40.678+00:00")'
+    );
+    testInspect(
+        moment.utc('+020123-10-09T20:30:40.678'),
+        'moment.utc("+020123-10-09T20:30:40.678+00:00")'
+    );
+    testInspect(
+        moment.utc('+020123-10-09T20:30:40.678+01:00'),
+        'moment.utc("+020123-10-09T19:30:40.678+00:00")'
+    );
+    testInspect(
+        moment.parseZone('2016-06-11T17:30:40.678+0430'),
+        'moment.parseZone("2016-06-11T17:30:40.678+04:30")'
+    );
+    testInspect(
+        moment.parseZone('+112016-06-11T17:30:40.678+0430'),
+        'moment.parseZone("+112016-06-11T17:30:40.678+04:30")'
+    );
+
+    assert.equal(
+        moment(new Date('nope')).inspect(),
+        'moment.invalid(/* Invalid Date */)'
+    );
+    assert.equal(
+        moment('blah', 'YYYY').inspect(),
+        'moment.invalid(/* blah */)'
+    );
+});
+
 test('long years', function (assert) {
     assert.equal(moment.utc().year(2).format('YYYYYY'), '+000002', 'small year with YYYYYY');
     assert.equal(moment.utc().year(2012).format('YYYYYY'), '+002012', 'regular year with YYYYYY');
