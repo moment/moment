@@ -298,7 +298,7 @@ declare namespace moment {
 
     type _quarter = "quarter" | "quarters" | "Q";
     type _isoWeek = "isoWeek" | "isoWeeks" | "W";
-    type _date = "date" | "dates" | "d";
+    type _date = "date" | "dates" | "D";
     type DurationConstructor = Base | _quarter;
 
     type DurationAs = Base;
