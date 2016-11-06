@@ -94,37 +94,84 @@ export function configFromISO(config) {
 }
 
 // rfc 2822 regex
-//	[Group 1: optional][Group 2][Group 3: optional][Group 4]
+//  [Group 1: Day (optional)]
+//  [Group 2: Date and Time]
+//  [Group 3: Seconds (optional)]
+//  [Group 4: Timezone|Time offset]
 //----
 // Group 1: "Day[,] "
-// 	Day= Day of Week ('Mon','Tue','Wed','Thu','Fri','Sat','Sun')
-// Group 2: "dD Mon [CC]YY HH:MM"
-// 	dD= Day of Month (1-2-digits) - Strict: 1 to 31 with optional leading zero
-// 	Mon= Month of Year ('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec')
-// 	CC: Century [optional] (2-digits) - Strict: 19 to 99
-// 	YY: Year in Century (2-digits)
-// 	HH: Hour of Day (2-digits) - Strict: 00 to 23
-// 	MM: Minute in Hour (2-digits) - Strict: 00 to 59
-// Group 3: ":SS "
+//  Day= Day of Week ('Mon','Tue','Wed','Thu','Fri','Sat','Sun')
+// Group 2: "dD Mon [CC]YY "
+//  dD= Day of Month (1-2-digits) - Strict: 1 to 31 with optional leading zero
+//  Mon= Month of Year ('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec')
+//  CC: Century [optional] (2-digits) - Strict: 19 to 99
+//  YY: Year in Century (2-digits)
+// Group 3: "HH:MM"
+//  HH: Hour of Day (2-digits) - Strict: 00 to 23
+//  MM: Minute in Hour (2-digits) - Strict: 00 to 59
+// Group 4: ":SS"
 //  SS: Seconds in Minute [optional] (2-digits) - Strict: 00 to 60
-// Group 4: " (TZ|MIL|TO)"
-// 	TZ: Timezone ('UT','GMT','EST','EDT','CST','CDT','MST','MDT','PST','PDT')
-// 	MIL: Military timezone code (A-Z excluding J)
-// 	TO: Time Offset (+|- 4-digits) - Strict: 0000 to 9959 (as per spec)
+// Group 5: " (TZ|MIL|TO)"
+//  TZ: Timezone ('UT','GMT','EST','EDT','CST','CDT','MST','MDT','PST','PDT')
+//  MIL: Military timezone code (A-Z excluding J)
+//  TO: Time Offset (+|- 4-digits) - Strict: 0000 to 9959 (as per spec)
 //====
-var detailedRfcRegex = /^((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?((?:0?[1-9]|[1-2]?\d|3[01])\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:[2-9]\d|19)?\d\d\s(?:[01]\d|2[0-3]):[0-5]\d)(\:(?:60|[0-5]\d))?(\s(?:UT|GMT|(?:[ECMP][SD]T)|[A-IK-Z]|(?:[+-](?:[0-8]\d\d|9\d[0-5])\d)))$/;
-var basicRfcRegex = /^((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d?\d\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:\d\d)?\d\d\s\d\d:\d\d)(\:\d\d)?(\s(?:UT|GMT|([ECMP][SD]T)|[A-IK-Z]|(?:[+-]\d{4})))$/;
-var rfcStringFormat = 'ddd, D MMM YYYY HH:mm:ss [GMT]';
+//var detailedRfcRegex = /^((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?((?:0?[1-9]|[1-2]?\d|3[01])\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:[2-9]\d|19)?\d\d\s)((?:[01]\d|2[0-3]):[0-5]\d)(\:(?:60|[0-5]\d))?(\s(?:UT|GMT|(?:[ECMP][SD]T)|[A-IK-Z]|(?:[+-](?:[0-8]\d\d|9\d[0-5])\d)))$/;
+var basicRfcRegex = /^((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d?\d\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:\d\d)?\d\d\s)(\d\d:\d\d)(\:\d\d)?(\s(?:UT|GMT|([ECMP][SD]T)|[A-IK-Z]|(?:[+-]\d{4})))$/;
 
 // date and time from ref 2822 format
 export function configFromRFC2822(config) {
     var string = config._i,
-        match = basicRfcRegex.exec(string);
+        match = basicRfcRegex.exec(string),
+        dayFormat, dateFormat, timeFormat, tzFormat;
+    var rfc2822Timezones = {
+        ' GMT': ' +0000',
+        ' EDT': ' -0400',
+        ' EST': ' -0500',
+        ' CDT': ' -0500',
+        ' CST': ' -0600',
+        ' MDT': ' -0600',
+        ' MST': ' -0700',
+        ' PDT': ' -0700',
+        ' PST': ' -0800'
+    };
+    var rfc2822Military = 'YXWVUTSRQPONZABCDEFGHIKLM';
+    var rfc2822Timezone, rfc2822Index;
+
+    // TODO: Need to clean input string before parsing.
 
     if (match) {
         getParsingFlags(config).rfc2822 = true;
 
-        config._f = string;
+        dayFormat = match[1] ? 'ddd' + ((match[1].length === 5) ? ', ' : ' ') : '';
+        dateFormat = 'D MMM ' + ((match[2].length > 9) ? 'YYYY ' : 'YY ');
+        timeFormat = 'HH:mm' + (match[4] ? ':ss' : '');
+
+        switch (match[5].length) {
+            case 2: // Military
+                if (rfc2822Index === 0) {
+                    rfc2822Timezone = ' +0000';
+                } else {
+                    rfc2822Index = rfc2822Military.indexOf(match[5][1]) - 12;
+                    rfc2822Timezone = ((rfc2822Index < 0) ? ' -' : ' +') +
+                        (('' + rfc2822Index).replace(/^-?/, '0')).match(/..$/)[0] + '00';
+                }
+                rfc2822Timezone += '00';
+                break;
+            case 4: // Zone
+                rfc2822Timezone = rfc2822Timezones[match[5]];
+                break;
+            default: // UT or +/-9999
+                rfc2822Timezone = rfc2822Timezones[' GMT'];
+        }
+        match[5] = rfc2822Timezone;
+        config._i = match.splice(1).join('');
+        tzFormat = ' ZZ';
+        console.log(match.slice(1).join('|'));
+
+        // TODO: Need to validate day against date
+        config._f = dayFormat + dateFormat + timeFormat + tzFormat;
+        console.log('TGJG', config._f);
         configFromStringAndFormat(config);
     } else {
         config._isValid = false;
@@ -146,6 +193,7 @@ export function configFromString(config) {
 
         configFromRFC2822(config);
         if (config._isValid === false) {
+            getParsingFlags(config).iso = false;
             delete config._isValid;
             hooks.createFromInputFallback(config);
         }
