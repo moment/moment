@@ -1,7 +1,7 @@
 module.exports = function (grunt) {
     // var esperanto = require('esperanto');
     var rollup = require('rollup').rollup;
-    var babel = require('rollup-plugin-babel');
+    // var babel = require('rollup-plugin-babel');
     var path = require('path');
     var Promise = require('es6-promise').Promise;
     var TMP_DIR = 'build/tmp';
@@ -49,7 +49,7 @@ module.exports = function (grunt) {
         var rollupOpts = {
             entry: opts.entry,
             plugins: [
-                babel({})
+                // babel({})
             ]
         }, bundleOpts = {
             format: 'umd',
