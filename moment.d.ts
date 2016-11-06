@@ -1,20 +1,7 @@
 declare function moment(inp?: moment.MomentInput, format?: moment.MomentFormatSpecification, strict?: boolean): moment.Moment;
 declare function moment(inp?: moment.MomentInput, format?: moment.MomentFormatSpecification, language?: string, strict?: boolean): moment.Moment;
 
-// TODO(Iskren): Delete
-// declare function moment(date: number): moment.Moment;
-// declare function moment(date: string): moment.Moment;
-// declare function moment(date: (number | string)[]): moment.Moment;
-// declare function moment(date: string, format?: moment.MomentFormatSpecification, strict?: boolean): moment.Moment;
-// declare function moment(date: string, format?: moment.MomentFormatSpecification, language?: string, strict?: boolean): moment.Moment;
-// declare function moment(date: Date): moment.Moment;
-// declare function moment(date: moment.Moment): moment.Moment;
-// declare function moment(date: moment.MomentInputObject): moment.Moment;
-
 declare namespace moment {
-  // TODO(Iskren): Put all locale stuff in a namespace and export Locale and
-  // LocaleSpecification (or just prefix them with the namespace.
-
   type RelativeTimeKey = 's' | 'm' | 'mm' | 'h' | 'hh' | 'd' | 'dd' | 'M' | 'MM' | 'y' | 'yy';
   type CalendarKey = 'sameDay' | 'nextDay' | 'lastDay' | 'nextWeek' | 'lastWeek' | 'sameElse' | string;
   type LongDateFormatKey = 'LTS' | 'LT' | 'L' | 'LL' | 'LLL' | 'LLLL' | 'lts' | 'lt' | 'l' | 'll' | 'lll' | 'llll';
@@ -208,11 +195,17 @@ declare namespace moment {
     toISOString(): string;
     toJSON(): string;
 
-    // Deprecated as of 2.8.0.
+    /**
+     * @deprecated since version 2.8.0
+     */
     lang(locale: LocaleSpecifier): Moment;
-    // Deprecated as of 2.8.0.
+    /**
+     * @deprecated since version 2.8.0
+     */
     lang(): Locale;
-    // Deprecated
+    /**
+     * @deprecated
+     */
     toIsoString(): string;
   }
 
@@ -415,83 +408,15 @@ declare namespace moment {
     startOf(unitOfTime: unitOfTime.StartOf): Moment;
     endOf(unitOfTime: unitOfTime.StartOf): Moment;
 
-    // /**
-    // * Mutates the original moment by adding time. (deprecated in 2.8.0)
-    // *
-    // * @param unitOfTime the unit of time you want to add (eg "years" / "hours" etc)
-    // * @param amount the amount you want to add
-    // */
-    // add(unitOfTime: UnitOfTime, amount: number): Moment;
-    // /**
-    // * Mutates the original moment by adding time.
-    // *
-    // * @param amount the amount you want to add
-    // * @param unitOfTime the unit of time you want to add (eg "years" / "hours" etc)
-    // */
-    // add(amount: number, unitOfTime: UnitOfTime): Moment;
-    // /**
-    // * Mutates the original moment by adding time. Note that the order of arguments can be flipped.
-    // *
-    // * @param amount the amount you want to add
-    // * @param unitOfTime the unit of time you want to add (eg "years" / "hours" etc)
-    // */
-    // add(amount: string, unitOfTime: UnitOfTime): Moment;
-    // /**
-    // * Mutates the original moment by adding time.
-    // *
-    // * @param objectLiteral an object literal that describes multiple time units {days:7,months:1}
-    // */
-    // add(objectLiteral: MomentInput): Moment;
-    // /**
-    // * Mutates the original moment by adding time.
-    // *
-    // * @param duration a length of time
-    // */
-    // add(duration: Duration): Moment;
-
     add(amount?: DurationInputArg1, unit?: DurationInputArg2): Moment;
     /**
-     * deprecated: reversed syntax
+     * @deprecated reverse syntax
      */
     add(unit: unitOfTime.DurationConstructor, amount: number|string): Moment;
 
-
-    // /**
-    // * Mutates the original moment by subtracting time. (deprecated in 2.8.0)
-    // *
-    // * @param unitOfTime the unit of time you want to subtract (eg "years" / "hours" etc)
-    // * @param amount the amount you want to subtract
-    // */
-    // subtract(unitOfTime: UnitOfTime, amount: number): Moment;
-    // /**
-    // * Mutates the original moment by subtracting time.
-    // *
-    // * @param unitOfTime the unit of time you want to subtract (eg "years" / "hours" etc)
-    // * @param amount the amount you want to subtract
-    // */
-    // subtract(amount: number, unitOfTime: UnitOfTime): Moment;
-    // /**
-    // * Mutates the original moment by subtracting time. Note that the order of arguments can be flipped.
-    // *
-    // * @param amount the amount you want to add
-    // * @param unitOfTime the unit of time you want to subtract (eg "years" / "hours" etc)
-    // */
-    // subtract(amount: string, unitOfTime: UnitOfTime): Moment;
-    // /**
-    // * Mutates the original moment by subtracting time.
-    // *
-    // * @param objectLiteral an object literal that describes multiple time units {days:7,months:1}
-    // */
-    // subtract(objectLiteral: MomentInput): Moment;
-    // /**
-    // * Mutates the original moment by subtracting time.
-    // *
-    // * @param duration a length of time
-    // */
-    // subtract(duration: Duration): Moment;
     subtract(amount?: DurationInputArg1, unit?: DurationInputArg2): Moment;
     /**
-     * deprecated: reversed syntax
+     * @deprecated reverse syntax
      */
     subtract(unit: unitOfTime.DurationConstructor, amount: number|string): Moment;
 
@@ -500,8 +425,8 @@ declare namespace moment {
     clone(): Moment;
 
     /**
-    * @return Unix timestamp, or milliseconds since the epoch.
-    */
+     * @return Unix timestamp in milliseconds
+     */
     valueOf(): number;
 
     // current date/time in local mode
@@ -511,7 +436,9 @@ declare namespace moment {
     // current date/time in UTC mode
     utc(keepLocalTime?: boolean): Moment;
     isUTC(): boolean;
-    // deprecated
+    /**
+     * @deprecated use isUTC
+     */
     isUtc(): boolean;
 
     parseZone(): Moment;
@@ -525,9 +452,13 @@ declare namespace moment {
 
     year(y: number): Moment;
     year(): number;
-    // deprecated
+    /**
+     * @deprecated use year(y)
+     */
     years(y: number): Moment;
-    // deprecated
+    /**
+     * @deprecated use year()
+     */
     years(): number;
     quarter(): number;
     quarter(q: number): Moment;
@@ -535,9 +466,13 @@ declare namespace moment {
     quarters(q: number): Moment;
     month(M: number|string): Moment;
     month(): number;
-    // deprecated
+    /**
+     * @deprecated use month(M)
+     */
     months(M: number|string): Moment;
-    // deprecated
+    /**
+     * @deprecated use month()
+     */
     months(): number;
     day(d: number|string): Moment;
     day(): number;
@@ -545,9 +480,13 @@ declare namespace moment {
     days(): number;
     date(d: number): Moment;
     date(): number;
-    // deprecated
+    /**
+     * @deprecated use date(d)
+     */
     dates(d: number): Moment;
-    // deprecated
+    /**
+     * @deprecated use date()
+     */
     dates(): number;
     hour(h: number): Moment;
     hour(): number;
@@ -601,7 +540,7 @@ declare namespace moment {
 
     isLeapYear(): boolean;
     /**
-     * deprecated in favor of utcOffset
+     * @deprecated in favor of utcOffset
      */
     zone(): number;
     zone(b: number|string): Moment;
@@ -621,9 +560,13 @@ declare namespace moment {
     isSameOrBefore(inp?: MomentInput, granularity?: unitOfTime.StartOf): boolean;
     isBetween(a: MomentInput, b: MomentInput, granularity?: unitOfTime.StartOf, inclusivity?: "()" | "[)" | "(]" | "[]"): boolean;
 
-    // Deprecated as of 2.8.0.
+    /**
+     * @deprecated as of 2.8.0, use locale
+     */
     lang(language: LocaleSpecifier): Moment;
-    // Deprecated as of 2.8.0.
+    /**
+     * @deprecated as of 2.8.0, use locale
+     */
     lang(): Locale;
 
     locale(): string;
@@ -631,25 +574,35 @@ declare namespace moment {
 
     localeData(): Locale;
 
-    // deprecated
+    /**
+     * @deprecated no reliable implementation
+     */
     isDSTShifted(): boolean;
 
-    // Deprecated as of 2.7.0.
     // NOTE(constructor): Same as moment constructor
+    /**
+     * @deprecated as of 2.7.0, use moment.min/max
+     */
     max(inp?: MomentInput, format?: MomentFormatSpecification, strict?: boolean): Moment;
+    /**
+     * @deprecated as of 2.7.0, use moment.min/max
+     */
     max(inp?: MomentInput, format?: MomentFormatSpecification, language?: string, strict?: boolean): Moment;
 
-    // Deprecated as of 2.7.0.
     // NOTE(constructor): Same as moment constructor
+    /**
+     * @deprecated as of 2.7.0, use moment.min/max
+     */
     min(inp?: MomentInput, format?: MomentFormatSpecification, strict?: boolean): Moment;
+    /**
+     * @deprecated as of 2.7.0, use moment.min/max
+     */
     min(inp?: MomentInput, format?: MomentFormatSpecification, language?: string, strict?: boolean): Moment;
 
     get(unit: unitOfTime.All): number;
     set(unit: unitOfTime.All, value: number): Moment;
     set(objectLiteral: MomentSetObject): Moment;
 
-    /*This returns an object containing year, month, day-of-month, hour, minute, seconds, milliseconds.*/
-    //Works with version 2.10.5+
     toObject(): MomentObjectOutput;
   }
 
@@ -659,16 +612,6 @@ declare namespace moment {
   // NOTE(constructor): Same as moment constructor
   export function utc(inp?: MomentInput, format?: MomentFormatSpecification, strict?: boolean): Moment;
   export function utc(inp?: MomentInput, format?: MomentFormatSpecification, language?: string, strict?: boolean): Moment;
-  // export function utc(): Moment;
-  // export function utc(date: number): Moment;
-  // export function utc(date: number[]): Moment;
-  // export function utc(date: string, format?: string, strict?: boolean): Moment;
-  // export function utc(date: string, format?: string, language?: string, strict?: boolean): Moment;
-  // export function utc(date: string, formats: string[], strict?: boolean): Moment;
-  // export function utc(date: string, formats: string[], language?: string, strict?: boolean): Moment;
-  // export function utc(date: Date): Moment;
-  // export function utc(date: Moment): Moment;
-  // export function utc(date: Object): Moment;
 
   export function unix(timestamp: number): Moment;
 
@@ -677,8 +620,13 @@ declare namespace moment {
   export function isDate(m: any): m is Date;
   export function isDuration(d: any): d is Duration;
 
-  // Deprecated in 2.8.0.
+  /**
+   * @deprecated in 2.8.0
+   */
   export function lang(language?: string): string;
+  /**
+   * @deprecated in 2.8.0
+   */
   export function lang(language?: string, definition?: Locale): string;
 
   export function locale(language?: string): string;
@@ -690,12 +638,6 @@ declare namespace moment {
   export function updateLocale(language: string, locale: LocaleSpecification): Locale;
 
   export function duration(inp?: DurationInputArg1, unit?: DurationInputArg2): Duration;
-
-  // export function duration(milliseconds: Number): Duration;
-  // export function duration(num: Number, unitOfTime: UnitOfTime): Duration;
-  // export function duration(input: MomentInput): Duration;
-  // export function duration(object: any): Duration;
-  // export function duration(): Duration;
 
   // NOTE(constructor): Same as moment constructor
   export function parseZone(inp?: MomentInput, format?: MomentFormatSpecification, strict?: boolean): Moment;
@@ -739,8 +681,7 @@ declare namespace moment {
   export function max(...moments: MomentInput[]): Moment;
 
   /**
-   * Returns the current time in milliseconds since epoch. Overwrite for
-   * profit.
+   * Returns unix time in milliseconds. Overwrite for profit.
    */
   export function now(): number;
 
@@ -757,8 +698,8 @@ declare namespace moment {
   export function calendarFormat(m: Moment, now: Moment): string;
 
   /**
-  * Constant used to enable explicit ISO_8601 format parsing.
-  */
+   * Constant used to enable explicit ISO_8601 format parsing.
+   */
   export var ISO_8601: MomentBuiltinFormat;
 
   export var defaultFormat: string;
