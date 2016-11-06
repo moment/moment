@@ -64,7 +64,6 @@
         "qunit": "^0.7.5",
         "qunit-cli": "^0.1.4",
         "rollup": "latest",
-        "rollup-plugin-babel": "latest",
         "spacejam": "latest",
         "typescript": "^1.8.10",
         "coveralls": "^2.11.2",
