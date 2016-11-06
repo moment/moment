@@ -161,9 +161,9 @@ test('is same or after millisecond', function (assert) {
 });
 
 test('is same or after with utc offset moments', function (assert) {
-    assert.ok(moment.parseZone('2013-02-01T-05:00').isSameOrAfter(moment('2013-02-01'), 'year'), 'zoned vs local moment');
+    assert.ok(moment.parseZone('2013-02-01T00:00:00-05:00').isSameOrAfter(moment('2013-02-01'), 'year'), 'zoned vs local moment');
     assert.ok(moment('2013-02-01').isSameOrAfter(moment('2013-02-01').utcOffset('-05:00'), 'year'), 'local vs zoned moment');
-    assert.ok(moment.parseZone('2013-02-01T-05:00').isSameOrAfter(moment.parseZone('2013-02-01T-06:30'), 'year'),
+    assert.ok(moment.parseZone('2013-02-01T00:00:00-05:00').isSameOrAfter(moment.parseZone('2013-02-01T00:00:00-06:30'), 'year'),
             'zoned vs (differently) zoned moment');
 });
 
