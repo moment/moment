@@ -9,6 +9,7 @@ import { hooks } from '../utils/hooks';
 import { MONTH } from './constants';
 import toInt from '../utils/to-int';
 import isArray from '../utils/is-array';
+import isNumber from '../utils/is-number';
 import indexOf from '../utils/index-of';
 import { createUTC } from '../create/utc';
 import getParsingFlags from '../create/parsing-flags';
@@ -180,7 +181,7 @@ export function setMonth (mom, value) {
         } else {
             value = mom.localeData().monthsParse(value);
             // TODO: Another silent failure?
-            if (typeof value !== 'number') {
+            if (!isNumber(value)) {
                 return mom;
             }
         }
