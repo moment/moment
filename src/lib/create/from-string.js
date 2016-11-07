@@ -116,14 +116,23 @@ export function configFromISO(config) {
 //  MIL: Military timezone code (A-Z excluding J)
 //  TO: Time Offset (+|- 4-digits) - Strict: 0000 to 9959 (as per spec)
 //====
-//var detailedRfcRegex = /^((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?((?:0?[1-9]|[1-2]?\d|3[01])\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:[2-9]\d|19)?\d\d\s)((?:[01]\d|2[0-3]):[0-5]\d)(\:(?:60|[0-5]\d))?(\s(?:UT|GMT|(?:[ECMP][SD]T)|[A-IK-Z]|(?:[+-](?:[0-8]\d\d|9\d[0-5])\d)))$/;
+// Regular Expressions
+//  basicRfcRegex: Simplified (easier to test) pattern consistent with the IETF RFC2822 specification.
+//  detailedRfcRegex: Enhanced pattern with greater built-in validation in excess of the specification.
+/*
+    var detailedRfcRegex = /^
+        ((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?
+        ((?:0?[1-9]|[1-2]?\d|3[01])\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:[2-9]\d|19)?\d\d\s)
+        ((?:[01]\d|2[0-3]):[0-5]\d)(\:(?:60|[0-5]\d))?
+        (\s(?:UT|GMT|(?:[ECMP][SD]T)|[A-IK-Z]|(?:[+-](?:[0-8]\d\d|9\d[0-5])\d)))
+    $/;
+*/
 var basicRfcRegex = /^((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d?\d\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:\d\d)?\d\d\s)(\d\d:\d\d)(\:\d\d)?(\s(?:UT|GMT|([ECMP][SD]T)|[A-IK-Z]|(?:[+-]\d{4})))$/;
 
 // date and time from ref 2822 format
 export function configFromRFC2822(config) {
-    var string = config._i,
-        match = basicRfcRegex.exec(string),
-        dayFormat, dateFormat, timeFormat, tzFormat;
+    var string, match, dayFormat,
+        dateFormat, timeFormat, tzFormat;
     var rfc2822Timezones = {
         ' GMT': ' +0000',
         ' EDT': ' -0400',
@@ -138,14 +147,29 @@ export function configFromRFC2822(config) {
     var rfc2822Military = 'YXWVUTSRQPONZABCDEFGHIKLM';
     var rfc2822Timezone, rfc2822Index;
 
-    // TODO: Need to clean input string before parsing.
+    string = config._i
+        .replace(/\([^\)]*\)|[\n\t]/g, ' ') // Remove comments and folding whitespace
+        .replace(/(\s\s+)/g, ' ') // Replace multiple-spaces with a single space
+        .replace(/^\s|\s$/g, ''); // Remove leading and trailing spaces
+    match = basicRfcRegex.exec(string);
 
     if (match) {
-        getParsingFlags(config).rfc2822 = true;
-
         dayFormat = match[1] ? 'ddd' + ((match[1].length === 5) ? ', ' : ' ') : '';
-        dateFormat = 'D MMM ' + ((match[2].length > 9) ? 'YYYY ' : 'YY ');
+        dateFormat = 'D MMM ' + ((match[2].length > 10) ? 'YYYY ' : 'YY ');
         timeFormat = 'HH:mm' + (match[4] ? ':ss' : '');
+
+        // TODO Confirm the given day-of-week is consistent with the day-of-month-year
+        //  NB: Needs an instance of moment, created from the date element of the input string.
+        /*
+        if (match[1]) {
+            console.log('[' + match[1].substr(0,3) + ']', moment(match[2], dateFormat).format('ddd'));
+            if (match[1].substr(0,3) !== this(match[2], dateFormat).format('ddd')) {
+                config._isValid = false;
+                return;
+            }
+        }
+        */
+        getParsingFlags(config).rfc2822 = true;
 
         switch (match[5].length) {
             case 2: // Military
@@ -167,11 +191,7 @@ export function configFromRFC2822(config) {
         match[5] = rfc2822Timezone;
         config._i = match.splice(1).join('');
         tzFormat = ' ZZ';
-        console.log(match.slice(1).join('|'));
-
-        // TODO: Need to validate day against date
         config._f = dayFormat + dateFormat + timeFormat + tzFormat;
-        console.log('TGJG', config._f);
         configFromStringAndFormat(config);
     } else {
         config._isValid = false;

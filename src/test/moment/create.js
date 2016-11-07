@@ -425,10 +425,7 @@ test('cloning carrying over utc mode', function (assert) {
     assert.equal(moment(moment.utc())._isUTC, true, 'An implicit cloned utc moment should have _isUTC == true');
 });
 
-test('parsing rfc 2822', function (assert) {
-    assert.ok(moment('2011-10-08T18:04:20', moment.ISO_8601, true).isValid(),
-        'CONTROL-WORKS complete ISO date and time');
-    /*
+test('parsing RFC 2822', function (assert) {
     assert.ok(moment('Tue, 01 Nov 2016 01:23:45 GMT', moment.RFC_2822, true).isValid(),
         'clean RFC2822 datetime with all options');
     assert.ok(moment('Tue 01 Nov 2016 01:23:45 GMT', moment.RFC_2822, true).isValid(),
@@ -441,12 +438,19 @@ test('parsing rfc 2822', function (assert) {
         'clean RFC2822 datetime without day');
     assert.ok(moment('Tue, 1 Nov 2016 01:23:45 GMT', moment.RFC_2822, true).isValid(),
         'clean RFC2822 datetime with single-digit day-of-month');
-    */
+    assert.ok(moment(`(Init Comment) Tue,
+ 1 Nov              2016 (Split
+ Comment)  01:23:45 +0000 (GMT)`, moment.RFC_2822, true).isValid(),
+        'RFC2822 datetime with CFWSs');
 });
 
-test('non rfc 2822 strings', function (assert) {
+test('non RFC 2822 strings', function (assert) {
     assert.ok(!moment('Tue. 01 Nov 2016 01:23:45 GMT', moment.RFC_2822, true).isValid(),
         'RFC2822 datetime with all options but invalid day delimiter');
+    /*
+    assert.ok(!moment('Mon, 01 Nov 2016 01:23:45 GMT', moment.RFC_2822, true).isValid(),
+        'RFC2822 datetime with mismatching Day (week v date)');
+    */
 });
 
 test('parsing iso', function (assert) {
