@@ -7,7 +7,7 @@
 ;(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
-    global.moment = factory()
+    global.moment = factory();
 }(this, function () { 'use strict';
 
     var hookCallback;
@@ -93,7 +93,8 @@
             userInvalidated : false,
             iso             : false,
             parsedDateParts : [],
-            meridiem        : null
+            meridiem        : null,
+        	ietf            : false
         };
     }
 
@@ -1948,6 +1949,30 @@
     var extendedIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?/;
     var basicIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?/;
 
+    // ietf RFC 2822 regex
+    //	[Group 1: optional][Group 2][Group 3: optional][Group 4]
+    //----
+    // Group 1: "Day[,] "
+    // 	Day= Day of Week ('Mon','Tue','Wed','Thu','Fri','Sat','Sun')
+	// Group 2: "dD Mon [CC]YY HH:MM"
+	// 	dD= Day of Month (1-2-digits) - Strict: 1 to 31 with optional leading zero
+	// 	Mon= Month of Year ('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec')
+	// 	CC: Century [optional] (2-digits) - Strict: 19 to 99
+	// 	YY: Year in Century (2-digits)
+	// 	HH: Hour of Day (2-digits) - Strict: 00 to 23
+	// 	MM: Minute in Hour (2-digits) - Strict: 00 to 59
+    // Group 3: ":SS "
+    //  SS: Seconds in Minute [optional] (2-digits) - Strict: 00 to 60
+    // Group 4: " (TZ|MIL|TO)"
+    // 	TZ: Timezone ('UT','GMT','EST','EDT','CST','CDT','MST','MDT','PST','PDT')
+    // 	MIL: Military timezone code (A-Z excluding J)
+    // 	TO: Time Offset (+|- 4-digits) - Strict: 0000 to 9959 (as per spec)
+    //====
+	var ietfRegex = new RegExp(/^((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?((?:0?[1-9]|[1-2]?\d|3[01])\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:[2-9]\d|19)?\d\d\s(?:[01]\d|2[0-3])		:[0-5]\d)
+		(\:(?:60|[0-5]\d))?
+		(\s(?:UT|GMT|(?:[ECMP][SD]T)|[A-IK-Z]|(?:[+-](?:[0-8]\d\d|9\d[0-5])\d)))$/);
+	var ietfStringFormat = 'ddd, D MMM YYYY HH:mm:ss [GMT]';
+
     var tzRegex = /Z|[+-]\d\d(?::?\d\d)?/;
 
     var isoDates = [
@@ -2033,7 +2058,46 @@
         }
     }
 
-    // date from iso format or fallback
+    // date from ietf format
+    function configFromIETF(config) {
+        var dateString, match, dateCheck, stDay;
+
+        dateString = config._i.
+        	replace(/(?:\([^\)]*\))/g, ' ').	// Replace comments with a single space
+        	replace(/[\l\n\r\t]/g, ' ').		// Replace 'fold' characters with a single space	
+        	replace(/\s{2,}/g, ' ').			// Replace multiple spaces with a single space
+        	replace(/(?:^\s|\s$)/g, '');		// Remove leading and training spaces	
+		match = dateString.match(ietfRegex);
+
+        if (match) {
+            getParsingFlags(config).ietf = true;
+            
+            dateCheck = new Date( match[2] + " GMT");
+            if (!dateCheck) {
+            	config._isValid = false;
+            	return;
+            }
+            stDay = defaultLocaleWeekdaysShort[dateCheck.getDay()];
+			if (!match[1]) { 					// Add Day of week when missing
+				match[1] = stDay + ", ";
+			} 
+			else {								// Otherwise check Day of week matches
+				if (stDay !== match[1].replace(/,?\s$/,'')) {
+	            	config._isValid = false;
+	            	return;
+				}
+			}
+			if (!match[3]) { match[3] = ":00";}	// Add default seconds when missing
+
+			config._f = ietfStringFormat;
+            configFromStringAndFormat(config);
+        } else {
+            config._isValid = false;
+        }
+    }
+
+
+    // date from ietf/iso format or fallback
     function configFromString(config) {
         var matched = aspNetJsonRegex.exec(config._i);
 
@@ -2043,6 +2107,11 @@
         }
 
         configFromISO(config);
+        if (config._isValid === true) {
+        	return;
+        }
+
+        configFromIETF(config);        
         if (config._isValid === false) {
             delete config._isValid;
             utils_hooks__hooks.createFromInputFallback(config);
@@ -2050,8 +2119,8 @@
     }
 
     utils_hooks__hooks.createFromInputFallback = deprecate(
-        'value provided is not in a recognized ISO format. moment construction falls back to js Date(), ' +
-        'which is not reliable across all browsers and versions. Non ISO date formats are ' +
+        'value provided is not in a recognized IETF or ISO format. moment construction falls back to js Date(), ' +
+        'which is not reliable across all browsers and versions. Non IETF/ISO date formats are ' +
         'discouraged and will be removed in an upcoming major release. Please refer to ' +
         'http://momentjs.com/guides/#/warnings/js-date/ for more info.',
         function (config) {
@@ -2201,6 +2270,9 @@
     // constant that refers to the ISO standard
     utils_hooks__hooks.ISO_8601 = function () {};
 
+    // constant that refers to the IETF standard
+    utils_hooks__hooks.IETF_2822 = function () {};
+
     // date from string and format string
     function configFromStringAndFormat(config) {
         // TODO: Move this to another part of the creation flow to prevent circular deps
@@ -2208,7 +2280,10 @@
             configFromISO(config);
             return;
         }
-
+        if (config._f === utils_hooks__hooks.IETF_2822) {
+            configFromIETF(config);
+            return;
+        }
         config._a = [];
         getParsingFlags(config).empty = true;
 
@@ -3089,6 +3164,10 @@
         }
     }
 
+    function moment_format__toIETFString () {
+        return this.clone().locale('en').format(ietfStringFormat);
+    }
+
     function format (inputString) {
         if (!inputString) {
             inputString = this.isUtc() ? utils_hooks__hooks.defaultFormatUtc : utils_hooks__hooks.defaultFormat;
@@ -3609,6 +3688,7 @@
     momentPrototype__proto.unix              = unix;
     momentPrototype__proto.valueOf           = to_type__valueOf;
     momentPrototype__proto.creationData      = creationData;
+    momentPrototype__proto.toIETFString      = moment_format__toIETFString;
 
     // Year
     momentPrototype__proto.year       = getSetYear;
