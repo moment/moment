@@ -171,7 +171,7 @@ export function setOffsetToLocal (keepLocalTime) {
 }
 
 export function setOffsetToParsedOffset () {
-    if (this._tzm) {
+    if (this._tzm != null) {
         this.utcOffset(this._tzm);
     } else if (typeof this._i === 'string') {
         var tZone = offsetFromString(matchOffset, this._i);
