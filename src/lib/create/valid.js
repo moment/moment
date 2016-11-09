@@ -4,7 +4,7 @@ import getParsingFlags from '../create/parsing-flags';
 import some from '../utils/some';
 
 export function isValid(m) {
-    if (m._isValid == null || m._isValid == true) {
+    if (m._isValid === null || m._isValid === true) {
         var flags = getParsingFlags(m);
         var parsedParts = some.call(flags.parsedDateParts, function (i) {
             return i != null;
