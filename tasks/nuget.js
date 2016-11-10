@@ -24,7 +24,7 @@ module.exports = function (grunt) {
     });
     grunt.registerTask('nugetkey_pre', function () {
         grunt.option('key', process.env.NUGET_KEY);
-        grunt.option('source', "https://www.nuget.org/api/v2/package");
+        grunt.option('source', 'https://www.nuget.org/api/v2/package');
     });
     grunt.registerTask('nugetkey_post', function () {
         grunt.option('key', null);
