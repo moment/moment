@@ -67,8 +67,8 @@ declare namespace moment {
     lastWeek?: CalendarSpecVal;
     sameElse?: CalendarSpecVal;
 
-    // any additonal properties might be used with moment.calendarFormat
-    [x: string]: CalendarSpecVal;
+    // any additional properties might be used with moment.calendarFormat
+    [x: string]: CalendarSpecVal | undefined;
   }
 
   type RelativeTimeSpecVal = (
