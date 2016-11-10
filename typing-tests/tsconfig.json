@@ -3,7 +3,8 @@
   "compilerOptions": {
     "module": "commonjs",
     "noEmit": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "strictNullChecks": true
   },
   "files": [
     "../moment.d.ts",
