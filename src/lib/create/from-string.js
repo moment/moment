@@ -122,12 +122,14 @@ export function configFromISO(config) {
 /*
     var detailedRfcRegex = /^
         ((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?
-        ((?:0?[1-9]|[1-2]?\d|3[01])\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:[2-9]\d|19)?\d\d\s)
-        ((?:[01]\d|2[0-3]):[0-5]\d)(\:(?:60|[0-5]\d))?
-        (\s(?:UT|GMT|(?:[ECMP][SD]T)|[A-IK-Z]|(?:[+-](?:[0-8]\d\d|9\d[0-5])\d)))
+        ((?:0?[1-9]|[1-2]?\d|3[01])\s
+            (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:(?:19|[2-9]\d)?\d\d\s))
+        ((?:(?:2[0-3]|[0-1]\d)):[0-5]\d)
+        (\:(?:60|[0-5]\d))?
+        (\s(?:UT|GMT|[ECMP][SD]T|[A-IK-Z]|(?:[+-](?:1[012]|0\d)[03]0)))
     $/;
 */
-var basicRfcRegex = /^((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d?\d\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:\d\d)?\d\d\s)(\d\d:\d\d)(\:\d\d)?(\s(?:UT|GMT|([ECMP][SD]T)|[A-IK-Z]|(?:[+-]\d{4})))$/;
+var basicRfcRegex = /^((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d?\d\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:\d\d)?\d\d\s)(\d\d:\d\d)(\:\d\d)?(\s(?:UT|GMT|[ECMP][SD]T|[A-IK-Z]|[+-]\d{4}))$/;
 
 // date and time from ref 2822 format
 export function configFromRFC2822(config) {
