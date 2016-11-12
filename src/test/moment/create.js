@@ -1100,3 +1100,9 @@ test('parsing only meridiem results in invalid date', function (assert) {
     assert.ok(moment('02:30 p more extra stuff', 'hh:mm a').isValid(), 'because other tokens were parsed, date is valid');
     assert.ok(moment('1/1/2016 extra data', ['a', 'M/D/YYYY']).isValid(), 'took second format, does not pick up on meridiem parsed from first format (good copy)');
 });
+
+test('invalid dates return invalid for methods that access the _d prop', function (assert) {
+    var momentAsDate = moment(['2015', '12', '1']).toDate();
+    assert.ok(momentAsDate instanceof Date, 'toDate returns a Date object');
+    assert.ok(isNaN(momentAsDate.getTime()), 'toDate returns an invalid Date invalid');
+});
