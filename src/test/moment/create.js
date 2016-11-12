@@ -75,6 +75,20 @@ test('date', function (assert) {
     assert.equal(moment(new Date(2016,0,1), 'YYYY-MM-DD').format('YYYY-MM-DD'), '2016-01-01', 'If date is provided, format string is ignored');
 });
 
+test('date with a format as an array', function (assert) {
+    var tests = [
+        new Date(2016, 9, 27),
+        new Date(2016, 9, 28),
+        new Date(2016, 9, 29),
+        new Date(2016, 9, 30),
+        new Date(2016, 9, 31)
+    ], i;
+
+    for (i = 0; i < tests.length; i++) {
+        assert.equal(moment(tests[i]).format(), moment(tests[i], ['MM/DD/YYYY'], false).format(), 'Passing date with a format array should still return the correct date');
+    }
+});
+
 test('date mutation', function (assert) {
     var a = new Date();
     assert.ok(moment(a).toDate() !== a, 'the date moment uses should not be the date passed in');
@@ -345,6 +359,10 @@ test('string with timezone around start of year', function (assert) {
 });
 
 test('string with array of formats', function (assert) {
+    var thursdayForCurrentWeek = moment()
+      .day(4)
+      .format('YYYY MM DD');
+
     assert.equal(moment('11-02-1999', ['MM-DD-YYYY', 'DD-MM-YYYY']).format('MM DD YYYY'), '11 02 1999', 'switching month and day');
     assert.equal(moment('02-11-1999', ['MM/DD/YYYY', 'YYYY MM DD', 'MM-DD-YYYY']).format('MM DD YYYY'), '02 11 1999', 'year last');
     assert.equal(moment('1999-02-11', ['MM/DD/YYYY', 'YYYY MM DD', 'MM-DD-YYYY']).format('MM DD YYYY'), '02 11 1999', 'year first');
@@ -379,6 +397,8 @@ test('string with array of formats', function (assert) {
     assert.equal(moment('13-10-1998', ['DD MM YY', 'DD MM YYYY'])._f, 'DD MM YYYY', 'use four digit year');
 
     assert.equal(moment('01', ['MM', 'DD'])._f, 'MM', 'Should use first valid format');
+
+    assert.equal(moment('Thursday 8:30pm', ['dddd h:mma']).format('YYYY MM DD dddd h:mma'), thursdayForCurrentWeek + ' Thursday 8:30pm', 'Default to current week');
 });
 
 test('string with array of formats + ISO', function (assert) {
@@ -614,6 +634,7 @@ test('non iso 8601 strings', function (assert) {
     assert.ok(!moment('2015W10T1015', moment.ISO_8601, true).isValid(), 'incomplete week date with time (basic)');
     assert.ok(!moment('2015-10-08T1015', moment.ISO_8601, true).isValid(), 'mixing extended and basic format');
     assert.ok(!moment('20151008T10:15', moment.ISO_8601, true).isValid(), 'mixing basic and extended format');
+    assert.ok(!moment('2015-10-1', moment.ISO_8601, true).isValid(), 'missing zero padding for day');
 });
 
 test('parsing iso week year/week/weekday', function (assert) {
@@ -883,13 +904,21 @@ function getVerifier(test) {
 
 test('parsing week and weekday information', function (assert) {
     var ver = getVerifier(assert);
+    var currentWeekOfYear = moment().weeks();
+    var expectedDate2012 = moment([2012, 0, 1])
+      .day(0)
+      .add((currentWeekOfYear - 1), 'weeks')
+      .format('YYYY MM DD');
+    var expectedDate1999 = moment([1999, 0, 1])
+      .day(0)
+      .add((currentWeekOfYear - 1), 'weeks')
+      .format('YYYY MM DD');
 
     // year
-    ver('12', 'gg', '2012 01 01', 'week-year two digits');
-    ver('2012', 'gggg', '2012 01 01', 'week-year four digits');
-
-    ver('99', 'gg', '1998 12 27', 'week-year two digits previous year');
-    ver('1999', 'gggg', '1998 12 27', 'week-year four digits previous year');
+    ver('12', 'gg', expectedDate2012, 'week-year two digits');
+    ver('2012', 'gggg', expectedDate2012, 'week-year four digits');
+    ver('99', 'gg', expectedDate1999, 'week-year two digits previous year');
+    ver('1999', 'gggg', expectedDate1999, 'week-year four digits previous year');
 
     ver('99', 'GG', '1999 01 04', 'iso week-year two digits');
     ver('1999', 'GGGG', '1999 01 04', 'iso week-year four digits');
@@ -1070,4 +1099,10 @@ test('parsing only meridiem results in invalid date', function (assert) {
     assert.ok(!moment('alkj', 'hh:mm a').isValid(), 'because an a token is used, a meridiem will be parsed but nothing else was so invalid');
     assert.ok(moment('02:30 p more extra stuff', 'hh:mm a').isValid(), 'because other tokens were parsed, date is valid');
     assert.ok(moment('1/1/2016 extra data', ['a', 'M/D/YYYY']).isValid(), 'took second format, does not pick up on meridiem parsed from first format (good copy)');
+});
+
+test('invalid dates return invalid for methods that access the _d prop', function (assert) {
+    var momentAsDate = moment(['2015', '12', '1']).toDate();
+    assert.ok(momentAsDate instanceof Date, 'toDate returns a Date object');
+    assert.ok(isNaN(momentAsDate.getTime()), 'toDate returns an invalid Date invalid');
 });

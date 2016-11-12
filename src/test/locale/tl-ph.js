@@ -150,12 +150,12 @@ test('fromNow', function (assert) {
 test('same day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                   'Ngayon sa 12:00',    'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'Ngayon sa 12:25',    'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),       'Ngayon sa 13:00',    'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'Bukas sa 12:00',     'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Ngayon sa 11:00',    'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Kahapon sa 12:00',   'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   '12:00 ngayong araw',    'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      '12:25 ngayong araw',    'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       '13:00 ngayong araw',    'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'Bukas ng 12:00',     'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  '11:00 ngayong araw',    'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  '12:00 kahapon',   'yesterday at the same time');
 });
 
 test('same next week', function (assert) {
@@ -163,11 +163,11 @@ test('same next week', function (assert) {
 
     for (i = 2; i < 7; i++) {
         m = moment().add({d: i});
-        assert.equal(m.calendar(),       m.format('dddd [sa] LT'),  'Today + ' + i + ' days current time');
+        assert.equal(m.calendar(),       m.format('LT [sa susunod na] dddd'),  'Today + ' + i + ' days current time');
         m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(m.calendar(),       m.format('dddd [sa] LT'),  'Today + ' + i + ' days beginning of day');
+        assert.equal(m.calendar(),       m.format('LT [sa susunod na] dddd'),  'Today + ' + i + ' days beginning of day');
         m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(m.calendar(),       m.format('dddd [sa] LT'),  'Today + ' + i + ' days end of day');
+        assert.equal(m.calendar(),       m.format('LT [sa susunod na] dddd'),  'Today + ' + i + ' days end of day');
     }
 });
 
@@ -176,11 +176,11 @@ test('same last week', function (assert) {
 
     for (i = 2; i < 7; i++) {
         m = moment().subtract({d: i});
-        assert.equal(m.calendar(),       m.format('dddd [huling linggo] LT'),  'Today - ' + i + ' days current time');
+        assert.equal(m.calendar(),       m.format('LT [noong nakaraang] dddd'),  'Today - ' + i + ' days current time');
         m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(m.calendar(),       m.format('dddd [huling linggo] LT'),  'Today - ' + i + ' days beginning of day');
+        assert.equal(m.calendar(),       m.format('LT [noong nakaraang] dddd'),  'Today - ' + i + ' days beginning of day');
         m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(m.calendar(),       m.format('dddd [huling linggo] LT'),  'Today - ' + i + ' days end of day');
+        assert.equal(m.calendar(),       m.format('LT [noong nakaraang] dddd'),  'Today - ' + i + ' days end of day');
     }
 });
 

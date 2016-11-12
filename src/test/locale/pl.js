@@ -46,11 +46,11 @@ test('parse strict', function (assert) {
 test('format', function (assert) {
     var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss a',      'niedziela, luty 14. 2010, 3:25:50 pm'],
-            ['ddd, hA',                            'nie, 3PM'],
+            ['ddd, hA',                            'ndz, 3PM'],
             ['M Mo MM MMMM MMM',                   '2 2. 02 luty lut'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14. 14'],
-            ['d do dddd ddd dd',                   '0 0. niedziela nie Nd'],
+            ['d do dddd ddd dd',                   '0 0. niedziela ndz Nd'],
             ['DDD DDDo DDDD',                      '45 45. 045'],
             ['w wo ww',                            '6 6. 06'],
             ['h hh',                               '3 03'],
@@ -67,7 +67,7 @@ test('format', function (assert) {
             ['l',                                  '14.2.2010'],
             ['ll',                                 '14 lut 2010'],
             ['lll',                                '14 lut 2010 15:25'],
-            ['llll',                               'nie, 14 lut 2010 15:25']
+            ['llll',                               'ndz, 14 lut 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -121,7 +121,7 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'niedziela nie Nd_poniedziałek pon Pn_wtorek wt Wt_środa śr Śr_czwartek czw Cz_piątek pt Pt_sobota sb So'.split('_'), i;
+    var expected = 'niedziela ndz Nd_poniedziałek pon Pn_wtorek wt Wt_środa śr Śr_czwartek czw Cz_piątek pt Pt_sobota sob So'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }

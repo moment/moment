@@ -1,9 +1,34 @@
 Changelog
 =========
 
+### 2.16.0 [See full changelog](https://gist.github.com/ichernev/17bffc1005a032cb1a8ac4c1558b4994)
+* Release Nov 9, 2016
+
+## Features
+* [#3530](https://github.com/moment/moment/pull/3530) [feature] Check whether input is date before checking if format is array
+* [#3515](https://github.com/moment/moment/pull/3515) [feature] Fix [#2300](https://github.com/moment/moment/issues/2300): Default to current week.
+
+## Bugfixes
+* [#3546](https://github.com/moment/moment/pull/3546) [bugfix] Implement lazy-loading of child locales with missing prents
+* [#3523](https://github.com/moment/moment/pull/3523) [bugfix] parseZone should handle UTC
+* [#3502](https://github.com/moment/moment/pull/3502) [bugfix] Fix [#3500](https://github.com/moment/moment/issues/3500): ISO 8601 parsing should match the full string, not the beginning of the string.
+* [#3581](https://github.com/moment/moment/pull/3581) [bugfix] Fix parseZone, redo [#3504](https://github.com/moment/moment/issues/3504), fix [#3463](https://github.com/moment/moment/issues/3463)
+
+## New Locales
+* [#3416](https://github.com/moment/moment/pull/3416) [new locale] nl-be: Dutch (Belgium) locale
+* [#3393](https://github.com/moment/moment/pull/3393) [new locale] ar-dz: Arabic (Algeria) locale
+* [#3342](https://github.com/moment/moment/pull/3342) [new locale] tet: Tetun Dili (East Timor) locale
+
+And more locale, build and typescript improvements
+
+### 2.15.2
+* Release Oct 23, 2016
+* [#3525](https://github.com/moment/moment/pull/3525) Speedup month standalone/format regexes **(IMPORTANT)**
+* [#3466](https://github.com/moment/moment/pull/3466) Fix typo of Javanese
+
 ### 2.15.1
 * Release Sept 20, 2016
-* [3438] [bugfix] Fix locale autoload, revert #3344
+* [#3438](https://github.com/moment/moment/pull/3438) Fix locale autoload, revert [#3344](https://github.com/moment/moment/pull/3344)
 
 ### 2.15.0 [See full changelog](https://gist.github.com/ichernev/10e1c5bf647545c72ca30e9628a09ed3)
 - Release Sept 12, 2016

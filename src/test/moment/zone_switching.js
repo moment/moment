@@ -67,12 +67,13 @@ test('utc to local, keepLocalTime = false', function (assert) {
 });
 
 test('zone to local, keepLocalTime = true', function (assert) {
-    test.expectedDeprecations('moment().zone');
     // Don't test near the spring DST transition
     if (isNearSpringDST()) {
         expect(0);
         return;
     }
+
+    test.expectedDeprecations('moment().zone');
 
     var m = moment(),
         fmt = 'YYYY-DD-MM HH:mm:ss',

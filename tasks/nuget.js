@@ -22,6 +22,14 @@ module.exports = function (grunt) {
             dest: './'
         }
     });
+    grunt.registerTask('nugetkey_pre', function () {
+        grunt.option('key', process.env.NUGET_KEY);
+        grunt.option('source', 'https://www.nuget.org/api/v2/package');
+    });
+    grunt.registerTask('nugetkey_post', function () {
+        grunt.option('key', null);
+        grunt.option('source', null);
+    });
     grunt.config('nugetpush', {
         dist: {
             src: 'Moment.js.*.nupkg'
@@ -32,6 +40,6 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('nuget-publish', [
-        'nugetpack', 'nugetpush', 'clean:nuget'
+        'nugetpack', 'nugetkey_pre', 'nugetkey', 'nugetkey_post', 'nugetpush', 'clean:nuget'
     ]);
 };

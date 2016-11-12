@@ -1,6 +1,7 @@
 import isArray from '../utils/is-array';
 import isObject from '../utils/is-object';
 import isObjectEmpty from '../utils/is-object-empty';
+import isNumber from '../utils/is-number';
 import isDate from '../utils/is-date';
 import map from '../utils/map';
 import { createInvalid } from './valid';
@@ -43,10 +44,10 @@ export function prepareConfig (config) {
 
     if (isMoment(input)) {
         return new Moment(checkOverflow(input));
-    } else if (isArray(format)) {
-        configFromStringAndArray(config);
     } else if (isDate(input)) {
         config._d = input;
+    } else if (isArray(format)) {
+        configFromStringAndArray(config);
     } else if (format) {
         configFromStringAndFormat(config);
     }  else {
@@ -75,7 +76,7 @@ function configFromInput(config) {
         configFromArray(config);
     } else if (typeof(input) === 'object') {
         configFromObject(config);
-    } else if (typeof(input) === 'number') {
+    } else if (isNumber(input)) {
         // from milliseconds
         config._d = new Date(input);
     } else {
@@ -86,7 +87,7 @@ function configFromInput(config) {
 export function createLocalOrUTC (input, format, locale, strict, isUTC) {
     var c = {};
 
-    if (typeof(locale) === 'boolean') {
+    if (locale === true || locale === false) {
         strict = locale;
         locale = undefined;
     }
