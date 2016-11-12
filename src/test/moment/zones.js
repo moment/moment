@@ -461,9 +461,27 @@ test('timezone format', function (assert) {
 
 test('parse zone without a timezone', function (assert) {
     test.expectedDeprecations();
-    var m = moment.parseZone('2016-02-01T00:00:00');
+    var m1 = moment.parseZone('2016-02-01T00:00:00');
+    var m2 = moment.parseZone('2016-02-01T00:00:00Z');
+    var m3 = moment.parseZone('2016-02-01T00:00:00+00:00'); //Someone might argue this is not necessary, you could even argue that is wrong being here.
+    var m4 = moment.parseZone('2016-02-01T00:00:00+0000'); //Someone might argue this is not necessary, you could even argue that is wrong being here.
     assert.equal(
-        m.format('M D YYYY HH:mm:ss ZZ'),
+        m1.format('M D YYYY HH:mm:ss ZZ'),
+        '2 1 2016 00:00:00 +0000',
+        'Not providing a timezone should keep the time and change the zone to 0'
+    );
+    assert.equal(
+        m2.format('M D YYYY HH:mm:ss ZZ'),
+        '2 1 2016 00:00:00 +0000',
+        'Not providing a timezone should keep the time and change the zone to 0'
+    );
+    assert.equal(
+        m3.format('M D YYYY HH:mm:ss ZZ'),
+        '2 1 2016 00:00:00 +0000',
+        'Not providing a timezone should keep the time and change the zone to 0'
+    );
+    assert.equal(
+        m4.format('M D YYYY HH:mm:ss ZZ'),
         '2 1 2016 00:00:00 +0000',
         'Not providing a timezone should keep the time and change the zone to 0'
     );
