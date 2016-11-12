@@ -137,7 +137,7 @@ test('from', function (assert) {
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), 'en uns segons',  'prefix');
+    assert.equal(moment(30000).from(0), 'd\'aquí uns segons',  'prefix');
     assert.equal(moment(0).from(30000), 'fa uns segons', 'suffix');
 });
 
@@ -146,8 +146,8 @@ test('now from now', function (assert) {
 });
 
 test('fromNow', function (assert) {
-    assert.equal(moment().add({s: 30}).fromNow(), 'en uns segons', 'en uns segons');
-    assert.equal(moment().add({d: 5}).fromNow(), 'en 5 dies', 'en 5 dies');
+    assert.equal(moment().add({s: 30}).fromNow(), 'd\'aquí uns segons', 'd\'aquí uns segons');
+    assert.equal(moment().add({d: 5}).fromNow(), 'd\'aquí 5 dies', 'd\'aquí 5 dies');
 });
 
 test('calendar day', function (assert) {
