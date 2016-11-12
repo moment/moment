@@ -1103,5 +1103,6 @@ test('parsing only meridiem results in invalid date', function (assert) {
 
 test('invalid dates return invalid for methods that access the _d prop', function (assert) {
     var momentAsDate = moment(['2015', '12', '1']).toDate();
-    assert.equal(momentAsDate, 'Invalid Date', 'toDate returns invalid');
+    assert.ok(momentAsDate instanceof Date, 'toDate returns a Date object');
+    assert.ok(isNaN(momentAsDate.getTime()), 'toDate returns an invalid Date invalid');
 });
