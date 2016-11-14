@@ -471,6 +471,17 @@ moment.locale('en', {
     }
 });
 
+moment.locale('en', {
+    calendar : {
+        otherString : '[Yesterday at] LT',
+        otherFunction : function () {
+          return '[hoy a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+        },
+        otherUndefined : undefined,
+    }
+});
+
+
 console.log(moment.version);
 
 moment.defaultFormat = 'YYYY-MM-DD HH:mm';
