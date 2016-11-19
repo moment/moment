@@ -66,6 +66,13 @@ test('Negative Precision', function (assert) {
     assert.equal(moment.duration(123, 'seconds').format('s', -2), '100');
 });
 
+test ('Precision zero', function (assert) {
+    assert.equal(moment.duration(15, 'seconds').format('s', 0), '15');
+    assert.equal(moment.duration(15, 'seconds').format('s', 0, {trunc: true}), '15');
+    assert.equal(moment.duration(123.39, 'seconds').format('s', 0), '123');
+    assert.equal(moment.duration(123.39, 'seconds').format('s', 0, {trunc: true}), '123');
+});
+
 test('Positive Precision with Trunc', function (assert) {
     assert.equal(moment.duration(15, 'seconds').format('m', 2, {trunc: true}), '0.25');
     assert.equal(moment.duration(20, 'seconds').format('m', 3, {trunc: true}), '0.333');
@@ -92,8 +99,7 @@ test('Escape Tokens', function (assert) {
 
 test('All Moment Tokens', function (assert) {
     // obviously a duration of 100,000,000,013 ms will vary in the number of days based on leap years, etc.
-    // this test ensures the internal duration/format math remains consistent
-    // TODO days will fail!
+    // this test ensures the internal duration/format math remains consistent. Was adjusted when ported to core moment
     assert.equal(moment.duration(100000000013, 'ms').format('y[y] M[mo] w[w] h[h] m[m] s[s] S[ms]'), '3y 2mo 0w 9h 46m 40s 13ms');
 });
 
@@ -217,12 +223,12 @@ test('Negative Durations', function (assert) {
 //     assert.equal(moment.duration(-42, 'seconds').format('h:mm:ss'), '-42');
 // });
 
-// test('Stop Trimming with the * Character', function (assert) {
-//     assert.equal(moment.duration(15, 'seconds').format('h:*mm:ss'), '0:*0:15');
-//     // assert.equal(moment.duration(15, 'seconds').format('h:*mm:ss', {forceLength: true}), '00:15');
-//     assert.equal(moment.duration(15, 'seconds').format('hh:*mm:ss'), '00:15');
-//     assert.equal(moment.duration(15, 'seconds').format('*h:mm:ss'), '0:00:15');
-// });
+test('Stop Trimming with the * Character', function (assert) {
+    assert.equal(moment.duration(15, 'seconds').format('h:*mm:ss'), '0:*00:15');
+    // assert.equal(moment.duration(15, 'seconds').format('h:*mm:ss', {forceLength: true}), '00:15');
+    assert.equal(moment.duration(15, 'seconds').format('hh:*mm:ss'), '00:*00:15');
+    assert.equal(moment.duration(15, 'seconds').format('*h:mm:ss'), '*0:00:15');
+});
 
 test('Decimal Separator', function (assert) {
     assert.equal(moment.duration(1000, 'seconds').format('h', {precision: 2}), '0.28');
@@ -234,4 +240,16 @@ test('Decimal Separator', function (assert) {
     assert.equal(moment.duration(1000, 'seconds').format('h', {precision: 2, decimalSeparator: function (assert) {
             return 'abc';
         }}), '0abc28');
+});
+
+test('Decimal Separator with Locale', function (assert) {
+    moment.locale('ar');
+    assert.equal(moment.duration(1000, 'seconds').format('h', {precision: 2}), '٠.٢٨');
+    assert.equal(moment.duration(1000, 'seconds').format('h', {precision: 2, decimalSeparator: ','}), '٠،٢٨');
+    assert.equal(moment.duration(1000, 'seconds').format('h', {precision: 2, decimalSeparator: function (assert) {
+            return this.template;
+        }}), '٠h٢٨');
+    assert.equal(moment.duration(1000, 'seconds').format('h', {precision: 2, decimalSeparator: function (assert) {
+            return 'abc';
+        }}), '٠abc٢٨');
 });

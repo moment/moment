@@ -9,14 +9,13 @@ import zeroFill from '../utils/zero-fill';
 
 // formatDuration([template] [, precision] [, settings])
 export function formatDuration() {
-    var tokenizer, tokens, types, typeMap, momentTypes, foundFirst, trimIndex,
+    var tokenizer, tokens, types, typeMap, momentTypes, foundFirst,
         args = [].slice.call(arguments),
         settings = extend({}, this.format.defaults),
         // keep a shadow copy of this moment for calculating remainders
         remainder = createDuration(this);
 
-    // add a reference to this duration object to the settings for use
-    // in a template function
+    // add a reference to this duration object to the settings for use in a template function
     settings.duration = this;
 
     // parse arguments
@@ -65,20 +64,12 @@ export function formatDuration() {
 
     // tokens array
     tokens = map(settings.template.match(tokenizer), function (token, index) {
-        var type = typeMap(token);
-        var length = token.length;
-        var stopTrim = false;
-
-        if (token.slice(0, 1) === '*') {
-            token = token.slice(1);
-            stopTrim = true;
-        }
-
+        var type = typeMap(token),
+            length = token.length;
 
         return {
             index: index,
             length: length,
-            stopTrim: stopTrim,
 
             // replace escaped tokens with the non-escaped token text
             token: (type === 'escape' ? token.replace(settings.escape, '$1') : token),
@@ -107,38 +98,28 @@ export function formatDuration() {
     each.call(momentTypes, function (momentType, index) {
         var value, wholeValue, decimalValue, isLeast, isMost, truncMethod, decVal;
 
-        // is this the least-significant or most-significant moment token found?
+        // is this the least or most significant moment token found?
         isLeast = (index === (momentTypes.length - 1));
         isMost = (index === 0);
 
         // get the value in the current units
         value = remainder.as(momentType);
 
-        // determine the truncation method
-        // take floor for positive numbers, ceiling for negative numbers
+        // determine the truncation method: floor for positive numbers, ceiling for negative numbers
         truncMethod = (value > 0 ? 'floor' : 'ceil');
-        // rounding up errors? TODO
         // calculate integer and decimal value portions
         if (isLeast) {
             // apply precision to least significant token value
-            if (settings.precision < 0) {
+            if (settings.precision <= 0) {
                 wholeValue = Math[settings.trunc ? truncMethod : 'round'](value * Math.pow(10, settings.precision)) * Math.pow(10, -settings.precision);
-                decimalValue = 0;
-            } else if (settings.precision === 0) {
-                wholeValue = Math[settings.trunc ? truncMethod : 'round'](value);
                 decimalValue = 0;
             } else { // settings.precision > 0
                 wholeValue = Math[truncMethod](value);
-
-                if (settings.trunc) {
-                    decVal = value - wholeValue;
-                } else {
-                    decVal = Math.round((value - wholeValue) * Math.pow(10, settings.precision)) * Math.pow(10, -settings.precision);
-                }
+                decVal = settings.trunc ? value - wholeValue : Math.round((value - wholeValue) * Math.pow(10, settings.precision)) * Math.pow(10, -settings.precision);
 
                 decVal = decVal.toString().replace(/^\-/, '').split(/\.|e\-/);
 
-                // not sure how to handle this...
+                // not sure what this does...
                 switch (decVal.length) {
                     case 1:
                         decimalValue = (decVal[0] + zeroFill(0, settings.precision)).slice(0, settings.precision);
@@ -155,6 +136,7 @@ export function formatDuration() {
                     default:
                         break;
                     //     throw 'Moment Duration Format: unable to parse token decimal value.';
+                    // TODO: what should we do instead of throwing an error?
                 }
             }
         } else {
@@ -163,8 +145,7 @@ export function formatDuration() {
         }
 
         // update tokens array
-        // using this algorithm to not assume anything about
-        // the order or frequency of any tokens
+        // using this algorithm to not assume anything about the order or frequency of any tokens
         each.call(tokens, function (token) {
             if (token.type === momentType) {
                 extend(token, {
@@ -227,14 +208,14 @@ export function formatDuration() {
 formatDuration.defaults = {
     // token definitions
     escape: /\[(.+?)\]/,
-    years: /\*?[Yy]+/,
-    months: /\*?M+/,
-    weeks: /\*?[Ww]+/,
-    days: /\*?[Dd]+/,
-    hours: /\*?[Hh]+/,
-    minutes: /\*?m+/,
-    seconds: /\*?s+/,
-    milliseconds: /\*?S+/,
+    years: /[Yy]+/,
+    months: /M+/,
+    weeks: /[Ww]+/,
+    days: /[Dd]+/,
+    hours: /[Hh]+/,
+    minutes: /m+/,
+    seconds: /s+/,
+    milliseconds: /S+/,
     general: /.+?/,
 
     // token type names
@@ -245,11 +226,11 @@ formatDuration.defaults = {
     // format options
 
     // trunc
-    // default behavior in version 2.0.0 rounds final token value
-    // set to `true` to truncate final token value (this was the default behavior in version 1)
+    // default behavior rounds final token value
+    // set to `true` to truncate final token value (this was the default behavior in moment-duration-format version 1)
     trunc: false,
 
-    // precision UNUSED
+    // precision
     // number of decimal digits to include after (to the right of) the decimal point (positive integer)
     // or the number of digits to truncate to 0 before (to the left of) the decimal point (negative integer)
     precision: 0,
