@@ -4,7 +4,6 @@ import extend from '../utils/extend';
 import isArray from '../utils/is-array';
 import isObject from '../utils/is-object';
 import indexOf from '../utils/index-of';
-import keys from '../utils/keys';
 import map from '../utils/map';
 import zeroFill from '../utils/zero-fill';
 
@@ -120,7 +119,8 @@ export function formatDuration() {
         // determine the truncation method
         // take floor for positive numbers, ceiling for negative numbers
         truncMethod = (value > 0 ? 'floor' : 'ceil');
- // rounding up errors? TODO
+        // rounding up errors? TODO
+        // removing forcelength and trim TODO
         // calculate integer and decimal value portions
         if (isLeast) {
             // apply precision to least significant token value
@@ -151,9 +151,9 @@ export function formatDuration() {
                         decimalValue = (decVal[1] + zeroFill(0, settings.precision)).slice(0, settings.precision);
                         break;
 
-                    // case 3:
-                    //     decimalValue = padZero(repeatZero((+decVal[2]) - 1) + (decVal[0] || '0') + decVal[1], settings.precision, true).slice(0, settings.precision);
-                    //     break;
+                    case 3:
+                        decimalValue = (zeroFill(0, (+decVal[2]) - 1) + (decVal[0] || '0') + decVal[1] + zeroFill(0, settings.precision)).slice(0, settings.precision);
+                        break;
 
                     default:
                         throw 'Moment Duration Format: unable to parse token decimal value.';
@@ -176,40 +176,12 @@ export function formatDuration() {
                     isLeast: isLeast,
                     isMost: isMost
                 });
-
-                if (isMost) {
-                    // note the length of the most-significant moment token:
-                    // if it is greater than one and forceLength is not set, default forceLength to `true`
-                    if (settings.forceLength == null && token.length > 1) {
-                        settings.forceLength = true;
-                    }
-
-                    // rationale is this:
-                    // if the template is 'h:mm:ss' and the moment value is 5 minutes, the user-friendly output is '5:00', not '05:00'
-                    // shouldn't pad the `minutes` token even though it has length of two
-                    // if the template is 'h:mm:ss' and the minutes output should always include the leading zero
-                    // even when the hour is trimmed then set `{ forceLength: true }` to output '05:00'
-                    // if the template is 'hh:mm:ss', the user clearly wanted everything padded so we should output '05:00'
-                    // if the user wanted the full padded output, they can use template 'hh:mm:ss' and set `{ trim: false }` to get '00:05:00'
-                }
             }
         });
 
         // update remainder
         remainder.subtract(wholeValue, momentType);
     });
-
-    // // trim tokens array
-    // if (settings.trim) {
-    //     tokens = (settings.trim === 'left' ? rest : initial)(tokens, function (token) {
-    //         // return `true` if:
-    //         // the token is not the least moment token (don't trim the least moment token)
-    //         // the token is not flagged to stop trimming
-    //         // the token is a moment token that does not have a value (don't trim moment tokens that have a whole value)
-    //         return !(token.isLeast || token.stopTrim || (token.type != null && token.wholeValue));
-    //     });
-    // }
-
 
     // build output
 
@@ -235,7 +207,7 @@ export function formatDuration() {
 
         // apply token length formatting
         // special handling for the first moment token that is not the most significant in a trimmed template
-        if (token.length > 1 && (foundFirst || token.isMost || settings.forceLength)) {
+        if (token.length > 1 && (foundFirst || token.isMost)) {
             val = zeroFill(val, token.length);
         }
 
@@ -255,10 +227,6 @@ export function formatDuration() {
         return val;
     });
 
-    // // undo the reverse if trimming from the right
-    // if (settings.trim === 'right') {
-    //     tokens.reverse();
-    // }
 
     return tokens.join('');
 }
@@ -283,20 +251,10 @@ formatDuration.defaults = {
 
     // format options
 
-    // // precision
-    // // number of decimal digits to include after (to the right of) the decimal point (positive integer)
-    // // or the number of digits to truncate to 0 before (to the left of) the decimal point (negative integer)
-    // precision: 0,
-
     // trunc
     // default behavior in version 2.0.0 rounds final token value
     // set to `true` to truncate final token value (this was the default behavior in version 1)
     trunc: false,
-
-    // force first moment token with a value to render at full length even when template is trimmed
-    // and first moment token has length of 1
-    // defaulted to `null` to distinguish between 'not set' and 'set to `false`'
-    forceLength: null,
 
     // precision UNUSED
     // number of decimal digits to include after (to the right of) the decimal point (positive integer)
