@@ -107,10 +107,8 @@ export function formatDuration() {
     each.call(momentTypes, function (momentType, index) {
         var value, wholeValue, decimalValue, isLeast, isMost, truncMethod, decVal;
 
-        // is this the least-significant moment token found?
+        // is this the least-significant or most-significant moment token found?
         isLeast = (index === (momentTypes.length - 1));
-
-        // is this the most-significant moment token found?
         isMost = (index === 0);
 
         // get the value in the current units
@@ -120,7 +118,6 @@ export function formatDuration() {
         // take floor for positive numbers, ceiling for negative numbers
         truncMethod = (value > 0 ? 'floor' : 'ceil');
         // rounding up errors? TODO
-        // removing forcelength and trim TODO
         // calculate integer and decimal value portions
         if (isLeast) {
             // apply precision to least significant token value
@@ -156,7 +153,8 @@ export function formatDuration() {
                         break;
 
                     default:
-                        throw 'Moment Duration Format: unable to parse token decimal value.';
+                        break;
+                    //     throw 'Moment Duration Format: unable to parse token decimal value.';
                 }
             }
         } else {
@@ -187,11 +185,6 @@ export function formatDuration() {
 
     // the first moment token can have special handling
     foundFirst = false;
-
-    // // run the map in reverse order if trimming from the right
-    // if (settings.trim === 'right') {
-    //     tokens.reverse();
-    // }
 
     tokens = map(tokens, function (token, index) {
         var val,
@@ -228,7 +221,7 @@ export function formatDuration() {
     });
 
 
-    return tokens.join('');
+    return this.localeData().postformat(tokens.join(''));
 }
 
 formatDuration.defaults = {
