@@ -16,8 +16,34 @@ export default moment.defineLocale('zh-cn', {
         LTS : 'Ah点m分s秒',
         L : 'YYYY-MM-DD',
         LL : 'YYYY年MMMD日',
-        LLL : 'YYYY年MMMD日Ah点mm分',
-        LLLL : 'YYYY年MMMD日ddddAh点mm分',
+        LLL : function (context) {
+            if (context.input) {
+                if (context.input.indexOf('分') > -1) {
+                    return 'YYYY年MMMD日Ah点mm分';
+                }
+                return 'YYYY年MMMD日Ah点';
+            }
+            if (context.moment) {
+                if (context.moment.minutes() === 0) {
+                    return 'YYYY年MMMD日Ah点';
+                }
+                return 'YYYY年MMMD日Ah点mm分';
+            }
+        },
+        LLLL : function (context) {
+            if (context.input) {
+                if (context.input.indexOf('分') > -1) {
+                    return 'YYYY年MMMD日ddddAh点mm分';
+                }
+                return 'YYYY年MMMD日ddddAh点';
+            }
+            if (context.moment) {
+                if (context.moment.minutes() === 0) {
+                    return 'YYYY年MMMD日ddddAh点';
+                }
+                return 'YYYY年MMMD日ddddAh点mm分';
+            }
+        },
         l : 'YYYY-MM-DD',
         ll : 'YYYY年MMMD日',
         lll : 'YYYY年MMMD日Ah点mm分',

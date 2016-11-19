@@ -67,17 +67,22 @@ export function formatMoment(m, format) {
         return m.localeData().invalidDate();
     }
 
-    format = expandFormat(format, m.localeData());
+    var context = {moment: m};
+    format = expandFormat(format, m.localeData(), context);
     formatFunctions[format] = formatFunctions[format] || makeFormatFunction(format);
 
     return formatFunctions[format](m);
 }
 
-export function expandFormat(format, locale) {
+export function expandFormat(format, locale, context) {
     var i = 5;
 
     function replaceLongDateFormatTokens(input) {
-        return locale.longDateFormat(input) || input;
+        var format = locale.longDateFormat(input) || input;
+        if (typeof format === 'function') {
+            return format(context);
+        }
+        return format;
     }
 
     localFormattingTokens.lastIndex = 0;

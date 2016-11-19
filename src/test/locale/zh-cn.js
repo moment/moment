@@ -56,6 +56,58 @@ test('format', function (assert) {
     }
 });
 
+test('format when minutes === 0', function (assert) {
+    var a = [
+            ['dddd, MMMM Do YYYY, a h:mm:ss',      '星期日, 二月 14日 2010, 下午 3:00:50'],
+            ['ddd, Ah',                            '周日, 下午3'],
+            ['M Mo MM MMMM MMM',                   '2 2月 02 二月 2月'],
+            ['YYYY YY',                            '2010 10'],
+            ['D Do DD',                            '14 14日 14'],
+            ['d do dddd ddd dd',                   '0 0日 星期日 周日 日'],
+            ['DDD DDDo DDDD',                      '45 45日 045'],
+            ['w wo ww',                            '6 6周 06'],
+            ['h hh',                               '3 03'],
+            ['H HH',                               '15 15'],
+            ['m mm',                               '0 00'],
+            ['s ss',                               '50 50'],
+            ['a A',                                '下午 下午'],
+            ['[这年的第] DDDo',                    '这年的第 45日'],
+            ['LTS',                                '下午3点0分50秒'],
+            ['L',                                  '2010-02-14'],
+            ['LL',                                 '2010年2月14日'],
+            ['LLL',                                '2010年2月14日下午3点'],
+            ['LLLL',                               '2010年2月14日星期日下午3点'],
+            ['l',                                  '2010-02-14'],
+            ['ll',                                 '2010年2月14日'],
+            ['lll',                                '2010年2月14日下午3点00分'],
+            ['llll',                               '2010年2月14日星期日下午3点00分']
+        ],
+        b = moment(new Date(2010, 1, 14, 15, 0, 50, 125)),
+        i;
+
+    for (i = 0; i < a.length; i++) {
+        assert.equal(b.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
+    }
+});
+
+test('parse', function (assert) {
+    [
+        {
+            format: 'LLL',
+            input: '2010年2月14日下午3点',
+            expected: '2010-02-14 15:00:00'
+        },
+        {
+            format: 'LLL',
+            input: '2010年2月14日下午3点25分',
+            expected: '2010-02-14 15:25:00'
+        }
+    ].forEach(function (testCase) {
+        var parsed = moment(testCase.input, testCase.format).format('YYYY-MM-DD HH:mm:ss');
+        assert.equal(parsed, testCase.expected, testCase.format + ': ' + [parsed, testCase.expected].join(' != '));
+    });
+});
+
 test('format month', function (assert) {
     var expected = '一月 1月_二月 2月_三月 3月_四月 4月_五月 5月_六月 6月_七月 7月_八月 8月_九月 9月_十月 10月_十一月 11月_十二月 12月'.split('_'), i;
 

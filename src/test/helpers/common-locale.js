@@ -61,8 +61,12 @@ export function defineCommonLocaleTests(locale, options) {
             // Check each format string to make sure it does not contain any
             // tokens that need to be expanded.
             each(tokens, function (baseToken) {
+                var format = data[baseToken];
+                if (typeof format === 'function') {
+                    format = format.toString();
+                }
                 // strip escaped sequences
-                var format = data[baseToken].replace(/(\[[^\]]*\])/g, '');
+                format = format.replace(/(\[[^\]]*\])/g, '');
                 assert.equal(false, !!~format.indexOf(srchToken),
                         'contains ' + srchToken + ' in ' + baseToken);
             });
