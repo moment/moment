@@ -8,7 +8,7 @@ import keys from '../utils/keys';
 import map from '../utils/map';
 import zeroFill from '../utils/zero-fill';
 
-// formatDuration([template] [, settings])
+// formatDuration([template] [, precision] [, settings])
 export function formatDuration() {
     var tokenizer, tokens, types, typeMap, momentTypes, foundFirst, trimIndex,
         args = [].slice.call(arguments),
@@ -24,7 +24,12 @@ export function formatDuration() {
     each.call(args, function (arg) {
         if (typeof arg === 'string' || typeof arg === 'function') {
             settings.template = arg;
-            return; // this will ignore all arguments after a string argument!
+            return;
+        }
+
+        if (typeof arg === 'number') {
+            settings.precision = arg;
+            return;
         }
 
         if (isObject(arg)) {
@@ -63,15 +68,18 @@ export function formatDuration() {
     tokens = map(settings.template.match(tokenizer), function (token, index) {
         var type = typeMap(token);
         var length = token.length;
+        var stopTrim = false;
 
-        // if (token.slice(0, 1) === '*') {
-        //     token = token.slice(1);
-        // }
+        if (token.slice(0, 1) === '*') {
+            token = token.slice(1);
+            stopTrim = true;
+        }
 
 
         return {
             index: index,
             length: length,
+            stopTrim: stopTrim,
 
             // replace escaped tokens with the non-escaped token text
             token: (type === 'escape' ? token.replace(settings.escape, '$1') : token),
@@ -112,51 +120,49 @@ export function formatDuration() {
         // determine the truncation method
         // take floor for positive numbers, ceiling for negative numbers
         truncMethod = (value > 0 ? 'floor' : 'ceil');
-
+ // rounding up errors? TODO
         // calculate integer and decimal value portions
-        // if (isLeast) {
+        if (isLeast) {
             // apply precision to least significant token value
-            // if (settings.precision < 0) {
-            //     wholeValue = Math[settings.trunc ? truncMethod : 'round'](value * Math.pow(10, settings.precision)) * Math.pow(10, -settings.precision);
-            //     decimalValue = 0;
-            // } else if (settings.precision === 0) {
-            //     wholeValue = Math[settings.trunc ? truncMethod : 'round'](value);
-            //     decimalValue = 0;
-            // } else { // settings.precision > 0
-            //     wholeValue = Math[truncMethod](value);
+            if (settings.precision < 0) {
+                wholeValue = Math[settings.trunc ? truncMethod : 'round'](value * Math.pow(10, settings.precision)) * Math.pow(10, -settings.precision);
+                decimalValue = 0;
+            } else if (settings.precision === 0) {
+                wholeValue = Math[settings.trunc ? truncMethod : 'round'](value);
+                decimalValue = 0;
+            } else { // settings.precision > 0
+                wholeValue = Math[truncMethod](value);
 
-            //     if (settings.trunc) {
-            //         decVal = value - wholeValue;
-            //     } else {
-            //         decVal = Math.round((value - wholeValue) * Math.pow(10, settings.precision)) * Math.pow(10, -settings.precision);
-            //     }
+                if (settings.trunc) {
+                    decVal = value - wholeValue;
+                } else {
+                    decVal = Math.round((value - wholeValue) * Math.pow(10, settings.precision)) * Math.pow(10, -settings.precision);
+                }
 
-                // decVal = decVal.toString().replace(/^\-/, '').split(/\.|e\-/);
+                decVal = decVal.toString().replace(/^\-/, '').split(/\.|e\-/);
 
-                // switch (decVal.length) {
-                //     case 1:
-                //         decimalValue = padZero(decVal[0], settings.precision, true).slice(0, settings.precision);
-                //         break;
+                // not sure how to handle this...
+                switch (decVal.length) {
+                    case 1:
+                        decimalValue = (decVal[0] + zeroFill(0, settings.precision)).slice(0, settings.precision);
+                        break;
 
-                //     case 2:
-                //         decimalValue = padZero(decVal[1], settings.precision, true).slice(0, settings.precision);
-                //         break;
+                    case 2:
+                        decimalValue = (decVal[1] + zeroFill(0, settings.precision)).slice(0, settings.precision);
+                        break;
 
-                //     case 3:
-                //         decimalValue = padZero(repeatZero((+decVal[2]) - 1) + (decVal[0] || '0') + decVal[1], settings.precision, true).slice(0, settings.precision);
-                //         break;
+                    // case 3:
+                    //     decimalValue = padZero(repeatZero((+decVal[2]) - 1) + (decVal[0] || '0') + decVal[1], settings.precision, true).slice(0, settings.precision);
+                    //     break;
 
-                //     default:
-                //         throw 'Moment Duration Format: unable to parse token decimal value.';
-                // }
-            // }
-        // } else {
-        //     wholeValue = Math[truncMethod](value);
-        //     decimalValue = value - wholeValue;
-        // }
-
-        wholeValue = Math[truncMethod](value);
-        decimalValue = value - wholeValue;
+                    default:
+                        throw 'Moment Duration Format: unable to parse token decimal value.';
+                }
+            }
+        } else {
+            wholeValue = Math[truncMethod](value);
+            decimalValue = value - wholeValue;
+        }
 
         // update tokens array
         // using this algorithm to not assume anything about
@@ -276,13 +282,6 @@ formatDuration.defaults = {
     types: 'escape years months weeks days hours minutes seconds milliseconds general',
 
     // format options
-
-    // // trim
-    // // 'left' - template tokens are trimmed from the left until the first moment token that has a value >= 1
-    // // 'right' - template tokens are trimmed from the right until the first moment token that has a value >= 1
-    // // (the final moment token is not trimmed, regardless of value)
-    // // `false` - template tokens are not trimmed
-    // trim: 'left',
 
     // // precision
     // // number of decimal digits to include after (to the right of) the decimal point (positive integer)
