@@ -68,7 +68,7 @@ declare namespace moment {
     sameElse?: CalendarSpecVal;
 
     // any additonal properties might be used with moment.calendarFormat
-    [x: string]: CalendarSpecVal;
+    [x: string]: CalendarSpecVal | void;
   }
 
   type RelativeTimeSpecVal = (
