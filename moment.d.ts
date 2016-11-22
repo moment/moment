@@ -67,8 +67,8 @@ declare namespace moment {
     lastWeek?: CalendarSpecVal;
     sameElse?: CalendarSpecVal;
 
-    // any additonal properties might be used with moment.calendarFormat
-    [x: string]: CalendarSpecVal;
+    // any additional properties might be used with moment.calendarFormat
+    [x: string]: CalendarSpecVal | undefined;
   }
 
   type RelativeTimeSpecVal = (
@@ -248,12 +248,12 @@ declare namespace moment {
     overflow: number;
     charsLeftOver: number;
     nullInput: boolean;
-    invalidMonth: string;
+    invalidMonth: string | null;
     invalidFormat: boolean;
     userInvalidated: boolean;
     iso: boolean;
     parsedDateParts: any[];
-    meridiem: string;
+    meridiem: string | null;
   }
 
   interface MomentParsingFlagsOpt {
@@ -389,8 +389,8 @@ declare namespace moment {
     to: MomentInput;
   }
 
-  type MomentInput = Moment | Date | string | number | (number | string)[] | MomentInputObject;
-  type DurationInputArg1 = Duration | number | string | FromTo | DurationInputObject;
+  type MomentInput = Moment | Date | string | number | (number | string)[] | MomentInputObject | null | undefined;
+  type DurationInputArg1 = Duration | number | string | FromTo | DurationInputObject | null | undefined;
   type DurationInputArg2 = unitOfTime.DurationConstructor;
   type LocaleSpecifier = string | Moment | Duration | string[];
 
@@ -632,11 +632,9 @@ declare namespace moment {
 
   export function locale(language?: string): string;
   export function locale(language?: string[]): string;
-  export function locale(language?: string, definition?: LocaleSpecification): string;
+  export function locale(language?: string, definition?: LocaleSpecification | null | undefined): string;
 
   export function localeData(key?: string | string[]): Locale;
-
-  export function updateLocale(language: string, locale: LocaleSpecification): Locale;
 
   export function duration(inp?: DurationInputArg1, unit?: DurationInputArg2): Duration;
 
@@ -686,8 +684,8 @@ declare namespace moment {
    */
   export function now(): number;
 
-  export function defineLocale(language: string, localeSpec: LocaleSpecification): Locale;
-  export function updateLocale(language: string, localeSpec: LocaleSpecification): Locale;
+  export function defineLocale(language: string, localeSpec: LocaleSpecification | null): Locale;
+  export function updateLocale(language: string, localeSpec: LocaleSpecification | null): Locale;
 
   export function locales(): string[];
 
