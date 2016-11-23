@@ -8,6 +8,7 @@ import { HOUR, MINUTE, SECOND } from './constants';
 import toInt from '../utils/to-int';
 import zeroFill from '../utils/zero-fill';
 import getParsingFlags from '../create/parsing-flags';
+import { hooks } from '../utils/hooks';
 
 // FORMATTING
 
@@ -136,3 +137,10 @@ export function localeMeridiem (hours, minutes, isLower) {
 // a new timezone) makes sense. Adding/subtracting hours does not follow
 // this rule.
 export var getSetHour = makeGetSet('Hours', true);
+
+export function setTime (mom, hours, minutes, seconds, milliseconds) {
+    if (mom.isValid()) {
+        mom._d['set' + (mom._isUTC ? 'UTC' : '') + 'Hours'](hours, minutes, seconds, milliseconds);
+        hooks.updateOffset(mom, true);
+    }
+}

@@ -1,4 +1,5 @@
 import { normalizeUnits } from '../units/aliases';
+import { setTime } from '../units/hour';
 
 export function startOf (units) {
     units = normalizeUnits(units);
@@ -16,8 +17,8 @@ export function startOf (units) {
         case 'isoWeek':
         case 'day':
         case 'date':
-            this.hours(0);
-            /* falls through */
+            setTime(this, 0, 0, 0, 0);
+            break;
         case 'hour':
             this.minutes(0);
             /* falls through */
