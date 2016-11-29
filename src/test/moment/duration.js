@@ -53,17 +53,17 @@ test('milliseconds instantiation', function (assert) {
 
 test('undefined instantiation', function (assert) {
     assert.equal(moment.duration(undefined).milliseconds(), 0, 'milliseconds');
-    assert.equal(moment.duration(undefined)._isValid, true, '_isValid');
+    assert.equal(moment.duration(undefined).isValid(), true, '_isValid');
 });
 
 test('null instantiation', function (assert) {
     assert.equal(moment.duration(null).milliseconds(), 0, 'milliseconds');
-    assert.equal(moment.duration(null)._isValid, true, '_isValid');
+    assert.equal(moment.duration(null).isValid(), true, '_isValid');
 });
 
 test('NaN instantiation', function (assert) {
     assert.equal(moment.duration(NaN).milliseconds(), 0, 'milliseconds');
-    assert.equal(moment.duration(NaN)._isValid, false, '_isValid');
+    assert.equal(moment.duration(NaN).isValid(), false, '_isValid');
 });
 
 test('instantiation by type', function (assert) {

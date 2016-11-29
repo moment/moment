@@ -6,6 +6,7 @@ export function Duration (duration) {
     var normalizedInput = normalizeObjectUnits(duration);
 
     this._isValid = isDurationValid(normalizedInput);
+    this.isValid = () => this._isValid;
 
     var years = this._isValid && normalizedInput.year || 0,
         quarters = this._isValid && normalizedInput.quarter || 0,
