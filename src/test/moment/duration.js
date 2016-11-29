@@ -49,21 +49,25 @@ test('object instantiation with strings', function (assert) {
 
 test('milliseconds instantiation', function (assert) {
     assert.equal(moment.duration(72).milliseconds(), 72, 'milliseconds');
+    assert.equal(moment.duration(72).humanize(), 'a few seconds', 'Duration should be valid');
 });
 
 test('undefined instantiation', function (assert) {
     assert.equal(moment.duration(undefined).milliseconds(), 0, 'milliseconds');
     assert.equal(moment.duration(undefined).isValid(), true, '_isValid');
+    assert.equal(moment.duration(undefined).humanize(), 'a few seconds', 'Duration should be valid');
 });
 
 test('null instantiation', function (assert) {
     assert.equal(moment.duration(null).milliseconds(), 0, 'milliseconds');
     assert.equal(moment.duration(null).isValid(), true, '_isValid');
+    assert.equal(moment.duration(null).humanize(), 'a few seconds', 'Duration should be valid');
 });
 
 test('NaN instantiation', function (assert) {
     assert.equal(moment.duration(NaN).milliseconds(), 0, 'milliseconds');
     assert.equal(moment.duration(NaN).isValid(), false, '_isValid');
+    assert.equal(moment.duration(NaN).humanize(), 'Invalid date', 'Duration should be invalid');
 });
 
 test('instantiation by type', function (assert) {
