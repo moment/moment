@@ -4258,12 +4258,12 @@ addParseToken('x', function (input, array, config) {
 // Side effect imports
 
 //! moment.js
-//! version : 2.17.0
+//! version : 2.17.1
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
 
-hooks.version = '2.17.0';
+hooks.version = '2.17.1';
 
 setHookCallback(createLocal);
 
@@ -5057,10 +5057,6 @@ hooks.defineLocale('be', {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
     }
-});
-
-hooks.defineLocale('bg-x', {
-    parentLocale: 'bg'
 });
 
 //! moment.js locale configuration
@@ -12556,7 +12552,7 @@ hooks.defineLocale('x-pseudo', {
 });
 
 //! moment.js locale configuration
-//! locale : Yoruba Nigeria (yo)
+//! locale : Yoruba Nigeria [yo]
 //! author : Atolagbe Abisoye : https://github.com/andela-batolagbe
 
 hooks.defineLocale('yo', {

@@ -769,10 +769,6 @@ moment.defineLocale('be', {
     }
 });
 
-moment.defineLocale('bg-x', {
-    parentLocale: 'bg'
-});
-
 //! moment.js locale configuration
 //! locale : Bulgarian [bg]
 //! author : Krasen Borisov : https://github.com/kraz
@@ -8270,7 +8266,7 @@ moment.defineLocale('x-pseudo', {
 });
 
 //! moment.js locale configuration
-//! locale : Yoruba Nigeria (yo)
+//! locale : Yoruba Nigeria [yo]
 //! author : Atolagbe Abisoye : https://github.com/andela-batolagbe
 
 moment.defineLocale('yo', {

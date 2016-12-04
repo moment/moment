@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : Yoruba Nigeria (yo)
+//! locale : Yoruba Nigeria [yo]
 //! author : Atolagbe Abisoye : https://github.com/andela-batolagbe
 
 ;(function (global, factory) {
