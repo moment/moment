@@ -22,7 +22,8 @@ var array = [2010, 1, 14, 15, 25, 50, 125];
 var day11 = moment(Date.UTC.apply({}, array));
 var day12 = moment.unix(1318781876);
 
-moment(null);
+// TODO: reenable in 2.0
+// moment(null);
 moment(undefined);
 moment({ years: 2010, months: 3, days: 5, hours: 15, minutes: 10, seconds: 3, milliseconds: 123 });
 moment("20140101", "YYYYMMDD", true);
@@ -225,7 +226,8 @@ localLang.localeData();
 localLang.format('LLLL');
 globalLang.format('LLLL');
 
-moment.duration(null);
+// TODO: reenable in 2.0
+// moment.duration(null);
 moment.duration(undefined);
 moment.duration(100);
 moment.duration(2, 'seconds');
@@ -259,9 +261,10 @@ moment.locale();
 moment.locale('en');
 moment.locale(['en', 'fr']);
 
-moment.defineLocale('en', null);
-moment.updateLocale('en', null);
-moment.locale('en', null);
+// TODO: Reenable in 2.0
+// moment.defineLocale('en', null);
+// moment.updateLocale('en', null);
+// moment.locale('en', null);
 
 // Defining a custom language:
 moment.locale('en', {
