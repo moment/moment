@@ -169,6 +169,9 @@ module.exports = function (grunt) {
             'meteor-publish': {
                 command: 'cd meteor && meteor publish'
             },
+            'git-include-minified': {
+                command: 'git add -f moment.js locale/*.js min/*.js'
+            },
             'typescript-test': {
                 command: 'node_modules/.bin/tsc --project typing-tests'
             }
@@ -207,6 +210,7 @@ module.exports = function (grunt) {
         'default',
         'update-index',
         'component',
-        'uglify:main'
+        'uglify:main',
+        'exec:git-include-minified'
     ]);
 };
