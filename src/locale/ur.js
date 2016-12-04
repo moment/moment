@@ -40,14 +40,24 @@ export default moment.defineLocale('ur', {
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LLLL : 'dddd، D MMMM YYYY HH:mm'
+    },
+    meridiemParse: /صبح|شام/,
+    isPM : function (input) {
+        return 'شام' === input;
+    },
+    meridiem : function (hour, minute, isLower) {
+        if (hour < 12) {
+            return 'صبح';
+        }
+        return 'شام';
     },
     calendar : {
         sameDay : '[آج بوقت] LT',
         nextDay : '[کل بوقت] LT',
         nextWeek : 'dddd [بوقت] LT',
         lastDay : '[گذشتہ روز بوقت] LT',
-        lastWeek : '[کذشتہ] dddd [بوقت] LT',
+        lastWeek : '[گذشتہ] dddd [بوقت] LT',
         sameElse : 'L'
     },
     relativeTime : {
@@ -64,6 +74,12 @@ export default moment.defineLocale('ur', {
         MM : '%d ماہ',
         y : 'ایک سال',
         yy : '%d سال'
+    },
+    preparse: function (string) {
+        return string.replace(/،/g, ',');
+    },
+    postformat: function (string) {
+        return string.replace(/,/g, '،');
     },
     week : {
         dow : 1, // Monday is the first day of the week.
