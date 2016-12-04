@@ -1,6 +1,13 @@
 Changelog
 =========
 
+### 2.17.1 [Also available here](https://gist.github.com/ichernev/f38280b2b29c4932914a6d3a4e50bfb2)
+* Release Dec 03, 2016
+
+* [#3638](https://github.com/moment/moment/pull/3638) [misc] TS: Make typescript definitions work with 1.x
+* [#3628](https://github.com/moment/moment/pull/3628) [misc] Adds "sign CLA" link to `CONTRIBUTING.md`
+* [#3640](https://github.com/moment/moment/pull/3640) [misc] Fix locale issues
+
 ### 2.17.0 [Also available here](https://gist.github.com/ichernev/ed58f76fb95205eeac653d719972b90c)
 * Release Nov 22, 2016
 
