@@ -28,7 +28,7 @@ export function configFromStringAndFormat(config) {
         stringLength = string.length,
         totalParsedInputLength = 0;
 
-    tokens = expandFormat(config._f, config._locale).match(formattingTokens) || [];
+    tokens = expandFormat(config._f, config._locale, {input: string}).match(formattingTokens) || [];
 
     for (i = 0; i < tokens.length; i++) {
         token = tokens[i];
