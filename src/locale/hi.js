@@ -39,6 +39,7 @@ export default moment.defineLocale('hi', {
     longDateFormat : {
         LT : 'A h:mm बजे',
         LTS : 'A h:mm:ss बजे',
+        LY : 'DD/MM/YY',
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY, A h:mm बजे',

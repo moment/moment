@@ -15,10 +15,12 @@ export default moment.defineLocale('he', {
     longDateFormat : {
         LT : 'HH:mm',
         LTS : 'HH:mm:ss',
+        LY : 'DD/MM/YY',
         L : 'DD/MM/YYYY',
         LL : 'D [ב]MMMM YYYY',
         LLL : 'D [ב]MMMM YYYY HH:mm',
         LLLL : 'dddd, D [ב]MMMM YYYY HH:mm',
+        ly : 'D/M/YY',
         l : 'D/M/YYYY',
         ll : 'D MMM YYYY',
         lll : 'D MMM YYYY HH:mm',

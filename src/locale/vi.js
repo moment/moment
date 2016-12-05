@@ -26,10 +26,12 @@ export default moment.defineLocale('vi', {
     longDateFormat : {
         LT : 'HH:mm',
         LTS : 'HH:mm:ss',
+        LY : 'DD/MM/YY',
         L : 'DD/MM/YYYY',
         LL : 'D MMMM [năm] YYYY',
         LLL : 'D MMMM [năm] YYYY HH:mm',
         LLLL : 'dddd, D MMMM [năm] YYYY HH:mm',
+        ly : 'DD/M/YY',
         l : 'DD/M/YYYY',
         ll : 'D MMM YYYY',
         lll : 'D MMM YYYY HH:mm',

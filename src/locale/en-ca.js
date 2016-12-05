@@ -13,6 +13,7 @@ export default moment.defineLocale('en-ca', {
     longDateFormat : {
         LT : 'h:mm A',
         LTS : 'h:mm:ss A',
+        LY : 'YY-MM-DD',
         L : 'YYYY-MM-DD',
         LL : 'MMMM D, YYYY',
         LLL : 'MMMM D, YYYY h:mm A',

@@ -93,10 +93,12 @@ export default moment.defineLocale('cs', {
     longDateFormat : {
         LT: 'H:mm',
         LTS : 'H:mm:ss',
+        LY : 'DD.MM.YY',
         L : 'DD.MM.YYYY',
         LL : 'D. MMMM YYYY',
         LLL : 'D. MMMM YYYY H:mm',
         LLLL : 'dddd D. MMMM YYYY H:mm',
+        ly : 'D. M. YY',
         l : 'D. M. YYYY'
     },
     calendar : {

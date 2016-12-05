@@ -15,6 +15,7 @@ export default moment.defineLocale('th', {
     longDateFormat : {
         LT : 'H:mm',
         LTS : 'H:mm:ss',
+        LY : 'YY/MM/DD',
         L : 'YYYY/MM/DD',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY เวลา H:mm',

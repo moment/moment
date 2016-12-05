@@ -58,6 +58,7 @@ export default moment.defineLocale('ar-ly', {
     longDateFormat : {
         LT : 'HH:mm',
         LTS : 'HH:mm:ss',
+        LY : 'D/\u200FM/\u200FYY',
         L : 'D/\u200FM/\u200FYYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY HH:mm',

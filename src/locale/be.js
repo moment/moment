@@ -45,6 +45,7 @@ export default moment.defineLocale('be', {
     longDateFormat : {
         LT : 'HH:mm',
         LTS : 'HH:mm:ss',
+        LY : 'DD.MM.YY',
         L : 'DD.MM.YYYY',
         LL : 'D MMMM YYYY г.',
         LLL : 'D MMMM YYYY г., HH:mm',

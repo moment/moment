@@ -50,6 +50,7 @@ export default moment.defineLocale('lv', {
     longDateFormat : {
         LT : 'HH:mm',
         LTS : 'HH:mm:ss',
+        LY : 'DD.MM.YY.',
         L : 'DD.MM.YYYY.',
         LL : 'YYYY. [gada] D. MMMM',
         LLL : 'YYYY. [gada] D. MMMM, HH:mm',
