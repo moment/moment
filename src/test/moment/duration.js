@@ -65,7 +65,7 @@ test('null instantiation', function (assert) {
 });
 
 test('NaN instantiation', function (assert) {
-    assert.equal(moment.duration(NaN).milliseconds(), 0, 'milliseconds');
+    assert.ok(isNaN(moment.duration(NaN).milliseconds()), 'milliseconds should be NaN');
     assert.equal(moment.duration(NaN).isValid(), false, '_isValid');
     assert.equal(moment.duration(NaN).humanize(), 'Invalid date', 'Duration should be invalid');
 });
