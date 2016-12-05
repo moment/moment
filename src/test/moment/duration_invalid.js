@@ -9,16 +9,16 @@ test('invalid duration', function (assert) {
     assert.ok(isNaN(m.valueOf()));
 });
 
-// test('invalid with existing flag', function (assert) {
-//     var m = moment.duration({invalidMonth : 'whatchamacallit'});
-//     assert.equal(m.isValid(), false);
-//     assert.ok(isNaN(m.valueOf()));
-// });
+test('invalid duration with two arguments', function (assert) {
+    var m = moment.duration(NaN, 'days');
+    assert.equal(m.isValid(), false);
+    assert.ok(isNaN(m.valueOf()));
+});
 
 test('invalid duration operations', function (assert) {
     var invalids = [
-            moment.duration(NaN)
-            // moment.duration({invalidMonth : 'whatchamacallit'})
+            moment.duration(NaN),
+            moment.duration(NaN, 'days')
         ],
         i,
         invalid,
