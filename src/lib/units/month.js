@@ -13,6 +13,7 @@ import isNumber from '../utils/is-number';
 import indexOf from '../utils/index-of';
 import { createUTC } from '../create/utc';
 import getParsingFlags from '../create/parsing-flags';
+import isUndefined from '../utils/is-undefined';
 
 export function daysInMonth(year, month) {
     return new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
