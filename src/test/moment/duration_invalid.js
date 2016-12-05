@@ -3,7 +3,7 @@ import moment from '../../moment';
 
 module('invalid');
 
-test('invalid', function (assert) {
+test('invalid duration', function (assert) {
     var m = moment.duration(NaN); // should be invalid
     assert.equal(m.isValid(), false);
     assert.ok(isNaN(m.valueOf()));
@@ -15,7 +15,7 @@ test('invalid', function (assert) {
 //     assert.ok(isNaN(m.valueOf()));
 // });
 
-test('invalid operations', function (assert) {
+test('invalid duration operations', function (assert) {
     var invalids = [
             moment.duration(NaN)
             // moment.duration({invalidMonth : 'whatchamacallit'})

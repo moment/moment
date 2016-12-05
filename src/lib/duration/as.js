@@ -3,6 +3,9 @@ import { normalizeUnits } from '../units/aliases';
 import toInt from '../utils/to-int';
 
 export function as (units) {
+    if (!this.isValid()) {
+        return NaN;
+    }
     var days;
     var months;
     var milliseconds = this._milliseconds;
@@ -31,6 +34,9 @@ export function as (units) {
 
 // TODO: Use this.as('ms')?
 export function valueOf () {
+    if (!this.isValid()) {
+        return NaN;
+    }
     return (
         this._milliseconds +
         this._days * 864e5 +
