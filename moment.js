@@ -3680,6 +3680,7 @@ proto.toString          = toString;
 proto.unix              = unix;
 proto.valueOf           = valueOf;
 proto.creationData      = creationData;
+proto.toJD              = toJD;
 
 // Year
 proto.year       = getSetYear;
@@ -4263,6 +4264,75 @@ addParseToken('x', function (input, array, config) {
 
 // Side effect imports
 
+// Julian Date
+function toJD() {
+  /*
+    TO DO:
+    - make sure instance is in UTC
+  */
+
+  /*
+  JD is the Julian Day that starts at noon TT on the specified date.
+  (TT => Terrestrial Time, which is roughly equivalent to UTC.
+  The current difference between the two is about one minute)
+
+  Implemented from http://www.tondering.dk/claus/cal/julperiod.php
+
+  The algorithm below works fine for AD dates. If you want to use it for BC dates, you must first convert the BC year to a negative year (e.g., 10 BC = -9). The algorithm works correctly for all dates after 4800 BC, i.e. at least for all positive Julian Day.
+  */
+
+  // N.B: year = 0  => (this.year() = - 1 =>  1 BC);
+  //      year = -9 => (this.year() = -10 => 10 BC)
+  var year = this.year() < 0 ? this.year() + 1 : this.year();
+
+  if (year === 1582 && this.month() === 9 && (this.date() <= 14 && this.date() >= 5)) {
+    // 1582 Oct 05 - 14
+    console.log('NO JD DEFINED BETWEEN 1582 Oct 05 - 14')
+  } else {
+    // Julian calendar begins on:
+    // 1582 Oct 05 = 1582.994623655914
+    var julCalDecYear = 1582.994623655914;
+    var currDecYear = this.year() +
+                      (this.month()+1) / 12 +
+                      this.date() / this.daysInMonth();
+
+    if (currDecYear < julCalDecYear) {
+      // Julian calendar
+      var a = Math.floor((14 - (this.month()+1)) / 12);
+      var y = year + 4800 - a;
+      var m = (this.month()+1) + 12 * a - 3;
+      var jdn = this.date() +
+                Math.floor((153 * m + 2) / 5) +
+                365 * y +
+                Math.floor(y / 4) -
+                32083;
+      var jd = jdn + (this.hour() - 12) / 24 + this.minute() / 1440 + this.second() / 86400;
+    } else {
+      // Gregorian calendar
+      var a = Math.floor((14 - (this.month()+1)) / 12);
+      var y = year + 4800 - a;
+      var m = (this.month()+1) + 12 * a - 3;
+      var jdn = this.date() +
+                Math.floor((153 * m + 2) / 5) +
+                365 * y +
+                Math.floor(y / 4) -
+                Math.floor(y / 100) +
+                Math.floor(y / 400) -
+                32045;
+      var jd = jdn + (this.hour() - 12) / 24 + this.minute() / 1440 + this.second() / 86400;
+    }
+  }
+  return jd;
+}
+
+function convertToJD(myDate) {
+  /*
+    Convert a Moment.js object into Julian Date.
+    N.B.: Julian Date = Julian Day Number + Time
+  */
+  return (myDate / 86400000) - (myDate.utcOffset() / 1440) + 2440587.5;
+}
+
 
 hooks.version = '2.17.1';
 
@@ -4291,10 +4361,11 @@ hooks.updateLocale          = updateLocale;
 hooks.locales               = listLocales;
 hooks.weekdaysShort         = listWeekdaysShort;
 hooks.normalizeUnits        = normalizeUnits;
-hooks.relativeTimeRounding = getSetRelativeTimeRounding;
+hooks.relativeTimeRounding  = getSetRelativeTimeRounding;
 hooks.relativeTimeThreshold = getSetRelativeTimeThreshold;
 hooks.calendarFormat        = getCalendarFormat;
 hooks.prototype             = proto;
+hooks.convertToJD   = convertToJD;
 
 return hooks;
 
