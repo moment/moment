@@ -6,6 +6,108 @@ declare namespace moment {
   type CalendarKey = 'sameDay' | 'nextDay' | 'lastDay' | 'nextWeek' | 'lastWeek' | 'sameElse' | string;
   type LongDateFormatKey = 'LTS' | 'LT' | 'L' | 'LL' | 'LLL' | 'LLLL' | 'lts' | 'lt' | 'l' | 'll' | 'lll' | 'llll';
 
+  interface MomentStatic {
+    (inp?: moment.MomentInput, format?: moment.MomentFormatSpecification, strict?: boolean): Moment;
+    (inp?: moment.MomentInput, format?: moment.MomentFormatSpecification, language?: string, strict?: boolean): Moment;
+
+    version: string;
+    fn: Moment;
+
+    // NOTE(constructor): Same as moment constructor
+    utc(inp?: MomentInput, format?: MomentFormatSpecification, strict?: boolean): Moment;
+    utc(inp?: MomentInput, format?: MomentFormatSpecification, language?: string, strict?: boolean): Moment;
+
+    unix(timestamp: number): Moment;
+
+    invalid(flags?: MomentParsingFlagsOpt): Moment;
+    isMoment(m: any): m is Moment;
+    isDate(m: any): m is Date;
+    isDuration(d: any): d is Duration;
+
+    /**
+     * @deprecated in 2.8.0
+     */
+    lang(language?: string): string;
+    /**
+     * @deprecated in 2.8.0
+     */
+    lang(language?: string, definition?: Locale): string;
+
+    locale(language?: string): string;
+    locale(language?: string[]): string;
+    locale(language?: string, definition?: LocaleSpecification | void): string; // null | undefined
+
+    localeData(key?: string | string[]): Locale;
+
+    duration(inp?: DurationInputArg1, unit?: DurationInputArg2): Duration;
+
+    // NOTE(constructor): Same as moment constructor
+    parseZone(inp?: MomentInput, format?: MomentFormatSpecification, strict?: boolean): Moment;
+    parseZone(inp?: MomentInput, format?: MomentFormatSpecification, language?: string, strict?: boolean): Moment;
+
+    months(): string[];
+    months(index: number): string;
+    months(format: string): string[];
+    months(format: string, index: number): string;
+    monthsShort(): string[];
+    monthsShort(index: number): string;
+    monthsShort(format: string): string[];
+    monthsShort(format: string, index: number): string;
+
+    weekdays(): string[];
+    weekdays(index: number): string;
+    weekdays(format: string): string[];
+    weekdays(format: string, index: number): string;
+    weekdays(localeSorted: boolean): string[];
+    weekdays(localeSorted: boolean, index: number): string;
+    weekdays(localeSorted: boolean, format: string): string[];
+    weekdays(localeSorted: boolean, format: string, index: number): string;
+    weekdaysShort(): string[];
+    weekdaysShort(index: number): string;
+    weekdaysShort(format: string): string[];
+    weekdaysShort(format: string, index: number): string;
+    weekdaysShort(localeSorted: boolean): string[];
+    weekdaysShort(localeSorted: boolean, index: number): string;
+    weekdaysShort(localeSorted: boolean, format: string): string[];
+    weekdaysShort(localeSorted: boolean, format: string, index: number): string;
+    weekdaysMin(): string[];
+    weekdaysMin(index: number): string;
+    weekdaysMin(format: string): string[];
+    weekdaysMin(format: string, index: number): string;
+    weekdaysMin(localeSorted: boolean): string[];
+    weekdaysMin(localeSorted: boolean, index: number): string;
+    weekdaysMin(localeSorted: boolean, format: string): string[];
+    weekdaysMin(localeSorted: boolean, format: string, index: number): string;
+
+    min(...moments: MomentInput[]): Moment;
+    max(...moments: MomentInput[]): Moment;
+
+    /**
+     * Returns unix time in milliseconds. Overwrite for profit.
+     */
+    now(): number;
+
+    defineLocale(language: string, localeSpec: LocaleSpecification | void): Locale; // null
+    updateLocale(language: string, localeSpec: LocaleSpecification | void): Locale; // null
+
+    locales(): string[];
+
+    normalizeUnits(unit: unitOfTime.All): string;
+    relativeTimeThreshold(threshold: string): number | boolean;
+    relativeTimeThreshold(threshold: string, limit: number): boolean;
+    relativeTimeRounding(fn: (num: number) => number): boolean;
+    relativeTimeRounding(): (num: number) => number;
+    calendarFormat(m: Moment, now: Moment): string;
+
+    /**
+     * Constant used to enable explicit ISO_8601 format parsing.
+     */
+    ISO_8601: MomentBuiltinFormat;
+
+    defaultFormat: string;
+    defaultFormatUtc: string;
+  }
+
   interface Locale {
     calendar(key?: CalendarKey, m?: Moment, now?: Moment): string;
 
