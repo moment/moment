@@ -55,3 +55,13 @@ test('extending calendar options', function (assert) {
         moment.updateLocale('en', null);
     }
 });
+
+test('calendar overload - passing one parameter formats', function (assert) {
+    var a = moment().hours(13).minutes(23).seconds(45);
+    assert.equal(moment(a).calendar({
+        'sameDay': function () {
+            return 'h:mm:ssA';
+        }
+    }), '1:23:45PM', 'should equate');
+
+});
