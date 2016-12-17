@@ -63,5 +63,4 @@ test('calendar overload - passing one parameter formats', function (assert) {
             return 'h:mm:ssA';
         }
     }), '1:23:45PM', 'should equate');
-
 });
