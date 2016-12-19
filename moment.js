@@ -4281,18 +4281,16 @@ function toJD() {
 
   Implemented from http://www.tondering.dk/claus/cal/julperiod.php
 
-  "The algorithm below works fine for AD dates. If you want to use it for BC dates, you must first convert the BC year to a negative year (e.g., 10 BC = -9). The algorithm works correctly for all dates after 4800 BC, i.e. at least for all positive Julian Day."
+  "The algorithm below works fine for AD dates. If you want to use it for BC dates, in order to comply with ISO-8601, you must first convert the BC year to a negative year (e.g., 10 BC = -9). The algorithm works correctly for all dates after 4800 BC, i.e. at least for all positive Julian Day."
   */
 
-  // N.B: year = 0  => (this.year() = - 1 =>  1 BC);
-  //      year = -9 => (this.year() = -10 => 10 BC)
   var year = this.year() < 0 ? this.year() + 1 : this.year();
 
   if (year === 1582 && this.month() === 9 && (this.date() <= 14 && this.date() >= 5)) {
     // 1582 Oct 05 - 14
     console.log('NO JD DEFINED BETWEEN 1582 Oct 05 - 14')
   } else {
-    // Julian calendar begins on:
+    // Julian calendar ends on:
     // 1582 Oct 05 = 1582.994623655914
     var julCalDecYear = 1582.994623655914;
     var currDecYear = this.year() +
@@ -4341,7 +4339,13 @@ function convertToJD(myDate) {
   /*
     Convert a Moment.js object into a Julian Date.
     N.B.: Julian Date = Julian Day Number + Time
+
+    Example:
+    > date = moment.utc([1582, 9, 3, 15, 23, 43])
+    > jd = moment.convertToJD(date)
+    (console.log(jd) outputs 2299159.1414699075)
   */
+  // return the result from the method implemented above
   return moment.utc(myDate).toJD();
 }
 
@@ -4351,19 +4355,16 @@ function convertFromJD(myJD) {
 
     The returned value is a Moment.js object.
 
-    For the literal object, each property can
-    be accessed using "this.property" format. e.g.:
+    Example:
     > jd = 2299159.1414699075
     > date = moment.convertFromJD( jd )
-    > date.year (output: 1582)
-    > date.hour (output: 15 )
+    > date.year() (output: 1582)
+    > date.hour() (output: 15 )
   */
 
-  // Julian calendar begins on 1582 Oct 05.
-  // For the calculation below, it is
-  // assumed that myJD corresponds to a
-  // date prior or equal to 1582 Oct 04 @ 23:59:59
-  // which corresponds to JD = 2299160.49999...
+  // Julian calendar ends on 1582 Oct 05.
+  // Dates prior or equal to 1582 Oct 04 @ 23:59:59
+  // correspond to JD <= 2299160.49999...
   if (myJD <= 2299160.5) {
     // Julian calendar
     var b = 0;
