@@ -9,9 +9,9 @@ var args = process.argv.slice(2);
 function help() {
     console.log(process.argv[1], '[list|mention|find-commenters] ARGS');
     console.log();
-    console.log("    list      show all authors in all locales");
-    console.log("    mention   show all authors in all locales, ready to copy-paste in github issue");
-    console.log("    find-commenters #ID  finds all people that participated in a github conversation");
+    console.log('    list      show all authors in all locales');
+    console.log('    mention   show all authors in all locales, ready to copy-paste in github issue');
+    console.log('    find-commenters #ID  finds all people that participated in a github conversation');
 }
 
 function extract() {
@@ -32,7 +32,6 @@ function extract() {
             content.split('\n').forEach(function (line) {
                 var match = line.match(/^\/\/! author(.*)$/);
                 if (match !== null) {
-                    // console.log("  ", line);
                     localeAuthors.push('---' + match[1]);
                 }
             });
@@ -54,7 +53,7 @@ function list() {
 function mention() {
     var authors = extract();
     Object.keys(authors).forEach(function (localeCode) {
-        console.log('- [ ]', localeCode, authors[localeCode].map(function (author) { return "@" + author; }).join(" "));
+        console.log('- [ ]', localeCode, authors[localeCode].map(function (author) { return '@' + author; }).join(' '));
     });
 }
 
@@ -142,6 +141,6 @@ switch (args[0]) {
         findCommenters(args[1]);
         break;
     default:
-        console.log("unknown argument", args[0]);
+        console.log('unknown argument', args[0]);
         break;
 }
