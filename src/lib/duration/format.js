@@ -12,34 +12,25 @@ export function formatDuration() {
     var tokenizer, tokens, types, typeMap, momentTypes, foundFirst,
         args = [].slice.call(arguments),
         settings = extend({}, this.format.defaults),
-        // keep a shadow copy of this moment for calculating remainders
-        remainder = createDuration(this);
-
-    // add a reference to this duration object to the settings for use in a template function
-    settings.duration = this;
+        remainder = createDuration(this); // keep a shadow copy of this moment for calculating remainders
+    settings.duration = this;  // add a reference to this duration object in settings to use in a template function
 
     // parse arguments
     each.call(args, function (arg) {
-        if (typeof arg === 'string' || typeof arg === 'function') {
-            settings.template = arg;
-            return;
+        let argtype = typeof arg;
+        if (argtype === 'string' || argtype === 'function') {
+            settings.template = arg; return;
         }
-
-        if (typeof arg === 'number') {
-            settings.precision = arg;
-            return;
+        if (argtype === 'number') {
+            settings.precision = arg; return;
         }
-
         if (isObject(arg)) {
             extend(settings, arg);
         }
     });
 
-    // types
-    types = settings.types = (isArray(settings.types) ? settings.types : settings.types.split(' '));
-
-    // template
-    if (typeof settings.template === 'function') {
+    types = settings.types = (isArray(settings.types) ? settings.types : settings.types.split(' '));  // types
+    if (typeof settings.template === 'function') { // template
         settings.template = settings.template.apply(settings);
     }
 
@@ -70,10 +61,8 @@ export function formatDuration() {
         return {
             index: index,
             length: length,
-
             // replace escaped tokens with the non-escaped token text
             token: (type === 'escape' ? token.replace(settings.escape, '$1') : token),
-
             // ignore type on non-moment tokens
             type: ((type === 'escape' || type === 'general') ? null : type)
         };
@@ -98,46 +87,32 @@ export function formatDuration() {
     each.call(momentTypes, function (momentType, index) {
         var value, wholeValue, decimalValue, isLeast, isMost, truncMethod, decVal;
 
-        // is this the least or most significant moment token found?
         isLeast = (index === (momentTypes.length - 1));
         isMost = (index === 0);
 
         // get the value in the current units
         value = remainder.as(momentType);
 
-        // determine the truncation method: floor for positive numbers, ceiling for negative numbers
-        truncMethod = (value > 0 ? 'floor' : 'ceil');
+        truncMethod = (value > 0 ? 'floor' : 'ceil'); // floor for positive numbers, ceiling for negative numbers
         // calculate integer and decimal value portions
-        if (isLeast) {
-            // apply precision to least significant token value
+        if (isLeast) {  // apply precision to least significant token value
             if (settings.precision <= 0) {
                 wholeValue = Math[settings.trunc ? truncMethod : 'round'](value * Math.pow(10, settings.precision)) * Math.pow(10, -settings.precision);
                 decimalValue = 0;
             } else { // settings.precision > 0
                 wholeValue = Math[truncMethod](value);
                 decVal = settings.trunc ? value - wholeValue : Math.round((value - wholeValue) * Math.pow(10, settings.precision)) * Math.pow(10, -settings.precision);
+                decVal = decVal.toString().replace(/^\-/, '').split(/\.|e\-/); // removes negative sign, splits on decimal & on exponent
 
-                decVal = decVal.toString().replace(/^\-/, '').split(/\.|e\-/);
-
-                // not sure what this does...
-                switch (decVal.length) {
-                    case 1:
-                        decimalValue = (decVal[0] + zeroFill(0, settings.precision)).slice(0, settings.precision);
-                        break;
-
-                    case 2:
-                        decimalValue = (decVal[1] + zeroFill(0, settings.precision)).slice(0, settings.precision);
-                        break;
-
-                    case 3:
-                        decimalValue = (zeroFill(0, (+decVal[2]) - 1) + (decVal[0] || '0') + decVal[1] + zeroFill(0, settings.precision)).slice(0, settings.precision);
-                        break;
-
-                    default:
-                        break;
-                    //     throw 'Moment Duration Format: unable to parse token decimal value.';
-                    // TODO: what should we do instead of throwing an error?
+                if (decVal.length === 1) { // no decimals nor exponents
+                    decimalValue = (decVal[0] + zeroFill(0, settings.precision)).slice(0, settings.precision);
+                } else if (decVal.length === 2) {
+                    decimalValue = (decVal[1] + zeroFill(0, settings.precision)).slice(0, settings.precision);
+                } else if (decVal.length === 3) { // logic for exponents, like 2.04e-7
+                    decimalValue = (zeroFill(0, (+decVal[2]) - 1) + (decVal[0] || '0') + decVal[1] + zeroFill(0, settings.precision)).slice(0, settings.precision);
                 }
+                //     throw 'Moment Duration Format: unable to parse token decimal value.';
+                // TODO: what should we do instead of throwing an error?
             }
         } else {
             wholeValue = Math[truncMethod](value);
@@ -168,16 +143,12 @@ export function formatDuration() {
     foundFirst = false;
 
     tokens = map(tokens, function (token, index) {
-        var val,
-            decVal;
-
+        var val, decVal;
         if (!token.type) {
-            // if it is not a moment token, use the token as its own value
-            return token.token;
+            return token.token;  // if it is not a moment token, use the token as its own value
         }
 
-        // remove negative sign from the beginning
-        val = token.wholeValue.toString().replace(/^\-/, '');
+        val = token.wholeValue.toString().replace(/^\-/, ''); // remove negative sign from the beginning
 
         // apply token length formatting
         // special handling for the first moment token that is not the most significant in a trimmed template
@@ -197,10 +168,8 @@ export function formatDuration() {
         }
 
         foundFirst = true;
-
         return val;
     });
-
 
     return this.localeData().postformat(tokens.join(''));
 }
@@ -218,33 +187,26 @@ formatDuration.defaults = {
     milliseconds: /S+/,
     general: /.+?/,
 
-    // token type names
-    // in order of descending magnitude
+    // token type names: in order of descending magnitude
     // can be a space-separated token name list or an array of token names
     types: 'escape years months weeks days hours minutes seconds milliseconds general',
 
-    // format options
-
-    // trunc
-    // default behavior rounds final token value
+    // FORMAT OPTIONS:
+    // trunc: default behavior rounds final token value
     // set to `true` to truncate final token value (this was the default behavior in moment-duration-format version 1)
     trunc: false,
 
-    // precision
-    // number of decimal digits to include after (to the right of) the decimal point (positive integer)
+    // precision: number of decimal digits to include after (to the right of) the decimal point (positive integer)
     // or the number of digits to truncate to 0 before (to the left of) the decimal point (negative integer)
     precision: 0,
 
-    // decimalSeparator
-    // can be a string or a function
-    // by default will use the decimal separator set in the environment
+    // decimalSeparator: can be a string or a function, by default will use the decimal separator set in the environment
     // http://stackoverflow.com/questions/1074660/with-a-browser-how-do-i-know-which-decimal-separator-does-the-client-use
     decimalSeparator: function () {
         return /^1(.+)1$/.exec((1.1).toLocaleString())[1];
     },
 
-    // template used to format duration
-    // may be a function or a string
+    // template used to format duration: may be a function or a string
     // template functions are executed with the `this` binding of the settings object
     // so that template strings may be dynamically generated based on the duration object
     // (accessible via `this.duration`) or any of the other settings
