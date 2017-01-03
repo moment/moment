@@ -58,7 +58,7 @@ export function localeFirstDayOfYear () {
 
 export function getSetWeek (input) {
     var week = this.localeData().week(this);
-    if(week > 52){ 
+    if (week > 52) {
         //year have changed
         input += 52;
     }
@@ -67,5 +67,5 @@ export function getSetWeek (input) {
 
 export function getSetISOWeek (input) {
     var woy = weekOfYear(this, 1, 4);
-    return input == null ? woy.week : this.add((input - woy.week + (this.year()-woy.year)*52) * 7, 'd');
+    return input == null ? woy.week : this.add((input - woy.week + (this.year() - woy.year) * 52) * 7, 'd');
 }
