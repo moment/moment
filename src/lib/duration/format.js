@@ -17,7 +17,7 @@ export function formatDuration() {
 
     // parse arguments
     each.call(args, function (arg) {
-        let argtype = typeof arg;
+        var argtype = typeof arg;
         if (argtype === 'string' || argtype === 'function') {
             settings.template = arg; return;
         }
