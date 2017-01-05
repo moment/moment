@@ -1106,3 +1106,18 @@ test('invalid dates return invalid for methods that access the _d prop', functio
     assert.ok(momentAsDate instanceof Date, 'toDate returns a Date object');
     assert.ok(isNaN(momentAsDate.getTime()), 'toDate returns an invalid Date invalid');
 });
+
+test('parsing invalid string weekdays', function (assert) {
+    assert.equal(false, moment('a', 'dd').isValid(),
+            'dd with invalid weekday, non-strict');
+    assert.equal(false, moment('a', 'dd', true).isValid(),
+            'dd with invalid weekday, strict');
+    assert.equal(false, moment('a', 'ddd').isValid(),
+            'ddd with invalid weekday, non-strict');
+    assert.equal(false, moment('a', 'ddd', true).isValid(),
+            'ddd with invalid weekday, strict');
+    assert.equal(false, moment('a', 'dddd').isValid(),
+            'dddd with invalid weekday, non-strict');
+    assert.equal(false, moment('a', 'dddd', true).isValid(),
+            'dddd with invalid weekday, strict');
+});
