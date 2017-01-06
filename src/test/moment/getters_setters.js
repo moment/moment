@@ -117,7 +117,7 @@ test('setters should handle garbage input', function (assert) {
     a.day(-Infinity);
     a.hours(new Date());
     a.minutes({a:1,b:2});
-    a.seconds("foo");
+    a.seconds('foo');
     a.milliseconds(Infinity);
 
     assert.equal(a.year(), 2011, 'year');
