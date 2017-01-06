@@ -101,6 +101,35 @@ test('setters', function (assert) {
     assert.equal(a.month(), 3, 'month edge case');
 });
 
+test('setters should handle garbage input', function (assert) {
+    var a = moment();
+    a.set('year', 2011);
+    a.set('month', 9);
+    a.set('date', 12);
+    a.set('hours', 6);
+    a.set('minutes', 7);
+    a.set('seconds', 8);
+    a.set('milliseconds', 9);
+
+    a.year(undefined);
+    a.month(null);
+    a.date([1]);
+    a.day(-Infinity);
+    a.hours(new Date());
+    a.minutes({a:1,b:2});
+    a.seconds("foo");
+    a.milliseconds(Infinity);
+
+    assert.equal(a.year(), 2011, 'year');
+    assert.equal(a.month(), 9, 'month');
+    assert.equal(a.date(), 12, 'date');
+    assert.equal(a.day(), 3, 'day');
+    assert.equal(a.hours(), 6, 'hour');
+    assert.equal(a.minutes(), 7, 'minute');
+    assert.equal(a.seconds(), 8, 'second');
+    assert.equal(a.milliseconds(), 9, 'milliseconds');
+});
+
 test('setter programmatic', function (assert) {
     var a = moment();
     a.set('year', 2011);
