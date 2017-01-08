@@ -469,9 +469,7 @@ test('parsing RFC 2822', function (assert) {
         'clean RFC2822 datetime without day');
     assert.ok(moment('Tue, 1 Nov 2016 01:23:45 GMT', moment.RFC_2822, true).isValid(),
         'clean RFC2822 datetime with single-digit day-of-month');
-    assert.ok(moment(`(Init Comment) Tue,
- 1 Nov              2016 (Split
- Comment)  01:23:45 +0000 (GMT)`, moment.RFC_2822, true).isValid(),
+    assert.ok(moment('(Init Comment) Tue,\n 1 Nov              2016 (Split\n Comment)  01:23:45 +0000 (GMT)', moment.RFC_2822, true).isValid(),
         'RFC2822 datetime with CFWSs');
 });
 
