@@ -1,6 +1,7 @@
 //! moment.js locale configuration
 //! locale : Urdu [ur]
 //! author : Sawood Alam : https://github.com/ibnesayeed
+//! author : Zack : https://github.com/ZackVision
 
 import moment from '../moment';
 
