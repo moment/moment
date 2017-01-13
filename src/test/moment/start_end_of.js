@@ -186,7 +186,88 @@ test('end of day', function (assert) {
     assert.equal(m.hours(), 23, 'set the hours');
     assert.equal(m.minutes(), 59, 'set the minutes');
     assert.equal(m.seconds(), 59, 'set the seconds');
-    assert.equal(m.milliseconds(), 999, 'set the seconds');
+    assert.equal(m.milliseconds(), 999, 'set the milliseconds');
+});
+
+test('start/end of week with timezone on day DST switch occurs and weekstart being day of DST switch', function (assert) {
+    var oldOffset = moment.updateOffset,
+        fmt = 'YYYY-MM-DD HH:mm:ss.SSS',
+        m = moment('2017-10-15 02:03:04'),
+        expectedStart = '2017-10-15 01:00:00.000';
+
+    moment.updateOffset = function (mom, keepTime) {
+        // mimick Brazil DST which happens at midnight and in which 00:00:00 - 00:59:59 does not exist on Sunday 15th Oct 2017
+        if (mom.format(fmt) === '2017-10-15 00:00:00.000') {
+            mom.hour(1);
+        }
+    };
+
+    m.startOf('week');
+    assert.equal(m.format(fmt), expectedStart, 'start of week jumps correctly');
+
+    moment.updateOffset = oldOffset;
+});
+
+test('start/end of day with timezone on day DST switch occurs', function (assert) {
+    var oldOffset = moment.updateOffset,
+        fmt = 'YYYY-MM-DD HH:mm:ss.SSS',
+        m = moment('2017-10-15 02:03:04'),
+        m2 = moment('2017-10-15 02:03:04'),
+        expectedStart = '2017-10-15 01:00:00.000',
+        expectedEnd = '2017-10-15 23:59:59.999';
+
+    moment.updateOffset = function (mom, keepTime) {
+        // mimick Brazil DST which happens at midnight and in which 00:00:00 - 00:59:59 does not exist on Sunday 15th Oct 2017
+        if (mom.format(fmt) === '2017-10-15 00:00:00.000') {
+            mom.hour(1);
+        }
+    };
+
+    m.startOf('day');
+
+    assert.equal(m.format(fmt), expectedStart, 'start of day jumps correctly');
+
+    m.endOf('day');
+    m2.endOf('day');
+
+    assert.equal(m.format(fmt), expectedEnd, 'start + end of day jumps correctly');
+    assert.equal(m2.format(fmt), expectedEnd, 'end of day jumps correctly');
+
+    m.startOf('day');
+    assert.equal(m.format(fmt), expectedStart, 'start + end + start of day jumps correctly');
+
+    moment.updateOffset = oldOffset;
+});
+
+test('start/end of day with timezone on day before DST switch occurs', function (assert) {
+    var oldOffset = moment.updateOffset,
+        fmt = 'YYYY-MM-DD HH:mm:ss.SSS',
+        m = moment('2017-10-14 02:03:04'),
+        m2 = moment('2017-10-14 02:03:04'),
+        expectedStart = '2017-10-14 00:00:00.000',
+        expectedEnd = '2017-10-14 23:59:59.999';
+
+    moment.updateOffset = function (mom, keepTime) {
+        // mimick Brazil DST which happens at midnight and in which 00:00:00 - 00:59:59 does not exist on Sunday 15th Oct 2017
+        if (mom.format(fmt) === '2017-10-15 00:00:00.000') {
+            mom.hour(1);
+        }
+    };
+
+    m.startOf('day');
+
+    assert.equal(m.format(fmt), expectedStart, 'start of day jumps correctly');
+
+    m.endOf('day');
+    m2.endOf('day');
+
+    assert.equal(m.format(fmt), expectedEnd, 'start + end of day jumps correctly');
+    assert.equal(m2.format(fmt), expectedEnd, 'end of day jumps correctly');
+
+    m.startOf('day');
+    assert.equal(m.format(fmt), expectedStart, 'start + end + start of day jumps correctly');
+
+    moment.updateOffset = oldOffset;
 });
 
 test('start of date', function (assert) {
