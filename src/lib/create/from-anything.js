@@ -89,7 +89,7 @@ function configFromInput(config) {
         if (parsedString && parsedString[4]) {
             config._d = new Date(input);
         } else if (parsedString) {
-            config._d = new Date(parsedString[1].replace(/-/g, '/') + ' ' + (parsedString[3] || ''));
+            config._d = new Date(parsedString[1].replace(/-/g, '/') + ' ' + (parsedString[3] || '') + (config._useUTC ? ' UTC' : ''));
         } else {
            hooks.createFromInputFallback(config);
         }
