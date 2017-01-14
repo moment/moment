@@ -10,12 +10,18 @@ import { getLocale } from '../locale/locales';
 import { hooks } from '../utils/hooks';
 import checkOverflow from './check-overflow';
 import { isValid } from './valid';
+import { deprecate } from '../utils/deprecate';
 
-import { configFromStringAndArray }  from './from-string-and-array';
-import { configFromStringAndFormat } from './from-string-and-format';
-import { configFromString }          from './from-string';
+var fromStringAndArray, fromStringAndFormat, fromString;
+
+// import { configFromStringAndArray }  from './from-string-and-array';
+// import { configFromStringAndFormat } from './from-string-and-format';
+// import { configFromString }          from './from-string';
 import { configFromArray }           from './from-array';
 import { configFromObject }          from './from-object';
+
+
+export var extendedIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
 
 function createFromConfig (config) {
     var res = new Moment(checkOverflow(prepareConfig(config)));
@@ -46,10 +52,10 @@ export function prepareConfig (config) {
         return new Moment(checkOverflow(input));
     } else if (isDate(input)) {
         config._d = input;
-    } else if (isArray(format)) {
-        configFromStringAndArray(config);
-    } else if (format) {
-        configFromStringAndFormat(config);
+    } else if (isArray(format) && fromStringAndArray) {
+        fromStringAndArray(config);
+    } else if (format && fromStringAndFormat) {
+        fromStringAndFormat(config);
     }  else {
         configFromInput(config);
     }
@@ -67,9 +73,9 @@ function configFromInput(config) {
         config._d = new Date(hooks.now());
     } else if (isDate(input)) {
         config._d = new Date(input.valueOf());
-    } else if (typeof input === 'string') {
-        configFromString(config);
-    } else if (isArray(input)) {
+    } else if (typeof input === 'string' && fromString) {
+        fromString(config);
+    } else if (isArray(input) && configFromArray) {
         config._a = map(input.slice(0), function (obj) {
             return parseInt(obj, 10);
         });
@@ -77,10 +83,16 @@ function configFromInput(config) {
     } else if (typeof(input) === 'object') {
         configFromObject(config);
     } else if (isNumber(input)) {
-        // from milliseconds
         config._d = new Date(input);
     } else {
-        hooks.createFromInputFallback(config);
+        var parsedString = extendedIsoRegex.exec(input);
+        if (parsedString && parsedString[4]) {
+            config._d = new Date(input);
+        } else if (parsedString) {
+            config._d = new Date(parsedString[1].replace(/-/g, '/') + ' ' + (parsedString[3] || ''));
+        } else {
+           hooks.createFromInputFallback(config);
+        }
     }
 }
 
@@ -107,3 +119,13 @@ export function createLocalOrUTC (input, format, locale, strict, isUTC) {
 
     return createFromConfig(c);
 }
+
+hooks.createFromInputFallback = deprecate(
+    'value provided is not in a recognized ISO format. moment construction falls back to js Date(), ' +
+    'which is not reliable across all browsers and versions. Non ISO date formats are ' +
+    'discouraged and will be removed in an upcoming major release. Please refer to ' +
+    'http://momentjs.com/guides/#/warnings/js-date/ for more info.',
+    function (config) {
+        config._d = new Date(config._i + (config._useUTC ? ' UTC' : ''));
+    }
+);
