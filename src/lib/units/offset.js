@@ -3,8 +3,8 @@ import { createDuration } from '../duration/create';
 import { addSubtract } from '../moment/add-subtract';
 import { isMoment, copyConfig } from '../moment/constructor';
 import { addFormatToken } from '../format/format';
-import { addRegexToken, matchOffset, matchShortOffset } from '../parse/regex';
-import { addParseToken } from '../parse/token';
+// import { addRegexToken, matchOffset, matchShortOffset } from '../parse/regex';
+// import { addParseToken } from '../parse/token';
 import { createLocal } from '../create/local';
 import { prepareConfig } from '../create/from-anything';
 import { createUTC } from '../create/utc';
@@ -33,12 +33,12 @@ offset('ZZ', '');
 
 // PARSING
 
-addRegexToken('Z',  matchShortOffset);
-addRegexToken('ZZ', matchShortOffset);
-addParseToken(['Z', 'ZZ'], function (input, array, config) {
-    config._useUTC = true;
-    config._tzm = offsetFromString(matchShortOffset, input);
-});
+// addRegexToken('Z',  matchShortOffset);
+// addRegexToken('ZZ', matchShortOffset);
+// addParseToken(['Z', 'ZZ'], function (input, array, config) {
+//     config._useUTC = true;
+//     config._tzm = offsetFromString(matchShortOffset, input);
+// });
 
 // HELPERS
 

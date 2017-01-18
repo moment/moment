@@ -22,18 +22,18 @@ proto.set             = set;
 
 // Month
 import {
-    localeMonthsParse,
+   // localeMonthsParse,
     localeMonths,
     localeMonthsShort,
-    monthsRegex,
-    monthsShortRegex
+    // monthsRegex,
+    // monthsShortRegex
 } from '../units/month';
 
 proto.months            =        localeMonths;
 proto.monthsShort       =        localeMonthsShort;
-proto.monthsParse       =        localeMonthsParse;
-proto.monthsRegex       = monthsRegex;
-proto.monthsShortRegex  = monthsShortRegex;
+//proto.monthsParse       =        localeMonthsParse;
+// proto.monthsRegex       = monthsRegex;
+// proto.monthsShortRegex  = monthsShortRegex;
 
 // Week
 import { localeWeek, localeFirstDayOfYear, localeFirstDayOfWeek } from '../units/week';
@@ -43,24 +43,24 @@ proto.firstDayOfWeek = localeFirstDayOfWeek;
 
 // Day of Week
 import {
-    localeWeekdaysParse,
+ //   localeWeekdaysParse,
     localeWeekdays,
     localeWeekdaysMin,
     localeWeekdaysShort,
 
-    weekdaysRegex,
-    weekdaysShortRegex,
-    weekdaysMinRegex
+    // weekdaysRegex,
+    // weekdaysShortRegex,
+    // weekdaysMinRegex
 } from '../units/day-of-week';
 
 proto.weekdays       =        localeWeekdays;
 proto.weekdaysMin    =        localeWeekdaysMin;
 proto.weekdaysShort  =        localeWeekdaysShort;
-proto.weekdaysParse  =        localeWeekdaysParse;
+//proto.weekdaysParse  =        localeWeekdaysParse;
 
-proto.weekdaysRegex       =        weekdaysRegex;
-proto.weekdaysShortRegex  =        weekdaysShortRegex;
-proto.weekdaysMinRegex    =        weekdaysMinRegex;
+// proto.weekdaysRegex       =        weekdaysRegex;
+// proto.weekdaysShortRegex  =        weekdaysShortRegex;
+// proto.weekdaysMinRegex    =        weekdaysMinRegex;
 
 // Hours
 import { localeIsPM, localeMeridiem } from '../units/hour';

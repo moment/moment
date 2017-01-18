@@ -1,8 +1,8 @@
 import { addFormatToken } from '../format/format';
 import { addUnitAlias } from './aliases';
 import { addUnitPriority } from './priorities';
-import { addRegexToken, match1to2, match2 } from '../parse/regex';
-import { addWeekParseToken } from '../parse/token';
+// import { addRegexToken, match1to2, match2 } from '../parse/regex';
+// import { addWeekParseToken } from '../parse/token';
 import toInt from '../utils/to-int';
 import { createLocal } from '../create/local';
 import { weekOfYear } from './week-calendar-utils';
@@ -24,14 +24,14 @@ addUnitPriority('isoWeek', 5);
 
 // PARSING
 
-addRegexToken('w',  match1to2);
-addRegexToken('ww', match1to2, match2);
-addRegexToken('W',  match1to2);
-addRegexToken('WW', match1to2, match2);
+// addRegexToken('w',  match1to2);
+// addRegexToken('ww', match1to2, match2);
+// addRegexToken('W',  match1to2);
+// addRegexToken('WW', match1to2, match2);
 
-addWeekParseToken(['w', 'ww', 'W', 'WW'], function (input, week, config, token) {
-    week[token.substr(0, 1)] = toInt(input);
-});
+// addWeekParseToken(['w', 'ww', 'W', 'WW'], function (input, week, config, token) {
+//     week[token.substr(0, 1)] = toInt(input);
+// });
 
 // HELPERS
 
