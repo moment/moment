@@ -705,4 +705,10 @@ declare namespace moment {
   export var defaultFormatUtc: string;
 }
 
+type _tmptype = typeof moment;
+
+declare namespace moment {
+  type MomentStatic = _tmptype;
+}
+
 export = moment;
