@@ -77,7 +77,6 @@ export default moment.defineLocale('kn', {
             return symbolMap[match];
         });
     },
-    
     meridiemParse: /ರಾತ್ರಿ|ಬೆಳಿಗ್ಗೆ|ಮಧ್ಯಾಹ್ನ|ಸಂಜೆ/,
     meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
