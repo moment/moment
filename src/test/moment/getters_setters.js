@@ -112,22 +112,22 @@ test('setters should handle garbage input', function (assert) {
     a.set('milliseconds', 9);
 
     a.year(undefined);
-    a.month(null);
-    a.date([1]);
-    a.day(-Infinity);
-    a.hours(new Date());
-    a.minutes({a:1,b:2});
-    a.seconds('foo');
-    a.milliseconds(Infinity);
+    a.month('foo');
+    a.date(null);
+    a.day({a:2,b:3});
+    a.hours('[1]');
+    a.minutes(undefined);
+    a.seconds(null);
+    a.milliseconds(NaN);
 
-    assert.equal(a.year(), 2011, 'year');
-    assert.equal(a.month(), 9, 'month');
-    assert.equal(a.date(), 12, 'date');
-    assert.equal(a.day(), 3, 'day');
-    assert.equal(a.hours(), 6, 'hour');
-    assert.equal(a.minutes(), 7, 'minute');
-    assert.equal(a.seconds(), 8, 'second');
-    assert.equal(a.milliseconds(), 9, 'milliseconds');
+    assert.equal(a.year(), 2011, 'year - provided undefined');
+    assert.equal(a.month(), 9, 'month - provided null');
+    assert.equal(a.date(), 12, 'date - provided [1]');
+    assert.equal(a.day(), 3, 'day - provided Infinity');
+    assert.equal(a.hours(), 6, 'hour - provided new Date');
+    assert.equal(a.minutes(), 7, 'minute - provided {a:1,b:2}');
+    assert.equal(a.seconds(), 8, 'second - provided foo');
+    assert.equal(a.milliseconds(), 9, 'milliseconds - provided Infinity');
 });
 
 test('setter programmatic', function (assert) {
