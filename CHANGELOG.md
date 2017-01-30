@@ -103,6 +103,7 @@ Plus es-do locale and locale bugfixes
 
 ### 2.13.0 [See full changelog](https://gist.github.com/ichernev/0132fcf5b61f7fc140b0bb0090480d49)
 - Release April 18, 2016
+
 ## Enhancements:
 * [#2982](https://github.com/moment/moment/pull/2982) Add 'date' as alias to 'day' for startOf() and endOf().
 * [#2955](https://github.com/moment/moment/pull/2955) Add parsing negative components in durations when ISO 8601
