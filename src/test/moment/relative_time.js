@@ -102,6 +102,17 @@ test('custom thresholds', function (assert) {
 
     moment.relativeTimeThreshold('s', 45);
 
+    // A few seconds to seconds threshold
+    moment.relativeTimeThreshold('ss', 3);
+
+    a = moment();
+    a.subtract(3, 'seconds');
+    assert.equal(a.fromNow(), 'a few seconds ago', 'Below custom a few seconds to seconds threshold');
+    a.subtract(1, 'seconds');
+    assert.equal(a.fromNow(), '4 seconds ago', 'Above custom a few seconds to seconds threshold');
+
+    moment.relativeTimeThreshold('ss', 44);
+
     // Minutes to hours threshold
     moment.relativeTimeThreshold('m', 55);
     a = moment();
@@ -190,14 +201,14 @@ test('custom rounding', function (assert) {
     moment.relativeTimeRounding(roundingDefault);
 });
 
-test('retrive rounding settings', function (assert) {
+test('retrieve rounding settings', function (assert) {
     moment.relativeTimeRounding(Math.round);
     var roundingFunction = moment.relativeTimeRounding();
 
     assert.equal(roundingFunction, Math.round, 'Can retrieve rounding setting');
 });
 
-test('retrive threshold settings', function (assert) {
+test('retrieve threshold settings', function (assert) {
     moment.relativeTimeThreshold('m', 45);
     var minuteThreshold = moment.relativeTimeThreshold('m');
 
