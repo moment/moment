@@ -22,12 +22,12 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Domenica, febbraio 14º 2010, 3:25:50 pm'],
-            ['ddd, hA',                            'Dom, 3PM'],
+            ['dddd, MMMM Do YYYY, h:mm:ss a',      'domenica, febbraio 14º 2010, 3:25:50 pm'],
+            ['ddd, hA',                            'dom, 3PM'],
             ['M Mo MM MMMM MMM',                   '2 2º 02 febbraio feb'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14º 14'],
-            ['d do dddd ddd dd',                   '0 0º Domenica Dom Do'],
+            ['d do dddd ddd dd',                   '0 0º domenica dom do'],
             ['DDD DDDo DDDD',                      '45 45º 045'],
             ['w wo ww',                            '6 6º 06'],
             ['h hh',                               '3 03'],
@@ -40,11 +40,11 @@ test('format', function (assert) {
             ['L',                                  '14/02/2010'],
             ['LL',                                 '14 febbraio 2010'],
             ['LLL',                                '14 febbraio 2010 15:25'],
-            ['LLLL',                               'Domenica, 14 febbraio 2010 15:25'],
+            ['LLLL',                               'domenica, 14 febbraio 2010 15:25'],
             ['l',                                  '14/2/2010'],
             ['ll',                                 '14 feb 2010'],
             ['lll',                                '14 feb 2010 15:25'],
-            ['llll',                               'Dom, 14 feb 2010 15:25']
+            ['llll',                               'dom, 14 feb 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -98,7 +98,7 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'Domenica Dom Do_Lunedì Lun Lu_Martedì Mar Ma_Mercoledì Mer Me_Giovedì Gio Gi_Venerdì Ven Ve_Sabato Sab Sa'.split('_'), i;
+    var expected = 'domenica dom do_lunedì lun lu_martedì mar ma_mercoledì mer me_giovedì gio gi_venerdì ven ve_sabato sab sa'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
