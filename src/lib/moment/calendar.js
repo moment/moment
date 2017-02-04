@@ -15,8 +15,7 @@ export function getCalendarFormat(myMoment, now) {
 }
 
 export function calendar (time, formats) {
-    // #3658 - Adding overload to the calendar function in order to allow:
-    // calendar(FORMATS) a single parameter, formats only function call
+    // Support for single parameter, formats only overload to the calendar function
     if (arguments.length === 1 && typeof time === 'object' && !isMoment(time)) {
         formats = arguments[0];
         time = undefined;
