@@ -1,6 +1,5 @@
 import { configFromStringAndFormat } from './from-string-and-format';
 import { hooks } from '../utils/hooks';
-import moment from '../moment';     // Needed for RFC2822 validation of weekday
 import { deprecate } from '../utils/deprecate';
 import getParsingFlags from './parsing-flags';
 
