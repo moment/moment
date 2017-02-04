@@ -160,17 +160,15 @@ export function configFromRFC2822(config) {
         dateFormat = 'D MMM ' + ((match[2].length > 10) ? 'YYYY ' : 'YY ');
         timeFormat = 'HH:mm' + (match[4] ? ':ss' : '');
 
-        // TODO Confirm the given day-of-week is consistent with the day-of-month-year
-        //  NB: Needs an instance of moment, created from the date element of the input string.
-        /*
-        if (match[1]) {
+        if (match[1]) { // day of week given
             console.log('[' + match[1].substr(0,3) + ']', moment(match[2], dateFormat).format('ddd'));
-            if (match[1].substr(0,3) !== this(match[2], dateFormat).format('ddd')) {
+            var momentDay = moment(match[2], dateFormat).format('ddd');
+
+            if (match[1].substr(0,3) !== momentDay) {
                 config._isValid = false;
                 return;
             }
         }
-        */
         getParsingFlags(config).rfc2822 = true;
 
         switch (match[5].length) {

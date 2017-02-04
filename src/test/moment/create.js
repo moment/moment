@@ -445,10 +445,8 @@ test('parsing RFC 2822', function (assert) {
 test('non RFC 2822 strings', function (assert) {
     assert.ok(!moment('Tue. 01 Nov 2016 01:23:45 GMT', moment.RFC_2822, true).isValid(),
         'RFC2822 datetime with all options but invalid day delimiter');
-    /*
     assert.ok(!moment('Mon, 01 Nov 2016 01:23:45 GMT', moment.RFC_2822, true).isValid(),
         'RFC2822 datetime with mismatching Day (week v date)');
-    */
 });
 
 test('parsing iso', function (assert) {
