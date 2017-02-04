@@ -135,7 +135,7 @@ var basicRfcRegex = /^((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d?\d\s(?:Jan|Feb|M
 export function configFromRFC2822(config) {
     var string, match, dayFormat,
         dateFormat, timeFormat, tzFormat;
-    var rfc2822Timezones = {
+    var timezones = {
         ' GMT': ' +0000',
         ' EDT': ' -0400',
         ' EST': ' -0500',
@@ -146,8 +146,8 @@ export function configFromRFC2822(config) {
         ' PDT': ' -0700',
         ' PST': ' -0800'
     };
-    var rfc2822Military = 'YXWVUTSRQPONZABCDEFGHIKLM';
-    var rfc2822Timezone, rfc2822Index;
+    var Military = 'YXWVUTSRQPONZABCDEFGHIKLM';
+    var timezone, timezoneIndex;
 
     string = config._i
         .replace(/\([^\)]*\)|[\n\t]/g, ' ') // Remove comments and folding whitespace
@@ -175,22 +175,22 @@ export function configFromRFC2822(config) {
 
         switch (match[5].length) {
             case 2: // Military
-                if (rfc2822Index === 0) {
-                    rfc2822Timezone = ' +0000';
+                if (timezoneIndex === 0) {
+                    timezone = ' +0000';
                 } else {
-                    rfc2822Index = rfc2822Military.indexOf(match[5][1]) - 12;
-                    rfc2822Timezone = ((rfc2822Index < 0) ? ' -' : ' +') +
-                        (('' + rfc2822Index).replace(/^-?/, '0')).match(/..$/)[0] + '00';
+                    timezoneIndex = Military.indexOf(match[5][1]) - 12;
+                    timezone = ((timezoneIndex < 0) ? ' -' : ' +') +
+                        (('' + timezoneIndex).replace(/^-?/, '0')).match(/..$/)[0] + '00';
                 }
-                rfc2822Timezone += '00';
+                timezone += '00';
                 break;
             case 4: // Zone
-                rfc2822Timezone = rfc2822Timezones[match[5]];
+                timezone = timezones[match[5]];
                 break;
             default: // UT or +/-9999
-                rfc2822Timezone = rfc2822Timezones[' GMT'];
+                timezone = timezones[' GMT'];
         }
-        match[5] = rfc2822Timezone;
+        match[5] = timezone;
         config._i = match.splice(1).join('');
         tzFormat = ' ZZ';
         config._f = dayFormat + dateFormat + timeFormat + tzFormat;
