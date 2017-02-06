@@ -9,6 +9,12 @@ test('invalid duration', function (assert) {
     assert.ok(isNaN(m.valueOf()));
 });
 
+test('valid duration - as per @ichernev', function (assert) {
+    var m = moment.duration({d: null}); // should be valid, for now
+    assert.equal(m.isValid(), true);
+    assert.equal(m.valueOf(), 0);
+});
+
 test('invalid duration - only smallest unit can have decimal', function (assert) {
     var m = moment.duration({'days': 3.5, 'hours': 1.1}); // should be invalid
     assert.equal(m.isValid(), false);

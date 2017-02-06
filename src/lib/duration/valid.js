@@ -23,3 +23,7 @@ export default function isDurationValid(m) {
 
     return true;
 }
+
+export function isValid() {
+    return this._isValid;
+}

@@ -15,9 +15,6 @@ export function Duration (duration) {
         milliseconds = normalizedInput.millisecond || 0;
 
     this._isValid = isDurationValid(normalizedInput);
-    this.isValid = function () {
-        return this._isValid;
-    };
 
     // representation for dateAddRemove
     this._milliseconds = +milliseconds +
