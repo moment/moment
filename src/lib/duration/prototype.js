@@ -8,8 +8,9 @@ import { as, asMilliseconds, asSeconds, asMinutes, asHours, asDays, asWeeks, asM
 import { bubble } from './bubble';
 import { get, milliseconds, seconds, minutes, hours, days, months, years, weeks } from './get';
 import { humanize } from './humanize';
-import { toISOString, toJSON } from './iso-string';
+import { toISOString } from './iso-string';
 import { lang, locale, localeData } from '../moment/locale';
+import isDurationValid from './valid';
 
 proto.abs            = abs;
 proto.add            = add;
@@ -37,9 +38,10 @@ proto.years          = years;
 proto.humanize       = humanize;
 proto.toISOString    = toISOString;
 proto.toString       = toISOString;
-proto.toJSON         = toJSON;
+proto.toJSON         = toISOString;
 proto.locale         = locale;
 proto.localeData     = localeData;
+proto.isValid        = isDurationValid;
 
 // Deprecations
 import { deprecate } from '../utils/deprecate';

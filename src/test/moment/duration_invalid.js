@@ -39,41 +39,41 @@ test('invalid duration operations', function (assert) {
     for (i = 0; i < invalids.length; ++i) {
         invalid = invalids[i];
 
-        assert.ok(!invalid.add(5, 'hours').isValid(), 'invalid.add is invalid');
-        assert.ok(!invalid.subtract(30, 'days').isValid(), 'invalid.subtract is invalid');
-        assert.ok(!invalid.abs().isValid(), 'invalid.abs is invalid');
-        assert.ok(isNaN(invalid.as('years')), 'invalid.as is NaN');
-        assert.ok(isNaN(invalid.asMilliseconds()), 'invalid.asMilliseconds is NaN');
-        assert.ok(isNaN(invalid.asSeconds()), 'invalid.asSeconds is NaN');
-        assert.ok(isNaN(invalid.asMinutes()), 'invalid.asMinutes is NaN');
-        assert.ok(isNaN(invalid.asHours()), 'invalid.asHours is NaN');
-        assert.ok(isNaN(invalid.asDays()), 'invalid.asDays is NaN');
-        assert.ok(isNaN(invalid.asWeeks()), 'invalid.asWeeks is NaN');
-        assert.ok(isNaN(invalid.asMonths()), 'invalid.asMonths is NaN');
-        assert.ok(isNaN(invalid.asYears()), 'invalid.asYears is NaN');
-        assert.ok(isNaN(invalid.valueOf()), 'invalid.valueOf is NaN');
-        assert.ok(isNaN(invalid.get('hours')), 'invalid.get is NaN');
+        assert.ok(!invalid.add(5, 'hours').isValid(), 'invalid.add is invalid; i=' + i);
+        assert.ok(!invalid.subtract(30, 'days').isValid(), 'invalid.subtract is invalid; i=' + i);
+        assert.ok(!invalid.abs().isValid(), 'invalid.abs is invalid; i=' + i);
+        assert.ok(isNaN(invalid.as('years')), 'invalid.as is NaN; i=' + i);
+        assert.ok(isNaN(invalid.asMilliseconds()), 'invalid.asMilliseconds is NaN; i=' + i);
+        assert.ok(isNaN(invalid.asSeconds()), 'invalid.asSeconds is NaN; i=' + i);
+        assert.ok(isNaN(invalid.asMinutes()), 'invalid.asMinutes is NaN; i=' + i);
+        assert.ok(isNaN(invalid.asHours()), 'invalid.asHours is NaN; i=' + i);
+        assert.ok(isNaN(invalid.asDays()), 'invalid.asDays is NaN; i=' + i);
+        assert.ok(isNaN(invalid.asWeeks()), 'invalid.asWeeks is NaN; i=' + i);
+        assert.ok(isNaN(invalid.asMonths()), 'invalid.asMonths is NaN; i=' + i);
+        assert.ok(isNaN(invalid.asYears()), 'invalid.asYears is NaN; i=' + i);
+        assert.ok(isNaN(invalid.valueOf()), 'invalid.valueOf is NaN; i=' + i);
+        assert.ok(isNaN(invalid.get('hours')), 'invalid.get is NaN; i=' + i);
 
-        assert.ok(isNaN(invalid.milliseconds()), 'invalid.milliseconds is NaN');
-        assert.ok(isNaN(invalid.seconds()), 'invalid.seconds is NaN');
-        assert.ok(isNaN(invalid.minutes()), 'invalid.minutes is NaN');
-        assert.ok(isNaN(invalid.hours()), 'invalid.hours is NaN');
-        assert.ok(isNaN(invalid.days()), 'invalid.days is NaN');
-        assert.ok(isNaN(invalid.weeks()), 'invalid.weeks is NaN');
-        assert.ok(isNaN(invalid.months()), 'invalid.months is NaN');
-        assert.ok(isNaN(invalid.years()), 'invalid.years is NaN');
+        assert.ok(isNaN(invalid.milliseconds()), 'invalid.milliseconds is NaN; i=' + i);
+        assert.ok(isNaN(invalid.seconds()), 'invalid.seconds is NaN; i=' + i);
+        assert.ok(isNaN(invalid.minutes()), 'invalid.minutes is NaN; i=' + i);
+        assert.ok(isNaN(invalid.hours()), 'invalid.hours is NaN; i=' + i);
+        assert.ok(isNaN(invalid.days()), 'invalid.days is NaN; i=' + i);
+        assert.ok(isNaN(invalid.weeks()), 'invalid.weeks is NaN; i=' + i);
+        assert.ok(isNaN(invalid.months()), 'invalid.months is NaN; i=' + i);
+        assert.ok(isNaN(invalid.years()), 'invalid.years is NaN; i=' + i);
 
         assert.equal(invalid.humanize(),
                      invalid.localeData().invalidDate(),
-                     'invalid.humanize is localized invalid duration string');
+                     'invalid.humanize is localized invalid duration string; i=' + i);
         assert.equal(invalid.toISOString(),
                      invalid.localeData().invalidDate(),
-                     'invalid.toISOString is localized invalid duration string');
+                     'invalid.toISOString is localized invalid duration string; i=' + i);
         assert.equal(invalid.toString(),
                      invalid.localeData().invalidDate(),
-                     'invalid.toString is localized invalid duration string');
-        assert.equal(invalid.toJSON(), null, 'invalid.toJSON is null');
-        assert.equal(invalid.locale(), 'en');
-        assert.equal(invalid.localeData()._abbr, 'en');
+                     'invalid.toString is localized invalid duration string; i=' + i);
+        assert.equal(invalid.toJSON(), invalid.localeData().invalidDate(), 'invalid.toJSON is null; i=' + i);
+        assert.equal(invalid.locale(), 'en', 'invalid.locale; i=' + i);
+        assert.equal(invalid.localeData()._abbr, 'en', 'invalid.localeData()._abbr; i=' + i);
     }
 });
