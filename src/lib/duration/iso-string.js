@@ -54,8 +54,3 @@ export function toISOString() {
         (m ? m + 'M' : '') +
         (s ? s + 'S' : '');
 }
-
-export function toJSON() {
-    // this may not be fully implemented
-    return this.isValid() ? this.toISOString() : null;
-}

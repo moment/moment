@@ -1,9 +1,10 @@
+import toInt from '../utils/to-int';
+
 var ordering = ['year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', 'millisecond'];
 
 export default function isDurationValid(m) {
     for (var key in m) {
-        if (ordering.indexOf(key) === -1 ||
-        m[key] !== undefined && isNaN(parseInt(m[key]))) {
+        if (!(ordering.indexOf(key) !== -1 && (m[key] == null || !isNaN(m[key])))) {
             return false;
         }
     }
@@ -14,7 +15,7 @@ export default function isDurationValid(m) {
             if (unitHasDecimal) {
                 return false; // only allow non-integers for smallest unit
             }
-            if (parseFloat(m[ordering[i]]) !== parseInt(m[ordering[i]])) {
+            if (parseFloat(m[ordering[i]]) !== toInt(m[ordering[i]])) {
                 unitHasDecimal = true;
             }
         }

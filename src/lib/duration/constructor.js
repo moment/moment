@@ -3,22 +3,21 @@ import { getLocale } from '../locale/locales';
 import isDurationValid from './valid.js';
 
 export function Duration (duration) {
-    var normalizedInput = normalizeObjectUnits(duration);
+    var normalizedInput = normalizeObjectUnits(duration),
+        years = normalizedInput.year || 0,
+        quarters = normalizedInput.quarter || 0,
+        months = normalizedInput.month || 0,
+        weeks = normalizedInput.week || 0,
+        days = normalizedInput.day || 0,
+        hours = normalizedInput.hour || 0,
+        minutes = normalizedInput.minute || 0,
+        seconds = normalizedInput.second || 0,
+        milliseconds = normalizedInput.millisecond || 0;
 
     this._isValid = isDurationValid(normalizedInput);
     this.isValid = function () {
         return this._isValid;
     };
-
-    var years = this._isValid && normalizedInput.year || 0,
-        quarters = this._isValid && normalizedInput.quarter || 0,
-        months = this._isValid && normalizedInput.month || 0,
-        weeks = this._isValid && normalizedInput.week || 0,
-        days = this._isValid && normalizedInput.day || 0,
-        hours = this._isValid && normalizedInput.hour || 0,
-        minutes = this._isValid && normalizedInput.minute || 0,
-        seconds = this._isValid && normalizedInput.second || 0,
-        milliseconds = this._isValid && normalizedInput.millisecond || 0;
 
     // representation for dateAddRemove
     this._milliseconds = +milliseconds +
