@@ -12,3 +12,4 @@ nyc_output
 .nyc_output
 .coveralls.yml
 .vscode/
+.idea
