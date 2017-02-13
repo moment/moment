@@ -164,7 +164,6 @@ export function configFromRFC2822(config) {
         //  NB: Needs an instance of moment, created from the date element of the input string.
         /* */
         if (match[1]) { // day of week given
-//            console.log('[' + match[1].substr(0,3) + ']', moment(match[2], dateFormat).format('ddd'));
             var momentDate = new Date(match[2]);
             var momentDay = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][momentDate.getDay()];
 
