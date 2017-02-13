@@ -162,17 +162,18 @@ export function configFromRFC2822(config) {
 
         // TODO Confirm the given day-of-week is consistent with the day-of-month-year
         //  NB: Needs an instance of moment, created from the date element of the input string.
-        /*
+        /* */
         if (match[1]) { // day of week given
-            console.log('[' + match[1].substr(0,3) + ']', moment(match[2], dateFormat).format('ddd'));
-            var momentDay = moment(match[2], dateFormat).format('ddd');
+//            console.log('[' + match[1].substr(0,3) + ']', moment(match[2], dateFormat).format('ddd'));
+            var momentDate = new Date(match[2]);
+            var momentDay = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][momentDate.getDay()];
 
             if (match[1].substr(0,3) !== momentDay) {
                 config._isValid = false;
                 return;
             }
         }
-        */
+        /* */
         getParsingFlags(config).rfc2822 = true;
 
         switch (match[5].length) {
