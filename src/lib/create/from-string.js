@@ -165,7 +165,7 @@ export function configFromRFC2822(config) {
         if (match[1]) { // day of week given
             var momentDate = new Date(match[2]);
             var momentDay = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][momentDate.getDay()];
-            
+
             if (match[1].substr(0,3) !== momentDay) {
                 getParsingFlags(config).weekdayMismatch = true;
                 config._isValid = false;
