@@ -13,7 +13,8 @@ function defaultParsingFlags() {
         iso             : false,
         parsedDateParts : [],
         meridiem        : null,
-        rfc2822			: false
+        rfc2822			: false,
+        weekdayMismatch : false
     };
 }
 
