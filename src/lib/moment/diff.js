@@ -19,6 +19,10 @@ export function diff (input, units, asFloat) {
 
     zoneDelta = (that.utcOffset() - this.utcOffset()) * 6e4;
 
+    if (units === 'all') {
+        return allUnitsDiff(this,that);
+    }
+
     units = normalizeUnits(units);
 
     if (units === 'year' || units === 'month' || units === 'quarter') {
@@ -59,4 +63,32 @@ function monthDiff (a, b) {
 
     //check for negative zero, return zero if negative zero
     return -(wholeMonthDiff + adjust) || 0;
+}
+
+function allUnitsDiff(after,before) {
+    var totalMonths = absFloor(monthDiff(after,before)),
+        years, months, days, hours,
+        minutes, seconds, milliseconds,
+        nd;
+
+    years   = absFloor(totalMonths / 12);
+    months  = totalMonths - (years * 12);
+    //reduce difference between dates by totalMonths (years & months)
+    nd = before.clone().add(totalMonths, 'months');
+    days    = (after - nd) / 864e5; // days / ms in a day
+    //extract previous unit and convert decimal
+    hours   = (days % 1) * 24;
+    minutes = (hours % 1) * 60;
+    seconds = (minutes % 1) * 60;
+    milliseconds = (seconds % 1) * 1000;
+
+    return {
+        years:   absFloor(years),
+        months:  absFloor(months),
+        days:    absFloor(days),
+        hours:   absFloor(hours),
+        minutes: absFloor(minutes),
+        seconds: absFloor(seconds),
+        milliseconds: Math.round(milliseconds)
+    };
 }
