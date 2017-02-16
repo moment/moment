@@ -241,6 +241,7 @@ test('string with format', function (assert) {
         ['h:mm a',              '12:00 am'],
         ['h:mm a',              '12:30 am'],
         ['HH:mm',               '12:00'],
+        ['kk:mm',               '12:00'],
         ['YYYY-MM-DDTHH:mm:ss', '2011-11-11T11:11:11'],
         ['MM-DD-YYYY [M]',      '12-02-1999 M'],
         ['ddd MMM DD HH:mm:ss YYYY', 'Tue Apr 07 22:52:51 2009'],
@@ -253,6 +254,15 @@ test('string with format', function (assert) {
         ['HH:mm:ss S',          '00:30:00 7'],
         ['HH:mm:ss SS',         '00:30:00 78'],
         ['HH:mm:ss SSS',        '00:30:00 789'],
+        ['kk:mm:ss',            '12:00:00'],
+        ['kk:mm:ss',            '12:30:00'],
+        ['kk:mm:ss',            '24:00:00'],
+        ['kk:mm:ss S',          '24:30:00 1'],
+        ['kk:mm:ss SS',         '24:30:00 12'],
+        ['kk:mm:ss SSS',        '24:30:00 123'],
+        ['kk:mm:ss S',          '24:30:00 7'],
+        ['kk:mm:ss SS',         '24:30:00 78'],
+        ['kk:mm:ss SSS',        '24:30:00 789'],
         ['X',                   '1234567890'],
         ['x',                   '1234567890123'],
         ['LT',                  '12:30 AM'],
@@ -379,7 +389,7 @@ test('string with array of formats', function (assert) {
 
     assert.equal(moment('11-02-10', ['MM/DD/YY', 'YY MM DD', 'DD-MM-YY']).format('MM DD YYYY'), '02 11 2010', 'all unparsed substrings have influence on format penalty');
     assert.equal(moment('11-02-10', ['MM-DD-YY HH:mm', 'YY MM DD']).format('MM DD YYYY'), '02 10 2011', 'prefer formats without extra tokens');
-    assert.equal(moment('11-02-10 junk', ['MM-DD-YY', 'YY.MM.DD junk']).format('MM DD YYYY'), '02 10 2011', 'prefer formats that dont result in extra characters');
+    assert.equal(moment('11-02-10 junk', ['MM-DD-YY', 'YY.MM.DD [junk]']).format('MM DD YYYY'), '02 10 2011', 'prefer formats that dont result in extra characters');
     assert.equal(moment('11-22-10', ['YY-MM-DD', 'YY-DD-MM']).format('MM DD YYYY'), '10 22 2011', 'prefer valid results');
 
     assert.equal(moment('gibberish', ['YY-MM-DD', 'YY-DD-MM']).format('MM DD YYYY'), 'Invalid date', 'doest throw for invalid strings');
@@ -404,6 +414,7 @@ test('string with array of formats', function (assert) {
 test('string with array of formats + ISO', function (assert) {
     assert.equal(moment('1994', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).year(), 1994, 'iso: assert parse YYYY');
     assert.equal(moment('17:15', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).hour(), 17, 'iso: assert parse HH:mm (1)');
+    assert.equal(moment('24:15', [moment.ISO_8601, 'MM', 'kk:mm', 'YYYY']).hour(), 0, 'iso: assert parse kk:mm');
     assert.equal(moment('17:15', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).minutes(), 15, 'iso: assert parse HH:mm (2)');
     assert.equal(moment('06', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).month(), 6 - 1, 'iso: assert parse MM');
     assert.equal(moment('2012-06-01', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).parsingFlags().iso, true, 'iso: assert parse iso');
@@ -1106,3 +1117,18 @@ test('invalid dates return invalid for methods that access the _d prop', functio
     assert.ok(momentAsDate instanceof Date, 'toDate returns a Date object');
     assert.ok(isNaN(momentAsDate.getTime()), 'toDate returns an invalid Date invalid');
 });
+
+test('k, kk', function (assert) {
+    for (var i = -1; i <= 24; i++) {
+        var kVal = i + ':15:59';
+        var kkVal = (i < 10 ? '0' : '') + i + ':15:59';
+        if (i !== 24) {
+            assert.ok(moment(kVal, 'k:mm:ss').isSame(moment(kVal, 'H:mm:ss')), kVal + ' k parsing');
+            assert.ok(moment(kkVal, 'kk:mm:ss').isSame(moment(kkVal, 'HH:mm:ss')), kkVal + ' kk parsing');
+        } else {
+            assert.equal(moment(kVal, 'k:mm:ss').format('k:mm:ss'), kVal, kVal + ' k parsing');
+            assert.equal(moment(kkVal, 'kk:mm:ss').format('kk:mm:ss'), kkVal, kkVal + ' skk parsing');
+        }
+    }
+});
+
