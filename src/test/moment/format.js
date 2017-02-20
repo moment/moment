@@ -216,7 +216,7 @@ test('long years', function (assert) {
 });
 
 test('iso week formats', function (assert) {
-    // http://en.wikipedia.org/wiki/ISO_week_date
+    // https://en.wikipedia.org/wiki/ISO_week_date
     var cases = {
         '2005-01-02': '2004-53',
         '2005-12-31': '2005-52',
@@ -248,7 +248,7 @@ test('iso week formats', function (assert) {
 });
 
 test('iso week year formats', function (assert) {
-    // http://en.wikipedia.org/wiki/ISO_week_date
+    // https://en.wikipedia.org/wiki/ISO_week_date
     var cases = {
         '2005-01-02': '2004-53',
         '2005-12-31': '2005-52',
@@ -281,7 +281,7 @@ test('iso week year formats', function (assert) {
 });
 
 test('week year formats', function (assert) {
-    // http://en.wikipedia.org/wiki/ISO_week_date
+    // https://en.wikipedia.org/wiki/ISO_week_date
     var cases = {
         '2005-01-02': '2004-53',
         '2005-12-31': '2005-52',
