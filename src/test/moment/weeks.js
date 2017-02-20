@@ -136,7 +136,7 @@ test('iso weeks setter day of year', function (assert) {
 });
 
 test('years with iso week 53', function (assert) {
-    // Based on a table taken from http://en.wikipedia.org/wiki/ISO_week_date
+    // Based on a table taken from https://en.wikipedia.org/wiki/ISO_week_date
     // (as downloaded on 2014-01-06) listing the 71 years in a 400-year cycle
     // that have 53 weeks; in this case reflecting the 2000 based cycle
     assert.equal(moment([2004, 11, 31]).isoWeek(), 53, 'Dec 31 2004 should be iso week 53');
@@ -213,7 +213,7 @@ test('years with iso week 53', function (assert) {
 });
 
 test('count years with iso week 53', function (assert) {
-    // Based on http://en.wikipedia.org/wiki/ISO_week_date (as seen on 2014-01-06)
+    // Based on https://en.wikipedia.org/wiki/ISO_week_date (as seen on 2014-01-06)
     // stating that there are 71 years in a 400-year cycle that have 53 weeks;
     // in this case reflecting the 2000 based cycle
     var count = 0, i;
