@@ -69,15 +69,16 @@ function allUnitsDiff(after,before) {
     var totalMonths = absFloor(monthDiff(after,before)),
         years, months, days, hours,
         minutes, seconds, milliseconds,
-        nd;
+        diff, nd;
 
     years   = absFloor(totalMonths / 12);
     months  = totalMonths - (years * 12);
     //reduce difference between dates by totalMonths (years & months)
     nd = before.clone().add(totalMonths, 'months');
-    days    = (after - nd) / 864e5; // days / ms in a day
+    diff = after - nd;
+    days = diff / 864e5; // days / ms in a day
     //extract previous unit and convert decimal
-    hours   = (days % 1) * 24;
+    hours   = diff / 36e5 - absFloor(days) * 24;
     minutes = (hours % 1) * 60;
     seconds = (minutes % 1) * 60;
     milliseconds = (seconds % 1) * 1000;
