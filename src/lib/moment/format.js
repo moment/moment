@@ -11,7 +11,7 @@ export function toString () {
 
 export function toISOString () {
     var m = this.clone().utc();
-    if (0 < m.year() && m.year() <= 9999) {
+    if (0 <= m.year() && m.year() <= 9999) {
         if (isFunction(Date.prototype.toISOString)) {
             // native implementation is ~50x faster, use it when we can
             return this.toDate().toISOString();
