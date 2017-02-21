@@ -99,7 +99,7 @@ test('format week', function (assert) {
 
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'چندین ثانیه', '44 seconds = a few seconds');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'چند ثانیه', '44 seconds = a few seconds');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'یک دقیقه',       '45 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'یک دقیقه',       '89 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '۲ دقیقه',     '90 seconds = 2 minutes');
@@ -130,16 +130,16 @@ test('from', function (assert) {
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), 'در چندین ثانیه', 'prefix');
-    assert.equal(moment(0).from(30000), 'چندین ثانیه پیش', 'suffix');
+    assert.equal(moment(30000).from(0), 'در چند ثانیه', 'prefix');
+    assert.equal(moment(0).from(30000), 'چند ثانیه پیش', 'suffix');
 });
 
 test('now from now', function (assert) {
-    assert.equal(moment().fromNow(), 'چندین ثانیه پیش',  'now from now should display as in the past');
+    assert.equal(moment().fromNow(), 'چند ثانیه پیش',  'now from now should display as in the past');
 });
 
 test('fromNow', function (assert) {
-    assert.equal(moment().add({s: 30}).fromNow(), 'در چندین ثانیه', 'in a few seconds');
+    assert.equal(moment().add({s: 30}).fromNow(), 'در چند ثانیه', 'in a few seconds');
     assert.equal(moment().add({d: 5}).fromNow(), 'در ۵ روز', 'in 5 days');
 });
 
