@@ -215,6 +215,13 @@ test('long years', function (assert) {
     assert.equal(moment.utc().year(-20123).format('YYYYYY'), '-020123', 'big negative year with YYYYYY');
 });
 
+test('toISOString() when 0 year', function (assert) {
+    // https://github.com/moment/moment/issues/3765
+    var date = moment('0000-01-01T21:00:00.000Z');
+    assert.equal(date.toISOString(), '0000-01-01T21:00:00.000Z');
+    assert.equal(date.toDate().toISOString(), '0000-01-01T21:00:00.000Z');
+});
+
 test('iso week formats', function (assert) {
     // https://en.wikipedia.org/wiki/ISO_week_date
     var cases = {
