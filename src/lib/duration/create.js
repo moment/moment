@@ -6,6 +6,7 @@ import hasOwnProp from '../utils/has-own-prop';
 import { DATE, HOUR, MINUTE, SECOND, MILLISECOND } from '../units/constants';
 import { cloneWithOffset } from '../units/offset';
 import { createLocal } from '../create/local';
+import { createInvalid as invalid } from './valid';
 
 // ASP.NET json date format regex
 var aspNetRegex = /^(\-)?(?:(\d*)[. ])?(\d+)\:(\d+)(?:\:(\d+)(\.\d*)?)?$/;
@@ -77,6 +78,7 @@ export function createDuration (input, key) {
 }
 
 createDuration.fn = Duration.prototype;
+createDuration.invalid = invalid;
 
 function parseIso (inp, sign) {
     // We'd normally use ~~inp for this, but unfortunately it also
