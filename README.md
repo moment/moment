@@ -3,7 +3,9 @@
 [![NPM version][npm-version-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-url] [![MIT License][license-image]][license-url] [![Build Status][travis-image]][travis-url]
 [![Coverage Status](https://coveralls.io/repos/moment/moment/badge.svg?branch=develop)](https://coveralls.io/r/moment/moment?branch=develop)
 
-A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates.
+JavaScript built-in date functions are quite limited. We usually have to write our own libraries
+based on these basic functions to parse, validate, manipulate and format dates. Here Moment comes
+to rescue!
 
 **[Documentation](http://momentjs.com/docs/)**
 
