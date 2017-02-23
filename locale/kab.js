@@ -46,8 +46,8 @@ var kab = moment.defineLocale('kab', {
         dd : '%d n wussan',
         M : 'aggur',
         MM : '%d n wagguren',
-        y : 'aseggass',
-        yy : '%d n iseggassen'
+        y : 'aseggas',
+        yy : '%d n iseggasen'
     },
 
     week : {
