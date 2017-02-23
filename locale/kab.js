@@ -11,7 +11,7 @@
 
 
 var kab = moment.defineLocale('kab', {
-    months : 'yennayer_furar_meɣres_yebrir_mayyu_yunyu_yulyu_ɣuct_ctembir_tuber_wamber_dujember'.split('_'),
+    months : 'yennayer_furar_meɣres_yebrir_mayyu_yunyu_yulyu_ɣuct_ctember_tuber_wamber_dujember'.split('_'),
     monthsShort : 'yen._fur._meɣ._yeb._may._yun._yul._ɣuc._cte._tub._wam._duj.'.split('_'),
     monthsParseExact : true,
     weekdays : 'acer_arim_aram_ahad_amhad_sem_sed'.split('_'),
@@ -28,7 +28,7 @@ var kab = moment.defineLocale('kab', {
     },
     calendar : {
         sameDay: '[Ass-a af] LT',
-        nextDay: '[Azekka af à] LT',
+        nextDay: '[Azekka af] LT',
         nextWeek: 'dddd [af] LT',
         lastDay: '[Iḍelli af] LT',
         lastWeek: 'dddd [aneggaru af] LT',
