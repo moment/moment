@@ -47,6 +47,50 @@ test('library getters and setters', function (assert) {
     assert.equal(r, 'en', 'locale should return en by default');
     assert.equal(moment.locale(), 'en', 'locale should return en by default');
 
+    moment.locale('default');
+    assert.equal(moment.locale(), 'en', 'default locale should return en on node');
+
+    // simulating window on node (normally avaliable only in a browser)
+    global.window = {
+        navigator: {
+            language: 'wrong-locale',
+            userLanguage: 'fr'
+        }
+    };
+
+    moment.locale('default');
+    assert.equal(moment.locale(), 'fr', 'default locale should return locale from window.navigator.userLanguage first on browser');
+
+    global.window = {
+        navigator: {
+            language: undefined,
+            userLanguage: 'fr'
+        }
+    };
+
+    moment.locale('default');
+    assert.equal(moment.locale(), 'fr', 'default locale should return locale from window.navigator.userLanguage first on browser');
+
+    global.window = {
+        navigator: {
+            language: 'fr',
+            userLanguage: undefined
+        }
+    };
+
+    moment.locale('default');
+    assert.equal(moment.locale(), 'fr', 'default locale should return locale from window.navigator.language second on browser');
+
+    global.window = {
+        navigator: {
+            language: 'wrong-locale',
+            userLanguage: 'wrong-locale'
+        }
+    };
+
+    moment.locale('default');
+    assert.equal(moment.locale(), 'fr', 'default locale should return en if a browser provides unknown locale');
+
     moment.locale('fr');
     assert.equal(moment.locale(), 'fr', 'locale should return the changed locale');
 
