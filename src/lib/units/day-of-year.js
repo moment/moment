@@ -1,7 +1,7 @@
 import { addFormatToken } from '../format/format';
 import { addUnitAlias } from './aliases';
 import { addUnitPriority } from './priorities';
-import { addRegexToken, match3, match1to3 } from '../parse/regex';
+import { addRegexToken, match3nonzero, match1to3nonzero } from '../parse/regex';
 import { daysInYear } from './year';
 import { createUTCDate } from '../create/date-from-array';
 import { addParseToken } from '../parse/token';
@@ -20,8 +20,8 @@ addUnitPriority('dayOfYear', 4);
 
 // PARSING
 
-addRegexToken('DDD',  match1to3);
-addRegexToken('DDDD', match3);
+addRegexToken('DDD',  match1to3nonzero);
+addRegexToken('DDDD', match3nonzero);
 addParseToken(['DDD', 'DDDD'], function (input, array, config) {
     config._dayOfYear = toInt(input);
 });

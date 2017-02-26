@@ -10,6 +10,9 @@ export var match1to3      = /\d{1,3}/;       //       0 - 999
 export var match1to4      = /\d{1,4}/;       //       0 - 9999
 export var match1to6      = /[+-]?\d{1,6}/;  // -999999 - 999999
 
+export var match1to3nonzero = /[1-9]\d{0,2}|\d[1-9]\d{0,1}|\d{0,2}[1-9]/;  // 1 - 999
+export var match3nonzero  = /[1-9]\d\d|\d[1-9]\d|\d\d[1-9]/;               // 001 - 999
+
 export var matchUnsigned  = /\d+/;           //       0 - inf
 export var matchSigned    = /[+-]?\d+/;      //    -inf - inf
 
