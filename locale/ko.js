@@ -45,7 +45,7 @@ var ko = moment.defineLocale('ko', {
         d : '하루',
         dd : '%d일',
         M : '한 달',
-        MM : '%d달',
+        MM : '%d개월',
         y : '일 년',
         yy : '%d년'
     },
