@@ -78,7 +78,7 @@ export default moment.defineLocale('az', {
             return 'axşam';
         }
     },
-    ordinalParse: /\d{1,2}-(ıncı|inci|nci|üncü|ncı|uncu)/,
+    dayOfMonthOrdinalParse: /\d{1,2}-(ıncı|inci|nci|üncü|ncı|uncu)/,
     ordinal : function (number) {
         if (number === 0) {  // special case for zero
             return number + '-ıncı';

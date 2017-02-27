@@ -65,7 +65,7 @@ export default moment.defineLocale('nl-be', {
         y : 'één jaar',
         yy : '%d jaar'
     },
-    ordinalParse: /\d{1,2}(ste|de)/,
+    dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
     ordinal : function (number) {
         return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de');
     },

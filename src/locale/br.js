@@ -86,7 +86,7 @@ export default moment.defineLocale('br', {
         y : 'ur bloaz',
         yy : specialMutationForYears
     },
-    ordinalParse: /\d{1,2}(añ|vet)/,
+    dayOfMonthOrdinalParse: /\d{1,2}(añ|vet)/,
     ordinal : function (number) {
         var output = (number === 1) ? 'añ' : 'vet';
         return number + output;

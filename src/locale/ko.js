@@ -47,7 +47,7 @@ export default moment.defineLocale('ko', {
         y : '일 년',
         yy : '%d년'
     },
-    ordinalParse : /\d{1,2}일/,
+    dayOfMonthOrdinalParse : /\d{1,2}일/,
     ordinal : '%d일',
     meridiemParse : /오전|오후/,
     isPM : function (token) {

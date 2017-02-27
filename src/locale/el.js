@@ -76,7 +76,7 @@ export default moment.defineLocale('el', {
         y : 'ένας χρόνος',
         yy : '%d χρόνια'
     },
-    ordinalParse: /\d{1,2}η/,
+    dayOfMonthOrdinalParse: /\d{1,2}η/,
     ordinal: '%dη',
     week : {
         dow : 1, // Monday is the first day of the week.

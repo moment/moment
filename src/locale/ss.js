@@ -70,7 +70,7 @@ export default moment.defineLocale('ss', {
             return hour + 12;
         }
     },
-    ordinalParse: /\d{1,2}/,
+    dayOfMonthOrdinalParse: /\d{1,2}/,
     ordinal : '%d',
     week : {
         dow : 1, // Monday is the first day of the week.

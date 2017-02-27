@@ -23,7 +23,7 @@ addUnitPriority('date', 9);
 addRegexToken('D',  match1to2);
 addRegexToken('DD', match1to2, match2);
 addRegexToken('Do', function (isStrict, locale) {
-    return isStrict ? locale._ordinalParse : locale._ordinalParseLenient;
+    return isStrict ? locale._dayOfMonthOrdinalParse : locale._dayOfMonthOrdinalParseLenient;
 });
 
 addParseToken(['D', 'DD'], DATE);

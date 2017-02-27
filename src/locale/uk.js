@@ -114,7 +114,7 @@ export default moment.defineLocale('uk', {
             return 'вечора';
         }
     },
-    ordinalParse: /\d{1,2}-(й|го)/,
+    dayOfMonthOrdinalParse: /\d{1,2}-(й|го)/,
     ordinal: function (number, period) {
         switch (period) {
             case 'M':
