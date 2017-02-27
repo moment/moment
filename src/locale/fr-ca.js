@@ -43,7 +43,7 @@ export default moment.defineLocale('fr-ca', {
         y : 'un an',
         yy : '%d ans'
     },
-    ordinalParse : /\d{1,2}(er|e)/,
+    dayOfMonthOrdinalParse: /\d{1,2}(er|e)/,
     ordinal : function (number, period) {
         switch (period) {
             // Words with masculine grammatical gender: mois, trimestre, jour
