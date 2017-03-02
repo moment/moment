@@ -117,7 +117,7 @@ module.exports = function (grunt) {
                     ascii_only: true // jshint ignore:line
                 },
                 report: 'min',
-                preserveComments: 'some'
+                preserveComments: /^!|@preserve|@license|@cc_on/i
             }
         },
         jshint: {
