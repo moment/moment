@@ -148,7 +148,7 @@ test('custom rounding', function (assert) {
     moment.relativeTimeThreshold('s', 60);
     moment.relativeTimeThreshold('m', 60);
     moment.relativeTimeThreshold('h', 24);
-    moment.relativeTimeThreshold('d', 31);
+    moment.relativeTimeThreshold('d', 27);
     moment.relativeTimeThreshold('M', 12);
 
     var a = moment.utc();
@@ -160,8 +160,12 @@ test('custom rounding', function (assert) {
     assert.equal(a.toNow(), 'in 23 hours', 'Round down towards the nearest hour');
 
     a = moment.utc();
-    a.subtract({days: 30, hours: 23, minutes: 59});
-    assert.equal(a.toNow(), 'in 30 days', 'Round down towards the nearest day');
+    a.subtract({days: 26, hours: 23, minutes: 59});
+    assert.equal(a.toNow(), 'in 26 days', 'Round down towards the nearest day (just under)');
+
+    a = moment.utc();
+    a.subtract({days: 27});
+    assert.equal(a.toNow(), 'in a month', 'Round down towards the nearest day (just over)');
 
     a = moment.utc();
     a.subtract({days: 364});
