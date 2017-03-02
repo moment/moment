@@ -142,8 +142,8 @@ test('format week', function (assert) {
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  '몇 초', '44초 = 몇 초');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  '일분',      '45초 = 일분');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  '일분',      '89초 = 일분');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  '1분',      '45초 = 1분');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  '1분',      '89초 = 1분');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '2분',     '90초 = 2분');
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  '44분',    '44분 = 44분');
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  '한 시간',       '45분 = 한 시간');
