@@ -9,6 +9,10 @@ export function toISOString() {
     // This is because there is no context-free conversion between hours and days
     // (think of clock changes)
     // and also not between days and months (28-31 days per month)
+    if (!this.isValid()) {
+        return this.localeData().invalidDate();
+    }
+
     var seconds = abs(this._milliseconds) / 1000;
     var days         = abs(this._days);
     var months       = abs(this._months);

@@ -96,5 +96,5 @@ Once you become a member:
 But also:
 * be active in the repositories
 * pick up work nobody else wants to
-* attent a montly meeting
+* attend a monthly meeting
 * participate in the internal slack group
