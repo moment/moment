@@ -105,7 +105,7 @@ export default moment.defineLocale('kn', {
             return 'ರಾತ್ರಿ';
         }
     },
-    ordinalParse: /\d{1,2}(ನೇ)/,
+    dayOfMonthOrdinalParse: /\d{1,2}(ನೇ)/,
     ordinal : function (number) {
         return number + 'ನೇ';
     },
