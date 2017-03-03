@@ -148,6 +148,10 @@ test('toISOString', function (assert) {
     // big negative years
     date = moment.utc('-020123-10-09T20:30:40.678');
     assert.equal(date.toISOString(), '-020123-10-09T20:30:40.678Z', 'ISO8601 format on big negative year');
+
+    //invalid dates
+    date = moment.utc('2017-12-32');
+    assert.equal(date.toISOString(), null, 'An invalid date to iso string is null');
 });
 
 // See https://nodejs.org/dist/latest/docs/api/util.html#util_custom_inspect_function_on_objects

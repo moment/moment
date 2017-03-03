@@ -486,3 +486,16 @@ test('parse zone without a timezone', function (assert) {
         'Not providing a timezone should keep the time and change the zone to 0'
     );
 });
+
+test('parse zone with a minutes unit abs less than 16 should retain minutes', function (assert) {
+    //ensure when minutes are explicitly parsed, they are retained
+    //instead of converted to hours, even if less than 16
+    var n = moment.parseZone('2013-01-01T00:00:00-00:15');
+    assert.equal(n.utcOffset(), -15);
+    assert.equal(n.zone(), 15);
+    assert.equal(n.hour(), 0);
+    var o = moment.parseZone('2013-01-01T00:00:00+00:15');
+    assert.equal(o.utcOffset(), 15);
+    assert.equal(o.zone(), -15);
+    assert.equal(o.hour(), 0);
+});
