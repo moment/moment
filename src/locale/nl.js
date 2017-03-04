@@ -14,7 +14,7 @@ var monthsRegex = /^(januari|februari|maart|april|mei|april|ju[nl]i|augustus|sep
 export default moment.defineLocale('nl', {
     months : 'januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december'.split('_'),
     monthsShort : function (m, format) {
-        if(!m){
+        if (!m) {
             return monthsShortWithDots;
         } else if (/-MMM-/.test(format)) {
             return monthsShortWithoutDots[m.month()];
