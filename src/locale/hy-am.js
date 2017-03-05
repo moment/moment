@@ -8,8 +8,8 @@ var monthsFormat = 'հունվարի_փետրվարի_մարտի_ապրիլի_մ
     monthsStandalone = 'հունվար_փետրվար_մարտ_ապրիլ_մայիս_հունիս_հուլիս_օգոստոս_սեպտեմբեր_հոկտեմբեր_նոյեմբեր_դեկտեմբեր'.split('_');
 
 export default moment.defineLocale('hy-am', {
- months : function (m, format) {
-    if (!m) {
+    months : function (m, format) {
+        if (!m) {
             return monthsStandalone;
         } else if (/D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/.test(format)) {
             return monthsFormat[m.month()];
