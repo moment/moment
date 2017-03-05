@@ -27,23 +27,43 @@ function relativeTimeWithPlural(number, withoutSuffix, key) {
 }
 var monthsParse = [/^янв/i, /^фев/i, /^мар/i, /^апр/i, /^ма[йя]/i, /^июн/i, /^июл/i, /^авг/i, /^сен/i, /^окт/i, /^ноя/i, /^дек/i];
 
+var monthsFormat = 'января_февраля_марта_апреля_мая_июня_июля_августа_сентября_октября_ноября_декабря'.split('_'),
+    monthsStandalone = 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_'),
+    monthsShortFormat = 'янв._февр._мар._апр._мая_июня_июля_авг._сент._окт._нояб._дек.'.split('_'),
+    monthsShortStandalone = 'янв._февр._март_апр._май_июнь_июль_авг._сент._окт._нояб._дек.'.split('_'),
+    daysStandalone = 'воскресенье_понедельник_вторник_среда_четверг_пятница_суббота'.split('_'),
+    daysFormat = 'воскресенье_понедельник_вторник_среду_четверг_пятницу_субботу'.split('_');
+
 // http://new.gramota.ru/spravka/rules/139-prop : § 103
 // Сокращения месяцев: http://new.gramota.ru/spravka/buro/search-answer?s=242637
 // CLDR data:          http://www.unicode.org/cldr/charts/28/summary/ru.html#1753
 export default moment.defineLocale('ru', {
-    months : {
-        format: 'января_февраля_марта_апреля_мая_июня_июля_августа_сентября_октября_ноября_декабря'.split('_'),
-        standalone: 'январь_февраль_март_апрель_май_июнь_июль_август_сентябрь_октябрь_ноябрь_декабрь'.split('_')
+    months : function (m, format) {
+        if (!m) {
+            return monthsStandalone;
+        } else if (/D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/.test(format)) {
+            return monthsFormat[m.month()];
+        } else {
+            return monthsStandalone[m.month()];
+        }
     },
-    monthsShort : {
-        // по CLDR именно "июл." и "июн.", но какой смысл менять букву на точку ?
-        format: 'янв._февр._мар._апр._мая_июня_июля_авг._сент._окт._нояб._дек.'.split('_'),
-        standalone: 'янв._февр._март_апр._май_июнь_июль_авг._сент._окт._нояб._дек.'.split('_')
+    monthsShort : function (m, format) {
+        if (!m) {
+            return monthsShortStandalone;
+        } else if (/D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/.test(format)) {
+            return monthsShortFormat[m.month()];
+        } else {
+            return monthsShortStandalone[m.month()];
+        }
     },
-    weekdays : {
-        standalone: 'воскресенье_понедельник_вторник_среда_четверг_пятница_суббота'.split('_'),
-        format: 'воскресенье_понедельник_вторник_среду_четверг_пятницу_субботу'.split('_'),
-        isFormat: /\[ ?[Вв] ?(?:прошлую|следующую|эту)? ?\] ?dddd/
+    weekdays : function (m, format) {
+        if (!m) {
+            return daysStandalone;
+        } else if (/\[ ?[Вв] ?(?:прошлую|следующую|эту)? ?\] ?dddd/.test(format)) {
+            return daysFormat[m.day()];
+        } else {
+            return daysStandalone[m.day()];
+        }
     },
     weekdaysShort : 'вс_пн_вт_ср_чт_пт_сб'.split('_'),
     weekdaysMin : 'вс_пн_вт_ср_чт_пт_сб'.split('_'),

@@ -29,16 +29,31 @@ function relativeTimeWithPlural(number, withoutSuffix, key) {
     }
 }
 
+var monthsStandalone = 'студзень_люты_сакавік_красавік_травень_чэрвень_ліпень_жнівень_верасень_кастрычнік_лістапад_снежань'.split('_'),
+    monthsFormat = 'студзеня_лютага_сакавіка_красавіка_траўня_чэрвеня_ліпеня_жніўня_верасня_кастрычніка_лістапада_снежня'.split('_');
+
+var daysFormat = 'нядзелю_панядзелак_аўторак_сераду_чацвер_пятніцу_суботу'.split('_'),
+    daysStandalone = 'нядзеля_панядзелак_аўторак_серада_чацвер_пятніца_субота'.split('_');
+
 export default moment.defineLocale('be', {
-    months : {
-        format: 'студзеня_лютага_сакавіка_красавіка_траўня_чэрвеня_ліпеня_жніўня_верасня_кастрычніка_лістапада_снежня'.split('_'),
-        standalone: 'студзень_люты_сакавік_красавік_травень_чэрвень_ліпень_жнівень_верасень_кастрычнік_лістапад_снежань'.split('_')
+    months : function (m, format) {
+        if (!m) {
+            return monthsStandalone;
+        } else if (/D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/.test(format)) {
+            return monthsFormat[m.month()];
+        } else {
+            return monthsStandalone[m.month()];
+        }
     },
     monthsShort : 'студ_лют_сак_крас_трав_чэрв_ліп_жнів_вер_каст_ліст_снеж'.split('_'),
-    weekdays : {
-        format: 'нядзелю_панядзелак_аўторак_сераду_чацвер_пятніцу_суботу'.split('_'),
-        standalone: 'нядзеля_панядзелак_аўторак_серада_чацвер_пятніца_субота'.split('_'),
-        isFormat: /\[ ?[Вв] ?(?:мінулую|наступную)? ?\] ?dddd/
+    weekdays : function (m, format) {
+        if (!m) {
+            return daysStandalone;
+        } else if (/\[ ?[Вв] ?(?:мінулую|наступную)? ?\] ?dddd/.test(format)) {
+            return daysFormat[m.day()];
+        } else {
+            return daysStandalone[m.day()];
+        }
     },
     weekdaysShort : 'нд_пн_ат_ср_чц_пт_сб'.split('_'),
     weekdaysMin : 'нд_пн_ат_ср_чц_пт_сб'.split('_'),
