@@ -57,18 +57,10 @@ function translate(number, withoutSuffix, key) {
     }
 }
 
-var monthsFormat = 'siječnja_veljače_ožujka_travnja_svibnja_lipnja_srpnja_kolovoza_rujna_listopada_studenoga_prosinca'.split('_'),
-    monthsStandalone = 'siječanj_veljača_ožujak_travanj_svibanj_lipanj_srpanj_kolovoz_rujan_listopad_studeni_prosinac'.split('_');
-
 export default moment.defineLocale('hr', {
-    months: function (m, format) {
-        if (!m) {
-            return monthsStandalone;
-        } else if (/D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/.test(format)) {
-            return monthsFormat[m.month()];
-        } else {
-            return monthsStandalone[m.month()];
-        }
+    months : {
+        format: 'siječnja_veljače_ožujka_travnja_svibnja_lipnja_srpnja_kolovoza_rujna_listopada_studenoga_prosinca'.split('_'),
+        standalone: 'siječanj_veljača_ožujak_travanj_svibanj_lipanj_srpanj_kolovoz_rujan_listopad_studeni_prosinac'.split('_')
     },
     monthsShort : 'sij._velj._ožu._tra._svi._lip._srp._kol._ruj._lis._stu._pro.'.split('_'),
     monthsParseExact: true,
