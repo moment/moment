@@ -225,3 +225,10 @@ test('special mutations for years', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 261}), true), '261 bloaz', 'mutation 261 years');
 });
 
+test('valid localeData', function (assert) {
+    assert.equal(moment().localeData().months().length, 12, 'months should return 12 months');
+    assert.equal(moment().localeData().monthsShort().length, 12, 'monthsShort should return 12 months');
+    assert.equal(moment().localeData().weekdays().length, 7, 'weekdays should return 7 days');
+    assert.equal(moment().localeData().weekdaysShort().length, 7, 'weekdaysShort should return 7 days');
+    assert.equal(moment().localeData().weekdaysMin().length, 7, 'monthsShort should return 7 days');
+});
