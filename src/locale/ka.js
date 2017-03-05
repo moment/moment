@@ -4,30 +4,16 @@
 
 import moment from '../moment';
 
-var monthsStandalone = 'იანვარი_თებერვალი_მარტი_აპრილი_მაისი_ივნისი_ივლისი_აგვისტო_სექტემბერი_ოქტომბერი_ნოემბერი_დეკემბერი'.split('_'),
-    monthsFormat = 'იანვარს_თებერვალს_მარტს_აპრილის_მაისს_ივნისს_ივლისს_აგვისტს_სექტემბერს_ოქტომბერს_ნოემბერს_დეკემბერს'.split('_'),
-    daysStandalone = 'კვირა_ორშაბათი_სამშაბათი_ოთხშაბათი_ხუთშაბათი_პარასკევი_შაბათი'.split('_'),
-    daysFormat = 'კვირას_ორშაბათს_სამშაბათს_ოთხშაბათს_ხუთშაბათს_პარასკევს_შაბათს'.split('_');
-
 export default moment.defineLocale('ka', {
-    months : function (m, format) {
-        if (!m) {
-            return monthsStandalone;
-        } else if (/D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/.test(format)) {
-            return monthsFormat[m.month()];
-        } else {
-            return monthsStandalone[m.month()];
-        }
+    months : {
+        standalone: 'იანვარი_თებერვალი_მარტი_აპრილი_მაისი_ივნისი_ივლისი_აგვისტო_სექტემბერი_ოქტომბერი_ნოემბერი_დეკემბერი'.split('_'),
+        format: 'იანვარს_თებერვალს_მარტს_აპრილის_მაისს_ივნისს_ივლისს_აგვისტს_სექტემბერს_ოქტომბერს_ნოემბერს_დეკემბერს'.split('_')
     },
     monthsShort : 'იან_თებ_მარ_აპრ_მაი_ივნ_ივლ_აგვ_სექ_ოქტ_ნოე_დეკ'.split('_'),
-    weekdays : function (m, format) {
-        if (!m) {
-            return daysStandalone;
-        } else if (/(წინა|შემდეგ)/.test(format)) {
-            return daysFormat[m.day()];
-        } else {
-            return daysStandalone[m.day()];
-        }
+    weekdays : {
+        standalone: 'კვირა_ორშაბათი_სამშაბათი_ოთხშაბათი_ხუთშაბათი_პარასკევი_შაბათი'.split('_'),
+        format: 'კვირას_ორშაბათს_სამშაბათს_ოთხშაბათს_ხუთშაბათს_პარასკევს_შაბათს'.split('_'),
+        isFormat: /(წინა|შემდეგ)/
     },
     weekdaysShort : 'კვი_ორშ_სამ_ოთხ_ხუთ_პარ_შაბ'.split('_'),
     weekdaysMin : 'კვ_ორ_სა_ოთ_ხუ_პა_შა'.split('_'),

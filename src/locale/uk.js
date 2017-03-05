@@ -51,18 +51,10 @@ function processHoursFunction(str) {
     };
 }
 
-var monthsFormat = 'січня_лютого_березня_квітня_травня_червня_липня_серпня_вересня_жовтня_листопада_грудня'.split('_'),
-    monthsStandalone = 'січень_лютий_березень_квітень_травень_червень_липень_серпень_вересень_жовтень_листопад_грудень'.split('_');
-
 export default moment.defineLocale('uk', {
-    months : function (m, format) {
-        if (!m) {
-            return monthsStandalone;
-        } else if (/D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/.test(format)) {
-            return monthsFormat[m.month()];
-        } else {
-            return monthsStandalone[m.month()];
-        }
+    months : {
+        'format': 'січня_лютого_березня_квітня_травня_червня_липня_серпня_вересня_жовтня_листопада_грудня'.split('_'),
+        'standalone': 'січень_лютий_березень_квітень_травень_червень_липень_серпень_вересень_жовтень_листопад_грудень'.split('_')
     },
     monthsShort : 'січ_лют_бер_квіт_трав_черв_лип_серп_вер_жовт_лист_груд'.split('_'),
     weekdays : weekdaysCaseReplace,
