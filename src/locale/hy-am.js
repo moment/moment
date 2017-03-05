@@ -9,7 +9,7 @@ var monthsFormat = 'հունվարի_փետրվարի_մարտի_ապրիլի_մ
 
 export default moment.defineLocale('hy-am', {
  months : function (m, format) {
-        if (!m) {
+    if (!m) {
             return monthsStandalone;
         } else if (/D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/.test(format)) {
             return monthsFormat[m.month()];
