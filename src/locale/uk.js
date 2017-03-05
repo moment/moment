@@ -32,7 +32,7 @@ function weekdaysCaseReplace(m, format) {
         'nominative': 'неділя_понеділок_вівторок_середа_четвер_п’ятниця_субота'.split('_'),
         'accusative': 'неділю_понеділок_вівторок_середу_четвер_п’ятницю_суботу'.split('_'),
         'genitive': 'неділі_понеділка_вівторка_середи_четверга_п’ятниці_суботи'.split('_')
-    }
+    };
     
     if (!m) {
         return weekdays['nominative'];
@@ -52,7 +52,7 @@ function processHoursFunction(str) {
 }
 
 var monthsFormat = 'січня_лютого_березня_квітня_травня_червня_липня_серпня_вересня_жовтня_листопада_грудня'.split('_'),
-    monthsStandalone = 'січень_лютий_березень_квітень_травень_червень_липень_серпень_вересень_жовтень_листопад_грудень'.split('_')
+    monthsStandalone = 'січень_лютий_березень_квітень_травень_червень_липень_серпень_вересень_жовтень_листопад_грудень'.split('_');
 
 export default moment.defineLocale('uk', {
     months : function (m, format) {
