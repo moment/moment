@@ -33,7 +33,7 @@ function weekdaysCaseReplace(m, format) {
         'accusative': 'неділю_понеділок_вівторок_середу_четвер_п’ятницю_суботу'.split('_'),
         'genitive': 'неділі_понеділка_вівторка_середи_четверга_п’ятниці_суботи'.split('_')
     };
-    
+
     if (!m) {
         return weekdays['nominative'];
     }
