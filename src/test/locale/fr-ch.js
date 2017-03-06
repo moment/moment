@@ -38,7 +38,8 @@ test('format', function (assert) {
             ['m mm',                               '25 25'],
             ['s ss',                               '50 50'],
             ['a A',                                'pm PM'],
-            ['[the] DDDo [day of the year]',       'the 45e day of the year'],
+            ['[le] Do [jour du mois]',             'le 14e jour du mois'],
+            ['[le] DDDo [jour de l’année]',        'le 45e jour de l’année'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14.02.2010'],
             ['LL',                                 '14 février 2010'],
@@ -58,6 +59,15 @@ test('format', function (assert) {
 });
 
 test('format ordinal', function (assert) {
+    assert.equal(moment([2017, 0, 1]).format('Mo'), '1er', '1er');
+    assert.equal(moment([2017, 1, 1]).format('Mo'), '2e', '2e');
+
+    assert.equal(moment([2017, 0, 1]).format('Qo'), '1er', '1er');
+    assert.equal(moment([2017, 3, 1]).format('Qo'), '2e', '2e');
+
+    assert.equal(moment([2017, 0, 1]).format('Do'), '1er', '1er');
+    assert.equal(moment([2017, 0, 2]).format('Do'), '2e', '2e');
+
     assert.equal(moment([2011, 0, 1]).format('DDDo'), '1er', '1er');
     assert.equal(moment([2011, 0, 2]).format('DDDo'), '2e', '2e');
     assert.equal(moment([2011, 0, 3]).format('DDDo'), '3e', '3e');
@@ -92,6 +102,12 @@ test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 30]).format('DDDo'), '30e', '30e');
 
     assert.equal(moment([2011, 0, 31]).format('DDDo'), '31e', '31e');
+
+    assert.equal(moment([2017, 0, 1]).format('do'), '0e', '0e');
+    assert.equal(moment([2017, 0, 2]).format('do'), '1er', '1er');
+
+    assert.equal(moment([2017, 0, 4]).format('wo Wo'), '1re 1re', '1re 1re');
+    assert.equal(moment([2017, 0, 11]).format('wo Wo'), '2e 2e', '2e 2e');
 });
 
 test('format month', function (assert) {
@@ -158,12 +174,12 @@ test('fromNow', function (assert) {
 test('same day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                   'Aujourd\'hui à 12:00',    'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'Aujourd\'hui à 12:25',    'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),       'Aujourd\'hui à 13:00',    'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'Demain à 12:00',          'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Aujourd\'hui à 11:00',    'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Hier à 12:00',            'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   'Aujourd’hui à 12:00',    'Today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'Aujourd’hui à 12:25',    'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       'Aujourd’hui à 13:00',    'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'Demain à 12:00',         'Tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Aujourd’hui à 11:00',    'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Hier à 12:00',           'Yesterday at the same time');
 });
 
 test('same next week', function (assert) {
@@ -208,8 +224,8 @@ test('same all else', function (assert) {
 
 test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012, 0,  1]).format('w ww wo'), '52 52 52e', 'Jan  1 2012 should be week 52');
-    assert.equal(moment([2012, 0,  2]).format('w ww wo'), '1 01 1er', 'Jan  2 2012 should be week 1');
-    assert.equal(moment([2012, 0,  8]).format('w ww wo'), '1 01 1er', 'Jan  8 2012 should be week 1');
+    assert.equal(moment([2012, 0,  2]).format('w ww wo'), '1 01 1re', 'Jan  2 2012 should be week 1');
+    assert.equal(moment([2012, 0,  8]).format('w ww wo'), '1 01 1re', 'Jan  8 2012 should be week 1');
     assert.equal(moment([2012, 0,  9]).format('w ww wo'),   '2 02 2e', 'Jan  9 2012 should be week 2');
     assert.equal(moment([2012, 0, 15]).format('w ww wo'),   '2 02 2e', 'Jan 15 2012 should be week 2');
 });
