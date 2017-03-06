@@ -139,7 +139,6 @@ test('custom thresholds', function (assert) {
     moment.relativeTimeThreshold('M', 11);
 });
 
-/* TGJG Disabled
 test('custom rounding', function (assert) {
     var roundingDefault = moment.relativeTimeRounding();
 
@@ -190,7 +189,6 @@ test('custom rounding', function (assert) {
     moment.relativeTimeThreshold('M', 11);
     moment.relativeTimeRounding(roundingDefault);
 });
-*/
 
 test('retrive rounding settings', function (assert) {
     moment.relativeTimeRounding(Math.round);
