@@ -21,12 +21,12 @@ export default moment.defineLocale('fr', {
         LLLL : 'dddd D MMMM YYYY HH:mm'
     },
     calendar : {
-        sameDay: '[Aujourd’hui à] LT',
-        nextDay: '[Demain à] LT',
-        nextWeek: 'dddd [à] LT',
-        lastDay: '[Hier à] LT',
-        lastWeek: 'dddd [dernier à] LT',
-        sameElse: 'L'
+        sameDay : '[Aujourd’hui à] LT',
+        nextDay : '[Demain à] LT',
+        nextWeek : 'dddd [à] LT',
+        lastDay : '[Hier à] LT',
+        lastWeek : 'dddd [dernier à] LT',
+        sameElse : 'L'
     },
     relativeTime : {
         future : 'dans %s',
@@ -43,7 +43,7 @@ export default moment.defineLocale('fr', {
         y : 'un an',
         yy : '%d ans'
     },
-    ordinalParse: /\d{1,2}(er|)/,
+    ordinalParse : /\d{1,2}(er|)/,
     ordinal : function (number, period) {
         switch (period) {
             // TODO: Return 'e' when day of month > 1. Move this case inside
