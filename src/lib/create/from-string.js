@@ -93,42 +93,7 @@ export function configFromISO(config) {
     }
 }
 
-// rfc 2822 regex
-//  [Group 1: Day (optional)]
-//  [Group 2: Date and Time]
-//  [Group 3: Seconds (optional)]
-//  [Group 4: Timezone|Time offset]
-//----
-// Group 1: "Day[,] "
-//  Day= Day of Week ('Mon','Tue','Wed','Thu','Fri','Sat','Sun')
-// Group 2: "dD Mon [CC]YY "
-//  dD= Day of Month (1-2-digits) - Strict: 1 to 31 with optional leading zero
-//  Mon= Month of Year ('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec')
-//  CC: Century [optional] (2-digits) - Strict: 19 to 99
-//  YY: Year in Century (2-digits)
-// Group 3: "HH:MM"
-//  HH: Hour of Day (2-digits) - Strict: 00 to 23
-//  MM: Minute in Hour (2-digits) - Strict: 00 to 59
-// Group 4: ":SS"
-//  SS: Seconds in Minute [optional] (2-digits) - Strict: 00 to 60
-// Group 5: " (TZ|MIL|TO)"
-//  TZ: Timezone ('UT','GMT','EST','EDT','CST','CDT','MST','MDT','PST','PDT')
-//  MIL: Military timezone code (A-Z excluding J)
-//  TO: Time Offset (+|- 4-digits) - Strict: 0000 to 9959 (as per spec)
-//====
-// Regular Expressions
-//  basicRfcRegex: Simplified (easier to test) pattern consistent with the IETF RFC2822 specification.
-//  detailedRfcRegex: Enhanced pattern with greater built-in validation in excess of the specification.
-/*
-    var detailedRfcRegex = /^
-        ((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?
-        ((?:0?[1-9]|[1-2]?\d|3[01])\s
-            (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:(?:19|[2-9]\d)?\d\d\s))
-        ((?:(?:2[0-3]|[0-1]\d)):[0-5]\d)
-        (\:(?:60|[0-5]\d))?
-        (\s(?:UT|GMT|[ECMP][SD]T|[A-IK-Z]|(?:[+-](?:1[012]|0\d)[03]0)))
-    $/;
-*/
+// RFC 2822 regex: For details see https://tools.ietf.org/html/rfc2822#section-3.3
 var basicRfcRegex = /^((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d?\d\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:\d\d)?\d\d\s)(\d\d:\d\d)(\:\d\d)?(\s(?:UT|GMT|[ECMP][SD]T|[A-IK-Z]|[+-]\d{4}))$/;
 
 // date and time from ref 2822 format
@@ -146,7 +111,7 @@ export function configFromRFC2822(config) {
         ' PDT': ' -0700',
         ' PST': ' -0800'
     };
-    var Military = 'YXWVUTSRQPONZABCDEFGHIKLM';
+    var military = 'YXWVUTSRQPONZABCDEFGHIKLM';
     var timezone, timezoneIndex;
 
     string = config._i
@@ -175,11 +140,11 @@ export function configFromRFC2822(config) {
         getParsingFlags(config).rfc2822 = true;
 
         switch (match[5].length) {
-            case 2: // Military
+            case 2: // military
                 if (timezoneIndex === 0) {
                     timezone = ' +0000';
                 } else {
-                    timezoneIndex = Military.indexOf(match[5][1]) - 12;
+                    timezoneIndex = military.indexOf(match[5][1]) - 12;
                     timezone = ((timezoneIndex < 0) ? ' -' : ' +') +
                         (('' + timezoneIndex).replace(/^-?/, '0')).match(/..$/)[0] + '00';
                 }
@@ -211,16 +176,23 @@ export function configFromString(config) {
     }
 
     configFromISO(config);
-    if (config._isValid === false) {
+    if (config._isValid === true) {
+        return
+    } else {
         delete config._isValid;
-
-        configFromRFC2822(config);
-        if (config._isValid === false) {
-            getParsingFlags(config).iso = false;
-            delete config._isValid;
-            hooks.createFromInputFallback(config);
-        }
+        getParsingFlags(config).iso = false;
     }
+    
+    configFromRFC2822(config);
+    if (config._isValid === true) {
+        return
+    } else {
+        getParsingFlags(config).rfc2822 = false;
+        delete config._isValid;
+    }
+    
+    // Final attempt, use Input Fallback
+    hooks.createFromInputFallback(config);
 }
 
 hooks.createFromInputFallback = deprecate(
