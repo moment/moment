@@ -182,7 +182,7 @@ export function configFromString(config) {
         delete config._isValid;
         getParsingFlags(config).iso = false;
     }
-    
+
     configFromRFC2822(config);
     if (config._isValid === true) {
         return;
@@ -190,7 +190,7 @@ export function configFromString(config) {
         getParsingFlags(config).rfc2822 = false;
         delete config._isValid;
     }
-    
+
     // Final attempt, use Input Fallback
     hooks.createFromInputFallback(config);
 }
