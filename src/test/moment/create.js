@@ -440,6 +440,7 @@ test('parsing RFC 2822', function (assert) {
     for (testCase in testCases) {
         var testResult = moment(testCases[testCase], moment.RFC_2822, true);
         assert.ok(testResult.isValid(), testResult);
+        assert.ok(testResult.parsingFlags().rfc2822(), testResult + ' - rfc2822 parsingFlag');
     }
 });
 
@@ -453,6 +454,7 @@ test('non RFC 2822 strings', function (assert) {
     for (testCase in testCases) {
         var testResult = moment(testCases[testCase], moment.RFC_2822, true);
         assert.ok(!testResult.isValid(), testResult);
+        assert.ok(!testResult.parsingFlags().rfc2822(), testResult + ' - rfc2822 parsingFlag');
     }
 });
 
