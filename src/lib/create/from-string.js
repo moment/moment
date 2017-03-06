@@ -93,6 +93,111 @@ export function configFromISO(config) {
     }
 }
 
+// rfc 2822 regex
+//  [Group 1: Day (optional)]
+//  [Group 2: Date and Time]
+//  [Group 3: Seconds (optional)]
+//  [Group 4: Timezone|Time offset]
+//----
+// Group 1: "Day[,] "
+//  Day= Day of Week ('Mon','Tue','Wed','Thu','Fri','Sat','Sun')
+// Group 2: "dD Mon [CC]YY "
+//  dD= Day of Month (1-2-digits) - Strict: 1 to 31 with optional leading zero
+//  Mon= Month of Year ('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec')
+//  CC: Century [optional] (2-digits) - Strict: 19 to 99
+//  YY: Year in Century (2-digits)
+// Group 3: "HH:MM"
+//  HH: Hour of Day (2-digits) - Strict: 00 to 23
+//  MM: Minute in Hour (2-digits) - Strict: 00 to 59
+// Group 4: ":SS"
+//  SS: Seconds in Minute [optional] (2-digits) - Strict: 00 to 60
+// Group 5: " (TZ|MIL|TO)"
+//  TZ: Timezone ('UT','GMT','EST','EDT','CST','CDT','MST','MDT','PST','PDT')
+//  MIL: Military timezone code (A-Z excluding J)
+//  TO: Time Offset (+|- 4-digits) - Strict: 0000 to 9959 (as per spec)
+//====
+// Regular Expressions
+//  basicRfcRegex: Simplified (easier to test) pattern consistent with the IETF RFC2822 specification.
+//  detailedRfcRegex: Enhanced pattern with greater built-in validation in excess of the specification.
+/*
+    var detailedRfcRegex = /^
+        ((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?
+        ((?:0?[1-9]|[1-2]?\d|3[01])\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:[2-9]\d|19)?\d\d\s)
+        ((?:[01]\d|2[0-3]):[0-5]\d)(\:(?:60|[0-5]\d))?
+        (\s(?:UT|GMT|(?:[ECMP][SD]T)|[A-IK-Z]|(?:[+-](?:[0-8]\d\d|9\d[0-5])\d)))
+    $/;
+*/
+var basicRfcRegex = /^((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d?\d\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:\d\d)?\d\d\s)(\d\d:\d\d)(\:\d\d)?(\s(?:UT|GMT|([ECMP][SD]T)|[A-IK-Z]|(?:[+-]\d{4})))$/;
+
+// date and time from ref 2822 format
+export function configFromRFC2822(config) {
+    var string, match, dayFormat,
+        dateFormat, timeFormat, tzFormat;
+    var rfc2822Timezones = {
+        ' GMT': ' +0000',
+        ' EDT': ' -0400',
+        ' EST': ' -0500',
+        ' CDT': ' -0500',
+        ' CST': ' -0600',
+        ' MDT': ' -0600',
+        ' MST': ' -0700',
+        ' PDT': ' -0700',
+        ' PST': ' -0800'
+    };
+    var rfc2822Military = 'YXWVUTSRQPONZABCDEFGHIKLM';
+    var rfc2822Timezone, rfc2822Index;
+
+    string = config._i
+        .replace(/\([^\)]*\)|[\n\t]/g, ' ') // Remove comments and folding whitespace
+        .replace(/(\s\s+)/g, ' ') // Replace multiple-spaces with a single space
+        .replace(/^\s|\s$/g, ''); // Remove leading and trailing spaces
+    match = basicRfcRegex.exec(string);
+
+    if (match) {
+        dayFormat = match[1] ? 'ddd' + ((match[1].length === 5) ? ', ' : ' ') : '';
+        dateFormat = 'D MMM ' + ((match[2].length > 10) ? 'YYYY ' : 'YY ');
+        timeFormat = 'HH:mm' + (match[4] ? ':ss' : '');
+
+        // TODO Confirm the given day-of-week is consistent with the day-of-month-year
+        //  NB: Needs an instance of moment, created from the date element of the input string.
+        /*
+        if (match[1]) {
+            console.log('[' + match[1].substr(0,3) + ']', moment(match[2], dateFormat).format('ddd'));
+            if (match[1].substr(0,3) !== this(match[2], dateFormat).format('ddd')) {
+                config._isValid = false;
+                return;
+            }
+        }
+        */
+        getParsingFlags(config).rfc2822 = true;
+
+        switch (match[5].length) {
+            case 2: // Military
+                if (rfc2822Index === 0) {
+                    rfc2822Timezone = ' +0000';
+                } else {
+                    rfc2822Index = rfc2822Military.indexOf(match[5][1]) - 12;
+                    rfc2822Timezone = ((rfc2822Index < 0) ? ' -' : ' +') +
+                        (('' + rfc2822Index).replace(/^-?/, '0')).match(/..$/)[0] + '00';
+                }
+                rfc2822Timezone += '00';
+                break;
+            case 4: // Zone
+                rfc2822Timezone = rfc2822Timezones[match[5]];
+                break;
+            default: // UT or +/-9999
+                rfc2822Timezone = rfc2822Timezones[' GMT'];
+        }
+        match[5] = rfc2822Timezone;
+        config._i = match.splice(1).join('');
+        tzFormat = ' ZZ';
+        config._f = dayFormat + dateFormat + timeFormat + tzFormat;
+        configFromStringAndFormat(config);
+    } else {
+        config._isValid = false;
+    }
+}
+
 // date from iso format or fallback
 export function configFromString(config) {
     var matched = aspNetJsonRegex.exec(config._i);
@@ -105,13 +210,19 @@ export function configFromString(config) {
     configFromISO(config);
     if (config._isValid === false) {
         delete config._isValid;
-        hooks.createFromInputFallback(config);
+
+        configFromRFC2822(config);
+        if (config._isValid === false) {
+            getParsingFlags(config).iso = false;
+            delete config._isValid;
+            hooks.createFromInputFallback(config);
+        }
     }
 }
 
 hooks.createFromInputFallback = deprecate(
-    'value provided is not in a recognized ISO format. moment construction falls back to js Date(), ' +
-    'which is not reliable across all browsers and versions. Non ISO date formats are ' +
+    'value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), ' +
+    'which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are ' +
     'discouraged and will be removed in an upcoming major release. Please refer to ' +
     'http://momentjs.com/guides/#/warnings/js-date/ for more info.',
     function (config) {
