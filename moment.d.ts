@@ -58,7 +58,7 @@ declare namespace moment {
     doy: number;
   }
 
-  type CalendarSpecVal = string | ((m?: Moment, now?: Moment) => string);
+  type CalendarSpecVal = string | ((m?: MomentInput, now?: Moment) => string);
   interface CalendarSpec {
     sameDay?: CalendarSpecVal;
     nextDay?: CalendarSpecVal;
@@ -395,11 +395,11 @@ declare namespace moment {
   type LocaleSpecifier = string | Moment | Duration | string[] | boolean;
 
   interface MomentCreationData {
-    input: string;
-    format: string;
+    input: MomentInput;
+    format?: MomentFormatSpecification;
     locale: Locale;
     isUTC: boolean;
-    strict: boolean;
+    strict?: boolean;
   }
 
   interface Moment {
@@ -547,7 +547,7 @@ declare namespace moment {
     zone(b: number|string): Moment;
     utcOffset(): number;
     utcOffset(b: number|string, keepLocalTime?: boolean): Moment;
-    isUTCOffset(): boolean;
+    isUtcOffset(): boolean;
     daysInMonth(): number;
     isDST(): boolean;
 
