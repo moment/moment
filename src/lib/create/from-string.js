@@ -176,19 +176,17 @@ export function configFromString(config) {
     }
 
     configFromISO(config);
-    if (config._isValid === true) {
-        return;
-    } else {
+    if (config._isValid === false) {
         delete config._isValid;
-        getParsingFlags(config).iso = false;
+    } else {
+        return;
     }
 
     configFromRFC2822(config);
-    if (config._isValid === true) {
-        return;
-    } else {
-        getParsingFlags(config).rfc2822 = false;
+    if (config._isValid === false) {
         delete config._isValid;
+    } else {
+        return;
     }
 
     // Final attempt, use Input Fallback
