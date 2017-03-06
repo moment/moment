@@ -145,8 +145,8 @@ export function configFromRFC2822(config) {
                     timezoneIndex = military.indexOf(match[5][1].toUpperCase()) - 12;
                     timezone = ((timezoneIndex < 0) ? ' -' : ' +') +
                         (('' + timezoneIndex).replace(/^-?/, '0')).match(/..$/)[0] + '00';
+                    timezone += '00';
                 }
-                timezone += '00';
                 break;
             case 4: // Zone
                 timezone = timezones[match[5]];
