@@ -125,7 +125,6 @@ export function configFromRFC2822(config) {
         dateFormat = 'D MMM ' + ((match[2].length > 10) ? 'YYYY ' : 'YY ');
         timeFormat = 'HH:mm' + (match[4] ? ':ss' : '');
 
-
         // TODO: Replace the vanilla JS Date object with an indepentent day-of-week check.
         if (match[1]) { // day of week given
             var momentDate = new Date(match[2]);
@@ -137,7 +136,6 @@ export function configFromRFC2822(config) {
                 return;
             }
         }
-        getParsingFlags(config).rfc2822 = true;
 
         switch (match[5].length) {
             case 2: // military
@@ -161,6 +159,7 @@ export function configFromRFC2822(config) {
         tzFormat = ' ZZ';
         config._f = dayFormat + dateFormat + timeFormat + tzFormat;
         configFromStringAndFormat(config);
+        getParsingFlags(config).rfc2822 = true;
     } else {
         config._isValid = false;
     }
