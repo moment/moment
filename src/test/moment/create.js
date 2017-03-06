@@ -457,27 +457,34 @@ test('cloning carrying over utc mode', function (assert) {
 });
 
 test('parsing RFC 2822', function (assert) {
-    assert.ok(moment('Tue, 01 Nov 2016 01:23:45 GMT', moment.RFC_2822, true).isValid(),
-        'clean RFC2822 datetime with all options');
-    assert.ok(moment('Tue 01 Nov 2016 01:23:45 GMT', moment.RFC_2822, true).isValid(),
-        'clean RFC2822 datetime without comma');
-    assert.ok(moment('Tue, 01 Nov 2016 01:23 GMT', moment.RFC_2822, true).isValid(),
-        'clean RFC2822 datetime without seconds');
-    assert.ok(moment('Tue, 01 Nov 16 01:23:45 GMT', moment.RFC_2822, true).isValid(),
-        'clean RFC2822 datetime without century');
-    assert.ok(moment('01 Nov 2016 01:23:45 GMT', moment.RFC_2822, true).isValid(),
-        'clean RFC2822 datetime without day');
-    assert.ok(moment('Tue, 1 Nov 2016 01:23:45 GMT', moment.RFC_2822, true).isValid(),
-        'clean RFC2822 datetime with single-digit day-of-month');
-    assert.ok(moment('(Init Comment) Tue,\n 1 Nov              2016 (Split\n Comment)  01:23:45 +0000 (GMT)', moment.RFC_2822, true).isValid(),
-        'RFC2822 datetime with CFWSs');
+    var testCases = {
+        'clean RFC2822 datetime with all options': 'Tue, 01 Nov 2016 01:23:45 GMT',
+        'clean RFC2822 datetime without comma': 'Tue 01 Nov 2016 01:23:45 GMT',
+        'clean RFC2822 datetime without seconds': 'Tue, 01 Nov 2016 01:23 GMT',
+        'clean RFC2822 datetime without century': 'Tue, 01 Nov 16 01:23:45 GMT',
+        'clean RFC2822 datetime without day': '01 Nov 2016 01:23:45 GMT',
+        'clean RFC2822 datetime with single-digit day-of-month': 'Tue, 1 Nov 2016 01:23:45 GMT',
+        'RFC2822 datetime with CFWSs': '(Init Comment) Tue,\n 1 Nov              2016 (Split\n Comment)  01:23:45 +0000 (GMT)'
+    };
+    var testCase;
+
+    for (testCase in testCases) {
+        var testResult = moment(testCases[testCase], moment.RFC_2822, true)
+        assert.ok(testResult.isValid(), testResult);
+    }
 });
 
 test('non RFC 2822 strings', function (assert) {
-    assert.ok(!moment('Tue. 01 Nov 2016 01:23:45 GMT', moment.RFC_2822, true).isValid(),
-        'RFC2822 datetime with all options but invalid day delimiter');
-    assert.ok(!moment('Mon, 01 Nov 2016 01:23:45 GMT', moment.RFC_2822, true).isValid(),
-        'RFC2822 datetime with mismatching Day (week v date)');
+    var testCases = {
+        'RFC2822 datetime with all options but invalid day delimiter': 'Tue. 01 Nov 2016 01:23:45 GMT',
+        'RFC2822 datetime with mismatching Day (week v date)': 'Mon, 01 Nov 2016 01:23:45 GMT'
+    };
+    var testCase;
+
+    for (testCase in testCases) {
+        var testResult = moment(testCases[testCase], moment.RFC_2822, true)
+        assert.ok(!testResult.isValid(), testResult);
+    }
 });
 
 test('parsing iso', function (assert) {
