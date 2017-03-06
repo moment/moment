@@ -177,7 +177,7 @@ export function configFromString(config) {
 
     configFromISO(config);
     if (config._isValid === true) {
-        return
+        return;
     } else {
         delete config._isValid;
         getParsingFlags(config).iso = false;
@@ -185,7 +185,7 @@ export function configFromString(config) {
     
     configFromRFC2822(config);
     if (config._isValid === true) {
-        return
+        return;
     } else {
         getParsingFlags(config).rfc2822 = false;
         delete config._isValid;
