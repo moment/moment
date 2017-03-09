@@ -1,8 +1,6 @@
 //! moment.js locale configuration
-//! locale : German [de]
-//! author : lluchs : https://github.com/lluchs
-//! author: Menelion Elensúle: https://github.com/Oire
-//! author : Mikolaj Dadela : https://github.com/mik01aj
+//! locale : German (Switzerland) [de-ch]
+//! based on: https://www.bk.admin.ch/dokumentation/sprachen/04915/05016/index.html?lang=de#
 
 import moment from '../moment';
 
@@ -48,16 +46,16 @@ export default moment.defineLocale('de-ch', {
         future : 'in %s',
         past : 'vor %s',
         s : 'ein paar Sekunden',
-        m : 'eine Minute',
+        m : processRelativeTime,
         mm : '%d Minuten',
-        h : 'eine Stunde',
+        h : processRelativeTime,
         hh : '%d Stunden',
-        d : 'ein Tag',
-        dd : '%d Tage',
-        M : 'ein Monat',
-        MM : '%M Monate',
-        y : 'ein Jahr',
-        yy : '%y Jahre'
+        d : processRelativeTime,
+        dd : processRelativeTime,
+        M : processRelativeTime,
+        MM : processRelativeTime,
+        y : processRelativeTime,
+        yy : processRelativeTime
     },
     ordinalParse: /\d{1,2}\./,
     ordinal : '%d.',
