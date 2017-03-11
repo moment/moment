@@ -348,6 +348,10 @@ declare namespace moment {
     quarters?: number;
     quarter?: number;
     Q?: number;
+
+    weeks?: number;
+    week?: number;
+    w?: number;
   }
 
   interface MomentSetObject extends MomentInputObject {
