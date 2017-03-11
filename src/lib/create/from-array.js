@@ -1,5 +1,5 @@
 import { hooks } from '../utils/hooks';
-import { createDate, createUTCDate } from './date-from-array';
+import { createUTCDate } from './date-from-array';
 import { daysInYear } from '../units/year';
 import { weekOfYear, weeksInYear, dayOfYearFromWeeks } from '../units/week-calendar-utils';
 import { YEAR, MONTH, DATE, HOUR, MINUTE, SECOND, MILLISECOND } from '../units/constants';
@@ -7,13 +7,10 @@ import { createLocal } from './local';
 import defaults from '../utils/defaults';
 import getParsingFlags from './parsing-flags';
 
-function currentDateArray(config) {
+function currentDateArray(zone) {
     // hooks is actually the exported moment object
-    var nowValue = new Date(hooks.now());
-    if (config._useUTC) {
-        return [nowValue.getUTCFullYear(), nowValue.getUTCMonth(), nowValue.getUTCDate()];
-    }
-    return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
+    var nowValue = hooks.withTimeZone(zone)()._d;
+    return [nowValue.getUTCFullYear(), nowValue.getUTCMonth(), nowValue.getUTCDate()];
 }
 
 // convert an array to a date.
@@ -27,7 +24,7 @@ export function configFromArray (config) {
         return;
     }
 
-    currentDate = currentDateArray(config);
+    currentDate = currentDateArray(config._z);
 
     //compute day of the year from weeks and weekdays
     if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
@@ -70,12 +67,7 @@ export function configFromArray (config) {
         config._a[HOUR] = 0;
     }
 
-    config._d = (config._useUTC ? createUTCDate : createDate).apply(null, input);
-    // Apply timezone offset from input. The actual utcOffset can be changed
-    // with parseZone.
-    if (config._tzm != null) {
-        config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
-    }
+    config._d = createUTCDate.apply(null, input);
 
     if (config._nextDay) {
         config._a[HOUR] = 24;

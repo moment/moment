@@ -118,16 +118,6 @@ test('cloning moment works with weird clones', function (assert) {
     assert.equal(+extend({}, nowu).clone(), +nowu, 'cloning extend-ed utc now is utc now');
 });
 
-test('cloning respects moment.momentProperties', function (assert) {
-    var m = moment();
-
-    assert.equal(m.clone()._special, undefined, 'cloning ignores extra properties');
-    m._special = 'bacon';
-    moment.momentProperties.push('_special');
-    assert.equal(m.clone()._special, 'bacon', 'cloning respects momentProperties');
-    moment.momentProperties.pop();
-});
-
 test('undefined', function (assert) {
     assert.ok(moment().toDate() instanceof Date, 'undefined');
 });
@@ -445,15 +435,10 @@ test('explicit cloning', function (assert) {
     assert.equal(momentA.month(), 5, 'Calling moment() on a moment will create a clone');
 });
 
-test('cloning carrying over utc mode', function (assert) {
-    assert.equal(moment().local().clone()._isUTC, false, 'An explicit cloned local moment should have _isUTC == false');
-    assert.equal(moment().utc().clone()._isUTC, true, 'An cloned utc moment should have _isUTC == true');
-    assert.equal(moment().clone()._isUTC, false, 'An explicit cloned local moment should have _isUTC == false');
-    assert.equal(moment.utc().clone()._isUTC, true, 'An explicit cloned utc moment should have _isUTC == true');
-    assert.equal(moment(moment().local())._isUTC, false, 'An implicit cloned local moment should have _isUTC == false');
-    assert.equal(moment(moment().utc())._isUTC, true, 'An implicit cloned utc moment should have _isUTC == true');
-    assert.equal(moment(moment())._isUTC, false, 'An implicit cloned local moment should have _isUTC == false');
-    assert.equal(moment(moment.utc())._isUTC, true, 'An implicit cloned utc moment should have _isUTC == true');
+test('cloning carrying over zone', function (assert) {
+    var momentA = moment();
+    assert.equal(momentA._z, momentA.clone()._z, 'An explicitly cloned moment should copy the zone');
+    assert.equal(momentA._z, moment(momentA)._z, 'An implicitly cloned moment should copy the zone');
 });
 
 test('parsing iso', function (assert) {

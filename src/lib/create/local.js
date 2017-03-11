@@ -1,5 +1,4 @@
-import { createLocalOrUTC } from './from-anything';
+import LocalTimeZone from '../timezone/local';
+import { createWithTimeZone } from './from-anything';
 
-export function createLocal (input, format, locale, strict) {
-    return createLocalOrUTC(input, format, locale, strict, false);
-}
+export var createLocal = createWithTimeZone(new LocalTimeZone());

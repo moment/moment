@@ -7,6 +7,7 @@ import { addRegexToken, match1to2, match2, matchWord, regexEscape } from '../par
 import { addParseToken } from '../parse/token';
 import { hooks } from '../utils/hooks';
 import { MONTH } from './constants';
+import updateOffset from '../timezone/update-offset';
 import toInt from '../utils/to-int';
 import isArray from '../utils/is-array';
 import isNumber from '../utils/is-number';
@@ -188,15 +189,14 @@ export function setMonth (mom, value) {
     }
 
     dayOfMonth = Math.min(mom.date(), daysInMonth(mom.year(), value));
-    mom._d['set' + (mom._isUTC ? 'UTC' : '') + 'Month'](value, dayOfMonth);
+    mom._d.setUTCMonth(value, dayOfMonth);
     return mom;
 }
 
 export function getSetMonth (value) {
     if (value != null) {
         setMonth(this, value);
-        hooks.updateOffset(this, true);
-        return this;
+        return updateOffset(this, true);
     } else {
         return get(this, 'Month');
     }

@@ -13,12 +13,13 @@ import {
     max,
     now,
     isMoment,
-    momentPrototype as fn,
-    createUTC       as utc,
-    createUnix      as unix,
-    createLocal     as local,
-    createInvalid   as invalid,
-    createInZone    as parseZone
+    momentPrototype    as fn,
+    createUTC          as utc,
+    createUnix         as unix,
+    createLocal        as local,
+    createInvalid      as invalid,
+    createInZone       as parseZone,
+    createWithTimeZone as withTimeZone
 } from './lib/moment/moment';
 
 import {
@@ -65,6 +66,7 @@ moment.duration              = duration;
 moment.isMoment              = isMoment;
 moment.weekdays              = weekdays;
 moment.parseZone             = parseZone;
+moment.withTimeZone          = withTimeZone;
 moment.localeData            = localeData;
 moment.isDuration            = isDuration;
 moment.monthsShort           = monthsShort;

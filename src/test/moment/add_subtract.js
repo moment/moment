@@ -320,8 +320,7 @@ test('subtract strings string short', function (assert) {
 });
 
 test('add across DST', function (assert) {
-    // Detect Safari bug and bail. Hours on 13th March 2011 are shifted
-    // with 1 ahead.
+    // Detect Safari bug and bail. Hours on 13th March 2011 are shifted with 1 ahead.
     if (new Date(2011, 2, 13, 5, 0, 0).getHours() !== 5) {
         expect(0);
         return;

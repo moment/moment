@@ -3,7 +3,7 @@ export function creationData() {
         input: this._i,
         format: this._f,
         locale: this._locale,
-        isUTC: this._isUTC,
+        timeZone: this._z,
         strict: this._strict
     };
 }
