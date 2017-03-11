@@ -1,7 +1,6 @@
 import { createDuration } from './create';
 
 var round = Math.round;
-var secondsThresholdChanged = false;
 var thresholds = {
     ss: 44,         // a few seconds to seconds
     s : 45,         // seconds to minute
@@ -63,12 +62,10 @@ export function getSetRelativeTimeThreshold (threshold, limit) {
     if (limit === undefined) {
         return thresholds[threshold];
     }
-    if (threshold === 's' && !secondsThresholdChanged) {
-        thresholds.ss = limit - 1;
-    } else if (threshold === 'ss') {
-        secondsThresholdChanged = true;
-    }
     thresholds[threshold] = limit;
+    if (threshold === 's') {
+        thresholds.ss = limit - 1;
+    }
     return true;
 }
 
