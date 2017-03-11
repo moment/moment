@@ -10,7 +10,9 @@ var monthsShortWithDots = 'jan._feb._mrt._apr._mai_jun._jul._aug._sep._okt._nov.
 export default moment.defineLocale('fy', {
     months : 'jannewaris_febrewaris_maart_april_maaie_juny_july_augustus_septimber_oktober_novimber_desimber'.split('_'),
     monthsShort : function (m, format) {
-        if (/-MMM-/.test(format)) {
+        if (!m) {
+            return monthsShortWithDots;
+        } else if (/-MMM-/.test(format)) {
             return monthsShortWithoutDots[m.month()];
         } else {
             return monthsShortWithDots[m.month()];
