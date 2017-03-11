@@ -262,10 +262,10 @@ test('24:00:00.000 is valid', function (assert) {
 });
 
 test('oddball permissiveness', function (assert) {
-    //https://github.com/moment/moment/issues/1128
+    // https://github.com/moment/moment/issues/1128
     assert.ok(moment('2010-10-3199', ['MM/DD/YYYY', 'MM-DD-YYYY', 'YYYY-MM-DD']).isValid());
 
-    //https://github.com/moment/moment/issues/1122
+    // https://github.com/moment/moment/issues/1122
     assert.ok(moment('3:25', ['h:mma', 'hh:mma', 'H:mm', 'HH:mm']).isValid());
 });
 
