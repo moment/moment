@@ -66,6 +66,57 @@ test('library getters and setters', function (assert) {
     assert.equal(moment.locale(), 'en-gb', 'Normalize locale key underscore');
 });
 
+test('\'default\' locale', function (assert) {
+    var oldWindow = global.window;
+    try {
+        moment.locale('default');
+        assert.equal(moment.locale(), 'en', 'default locale should return en on node');
+
+        // simulating window on node (normally avaliable only in a browser)
+        global.window = {
+            navigator: {
+                language: 'wrong-locale',
+                userLanguage: 'fr'
+            }
+        };
+
+        moment.locale('default');
+        assert.equal(moment.locale(), 'fr', 'default locale should return locale from window.navigator.userLanguage first on browser');
+
+        global.window = {
+            navigator: {
+                language: undefined,
+                userLanguage: 'fr'
+            }
+        };
+
+        moment.locale('default');
+        assert.equal(moment.locale(), 'fr', 'default locale should return locale from window.navigator.userLanguage first on browser');
+
+        global.window = {
+            navigator: {
+                language: 'fr',
+                userLanguage: undefined
+            }
+        };
+
+        moment.locale('default');
+        assert.equal(moment.locale(), 'fr', 'default locale should return locale from window.navigator.language second on browser');
+
+        global.window = {
+            navigator: {
+                language: 'wrong-locale',
+                userLanguage: 'wrong-locale'
+            }
+        };
+
+        moment.locale('default');
+        assert.equal(moment.locale(), 'fr', 'default locale should return en if a browser provides unknown locale');
+    } finally {
+        global.window = oldWindow;
+    }
+});
+
 test('library setter array of locales', function (assert) {
     assert.equal(moment.locale(['non-existent', 'fr', 'also-non-existent']), 'fr', 'passing an array uses the first valid locale');
     assert.equal(moment.locale(['es', 'fr', 'also-non-existent']), 'es', 'passing an array uses the first valid locale');
