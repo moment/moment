@@ -93,6 +93,77 @@ export function configFromISO(config) {
     }
 }
 
+// RFC 2822 regex: For details see https://tools.ietf.org/html/rfc2822#section-3.3
+var basicRfcRegex = /^((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d?\d\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:\d\d)?\d\d\s)(\d\d:\d\d)(\:\d\d)?(\s(?:UT|GMT|[ECMP][SD]T|[A-IK-Za-ik-z]|[+-]\d{4}))$/;
+
+// date and time from ref 2822 format
+export function configFromRFC2822(config) {
+    var string, match, dayFormat,
+        dateFormat, timeFormat, tzFormat;
+    var timezones = {
+        ' GMT': ' +0000',
+        ' EDT': ' -0400',
+        ' EST': ' -0500',
+        ' CDT': ' -0500',
+        ' CST': ' -0600',
+        ' MDT': ' -0600',
+        ' MST': ' -0700',
+        ' PDT': ' -0700',
+        ' PST': ' -0800'
+    };
+    var military = 'YXWVUTSRQPONZABCDEFGHIKLM';
+    var timezone, timezoneIndex;
+
+    string = config._i
+        .replace(/\([^\)]*\)|[\n\t]/g, ' ') // Remove comments and folding whitespace
+        .replace(/(\s\s+)/g, ' ') // Replace multiple-spaces with a single space
+        .replace(/^\s|\s$/g, ''); // Remove leading and trailing spaces
+    match = basicRfcRegex.exec(string);
+
+    if (match) {
+        dayFormat = match[1] ? 'ddd' + ((match[1].length === 5) ? ', ' : ' ') : '';
+        dateFormat = 'D MMM ' + ((match[2].length > 10) ? 'YYYY ' : 'YY ');
+        timeFormat = 'HH:mm' + (match[4] ? ':ss' : '');
+
+        // TODO: Replace the vanilla JS Date object with an indepentent day-of-week check.
+        if (match[1]) { // day of week given
+            var momentDate = new Date(match[2]);
+            var momentDay = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][momentDate.getDay()];
+
+            if (match[1].substr(0,3) !== momentDay) {
+                getParsingFlags(config).weekdayMismatch = true;
+                config._isValid = false;
+                return;
+            }
+        }
+
+        switch (match[5].length) {
+            case 2: // military
+                if (timezoneIndex === 0) {
+                    timezone = ' +0000';
+                } else {
+                    timezoneIndex = military.indexOf(match[5][1].toUpperCase()) - 12;
+                    timezone = ((timezoneIndex < 0) ? ' -' : ' +') +
+                        (('' + timezoneIndex).replace(/^-?/, '0')).match(/..$/)[0] + '00';
+                }
+                break;
+            case 4: // Zone
+                timezone = timezones[match[5]];
+                break;
+            default: // UT or +/-9999
+                timezone = timezones[' GMT'];
+        }
+        match[5] = timezone;
+        config._i = match.splice(1).join('');
+        tzFormat = ' ZZ';
+        config._f = dayFormat + dateFormat + timeFormat + tzFormat;
+        configFromStringAndFormat(config);
+        getParsingFlags(config).rfc2822 = true;
+    } else {
+        config._isValid = false;
+    }
+}
+
 // date from iso format or fallback
 export function configFromString(config) {
     var matched = aspNetJsonRegex.exec(config._i);
@@ -105,13 +176,24 @@ export function configFromString(config) {
     configFromISO(config);
     if (config._isValid === false) {
         delete config._isValid;
-        hooks.createFromInputFallback(config);
+    } else {
+        return;
     }
+
+    configFromRFC2822(config);
+    if (config._isValid === false) {
+        delete config._isValid;
+    } else {
+        return;
+    }
+
+    // Final attempt, use Input Fallback
+    hooks.createFromInputFallback(config);
 }
 
 hooks.createFromInputFallback = deprecate(
-    'value provided is not in a recognized ISO format. moment construction falls back to js Date(), ' +
-    'which is not reliable across all browsers and versions. Non ISO date formats are ' +
+    'value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), ' +
+    'which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are ' +
     'discouraged and will be removed in an upcoming major release. Please refer to ' +
     'http://momentjs.com/guides/#/warnings/js-date/ for more info.',
     function (config) {
