@@ -43,7 +43,7 @@ export default moment.defineLocale('fr', {
         y : 'un an',
         yy : '%d ans'
     },
-    ordinalParse : /\d{1,2}(er|)/,
+    dayOfMonthOrdinalParse: /\d{1,2}(er|)/,
     ordinal : function (number, period) {
         switch (period) {
             // TODO: Return 'e' when day of month > 1. Move this case inside
