@@ -1,6 +1,8 @@
 //! moment.js locale configuration
 //! locale : German (Switzerland) [de-ch]
-//! based on: https://www.bk.admin.ch/dokumentation/sprachen/04915/05016/index.html?lang=de#
+//! author : sschueller : https://github.com/sschueller
+
+// based on: https://www.bk.admin.ch/dokumentation/sprachen/04915/05016/index.html?lang=de#
 
 import moment from '../moment';
 
