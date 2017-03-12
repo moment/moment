@@ -61,7 +61,7 @@ export default moment.defineLocale('gom-latn', {
         y : processRelativeTime,
         yy : processRelativeTime
     },
-    ordinalParse : /\d{1,2}(er)/,
+    dayOfMonthOrdinalParse : /\d{1,2}(er)/,
     ordinal : function (number, period) {
         switch (period) {
             // the ordinal 'er' only applies to day of the month
