@@ -3,8 +3,6 @@ import { createDuration } from '../duration/create';
 import { addSubtract } from '../moment/add-subtract';
 import { isMoment, copyConfig } from '../moment/constructor';
 import { addFormatToken } from '../format/format';
-// import { addRegexToken, matchOffset, matchShortOffset } from '../parse/regex';
-// import { addParseToken } from '../parse/token';
 import { createLocal } from '../create/local';
 import { prepareConfig } from '../create/from-anything';
 import { createUTC } from '../create/utc';
@@ -31,15 +29,6 @@ function offset (token, separator) {
 offset('Z', ':');
 offset('ZZ', '');
 
-// PARSING
-
-// addRegexToken('Z',  matchShortOffset);
-// addRegexToken('ZZ', matchShortOffset);
-// addParseToken(['Z', 'ZZ'], function (input, array, config) {
-//     config._useUTC = true;
-//     config._tzm = offsetFromString(matchShortOffset, input);
-// });
-
 // HELPERS
 
 // timezone chunker
@@ -47,7 +36,7 @@ offset('ZZ', '');
 // '-1530'  > ['-15', '30']
 var chunkOffset = /([\+\-]|\d\d)/gi;
 
-function offsetFromString(matcher, string) {
+export function offsetFromString(matcher, string) {
     var matches = (string || '').match(matcher);
 
     if (matches === null) {
