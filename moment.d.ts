@@ -709,4 +709,4 @@ declare namespace moment {
   export var defaultFormatUtc: string;
 }
 
-export = moment;
+export default moment;
