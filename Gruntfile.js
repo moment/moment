@@ -170,7 +170,7 @@ module.exports = function (grunt) {
                 command: 'cd meteor && meteor publish'
             },
             'typescript-test': {
-                command: 'node_modules/.bin/tsc --project typing-tests'
+                command: 'npm run typescript-test'
             }
         }
 
