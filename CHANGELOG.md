@@ -1,6 +1,27 @@
 Changelog
 =========
 
+### 2.18.0 [See full changelog](https://gist.github.com/ichernev/78920c5a1e419fb28c6e4546d1b7235c)
+
+* Release Mar 18, 2017
+
+## Features
+
+* [#3708](https://github.com/moment/moment/pull/3708) [feature] RFC2822 parsing
+* [#3611](https://github.com/moment/moment/pull/3611) [feature] Durations gain validity
+* [#3738](https://github.com/moment/moment/pull/3738) [feature] Enable relative time for multiple seconds, request [#2558](https://github.com/moment/moment/issues/2558)
+* [#3766](https://github.com/moment/moment/pull/3766) [feature] Add support for k and kk format parsing
+
+## Bugfixes
+
+* [#3643](https://github.com/moment/moment/pull/3643) [bugfix] Fixes [#3520](https://github.com/moment/moment/issues/3520), parseZone incorrectly handled minutes under 16
+* [#3710](https://github.com/moment/moment/pull/3710) [bugfix] Fixes [#3632](https://github.com/moment/moment/issues/3632), toISOString returns null for invalid date
+* [#3787](https://github.com/moment/moment/pull/3787) [bugfix] Fixes [#3717](https://github.com/moment/moment/issues/3717), ensure day-of-year is non-zero
+* [#3780](https://github.com/moment/moment/pull/3780) [bugfix] Fixes [#3765](https://github.com/moment/moment/issues/3765): Ensure year 0 is formatted with YYYY
+* [#3806](https://github.com/moment/moment/pull/3806) [bugfix] Fixes [#3805](https://github.com/moment/moment/issues/3805), fix locale month getters for standalone/format cases
+
+7 new locales, many locale improvements and some misc changes
+
 ### 2.17.1 [Also available here](https://gist.github.com/ichernev/f38280b2b29c4932914a6d3a4e50bfb2)
 * Release Dec 03, 2016
 
