@@ -7,12 +7,13 @@ import { addParseToken } from '../parse/token';
 import { hooks } from '../utils/hooks';
 import { YEAR } from './constants';
 import toInt from '../utils/to-int';
+import zeroFill from '../utils/zero-fill';
 
 // FORMATTING
 
 addFormatToken('Y', 0, 0, function () {
     var y = this.year();
-    return y <= 9999 ? '' + y : '+' + y;
+    return y <= 9999 ? zeroFill(y, 4) : '+' + y;
 });
 
 addFormatToken(0, ['YY', 2], 0, function () {
