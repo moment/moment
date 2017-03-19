@@ -9,7 +9,6 @@ import { ordinal } from './ordinal';
 import { preParsePostFormat } from './pre-post-format';
 import { relativeTime, pastFuture } from './relative';
 import { set } from './set';
-import wrap from '../utils/wrap';
 
 proto.calendar        = calendar;
 proto.longDateFormat  = longDateFormat;
@@ -19,7 +18,7 @@ proto.preparse        = preParsePostFormat;
 proto.postformat      = preParsePostFormat;
 proto.relativeTime    = relativeTime;
 proto.pastFuture      = pastFuture;
-proto.set             = wrap(Locale, set);
+proto.set             = set;
 
 // Month
 import {
