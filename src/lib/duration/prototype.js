@@ -15,8 +15,8 @@ import { isValid } from './valid';
 
 proto.isValid        = isValid;
 proto.abs            = abs;
-proto.add            = wrap(Duration, add);
-proto.subtract       = wrap(Duration, subtract);
+proto.add            = add;
+proto.subtract       = subtract;
 proto.as             = as;
 proto.asMilliseconds = asMilliseconds;
 proto.asSeconds      = asSeconds;

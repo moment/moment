@@ -1,7 +1,7 @@
 import { module, test } from '../qunit';
 import moment from '../../moment';
 
-module('invalid');
+module('duration invalid');
 
 test('invalid duration', function (assert) {
     var m = moment.duration.invalid(); // should be invalid
