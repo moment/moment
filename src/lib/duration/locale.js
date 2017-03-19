@@ -1,4 +1,4 @@
-import { Moment } from './constructor';
+import { Duration } from './constructor';
 import { getLocale } from '../locale/locales';
 
 // If passed a locale key, it will return a cloned instance that is set
@@ -10,7 +10,7 @@ export function locale (key) {
     if (key === undefined) {
         return this._locale._abbr;
     } else {
-        clone = new Moment(this);
+        clone = new Duration(this);
         newLocaleData = getLocale(key);
         if (newLocaleData != null) {
             clone._locale = newLocaleData;

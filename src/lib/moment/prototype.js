@@ -1,8 +1,4 @@
 import { Moment } from './constructor';
-import wrap from '../utils/wrap';
-
-var proto = Moment.prototype;
-
 import { add, subtract } from './add-subtract';
 import { calendar, getCalendarFormat } from './calendar';
 import { isBefore, isBetween, isSame, isAfter, isSameOrAfter, isSameOrBefore } from './compare';
@@ -17,7 +13,9 @@ import { startOf, endOf } from './start-end-of';
 import { valueOf, toDate, toArray, toObject, toJSON, unix } from './to-type';
 import { isValid, parsingFlags, invalidAt } from './valid';
 import { creationData } from './creation-data';
+import wrap from '../utils/wrap';
 
+var proto = Moment.prototype;
 proto.add            = wrap(Moment, add);
 proto.calendar       = calendar;
 proto.diff           = diff;
@@ -36,7 +34,7 @@ proto.isSame         = isSame;
 proto.isSameOrAfter  = isSameOrAfter;
 proto.isSameOrBefore = isSameOrBefore;
 proto.isValid        = isValid;
-proto.locale         = wrap(Moment, locale);
+proto.locale         = locale;
 proto.localeData     = localeData;
 proto.parsingFlags   = parsingFlags;
 proto.set            = wrap(Moment, stringSet);
@@ -147,7 +145,7 @@ proto.dates = deprecate(
     wrap(Moment, getSetDayOfMonth, true));
 proto.lang = deprecate(
     'moment().lang() is deprecated. Instead, use moment().localeData() to get the language configuration. Use moment().locale() to change languages.',
-    wrap(Moment, lang));
+    lang);
 proto.max = deprecate(
     'moment().max() is deprecated. Use moment.min() instead (notice lack of parentheses).',
     prototypeMax);
