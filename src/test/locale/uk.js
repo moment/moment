@@ -183,10 +183,15 @@ test('calendar next week', function (assert) {
     var i, m;
     for (i = 2; i < 7; i++) {
         m = moment().add({d: i});
-        assert.equal(m.calendar(),       m.format('[У] dddd [о' + (m.hours() === 11 ? 'б' : '') + '] LT'),  'Today + ' + i + ' days current time');
-        m.hours(0).minutes(0).seconds(0).milliseconds(0);
+        if (m.hours() === 11) {
+            m = m.hours(10);
+        }
+        assert.equal(m.calendar(),       m.format('[У] dddd [о] LT'),  'Today + ' + i + ' days current time');
+        m = m.hours(11);
+        assert.equal(m.calendar(),       m.format('[У] dddd [об] LT'),  'Today + ' + i + ' days 11:00 hour');
+        m = m.hours(0).minutes(0).seconds(0).milliseconds(0);
         assert.equal(m.calendar(),       m.format('[У] dddd [о] LT'),  'Today + ' + i + ' days beginning of day');
-        m.hours(23).minutes(59).seconds(59).milliseconds(999);
+        m = m.hours(23).minutes(59).seconds(59).milliseconds(999);
         assert.equal(m.calendar(),       m.format('[У] dddd [о] LT'),  'Today + ' + i + ' days end of day');
     }
 });
@@ -210,10 +215,15 @@ test('calendar last week', function (assert) {
 
     for (i = 2; i < 7; i++) {
         m = moment().subtract({d: i});
+        if (m.hours() === 11) {
+            m = m.hours(10);
+        }
         assert.equal(m.calendar(),       m.format(makeFormat(m)),  'Today - ' + i + ' days current time');
-        m.hours(0).minutes(0).seconds(0).milliseconds(0);
+        m = m.hours(11);
+        assert.equal(m.calendar(),       m.format(makeFormat(m)),  'Today - ' + i + ' days 11:00 hour');
+        m = m.hours(0).minutes(0).seconds(0).milliseconds(0);
         assert.equal(m.calendar(),       m.format(makeFormat(m)),  'Today - ' + i + ' days beginning of day');
-        m.hours(23).minutes(59).seconds(59).milliseconds(999);
+        m = m.hours(23).minutes(59).seconds(59).milliseconds(999);
         assert.equal(m.calendar(),       m.format(makeFormat(m)),  'Today - ' + i + ' days end of day');
     }
 });

@@ -28,7 +28,7 @@ test('moment manipulation methods', function (assert) {
 
 test('duration manipulation methods', function (assert) {
     var d = moment.duration({months: 2, weeks: 2, days: 0, hours: 5});
-    
+
     assert.notEqual(d, moment.duration(d), 'constructor should return a new duration');
     assert.notEqual(d, d.abs(), 'abs() should return a new duration');
     assert.notEqual(d, d.add(1, 'days'), 'add() should return a new duration');

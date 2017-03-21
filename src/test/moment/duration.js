@@ -681,7 +681,7 @@ test('subtract', function (assert) {
 test('abs', function (assert) {
     var d = moment.duration({months: 2, weeks: 2, hours: 5});
     assert.equal(+d.abs(), +d);
-    
+
     d = moment.duration({months: -2, weeks: -2, hours: -5});
     assert.equal(+d.abs(), -d);
 });
