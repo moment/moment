@@ -1,6 +1,13 @@
 Changelog
 =========
 
+### 2.18.1
+
+* Release Mar 22, 2017
+
+* [#3853](https://github.com/moment/moment/pull/3853) [misc] Fix invalid whitespace character causing inability to parse
+  moment.js
+
 ### 2.18.0 [See full changelog](https://gist.github.com/ichernev/78920c5a1e419fb28c6e4546d1b7235c)
 
 * Release Mar 18, 2017
