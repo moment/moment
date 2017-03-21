@@ -678,6 +678,14 @@ test('subtract', function (assert) {
     assert.equal(d._milliseconds, 3 * 60 * 60 * 1000 + 1 * 60 * 1000 - 10000, 'Subtract hour:minute');
 });
 
+test('abs', function (assert) {
+    var d = moment.duration({months: 2, weeks: 2, hours: 5});
+    assert.equal(+d.abs(), +d);
+    
+    d = moment.duration({months: -2, weeks: -2, hours: -5});
+    assert.equal(+d.abs(), -d);
+});
+
 test('JSON.stringify duration', function (assert) {
     var d = moment.duration(1024, 'h');
 
