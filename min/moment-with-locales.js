@@ -352,7 +352,7 @@ function set (config) {
     // number + (possibly) stuff coming from _dayOfMonthOrdinalParse.
     // TODO: Remove "ordinalParse" fallback in next major release.
     this._dayOfMonthOrdinalParseLenient = new RegExp(
-        (this._dayOfMonthOrdinalParse.source || this._ordinalParse.source) +
+        (this._dayOfMonthOrdinalParse.source || this._ordinalParse.source) +
             '|' + (/\d{1,2}/).source);
 }
 
@@ -4420,12 +4420,12 @@ addParseToken('x', function (input, array, config) {
 // Side effect imports
 
 //! moment.js
-//! version : 2.18.0
+//! version : 2.18.1
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
 
-hooks.version = '2.18.0';
+hooks.version = '2.18.1';
 
 setHookCallback(createLocal);
 
