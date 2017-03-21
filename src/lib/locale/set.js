@@ -18,7 +18,7 @@ export function set (config) {
     // number + (possibly) stuff coming from _dayOfMonthOrdinalParse.
     // TODO: Remove "ordinalParse" fallback in next major release.
     this._dayOfMonthOrdinalParseLenient = new RegExp(
-        (this._dayOfMonthOrdinalParse.source || this._ordinalParse.source) +
+        (this._dayOfMonthOrdinalParse.source || this._ordinalParse.source) +
             '|' + (/\d{1,2}/).source);
 }
 
