@@ -1,3 +1,4 @@
+import { Moment } from './constructor';
 import { get, set } from './get-set';
 import { setMonth } from '../units/month';
 import { createDuration } from '../duration/create';
@@ -36,13 +37,14 @@ export function addSubtract (mom, duration, isAdding, updateOffset) {
     updateOffset = updateOffset == null ? true : updateOffset;
 
     if (milliseconds) {
+        mom = new Moment(mom);
         mom._d.setTime(mom._d.valueOf() + milliseconds * isAdding);
     }
     if (days) {
-        set(mom, 'Date', get(mom, 'Date') + days * isAdding);
+        mom = set(mom, 'Date', get(mom, 'Date') + days * isAdding);
     }
     if (months) {
-        setMonth(mom, get(mom, 'Month') + months * isAdding);
+        mom = setMonth(mom, get(mom, 'Month') + months * isAdding);
     }
     if (updateOffset) {
         mom = hooks.updateOffset(mom, days || months);
@@ -52,4 +54,3 @@ export function addSubtract (mom, duration, isAdding, updateOffset) {
 
 export var add      = createAdder(1, 'add');
 export var subtract = createAdder(-1, 'subtract');
-

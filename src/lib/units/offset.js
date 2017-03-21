@@ -108,41 +108,42 @@ hooks.updateOffset = function (m) {
 // _changeInProgress == true case, then we have to adjust, because
 // there is no such time in the given timezone.
 export function getSetOffset (input, keepLocalTime, keepMinutes) {
-    var offset = this._offset || 0,
+    var mom = this,
+        offset = mom._offset || 0,
         localAdjust;
-    if (!this.isValid()) {
-        return input != null ? this : NaN;
+    if (!mom.isValid()) {
+        return input != null ? mom : NaN;
     }
     if (input != null) {
-        var ret = this;
         if (typeof input === 'string') {
             input = offsetFromString(matchShortOffset, input);
             if (input === null) {
-                return this;
+                return mom;
             }
         } else if (Math.abs(input) < 16 && !keepMinutes) {
             input = input * 60;
         }
-        if (!ret._isUTC && keepLocalTime) {
-            localAdjust = getDateOffset(ret);
+        if (!mom._isUTC && keepLocalTime) {
+            localAdjust = getDateOffset(mom);
         }
-        ret._offset = input;
-        ret._isUTC = true;
+        mom = new Moment(mom);
+        mom._offset = input;
+        mom._isUTC = true;
         if (localAdjust != null) {
-            ret = ret.add(localAdjust, 'm');
+            mom = mom.add(localAdjust, 'm');
         }
         if (offset !== input) {
-            if (!keepLocalTime || ret._changeInProgress) {
-                ret = addSubtract(ret, createDuration(input - offset, 'm'), 1, false);
-            } else if (!ret._changeInProgress) {
-                ret._changeInProgress = true;
-                ret = hooks.updateOffset(ret, true);
-                ret._changeInProgress = null;
+            if (!keepLocalTime || mom._changeInProgress) {
+                mom = addSubtract(mom, createDuration(input - offset, 'm'), 1, false);
+            } else if (!mom._changeInProgress) {
+                mom._changeInProgress = true;
+                mom = hooks.updateOffset(mom, true);
+                mom._changeInProgress = null;
             }
         }
-        return ret;
+        return mom;
     } else {
-        return this._isUTC ? offset : getDateOffset(this);
+        return mom._isUTC ? offset : getDateOffset(mom);
     }
 }
 

@@ -13,13 +13,12 @@ import { startOf, endOf } from './start-end-of';
 import { valueOf, toDate, toArray, toObject, toJSON, unix } from './to-type';
 import { isValid, parsingFlags, invalidAt } from './valid';
 import { creationData } from './creation-data';
-import wrap from '../utils/wrap';
 
 var proto = Moment.prototype;
-proto.add            = wrap(Moment, add);
+proto.add            = add;
 proto.calendar       = calendar;
 proto.diff           = diff;
-proto.endOf          = wrap(Moment, endOf);
+proto.endOf          = endOf;
 proto.format         = format;
 proto.from           = from;
 proto.fromNow        = fromNow;
@@ -37,9 +36,9 @@ proto.isValid        = isValid;
 proto.locale         = locale;
 proto.localeData     = localeData;
 proto.parsingFlags   = parsingFlags;
-proto.set            = wrap(Moment, stringSet);
-proto.startOf        = wrap(Moment, startOf);
-proto.subtract       = wrap(Moment, subtract);
+proto.set            = stringSet;
+proto.startOf        = startOf;
+proto.subtract       = subtract;
 proto.toArray        = toArray;
 proto.toObject       = toObject;
 proto.toDate         = toDate;
@@ -53,27 +52,27 @@ proto.creationData   = creationData;
 
 // Year
 import { getSetYear, getIsLeapYear } from '../units/year';
-proto.year       = wrap(Moment, getSetYear, true);
+proto.year       = getSetYear;
 proto.isLeapYear = getIsLeapYear;
 
 // Week Year
 import { getSetWeekYear, getSetISOWeekYear, getWeeksInYear, getISOWeeksInYear } from '../units/week-year';
-proto.weekYear    = wrap(Moment, getSetWeekYear, true);
-proto.isoWeekYear = wrap(Moment, getSetISOWeekYear, true);
+proto.weekYear    = getSetWeekYear;
+proto.isoWeekYear = getSetISOWeekYear;
 
 // Quarter
 import { getSetQuarter } from '../units/quarter';
-proto.quarter = proto.quarters = wrap(Moment, getSetQuarter, true);
+proto.quarter = proto.quarters = getSetQuarter;
 
 // Month
 import { getSetMonth, getDaysInMonth } from '../units/month';
-proto.month       = wrap(Moment, getSetMonth, true);
+proto.month       = getSetMonth;
 proto.daysInMonth = getDaysInMonth;
 
 // Week
 import { getSetWeek, getSetISOWeek } from '../units/week';
-proto.week    = proto.weeks    = wrap(Moment, getSetWeek, true);
-proto.isoWeek = proto.isoWeeks = wrap(Moment, getSetISOWeek, true);
+proto.week    = proto.weeks    = getSetWeek;
+proto.isoWeek = proto.isoWeeks = getSetISOWeek;
 proto.weeksInYear              = getWeeksInYear;
 proto.isoWeeksInYear           = getISOWeeksInYear;
 
@@ -81,27 +80,27 @@ proto.isoWeeksInYear           = getISOWeeksInYear;
 import { getSetDayOfMonth } from '../units/day-of-month';
 import { getSetDayOfWeek, getSetISODayOfWeek, getSetLocaleDayOfWeek } from '../units/day-of-week';
 import { getSetDayOfYear } from '../units/day-of-year';
-proto.date             = wrap(Moment, getSetDayOfMonth, true);
-proto.day = proto.days = wrap(Moment, getSetDayOfWeek, true);
-proto.weekday          = wrap(Moment, getSetLocaleDayOfWeek, true);
-proto.isoWeekday       = wrap(Moment, getSetISODayOfWeek, true);
-proto.dayOfYear        = wrap(Moment, getSetDayOfYear, true);
+proto.date             = getSetDayOfMonth;
+proto.day = proto.days = getSetDayOfWeek;
+proto.weekday          = getSetLocaleDayOfWeek;
+proto.isoWeekday       = getSetISODayOfWeek;
+proto.dayOfYear        = getSetDayOfYear;
 
 // Hour
 import { getSetHour } from '../units/hour';
-proto.hour = proto.hours = wrap(Moment, getSetHour, true);
+proto.hour = proto.hours = getSetHour;
 
 // Minute
 import { getSetMinute } from '../units/minute';
-proto.minute = proto.minutes = wrap(Moment, getSetMinute, true);
+proto.minute = proto.minutes = getSetMinute;
 
 // Second
 import { getSetSecond } from '../units/second';
-proto.second = proto.seconds = wrap(Moment, getSetSecond, true);
+proto.second = proto.seconds = getSetSecond;
 
 // Millisecond
 import { getSetMillisecond } from '../units/millisecond';
-proto.millisecond = proto.milliseconds = wrap(Moment, getSetMillisecond, true);
+proto.millisecond = proto.milliseconds = getSetMillisecond;
 
 // Offset
 import {
@@ -117,10 +116,10 @@ import {
     isUtcOffset,
     isUtc
 } from '../units/offset';
-proto.utcOffset            = wrap(Moment, getSetOffset, true);
-proto.utc                  = wrap(Moment, setOffsetToUTC);
-proto.local                = wrap(Moment, setOffsetToLocal);
-proto.parseZone            = wrap(Moment, setOffsetToParsedOffset);
+proto.utcOffset            = getSetOffset;
+proto.utc                  = setOffsetToUTC;
+proto.local                = setOffsetToLocal;
+proto.parseZone            = setOffsetToParsedOffset;
 proto.hasAlignedHourOffset = hasAlignedHourOffset;
 proto.isDST                = isDaylightSavingTime;
 proto.isLocal              = isLocal;
@@ -142,7 +141,7 @@ proto.clone = deprecate(
     });
 proto.dates = deprecate(
     'dates accessor is deprecated. Use date instead.',
-    wrap(Moment, getSetDayOfMonth, true));
+    getSetDayOfMonth);
 proto.lang = deprecate(
     'moment().lang() is deprecated. Instead, use moment().localeData() to get the language configuration. Use moment().locale() to change languages.',
     lang);
@@ -154,13 +153,13 @@ proto.min = deprecate(
     prototypeMin);
 proto.months = deprecate(
     'months accessor is deprecated. Use month instead',
-    wrap(Moment, getSetMonth, true));
+    getSetMonth);
 proto.years = deprecate(
     'years accessor is deprecated. Use year instead',
-    wrap(Moment, getSetYear, true));
+    getSetYear);
 proto.zone = deprecate(
     'moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/',
-    wrap(Moment, getSetZone, true));
+    getSetZone);
 proto.isDSTShifted = deprecate(
     'isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information',
     isDaylightSavingTimeShifted);

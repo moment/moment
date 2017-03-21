@@ -1,3 +1,4 @@
+import { Moment } from '../moment/constructor';
 import { get } from '../moment/get-set';
 import hasOwnProp from '../utils/has-own-prop';
 import { addFormatToken } from '../format/format';
@@ -186,14 +187,15 @@ export function setMonth (mom, value) {
     }
 
     dayOfMonth = Math.min(mom.date(), daysInMonth(mom.year(), value));
+    mom = new Moment(mom);
     mom._d['set' + (mom._isUTC ? 'UTC' : '') + 'Month'](value, dayOfMonth);
     return mom;
 }
 
 export function getSetMonth (value) {
     if (value != null) {
-        setMonth(this, value);
-        return hooks.updateOffset(this, true);
+        var mom = setMonth(this, value);
+        return hooks.updateOffset(mom, true);
     } else {
         return get(this, 'Month');
     }

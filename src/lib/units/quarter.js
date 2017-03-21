@@ -25,7 +25,10 @@ addParseToken('Q', function (input, array) {
 // MOMENTS
 
 export function getSetQuarter (input) {
-    return input == null ? Math.ceil((this.month() + 1) / 3) : getSetMonth.call(this, (input - 1) * 3 + this.month() % 3);
+    if (input == null) {
+        return Math.ceil((this.month() + 1) / 3);
+    }
+    return getSetMonth.call(this, (input - 1) * 3 + this.month() % 3);
 }
 
 // PRIORITY
