@@ -34,3 +34,35 @@ test('duration manipulation methods', function (assert) {
     assert.notEqual(d, d.add(1, 'days'), 'add() should return a new duration');
     assert.notEqual(d, d.subtract(2, 'years'), 'subtract() should return a new duration');
 });
+
+test('moment freeze', function (assert) {
+    'use strict';
+    var mom = moment([2017, 2, 21, 0, 6, 54]);
+    var frozen = Object.freeze(mom);
+    assert.equal(mom.valueOf(), frozen.valueOf(), 'Object.freeze should not affect moment#valueOf');
+    assert.equal(mom.isValid(), frozen.isValid(), 'Object.freeze should not affect moment#isValid');
+    assert.equal(mom.year(), frozen.year(), 'Object.freeze should not affect moment#year getter');
+    assert.equal(mom.day(), frozen.day(), 'Object.freeze should not affect moment#day getter');
+    assert.equal(+mom.add(1, 'month'), +frozen.add(1, 'month'), 'Object.freeze should not affect moment#add');
+    assert.equal(+mom.endOf('month'), +frozen.endOf('month'), 'Object.freeze should not affect moment#endOf');
+});
+
+test('duration freeze', function (assert) {
+    'use strict';
+    var duration = moment.duration({months: 2, weeks: 2, days: 0, hours: 5});
+    var frozen = Object.freeze(duration);
+    assert.equal(duration.valueOf(), frozen.valueOf(), 'Object.freeze should not affect duration#valueOf');
+    assert.equal(duration.isValid(), frozen.isValid(), 'Object.freeze should not affect duration#isValid');
+    assert.equal(duration.weeks(), frozen.weeks(), 'Object.freeze should not affect duration#weeks getter');
+    assert.equal(+duration.add(1, 'month'), +frozen.add(1, 'month'), 'Object.freeze should not affect duration#add');
+    assert.equal(+duration.abs(), +frozen.abs(), 'Object.freeze should not affect duration#abs');
+});
+
+test('locale', function (assert) {
+    var locale = moment.localeData();
+    var afterSet = locale.set('weekdays', ['January','February','March','April','May','June','July']);
+    assert.notEqual(locale, afterSet, 'set() should return a new locale');
+
+    var frozenSet = Object.freeze(locale).set('weekdays', ['January','February','March','April','May','June','July']);
+    assert.deepEqual(afterSet, frozenSet);
+});
