@@ -22,7 +22,7 @@ export function get (mom, unit) {
 }
 
 export function set (mom, unit, value) {
-    if (mom.isValid()) {
+    if (!isNaN(value) && mom.isValid()) {
         mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
     }
 }
