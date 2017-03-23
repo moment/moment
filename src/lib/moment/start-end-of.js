@@ -55,5 +55,12 @@ export function endOf (units) {
         units = 'day';
     }
 
-    return this.startOf(units).add(1, (units === 'isoWeek' ? 'week' : units)).subtract(1, 'ms');
+    var firstAim = this.startOf(units).add(1, (units === 'isoWeek' ? 'week' : units));
+    var isMidnight = this.hours() === 0 && this.minutes() === 0;
+
+    if (isMidnight) {
+        return firstAim.subtract(1, 'ms');
+    }
+
+    return firstAim.startOf(units).subtract(1, 'ms');
 }
