@@ -102,6 +102,19 @@ test('diff month', function (assert) {
     assert.equal(moment([2011, 0, 31]).diff([2011, 2, 1], 'months'), -1, 'month diff');
 });
 
+test('diff all key', function (assert) {
+    assert.deepEqual(
+        moment([2015,8,8,5,5,5,550]).diff([2000,6,10],'all'),
+        {years: 15, months: 1, days: 29, hours: 5, minutes: 5, seconds: 5, milliseconds: 550},
+        'Correct value for each unit'
+    );
+    assert.deepEqual(
+        moment([2000,6,10]).diff([2015,8,8,5,5,5,550],'all'),
+        {years: -15, months: -1, days: -29, hours: -5, minutes: -5, seconds: -5, milliseconds: -550},
+        'Negative values when base moment is the earlier date'
+    );
+});
+
 test('diff across DST', function (assert) {
     var dst = dstForYear(2012), a, b, daysInMonth;
     if (!dst) {
@@ -157,6 +170,11 @@ test('diff across DST', function (assert) {
             'year diff across DST, lower bound');
     assert.ok(b.diff(a, 'year', true) < 1.05 / (2 * 28 * 12),
             'year diff across DST, upper bound');
+
+    assert.deepEqual(
+        b.diff(a,'all'),
+        {years: 0, months: 0, days: 0, hours: (12 + dst.diff), minutes: 0, seconds: 0, milliseconds: 0},
+        'Daylight savings effects result until next month begins');
 });
 
 test('diff overflow', function (assert) {
