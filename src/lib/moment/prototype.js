@@ -85,13 +85,15 @@ proto.isoWeeksInYear = getISOWeeksInYear;
 
 // Day
 import { getSetDayOfMonth } from '../units/day-of-month';
-import { getSetDayOfWeek, getSetISODayOfWeek, getSetLocaleDayOfWeek } from '../units/day-of-week';
+import { getSetDayOfWeek, getSetISODayOfWeek, getSetLocaleDayOfWeek, getSetNext, getSetPrevious } from '../units/day-of-week';
 import { getSetDayOfYear } from '../units/day-of-year';
 proto.date       = getSetDayOfMonth;
 proto.day        = proto.days             = getSetDayOfWeek;
 proto.weekday    = getSetLocaleDayOfWeek;
 proto.isoWeekday = getSetISODayOfWeek;
 proto.dayOfYear  = getSetDayOfYear;
+proto.next       = getSetNext;
+proto.previous   = getSetPrevious;
 
 // Hour
 import { getSetHour } from '../units/hour';

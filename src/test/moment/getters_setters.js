@@ -240,6 +240,28 @@ test('day setter', function (assert) {
     assert.equal(moment(a).day(17).date(), 26, 'set from wednesday to second next wednesday');
 });
 
+test('next day setter', function (assert) {
+    var a = moment([2016, 9, 13]);
+    assert.equal(moment(a).next().date(), 20, 'set from thursday to thursday one week later');
+    assert.equal(moment(a).next(0).date(), 16, 'set from thursday to sunday');
+    assert.equal(moment(a).next(5).date(), 14, 'set from thursday to immediate next friday');
+
+    assert.equal(moment(a).next(0,1).date(), 23, 'set from thursday to sunday one week from now');
+    assert.equal(moment(a).next(4,2).date(), 3, 'set from thursday to thursday in two weeks');
+    assert.equal(moment(a).next(14,1).date(), 23, 'set from thursday to the second sunday from then');
+});
+
+test('previous day setter', function (assert) {
+    var a = moment([2016, 9, 13]);
+    assert.equal(moment(a).previous().date(), 6, 'set from thursday to thursday one week before');
+    assert.equal(moment(a).previous(0).date(), 9, 'set from thursday to last sunday');
+    assert.equal(moment(a).previous(5).date(), 7, 'set from thursday to last friday');
+
+    assert.equal(moment(a).previous(0,1).date(), 2, 'set from thursday to sunday one week before');
+    assert.equal(moment(a).previous(4,2).date(), 22, 'set from thursday to thursday in two weeks');
+    assert.equal(moment(a).previous(14,1).date(), 2, 'set from thursday to the second sunday from then');
+});
+
 test('object set ordering', function (assert) {
     var a = moment([2016,3,30]);
     assert.equal(a.set({date:31, month:4}).date(), 31, 'setter order automatically arranged by size');
