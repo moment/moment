@@ -71,6 +71,10 @@
     },
     "ender": "./ender.js",
     "dojoBuild": "package.js",
+    "files": [
+        "moment.js",
+        "locale"
+    ],
     "jspm": {
         "files": [
             "moment.js",
