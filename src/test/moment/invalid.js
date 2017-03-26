@@ -43,21 +43,21 @@ test('invalid operations', function (assert) {
         invalid = invalids[i];
 
         assert.ok(!invalid.clone().add(5, 'hours').isValid(), 'invalid.add is invalid');
-        assert.equal(invalid.calendar(), 'Invalid date', 'invalid.calendar is \'Invalid date\'');
+        assert.equal(invalid.calendar(), null, 'invalid.calendar is \'Invalid date\'');
         assert.ok(!invalid.clone().isValid(), 'invalid.clone is invalid');
         assert.ok(isNaN(invalid.diff(valid)), 'invalid.diff(valid) is NaN');
         assert.ok(isNaN(valid.diff(invalid)), 'valid.diff(invalid) is NaN');
         assert.ok(isNaN(invalid.diff(invalid)), 'invalid.diff(invalid) is NaN');
         assert.ok(!invalid.clone().endOf('month').isValid(), 'invalid.endOf is invalid');
-        assert.equal(invalid.format(), 'Invalid date', 'invalid.format is \'Invalid date\'');
-        assert.equal(invalid.from(), 'Invalid date');
-        assert.equal(invalid.from(valid), 'Invalid date');
-        assert.equal(valid.from(invalid), 'Invalid date');
-        assert.equal(invalid.fromNow(), 'Invalid date');
-        assert.equal(invalid.to(), 'Invalid date');
-        assert.equal(invalid.to(valid), 'Invalid date');
-        assert.equal(valid.to(invalid), 'Invalid date');
-        assert.equal(invalid.toNow(), 'Invalid date');
+        assert.equal(invalid.format(), null, 'invalid.format is \'Invalid date\'');
+        assert.equal(invalid.from(), null);
+        assert.equal(invalid.from(valid), null);
+        assert.equal(valid.from(invalid), null);
+        assert.equal(invalid.fromNow(), null);
+        assert.equal(invalid.to(), null);
+        assert.equal(invalid.to(valid), null);
+        assert.equal(valid.to(invalid), null);
+        assert.equal(invalid.toNow(), null);
         assert.ok(isNaN(invalid.get('year')), 'invalid.get is NaN');
         // TODO invalidAt
         assert.ok(!invalid.isAfter(valid));
@@ -102,7 +102,7 @@ test('invalid operations', function (assert) {
         assert.ok(moment.isDate(invalid.toDate()));
         assert.ok(isNaN(invalid.toDate().valueOf()));
         assert.equal(invalid.toJSON(), null);
-        assert.equal(invalid.toString(), 'Invalid date');
+        assert.equal(invalid.toString(), null);
         assert.ok(isNaN(invalid.unix()));
         assert.ok(isNaN(invalid.valueOf()));
 

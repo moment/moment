@@ -165,10 +165,10 @@ test('string with format dropped am/pm bug', function (assert) {
 });
 
 test('empty string with formats', function (assert) {
-    assert.equal(moment('', 'MM').format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
-    assert.equal(moment(' ', 'MM').format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
-    assert.equal(moment(' ', 'DD').format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
-    assert.equal(moment(' ', ['MM', 'DD']).format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
+    assert.equal(moment('', 'MM').format('YYYY-MM-DD HH:mm:ss'), null);
+    assert.equal(moment(' ', 'MM').format('YYYY-MM-DD HH:mm:ss'), null);
+    assert.equal(moment(' ', 'DD').format('YYYY-MM-DD HH:mm:ss'), null);
+    assert.equal(moment(' ', ['MM', 'DD']).format('YYYY-MM-DD HH:mm:ss'), null);
 
     assert.ok(!moment('', 'MM').isValid());
     assert.ok(!moment(' ', 'MM').isValid());
@@ -177,9 +177,9 @@ test('empty string with formats', function (assert) {
 });
 
 test('undefined argument with formats', function (assert) {
-    assert.equal(moment(undefined, 'MM').format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
-    assert.equal(moment(undefined, 'DD').format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
-    assert.equal(moment(undefined, ['MM', 'DD']).format('YYYY-MM-DD HH:mm:ss'), 'Invalid date');
+    assert.equal(moment(undefined, 'MM').format('YYYY-MM-DD HH:mm:ss'), null);
+    assert.equal(moment(undefined, 'DD').format('YYYY-MM-DD HH:mm:ss'), null);
+    assert.equal(moment(undefined, ['MM', 'DD']).format('YYYY-MM-DD HH:mm:ss'), null);
 
     assert.ok(!moment(undefined, 'MM').isValid());
     assert.ok(!moment(undefined, 'MM').isValid());
@@ -392,8 +392,8 @@ test('string with array of formats', function (assert) {
     assert.equal(moment('11-02-10 junk', ['MM-DD-YY', 'YY.MM.DD [junk]']).format('MM DD YYYY'), '02 10 2011', 'prefer formats that dont result in extra characters');
     assert.equal(moment('11-22-10', ['YY-MM-DD', 'YY-DD-MM']).format('MM DD YYYY'), '10 22 2011', 'prefer valid results');
 
-    assert.equal(moment('gibberish', ['YY-MM-DD', 'YY-DD-MM']).format('MM DD YYYY'), 'Invalid date', 'doest throw for invalid strings');
-    assert.equal(moment('gibberish', []).format('MM DD YYYY'), 'Invalid date', 'doest throw for an empty array');
+    assert.equal(moment('gibberish', ['YY-MM-DD', 'YY-DD-MM']).format('MM DD YYYY'), null, 'doest throw for invalid strings');
+    assert.equal(moment('gibberish', []).format('MM DD YYYY'), null, 'doest throw for an empty array');
 
     // https://github.com/moment/moment/issues/1143
     assert.equal(moment(

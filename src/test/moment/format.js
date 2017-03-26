@@ -387,8 +387,8 @@ test('calendar with custom formats', function (assert) {
 });
 
 test('invalid', function (assert) {
-    assert.equal(moment.invalid().format(), 'Invalid date');
-    assert.equal(moment.invalid().format('YYYY-MM-DD'), 'Invalid date');
+    assert.equal(moment.invalid().format(), null);
+    assert.equal(moment.invalid().format('YYYY-MM-DD'), null);
 });
 
 test('quarter formats', function (assert) {
