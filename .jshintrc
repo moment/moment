@@ -24,7 +24,7 @@
     "strict"   : false,
     "white"    : true,
     "es3"      : false,
-    "camelcase" : true,
+    "camelcase": true,
     "globals": {
         "define": false
     }
