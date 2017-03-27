@@ -77,9 +77,10 @@ proto.month       = getSetMonth;
 proto.daysInMonth = getDaysInMonth;
 
 // Week
-import { getSetWeek, getSetISOWeek } from '../units/week';
+import { getSetWeek, getSetISOWeek, getWeekOfMonth } from '../units/week';
 proto.week           = proto.weeks        = getSetWeek;
 proto.isoWeek        = proto.isoWeeks     = getSetISOWeek;
+proto.weekOfMonth    = getWeekOfMonth;
 proto.weeksInYear    = getWeeksInYear;
 proto.isoWeeksInYear = getISOWeeksInYear;
 

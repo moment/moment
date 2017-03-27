@@ -61,6 +61,10 @@ export function getSetWeek (input) {
     return input == null ? week : this.add((input - week) * 7, 'd');
 }
 
+export function getWeekOfMonth (input) {
+    return this.week() - this.startOf('month').week() + 1;
+}
+
 export function getSetISOWeek (input) {
     var week = weekOfYear(this, 1, 4).week;
     return input == null ? week : this.add((input - week) * 7, 'd');
