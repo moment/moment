@@ -137,6 +137,7 @@ test('library localeData', function (assert) {
     assert.equal(moment.localeData().months(jan), 'January', 'no arguments returns global');
     assert.equal(moment.localeData('zh-cn').months(jan), '一月', 'a string returns the locale based on key');
     assert.equal(moment.localeData(moment().locale('es')).months(jan), 'enero', 'if you pass in a moment it uses the moment\'s locale');
+    assert.equal(moment.localeData(moment().locale('el')).months(jan), 'Ιανουάριος', 'should return the localized month name like other languages');
 });
 
 test('library deprecations', function (assert) {
