@@ -6,3 +6,5 @@ node_modules
 scripts
 tasks
 test
+min
+benchmarks
