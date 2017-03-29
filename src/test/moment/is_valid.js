@@ -15,6 +15,12 @@ test('array good month', function (assert) {
     }
 });
 
+test('Feb 29 0000 is valid', function (assert) {
+    // https://github.com/moment/moment/issues/3358
+    assert.ok(moment({year:0, month:1, date:29}).isValid(), 'Feb 29 0000 must be valid');
+    assert.ok(moment({year:0, month:1, date:28}).add(1, 'd').isValid(), 'Feb 28 0000 + 1 day must be valid');
+});
+
 test('array bad date', function (assert) {
     var tests = [
         moment([2010, 0, 0]),
