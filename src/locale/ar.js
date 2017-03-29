@@ -111,7 +111,7 @@ export default moment.defineLocale('ar', {
         yy : pluralize('y')
     },
     preparse: function (string) {
-        return string.replace(/\u200f/g, '').replace(/[١٢٣٤٥٦٧٨٩٠]/g, function (match) {
+        return string.replace(/[١٢٣٤٥٦٧٨٩٠]/g, function (match) {
             return numberMap[match];
         }).replace(/،/g, ',');
     },
@@ -125,4 +125,3 @@ export default moment.defineLocale('ar', {
         doy : 12  // The week that contains Jan 1st is the first week of the year.
     }
 });
-
