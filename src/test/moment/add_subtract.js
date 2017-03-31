@@ -350,21 +350,21 @@ test('add across DST', function (assert) {
 });
 
 test('add decimal values of days and months', function (assert) {
-    assert.equal(moment([2016,3,3]).add(1.5, 'days').date(), 5, 'adding 1.5 days is rounded to adding 2 day');
-    assert.equal(moment([2016,3,3]).add(-1.5, 'days').date(), 1, 'adding -1.5 days is rounded to adding -2 day');
-    assert.equal(moment([2016,3,1]).add(-1.5, 'days').date(), 30, 'adding -1.5 days on first of month wraps around');
-    assert.equal(moment([2016,3,3]).add(1.5, 'months').month(), 5, 'adding 1.5 months adds 2 months');
-    assert.equal(moment([2016,3,3]).add(-1.5, 'months').month(), 1, 'adding -1.5 months adds -2 months');
-    assert.equal(moment([2016,0,3]).add(-1.5, 'months').month(), 10, 'adding -1.5 months at start of year wraps back');
-    assert.equal(moment([2016,3,3]).subtract(1.5, 'days').date(),1, 'subtract 1.5 days is rounded to subtract 2 day');
-    assert.equal(moment([2016,3,2]).subtract(1.5, 'days').date(), 31, 'subtract 1.5 days subtracts 2 days');
-    assert.equal(moment([2016,1,1]).subtract(1.1, 'days').date(), 31, 'subtract 1.1 days wraps to previous month');
-    assert.equal(moment([2016,3,3]).subtract(-1.5, 'days').date(), 5, 'subtract -1.5 days is rounded to subtract -2 day');
-    assert.equal(moment([2016,3,30]).subtract(-1.5, 'days').date(), 2, 'subtract -1.5 days on last of month wraps around');
-    assert.equal(moment([2016,3,3]).subtract(1.5, 'months').month(), 1, 'subtract 1.5 months subtract 2 months');
-    assert.equal(moment([2016,3,3]).subtract(-1.5, 'months').month(), 5, 'subtract -1.5 months subtract -2 month');
-    assert.equal(moment([2016,11,31]).subtract(-1.5, 'months').month(),1, 'subtract -1.5 months at end of year wraps back');
-    assert.equal(moment([2016, 0,1]).add(1.5, 'years').format('YYYY-MM-DD'), '2017-07-01', 'add 1.5 years adds 1 year six months');
-    assert.equal(moment([2016, 0,1]).add(1.6, 'years').format('YYYY-MM-DD'), '2017-08-01', 'add 1.6 years becomes 1.6*12 = 19.2, round, 19 months');
-    assert.equal(moment([2016,0,1]).add(1.1, 'quarters').format('YYYY-MM-DD'), '2016-04-01', 'add 1.1 quarters 1.1*3=3.3, round, 3 months');
+    assert.equal(moment([2016, 3, 3]).add(1.5, 'days').date(), 5, 'adding 1.5 days is rounded to adding 2 day');
+    assert.equal(moment([2016, 3, 3]).add(-1.5, 'days').date(), 1, 'adding -1.5 days is rounded to adding -2 day');
+    assert.equal(moment([2016, 3, 1]).add(-1.5, 'days').date(), 30, 'adding -1.5 days on first of month wraps around');
+    assert.equal(moment([2016, 3, 3]).add(1.5, 'months').month(), 5, 'adding 1.5 months adds 2 months');
+    assert.equal(moment([2016, 3, 3]).add(-1.5, 'months').month(), 1, 'adding -1.5 months adds -2 months');
+    assert.equal(moment([2016, 0, 3]).add(-1.5, 'months').month(), 10, 'adding -1.5 months at start of year wraps back');
+    assert.equal(moment([2016, 3, 3]).subtract(1.5, 'days').date(), 1, 'subtract 1.5 days is rounded to subtract 2 day');
+    assert.equal(moment([2016, 3, 2]).subtract(1.5, 'days').date(), 31, 'subtract 1.5 days subtracts 2 days');
+    assert.equal(moment([2016, 1, 1]).subtract(1.1, 'days').date(), 31, 'subtract 1.1 days wraps to previous month');
+    assert.equal(moment([2016, 3, 3]).subtract(-1.5, 'days').date(), 5, 'subtract -1.5 days is rounded to subtract -2 day');
+    assert.equal(moment([2016, 3, 30]).subtract(-1.5, 'days').date(), 2, 'subtract -1.5 days on last of month wraps around');
+    assert.equal(moment([2016, 3, 3]).subtract(1.5, 'months').month(), 1, 'subtract 1.5 months subtract 2 months');
+    assert.equal(moment([2016, 3, 3]).subtract(-1.5, 'months').month(), 5, 'subtract -1.5 months subtract -2 month');
+    assert.equal(moment([2016, 11, 31]).subtract(-1.5, 'months').month(), 1, 'subtract -1.5 months at end of year wraps back');
+    assert.equal(moment([2016, 0, 1]).add(1.5, 'years').format('YYYY-MM-DD'), '2017-07-01', 'add 1.5 years adds 1 year six months');
+    assert.equal(moment([2016, 0, 1]).add(1.6, 'years').format('YYYY-MM-DD'), '2017-08-01', 'add 1.6 years becomes 1.6*12 = 19.2, round, 19 months');
+    assert.equal(moment([2016, 0, 1]).add(1.1, 'quarters').format('YYYY-MM-DD'), '2016-04-01', 'add 1.1 quarters 1.1*3=3.3, round, 3 months');
 });

@@ -51,9 +51,9 @@ export function isSame (input, units) {
 }
 
 export function isSameOrAfter (input, units) {
-    return this.isSame(input, units) || this.isAfter(input,units);
+    return this.isSame(input, units) || this.isAfter(input, units);
 }
 
 export function isSameOrBefore (input, units) {
-    return this.isSame(input, units) || this.isBefore(input,units);
+    return this.isSame(input, units) || this.isBefore(input, units);
 }
