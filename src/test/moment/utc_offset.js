@@ -133,7 +133,7 @@ test('update offset after changing any values', function (assert) {
         }
     };
 
-    assert.equal(m.format('ZZ'), '+0000', 'should be at +0000');
+    assert.equal(m.format('ZZ'), 'Z', 'should be at Z');
     assert.equal(m.format('HH:mm'), '00:00', 'should start 12AM at +0000 timezone');
 
     m.__doChange = true;

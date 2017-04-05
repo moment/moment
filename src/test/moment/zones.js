@@ -124,7 +124,7 @@ test('update offset after changing any values', function (assert) {
         }
     };
 
-    assert.equal(m.format('ZZ'), '+0000', 'should be at +0000');
+    assert.equal(m.format('ZZ'), 'Z', 'should be at Z');
     assert.equal(m.format('HH:mm'), '00:00', 'should start 12AM at +0000 timezone');
 
     m.__doChange = true;
@@ -454,6 +454,9 @@ test('timezone format', function (assert) {
     assert.equal(moment().zone(-90).format('ZZ'), '+0130', '-90 -> +0130');
     assert.equal(moment().zone(-120).format('ZZ'), '+0200', '-120 -> +0200');
 
+    assert.equal(moment().zone(0).format('Z'), 'Z', 'Z token in UTC should return Z');
+    assert.equal(moment().zone(0).format('ZZ'), 'Z', 'ZZ token in UTC should return Z');
+
     assert.equal(moment().zone(+60).format('ZZ'), '-0100', '+60 -> -0100');
     assert.equal(moment().zone(+90).format('ZZ'), '-0130', '+90 -> -0130');
     assert.equal(moment().zone(+120).format('ZZ'), '-0200', '+120 -> -0200');
@@ -467,22 +470,22 @@ test('parse zone without a timezone', function (assert) {
     var m4 = moment.parseZone('2016-02-01T00:00:00+0000'); //Someone might argue this is not necessary, you could even argue that is wrong being here.
     assert.equal(
         m1.format('M D YYYY HH:mm:ss ZZ'),
-        '2 1 2016 00:00:00 +0000',
+        '2 1 2016 00:00:00 Z',
         'Not providing a timezone should keep the time and change the zone to 0'
     );
     assert.equal(
         m2.format('M D YYYY HH:mm:ss ZZ'),
-        '2 1 2016 00:00:00 +0000',
+        '2 1 2016 00:00:00 Z',
         'Not providing a timezone should keep the time and change the zone to 0'
     );
     assert.equal(
         m3.format('M D YYYY HH:mm:ss ZZ'),
-        '2 1 2016 00:00:00 +0000',
+        '2 1 2016 00:00:00 Z',
         'Not providing a timezone should keep the time and change the zone to 0'
     );
     assert.equal(
         m4.format('M D YYYY HH:mm:ss ZZ'),
-        '2 1 2016 00:00:00 +0000',
+        '2 1 2016 00:00:00 Z',
         'Not providing a timezone should keep the time and change the zone to 0'
     );
 });

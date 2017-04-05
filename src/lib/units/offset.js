@@ -18,6 +18,9 @@ import { hooks } from '../utils/hooks';
 
 function offset (token, separator) {
     addFormatToken(token, 0, 0, function () {
+        if (this.isUtc()) {
+            return 'Z';
+        }
         var offset = this.utcOffset();
         var sign = '+';
         if (offset < 0) {

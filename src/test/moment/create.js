@@ -790,9 +790,9 @@ test('parsing iso with T', function (assert) {
 test('parsing iso Z timezone', function (assert) {
     var i,
     formats = [
-        ['2011-10-08T18:04Z',             '2011-10-08T18:04:00.000+00:00'],
-        ['2011-10-08T18:04:20Z',          '2011-10-08T18:04:20.000+00:00'],
-        ['2011-10-08T18:04:20.111Z',      '2011-10-08T18:04:20.111+00:00']
+        ['2011-10-08T18:04Z',             '2011-10-08T18:04:00.000Z'],
+        ['2011-10-08T18:04:20Z',          '2011-10-08T18:04:20.000Z'],
+        ['2011-10-08T18:04:20.111Z',      '2011-10-08T18:04:20.111Z']
     ];
     for (i = 0; i < formats.length; i++) {
         assert.equal(moment.utc(formats[i][0]).format('YYYY-MM-DDTHH:mm:ss.SSSZ'), formats[i][1], 'moment should be able to parse ISO ' + formats[i][0]);

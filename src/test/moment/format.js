@@ -176,15 +176,15 @@ test('inspect', function (assert) {
     );
     testInspect(
         moment.utc('2012-10-09T20:30:40.678'),
-        'moment.utc("2012-10-09T20:30:40.678+00:00")'
+        'moment.utc("2012-10-09T20:30:40.678Z")'
     );
     testInspect(
         moment.utc('+020123-10-09T20:30:40.678'),
-        'moment.utc("+020123-10-09T20:30:40.678+00:00")'
+        'moment.utc("+020123-10-09T20:30:40.678Z")'
     );
     testInspect(
         moment.utc('+020123-10-09T20:30:40.678+01:00'),
-        'moment.utc("+020123-10-09T19:30:40.678+00:00")'
+        'moment.utc("+020123-10-09T19:30:40.678Z")'
     );
     testInspect(
         moment.parseZone('2016-06-11T17:30:40.678+0430'),
