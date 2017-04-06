@@ -14,7 +14,7 @@ var tg = moment.defineLocale('tg', {
     months : 'январ_феврал_март_апрел_май_июн_июл_август_сентябр_октябр_ноябр_декабр'.split('_'),
     monthsShort : 'янв_фев_мар_апр_май_июн_июл_авг_сен_окт_ноя_дек'.split('_'),
     weekdays : 'Якшанбе_Душанбе_Сешанбе_Чоршанбе_Панҷшанбе_Ҷумъа_Шанбе'.split('_'),
-    weekdaysShort : 'Яшб_Дшб_Сшб_Чшб_Пшб_Ҷум_Шан'.split('_'),
+    weekdaysShort : 'Яшб_Дшб_Сшб_Чшб_Пшб_Ҷум_Шнб'.split('_'),
     weekdaysMin : 'Яш_Дш_Сш_Чш_Пш_Ҷм_Шб'.split('_'),
     longDateFormat : {
         LT : 'HH:mm',
@@ -28,12 +28,12 @@ var tg = moment.defineLocale('tg', {
         sameDay : '[Имрӯз соати] LT',
         nextDay : '[Пагоҳ соати] LT',
         lastDay : '[Дирӯз соати] LT',
-        nextWeek : 'dddd [оянда соати] LT',
-        lastWeek : 'dddd [гузашта соати] LT',
+        nextWeek : 'dddd[и] [оянда соати] LT',
+        lastWeek : 'dddd[и] [гузашта соати] LT',
         sameElse : 'L'
     },
     relativeTime : {
-        future : 'Баъди %s',
+        future : 'баъди %s',
         past : '%s пеш',
         s : 'чанд сония',
         m : 'як дақиқа',
@@ -47,6 +47,8 @@ var tg = moment.defineLocale('tg', {
         y : 'як сол',
         yy : '%d сол'
     },
+    dayOfMonthOrdinalParse: /\d{1,2}-(ум|юм)/,
+    ordinal : '%dм',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
