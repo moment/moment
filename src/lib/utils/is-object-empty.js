@@ -1,11 +1,12 @@
 export default function isObjectEmpty(obj) {
-    if (Object.keys) {
-        return (Object.keys(obj).length === 0);
+    if (Object.getOwnPropertyNames) {
+        return (Object.getOwnPropertyNames(obj).length === 0);
     } else {
         var k;
         for (k in obj) {
-            // even if its not own property I'd still call it non-empty
-            return false;
+            if (obj.hasOwnProperty(k)) {
+                return false;
+            }
         }
         return true;
     }
