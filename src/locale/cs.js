@@ -14,8 +14,10 @@ function translate(number, withoutSuffix, key, isFuture) {
     switch (key) {
         case 's':  // a few seconds / in a few seconds / a few seconds ago
             result = (withoutSuffix || isFuture) ? 'pár sekund' : 'pár sekundami';
+            break;
         case 'm':  // a minute / in a minute / a minute ago
             result = withoutSuffix ? 'minuta' : (isFuture ? 'minutu' : 'minutou');
+            break;
         case 'mm': // 9 minutes / in 9 minutes / 9 minutes ago
             if (withoutSuffix || isFuture) {
                 result = result + (plural(number) ? 'minuty' : 'minut');
@@ -25,6 +27,7 @@ function translate(number, withoutSuffix, key, isFuture) {
             break;
         case 'h':  // an hour / in an hour / an hour ago
             result = withoutSuffix ? 'hodina' : (isFuture ? 'hodinu' : 'hodinou');
+            break;
         case 'hh': // 9 hours / in 9 hours / 9 hours ago
             if (withoutSuffix || isFuture) {
                 result = result + (plural(number) ? 'hodiny' : 'hodin');
@@ -34,6 +37,7 @@ function translate(number, withoutSuffix, key, isFuture) {
             break;
         case 'd':  // a day / in a day / a day ago
             result = (withoutSuffix || isFuture) ? 'den' : 'dnem';
+            break;
         case 'dd': // 9 days / in 9 days / 9 days ago
             if (withoutSuffix || isFuture) {
                 result = result + (plural(number) ? 'dny' : 'dní');
@@ -43,6 +47,7 @@ function translate(number, withoutSuffix, key, isFuture) {
             break;
         case 'M':  // a month / in a month / a month ago
             result = (withoutSuffix || isFuture) ? 'měsíc' : 'měsícem';
+            break;
         case 'MM': // 9 months / in 9 months / 9 months ago
             if (withoutSuffix || isFuture) {
                 result = result + (plural(number) ? 'měsíce' : 'měsíců');
@@ -52,12 +57,14 @@ function translate(number, withoutSuffix, key, isFuture) {
             break;
         case 'y':  // a year / in a year / a year ago
             result = (withoutSuffix || isFuture) ? 'rok' : 'rokem';
+            break;
         case 'yy': // 9 years / in 9 years / 9 years ago
             if (withoutSuffix || isFuture) {
                 result = result + (plural(number) ? 'roky' : 'let');
             } else {
                 result = result + 'lety';
             }
+            break;
     return result;
     }
 }
