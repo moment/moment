@@ -1,0 +1,6 @@
+{
+	"name": "moment/moment",
+	"moment/moment": {
+		"js": ["moment.js"]
+	}
+}
