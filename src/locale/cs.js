@@ -65,8 +65,8 @@ function translate(number, withoutSuffix, key, isFuture) {
                 result = result + 'lety';
             }
             break;
-    return result;
     }
+    return result;
 }
 
 export default moment.defineLocale('cs', {
