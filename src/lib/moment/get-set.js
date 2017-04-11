@@ -6,7 +6,7 @@ import isFunction from '../utils/is-function';
 
 export function makeGetSet (unit, keepTime) {
     return function (value) {
-        if (value != null) {
+        if (value !== null && value !== undefined && !isNaN(value)) {
             set(this, unit, value);
             hooks.updateOffset(this, keepTime);
             return this;
