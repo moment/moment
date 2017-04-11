@@ -52,6 +52,6 @@ export {
     getSetRelativeTimeThreshold as relativeTimeThreshold
 } from './src/lib/duration/duration';
 
-import { normalizeUnits } from './src/lib/units/units';
+export { normalizeUnits } from './src/lib/units/units';
 
 export isDate from './src/lib/utils/is-date';
