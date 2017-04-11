@@ -23,7 +23,8 @@
         "ender"
     ],
     "main": "./moment.js",
-    "jsnext:main": "./src/moment.js",
+    "module": "./moment.es6.js",
+    "jsnext:main": "./moment.es6.js",
     "typings": "./moment.d.ts",
     "engines": {
         "node": "*"
