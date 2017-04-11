@@ -52,6 +52,9 @@ export function format (inputString) {
     if (!inputString) {
         inputString = this.isUtc() ? hooks.defaultFormatUtc : hooks.defaultFormat;
     }
+    if (inputString === hooks.ISO_8601) {
+        return toISOString.call(this);
+    }
     var output = formatMoment(this, inputString);
     return this.localeData().postformat(output);
 }

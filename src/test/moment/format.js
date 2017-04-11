@@ -503,3 +503,7 @@ test('Y token', function (assert) {
     assert.equal(moment('9999-01-01', 'Y-MM-DD', true).format('Y'), '9999', 'format 9999 with Y');
     assert.equal(moment('10000-01-01', 'Y-MM-DD', true).format('Y'), '+10000', 'format 10000 with Y');
 });
+
+test('moment.ISO_8601 format', function (assert) {
+    assert.equal(moment('2010-01-02T01:02:03.004Z', moment.ISO_8601).format(moment.ISO_8601), '2010-01-02T01:02:03.004Z', 'moment.ISO_8601 format');
+});
