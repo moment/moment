@@ -205,7 +205,7 @@ export function localeWeekdaysParse (weekdayName, format, strict) {
             this._minWeekdaysParse[i] = new RegExp('^' + this.weekdaysMin(mom, '').replace('.', '\.?') + '$', 'i');
         }
         if (!this._weekdaysParse[i]) {
-            regex = '^' + this.weekdays(mom, '') + '|^' + this.weekdaysShort(mom, '') + '|^' + this.weekdaysMin(mom, '');
+            regex = '^' + this.weekdays(mom, '') + '$|^' + this.weekdaysShort(mom, '') + '$|^' + this.weekdaysMin(mom, '') + '$';
             this._weekdaysParse[i] = new RegExp(regex.replace('.', ''), 'i');
         }
         // test the regex
