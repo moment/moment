@@ -16,14 +16,14 @@ export default moment.defineLocale('da', {
         L : 'DD/MM/YYYY',
         LL : 'D. MMMM YYYY',
         LLL : 'D. MMMM YYYY HH:mm',
-        LLLL : 'dddd [d.] D. MMMM YYYY HH:mm'
+        LLLL : 'dddd [d.] D. MMMM YYYY [kl.] HH:mm'
     },
     calendar : {
-        sameDay : '[I dag kl.] LT',
-        nextDay : '[I morgen kl.] LT',
-        nextWeek : 'dddd [kl.] LT',
-        lastDay : '[I går kl.] LT',
-        lastWeek : '[sidste] dddd [kl] LT',
+        sameDay : '[i dag kl.] LT',
+        nextDay : '[i morgen kl.] LT',
+        nextWeek : 'på dddd [kl.] LT',
+        lastDay : '[i går kl.] LT',
+        lastWeek : '[i] dddd[s kl.] LT',
         sameElse : 'L'
     },
     relativeTime : {
@@ -41,11 +41,10 @@ export default moment.defineLocale('da', {
         y : 'et år',
         yy : '%d år'
     },
-    ordinalParse: /\d{1,2}\./,
+    dayOfMonthOrdinalParse: /\d{1,2}\./,
     ordinal : '%d.',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
-

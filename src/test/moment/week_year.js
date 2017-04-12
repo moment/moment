@@ -4,7 +4,7 @@ import moment from '../../moment';
 module('week year');
 
 test('iso week year', function (assert) {
-    // Some examples taken from http://en.wikipedia.org/wiki/ISO_week
+    // Some examples taken from https://en.wikipedia.org/wiki/ISO_week
     assert.equal(moment([2005, 0, 1]).isoWeekYear(), 2004);
     assert.equal(moment([2005, 0, 2]).isoWeekYear(), 2004);
     assert.equal(moment([2005, 0, 3]).isoWeekYear(), 2005);
@@ -27,7 +27,7 @@ test('iso week year', function (assert) {
 });
 
 test('week year', function (assert) {
-    // Some examples taken from http://en.wikipedia.org/wiki/ISO_week
+    // Some examples taken from https://en.wikipedia.org/wiki/ISO_week
     moment.locale('dow: 1,doy: 4', {week: {dow: 1, doy: 4}}); // like iso
     assert.equal(moment([2005, 0, 1]).weekYear(), 2004);
     assert.equal(moment([2005, 0, 2]).weekYear(), 2004);

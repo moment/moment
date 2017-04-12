@@ -1,6 +1,34 @@
 Changelog
 =========
 
+### 2.18.1
+
+* Release Mar 22, 2017
+
+* [#3853](https://github.com/moment/moment/pull/3853) [misc] Fix invalid whitespace character causing inability to parse
+  moment.js
+
+### 2.18.0 [See full changelog](https://gist.github.com/ichernev/78920c5a1e419fb28c6e4546d1b7235c)
+
+* Release Mar 18, 2017
+
+## Features
+
+* [#3708](https://github.com/moment/moment/pull/3708) [feature] RFC2822 parsing
+* [#3611](https://github.com/moment/moment/pull/3611) [feature] Durations gain validity
+* [#3738](https://github.com/moment/moment/pull/3738) [feature] Enable relative time for multiple seconds, request [#2558](https://github.com/moment/moment/issues/2558)
+* [#3766](https://github.com/moment/moment/pull/3766) [feature] Add support for k and kk format parsing
+
+## Bugfixes
+
+* [#3643](https://github.com/moment/moment/pull/3643) [bugfix] Fixes [#3520](https://github.com/moment/moment/issues/3520), parseZone incorrectly handled minutes under 16
+* [#3710](https://github.com/moment/moment/pull/3710) [bugfix] Fixes [#3632](https://github.com/moment/moment/issues/3632), toISOString returns null for invalid date
+* [#3787](https://github.com/moment/moment/pull/3787) [bugfix] Fixes [#3717](https://github.com/moment/moment/issues/3717), ensure day-of-year is non-zero
+* [#3780](https://github.com/moment/moment/pull/3780) [bugfix] Fixes [#3765](https://github.com/moment/moment/issues/3765): Ensure year 0 is formatted with YYYY
+* [#3806](https://github.com/moment/moment/pull/3806) [bugfix] Fixes [#3805](https://github.com/moment/moment/issues/3805), fix locale month getters for standalone/format cases
+
+7 new locales, many locale improvements and some misc changes
+
 ### 2.17.1 [Also available here](https://gist.github.com/ichernev/f38280b2b29c4932914a6d3a4e50bfb2)
 * Release Dec 03, 2016
 
@@ -80,29 +108,30 @@ Also some locale and typescript improvements
 - Release July 20, 2016
 
 ## New Features
-* [#3233](http://github.com/moment/moment/pull/3233) Introduce month.isFormat for format/standalone discovery
-* [#2848](http://github.com/moment/moment/pull/2848) Allow user to get/set the rounding method used when calculating relative time
-* [#3112](http://github.com/moment/moment/pull/3112) optimize configFromStringAndFormat
-* [#3147](http://github.com/moment/moment/pull/3147) Call calendar format function with moment context
-* [#3160](http://github.com/moment/moment/pull/3160) deprecate isDSTShifted
-* [#3175](http://github.com/moment/moment/pull/3175) make moment calendar extensible with ad-hoc options
-* [#3191](http://github.com/moment/moment/pull/3191) toDate returns a copy of the internal date object
-* [#3192](http://github.com/moment/moment/pull/3192) Adding support for rollup import.
-* [#3238](http://github.com/moment/moment/pull/3238) Handle empty object and empty array for creation as now
-* [#3082](http://github.com/moment/moment/pull/3082) Use relative AMD moment dependency
+* [#3233](https://github.com/moment/moment/pull/3233) Introduce month.isFormat for format/standalone discovery
+* [#2848](https://github.com/moment/moment/pull/2848) Allow user to get/set the rounding method used when calculating relative time
+* [#3112](https://github.com/moment/moment/pull/3112) optimize configFromStringAndFormat
+* [#3147](https://github.com/moment/moment/pull/3147) Call calendar format function with moment context
+* [#3160](https://github.com/moment/moment/pull/3160) deprecate isDSTShifted
+* [#3175](https://github.com/moment/moment/pull/3175) make moment calendar extensible with ad-hoc options
+* [#3191](https://github.com/moment/moment/pull/3191) toDate returns a copy of the internal date object
+* [#3192](https://github.com/moment/moment/pull/3192) Adding support for rollup import.
+* [#3238](https://github.com/moment/moment/pull/3238) Handle empty object and empty array for creation as now
+* [#3082](https://github.com/moment/moment/pull/3082) Use relative AMD moment dependency
 
 ## Bugfixes
-* [#3241](http://github.com/moment/moment/pull/3241) Escape all 24 mixed pieces, not only first 12 in computeMonthsParse
-* [#3008](http://github.com/moment/moment/pull/3008) Object setter orders sets based on size of unit
-* [#3177](http://github.com/moment/moment/pull/3177) Bug Fix [#2704](http://github.com/moment/moment/pull/2704) - isoWeekday(String) inconsistent with isoWeekday(Number)
-* [#3230](http://github.com/moment/moment/pull/3230) fix passing date with format string to ignore format string
-* [#3232](http://github.com/moment/moment/pull/3232) Fix negative 0 in certain diff cases
-* [#3235](http://github.com/moment/moment/pull/3235) Use proper locale inheritance for the base locale, fixes [#3137](http://github.com/moment/moment/pull/3137)
+* [#3241](https://github.com/moment/moment/pull/3241) Escape all 24 mixed pieces, not only first 12 in computeMonthsParse
+* [#3008](https://github.com/moment/moment/pull/3008) Object setter orders sets based on size of unit
+* [#3177](https://github.com/moment/moment/pull/3177) Bug Fix [#2704](https://github.com/moment/moment/pull/2704) - isoWeekday(String) inconsistent with isoWeekday(Number)
+* [#3230](https://github.com/moment/moment/pull/3230) fix passing date with format string to ignore format string
+* [#3232](https://github.com/moment/moment/pull/3232) Fix negative 0 in certain diff cases
+* [#3235](https://github.com/moment/moment/pull/3235) Use proper locale inheritance for the base locale, fixes [#3137](https://github.com/moment/moment/pull/3137)
 
 Plus es-do locale and locale bugfixes
 
 ### 2.13.0 [See full changelog](https://gist.github.com/ichernev/0132fcf5b61f7fc140b0bb0090480d49)
 - Release April 18, 2016
+
 ## Enhancements:
 * [#2982](https://github.com/moment/moment/pull/2982) Add 'date' as alias to 'day' for startOf() and endOf().
 * [#2955](https://github.com/moment/moment/pull/2955) Add parsing negative components in durations when ISO 8601

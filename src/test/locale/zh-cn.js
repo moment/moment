@@ -38,15 +38,15 @@ test('format', function (assert) {
             ['s ss',                               '50 50'],
             ['a A',                                '下午 下午'],
             ['[这年的第] DDDo',                    '这年的第 45日'],
-            ['LTS',                                '下午3点25分50秒'],
-            ['L',                                  '2010-02-14'],
+            ['LTS',                                '15:25:50'],
+            ['L',                                  '2010年2月14日'],
             ['LL',                                 '2010年2月14日'],
             ['LLL',                                '2010年2月14日下午3点25分'],
             ['LLLL',                               '2010年2月14日星期日下午3点25分'],
-            ['l',                                  '2010-02-14'],
+            ['l',                                  '2010年2月14日'],
             ['ll',                                 '2010年2月14日'],
-            ['lll',                                '2010年2月14日下午3点25分'],
-            ['llll',                               '2010年2月14日星期日下午3点25分']
+            ['lll',                                '2010年2月14日 15:25'],
+            ['llll',                               '2010年2月14日星期日 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -121,70 +121,50 @@ test('fromNow', function (assert) {
 test('calendar day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                   '今天中午12点整',     'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      '今天中午12点25分',   'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),       '今天下午1点整',      'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       '明天中午12点整',     'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  '今天上午11点整',     'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  '昨天中午12点整',     'yesterday at the same time');
-});
-
-test('calendar current week', function (assert) {
-    var i, m,
-        today = moment().startOf('day');
-
-    for (i = 0; i < 7; i++) {
-        m = moment().startOf('week').add({d: i});
-        if (Math.abs(m.diff(today, 'days')) <= 1) {
-            continue; // skip today, yesterday, tomorrow
-        }
-        assert.equal(m.calendar(),       m.format('[本]ddd凌晨12点整'),  'Monday + ' + i + ' days current time');
-    }
+    assert.equal(moment(a).calendar(),                   '今天12:00', 'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      '今天12:25', 'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       '今天13:00', 'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       '明天12:00', 'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  '今天11:00', 'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  '昨天12:00', 'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {
-    var i, m,
-        today = moment().startOf('day');
-
-    for (i = 7; i < 14; i++) {
-        m = moment().startOf('week').add({d: i});
-        if (Math.abs(m.diff(today, 'days')) >= 7) {
-            continue;
-        }
-        if (Math.abs(m.diff(today, 'days')) <= 1) {
-            continue; // skip today, yesterday, tomorrow
-        }
-        assert.equal(m.calendar(),  m.format('[下]ddd凌晨12点整'), 'Today + ' + i + ' days beginning of day');
+    var i, m;
+    for (i = 2; i < 7; i++) {
+        m = moment().add({d: i});
+        assert.equal(m.calendar(),       m.format('[下]ddddLT'),  'Today + ' + i + ' days current time');
+        m.hours(0).minutes(0).seconds(0).milliseconds(0);
+        assert.equal(m.calendar(),       m.format('[下]ddddLT'),  'Today + ' + i + ' days beginning of day');
+        m.hours(23).minutes(59).seconds(59).milliseconds(999);
+        assert.equal(m.calendar(),       m.format('[下]ddddLT'),  'Today + ' + i + ' days end of day');
     }
-    assert.equal(42, 42, 'at least one assert');
 });
 
 test('calendar last week', function (assert) {
-    var i, m,
-        today = moment().startOf('day');
-
-    for (i = 1; i < 8; i++) {
-        m = moment().startOf('week').subtract({d: i});
-        if ((Math.abs(m.diff(today, 'days')) >= 7) || (Math.abs(m.diff(today, 'days')) <= 1)) {
-            continue;
-        }
-        assert.equal(m.calendar(),  m.format('[上]ddd凌晨12点整'),  'Monday - ' + i + ' days next week');
+    var i, m;
+    for (i = 2; i < 7; i++) {
+        m = moment().subtract({d: i});
+        assert.equal(m.calendar(),       m.format('[上]ddddLT'),  'Today - ' + i + ' days current time');
+        m.hours(0).minutes(0).seconds(0).milliseconds(0);
+        assert.equal(m.calendar(),       m.format('[上]ddddLT'),  'Today - ' + i + ' days beginning of day');
+        m.hours(23).minutes(59).seconds(59).milliseconds(999);
+        assert.equal(m.calendar(),       m.format('[上]ddddLT'),  'Today - ' + i + ' days end of day');
     }
-    assert.equal(42, 42, 'at least one assert');
 });
 
 test('calendar all else', function (assert) {
     var weeksAgo = moment().subtract({w: 1}),
         weeksFromNow = moment().add({w: 1});
 
-    assert.equal(weeksAgo.calendar(),       weeksAgo.format('LL'),      '1 week ago');
-    assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('LL'),  'in 1 week');
+    assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),      '1 week ago');
+    assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 1 week');
 
     weeksAgo = moment().subtract({w: 2});
     weeksFromNow = moment().add({w: 2});
 
-    assert.equal(weeksAgo.calendar(),       weeksAgo.format('LL'),      '2 weeks ago');
-    assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('LL'),  'in 2 weeks');
+    assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),      '2 weeks ago');
+    assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 2 weeks');
 });
 
 test('meridiem', function (assert) {

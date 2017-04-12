@@ -65,7 +65,7 @@ export default moment.defineLocale('ky', {
         y : 'бир жыл',
         yy : '%d жыл'
     },
-    ordinalParse: /\d{1,2}-(чи|чы|чү|чу)/,
+    dayOfMonthOrdinalParse: /\d{1,2}-(чи|чы|чү|чу)/,
     ordinal : function (number) {
         var a = number % 10,
             b = number >= 100 ? 100 : null;

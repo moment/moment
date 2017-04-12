@@ -58,7 +58,7 @@ declare namespace moment {
     doy: number;
   }
 
-  type CalendarSpecVal = string | ((m?: Moment, now?: Moment) => string);
+  type CalendarSpecVal = string | ((m?: MomentInput, now?: Moment) => string);
   interface CalendarSpec {
     sameDay?: CalendarSpecVal;
     nextDay?: CalendarSpecVal;
@@ -348,6 +348,10 @@ declare namespace moment {
     quarters?: number;
     quarter?: number;
     Q?: number;
+
+    weeks?: number;
+    week?: number;
+    w?: number;
   }
 
   interface MomentSetObject extends MomentInputObject {
@@ -392,17 +396,17 @@ declare namespace moment {
   type MomentInput = Moment | Date | string | number | (number | string)[] | MomentInputObject | void; // null | undefined
   type DurationInputArg1 = Duration | number | string | FromTo | DurationInputObject | void; // null | undefined
   type DurationInputArg2 = unitOfTime.DurationConstructor;
-  type LocaleSpecifier = string | Moment | Duration | string[];
+  type LocaleSpecifier = string | Moment | Duration | string[] | boolean;
 
   interface MomentCreationData {
-    input: string;
-    format: string;
+    input: MomentInput;
+    format?: MomentFormatSpecification;
     locale: Locale;
     isUTC: boolean;
-    strict: boolean;
+    strict?: boolean;
   }
 
-  interface Moment {
+  interface Moment extends Object{
     format(format?: string): string;
 
     startOf(unitOfTime: unitOfTime.StartOf): Moment;
@@ -547,7 +551,7 @@ declare namespace moment {
     zone(b: number|string): Moment;
     utcOffset(): number;
     utcOffset(b: number|string, keepLocalTime?: boolean): Moment;
-    isUTCOffset(): boolean;
+    isUtcOffset(): boolean;
     daysInMonth(): number;
     isDST(): boolean;
 

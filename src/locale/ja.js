@@ -11,12 +11,16 @@ export default moment.defineLocale('ja', {
     weekdaysShort : '日_月_火_水_木_金_土'.split('_'),
     weekdaysMin : '日_月_火_水_木_金_土'.split('_'),
     longDateFormat : {
-        LT : 'Ah時m分',
-        LTS : 'Ah時m分s秒',
+        LT : 'HH:mm',
+        LTS : 'HH:mm:ss',
         L : 'YYYY/MM/DD',
         LL : 'YYYY年M月D日',
-        LLL : 'YYYY年M月D日Ah時m分',
-        LLLL : 'YYYY年M月D日Ah時m分 dddd'
+        LLL : 'YYYY年M月D日 HH:mm',
+        LLLL : 'YYYY年M月D日 HH:mm dddd',
+        l : 'YYYY/MM/DD',
+        ll : 'YYYY年M月D日',
+        lll : 'YYYY年M月D日 HH:mm',
+        llll : 'YYYY年M月D日 HH:mm dddd'
     },
     meridiemParse: /午前|午後/i,
     isPM : function (input) {
@@ -37,7 +41,7 @@ export default moment.defineLocale('ja', {
         lastWeek : '[前週]dddd LT',
         sameElse : 'L'
     },
-    ordinalParse : /\d{1,2}日/,
+    dayOfMonthOrdinalParse : /\d{1,2}日/,
     ordinal : function (number, period) {
         switch (period) {
             case 'd':

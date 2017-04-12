@@ -5,39 +5,39 @@ import moment from '../../moment';
 import defaults from '../../lib/utils/defaults';
 
 export function defineCommonLocaleTests(locale, options) {
-    test('lenient ordinal parsing', function (assert) {
+    test('lenient day of month ordinal parsing', function (assert) {
         var i, ordinalStr, testMoment;
         for (i = 1; i <= 31; ++i) {
             ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
             testMoment = moment(ordinalStr, 'YYYY MM Do');
             assert.equal(testMoment.year(), 2014,
-                    'lenient ordinal parsing ' + i + ' year check');
+                    'lenient day of month ordinal parsing ' + i + ' year check');
             assert.equal(testMoment.month(), 0,
-                    'lenient ordinal parsing ' + i + ' month check');
+                    'lenient day of month ordinal parsing ' + i + ' month check');
             assert.equal(testMoment.date(), i,
-                    'lenient ordinal parsing ' + i + ' date check');
+                    'lenient day of month ordinal parsing ' + i + ' date check');
         }
     });
 
-    test('lenient ordinal parsing of number', function (assert) {
+    test('lenient day of month ordinal parsing of number', function (assert) {
         var i, testMoment;
         for (i = 1; i <= 31; ++i) {
             testMoment = moment('2014 01 ' + i, 'YYYY MM Do');
             assert.equal(testMoment.year(), 2014,
-                    'lenient ordinal parsing of number ' + i + ' year check');
+                    'lenient day of month ordinal parsing of number ' + i + ' year check');
             assert.equal(testMoment.month(), 0,
-                    'lenient ordinal parsing of number ' + i + ' month check');
+                    'lenient day of month ordinal parsing of number ' + i + ' month check');
             assert.equal(testMoment.date(), i,
-                    'lenient ordinal parsing of number ' + i + ' date check');
+                    'lenient day of month ordinal parsing of number ' + i + ' date check');
         }
     });
 
-    test('strict ordinal parsing', function (assert) {
+    test('strict day of month ordinal parsing', function (assert) {
         var i, ordinalStr, testMoment;
         for (i = 1; i <= 31; ++i) {
             ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
             testMoment = moment(ordinalStr, 'YYYY MM Do', true);
-            assert.ok(testMoment.isValid(), 'strict ordinal parsing ' + i);
+            assert.ok(testMoment.isValid(), 'strict day of month ordinal parsing ' + i);
         }
     });
 
@@ -136,6 +136,14 @@ export function defineCommonLocaleTests(locale, options) {
             tester('ddd');
             tester('dddd');
         }
+    });
+
+    test('valid localeData', function (assert) {
+        assert.equal(moment().localeData().months().length, 12, 'months should return 12 months');
+        assert.equal(moment().localeData().monthsShort().length, 12, 'monthsShort should return 12 months');
+        assert.equal(moment().localeData().weekdays().length, 7, 'weekdays should return 7 days');
+        assert.equal(moment().localeData().weekdaysShort().length, 7, 'weekdaysShort should return 7 days');
+        assert.equal(moment().localeData().weekdaysMin().length, 7, 'monthsShort should return 7 days');
     });
 }
 

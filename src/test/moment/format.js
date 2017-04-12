@@ -148,6 +148,10 @@ test('toISOString', function (assert) {
     // big negative years
     date = moment.utc('-020123-10-09T20:30:40.678');
     assert.equal(date.toISOString(), '-020123-10-09T20:30:40.678Z', 'ISO8601 format on big negative year');
+
+    //invalid dates
+    date = moment.utc('2017-12-32');
+    assert.equal(date.toISOString(), null, 'An invalid date to iso string is null');
 });
 
 // See https://nodejs.org/dist/latest/docs/api/util.html#util_custom_inspect_function_on_objects
@@ -211,8 +215,15 @@ test('long years', function (assert) {
     assert.equal(moment.utc().year(-20123).format('YYYYYY'), '-020123', 'big negative year with YYYYYY');
 });
 
+test('toISOString() when 0 year', function (assert) {
+    // https://github.com/moment/moment/issues/3765
+    var date = moment('0000-01-01T21:00:00.000Z');
+    assert.equal(date.toISOString(), '0000-01-01T21:00:00.000Z');
+    assert.equal(date.toDate().toISOString(), '0000-01-01T21:00:00.000Z');
+});
+
 test('iso week formats', function (assert) {
-    // http://en.wikipedia.org/wiki/ISO_week_date
+    // https://en.wikipedia.org/wiki/ISO_week_date
     var cases = {
         '2005-01-02': '2004-53',
         '2005-12-31': '2005-52',
@@ -244,7 +255,7 @@ test('iso week formats', function (assert) {
 });
 
 test('iso week year formats', function (assert) {
-    // http://en.wikipedia.org/wiki/ISO_week_date
+    // https://en.wikipedia.org/wiki/ISO_week_date
     var cases = {
         '2005-01-02': '2004-53',
         '2005-12-31': '2005-52',
@@ -277,7 +288,7 @@ test('iso week year formats', function (assert) {
 });
 
 test('week year formats', function (assert) {
-    // http://en.wikipedia.org/wiki/ISO_week_date
+    // https://en.wikipedia.org/wiki/ISO_week_date
     var cases = {
         '2005-01-02': '2004-53',
         '2005-12-31': '2005-52',

@@ -240,6 +240,15 @@ moment.duration({
     months: 2,
     years: 2
 });
+moment.duration({
+    s: 2,
+    m: 2,
+    h: 2,
+    d: 2,
+    w: 2,
+    M: 2,
+    y: 2,
+});
 moment.duration(1, "minutes").humanize();
 moment.duration(500).milliseconds();
 moment.duration(500).asMilliseconds();

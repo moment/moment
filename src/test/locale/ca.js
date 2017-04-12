@@ -3,7 +3,7 @@ import moment from '../../moment';
 localeModule('ca');
 
 test('parse', function (assert) {
-    var tests = 'gener gen._febrer febr._març mar._abril abr._maig mai._juny jun._juliol jul._agost ag._setembre set._octubre oct._novembre nov._desembre des.'.split('_'), i;
+    var tests = 'gener gen._febrer febr._març març_abril abr._maig maig_juny juny_juliol jul._agost ag._setembre set._octubre oct._novembre nov._desembre des.'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
@@ -22,7 +22,7 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, Do MMMM YYYY, h:mm:ss a',      'diumenge, 14è febrer 2010, 3:25:50 pm'],
+            ['dddd, Do MMMM YYYY, h:mm:ss a',      'diumenge, 14è de febrer 2010, 3:25:50 pm'],
             ['ddd, hA',                            'dg., 3PM'],
             ['M Mo MM MMMM MMM',                   '2 2n 02 febrer febr.'],
             ['YYYY YY',                            '2010 10'],
@@ -38,13 +38,13 @@ test('format', function (assert) {
             ['[the] DDDo [day of the year]',       'the 45è day of the year'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14/02/2010'],
-            ['LL',                                 '14 febrer 2010'],
-            ['LLL',                                '14 febrer 2010 15:25'],
-            ['LLLL',                               'diumenge 14 febrer 2010 15:25'],
+            ['LL',                                 'el 14 de febrer de 2010'],
+            ['LLL',                                'el 14 de febrer de 2010 a les 15:25'],
+            ['LLLL',                               'el diumenge 14 de febrer de 2010 a les 15:25'],
             ['l',                                  '14/2/2010'],
             ['ll',                                 '14 febr. 2010'],
-            ['lll',                                '14 febr. 2010 15:25'],
-            ['llll',                               'dg. 14 febr. 2010 15:25']
+            ['lll',                                '14 febr. 2010, 15:25'],
+            ['llll',                               'dg. 14 febr. 2010, 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -91,7 +91,7 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'gener gen._febrer febr._març mar._abril abr._maig mai._juny jun._juliol jul._agost ag._setembre set._octubre oct._novembre nov._desembre des.'.split('_'), i;
+    var expected = 'gener gen._febrer febr._març març_abril abr._maig maig_juny juny_juliol jul._agost ag._setembre set._octubre oct._novembre nov._desembre des.'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
@@ -208,3 +208,8 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012, 0, 15]).format('w ww wo'),   '2 02 2a', 'Jan 15 2012 should be week 2');
 });
 
+test('day and month', function (assert) {
+    assert.equal(moment([2012, 1, 15]).format('D MMMM'), '15 de febrer');
+    assert.equal(moment([2012, 9, 15]).format('D MMMM'), '15 d\'octubre');
+    assert.equal(moment([2012, 9, 15]).format('MMMM, D'), 'octubre, 15');
+});

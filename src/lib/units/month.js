@@ -71,7 +71,8 @@ var MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/;
 export var defaultLocaleMonths = 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_');
 export function localeMonths (m, format) {
     if (!m) {
-        return this._months;
+        return isArray(this._months) ? this._months :
+            this._months['standalone'];
     }
     return isArray(this._months) ? this._months[m.month()] :
         this._months[(this._months.isFormat || MONTHS_IN_FORMAT).test(format) ? 'format' : 'standalone'][m.month()];
@@ -80,7 +81,8 @@ export function localeMonths (m, format) {
 export var defaultLocaleMonthsShort = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_');
 export function localeMonthsShort (m, format) {
     if (!m) {
-        return this._monthsShort;
+        return isArray(this._monthsShort) ? this._monthsShort :
+            this._monthsShort['standalone'];
     }
     return isArray(this._monthsShort) ? this._monthsShort[m.month()] :
         this._monthsShort[MONTHS_IN_FORMAT.test(format) ? 'format' : 'standalone'][m.month()];
