@@ -47,9 +47,6 @@ function chooseLocale(names) {
 
 function loadLocale(name) {
     var oldLocale = null;
-    if (name === 'default' && typeof window !== 'undefined') {
-        name = window.navigator.userLanguage || window.navigator.language;
-    }
     // TODO: Find a better way to register and load all the locales in Node
     if (!locales[name] && (typeof module !== 'undefined') &&
             module && module.exports) {
@@ -70,10 +67,28 @@ function loadLocale(name) {
 export function getSetGlobalLocale (key, values) {
     var data;
     if (key) {
+        if (typeof window !== 'undefined') {
+            const userLanguage = window.navigator.userLanguage || window.navigator.language;
+            if (key === 'default') {
+                key = userLanguage;
+            }
+
+            if (isArray(key)) {
+                // iterate over the key array and change 'default' to
+                // whatever user locale really is according to
+                // the browser.
+                key = key.map(function changeDefaultWithUserLanguage(langString) {
+                    if (langString === 'default') {
+                        return userLanguage;
+                    }
+                    return langString;
+                });
+            }
+        }
+
         if (isUndefined(values)) {
             data = getLocale(key);
-        }
-        else {
+        } else {
             data = defineLocale(key, values);
         }
 
