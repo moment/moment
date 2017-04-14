@@ -65,25 +65,52 @@ function loadLocale(name) {
 // no arguments are passed in, it will simply return the current global
 // locale key.
 export function getSetGlobalLocale (key, values) {
-    var data;
-    if (key) {
-        if (typeof window !== 'undefined') {
-            const userLanguage = window.navigator.userLanguage || window.navigator.language;
-            if (key === 'default') {
-                key = userLanguage;
-            }
+    var data, userLanguage;
 
-            if (isArray(key)) {
-                // iterate over the key array and change 'default' to
-                // whatever user locale really is according to
-                // the browser.
-                key = key.map(function changeDefaultWithUserLanguage(langString) {
-                    if (langString === 'default') {
-                        return userLanguage;
-                    }
-                    return langString;
-                });
-            }
+    // eval is the only way we can check vaule of global variable
+    var isBrowser = new Function('try {return this === window;}catch(e){ return false ;}');  // jshint ignore:line
+
+    if (isBrowser()) {
+        userLanguage = [
+            window.navigator.userLanguage,
+            window.navigator.language
+        ];
+    } else {
+        userLanguage = ['en'];
+    }
+
+    // in case userLanguage or language is undefined
+    userLanguage = userLanguage.filter(function noUndefined(value) {
+        return value !== undefined;
+    });
+
+    // in case userLanguage and language are undefined at the
+    // same time
+    if (userLanguage.length === 0) {
+        userLanguage = ['en'];
+    }
+
+    if (key) {
+        if (isArray(key)) {
+            // iterate over the key array and change 'default' to
+            // whatever user locale really is according to
+            // the browser.
+
+            // key = key.map(function changeDefaultWithUserLanguage(langString) {
+            //     if (langString === 'default') {
+            //         return userLanguage;
+            //     }
+            //     return langString;
+            // });
+
+            key = key.reduce(function changeDefaultWithUserLanguage(acc, langString) {
+                if (langString === 'default') {
+                    return acc.concat(userLanguage);
+                }
+                return acc.concat([langString]);
+            }, []);
+        } else if (key === 'default') {
+            key = userLanguage;
         }
 
         if (isUndefined(values)) {

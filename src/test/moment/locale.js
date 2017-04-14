@@ -44,52 +44,30 @@ module('locale', {
 test('library getters and setters', function (assert) {
     var r = moment.locale('en');
 
+    // eval is the only way we can check vaule of global variable
+    var isBrowser = new Function('try {return this === window;}catch(e){ return false ;}'); // jshint ignore:line
+
     assert.equal(r, 'en', 'locale should return en by default');
     assert.equal(moment.locale(), 'en', 'locale should return en by default');
 
-    moment.locale('default');
-    assert.equal(moment.locale(), 'en', 'default locale should return en on node');
+    if (isBrowser()) {
+        // we cannot define browser language so we assume it
+        // is not fr. DO NOT RUN BROWSER TESTS WITH FR LOCALE
+        var differentThanBrowserLocale = [
+            'fr',
+            'fr'
+        ];
 
-    // simulating window on node (normally avaliable only in a browser)
-    global.window = {
-        navigator: {
-            language: 'wrong-locale',
-            userLanguage: 'fr'
-        }
-    };
+        moment.locale(differentThanBrowserLocale);
+        moment.locale('default');
+        assert.notEqual(moment.locale(), 'fr', 'default locale sets locale to browser-specific');
+    } else {
+        moment.locale('default');
+        assert.equal(moment.locale(), 'en', 'default locale should fallback to en on node');
 
-    moment.locale('default');
-    assert.equal(moment.locale(), 'fr', 'default locale should return locale from window.navigator.userLanguage first on browser');
-
-    global.window = {
-        navigator: {
-            language: undefined,
-            userLanguage: 'fr'
-        }
-    };
-
-    moment.locale('default');
-    assert.equal(moment.locale(), 'fr', 'default locale should return locale from window.navigator.userLanguage first on browser');
-
-    global.window = {
-        navigator: {
-            language: 'fr',
-            userLanguage: undefined
-        }
-    };
-
-    moment.locale('default');
-    assert.equal(moment.locale(), 'fr', 'default locale should return locale from window.navigator.language second on browser');
-
-    global.window = {
-        navigator: {
-            language: 'wrong-locale',
-            userLanguage: 'wrong-locale'
-        }
-    };
-
-    moment.locale('default');
-    assert.equal(moment.locale(), 'fr', 'default locale should return en if a browser provides unknown locale');
+        moment.locale(['default', 'fr']);
+        assert.equal(moment.locale(), 'en', 'should accept default as an element of the array');
+    }
 
     moment.locale('fr');
     assert.equal(moment.locale(), 'fr', 'locale should return the changed locale');
