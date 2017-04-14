@@ -53,11 +53,7 @@ test('library getters and setters', function (assert) {
     if (isBrowser()) {
         // we cannot define browser language so we assume it
         // is not fr. DO NOT RUN BROWSER TESTS WITH FR LOCALE
-        var differentThanBrowserLocale = [
-            'fr',
-            'fr'
-        ];
-
+        var differentThanBrowserLocale = 'fr';
         moment.locale(differentThanBrowserLocale);
         moment.locale('default');
         assert.notEqual(moment.locale(), 'fr', 'default locale sets locale to browser-specific');
