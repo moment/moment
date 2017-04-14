@@ -96,13 +96,6 @@ export function getSetGlobalLocale (key, values) {
             // whatever user locale really is according to
             // the browser.
 
-            // key = key.map(function changeDefaultWithUserLanguage(langString) {
-            //     if (langString === 'default') {
-            //         return userLanguage;
-            //     }
-            //     return langString;
-            // });
-
             key = key.reduce(function changeDefaultWithUserLanguage(acc, langString) {
                 if (langString === 'default') {
                     return acc.concat(userLanguage);
