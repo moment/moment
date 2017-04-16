@@ -11,6 +11,9 @@ import { createInvalid as invalid } from './valid';
 // ASP.NET json date format regex
 var aspNetRegex = /^(\-)?(?:(\d*)[. ])?(\d+)\:(\d+)(?:\:(\d+)(\.\d*)?)?$/;
 
+// Django json date format regex
+var djangoRegex = /(\-)?(?:(\d*) )?(\d\d)\:(\d\d)\:(\d\d)(?:\.(\d{3})\d{3})?/;
+
 // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
 // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
 // and further modified to allow for strings containing both week and day
@@ -46,6 +49,16 @@ export function createDuration (input, key) {
             m  : toInt(match[MINUTE])                       * sign,
             s  : toInt(match[SECOND])                       * sign,
             ms : toInt(absRound(match[MILLISECOND] * 1000)) * sign // the millisecond decimal point is included in the match
+        };
+    } else if (!!(match = djangoRegex.exec(input))) {
+        sign = (match[1] === '-') ? -1 : 1;
+        duration = {
+            y  : 0,
+            d  : toInt(match[DATE])        * sign,
+            h  : toInt(match[HOUR])        * sign,
+            m  : toInt(match[MINUTE])      * sign,
+            s  : toInt(match[SECOND])      * sign,
+            ms : toInt(match[MILLISECOND]) * sign
         };
     } else if (!!(match = isoRegex.exec(input))) {
         sign = (match[1] === '-') ? -1 : 1;
