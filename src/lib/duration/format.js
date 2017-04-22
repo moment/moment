@@ -12,12 +12,11 @@ export function formatDuration() {
         args = [].slice.call(arguments),
         settings = extend({}, this.format.defaults),
         remainder = createDuration(this); // keep a shadow copy of this moment for calculating remainders
-    settings.duration = this;  // add a reference to this duration object in settings to use in a template function
 
     // parse arguments
     Array.prototype.forEach.call(args, function (arg) {
         var argtype = typeof arg;
-        if (argtype === 'string' || argtype === 'function') {
+        if (argtype === 'string') {
             settings.template = arg; return;
         }
         if (argtype === 'number') {
@@ -28,15 +27,13 @@ export function formatDuration() {
         }
     });
 
-    types = settings.types = (isArray(settings.types) ? settings.types : settings.types.split(' '));  // types
-    if (typeof settings.template === 'function') { // template
-        settings.template = settings.template.apply(settings);
-    }
-
     // decimalSeparator
     if (typeof settings.decimalSeparator === 'function') {
         settings.decimalSeparator = settings.decimalSeparator.apply(settings);
     }
+
+    // types
+    types = settings.types = ['escape', 'years', 'months', 'weeks', 'days', 'hours', 'minutes', 'seconds', 'milliseconds', 'general'];
 
     // tokenizer regexp
     tokenizer = new RegExp(map(types, function (type) {
@@ -96,11 +93,11 @@ export function formatDuration() {
         // calculate integer and decimal value portions
         if (isLeast) {  // apply precision to least significant token value
             if (settings.precision <= 0) {
-                wholeValue = Math[settings.trunc ? truncMethod : 'round'](value * Math.pow(10, settings.precision)) * Math.pow(10, -settings.precision);
+                wholeValue = Math.round(value * Math.pow(10, settings.precision)) * Math.pow(10, -settings.precision);
                 decimalValue = 0;
             } else { // settings.precision > 0
                 wholeValue = Math[truncMethod](value);
-                decVal = settings.trunc ? value - wholeValue : Math.round((value - wholeValue) * Math.pow(10, settings.precision)) * Math.pow(10, -settings.precision);
+                decVal = Math.round((value - wholeValue) * Math.pow(10, settings.precision)) * Math.pow(10, -settings.precision);
                 decVal = decVal.toString().replace(/^\-/, '').split(/\.|e\-/); // removes negative sign, splits on decimal & on exponent
 
                 if (decVal.length === 1) { // no decimals nor exponents
@@ -186,15 +183,7 @@ formatDuration.defaults = {
     milliseconds: /S+/,
     general: /.+?/,
 
-    // token type names: in order of descending magnitude
-    // can be a space-separated token name list or an array of token names
-    types: 'escape years months weeks days hours minutes seconds milliseconds general',
-
     // FORMAT OPTIONS:
-    // trunc: default behavior rounds final token value
-    // set to `true` to truncate final token value (this was the default behavior in moment-duration-format version 1)
-    trunc: false,
-
     // precision: number of decimal digits to include after (to the right of) the decimal point (positive integer)
     // or the number of digits to truncate to 0 before (to the left of) the decimal point (negative integer)
     precision: 0,
@@ -205,40 +194,6 @@ formatDuration.defaults = {
         return /^1(.+)1$/.exec((1.1).toLocaleString())[1];
     },
 
-    // template used to format duration: may be a function or a string
-    // template functions are executed with the `this` binding of the settings object
-    // so that template strings may be dynamically generated based on the duration object
-    // (accessible via `this.duration`) or any of the other settings
-    template: function () {
-        var types = this.types,
-            dur = this.duration,
-            lastType;
-
-        for (var i = types.length - 1; i >= 0; --i) {
-            if (dur._data[types[i]]) {
-                lastType = types[i];
-                break;
-            }
-        }
-
-        // default template strings for each duration dimension type
-        switch (lastType) {
-            case 'seconds':
-                return 'h:mm:ss';
-            case 'minutes':
-                return 'd[d] h:mm';
-            case 'hours':
-                return 'd[d] h[h]';
-            case 'days':
-                return 'M[m] d[d]';
-            case 'weeks':
-                return 'y[y] w[w]';
-            case 'months':
-                return 'y[y] M[m]';
-            case 'years':
-                return 'y[y]';
-            default:
-                return 'y[y] M[m] d[d] h:mm:ss';
-        }
-    }
+    // template used to format duration: string
+    template: 'y[y] M[m] d[d] h:mm:ss'
 };

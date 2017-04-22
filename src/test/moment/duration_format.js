@@ -85,24 +85,24 @@ test('negative precision', function (assert) {
 
 test ('precision zero', function (assert) {
     assert.equal(moment.duration(15, 'seconds').format('s', 0), '15');
-    assert.equal(moment.duration(15, 'seconds').format('s', 0, {trunc: true}), '15');
+    // assert.equal(moment.duration(15, 'seconds').format('s', 0, {trunc: true}), '15');
     assert.equal(moment.duration(123.39, 'seconds').format('s', 0), '123');
-    assert.equal(moment.duration(123.39, 'seconds').format('s', 0, {trunc: true}), '123');
+    // assert.equal(moment.duration(123.39, 'seconds').format('s', 0, {trunc: true}), '123');
 });
 
-test('positive precision with trunc', function (assert) {
-    assert.equal(moment.duration(15, 'seconds').format('m', 2, {trunc: true}), '0.25');
-    assert.equal(moment.duration(20, 'seconds').format('m', 3, {trunc: true}), '0.333');
-    assert.equal(moment.duration(30, 'seconds').format('m', 4, {trunc: true}), '0.5000');
-    assert.equal(moment.duration(40, 'seconds').format('m', 5, {trunc: true}), '0.66666');
-    assert.equal(moment.duration(59, 'seconds').format('m', 0, {trunc: true}), '0');
-    assert.equal(moment.duration(59, 'seconds').format('m', {trunc: true}), '0');
-});
+// test('positive precision with trunc', function (assert) {
+//     assert.equal(moment.duration(15, 'seconds').format('m', 2, {trunc: true}), '0.25');
+//     assert.equal(moment.duration(20, 'seconds').format('m', 3, {trunc: true}), '0.333');
+//     assert.equal(moment.duration(30, 'seconds').format('m', 4, {trunc: true}), '0.5000');
+//     assert.equal(moment.duration(40, 'seconds').format('m', 5, {trunc: true}), '0.66666');
+//     assert.equal(moment.duration(59, 'seconds').format('m', 0, {trunc: true}), '0');
+//     assert.equal(moment.duration(59, 'seconds').format('m', {trunc: true}), '0');
+// });
 
-test('negative precision with trunc', function (assert) {
-    assert.equal(moment.duration(15, 'seconds').format('s', -1, {trunc: true}), '10');
-    assert.equal(moment.duration(159, 'seconds').format('s', -1, {trunc: true}), '150');
-});
+// test('negative precision with trunc', function (assert) {
+//     assert.equal(moment.duration(15, 'seconds').format('s', -1, {trunc: true}), '10');
+//     assert.equal(moment.duration(159, 'seconds').format('s', -1, {trunc: true}), '150');
+// });
 
 test('multiple token instances', function (assert) {
     assert.equal(moment.duration(123, 'seconds').format('s s s'), '123 123 123');
@@ -142,11 +142,11 @@ test('output to greater units', function (assert) {
     assert.equal(moment.duration(1, 'milliseconds').format('S'), '1');
 });
 
-test('custom token types list', function (assert) {
-    assert.equal(moment.duration(12345, 'seconds').format('d [days] m [minutes] h [(hours is not a token type now)]', 2, {
-        types: 'escape years months weeks days minutes seconds milliseconds general'
-    }), '0 days 205.75 minutes h (hours is not a token type now)');
-});
+// test('custom token types list', function (assert) {
+//     assert.equal(moment.duration(12345, 'seconds').format('d [days] m [minutes] h [(hours is not a token type now)]', 2, {
+//         types: 'escape years months weeks days minutes seconds milliseconds general'
+//     }), '0 days 205.75 minutes h (hours is not a token type now)');
+// });
 
 test('custom escape regexp', function (assert) {
     assert.equal(moment.duration(1234, 'hours').format('d (days), h (hours)', {
@@ -178,45 +178,45 @@ test('zero value duration', function (assert) {
     assert.equal(moment.duration(0, 'minutes').format('m', 1), '0.0');
 });
 
-test('default template function', function (assert) {
-    assert.equal(moment.duration(100, 'milliseconds').format(), '0y 0m 0d 0:00:00');
-    assert.equal(moment.duration(100, 'seconds').format(), '0:01:40');
-    assert.equal(moment.duration(100, 'minutes').format(), '0d 1:40');
-    assert.equal(moment.duration(100, 'hours').format(), '4d 4h');
-    assert.equal(moment.duration(100, 'days').format(), '3m 9d');
-    assert.equal(moment.duration(100, 'weeks').format(), '22m 30d');
-    assert.equal(moment.duration(100, 'months').format(), '8y 4m');
-    assert.equal(moment.duration(100, 'years').format(), '100y');
-});
+// test('default template function', function (assert) {
+//     assert.equal(moment.duration(100, 'milliseconds').format(), '0y 0m 0d 0:00:00');
+//     assert.equal(moment.duration(100, 'seconds').format(), '0:01:40');
+//     assert.equal(moment.duration(100, 'minutes').format(), '0d 1:40');
+//     assert.equal(moment.duration(100, 'hours').format(), '4d 4h');
+//     assert.equal(moment.duration(100, 'days').format(), '3m 9d');
+//     assert.equal(moment.duration(100, 'weeks').format(), '22m 30d');
+//     assert.equal(moment.duration(100, 'months').format(), '8y 4m');
+//     assert.equal(moment.duration(100, 'years').format(), '100y');
+// });
 
-test('custom template function', function (assert) {
-    assert.equal(moment.duration(100, 'days').format(function (assert) {
-        // map
-        function map(array, callback) {
-            var index = 0,
-                max = array.length,
-                ret = [];
+// test('custom template function', function (assert) {
+//     assert.equal(moment.duration(100, 'days').format(function (assert) {
+//         // map
+//         function map(array, callback) {
+//             var index = 0,
+//                 max = array.length,
+//                 ret = [];
 
-            if (!array || !max) {
-                return ret;
-            }
+//             if (!array || !max) {
+//                 return ret;
+//             }
 
-            while (index < max) {
-                ret[index] = callback(array[index], index);
-                index += 1;
-            }
+//             while (index < max) {
+//                 ret[index] = callback(array[index], index);
+//                 index += 1;
+//             }
 
-            return ret;
-        }
+//             return ret;
+//         }
 
-        var types = this.types,
-            dur = this.duration;
+//         var types = this.types,
+//             dur = this.duration;
 
-        return map(types.slice(1, -2), function (type) {
-            return ((type === 'months' || type === 'milliseconds') ? type[0].toUpperCase() : type[0]) + ' [' + type + ']';
-        }).join(', ');
-    }), '0 years, 3 months, 1 weeks, 2 days, 0 hours, 0 minutes, 0 seconds');
-});
+//         return map(types.slice(1, -2), function (type) {
+//             return ((type === 'months' || type === 'milliseconds') ? type[0].toUpperCase() : type[0]) + ' [' + type + ']';
+//         }).join(', ');
+//     }), '0 years, 3 months, 1 weeks, 2 days, 0 hours, 0 minutes, 0 seconds');
+// });
 
 test('negative durations', function (assert) {
     assert.equal(moment.duration(-1, 'years').format('y'), '-1');
@@ -240,12 +240,12 @@ test('negative durations', function (assert) {
 //     assert.equal(moment.duration(-42, 'seconds').format('h:mm:ss'), '-42');
 // });
 
-test('stop trimming with the * character', function (assert) {
-    assert.equal(moment.duration(15, 'seconds').format('h:*mm:ss'), '0:*00:15');
-    // assert.equal(moment.duration(15, 'seconds').format('h:*mm:ss', {forceLength: true}), '00:15');
-    assert.equal(moment.duration(15, 'seconds').format('hh:*mm:ss'), '00:*00:15');
-    assert.equal(moment.duration(15, 'seconds').format('*h:mm:ss'), '*0:00:15');
-});
+// test('stop trimming with the * character', function (assert) {
+//     assert.equal(moment.duration(15, 'seconds').format('h:*mm:ss'), '0:*00:15');
+//     // assert.equal(moment.duration(15, 'seconds').format('h:*mm:ss', {forceLength: true}), '00:15');
+//     assert.equal(moment.duration(15, 'seconds').format('hh:*mm:ss'), '00:*00:15');
+//     assert.equal(moment.duration(15, 'seconds').format('*h:mm:ss'), '*0:00:15');
+// });
 
 test('decimal separator', function (assert) {
     assert.equal(moment.duration(1000, 'seconds').format('h', {precision: 2}), '0.28');
