@@ -1,5 +1,4 @@
 import { createDuration } from './create';
-import each from '../utils/each';
 import extend from '../utils/extend';
 import isArray from '../utils/is-array';
 import isObject from '../utils/is-object';
@@ -16,7 +15,7 @@ export function formatDuration() {
     settings.duration = this;  // add a reference to this duration object in settings to use in a template function
 
     // parse arguments
-    each.call(args, function (arg) {
+    Array.prototype.forEach.call(args, function (arg) {
         var argtype = typeof arg;
         if (argtype === 'string' || argtype === 'function') {
             settings.template = arg; return;
@@ -70,7 +69,7 @@ export function formatDuration() {
 
     // unique moment token types in the template (in order of descending magnitude)
     momentTypes = [];
-    each.call(tokens, function (token) {
+    Array.prototype.forEach.call(tokens, function (token) {
         if (indexOf.call(types, token.type) > -1 && indexOf.call(momentTypes, token.type) === -1) {
             momentTypes.push(token.type);
         }
@@ -84,7 +83,7 @@ export function formatDuration() {
     }
 
     // calculate values for each token type in the template
-    each.call(momentTypes, function (momentType, index) {
+    Array.prototype.forEach.call(momentTypes, function (momentType, index) {
         var value, wholeValue, decimalValue, isLeast, isMost, truncMethod, decVal;
 
         isLeast = (index === (momentTypes.length - 1));
@@ -121,7 +120,7 @@ export function formatDuration() {
 
         // update tokens array
         // using this algorithm to not assume anything about the order or frequency of any tokens
-        each.call(tokens, function (token) {
+        Array.prototype.forEach.call(tokens, function (token) {
             if (token.type === momentType) {
                 extend(token, {
                     value: value,
