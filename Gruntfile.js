@@ -117,7 +117,7 @@ module.exports = function (grunt) {
                     ascii_only: true // jshint ignore:line
                 },
                 report: 'min',
-                preserveComments: 'some'
+                preserveComments: /^!|@preserve|@license|@cc_on/i
             }
         },
         jshint: {
@@ -170,7 +170,7 @@ module.exports = function (grunt) {
                 command: 'cd meteor && meteor publish'
             },
             'typescript-test': {
-                command: 'node_modules/.bin/tsc --project typing-tests'
+                command: 'npm run typescript-test'
             }
         }
 
