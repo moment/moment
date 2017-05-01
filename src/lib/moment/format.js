@@ -24,6 +24,14 @@ export function toISOString() {
     return formatMoment(m, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
 }
 
+export function toRFC2822String() {
+    if (!this.isValid()) {
+        return null;
+    }
+    var m = this.clone().utc();
+    return formatMoment(m, 'ddd, D MMM YYYY HH:mm:ss ZZ');
+}
+
 /**
  * Return a human readable representation of a moment that can
  * also be evaluated to get a new moment which is the same
