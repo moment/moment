@@ -150,8 +150,11 @@ export function configFromRFC2822(config) {
             case 4: // Zone
                 timezone = timezones[match[5]];
                 break;
-            default: // UT or +/-9999
+            case 3: // UT
                 timezone = timezones[' GMT'];
+                break;
+            default: // +/-9999
+                timezone = match[5];
         }
         match[5] = timezone;
         config._i = match.splice(1).join('');
