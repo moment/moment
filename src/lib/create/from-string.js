@@ -138,7 +138,8 @@ export function configFromRFC2822(config) {
         }
 
         switch (match[5].length) {
-            case 2: // military
+            case 2:
+                // military e.g. ' Z' => ' +0000', ' A' => ' +0100', ' Y' => ' -1200'
                 if (timezoneIndex === 0) {
                     timezone = ' +0000';
                 } else {
@@ -147,11 +148,17 @@ export function configFromRFC2822(config) {
                         (('' + timezoneIndex).replace(/^-?/, '0')).match(/..$/)[0] + '00';
                 }
                 break;
-            case 4: // Zone
+            case 3:
+                // ' UT', equivalent to GMT
+                timezone = timezones[' GMT'];
+                break;
+            case 4:
+                // Zone e.g. ' GMT' => ' +0000', ' EDT' => ' -0400'
                 timezone = timezones[match[5]];
                 break;
-            default: // UT or +/-9999
-                timezone = timezones[' GMT'];
+            default:
+                // Offset e.g. ' +0100', ' -0200' // Used as is.
+                timezone = match[5];
         }
         match[5] = timezone;
         config._i = match.splice(1).join('');
