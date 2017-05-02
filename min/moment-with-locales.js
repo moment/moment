@@ -1,4 +1,4 @@
-;(function (global, factory) {
+﻿;(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
     global.moment = factory()
@@ -1901,13 +1901,13 @@ function defineLocale (name, config) {
 
 function updateLocale(name, config) {
     if (config != null) {
-        var locale, parentConfig = baseConfig;
+        var parentConfig = baseConfig;
         // MERGE
         if (locales[name] != null) {
             parentConfig = locales[name]._config;
         }
         config = mergeConfigs(parentConfig, config);
-        locale = new Locale(config);
+        var locale = new Locale(config);
         locale.parentLocale = locales[name];
         locales[name] = locale;
 
@@ -2762,7 +2762,7 @@ var chunkOffset = /([\+\-]|\d\d)/gi;
 function offsetFromString(matcher, string) {
     var matches = (string || '').match(matcher);
 
-    if (matches === null) {
+    if (matches === null || matches == undefined) {
         return null;
     }
 
@@ -4323,16 +4323,16 @@ function toISOString$1() {
     var seconds = abs$1(this._milliseconds) / 1000;
     var days         = abs$1(this._days);
     var months       = abs$1(this._months);
-    var minutes, hours, years;
+    var minutes;
 
     // 3600 seconds -> 60 minutes -> 1 hour
     minutes           = absFloor(seconds / 60);
-    hours             = absFloor(minutes / 60);
+    var hours = absFloor(minutes / 60);
     seconds %= 60;
     minutes %= 60;
 
     // 12 months -> 1 year
-    years  = absFloor(months / 12);
+    var years = absFloor(months / 12);
     months %= 12;
 
 
@@ -5892,7 +5892,6 @@ function translate$1(number, withoutSuffix, key, isFuture) {
             } else {
                 return result + 'minutami';
             }
-            break;
         case 'h':  // an hour / in an hour / an hour ago
             return withoutSuffix ? 'hodina' : (isFuture ? 'hodinu' : 'hodinou');
         case 'hh': // 9 hours / in 9 hours / 9 hours ago
@@ -5901,7 +5900,6 @@ function translate$1(number, withoutSuffix, key, isFuture) {
             } else {
                 return result + 'hodinami';
             }
-            break;
         case 'd':  // a day / in a day / a day ago
             return (withoutSuffix || isFuture) ? 'den' : 'dnem';
         case 'dd': // 9 days / in 9 days / 9 days ago
@@ -5910,7 +5908,6 @@ function translate$1(number, withoutSuffix, key, isFuture) {
             } else {
                 return result + 'dny';
             }
-            break;
         case 'M':  // a month / in a month / a month ago
             return (withoutSuffix || isFuture) ? 'měsíc' : 'měsícem';
         case 'MM': // 9 months / in 9 months / 9 months ago
@@ -5919,7 +5916,6 @@ function translate$1(number, withoutSuffix, key, isFuture) {
             } else {
                 return result + 'měsíci';
             }
-            break;
         case 'y':  // a year / in a year / a year ago
             return (withoutSuffix || isFuture) ? 'rok' : 'rokem';
         case 'yy': // 9 years / in 9 years / 9 years ago
@@ -5928,34 +5924,35 @@ function translate$1(number, withoutSuffix, key, isFuture) {
             } else {
                 return result + 'lety';
             }
-            break;
     }
+
+    // TODO: 'not all code paths return a value' 
 }
 
 hooks.defineLocale('cs', {
     months : months$3,
     monthsShort : monthsShort,
     monthsParse : (function (months, monthsShort) {
-        var i, _monthsParse = [];
+        var i, monthsParse = [];
         for (i = 0; i < 12; i++) {
             // use custom parser to solve problem with July (červenec)
-            _monthsParse[i] = new RegExp('^' + months[i] + '$|^' + monthsShort[i] + '$', 'i');
+            monthsParse[i] = new RegExp('^' + months[i] + '$|^' + monthsShort[i] + '$', 'i');
         }
-        return _monthsParse;
+        return monthsParse;
     }(months$3, monthsShort)),
     shortMonthsParse : (function (monthsShort) {
-        var i, _shortMonthsParse = [];
+        var i, shortMonthsParse = [];
         for (i = 0; i < 12; i++) {
-            _shortMonthsParse[i] = new RegExp('^' + monthsShort[i] + '$', 'i');
+            shortMonthsParse[i] = new RegExp('^' + monthsShort[i] + '$', 'i');
         }
-        return _shortMonthsParse;
+        return shortMonthsParse;
     }(monthsShort)),
     longMonthsParse : (function (months) {
-        var i, _longMonthsParse = [];
+        var i, longMonthsParse = [];
         for (i = 0; i < 12; i++) {
-            _longMonthsParse[i] = new RegExp('^' + months[i] + '$', 'i');
+            longMonthsParse[i] = new RegExp('^' + months[i] + '$', 'i');
         }
-        return _longMonthsParse;
+        return longMonthsParse;
     }(months$3)),
     weekdays : 'neděle_pondělí_úterý_středa_čtvrtek_pátek_sobota'.split('_'),
     weekdaysShort : 'ne_po_út_st_čt_pá_so'.split('_'),
@@ -8796,6 +8793,8 @@ hooks.defineLocale('jv', {
         } else if (meridiem === 'sonten' || meridiem === 'ndalu') {
             return hour + 12;
         }
+
+        // TODO: 'not all code paths return a value'
     },
     meridiem : function (hours, minutes, isLower) {
         if (hours < 11) {
@@ -8883,6 +8882,8 @@ hooks.defineLocale('ka', {
             if ((/წელი/).test(s)) {
                 return s.replace(/წელი$/, 'წლის უკან');
             }
+
+            // TODO: 'not all code paths return a value'
         },
         s : 'რამდენიმე წამი',
         m : 'წუთი',
@@ -10803,6 +10804,8 @@ hooks.defineLocale('pa-in', {
         } else if (meridiem === 'ਸ਼ਾਮ') {
             return hour + 12;
         }
+
+        // TODO: 'not all code paths return a value'
     },
     meridiem : function (hour, minute, isLower) {
         if (hour < 4) {
@@ -11182,6 +11185,8 @@ hooks.defineLocale('ru', {
                     return '[В] dddd [в] LT';
                 }
             }
+
+            // TODO: 'not all code paths return a value'
         },
         lastWeek: function (now) {
             if (now.week() !== this.week()) {
@@ -11204,6 +11209,8 @@ hooks.defineLocale('ru', {
                     return '[В] dddd [в] LT';
                 }
             }
+
+            // TODO: 'not all code paths return a value'
         },
         sameElse: 'L'
     },
@@ -11479,7 +11486,6 @@ function translate$8(number, withoutSuffix, key, isFuture) {
             } else {
                 return result + 'minútami';
             }
-            break;
         case 'h':  // an hour / in an hour / an hour ago
             return withoutSuffix ? 'hodina' : (isFuture ? 'hodinu' : 'hodinou');
         case 'hh': // 9 hours / in 9 hours / 9 hours ago
@@ -11488,7 +11494,6 @@ function translate$8(number, withoutSuffix, key, isFuture) {
             } else {
                 return result + 'hodinami';
             }
-            break;
         case 'd':  // a day / in a day / a day ago
             return (withoutSuffix || isFuture) ? 'deň' : 'dňom';
         case 'dd': // 9 days / in 9 days / 9 days ago
@@ -11497,7 +11502,6 @@ function translate$8(number, withoutSuffix, key, isFuture) {
             } else {
                 return result + 'dňami';
             }
-            break;
         case 'M':  // a month / in a month / a month ago
             return (withoutSuffix || isFuture) ? 'mesiac' : 'mesiacom';
         case 'MM': // 9 months / in 9 months / 9 months ago
@@ -11506,7 +11510,6 @@ function translate$8(number, withoutSuffix, key, isFuture) {
             } else {
                 return result + 'mesiacmi';
             }
-            break;
         case 'y':  // a year / in a year / a year ago
             return (withoutSuffix || isFuture) ? 'rok' : 'rokom';
         case 'yy': // 9 years / in 9 years / 9 years ago
@@ -11515,8 +11518,9 @@ function translate$8(number, withoutSuffix, key, isFuture) {
             } else {
                 return result + 'rokmi';
             }
-            break;
     }
+
+    // TODO: 'not all code paths return a value'
 }
 
 hooks.defineLocale('sk', {
@@ -11668,6 +11672,7 @@ function processRelativeTime$6(number, withoutSuffix, key, isFuture) {
             }
             return result;
     }
+    // TODO: 'not all code paths return a value'
 }
 
 hooks.defineLocale('sl', {
@@ -11704,6 +11709,7 @@ hooks.defineLocale('sl', {
                 case 5:
                     return '[v] dddd [ob] LT';
             }
+            // TODO: 'not all code paths return a value'
         },
         lastDay  : '[včeraj ob] LT',
         lastWeek : function () {
@@ -11720,6 +11726,7 @@ hooks.defineLocale('sl', {
                 case 5:
                     return '[prejšnji] dddd [ob] LT';
             }
+            // TODO not all code paths return a value
         },
         sameElse : 'L'
     },
@@ -11964,6 +11971,7 @@ hooks.defineLocale('sr', {
                 case 5:
                     return '[u] dddd [u] LT';
             }
+            // TODO: 'not all code paths return a value'
         },
         lastDay  : '[juče u] LT',
         lastWeek : function () {
@@ -12072,6 +12080,7 @@ hooks.defineLocale('ss', {
             }
             return hour + 12;
         }
+        // TODO: 'not all code paths return a value'
     },
     dayOfMonthOrdinalParse: /\d{1,2}/,
     ordinal : '%d',
@@ -12130,7 +12139,7 @@ hooks.defineLocale('sv', {
             output = (~~(number % 100 / 10) === 1) ? 'e' :
             (b === 1) ? 'a' :
             (b === 2) ? 'a' :
-            (b === 3) ? 'e' : 'e';
+            'e';
         return number + output;
     },
     week : {
@@ -12364,6 +12373,7 @@ hooks.defineLocale('te', {
         } else if (meridiem === 'సాయంత్రం') {
             return hour + 12;
         }
+        // TODO: 'not all code paths return a value'
     },
     meridiem : function (hour, minute, isLower) {
         if (hour < 4) {
@@ -12592,6 +12602,7 @@ function translate$9(number, withoutSuffix, string, isFuture) {
         case 'yy':
             return numberNoun + ' DIS';
     }
+    // TODO: 'not all code paths return a value'
 }
 
 function numberAsNoun(number) {
@@ -13542,6 +13553,7 @@ hooks.defineLocale('zh-hk', {
         } else if (meridiem === '下午' || meridiem === '晚上') {
             return hour + 12;
         }
+        // TODO: 'not all code paths return a value'
     },
     meridiem : function (hour, minute, isLower) {
         var hm = hour * 100 + minute;
@@ -13635,6 +13647,7 @@ hooks.defineLocale('zh-tw', {
         } else if (meridiem === '下午' || meridiem === '晚上') {
             return hour + 12;
         }
+        // TODO: 'not all code paths return a value'
     },
     meridiem : function (hour, minute, isLower) {
         var hm = hour * 100 + minute;
