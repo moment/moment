@@ -308,6 +308,8 @@ test('serialization to ISO 8601 duration strings', function (assert) {
     assert.equal(moment.duration({y: -1, M: 1}).toISOString(), '-P11M', 'a month after a year ago');
     assert.equal(moment.duration({}).toISOString(), 'P0D', 'zero duration');
     assert.equal(moment.duration({M: 16, d:40, s: 86465}).toISOString(), 'P1Y4M40DT24H1M5S', 'all fields');
+    assert.equal(moment.duration({s: 157.115}).toISOString(), 'PT2M37.115S', 'fractional seconds');
+    assert.equal(moment.duration({ms: 157115}).toISOString(), 'PT2M37.115S', 'fractional milliseconds');
 });
 
 test('toString acts as toISOString', function (assert) {
