@@ -1,4 +1,5 @@
 import absFloor from '../utils/abs-floor';
+import absRound from '../utils/abs-round';
 var abs = Math.abs;
 
 export function toISOString() {
@@ -21,7 +22,7 @@ export function toISOString() {
     // 3600 seconds -> 60 minutes -> 1 hour
     minutes           = absFloor(seconds / 60);
     hours             = absFloor(minutes / 60);
-    seconds           = absFloor((seconds % 60) * 1000) / 1000;
+    seconds           = absRound((seconds % 60) * 1000) / 1000;
     minutes %= 60;
 
     // 12 months -> 1 year
