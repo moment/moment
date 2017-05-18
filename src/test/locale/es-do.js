@@ -212,7 +212,7 @@ test('weeks year starting sunday formatted', function (assert) {
 });
 
 test('test short months proper', function (assert) {
-    var str = "02-ago-2016"; // "02-ago-2016"
+    var str = '02-ago-2016'; // "02-ago-2016"
     assert.equal(moment(str, 'DD-MMM-YYYY').month(), '7', '02-ago-2016 month should be 7');
 });
 
