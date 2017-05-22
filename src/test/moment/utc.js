@@ -40,7 +40,7 @@ test('creating with utc and a date parameter array', function (assert) {
     assert.equal(m.date(), 2, 'the day should be correct for utc array');
     assert.equal(m.hours(), 3, 'the hours should be correct for utc array');
 
-    m = moment.utc('2011-02-02 3:04:05', 'YYYY-MM-DD HH:mm:ss');
+    m = moment.utc('2011-02-02 03:04:05', 'YYYY-MM-DD HH:mm:ss');
     assert.equal(m.date(), 2, 'the day should be correct for utc parsing format');
     assert.equal(m.hours(), 3, 'the hours should be correct for utc parsing format');
 

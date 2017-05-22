@@ -445,18 +445,17 @@ test('parse zone with more arguments', function (assert) {
     assert.equal(m.format(), '2013-01-01T05:00:00-13:00', 'accept input and format');
     m = moment.parseZone('2013-01-01-13:00', 'YYYY MM DD ZZ', true);
     assert.equal(m.isValid(), false, 'accept input, format and strict flag');
-    m = moment.parseZone('2013-01-01-13:00', ['DD MM YYYY ZZ', 'YYYY MM DD ZZ']);
+    m = moment.parseZone('2013-01-01--13:00', ['DD-MM-YYYY-ZZ', 'YYYY-MM-DD-ZZ']);
     assert.equal(m.format(), '2013-01-01T00:00:00-13:00', 'accept input and array of formats');
 });
 
 test('parse zone with a timezone from the format string', function (assert) {
-    var m = moment('11-12-2013 -0400 +1100', 'DD-MM-YYYY ZZ #####').parseZone();
-
-    assert.equal(m.utcOffset(), -4 * 60);
+    assert.equal(moment('11-12-2013 -0400 +1100', 'DD-MM-YYYY ZZ', false).parseZone().utcOffset(), -4 * 60);
+    assert.equal(moment('11-12-2013 -0400', 'DD-MM-YYYY ZZ').parseZone().utcOffset(), -4 * 60);
 });
 
 test('parse zone without a timezone included in the format string', function (assert) {
-    var m = moment('11-12-2013 -0400 +1100', 'DD-MM-YYYY').parseZone();
+    var m = moment('11-12-2013 -0400 +1100', 'DD-MM-YYYY', false).parseZone();
 
     assert.equal(m.utcOffset(), 11 * 60);
 });

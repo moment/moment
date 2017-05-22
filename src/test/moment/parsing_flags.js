@@ -62,7 +62,7 @@ test('overflow without format', function (assert) {
 
     //days
     assert.equal(flags('2010-01-16', 'YYYY-MM-DD').overflow, -1, 'date 16 valid');
-    assert.equal(flags('2010-01-0',  'YYYY-MM-DD').overflow, 2, 'date 0 invalid');
+    assert.equal(flags('2010-01-00',  'YYYY-MM-DD').overflow, 2, 'date 0 invalid');
     assert.equal(flags('2010-01-32', 'YYYY-MM-DD').overflow, 2, 'date 32 invalid');
     assert.equal(flags('2012-02-29', 'YYYY-MM-DD').overflow, -1, 'date leap year valid');
     assert.equal(flags('2010-02-29', 'YYYY-MM-DD').overflow, 2, 'date leap year invalid');
@@ -98,13 +98,13 @@ test('overflow without format', function (assert) {
     assert.equal(flags('08:15:12:1000', 'HH:mm:ss:SSSS').overflow, -1, 'millisecond 1000 actually valid');
 });
 
-test('extra tokens', function (assert) {
-    assert.deepEqual(flags('1982-05-25', 'YYYY-MM-DD').unusedTokens, [], 'nothing extra');
-    assert.deepEqual(flags('1982-05', 'YYYY-MM-DD').unusedTokens, ['DD'], 'extra formatting token');
-    assert.deepEqual(flags('1982', 'YYYY-MM-DD').unusedTokens, ['MM', 'DD'], 'multiple extra formatting tokens');
-    assert.deepEqual(flags('1982-05', 'YYYY-MM-').unusedTokens, [], 'extra non-formatting token');
-    assert.deepEqual(flags('1982-05-', 'YYYY-MM-DD').unusedTokens, ['DD'], 'non-extra non-formatting token');
-    assert.deepEqual(flags('1982 05 1982', 'YYYY-MM-DD').unusedTokens, [], 'different non-formatting token');
+test('extra tokens non-strict', function (assert) {
+    assert.deepEqual(flags('1982-05-25', 'YYYY-MM-DD', false).unusedTokens, [], 'nothing extra');
+    assert.deepEqual(flags('1982-05', 'YYYY-MM-DD', false).unusedTokens, ['DD'], 'extra formatting token');
+    assert.deepEqual(flags('1982', 'YYYY-MM-DD', false).unusedTokens, ['MM', 'DD'], 'multiple extra formatting tokens');
+    assert.deepEqual(flags('1982-05', 'YYYY-MM-', false).unusedTokens, [], 'extra non-formatting token');
+    assert.deepEqual(flags('1982-05-', 'YYYY-MM-DD', false).unusedTokens, ['DD'], 'non-extra non-formatting token');
+    assert.deepEqual(flags('1982 05 1982', 'YYYY-MM-DD', false).unusedTokens, [], 'different non-formatting token');
 });
 
 test('extra tokens strict', function (assert) {
@@ -116,13 +116,13 @@ test('extra tokens strict', function (assert) {
     assert.deepEqual(flags('1982 05 1982', 'YYYY-MM-DD', true).unusedTokens, ['-', '-'], 'different non-formatting token');
 });
 
-test('unused input', function (assert) {
-    assert.deepEqual(flags('1982-05-25', 'YYYY-MM-DD').unusedInput, [], 'normal input');
-    assert.deepEqual(flags('1982-05-25 this is more stuff', 'YYYY-MM-DD').unusedInput, [' this is more stuff'], 'trailing nonsense');
-    assert.deepEqual(flags('1982-05-25 09:30', 'YYYY-MM-DD').unusedInput, [' 09:30'], ['trailing legit-looking input']);
-    assert.deepEqual(flags('1982-05-25 some junk', 'YYYY-MM-DD [some junk]').unusedInput, [], 'junk that actually gets matched');
-    assert.deepEqual(flags('stuff at beginning 1982-05-25', 'YYYY-MM-DD').unusedInput, ['stuff at beginning '], 'leading junk');
-    assert.deepEqual(flags('junk 1982 more junk 05 yet more junk25', 'YYYY-MM-DD').unusedInput, ['junk ', ' more junk ', ' yet more junk'], 'interstitial junk');
+test('unused input non-strict', function (assert) {
+    assert.deepEqual(flags('1982-05-25', 'YYYY-MM-DD', false).unusedInput, [], 'normal input');
+    assert.deepEqual(flags('1982-05-25 this is more stuff', 'YYYY-MM-DD', false).unusedInput, [' this is more stuff'], 'trailing nonsense');
+    assert.deepEqual(flags('1982-05-25 09:30', 'YYYY-MM-DD', false).unusedInput, [' 09:30'], ['trailing legit-looking input']);
+    assert.deepEqual(flags('1982-05-25 some junk', 'YYYY-MM-DD [some junk]', false).unusedInput, [], 'junk that actually gets matched');
+    assert.deepEqual(flags('stuff at beginning 1982-05-25', 'YYYY-MM-DD', false).unusedInput, ['stuff at beginning '], 'leading junk');
+    assert.deepEqual(flags('junk 1982 more junk 05 yet more junk25', 'YYYY-MM-DD', false).unusedInput, ['junk ', ' more junk ', ' yet more junk'], 'interstitial junk');
 });
 
 test('unused input strict', function (assert) {

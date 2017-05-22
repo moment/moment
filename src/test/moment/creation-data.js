@@ -30,5 +30,6 @@ test('valid date with formats', function (assert) {
 
 test('strict', function (assert) {
     assert.ok(moment('2015-01-02', 'YYYY-MM-DD', true).creationData().strict, 'strict is true');
-    assert.ok(!moment('2015-01-02', 'YYYY-MM-DD').creationData().strict, 'strict is true');
+    assert.ok(!moment('2015-01-02', 'YYYY-MM-DD', false).creationData().strict, 'strict is false');
+    assert.ok(moment('2015-01-02', 'YYYY-MM-DD').creationData().strict, 'strict is true by default');
 });
