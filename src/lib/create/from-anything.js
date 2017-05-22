@@ -114,7 +114,7 @@ export function createLocalOrUTC (input, format, locale, strict, isUTC) {
     c._l = locale;
     c._i = input;
     c._f = format;
-    c._strict = strict;
+    c._strict = strict !== false;
 
     return createFromConfig(c);
 }
