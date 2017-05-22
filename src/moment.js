@@ -7,6 +7,7 @@
 import { hooks as moment, setHookCallback } from './lib/utils/hooks';
 
 moment.version = '2.18.1';
+moment.isImmutable = true;
 
 import {
     min,

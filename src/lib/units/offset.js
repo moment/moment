@@ -203,8 +203,8 @@ export function hasAlignedHourOffset (input) {
 
 export function isDaylightSavingTime () {
     return (
-        this.utcOffset() > new Moment(this).month(0).utcOffset() ||
-        this.utcOffset() > new Moment(this).month(5).utcOffset()
+        this.utcOffset() > this.month(0).utcOffset() ||
+        this.utcOffset() > this.month(5).utcOffset()
     );
 }
 
