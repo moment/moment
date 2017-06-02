@@ -7,23 +7,23 @@ export function startOf (units) {
     switch (units) {
         case 'year':
             this.month(0);
-        /* falls through */
+            /* falls through */
         case 'quarter':
         case 'month':
             this.date(1);
-        /* falls through */
+            /* falls through */
         case 'week':
         case 'isoWeek':
         case 'day':
         case 'date':
             this.hours(0);
-        /* falls through */
+            /* falls through */
         case 'hour':
             this.minutes(0);
-        /* falls through */
+            /* falls through */
         case 'minute':
             this.seconds(0);
-        /* falls through */
+            /* falls through */
         case 'second':
             this.milliseconds(0);
     }
