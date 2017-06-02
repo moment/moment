@@ -190,10 +190,10 @@ test('end of day', function (assert) {
 });
 
 test('end of day - testing issue #3132', function (assert) {
-    var d = moment.tz("2016-10-16","America/Sao_Paulo");
-    var m = d.endOf('day').format("YYYY-MM-DD HH:mm:ss"),
-        ms = d.endOf('days').format("YYYY-MM-DD HH:mm:ss"),
-        ma = d.endOf('d').format("YYYY-MM-DD HH:mm:ss");
+    var m = moment(new Date(2016, 10, 16, 3, 4, 5, 6), 'America/Sao_Paulo').endOf('day'),
+        ms = moment(new Date(2016, 10, 16, 3, 4, 5, 6), 'America/Sao_Paulo').endOf('days'),
+        ma = moment(new Date(2016, 10, 16, 3, 4, 5, 6), 'America/Sao_Paulo').endOf('d');
+
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
     assert.equal(m.year(), 2016, 'keep the year');

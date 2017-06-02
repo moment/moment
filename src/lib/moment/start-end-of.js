@@ -57,12 +57,14 @@ export function endOf(units) {
 
     switch (units) {
         case 'day':
-            var endOfDay = this.startOf(units).add(1, units).subtract(1, 'ms');
-            endOfDay.hours(23);
-            endOfDay.minutes(59);
-            endOfDay.seconds(59);
-            endOfDay.milliseconds(999);
-            return endOfDay;
+            var endOf = this.startOf(units).add(1, units).subtract(1, 'ms');
+            if (endOf.hours()!==23 && endOf.minutes()!==59) {
+                endOf.hours(23);
+                endOf.minutes(59);
+                endOf.seconds(59);
+                endOf.milliseconds(999);
+            }
+            return endOf;
         default:
          return this.startOf(units).add(1, (units === 'isoWeek' ? 'week' : units)).subtract(1, 'ms');
     }
