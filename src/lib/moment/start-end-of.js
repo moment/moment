@@ -58,7 +58,7 @@ export function endOf (units) {
     switch (units) {
         case 'day':
             var endOf = this.startOf(units).add(1, units).subtract(1, 'ms');
-            if (endOf.hours()!==23 && endOf.minutes()!==59) {
+            if (endOf.hours() !== 23 && endOf.minutes() !== 59) {
                 endOf.hours(23);
                 endOf.minutes(59);
                 endOf.seconds(59);
