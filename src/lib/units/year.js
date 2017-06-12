@@ -62,8 +62,14 @@ function isLeapYear(year) {
 
 // HOOKS
 
+var year = parseInt((new Date()).getFullYear().toString()),
+    yearPlusTenStr = (year + 10).toString(),
+    newYear = parseInt(yearPlusTenStr.substr(2, 2)),
+    UpperYear = parseInt(yearPlusTenStr.substr(0, 2)) * 100,
+    LowerYear = UpperYear - 100;
+
 hooks.parseTwoDigitYear = function (input) {
-    return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
+    return toInt(input) + (toInt(input) > newYear ? LowerYear : UpperYear);
 };
 
 // MOMENTS
