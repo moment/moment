@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : gujarati (gj)
+//! locale : gujarati (gu-IN)
 //! author : Kaushik Thanki : https://github.com/Kaushik1987
 import moment from '../moment';
 
