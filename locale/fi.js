@@ -15,32 +15,27 @@ function translate(number, withoutSuffix, key, isFuture) {
         case 's':
             return isFuture ? 'muutaman sekunnin' : 'muutama sekunti';
         case 'm':
-            result = isFuture ? 'minuutin' : 'minuutti';
-            break;
+            return isFuture ? 'minuutin' : 'minuutti';
         case 'mm':
             result = isFuture ? 'minuutin' : 'minuuttia';
             break;
         case 'h':
-            result = isFuture ? 'tunnin' : 'tunti';
-            break;
+            return isFuture ? 'tunnin' : 'tunti';
         case 'hh':
             result = isFuture ? 'tunnin' : 'tuntia';
             break;
         case 'd':
-            result = isFuture ? 'päivän' : 'päivä';
-            break;
+            return isFuture ? 'päivän' : 'päivä';
         case 'dd':
             result = isFuture ? 'päivän' : 'päivää';
             break;
         case 'M':
-            result = isFuture ? 'kuukauden' : 'kuukausi';
-            break;
+            return isFuture ? 'kuukauden' : 'kuukausi';
         case 'MM':
             result = isFuture ? 'kuukauden' : 'kuukautta';
             break;
         case 'y':
-            result = isFuture ? 'vuoden' : 'vuosi';
-            break;
+            return isFuture ? 'vuoden' : 'vuosi';
         case 'yy':
             result = isFuture ? 'vuoden' : 'vuotta';
             break;
