@@ -4,47 +4,44 @@
 
 import moment from '../moment';
 
-var numbersPast = 'nolla yksi kaksi kolme neljä viisi kuusi seitsemän kahdeksan yhdeksän'.split(' '),
-    numbersFuture = [
-        'nolla', 'yhden', 'kahden', 'kolmen', 'neljän', 'viiden', 'kuuden',
-        numbersPast[7], numbersPast[8], numbersPast[9]
-    ];
 function translate(number, withoutSuffix, key, isFuture) {
     var result = '';
     switch (key) {
         case 's':
             return isFuture ? 'muutaman sekunnin' : 'muutama sekunti';
         case 'm':
-            return isFuture ? 'minuutin' : 'minuutti';
+            result = isFuture ? 'minuutin' : 'minuutti';
+            break;
         case 'mm':
             result = isFuture ? 'minuutin' : 'minuuttia';
             break;
         case 'h':
-            return isFuture ? 'tunnin' : 'tunti';
+            result = isFuture ? 'tunnin' : 'tunti';
+            break;
         case 'hh':
             result = isFuture ? 'tunnin' : 'tuntia';
             break;
         case 'd':
-            return isFuture ? 'päivän' : 'päivä';
+            result = isFuture ? 'päivän' : 'päivä';
+            break;
         case 'dd':
             result = isFuture ? 'päivän' : 'päivää';
             break;
         case 'M':
-            return isFuture ? 'kuukauden' : 'kuukausi';
+            result = isFuture ? 'kuukauden' : 'kuukausi';
+            break;
         case 'MM':
             result = isFuture ? 'kuukauden' : 'kuukautta';
             break;
         case 'y':
-            return isFuture ? 'vuoden' : 'vuosi';
+            result = isFuture ? 'vuoden' : 'vuosi';
+            break;
         case 'yy':
             result = isFuture ? 'vuoden' : 'vuotta';
             break;
     }
-    result = verbalNumber(number, isFuture) + ' ' + result;
-    return result;
-}
-function verbalNumber(number, isFuture) {
-    return number < 10 ? (isFuture ? numbersFuture[number] : numbersPast[number]) : number;
+
+    return number + ' ' + result;
 }
 
 export default moment.defineLocale('fi', {
