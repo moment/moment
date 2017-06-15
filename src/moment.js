@@ -81,11 +81,11 @@ moment.prototype             = fn;
 
 // HTML5 input format constants
 moment.DATETIME_LOCAL = 'YYYY-MM-DDThh:mm';
-moment.DATETIME_LOCAL_MILLIS = 'YYYY-MM-DDThh:mm:ss.SSS';
+moment.DATETIME_LOCAL_MS = 'YYYY-MM-DDThh:mm:ss.SSS';
 moment.DATE = 'YYYY-MM-DD';
 moment.TIME_MINUTES = 'hh:mm';
 moment.TIME_SECONDS = 'hh:mm:ss';
-moment.TIME_MILLIS = 'hh:mm:ss.SSS';
+moment.TIME_MS = 'hh:mm:ss.SSS';
 moment.WEEK = 'YYYY-[W]WW';
 moment.MONTH = 'YYYY-MM';
 
