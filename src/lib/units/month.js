@@ -167,7 +167,7 @@ export function localeMonthsParse (monthName, format, strict) {
 // MOMENTS
 
 export function setMonth (mom, value) {
-    var dayOfMonth;
+    var d;
 
     if (!mom.isValid()) {
         // No op
@@ -186,16 +186,21 @@ export function setMonth (mom, value) {
         }
     }
 
-    dayOfMonth = Math.min(mom.date(), daysInMonth(mom.year(), value));
-    mom = new Moment(mom);
-    mom._d['set' + (mom._isUTC ? 'UTC' : '') + 'Month'](value, dayOfMonth);
-    return mom;
+    // TODOv3 -- there is a low-level set method, this should be one of its
+    // cases.
+    d = new Date(mom._d);
+    smartSetUTCMonth(d, value);
+    return quickCreateLocal(d.valueOf(), mom._l, mom._tz);
+}
+
+export function smartSetUTCMonth(d, month) {
+    var dayOfMonth = Math.min(d.getUTCDate(), daysInMonth(d.getUTCFullYear(), value));
+    d.setUTCMonth(value, dayOfMonth);
 }
 
 export function getSetMonth (value) {
     if (value != null) {
-        var mom = setMonth(this, value);
-        return hooks.updateOffset(mom, true);
+        return setMonth(this, value);
     } else {
         return get(this, 'Month');
     }

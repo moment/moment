@@ -1,6 +1,6 @@
 import { Moment } from './constructor';
 import { get, set } from './get-set';
-import { setMonth } from '../units/month';
+import { smartSetUTCMonth } from '../units/month';
 import { createDuration } from '../duration/create';
 import { deprecateSimple } from '../utils/deprecate';
 import { hooks } from '../utils/hooks';
@@ -24,32 +24,51 @@ function createAdder(direction, name) {
     };
 }
 
-export function addSubtract (mom, duration, isAdding, updateOffset) {
+export function addSubtract (mom, duration, isAdding) {
+    // TODO: Check for last argument usage, make sure its ok
     var milliseconds = duration._milliseconds,
         days = absRound(duration._days),
-        months = absRound(duration._months);
+        months = absRound(duration._months),
+        d;
 
     if (!mom.isValid()) {
         // No op
         return mom;
     }
 
-    updateOffset = updateOffset == null ? true : updateOffset;
+    if (months || days) {
+        d = new Date(mom._d);
+        if (months) {
+            // takes care of 31st Jan + 1m -> 28th Feb
+            smartSetUTCMonth(d, d.getUTCMonth() + months);
+        }
+        if (days) {
+            d.setUTCDate(d.getUTCDate() + days);
+        }
+        return quickCreateLocal(d.valueOf() + milliseconds, mom._l, mom._tz);
+    } else {
+        return quickCreateUTC(mom.unix() + milliseconds, mom._l, mom._tz);
+    }
 
-    if (milliseconds) {
-        mom = new Moment(mom);
-        mom._d.setTime(mom._d.valueOf() + milliseconds * isAdding);
-    }
-    if (days) {
-        mom = set(mom, 'Date', get(mom, 'Date') + days * isAdding);
-    }
-    if (months) {
-        mom = setMonth(mom, get(mom, 'Month') + months * isAdding);
-    }
-    if (updateOffset) {
-        mom = hooks.updateOffset(mom, days || months);
-    }
-    return mom;
+//     if (milliseconds) {
+//         // TODOv3 -- work on the config if necessary
+//         // TODOv3 -- 1) order MS, D, M or M, D, MS
+//         // TODOv3 -- 2) work on date object directly (all operations)
+//         // TODOv3 -- 3) figure out updateOffset so it only happens once in
+//         // constructor
+//         mom = new Moment(mom);
+//         mom._d.setTime(mom._d.valueOf() + milliseconds * isAdding);
+//     }
+//     if (days) {
+//         mom = set(mom, 'Date', get(mom, 'Date') + days * isAdding);
+//     }
+//     if (months) {
+//         mom = setMonth(mom, get(mom, 'Month') + months * isAdding);
+//     }
+//     if (updateOffset) {
+//         mom = hooks.updateOffset(mom, days || months);
+//     }
+//     return mom;
 }
 
 export var add      = createAdder(1, 'add');

@@ -7,12 +7,19 @@ import { createLocal } from './local';
 import defaults from '../utils/defaults';
 import getParsingFlags from './parsing-flags';
 
+// TODO(Iskren): The proper impl of this function, should:
+// - check if there is config._tzm, if there is, get the local time in that
+//   fixed offset timezone
+// - otherwise, return the local date for the config._tz (quickCreateUTC(now(),
+//   _l, _tz).year()/.month()/.date()
+// But then every moment object creation creates another object ... at least
+// not recursive, but much slower.
 function currentDateArray(config) {
     // hooks is actually the exported moment object
     var nowValue = new Date(hooks.now());
-    if (config._useUTC) {
-        return [nowValue.getUTCFullYear(), nowValue.getUTCMonth(), nowValue.getUTCDate()];
-    }
+    // if (config._useUTC) {
+    //     return [nowValue.getUTCFullYear(), nowValue.getUTCMonth(), nowValue.getUTCDate()];
+    // }
     return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
 }
 
@@ -70,7 +77,7 @@ export function configFromArray (config) {
         config._a[HOUR] = 0;
     }
 
-    config._d = (config._useUTC ? createUTCDate : createDate).apply(null, input);
+    config._d = createUTCDate.apply(null, input);
     // Apply timezone offset from input. The actual utcOffset can be changed
     // with parseZone.
     if (config._tzm != null) {
@@ -83,13 +90,15 @@ export function configFromArray (config) {
 }
 
 function dayOfYearFromWeekInfo(config) {
-    var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow;
+    var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow, now;
 
     w = config._w;
     if (w.GG != null || w.W != null || w.E != null) {
         dow = 1;
         doy = 4;
 
+        // TODO: NOW we can do this, revisit after making sure config._tz is an
+        // object at this point.
         // TODO: We need to take the current isoWeekYear, but that depends on
         // how we interpret now (local, utc, fixed offset). So create
         // a now version of current config (take local/utc/offset flags, and

@@ -22,7 +22,7 @@ addParseToken(['s', 'ss'], SECOND);
 
 // MOMENTS
 
-export var getSetSecond = makeGetSet('Seconds', false);
+export var getSetSecond = makeGetSet('Seconds', 1000);
 
 // PRIORITY
 

@@ -1,0 +1,36 @@
+# creation
+
+createMoment({
+    input,
+    locale,
+    format,
+    strict, # dfl - yes?
+    timeZone, # dfl - local
+    # localHandling, [OVERLAP_FIRST|OVERLAP_SECOND|OVERLAP_THROW] + [HOLE_FWD|HOLE_BWD|HOLE_THROW]
+})
+
+quickCreate({
+    date,
+    locale,
+    timeZone
+})
+
+
+
+
+* createLocal (local)
+* createLocalOrUTC (from-anything) -> just puts inp data in config object
+* createFromConfig (from-anything)
+* prepareConfig (from-anything)
+ --> from moment
+ --> from date
+ --> from str+array configFromStringAndArray
+ --> from str+fmt configFromStringAndFormat
+ --> from input (str only)  configFromInput
+
+# am/pm bug 297 -- should be able to skip am/pm ?
+# array of formats --> there won't be any leftovers, so rethink strict with arrays
+ ---> define strictness with flags and make it configurable?
+# X (unix) parses also parts, we need to make X.S, X.SS and X.SSS separate tokens
+# 'str Z' is not valid ISO, 'strZ' is
+# what about all the locale issues related to strict parsing

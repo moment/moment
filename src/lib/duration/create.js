@@ -57,6 +57,8 @@ export function createDuration (input, key) {
     } else if (duration == null) {// checks for null or undefined
         duration = {};
     } else if (typeof duration === 'object' && ('from' in duration || 'to' in duration)) {
+        // TODO: Do not createLocal, instead, use the zone of one of them, and
+        // align the other.
         diffRes = momentsDifference(createLocal(duration.from), createLocal(duration.to));
 
         duration = {};

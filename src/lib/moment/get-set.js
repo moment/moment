@@ -5,29 +5,40 @@ import { hooks } from '../utils/hooks';
 import isFunction from '../utils/is-function';
 
 
-export function makeGetSet (unit, keepTime) {
+export function makeGetSet (unit, msCoef) {
     return function (value) {
         if (value != null) {
-            var mom = set(this, unit, value);
-            return hooks.updateOffset(mom, keepTime);
+            return set(this, unit, value, msCoef);
         } else {
             return get(this, unit);
         }
     };
 }
 
-export function get (mom, unit) {
+function get (mom, unit) {
     return mom.isValid() ?
         mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]() : NaN;
 }
 
-export function set (mom, unit, value) {
-    if (mom.isValid()) {
-        mom = new Moment(mom);
-        mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
+function set (mom, unit, value, msCoef) {
+    if (!mom.isValid()) {
+        return mom;
+        // TODOv3 -- clone & modify config directly
     }
-    return mom;
+    var d, uts;
+    if (msCoef != null) {
+        // this is one of ms, second, minute, hour
+        uts = mom.unix();
+        uts += (unit - get(mom, unit)) * msCoef;
+        return quickCreateUTC(uts, mom._l, mom._tz);
+    } else {
+        // this is one of day, year. NOT month
+        d = new Date(mom._d);
+        d['setUTC' + unit](value);
+        return quickCreateLocal(d.valueOf(), mom._l, mom._tz);
+    }
 }
+
 
 // MOMENTS
 

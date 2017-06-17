@@ -64,7 +64,7 @@ hooks.parseTwoDigitYear = function (input) {
 
 // MOMENTS
 
-export var getSetYear = makeGetSet('FullYear', true);
+export var getSetYear = makeGetSet('FullYear');
 
 export function getIsLeapYear () {
     return isLeapYear(this.year());

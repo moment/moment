@@ -138,7 +138,7 @@ export function localeMeridiem (hours, minutes, isLower) {
 // specified which hour he wants. So trying to maintain the same hour (in
 // a new timezone) makes sense. Adding/subtracting hours does not follow
 // this rule.
-export var getSetHour = makeGetSet('Hours', true);
+export var getSetHour = makeGetSet('Hours', 60 * 60 * 1000);
 
 // PRIORITY
 

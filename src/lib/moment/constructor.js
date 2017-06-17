@@ -66,6 +66,7 @@ export function Moment(config) {
     if (!this.isValid()) {
         this._d = new Date(NaN);
     }
+    this._isAMomentObject = true;
 }
 
 export function isMoment (obj) {

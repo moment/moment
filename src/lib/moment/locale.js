@@ -10,12 +10,11 @@ export function locale (key) {
     if (key === undefined) {
         return this._locale._abbr;
     } else {
-        clone = new Moment(this);
         newLocaleData = getLocale(key);
         if (newLocaleData != null) {
-            clone._locale = newLocaleData;
+            return quickCreateUTC(this.unix(), newLocaleData, this._tz);
         }
-        return clone;
+        return this;
     }
 }
 

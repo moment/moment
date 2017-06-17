@@ -1,4 +1,3 @@
-import { Moment } from '../moment/constructor';
 import { addFormatToken } from '../format/format';
 import { addUnitAlias } from './aliases';
 import { addUnitPriority } from './priorities';
@@ -7,7 +6,7 @@ import { addWeekParseToken } from '../parse/token';
 import { weekOfYear, weeksInYear, dayOfYearFromWeeks } from './week-calendar-utils';
 import toInt from '../utils/to-int';
 import { hooks } from '../utils/hooks';
-import { createLocal } from '../create/local';
+import { quickCreateLocal } from '../create/from-anything';
 import { createUTCDate } from '../create/date-from-array';
 import { getSetDayOfMonth } from './day-of-month';
 import { getSetMonth } from './month';
@@ -97,12 +96,13 @@ function getSetWeekYearHelper(mom, input, week, weekday, dow, doy) {
 
 function setWeekAll(mom, weekYear, week, weekday, dow, doy) {
     var dayOfYearData = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy),
-        date = createUTCDate(dayOfYearData.year, 0, dayOfYearData.dayOfYear);
+        date = createUTCDate(dayOfYearData.year, 0, dayOfYearData.dayOfYear),
+        d = new Date(mom._d);
 
-    mom = new Moment(mom);
-    mom._d['set' + (mom._isUTC ? 'UTC' : '') + 'FullYear'](
-        date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
-    return mom;
+    // TODOv3 -- I guess the generic set method should accept all args that the Date
+    // object accepts.
+    d.setUTCFullYear(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+    return quickCreateLocal(d.valueOf(), mom._l, mom._tz);
 }
 
 // PRIORITY
