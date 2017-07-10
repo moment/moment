@@ -1,5 +1,5 @@
 import extend from '../utils/extend';
-import { createUTC } from './utc';
+import { createUTC } from './constructors';
 import getParsingFlags from '../create/parsing-flags';
 import some from '../utils/some';
 
@@ -34,16 +34,4 @@ export function isValid(m) {
         }
     }
     return m._isValid;
-}
-
-export function createInvalid (flags) {
-    var m = createUTC(NaN);
-    if (flags != null) {
-        extend(getParsingFlags(m), flags);
-    }
-    else {
-        getParsingFlags(m).userInvalidated = true;
-    }
-
-    return m;
 }

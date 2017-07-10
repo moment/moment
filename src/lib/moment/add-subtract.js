@@ -5,6 +5,7 @@ import { createDuration } from '../duration/create';
 import { deprecateSimple } from '../utils/deprecate';
 import { hooks } from '../utils/hooks';
 import absRound from '../utils/abs-round';
+import { quickCreateUTC, quickCreateLocal } from '../create/from-anything';
 
 
 // TODO: remove 'name' arg after deprecation is removed
@@ -40,35 +41,15 @@ export function addSubtract (mom, duration, isAdding) {
         d = new Date(mom._d);
         if (months) {
             // takes care of 31st Jan + 1m -> 28th Feb
-            smartSetUTCMonth(d, d.getUTCMonth() + months);
+            smartSetUTCMonth(d, d.getUTCMonth() + months * isAdding);
         }
         if (days) {
-            d.setUTCDate(d.getUTCDate() + days);
+            d.setUTCDate(d.getUTCDate() + days * isAdding);
         }
-        return quickCreateLocal(d.valueOf() + milliseconds, mom._l, mom._tz);
+        return quickCreateLocal(d.valueOf() + milliseconds * isAdding, mom._locale, mom._tz);
     } else {
-        return quickCreateUTC(mom.unix() + milliseconds, mom._l, mom._tz);
+        return quickCreateUTC(mom.valueOf() + milliseconds * isAdding, mom._locale, mom._tz);
     }
-
-//     if (milliseconds) {
-//         // TODOv3 -- work on the config if necessary
-//         // TODOv3 -- 1) order MS, D, M or M, D, MS
-//         // TODOv3 -- 2) work on date object directly (all operations)
-//         // TODOv3 -- 3) figure out updateOffset so it only happens once in
-//         // constructor
-//         mom = new Moment(mom);
-//         mom._d.setTime(mom._d.valueOf() + milliseconds * isAdding);
-//     }
-//     if (days) {
-//         mom = set(mom, 'Date', get(mom, 'Date') + days * isAdding);
-//     }
-//     if (months) {
-//         mom = setMonth(mom, get(mom, 'Month') + months * isAdding);
-//     }
-//     if (updateOffset) {
-//         mom = hooks.updateOffset(mom, days || months);
-//     }
-//     return mom;
 }
 
 export var add      = createAdder(1, 'add');

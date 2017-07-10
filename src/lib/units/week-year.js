@@ -102,7 +102,7 @@ function setWeekAll(mom, weekYear, week, weekday, dow, doy) {
     // TODOv3 -- I guess the generic set method should accept all args that the Date
     // object accepts.
     d.setUTCFullYear(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
-    return quickCreateLocal(d.valueOf(), mom._l, mom._tz);
+    return quickCreateLocal(d.valueOf(), mom._locale, mom._tz);
 }
 
 // PRIORITY

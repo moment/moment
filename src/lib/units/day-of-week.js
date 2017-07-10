@@ -7,7 +7,7 @@ import toInt from '../utils/to-int';
 import isArray from '../utils/is-array';
 import indexOf from '../utils/index-of';
 import hasOwnProp from '../utils/has-own-prop';
-import { createUTC } from '../create/utc';
+import { createUTC } from '../create/constructors';
 import getParsingFlags from '../create/parsing-flags';
 
 // FORMATTING
@@ -222,7 +222,7 @@ export function getSetDayOfWeek (input) {
     if (!this.isValid()) {
         return input != null ? this : NaN;
     }
-    var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
+    var day = this._d.getUTCDay();
     if (input != null) {
         input = parseWeekday(input, this.localeData());
         return this.add(input - day, 'd');

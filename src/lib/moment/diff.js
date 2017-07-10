@@ -1,6 +1,7 @@
 import absFloor from '../utils/abs-floor';
-import { cloneWithOffset } from '../units/offset';
+import { changeTimezone } from '../units/offset';
 import { normalizeUnits } from '../units/aliases';
+import { momentize } from '../create/constructors';
 
 export function diff (input, units, asFloat) {
     var that,
@@ -11,7 +12,7 @@ export function diff (input, units, asFloat) {
         return NaN;
     }
 
-    that = cloneWithOffset(input, this);
+    that = changeTimezone(momentize(input), this._tz);
 
     if (!that.isValid()) {
         return NaN;

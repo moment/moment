@@ -1,18 +1,18 @@
 import zeroFill from '../utils/zero-fill';
+import { momentize } from '../create/constructors';
 import { createDuration } from '../duration/create';
 import { addSubtract } from '../moment/add-subtract';
-import { Moment, isMoment, copyConfig } from '../moment/constructor';
 import { addFormatToken } from '../format/format';
 import { addRegexToken, matchOffset, matchShortOffset } from '../parse/regex';
 import { addParseToken } from '../parse/token';
-import { createLocal } from '../create/local';
 import { quickCreateLocal, quickCreateUTC } from '../create/from-anything';
-import { createUTC } from '../create/utc';
 import isDate from '../utils/is-date';
 import toInt from '../utils/to-int';
 import isUndefined from '../utils/is-undefined';
 import compareArrays from '../utils/compare-arrays';
 import { hooks } from '../utils/hooks';
+import { localTimeZone } from '../timezone/local';
+import { fixedTimeZoneForOffset } from '../timezone/fixed-offset';
 
 // FORMATTING
 
@@ -62,13 +62,6 @@ function offsetFromString(matcher, string) {
       parts[0] === '+' ? minutes : -minutes;
 }
 
-// Return a moment from input, that is local/utc/zone equivalent to model.
-export function cloneWithOffset(input, model) {
-    // TODO: input could be a non-moment object, in certain cases
-    // createLocal("....z") --> is this UTC?
-    return changeTimezone(input, model._tz);
-}
-
 function getDateOffset (m) {
     // On Firefox.24 Date#getTimezoneOffset returns a floating point.
     // https://github.com/moment/moment/pull/1871
@@ -101,13 +94,13 @@ function getDateOffset (m) {
 // _changeInProgress == true case, then we have to adjust, because
 // there is no such time in the given timezone.
 
-function changeTimezone(mom, newTz, keepLocalTime) {
+export function changeTimezone(mom, newTz, keepLocalTime) {
     // TODO: Check if newTz is same as current (by comparing zone._key or sth)
     // -- it is used a lot with possibly same tz (from cloneWithOffset)
     if (keepLocalTime) {
-        return quickCreateLocal(mom._d.valueOf(), mom._l, newTz);
+        return quickCreateLocal(mom._d.valueOf(), mom._locale, newTz);
     } else {
-        return quickCreateUTC(mom.unix(), mom._l, newTz);
+        return quickCreateUTC(mom.valueOf(), mom._locale, newTz);
     }
 }
 
@@ -116,7 +109,7 @@ export function getSetOffset (input, keepLocalTime, keepMinutes) {
         if (typeof input === 'string') {
             input = offsetFromString(matchShortOffset, input);
             if (input === null) {
-                return mom;
+                return this;
             }
         } else if (Math.abs(input) < 16 && !keepMinutes) {
             input = input * 60;
@@ -125,7 +118,7 @@ export function getSetOffset (input, keepLocalTime, keepMinutes) {
         // if (this._tz.type === 'fixed-offset' && this._tz.offset === input) {
         //     return mom;
         // }
-        var newTz = FixedOffsetTimeZone.fromOffset(input);
+        var newTz = fixedTimeZoneForOffset(input);
         return changeTimezone(this, newTz, keepLocalTime);
     } else {
         return this._offset / 60000;
@@ -190,11 +183,11 @@ export function getSetZone (input, keepLocalTime) {
 }
 
 export function setOffsetToUTC (keepLocalTime) {
-    return changeTimezone(this, FixedOffsetTimeZone.fromOffset(0), keepLocalTime);
+    return changeTimezone(this, fixedTimeZoneForOffset(0), keepLocalTime);
 }
 
 export function setOffsetToLocal (keepLocalTime) {
-    return changeTimezone(this, LocalTimeZone.instance(), keepLocalTime);
+    return changeTimezone(this, localTimeZone, keepLocalTime);
 }
 
 export function setOffsetToParsedOffset () {
@@ -217,7 +210,7 @@ export function hasAlignedHourOffset (input) {
     if (!this.isValid()) {
         return false;
     }
-    input = input ? createLocal(input).utcOffset() : 0;
+    input = input != null ? momentize(input).utcOffset() : 0;
 
     return (this.utcOffset() - input) % 60 === 0;
 }
@@ -254,13 +247,13 @@ export function isDaylightSavingTime () {
 // }
 
 export function isLocal () {
-    return this._tz.type == 'local';
+    return this._tz.type === 'local';
 }
 
 export function isUtcOffset () {
-    return this._tz.type == 'fixed-offset';
+    return this._tz.type === 'fixed-offset';
 }
 
 export function isUtc () {
-    return this._tz.type == 'fixed-offset' && this._tz.offset === 0;
+    return this._tz.type === 'fixed-offset' && this._tz.offset === 0;
 }

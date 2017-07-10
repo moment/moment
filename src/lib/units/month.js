@@ -12,8 +12,9 @@ import toInt from '../utils/to-int';
 import isArray from '../utils/is-array';
 import isNumber from '../utils/is-number';
 import indexOf from '../utils/index-of';
-import { createUTC } from '../create/utc';
+import { quickCreateLocal } from '../create/from-anything';
 import getParsingFlags from '../create/parsing-flags';
+import { createUTC } from '../create/constructors';
 
 export function daysInMonth(year, month) {
     return new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
@@ -186,16 +187,14 @@ export function setMonth (mom, value) {
         }
     }
 
-    // TODOv3 -- there is a low-level set method, this should be one of its
-    // cases.
     d = new Date(mom._d);
     smartSetUTCMonth(d, value);
-    return quickCreateLocal(d.valueOf(), mom._l, mom._tz);
+    return quickCreateLocal(d.valueOf(), mom._locale, mom._tz);
 }
 
 export function smartSetUTCMonth(d, month) {
-    var dayOfMonth = Math.min(d.getUTCDate(), daysInMonth(d.getUTCFullYear(), value));
-    d.setUTCMonth(value, dayOfMonth);
+    var dayOfMonth = Math.min(d.getUTCDate(), daysInMonth(d.getUTCFullYear(), month));
+    d.setUTCMonth(month, dayOfMonth);
 }
 
 export function getSetMonth (value) {

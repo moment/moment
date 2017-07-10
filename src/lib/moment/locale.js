@@ -1,5 +1,6 @@
-import { Moment } from './constructor';
+import { quickCreateUTC } from '../create/from-anything';
 import { getLocale } from '../locale/locales';
+
 
 // If passed a locale key, it will return a cloned instance that is set
 // to the specified locale.  Otherwise, it will return the name of the
@@ -12,7 +13,7 @@ export function locale (key) {
     } else {
         newLocaleData = getLocale(key);
         if (newLocaleData != null) {
-            return quickCreateUTC(this.unix(), newLocaleData, this._tz);
+            return quickCreateUTC(this.valueOf(), newLocaleData, this._tz);
         }
         return this;
     }
