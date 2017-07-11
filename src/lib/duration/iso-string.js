@@ -38,19 +38,23 @@ export function toISOString() {
     var s = seconds;
     var total = this.asSeconds();
 
+    var totalSign = total < 0 ? '-' : '';
+    var ymSign = Math.sign(total) === Math.sign(this._months) ? '' : '-';
+    var daysSign = Math.sign(total) === Math.sign(this._days) ? '' : '-';
+    var hmsSign = Math.sign(total) === Math.sign(this._milliseconds) ? '' : '-';
+
     if (!total) {
         // this is the same as C#'s (Noda) and python (isodate)...
         // but not other JS (goog.date)
         return 'P0D';
     }
 
-    return (total < 0 ? '-' : '') +
-        'P' +
-        (Y ? Y + 'Y' : '') +
-        (M ? M + 'M' : '') +
-        (D ? D + 'D' : '') +
+    return totalSign + 'P' +
+        (Y ? ymSign + Y + 'Y' : '') +
+        (M ? ymSign + M + 'M' : '') +
+        (D ? daysSign + D + 'D' : '') +
         ((h || m || s) ? 'T' : '') +
-        (h ? h + 'H' : '') +
-        (m ? m + 'M' : '') +
-        (s ? s + 'S' : '');
+        (h ? hmsSign + h + 'H' : '') +
+        (m ? hmsSign + m + 'M' : '') +
+        (s ? hmsSign + s + 'S' : '');
 }
