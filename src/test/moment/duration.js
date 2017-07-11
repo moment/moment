@@ -611,6 +611,13 @@ test('add', function (assert) {
     assert.equal(d.add({h: 23, m: 59})._milliseconds, 23 * 60 * 60 * 1000 + 59 * 60 * 1000 + 10000, 'Add hour:minute');
 });
 
+test('add to moment', function (assert) {
+    var d = moment.duration({months: 1, seconds: -1});
+    var m = moment('2017-03-01').add(d);
+    assert.equal(m.month(), 2, 'Adds months before time');
+    assert.equal(m.date(), 31, 'Adds time after months');
+});
+
 test('add and bubble', function (assert) {
     var d;
 
