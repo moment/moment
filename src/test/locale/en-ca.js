@@ -40,6 +40,7 @@ test('format', function (assert) {
             ['a A',                                'pm PM'],
             ['[the] DDDo [day of the year]',       'the 45th day of the year'],
             ['L',                                  '2010-02-14'],
+            ['LT',                                 '3:25 PM'],
             ['LTS',                                '3:25:50 PM'],
             ['LL',                                 'February 14, 2010'],
             ['LLL',                                'February 14, 2010 3:25 PM'],

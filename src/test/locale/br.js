@@ -35,7 +35,9 @@ test('format', function (assert) {
             ['H HH',                               '15 15'],
             ['m mm',                               '25 25'],
             ['s ss',                               '50 50'],
-            ['DDDo [devezh] [ar] [vloaz]',       '45vet devezh ar vloaz'],
+            ['DDDo [devezh] [ar] [vloaz]',         '45vet devezh ar vloaz'],
+            ['LT',                                 '3e25 PM'],
+            ['LTS',                                '3e25:50 PM'],
             ['L',                                  '14/02/2010'],
             ['LL',                                 '14 a viz C\'hwevrer 2010'],
             ['LLL',                                '14 a viz C\'hwevrer 2010 3e25 PM'],
@@ -224,4 +226,3 @@ test('special mutations for years', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 148}), true), '148 vloaz', 'mutation 148 years');
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 261}), true), '261 bloaz', 'mutation 261 years');
 });
-

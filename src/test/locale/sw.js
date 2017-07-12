@@ -36,6 +36,7 @@ test('format', function (assert) {
             ['s ss',                               '50 50'],
             ['a A',                                'pm PM'],
             ['[siku] DDDo [ya mwaka]',             'siku 45 ya mwaka'],
+            ['LT',                                 '15:25'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14.02.2010'],
             ['LL',                                 '14 Februari 2010'],

@@ -39,6 +39,7 @@ test('format', function (assert) {
             ['s ss',                               '50 50'],
             ['a A',                                'ch CH'],
             ['[ngày thứ] DDDo [của năm]',          'ngày thứ 45 của năm'],
+            ['LT',                                 '15:25'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14/02/2010'],
             ['LL',                                 '14 tháng 2 năm 2010'],

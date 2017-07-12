@@ -36,6 +36,7 @@ test('format', function (assert) {
             ['s ss',                               '50 50'],
             ['a A',                                'p.t.m. P.T.M.'],
             ['[la] DDDo [tago] [de] [la] [jaro]',  'la 45a tago de la jaro'],
+            ['LT',                                 '15:25'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '2010-02-14'],
             ['LL',                                 '14-a de februaro, 2010'],

@@ -78,6 +78,7 @@ test('format', function (assert) {
             ['s ss',                               '50 50'],
             ['a A',                                'μμ ΜΜ'],
             ['[the] DDDo [day of the year]',       'the 45η day of the year'],
+            ['LT',                                 '3:25 ΜΜ'],
             ['LTS',                                '3:25:50 ΜΜ'],
             ['L',                                  '14/02/2010'],
             ['LL',                                 '14 Φεβρουαρίου 2010'],

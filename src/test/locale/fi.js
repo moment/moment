@@ -36,6 +36,7 @@ test('format', function (assert) {
             ['s ss',                               '50 50'],
             ['a A',                                'pm PM'],
             ['[vuoden] DDDo [päivä]',              'vuoden 45. päivä'],
+            ['LT',                                 '15.25'],
             ['LTS',                                '15.25.50'],
             ['L',                                  '14.02.2010'],
             ['LL',                                 '14. helmikuuta 2010'],

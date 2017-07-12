@@ -36,6 +36,7 @@ test('format', function (assert) {
             ['s ss',                               '50 50'],
             ['a A',                                '午後 午後'],
             ['[the] DDDo [day of the year]',       'the 45日 day of the year'],
+            ['LT',                                 '15:25'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '2010/02/14'],
             ['LL',                                 '2010年2月14日'],

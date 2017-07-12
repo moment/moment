@@ -46,6 +46,7 @@ test('format', function (assert) {
             ['s ss',                         '50 50'],
             ['a A',                          'pm PM'],
             ['DDDo [den v roce]',            '45. den v roce'],
+            ['LT',                           '15:25'],
             ['LTS',                          '15:25:50'],
             ['L',                            '14.02.2010'],
             ['LL',                           '14. únor 2010'],

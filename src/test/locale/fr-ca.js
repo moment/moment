@@ -40,6 +40,7 @@ test('format', function (assert) {
             ['a A',                           'pm PM'],
             ['[le] Do [jour du mois]',        'le 14e jour du mois'],
             ['[le] DDDo [jour de l’année]',   'le 45e jour de l’année'],
+            ['LT',                            '15:25'],
             ['LTS',                           '15:25:50'],
             ['L',                             '2010-02-14'],
             ['LL',                            '14 février 2010'],

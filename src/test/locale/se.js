@@ -39,6 +39,7 @@ test('format', function (assert) {
             ['s ss',                               '50 50'],
             ['a A',                                'pm PM'],
             ['[jagi] DDDo [beaivi]',               'jagi 45. beaivi'],
+            ['LT',                                 '15:25'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14.02.2010'],
             ['LL',                                 'guovvamánnu 14. b. 2010'],

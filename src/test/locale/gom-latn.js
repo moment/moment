@@ -39,6 +39,7 @@ test('format', function (assert) {
             ['s ss',                               '50 50'],
             ['a A',                                'donparam donparam'],
             ['[the] DDDo [day of the year]',       'the 45 day of the year'],
+            ['LT',                                 'donparam 3:25 vazta'],
             ['LTS',                                'donparam 3:25:50 vazta'],
             ['L',                                  '14-02-2010'],
             ['LL',                                 '14 Febrer 2010'],

@@ -68,6 +68,7 @@ test('format', function (assert) {
             ['s ss',                               '50 50'],
             ['a A',                                'entsambama entsambama'],
             ['[Lilanga] DDDo [lilanga lelinyaka]', 'Lilanga 45 lilanga lelinyaka'],
+            ['LT',                                 '3:25 entsambama'],
             ['LTS',                                '3:25:50 entsambama'],
             ['L',                                  '14/02/2010'],
             ['LL',                                 '14 Indlovana 2010'],
