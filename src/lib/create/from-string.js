@@ -121,9 +121,16 @@ export function configFromRFC2822(config) {
     match = basicRfcRegex.exec(string);
 
     if (match) {
-        dayFormat = match[1] ? 'ddd' + ((match[1].length === 5) ? ', ' : ' ') : '';
-        dateFormat = 'D MMM ' + ((match[2].length > 10) ? 'YYYY ' : 'YY ');
-        timeFormat = 'HH:mm' + (match[4] ? ':ss' : '');
+      dayFormat = match[1] ? 'ddd' + ((match[1].length === 5) ? ', ' : ' ') : '';
+      dateFormat = 'D MMM YYYY ';
+      timeFormat = 'HH:mm' + (match[4] ? ':ss' : '');
+      if (match[2].length <= 10) {
+        var expandYear = parseInt(match[2].substr(7,2), 10);
+        var preYear = match[2].substr(0,7);
+        expandYear += (expandYear < 50) ? 2000 : 1900;
+        match[2] = preYear + expandYear + ' ';
+        config._i = match.slice(1).join('');
+      }
 
         // TODO: Replace the vanilla JS Date object with an indepentent day-of-week check.
         if (match[1]) { // day of week given
