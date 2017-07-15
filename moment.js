@@ -561,7 +561,7 @@ function set$1 (mom, unit, value) {
         * if: month == february && date == 29
         * then: set the date to 28
         */
-        unit === 'FullYear' && mom._d.getMonth() === 1 && mom._d.getDate() === 29 && mom._d.setDate(28);
+        unit === 'FullYear' && mom._d.getMonth() === 1 && mom._d.getDate() === 29 && mom._d.setDate(isLeapYear(value) ? 29 : 28);
         mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
     }
 }
