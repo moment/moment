@@ -139,15 +139,6 @@ test('library localeData', function (assert) {
     assert.equal(moment.localeData(moment().locale('es')).months(jan), 'enero', 'if you pass in a moment it uses the moment\'s locale');
 });
 
-test('library deprecations', function (assert) {
-    test.expectedDeprecations('moment.lang');
-    moment.lang('dude', {months: ['Movember']});
-    assert.equal(moment.locale(), 'dude', 'setting the lang sets the locale');
-    assert.equal(moment.lang(), moment.locale());
-    assert.equal(moment.langData(), moment.localeData(), 'langData is localeData');
-    moment.defineLocale('dude', null);
-});
-
 test('defineLocale', function (assert) {
     moment.locale('en');
     moment.defineLocale('dude', {months: ['Movember']});
@@ -243,10 +234,6 @@ test('changing the global locale doesn\'t affect existing duration instances', f
     assert.equal('en', mom.locale());
 });
 
-test('duration deprecations', function (assert) {
-    test.expectedDeprecations('duration.lang()');
-    assert.equal(moment.duration().lang(), moment.duration().localeData(), 'duration.lang is the same as duration.localeData');
-});
 
 test('from and fromNow with invalid date', function (assert) {
     assert.equal(moment(NaN).from(), 'Invalid date', 'moment.from with invalid moment');
