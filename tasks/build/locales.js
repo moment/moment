@@ -26,9 +26,18 @@ module.exports = function (grunt) {
         return Promise.all(localeFiles.map(buildLocale));
     }
 
+    const manifestFile = 'build/min/locales.js';
+
     function buildLocaleManifest() {
+        let relativeMoment = path.relative(path.dirname(manifestFile), 'build/moment.js');
+
         let manifestSource = localeFiles
-          .map(file => grunt.file.read(path.join('build', file)))
+          .map(file => {
+              let code = grunt.file.read(file);
+              // Ensure that there is a correct relative import of moment from the manifest file.
+              code.replace(/\.\.\/moment/, relativeMoment);
+              return code;
+          })
           .join('\n');
         grunt.file.write('build/min/locales.js', manifestSource);
     }
