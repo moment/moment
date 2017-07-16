@@ -37,31 +37,7 @@ function rollupBundle({entry, name, external}) {
     }).then(({code, map}) => code);
 }
 
-  // Convert a node style callback function into a promise based function
-function asPromise(cbFunc) {
-   return function (...args) {
-        return new Promise((resolve, reject) => {
-            let cbArgs = [...args, (err, data) => err ? reject(err) : resolve(data)];
-            return cbFunc.apply(null, cbArgs);
-        });
-    }
-}
-
-function forEachAsync(arr, func) {
-    if (arr.length === 0) {
-        return Promise.resolve();
-    }
-
-    return func(arr[0])
-        .then(() => {
-            console.log('Recursing');
-            return forEachAsync(arr.slice(1), func)
-        });
-}
-
 module.exports = {
-    asPromise,
-    forEachAsync,
     rollupBundle,
     externalMomentAndLocales,
     localeName

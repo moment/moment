@@ -3,10 +3,6 @@ module.exports = function (grunt) {
         'build'
     ]);
 
-    grunt.config('concat.tests', {
-        src: 'build/test/**/*.js',
-        dest: 'build/min/tests.js'
-    });
 
     grunt.task.registerTask('transpile',
             'builds all es5 files, optinally creating custom locales',
@@ -16,7 +12,7 @@ module.exports = function (grunt) {
             'build:moment',
             'build:locales',
             'build:tests',
-            'concat:tests'
+            'build:min'
         ];
         grunt.task.run(tasks);
     });

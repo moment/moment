@@ -45,7 +45,7 @@ module.exports = function (grunt) {
             // The requires are still pointing to src/moment. Instead point them to min/moment
             code = code.replace(/(\.\.\/)+src\/moment.js/g, './moment.js');
             grunt.file.write('build/min/locales.js', code);
-        });
+        }).then(done);
     });
 
     const testFiles = grunt.file.expand('src/test/**/*.js');
@@ -66,9 +66,6 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('build:min', 'Generate sources of the \'min\' folder', [
-      'build:moment',
-      'build:locales',
-      'build:tests',
       'build:min:moment',
       'build:min:moment-with-locales',
       'build:min:locales',
