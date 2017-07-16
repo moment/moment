@@ -1,22 +1,26 @@
-const rollup = require('rollup').rollup;
-const babel  = require('rollup-plugin-babel');
+const {rollup} = require('rollup');
+const path = require('path');
+
+//const babel  = require('rollup-plugin-babel');
 
 module.exports = {
-  TMP_DIR: 'build/tmp',
+    localeName(localeFile) {
+        return path.basename(localeFile).match(/([-a-z]+).js/)[1];
+    },
 
-  rollupBundle: function ({entry, umdName, external, globals}) {
-    console.log('globals', globals);
-    return rollup({
-          entry: entry,
-          //plugins: [babel({})],
-          external: external,
-          globals: globals
-      }).then((bundle) => bundle.generate({
-          format: 'umd',
-          moduleName: umdName != null ? umdName : 'not_used'
-      })).then(({code, map}) => code);
-  }
-
+    rollupBundle: function ({entry, name, resolve}) {
+        return rollup({
+            entry: entry,
+            //plugins: [babel({})],
+            external: (id) => !!resolve(id)
+        }).then(function (bundle) {
+            return bundle.generate({
+                format: 'umd',
+                moduleName: name != null ? name: 'not_used',
+                globals: resolve
+            });
+        }).then(({code, map}) => code);
+    }
 };
 
 

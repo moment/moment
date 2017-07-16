@@ -1,27 +1,25 @@
 const path = require('path');
-const {TMP_DIR, rollupBundle} = require('./shared');
+const {rollupBundle, localeName} = require('./shared');
 
 module.exports = function (grunt) {
     const momentTests = grunt.file.expand({cwd: 'src'}, 'test/moment/*.js');
     const localeTests = grunt.file.expand({cwd: 'src'}, 'test/locale/*.js');
 
     function buildTestFile(testFile) {
-      console.log('Test file', testFile);
         return rollupBundle({
             entry: path.join('src', testFile),
-            external: function (id) {
-              if (id === path.resolve('src/moment.js')) {
-                return true;
-              }
-              if (path.dirname(id) === path.resolve('src/locale')) {
-                  return true;
-              }
-              return false;
+            resolve: function (id) {
+                if (id === path.resolve('src/moment.js')) {
+                    return 'moment';
+                }
+                if (path.dirname(id) === path.resolve('src/locale')) {
+                    return `moment.locales.${localeName(id)}`;
+                }
+                return null;
             }
         }).then(function (code) {
-          grunt.file.write(path.join('build', testFile), code);
+            grunt.file.write(path.join('build', testFile), code);
         });
-
     }
 
   /// Generates a test file.
@@ -34,6 +32,5 @@ module.exports = function (grunt) {
       ...momentTests.map(buildTestFile),
       ...localeTests.map(buildTestFile)
     ]).then(done);
-
   });
 };
