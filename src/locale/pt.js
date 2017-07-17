@@ -5,11 +5,11 @@
 import moment from '../moment';
 
 export default moment.defineLocale('pt', {
-    months : 'Janeiro_Fevereiro_Março_Abril_Maio_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro'.split('_'),
-    monthsShort : 'Jan_Fev_Mar_Abr_Mai_Jun_Jul_Ago_Set_Out_Nov_Dez'.split('_'),
-    weekdays : 'Domingo_Segunda-Feira_Terça-Feira_Quarta-Feira_Quinta-Feira_Sexta-Feira_Sábado'.split('_'),
-    weekdaysShort : 'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'),
-    weekdaysMin : 'Do_2ª_3ª_4ª_5ª_6ª_Sá'.split('_'),
+    months : 'janeiro_fevereiro_março_abril_maio_junho_julho_agosto_setembro_outubro_novembro_dezembro'.split('_'),
+    monthsShort : 'jan_fev_mar_abr_mai_jun_jul_ago_set_out_nov_dez'.split('_'),
+    weekdays : 'domingo_segunda-feira_terça-feira_quarta-feira_quinta-feira_sexta-feira_sábado'.split('_'),
+    weekdaysShort : 'dom_seg_ter_qua_qui_sex_sáb'.split('_'),
+    weekdaysMin : 'D_S_T_Q_Q_S_S'.split('_'),
     weekdaysParseExact : true,
     longDateFormat : {
         LT : 'HH:mm',
@@ -32,7 +32,7 @@ export default moment.defineLocale('pt', {
         sameElse: 'L'
     },
     relativeTime : {
-        future : 'em %s',
+        future : 'dentro de %s',
         past : 'há %s',
         s : 'segundos',
         m : 'um minuto',
@@ -46,8 +46,8 @@ export default moment.defineLocale('pt', {
         y : 'um ano',
         yy : '%d anos'
     },
-    dayOfMonthOrdinalParse: /\d{1,2}º/,
-    ordinal : '%dº',
+    dayOfMonthOrdinalParse: /\d{1,2}.º/,
+    ordinal : '%d.º',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
