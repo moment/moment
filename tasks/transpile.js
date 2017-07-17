@@ -12,7 +12,7 @@ module.exports = function (grunt) {
             'build:moment',
             'build:locales',
             'build:tests',
-            'build:min'
+            'build:package'
         ];
         grunt.task.run(tasks);
     });

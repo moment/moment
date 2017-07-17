@@ -1,75 +1,71 @@
 const path = require('path');
-const {localeName, rollupBundle} = require('./utils');
+const utils = require('./utils');
 
 module.exports = function (grunt) {
     const localeFiles = grunt.file.expand('src/locale/*.js');
 
-    grunt.registerTask('build:min:moment', function () {
+    function buildMoment() {
         grunt.file.copy('build/moment.js', 'build/min/moment.js');
-    });
+        return Promise.resolve();
+    }
 
-    const localeManifest = [
-        'import moment from "../../src/moment";',
-        ...localeFiles.map(file => `import "../../src/locale/${localeName(file)}";`),
-        'moment.locale(\'en\');'
-    ].join('\n');
+    function localeImport(file) {
+        return 'import "../../src/locale/' + utils.localeName(file) + '";';
+    }
 
-    grunt.registerTask('build:min:moment-with-locales', function () {
-        var done = this.async();
-        grunt.file.write('build/min/moment-with-locales.js', localeManifest);
+    const localeManifest = ['import moment from "../../src/moment";']
+        .concat(localeFiles.map(localeImport))
+        .concat('moment.locale(\'en\');')
+        .join('\n');
 
-        rollupBundle({
-            entry: 'build/min/moment-with-locales.js',
+    function buildMomentWithLocales() {
+        const manifestFile = 'build/min/moment-with-locales.js';
+        grunt.file.write(manifestFile, localeManifest);
+        return utils.rollupBundle(manifestFile, {
             name: 'moment',
-            external: function () { /* include everything */ }
-        }).then(code => {
-            return grunt.file.write('build/min/moment-with-locales.js', code);
-        }).then(done);
-    });
+            external: null /* include everything */
+        }).then(function (code) {
+            grunt.file.write(manifestFile, code);
+        });
 
-    // min/locales is just the concatenation of all locales
-    // It doesn't have any exports, it just statically declares all the locales at once.
-    grunt.registerTask('build:min:locales', 'Generates min/locales.js', function () {
-        var done = this.async();
-        grunt.file.write('build/min/locales.js', localeManifest);
+    }
 
-        rollupBundle({
-            entry: 'build/min/locales.js',
-            name: null /* no exports */,
-            external: function (id) {
-                if (id === path.resolve('src/moment.js'))
-                    return 'moment';
-                return null;
-            }
-        }).then((code) => {
-            // The requires are still pointing to src/moment. Instead point them to min/moment
-            code = code.replace(/(\.\.\/)+src\/moment.js/g, './moment.js');
-            grunt.file.write('build/min/locales.js', code);
-        }).then(done);
-    });
+    function buildLocales() {
+        const manifestFile = 'build/min/locales.js';
+        grunt.file.write(manifestFile, localeManifest);
+        utils.rollupBundle(manifestFile, {
+            name: 'moment.locale',
+            dependencies: utils.externalMoment
+        }).then(function (code) {
+            return grunt.file.write(manifestFile, code);
+        });
+    }
 
     const testFiles = grunt.file.expand('src/test/**/*.js');
+    function testImport(file) {
+        return 'import "../../' + file + '";';
+    }
+    const testManifest = testFiles.map(testImport).join('\n');
 
-    const testManifest = testFiles.map(file => `import "../../${file}";`).join('\n');
+    function buildTests() {
+        const manifestFile = 'build/min/tests.js';
+        grunt.file.write(manifestFile, testManifest);
+        return utils.rollupBundle(manifestFile, {
+            dependencies: null /* include everything */
+        }).then(function (code) {
+            return grunt.file.write(manifestFile, code);
+        })
+    }
 
-    grunt.registerTask('build:min:tests', 'Generates min/tests.js', function () {
+    grunt.registerTask('build:package', 'Generate sources of the \'min\' folder', function () {
         var done = this.async();
-        grunt.file.write('build/min/tests.js', testManifest);
 
-        rollupBundle({
-            entry: 'build/min/tests.js',
-            name: null /* no exports */,
-            external: function (id) { /* include everything */ }
-        }).then((code) => {
-            grunt.file.write('build/min/tests.js');
-        }).then(done);
+        Promise.resolve()
+            .then(buildMoment)
+            .then(buildMomentWithLocales)
+            .then(buildLocales)
+            .then(buildTests)
+            .then(done);
     });
-
-    grunt.registerTask('build:min', 'Generate sources of the \'min\' folder', [
-      'build:min:moment',
-      'build:min:moment-with-locales',
-      'build:min:locales',
-      'build:min:tests'
-    ]);
 };
 

@@ -1,16 +1,12 @@
 const path = require('path');
 
-const {rollupBundle} = require('./utils');
+const utils = require('./utils');
 
 module.exports = function (grunt) {
     function buildMoment() {
-        return rollupBundle({
-            entry: 'src/moment.js',
+        return utils.rollupBundle('src/moment.js', {
             name: 'moment',
-            external: function (id) {
-                //include everything
-                return null;
-            }
+            dependencies: null /* include everything */
         }).then(function (code) {
             return grunt.file.write('build/moment.js', code);
         });
