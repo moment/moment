@@ -17,7 +17,8 @@ export default moment.defineLocale('sw', {
         L : 'DD.MM.YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd, D MMMM YYYY HH:mm'
+        LLLL : 'dddd, D MMMM YYYY HH:mm',
+        LLLLWT : 'dddd, D MMMM YYYY'
     },
     calendar : {
         sameDay : '[leo saa] LT',

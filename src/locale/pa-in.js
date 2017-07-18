@@ -42,7 +42,8 @@ export default moment.defineLocale('pa-in', {
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY, A h:mm ਵਜੇ',
-        LLLL : 'dddd, D MMMM YYYY, A h:mm ਵਜੇ'
+        LLLL : 'dddd, D MMMM YYYY, A h:mm ਵਜੇ',
+        LLLLWT : 'dddd, D MMMM YYYY'
     },
     calendar : {
         sameDay : '[ਅਜ] LT',
@@ -112,4 +113,3 @@ export default moment.defineLocale('pa-in', {
         doy : 6  // The week that contains Jan 1st is the first week of the year.
     }
 });
-

@@ -83,7 +83,8 @@ export default moment.defineLocale('is', {
         L : 'DD.MM.YYYY',
         LL : 'D. MMMM YYYY',
         LLL : 'D. MMMM YYYY [kl.] H:mm',
-        LLLL : 'dddd, D. MMMM YYYY [kl.] H:mm'
+        LLLL : 'dddd, D. MMMM YYYY [kl.] H:mm',
+        LLLLWT : 'dddd, D. MMMM YYYY [kl.]'
     },
     calendar : {
         sameDay : '[í dag kl.] LT',

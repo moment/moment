@@ -40,7 +40,8 @@ export default moment.defineLocale('ta', {
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY, HH:mm',
-        LLLL : 'dddd, D MMMM YYYY, HH:mm'
+        LLLL : 'dddd, D MMMM YYYY, HH:mm',
+        LLLLWT : 'dddd, D MMMM YYYY'
     },
     calendar : {
         sameDay : '[இன்று] LT',
@@ -117,4 +118,3 @@ export default moment.defineLocale('ta', {
         doy : 6  // The week that contains Jan 1st is the first week of the year.
     }
 });
-

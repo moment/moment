@@ -40,7 +40,8 @@ export default moment.defineLocale('dv', {
         L : 'D/M/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LLLL : 'dddd D MMMM YYYY HH:mm',
+        LLLLWT : 'dddd D MMMM YYYY'
     },
     meridiemParse: /މކ|މފ/,
     isPM : function (input) {

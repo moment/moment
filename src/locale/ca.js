@@ -25,7 +25,9 @@ export default moment.defineLocale('ca', {
         LLL : '[el] D MMMM [de] YYYY [a les] H:mm',
         lll : 'D MMM YYYY, H:mm',
         LLLL : '[el] dddd D MMMM [de] YYYY [a les] H:mm',
-        llll : 'ddd D MMM YYYY, H:mm'
+        LLLLWT : '[el] dddd D MMMM [de] YYYY [a les]',
+        llll : 'ddd D MMM YYYY, H:mm',
+        llllwt : 'ddd D MMM YYYY'
     },
     calendar : {
         sameDay : function () {
@@ -76,4 +78,3 @@ export default moment.defineLocale('ca', {
         doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
-

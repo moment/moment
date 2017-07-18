@@ -45,10 +45,12 @@ test('format', function (assert) {
             ['LL',                                 'guovvamánnu 14. b. 2010'],
             ['LLL',                                'guovvamánnu 14. b. 2010 ti. 15:25'],
             ['LLLL',                               'sotnabeaivi, guovvamánnu 14. b. 2010 ti. 15:25'],
+            ['LLLLWT',                             'sotnabeaivi, guovvamánnu 14. b. 2010 ti.'],
             ['l',                                  '14.2.2010'],
             ['ll',                                 'guov 14. b. 2010'],
             ['lll',                                'guov 14. b. 2010 ti. 15:25'],
-            ['llll',                               'sotn, guov 14. b. 2010 ti. 15:25']
+            ['llll',                               'sotn, guov 14. b. 2010 ti. 15:25'],
+            ['llllwt',                             'sotn, guov 14. b. 2010 ti.']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;

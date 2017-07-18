@@ -18,7 +18,8 @@ export default moment.defineLocale('gl', {
         L : 'DD/MM/YYYY',
         LL : 'D [de] MMMM [de] YYYY',
         LLL : 'D [de] MMMM [de] YYYY H:mm',
-        LLLL : 'dddd, D [de] MMMM [de] YYYY H:mm'
+        LLLL : 'dddd, D [de] MMMM [de] YYYY H:mm',
+        LLLLWT : 'dddd, D [de] MMMM [de] YYYY'
     },
     calendar : {
         sameDay : function () {

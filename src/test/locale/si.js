@@ -43,10 +43,12 @@ test('format', function (assert) {
             ['LL',                                 '2010 පෙබරවාරි 14'],
             ['LLL',                                '2010 පෙබරවාරි 14, ප.ව. 3:25'],
             ['LLLL',                               '2010 පෙබරවාරි 14 වැනි ඉරිදා, ප.ව. 3:25:50'],
+            ['LLLLWT',                             '2010 පෙබරවාරි 14 වැනි ඉරිදා'],
             ['l',                                  '2010/2/14'],
             ['ll',                                 '2010 පෙබ 14'],
             ['lll',                                '2010 පෙබ 14, ප.ව. 3:25'],
-            ['llll',                               '2010 පෙබ 14 වැනි ඉරි, ප.ව. 3:25:50']
+            ['llll',                               '2010 පෙබ 14 වැනි ඉරි, ප.ව. 3:25:50'],
+            ['llllwt',                             '2010 පෙබ 14 වැනි ඉරි']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -201,4 +203,3 @@ test('calendar all else', function (assert) {
     assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '2 weeks ago');
     assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 2 weeks');
 });
-

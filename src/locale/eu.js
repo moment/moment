@@ -19,10 +19,12 @@ export default moment.defineLocale('eu', {
         LL : 'YYYY[ko] MMMM[ren] D[a]',
         LLL : 'YYYY[ko] MMMM[ren] D[a] HH:mm',
         LLLL : 'dddd, YYYY[ko] MMMM[ren] D[a] HH:mm',
+        LLLLWT : 'dddd, YYYY[ko] MMMM[ren] D[a]',
         l : 'YYYY-M-D',
         ll : 'YYYY[ko] MMM D[a]',
         lll : 'YYYY[ko] MMM D[a] HH:mm',
-        llll : 'ddd, YYYY[ko] MMM D[a] HH:mm'
+        llll : 'ddd, YYYY[ko] MMM D[a] HH:mm',
+        llllwt : 'ddd, YYYY[ko] MMM D[a]'
     },
     calendar : {
         sameDay : '[gaur] LT[etan]',
@@ -54,4 +56,3 @@ export default moment.defineLocale('eu', {
         doy : 7  // The week that contains Jan 1st is the first week of the year.
     }
 });
-

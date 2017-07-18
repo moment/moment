@@ -42,10 +42,12 @@ test('format', function (assert) {
             ['LL',                                 '14 fevral 2010'],
             ['LLL',                                '14 fevral 2010 15:25'],
             ['LLLL',                               'Bazar, 14 fevral 2010 15:25'],
+            ['LLLLWT',                             'Bazar, 14 fevral 2010'],
             ['l',                                  '14.2.2010'],
             ['ll',                                 '14 fev 2010'],
             ['lll',                                '14 fev 2010 15:25'],
-            ['llll',                               'Baz, 14 fev 2010 15:25']
+            ['llll',                               'Baz, 14 fev 2010 15:25'],
+            ['llllwt',                             'Baz, 14 fev 2010']
         ],
         DDDo = [
             [359, '360-ıncı'],

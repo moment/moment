@@ -44,10 +44,12 @@ test('format', function (assert) {
             ['LL',                                 '2010年2月14日'],
             ['LLL',                                '2010年2月14日下午3点25分'],
             ['LLLL',                               '2010年2月14日星期日下午3点25分'],
+            ['LLLLWT',                             '2010年2月14日星期日'],
             ['l',                                  '2010年2月14日'],
             ['ll',                                 '2010年2月14日'],
             ['lll',                                '2010年2月14日 15:25'],
-            ['llll',                               '2010年2月14日星期日 15:25']
+            ['llll',                               '2010年2月14日星期日 15:25'],
+            ['llllwt',                             '2010年2月14日星期日']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -182,5 +184,3 @@ test('weeks year starting sunday format', function (assert) {
     assert.equal(moment([2012, 0,  7]).format('w ww wo'), '1 01 1周', 'Jan  7 2012 应该是第 1周');
     assert.equal(moment([2012, 0, 14]).format('w ww wo'), '2 02 2周', 'Jan 14 2012 应该是第 2周');
 });
-
-

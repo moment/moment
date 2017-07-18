@@ -16,7 +16,8 @@ export default moment.defineLocale('cv', {
         L : 'DD-MM-YYYY',
         LL : 'YYYY [ҫулхи] MMMM [уйӑхӗн] D[-мӗшӗ]',
         LLL : 'YYYY [ҫулхи] MMMM [уйӑхӗн] D[-мӗшӗ], HH:mm',
-        LLLL : 'dddd, YYYY [ҫулхи] MMMM [уйӑхӗн] D[-мӗшӗ], HH:mm'
+        LLLL : 'dddd, YYYY [ҫулхи] MMMM [уйӑхӗн] D[-мӗшӗ], HH:mm',
+        LLLLWT : 'dddd, YYYY [ҫулхи] MMMM [уйӑхӗн] D[-мӗшӗ]'
     },
     calendar : {
         sameDay: '[Паян] LT [сехетре]',

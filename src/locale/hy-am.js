@@ -19,7 +19,8 @@ export default moment.defineLocale('hy-am', {
         L : 'DD.MM.YYYY',
         LL : 'D MMMM YYYY թ.',
         LLL : 'D MMMM YYYY թ., HH:mm',
-        LLLL : 'dddd, D MMMM YYYY թ., HH:mm'
+        LLLL : 'dddd, D MMMM YYYY թ., HH:mm',
+        LLLLWT : 'dddd, D MMMM YYYY թ.'
     },
     calendar : {
         sameDay: '[այսօր] LT',
@@ -83,4 +84,3 @@ export default moment.defineLocale('hy-am', {
         doy : 7  // The week that contains Jan 1st is the first week of the year.
     }
 });
-

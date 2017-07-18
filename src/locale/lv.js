@@ -53,7 +53,8 @@ export default moment.defineLocale('lv', {
         L : 'DD.MM.YYYY.',
         LL : 'YYYY. [gada] D. MMMM',
         LLL : 'YYYY. [gada] D. MMMM, HH:mm',
-        LLLL : 'YYYY. [gada] D. MMMM, dddd, HH:mm'
+        LLLL : 'YYYY. [gada] D. MMMM, dddd, HH:mm',
+        LLLLWT : 'YYYY. [gada] D. MMMM, dddd'
     },
     calendar : {
         sameDay : '[Šodien pulksten] LT',
@@ -85,4 +86,3 @@ export default moment.defineLocale('lv', {
         doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
-

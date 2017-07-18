@@ -60,10 +60,12 @@ export default moment.defineLocale('fi', {
         LL : 'Do MMMM[ta] YYYY',
         LLL : 'Do MMMM[ta] YYYY, [klo] HH.mm',
         LLLL : 'dddd, Do MMMM[ta] YYYY, [klo] HH.mm',
+        LLLLWT : 'dddd, Do MMMM[ta] YYYY, [klo]',
         l : 'D.M.YYYY',
         ll : 'Do MMM YYYY',
         lll : 'Do MMM YYYY, [klo] HH.mm',
-        llll : 'ddd, Do MMM YYYY, [klo] HH.mm'
+        llll : 'ddd, Do MMM YYYY, [klo] HH.mm',
+        llllwt : 'ddd, Do MMM YYYY, [klo]'
     },
     calendar : {
         sameDay : '[tänään] [klo] LT',
@@ -95,4 +97,3 @@ export default moment.defineLocale('fi', {
         doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
-

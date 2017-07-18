@@ -18,10 +18,12 @@ export default moment.defineLocale('zh-cn', {
         LL : 'YYYY年MMMD日',
         LLL : 'YYYY年MMMD日Ah点mm分',
         LLLL : 'YYYY年MMMD日ddddAh点mm分',
+        LLLLWT : 'YYYY年MMMD日dddd',
         l : 'YYYY年MMMD日',
         ll : 'YYYY年MMMD日',
         lll : 'YYYY年MMMD日 HH:mm',
-        llll : 'YYYY年MMMD日dddd HH:mm'
+        llll : 'YYYY年MMMD日dddd HH:mm',
+        llllwt : 'YYYY年MMMD日dddd'
     },
     meridiemParse: /凌晨|早上|上午|中午|下午|晚上/,
     meridiemHour: function (hour, meridiem) {
@@ -99,4 +101,3 @@ export default moment.defineLocale('zh-cn', {
         doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
-

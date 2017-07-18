@@ -16,7 +16,8 @@ export default moment.defineLocale('uz', {
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'D MMMM YYYY, dddd HH:mm'
+        LLLL : 'D MMMM YYYY, dddd HH:mm',
+        LLLLWT : 'D MMMM YYYY, dddd'
     },
     calendar : {
         sameDay : '[Бугун соат] LT [да]',

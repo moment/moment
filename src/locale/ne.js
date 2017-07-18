@@ -43,7 +43,8 @@ export default moment.defineLocale('ne', {
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY, Aको h:mm बजे',
-        LLLL : 'dddd, D MMMM YYYY, Aको h:mm बजे'
+        LLLL : 'dddd, D MMMM YYYY, Aको h:mm बजे',
+        LLLLWT : 'dddd, D MMMM YYYY'
     },
     preparse: function (string) {
         return string.replace(/[१२३४५६७८९०]/g, function (match) {
@@ -111,4 +112,3 @@ export default moment.defineLocale('ne', {
         doy : 6  // The week that contains Jan 1st is the first week of the year.
     }
 });
-

@@ -84,7 +84,8 @@ export default moment.defineLocale('lb', {
         L: 'DD.MM.YYYY',
         LL: 'D. MMMM YYYY',
         LLL: 'D. MMMM YYYY H:mm [Auer]',
-        LLLL: 'dddd, D. MMMM YYYY H:mm [Auer]'
+        LLLL: 'dddd, D. MMMM YYYY H:mm [Auer]',
+        LLLLWT: 'dddd, D. MMMM YYYY'
     },
     calendar: {
         sameDay: '[Haut um] LT',

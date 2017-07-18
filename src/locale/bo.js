@@ -41,7 +41,8 @@ export default moment.defineLocale('bo', {
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY, A h:mm',
-        LLLL : 'dddd, D MMMM YYYY, A h:mm'
+        LLLL : 'dddd, D MMMM YYYY, A h:mm',
+        LLLLWT : 'dddd, D MMMM YYYY'
     },
     calendar : {
         sameDay : '[དི་རིང] LT',
@@ -107,4 +108,3 @@ export default moment.defineLocale('bo', {
         doy : 6  // The week that contains Jan 1st is the first week of the year.
     }
 });
-

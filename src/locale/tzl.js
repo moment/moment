@@ -19,7 +19,8 @@ export default moment.defineLocale('tzl', {
         L : 'DD.MM.YYYY',
         LL : 'D. MMMM [dallas] YYYY',
         LLL : 'D. MMMM [dallas] YYYY HH.mm',
-        LLLL : 'dddd, [li] D. MMMM [dallas] YYYY HH.mm'
+        LLLL : 'dddd, [li] D. MMMM [dallas] YYYY HH.mm',
+        LLLLWT : 'dddd, [li] D. MMMM [dallas] YYYY'
     },
     meridiemParse: /d\'o|d\'a/i,
     isPM : function (input) {

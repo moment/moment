@@ -17,7 +17,8 @@ export default moment.defineLocale('ms-my', {
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY [pukul] HH.mm',
-        LLLL : 'dddd, D MMMM YYYY [pukul] HH.mm'
+        LLLL : 'dddd, D MMMM YYYY [pukul] HH.mm',
+        LLLLWT : 'dddd, D MMMM YYYY [pukul]'
     },
     meridiemParse: /pagi|tengahari|petang|malam/,
     meridiemHour: function (hour, meridiem) {

@@ -33,7 +33,8 @@ export default moment.defineLocale('ro', {
         L : 'DD.MM.YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY H:mm',
-        LLLL : 'dddd, D MMMM YYYY H:mm'
+        LLLL : 'dddd, D MMMM YYYY H:mm',
+        LLLLWT : 'dddd, D MMMM YYYY'
     },
     calendar : {
         sameDay: '[azi la] LT',

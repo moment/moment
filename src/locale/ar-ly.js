@@ -61,7 +61,8 @@ export default moment.defineLocale('ar-ly', {
         L : 'D/\u200FM/\u200FYYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LLLL : 'dddd D MMMM YYYY HH:mm',
+        LLLLWT : 'dddd D MMMM YYYY'
     },
     meridiemParse: /ص|م/,
     isPM : function (input) {

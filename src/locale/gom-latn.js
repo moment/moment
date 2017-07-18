@@ -36,7 +36,9 @@ export default moment.defineLocale('gom-latn', {
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY A h:mm [vazta]',
         LLLL : 'dddd, MMMM[achea] Do, YYYY, A h:mm [vazta]',
-        llll: 'ddd, D MMM YYYY, A h:mm [vazta]'
+        LLLLWT : 'dddd, MMMM[achea] Do, YYYY',
+        llll: 'ddd, D MMM YYYY, A h:mm [vazta]',
+        llllwt: 'ddd, D MMM YYYY'
     },
     calendar : {
         sameDay: '[Aiz] LT',

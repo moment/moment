@@ -19,10 +19,12 @@ export default moment.defineLocale('he', {
         LL : 'D [ב]MMMM YYYY',
         LLL : 'D [ב]MMMM YYYY HH:mm',
         LLLL : 'dddd, D [ב]MMMM YYYY HH:mm',
+        LLLLWT : 'dddd, D [ב]MMMM YYYY',
         l : 'D/M/YYYY',
         ll : 'D MMM YYYY',
         lll : 'D MMM YYYY HH:mm',
-        llll : 'ddd, D MMM YYYY HH:mm'
+        llll : 'ddd, D MMM YYYY HH:mm',
+        llllwt : 'ddd, D MMM YYYY'
     },
     calendar : {
         sameDay : '[היום ב־]LT',
@@ -87,4 +89,3 @@ export default moment.defineLocale('he', {
         }
     }
 });
-

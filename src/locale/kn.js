@@ -42,7 +42,8 @@ export default moment.defineLocale('kn', {
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY, A h:mm',
-        LLLL : 'dddd, D MMMM YYYY, A h:mm'
+        LLLL : 'dddd, D MMMM YYYY, A h:mm',
+        LLLLWT : 'dddd, D MMMM YYYY'
     },
     calendar : {
         sameDay : '[ಇಂದು] LT',

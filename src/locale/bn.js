@@ -41,7 +41,8 @@ export default moment.defineLocale('bn', {
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY, A h:mm সময়',
-        LLLL : 'dddd, D MMMM YYYY, A h:mm সময়'
+        LLLL : 'dddd, D MMMM YYYY, A h:mm সময়',
+        LLLLWT : 'dddd, D MMMM YYYY'
     },
     calendar : {
         sameDay : '[আজ] LT',

@@ -16,7 +16,8 @@ export default moment.defineLocale('tl-ph', {
         L : 'MM/D/YYYY',
         LL : 'MMMM D, YYYY',
         LLL : 'MMMM D, YYYY HH:mm',
-        LLLL : 'dddd, MMMM DD, YYYY HH:mm'
+        LLLL : 'dddd, MMMM DD, YYYY HH:mm',
+        LLLLWT : 'dddd, MMMM DD, YYYY'
     },
     calendar : {
         sameDay: 'LT [ngayong araw]',

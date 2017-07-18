@@ -29,7 +29,8 @@ export default moment.defineLocale('fy', {
         L : 'DD-MM-YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LLLL : 'dddd D MMMM YYYY HH:mm',
+        LLLLWT : 'dddd D MMMM YYYY'
     },
     calendar : {
         sameDay: '[hjoed om] LT',

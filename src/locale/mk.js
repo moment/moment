@@ -16,7 +16,8 @@ export default moment.defineLocale('mk', {
         L : 'D.MM.YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY H:mm',
-        LLLL : 'dddd, D MMMM YYYY H:mm'
+        LLLL : 'dddd, D MMMM YYYY H:mm',
+        LLLLWT : 'dddd, D MMMM YYYY'
     },
     calendar : {
         sameDay : '[Денес во] LT',

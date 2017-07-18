@@ -1,10 +1,11 @@
 export var defaultLongDateFormat = {
-    LTS  : 'h:mm:ss A',
-    LT   : 'h:mm A',
-    L    : 'MM/DD/YYYY',
-    LL   : 'MMMM D, YYYY',
-    LLL  : 'MMMM D, YYYY h:mm A',
-    LLLL : 'dddd, MMMM D, YYYY h:mm A'
+    LTS    : 'h:mm:ss A',
+    LT     : 'h:mm A',
+    L      : 'MM/DD/YYYY',
+    LL     : 'MMMM D, YYYY',
+    LLL    : 'MMMM D, YYYY h:mm A',
+    LLLL   : 'dddd, MMMM D, YYYY h:mm A',
+    LLLLWT : 'dddd, MMMM D, YYYY'
 };
 
 export function longDateFormat (key) {

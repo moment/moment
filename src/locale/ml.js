@@ -17,7 +17,8 @@ export default moment.defineLocale('ml', {
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY, A h:mm -നു',
-        LLLL : 'dddd, D MMMM YYYY, A h:mm -നു'
+        LLLL : 'dddd, D MMMM YYYY, A h:mm -നു',
+        LLLLWT : 'dddd, D MMMM YYYY'
     },
     calendar : {
         sameDay : '[ഇന്ന്] LT',
@@ -69,4 +70,3 @@ export default moment.defineLocale('ml', {
         }
     }
 });
-

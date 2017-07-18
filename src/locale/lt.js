@@ -68,10 +68,12 @@ export default moment.defineLocale('lt', {
         LL : 'YYYY [m.] MMMM D [d.]',
         LLL : 'YYYY [m.] MMMM D [d.], HH:mm [val.]',
         LLLL : 'YYYY [m.] MMMM D [d.], dddd, HH:mm [val.]',
+        LLLLWT : 'YYYY [m.] MMMM D [d.], dddd',
         l : 'YYYY-MM-DD',
         ll : 'YYYY [m.] MMMM D [d.]',
         lll : 'YYYY [m.] MMMM D [d.], HH:mm [val.]',
-        llll : 'YYYY [m.] MMMM D [d.], ddd, HH:mm [val.]'
+        llll : 'YYYY [m.] MMMM D [d.], ddd, HH:mm [val.]',
+        llllwt : 'YYYY [m.] MMMM D [d.], ddd'
     },
     calendar : {
         sameDay : '[Šiandien] LT',
@@ -105,4 +107,3 @@ export default moment.defineLocale('lt', {
         doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
-
