@@ -100,23 +100,29 @@ export function configFromISO(config) {
 var rfc2822 = /^(?:(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d{1,2})\s(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(\d{2,4})\s(\d\d):(\d\d)(?::(\d\d))?\s(?:(UT|GMT|[ECMP][SD]T)|([Zz])|(?:([+-]\d\d)(\d\d)))$/;
 
 function extractFromRFC2822Strings(yearStr, monthStr, dayStr, hourStr, minuteStr, secondStr) {
-    var result = {
-        year: yearStr.length === 2 ? untrucateYear(parse10(yearStr)) : parse10(yearStr),
-        month: defaultLocaleMonthsShort.indexOf(monthStr),
-        day: parse10(dayStr),
-        hour: parse10(hourStr),
-        minute: parse10(minuteStr)
-    };
+    var result = [
+        untruncateYear(yearStr),
+        defaultLocaleMonthsShort.indexOf(monthStr),
+        parseInt(dayStr, 10),
+        parseInt(hourStr, 10),
+        parseInt(minuteStr, 10)
+    ];
 
     if (secondStr) {
-        result.second = parse10(secondStr);
+        result.push(parseInt(secondStr, 10));
     }
 
     return result;
 }
 
-function untrucateYear(year) {
-    return year > 60 ? 1900 + year : 2000 + year;
+function untruncateYear(yearStr) {
+    var year = parseInt(yearStr, 10);
+    if (year <= 49) {
+        return 2000 + year;
+    } else if (year <= 999) {
+        return 1900 + year;
+    }
+    return year;
 }
 
 function preprocessRFC2822(s) {
@@ -125,8 +131,8 @@ function preprocessRFC2822(s) {
 }
 
 function signedOffset(offHourStr, offMinuteStr) {
-    var offHour = parse10(offHourStr) || 0,
-        offMin = parse10(offMinuteStr) || 0,
+    var offHour = parseInt(offHourStr, 10) || 0,
+        offMin = parseInt(offMinuteStr, 10) || 0,
         offMinSigned = offHour < 0 ? -offMin : offMin;
     return offHour * 60 + offMinSigned;
 }
@@ -135,7 +141,7 @@ function checkWeekday(weekdayStr, parsedInput, config) {
     if (weekdayStr) {
         // TODO: Replace the vanilla JS Date object with an indepentent day-of-week check.
         var weekdayProvided = defaultLocaleWeekdaysShort.indexOf(weekdayStr),
-            weekdayActual = new Date(parsedInput.year, parsedInput.month, parsedInput.day).getDay();
+            weekdayActual = new Date(parsedInput[0], parsedInput[1], parsedInput[2]).getDay();
         if (weekdayProvided !== weekdayActual) {
             getParsingFlags(config).weekdayMismatch = true;
             config._isValid = false;
@@ -157,10 +163,6 @@ var obsOffsets = {
     PST: 8 * 60
 };
 
-function parse10(inty) {
-    return parseInt(inty, 10);
-}
-
 function calculateOffset(obsOffset, milOffset, offHourStr, offMinuteStr) {
     if (obsOffset) {
         return obsOffsets[obsOffset];
@@ -178,7 +180,7 @@ export function configFromRFC2822(config) {
             return;
         }
 
-        config._a = [parsedArray.year, parsedArray.month, parsedArray.day, parsedArray.hour, parsedArray.minute, parsedArray.second];
+        config._a = parsedArray;
         config._tzm = calculateOffset(match[8], match[9], match[10], match[11]);
 
         configFromArray(config);
