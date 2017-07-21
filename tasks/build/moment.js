@@ -6,7 +6,7 @@ module.exports = function (grunt) {
     function buildMoment() {
         return utils.rollupBundle('src/moment.js', {
             name: 'moment',
-            dependencies: null /* include everything */
+            external: null /* include everything */
         }).then(function (code) {
             return grunt.file.write('build/moment.js', code);
         });

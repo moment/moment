@@ -35,8 +35,11 @@ module.exports = function (grunt) {
         grunt.file.write(manifestFile, localeManifest);
         utils.rollupBundle(manifestFile, {
             name: 'moment.locale',
-            dependencies: utils.externalMoment
+            external: utils.externalMoment
         }).then(function (code) {
+            // The moment dependency will still point to the '../../src/moment' file.
+            // Rewrite imports so that they point to './moment';
+            code = code.replace(/\.\.\/\.\.\/src\//g, './');
             return grunt.file.write(manifestFile, code);
         });
     }
@@ -51,7 +54,7 @@ module.exports = function (grunt) {
         const manifestFile = 'build/min/tests.js';
         grunt.file.write(manifestFile, testManifest);
         return utils.rollupBundle(manifestFile, {
-            dependencies: null /* include everything */
+            external: null /* include everything */
         }).then(function (code) {
             return grunt.file.write(manifestFile, code);
         })
