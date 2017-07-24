@@ -150,6 +150,9 @@ export function configFromRFC2822(config) {
             case 4: // Zone
                 timezone = timezones[match[5]];
                 break;
+            case 6: // Numeric Zone
+                timezone = match[5];
+                break;
             default: // UT or +/-9999
                 timezone = timezones[' GMT'];
         }
