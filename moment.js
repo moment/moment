@@ -3,7 +3,7 @@
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
-
+console.log('start face');
 ;(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
@@ -2889,6 +2889,7 @@ function setOffsetToLocal (keepLocalTime) {
 }
 
 function setOffsetToParsedOffset () {
+    console.log('setOffsetToParsedOffset ', this._tjm);
     if (this._tzm != null) {
         this.utcOffset(this._tzm, false, true);
     } else if (typeof this._i === 'string') {
