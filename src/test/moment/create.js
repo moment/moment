@@ -440,7 +440,7 @@ test('explicit cloning', function (assert) {
     var momentA = moment([2011, 10, 10]),
     momentB = momentA.clone();
     momentA.month(5);
-    assert.notEqual(momentA.month(), momentB.month(), 'Calling moment() on a moment will create a clone');
+    assert.notEqual(momentA.month(), momentB.month(), 'Calling clone() on a moment will create a clone');
 });
 
 test('cloning carrying over utc mode', function (assert) {
