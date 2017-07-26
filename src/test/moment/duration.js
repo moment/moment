@@ -152,8 +152,7 @@ test('explicit cloning', function (assert) {
     var durationA = moment.duration(5, 'milliseconds');
     var durationB = durationA.clone();
     durationA.add(5, 'milliseconds');
-    assert.equal(durationB.milliseconds(), 5, 'Calling duration.clone() on a duration will create a clone');
-    assert.equal(durationA.milliseconds(), 10, 'Calling duration.clone() on a duration will create a clone');
+    assert.notEqual(durationA.milliseconds(), durationB.milliseconds(), 'Calling duration.clone() on a duration will create a clone');
 });
 
 test('instantiation from 24-hour time zero', function (assert) {
