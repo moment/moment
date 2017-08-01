@@ -14,7 +14,7 @@ var aspNetRegex = /^(\-|\+)?(?:(\d*)[. ])?(\d+)\:(\d+)(?:\:(\d+)(\.\d*)?)?$/;
 // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
 // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
 // and further modified to allow for strings containing both week and day
-var isoRegex = /^(-|\+)?P(?:((?:-|\+)?[0-9,.]*)Y)?(?:((?:-|\+)?[0-9,.]*)M)?(?:((?:-|\+)?[0-9,.]*)W)?(?:((?:-|\+)?[0-9,.]*)D)?(?:T(?:((?:-|\+)?[0-9,.]*)H)?(?:((?:-|\+)?[0-9,.]*)M)?(?:((?:-|\+)?[0-9,.]*)S)?)?$/;
+var isoRegex = /^(-|\+)?P(?:([-+]?[0-9,.]*)Y)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)W)?(?:([-+]?[0-9,.]*)D)?(?:T(?:([-+]?[0-9,.]*)H)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)S)?)?$/;
 
 export function createDuration (input, key) {
     var duration = input,
@@ -38,7 +38,7 @@ export function createDuration (input, key) {
             duration.milliseconds = input;
         }
     } else if (!!(match = aspNetRegex.exec(input))) {
-        sign = (match[1] === '-') ? -1 : (match[1] === '+') ? 1 : 1;
+        sign = (match[1] === '-') ? -1 : 1;
         duration = {
             y  : 0,
             d  : toInt(match[DATE])                         * sign,
