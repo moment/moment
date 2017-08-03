@@ -59,7 +59,7 @@ test('format', function (assert) {
     var a = [
             ['YYYY년 MMMM Do dddd a h:mm:ss',      '2010년 2월 14일 일요일 오후 3:25:50'],
             ['ddd A h',                            '일 오후 3'],
-            ['M Mo MM MMMM MMM',                   '2 2일 02 2월 2월'],
+            ['M Mo MM MMMM MMM',                   '2 2월 02 2월 2월'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14일 14'],
             ['d do dddd ddd dd',                   '0 0일 일요일 일 일'],
