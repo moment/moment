@@ -189,6 +189,22 @@ test('end of day', function (assert) {
     assert.equal(m.milliseconds(), 999, 'set the seconds');
 });
 
+test('end of day - testing issue #3132', function (assert) {
+    var m = moment(new Date(2016, 10, 16, 3, 4, 5, 6), 'America/Sao_Paulo').endOf('day'),
+        ms = moment(new Date(2016, 10, 16, 3, 4, 5, 6), 'America/Sao_Paulo').endOf('days'),
+        ma = moment(new Date(2016, 10, 16, 3, 4, 5, 6), 'America/Sao_Paulo').endOf('d');
+
+    assert.equal(+m, +ms, 'Plural or singular should work');
+    assert.equal(+m, +ma, 'Full or abbreviated should work');
+    assert.equal(m.year(), 2016, 'keep the year');
+    assert.equal(m.month(), 10, 'keep the month');
+    assert.equal(m.date(), 16, 'keep the day');
+    assert.equal(m.hours(), 23, 'set the hours');
+    assert.equal(m.minutes(), 59, 'set the minutes');
+    assert.equal(m.seconds(), 59, 'set the seconds');
+    assert.equal(m.milliseconds(), 999, 'set the seconds');
+});
+
 test('start of date', function (assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('date'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('dates');
