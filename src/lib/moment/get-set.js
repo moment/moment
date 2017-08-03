@@ -3,7 +3,6 @@ import { getPrioritizedUnits } from '../units/priorities';
 import { hooks } from '../utils/hooks';
 import isFunction from '../utils/is-function';
 
-
 export function makeGetSet (unit, keepTime) {
     return function (value) {
         if (value != null) {
@@ -22,7 +21,7 @@ export function get (mom, unit) {
 }
 
 export function set (mom, unit, value) {
-    if (mom.isValid()) {
+    if (mom.isValid() && !isNaN(value)) {
         mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
     }
 }
