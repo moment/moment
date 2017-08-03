@@ -7,9 +7,9 @@ import moment from '../moment';
 export default moment.defineLocale('ar-dz', {
     months : 'جانفي_فيفري_مارس_أفريل_ماي_جوان_جويلية_أوت_سبتمبر_أكتوبر_نوفمبر_ديسمبر'.split('_'),
     monthsShort : 'جانفي_فيفري_مارس_أفريل_ماي_جوان_جويلية_أوت_سبتمبر_أكتوبر_نوفمبر_ديسمبر'.split('_'),
-    weekdays : 'الأحد_الإثنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت'.split('_'),
-    weekdaysShort : 'احد_اثنين_ثلاثاء_اربعاء_خميس_جمعة_سبت'.split('_'),
-    weekdaysMin : 'أح_إث_ثلا_أر_خم_جم_سب'.split('_'),
+    weekdays : 'الأحد_الاثنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت'.split('_'),
+    weekdaysShort : 'أحد_اثنين_ثلاثاء_أربعاء_خميس_جمعة_سبت'.split('_'),
+    weekdaysMin : 'أح_اث_ثلا_أر_خم_جم_سب'.split('_'),
     weekdaysParseExact : true,
     longDateFormat : {
         LT : 'HH:mm',

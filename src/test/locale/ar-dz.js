@@ -27,7 +27,7 @@ test('format', function (assert) {
             ['M Mo MM MMMM MMM',                   '2 2 02 فيفري فيفري'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14 14'],
-            ['d do dddd ddd dd',                   '0 0 الأحد احد أح'],
+            ['d do dddd ddd dd',                   '0 0 الأحد أحد أح'],
             ['DDD DDDo DDDD',                      '45 45 045'],
             ['w wo ww',                            '7 7 07'],
             ['h hh',                               '3 03'],
@@ -45,7 +45,7 @@ test('format', function (assert) {
             ['l',                                  '14/2/2010'],
             ['ll',                                 '14 فيفري 2010'],
             ['lll',                                '14 فيفري 2010 15:25'],
-            ['llll',                               'احد 14 فيفري 2010 15:25']
+            ['llll',                               'أحد 14 فيفري 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -99,7 +99,7 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'الأحد احد أح_الإثنين اثنين إث_الثلاثاء ثلاثاء ثلا_الأربعاء اربعاء أر_الخميس خميس خم_الجمعة جمعة جم_السبت سبت سب'.split('_'), i;
+    var expected = 'الأحد أحد أح_الاثنين اثنين إث_الثلاثاء ثلاثاء ثلا_الأربعاء اربعاء أر_الخميس خميس خم_الجمعة جمعة جم_السبت سبت سب'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }

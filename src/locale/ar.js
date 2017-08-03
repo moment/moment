@@ -64,8 +64,8 @@ var symbolMap = {
 export default moment.defineLocale('ar', {
     months : months,
     monthsShort : months,
-    weekdays : 'الأحد_الإثنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت'.split('_'),
-    weekdaysShort : 'أحد_إثنين_ثلاثاء_أربعاء_خميس_جمعة_سبت'.split('_'),
+    weekdays : 'الأحد_الاثنين_الثلاثاء_الأربعاء_الخميس_الجمعة_السبت'.split('_'),
+    weekdaysShort : 'أحد_اثنين_ثلاثاء_أربعاء_خميس_جمعة_سبت'.split('_'),
     weekdaysMin : 'ح_ن_ث_ر_خ_ج_س'.split('_'),
     weekdaysParseExact : true,
     longDateFormat : {
