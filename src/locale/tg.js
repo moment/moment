@@ -2,13 +2,7 @@
 //! locale : Tajik [tg]
 //! author : Orif N. Jr. : https://github.com/orif-jr
 
-;(function (global, factory) {
-   typeof exports === 'object' && typeof module !== 'undefined'
-       && typeof require === 'function' ? factory(require('../moment')) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
-   factory(global.moment)
-}(this, (function (moment) { 'use strict';
-
+import moment from '../moment';
 
 var suffixes = {
     0: '-ум',
@@ -33,7 +27,7 @@ var suffixes = {
     100: '-ум'
 };
 
-var tg = moment.defineLocale('tg', {
+export default moment.defineLocale('tg', {
     months : 'январ_феврал_март_апрел_май_июн_июл_август_сентябр_октябр_ноябр_декабр'.split('_'),
     monthsShort : 'янв_фев_мар_апр_май_июн_июл_авг_сен_окт_ноя_дек'.split('_'),
     weekdays : 'якшанбе_душанбе_сешанбе_чоршанбе_панҷшанбе_ҷумъа_шанбе'.split('_'),
@@ -70,15 +64,13 @@ var tg = moment.defineLocale('tg', {
         y : 'як сол',
         yy : '%d сол'
     },
-    meridiemParse: /шабона|саҳарӣ|субҳӣ|рӯзона|бегоҳӣ/i,
-    isPM : function (input) {
+    meridiemParse: /шабона|субҳӣ|рӯзона|бегоҳӣ/i,
+    isPM: function(input) {
         return /^(рӯзона|шабона)$/.test(input);
     },
-    meridiem : function (hour, minute, isLower) {
-        if (hour < 5) {
+    meridiem: function(hour, minute, isLower) {
+        if (hour < 4) {
             return 'шабона';
-        } else if (hour < 7) {
-            return 'саҳарӣ';
         } else if (hour < 11) {
             return 'субҳӣ';
         } else if (hour < 16) {
@@ -88,17 +80,13 @@ var tg = moment.defineLocale('tg', {
         }
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(ум|юм)/,
-    ordinal : function (number) {
+    ordinal: function(number) {
         var a = number % 10,
             b = number >= 100 ? 100 : null;
         return number + (suffixes[number] || suffixes[a] || suffixes[b]);
     },
     week : {
         dow : 1, // Monday is the first day of the week.
-        doy : 7  // The week that contains Jan 1st is the first week of the year.
+        doy : 7  // The week that contains Jan 4th is the first week of the year.
     }
 });
-
-return tg;
-
-})));
