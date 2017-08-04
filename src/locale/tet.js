@@ -2,6 +2,7 @@
 //! locale : Tetun Dili (East Timor) [tet]
 //! author : Joshua Brooks : https://github.com/joshbrooks
 //! author : Onorio De J. Afonso : https://github.com/marobo
+//! author : Sonia Simoes : https://github.com/soniasimoes
 
 import moment from '../moment';
 
