@@ -1,6 +1,7 @@
 import { configFromStringAndFormat } from './from-string-and-format';
 import { hooks } from '../utils/hooks';
 import { deprecate } from '../utils/deprecate';
+import zeroFill from '../utils/zero-fill';
 import getParsingFlags from './parsing-flags';
 
 // iso 8601 regex
@@ -140,8 +141,7 @@ export function configFromRFC2822(config) {
         switch (match[5].length) {
             case 2: // military
                 timezoneIndex = military.indexOf(match[5][1].toUpperCase()) - 12;
-                timezone = ((timezoneIndex < 0) ? ' -' : ' +') +
-                    (('' + timezoneIndex).replace(/^-?/, '0')).match(/..$/)[0] + '00';
+                timezone = ' ' + zeroFill(timezoneIndex, 2, true) + '00';
                 break;
             case 4: // Zone
                 timezone = timezones[match[5]];

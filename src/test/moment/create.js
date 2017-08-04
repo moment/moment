@@ -479,9 +479,12 @@ test('parsing RFC 2822 timezone', function (assert) {
     var testCases = {
         'RFC822 UTC timezone': 'Tue, 25 Jul 2017 09:40:15 UT',
         'RFC822 PST timezone': 'Tue, 25 Jul 2017 01:40:15 PST',
-        'RFC822 Military timezone': 'Mon, 24 Jul 2017 23:40:15 W',
+        'RFC822 Positive military timezone': 'Tue, 25 Jul 2017 21:40:15 M',
+        'RFC822 Negative military timezone': 'Mon, 24 Jul 2017 21:40:15 Y',
         'RFC822 Positive numeric timezone': 'Tue, 25 Jul 2017 10:40:15 +0100',
-        'RFC822 Negative numeric timezone': 'Mon, 24 Jul 2017 23:40:15 -1000'
+        'RFC822 Negative numeric timezone': 'Mon, 24 Jul 2017 23:40:15 -1000',
+        'RFC822 Half-hour timezone': 'Tue, 25 Jul 2017 15:10:15 +0530',
+        'RFC822 Quarter-hour timezone': 'Tue, 25 Jul 2017 15:25:15 +0545'
     };
     var testCase;
 
