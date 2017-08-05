@@ -99,13 +99,13 @@ function configFromInput(config) {
 
 export function quickCreateLocal(lts, locale, timeZone, pf) {
     var localTsOffset = computeOffset(lts, timeZone);
-    console.log('Local', lts, '###', localTsOffset[0], localTsOffset[1]);
+    // console.log('Local', lts, '###', localTsOffset[0], localTsOffset[1]);
     return new Moment({_ts: localTsOffset[0], _offset: localTsOffset[1], _locale: locale, _tz: timeZone, _pf: pf});
 }
 
 export function quickCreateUTC(uts, locale, timeZone, pf) {
     var offset = timeZone.offsetFromTimestamp(uts);
-    console.log('UTC', uts, '###', uts + offset, offset);
+    // console.log('UTC', uts, '###', uts + offset, offset);
     return new Moment({_ts: uts + offset, _offset: offset, _locale: locale, _tz: timeZone, _pf: pf});
 }
 
