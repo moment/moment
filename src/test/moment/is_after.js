@@ -175,3 +175,10 @@ test('is after invalid', function (assert) {
     assert.equal(m.isAfter(invalid, 'second'), false, 'invalid moment second');
     assert.equal(m.isAfter(invalid, 'milliseconds'), false, 'invalid moment milliseconds');
 });
+
+test('is after undefined and null', function (assert) {
+    var m = moment();
+    assert.equal(m.isAfter(), false, 'undefined date');
+    assert.equal(m.isAfter(undefined), false, 'undefined date');
+    assert.equal(m.isAfter(null), false, 'null date');
+});

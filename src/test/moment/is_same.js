@@ -149,3 +149,10 @@ test('is same with utc offset moments', function (assert) {
 test('is same with invalid moments', function (assert) {
     assert.equal(moment.invalid().isSame(moment.invalid()), false, 'invalid moments are not considered equal');
 });
+
+test('is same undefined and null', function(assert) {
+    var m = moment();
+    assert.equal(m.isSame(), false, 'blank is not considered equal');
+    assert.equal(m.isSame(undefined), false, 'undefined is not considered equal');
+    assert.equal(m.isSame(null), false, 'null is not considered equal');
+});
