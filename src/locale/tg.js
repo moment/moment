@@ -45,8 +45,8 @@ export default moment.defineLocale('tg', {
         sameDay : '[Имрӯз соати] LT',
         nextDay : '[Пагоҳ соати] LT',
         lastDay : '[Дирӯз соати] LT',
-        nextWeek : 'dddd[и] [оянда соати] LT',
-        lastWeek : 'dddd[и] [гузашта соати] LT',
+        nextWeek : 'dddd[и] [ҳафтаи оянда соати] LT',
+        lastWeek : 'dddd[и] [ҳафтаи гузашта соати] LT',
         sameElse : 'L'
     },
     relativeTime : {

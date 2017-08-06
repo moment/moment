@@ -27,7 +27,7 @@ test('format', function (assert) {
             ['M Mo MM MMMM MMM',                   '2 2-юм 02 феврал фев'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14-ум 14'],
-            ['d do dddd ddd dd',                   '0 0 якшанбе яшб яш'],
+            ['d do dddd ddd dd',                   '0 0-ум якшанбе яшб яш'],
             ['DDD DDDo DDDD',                      '45 45-ум 045'],
             ['w wo ww',                            '7 7-ум 07'],
             ['h hh',                               '3 03'],
@@ -176,11 +176,11 @@ test('calendar next week', function (assert) {
     var i, m;
     for (i = 2; i < 7; i++) {
         m = moment().add({d: i});
-        assert.equal(m.calendar(),       m.format('dddd [соати] LT'),  'Today + ' + i + ' days current time');
+        assert.equal(m.calendar(),       m.format('dddd [ҳафтаи оянда соати] LT'),  'Today + ' + i + ' days current time');
         m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(m.calendar(),       m.format('dddd [соати] LT'),  'Today + ' + i + ' days beginning of day');
+        assert.equal(m.calendar(),       m.format('dddd [ҳафтаи оянда соати] LT'),  'Today + ' + i + ' days beginning of day');
         m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(m.calendar(),       m.format('dddd [соати] LT'),  'Today + ' + i + ' days end of day');
+        assert.equal(m.calendar(),       m.format('dddd [ҳафтаи оянда соати] LT'),  'Today + ' + i + ' days end of day');
     }
 });
 
@@ -189,11 +189,11 @@ test('calendar last week', function (assert) {
 
     for (i = 2; i < 7; i++) {
         m = moment().subtract({d: i});
-        assert.equal(m.calendar(),       m.format('[Ҳафтаи гузашта] dddd [соати] LT'),  'Today - ' + i + ' days current time');
+        assert.equal(m.calendar(),       m.format('dddd[и] [ҳафтаи гузашта соати] LT'),  'Today - ' + i + ' days current time');
         m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(m.calendar(),       m.format('[Ҳафтаи гузашта] dddd [соати] LT'),  'Today - ' + i + ' days beginning of day');
+        assert.equal(m.calendar(),       m.format('dddd[и] [ҳафтаи гузашта соати] LT'),  'Today - ' + i + ' days beginning of day');
         m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(m.calendar(),       m.format('[Ҳафтаи гузашта] dddd [соати] LT'),  'Today - ' + i + ' days end of day');
+        assert.equal(m.calendar(),       m.format('dddd[и] [ҳафтаи гузашта соати] LT'),  'Today - ' + i + ' days end of day');
     }
 });
 
@@ -218,4 +218,3 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012, 0,  9]).format('w ww wo'),   '3 03 3-юм', 'Jan  9 2012 should be week 3');
     assert.equal(moment([2012, 0, 15]).format('w ww wo'),   '3 03 3-юм', 'Jan 15 2012 should be week 3');
 });
-
