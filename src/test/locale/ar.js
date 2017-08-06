@@ -240,3 +240,12 @@ test('no leading zeros in long date formats', function (assert) {
         }
     }
 });
+
+// locale-specific
+test('ar strict mode parsing works', function (assert) {
+    var m, formattedDate;
+    m = moment().locale('ar');
+    formattedDate = m.format('l');
+    assert.equal(moment.utc(formattedDate, 'l', 'ar', false).isValid(), true, 'Non-strict parsing works');
+    assert.equal(moment.utc(formattedDate, 'l', 'ar', true).isValid(), true,'Strict parsing must work');
+});
