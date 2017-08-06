@@ -3,7 +3,7 @@ import moment from '../../moment';
 localeModule('de-at');
 
 test('parse', function (assert) {
-    var tests = 'Jänner Jän._Februar Febr._März Mrz._April Apr._Mai Mai_Juni Jun._Juli Jul._August Aug._September Sept._Oktober Okt._November Nov._Dezember Dez.'.split('_'), i;
+    var tests = 'Jänner Jän._Februar Feb._März März_April Apr._Mai Mai_Juni Juni_Juli Juli_August Aug._September Sep._Oktober Okt._November Nov._Dezember Dez.'.split('_'), i;
 
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
@@ -26,7 +26,7 @@ test('format', function (assert) {
     var a = [
             ['dddd, Do MMMM YYYY, h:mm:ss a', 'Sonntag, 14. Februar 2010, 3:25:50 pm'],
             ['ddd, hA', 'So., 3PM'],
-            ['M Mo MM MMMM MMM', '2 2. 02 Februar Febr.'],
+            ['M Mo MM MMMM MMM', '2 2. 02 Februar Feb.'],
             ['YYYY YY', '2010 10'],
             ['D Do DD', '14 14. 14'],
             ['d do dddd ddd dd', '0 0. Sonntag So. So'],
@@ -44,9 +44,9 @@ test('format', function (assert) {
             ['LLL', '14. Februar 2010 15:25'],
             ['LLLL', 'Sonntag, 14. Februar 2010 15:25'],
             ['l', '14.2.2010'],
-            ['ll', '14. Febr. 2010'],
-            ['lll', '14. Febr. 2010 15:25'],
-            ['llll', 'So., 14. Febr. 2010 15:25']
+            ['ll', '14. Feb. 2010'],
+            ['lll', '14. Feb. 2010 15:25'],
+            ['llll', 'So., 14. Feb. 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -93,7 +93,7 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'Jänner Jän._Februar Febr._März Mrz._April Apr._Mai Mai_Juni Jun._Juli Jul._August Aug._September Sept._Oktober Okt._November Nov._Dezember Dez.'.split('_'), i;
+    var expected = 'Jänner Jän._Februar Feb._März März_April Apr._Mai Mai_Juni Juni_Juli Juli_August Aug._September Sep._Oktober Okt._November Nov._Dezember Dez.'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
