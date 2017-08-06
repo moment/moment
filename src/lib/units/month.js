@@ -21,10 +21,8 @@ export function daysInMonth(year, month) {
         return NaN;
     }
     var modMonth = mod(month, 12);
-    if (modMonth === month) {
-        return month === 1 ? (isLeapYear(year) ? 29 : 28) : (31 - month % 7 % 2);
-    }
-    return daysInMonth(year + (month - modMonth) / 12, modMonth);
+    year += (month - modMonth) / 12;
+    return modMonth === 1 ? (isLeapYear(year) ? 29 : 28) : (31 - modMonth % 7 % 2);
 }
 
 // FORMATTING
