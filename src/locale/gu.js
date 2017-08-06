@@ -1,6 +1,7 @@
 //! moment.js locale configuration
-//! locale : gujarati (gu-IN)
+//! locale : Gujarati [gu]
 //! author : Kaushik Thanki : https://github.com/Kaushik1987
+
 import moment from '../moment';
 
 var symbolMap = {
@@ -28,7 +29,7 @@ var symbolMap = {
         '૦': '0'
     };
 
-export default moment.defineLocale('gu-IN', {
+export default moment.defineLocale('gu', {
     months: 'જાન્યુઆરી_ફેબ્રુઆરી_માર્ચ_એપ્રિલ_મે_જૂન_જુલાઈ_ઑગસ્ટ_સપ્ટેમ્બર_ઑક્ટ્બર_નવેમ્બર_ડિસેમ્બર'.split('_'),
     monthsShort: 'જાન્યુ._ફેબ્રુ._માર્ચ_એપ્રિ._મે_જૂન_જુલા._ઑગ._સપ્ટે._ઑક્ટ્._નવે._ડિસે.'.split('_'),
     monthsParseExact: true,
