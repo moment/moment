@@ -154,6 +154,21 @@ test('toISOString', function (assert) {
     assert.equal(date.toISOString(), null, 'An invalid date to iso string is null');
 });
 
+test('toRFC2822String', function (assert) {
+    var testCases = {
+        'UTC +0000': '2016-11-01T02:23:45.678Z',
+        'UTC +0100': '2016-11-01T03:23:45.678+0100',
+        'UTC -0200': '2016-11-01T00:23:45.678-0200'
+    };
+    var testCase;
+    var testResult;
+
+    for (testCase in testCases) {
+        testResult = moment.utc(testCases[testCase]);
+        assert.equal(testResult.toRFC2822String(), 'Tue, 1 Nov 2016 02:23:45 +0000', 'RFC 2822 format: ' + testCase);
+    }
+});
+
 // See https://nodejs.org/dist/latest/docs/api/util.html#util_custom_inspect_function_on_objects
 test('inspect', function (assert) {
     function roundtrip(m) {

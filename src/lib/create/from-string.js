@@ -122,8 +122,15 @@ export function configFromRFC2822(config) {
 
     if (match) {
         dayFormat = match[1] ? 'ddd' + ((match[1].length === 5) ? ', ' : ' ') : '';
-        dateFormat = 'D MMM ' + ((match[2].length > 10) ? 'YYYY ' : 'YY ');
+        dateFormat = 'D MMM YYYY ';
         timeFormat = 'HH:mm' + (match[4] ? ':ss' : '');
+        if (match[2].length <= 10) {
+            var expandYear = parseInt(match[2].substr(7,2), 10);
+            var preYear = match[2].substr(0,7);
+            expandYear += (expandYear < 50) ? 2000 : 1900;
+            match[2] = preYear + expandYear + ' ';
+            config._i = match.slice(1).join('');
+        }
 
         // TODO: Replace the vanilla JS Date object with an indepentent day-of-week check.
         if (match[1]) { // day of week given
@@ -138,7 +145,8 @@ export function configFromRFC2822(config) {
         }
 
         switch (match[5].length) {
-            case 2: // military
+            case 2:
+                // military e.g. ' Z' => ' +0000', ' A' => ' +0100', ' Y' => ' -1200'
                 if (timezoneIndex === 0) {
                     timezone = ' +0000';
                 } else {
@@ -147,11 +155,17 @@ export function configFromRFC2822(config) {
                         (('' + timezoneIndex).replace(/^-?/, '0')).match(/..$/)[0] + '00';
                 }
                 break;
-            case 4: // Zone
+            case 3:
+                // ' UT', equivalent to GMT
+                timezone = timezones[' GMT'];
+                break;
+            case 4:
+                // Zone e.g. ' GMT' => ' +0000', ' EDT' => ' -0400'
                 timezone = timezones[match[5]];
                 break;
-            default: // UT or +/-9999
-                timezone = timezones[' GMT'];
+            default:
+                // Offset e.g. ' +0100', ' -0200' // Used as is.
+                timezone = match[5];
         }
         match[5] = timezone;
         config._i = match.splice(1).join('');

@@ -475,17 +475,26 @@ test('parsing RFC 2822', function (assert) {
     }
 });
 
+test('RFC 2822 offset [issue #3920]', function (assert) {
+    var timezoneTestString = 'Mon, 02 Jan 2017 06:00:00 -0800';
+    var timezoneTestDate = new Date(timezoneTestString);
+
+    assert.equal(moment(timezoneTestString).toISOString(),
+        moment(timezoneTestDate).toISOString(),
+        'Incorrect RFC2822 timezone offset calculation');
+});
+
 test('non RFC 2822 strings', function (assert) {
     var testCases = {
         'RFC2822 datetime with all options but invalid day delimiter': 'Tue. 01 Nov 2016 01:23:45 GMT',
-        'RFC2822 datetime with mismatching Day (week v date)': 'Mon, 01 Nov 2016 01:23:45 GMT'
+        'RFC2822 datetime with mismatching Day (weekday v date)': 'Mon, 01 Nov 2016 01:23:45 GMT'
     };
     var testCase;
 
     for (testCase in testCases) {
         var testResult = moment(testCases[testCase], moment.RFC_2822, true);
-        assert.ok(!testResult.isValid(), testResult);
-        assert.ok(!testResult.parsingFlags().rfc2822, testResult + ' - rfc2822 parsingFlag');
+        assert.ok(!testResult.isValid(), testCase + ': ' + testResult + ' - is invalid rfc2822');
+        assert.ok(!testResult.parsingFlags().rfc2822, testCase + ': ' + testResult + ' - rfc2822 parsingFlag');
     }
 });
 
