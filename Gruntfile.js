@@ -171,9 +171,6 @@ module.exports = function (grunt) {
             },
             'typescript-test': {
                 command: 'npm run typescript-test'
-            },
-            'coveralls': {
-                command: 'npm run coveralls'
             }
         }
 
@@ -202,7 +199,7 @@ module.exports = function (grunt) {
     grunt.registerTask('test:meteor', ['exec:meteor-init', 'exec:meteor-test', 'exec:meteor-cleanup']);
 
     // travis build task
-    grunt.registerTask('build:travis', ['default', 'exec:coveralls']);
+    grunt.registerTask('build:travis', ['default']);
     grunt.registerTask('meteor-publish', ['exec:meteor-init', 'exec:meteor-publish', 'exec:meteor-cleanup']);
 
     // Task to be run when releasing a new version
