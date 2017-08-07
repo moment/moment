@@ -148,6 +148,13 @@ test('instantiation from another duration', function (assert) {
     assert.deepEqual(moment.duration(modified), modified, 'cloning modified duration works');
 });
 
+test('explicit cloning', function (assert) {
+    var durationA = moment.duration(5, 'milliseconds');
+    var durationB = durationA.clone();
+    durationA.add(5, 'milliseconds');
+    assert.notEqual(durationA.milliseconds(), durationB.milliseconds(), 'Calling duration.clone() on a duration will create a clone');
+});
+
 test('instantiation from 24-hour time zero', function (assert) {
     assert.equal(moment.duration('00:00').years(), 0, '0 years');
     assert.equal(moment.duration('00:00').days(), 0, '0 days');
