@@ -205,3 +205,17 @@ test('weeks year starting sunday format', function (assert) {
     assert.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3º', 'Jan 15 2012 should be week 3');
 });
 
+test('relative time threshold', function (assert) {
+    var rts = moment(),
+        rtsDefault = moment.relativeTimeThreshold('ss');
+
+    moment.relativeTimeThreshold('ss', 3);
+
+    rts.subtract(3, 'seconds');
+    assert.equal(rts.fromNow(), 'poucos segundos atrás', 'Below custom a few seconds to seconds threshold');
+    rts.subtract(1, 'seconds');
+    assert.equal(rts.fromNow(), '4 segundos atrás', 'Above custom a few seconds to seconds threshold');
+
+    moment.relativeTimeThreshold('ss', rtsDefault);
+});
+
