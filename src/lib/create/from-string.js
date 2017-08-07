@@ -1,6 +1,7 @@
 import { configFromStringAndFormat } from './from-string-and-format';
 import { hooks } from '../utils/hooks';
 import { deprecate } from '../utils/deprecate';
+import zeroFill from '../utils/zero-fill';
 import getParsingFlags from './parsing-flags';
 
 // iso 8601 regex
@@ -101,6 +102,7 @@ export function configFromRFC2822(config) {
     var string, match, dayFormat,
         dateFormat, timeFormat, tzFormat;
     var timezones = {
+        ' UT': ' +0000',
         ' GMT': ' +0000',
         ' EDT': ' -0400',
         ' EST': ' -0500',
@@ -139,19 +141,14 @@ export function configFromRFC2822(config) {
 
         switch (match[5].length) {
             case 2: // military
-                if (timezoneIndex === 0) {
-                    timezone = ' +0000';
-                } else {
-                    timezoneIndex = military.indexOf(match[5][1].toUpperCase()) - 12;
-                    timezone = ((timezoneIndex < 0) ? ' -' : ' +') +
-                        (('' + timezoneIndex).replace(/^-?/, '0')).match(/..$/)[0] + '00';
-                }
+                timezoneIndex = military.indexOf(match[5][1].toUpperCase()) - 12;
+                timezone = ' ' + zeroFill(timezoneIndex, 2, true) + '00';
                 break;
-            case 4: // Zone
+            case 6: // Numeric Zone
+                timezone = match[5];
+                break;
+            default: // Zone
                 timezone = timezones[match[5]];
-                break;
-            default: // UT or +/-9999
-                timezone = timezones[' GMT'];
         }
         match[5] = timezone;
         config._i = match.splice(1).join('');

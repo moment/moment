@@ -475,10 +475,31 @@ test('parsing RFC 2822', function (assert) {
     }
 });
 
+test('parsing RFC 2822 timezone', function (assert) {
+    var testCases = {
+        'RFC822 UTC timezone': 'Tue, 25 Jul 2017 09:40:15 UT',
+        'RFC822 PST timezone': 'Tue, 25 Jul 2017 01:40:15 PST',
+        'RFC822 Positive military timezone': 'Tue, 25 Jul 2017 21:40:15 M',
+        'RFC822 Negative military timezone': 'Mon, 24 Jul 2017 21:40:15 Y',
+        'RFC822 Positive numeric timezone': 'Tue, 25 Jul 2017 10:40:15 +0100',
+        'RFC822 Negative numeric timezone': 'Mon, 24 Jul 2017 23:40:15 -1000',
+        'RFC822 Half-hour timezone': 'Tue, 25 Jul 2017 15:10:15 +0530',
+        'RFC822 Quarter-hour timezone': 'Tue, 25 Jul 2017 15:25:15 +0545'
+    };
+    var testCase;
+
+    for (testCase in testCases) {
+        var testResult = moment(testCases[testCase], moment.RFC_2822, true);
+        assert.equal(testResult.toISOString(), '2017-07-25T09:40:15.000Z');
+    }
+});
+
 test('non RFC 2822 strings', function (assert) {
     var testCases = {
         'RFC2822 datetime with all options but invalid day delimiter': 'Tue. 01 Nov 2016 01:23:45 GMT',
-        'RFC2822 datetime with mismatching Day (week v date)': 'Mon, 01 Nov 2016 01:23:45 GMT'
+        'RFC2822 datetime with mismatching Day (week v date)': 'Mon, 01 Nov 2016 01:23:45 GMT',
+        'RFC2822 datetime with leading junk': 'pre\nTue, 01 Nov 2016 01:23:45 UT',
+        'RFC2822 datetime with trailing junk': 'Tue, 01 Nov 2016 01:23:45 UT\npost'
     };
     var testCase;
 
