@@ -1,6 +1,10 @@
 import absFloor from '../utils/abs-floor';
 var abs = Math.abs;
 
+function sign(x) {
+  return ((x > 0) - (x < 0)) || +x;
+}
+
 export function toISOString() {
     // for ISO strings we do not use the normal bubbling rules:
     //  * milliseconds bubble up until they become hours
@@ -39,9 +43,9 @@ export function toISOString() {
     var total = this.asSeconds();
 
     var totalSign = total < 0 ? '-' : '';
-    var ymSign = Math.sign(total) === Math.sign(this._months) ? '' : '-';
-    var daysSign = Math.sign(total) === Math.sign(this._days) ? '' : '-';
-    var hmsSign = Math.sign(total) === Math.sign(this._milliseconds) ? '' : '-';
+    var ymSign = sign(total) === sign(this._months) ? '' : '-';
+    var daysSign = sign(total) === sign(this._days) ? '' : '-';
+    var hmsSign = sign(total) === sign(this._milliseconds) ? '' : '-';
 
     if (!total) {
         // this is the same as C#'s (Noda) and python (isodate)...
