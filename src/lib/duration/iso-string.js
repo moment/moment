@@ -2,7 +2,7 @@ import absFloor from '../utils/abs-floor';
 var abs = Math.abs;
 
 function sign(x) {
-  return ((x > 0) - (x < 0)) || +x;
+    return ((x > 0) - (x < 0)) || +x;
 }
 
 export function toISOString() {
