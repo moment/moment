@@ -42,16 +42,16 @@ export function toISOString() {
     var s = seconds ? seconds.toFixed(3).replace(/\.?0+$/, '') : '';
     var total = this.asSeconds();
 
-    var totalSign = total < 0 ? '-' : '';
-    var ymSign = sign(total) === sign(this._months) ? '' : '-';
-    var daysSign = sign(total) === sign(this._days) ? '' : '-';
-    var hmsSign = sign(total) === sign(this._milliseconds) ? '' : '-';
-
     if (!total) {
         // this is the same as C#'s (Noda) and python (isodate)...
         // but not other JS (goog.date)
         return 'P0D';
     }
+
+    var totalSign = total < 0 ? '-' : '';
+    var ymSign = sign(this._months) != sign(total) ? '-' : '';
+    var daysSign = sign(this._days) != sign(total) ? '-' : '';
+    var hmsSign = sign(this._milliseconds) != sign(total) ? '-' : '';
 
     return totalSign + 'P' +
         (Y ? ymSign + Y + 'Y' : '') +
