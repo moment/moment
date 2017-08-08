@@ -331,6 +331,10 @@ test('serialization to ISO 8601 duration strings', function (assert) {
     assert.equal(moment.duration({s: -0.5}).toISOString(), '-PT0.5S', 'one half second ago');
     assert.equal(moment.duration({y: -1, M: 1}).toISOString(), '-P11M', 'a month after a year ago');
     assert.equal(moment.duration({y: -1, h: 1}).toISOString(), '-P1YT-1H', 'an hour after a year ago');
+    assert.equal(moment.duration({y: -1, h: 1, m: -1}).toISOString(), '-P1YT-59M', '59 minutes after a year ago');
+    assert.equal(moment.duration({y: -1, h: 1, s: -1}).toISOString(), '-P1YT-59M-59S', '59 minutes 59 seconds after a year ago');
+    assert.equal(moment.duration({y: -1, h: -1, s: 1}).toISOString(), '-P1YT59M59S', '59 minutes 59 seconds after a year ago');
+    assert.equal(moment.duration({y: -1, d: 2}).toISOString(), '-P1Y-2D', '1 year less 2 days ago');
     assert.equal(moment.duration({M: +1}).toISOString(), 'P1M', 'one month ago');
     assert.equal(moment.duration({m: +1}).toISOString(), 'PT1M', 'one minute ago');
     assert.equal(moment.duration({s: +0.5}).toISOString(), 'PT0.5S', 'one half second ago');
