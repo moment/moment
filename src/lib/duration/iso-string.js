@@ -49,9 +49,9 @@ export function toISOString() {
     }
 
     var totalSign = total < 0 ? '-' : '';
-    var ymSign = sign(this._months) != sign(total) ? '-' : '';
-    var daysSign = sign(this._days) != sign(total) ? '-' : '';
-    var hmsSign = sign(this._milliseconds) != sign(total) ? '-' : '';
+    var ymSign = sign(this._months) !== sign(total) ? '-' : '';
+    var daysSign = sign(this._days) !== sign(total) ? '-' : '';
+    var hmsSign = sign(this._milliseconds) !== sign(total) ? '-' : '';
 
     return totalSign + 'P' +
         (Y ? ymSign + Y + 'Y' : '') +
