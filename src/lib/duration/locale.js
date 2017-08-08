@@ -1,5 +1,5 @@
 import { Duration } from './constructor';
-import { getLocale } from '../locale/locales';
+import { getLocale } from '../locale/context';
 
 // If passed a locale key, it will return a cloned instance that is set
 // to the specified locale.  Otherwise, it will return the name of the

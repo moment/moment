@@ -2,12 +2,15 @@
 import './prototype';
 
 import {
-    getSetGlobalLocale,
+  getSetGlobalLocale,
+  getLocale
+} from './context';
+
+import {
     defineLocale,
     updateLocale,
-    getLocale,
     listLocales
-} from './locales';
+} from './loader';
 
 import {
     listMonths,

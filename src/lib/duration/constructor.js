@@ -1,5 +1,5 @@
 import { normalizeObjectUnits } from '../units/aliases';
-import { getLocale } from '../locale/locales';
+import { getLocale } from '../locale/context';
 import { bubble } from './bubble';
 import isDurationValid from './valid';
 import extend from '../utils/extend';

@@ -70,10 +70,9 @@ module.exports = function (grunt) {
             bundleOpts.globals[path.resolve('build/tmp/moment')] = 'moment';
         }
 
-        return rollup(rollupOpts).then(function (bundle) {
-            var result = bundle.generate(bundleOpts);
-            return result.code;
-        });
+        return rollup(rollupOpts)
+          .then(function (bundle) { return bundle.generate(bundleOpts); })
+          .then((bundle) => { return bundle.code; });
     }
 
     function transpile(opts) {
