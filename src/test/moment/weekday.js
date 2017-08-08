@@ -114,7 +114,6 @@ test('weekday first day of week Wednesday (dow 3)', function (assert) {
     assert.equal(moment([1970, 0,  4]).weekday(), 4, 'Jan  4 1970 is Sunday    -- 4th day');
     assert.equal(moment([2001, 4, 14]).weekday(), 5, 'May 14 2001 is Monday    -- 5th day');
     assert.equal(moment([2000, 0,  4]).weekday(), 6, 'Jan  4 2000 is Tuesday   -- 6th day');
-    moment.locale('dow:3,doy:6', null);
 });
 
 test('weekday first day of week Thursday (dow 4)', function (assert) {

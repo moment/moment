@@ -9,7 +9,8 @@ import {
 import {
     defineLocale,
     updateLocale,
-    listLocales
+    listLocales,
+    resetLocales
 } from './loader';
 
 import {
@@ -24,6 +25,7 @@ export {
     getSetGlobalLocale,
     defineLocale,
     updateLocale,
+    resetLocales,
     getLocale,
     listLocales,
     listMonths,

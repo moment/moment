@@ -1,16 +1,11 @@
 import keys from "../utils/keys";
 import compareArrays from '../utils/compare-arrays';
-import {deprecateSimple} from "../utils/deprecate";
 
-import {getSetGlobalLocale} from './context';
-import {mergeConfigs} from "./set";
 import {Locale} from "./constructor";
-import {baseConfig} from "./base-config";
+import {defaultLocaleConfig, mergeLocaleConfigs, isSameLocaleConfig} from "./config";
 
 // internal storage for locale config files
-var locales = {};
-var localeFamilies = {};
-
+let locales = {};
 
 // pick the locale from the array
 // try ['en-au', 'en-gb'] as 'en-au', 'en-gb', 'en', as in move through the list trying each
@@ -36,7 +31,6 @@ export function loadLocale(names) {
           }
 
           if (next && next.length >= j && compareArrays(split, next, true) >= j - 1) {
-              // The next array item is better than a more generic prefix of this one
               break;
           }
       }
@@ -45,73 +39,45 @@ export function loadLocale(names) {
 }
 
 export function defineLocale (name, config) {
-  if (config !== null) {
-    var parentConfig = baseConfig;
+    if (!config) {
+        throw new Error('A configuration object must be provided');
+    }
+    if (config.parentLocale) {
+        let parentLocale;
+        try {
+            parentLocale = loadLocale(config.parentLocale);
+        } catch (e) {
+            throw new Error('The parent locale of \'' + name + '\' has not been defined');
+        }
+        config = mergeLocaleConfigs(parentLocale._config, config);
+    } else {
+        config = mergeLocaleConfigs(defaultLocaleConfig, config);
+    }
     config.abbr = name;
 
-    //FIXME: We should check if there is a locale already defined.
-
-    if (config.parentLocale != null) {
-      if (locales[config.parentLocale] != null) {
-        parentConfig = locales[config.parentLocale]._config;
-      } else {
-        if (!localeFamilies[config.parentLocale]) {
-          localeFamilies[config.parentLocale] = [];
-        }
-        localeFamilies[config.parentLocale].push({
-          name: name,
-          config: config
-        });
-        return null;
-      }
-    }
-    locales[name] = new Locale(mergeConfigs(parentConfig, config));
-
-    if (localeFamilies[name]) {
-      localeFamilies[name].forEach(function (x) {
-        defineLocale(x.name, x.config);
-      });
+    if (locales[name] && !isSameLocaleConfig(locales[name]._config, config)) {
+        throw new Error('Locale \'' + name + '\' has already been defined');
     }
 
-    // backwards compat for now: also set the locale
-    // make sure we set the locale AFTER all child locales have been
-    // created, so we won't end up with the child locale set.
-    getSetGlobalLocale(name);
-
-    return locales[name];
-  } else {
-    // useful for testing
-    delete locales[name];
-    return null;
-  }
+    return locales[name] = new Locale(config);
 }
 
-
 export function updateLocale(name, config) {
-  if (config != null) {
-    var locale, parentConfig = baseConfig;
-    // MERGE
-    if (locales[name] != null) {
-      parentConfig = locales[name]._config;
-    }
-    config = mergeConfigs(parentConfig, config);
-    locale = new Locale(config);
-    locale.parentLocale = locales[name];
-    locales[name] = locale;
-
-    // backwards compat for now: also set the locale
-    getSetGlobalLocale(name);
-  } else {
-    // pass null for config to unupdate, useful for tests
-    if (locales[name] != null) {
-      if (locales[name].parentLocale != null) {
-        locales[name] = locales[name].parentLocale;
-      } else if (locales[name] != null) {
-        delete locales[name];
-      }
-    }
+  if (!locales[name]) {
+      return defineLocale(name, config);
   }
-  return locales[name];
+  let localeConfig = mergeLocaleConfigs(locales[name]._config, config);
+  return locales[name] = new Locale(localeConfig);
+}
+
+/// @Internal @Testing
+/// Reset locales
+export function resetLocales() {
+  listLocales().forEach(k => {
+    if (k !== 'en') {
+      delete locales[k];
+    }
+  });
 }
 
 export function listLocales() {

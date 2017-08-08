@@ -42,9 +42,6 @@ module('preparse and postformat', {
             }
         });
     },
-    teardown: function () {
-        moment.defineLocale('symbol', null);
-    }
 });
 
 test('transform', function (assert) {

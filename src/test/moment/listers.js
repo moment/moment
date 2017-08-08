@@ -113,7 +113,12 @@ test('with locale data', function (assert) {
             doy : 6
         };
 
-    var customLocale = moment.localeData('numerologists');
+    var customLocale = moment.defineLocale( 'numerologists', {
+        months, monthsShort,
+        weekdays, weekdaysShort, weekdaysMin,
+        weekdaysLocale, weekdaysShortLocale, weekdaysMinLocale,
+        week
+    });
 
     assert.deepEqual(customLocale.months(), months);
     assert.deepEqual(customLocale.monthsShort(), monthsShort);

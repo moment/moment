@@ -4,7 +4,6 @@ import moment from '../../moment';
 module('locale update');
 
 test('calendar', function (assert) {
-    moment.defineLocale('cal', null);
     moment.defineLocale('cal', {
         calendar : {
             sameDay: '[Today at] HH:mm',
@@ -36,7 +35,6 @@ test('calendar', function (assert) {
 });
 
 test('missing', function (assert) {
-    moment.defineLocale('cal-2', null);
     moment.defineLocale('cal-2', {
         calendar: {
             sameDay: '[Today at] HH:mm',
@@ -63,7 +61,6 @@ test('missing', function (assert) {
 // Test function vs obj both directions
 
 test('long date format', function (assert) {
-    moment.defineLocale('ldf', null);
     moment.defineLocale('ldf', {
         longDateFormat : {
             LTS  : 'h:mm:ss A',
@@ -80,8 +77,8 @@ test('long date format', function (assert) {
             LLLL : '[child] dddd, MMMM D, YYYY h:mm A'
         }
     });
-
     moment.locale('ldf');
+
     var anchor = moment.utc('2015-09-06T12:34:56', moment.ISO_8601);
     assert.equal(anchor.format('LTS'), '12:34:56 PM', 'LTS uses base');
     assert.equal(anchor.format('LT'), '12:34 PM', 'LT uses base');
@@ -96,17 +93,16 @@ test('long date format', function (assert) {
 });
 
 test('ordinal', function (assert) {
-    moment.defineLocale('ordinal-1', null);
     moment.defineLocale('ordinal-1', {
         ordinal : '%dx'
     });
     moment.updateLocale('ordinal-1', {
         ordinal : '%dy'
     });
+    moment.locale('ordinal-1');
 
     assert.equal(moment.utc('2015-02-03', moment.ISO_8601).format('Do'), '3y', 'ordinal uses child string');
 
-    moment.defineLocale('ordinal-2', null);
     moment.defineLocale('ordinal-2', {
         ordinal : '%dx'
     });
@@ -115,10 +111,10 @@ test('ordinal', function (assert) {
             return num + 'y';
         }
     });
+    moment.locale('ordinal-2');
 
     assert.equal(moment.utc('2015-02-03', moment.ISO_8601).format('Do'), '3y', 'ordinal uses child function');
 
-    moment.defineLocale('ordinal-3', null);
     moment.defineLocale('ordinal-3', {
         ordinal : function (num) {
             return num + 'x';
@@ -127,34 +123,34 @@ test('ordinal', function (assert) {
     moment.updateLocale('ordinal-3', {
         ordinal : '%dy'
     });
+    moment.locale('ordinal-3');
 
     assert.equal(moment.utc('2015-02-03', moment.ISO_8601).format('Do'), '3y', 'ordinal uses child string (overwrite parent function)');
 });
 
 test('ordinal parse', function (assert) {
-    moment.defineLocale('ordinal-parse-1', null);
     moment.defineLocale('ordinal-parse-1', {
         dayOfMonthOrdinalParse : /\d{1,2}x/
     });
     moment.updateLocale('ordinal-parse-1', {
         dayOfMonthOrdinalParse : /\d{1,2}y/
     });
+    moment.locale('ordinal-parse-1');
 
     assert.ok(moment.utc('2015-01-1y', 'YYYY-MM-Do', true).isValid(), 'ordinal parse uses child');
 
-    moment.defineLocale('ordinal-parse-2', null);
     moment.defineLocale('ordinal-parse-2', {
         dayOfMonthOrdinalParse : /\d{1,2}x/
     });
     moment.updateLocale('ordinal-parse-2', {
         dayOfMonthOrdinalParse : /\d{1,2}/
     });
+    moment.locale('ordinal-parse-2');
 
     assert.ok(moment.utc('2015-01-1', 'YYYY-MM-Do', true).isValid(), 'ordinal parse uses child (default)');
 });
 
 test('months', function (assert) {
-    moment.defineLocale('months', null);
     moment.defineLocale('months', {
         months : 'One_Two_Three_Four_Five_Six_Seven_Eight_Nine_Ten_Eleven_Twelve'.split('_')
     });
@@ -162,5 +158,6 @@ test('months', function (assert) {
         parentLocale: 'base-months',
         months : 'First_Second_Third_Fourth_Fifth_Sixth_Seventh_Eighth_Ninth_Tenth_Eleventh_Twelveth '.split('_')
     });
+    moment.locale('months');
     assert.ok(moment.utc('2015-01-01', 'YYYY-MM-DD').format('MMMM'), 'First', 'months uses child');
 });

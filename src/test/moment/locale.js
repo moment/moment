@@ -1,26 +1,29 @@
 import { module, test } from '../qunit';
 import moment from '../../moment';
-import each from '../helpers/each';
 import indexOf from '../../lib/utils/index-of';
+
+import en_gb from '../../locale/en-gb';
+import en_ca from '../../locale/en-ca';
+import es from '../../locale/es';
+import fr from '../../locale/fr';
+import fr_ca from '../../locale/fr-ca';
+import it from '../../locale/it';
+import zh_cn from '../../locale/zh-cn';
 
 module('locale', {
     setup : function () {
-        require('../../locale/en-gb');
-        require('../../locale/en-ca');
-        require('../../locale/es');
-        require('../../locale/fr');
-        require('../../locale/fr-ca');
-        require('../../locale/it');
-        require('../../locale/zh-cn');
-        moment.locale('en');
-    }
+        moment.defineLocale('en-gb', en_gb._config);
+        moment.defineLocale('en-ca', en_ca._config);
+        moment.defineLocale('es', es._config);
+        moment.defineLocale('fr', fr._config);
+        moment.defineLocale('fr-ca', fr_ca._config);
+        moment.defineLocale('it', it._config);
+        moment.defineLocale('zh-cn', zh_cn._config);
+    },
 });
 
 test('library getters and setters', function (assert) {
-    var r = moment.locale('en');
-
-    assert.equal(r, 'en', 'locale should return en by default');
-    assert.equal(moment.locale(), 'en', 'locale should return en by default');
+    assert.equal(moment.locale(), 'en', 'locale should return \'en\' by default');
 
     moment.locale('fr');
     assert.equal(moment.locale(), 'fr', 'locale should return the changed locale');
@@ -123,37 +126,32 @@ test('library deprecations', function (assert) {
     assert.equal(moment.locale(), 'dude', 'setting the lang sets the locale');
     assert.equal(moment.lang(), moment.locale());
     assert.equal(moment.langData(), moment.localeData(), 'langData is localeData');
-    moment.defineLocale('dude', null);
 });
 
 test('defineLocale', function (assert) {
     moment.locale('en');
     moment.defineLocale('dude', {months: ['Movember']});
-    assert.equal(moment().locale(), 'dude', 'defineLocale also sets it');
+    assert.notEqual(moment().locale(), 'dude', 'defineLocale should not set the locale context');
+    moment.locale('dude');
+    assert.equal(moment.locale(), 'dude', 'locale sets the locale context');
     assert.equal(moment().locale('dude').locale(), 'dude', 'defineLocale defines a locale');
-    moment.defineLocale('dude', null);
 });
 
 test('locales', function (assert) {
     moment.defineLocale('dude', {months: ['Movember']});
     assert.equal(true, !!~indexOf.call(moment.locales(), 'dude'), 'locales returns an array of defined locales');
     assert.equal(true, !!~indexOf.call(moment.locales(), 'en'), 'locales should always include english');
-    moment.defineLocale('dude', null);
 });
 
 test('library convenience', function (assert) {
     moment.locale('something', {week: {dow: 3}});
-    moment.locale('something');
     assert.equal(moment.locale(), 'something', 'locale can be used to create the locale too');
-    moment.defineLocale('something', null);
 });
 
 test('firstDayOfWeek firstDayOfYear locale getters', function (assert) {
     moment.locale('something', {week: {dow: 3, doy: 4}});
-    moment.locale('something');
     assert.equal(moment.localeData().firstDayOfWeek(), 3, 'firstDayOfWeek');
     assert.equal(moment.localeData().firstDayOfYear(), 4, 'firstDayOfYear');
-    moment.defineLocale('something', null);
 });
 
 test('instance locale method', function (assert) {
@@ -207,6 +205,7 @@ test('duration locale method', function (assert) {
 });
 
 test('duration locale persists with cloning', function (assert) {
+    console.log('duration locale persists with cloning');
     moment.locale('en');
 
     var a = moment.duration({seconds:  44}).locale('es'),
@@ -314,7 +313,6 @@ test('instance locale used with from', function (assert) {
 test('instance localeData', function (assert) {
     moment.defineLocale('dude', {week: {dow: 3}});
     assert.equal(moment().locale('dude').localeData()._week.dow, 3);
-    moment.defineLocale('dude', null);
 });
 
 test('month name callback function', function (assert) {
@@ -346,21 +344,22 @@ test('changing parts of a locale config', function (assert) {
         months : 'a b c d e f g h i j k l'.split(' ')
     });
 
+    let data = moment.localeData('partial-lang');
     assert.equal(moment([2011, 0, 1]).format('MMMM'), 'a', 'should be able to set locale values when creating the localeuage');
 
     assert.throws(
-      // Locales are immutable. They can't be replaced once they are in the registry.
-      moment.locale('partial-lang', {
-        monthsShort : 'A B C D E F G H I J K L'.split(' ')
-      })
+      function () {
+        moment.locale('partial-lang', {monthsShort: 'A B C D E F G H I J K L'.split(' ')});
+      },
+      'moment.locale will not overwrite an existing locale config'
     );
 
-    // But there is a method provided specifically for updating the registry.
     moment.updateLocale('partial-lang', {
         monthsShort: 'A B C D E F G H I J K L'.split(' ')
     });
-
-    moment.defineLocale('partial-lang', null);
+    //FIXME: Should not need to set the locale after a call to updateLocale.
+    moment.locale('partial-lang');
+    assert.equal(moment([2011, 0, 1]).format('MMMM MMM'), 'a A', 'should use the updated locale')
 });
 
 test('start/endOf week feature for first-day-is-monday locales', function (assert) {
@@ -370,10 +369,8 @@ test('start/endOf week feature for first-day-is-monday locales', function (asser
         }
     });
 
-    moment.locale('monday-lang');
     assert.equal(moment([2013, 0, 1]).startOf('week').day(), 1, 'for locale monday-lang first day of the week should be monday');
     assert.equal(moment([2013, 0, 1]).endOf('week').day(), 0, 'for locale monday-lang last day of the week should be sunday');
-    moment.defineLocale('monday-lang', null);
 });
 
 test('meridiem parsing', function (assert) {
@@ -384,10 +381,8 @@ test('meridiem parsing', function (assert) {
         }
     });
 
-    moment.locale('meridiem-parsing');
     assert.equal(moment('2012-01-01 3b', 'YYYY-MM-DD ha').hour(), 15, 'Custom parsing of meridiem should work');
     assert.equal(moment('2012-01-01 3d', 'YYYY-MM-DD ha').hour(), 3, 'Custom parsing of meridiem should work');
-    moment.defineLocale('meridiem-parsing', null);
 });
 
 test('invalid date formatting', function (assert) {
@@ -397,14 +392,11 @@ test('invalid date formatting', function (assert) {
 
     assert.equal(moment.invalid().format(), 'KHAAAAAAAAAAAN!');
     assert.equal(moment.invalid().format('YYYY-MM-DD'), 'KHAAAAAAAAAAAN!');
-    moment.defineLocale('has-invalid', null);
 });
 
 test('return locale name', function (assert) {
     var registered = moment.locale('return-this', {});
-
     assert.equal(registered, 'return-this', 'returns the locale configured');
-    moment.locale('return-this', null);
 });
 
 test('changing the global locale doesn\'t affect existing instances', function (assert) {
@@ -434,8 +426,8 @@ test('moment#locale(false) resets to global locale', function (assert) {
     moment.locale('fr');
     m = m.locale('it');
 
-    assert.equal(moment.locale(), 'fr', 'global locale is it');
-    assert.equal(m.locale(), 'it', 'instance locale is it');
+    assert.equal(moment.locale(), 'fr', 'global locale is \'fr\'');
+    assert.equal(m.locale(), 'it', 'instance locale is \'it\'');
     m = m.locale(false);
     assert.equal(m.locale(), 'fr', 'instance locale reset to global locale');
 });
