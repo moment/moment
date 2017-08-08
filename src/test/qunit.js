@@ -32,6 +32,10 @@ export function module (name, lifecycle) {
 export function localeModule (name, lifecycle) {
     QUnit.module('locale:' + name, {
         setup : function () {
+            // TODO: Move 'en' locale to locales folder.
+            if (name !== 'en') {
+              require('../../locale/' + name);
+            }
             moment.locale(name);
             moment.createFromInputFallback = function (config) {
                 throw new Error('input not handled by moment: ' + config._i);

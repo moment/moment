@@ -1,6 +1,5 @@
 import isUndefined from '../utils/is-undefined';
-import isArray from '../utils/is-array';
-import {defineLocale, loadLocale, chooseLocale} from "./loader";
+import {defineLocale, loadLocale} from "./loader";
 
 var globalLocale;
 
@@ -27,13 +26,8 @@ export function getSetGlobalLocale (key, values) {
   return globalLocale._abbr;
 }
 
-
-
-
 // returns locale data
 export function getLocale (key) {
-  var locale;
-
   if (key && key._locale && key._locale._abbr) {
     key = key._locale._abbr;
   }
@@ -42,14 +36,5 @@ export function getLocale (key) {
     return globalLocale;
   }
 
-  if (!isArray(key)) {
-    //short-circuit everything else
-    locale = loadLocale(key);
-    if (locale) {
-      return locale;
-    }
-    key = [key];
-  }
-
-  return chooseLocale(key);
+  return loadLocale(key);
 }

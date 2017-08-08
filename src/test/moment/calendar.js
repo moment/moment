@@ -3,7 +3,11 @@
 import { module, test } from '../qunit';
 import moment from '../../moment';
 
-module('calendar');
+module('calendar', {
+  setup: function () {
+    require('../../locale/fr');
+  }
+});
 
 test('passing a function', function (assert) {
     var a = moment().hours(13).minutes(0).seconds(0);

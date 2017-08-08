@@ -5,38 +5,13 @@ import indexOf from '../../lib/utils/index-of';
 
 module('locale', {
     setup : function () {
-        // TODO: Remove once locales are switched to ES6
-        each([{
-            name: 'en-gb',
-            data: {}
-        }, {
-            name: 'en-ca',
-            data: {}
-        }, {
-            name: 'es',
-            data: {
-                relativeTime: {past: 'hace %s', s: 'unos segundos', d: 'un día'},
-                months: 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_')
-            }
-        }, {
-            name: 'fr',
-            data: {}
-        }, {
-            name: 'fr-ca',
-            data: {}
-        }, {
-            name: 'it',
-            data: {}
-        }, {
-            name: 'zh-cn',
-            data: {
-                months: '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_')
-            }
-        }], function (locale) {
-            if (moment.locale(locale.name) !== locale.name) {
-                moment.defineLocale(locale.name, locale.data);
-            }
-        });
+        require('../../locale/en-gb');
+        require('../../locale/en-ca');
+        require('../../locale/es');
+        require('../../locale/fr');
+        require('../../locale/fr-ca');
+        require('../../locale/it');
+        require('../../locale/zh-cn');
         moment.locale('en');
     }
 });
@@ -56,14 +31,17 @@ test('library getters and setters', function (assert) {
     moment.locale('en');
     assert.equal(moment.locale(), 'en', 'locale should reset');
 
-    moment.locale('does-not-exist');
-    assert.equal(moment.locale(), 'en', 'locale should reset');
-
     moment.locale('EN');
     assert.equal(moment.locale(), 'en', 'Normalize locale key case');
 
     moment.locale('EN_gb');
     assert.equal(moment.locale(), 'en-gb', 'Normalize locale key underscore');
+
+    assert.throws(
+      function () { moment.locale('does-not-exist'); },
+      'Should throw when the locale is unavailable'
+    );
+
 });
 
 test('library setter array of locales', function (assert) {
@@ -364,19 +342,23 @@ test('month name callback function', function (assert) {
 });
 
 test('changing parts of a locale config', function (assert) {
-    test.expectedDeprecations('defineLocaleOverride');
-
     moment.locale('partial-lang', {
         months : 'a b c d e f g h i j k l'.split(' ')
     });
 
     assert.equal(moment([2011, 0, 1]).format('MMMM'), 'a', 'should be able to set locale values when creating the localeuage');
 
-    moment.locale('partial-lang', {
+    assert.throws(
+      // Locales are immutable. They can't be replaced once they are in the registry.
+      moment.locale('partial-lang', {
         monthsShort : 'A B C D E F G H I J K L'.split(' ')
-    });
+      })
+    );
 
-    assert.equal(moment([2011, 0, 1]).format('MMMM MMM'), 'a A', 'should be able to set locale values after creating the localeuage');
+    // But there is a method provided specifically for updating the registry.
+    moment.updateLocale('partial-lang', {
+        monthsShort: 'A B C D E F G H I J K L'.split(' ')
+    });
 
     moment.defineLocale('partial-lang', null);
 });
@@ -458,35 +440,20 @@ test('moment#locale(false) resets to global locale', function (assert) {
     assert.equal(m.locale(), 'fr', 'instance locale reset to global locale');
 });
 
-test('moment().locale with missing key doesn\'t change locale', function (assert) {
-    assert.equal(moment().locale('boo').localeData(), moment.localeData(),
-            'preserve global locale in case of bad locale id');
-});
-
-test('moment().lang with missing key doesn\'t change locale', function (assert) {
-    test.expectedDeprecations('moment().lang()');
-    assert.equal(moment().lang('boo').localeData(), moment.localeData(),
-            'preserve global locale in case of bad locale id');
+test('moment().locale(key) is unavailable locale then throws', function (assert) {
+    assert.throws(
+        function () { return moment.locale('boo'); },
+        'The locale \'boo\' is unavailable. Has it been defined?'
+    );
 });
 
 
-// TODO: Enable this after fixing pl months parse hack hack
-// test('monthsParseExact', function (assert) {
-//     var locale = 'test-months-parse-exact';
-
-//     moment.defineLocale(locale, {
-//         monthsParseExact: true,
-//         months: 'A_AA_AAA_B_B B_BB  B_C_C-C_C,C2C_D_D+D_D`D*D'.split('_'),
-//         monthsShort: 'E_EE_EEE_F_FF_FFF_G_GG_GGG_H_HH_HHH'.split('_')
-//     });
-
-//     assert.equal(moment('A', 'MMMM', true).month(), 0, 'parse long month 0 with MMMM');
-//     assert.equal(moment('AA', 'MMMM', true).month(), 1, 'parse long month 1 with MMMM');
-//     assert.equal(moment('AAA', 'MMMM', true).month(), 2, 'parse long month 2 with MMMM');
-//     assert.equal(moment('B B', 'MMMM', true).month(), 4, 'parse long month 4 with MMMM');
-//     assert.equal(moment('BB  B', 'MMMM', true).month(), 5, 'parse long month 5 with MMMM');
-//     assert.equal(moment('C-C', 'MMMM', true).month(), 7, 'parse long month 7 with MMMM');
-//     assert.equal(moment('C,C2C', 'MMMM', true).month(), 8, 'parse long month 8 with MMMM');
+test('moment().lang with missing key throws', function (assert) {
+  assert.throws(
+    function () { return moment.lang('boo'); },
+    'The locale \'boo\' is unavailable. Has it been defined?'
+  );
+});
 //     assert.equal(moment('D+D', 'MMMM', true).month(), 10, 'parse long month 10 with MMMM');
 //     assert.equal(moment('D`D*D', 'MMMM', true).month(), 11, 'parse long month 11 with MMMM');
 
