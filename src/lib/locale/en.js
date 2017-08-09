@@ -2,7 +2,7 @@ import './prototype';
 import { getSetGlobalLocale } from './context';
 import toInt from '../utils/to-int';
 
-getSetGlobalLocale('en', {
+export default defineLocale('en', {
     dayOfMonthOrdinalParse: /\d{1,2}(th|st|nd|rd)/,
     ordinal : function (number) {
         var b = number % 10,

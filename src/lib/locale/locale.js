@@ -21,6 +21,8 @@ import {
     listWeekdaysMin
 } from './lists';
 
+import en from './en';
+
 export {
     getSetGlobalLocale,
     defineLocale,
@@ -32,7 +34,6 @@ export {
     listMonthsShort,
     listWeekdays,
     listWeekdaysShort,
-    listWeekdaysMin
+    listWeekdaysMin,
+    en
 };
-
-import './en';

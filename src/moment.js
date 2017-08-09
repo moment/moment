@@ -85,4 +85,5 @@ moment.relativeTimeThreshold = relativeTimeThreshold;
 moment.calendarFormat        = getCalendarFormat;
 moment.prototype             = fn;
 
+moment.locale('en');
 export default moment;
