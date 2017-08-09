@@ -20,22 +20,23 @@ export function loadLocale(names) {
     .filter(name => !!name)
     .map(name => name.toLowerCase().replace('_', '-'));
 
-  for (let i=0; i < normalNames.length; i++) {
-      let split = normalNames[i].split('-');
-      let next = names[i + 1] ? names[i + 1].split('-') : null;
+  return tryPrefixes(normalNames);
 
-      for (let j = split.length; j > 0; j--) {
-          let prefix = split.slice(0,j).join('-');
-          if (locales[prefix]) {
-              return locales[prefix];
-          }
+  function tryPrefixes(prefixes) {
+    for (let prefix of prefixes) {
+        if (locales[prefix])
+            return locales[prefix];
+    }
+    prefixes = prefixes
+        .map(prefix => prefix.substr(0, prefix.lastIndexOf('-')))
+        .filter(prefix => prefix !== '');
 
-          if (next && next.length >= j && compareArrays(split, next, true) >= j - 1) {
-              break;
-          }
-      }
+    if (prefixes.length === 0) {
+        throw new Error('Could not find locale \'' + names.join('\', \'') + '\'. Has it been defined?')
+    }
+
+    return tryPrefixes(prefixes);
   }
-  throw new Error('Could not find locale \'' + names.join('\', \'') + '\'. Has it been defined?')
 }
 
 export function defineLocale (name, config) {

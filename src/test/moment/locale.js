@@ -59,8 +59,19 @@ test('library setter locale substrings', function (assert) {
 });
 
 test('library getter locale array and substrings', function (assert) {
-    assert.equal(moment.locale(['en-CH', 'fr']), 'en', 'prefer root locale to shallower ones');
-    assert.equal(moment.locale(['en-gb-leeds', 'en-CA']), 'en-gb', 'prefer root locale to shallower ones');
+    assert.equal(moment.locale(['en-gb', 'en-us']), 'en-gb', 'always use the first locale');
+    assert.equal(moment.locale(['en-CH', 'fr']), 'fr', 'use fallback if first option not available');
+    assert.equal(moment.locale(['en-gb-leeds', 'en-CA']), 'en-ca', 'prefer fallback if root not available');
+
+    assert.equal(moment.locale(['en-gb-leeds', 'en-ca-fake']), 'en-gb', 'attempt to use non-empty prefixes if none of the fallback matches');
+    assert.equal(moment.locale(['en-fake-leeds', 'en-ca-fake']), 'en-ca', 'try fallback prefix if no match found');
+    assert.equal(moment.locale(['fr-fake-leeds', 'fake-fake-fake']), 'fr', 'Should recurse until a prefix is found');
+
+    assert.throws(
+        function () { moment.locale(['fake-one-fake', 'fake-two-fake']); },
+        'Should throw if no matching prefix can be found'
+    );
+
     assert.equal(moment.locale(['en-fake', 'en-CA']), 'en-ca', 'prefer alternatives with shared roots');
     assert.equal(moment.locale(['en-fake', 'en-fake2', 'en-ca']), 'en-ca', 'prefer alternatives with shared roots');
     assert.equal(moment.locale(['fake-CA', 'fake-MX', 'fr']), 'fr', 'always find something if possible');
