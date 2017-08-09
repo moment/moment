@@ -27,7 +27,7 @@ function set (mom, unit, value, msCoef) {
         return mom;
     }
     var d, uts;
-    console.log('SET', arguments);
+    // console.log('SET', arguments);
     if (msCoef != null) {
         // this is one of ms, second, minute, hour
         uts = mom.valueOf();

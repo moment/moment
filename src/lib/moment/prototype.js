@@ -110,7 +110,6 @@ import {
     setOffsetToParsedOffset,
     hasAlignedHourOffset,
     isDaylightSavingTime,
-    isDaylightSavingTimeShifted,
     getSetZone,
     isLocal,
     isUtcOffset,

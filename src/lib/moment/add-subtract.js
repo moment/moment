@@ -1,5 +1,5 @@
 import { Moment } from './constructor';
-import { get, set } from './get-set';
+import { get } from './get-set';
 import { smartSetUTCMonth } from '../units/month';
 import { createDuration } from '../duration/create';
 import { deprecateSimple } from '../utils/deprecate';
