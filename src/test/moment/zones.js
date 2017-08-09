@@ -368,7 +368,7 @@ test('hours alignment with other zone', function (assert) {
 });
 
 test('parse zone', function (assert) {
-    var m = moment('2013-01-01T00:00:00-13:00').parseZone();
+    var m = moment.parseZone('2013-01-01T00:00:00-13:00');
     assert.equal(m.zone(), 13 * 60);
     assert.equal(m.hours(), 0);
 });
@@ -397,7 +397,7 @@ test('parse zone with a timezone from the format string', function (assert) {
 });
 
 test('parse zone without a timezone included in the format string', function (assert) {
-    var m = moment('11-12-2013 -0400 +1100', 'DD-MM-YYYY').parseZone();
+    var m = moment.parseZone('11-12-2013 -0400 +1100', 'DD-MM-YYYY');
 
     assert.equal(m.zone(), -11 * 60);
 });

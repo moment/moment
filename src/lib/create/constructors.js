@@ -1,10 +1,15 @@
 import { createCollect, createInvalid } from './from-anything';
 import { localTimeZone } from '../timezone/local';
 import { fixedTimeZoneForOffset } from '../timezone/fixed-offset';
+import { parsedTimeZone } from '../timezone/parsed';
 import { isMoment } from '../moment/constructor';
 
 export function createUTC (input, format, locale, strict) {
     return createCollect(input, format, locale, strict, fixedTimeZoneForOffset(0));
+}
+
+export function createParsedOffset (input, format, locale, strict) {
+    return createCollect(input, format, locale, strict, parsedTimeZone);
 }
 
 // TODO(Iskren): Enabled 'parse' offset, which uses it from the parsed string.

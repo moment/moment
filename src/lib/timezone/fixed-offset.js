@@ -1,4 +1,6 @@
 import hasOwnProp from '../utils/has-own-prop';
+import BaseTimeZone from './base';
+import extend from '../utils/extend';
 
 var memo = {};
 
@@ -13,6 +15,8 @@ FixedOffsetTimeZone.fromOffset = function (offset) {
     }
     return memo[offset];
 };
+
+FixedOffsetTimeZone.prototype = extend({}, BaseTimeZone.prototype);
 
 FixedOffsetTimeZone.prototype.offsetFromTimestamp = function (uts) {
     return this.offsetMs;

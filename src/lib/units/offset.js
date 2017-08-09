@@ -247,13 +247,13 @@ export function isDaylightSavingTime () {
 // }
 
 export function isLocal () {
-    return this._tz.type === 'local';
+    return this.isValid() && this._tz.type === 'local';
 }
 
 export function isUtcOffset () {
-    return this._tz.type === 'fixed-offset';
+    return this.isValid() && this._tz.type === 'fixed-offset';
 }
 
 export function isUtc () {
-    return this._tz.type === 'fixed-offset' && this._tz.offset === 0;
+    return this.isValid() && this._tz.type === 'fixed-offset' && this._tz.offset === 0;
 }

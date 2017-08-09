@@ -1,4 +1,4 @@
-import { createLocal, createUTC, createFixedOffset } from '../create/constructors';
+import { createLocal, createUTC, createFixedOffset, createParsedOffset, createZoned } from '../create/constructors';
 import { createInvalid } from '../create/from-anything';
 import { isMoment } from './constructor';
 import { min, max } from './min-max';
@@ -22,6 +22,8 @@ export {
     createUnix,
     createLocal,
     createFixedOffset,
+    createParsedOffset,
+    createZoned,
     createInvalid,
     momentPrototype
 };

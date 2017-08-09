@@ -19,7 +19,9 @@ import {
     createUnix      as unix,
     createLocal     as local,
     createInvalid   as invalid,
-    createFixedOffset    as fixedOffset
+    createFixedOffset as fixedOffset,
+    createParsedOffset as parseZone,
+    createZoned as zoned
 } from './lib/moment/moment';
 
 import {
@@ -57,6 +59,8 @@ moment.min                   = min;
 moment.max                   = max;
 moment.now                   = now;
 moment.utc                   = utc;
+moment.parseZone             = parseZone;
+moment.zoned                 = zoned;
 moment.unix                  = unix;
 moment.months                = months;
 moment.isDate                = isDate;

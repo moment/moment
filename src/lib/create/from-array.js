@@ -5,14 +5,16 @@ import { daysInYear } from '../units/year';
 import { weekOfYear, weeksInYear, dayOfYearFromWeeks } from '../units/week-calendar-utils';
 import { YEAR, MONTH, DATE, HOUR, MINUTE, SECOND, MILLISECOND } from '../units/constants';
 import { fixedTimeZoneForOffset } from '../timezone/fixed-offset';
+import { parsedTimeZone } from '../timezone/parsed';
 import defaults from '../utils/defaults';
 import getParsingFlags from './parsing-flags';
 import checkOverflow from './check-overflow';
 
 // TODO(Iskren): Call only if needed
+// TODO(Iskren): tz.isValid -- does it make sense?
 function currentDateArray(config, tz) {
     var now = hooks.now(),
-        nowValue = new Date(now + tz.offsetFromTimestamp(now));
+        nowValue = new Date(now + (tz.isValid() ? tz.offsetFromTimestamp(now) : 0));
     return [nowValue.getUTCFullYear(), nowValue.getUTCMonth(), nowValue.getUTCDate()];
 }
 
@@ -28,7 +30,7 @@ export function configFromArray (config) {
     }
 
     // TODO: Implement ignoreOffset config flag
-    if (config._tzm) {
+    if (config._tzm != null) {
         tz = fixedTimeZoneForOffset(config._tzm);
     }
 
@@ -83,11 +85,9 @@ export function configFromArray (config) {
         config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
         config._useUTC = true;
     }
-    // TODO: Implement fixedOffset 'parse'
-    // if (config._tz === parseTimeZone) {
-    //     config._tz = fixedTimeZoneForOffset(config._tzm);
-    // }
-
+    if (config._tz === parsedTimeZone) {
+        config._tz = fixedTimeZoneForOffset(isNaN(config._tzm) ? 0 : config._tzm);
+    }
 
     if (config._nextDay) {
         config._a[HOUR] = 24;

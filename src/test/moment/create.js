@@ -120,15 +120,16 @@ test('cloning moment works with weird clones', function (assert) {
     assert.equal(+moment(extend({}, nowu)), +nowu, 'cloning extend-ed utc now is utc now');
 });
 
-test('cloning respects moment.momentProperties', function (assert) {
-    var m = moment();
+// TODO: Drop this altogether?
+// test('cloning respects moment.momentProperties', function (assert) {
+//     var m = moment();
 
-    assert.equal(moment(m)._special, undefined, 'cloning ignores extra properties');
-    m._special = 'bacon';
-    moment.momentProperties.push('_special');
-    assert.equal(moment(m)._special, 'bacon', 'cloning respects momentProperties');
-    moment.momentProperties.pop();
-});
+//     assert.equal(moment(m)._special, undefined, 'cloning ignores extra properties');
+//     m._special = 'bacon';
+//     moment.momentProperties.push('_special');
+//     assert.equal(moment(m)._special, 'bacon', 'cloning respects momentProperties');
+//     moment.momentProperties.pop();
+// });
 
 test('undefined', function (assert) {
     assert.ok(moment().toDate() instanceof Date, 'undefined');
@@ -405,10 +406,10 @@ test('string with array of formats', function (assert) {
 
     assert.equal(moment('11-02-10', ['MM.DD.YY', 'DD-MM-YY']).format('MM DD YYYY'), '02 11 2010', 'escape RegExp special characters on comparing');
 
-    assert.equal(moment('13-10-98', ['DD MM YY', 'DD MM YYYY'])._f, 'DD MM YY', 'use two digit year');
-    assert.equal(moment('13-10-1998', ['DD MM YY', 'DD MM YYYY'])._f, 'DD MM YYYY', 'use four digit year');
+    assert.equal(moment('13-10-98', ['DD MM YY', 'DD MM YYYY']).parsingFlags().format, 'DD MM YY', 'use two digit year');
+    assert.equal(moment('13-10-1998', ['DD MM YY', 'DD MM YYYY']).parsingFlags().format, 'DD MM YYYY', 'use four digit year');
 
-    assert.equal(moment('01', ['MM', 'DD'])._f, 'MM', 'Should use first valid format');
+    assert.equal(moment('01', ['MM', 'DD']).parsingFlags().format, 'MM', 'Should use first valid format');
 
     assert.equal(moment('Thursday 8:30pm', ['dddd h:mma']).format('YYYY MM DD dddd h:mma'), thursdayForCurrentWeek + ' Thursday 8:30pm', 'Default to current week');
 });
@@ -451,11 +452,11 @@ test('explicit cloning', function (assert) {
     assert.equal(momentA.month(), 5, 'momentB keeps original month');
 });
 
-test('cloning carrying over utc mode', function (assert) {
-    assert.equal(moment(moment().local())._isUTC, false, 'A cloned local moment should have _isUTC == false');
-    assert.equal(moment(moment().utc())._isUTC, true, 'A cloned utc moment should have _isUTC == true');
-    assert.equal(moment(moment())._isUTC, false, 'A cloned local moment should have _isUTC == false');
-    assert.equal(moment(moment.utc())._isUTC, true, 'A cloned utc moment should have _isUTC == true');
+test('cloning uses utc mode of new constructor', function (assert) {
+    assert.equal(moment(moment().local()).isUTC(), false, 'local(local) -> local');
+    assert.equal(moment(moment().utc()).isUTC(), false, 'local(utc) -> local');
+    assert.equal(moment.utc(moment().local()).isUTC(), true, 'utc(local) -> utc');
+    assert.equal(moment.utc(moment().utc()).isUTC(), true, 'utc(utc) -> utc');
 });
 
 test('parsing RFC 2822', function (assert) {
@@ -778,15 +779,15 @@ test('parsing ISO with Z', function (assert) {
 });
 
 test('parsing iso with T', function (assert) {
-    assert.equal(moment('2011-10-08T18')._f, 'YYYY-MM-DDTHH', 'should include \'T\' in the format');
-    assert.equal(moment('2011-10-08T18:20')._f, 'YYYY-MM-DDTHH:mm', 'should include \'T\' in the format');
-    assert.equal(moment('2011-10-08T18:20:13')._f, 'YYYY-MM-DDTHH:mm:ss', 'should include \'T\' in the format');
-    assert.equal(moment('2011-10-08T18:20:13.321')._f, 'YYYY-MM-DDTHH:mm:ss.SSSS', 'should include \'T\' in the format');
+    assert.equal(moment('2011-10-08T18').parsingFlags().format, 'YYYY-MM-DDTHH', 'should include \'T\' in the format');
+    assert.equal(moment('2011-10-08T18:20').parsingFlags().format, 'YYYY-MM-DDTHH:mm', 'should include \'T\' in the format');
+    assert.equal(moment('2011-10-08T18:20:13').parsingFlags().format, 'YYYY-MM-DDTHH:mm:ss', 'should include \'T\' in the format');
+    assert.equal(moment('2011-10-08T18:20:13.321').parsingFlags().format, 'YYYY-MM-DDTHH:mm:ss.SSSS', 'should include \'T\' in the format');
 
-    assert.equal(moment('2011-10-08 18')._f, 'YYYY-MM-DD HH', 'should not include \'T\' in the format');
-    assert.equal(moment('2011-10-08 18:20')._f, 'YYYY-MM-DD HH:mm', 'should not include \'T\' in the format');
-    assert.equal(moment('2011-10-08 18:20:13')._f, 'YYYY-MM-DD HH:mm:ss', 'should not include \'T\' in the format');
-    assert.equal(moment('2011-10-08 18:20:13.321')._f, 'YYYY-MM-DD HH:mm:ss.SSSS', 'should not include \'T\' in the format');
+    assert.equal(moment('2011-10-08 18').parsingFlags().format, 'YYYY-MM-DD HH', 'should not include \'T\' in the format');
+    assert.equal(moment('2011-10-08 18:20').parsingFlags().format, 'YYYY-MM-DD HH:mm', 'should not include \'T\' in the format');
+    assert.equal(moment('2011-10-08 18:20:13').parsingFlags().format, 'YYYY-MM-DD HH:mm:ss', 'should not include \'T\' in the format');
+    assert.equal(moment('2011-10-08 18:20:13.321').parsingFlags().format, 'YYYY-MM-DD HH:mm:ss.SSSS', 'should not include \'T\' in the format');
 });
 
 test('parsing iso Z timezone', function (assert) {

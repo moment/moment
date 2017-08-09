@@ -29,12 +29,12 @@ function set (mom, unit, value, msCoef) {
     var d, uts;
     // console.log('SET', arguments);
     if (msCoef != null) {
-        // this is one of ms, second, minute, hour
+        // this is one of ms, second, minute
         uts = mom.valueOf();
         uts += (value - get(mom, unit)) * msCoef;
         return quickCreateUTC(uts, mom._locale, mom._tz);
     } else {
-        // day or year, NOT month
+        // hour, day or year, NOT month
         d = new Date(mom._d);
         d['setUTC' + unit](value);
         return quickCreateLocal(d.valueOf(), mom._locale, mom._tz);

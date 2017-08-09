@@ -1,4 +1,5 @@
 import { configFromStringAndFormat } from './from-string-and-format';
+import { isValid } from './valid';
 import { hooks } from '../utils/hooks';
 import { deprecate } from '../utils/deprecate';
 import getParsingFlags from './parsing-flags';

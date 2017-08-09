@@ -40,11 +40,11 @@ function createFromConfig (config) {
         config._i = input = config._locale.preparse(input);
     }
 
-    if (isUndefined(input)) {
+    if (isUndefined(input) && !format) {
         return quickCreateUTC(hooks.now(), config._locale, config._tz);
     } else if (isMoment(input) || isDate(input)) {
         return quickCreateUTC(input.valueOf(), config._locale, config._tz);
-    } else if (isNumber(input)) {
+    } else if (isNumber(input) && !format) {
         return quickCreateUTC(input, config._locale, config._tz);
     } else if (isArray(format)) {
         configFromStringAndArray(config);
@@ -62,10 +62,14 @@ function createFromConfig (config) {
     } else {
         hooks.createFromInputFallback(config);
     }
-    if (!isValid(config) && (config._d == null || !isNaN(config._d.getTime()))) {
+    if (!isValid(config)) {
         return createInvalid(getParsingFlags(config));
     }
 
+    // TODO: parsing flags fail ...
+    if (config._pf.format == null) {
+        config._pf.format = config._f;
+    }
     if (!config._useUTC) {
         return quickCreateLocal(+config._d, config._locale, config._tz, config._pf);
     } else {
@@ -98,14 +102,18 @@ function configFromInput(config) {
 }
 
 export function quickCreateLocal(lts, locale, timeZone, pf) {
+    if (!timeZone.isValid()) {
+        return createInvalid({badTimeZone: true});
+    }
     var localTsOffset = computeOffset(lts, timeZone);
-    // console.log('Local', lts, '###', localTsOffset[0], localTsOffset[1]);
     return new Moment({_ts: localTsOffset[0], _offset: localTsOffset[1], _locale: locale, _tz: timeZone, _pf: pf});
 }
 
 export function quickCreateUTC(uts, locale, timeZone, pf) {
+    if (!timeZone.isValid()) {
+        return createInvalid({badTimeZone: true});
+    }
     var offset = timeZone.offsetFromTimestamp(uts);
-    // console.log('UTC', uts, '###', uts + offset, offset);
     return new Moment({_ts: uts + offset, _offset: offset, _locale: locale, _tz: timeZone, _pf: pf});
 }
 

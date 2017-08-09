@@ -21,7 +21,15 @@ TODO
 * isValid -> compute before "construction", checkOverflow
   - do we have parsing flags if the object is constructed without format?
 * parseZone -> fixedOffset(...., 'parse') + special tmp timezone + check in quick
+  * what to do if parseZone is used but there is no parsed zone? ---> UTC or invalid
+
+  * single format
+  * array format
+  * string only (ISO/RFC2822)
 * Moment should be called from 3 places (invalid, local, utc)
+* _pf gets out-of-sync from config._i/_f/_strict
+    * straigten up interface between different create/parse components
+* rething creationData (isUTC? format?, what for all other cases)
 
 OLD TODO (maybe del)
 * remove _nextDay from moment -> handle it before "creation"
