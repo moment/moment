@@ -19,14 +19,6 @@ export function locale (key) {
     }
 }
 
-export function lang (key) {
-    if (key === undefined) {
-        return this.localeData();
-    } else {
-        return this.locale(key);
-    }
-}
-
 export function localeData () {
     return this._locale;
 }

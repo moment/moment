@@ -120,14 +120,6 @@ test('library localeData', function (assert) {
     assert.equal(moment.localeData(moment().locale('es')).months(jan), 'enero', 'if you pass in a moment it uses the moment\'s locale');
 });
 
-test('library deprecations', function (assert) {
-    test.expectedDeprecations('moment.lang');
-    moment.lang('dude', {months: ['Movember']});
-    assert.equal(moment.locale(), 'dude', 'setting the lang sets the locale');
-    assert.equal(moment.lang(), moment.locale());
-    assert.equal(moment.langData(), moment.localeData(), 'langData is localeData');
-});
-
 test('defineLocale', function (assert) {
     moment.locale('en');
     moment.defineLocale('dude', {months: ['Movember']});
@@ -217,11 +209,6 @@ test('changing the global locale doesn\'t affect existing duration instances', f
     var mom = moment.duration();
     moment.locale('fr');
     assert.equal('en', mom.locale());
-});
-
-test('duration deprecations', function (assert) {
-    test.expectedDeprecations('duration.lang()');
-    assert.equal(moment.duration().lang(), moment.duration().localeData(), 'duration.lang is the same as duration.localeData');
 });
 
 test('from and fromNow with invalid date', function (assert) {
@@ -405,19 +392,10 @@ test('changing the global locale doesn\'t affect existing instances', function (
 });
 
 test('setting a language on instance returns a moment for chaining', function (assert) {
-    test.expectedDeprecations('moment().lang()');
     var mom = moment();
-
-    assert.ok(moment.isMoment(mom.lang('fr')), 'setting the language (lang) returns a moment for chaining');
     assert.ok(moment.isMoment(mom.locale('it')), 'setting the language (locale) returns a moment for chaining');
 });
 
-test('lang(key) changes the language of the instance', function (assert) {
-    test.expectedDeprecations('moment().lang()');
-    var m = moment().month(0);
-    m = m.lang('fr');
-    assert.equal(m.locale(), 'fr', 'm.lang(key) changes instance locale');
-});
 
 test('moment#locale(false) resets to global locale', function (assert) {
     var m = moment();
@@ -438,13 +416,6 @@ test('moment().locale(key) is unavailable locale then throws', function (assert)
     );
 });
 
-
-test('moment().lang with missing key throws', function (assert) {
-  assert.throws(
-    function () { return moment.lang('boo'); },
-    'The locale \'boo\' is unavailable. Has it been defined?'
-  );
-});
 //     assert.equal(moment('D+D', 'MMMM', true).month(), 10, 'parse long month 10 with MMMM');
 //     assert.equal(moment('D`D*D', 'MMMM', true).month(), 11, 'parse long month 11 with MMMM');
 

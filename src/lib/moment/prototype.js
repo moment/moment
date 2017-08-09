@@ -7,7 +7,7 @@ import { format, toString, toISOString, inspect } from './format';
 import { from, fromNow } from './from';
 import { to, toNow } from './to';
 import { stringGet, stringSet } from './get-set';
-import { locale, localeData, lang } from './locale';
+import { locale, localeData } from './locale';
 import { prototypeMin, prototypeMax } from './min-max';
 import { startOf, endOf } from './start-end-of';
 import { valueOf, toDate, toArray, toObject, toJSON, unix } from './to-type';
@@ -142,9 +142,6 @@ proto.clone = deprecate(
 proto.dates = deprecate(
     'dates accessor is deprecated. Use date instead.',
     getSetDayOfMonth);
-proto.lang = deprecate(
-    'moment().lang() is deprecated. Instead, use moment().localeData() to get the language configuration. Use moment().locale() to change languages.',
-    lang);
 proto.max = deprecate(
     'moment().max() is deprecated. Use moment.min() instead (notice lack of parentheses).',
     prototypeMax);
