@@ -177,6 +177,7 @@ module.exports = function (grunt) {
     });
 
     grunt.loadTasks('tasks');
+    grunt.loadTasks('tasks/build');
 
     // These plugins provide necessary tasks.
     require('load-grunt-tasks')(grunt);
