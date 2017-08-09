@@ -5,7 +5,6 @@ import { defineCommonLocaleTests } from './helpers/common-locale';
 import { setupDeprecationHandler, teardownDeprecationHandler } from './helpers/deprecation-handler';
 
 export var test = QUnit.test;
-
 export var expect = QUnit.expect;
 
 export function module (name, lifecycle) {
@@ -34,12 +33,11 @@ export function module (name, lifecycle) {
 export function localeModule (name, lifecycle) {
     QUnit.module('locale:' + name, {
         setup : function () {
-            let localeConfig;
-            // TODO: Move 'en' locale to locales folder.
             if (name !== 'en') {
-              localeConfig = require('../../locale/' + name)._config;
+                const localeConfig = require('../../locale/' + name)._config;
+                moment._internal.resetLocales();
+                moment.locale(name, localeConfig);
             }
-            moment.locale(name, localeConfig);
             moment.createFromInputFallback = function (config) {
                 throw new Error('input not handled by moment: ' + config._i);
             };
