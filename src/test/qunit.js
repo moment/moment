@@ -11,6 +11,7 @@ export var expect = QUnit.expect;
 export function module (name, lifecycle) {
     QUnit.module(name, {
         setup : function () {
+            moment._internal.resetLocales();
             moment.locale('en');
             moment.createFromInputFallback = function (config) {
                 throw new Error('input not handled by moment: ' + config._i);
@@ -25,6 +26,7 @@ export function module (name, lifecycle) {
             if (lifecycle && lifecycle.teardown) {
                 lifecycle.teardown();
             }
+            moment.locale('en');
         }
     });
 }
@@ -32,7 +34,12 @@ export function module (name, lifecycle) {
 export function localeModule (name, lifecycle) {
     QUnit.module('locale:' + name, {
         setup : function () {
-            moment.locale(name);
+            let localeConfig;
+            // TODO: Move 'en' locale to locales folder.
+            if (name !== 'en') {
+              localeConfig = require('../../locale/' + name)._config;
+            }
+            moment.locale(name, localeConfig);
             moment.createFromInputFallback = function (config) {
                 throw new Error('input not handled by moment: ' + config._i);
             };

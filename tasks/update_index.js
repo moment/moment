@@ -1,7 +1,7 @@
 module.exports = function (grunt) {
     grunt.config('copy.index-files', {
         expand: true,
-        cwd: 'build/umd/',
+        cwd: 'build/',
         src: [
             'moment.js',
             'locale/*.js',

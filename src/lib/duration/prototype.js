@@ -6,7 +6,7 @@ import { bubble } from './bubble';
 import { get, milliseconds, seconds, minutes, hours, days, months, years, weeks } from './get';
 import { humanize } from './humanize';
 import { toISOString } from './iso-string';
-import { lang, locale, localeData } from './locale';
+import { locale, localeData } from './locale';
 import { isValid } from './valid';
 
 var proto = Duration.prototype;
@@ -44,4 +44,3 @@ proto.localeData     = localeData;
 import { deprecate } from '../utils/deprecate';
 
 proto.toIsoString = deprecate('toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)', toISOString);
-proto.lang = deprecate('duration.lang() is deprecated. Use locale() or localeData() instead.', lang);

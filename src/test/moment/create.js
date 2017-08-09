@@ -703,8 +703,6 @@ test('parsing week year/week/weekday (dow 1, doy 4)', function (assert) {
     assert.equal(moment.utc('2010-01', 'gggg-ww').format(), '2010-01-04T00:00:00Z', '2010 week 1 (1st Jan Fri)');
     assert.equal(moment.utc('2011-01', 'gggg-ww').format(), '2011-01-03T00:00:00Z', '2011 week 1 (1st Jan Sat)');
     assert.equal(moment.utc('2012-01', 'gggg-ww').format(), '2012-01-02T00:00:00Z', '2012 week 1 (1st Jan Sun)');
-
-    moment.defineLocale('dow:1,doy:4', null);
 });
 
 test('parsing week year/week/weekday (dow 1, doy 7)', function (assert) {
@@ -717,7 +715,6 @@ test('parsing week year/week/weekday (dow 1, doy 7)', function (assert) {
     assert.equal(moment.utc('2010-01', 'gggg-ww').format(), '2009-12-28T00:00:00Z', '2010 week 1 (1st Jan Fri)');
     assert.equal(moment.utc('2011-01', 'gggg-ww').format(), '2010-12-27T00:00:00Z', '2011 week 1 (1st Jan Sat)');
     assert.equal(moment.utc('2012-01', 'gggg-ww').format(), '2011-12-26T00:00:00Z', '2012 week 1 (1st Jan Sun)');
-    moment.defineLocale('dow:1,doy:7', null);
 });
 
 test('parsing week year/week/weekday (dow 0, doy 6)', function (assert) {
@@ -730,7 +727,6 @@ test('parsing week year/week/weekday (dow 0, doy 6)', function (assert) {
     assert.equal(moment.utc('2010-01', 'gggg-ww').format(), '2009-12-27T00:00:00Z', '2010 week 1 (1st Jan Fri)');
     assert.equal(moment.utc('2011-01', 'gggg-ww').format(), '2010-12-26T00:00:00Z', '2011 week 1 (1st Jan Sat)');
     assert.equal(moment.utc('2012-01', 'gggg-ww').format(), '2012-01-01T00:00:00Z', '2012 week 1 (1st Jan Sun)');
-    moment.defineLocale('dow:0,doy:6', null);
 });
 
 test('parsing week year/week/weekday (dow 6, doy 12)', function (assert) {
@@ -743,7 +739,6 @@ test('parsing week year/week/weekday (dow 6, doy 12)', function (assert) {
     assert.equal(moment.utc('2010-01', 'gggg-ww').format(), '2009-12-26T00:00:00Z', '2010 week 1 (1st Jan Fri)');
     assert.equal(moment.utc('2011-01', 'gggg-ww').format(), '2011-01-01T00:00:00Z', '2011 week 1 (1st Jan Sat)');
     assert.equal(moment.utc('2012-01', 'gggg-ww').format(), '2011-12-31T00:00:00Z', '2012 week 1 (1st Jan Sun)');
-    moment.defineLocale('dow:6,doy:12', null);
 });
 
 test('parsing ISO with Z', function (assert) {
@@ -932,8 +927,6 @@ test('parsing into a locale', function (assert) {
     moment.locale('parselocale');
 
     assert.equal(moment('2012 july', 'YYYY MMM', 'en').month(), 6, 'should be able to parse in a specific locale');
-
-    moment.defineLocale('parselocale', null);
 });
 
 function getVerifier(test) {
@@ -1016,33 +1009,27 @@ test('parsing week and weekday information', function (assert) {
 
 test('parsing localized weekdays', function (assert) {
     var ver = getVerifier(assert);
-    try {
-        moment.locale('dow:1,doy:4', {
-            weekdays : 'dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi'.split('_'),
-            weekdaysShort : 'dim._lun._mar._mer._jeu._ven._sam.'.split('_'),
-            weekdaysMin : 'Di_Lu_Ma_Me_Je_Ve_Sa'.split('_'),
-            week: {dow: 1, doy: 4}
-        });
-        ver('1999 37 4', 'GGGG WW E', '1999 09 16', 'iso ignores locale');
-        ver('1999 37 7', 'GGGG WW E', '1999 09 19', 'iso ignores locale');
+      moment.locale('dow:1,doy:4', {
+          weekdays : 'dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi'.split('_'),
+          weekdaysShort : 'dim._lun._mar._mer._jeu._ven._sam.'.split('_'),
+          weekdaysMin : 'Di_Lu_Ma_Me_Je_Ve_Sa'.split('_'),
+          week: {dow: 1, doy: 4}
+      });
+      ver('1999 37 4', 'GGGG WW E', '1999 09 16', 'iso ignores locale');
+      ver('1999 37 7', 'GGGG WW E', '1999 09 19', 'iso ignores locale');
 
-        ver('1999 37 0', 'gggg ww e', '1999 09 13', 'localized e uses local doy and dow: 0 = monday');
-        ver('1999 37 4', 'gggg ww e', '1999 09 17', 'localized e uses local doy and dow: 4 = friday');
+      ver('1999 37 0', 'gggg ww e', '1999 09 13', 'localized e uses local doy and dow: 0 = monday');
+      ver('1999 37 4', 'gggg ww e', '1999 09 17', 'localized e uses local doy and dow: 4 = friday');
 
-        ver('1999 37 1', 'gggg ww d', '1999 09 13', 'localized d uses 0-indexed days: 1 = monday');
-        ver('1999 37 Lu', 'gggg ww dd', '1999 09 13', 'localized d uses 0-indexed days: Mo');
-        ver('1999 37 lun.', 'gggg ww ddd', '1999 09 13', 'localized d uses 0-indexed days: Mon');
-        ver('1999 37 lundi', 'gggg ww dddd', '1999 09 13', 'localized d uses 0-indexed days: Monday');
-        ver('1999 37 4', 'gggg ww d', '1999 09 16', 'localized d uses 0-indexed days: 4');
+      ver('1999 37 1', 'gggg ww d', '1999 09 13', 'localized d uses 0-indexed days: 1 = monday');
+      ver('1999 37 Lu', 'gggg ww dd', '1999 09 13', 'localized d uses 0-indexed days: Mo');
+      ver('1999 37 lun.', 'gggg ww ddd', '1999 09 13', 'localized d uses 0-indexed days: Mon');
+      ver('1999 37 lundi', 'gggg ww dddd', '1999 09 13', 'localized d uses 0-indexed days: Monday');
+      ver('1999 37 4', 'gggg ww d', '1999 09 16', 'localized d uses 0-indexed days: 4');
 
-        //sunday goes at the end of the week
-        ver('1999 37 0', 'gggg ww d', '1999 09 19', 'localized d uses 0-indexed days: 0 = sund');
-        ver('1999 37 Di', 'gggg ww dd', '1999 09 19', 'localized d uses 0-indexed days: 0 = sund');
-    }
-    finally {
-        moment.defineLocale('dow:1,doy:4', null);
-        moment.locale('en');
-    }
+      //sunday goes at the end of the week
+      ver('1999 37 0', 'gggg ww d', '1999 09 19', 'localized d uses 0-indexed days: 0 = sund');
+      ver('1999 37 Di', 'gggg ww dd', '1999 09 19', 'localized d uses 0-indexed days: 0 = sund');
 });
 
 test('parsing with customized two-digit year', function (assert) {

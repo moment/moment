@@ -1,7 +1,12 @@
 import { module, test } from '../qunit';
 import moment from '../../moment';
+import fr from '../../locale/fr';
 
-module('creation data');
+module('creation data', {
+    setup: function () {
+        moment.defineLocale('fr', fr._config);
+    }
+});
 
 test('valid date', function (assert) {
     var dat = moment('1992-10-22');

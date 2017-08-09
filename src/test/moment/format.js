@@ -309,7 +309,7 @@ test('week year formats', function (assert) {
         '405-12-31': '0405-52'
     }, i, isoWeekYear, formatted5, formatted4, formatted2;
 
-    moment.defineLocale('dow:1,doy:4', {week: {dow: 1, doy: 4}});
+    moment.locale('dow:1,doy:4', {week: {dow: 1, doy: 4}});
 
     for (i in cases) {
         isoWeekYear = cases[i].split('-')[0];
@@ -320,7 +320,6 @@ test('week year formats', function (assert) {
         formatted2 = moment(i, 'YYYY-MM-DD').format('gg');
         assert.equal(isoWeekYear.slice(2, 4), formatted2, i + ': gg should be ' + isoWeekYear + ', but ' + formatted2);
     }
-    moment.defineLocale('dow:1,doy:4', null);
 });
 
 test('iso weekday formats', function (assert) {
@@ -334,7 +333,8 @@ test('iso weekday formats', function (assert) {
 });
 
 test('weekday formats', function (assert) {
-    moment.defineLocale('dow: 3,doy: 5', {week: {dow: 3, doy: 5}});
+    moment.locale('dow: 3,doy: 5', {week: {dow: 3, doy: 5}});
+
     assert.equal(moment([1985, 1,  6]).format('e'), '0', 'Feb  6 1985 is Wednesday -- 0th day');
     assert.equal(moment([2029, 8, 20]).format('e'), '1', 'Sep 20 2029 is Thursday  -- 1st day');
     assert.equal(moment([2013, 3, 26]).format('e'), '2', 'Apr 26 2013 is Friday    -- 2nd day');
@@ -342,7 +342,6 @@ test('weekday formats', function (assert) {
     assert.equal(moment([1970, 0,  4]).format('e'), '4', 'Jan  4 1970 is Sunday    -- 4th day');
     assert.equal(moment([2001, 4, 14]).format('e'), '5', 'May 14 2001 is Monday    -- 5th day');
     assert.equal(moment([2000, 0,  4]).format('e'), '6', 'Jan  4 2000 is Tuesday   -- 6th day');
-    moment.defineLocale('dow: 3,doy: 5', null);
 });
 
 test('toString is just human readable format', function (assert) {
@@ -351,13 +350,12 @@ test('toString is just human readable format', function (assert) {
 });
 
 test('toJSON skips postformat', function (assert) {
-    moment.defineLocale('postformat', {
+    moment.locale('postformat', {
         postformat: function (s) {
             s.replace(/./g, 'X');
         }
     });
     assert.equal(moment.utc([2000, 0, 1]).toJSON(), '2000-01-01T00:00:00.000Z', 'toJSON doesn\'t postformat');
-    moment.defineLocale('postformat', null);
 });
 
 test('calendar day timezone', function (assert) {

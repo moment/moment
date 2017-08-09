@@ -1,5 +1,6 @@
+
 import { quickCreateUTC } from '../create/from-anything';
-import { getLocale } from '../locale/locales';
+import { getLocale } from '../locale/context';
 
 
 // If passed a locale key, it will return a cloned instance that is set
@@ -16,14 +17,6 @@ export function locale (key) {
             return quickCreateUTC(this.valueOf(), newLocaleData, this._tz);
         }
         return this;
-    }
-}
-
-export function lang (key) {
-    if (key === undefined) {
-        return this.localeData();
-    } else {
-        return this.locale(key);
     }
 }
 

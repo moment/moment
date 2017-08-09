@@ -2,8 +2,13 @@
 // locale dependent tests would be in locale test folder
 import { module, test } from '../qunit';
 import moment from '../../moment';
+import fr from '../../locale/fr';
 
-module('calendar');
+module('calendar', {
+  setup: function () {
+    moment.defineLocale('fr', fr._config);
+  }
+});
 
 test('passing a function', function (assert) {
     var a = moment().hours(13).minutes(0).seconds(0);
@@ -44,6 +49,8 @@ test('extending calendar options', function (assert) {
                 sameElse : 'L'
             }
     });
+    // Should not have to reset the current locale after updating it.
+    moment.locale('en');
     var a = moment('2016-01-01').add(28, 'days');
     var b = moment('2016-01-01').add(1, 'month');
     try {
@@ -52,6 +59,5 @@ test('extending calendar options', function (assert) {
         assert.equal(a.locale('fr').calendar('2016-01-01'), a.locale('fr').format('L'), 'French falls back to default because thisMonth is not defined in that locale');
     } finally {
         moment.calendarFormat = calendarFormat;
-        moment.updateLocale('en', null);
     }
 });
