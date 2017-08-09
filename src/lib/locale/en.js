@@ -1,5 +1,5 @@
 import './prototype';
-import { getSetGlobalLocale } from './context';
+import { defineLocale } from './loader';
 import toInt from '../utils/to-int';
 
 export default defineLocale('en', {

@@ -59,7 +59,7 @@ export function defineLocale (name, config) {
         throw new Error('Locale \'' + name + '\' has already been defined');
     }
 
-    return locales[name] = new Locale(config);
+    return locales[name] = new Locale(name, config);
 }
 
 export function updateLocale(name, config) {
@@ -67,7 +67,7 @@ export function updateLocale(name, config) {
       return defineLocale(name, config);
   }
   let localeConfig = mergeLocaleConfigs(locales[name]._config, config);
-  return locales[name] = new Locale(localeConfig);
+  return locales[name] = new Locale(name, localeConfig);
 }
 
 /// @Internal @Testing

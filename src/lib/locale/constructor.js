@@ -1,18 +1,18 @@
 import isFunction from '../utils/is-function';
 
-export function Locale(config) {
-    if (config == null) {
+export function Locale(name, config) {
+    if (!config)
         return;
-    }
-    var prop, i;
-    for (i in config) {
-        prop = config[i];
+
+    for (let key of Object.keys(config)) {
+        let prop = config[key];
         if (isFunction(prop)) {
-            this[i] = prop;
+            this[key] = prop;
         } else {
-            this['_' + i] = prop;
+            this['_' + key] = prop;
         }
     }
+    this._abbr = name;
     this._config = config;
     // Lenient ordinal parsing accepts just a number in addition to
     // number + (possibly) stuff coming from _dayOfMonthOrdinalParse.

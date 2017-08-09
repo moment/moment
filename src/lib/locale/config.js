@@ -27,8 +27,6 @@ import {
 import { defaultLocaleMeridiemParse } from '../units/hour';
 
 export const defaultLocaleConfig = {
-    // FIXME: Remove me
-    abbr: 'en',
     calendar: defaultCalendar,
     longDateFormat: defaultLongDateFormat,
     invalidDate: defaultInvalidDate,
