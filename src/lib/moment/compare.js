@@ -4,6 +4,9 @@ import { createLocal } from '../create/local';
 import isUndefined from '../utils/is-undefined';
 
 export function isAfter (input, units) {
+    if (isUndefined(input)) {
+        return false;
+    }
     var localInput = isMoment(input) ? input : createLocal(input);
     if (!(this.isValid() && localInput.isValid())) {
         return false;
@@ -17,6 +20,9 @@ export function isAfter (input, units) {
 }
 
 export function isBefore (input, units) {
+    if (isUndefined(input)) {
+        return false;
+    }
     var localInput = isMoment(input) ? input : createLocal(input);
     if (!(this.isValid() && localInput.isValid())) {
         return false;
@@ -36,6 +42,9 @@ export function isBetween (from, to, units, inclusivity) {
 }
 
 export function isSame (input, units) {
+    if (isUndefined(input)) {
+        return false;
+    }
     var localInput = isMoment(input) ? input : createLocal(input),
         inputMs;
     if (!(this.isValid() && localInput.isValid())) {

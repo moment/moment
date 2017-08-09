@@ -175,3 +175,10 @@ test('is before invalid', function (assert) {
     assert.equal(m.isBefore(invalid, 'second'), false, 'invalid moment second');
     assert.equal(m.isBefore(invalid, 'milliseconds'), false, 'invalid moment milliseconds');
 });
+
+test('is before undefined and null', function (assert) {
+    var m = moment();
+    assert.equal(m.isBefore(), false, 'undefined date');
+    assert.equal(m.isBefore(undefined), false, 'undefined date');
+    assert.equal(m.isBefore(null), false, 'null date');
+});
