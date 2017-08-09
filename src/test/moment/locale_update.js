@@ -3,6 +3,36 @@ import moment from '../../moment';
 
 module('locale update');
 
+test('defineLocale/updateLocale should not set the global locale', function (assert) {
+    moment.defineLocale('test-1', {months: '1_2_3_4_5_6_7_8_9_10_11_12'.split('_')});
+    assert.notEqual(moment.locale(), 'test-1', 'defineLocale should not set the global locale');
+
+    moment.updateLocale('test-1', {months: 'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split('_')})
+    assert.notEqual(moment.locale(), 'test-1', 'updateLocale should not set the global locale');
+});
+
+test('global locale does not need to be reset after updateLocale', function (assert) {
+    moment.locale('test-1', {months: '1_2_3_4_5_6_7_8_9_10_11_12'.split('_')});
+    assert.equal(moment.unix(0).format('MMMM'), '1', 'should use the test-1 locale');
+
+    moment.updateLocale('test-1', {months: 'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split('_')});
+    assert.equal(moment.unix(0).format('MMMM'), 'one', 'should not need to reset the global locale after update')
+});
+
+// Instances are immutable.
+test('instance locale needs to be reset after updateLocale', function (assert) {
+    moment.locale('test-1', {months: '1_2_3_4_5_6_7_8_9_10_11_12'.split('_')});
+    const mom = moment.unix(0);
+
+    assert.equal(mom.format('MMMM'), '1', 'should use the test-1 locale');
+
+    moment.updateLocale('test-1', {months: 'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split('_')});
+
+    assert.equal(mom.format('MMMM'), '1', 'does not use the updated locale');
+    assert.equal(mom.locale('test-1').format('MMMM'), 'one', 'uses the updated locale');
+
+});
+
 test('calendar', function (assert) {
     moment.defineLocale('cal', {
         calendar : {

@@ -1,39 +1,39 @@
 import isUndefined from '../utils/is-undefined';
 import {defineLocale, loadLocale} from "./loader";
 
-var globalLocale;
+let globalLocale;
 
 
 // This function will load locale and then set the global locale.  If
 // no arguments are passed in, it will simply return the current global
 // locale key.
 export function getSetGlobalLocale (key, values) {
-  var data;
   if (key) {
+    let locale;
     if (isUndefined(values)) {
-      data = getLocale(key);
+      locale = getLocale(key);
     }
     else {
-      data = defineLocale(key, values);
+      locale = defineLocale(key, values);
     }
 
-    if (data) {
+    if (locale) {
       // moment.duration._locale = moment._locale = data;
-      globalLocale = data;
+      globalLocale = locale._abbr;
     }
   }
 
-  return globalLocale._abbr;
+  return globalLocale;
 }
 
-// returns locale data
+// Gets the key from a string, moment, duration, etc.
 export function getLocale (key) {
-  if (key && key._locale && key._locale._abbr) {
-    key = key._locale._abbr;
+  if (!key) {
+    return loadLocale(globalLocale);
   }
 
-  if (!key) {
-    return globalLocale;
+  if (key._locale && key._locale._abbr) {
+    key = key._locale._abbr;
   }
 
   return loadLocale(key);

@@ -343,8 +343,6 @@ test('changing parts of a locale config', function (assert) {
     moment.updateLocale('partial-lang', {
         monthsShort: 'A B C D E F G H I J K L'.split(' ')
     });
-    //FIXME: Should not need to set the locale after a call to updateLocale.
-    moment.locale('partial-lang');
     assert.equal(moment([2011, 0, 1]).format('MMMM MMM'), 'a A', 'should use the updated locale')
 });
 
