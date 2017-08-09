@@ -16,9 +16,9 @@ export function loadLocale(names) {
   }
 
   // Normalize inputs to lower case hyphenated strings.
-  let normalNames = names.map(function (name) {
-    return name ? name.toLowerCase().replace('_', '-') : name;
-  });
+  let normalNames = names
+    .filter(name => !!name)
+    .map(name => name.toLowerCase().replace('_', '-'));
 
   for (let i=0; i < normalNames.length; i++) {
       let split = normalNames[i].split('-');
