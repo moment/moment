@@ -1,4 +1,5 @@
 import { configFromStringAndFormat } from './from-string-and-format';
+import { createUTCDate } from './date-from-array';
 import { configFromArray } from './from-array';
 import { hooks } from '../utils/hooks';
 import { deprecate } from '../utils/deprecate';
@@ -97,7 +98,7 @@ export function configFromISO(config) {
 }
 
 // RFC 2822 regex: For details see https://tools.ietf.org/html/rfc2822#section-3.3
-var rfc2822 = /^(?:(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d{1,2})\s(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(\d{2,4})\s(\d\d):(\d\d)(?::(\d\d))?\s(?:(UT|GMT|[ECMP][SD]T)|([Zz])|(?:([+-]\d\d)(\d\d)))$/;
+var rfc2822 = /^(?:(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d{1,2})\s(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(\d{2,4})\s(\d\d):(\d\d)(?::(\d\d))?\s(?:(UT|GMT|[ECMP][SD]T)|([Zz])|([+-]\d{4}))$/;
 
 function extractFromRFC2822Strings(yearStr, monthStr, dayStr, hourStr, minuteStr, secondStr) {
     var result = [
@@ -130,13 +131,6 @@ function preprocessRFC2822(s) {
     return s.replace(/\([^)]*\)|[\n\t]/g, ' ').replace(/(\s\s+)/g, ' ').trim();
 }
 
-function signedOffset(offHourStr, offMinuteStr) {
-    var offHour = parseInt(offHourStr, 10) || 0,
-        offMin = parseInt(offMinuteStr, 10) || 0,
-        offMinSigned = offHour < 0 ? -offMin : offMin;
-    return offHour * 60 + offMinSigned;
-}
-
 function checkWeekday(weekdayStr, parsedInput, config) {
     if (weekdayStr) {
         // TODO: Replace the vanilla JS Date object with an indepentent day-of-week check.
@@ -152,22 +146,28 @@ function checkWeekday(weekdayStr, parsedInput, config) {
 }
 
 var obsOffsets = {
+    UT: 0,
     GMT: 0,
     EDT: -4 * 60,
     EST: -5 * 60,
-    CDT: 5 * 60,
-    CST: 6 * 60,
-    MDT: 6 * 60,
-    MST: 7 * 60,
-    PDT: 7 * 60,
-    PST: 8 * 60
+    CDT: -5 * 60,
+    CST: -6 * 60,
+    MDT: -6 * 60,
+    MST: -7 * 60,
+    PDT: -7 * 60,
+    PST: -8 * 60
 };
 
-function calculateOffset(obsOffset, milOffset, offHourStr, offMinuteStr) {
+function calculateOffset(obsOffset, militaryOffset, numOffset) {
     if (obsOffset) {
         return obsOffsets[obsOffset];
+    } else if (militaryOffset) {
+        // the only allowed military tz is Z
+        return 0;
     } else {
-        return (milOffset) ? 0 : signedOffset(offHourStr, offMinuteStr);
+        var hm = parseInt(numOffset, 10);
+        var m = hm % 100, h = (hm - m) / 100;
+        return h * 60 + m;
     }
 }
 
@@ -181,9 +181,11 @@ export function configFromRFC2822(config) {
         }
 
         config._a = parsedArray;
-        config._tzm = calculateOffset(match[8], match[9], match[10], match[11]);
+        config._tzm = calculateOffset(match[8], match[9], match[10]);
 
-        configFromArray(config);
+        config._d = createUTCDate.apply(null, config._a);
+        config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
+
         getParsingFlags(config).rfc2822 = true;
     } else {
         config._isValid = false;
