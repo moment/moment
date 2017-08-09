@@ -464,8 +464,8 @@ test('parsing RFC 2822', function (assert) {
         '(Init Comment) Tue,\n 1 Nov              2016 (Split\n Comment)  07:23:45 +0000 (GMT)': [2016, 10, 1, 7, 23, 45, 0],
         'Mon, 02 Jan 2017 06:00:00 -0800': [2017, 0, 2, 6, 0, 0, -8 * 60],
         'Mon, 02 Jan 2017 06:00:00 +0800': [2017, 0, 2, 6, 0, 0, +8 * 60],
-        'Mon, 02 Jan 2017 06:00:00 +0330': [2017, 0, 2, 6, 0, 0, + (3 * 60 + 30)],
-        'Mon, 02 Jan 2017 06:00:00 -0330': [2017, 0, 2, 6, 0, 0, - (3 * 60 + 30)],
+        'Mon, 02 Jan 2017 06:00:00 +0330': [2017, 0, 2, 6, 0, 0, +(3 * 60 + 30)],
+        'Mon, 02 Jan 2017 06:00:00 -0330': [2017, 0, 2, 6, 0, 0, -(3 * 60 + 30)],
         'Mon, 02 Jan 2017 06:00:00 PST': [2017, 0, 2, 6, 0, 0, -8 * 60],
         'Mon, 02 Jan 2017 06:00:00 PDT': [2017, 0, 2, 6, 0, 0, -7 * 60],
         'Mon, 02 Jan 2017 06:00:00 MST': [2017, 0, 2, 6, 0, 0, -7 * 60],
@@ -473,15 +473,15 @@ test('parsing RFC 2822', function (assert) {
         'Mon, 02 Jan 2017 06:00:00 CST': [2017, 0, 2, 6, 0, 0, -6 * 60],
         'Mon, 02 Jan 2017 06:00:00 CDT': [2017, 0, 2, 6, 0, 0, -5 * 60],
         'Mon, 02 Jan 2017 06:00:00 EST': [2017, 0, 2, 6, 0, 0, -5 * 60],
-        'Mon, 02 Jan 2017 06:00:00 EDT': [2017, 0, 2, 6, 0, 0, -4 * 60],
+        'Mon, 02 Jan 2017 06:00:00 EDT': [2017, 0, 2, 6, 0, 0, -4 * 60]
     };
 
-    var inp, tokens;
+    var inp, tokens, parseResult, expResult;
 
     for (inp in testCases) {
-        var tokens = testCases[inp];
-        var parseResult = moment(inp, moment.RFC_2822, true).parseZone();
-        var expResult = moment.utc(tokens.slice(0, 6)).utcOffset(tokens[6], true);
+        tokens = testCases[inp];
+        parseResult = moment(inp, moment.RFC_2822, true).parseZone();
+        expResult = moment.utc(tokens.slice(0, 6)).utcOffset(tokens[6], true);
         assert.ok(parseResult.isValid(), inp);
         assert.ok(parseResult.parsingFlags().rfc2822, inp + ' - rfc2822 parsingFlag');
         assert.equal(parseResult.utcOffset(), expResult.utcOffset(), inp + ' - zone');
