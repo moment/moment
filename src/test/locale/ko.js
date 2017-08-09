@@ -59,12 +59,12 @@ test('format', function (assert) {
     var a = [
             ['YYYY년 MMMM Do dddd a h:mm:ss',      '2010년 2월 14일 일요일 오후 3:25:50'],
             ['ddd A h',                            '일 오후 3'],
-            ['M Mo MM MMMM MMM',                   '2 2일 02 2월 2월'],
+            ['M Mo MM MMMM MMM',                   '2 2월 02 2월 2월'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14일 14'],
             ['d do dddd ddd dd',                   '0 0일 일요일 일 일'],
             ['DDD DDDo DDDD',                      '45 45일 045'],
-            ['w wo ww',                            '8 8일 08'],
+            ['w wo ww',                            '8 8주 08'],
             ['h hh',                               '3 03'],
             ['H HH',                               '15 15'],
             ['m mm',                               '25 25'],
@@ -235,10 +235,10 @@ test('calendar all else', function (assert) {
 });
 
 test('weeks year starting sunday format', function (assert) {
-    assert.equal(moment([2012, 0,  1]).format('w ww wo'), '1 01 1일', 'Jan  1 2012 should be week 1');
-    assert.equal(moment([2012, 0,  7]).format('w ww wo'), '1 01 1일', 'Jan  7 2012 should be week 1');
-    assert.equal(moment([2012, 0,  8]).format('w ww wo'), '2 02 2일', 'Jan  8 2012 should be week 2');
-    assert.equal(moment([2012, 0, 14]).format('w ww wo'), '2 02 2일', 'Jan 14 2012 should be week 2');
-    assert.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3일', 'Jan 15 2012 should be week 3');
+    assert.equal(moment([2012, 0,  1]).format('w ww wo'), '1 01 1주', 'Jan  1 2012 should be week 1');
+    assert.equal(moment([2012, 0,  7]).format('w ww wo'), '1 01 1주', 'Jan  7 2012 should be week 1');
+    assert.equal(moment([2012, 0,  8]).format('w ww wo'), '2 02 2주', 'Jan  8 2012 should be week 2');
+    assert.equal(moment([2012, 0, 14]).format('w ww wo'), '2 02 2주', 'Jan 14 2012 should be week 2');
+    assert.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3주', 'Jan 15 2012 should be week 3');
 });
 
