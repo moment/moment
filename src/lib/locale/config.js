@@ -63,31 +63,6 @@ export function mergeLocaleConfigs(parentConfig, childConfig) {
   return res;
 }
 
-function sameObjects(obj1, obj2, sameValue) {
-    if (obj1 === obj2) {
-        return true;
-    }
-
-    sameValue = sameValue || function (v1, v2) { return v1 === v2; };
-
-    return Object.keys(obj1).every(k => {
-        if (obj1.hasOwnProperty(k) && obj2.hasOwnProperty(k)) {
-            if (isObject(obj1[k] && isObject[obj2[k]])) {
-                // Only compare objects at at most one level of nesting
-                return sameObjects(obj1[k], obj2[k], sameValue);
-            }
-            if (isArray(obj1[k]) && isArray(obj2[k])) {
-                let arr1 = obj1[k], arr2 = obj2[k];
-                let res = arr1.length !== arr2.length;
-
-                res = arr1.every((value, index) => value === arr2[index]);
-                return res;
-            }
-            return obj1[k] === obj2[k];
-        }
-    });
-}
-
 /**
  * Two locale configs the same if they both have the same keys
  * and the value of every key is equal by reference.
@@ -96,6 +71,30 @@ function sameObjects(obj1, obj2, sameValue) {
  * @param config2
  */
 export function isSameLocaleConfig(config1, config2) {
-    return sameObjects(config1, config2);
+  if (config1 === config2) {
+    return true;
+  }
+
+  return Object.keys(defaultLocaleConfig).every(key => {
+      if (!config2.hasOwnProperty(key)) {
+        return false;
+      }
+      if (isObject(config1[key]) && isObject(config2[key])) {
+          let obj1 = config1[k], obj2 = config2[k];
+          if (Object.keys(obj1).length !== Object.keys(obj2).length) {
+            return false;
+          }
+          return Object.keys(obj1).every(k => obj1[k] === obj2[k]);
+      }
+
+      if (isArray(config1[key]) && isArray(config2[key])) {
+          let arr1 = config1[key], arr2 = config2[key];
+          return arr1.length === arr2.length
+              && arr1.every((item, index) => item === arr2[index]);
+      }
+
+      return config1[key] === config2[key];
+  });
+
 }
 
