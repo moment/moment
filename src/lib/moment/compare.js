@@ -1,31 +1,30 @@
-import { isMoment } from './constructor';
 import { normalizeUnits } from '../units/aliases';
-import { createLocal } from '../create/local';
+import { momentize } from '../create/constructors';
 import isUndefined from '../utils/is-undefined';
 
 export function isAfter (input, units) {
-    var localInput = isMoment(input) ? input : createLocal(input);
-    if (!(this.isValid() && localInput.isValid())) {
+    input = momentize(input);
+    if (!(this.isValid() && input.isValid())) {
         return false;
     }
     units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
     if (units === 'millisecond') {
-        return this.valueOf() > localInput.valueOf();
+        return this.valueOf() > input.valueOf();
     } else {
-        return localInput.valueOf() < this.startOf(units).valueOf();
+        return input.valueOf() < this.startOf(units).valueOf();
     }
 }
 
 export function isBefore (input, units) {
-    var localInput = isMoment(input) ? input : createLocal(input);
-    if (!(this.isValid() && localInput.isValid())) {
+    input = momentize(input);
+    if (!(this.isValid() && input.isValid())) {
         return false;
     }
     units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
     if (units === 'millisecond') {
-        return this.valueOf() < localInput.valueOf();
+        return this.valueOf() < input.valueOf();
     } else {
-        return this.endOf(units).valueOf() < localInput.valueOf();
+        return this.endOf(units).valueOf() < input.valueOf();
     }
 }
 
@@ -36,16 +35,16 @@ export function isBetween (from, to, units, inclusivity) {
 }
 
 export function isSame (input, units) {
-    var localInput = isMoment(input) ? input : createLocal(input),
-        inputMs;
-    if (!(this.isValid() && localInput.isValid())) {
+    var inputMs;
+    input = momentize(input);
+    if (!(this.isValid() && input.isValid())) {
         return false;
     }
     units = normalizeUnits(units || 'millisecond');
     if (units === 'millisecond') {
-        return this.valueOf() === localInput.valueOf();
+        return this.valueOf() === input.valueOf();
     } else {
-        inputMs = localInput.valueOf();
+        inputMs = input.valueOf();
         return this.startOf(units).valueOf() <= inputMs && inputMs <= this.endOf(units).valueOf();
     }
 }

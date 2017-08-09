@@ -3,9 +3,10 @@ import extend from '../utils/extend';
 import getParsingFlags from '../create/parsing-flags';
 
 export function isValid () {
-    return _isValid(this);
+    return this._isValid !== false;
 }
 
+// TODO: Why copy?
 export function parsingFlags () {
     return extend({}, getParsingFlags(this));
 }

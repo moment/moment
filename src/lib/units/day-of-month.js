@@ -33,7 +33,7 @@ addParseToken('Do', function (input, array) {
 
 // MOMENTS
 
-export var getSetDayOfMonth = makeGetSet('Date', true);
+export var getSetDayOfMonth = makeGetSet('Date');
 
 // PRIORITY
 

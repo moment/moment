@@ -1,15 +1,16 @@
 import { Moment } from './constructor';
 import { normalizeUnits, normalizeObjectUnits } from '../units/aliases';
 import { getPrioritizedUnits } from '../units/priorities';
+import { smartSetUTCMonth } from '../units/month';
 import { hooks } from '../utils/hooks';
+import { quickCreateUTC, quickCreateLocal } from '../create/from-anything';
 import isFunction from '../utils/is-function';
 
 
-export function makeGetSet (unit, keepTime) {
+export function makeGetSet (unit, msCoef) {
     return function (value) {
         if (value != null) {
-            var mom = set(this, unit, value);
-            return hooks.updateOffset(mom, keepTime);
+            return set(this, unit, value, msCoef);
         } else {
             return get(this, unit);
         }
@@ -18,16 +19,28 @@ export function makeGetSet (unit, keepTime) {
 
 export function get (mom, unit) {
     return mom.isValid() ?
-        mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]() : NaN;
+        mom._d['getUTC' + unit]() : NaN;
 }
 
-export function set (mom, unit, value) {
-    if (mom.isValid()) {
-        mom = new Moment(mom);
-        mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
+function set (mom, unit, value, msCoef) {
+    if (!mom.isValid()) {
+        return mom;
     }
-    return mom;
+    var d, uts;
+    console.log('SET', arguments);
+    if (msCoef != null) {
+        // this is one of ms, second, minute, hour
+        uts = mom.valueOf();
+        uts += (value - get(mom, unit)) * msCoef;
+        return quickCreateUTC(uts, mom._locale, mom._tz);
+    } else {
+        // day or year, NOT month
+        d = new Date(mom._d);
+        d['setUTC' + unit](value);
+        return quickCreateLocal(d.valueOf(), mom._locale, mom._tz);
+    }
 }
+
 
 // MOMENTS
 

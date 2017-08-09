@@ -1,6 +1,7 @@
 import isNumber from '../utils/is-number';
+
 import { getLocale } from './context';
-import { createUTC } from '../create/utc';
+import { createUTC } from '../create/constructors';
 
 function get (format, index, field, setter) {
     var locale = getLocale();

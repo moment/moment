@@ -1,0 +1,64 @@
+# creation
+
+createMoment({
+    input,
+    locale,
+    format,
+    strict, # dfl - yes?
+    timeZone, # dfl - local
+    # localHandling, [OVERLAP_FIRST|OVERLAP_SECOND|OVERLAP_THROW] + [HOLE_FWD|HOLE_BWD|HOLE_THROW]
+})
+
+quickCreate({
+    date,
+    locale,
+    timeZone
+})
+
+TODO
+* freeze Moment after creation (until we test it properly)
+* nextDay
+* isValid -> compute before "construction", checkOverflow
+  - do we have parsing flags if the object is constructed without format?
+* parseZone -> fixedOffset(...., 'parse') + special tmp timezone + check in quick
+* Moment should be called from 3 places (invalid, local, utc)
+
+OLD TODO (maybe del)
+* remove _nextDay from moment -> handle it before "creation"
+* adjust valueOf to add _offset
+* fix createInvalid
+* no more default createFromInputFallback?
+* make sure isValid is done before constrution, verify raw isValid vs moment isValid. Check also checkOverflow
+  -- moment#isValid calls raw isValid, but it should already be computed
+  -- stores result in _isValid (config or moment)
+  -- checkOverflow sets pf.overflow (-2 unset, -1 no overflow)
+  -- some places directly store _isValid
+  -> [isValid] from-anything -> prepareConfig
+  -> [isValid] from-string-and-array -> to check if tempConfig is valid
+  -- ? invalid dates should have _d == null or _d == new Date(NaN)
+* add internal method momentize that will return a new or existing obj from input
+
+
+
+!! dropping momentProperties (no longer needed by moment-timezone
+!! Duration Object should be immutable
+!! Locale(Data) should be (if not already) immutable
+
+* createLocal (local)
+* createLocalOrUTC (from-anything) -> just puts inp data in config object
+* createFromConfig (from-anything)
+* prepareConfig (from-anything)
+ --> from moment
+ --> from date
+ --> from str+array configFromStringAndArray ->.
+ --> from input (str only)  configFromInput>.  .
+ --> from str+fmt configFromStringAndFormat-'--'->.
+ --> from object configFromObject >.              |
+ --> from array  configFromArray --'--------------'
+
+# am/pm bug 297 -- should be able to skip am/pm ?
+# array of formats --> there won't be any leftovers, so rethink strict with arrays
+ ---> define strictness with flags and make it configurable?
+# X (unix) parses also parts, we need to make X.S, X.SS and X.SSS separate tokens
+# 'str Z' is not valid ISO, 'strZ' is
+# what about all the locale issues related to strict parsing

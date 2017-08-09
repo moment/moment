@@ -12,8 +12,9 @@ import toInt from '../utils/to-int';
 import isArray from '../utils/is-array';
 import isNumber from '../utils/is-number';
 import indexOf from '../utils/index-of';
-import { createUTC } from '../create/utc';
+import { quickCreateLocal } from '../create/from-anything';
 import getParsingFlags from '../create/parsing-flags';
+import { createUTC } from '../create/constructors';
 
 export function daysInMonth(year, month) {
     return new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
@@ -167,7 +168,7 @@ export function localeMonthsParse (monthName, format, strict) {
 // MOMENTS
 
 export function setMonth (mom, value) {
-    var dayOfMonth;
+    var d;
 
     if (!mom.isValid()) {
         // No op
@@ -186,16 +187,19 @@ export function setMonth (mom, value) {
         }
     }
 
-    dayOfMonth = Math.min(mom.date(), daysInMonth(mom.year(), value));
-    mom = new Moment(mom);
-    mom._d['set' + (mom._isUTC ? 'UTC' : '') + 'Month'](value, dayOfMonth);
-    return mom;
+    d = new Date(mom._d);
+    smartSetUTCMonth(d, value);
+    return quickCreateLocal(d.valueOf(), mom._locale, mom._tz);
+}
+
+export function smartSetUTCMonth(d, month) {
+    var dayOfMonth = Math.min(d.getUTCDate(), daysInMonth(d.getUTCFullYear(), month));
+    d.setUTCMonth(month, dayOfMonth);
 }
 
 export function getSetMonth (value) {
     if (value != null) {
-        var mom = setMonth(this, value);
-        return hooks.updateOffset(mom, true);
+        return setMonth(this, value);
     } else {
         return get(this, 'Month');
     }

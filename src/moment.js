@@ -19,7 +19,7 @@ import {
     createUnix      as unix,
     createLocal     as local,
     createInvalid   as invalid,
-    createInZone    as parseZone
+    createFixedOffset    as fixedOffset
 } from './lib/moment/moment';
 
 import {
@@ -70,7 +70,7 @@ moment.invalid               = invalid;
 moment.duration              = duration;
 moment.isMoment              = isMoment;
 moment.weekdays              = weekdays;
-moment.parseZone             = parseZone;
+moment.fixedOffset           = fixedOffset;
 moment.localeData            = localeData;
 moment.isDuration            = isDuration;
 moment.monthsShort           = monthsShort;

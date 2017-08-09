@@ -22,7 +22,7 @@ addParseToken(['m', 'mm'], MINUTE);
 
 // MOMENTS
 
-export var getSetMinute = makeGetSet('Minutes', false);
+export var getSetMinute = makeGetSet('Minutes', 60 * 1000);
 
 // PRIORITY
 

@@ -1,19 +1,19 @@
 import { hooks } from '../utils/hooks';
-import { createDate, createUTCDate } from './date-from-array';
+import { createUTCDate } from './date-from-array';
+import { quickCreateUTC } from './from-anything';
 import { daysInYear } from '../units/year';
 import { weekOfYear, weeksInYear, dayOfYearFromWeeks } from '../units/week-calendar-utils';
 import { YEAR, MONTH, DATE, HOUR, MINUTE, SECOND, MILLISECOND } from '../units/constants';
-import { createLocal } from './local';
+import { fixedTimeZoneForOffset } from '../timezone/fixed-offset';
 import defaults from '../utils/defaults';
 import getParsingFlags from './parsing-flags';
+import checkOverflow from './check-overflow';
 
-function currentDateArray(config) {
-    // hooks is actually the exported moment object
-    var nowValue = new Date(hooks.now());
-    if (config._useUTC) {
-        return [nowValue.getUTCFullYear(), nowValue.getUTCMonth(), nowValue.getUTCDate()];
-    }
-    return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
+// TODO(Iskren): Call only if needed
+function currentDateArray(config, tz) {
+    var now = hooks.now(),
+        nowValue = new Date(now + tz.offsetFromTimestamp(now));
+    return [nowValue.getUTCFullYear(), nowValue.getUTCMonth(), nowValue.getUTCDate()];
 }
 
 // convert an array to a date.
@@ -21,17 +21,22 @@ function currentDateArray(config) {
 // note: all values past the year are optional and will default to the lowest possible value.
 // [year, month, day , hour, minute, second, millisecond]
 export function configFromArray (config) {
-    var i, date, input = [], currentDate, yearToUse;
+    var i, date, input = [], currentDate, yearToUse, tz = config._tz;
 
     if (config._d) {
         return;
     }
 
-    currentDate = currentDateArray(config);
+    // TODO: Implement ignoreOffset config flag
+    if (config._tzm) {
+        tz = fixedTimeZoneForOffset(config._tzm);
+    }
+
+    currentDate = currentDateArray(config, tz);
 
     //compute day of the year from weeks and weekdays
     if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
-        dayOfYearFromWeekInfo(config);
+        dayOfYearFromWeekInfo(config, tz);
     }
 
     //if the day of the year is set, figure out what it is
@@ -70,31 +75,37 @@ export function configFromArray (config) {
         config._a[HOUR] = 0;
     }
 
-    config._d = (config._useUTC ? createUTCDate : createDate).apply(null, input);
+    config._d = createUTCDate.apply(null, input);
+    // TODO: Handle ignoreOffset flag
     // Apply timezone offset from input. The actual utcOffset can be changed
     // with parseZone.
     if (config._tzm != null) {
         config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
+        config._useUTC = true;
     }
+    // TODO: Implement fixedOffset 'parse'
+    // if (config._tz === parseTimeZone) {
+    //     config._tz = fixedTimeZoneForOffset(config._tzm);
+    // }
+
 
     if (config._nextDay) {
         config._a[HOUR] = 24;
     }
+    checkOverflow(config);
 }
 
-function dayOfYearFromWeekInfo(config) {
-    var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow;
+function dayOfYearFromWeekInfo(config, tz) {
+    var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow, now;
 
     w = config._w;
     if (w.GG != null || w.W != null || w.E != null) {
         dow = 1;
         doy = 4;
 
-        // TODO: We need to take the current isoWeekYear, but that depends on
-        // how we interpret now (local, utc, fixed offset). So create
-        // a now version of current config (take local/utc/offset flags, and
-        // create now).
-        weekYear = defaults(w.GG, config._a[YEAR], weekOfYear(createLocal(), 1, 4).year);
+        // TODO: Compute only if required.
+        now = quickCreateUTC(hooks.now(), config._locale, tz);
+        weekYear = defaults(w.GG, config._a[YEAR], weekOfYear(now, 1, 4).year);
         week = defaults(w.W, 1);
         weekday = defaults(w.E, 1);
         if (weekday < 1 || weekday > 7) {
@@ -104,7 +115,9 @@ function dayOfYearFromWeekInfo(config) {
         dow = config._locale._week.dow;
         doy = config._locale._week.doy;
 
-        var curWeek = weekOfYear(createLocal(), dow, doy);
+        // TODO: Compute only if required
+        now = quickCreateUTC(hooks.now(), config._locale, tz);
+        var curWeek = weekOfYear(now, dow, doy);
 
         weekYear = defaults(w.gg, config._a[YEAR], curWeek.year);
 
