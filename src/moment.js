@@ -29,6 +29,7 @@ import {
 import {
     defineLocale,
     updateLocale,
+    resetLocales,
     getSetGlobalLocale as locale,
     getLocale          as localeData,
     listLocales        as locales,
@@ -51,6 +52,10 @@ import { normalizeUnits } from './lib/units/units';
 import isDate from './lib/utils/is-date';
 
 setHookCallback(local);
+
+moment._internal = {
+  resetLocales
+};
 
 moment.fn                    = fn;
 moment.min                   = min;

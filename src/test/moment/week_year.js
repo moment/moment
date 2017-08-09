@@ -1,6 +1,5 @@
 import { module, test } from '../qunit';
 import moment from '../../moment';
-import {resetLocales} from '../../lib/locale/locale';
 
 module('week year');
 
@@ -73,16 +72,17 @@ test('week year roundtrip', function (assert) {
             for (wd = 0; wd < 7; ++wd) {
                 localeName = 'dow: ' + dow + ', doy: ' + doy;
                 moment.locale(localeName, {week: {dow: dow, doy: doy}});
+
                 // We use the 10th week as the 1st one can spill to the previous year
                 m = moment('2015 10 ' + wd, 'gggg w d', true);
                 assert.equal(m.format('gggg w d'), '2015 10 ' + wd, 'dow: ' + dow + ' doy: ' + doy + ' wd: ' + wd);
                 m = moment('2015 10 ' + wd, 'gggg w e', true);
                 assert.equal(m.format('gggg w e'), '2015 10 ' + wd, 'dow: ' + dow + ' doy: ' + doy + ' wd: ' + wd);
+
+                moment._internal.resetLocales();
             }
-            resetLocales();
         }
     }
-    moment.locale('en');
 });
 
 test('week numbers 2012/2013', function (assert) {

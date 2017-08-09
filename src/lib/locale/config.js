@@ -81,7 +81,6 @@ function sameObjects(obj1, obj2, sameValue) {
                 let res = arr1.length !== arr2.length;
 
                 res = arr1.every((value, index) => value === arr2[index]);
-                console.log('res', res);
                 return res;
             }
             return obj1[k] === obj2[k];

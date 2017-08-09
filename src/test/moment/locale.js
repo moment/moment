@@ -205,7 +205,6 @@ test('duration locale method', function (assert) {
 });
 
 test('duration locale persists with cloning', function (assert) {
-    console.log('duration locale persists with cloning');
     moment.locale('en');
 
     var a = moment.duration({seconds:  44}).locale('es'),
