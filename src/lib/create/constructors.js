@@ -1,7 +1,9 @@
-import { createCollect, createInvalid } from './from-anything';
+import { createCollect } from './from-anything';
 import { localTimeZone } from '../timezone/local';
 import { fixedTimeZoneForOffset } from '../timezone/fixed-offset';
 import { parsedTimeZone } from '../timezone/parsed';
+import { invalidTimeZone } from '../timezone/invalid';
+import { isTimeZone } from '../timezone/index';
 import { isMoment } from '../moment/constructor';
 
 export function createUTC (input, format, locale, strict) {
@@ -17,9 +19,6 @@ export function createFixedOffset () {
     var args = [].slice.apply(arguments),
         reg = args.slice(0, args.length - 1),
         last = args.length > 0 ? args[args.length - 1] : null;
-    if (args.length === 0) {
-        return createInvalid();
-    }
     return createCollect(reg[0], reg[1], reg[2], reg[3], fixedTimeZoneForOffset(last));
 }
 
@@ -30,11 +29,9 @@ export function createLocal (input, format, locale, strict) {
 export function createZoned () {
     var args = [].slice.apply(arguments),
         reg = args.slice(0, args.length - 1),
-        last = args.length > 0 ? args[args.length - 1] : null;
-    if (args.length === 0) {
-        return createInvalid();
-    }
-    return createCollect(reg[0], reg[1], reg[2], reg[3], last);
+        last = args.length > 0 ? args[args.length - 1] : null,
+        timeZone = last != null && isTimeZone(last) ? last : invalidTimeZone;
+    return createCollect(reg[0], reg[1], reg[2], reg[3], timeZone);
 }
 
 // TODO (Iskren): Create defaultCreator and make it settable

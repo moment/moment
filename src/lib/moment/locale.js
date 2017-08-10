@@ -1,4 +1,4 @@
-import { quickCreateUTC } from '../create/from-anything';
+import { quickCreateUTC, createInvalid } from '../create/from-anything';
 import { getLocale } from '../locale/locales';
 
 
@@ -13,7 +13,11 @@ export function locale (key) {
     } else {
         newLocaleData = getLocale(key);
         if (newLocaleData != null) {
-            return quickCreateUTC(this.valueOf(), newLocaleData, this._tz);
+            if (this.isValid()) {
+                return quickCreateUTC(this.valueOf(), newLocaleData, this._tz);
+            } else {
+                return createInvalid({}, {_locale: newLocaleData, _tz: this._tz});
+            }
         }
         return this;
     }

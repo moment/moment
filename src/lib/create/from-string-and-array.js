@@ -11,7 +11,7 @@ function cloneConfig(config) {
         _i : config._i,
         _f : config._f,
         _strict : config._strict
-    }
+    };
 }
 
 // date from string and array of format strings

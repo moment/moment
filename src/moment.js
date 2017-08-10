@@ -25,6 +25,11 @@ import {
 } from './lib/moment/moment';
 
 import {
+    timezones,
+    isTimeZone
+} from './lib/timezone/index';
+
+import {
     getCalendarFormat
 } from './lib/moment/calendar';
 
@@ -58,6 +63,7 @@ moment.fn                    = fn;
 moment.min                   = min;
 moment.max                   = max;
 moment.now                   = now;
+moment.timezone              = timezones;
 moment.utc                   = utc;
 moment.parseZone             = parseZone;
 moment.zoned                 = zoned;
@@ -82,6 +88,7 @@ moment.normalizeUnits        = normalizeUnits;
 moment.relativeTimeRounding  = relativeTimeRounding;
 moment.relativeTimeThreshold = relativeTimeThreshold;
 moment.calendarFormat        = getCalendarFormat;
+moment.isTimeZone            = isTimeZone;
 moment.prototype             = fn;
 
 export default moment;

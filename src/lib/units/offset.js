@@ -1,4 +1,5 @@
 import zeroFill from '../utils/zero-fill';
+import { createInvalid } from '../create/from-anything';
 import { momentize } from '../create/constructors';
 import { createDuration } from '../duration/create';
 import { addSubtract } from '../moment/add-subtract';
@@ -46,7 +47,7 @@ addParseToken(['Z', 'ZZ'], function (input, array, config) {
 // '-1530'  > ['-15', '30']
 var chunkOffset = /([\+\-]|\d\d)/gi;
 
-function offsetFromString(matcher, string) {
+export function offsetFromString(matcher, string) {
     var matches = (string || '').match(matcher);
 
     if (matches === null) {
@@ -95,8 +96,17 @@ function getDateOffset (m) {
 // there is no such time in the given timezone.
 
 export function changeTimezone(mom, newTz, keepLocalTime) {
-    // TODO: Check if newTz is same as current (by comparing zone._key or sth)
-    // -- it is used a lot with possibly same tz (from cloneWithOffset)
+    if (!mom.isValid()) {
+        return mom;
+    }
+    if (!newTz.isValid()) {
+        return createInvalid({}, {_locale: mom._locale, _tz: newTz});
+    }
+    // all internal zones are cached, moment-timezone is cached so this should
+    // speed things a lot.
+    if (newTz === mom._tz) {
+        return mom;
+    }
     if (keepLocalTime) {
         return quickCreateLocal(mom._d.valueOf(), mom._locale, newTz);
     } else {
@@ -255,5 +265,5 @@ export function isUtcOffset () {
 }
 
 export function isUtc () {
-    return this.isValid() && this._tz.type === 'fixed-offset' && this._tz.offset === 0;
+    return this.isValid() && this._tz.type === 'fixed-offset' && this._tz.offset() === 0;
 }

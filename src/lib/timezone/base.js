@@ -1,6 +1,14 @@
+import extend from '../utils/extend';
+
 export default function BaseTimeZone() {
 }
 
-BaseTimeZone.prototype.isValid = function() {
-    return true;
-}
+extend(BaseTimeZone.prototype, {
+    type: 'base',
+    isValid: function () {
+        return true;
+    },
+    offsetFromTimestamp: function (uts) {
+        return 0;
+    }
+});

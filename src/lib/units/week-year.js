@@ -86,6 +86,9 @@ function getSetWeekYearHelper(mom, input, week, weekday, dow, doy) {
     if (input == null) {
         return weekOfYear(mom, dow, doy).year;
     } else {
+        if (!mom.isValid()) {
+            return mom;
+        }
         weeksTarget = weeksInYear(input, dow, doy);
         if (week > weeksTarget) {
             week = weeksTarget;

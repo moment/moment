@@ -10,12 +10,12 @@ addFormatToken('zz', 0, 0, 'zoneName');
 
 // TODO(Iskren): use _tz provided functions
 export function getZoneAbbr () {
-    return this._tz.type === 'fixed-offset' && this._tz.offset === 0 ? 'UTC' : '';
+    return this._tz.type === 'fixed-offset' && this._tz.offset() === 0 ? 'UTC' : '';
 }
 
 // TODO(Iskren): use _tz provided functions
 export function getZoneName () {
-    return this._tz.type === 'fixed-offset' && this._tz.offset === 0 ? 'Coordinated Universal Time' : '';
+    return this._tz.type === 'fixed-offset' && this._tz.offset() === 0 ? 'Coordinated Universal Time' : '';
 }
 
 export function getSetZoneData (input) {

@@ -12,6 +12,7 @@ import { hooks } from '../utils/hooks';
 import checkOverflow from './check-overflow';
 import { isValid } from './valid';
 import { default as getParsingFlags, defaultParsingFlags } from './parsing-flags';
+import { invalidTimeZone } from '../timezone/invalid';
 
 import { configFromStringAndArray }  from './from-string-and-array';
 import { configFromStringAndFormat } from './from-string-and-format';
@@ -21,9 +22,14 @@ import { configFromObject }          from './from-object';
 
 var updateInProgress = false;
 
-export function createInvalid(flags) {
-    flags = extend(defaultParsingFlags(), {input: NaN, format: undefined, strict: true}, flags ? flags : {});
-    return new Moment({_i: NaN, _pf: flags, _locale: getLocale(null), _d: new Date(NaN), _isValid: false});
+export function createInvalid(flags, config) {
+    config = extend(
+        {_i: null, _f: null, _strict: null, _locale: getLocale(null), _tz: invalidTimeZone},
+        config != null ? config : {});
+    flags = extend(defaultParsingFlags(),
+        {input: config._i, format: config._f, strict: config._strict},
+        flags ? flags : {userInvalidated: true});
+    return new Moment({_pf: flags, _locale: config._locale, _tz: config._tz, _d: new Date(NaN), _isValid: false});
 }
 
 function createFromConfig (config) {
@@ -33,7 +39,7 @@ function createFromConfig (config) {
     config._locale = config._locale || getLocale(config._l);
 
     if (input === null || (format === undefined && input === '')) {
-        return createInvalid({nullInput: true});
+        return createInvalid({nullInput: true}, config);
     }
 
     if (typeof input === 'string') {
@@ -41,11 +47,14 @@ function createFromConfig (config) {
     }
 
     if (isUndefined(input) && !format) {
-        return quickCreateUTC(hooks.now(), config._locale, config._tz);
+        config._d = hooks.now();
+        config._useUTC = true;
     } else if (isMoment(input) || isDate(input)) {
-        return quickCreateUTC(input.valueOf(), config._locale, config._tz);
+        config._d = input.valueOf();
+        config._useUTC = true;
     } else if (isNumber(input) && !format) {
-        return quickCreateUTC(input, config._locale, config._tz);
+        config._d = input;
+        config._useUTC = true;
     } else if (isArray(format)) {
         configFromStringAndArray(config);
     } else if (format) {
@@ -62,20 +71,20 @@ function createFromConfig (config) {
     } else {
         hooks.createFromInputFallback(config);
     }
+    // TODO: Move invalid tz handling from quick create here, get a saner PF
+    // logic for all parsing paths
     if (!isValid(config)) {
-        return createInvalid(getParsingFlags(config));
+        return createInvalid(getParsingFlags(config), config);
     }
 
     // TODO: parsing flags fail ...
     if (config._pf.format == null) {
         config._pf.format = config._f;
     }
-    if (!config._useUTC) {
-        return quickCreateLocal(+config._d, config._locale, config._tz, config._pf);
-    } else {
-        // this case is hit only if there is a timezone present in the string,
-        // and it is not ignored with ignoreOffset: true
+    if (config._useUTC) {
         return quickCreateUTC(+config._d, config._locale, config._tz, config._pf);
+    } else {
+        return quickCreateLocal(+config._d, config._locale, config._tz, config._pf);
     }
 
     // Prevent infinite loop in case updateOffset creates new moment objects.
@@ -102,17 +111,11 @@ function configFromInput(config) {
 }
 
 export function quickCreateLocal(lts, locale, timeZone, pf) {
-    if (!timeZone.isValid()) {
-        return createInvalid({badTimeZone: true});
-    }
     var localTsOffset = computeOffset(lts, timeZone);
     return new Moment({_ts: localTsOffset[0], _offset: localTsOffset[1], _locale: locale, _tz: timeZone, _pf: pf});
 }
 
 export function quickCreateUTC(uts, locale, timeZone, pf) {
-    if (!timeZone.isValid()) {
-        return createInvalid({badTimeZone: true});
-    }
     var offset = timeZone.offsetFromTimestamp(uts);
     return new Moment({_ts: uts + offset, _offset: offset, _locale: locale, _tz: timeZone, _pf: pf});
 }

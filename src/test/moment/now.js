@@ -18,8 +18,8 @@ test('now - Date mocked', function (assert) {
     var RealDate = Date,
         customTimeMs = moment('2015-01-01T01:30:00.000Z').valueOf();
 
-    function MockDate() {
-        return new RealDate(customTimeMs);
+    function MockDate(a) {
+        return arguments.length === 0 ? new RealDate(customTimeMs) : new RealDate(arguments[0]);
     }
 
     MockDate.now = function () {
@@ -31,6 +31,7 @@ test('now - Date mocked', function (assert) {
     Date = MockDate;
 
     try {
+        // console.log('XX', moment()._d.valueOf(), moment()._offset);
         assert.equal(moment().valueOf(), customTimeMs, 'moment now() time should use the global Date object');
     } finally {
         Date = RealDate;

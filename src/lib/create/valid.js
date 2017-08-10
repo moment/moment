@@ -9,7 +9,9 @@ export function isValid(m) {
         var parsedParts = some.call(flags.parsedDateParts, function (i) {
             return i != null;
         });
-        var isNowValid = m._d != null && !isNaN(m._d.getTime()) &&
+        // _d could be number or date
+        var isNowValid = m._d != null && !isNaN(+m._d) &&
+            m._tz.isValid() &&
             flags.overflow < 0 &&
             !flags.empty &&
             !flags.invalidMonth &&
