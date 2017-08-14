@@ -1,0 +1,16 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "target": "es6",
+    "module": "es2015",
+    "noEmit": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true
+  },
+  "include": [
+    "src"
+  ],
+  "files": [
+    "src/moment.d.ts"
+  ]
+}
