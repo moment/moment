@@ -32,7 +32,7 @@ export function toISOString() {
  */
 export function inspect () {
     if (!this.isValid()) {
-        return 'moment.invalid(/* ' + this._i + ' */)';
+        return 'moment.invalid(/* ' + this._pf.input + ' */)';
     }
     var func = 'moment';
     var zone = '';

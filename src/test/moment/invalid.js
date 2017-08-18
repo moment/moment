@@ -37,7 +37,7 @@ test('invalid operations', function (assert) {
         invalid,
         valid = moment();
 
-    test.expectedDeprecations('moment().min', 'moment().max', 'isDSTShifted');
+    test.expectedDeprecations('moment().min', 'moment().max');
 
     assert.ok(valid.isValid(), 'valid moment is valid');
 
@@ -171,7 +171,7 @@ test('invalid operations', function (assert) {
         assert.ok(!invalid.parseZone('05:30').isValid());
         assert.ok(!invalid.hasAlignedHourOffset());
         assert.ok(!invalid.isDST());
-        assert.ok(!invalid.isDSTShifted());
+        // assert.ok(!invalid.isDSTShifted());
         assert.ok(!invalid.isLocal());
         assert.ok(!invalid.isUtcOffset());
         assert.ok(!invalid.isUtc());

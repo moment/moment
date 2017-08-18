@@ -1,5 +1,6 @@
 import { module, test } from '../qunit';
 import moment from '../../moment';
+import { dstTimeZone } from '../helpers/dst-time-zone';
 
 module('utc offset');
 
@@ -113,25 +114,13 @@ test('distance from the unix epoch', function (assert) {
 });
 
 test('update offset after changing any values', function (assert) {
-    var oldOffset = moment.updateOffset,
-        m = moment.utc([2000, 6, 1]),
-        doChange = false;
-
-    moment.updateOffset = function (mom, keepTime) {
-        if (doChange) {
-            if (+mom > 962409600000) {
-                return mom.utcOffset(-120, keepTime);
-            } else {
-                return mom.utcOffset(-60, keepTime);
-            }
-        }
-        return mom;
-    };
+    var m = moment.utc([2000, 6, 1]),
+        tz = dstTimeZone(-1, 962409600001, -2);
 
     assert.equal(m.format('ZZ'), '+0000', 'should be at +0000');
     assert.equal(m.format('HH:mm'), '00:00', 'should start 12AM at +0000 timezone');
 
-    doChange = true;
+    m = moment.zoned(moment.utc([2000, 6, 1]), tz);
     m = m.add(1, 'h');
 
     assert.equal(m.format('ZZ'), '-0200', 'should be at -0200');
@@ -141,11 +130,8 @@ test('update offset after changing any values', function (assert) {
 
     assert.equal(m.format('ZZ'), '-0100', 'should be at -0100');
     assert.equal(m.format('HH:mm'), '23:00', '12AM at +0000 should be 11PM at -0100 timezone');
-
-    moment.updateOffset = oldOffset;
 });
 
-//////////////////
 test('getters and setters', function (assert) {
     var a = moment([2011, 5, 20]);
 
@@ -227,10 +213,10 @@ test('unix offset and timestamp', function (assert) {
 });
 
 test('cloning', function (assert) {
-    assert.equal(moment(moment().utcOffset(-120)).utcOffset(), -120,
-            'copying should retain the offset');
-    assert.equal(moment(moment().utcOffset(120)).utcOffset(), 120,
-            'copying should retain the offset');
+    assert.equal(moment.utc(moment().utcOffset(-120)).utcOffset(), 0,
+            'copying should not retain the offset');
+    assert.equal(moment.fixedOffset(moment().utcOffset(120), -120).utcOffset(), -120,
+            'copying should not retain the offset');
 });
 
 test('start of / end of', function (assert) {
@@ -304,17 +290,9 @@ test('same / before / after', function (assert) {
 });
 
 test('add / subtract over dst', function (assert) {
-    var oldOffset = moment.updateOffset,
-        m = moment.utc([2000, 2, 31, 3]);
-
-    moment.updateOffset = function (mom, keepTime) {
-        if (mom.utc().month() > 2) {
-            mom = mom.utcOffset(60, keepTime);
-        } else {
-            mom = mom.utcOffset(0, keepTime);
-        }
-        return mom;
-    };
+    var dstAt = moment.parseZone('2000-04-01T00:00:00+01:00'),
+        tz = dstTimeZone(0, dstAt, +1),
+        m = moment.zoned(moment.utc([2000, 2, 31, 3]), tz);
 
     assert.equal(m.hour(), 3, 'should start at 00:00');
 
@@ -335,40 +313,41 @@ test('add / subtract over dst', function (assert) {
 
     m = m.subtract(1, 'month');
     assert.equal(m.hour(), 3, 'subtracting 1 month should have the same hour');
-
-    moment.updateOffset = oldOffset;
 });
 
 test('isDST', function (assert) {
-    var oldOffset = moment.updateOffset;
+    var tz = dstTimeZone(
+        0,
+        moment.parseZone('2012-04-01T00:00:00+01:00'),
+        +1,
+        moment.parseZone('2012-09-01T00:00:00+00:00'),
+        0);
 
-    moment.updateOffset = function (mom, keepTime) {
-        if (mom.month() > 2 && mom.month() < 9) {
-            mom = mom.utcOffset(60, keepTime);
-        } else {
-            mom = mom.utcOffset(0, keepTime);
-        }
-        return mom;
-    };
+    // var oldOffset = moment.updateOffset;
 
-    assert.ok(!moment().month(0).isDST(),  'Jan should not be summer dst');
-    assert.ok(moment().month(6).isDST(),   'Jul should be summer dst');
-    assert.ok(!moment().month(11).isDST(), 'Dec should not be summer dst');
+    // moment.updateOffset = function (mom, keepTime) {
+    //     if (mom.month() > 2 && mom.month() < 9) {
+    //         mom = mom.utcOffset(60, keepTime);
+    //     } else {
+    //         mom = mom.utcOffset(0, keepTime);
+    //     }
+    //     return mom;
+    // };
 
-    moment.updateOffset = function (mom) {
-        if (mom.month() > 2 && mom.month() < 9) {
-            mom = mom.utcOffset(0);
-        } else {
-            mom = mom.utcOffset(60);
-        }
-        return mom;
-    };
+    assert.ok(!moment.zoned([2012, 0], tz).isDST(),  'Jan should not be summer dst');
+    assert.ok(moment.zoned([2012, 6], tz).isDST(),   'Jul should be summer dst');
+    assert.ok(!moment.zoned([2012, 11], tz).isDST(), 'Dec should not be summer dst');
 
-    assert.ok(moment().month(0).isDST(),  'Jan should be winter dst');
-    assert.ok(!moment().month(6).isDST(), 'Jul should not be winter dst');
-    assert.ok(moment().month(11).isDST(), 'Dec should be winter dst');
+    tz = dstTimeZone(
+        +1,
+        moment.parseZone('2012-04-01T00:00:00+00:00'),
+        0,
+        moment.parseZone('2012-09-01T00:00:00+01:00'),
+        +1);
 
-    moment.updateOffset = oldOffset;
+    assert.ok(moment.zoned([2012, 0], tz).isDST(),  'Jan should be winter dst');
+    assert.ok(!moment.zoned([2012, 6], tz).isDST(), 'Jul should not be winter dst');
+    assert.ok(moment.zoned([2012, 11], tz).isDST(), 'Dec should be winter dst');
 });
 
 test('zone names', function (assert) {
@@ -422,13 +401,13 @@ test('hours alignment with other zone', function (assert) {
 });
 
 test('parse zone', function (assert) {
-    var m = moment('2013-01-01T00:00:00-13:00').parseZone();
+    var m = moment.parseZone('2013-01-01T00:00:00-13:00');
     assert.equal(m.utcOffset(), -13 * 60);
     assert.equal(m.hours(), 0);
 });
 
 test('parse UTC zone', function (assert) {
-    var m = moment('2013-01-01T05:00:00+00:00').parseZone();
+    var m = moment.parseZone('2013-01-01T05:00:00+00:00');
     assert.equal(m.utcOffset(), 0);
     assert.equal(m.hours(), 5);
 });
@@ -450,16 +429,17 @@ test('parse zone with more arguments', function (assert) {
 });
 
 test('parse zone with a timezone from the format string', function (assert) {
-    var m = moment('11-12-2013 -0400 +1100', 'DD-MM-YYYY ZZ #####').parseZone();
+    var m = moment.parseZone('11-12-2013 -0400 +1100', 'DD-MM-YYYY ZZ #####');
 
     assert.equal(m.utcOffset(), -4 * 60);
 });
 
-test('parse zone without a timezone included in the format string', function (assert) {
-    var m = moment('11-12-2013 -0400 +1100', 'DD-MM-YYYY').parseZone();
+// TODO: We drop this ... whf
+// test('parse zone without a timezone included in the format string', function (assert) {
+//     var m = moment.parseZone('11-12-2013 -0400 +1100', 'DD-MM-YYYY');
 
-    assert.equal(m.utcOffset(), 11 * 60);
-});
+//     assert.equal(m.utcOffset(), 11 * 60);
+// });
 
 test('timezone format', function (assert) {
     assert.equal(moment().utcOffset(60).format('ZZ'), '+0100', '-60 -> +0100');

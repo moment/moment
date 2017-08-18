@@ -1,7 +1,7 @@
 import { deprecate } from '../utils/deprecate';
 import isArray from '../utils/is-array';
-import { createLocal } from '../create/local';
-import { createInvalid } from '../create/valid';
+import { createLocal } from '../create/constructors';
+import { createInvalid } from '../create/from-anything';
 
 export var prototypeMin = deprecate(
     'moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/',

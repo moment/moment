@@ -1,10 +1,11 @@
 import { Moment } from './constructor';
-import { get, set } from './get-set';
-import { setMonth } from '../units/month';
+import { get } from './get-set';
+import { smartSetUTCMonth } from '../units/month';
 import { createDuration } from '../duration/create';
 import { deprecateSimple } from '../utils/deprecate';
 import { hooks } from '../utils/hooks';
 import absRound from '../utils/abs-round';
+import { quickCreateUTC, quickCreateLocal } from '../create/from-anything';
 
 
 // TODO: remove 'name' arg after deprecation is removed
@@ -24,32 +25,31 @@ function createAdder(direction, name) {
     };
 }
 
-export function addSubtract (mom, duration, isAdding, updateOffset) {
+export function addSubtract (mom, duration, isAdding) {
+    // TODO: Check for last argument usage, make sure its ok
     var milliseconds = duration._milliseconds,
         days = absRound(duration._days),
-        months = absRound(duration._months);
+        months = absRound(duration._months),
+        d;
 
     if (!mom.isValid()) {
         // No op
         return mom;
     }
 
-    updateOffset = updateOffset == null ? true : updateOffset;
-
-    if (milliseconds) {
-        mom = new Moment(mom);
-        mom._d.setTime(mom._d.valueOf() + milliseconds * isAdding);
+    if (months || days) {
+        d = new Date(mom._d);
+        if (months) {
+            // takes care of 31st Jan + 1m -> 28th Feb
+            smartSetUTCMonth(d, d.getUTCMonth() + months * isAdding);
+        }
+        if (days) {
+            d.setUTCDate(d.getUTCDate() + days * isAdding);
+        }
+        return quickCreateLocal(d.valueOf() + milliseconds * isAdding, mom._locale, mom._tz);
+    } else {
+        return quickCreateUTC(mom.valueOf() + milliseconds * isAdding, mom._locale, mom._tz);
     }
-    if (days) {
-        mom = set(mom, 'Date', get(mom, 'Date') + days * isAdding);
-    }
-    if (months) {
-        mom = setMonth(mom, get(mom, 'Month') + months * isAdding);
-    }
-    if (updateOffset) {
-        mom = hooks.updateOffset(mom, days || months);
-    }
-    return mom;
 }
 
 export var add      = createAdder(1, 'add');

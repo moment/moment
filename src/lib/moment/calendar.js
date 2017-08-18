@@ -1,7 +1,6 @@
-import { createLocal } from '../create/local';
-import { cloneWithOffset } from '../units/offset';
 import isFunction from '../utils/is-function';
 import { hooks } from '../utils/hooks';
+import { momentize } from '../create/constructors';
 
 export function getCalendarFormat(myMoment, now) {
     var diff = myMoment.diff(now, 'days', true);
@@ -14,13 +13,19 @@ export function getCalendarFormat(myMoment, now) {
 }
 
 export function calendar (time, formats) {
+    if (!this.isValid()) {
+        return this.localeData().invalidDate();
+    }
+    var now = momentize(time != null ? time : undefined);
+    if (!now.isValid()) {
+        return this.localeData().invalidDate();
+    }
     // We want to compare the start of today, vs this.
     // Getting start-of-today depends on whether we're local/utc/offset or not.
-    var now = time || createLocal(),
-        sod = cloneWithOffset(now, this).startOf('day'),
+    var sod = now.zoneData(this.zoneData()).startOf('day'),
         format = hooks.calendarFormat(this, sod) || 'sameElse';
 
     var output = formats && (isFunction(formats[format]) ? formats[format].call(this, now) : formats[format]);
 
-    return this.format(output || this.localeData().calendar(format, this, createLocal(now)));
+    return this.format(output || this.localeData().calendar(format, this, now));
 }

@@ -4,6 +4,16 @@ import getParsingFlags from './parsing-flags';
 import { isValid } from './valid';
 import extend from '../utils/extend';
 
+function cloneConfig(config) {
+    return {
+        _tz : config._tz,
+        _locale : config._locale,
+        _i : config._i,
+        _f : config._f,
+        _strict : config._strict
+    };
+}
+
 // date from string and array of format strings
 export function configFromStringAndArray(config) {
     var tempConfig,
@@ -21,10 +31,7 @@ export function configFromStringAndArray(config) {
 
     for (i = 0; i < config._f.length; i++) {
         currentScore = 0;
-        tempConfig = copyConfig({}, config);
-        if (config._useUTC != null) {
-            tempConfig._useUTC = config._useUTC;
-        }
+        tempConfig = cloneConfig(config);
         tempConfig._f = config._f[i];
         configFromStringAndFormat(tempConfig);
 

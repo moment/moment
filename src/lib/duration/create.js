@@ -1,11 +1,11 @@
 import { Duration, isDuration } from './constructor';
+import { momentize } from '../create/constructors';
 import isNumber from '../utils/is-number';
 import toInt from '../utils/to-int';
 import absRound from '../utils/abs-round';
 import hasOwnProp from '../utils/has-own-prop';
 import { DATE, HOUR, MINUTE, SECOND, MILLISECOND } from '../units/constants';
-import { cloneWithOffset } from '../units/offset';
-import { createLocal } from '../create/local';
+import { changeTimezone } from '../units/offset';
 import { createInvalid as invalid } from './valid';
 
 // ASP.NET json date format regex
@@ -57,7 +57,7 @@ export function createDuration (input, key) {
     } else if (duration == null) {// checks for null or undefined
         duration = {};
     } else if (typeof duration === 'object' && ('from' in duration || 'to' in duration)) {
-        diffRes = momentsDifference(createLocal(duration.from), createLocal(duration.to));
+        diffRes = momentsDifference(duration.from, duration.to);
 
         duration = {};
         duration.ms = diffRes.milliseconds;
@@ -101,11 +101,12 @@ function positiveMomentsDifference(base, other) {
 
 function momentsDifference(base, other) {
     var res;
+    base = momentize(base);
+    other = changeTimezone(momentize(other), base._tz);
     if (!(base.isValid() && other.isValid())) {
         return {milliseconds: 0, months: 0};
     }
 
-    other = cloneWithOffset(other, base);
     if (base.isBefore(other)) {
         res = positiveMomentsDifference(base, other);
     } else {

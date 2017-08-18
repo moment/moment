@@ -83,7 +83,6 @@ export function configFromStringAndFormat(config) {
     config._a[HOUR] = meridiemFixWrap(config._locale, config._a[HOUR], config._meridiem);
 
     configFromArray(config);
-    checkOverflow(config);
 }
 
 

@@ -214,9 +214,9 @@ test('calendar next week', function (assert) {
     for (i = 2; i < 7; i++) {
         m = moment().add({d: i});
         assert.equal(m.calendar(),       m.format('dddd [' + (m.hours() % 12 === 1 ? 'στη' : 'στις') + '] LT'),  'Today + ' + i + ' days current time');
-        m.hours(0).minutes(0).seconds(0).milliseconds(0);
+        m = m.hours(0).minutes(0).seconds(0).milliseconds(0);
         assert.equal(m.calendar(),       m.format('dddd [στις] LT'),  'Today + ' + i + ' days beginning of day');
-        m.hours(23).minutes(59).seconds(59).milliseconds(999);
+        m = m.hours(23).minutes(59).seconds(59).milliseconds(999);
         assert.equal(m.calendar(),       m.format('dddd [στις] LT'),  'Today + ' + i + ' days end of day');
     }
 });

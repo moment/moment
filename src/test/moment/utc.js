@@ -61,11 +61,11 @@ test('creating with utc without timezone', function (assert) {
 
 test('cloning with utc offset', function (assert) {
     var m = moment.utc('2012-01-02T08:20:00');
-    assert.equal(moment.utc(m)._isUTC, true, 'the local offset should be converted to UTC');
-    assert.equal(moment.utc(m.utc())._isUTC, true, 'the local offset should stay in UTC');
+    assert.equal(moment.utc(m).isUTC(), true, 'the local offset should be converted to UTC');
+    assert.equal(moment.utc(m.utc()).isUTC(), true, 'the local offset should stay in UTC');
 
     m.utcOffset(120);
-    assert.equal(moment.utc(m)._isUTC, true, 'the explicit utc offset should stay in UTC');
+    assert.equal(moment.utc(m).isUTC(), true, 'the explicit utc offset should stay in UTC');
     assert.equal(moment.utc(m).utcOffset(), 0, 'the explicit utc offset should have an offset of 0');
 });
 

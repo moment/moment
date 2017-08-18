@@ -1,11 +1,13 @@
 import { isDuration } from './constructor';
 import { createDuration } from './create';
-import { createInvalid } from './valid';
 
 function addSubtract (duration, input, value, direction) {
     var other = isDuration(input) ? input : createDuration(input, value);
-    if (!duration.isValid() || !other.isValid()) {
-        return createInvalid();
+    if (!duration.isValid()) {
+        return duration;
+    }
+    if (!other.isValid()) {
+        return other;
     }
     return createDuration({
         ms: duration._milliseconds + direction * other._milliseconds,

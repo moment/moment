@@ -19,8 +19,15 @@ import {
     createUnix      as unix,
     createLocal     as local,
     createInvalid   as invalid,
-    createInZone    as parseZone
+    createFixedOffset as fixedOffset,
+    createParsedOffset as parseZone,
+    createZoned as zoned
 } from './lib/moment/moment';
+
+import {
+    timezones,
+    isTimeZone
+} from './lib/timezone/index';
 
 import {
     getCalendarFormat
@@ -56,7 +63,10 @@ moment.fn                    = fn;
 moment.min                   = min;
 moment.max                   = max;
 moment.now                   = now;
+moment.timezone              = timezones;
 moment.utc                   = utc;
+moment.parseZone             = parseZone;
+moment.zoned                 = zoned;
 moment.unix                  = unix;
 moment.months                = months;
 moment.isDate                = isDate;
@@ -65,7 +75,7 @@ moment.invalid               = invalid;
 moment.duration              = duration;
 moment.isMoment              = isMoment;
 moment.weekdays              = weekdays;
-moment.parseZone             = parseZone;
+moment.fixedOffset           = fixedOffset;
 moment.localeData            = localeData;
 moment.isDuration            = isDuration;
 moment.monthsShort           = monthsShort;
@@ -78,6 +88,7 @@ moment.normalizeUnits        = normalizeUnits;
 moment.relativeTimeRounding  = relativeTimeRounding;
 moment.relativeTimeThreshold = relativeTimeThreshold;
 moment.calendarFormat        = getCalendarFormat;
+moment.isTimeZone            = isTimeZone;
 moment.prototype             = fn;
 
 export default moment;

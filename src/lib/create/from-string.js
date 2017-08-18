@@ -1,4 +1,5 @@
 import { configFromStringAndFormat } from './from-string-and-format';
+import { isValid } from './valid';
 import { hooks } from '../utils/hooks';
 import { deprecate } from '../utils/deprecate';
 import getParsingFlags from './parsing-flags';
@@ -170,6 +171,7 @@ export function configFromString(config) {
 
     if (matched !== null) {
         config._d = new Date(+matched[1]);
+        config._useUTC = true;
         return;
     }
 
@@ -191,12 +193,16 @@ export function configFromString(config) {
     hooks.createFromInputFallback(config);
 }
 
-hooks.createFromInputFallback = deprecate(
-    'value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), ' +
-    'which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are ' +
-    'discouraged and will be removed in an upcoming major release. Please refer to ' +
-    'http://momentjs.com/guides/#/warnings/js-date/ for more info.',
-    function (config) {
-        config._d = new Date(config._i + (config._useUTC ? ' UTC' : ''));
-    }
-);
+hooks.createFromInputFallback = function (config) {
+    config._d = new Date(NaN);
+};
+
+// hooks.createFromInputFallback = deprecate(
+//     'value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), ' +
+//     'which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are ' +
+//     'discouraged and will be removed in an upcoming major release. Please refer to ' +
+//     'http://momentjs.com/guides/#/warnings/js-date/ for more info.',
+//     function (config) {
+//         config._d = new Date(config._i + (config._tz.type != 'local' ? ' UTC' : ''));
+//     }
+// );

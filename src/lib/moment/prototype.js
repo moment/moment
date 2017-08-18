@@ -110,7 +110,6 @@ import {
     setOffsetToParsedOffset,
     hasAlignedHourOffset,
     isDaylightSavingTime,
-    isDaylightSavingTimeShifted,
     getSetZone,
     isLocal,
     isUtcOffset,
@@ -128,9 +127,10 @@ proto.isUtc                = isUtc;
 proto.isUTC                = isUtc;
 
 // Timezone
-import { getZoneAbbr, getZoneName } from '../units/timezone';
+import { getZoneAbbr, getZoneName, getSetZoneData } from '../units/timezone';
 proto.zoneAbbr = getZoneAbbr;
 proto.zoneName = getZoneName;
+proto.zoneData = getSetZoneData;
 
 // Deprecations
 import { deprecate } from '../utils/deprecate';
@@ -160,8 +160,8 @@ proto.years = deprecate(
 proto.zone = deprecate(
     'moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/',
     getSetZone);
-proto.isDSTShifted = deprecate(
-    'isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information',
-    isDaylightSavingTimeShifted);
+// proto.isDSTShifted = deprecate(
+//     'isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information',
+//     isDaylightSavingTimeShifted);
 
 export default proto;

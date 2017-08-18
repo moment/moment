@@ -61,7 +61,7 @@ for (token = 'S'; token.length <= 9; token += 'S') {
 }
 // MOMENTS
 
-export var getSetMillisecond = makeGetSet('Milliseconds', false);
+export var getSetMillisecond = makeGetSet('Milliseconds', 1);
 
 // PRIORITY
 

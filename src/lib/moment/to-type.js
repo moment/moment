@@ -1,5 +1,5 @@
 export function valueOf () {
-    return this._d.valueOf() - ((this._offset || 0) * 60000);
+    return this._d.valueOf() - (this._offset || 0);
 }
 
 export function unix () {

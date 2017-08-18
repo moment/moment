@@ -1,6 +1,5 @@
-import { createLocal } from '../create/local';
-import { createUTC } from '../create/utc';
-import { createInvalid } from '../create/valid';
+import { createLocal, createUTC, createFixedOffset, createParsedOffset, createZoned } from '../create/constructors';
+import { createInvalid } from '../create/from-anything';
 import { isMoment } from './constructor';
 import { min, max } from './min-max';
 import { now } from './now';
@@ -10,9 +9,9 @@ function createUnix (input) {
     return createLocal(input * 1000);
 }
 
-function createInZone () {
-    return createLocal.apply(null, arguments).parseZone();
-}
+// function createInZone () {
+//     return createLocal.apply(null, arguments).parseZone();
+// }
 
 export {
     now,
@@ -22,7 +21,9 @@ export {
     createUTC,
     createUnix,
     createLocal,
-    createInZone,
+    createFixedOffset,
+    createParsedOffset,
+    createZoned,
     createInvalid,
     momentPrototype
 };
