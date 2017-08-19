@@ -1224,3 +1224,8 @@ test('k, kk', function (assert) {
     }
 });
 
+test('mismatching day-of-week and date', function (assert) {
+    assert.ok(!moment('Wed 08-10-2017', 'ddd MM-DD-YYYY').isValid(), 'because the day-of-the-week is incorrect for the date');
+    assert.ok(moment('Thu 08-10-2017', 'ddd MM-DD-YYYY').isValid(), 'because the day-of-the-week is correct for the date');
+});
+
