@@ -37,11 +37,11 @@ test('format', function (assert) {
             ['a A',                                'pm PM'],
             ['[the] DDDo [day of the year]',       'the 45. day of the year'],
             ['LTS',                                '15:25:50'],
-            ['L',                                  '14.02.2010.'],
+            ['L',                                  '14.02.2010'],
             ['LL',                                 '2010. gada 14. februāris'],
             ['LLL',                                '2010. gada 14. februāris, 15:25'],
             ['LLLL',                               '2010. gada 14. februāris, svētdiena, 15:25'],
-            ['l',                                  '14.2.2010.'],
+            ['l',                                  '14.2.2010'],
             ['ll',                                 '2010. gada 14. feb'],
             ['lll',                                '2010. gada 14. feb, 15:25'],
             ['llll',                               '2010. gada 14. feb, Sv, 15:25']
