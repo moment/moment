@@ -110,7 +110,7 @@ export function defineCommonLocaleTests(locale, options) {
             // tr, az: There is a lower-case letter (ı), that converted to
             // upper then lower changes to i
             // ro: there is the letter ț which behaves weird under IE8
-            // mt: letter Ħ 
+            // mt: letter Ħ
             expect(0);
             return;
         }
