@@ -13,7 +13,8 @@ export function toISOString() {
         return this.localeData().invalidDate();
     }
 
-    var seconds = abs(this._milliseconds) / 1000;
+    var milliseconds = abs(this._milliseconds);
+    var seconds      = absFloor(milliseconds / 1000);
     var days         = abs(this._days);
     var months       = abs(this._months);
     var minutes, hours, years;
@@ -22,6 +23,7 @@ export function toISOString() {
     minutes           = absFloor(seconds / 60);
     hours             = absFloor(minutes / 60);
     seconds %= 60;
+    seconds += (milliseconds % 1000) / 1000;
     minutes %= 60;
 
     // 12 months -> 1 year
