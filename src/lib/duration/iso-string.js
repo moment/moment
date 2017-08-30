@@ -1,4 +1,5 @@
 import absFloor from '../utils/abs-floor';
+import zeroFill from '../utils/zero-fill';
 var abs = Math.abs;
 
 export function toISOString() {
@@ -22,8 +23,8 @@ export function toISOString() {
     // 3600 seconds -> 60 minutes -> 1 hour
     minutes           = absFloor(seconds / 60);
     hours             = absFloor(minutes / 60);
+    milliseconds %= 1000;
     seconds %= 60;
-    seconds += (milliseconds % 1000) / 1000;
     minutes %= 60;
 
     // 12 months -> 1 year
@@ -37,7 +38,7 @@ export function toISOString() {
     var D = days;
     var h = hours;
     var m = minutes;
-    var s = seconds;
+    var s = (seconds || milliseconds) ? seconds + (milliseconds ? '.' + zeroFill(milliseconds, 3).replace(/0+$/, '') : '') : '';
     var total = this.asSeconds();
 
     if (!total) {
