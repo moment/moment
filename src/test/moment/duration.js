@@ -337,6 +337,7 @@ test('serialization to ISO 8601 duration strings', function (assert) {
     assert.equal(moment.duration({}).toISOString(), 'P0D', 'zero duration');
     assert.equal(moment.duration({M: 16, d:40, s: 86465}).toISOString(), 'P1Y4M40DT24H1M5S', 'all fields');
     assert.equal(moment.duration({ms: 123456789}).toISOString(), 'PT34H17M36.789S', 'check floating-point errors');
+    assert.equal(moment.duration({ms: 31952}).toISOString(), 'PT31.952S', 'check floating-point errors');
 });
 
 test('toString acts as toISOString', function (assert) {
