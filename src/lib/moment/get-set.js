@@ -1,5 +1,6 @@
 import { normalizeUnits, normalizeObjectUnits } from '../units/aliases';
 import { getPrioritizedUnits } from '../units/priorities';
+import { isLeapYear } from '../units/year';
 import { hooks } from '../utils/hooks';
 import isFunction from '../utils/is-function';
 
@@ -22,6 +23,9 @@ export function get (mom, unit) {
 
 export function set (mom, unit, value) {
     if (mom.isValid() && !isNaN(value)) {
+        if (unit === 'FullYear' && mom._d.getMonth() === 1 && mom._d.getDate() === 29) {
+            mom._d.setDate(isLeapYear(value) ? 29 : 28);
+        }
         mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
     }
 }
