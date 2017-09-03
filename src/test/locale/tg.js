@@ -23,7 +23,7 @@ test('parse', function (assert) {
 test('format', function (assert) {
     var a = [
             ['dddd, Do MMMM YYYY, h:mm:ss',        'якшанбе, 14-ум феврал 2010, 3:25:50'],
-            ['ddd, h A',                           'яшб, 3 рӯзона'],
+            ['ddd, h A',                           'яшб, 3 рӯз'],
             ['M Mo MM MMMM MMM',                   '2 2-юм 02 феврал фев'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14-ум 14'],
@@ -34,7 +34,7 @@ test('format', function (assert) {
             ['H HH',                               '15 15'],
             ['m mm',                               '25 25'],
             ['s ss',                               '50 50'],
-            ['a A',                                'pm PM'],
+            ['a A',                                'рӯз рӯз'],
             ['DDDo [рӯзи сол]',                    '45-ум рӯзи сол'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14/02/2010'],
@@ -54,14 +54,14 @@ test('format', function (assert) {
 });
 
 test('format meridiem', function (assert) {
-    assert.equal(moment([2012, 11, 28, 0, 0]).format('A'), 'шабона', 'night');
-    assert.equal(moment([2012, 11, 28, 3, 59]).format('A'), 'шабона', 'night');
-    assert.equal(moment([2012, 11, 28, 4, 0]).format('A'), 'субҳӣ', 'morning');
-    assert.equal(moment([2012, 11, 28, 10, 59]).format('A'), 'субҳӣ', 'morning');
-    assert.equal(moment([2012, 11, 28, 12, 0]).format('A'), 'рӯзона', 'afternoon');
-    assert.equal(moment([2012, 11, 28, 15, 59]).format('A'), 'рӯзона', 'afternoon');
-    assert.equal(moment([2012, 11, 28, 17, 0]).format('A'), 'бегоҳӣ', 'evening');
-    assert.equal(moment([2012, 11, 28, 23, 59]).format('A'), 'шабона', 'evening');
+    assert.equal(moment([2012, 11, 28, 0, 0]).format('A'), 'шаб', 'night');
+    assert.equal(moment([2012, 11, 28, 3, 59]).format('A'), 'шаб', 'night');
+    assert.equal(moment([2012, 11, 28, 4, 0]).format('A'), 'субҳ', 'morning');
+    assert.equal(moment([2012, 11, 28, 10, 59]).format('A'), 'субҳ', 'morning');
+    assert.equal(moment([2012, 11, 28, 12, 0]).format('A'), 'рӯз', 'afternoon');
+    assert.equal(moment([2012, 11, 28, 15, 59]).format('A'), 'рӯз', 'afternoon');
+    assert.equal(moment([2012, 11, 28, 17, 0]).format('A'), 'бегоҳ', 'evening');
+    assert.equal(moment([2012, 11, 28, 23, 59]).format('A'), 'шаб', 'evening');
 });
 
 test('format ordinal', function (assert) {
@@ -96,7 +96,7 @@ test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 27]).format('DDDo'), '27-ум', '27th');
     assert.equal(moment([2011, 0, 28]).format('DDDo'), '28-ум', '28th');
     assert.equal(moment([2011, 0, 29]).format('DDDo'), '29-ум', '29th');
-    assert.equal(moment([2011, 0, 30]).format('DDDo'), '30-ум', '30th');
+    assert.equal(moment([2011, 0, 30]).format('DDDo'), '30-юм', '30th');
 
     assert.equal(moment([2011, 0, 31]).format('DDDo'), '31-ум', '31st');
 });
