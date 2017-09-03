@@ -19,7 +19,7 @@ var suffixes = {
     12: '-ум',
     13: '-ум',
     20: '-ум',
-    30: '-ум',
+    30: '-юм',
     40: '-ум',
     50: '-ум',
     60: '-ум',
@@ -41,7 +41,7 @@ export default moment.defineLocale('tg', {
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'D MMMM YYYY, dddd HH:mm'
+        LLLL : 'dddd, D MMMM YYYY HH:mm'
     },
     calendar : {
         sameDay : '[Имрӯз соати] LT',
@@ -66,19 +66,21 @@ export default moment.defineLocale('tg', {
         y : 'як сол',
         yy : '%d сол'
     },
-    meridiemParse: /шабона|субҳӣ|рӯзона|бегоҳӣ/i,
+    meridiemParse: /шаб|субҳ|рӯз|бегоҳ/i,
     isPM: function (input) {
-        return /^(рӯзона|шабона)$/.test(input);
+        return /^(рӯз|шаб)$/.test(input);
     },
     meridiem: function (hour, minute, isLower) {
         if (hour < 4) {
-            return 'шабона';
+            return 'шаб';
         } else if (hour < 11) {
-            return 'субҳӣ';
+            return 'субҳ';
         } else if (hour < 16) {
-            return 'рӯзона';
+            return 'рӯз';
+        } else if (hour < 19) {
+            return 'бегоҳ';
         } else {
-            return 'бегоҳӣ';
+            return 'шаб';
         }
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(ум|юм)/,
