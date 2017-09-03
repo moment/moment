@@ -109,7 +109,7 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'якшанбе яшб як_душанбе дшб дш_сешанбе сшб сш_чоршанбе чшб чш_панҷшанбе пшб пш_ҷумъа ҷум ҷм_шанбе шнб шб'.split('_'), i;
+    var expected = 'якшанбе яшб яш_душанбе дшб дш_сешанбе сшб сш_чоршанбе чшб чш_панҷшанбе пшб пш_ҷумъа ҷум ҷм_шанбе шнб шб'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
@@ -169,7 +169,7 @@ test('calendar day', function (assert) {
     assert.equal(moment(a).add({h: 1}).calendar(),       'Имрӯз соати 13:00',          'Now plus 1 hour');
     assert.equal(moment(a).add({d: 1}).calendar(),       'Пагоҳ соати 12:00',          'tomorrow at the same time');
     assert.equal(moment(a).subtract({h: 1}).calendar(),  'Имрӯз соати 11:00',          'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Рӯзи гузашта соати 12:00',   'yesterday at the same time');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Дирӯз соати 12:00',          'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {
