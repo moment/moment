@@ -19,7 +19,7 @@ function processRelativeTime(number, withoutSuffix, key, isFuture) {
         'h': ['eine Stunde', 'einer Stunde'],
         'd': ['ein Tag', 'einem Tag'],
         'dd': [number + ' Tage', number + ' Tagen'],
-        'M': ['ein Monat', 'einem Monat'],
+        'M': ['einen Monat', 'einem Monat'],
         'MM': [number + ' Monate', number + ' Monaten'],
         'y': ['ein Jahr', 'einem Jahr'],
         'yy': [number + ' Jahre', number + ' Jahren']
