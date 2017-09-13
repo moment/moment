@@ -31,7 +31,7 @@ export default moment.defineLocale('ar-dz', {
         future : 'في %s',
         past : 'منذ %s',
         s : 'ثوان',
-        ss: 'ثوانٍ',
+        ss:  '%d ثوانٍ',
         m : 'دقيقة',
         mm : '%d دقائق',
         h : 'ساعة',
