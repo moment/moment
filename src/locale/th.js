@@ -40,6 +40,7 @@ export default moment.defineLocale('th', {
         sameElse : 'L'
     },
     relativeTime : {
+        ss : '%d วินาที',
         future : 'อีก %s',
         past : '%sที่แล้ว',
         s : 'ไม่กี่วินาที',
