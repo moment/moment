@@ -44,6 +44,7 @@ export default moment.defineLocale('vi', {
         sameElse: 'L'
     },
     relativeTime : {
+        ss : '%d giây' ,
         future : '%s tới',
         past : '%s trước',
         s : 'vài giây',
