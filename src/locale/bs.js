@@ -113,6 +113,7 @@ export default moment.defineLocale('bs', {
         future : 'za %s',
         past   : 'prije %s',
         s      : 'par sekundi',
+        ss     : translate,
         m      : translate,
         mm     : translate,
         h      : translate,
