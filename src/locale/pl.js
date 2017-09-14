@@ -94,6 +94,7 @@ export default moment.defineLocale('pl', {
         future : 'za %s',
         past : '%s temu',
         s : 'kilka sekund',
+        ss : '%d sekund'
         m : translate,
         mm : translate,
         h : translate,
