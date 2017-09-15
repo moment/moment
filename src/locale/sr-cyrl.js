@@ -80,7 +80,7 @@ export default moment.defineLocale('sr-cyrl', {
         future : 'за %s',
         past   : 'пре %s',
         s      : 'неколико секунди',
-        ss     : translator.translate,
+        ss     : '%d секунди',
         m      : translator.translate,
         mm     : translator.translate,
         h      : translator.translate,
