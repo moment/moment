@@ -29,7 +29,8 @@ export default moment.defineLocale('tzm', {
     relativeTime : {
         future : 'ⴷⴰⴷⵅ ⵙ ⵢⴰⵏ %s',
         past : 'ⵢⴰⵏ %s',
-        s : 'ⵉⵎⵉⴽ',
+        s : '%d ⵉⵎⵉⴽ',
+        ss : '',
         m : 'ⵎⵉⵏⵓⴺ',
         mm : '%d ⵎⵉⵏⵓⴺ',
         h : 'ⵙⴰⵄⴰ',
