@@ -7,11 +7,13 @@ import moment from '../moment';
 
 function relativeTimeWithPlural(number, withoutSuffix, key) {
     var format = {
+            'ss': 'de secunde',
             'mm': 'minute',
             'hh': 'ore',
             'dd': 'zile',
             'MM': 'luni',
             'yy': 'ani'
+
         },
         separator = ' ';
     if (number % 100 >= 20 || (number >= 100 && number % 100 === 0)) {
