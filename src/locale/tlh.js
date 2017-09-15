@@ -34,7 +34,7 @@ function translate(number, withoutSuffix, string, isFuture) {
     var numberNoun = numberAsNoun(number);
     switch (string) {
         case 'ss':
-            return numberNoun + 'lup';
+            return numberNoun + ' lup';
         case 'mm':
             return numberNoun + ' tup';
         case 'hh':
@@ -45,7 +45,6 @@ function translate(number, withoutSuffix, string, isFuture) {
             return numberNoun + ' jar';
         case 'yy':
             return numberNoun + ' DIS';
-
     }
 }
 
