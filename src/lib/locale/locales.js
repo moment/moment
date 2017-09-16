@@ -141,6 +141,7 @@ export function defineLocale (name, config) {
 }
 
 export function updateLocale(name, config) {
+    name = normalizeLocale(name);
     if (config != null) {
         var locale, tmpLocale, parentConfig = baseConfig;
         // MERGE

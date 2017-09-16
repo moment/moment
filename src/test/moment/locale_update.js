@@ -182,3 +182,46 @@ test('reset locale', function (assert) {
     moment.updateLocale('de', null);
     assert.equal(moment('2017-02-01').format('YYYY MMM MMMM'), resultBeforeUpdate);
 });
+
+test('duration', function (assert) {
+    moment.defineLocale("duration-1", null);
+    moment.defineLocale("duration-1", {
+        relativeTime: {
+            s : 'a few seconds',
+            ss : '%d Seconds',
+            m : 'a minute',
+            mm : '%d Minutes',
+            h : 'an hour',
+            hh : '%d Hours',
+            d : 'a day',
+            dd : '%d Days',
+            M : 'a month',
+            MM : '%d Months',
+            y : 'a year',
+            yy : '%d Years'
+        }
+    });
+    moment.locale("Duration_1");
+    moment.updateLocale("Duration_1", {
+        relativeTime: {
+            s : 'A few seconds',
+            m : 'A minute',
+            h : 'An hour',
+            d : 'A day',
+            M : 'A month',
+            y : 'A year',
+        }
+    });
+    assert.ok(moment().add({s: 5}).fromNow(), "A few seconds", "s uses child");
+    assert.ok(moment().add({s: 50}).fromNow(), "50 Seconds", "ss uses base");
+    assert.ok(moment().add({m: 1}).fromNow(), "A minute", "m uses child");
+    assert.ok(moment().add({m: 50}).fromNow(), "50 Minutes", "mm uses base");
+    assert.ok(moment().add({h: 1}).fromNow(), "An hour", "h uses child");
+    assert.ok(moment().add({h: 20}).fromNow(), "20 Hours", "hh uses base");
+    assert.ok(moment().add({d: 1}).fromNow(), "A day", "d uses child");
+    assert.ok(moment().add({d: 20}).fromNow(), "20 Days", "dd uses base");
+    assert.ok(moment().add({M: 1}).fromNow(), "A Month", "M uses child");
+    assert.ok(moment().add({M: 10}).fromNow(), "10 Months", "MM uses base");
+    assert.ok(moment().add({y: 1}).fromNow(), "A year", "y uses child");
+    assert.ok(moment().add({y: 10}).fromNow(), "10 Years", "yy uses base");
+});
