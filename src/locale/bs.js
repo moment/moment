@@ -8,6 +8,15 @@ import moment from '../moment';
 function translate(number, withoutSuffix, key) {
     var result = number + ' ';
     switch (key) {
+        case 'ss':
+            if (number === 1) {
+                result += 'sekund';
+            } else if (number === 2 || number === 3 || number === 4) {
+                result += 'sekunde';
+            } else {
+                result += 'sekundi';
+            }
+            return result;
         case 'm':
             return withoutSuffix ? 'jedna minuta' : 'jedne minute';
         case 'mm':
