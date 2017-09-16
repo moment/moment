@@ -372,9 +372,9 @@ test('setters across DST -1', function (assert) {
 test('year setters', function (assert) {
     var m = moment('2012-02-29T00:00:00-07:00').parseZone();
     m.year(2017);
-    assert.equal(m.format(), '2012-02-28T00:00:00-07:00', 'leap year to non-leap year');
+    assert.equal(m.format(), '2017-02-28T00:00:00-07:00', 'leap year to non-leap year');
 
     m = moment('2012-02-29T00:00:00-07:00').parseZone();
     m.year(2020);
-    assert.equal(m.format(), '2017-02-29T00:00:00-07:00', 'leap year to leap year');
+    assert.equal(m.format(), '2020-02-29T00:00:00-07:00', 'leap year to leap year');
 });
