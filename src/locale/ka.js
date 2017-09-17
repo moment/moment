@@ -48,7 +48,7 @@ export default moment.defineLocale('ka', {
             }
         },
         s : 'რამდენიმე წამი',
-        s : '%d წამში',
+        ss : '%d წამში',
         m : 'წუთი',
         mm : '%d წუთი',
         h : 'საათი',
