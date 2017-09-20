@@ -10,9 +10,9 @@ function processRelativeTime(number, withoutSuffix, key, isFuture) {
         case 's':
             return withoutSuffix || isFuture ? 'nekaj sekund' : 'nekaj sekundami';
         case 'ss':
-            if (number === 1){
+            if (number === 1) {
                 result += withoutSuffix ? 'sekundo' : 'sekundi';
-            } else if (number === 2){
+            } else if (number === 2) {
                 result += withoutSuffix || isFuture ? 'sekundi' : 'sekundah';
             } else if (number < 5) {
                 result += withoutSuffix || isFuture ? 'sekunde' : 'sekundah';
