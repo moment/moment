@@ -8,10 +8,12 @@ function translate(number, withoutSuffix, key) {
     var result = number + ' ';
     switch (key) {
         case 'ss':
-            if (number === 1 || number === 2 || number === 3 || number === 4) {
-                result += 'sekunde'
+            if (number === 1) {
+                result += 'sekunda';
+            } else if (number === 2 || number === 3 || number === 4) {
+                result += 'sekunde';
             } else {
-                result += 'sekundi'
+                result += 'sekundi';
             }
             return result;
         case 'm':
