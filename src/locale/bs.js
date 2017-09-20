@@ -10,7 +10,7 @@ function translate(number, withoutSuffix, key) {
     switch (key) {
         case 'ss':
             if (number === 1) {
-                result += 'sekund';
+                result += 'sekunda';
             } else if (number === 2 || number === 3 || number === 4) {
                 result += 'sekunde';
             } else {
