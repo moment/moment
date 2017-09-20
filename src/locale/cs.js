@@ -16,9 +16,9 @@ function translate(number, withoutSuffix, key, isFuture) {
             return (withoutSuffix || isFuture) ? 'pár sekund' : 'pár sekundami';
         case 'ss': // 9 seconds / in 9 seconds / 9 seconds ago
             if (withoutSuffix || isFuture) {
-                return result + (plural(number) ? 'sekunda' : 'sekund');
+                return result + (plural(number) ? 'sekundy' : 'sekund');
             } else {
-                return result + 'vteřinami';
+                return result + 'sekundami';
             }
             break;
         case 'm':  // a minute / in a minute / a minute ago
