@@ -30,6 +30,7 @@ export default moment.defineLocale('mt', {
         future : 'f’ %s',
         past : '%s ilu',
         s : 'ftit sekondi',
+        ss : '%d sekondi',
         m : 'minuta',
         mm : '%d minuti',
         h : 'siegħa',
