@@ -24,6 +24,7 @@
     ],
     "main": "./moment.js",
     "module": "./src/moment.js",
+    "react-native": "./src/moment-core.js",
     "typings": "./moment.d.ts",
     "engines": {
         "node": "*"
