@@ -13,6 +13,6 @@ setLocaleLoader(function(name) {
             require('./locale/' + name);
         } catch (e) { }
     }
-})
+});
 
 export default moment;
