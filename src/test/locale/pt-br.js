@@ -140,7 +140,7 @@ test('from', function (assert) {
 
 test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'em poucos segundos', 'prefix');
-    assert.equal(moment(0).from(30000), 'poucos segundos atrás', 'suffix');
+    assert.equal(moment(0).from(30000), 'há poucos segundos', 'prefix');
 });
 
 test('fromNow', function (assert) {
@@ -212,9 +212,9 @@ test('relative time threshold', function (assert) {
     moment.relativeTimeThreshold('ss', 3);
 
     rts.subtract(3, 'seconds');
-    assert.equal(rts.fromNow(), 'poucos segundos atrás', 'Below custom a few seconds to seconds threshold');
+    assert.equal(rts.fromNow(), 'há poucos segundos', 'Below custom a few seconds to seconds threshold');
     rts.subtract(1, 'seconds');
-    assert.equal(rts.fromNow(), '4 segundos atrás', 'Above custom a few seconds to seconds threshold');
+    assert.equal(rts.fromNow(), 'há 4 segundos', 'Above custom a few seconds to seconds threshold');
 
     moment.relativeTimeThreshold('ss', rtsDefault);
 });
