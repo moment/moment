@@ -45,7 +45,7 @@ function chooseLocale(names) {
     return null;
 }
 
-var requireLocale = function() {};
+var requireLocale = function () {};
 
 export function setLocaleLoader(fn) {
     requireLocale = fn;

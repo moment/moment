@@ -1,8 +1,8 @@
-import moment from "./moment-core";
+import moment from './moment-core';
 
-import { setLocaleLoader } from "./lib/locale/locales";
+import { setLocaleLoader } from './lib/locale/locales';
 
-setLocaleLoader(function(name) {
+setLocaleLoader(function (name) {
     try {
         require('moment/locale/' + name);
     } catch (e) {
