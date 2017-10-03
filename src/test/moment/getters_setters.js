@@ -269,6 +269,16 @@ test('day setter', function (assert) {
     assert.equal(moment(a).day(17).date(), 26, 'set from wednesday to second next wednesday');
 });
 
+test('year setter', function (assert) {
+    var a = moment([2015, 3, 15]);
+    assert.equal(moment(a).year(2016).format('YYYY-MM-DD'), '2016-04-15', 'set from 2015 to 2016');
+    assert.equal(moment(a).year(2011).format('YYYY-MM-DD'), '2011-04-15', 'set from 2015 to 2011');
+
+    var b = moment([2012, 1, 29]);
+    assert.equal(moment(b).year(2017).format('YYYY-MM-DD'), '2017-02-28', 'set from last day of february on a leap year to a non leap year');
+    assert.equal(moment(b).year(2004).format('YYYY-MM-DD'), '2004-02-29', 'set from last day of february on a leap year to a leap year');
+});
+
 test('object set ordering', function (assert) {
     var a = moment([2016,3,30]);
     assert.equal(a.set({date:31, month:4}).date(), 31, 'setter order automatically arranged by size');
