@@ -1,6 +1,6 @@
 //! moment.js locale configuration
 //! locale : Maltese (Malta) [mt]
-//! author : Alessandro Maruccia : https://github.com/alesmaru
+//! author : Alessandro Maruccia : https://github.com/alesma
 
 import moment from '../moment';
 
