@@ -2,15 +2,17 @@ import moment from './moment-core';
 
 import { setLocaleLoader } from './lib/locale/locales';
 
+var hackedRequireToIgnoreError = require;
+
 setLocaleLoader(function (name) {
     try {
-        require('moment/locale/' + name);
+        hackedRequireToIgnoreError('moment/locale/' + name);
     } catch (e) {
         // In the test environment, the external module 'moment'
         // can't be resolved because we're running inside it.
         // Fallback to using the old relative import
         try {
-            require('./locale/' + name);
+            hackedRequireToIgnoreError('./locale/' + name);
         } catch (e) { }
     }
 });
