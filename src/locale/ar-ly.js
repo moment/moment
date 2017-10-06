@@ -2,7 +2,7 @@
 //! locale : Arabic (Lybia) [ar-ly]
 //! author : Ali Hmer: https://github.com/kikoanis
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 var symbolMap = {
     '1': '1',

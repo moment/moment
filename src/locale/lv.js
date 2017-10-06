@@ -3,7 +3,7 @@
 //! author : Kristaps Karlsons : https://github.com/skakri
 //! author : Jānis Elmeris : https://github.com/JanisE
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 var units = {
     'm': 'minūtes_minūtēm_minūte_minūtes'.split('_'),

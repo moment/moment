@@ -2,7 +2,7 @@
 //! locale : Greek [el]
 //! author : Aggelos Karalias : https://github.com/mehiel
 
-import moment from '../moment';
+import moment from '../moment-core';
 import isFunction from '../lib/utils/is-function';
 
 export default moment.defineLocale('el', {

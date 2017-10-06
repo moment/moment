@@ -2,7 +2,7 @@
 //! locale : Gujarati [gu]
 //! author : Kaushik Thanki : https://github.com/Kaushik1987
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 var symbolMap = {
         '1': '૧',

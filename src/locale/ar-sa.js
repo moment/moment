@@ -2,7 +2,7 @@
 //! locale : Arabic (Saudi Arabia) [ar-sa]
 //! author : Suhail Alkowaileet : https://github.com/xsoh
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 var symbolMap = {
     '1': '١',

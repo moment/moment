@@ -4,7 +4,7 @@
 //! author: Menelion Elensúle: https://github.com/Oire
 //! author : Mikolaj Dadela : https://github.com/mik01aj
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 function processRelativeTime(number, withoutSuffix, key, isFuture) {
     var format = {

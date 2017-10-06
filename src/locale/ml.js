@@ -2,7 +2,7 @@
 //! locale : Malayalam [ml]
 //! author : Floyd Pink : https://github.com/floydpink
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 export default moment.defineLocale('ml', {
     months : 'ജനുവരി_ഫെബ്രുവരി_മാർച്ച്_ഏപ്രിൽ_മേയ്_ജൂൺ_ജൂലൈ_ഓഗസ്റ്റ്_സെപ്റ്റംബർ_ഒക്ടോബർ_നവംബർ_ഡിസംബർ'.split('_'),

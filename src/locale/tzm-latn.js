@@ -2,7 +2,7 @@
 //! locale : Central Atlas Tamazight Latin [tzm-latn]
 //! author : Abdel Said : https://github.com/abdelsaid
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 export default moment.defineLocale('tzm-latn', {
     months : 'innayr_brˤayrˤ_marˤsˤ_ibrir_mayyw_ywnyw_ywlywz_ɣwšt_šwtanbir_ktˤwbrˤ_nwwanbir_dwjnbir'.split('_'),

@@ -2,7 +2,7 @@
 //! locale : Armenian [hy-am]
 //! author : Armendarabyan : https://github.com/armendarabyan
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 export default moment.defineLocale('hy-am', {
     months : {

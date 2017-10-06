@@ -2,7 +2,7 @@
 //! locale : Swedish [sv]
 //! author : Jens Alm : https://github.com/ulmus
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 export default moment.defineLocale('sv', {
     months : 'januari_februari_mars_april_maj_juni_juli_augusti_september_oktober_november_december'.split('_'),

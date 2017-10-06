@@ -2,7 +2,7 @@
 //! locale : French (Switzerland) [fr-ch]
 //! author : Gaspard Bucher : https://github.com/gaspard
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 export default moment.defineLocale('fr-ch', {
     months : 'janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre'.split('_'),

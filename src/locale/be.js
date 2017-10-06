@@ -4,7 +4,7 @@
 //! author: Praleska: http://praleska.pro/
 //! Author : Menelion Elensúle : https://github.com/Oire
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 function plural(word, num) {
     var forms = word.split('_');

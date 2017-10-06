@@ -3,7 +3,7 @@
 //! author : Rony Lantip : https://github.com/lantip
 //! reference: http://jv.wikipedia.org/wiki/Basa_Jawa
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 export default moment.defineLocale('jv', {
     months : 'Januari_Februari_Maret_April_Mei_Juni_Juli_Agustus_September_Oktober_Nopember_Desember'.split('_'),

@@ -3,7 +3,7 @@
 //! author : Lorenzo : https://github.com/aliem
 //! author: Mattia Larentis: https://github.com/nostalgiaz
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 export default moment.defineLocale('it', {
     months : 'gennaio_febbraio_marzo_aprile_maggio_giugno_luglio_agosto_settembre_ottobre_novembre_dicembre'.split('_'),

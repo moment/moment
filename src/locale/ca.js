@@ -2,7 +2,7 @@
 //! locale : Catalan [ca]
 //! author : Juan G. Hurtado : https://github.com/juanghurtado
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 export default moment.defineLocale('ca', {
     months : {

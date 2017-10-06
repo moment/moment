@@ -3,7 +3,7 @@
 //! author : Martin Minka : https://github.com/k2s
 //! based on work of petrbela : https://github.com/petrbela
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 var months = 'január_február_marec_apríl_máj_jún_júl_august_september_október_november_december'.split('_'),
     monthsShort = 'jan_feb_mar_apr_máj_jún_júl_aug_sep_okt_nov_dec'.split('_');

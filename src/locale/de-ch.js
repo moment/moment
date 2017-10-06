@@ -4,7 +4,7 @@
 
 // based on: https://www.bk.admin.ch/dokumentation/sprachen/04915/05016/index.html?lang=de#
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 function processRelativeTime(number, withoutSuffix, key, isFuture) {
     var format = {

@@ -2,7 +2,7 @@
 //! locale : Persian [fa]
 //! author : Ebrahim Byagowi : https://github.com/ebraminio
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 var symbolMap = {
     '1': '۱',

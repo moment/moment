@@ -2,7 +2,7 @@
 //! locale : Serbian Cyrillic [sr-cyrl]
 //! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 var translator = {
     words: { //Different grammatical cases

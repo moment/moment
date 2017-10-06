@@ -3,7 +3,7 @@
 //! author : Sawood Alam : https://github.com/ibnesayeed
 //! author : Zack : https://github.com/ZackVision
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 var months = [
     'جنوری',

@@ -2,7 +2,7 @@
 //! locale : Uzbek Latin [uz-latn]
 //! author : Rasulbek Mirzayev : github.com/Rasulbeeek
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 export default moment.defineLocale('uz-latn', {
     months : 'Yanvar_Fevral_Mart_Aprel_May_Iyun_Iyul_Avgust_Sentabr_Oktabr_Noyabr_Dekabr'.split('_'),

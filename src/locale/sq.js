@@ -4,7 +4,7 @@
 //! author : Menelion Elensúle : https://github.com/Oire
 //! author : Oerd Cukalla : https://github.com/oerd
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 export default moment.defineLocale('sq', {
     months : 'Janar_Shkurt_Mars_Prill_Maj_Qershor_Korrik_Gusht_Shtator_Tetor_Nëntor_Dhjetor'.split('_'),

@@ -3,7 +3,7 @@
 //! author : Kyungwook, Park : https://github.com/kyungw00k
 //! author : Jeeeyul Lee <jeeeyul@gmail.com>
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 export default moment.defineLocale('ko', {
     months : '1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월'.split('_'),

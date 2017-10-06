@@ -2,7 +2,7 @@
 //! locale : Lao [lo]
 //! author : Ryan Hart : https://github.com/ryanhart2
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 export default moment.defineLocale('lo', {
     months : 'ມັງກອນ_ກຸມພາ_ມີນາ_ເມສາ_ພຶດສະພາ_ມິຖຸນາ_ກໍລະກົດ_ສິງຫາ_ກັນຍາ_ຕຸລາ_ພະຈິກ_ທັນວາ'.split('_'),

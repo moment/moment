@@ -3,7 +3,7 @@
 //! authors : Bård Rolstad Henriksen : https://github.com/karamell
 
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 export default moment.defineLocale('se', {
     months : 'ođđajagemánnu_guovvamánnu_njukčamánnu_cuoŋománnu_miessemánnu_geassemánnu_suoidnemánnu_borgemánnu_čakčamánnu_golggotmánnu_skábmamánnu_juovlamánnu'.split('_'),

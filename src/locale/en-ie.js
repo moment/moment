@@ -2,7 +2,7 @@
 //! locale : English (Ireland) [en-ie]
 //! author : Chris Cartlidge : https://github.com/chriscartlidge
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 export default moment.defineLocale('en-ie', {
     months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),

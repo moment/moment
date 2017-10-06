@@ -3,7 +3,7 @@
 //! author : Vlad Gurdiga : https://github.com/gurdiga
 //! author : Valentin Agachi : https://github.com/avaly
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 function relativeTimeWithPlural(number, withoutSuffix, key) {
     var format = {

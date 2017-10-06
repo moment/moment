@@ -2,7 +2,7 @@
 //! locale : Malay [ms]
 //! author : Weldan Jamili : https://github.com/weldan
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 export default moment.defineLocale('ms', {
     months : 'Januari_Februari_Mac_April_Mei_Jun_Julai_Ogos_September_Oktober_November_Disember'.split('_'),

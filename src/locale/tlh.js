@@ -2,7 +2,7 @@
 //! locale : Klingon [tlh]
 //! author : Dominika Kruk : https://github.com/amaranthrose
 
-import moment from '../moment';
+import moment from '../moment-core';
 
 var numbersNouns = 'pagh_wa’_cha’_wej_loS_vagh_jav_Soch_chorgh_Hut'.split('_');
 
