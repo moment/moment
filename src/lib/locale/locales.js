@@ -47,12 +47,13 @@ function chooseLocale(names) {
 
 function loadLocale(name) {
     var oldLocale = null;
+    var pretendingNotToRequire = require;
     // TODO: Find a better way to register and load all the locales in Node
     if (!locales[name] && (typeof module !== 'undefined') &&
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            require('./locale/' + name);
+            pretendingNotToRequire('./locale/' + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
