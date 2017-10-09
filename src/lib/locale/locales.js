@@ -46,19 +46,22 @@ function chooseLocale(names) {
 }
 
 function loadLocale(name) {
-    var oldLocale = null;
+    var oldLocale = null,
+        // workaround for React Native 0.49+
+        pretendingNotToRequire = require;
+
     // TODO: Find a better way to register and load all the locales in Node
     if (!locales[name] && (typeof module !== 'undefined') &&
             module && module.exports) {
         oldLocale = globalLocale._abbr;
         try {
-            require('moment/locale/' + name);
+            pretendingNotToRequire('moment/locale/' + name);
         } catch (e) {
             // In the test environment, the external module 'moment'
             // can't be resolved because we're running inside it.
             // Fallback to using the old relative import
             try {
-                require('./locale/' + name);
+                pretendingNotToRequire('./locale/' + name);
             } catch (e) { }
         }
 
