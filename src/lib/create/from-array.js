@@ -80,6 +80,11 @@ export function configFromArray (config) {
     if (config._nextDay) {
         config._a[HOUR] = 24;
     }
+
+    // check for mismatching day of week
+    if (config._w && typeof config._w.d !== 'undefined' && config._w.d !== config._d.getDay()) {
+        getParsingFlags(config).weekdayMismatch = true;
+    }
 }
 
 function dayOfYearFromWeekInfo(config) {
