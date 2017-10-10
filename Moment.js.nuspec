@@ -7,9 +7,14 @@
         <owners>Cory Deppen, Iskren Chernev</owners>
         <description>A lightweight JavaScript date library for parsing, manipulating, and formatting dates.</description>
         <releaseNotes>
-            * Release Mar 22, 2017
-            * [#3853](https://github.com/moment/moment/pull/3853) [misc] Fix invalid whitespace character causing inability to parse
-              moment.js
+            * Release Oct 10, 2017
+	    * For full changelog see https://gist.github.com/ichernev/5f3f4eb02761b4f765a0cccf02cec603
+	    * [#4213](https://github.com/moment/moment/pull/4213) [critical] Rename dynamic require to avoid React Native crash
+	    * [#4214](https://github.com/moment/moment/pull/4214) [fixup] Move require rename inside try/catch, fixes [#4213](https://github.com/moment/moment/issues/4213)
+	    * [#3735](https://github.com/moment/moment/pull/3735) [feature] Ignore NaN values in setters
+	    * [#4106](https://github.com/moment/moment/pull/4106) [fixup] Drop isNumeric utility fn, fixes [#3735](https://github.com/moment/moment/issues/3735)
+	    * [#4080](https://github.com/moment/moment/pull/4080) [feature] Implement a clone method for durations, fixes [#4078](https://github.com/moment/moment/issues/4078)
+	    * [#4215](https://github.com/moment/moment/pull/4215) [misc] TS: Add duration.clone(), for [#4080](https://github.com/moment/moment/issues/4080)
         </releaseNotes>
         <projectUrl>http://momentjs.com/</projectUrl>
         <iconUrl>http://pbs.twimg.com/profile_images/482670411402858496/Xrtdc94q_normal.png</iconUrl>
