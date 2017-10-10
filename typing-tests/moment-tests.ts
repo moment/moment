@@ -256,6 +256,7 @@ moment.duration({
     M: 2,
     y: 2,
 });
+moment.duration(1, "minute").clone();
 moment.duration(1, "minutes").humanize();
 moment.duration(500).milliseconds();
 moment.duration(500).asMilliseconds();
