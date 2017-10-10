@@ -6,7 +6,7 @@ import { deprecateSimple } from '../utils/deprecate';
 import { mergeConfigs } from './set';
 import { Locale } from './constructor';
 import keys from '../utils/keys';
-
+import * as path from 'path';
 import { baseConfig } from './base-config';
 
 // internal storage for locale config files
@@ -55,14 +55,14 @@ function loadLocale(name) {
         try {
             // workaround for React Native 0.49+
             var pretendingNotToRequireV1 = require;
-            pretendingNotToRequireV1('moment/locale/' + name);
+            pretendingNotToRequireV1(`moment${path.sep}locale${path.sep}${name}`);
         } catch (e) {
             // In the test environment, the external module 'moment'
             // can't be resolved because we're running inside it.
             // Fallback to using the old relative import
             try {
                 var pretendingNotToRequireV2 = require;
-                pretendingNotToRequireV2('./locale/' + name);
+                pretendingNotToRequireV2(`.${path.sep}locale${path.sep}${name}`);
             } catch (e) { }
         }
 
