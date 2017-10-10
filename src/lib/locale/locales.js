@@ -62,7 +62,7 @@ function loadLocale(name) {
             // Fallback to using the old relative import
             try {
                 var pretendingNotToRequireV2 = require;
-                pretendingNotToRequireV2('.' + path.sep + 'locale' + path.sep + name);
+                pretendingNotToRequireV2('..' + path.sep + 'locale' + path.sep + name);
             } catch (e) { }
         }
 
