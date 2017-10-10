@@ -1,6 +1,32 @@
 Changelog
 =========
 
+### 2.19.0 [See full changelog](https://gist.github.com/ichernev/5f3f4eb02761b4f765a0cccf02cec603)
+
+* Release Oct 10, 2017
+
+## Fix React Native 0.49+ crash
+* [#4213](https://github.com/moment/moment/pull/4213) [critical] Rename dynamic
+  require to avoid React Native crash
+* [#4214](https://github.com/moment/moment/pull/4214) [fixup] Move require
+  rename inside try/catch, fixes
+  [#4213](https://github.com/moment/moment/issues/4213)
+
+## Features
+
+* [#3735](https://github.com/moment/moment/pull/3735) [feature] Ignore NaN values in setters
+* [#4106](https://github.com/moment/moment/pull/4106) [fixup] Drop isNumeric utility fn, fixes [#3735](https://github.com/moment/moment/issues/3735)
+* [#4080](https://github.com/moment/moment/pull/4080) [feature] Implement a clone method for durations, fixes [#4078](https://github.com/moment/moment/issues/4078)
+* [#4215](https://github.com/moment/moment/pull/4215) [misc] TS: Add duration.clone(), for [#4080](https://github.com/moment/moment/issues/4080)
+
+## Packaging
+
+* [#4003](https://github.com/moment/moment/pull/4003) [pkg] bower: Remove tests from package
+* [#3904](https://github.com/moment/moment/pull/3904) [pkg] jsnext:main -> module in package.json
+* [#4060](https://github.com/moment/moment/pull/4060) [pkg] Account for new rollup interface
+
+Bugfixes, new locales, locale fixes etc...
+
 ### 2.18.1
 
 * Release Mar 22, 2017
