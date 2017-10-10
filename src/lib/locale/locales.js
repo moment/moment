@@ -55,14 +55,14 @@ function loadLocale(name) {
         try {
             // workaround for React Native 0.49+
             var pretendingNotToRequireV1 = require;
-            pretendingNotToRequireV1(`moment${path.sep}locale${path.sep}${name}`);
+            pretendingNotToRequireV1('moment' + path.sep + 'locale' + path.sep + name);
         } catch (e) {
             // In the test environment, the external module 'moment'
             // can't be resolved because we're running inside it.
             // Fallback to using the old relative import
             try {
                 var pretendingNotToRequireV2 = require;
-                pretendingNotToRequireV2(`.${path.sep}locale${path.sep}${name}`);
+                pretendingNotToRequireV2('.' + path.sep + 'locale' + path.sep + name);
             } catch (e) { }
         }
 
