@@ -154,6 +154,8 @@ declare namespace moment {
   }
 
   interface Duration {
+    clone(): Duration;
+
     humanize(withSuffix?: boolean): string;
 
     abs(): Duration;
