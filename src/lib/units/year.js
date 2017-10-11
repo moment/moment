@@ -1,3 +1,4 @@
+import { get } from '../moment/get-set';
 import { makeGetSet } from '../moment/get-set';
 import { addFormatToken } from '../format/format';
 import { addUnitAlias } from './aliases';
@@ -6,6 +7,7 @@ import { addRegexToken, match1to2, match1to4, match1to6, match2, match4, match6,
 import { addParseToken } from '../parse/token';
 import { hooks } from '../utils/hooks';
 import { YEAR } from './constants';
+import { daysInMonth } from './month';
 import toInt from '../utils/to-int';
 
 // FORMATTING
@@ -68,8 +70,30 @@ hooks.parseTwoDigitYear = function (input) {
 
 // MOMENTS
 
-export var getSetYear = makeGetSet('FullYear', true);
-
 export function getIsLeapYear () {
     return isLeapYear(this.year());
+}
+
+export function setYear (mom, value) {
+    var dayOfMonth;
+
+    if (!mom.isValid() && isNaN(value)) {
+        // No op
+        return mom;
+    }
+
+    dayOfMonth = Math.min(mom.date(), daysInMonth(value, mom.month()));
+    mom._d['set' + (mom._isUTC ? 'UTC' : '') + 'Month'](mom.month(), dayOfMonth);
+    mom._d['set' + (mom._isUTC ? 'UTC' : '') + 'FullYear'](value);
+    return mom;
+}
+
+export function getSetYear (value) {
+    if (value != null) {
+        setYear(this, value);
+        hooks.updateOffset(this, true);
+        return this;
+    } else {
+        return get(this, 'FullYear');
+    }
 }
