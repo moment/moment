@@ -1830,28 +1830,15 @@ function chooseLocale(names) {
 
 function loadLocale(name) {
     var oldLocale = null;
-
     // TODO: Find a better way to register and load all the locales in Node
     if (!locales[name] && (typeof module !== 'undefined') &&
             module && module.exports) {
-        oldLocale = globalLocale._abbr;
         try {
-            // workaround for React Native 0.49+
-            var pretendingNotToRequireV1 = require;
-            pretendingNotToRequireV1('moment/locale/' + name);
-        } catch (e) {
-            // In the test environment, the external module 'moment'
-            // can't be resolved because we're running inside it.
-            // Fallback to using the old relative import
-            try {
-                var pretendingNotToRequireV2 = require;
-                pretendingNotToRequireV2('./locale/' + name);
-            } catch (e) { }
-        }
-
-        // because defineLocale currently also sets the global locale, we
-        // want to undo that for lazy loaded locales
-        getSetGlobalLocale(oldLocale);
+            oldLocale = globalLocale._abbr;
+            var aliasedRequire = require;
+            aliasedRequire('./locale/' + name);
+            getSetGlobalLocale(oldLocale);
+        } catch (e) {}
     }
     return locales[name];
 }
@@ -4484,12 +4471,12 @@ addParseToken('x', function (input, array, config) {
 // Side effect imports
 
 //! moment.js
-//! version : 2.19.0
+//! version : 2.19.1
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
 
-hooks.version = '2.19.0';
+hooks.version = '2.19.1';
 
 setHookCallback(createLocal);
 
