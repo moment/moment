@@ -378,3 +378,13 @@ test('setters across DST -1', function (assert) {
 
     moment.updateOffset = oldUpdateOffset;
 });
+
+test('setters with 29th of february across (non-)leap years', function (assert) {
+    var m = moment('2012-02-29T00:00:00-07:00').parseZone();
+    m.year(2013);
+    assert.equal(m.format(), '2013-02-28T00:00:00-07:00', 'year across -1');
+
+    m = moment('2012-02-29T00:00:00-07:00').parseZone();
+    m.year(2016);
+    assert.equal(m.format(), '2016-02-29T00:00:00-07:00', 'year across -1');
+});
