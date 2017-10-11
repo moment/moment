@@ -1,6 +1,13 @@
 Changelog
 =========
 
+### 2.19.1
+
+* Release Oct 11, 2017
+
+Make react native and webpack both work
+* #4225 #4226 #4232
+
 ### 2.19.0 [See full changelog](https://gist.github.com/ichernev/5f3f4eb02761b4f765a0cccf02cec603)
 
 * Release Oct 10, 2017
