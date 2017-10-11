@@ -50,21 +50,12 @@ function loadLocale(name) {
     // TODO: Find a better way to register and load all the locales in Node
     if (!locales[name] && (typeof module !== 'undefined') &&
             module && module.exports) {
-        oldLocale = globalLocale._abbr;
         try {
-            require('moment/locale/' + name);
-        } catch (e) {
-            // In the test environment, the external module 'moment'
-            // can't be resolved because we're running inside it.
-            // Fallback to using the old relative import
-            try {
-                require('./locale/' + name);
-            } catch (e) { }
-        }
-
-        // because defineLocale currently also sets the global locale, we
-        // want to undo that for lazy loaded locales
-        getSetGlobalLocale(oldLocale);
+            oldLocale = globalLocale._abbr;
+            var aliasedRequire = require;
+            aliasedRequire('./locale/' + name);
+            getSetGlobalLocale(oldLocale);
+        } catch (e) {}
     }
     return locales[name];
 }
