@@ -136,6 +136,12 @@ export function updateLocale(name, config) {
         if (locales[name] != null) {
             parentConfig = locales[name]._config;
         }
+        else {
+            locale = loadLocale(name);
+            if (locale != null) {
+                parentConfig = locale._config;
+            }
+        }
         config = mergeConfigs(parentConfig, config);
         locale = new Locale(config);
         locale.parentLocale = locales[name];
