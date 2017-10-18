@@ -55,5 +55,5 @@ export function endOf (units) {
         units = 'day';
     }
 
-    return this.startOf(units).add(1, (units === 'isoWeek' ? 'week' : units)).subtract(1, 'ms');
+    return this.add(1, (units === 'isoWeek' ? 'week' : units)).startOf(units).subtract(1, 'ms');
 }
