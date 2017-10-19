@@ -133,7 +133,7 @@ export function updateLocale(name, config) {
     if (config != null) {
         var locale, tmpLocale, parentConfig = baseConfig;
         // MERGE
-        tmpLocale = locales[name] || loadLocale(name);
+        tmpLocale = loadLocale(name);
         if (tmpLocale != null) {
             parentConfig = tmpLocale._config;
         }
