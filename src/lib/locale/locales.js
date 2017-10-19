@@ -131,16 +131,11 @@ export function defineLocale (name, config) {
 
 export function updateLocale(name, config) {
     if (config != null) {
-        var locale, parentConfig = baseConfig;
+        var locale, tmpLocale, parentConfig = baseConfig;
         // MERGE
-        if (locales[name] != null) {
-            parentConfig = locales[name]._config;
-        }
-        else {
-            locale = loadLocale(name);
-            if (locale != null) {
-                parentConfig = locale._config;
-            }
+        tmpLocale = locales[name] || loadLocale(name);
+        if (tmpLocale != null) {
+            parentConfig = tmpLocale._config;
         }
         config = mergeConfigs(parentConfig, config);
         locale = new Locale(config);
