@@ -330,12 +330,20 @@ test('serialization to ISO 8601 duration strings', function (assert) {
     assert.equal(moment.duration({m: -1}).toISOString(), '-PT1M', 'one minute ago');
     assert.equal(moment.duration({s: -0.5}).toISOString(), '-PT0.5S', 'one half second ago');
     assert.equal(moment.duration({y: -1, M: 1}).toISOString(), '-P11M', 'a month after a year ago');
+    assert.equal(moment.duration({y: -1, h: 1}).toISOString(), '-P1YT-1H', 'an hour after a year ago');
+    assert.equal(moment.duration({y: -1, h: 1, m: -1}).toISOString(), '-P1YT-59M', '59 minutes after a year ago');
+    assert.equal(moment.duration({y: -1, h: 1, s: -1}).toISOString(), '-P1YT-59M-59S', '59 minutes 59 seconds after a year ago');
+    assert.equal(moment.duration({y: -1, h: -1, s: 1}).toISOString(), '-P1YT59M59S', '59 minutes 59 seconds after a year ago');
+    assert.equal(moment.duration({y: -1, d: 2}).toISOString(), '-P1Y-2D', '1 year less 2 days ago');
     assert.equal(moment.duration({M: +1}).toISOString(), 'P1M', 'one month ago');
     assert.equal(moment.duration({m: +1}).toISOString(), 'PT1M', 'one minute ago');
     assert.equal(moment.duration({s: +0.5}).toISOString(), 'PT0.5S', 'one half second ago');
     assert.equal(moment.duration({y: +1, M: 1}).toISOString(), 'P1Y1M', 'a month after a year in future');
+    assert.equal(moment.duration({y: -1, h: 1}).toISOString(), '-P1YT-1H', 'an hour after a year ago');
     assert.equal(moment.duration({}).toISOString(), 'P0D', 'zero duration');
     assert.equal(moment.duration({M: 16, d:40, s: 86465}).toISOString(), 'P1Y4M40DT24H1M5S', 'all fields');
+    assert.equal(moment.duration({ms: 123456789}).toISOString(), 'PT34H17M36.789S', 'check floating-point errors');
+    assert.equal(moment.duration({ms: 31952}).toISOString(), 'PT31.952S', 'check floating-point errors');
 });
 
 test('toString acts as toISOString', function (assert) {
@@ -656,6 +664,13 @@ test('add', function (assert) {
     assert.equal(d.add(5, 'days')._days, 28, 'Add days');
     assert.equal(d.add(10000)._milliseconds, 10000, 'Add milliseconds');
     assert.equal(d.add({h: 23, m: 59})._milliseconds, 23 * 60 * 60 * 1000 + 59 * 60 * 1000 + 10000, 'Add hour:minute');
+});
+
+test('add to moment', function (assert) {
+    var d = moment.duration({months: 1, seconds: -1});
+    var m = moment('2017-03-01').add(d);
+    assert.equal(m.month(), 2, 'Adds months before time');
+    assert.equal(m.date(), 31, 'Adds time after months');
 });
 
 test('add and bubble', function (assert) {
