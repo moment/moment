@@ -54,6 +54,15 @@ test('format', function (assert) {
 });
 
 test('format meridiem', function (assert) {
+    assert.equal(moment([2012, 11, 28, 0, 0]).format('a'), 'шаб', 'night');
+    assert.equal(moment([2012, 11, 28, 3, 59]).format('a'), 'шаб', 'night');
+    assert.equal(moment([2012, 11, 28, 4, 0]).format('a'), 'субҳ', 'morning');
+    assert.equal(moment([2012, 11, 28, 10, 59]).format('a'), 'субҳ', 'morning');
+    assert.equal(moment([2012, 11, 28, 12, 0]).format('a'), 'рӯз', 'afternoon');
+    assert.equal(moment([2012, 11, 28, 15, 59]).format('a'), 'рӯз', 'afternoon');
+    assert.equal(moment([2012, 11, 28, 17, 0]).format('a'), 'бегоҳ', 'evening');
+    assert.equal(moment([2012, 11, 28, 23, 59]).format('a'), 'шаб', 'evening');
+
     assert.equal(moment([2012, 11, 28, 0, 0]).format('A'), 'шаб', 'night');
     assert.equal(moment([2012, 11, 28, 3, 59]).format('A'), 'шаб', 'night');
     assert.equal(moment([2012, 11, 28, 4, 0]).format('A'), 'субҳ', 'morning');
