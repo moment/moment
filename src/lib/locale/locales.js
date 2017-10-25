@@ -89,6 +89,7 @@ export function getSetGlobalLocale (key, values) {
 }
 
 export function defineLocale (name, config) {
+    name = normalizeLocale(name);
     if (config !== null) {
         var locale, parentConfig = baseConfig;
         config.abbr = name;
