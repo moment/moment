@@ -25,9 +25,9 @@ function chooseLocale(names) {
     var i = 0, j, next, locale, split;
 
     while (i < names.length) {
-        split = normalizeLocale(names[i]).split('-');
+        split = names[i].split('-');
         j = split.length;
-        next = normalizeLocale(names[i + 1]);
+        next = names[i + 1];
         next = next ? next.split('-') : null;
         while (j > 0) {
             locale = loadLocale(split.slice(0, j).join('-'));
@@ -194,7 +194,7 @@ export function getLocale (key) {
         key = [key];
     }
 
-    return chooseLocale(key);
+    return chooseLocale(key.map(normalizeLocale));
 }
 
 export function listLocales() {
