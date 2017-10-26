@@ -183,48 +183,23 @@ test('reset locale', function (assert) {
     assert.equal(moment('2017-02-01').format('YYYY MMM MMMM'), resultBeforeUpdate);
 });
 
-test('from', function (assert) {
+test('normalize local name', function (assert) {
     moment.defineLocale('duration-1', null);
     moment.defineLocale('duration-1', {
         relativeTime: {
             s : 'a few seconds',
             ss : '%d Seconds',
-            m : 'a minute',
-            mm : '%d Minutes',
-            h : 'an hour',
-            hh : '%d Hours',
-            d : 'a day',
-            dd : '%d Days',
-            M : 'a month',
-            MM : '%d Months',
-            y : 'a year',
-            yy : '%d Years'
         }
     });
     moment.locale('Duration_1');
     moment.updateLocale('Duration_1', {
         relativeTime: {
             s : 'A few seconds',
-            m : 'A minute',
-            h : 'An hour',
-            d : 'A day',
-            M : 'A month',
-            y : 'A year'
         }
     });
     var start = moment([2007, 1, 28]);
     moment.relativeTimeThreshold('ss', 3);
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 3}), true), 'A few seconds', 's uses child');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true), '44 Seconds', 'ss uses base');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 1}), true), 'A minute', 'm uses child');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 30}), true), '30 Minutes', 'mm uses base');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 1}), true), 'An hour', 'h uses child');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 20}), true), '20 Hours', 'hh uses base');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true), 'A day', 'd uses child');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 20}), true), '20 Days', 'dd uses base');
-    assert.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true), 'A month', 'M uses child');
-    assert.equal(start.from(moment([2007, 1, 28]).add({M: 10}), true), '10 Months', 'MM uses base');
-    assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true), 'A year', 'y uses child');
-    assert.equal(start.from(moment([2007, 1, 28]).add({y: 10}), true), '10 Years', 'yy uses base');
     moment.relativeTimeThreshold('ss', 44);
 });
