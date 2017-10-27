@@ -216,7 +216,7 @@ declare namespace moment {
     future: any;
     past: any;
     s: any;
-		ss: any;
+    ss: any;
     m: any;
     mm: any;
     h: any;
