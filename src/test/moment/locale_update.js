@@ -188,13 +188,13 @@ test('normalize local name', function (assert) {
     moment.defineLocale('duration-1', {
         relativeTime: {
             s : 'a few seconds',
-            ss : '%d Seconds',
+            ss : '%d Seconds'
         }
     });
     moment.locale('Duration_1');
     moment.updateLocale('Duration_1', {
         relativeTime: {
-            s : 'A few seconds',
+            s : 'A few seconds'
         }
     });
     var start = moment([2007, 1, 28]);
