@@ -54,7 +54,7 @@ test('format', function (assert) {
 });
 
 test('format meridiem', function (assert) {
-    assert.equal(moment([2012, 11, 28, 1, 0]).format('A'), 'шаб', 'night');
+    assert.equal(moment([2012, 11, 28, 0, 0]).format('A'), 'шаб', 'night');
     assert.equal(moment([2012, 11, 28, 3, 59]).format('A'), 'шаб', 'night');
     assert.equal(moment([2012, 11, 28, 4, 0]).format('A'), 'субҳ', 'morning');
     assert.equal(moment([2012, 11, 28, 10, 59]).format('A'), 'субҳ', 'morning');
