@@ -69,7 +69,7 @@ export default moment.defineLocale('tg', {
     meridiemParse: /шаб|субҳ|рӯз|бегоҳ/,
     meridiemHour: function (hour, meridiem) {
         if (hour === 12) {
-            return hour = 0;
+            hour = 0;
         }
         if (meridiem === 'шаб') {
             return hour < 4 ? hour : hour + 12;
