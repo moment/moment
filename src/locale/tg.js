@@ -66,21 +66,25 @@ export default moment.defineLocale('tg', {
         y : 'як сол',
         yy : '%d сол'
     },
-    meridiemParse: /субҳ|рӯз|бегоҳ|шаб/,
+    meridiemParse: /шаб|субҳ|рӯз|бегоҳ/,
     meridiemHour: function (hour, meridiem) {
         if (hour === 12) {
             return 0;
         }
-        if (meridiem === 'субҳ') {
+        if (meridiem === 'шаб') {
+            return hour < 4 ? hour : hour + 12;
+        } else if (meridiem === 'субҳ') {
             return hour;
         } else if (meridiem === 'рӯз') {
             return hour >= 11 ? hour : hour + 12;
-        } else if (meridiem === 'бегоҳ' || meridiem === 'шаб') {
+        } else if (meridiem === 'бегоҳ') {
             return hour + 12;
         }
     },
     meridiem: function (hour, minute, isLower) {
-        if (hour < 11) {
+        if (hour < 4) {
+            return 'шаб';
+        } else if (hour < 11) {
             return 'субҳ';
         } else if (hour < 16) {
             return 'рӯз';
@@ -98,6 +102,6 @@ export default moment.defineLocale('tg', {
     },
     week : {
         dow : 1, // Monday is the first day of the week.
-        doy : 7  // The week that contains Jan 4th is the first week of the year.
+        doy : 7  // The week that contains Jan 1th is the first week of the year.
     }
 });
