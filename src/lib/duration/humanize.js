@@ -15,7 +15,7 @@ function substituteTimeAgo(string, number, withoutSuffix, isFuture, locale) {
     return locale.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
 }
 
-function relativeTime (posNegDuration, withoutSuffix, locale) {
+function relativeTime (posNegDuration, withoutSuffix, thresholds, locale) {
     var duration = createDuration(posNegDuration).abs();
     var seconds  = round(duration.as('s'));
     var minutes  = round(duration.as('m'));
@@ -69,13 +69,35 @@ export function getSetRelativeTimeThreshold (threshold, limit) {
     return true;
 }
 
-export function humanize (withSuffix) {
+export function humanize (withSuffixOrOptions) {
     if (!this.isValid()) {
         return this.localeData().invalidDate();
     }
 
+    var withSuffix = false;
+    var th = thresholds;
+
+    if (typeof withSuffixOrOptions === 'boolean') {
+        withSuffix = withSuffixOrOptions;
+    }
+    else if (typeof withSuffixOrOptions === 'object') {
+        var ws = withSuffixOrOptions.withSuffix;
+        if (typeof ws === 'boolean') {
+            withSuffix = ws;
+        }
+
+        var t = withSuffixOrOptions.thresholds;
+        if (typeof t === 'object') {
+            // Fill in missing keys with the current values
+            th = Object.assign({}, thresholds, t);
+            if (typeof t.s === 'number') {
+                th.ss = t.s - 1;
+            }
+        }
+    }
+
     var locale = this.localeData();
-    var output = relativeTime(this, !withSuffix, locale);
+    var output = relativeTime(this, !withSuffix, th, locale);
 
     if (withSuffix) {
         output = locale.pastFuture(+this, output);
