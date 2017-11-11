@@ -63259,6 +63259,10 @@ test('year setter', function (assert) {
     var b = moment([2012, 1, 29]);
     assert.equal(moment(b).year(2017).format('YYYY-MM-DD'), '2017-02-28', 'set from last day of february on a leap year to a non leap year');
     assert.equal(moment(b).year(2004).format('YYYY-MM-DD'), '2004-02-29', 'set from last day of february on a leap year to a leap year');
+
+    var c = moment([2012, 9, 4]);
+    assert.equal(moment(c).year(2017).format('YYYY-MM-DD'), '2017-10-04', 'set from a random day on a leap year to a non leap year');
+    assert.equal(moment(c).year(2004).format('YYYY-MM-DD'), '2004-10-04', 'set from a random day on a leap year to a leap year');
 });
 
 test('object set ordering', function (assert) {
@@ -67751,6 +67755,14 @@ test('months', function (assert) {
         months : 'First_Second_Third_Fourth_Fifth_Sixth_Seventh_Eighth_Ninth_Tenth_Eleventh_Twelveth '.split('_')
     });
     assert.ok(moment.utc('2015-01-01', 'YYYY-MM-DD').format('MMMM'), 'First', 'months uses child');
+});
+
+test('update existing locale', function (assert) {
+    moment.updateLocale('de', {
+        monthsShort: ['JAN', 'FEB', 'MÄR', 'APR', 'MAI', 'JUN', 'JUL', 'AUG', 'SEP', 'OKT', 'NOV', 'DEZ']
+    });
+    assert.equal(moment('2017-02-01').format('YYYY MMM MMMM'), '2017 FEB Februar');
+    moment.updateLocale('de', null);
 });
 
 })));
