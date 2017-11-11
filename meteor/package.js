@@ -6,7 +6,7 @@ var packageName = 'momentjs:moment';  // https://atmospherejs.com/momentjs/momen
 Package.describe({
   name: packageName,
   summary: 'Moment.js (official): parse, validate, manipulate, and display dates - official Meteor packaging',
-  version: '2.19.1',
+  version: '2.19.2',
   git: 'https://github.com/moment/moment.git'
 });
 
