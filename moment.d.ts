@@ -82,6 +82,7 @@ declare namespace moment {
     future: RelativeTimeFuturePastVal;
     past: RelativeTimeFuturePastVal;
     s: RelativeTimeSpecVal;
+    ss: RelativeTimeSpecVal;
     m: RelativeTimeSpecVal;
     mm: RelativeTimeSpecVal;
     h: RelativeTimeSpecVal;
@@ -215,6 +216,7 @@ declare namespace moment {
     future: any;
     past: any;
     s: any;
+    ss: any;
     m: any;
     mm: any;
     h: any;
