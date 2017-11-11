@@ -1,6 +1,13 @@
 Changelog
 =========
 
+### 2.19.2 [See changelog (it's the same >:D)](https://gist.github.com/ichernev/76b1a3f33d3a8ff9665ce434a45221d0)
+
+* Release Nov 11, 2017
+
+* [#4255](https://github.com/moment/moment/pull/4255) [bugfix] Fix year setter for random days in a leap year, fixes [#4238](https://github.com/moment/moment/issues/4238)
+* [#4242](https://github.com/moment/moment/pull/4242) [bugfix] updateLocale now tries to load parent, fixes [#3626](https://github.com/moment/moment/issues/3626)
+
 ### 2.19.1
 
 * Release Oct 11, 2017
