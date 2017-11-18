@@ -173,6 +173,9 @@ test('define child locale before parent', function (assert) {
         months : 'First_Second_Third_Fourth_Fifth_Sixth_Seventh_Eighth_Ninth_Tenth_Eleventh_Twelveth '.split('_')
     });
     assert.equal(moment.locale(), 'en', 'failed to set a locale requiring missing parent');
+
+    assert.equal(moment('00:00:00 01/January/2017', 'HH:mm:ss DD/MMM/YYYY', 'months-x').locale(), 'en', 'creating moment using child with undefined parent defaults to global');
+
     moment.defineLocale('base-months-x', {
         months : 'One_Two_Three_Four_Five_Six_Seven_Eight_Nine_Ten_Eleven_Twelve'.split('_')
     });
