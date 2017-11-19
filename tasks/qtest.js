@@ -8,7 +8,7 @@ module.exports = function (grunt) {
         testrunner.options.log.tests = false;
         testrunner.options.log.summary = false;
         testrunner.options.log.testing = false;
-        testrunner.options.maxBlockDuration = 120000;
+        testrunner.options.maxBlockDuration = 600000;
 
         var tests;
 
