@@ -154,6 +154,8 @@ declare namespace moment {
   }
 
   interface Duration {
+    clone(): Duration;
+
     humanize(withSuffix?: boolean): string;
 
     abs(): Duration;
@@ -704,6 +706,7 @@ declare namespace moment {
    * Constant used to enable explicit ISO_8601 format parsing.
    */
   export var ISO_8601: MomentBuiltinFormat;
+  export var RFC_2822: MomentBuiltinFormat;
 
   export var defaultFormat: string;
   export var defaultFormatUtc: string;

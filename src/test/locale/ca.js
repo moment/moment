@@ -27,7 +27,7 @@ test('format', function (assert) {
             ['M Mo MM MMMM MMM',                   '2 2n 02 febrer febr.'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14è 14'],
-            ['d do dddd ddd dd',                   '0 0è diumenge dg. Dg'],
+            ['d do dddd ddd dd',                   '0 0è diumenge dg. dg'],
             ['DDD DDDo DDDD',                      '45 45è 045'],
             ['w wo ww',                            '6 6a 06'],
             ['h hh',                               '3 03'],
@@ -38,9 +38,9 @@ test('format', function (assert) {
             ['[the] DDDo [day of the year]',       'the 45è day of the year'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14/02/2010'],
-            ['LL',                                 'el 14 de febrer de 2010'],
-            ['LLL',                                'el 14 de febrer de 2010 a les 15:25'],
-            ['LLLL',                               'el diumenge 14 de febrer de 2010 a les 15:25'],
+            ['LL',                                 '14 de febrer de 2010'],
+            ['LLL',                                '14 de febrer de 2010 a les 15:25'],
+            ['LLLL',                               'diumenge 14 de febrer de 2010 a les 15:25'],
             ['l',                                  '14/2/2010'],
             ['ll',                                 '14 febr. 2010'],
             ['lll',                                '14 febr. 2010, 15:25'],
@@ -98,7 +98,7 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'diumenge dg. Dg_dilluns dl. Dl_dimarts dt. Dt_dimecres dc. Dc_dijous dj. Dj_divendres dv. Dv_dissabte ds. Ds'.split('_'), i;
+    var expected = 'diumenge dg. dg_dilluns dl. dl_dimarts dt. dt_dimecres dc. dc_dijous dj. dj_divendres dv. dv_dissabte ds. ds'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }

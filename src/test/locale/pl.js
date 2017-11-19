@@ -191,13 +191,35 @@ test('calendar day', function (assert) {
 
 test('calendar next week', function (assert) {
     var i, m;
+
+    function makeFormat(d) {
+        switch (d.day()) {
+            case 0:
+                return '[W niedzielę o] LT';
+
+            case 2:
+                return '[We wtorek o] LT';
+
+            case 3:
+                return '[W środę o] LT';
+
+            case 6:
+                return '[W sobotę o] LT';
+
+            default:
+                return '[W] dddd [o] LT';
+        }
+    }
+
     for (i = 2; i < 7; i++) {
         m = moment().add({d: i});
-        assert.equal(m.calendar(),       m.format('[W] dddd [o] LT'),  'Today + ' + i + ' days current time');
+        assert.equal(m.calendar(), m.format(makeFormat(m)), 'Today + ' + i + ' days current time');
+
         m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(m.calendar(),       m.format('[W] dddd [o] LT'),  'Today + ' + i + ' days beginning of day');
+        assert.equal(m.calendar(), m.format(makeFormat(m)), 'Today + ' + i + ' days beginning of day');
+
         m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(m.calendar(),       m.format('[W] dddd [o] LT'),  'Today + ' + i + ' days end of day');
+        assert.equal(m.calendar(), m.format(makeFormat(m)), 'Today + ' + i + ' days end of day');
     }
 });
 

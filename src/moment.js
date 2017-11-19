@@ -1,12 +1,12 @@
 //! moment.js
-//! version : 2.18.1
+//! version : 2.19.2
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
 
 import { hooks as moment, setHookCallback } from './lib/utils/hooks';
 
-moment.version = '2.18.1';
+moment.version = '2.19.2';
 
 import {
     min,
@@ -40,8 +40,8 @@ import {
 
 import {
     isDuration,
-    createDuration as duration,
-    getSetRelativeTimeRounding as relativeTimeRounding,
+    createDuration              as duration,
+    getSetRelativeTimeRounding  as relativeTimeRounding,
     getSetRelativeTimeThreshold as relativeTimeThreshold
 } from './lib/duration/duration';
 
@@ -74,7 +74,7 @@ moment.updateLocale          = updateLocale;
 moment.locales               = locales;
 moment.weekdaysShort         = weekdaysShort;
 moment.normalizeUnits        = normalizeUnits;
-moment.relativeTimeRounding = relativeTimeRounding;
+moment.relativeTimeRounding  = relativeTimeRounding;
 moment.relativeTimeThreshold = relativeTimeThreshold;
 moment.calendarFormat        = getCalendarFormat;
 moment.prototype             = fn;
