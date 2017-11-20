@@ -354,8 +354,8 @@ test('string with format (timezone offset)', function (assert) {
     c = moment('2011 2 1 10 -05:00', 'YYYY MM DD HH Z');
     d = moment('2011 2 1 8 -07:00', 'YYYY MM DD HH Z');
     assert.equal(c.hours(), d.hours(), '10 am central time == 8 am pacific time');
-    e = moment.utc('Fri, 20 Jul 2012 17:15:00', 'ddd, DD MMM YYYY HH:mm:ss');
-    f = moment.utc('Fri, 20 Jul 2012 10:15:00 -0700', 'ddd, DD MMM YYYY HH:mm:ss ZZ');
+    e = moment.utc('20 07 2012 17:15:00', 'DD MM YYYY HH:mm:ss');
+    f = moment.utc('20 07 2012 10:15:00 -0700', 'DD MM YYYY HH:mm:ss ZZ');
     assert.equal(e.hours(), f.hours(), 'parse timezone offset in utc');
 });
 
