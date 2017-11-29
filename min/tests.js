@@ -57703,7 +57703,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -57855,7 +57855,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -59181,7 +59181,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -59310,7 +59310,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -59337,11 +59337,9 @@ function hasOwnProp(a, b) {
     return Object.prototype.hasOwnProperty.call(a, b);
 }
 
-var aliases = {};
-
 function addUnitAlias (unit, shorthand) {
     var lowerCase = unit.toLowerCase();
-    aliases[lowerCase] = aliases[lowerCase + 's'] = aliases[shorthand] = unit;
+    
 }
 
 var hookCallback;
@@ -59536,39 +59534,8 @@ hooks.parseTwoDigitYear = function (input) {
 
 // MOMENTS
 
-function isArray(input) {
-    return input instanceof Array || Object.prototype.toString.call(input) === '[object Array]';
-}
-
 function mod(n, x) {
     return ((n % x) + x) % x;
-}
-
-var indexOf;
-
-if (Array.prototype.indexOf) {
-    indexOf = Array.prototype.indexOf;
-} else {
-    indexOf = function (o) {
-        // I know
-        var i;
-        for (i = 0; i < this.length; ++i) {
-            if (this[i] === o) {
-                return i;
-            }
-        }
-        return -1;
-    };
-}
-
-function isObject(input) {
-    // IE8 will treat undefined and null as object if it wasn't for
-    // input != null
-    return input != null && Object.prototype.toString.call(input) === '[object Object]';
-}
-
-function isUndefined(input) {
-    return input === void 0;
 }
 
 function extend(a, b) {
@@ -59616,24 +59583,6 @@ function getParsingFlags(m) {
     return m._pf;
 }
 
-var some;
-if (Array.prototype.some) {
-    some = Array.prototype.some;
-} else {
-    some = function (fun) {
-        var t = Object(this);
-        var len = t.length >>> 0;
-
-        for (var i = 0; i < len; i++) {
-            if (i in t && fun.call(this, t[i], i, t)) {
-                return true;
-            }
-        }
-
-        return false;
-    };
-}
-
 // Plugins that add properties should also add the key here (null value),
 // so we can properly clone ourselves.
 var momentProperties = hooks.momentProperties = [];
@@ -59641,21 +59590,6 @@ var momentProperties = hooks.momentProperties = [];
 
 
 // Moment prototype object
-
-// compare two arrays, return the number of differences
-function compareArrays(array1, array2, dontConvert) {
-    var len = Math.min(array1.length, array2.length),
-        lengthDiff = Math.abs(array1.length - array2.length),
-        diffs = 0,
-        i;
-    for (i = 0; i < len; i++) {
-        if ((dontConvert && array1[i] !== array2[i]) ||
-            (!dontConvert && toInt(array1[i]) !== toInt(array2[i]))) {
-            diffs++;
-        }
-    }
-    return diffs + lengthDiff;
-}
 
 function warn(msg) {
     if (hooks.suppressDeprecationWarnings === false &&
@@ -59694,108 +59628,10 @@ function deprecate(msg, fn) {
     }, fn);
 }
 
-var deprecations = {};
 
-function deprecateSimple(name, msg) {
-    if (hooks.deprecationHandler != null) {
-        hooks.deprecationHandler(name, msg);
-    }
-    if (!deprecations[name]) {
-        warn(msg);
-        deprecations[name] = true;
-    }
-}
 
 hooks.suppressDeprecationWarnings = false;
 hooks.deprecationHandler = null;
-
-function mergeConfigs(parentConfig, childConfig) {
-    var res = extend({}, parentConfig), prop;
-    for (prop in childConfig) {
-        if (hasOwnProp(childConfig, prop)) {
-            if (isObject(parentConfig[prop]) && isObject(childConfig[prop])) {
-                res[prop] = {};
-                extend(res[prop], parentConfig[prop]);
-                extend(res[prop], childConfig[prop]);
-            } else if (childConfig[prop] != null) {
-                res[prop] = childConfig[prop];
-            } else {
-                delete res[prop];
-            }
-        }
-    }
-    for (prop in parentConfig) {
-        if (hasOwnProp(parentConfig, prop) &&
-                !hasOwnProp(childConfig, prop) &&
-                isObject(parentConfig[prop])) {
-            // make sure changes to properties don't modify parent config
-            res[prop] = extend({}, res[prop]);
-        }
-    }
-    return res;
-}
-
-function Locale(config) {
-    if (config != null) {
-        this.set(config);
-    }
-}
-
-var keys;
-
-if (Object.keys) {
-    keys = Object.keys;
-} else {
-    keys = function (obj) {
-        var i, res = [];
-        for (i in obj) {
-            if (hasOwnProp(obj, i)) {
-                res.push(i);
-            }
-        }
-        return res;
-    };
-}
-
-var defaultCalendar = {
-    sameDay : '[Today at] LT',
-    nextDay : '[Tomorrow at] LT',
-    nextWeek : 'dddd [at] LT',
-    lastDay : '[Yesterday at] LT',
-    lastWeek : '[Last] dddd [at] LT',
-    sameElse : 'L'
-};
-
-var defaultLongDateFormat = {
-    LTS  : 'h:mm:ss A',
-    LT   : 'h:mm A',
-    L    : 'MM/DD/YYYY',
-    LL   : 'MMMM D, YYYY',
-    LLL  : 'MMMM D, YYYY h:mm A',
-    LLLL : 'dddd, MMMM D, YYYY h:mm A'
-};
-
-var defaultInvalidDate = 'Invalid date';
-
-var defaultOrdinal = '%d';
-var defaultDayOfMonthOrdinalParse = /\d{1,2}/;
-
-var defaultRelativeTime = {
-    future : 'in %s',
-    past   : '%s ago',
-    s  : 'a few seconds',
-    ss : '%d seconds',
-    m  : 'a minute',
-    mm : '%d minutes',
-    h  : 'an hour',
-    hh : '%d hours',
-    d  : 'a day',
-    dd : '%d days',
-    M  : 'a month',
-    MM : '%d months',
-    y  : 'a year',
-    yy : '%d years'
-};
 
 // https://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
 
@@ -59826,10 +59662,7 @@ addWeekParseToken(['w', 'ww', 'W', 'WW'], function (input, week, config, token) 
 
 
 
-var defaultLocaleWeek = {
-    dow : 0, // Sunday is the first day of the week.
-    doy : 6  // The week that contains Jan 1st is the first week of the year.
-};
+
 
 
 
@@ -60015,7 +59848,7 @@ addParseToken('Hmmss', function (input, array, config) {
 
 
 
-var defaultLocaleMeridiemParse = /[ap]\.?m?\.?/i;
+
 
 
 
@@ -60030,171 +59863,17 @@ var defaultLocaleMeridiemParse = /[ap]\.?m?\.?/i;
 // week
 // weekdays
 // meridiem
-var baseConfig = {
-    calendar: defaultCalendar,
-    longDateFormat: defaultLongDateFormat,
-    invalidDate: defaultInvalidDate,
-    ordinal: defaultOrdinal,
-    dayOfMonthOrdinalParse: defaultDayOfMonthOrdinalParse,
-    relativeTime: defaultRelativeTime,
-
-    months: defaultLocaleMonths,
-    monthsShort: defaultLocaleMonthsShort,
-
-    week: defaultLocaleWeek,
-
-    weekdays: defaultLocaleWeekdays,
-    weekdaysMin: defaultLocaleWeekdaysMin,
-    weekdaysShort: defaultLocaleWeekdaysShort,
-
-    meridiemParse: defaultLocaleMeridiemParse
-};
-
-// internal storage for locale config files
-var locales = {};
-var localeFamilies = {};
-var globalLocale;
-
-function normalizeLocale(key) {
-    return key ? key.toLowerCase().replace('_', '-') : key;
-}
-
-// pick the locale from the array
-// try ['en-au', 'en-gb'] as 'en-au', 'en-gb', 'en', as in move through the list trying each
-// substring from most specific to least, but move to the next array item if it's a more specific variant than the current root
-function chooseLocale(names) {
-    var i = 0, j, next, locale, split;
-
-    while (i < names.length) {
-        split = normalizeLocale(names[i]).split('-');
-        j = split.length;
-        next = normalizeLocale(names[i + 1]);
-        next = next ? next.split('-') : null;
-        while (j > 0) {
-            locale = loadLocale(split.slice(0, j).join('-'));
-            if (locale) {
-                return locale;
-            }
-            if (next && next.length >= j && compareArrays(split, next, true) >= j - 1) {
-                //the next array item is better than a shallower substring of this one
-                break;
-            }
-            j--;
-        }
-        i++;
-    }
-    return null;
-}
-
-function loadLocale(name) {
-    var oldLocale = null;
-    // TODO: Find a better way to register and load all the locales in Node
-    if (!locales[name] && (typeof module !== 'undefined') &&
-            module && module.exports) {
-        try {
-            oldLocale = globalLocale._abbr;
-            var aliasedRequire = require;
-            aliasedRequire('./locale/' + name);
-            getSetGlobalLocale(oldLocale);
-        } catch (e) {}
-    }
-    return locales[name];
-}
 
 // This function will load locale and then set the global locale.  If
 // no arguments are passed in, it will simply return the current global
 // locale key.
-function getSetGlobalLocale (key, values) {
-    var data;
-    if (key) {
-        if (isUndefined(values)) {
-            data = getLocale(key);
-        }
-        else {
-            data = defineLocale(key, values);
-        }
-
-        if (data) {
-            // moment.duration._locale = moment._locale = data;
-            globalLocale = data;
-        }
-    }
-
-    return globalLocale._abbr;
-}
-
-function defineLocale (name, config) {
-    if (config !== null) {
-        var parentConfig = baseConfig;
-        config.abbr = name;
-        if (locales[name] != null) {
-            deprecateSimple('defineLocaleOverride',
-                    'use moment.updateLocale(localeName, config) to change ' +
-                    'an existing locale. moment.defineLocale(localeName, ' +
-                    'config) should only be used for creating a new locale ' +
-                    'See http://momentjs.com/guides/#/warnings/define-locale/ for more info.');
-            parentConfig = locales[name]._config;
-        } else if (config.parentLocale != null) {
-            if (locales[config.parentLocale] != null) {
-                parentConfig = locales[config.parentLocale]._config;
-            } else {
-                if (!localeFamilies[config.parentLocale]) {
-                    localeFamilies[config.parentLocale] = [];
-                }
-                localeFamilies[config.parentLocale].push({
-                    name: name,
-                    config: config
-                });
-                return null;
-            }
-        }
-        locales[name] = new Locale(mergeConfigs(parentConfig, config));
-
-        if (localeFamilies[name]) {
-            localeFamilies[name].forEach(function (x) {
-                defineLocale(x.name, x.config);
-            });
-        }
-
-        // backwards compat for now: also set the locale
-        // make sure we set the locale AFTER all child locales have been
-        // created, so we won't end up with the child locale set.
-        getSetGlobalLocale(name);
 
 
-        return locales[name];
-    } else {
-        // useful for testing
-        delete locales[name];
-        return null;
-    }
-}
+
 
 
 
 // returns locale data
-function getLocale (key) {
-    var locale;
-
-    if (key && key._locale && key._locale._abbr) {
-        key = key._locale._abbr;
-    }
-
-    if (!key) {
-        return globalLocale;
-    }
-
-    if (!isArray(key)) {
-        //short-circuit everything else
-        locale = loadLocale(key);
-        if (locale) {
-            return locale;
-        }
-        key = [key];
-    }
-
-    return chooseLocale(key);
-}
 
 // convert an array to a date.
 // the array should mirror the parameters below
@@ -60407,7 +60086,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -60692,7 +60371,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -61034,7 +60713,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -61893,7 +61572,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -62033,7 +61712,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -62214,7 +61893,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -62813,7 +62492,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -62960,7 +62639,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -63439,7 +63118,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -63562,7 +63241,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -63838,7 +63517,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -64052,6 +63731,8 @@ test('is after invalid', function (assert) {
 
 var test = QUnit.test;
 
+var expect = QUnit.expect;
+
 function isArray(input) {
     return input instanceof Array || Object.prototype.toString.call(input) === '[object Array]';
 }
@@ -64146,7 +63827,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -64418,7 +64099,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -64870,7 +64551,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -64991,7 +64672,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -65070,6 +64751,8 @@ test('is moment with hacked hasOwnProperty', function (assert) {
 /*global QUnit:false*/
 
 var test = QUnit.test;
+
+var expect = QUnit.expect;
 
 function isNumber(input) {
     return typeof input === 'number' || Object.prototype.toString.call(input) === '[object Number]';
@@ -65174,7 +64857,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -65420,7 +65103,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -65697,7 +65380,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -65976,7 +65659,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -66354,7 +66037,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -66460,7 +66143,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -66589,11 +66272,7 @@ test('with locale data', function (assert) {
         weekdaysMin = '1_2_3_4_5_6_7'.split('_'),
         weekdaysLocale = 'four_five_six_seven_one_two_three'.split('_'),
         weekdaysShortLocale = 'fo_fi_si_se_on_tw_th'.split('_'),
-        weekdaysMinLocale = '4_5_6_7_1_2_3'.split('_'),
-        week = {
-            dow : 3,
-            doy : 6
-        };
+        weekdaysMinLocale = '4_5_6_7_1_2_3'.split('_');
 
     var customLocale = moment.localeData('numerologists');
 
@@ -66678,7 +66357,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -67293,7 +66972,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -67570,7 +67249,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -67839,7 +67518,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -67982,7 +67661,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -68103,7 +67782,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -68229,7 +67908,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -68406,7 +68085,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -68675,7 +68354,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -68843,7 +68522,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -69039,7 +68718,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -69354,7 +69033,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -69844,7 +69523,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -70103,7 +69782,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -70276,7 +69955,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -70855,7 +70534,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -71258,7 +70937,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -71504,7 +71183,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -71823,7 +71502,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
@@ -72212,7 +71891,7 @@ function matchedDeprecation(name, msg, deprecations) {
 
 var test = QUnit.test;
 
-
+var expect = QUnit.expect;
 
 function module$1 (name, lifecycle) {
     QUnit.module(name, {
