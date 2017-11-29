@@ -7,10 +7,10 @@
         <owners>Cory Deppen, Iskren Chernev</owners>
         <description>A lightweight JavaScript date library for parsing, manipulating, and formatting dates.</description>
         <releaseNotes>
-            * Release Nov 11, 2017
+            * Release Nov 29, 2017
 
-            * [#4255](https://github.com/moment/moment/pull/4255) [bugfix] Fix year setter for random days in a leap year, fixes [#4238](https://github.com/moment/moment/issues/4238)
-            * [#4242](https://github.com/moment/moment/pull/4242) [bugfix] updateLocale now tries to load parent, fixes [#3626](https://github.com/moment/moment/issues/3626)
+            * [#4326](https://github.com/moment/moment/pull/4326) [bugfix] Fix for ReDOS vulnerability (see [#4163](https://github.com/moment/moment/issues/4163))
+            * [#4289](https://github.com/moment/moment/pull/4289) [misc] Fix spelling and formatting for U.S. for es-us
         </releaseNotes>
         <projectUrl>http://momentjs.com/</projectUrl>
         <iconUrl>http://pbs.twimg.com/profile_images/482670411402858496/Xrtdc94q_normal.png</iconUrl>
