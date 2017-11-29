@@ -750,6 +750,13 @@ test('parsing iso week year/week/weekday', function (assert) {
     assert.equal(moment.utc('2012-W01').format(), '2012-01-02T00:00:00Z', '2012 week 1 (1st Jan Sun)');
 });
 
+test('parsing weekday on utc dates verifies day acccording to local time', function (assert) {
+    assert.ok(moment.utc('Mon 03:59', 'ddd HH:mm').isValid(), 'Monday 03:59 (crosses UTC date');
+    assert.ok(moment.utc('Monday 03:59', 'dddd HH:mm').isValid(), 'Monday 03:59 (crosses UTC date)');
+    assert.ok(moment.utc('Mon 04:00', 'ddd HH:mm').isValid(), 'Monday 04:00');
+    assert.ok(moment.utc('Monday 04:00', 'dddd HH:mm').isValid(), 'Monday 04:00');
+});
+
 test('parsing week year/week/weekday (dow 1, doy 4)', function (assert) {
     moment.locale('dow:1,doy:4', {week: {dow: 1, doy: 4}});
 
