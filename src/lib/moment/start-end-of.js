@@ -17,7 +17,7 @@ function localStartOfDate(y, m, d) {
     if (0 <= y && y <= 99) {
         return new Date(y + 400, m, d) - MS_PER_400_YEARS;
     } else {
-        return new Date(y, m, d).getTime();
+        return new Date(y, m, d).valueOf();
     }
 }
 
@@ -62,7 +62,6 @@ export function startOf (units) {
         case 'hour':
             time = this._d.valueOf();
             time = (time - mod(time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE), MS_PER_HOUR));
-            // FIXME: Special case: handle fractional DST changes:
             break;
         case 'minute':
             time = this._d.valueOf();
@@ -111,7 +110,6 @@ export function endOf (units) {
         case 'hour':
             time = this._d.valueOf();
             time = (time - mod(time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE), MS_PER_HOUR) + MS_PER_HOUR - 1);
-            // FIXME: Special case: handle fractional DST changes:
             break;
         case 'minute':
             time = this._d.valueOf();
