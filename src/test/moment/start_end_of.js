@@ -393,3 +393,27 @@ test('endOf millisecond and no-arg', function (assert) {
     assert.equal(+m, +m.clone().endOf('millisecond'), 'endOf with millisecond argument should change time');
     assert.equal(+m, +m.clone().endOf('milliseconds'), 'endOf with milliseconds argument should change time');
 });
+
+test('startOf for year zero', function (assert) {
+    var m = moment('0000-02-29T12:34:56.789Z').parseZone();
+    assert.equal(m.clone().startOf('ms').toISOString(), '0000-02-29T12:34:56.789Z',  'startOf millisecond should preserver year');
+    assert.equal(m.clone().startOf('s').toISOString(), '0000-02-29T12:34:56.000Z', 'startOf second should preserver year');
+    assert.equal(m.clone().startOf('m').toISOString(), '0000-02-29T12:34:00.000Z', 'startOf minute should preserver year');
+    assert.equal(m.clone().startOf('h').toISOString(), '0000-02-29T12:00:00.000Z', 'startOf hour should preserver year');
+    assert.equal(m.clone().startOf('d').toISOString(), '0000-02-29T00:00:00.000Z', 'startOf day should preserver year');
+    assert.equal(m.clone().startOf('M').toISOString(), '0000-02-01T00:00:00.000Z', 'startOf month should preserver year');
+    assert.equal(m.clone().startOf('Q').toISOString(), '0000-01-01T00:00:00.000Z', 'startOf quarter should preserver year');
+    assert.equal(m.clone().startOf('y').toISOString(), '0000-01-01T00:00:00.000Z', 'startOf year should preserver year');
+});
+
+test('endOf for year zero', function (assert) {
+    var m = moment('0000-02-29T12:34:56.789Z').parseZone();
+    assert.equal(m.clone().endOf('ms').toISOString(), '0000-02-29T12:34:56.789Z',  'endOf millisecond should preserver year');
+    assert.equal(m.clone().endOf('s').toISOString(), '0000-02-29T12:34:56.999Z', 'endOf second should preserver year');
+    assert.equal(m.clone().endOf('m').toISOString(), '0000-02-29T12:34:59.999Z', 'endOf minute should preserver year');
+    assert.equal(m.clone().endOf('h').toISOString(), '0000-02-29T12:59:59.999Z', 'endOf hour should preserver year');
+    assert.equal(m.clone().endOf('d').toISOString(), '0000-02-29T23:59:59.999Z', 'endOf day should preserver year');
+    assert.equal(m.clone().endOf('M').toISOString(), '0000-02-29T23:59:59.999Z', 'endOf month should preserver year');
+    assert.equal(m.clone().endOf('Q').toISOString(), '0000-03-31T23:59:59.999Z', 'endOf quarter should preserver year');
+    assert.equal(m.clone().endOf('y').toISOString(), '0000-12-31T23:59:59.999Z', 'endOf year should preserver year');
+});
