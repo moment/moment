@@ -20,7 +20,7 @@ export function createDate (y, m, d, h, M, s, ms) {
 
 export function createUTCDate (y) {
     var date;
-    // the date constructor remaps years 0-99 to 1900-1999
+    // the Date.UTC function remaps years 0-99 to 1900-1999
     if (y < 100 && y >= 0) {
         var args = Array.prototype.slice.call(arguments);
         args[0] = y + 400;
