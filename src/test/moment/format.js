@@ -154,6 +154,26 @@ test('toISOString', function (assert) {
     assert.equal(date.toISOString(), null, 'An invalid date to iso string is null');
 });
 
+test('toISOString without UTC conversion', function (assert) {
+    var date = moment.utc('2016-12-31T19:53:45.678').utcOffset('+05:30');
+
+    assert.equal(date.toISOString({utc: false}), '2017-01-01T01:23:45.678+05:30', 'should output ISO8601 on moment.fn.toISOString');
+
+    // big years
+    date = moment.utc('+020122-12-31T19:53:45.678').utcOffset('+05:30');
+    assert.equal(date.toISOString({utc: false}), '+020123-01-01T01:23:45.678+05:30', 'ISO8601 format on big positive year');
+    // negative years
+    date = moment.utc('-000002-12-31T19:53:45.678').utcOffset('+05:30');
+    assert.equal(date.toISOString({utc: false}), '-000001-01-01T01:23:45.678+05:30', 'ISO8601 format on negative year');
+    // big negative years
+    date = moment.utc('-020124-12-31T19:53:45.678').utcOffset('+05:30');
+    assert.equal(date.toISOString({utc: false}), '-020123-01-01T01:23:45.678+05:30', 'ISO8601 format on big negative year');
+
+    //invalid dates
+    date = moment.utc('2017-12-32').utcOffset('+05:30');
+    assert.equal(date.toISOString({utc: false}), null, 'An invalid date to iso string is null');
+});
+
 // See https://nodejs.org/dist/latest/docs/api/util.html#util_custom_inspect_function_on_objects
 test('inspect', function (assert) {
     function roundtrip(m) {
