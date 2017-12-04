@@ -23,7 +23,7 @@ export function toISOString(options) {
         if (utc) {
             return this.toDate().toISOString();
         } else {
-            return new Date(this.toDate().getTime() + this.utcOffset() * 6e4).toISOString().slice(0, -1) + formatMoment(m, 'Z');
+            return new Date(this._d.valueOf()).toISOString().replace('Z', formatMoment(m, 'Z'));
         }
     }
     return formatMoment(m, utc ? 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYY-MM-DD[T]HH:mm:ss.SSSZ');
