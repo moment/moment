@@ -480,7 +480,7 @@ test('humanize duration with options', function (assert) {
     assert.equal(
         moment.duration({seconds: 10}).humanize({thresholds: thresholds, withSuffix: true}),
         'in a minute',
-        '100 seconds = a minute (with thresholds and suffix)'
+        '10 seconds = a minute (with thresholds and suffix)'
     );
 });
 
