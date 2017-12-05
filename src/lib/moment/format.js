@@ -9,11 +9,11 @@ export function toString () {
     return this.clone().locale('en').format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
 }
 
-export function toISOString(options) {
+export function toISOString(keepOffset) {
     if (!this.isValid()) {
         return null;
     }
-    var utc = !(options && options.utc === false);
+    var utc = !(keepOffset === true);
     var m = utc ? this.clone().utc() : this;
     if (m.year() < 0 || m.year() > 9999) {
         return formatMoment(m, utc ? 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYYYY-MM-DD[T]HH:mm:ss.SSSZ');
