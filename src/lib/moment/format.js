@@ -13,7 +13,7 @@ export function toISOString(keepOffset) {
     if (!this.isValid()) {
         return null;
     }
-    var utc = !(keepOffset === true);
+    var utc = keepOffset !== true;
     var m = utc ? this.clone().utc() : this;
     if (m.year() < 0 || m.year() > 9999) {
         return formatMoment(m, utc ? 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYYYY-MM-DD[T]HH:mm:ss.SSSZ');
