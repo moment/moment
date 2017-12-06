@@ -1,15 +1,9 @@
 export function createDate (y, m, d, h, M, s, ms) {
-    var date;
     // the date constructor remaps years 0-99 to 1900-1999
     var remapYears = (y < 100 && y >= 0);
     // can't just apply() to create a date:
     // https://stackoverflow.com/q/181348
-    if (arguments.length === 3) {
-        // Special-case: handles dates that don't start at midnight
-        date = new Date(remapYears ? y + 400 : y, m, d);
-    } else {
-        date = new Date(remapYears ? y + 400 : y, m, d, h, M, s, ms);
-    }
+    var date = new Date(remapYears ? y + 400 : y, m, d, h, M, s, ms);
 
     if (remapYears && isFinite(date.getFullYear())) {
         date.setFullYear(y);
