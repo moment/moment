@@ -13,53 +13,60 @@ function translate(number, withoutSuffix, key, isFuture) {
     var result = number + ' ';
     switch (key) {
         case 's':  // a few seconds / in a few seconds / a few seconds ago
-            return (withoutSuffix || isFuture) ? 'pár sekund' : 'pár sekundami';
+            result = (withoutSuffix || isFuture) ? 'pár sekund' : 'pár sekundami';
+            break;
         case 'm':  // a minute / in a minute / a minute ago
-            return withoutSuffix ? 'minuta' : (isFuture ? 'minutu' : 'minutou');
+            result = withoutSuffix ? 'minuta' : (isFuture ? 'minutu' : 'minutou');
+            break;
         case 'mm': // 9 minutes / in 9 minutes / 9 minutes ago
             if (withoutSuffix || isFuture) {
-                return result + (plural(number) ? 'minuty' : 'minut');
+                result = result + (plural(number) ? 'minuty' : 'minut');
             } else {
-                return result + 'minutami';
+                result = result + 'minutami';
             }
             break;
         case 'h':  // an hour / in an hour / an hour ago
-            return withoutSuffix ? 'hodina' : (isFuture ? 'hodinu' : 'hodinou');
+            result = withoutSuffix ? 'hodina' : (isFuture ? 'hodinu' : 'hodinou');
+            break;
         case 'hh': // 9 hours / in 9 hours / 9 hours ago
             if (withoutSuffix || isFuture) {
-                return result + (plural(number) ? 'hodiny' : 'hodin');
+                result = result + (plural(number) ? 'hodiny' : 'hodin');
             } else {
-                return result + 'hodinami';
+                result = result + 'hodinami';
             }
             break;
         case 'd':  // a day / in a day / a day ago
-            return (withoutSuffix || isFuture) ? 'den' : 'dnem';
+            result = (withoutSuffix || isFuture) ? 'den' : 'dnem';
+            break;
         case 'dd': // 9 days / in 9 days / 9 days ago
             if (withoutSuffix || isFuture) {
-                return result + (plural(number) ? 'dny' : 'dní');
+                result = result + (plural(number) ? 'dny' : 'dní');
             } else {
-                return result + 'dny';
+                result = result + 'dny';
             }
             break;
         case 'M':  // a month / in a month / a month ago
-            return (withoutSuffix || isFuture) ? 'měsíc' : 'měsícem';
+            result = (withoutSuffix || isFuture) ? 'měsíc' : 'měsícem';
+            break;
         case 'MM': // 9 months / in 9 months / 9 months ago
             if (withoutSuffix || isFuture) {
-                return result + (plural(number) ? 'měsíce' : 'měsíců');
+                result = result + (plural(number) ? 'měsíce' : 'měsíců');
             } else {
-                return result + 'měsíci';
+                result = result + 'měsíci';
             }
             break;
         case 'y':  // a year / in a year / a year ago
-            return (withoutSuffix || isFuture) ? 'rok' : 'rokem';
+            result = (withoutSuffix || isFuture) ? 'rok' : 'rokem';
+            break;
         case 'yy': // 9 years / in 9 years / 9 years ago
             if (withoutSuffix || isFuture) {
-                return result + (plural(number) ? 'roky' : 'let');
+                result = result + (plural(number) ? 'roky' : 'let');
             } else {
-                return result + 'lety';
+                result = result + 'lety';
             }
             break;
     }
+    return result;
 }
 
 export default moment.defineLocale('cs', {
