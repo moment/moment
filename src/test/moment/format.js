@@ -4,6 +4,18 @@ import moment from '../../moment';
 
 module('format');
 
+test('format constants', function (assert) {
+    var m = moment(new Date(2015, 11, 28, 12, 10, 50, 125));
+    assert.equal(m.format(moment.DATETIME_LOCAL), '2015-12-28T12:10', 'datetime local format constant');
+    assert.equal(m.format(moment.DATETIME_LOCAL_MS), '2015-12-28T12:10:50.125', 'datetime local format constant with seconds and millis');
+    assert.equal(m.format(moment.DATE), '2015-12-28', 'date format constant');
+    assert.equal(m.format(moment.TIME_MINUTES), '12:10', 'time format constant');
+    assert.equal(m.format(moment.TIME_SECONDS), '12:10:50', 'time format constant with seconds');
+    assert.equal(m.format(moment.TIME_MS), '12:10:50.125', 'time format constant with seconds and millis');
+    assert.equal(m.format(moment.WEEK), '2015-W53', 'week format constant');
+    assert.equal(m.format(moment.MONTH), '2015-12', 'month format constant');
+});
+
 test('format YY', function (assert) {
     var b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
     assert.equal(b.format('YY'), '09', 'YY ---> 09');
@@ -105,7 +117,7 @@ test('unix offset milliseconds', function (assert) {
 
 test('utcOffset sanity checks', function (assert) {
     assert.equal(moment().utcOffset() % 15, 0,
-            'utc offset should be a multiple of 15 (was ' + moment().utcOffset() + ')');
+        'utc offset should be a multiple of 15 (was ' + moment().utcOffset() + ')');
 
     assert.equal(moment().utcOffset(), -(new Date()).getTimezoneOffset(),
         'utcOffset should return the opposite of getTimezoneOffset');
@@ -129,7 +141,7 @@ test('toJSON', function (assert) {
 
     if (supportsJson) {
         assert.equal(JSON.stringify({
-            date : date
+            date: date
         }), '{"date":"2012-10-09T20:30:40.678Z"}', 'should output ISO8601 on JSON.stringify');
     }
 });
@@ -160,6 +172,7 @@ test('inspect', function (assert) {
         /*jshint evil:true */
         return (new Function('moment', 'return ' + m.inspect()))(moment);
     }
+
     function testInspect(date, string) {
         var inspected = date.inspect();
         assert.equal(inspected, string);
@@ -324,24 +337,24 @@ test('week year formats', function (assert) {
 });
 
 test('iso weekday formats', function (assert) {
-    assert.equal(moment([1985, 1,  4]).format('E'), '1', 'Feb  4 1985 is Monday    -- 1st day');
+    assert.equal(moment([1985, 1, 4]).format('E'), '1', 'Feb  4 1985 is Monday    -- 1st day');
     assert.equal(moment([2029, 8, 18]).format('E'), '2', 'Sep 18 2029 is Tuesday   -- 2nd day');
     assert.equal(moment([2013, 3, 24]).format('E'), '3', 'Apr 24 2013 is Wednesday -- 3rd day');
-    assert.equal(moment([2015, 2,  5]).format('E'), '4', 'Mar  5 2015 is Thursday  -- 4th day');
-    assert.equal(moment([1970, 0,  2]).format('E'), '5', 'Jan  2 1970 is Friday    -- 5th day');
+    assert.equal(moment([2015, 2, 5]).format('E'), '4', 'Mar  5 2015 is Thursday  -- 4th day');
+    assert.equal(moment([1970, 0, 2]).format('E'), '5', 'Jan  2 1970 is Friday    -- 5th day');
     assert.equal(moment([2001, 4, 12]).format('E'), '6', 'May 12 2001 is Saturday  -- 6th day');
-    assert.equal(moment([2000, 0,  2]).format('E'), '7', 'Jan  2 2000 is Sunday    -- 7th day');
+    assert.equal(moment([2000, 0, 2]).format('E'), '7', 'Jan  2 2000 is Sunday    -- 7th day');
 });
 
 test('weekday formats', function (assert) {
     moment.defineLocale('dow: 3,doy: 5', {week: {dow: 3, doy: 5}});
-    assert.equal(moment([1985, 1,  6]).format('e'), '0', 'Feb  6 1985 is Wednesday -- 0th day');
+    assert.equal(moment([1985, 1, 6]).format('e'), '0', 'Feb  6 1985 is Wednesday -- 0th day');
     assert.equal(moment([2029, 8, 20]).format('e'), '1', 'Sep 20 2029 is Thursday  -- 1st day');
     assert.equal(moment([2013, 3, 26]).format('e'), '2', 'Apr 26 2013 is Friday    -- 2nd day');
-    assert.equal(moment([2015, 2,  7]).format('e'), '3', 'Mar  7 2015 is Saturday  -- 3nd day');
-    assert.equal(moment([1970, 0,  4]).format('e'), '4', 'Jan  4 1970 is Sunday    -- 4th day');
+    assert.equal(moment([2015, 2, 7]).format('e'), '3', 'Mar  7 2015 is Saturday  -- 3nd day');
+    assert.equal(moment([1970, 0, 4]).format('e'), '4', 'Jan  4 1970 is Sunday    -- 4th day');
     assert.equal(moment([2001, 4, 14]).format('e'), '5', 'May 14 2001 is Monday    -- 5th day');
-    assert.equal(moment([2000, 0,  4]).format('e'), '6', 'Jan  4 2000 is Tuesday   -- 6th day');
+    assert.equal(moment([2000, 0, 4]).format('e'), '6', 'Jan  4 2000 is Tuesday   -- 6th day');
     moment.defineLocale('dow: 3,doy: 5', null);
 });
 
@@ -363,16 +376,16 @@ test('toJSON skips postformat', function (assert) {
 test('calendar day timezone', function (assert) {
     moment.locale('en');
     var zones = [60, -60, 90, -90, 360, -360, 720, -720],
-        b = moment().utc().startOf('day').subtract({m : 1}),
-        c = moment().local().startOf('day').subtract({m : 1}),
-        d = moment().local().startOf('day').subtract({d : 2}),
+        b = moment().utc().startOf('day').subtract({m: 1}),
+        c = moment().local().startOf('day').subtract({m: 1}),
+        d = moment().local().startOf('day').subtract({d: 2}),
         i, z, a;
 
     for (i = 0; i < zones.length; ++i) {
         z = zones[i];
         a = moment().utcOffset(z).startOf('day').subtract({m: 1});
         assert.equal(moment(a).utcOffset(z).calendar(), 'Yesterday at 11:59 PM',
-                     'Yesterday at 11:59 PM, not Today, or the wrong time, tz = ' + z);
+            'Yesterday at 11:59 PM, not Today, or the wrong time, tz = ' + z);
     }
 
     assert.equal(moment(b).utc().calendar(), 'Yesterday at 11:59 PM', 'Yesterday at 11:59 PM, not Today, or the wrong time');
@@ -392,23 +405,23 @@ test('invalid', function (assert) {
 });
 
 test('quarter formats', function (assert) {
-    assert.equal(moment([1985, 1,  4]).format('Q'), '1', 'Feb  4 1985 is Q1');
+    assert.equal(moment([1985, 1, 4]).format('Q'), '1', 'Feb  4 1985 is Q1');
     assert.equal(moment([2029, 8, 18]).format('Q'), '3', 'Sep 18 2029 is Q3');
     assert.equal(moment([2013, 3, 24]).format('Q'), '2', 'Apr 24 2013 is Q2');
-    assert.equal(moment([2015, 2,  5]).format('Q'), '1', 'Mar  5 2015 is Q1');
-    assert.equal(moment([1970, 0,  2]).format('Q'), '1', 'Jan  2 1970 is Q1');
+    assert.equal(moment([2015, 2, 5]).format('Q'), '1', 'Mar  5 2015 is Q1');
+    assert.equal(moment([1970, 0, 2]).format('Q'), '1', 'Jan  2 1970 is Q1');
     assert.equal(moment([2001, 11, 12]).format('Q'), '4', 'Dec 12 2001 is Q4');
-    assert.equal(moment([2000, 0,  2]).format('[Q]Q-YYYY'), 'Q1-2000', 'Jan  2 2000 is Q1');
+    assert.equal(moment([2000, 0, 2]).format('[Q]Q-YYYY'), 'Q1-2000', 'Jan  2 2000 is Q1');
 });
 
 test('quarter ordinal formats', function (assert) {
     assert.equal(moment([1985, 1, 4]).format('Qo'), '1st', 'Feb 4 1985 is 1st quarter');
     assert.equal(moment([2029, 8, 18]).format('Qo'), '3rd', 'Sep 18 2029 is 3rd quarter');
     assert.equal(moment([2013, 3, 24]).format('Qo'), '2nd', 'Apr 24 2013 is 2nd quarter');
-    assert.equal(moment([2015, 2,  5]).format('Qo'), '1st', 'Mar  5 2015 is 1st quarter');
-    assert.equal(moment([1970, 0,  2]).format('Qo'), '1st', 'Jan  2 1970 is 1st quarter');
+    assert.equal(moment([2015, 2, 5]).format('Qo'), '1st', 'Mar  5 2015 is 1st quarter');
+    assert.equal(moment([1970, 0, 2]).format('Qo'), '1st', 'Jan  2 1970 is 1st quarter');
     assert.equal(moment([2001, 11, 12]).format('Qo'), '4th', 'Dec 12 2001 is 4th quarter');
-    assert.equal(moment([2000, 0,  2]).format('Qo [quarter] YYYY'), '1st quarter 2000', 'Jan  2 2000 is 1st quarter');
+    assert.equal(moment([2000, 0, 2]).format('Qo [quarter] YYYY'), '1st quarter 2000', 'Jan  2 2000 is 1st quarter');
 });
 
 // test('full expanded format is returned from abbreviated formats', function (assert) {
