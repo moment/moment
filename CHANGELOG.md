@@ -1,6 +1,14 @@
 Changelog
 =========
 
+### 2.19.4 [See changelog](https://gist.github.com/marwahaha/d3b7b0ddf4bdae512244f16e8cc59efb)
+
+* Release Dec 10, 2017
+
+* [#4332](https://github.com/moment/moment/pull/4332) [bugfix] Fix weekday verification for UTC and offset days (fixes [#4227](https://github.com/moment/moment/pull/4227))
+* [#4336](https://github.com/moment/moment/pull/4336) [bugfix] Fix [#4334](https://github.com/moment/moment/pull/4334): Remove unused function call argument
+* [#4246](https://github.com/moment/moment/pull/4246) [misc] Add 'ss' relative time key to typescript definition
+
 ### 2.19.3 [See changelog](https://gist.github.com/marwahaha/3654006bc0c2e522451c08d12c0bfabf)
 
 * Release Nov 29, 2017
