@@ -22,9 +22,9 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Domingo, Fevereiro 14º 2010, 3:25:50 pm'],
+            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Domingo, fevereiro 14º 2010, 3:25:50 pm'],
             ['ddd, hA',                            'Dom, 3PM'],
-            ['M Mo MM MMMM MMM',                   '2 2º 02 Fevereiro Fev'],
+            ['M Mo MM MMMM MMM',                   '2 2º 02 fevereiro Fev'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14º 14'],
             ['d do dddd ddd',                      '0 0º Domingo Dom'],
@@ -35,12 +35,12 @@ test('format', function (assert) {
             ['m mm',                               '25 25'],
             ['s ss',                               '50 50'],
             ['a A',                                'pm PM'],
-            ['[the] DDDo [day of the year]',       'the 45º day of the year'],
+            ['[the] DDDo [day of the year]',       'o 45.º dia do ano'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14/02/2010'],
-            ['LL',                                 '14 de Fevereiro de 2010'],
-            ['LLL',                                '14 de Fevereiro de 2010 15:25'],
-            ['LLLL',                               'Domingo, 14 de Fevereiro de 2010 15:25'],
+            ['LL',                                 '14 de fevereiro de 2010'],
+            ['LLL',                                '14 de fevereiro de 2010 15:25'],
+            ['LLLL',                               'Domingo, 14 de fevereiro de 2010 15:25'],
             ['l',                                  '14/2/2010'],
             ['ll',                                 '14 de Fev de 2010'],
             ['lll',                                '14 de Fev de 2010 15:25'],
