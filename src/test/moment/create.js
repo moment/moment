@@ -750,6 +750,30 @@ test('parsing iso week year/week/weekday', function (assert) {
     assert.equal(moment.utc('2012-W01').format(), '2012-01-02T00:00:00Z', '2012 week 1 (1st Jan Sun)');
 });
 
+test('parsing weekdays verifies the day', function (assert) {
+    // string with format
+    assert.ok(!moment('Wed 08-10-2017', 'ddd MM-DD-YYYY').isValid(), 'because day of week is incorrect for the date');
+    assert.ok(moment('Thu 08-10-2017', 'ddd MM-DD-YYYY').isValid(), 'because day of week is correct for the date');
+});
+
+test('parsing weekday on utc dates verifies day acccording to utc time', function (assert) {
+    assert.ok(moment.utc('Mon 03:59', 'ddd HH:mm').isValid(), 'Monday 03:59');
+});
+
+test('parsing weekday on local dates verifies day acccording to local time', function (assert) {
+    // this doesn't do much useful if you're not in the US or at least close to it
+    assert.ok(moment('Mon 03:59', 'ddd HH:mm').isValid(), 'Monday 03:59');
+});
+
+test('parsing weekday on utc dates with specified offsets verifies day acccording to that offset', function (assert) {
+    assert.ok(moment.utc('Mon 03:59 +12:00', 'ddd HH:mm Z', true).isValid(), 'Monday 03:59');
+});
+
+test('parsing weekday on local dates with specified offsets verifies day acccording to that offset', function (assert) {
+    // if you're in the US, these times will all be sometime Sunday, but they shoud parse as Monday
+    assert.ok(moment('Mon 03:59 +12:00', 'ddd HH:mm Z', true).isValid(), 'Monday 03:59');
+});
+
 test('parsing week year/week/weekday (dow 1, doy 4)', function (assert) {
     moment.locale('dow:1,doy:4', {week: {dow: 1, doy: 4}});
 
@@ -1222,11 +1246,5 @@ test('k, kk', function (assert) {
             assert.equal(moment(kkVal, 'kk:mm:ss').format('kk:mm:ss'), kkVal, kkVal + ' skk parsing');
         }
     }
-});
-
-test('mismatching day-of-week and date', function (assert) {
-    // string with format
-    assert.ok(!moment('Wed 08-10-2017', 'ddd MM-DD-YYYY').isValid(), 'because day of week is incorrect for the date');
-    assert.ok(moment('Thu 08-10-2017', 'ddd MM-DD-YYYY').isValid(), 'because day of week is correct for the date');
 });
 
