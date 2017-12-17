@@ -1,6 +1,18 @@
 Changelog
 =========
 
+### 2.20.0 [See full changelog](https://gist.github.com/marwahaha/e0d4135fbf8bb75fa85c4aa2bddc5031)
+
+* Release Dec 16, 2017
+
+* [#4312](https://github.com/moment/moment/pull/4312) [bugfix] Fix [#4251](https://github.com/moment/moment/pull/4251): Avoid RFC2822 in utc() test
+* [#4240](https://github.com/moment/moment/pull/4240) [bugfix] Fix incorrect strict parsing with full-width parentheses
+* [#4341](https://github.com/moment/moment/pull/4341) [feature] Prevent toISOString converting to UTC (issue [#1751](https://github.com/moment/moment/pull/1751))
+* [#4154](https://github.com/moment/moment/pull/4154) [feature] add format constants to support output to HTML5 input type formats (see [#3928](https://github.com/moment/moment/pull/3928))
+* [#4143](https://github.com/moment/moment/pull/4143) [new locale] mt: Maltese language
+* [#4183](https://github.com/moment/moment/pull/4183) [locale] Relative seconds i18n
+* Various other locale improvements
+
 ### 2.19.4 [See changelog](https://gist.github.com/marwahaha/d3b7b0ddf4bdae512244f16e8cc59efb)
 
 * Release Dec 10, 2017
