@@ -37,15 +37,16 @@ test('format', function (assert) {
             ['s ss',                               '50 50'],
             ['a A',                                'pm PM'],
             ['[the] DDDo [day of the year]',       'the 45º day of the year'],
-            ['LTS',                                '15:25:50'],
+            ['LT',                                 '3:25 PM'],
+            ['LTS',                                '3:25:50 PM'],
             ['L',                                  '02/14/2010'],
             ['LL',                                 'febrero de 14 de 2010'],
-            ['LLL',                                'febrero de 14 de 2010 15:25'],
-            ['LLLL',                               'domingo, febrero de 14 de 2010 15:25'],
+            ['LLL',                                'febrero de 14 de 2010 3:25 PM'],
+            ['LLLL',                               'domingo, febrero de 14 de 2010 3:25 PM'],
             ['l',                                  '2/14/2010'],
             ['ll',                                 'feb. de 14 de 2010'],
-            ['lll',                                'feb. de 14 de 2010 15:25'],
-            ['llll',                               'dom., feb. de 14 de 2010 15:25']
+            ['lll',                                'feb. de 14 de 2010 3:25 PM'],
+            ['llll',                               'dom., feb. de 14 de 2010 3:25 PM']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -159,13 +160,13 @@ test('fromNow', function (assert) {
 test('calendar day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                       'hoy a las 12:00',     'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),          'hoy a las 12:25',     'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),           'hoy a las 13:00',     'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),           'mañana a las 12:00',  'tomorrow at the same time');
-    assert.equal(moment(a).add({d: 1, h : -1}).calendar(),   'mañana a las 11:00',   'tomorrow minus 1 hour');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),      'hoy a las 11:00',     'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),      'ayer a las 12:00',    'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                       'hoy a las 12:00 PM',     'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),          'hoy a las 12:25 PM',     'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),           'hoy a las 1:00 PM',     'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),           'mañana a las 12:00 PM',  'tomorrow at the same time');
+    assert.equal(moment(a).add({d: 1, h : -1}).calendar(),   'mañana a las 11:00 AM',   'tomorrow minus 1 hour');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),      'hoy a las 11:00 AM',     'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),      'ayer a las 12:00 PM',    'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {
@@ -216,4 +217,3 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012, 0, 14]).format('w ww wo'),   '2 02 2º', 'Jan 14 2012 should be week 2');
     assert.equal(moment([2012, 0, 15]).format('w ww wo'),   '3 03 3º', 'Jan 15 2012 should be week 3');
 });
-
