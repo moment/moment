@@ -4,6 +4,19 @@ import moment from '../../moment';
 
 module('format');
 
+test('format using constants', function (assert) {
+    var m = moment('2017-09-01T23:40:40.678');
+    assert.equal(m.format(moment.HTML5_FMT.DATETIME_LOCAL), '2017-09-01T23:40', 'datetime local format constant');
+    assert.equal(m.format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS), '2017-09-01T23:40:40', 'datetime local format constant');
+    assert.equal(m.format(moment.HTML5_FMT.DATETIME_LOCAL_MS), '2017-09-01T23:40:40.678', 'datetime local format constant with seconds and millis');
+    assert.equal(m.format(moment.HTML5_FMT.DATE), '2017-09-01', 'date format constant');
+    assert.equal(m.format(moment.HTML5_FMT.TIME), '23:40', 'time format constant');
+    assert.equal(m.format(moment.HTML5_FMT.TIME_SECONDS), '23:40:40', 'time format constant with seconds');
+    assert.equal(m.format(moment.HTML5_FMT.TIME_MS), '23:40:40.678', 'time format constant with seconds and millis');
+    assert.equal(m.format(moment.HTML5_FMT.WEEK), '2017-W35', 'week format constant');
+    assert.equal(m.format(moment.HTML5_FMT.MONTH), '2017-09', 'month format constant');
+});
+
 test('format YY', function (assert) {
     var b = moment(new Date(2009, 1, 14, 15, 25, 50, 125));
     assert.equal(b.format('YY'), '09', 'YY ---> 09');
