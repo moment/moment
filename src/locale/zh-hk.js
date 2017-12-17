@@ -81,6 +81,7 @@ export default moment.defineLocale('zh-hk', {
         future : '%s內',
         past : '%s前',
         s : '幾秒',
+        ss : '%d 秒',
         m : '1 分鐘',
         mm : '%d 分鐘',
         h : '1 小時',

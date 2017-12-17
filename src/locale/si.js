@@ -32,6 +32,7 @@ export default moment.defineLocale('si', {
         future : '%sකින්',
         past : '%sකට පෙර',
         s : 'තත්පර කිහිපය',
+        ss : 'තත්පර %d',
         m : 'මිනිත්තුව',
         mm : 'මිනිත්තු %d',
         h : 'පැය',

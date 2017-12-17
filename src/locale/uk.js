@@ -11,6 +11,7 @@ function plural(word, num) {
 }
 function relativeTimeWithPlural(number, withoutSuffix, key) {
     var format = {
+        'ss': withoutSuffix ? 'секунда_секунди_секунд' : 'секунду_секунди_секунд',
         'mm': withoutSuffix ? 'хвилина_хвилини_хвилин' : 'хвилину_хвилини_хвилин',
         'hh': withoutSuffix ? 'година_години_годин' : 'годину_години_годин',
         'dd': 'день_дні_днів',
@@ -92,6 +93,7 @@ export default moment.defineLocale('uk', {
         future : 'за %s',
         past : '%s тому',
         s : 'декілька секунд',
+        ss : relativeTimeWithPlural,
         m : relativeTimeWithPlural,
         mm : relativeTimeWithPlural,
         h : 'годину',

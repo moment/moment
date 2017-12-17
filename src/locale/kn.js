@@ -56,6 +56,7 @@ export default moment.defineLocale('kn', {
         future : '%s ನಂತರ',
         past : '%s ಹಿಂದೆ',
         s : 'ಕೆಲವು ಕ್ಷಣಗಳು',
+        ss : '%d ಸೆಕೆಂಡುಗಳು',
         m : 'ಒಂದು ನಿಮಿಷ',
         mm : '%d ನಿಮಿಷ',
         h : 'ಒಂದು ಗಂಟೆ',

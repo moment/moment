@@ -86,6 +86,7 @@ export default moment.defineLocale('ar-ly', {
         future : 'بعد %s',
         past : 'منذ %s',
         s : pluralize('s'),
+        ss : pluralize('s'),
         m : pluralize('m'),
         mm : pluralize('m'),
         h : pluralize('h'),

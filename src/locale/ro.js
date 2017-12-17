@@ -7,6 +7,7 @@ import moment from '../moment';
 
 function relativeTimeWithPlural(number, withoutSuffix, key) {
     var format = {
+            'ss': 'secunde',
             'mm': 'minute',
             'hh': 'ore',
             'dd': 'zile',
@@ -47,6 +48,7 @@ export default moment.defineLocale('ro', {
         future : 'peste %s',
         past : '%s în urmă',
         s : 'câteva secunde',
+        ss : relativeTimeWithPlural,
         m : 'un minut',
         mm : relativeTimeWithPlural,
         h : 'o oră',
