@@ -1,6 +1,14 @@
 Changelog
 =========
 
+### 2.20.1 [See changelog](https://gist.github.com/marwahaha/d72c1cb22076373be889b16272cbd187)
+
+* Release Dec 18, 2017
+
+* [#4359](https://github.com/moment/moment/pull/4359) [locale] Fix Arabic locale for months (again)
+* [#4357](https://github.com/moment/moment/pull/4357) [misc] Add optional parameter keepOffset to toISOString
+
+
 ### 2.20.0 [See full changelog](https://gist.github.com/marwahaha/e0d4135fbf8bb75fa85c4aa2bddc5031)
 
 * Release Dec 16, 2017
