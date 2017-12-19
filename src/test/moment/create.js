@@ -888,6 +888,20 @@ test('parsing iso Z timezone into local', function (assert) {
     assert.equal(m.utc().format('YYYY-MM-DDTHH:mm:ss.SSS'), '2011-10-08T18:04:20.111', 'moment should be able to parse ISO 2011-10-08T18:04:20.111Z');
 });
 
+test('iso strings with optional (ignorable) Canonical Zone ID', function (assert) {
+    var i, formats = [
+        ['2011-10-08T18:04:20-12:00[Etc/GMT+12]',                    '2011-10-09T06:04:20.000'],
+        ['2011-10-08T18:04:20.1-06:00[America/Indiana/Tell_City]',   '2011-10-09T00:04:20.100'],
+        ['2011-10-08T18:04:20.11+01:00[Etc/GMT-1]',                  '2011-10-08T17:04:20.110'],
+        ['2011-10-08T18:04:20.111+01:00[CET]',                       '2011-10-08T17:04:20.111']
+    ];
+
+    for (i = 0; i < formats.length; i++) {
+        assert.equal(moment(formats[i][0]).utc().format('YYYY-MM-DDTHH:mm:ss.SSS'),
+            formats[i][1], 'moment should be able to parse ISO ' + formats[i][0]);
+    }
+});
+
 test('parsing iso with more subsecond precision digits', function (assert) {
     assert.equal(moment.utc('2013-07-31T22:00:00.0000000Z').format(), '2013-07-31T22:00:00Z', 'more than 3 subsecond digits');
 });
