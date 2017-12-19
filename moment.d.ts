@@ -542,7 +542,7 @@ declare namespace moment {
 
     toArray(): number[];
     toDate(): Date;
-    toISOString(): string;
+    toISOString(keepOffset?: boolean): string;
     inspect(): string;
     toJSON(): string;
     unix(): number;
