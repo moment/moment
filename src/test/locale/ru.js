@@ -50,6 +50,7 @@ test('format', function (assert) {
             ['s ss',                               '50 50'],
             ['a A',                                'дня дня'],
             ['DDDo [день года]',                   '45-й день года'],
+            ['LT',                                 '15:25'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14.02.2010'],
             ['LL',                                 '14 февраля 2010 г.'],
@@ -232,6 +233,7 @@ test('calendar day', function (assert) {
     assert.equal(moment(a).add({h: 1}).calendar(),       'Сегодня в 13:00',     'Now plus 1 hour');
     assert.equal(moment(a).add({d: 1}).calendar(),       'Завтра в 12:00',      'tomorrow at the same time');
     assert.equal(moment(a).subtract({h: 1}).calendar(),  'Сегодня в 11:00',     'Now minus 1 hour');
+    assert.equal(moment(a).subtract({h: 4}).calendar(),  'Сегодня в 8:00',     'Now minus 4 hours');
     assert.equal(moment(a).subtract({d: 1}).calendar(),  'Вчера в 12:00',       'yesterday at the same time');
 });
 
