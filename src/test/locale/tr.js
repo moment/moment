@@ -22,20 +22,20 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Pazar, Şubat 14\'üncü 2010, 3:25:50 pm'],
+            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Pazar, Şubat 14 2010, 3:25:50 pm'],
             ['ddd, hA',                            'Paz, 3PM'],
-            ['M Mo MM MMMM MMM',                   '2 2\'nci 02 Şubat Şub'],
+            ['M Mo MM MMMM MMM',                   '2 2 02 Şubat Şub'],
             ['YYYY YY',                            '2010 10'],
-            ['D Do DD',                            '14 14\'üncü 14'],
-            ['d do dddd ddd dd',                   '0 0\'ıncı Pazar Paz Pz'],
-            ['DDD DDDo DDDD',                      '45 45\'inci 045'],
-            ['w wo ww',                            '7 7\'nci 07'],
+            ['D Do DD',                            '14 14 14'],
+            ['d do dddd ddd dd',                   '0 0 Pazar Paz Pz'],
+            ['DDD DDDo DDDD',                      '45 45 045'],
+            ['w wo ww',                            '7 7 07'],
             ['h hh',                               '3 03'],
             ['H HH',                               '15 15'],
             ['m mm',                               '25 25'],
             ['s ss',                               '50 50'],
             ['a A',                                'pm PM'],
-            ['[yılın] DDDo [günü]',                'yılın 45\'inci günü'],
+            ['[yılın] DDDo [günü]',                'yılın 45 günü'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14.02.2010'],
             ['LL',                                 '14 Şubat 2010'],
@@ -47,9 +47,9 @@ test('format', function (assert) {
             ['llll',                               'Paz, 14 Şub 2010 15:25']
         ],
         DDDo = [
-            [359, '360\'ıncı'],
-            [199, '200\'üncü'],
-            [149, '150\'nci']
+            [359, '360'],
+            [199, '200'],
+            [149, '150']
         ],
         dt = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         DDDoDt,
@@ -65,40 +65,40 @@ test('format', function (assert) {
 });
 
 test('format ordinal', function (assert) {
-    assert.equal(moment([2011, 0, 1]).format('DDDo'), '1\'inci', '1st');
-    assert.equal(moment([2011, 0, 2]).format('DDDo'), '2\'nci', '2nd');
-    assert.equal(moment([2011, 0, 3]).format('DDDo'), '3\'üncü', '3rd');
-    assert.equal(moment([2011, 0, 4]).format('DDDo'), '4\'üncü', '4th');
-    assert.equal(moment([2011, 0, 5]).format('DDDo'), '5\'inci', '5th');
-    assert.equal(moment([2011, 0, 6]).format('DDDo'), '6\'ncı', '6th');
-    assert.equal(moment([2011, 0, 7]).format('DDDo'), '7\'nci', '7th');
-    assert.equal(moment([2011, 0, 8]).format('DDDo'), '8\'inci', '8th');
-    assert.equal(moment([2011, 0, 9]).format('DDDo'), '9\'uncu', '9th');
-    assert.equal(moment([2011, 0, 10]).format('DDDo'), '10\'uncu', '10th');
+    assert.equal(moment([2011, 0, 1]).format('DDDo'), '1', '1');
+    assert.equal(moment([2011, 0, 2]).format('DDDo'), '2', '2');
+    assert.equal(moment([2011, 0, 3]).format('DDDo'), '3', '3');
+    assert.equal(moment([2011, 0, 4]).format('DDDo'), '4', '4');
+    assert.equal(moment([2011, 0, 5]).format('DDDo'), '5', '5');
+    assert.equal(moment([2011, 0, 6]).format('DDDo'), '6', '6');
+    assert.equal(moment([2011, 0, 7]).format('DDDo'), '7', '7');
+    assert.equal(moment([2011, 0, 8]).format('DDDo'), '8', '8');
+    assert.equal(moment([2011, 0, 9]).format('DDDo'), '9', '9');
+    assert.equal(moment([2011, 0, 10]).format('DDDo'), '10', '10');
 
-    assert.equal(moment([2011, 0, 11]).format('DDDo'), '11\'inci', '11th');
-    assert.equal(moment([2011, 0, 12]).format('DDDo'), '12\'nci', '12th');
-    assert.equal(moment([2011, 0, 13]).format('DDDo'), '13\'üncü', '13th');
-    assert.equal(moment([2011, 0, 14]).format('DDDo'), '14\'üncü', '14th');
-    assert.equal(moment([2011, 0, 15]).format('DDDo'), '15\'inci', '15th');
-    assert.equal(moment([2011, 0, 16]).format('DDDo'), '16\'ncı', '16th');
-    assert.equal(moment([2011, 0, 17]).format('DDDo'), '17\'nci', '17th');
-    assert.equal(moment([2011, 0, 18]).format('DDDo'), '18\'inci', '18th');
-    assert.equal(moment([2011, 0, 19]).format('DDDo'), '19\'uncu', '19th');
-    assert.equal(moment([2011, 0, 20]).format('DDDo'), '20\'nci', '20th');
+    assert.equal(moment([2011, 0, 11]).format('DDDo'), '11', '11');
+    assert.equal(moment([2011, 0, 12]).format('DDDo'), '12', '12');
+    assert.equal(moment([2011, 0, 13]).format('DDDo'), '13', '13');
+    assert.equal(moment([2011, 0, 14]).format('DDDo'), '14', '14');
+    assert.equal(moment([2011, 0, 15]).format('DDDo'), '15', '15');
+    assert.equal(moment([2011, 0, 16]).format('DDDo'), '16', '16');
+    assert.equal(moment([2011, 0, 17]).format('DDDo'), '17', '17');
+    assert.equal(moment([2011, 0, 18]).format('DDDo'), '18', '18');
+    assert.equal(moment([2011, 0, 19]).format('DDDo'), '19', '19');
+    assert.equal(moment([2011, 0, 20]).format('DDDo'), '20', '20');
 
-    assert.equal(moment([2011, 0, 21]).format('DDDo'), '21\'inci', '21th');
-    assert.equal(moment([2011, 0, 22]).format('DDDo'), '22\'nci', '22th');
-    assert.equal(moment([2011, 0, 23]).format('DDDo'), '23\'üncü', '23th');
-    assert.equal(moment([2011, 0, 24]).format('DDDo'), '24\'üncü', '24th');
-    assert.equal(moment([2011, 0, 25]).format('DDDo'), '25\'inci', '25th');
-    assert.equal(moment([2011, 0, 26]).format('DDDo'), '26\'ncı', '26th');
-    assert.equal(moment([2011, 0, 27]).format('DDDo'), '27\'nci', '27th');
-    assert.equal(moment([2011, 0, 28]).format('DDDo'), '28\'inci', '28th');
-    assert.equal(moment([2011, 0, 29]).format('DDDo'), '29\'uncu', '29th');
-    assert.equal(moment([2011, 0, 30]).format('DDDo'), '30\'uncu', '30th');
+    assert.equal(moment([2011, 0, 21]).format('DDDo'), '21', '21');
+    assert.equal(moment([2011, 0, 22]).format('DDDo'), '22', '22');
+    assert.equal(moment([2011, 0, 23]).format('DDDo'), '23', '23');
+    assert.equal(moment([2011, 0, 24]).format('DDDo'), '24', '24');
+    assert.equal(moment([2011, 0, 25]).format('DDDo'), '25', '25');
+    assert.equal(moment([2011, 0, 26]).format('DDDo'), '26', '26');
+    assert.equal(moment([2011, 0, 27]).format('DDDo'), '27', '27');
+    assert.equal(moment([2011, 0, 28]).format('DDDo'), '28', '28');
+    assert.equal(moment([2011, 0, 29]).format('DDDo'), '29', '29');
+    assert.equal(moment([2011, 0, 30]).format('DDDo'), '30', '30');
 
-    assert.equal(moment([2011, 0, 31]).format('DDDo'), '31\'inci', '31st');
+    assert.equal(moment([2011, 0, 31]).format('DDDo'), '31', '31');
 });
 
 test('format month', function (assert) {
@@ -211,10 +211,10 @@ test('calendar all else', function (assert) {
 });
 
 test('weeks year starting sunday formatted', function (assert) {
-    assert.equal(moment([2011, 11, 26]).format('w ww wo'), '1 01 1\'inci', 'Dec 26 2011 should be week 1');
-    assert.equal(moment([2012,  0,  1]).format('w ww wo'), '1 01 1\'inci', 'Jan  1 2012 should be week 1');
-    assert.equal(moment([2012,  0,  2]).format('w ww wo'), '2 02 2\'nci', 'Jan  2 2012 should be week 2');
-    assert.equal(moment([2012,  0,  8]).format('w ww wo'), '2 02 2\'nci', 'Jan  8 2012 should be week 2');
-    assert.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 3\'üncü', 'Jan  9 2012 should be week 3');
+    assert.equal(moment([2011, 11, 26]).format('w ww wo'), '1 01 1', 'Dec 26 2011 should be week 1');
+    assert.equal(moment([2012,  0,  1]).format('w ww wo'), '1 01 1', 'Jan  1 2012 should be week 1');
+    assert.equal(moment([2012,  0,  2]).format('w ww wo'), '2 02 2', 'Jan  2 2012 should be week 2');
+    assert.equal(moment([2012,  0,  8]).format('w ww wo'), '2 02 2', 'Jan  8 2012 should be week 2');
+    assert.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 3', 'Jan  9 2012 should be week 3');
 });
 
