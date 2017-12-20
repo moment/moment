@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : Morocco Central Atlas Tamaziɣt in Latin (tzm-latn)
+//! locale : Central Atlas Tamazight Latin [tzm-latn]
 //! author : Abdel Said : https://github.com/abdelsaid
 
 import moment from '../moment';
@@ -30,6 +30,7 @@ export default moment.defineLocale('tzm-latn', {
         future : 'dadkh s yan %s',
         past : 'yan %s',
         s : 'imik',
+        ss : '%d imik',
         m : 'minuḍ',
         mm : '%d minuḍ',
         h : 'saɛa',

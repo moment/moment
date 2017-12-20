@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : macedonian (mk)
+//! locale : Macedonian [mk]
 //! author : Borislav Mickov : https://github.com/B0k0
 
 import moment from '../moment';
@@ -25,15 +25,15 @@ export default moment.defineLocale('mk', {
         lastDay : '[Вчера во] LT',
         lastWeek : function () {
             switch (this.day()) {
-            case 0:
-            case 3:
-            case 6:
-                return '[Изминатата] dddd [во] LT';
-            case 1:
-            case 2:
-            case 4:
-            case 5:
-                return '[Изминатиот] dddd [во] LT';
+                case 0:
+                case 3:
+                case 6:
+                    return '[Изминатата] dddd [во] LT';
+                case 1:
+                case 2:
+                case 4:
+                case 5:
+                    return '[Изминатиот] dddd [во] LT';
             }
         },
         sameElse : 'L'
@@ -42,6 +42,7 @@ export default moment.defineLocale('mk', {
         future : 'после %s',
         past : 'пред %s',
         s : 'неколку секунди',
+        ss : '%d секунди',
         m : 'минута',
         mm : '%d минути',
         h : 'час',
@@ -53,7 +54,7 @@ export default moment.defineLocale('mk', {
         y : 'година',
         yy : '%d години'
     },
-    ordinalParse: /\d{1,2}-(ев|ен|ти|ви|ри|ми)/,
+    dayOfMonthOrdinalParse: /\d{1,2}-(ев|ен|ти|ви|ри|ми)/,
     ordinal : function (number) {
         var lastDigit = number % 10,
             last2Digits = number % 100;

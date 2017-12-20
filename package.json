@@ -1,6 +1,6 @@
 {
     "name": "moment",
-    "version": "2.11.2",
+    "version": "2.20.1",
     "description": "Parse, validate, manipulate, and display dates",
     "homepage": "http://momentjs.com",
     "author": "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)",
@@ -23,6 +23,8 @@
         "ender"
     ],
     "main": "./moment.js",
+    "jsnext:main": "./src/moment.js",
+    "typings": "./moment.d.ts",
     "engines": {
         "node": "*"
     },
@@ -37,10 +39,9 @@
     "devDependencies": {
         "uglify-js": "latest",
         "es6-promise": "latest",
-        "grunt": "latest",
+        "grunt": "~0.4",
         "grunt-cli": "latest",
         "benchmark": "latest",
-        "esperanto": "latest",
         "grunt-contrib-clean": "latest",
         "grunt-contrib-concat": "latest",
         "grunt-contrib-copy": "latest",
@@ -62,7 +63,9 @@
         "karma-sauce-launcher": "latest",
         "qunit": "^0.7.5",
         "qunit-cli": "^0.1.4",
+        "rollup": "latest",
         "spacejam": "latest",
+        "typescript": "^1.8.10",
         "coveralls": "^2.11.2",
         "nyc": "^2.1.4"
     },
@@ -71,6 +74,7 @@
     "jspm": {
         "files": [
             "moment.js",
+            "moment.d.ts",
             "locale"
         ],
         "map": {
@@ -81,6 +85,7 @@
         }
     },
     "scripts": {
+        "typescript-test": "tsc --project typing-tests",
         "test": "grunt test",
         "coverage": "nyc npm test && nyc report",
         "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"

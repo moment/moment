@@ -1,13 +1,13 @@
 export function valueOf () {
-    return +this._d - ((this._offset || 0) * 60000);
+    return this._d.valueOf() - ((this._offset || 0) * 60000);
 }
 
 export function unix () {
-    return Math.floor(+this / 1000);
+    return Math.floor(this.valueOf() / 1000);
 }
 
 export function toDate () {
-    return this._offset ? new Date(+this) : this._d;
+    return new Date(this.valueOf());
 }
 
 export function toArray () {
@@ -29,6 +29,6 @@ export function toObject () {
 }
 
 export function toJSON () {
-    // JSON.stringify(new Date(NaN)) === 'null'
-    return this.isValid() ? this.toISOString() : 'null';
+    // new Date(NaN).toJSON() === null
+    return this.isValid() ? this.toISOString() : null;
 }

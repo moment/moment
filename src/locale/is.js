@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : icelandic (is)
+//! locale : Icelandic [is]
 //! author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 
 import moment from '../moment';
@@ -15,59 +15,64 @@ function plural(n) {
 function translate(number, withoutSuffix, key, isFuture) {
     var result = number + ' ';
     switch (key) {
-    case 's':
-        return withoutSuffix || isFuture ? 'nokkrar sekúndur' : 'nokkrum sekúndum';
-    case 'm':
-        return withoutSuffix ? 'mínúta' : 'mínútu';
-    case 'mm':
-        if (plural(number)) {
-            return result + (withoutSuffix || isFuture ? 'mínútur' : 'mínútum');
-        } else if (withoutSuffix) {
-            return result + 'mínúta';
-        }
-        return result + 'mínútu';
-    case 'hh':
-        if (plural(number)) {
-            return result + (withoutSuffix || isFuture ? 'klukkustundir' : 'klukkustundum');
-        }
-        return result + 'klukkustund';
-    case 'd':
-        if (withoutSuffix) {
-            return 'dagur';
-        }
-        return isFuture ? 'dag' : 'degi';
-    case 'dd':
-        if (plural(number)) {
-            if (withoutSuffix) {
-                return result + 'dagar';
+        case 's':
+            return withoutSuffix || isFuture ? 'nokkrar sekúndur' : 'nokkrum sekúndum';
+        case 'ss':
+            if (plural(number)) {
+                return result + (withoutSuffix || isFuture ? 'sekúndur' : 'sekúndum');
             }
-            return result + (isFuture ? 'daga' : 'dögum');
-        } else if (withoutSuffix) {
-            return result + 'dagur';
-        }
-        return result + (isFuture ? 'dag' : 'degi');
-    case 'M':
-        if (withoutSuffix) {
-            return 'mánuður';
-        }
-        return isFuture ? 'mánuð' : 'mánuði';
-    case 'MM':
-        if (plural(number)) {
-            if (withoutSuffix) {
-                return result + 'mánuðir';
+            return result + 'sekúnda';
+        case 'm':
+            return withoutSuffix ? 'mínúta' : 'mínútu';
+        case 'mm':
+            if (plural(number)) {
+                return result + (withoutSuffix || isFuture ? 'mínútur' : 'mínútum');
+            } else if (withoutSuffix) {
+                return result + 'mínúta';
             }
-            return result + (isFuture ? 'mánuði' : 'mánuðum');
-        } else if (withoutSuffix) {
-            return result + 'mánuður';
-        }
-        return result + (isFuture ? 'mánuð' : 'mánuði');
-    case 'y':
-        return withoutSuffix || isFuture ? 'ár' : 'ári';
-    case 'yy':
-        if (plural(number)) {
-            return result + (withoutSuffix || isFuture ? 'ár' : 'árum');
-        }
-        return result + (withoutSuffix || isFuture ? 'ár' : 'ári');
+            return result + 'mínútu';
+        case 'hh':
+            if (plural(number)) {
+                return result + (withoutSuffix || isFuture ? 'klukkustundir' : 'klukkustundum');
+            }
+            return result + 'klukkustund';
+        case 'd':
+            if (withoutSuffix) {
+                return 'dagur';
+            }
+            return isFuture ? 'dag' : 'degi';
+        case 'dd':
+            if (plural(number)) {
+                if (withoutSuffix) {
+                    return result + 'dagar';
+                }
+                return result + (isFuture ? 'daga' : 'dögum');
+            } else if (withoutSuffix) {
+                return result + 'dagur';
+            }
+            return result + (isFuture ? 'dag' : 'degi');
+        case 'M':
+            if (withoutSuffix) {
+                return 'mánuður';
+            }
+            return isFuture ? 'mánuð' : 'mánuði';
+        case 'MM':
+            if (plural(number)) {
+                if (withoutSuffix) {
+                    return result + 'mánuðir';
+                }
+                return result + (isFuture ? 'mánuði' : 'mánuðum');
+            } else if (withoutSuffix) {
+                return result + 'mánuður';
+            }
+            return result + (isFuture ? 'mánuð' : 'mánuði');
+        case 'y':
+            return withoutSuffix || isFuture ? 'ár' : 'ári';
+        case 'yy':
+            if (plural(number)) {
+                return result + (withoutSuffix || isFuture ? 'ár' : 'árum');
+            }
+            return result + (withoutSuffix || isFuture ? 'ár' : 'ári');
     }
 }
 
@@ -80,7 +85,7 @@ export default moment.defineLocale('is', {
     longDateFormat : {
         LT : 'H:mm',
         LTS : 'H:mm:ss',
-        L : 'DD/MM/YYYY',
+        L : 'DD.MM.YYYY',
         LL : 'D. MMMM YYYY',
         LLL : 'D. MMMM YYYY [kl.] H:mm',
         LLLL : 'dddd, D. MMMM YYYY [kl.] H:mm'
@@ -97,6 +102,7 @@ export default moment.defineLocale('is', {
         future : 'eftir %s',
         past : 'fyrir %s síðan',
         s : translate,
+        ss : translate,
         m : translate,
         mm : translate,
         h : 'klukkustund',
@@ -108,7 +114,7 @@ export default moment.defineLocale('is', {
         y : translate,
         yy : translate
     },
-    ordinalParse: /\d{1,2}\./,
+    dayOfMonthOrdinalParse: /\d{1,2}\./,
     ordinal : '%d.',
     week : {
         dow : 1, // Monday is the first day of the week.

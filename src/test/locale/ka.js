@@ -151,11 +151,11 @@ test('from', function (assert) {
 
 test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'რამდენიმე წამში',     'ში სუფიქსი');
-    assert.equal(moment(0).from(30000), 'რამდენიმე წამის წინ', 'წინ სუფიქსი');
+    assert.equal(moment(0).from(30000), 'რამდენიმე წამის უკან', 'უკან სუფიქსი');
 });
 
 test('now from now', function (assert) {
-    assert.equal(moment().fromNow(), 'რამდენიმე წამის წინ', 'უნდა აჩვენოს როგორც წარსული');
+    assert.equal(moment().fromNow(), 'რამდენიმე წამის უკან', 'უნდა აჩვენოს როგორც წარსული');
 });
 
 test('fromNow', function (assert) {
@@ -164,14 +164,14 @@ test('fromNow', function (assert) {
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                     'დღეს 2:00 AM-ზე',  'დღეს ამავე დროს');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'დღეს 2:25 AM-ზე',  'ახლანდელ დროს დამატებული 25 წუთი');
-    assert.equal(moment(a).add({h: 1}).calendar(),       'დღეს 3:00 AM-ზე',  'ახლანდელ დროს დამატებული 1 საათი');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'ხვალ 2:00 AM-ზე',  'ხვალ ამავე დროს');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'დღეს 1:00 AM-ზე',  'ახლანდელ დროს გამოკლებული 1 საათი');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'გუშინ 2:00 AM-ზე', 'გუშინ ამავე დროს');
+    assert.equal(moment(a).calendar(),                   'დღეს 12:00 PM-ზე',  'დღეს ამავე დროს');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'დღეს 12:25 PM-ზე',  'ახლანდელ დროს დამატებული 25 წუთი');
+    assert.equal(moment(a).add({h: 1}).calendar(),       'დღეს 1:00 PM-ზე',   'ახლანდელ დროს დამატებული 1 საათი');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'ხვალ 12:00 PM-ზე',  'ხვალ ამავე დროს');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'დღეს 11:00 AM-ზე',  'ახლანდელ დროს გამოკლებული 1 საათი');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'გუშინ 12:00 PM-ზე', 'გუშინ ამავე დროს');
 });
 
 test('calendar next week', function (assert) {
@@ -202,7 +202,7 @@ test('calendar all else', function (assert) {
     var weeksAgo = moment().subtract({w: 1}),
         weeksFromNow = moment().add({w: 1});
 
-    assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '1 კვირის წინ');
+    assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '1 კვირის უკან');
     assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  '1 კვირაში');
 
     weeksAgo = moment().subtract({w: 2});
@@ -210,67 +210,6 @@ test('calendar all else', function (assert) {
 
     assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '2 კვირის წინ');
     assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  '2 კვირაში');
-});
-
-test('weeks year starting sunday', function (assert) {
-    assert.equal(moment([2011, 11, 26]).week(), 1, 'დეკ 26 2011 უნდა იყოს კვირა 1');
-    assert.equal(moment([2012,  0,  1]).week(), 1, 'იან  1 2012 უნდა იყოს კვირა 1');
-    assert.equal(moment([2012,  0,  2]).week(), 2, 'იან  2 2012 უნდა იყოს კვირა 2');
-    assert.equal(moment([2012,  0,  8]).week(), 2, 'იან  8 2012 უნდა იყოს კვირა 2');
-    assert.equal(moment([2012,  0,  9]).week(), 3, 'იან  9 2012 უნდა იყოს კვირა 3');
-});
-
-test('weeks year starting monday', function (assert) {
-    assert.equal(moment([2007, 0, 1]).week(),  1, 'იან  1 2007 უნდა იყოს კვირა 1');
-    assert.equal(moment([2007, 0, 7]).week(),  1, 'იან  7 2007 უნდა იყოს კვირა 1');
-    assert.equal(moment([2007, 0, 8]).week(),  2, 'იან  8 2007 უნდა იყოს კვირა 2');
-    assert.equal(moment([2007, 0, 14]).week(), 2, 'იან 14 2007 უნდა იყოს კვირა 2');
-    assert.equal(moment([2007, 0, 15]).week(), 3, 'იან 15 2007 უნდა იყოს კვირა 3');
-});
-
-test('weeks year starting tuesday', function (assert) {
-    assert.equal(moment([2007, 11, 31]).week(), 1, 'დეკ 31 2007 უნდა იყოს კვირა 1');
-    assert.equal(moment([2008,  0,  1]).week(), 1, 'იან  1 2008 უნდა იყოს კვირა 1');
-    assert.equal(moment([2008,  0,  6]).week(), 1, 'იან  6 2008 უნდა იყოს კვირა 1');
-    assert.equal(moment([2008,  0,  7]).week(), 2, 'იან  7 2008 უნდა იყოს კვირა 2');
-    assert.equal(moment([2008,  0, 13]).week(), 2, 'იან 13 2008 უნდა იყოს კვირა 2');
-    assert.equal(moment([2008,  0, 14]).week(), 3, 'იან 14 2008 უნდა იყოს კვირა 3');
-});
-
-test('weeks year starting wednesday', function (assert) {
-    assert.equal(moment([2002, 11, 30]).week(), 1, 'დეკ 30 2002 უნდა იყოს კვირა 1');
-    assert.equal(moment([2003,  0,  1]).week(), 1, 'იან  1 2003 უნდა იყოს კვირა 1');
-    assert.equal(moment([2003,  0,  5]).week(), 1, 'იან  5 2003 უნდა იყოს კვირა 1');
-    assert.equal(moment([2003,  0,  6]).week(), 2, 'იან  6 2003 უნდა იყოს კვირა 2');
-    assert.equal(moment([2003,  0, 12]).week(), 2, 'იან 12 2003 უნდა იყოს კვირა 2');
-    assert.equal(moment([2003,  0, 13]).week(), 3, 'იან 13 2003 უნდა იყოს კვირა 3');
-});
-
-test('weeks year starting thursday', function (assert) {
-    assert.equal(moment([2008, 11, 29]).week(), 1, 'დეკ 29 2008 უნდა იყოს კვირა 1');
-    assert.equal(moment([2009,  0,  1]).week(), 1, 'იან  1 2009 უნდა იყოს კვირა 1');
-    assert.equal(moment([2009,  0,  4]).week(), 1, 'იან  4 2009 უნდა იყოს კვირა 1');
-    assert.equal(moment([2009,  0,  5]).week(), 2, 'იან  5 2009 უნდა იყოს კვირა 2');
-    assert.equal(moment([2009,  0, 11]).week(), 2, 'იან 11 2009 უნდა იყოს კვირა 2');
-    assert.equal(moment([2009,  0, 12]).week(), 3, 'იან 12 2009 უნდა იყოს კვირა 3');
-});
-
-test('weeks year starting friday', function (assert) {
-    assert.equal(moment([2009, 11, 28]).week(), 1, 'დეკ 28 2009 უნდა იყოს კვირა 1');
-    assert.equal(moment([2010,  0,  1]).week(), 1, 'იან  1 2010 უნდა იყოს კვირა 1');
-    assert.equal(moment([2010,  0,  3]).week(), 1, 'იან  3 2010 უნდა იყოს კვირა 1');
-    assert.equal(moment([2010,  0,  4]).week(), 2, 'იან  4 2010 უნდა იყოს კვირა 2');
-    assert.equal(moment([2010,  0, 10]).week(), 2, 'იან 10 2010 უნდა იყოს კვირა 2');
-    assert.equal(moment([2010,  0, 11]).week(), 3, 'იან 11 2010 უნდა იყოს კვირა 3');
-});
-
-test('weeks year starting saturday', function (assert) {
-    assert.equal(moment([2010, 11, 27]).week(), 1, 'დეკ 27 2010 უნდა იყოს კვირა 1');
-    assert.equal(moment([2011,  0,  1]).week(), 1, 'იან  1 2011 უნდა იყოს კვირა 1');
-    assert.equal(moment([2011,  0,  2]).week(), 1, 'იან  2 2011 უნდა იყოს კვირა 1');
-    assert.equal(moment([2011,  0,  3]).week(), 2, 'იან  3 2011 უნდა იყოს კვირა 2');
-    assert.equal(moment([2011,  0,  9]).week(), 2, 'იან  9 2011 უნდა იყოს კვირა 2');
-    assert.equal(moment([2011,  0, 10]).week(), 3, 'იან 10 2011 უნდა იყოს კვირა 3');
 });
 
 test('weeks year starting sunday formatted', function (assert) {
@@ -281,38 +220,3 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 მე-3', 'იან  9 2012 უნდა იყოს კვირა 3');
 });
 
-test('lenient ordinal parsing', function (assert) {
-    var i, ordinalStr, testMoment;
-    for (i = 1; i <= 31; ++i) {
-        ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
-        testMoment = moment(ordinalStr, 'YYYY MM Do');
-        assert.equal(testMoment.year(), 2014,
-                'lenient ordinal parsing ' + i + ' year check');
-        assert.equal(testMoment.month(), 0,
-                'lenient ordinal parsing ' + i + ' month check');
-        assert.equal(testMoment.date(), i,
-                'lenient ordinal parsing ' + i + ' date check');
-    }
-});
-
-test('lenient ordinal parsing of number', function (assert) {
-    var i, testMoment;
-    for (i = 1; i <= 31; ++i) {
-        testMoment = moment('2014 01 ' + i, 'YYYY MM Do');
-        assert.equal(testMoment.year(), 2014,
-                'lenient ordinal parsing of number ' + i + ' year check');
-        assert.equal(testMoment.month(), 0,
-                'lenient ordinal parsing of number ' + i + ' month check');
-        assert.equal(testMoment.date(), i,
-                'lenient ordinal parsing of number ' + i + ' date check');
-    }
-});
-
-test('strict ordinal parsing', function (assert) {
-    var i, ordinalStr, testMoment;
-    for (i = 1; i <= 31; ++i) {
-        ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
-        testMoment = moment(ordinalStr, 'YYYY MM Do', true);
-        assert.ok(testMoment.isValid(), 'strict ordinal parsing ' + i);
-    }
-});

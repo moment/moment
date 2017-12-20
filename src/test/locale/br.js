@@ -155,14 +155,14 @@ test('fromNow', function (assert) {
 test('calendar day', function (assert) {
     moment.locale('br');
 
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                     'Hiziv da 2e00 AM',     'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'Hiziv da 2e25 AM',     'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),       'Hiziv da 3e00 AM',     'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'Warc\'hoazh da 2e00 AM',  'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hiziv da 1e00 AM',     'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Dec\'h da 2e00 AM', 'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   'Hiziv da 12e00 PM',        'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'Hiziv da 12e25 PM',        'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       'Hiziv da 1e00 PM',         'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'Warc\'hoazh da 12e00 PM',  'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hiziv da 11e00 AM',        'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Dec\'h da 12e00 PM',       'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {
@@ -225,38 +225,3 @@ test('special mutations for years', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 261}), true), '261 bloaz', 'mutation 261 years');
 });
 
-test('lenient ordinal parsing', function (assert) {
-    var i, ordinalStr, testMoment;
-    for (i = 1; i <= 31; ++i) {
-        ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
-        testMoment = moment(ordinalStr, 'YYYY MM Do');
-        assert.equal(testMoment.year(), 2014,
-                'lenient ordinal parsing ' + i + ' year check');
-        assert.equal(testMoment.month(), 0,
-                'lenient ordinal parsing ' + i + ' month check');
-        assert.equal(testMoment.date(), i,
-                'lenient ordinal parsing ' + i + ' date check');
-    }
-});
-
-test('lenient ordinal parsing of number', function (assert) {
-    var i, testMoment;
-    for (i = 1; i <= 31; ++i) {
-        testMoment = moment('2014 01 ' + i, 'YYYY MM Do');
-        assert.equal(testMoment.year(), 2014,
-                'lenient ordinal parsing of number ' + i + ' year check');
-        assert.equal(testMoment.month(), 0,
-                'lenient ordinal parsing of number ' + i + ' month check');
-        assert.equal(testMoment.date(), i,
-                'lenient ordinal parsing of number ' + i + ' date check');
-    }
-});
-
-test('strict ordinal parsing', function (assert) {
-    var i, ordinalStr, testMoment;
-    for (i = 1; i <= 31; ++i) {
-        ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
-        testMoment = moment(ordinalStr, 'YYYY MM Do', true);
-        assert.ok(testMoment.isValid(), 'strict ordinal parsing ' + i);
-    }
-});

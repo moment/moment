@@ -18,7 +18,9 @@ test('isDate rejects non-Date objects', function (assert) {
     assert.ok(!moment.isDate('2014-03-15'), 'string');
     assert.ok(!moment.isDate([2014, 2, 15]), 'array');
     assert.ok(!moment.isDate({year: 2014, month: 2, day: 15}), 'object');
-    assert.ok(!moment.isDate({toString: function () {
-        return '[object Date]';
-    }}), 'lying object');
+    assert.ok(!moment.isDate({
+        toString: function () {
+            return '[object Date]';
+        }
+    }), 'lying object');
 });

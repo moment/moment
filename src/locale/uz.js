@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : uzbek (uz)
+//! locale : Uzbek [uz]
 //! author : Sardor Muminov : https://github.com/muminoff
 
 import moment from '../moment';
@@ -30,6 +30,7 @@ export default moment.defineLocale('uz', {
         future : 'Якин %s ичида',
         past : 'Бир неча %s олдин',
         s : 'фурсат',
+        ss : '%d фурсат',
         m : 'бир дакика',
         mm : '%d дакика',
         h : 'бир соат',

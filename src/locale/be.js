@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : belarusian (be)
+//! locale : Belarusian [be]
 //! author : Dmitry Demidov : https://github.com/demidov91
 //! author: Praleska: http://praleska.pro/
 //! Author : Menelion Elensúle : https://github.com/Oire
@@ -12,6 +12,7 @@ function plural(word, num) {
 }
 function relativeTimeWithPlural(number, withoutSuffix, key) {
     var format = {
+        'ss': withoutSuffix ? 'секунда_секунды_секунд' : 'секунду_секунды_секунд',
         'mm': withoutSuffix ? 'хвіліна_хвіліны_хвілін' : 'хвіліну_хвіліны_хвілін',
         'hh': withoutSuffix ? 'гадзіна_гадзіны_гадзін' : 'гадзіну_гадзіны_гадзін',
         'dd': 'дзень_дні_дзён',
@@ -59,15 +60,15 @@ export default moment.defineLocale('be', {
         },
         lastWeek: function () {
             switch (this.day()) {
-            case 0:
-            case 3:
-            case 5:
-            case 6:
-                return '[У мінулую] dddd [ў] LT';
-            case 1:
-            case 2:
-            case 4:
-                return '[У мінулы] dddd [ў] LT';
+                case 0:
+                case 3:
+                case 5:
+                case 6:
+                    return '[У мінулую] dddd [ў] LT';
+                case 1:
+                case 2:
+                case 4:
+                    return '[У мінулы] dddd [ў] LT';
             }
         },
         sameElse: 'L'
@@ -102,19 +103,19 @@ export default moment.defineLocale('be', {
             return 'вечара';
         }
     },
-    ordinalParse: /\d{1,2}-(і|ы|га)/,
+    dayOfMonthOrdinalParse: /\d{1,2}-(і|ы|га)/,
     ordinal: function (number, period) {
         switch (period) {
-        case 'M':
-        case 'd':
-        case 'DDD':
-        case 'w':
-        case 'W':
-            return (number % 10 === 2 || number % 10 === 3) && (number % 100 !== 12 && number % 100 !== 13) ? number + '-і' : number + '-ы';
-        case 'D':
-            return number + '-га';
-        default:
-            return number;
+            case 'M':
+            case 'd':
+            case 'DDD':
+            case 'w':
+            case 'W':
+                return (number % 10 === 2 || number % 10 === 3) && (number % 100 !== 12 && number % 100 !== 13) ? number + '-і' : number + '-ы';
+            case 'D':
+                return number + '-га';
+            default:
+                return number;
         }
     },
     week : {

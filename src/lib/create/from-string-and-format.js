@@ -1,4 +1,4 @@
-import { configFromISO } from './from-string';
+import { configFromISO, configFromRFC2822 } from './from-string';
 import { configFromArray } from './from-array';
 import { getParseRegexForToken }   from '../parse/regex';
 import { addTimeToArrayFromToken } from '../parse/token';
@@ -11,6 +11,9 @@ import getParsingFlags from './parsing-flags';
 // constant that refers to the ISO standard
 hooks.ISO_8601 = function () {};
 
+// constant that refers to the RFC 2822 form
+hooks.RFC_2822 = function () {};
+
 // date from string and format string
 export function configFromStringAndFormat(config) {
     // TODO: Move this to another part of the creation flow to prevent circular deps
@@ -18,7 +21,10 @@ export function configFromStringAndFormat(config) {
         configFromISO(config);
         return;
     }
-
+    if (config._f === hooks.RFC_2822) {
+        configFromRFC2822(config);
+        return;
+    }
     config._a = [];
     getParsingFlags(config).empty = true;
 
@@ -65,11 +71,14 @@ export function configFromStringAndFormat(config) {
     }
 
     // clear _12h flag if hour is <= 12
-    if (getParsingFlags(config).bigHour === true &&
-            config._a[HOUR] <= 12 &&
-            config._a[HOUR] > 0) {
+    if (config._a[HOUR] <= 12 &&
+        getParsingFlags(config).bigHour === true &&
+        config._a[HOUR] > 0) {
         getParsingFlags(config).bigHour = undefined;
     }
+
+    getParsingFlags(config).parsedDateParts = config._a.slice(0);
+    getParsingFlags(config).meridiem = config._meridiem;
     // handle meridiem
     config._a[HOUR] = meridiemFixWrap(config._locale, config._a[HOUR], config._meridiem);
 

@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : breton (br)
+//! locale : Breton [br]
 //! author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 
 import moment from '../moment';
@@ -14,14 +14,14 @@ function relativeTimeWithMutation(number, withoutSuffix, key) {
 }
 function specialMutationForYears(number) {
     switch (lastNumber(number)) {
-    case 1:
-    case 3:
-    case 4:
-    case 5:
-    case 9:
-        return number + ' bloaz';
-    default:
-        return number + ' vloaz';
+        case 1:
+        case 3:
+        case 4:
+        case 5:
+        case 9:
+            return number + ' bloaz';
+        default:
+            return number + ' vloaz';
     }
 }
 function lastNumber(number) {
@@ -54,6 +54,7 @@ export default moment.defineLocale('br', {
     weekdays : 'Sul_Lun_Meurzh_Merc\'her_Yaou_Gwener_Sadorn'.split('_'),
     weekdaysShort : 'Sul_Lun_Meu_Mer_Yao_Gwe_Sad'.split('_'),
     weekdaysMin : 'Su_Lu_Me_Mer_Ya_Gw_Sa'.split('_'),
+    weekdaysParseExact : true,
     longDateFormat : {
         LT : 'h[e]mm A',
         LTS : 'h[e]mm:ss A',
@@ -74,6 +75,7 @@ export default moment.defineLocale('br', {
         future : 'a-benn %s',
         past : '%s \'zo',
         s : 'un nebeud segondennoù',
+        ss : '%d eilenn',
         m : 'ur vunutenn',
         mm : relativeTimeWithMutation,
         h : 'un eur',
@@ -85,7 +87,7 @@ export default moment.defineLocale('br', {
         y : 'ur bloaz',
         yy : specialMutationForYears
     },
-    ordinalParse: /\d{1,2}(añ|vet)/,
+    dayOfMonthOrdinalParse: /\d{1,2}(añ|vet)/,
     ordinal : function (number) {
         var output = (number === 1) ? 'añ' : 'vet';
         return number + output;

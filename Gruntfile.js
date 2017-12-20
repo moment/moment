@@ -117,7 +117,7 @@ module.exports = function (grunt) {
                     ascii_only: true // jshint ignore:line
                 },
                 report: 'min',
-                preserveComments: 'some'
+                preserveComments: /^!|@preserve|@license|@cc_on/i
             }
         },
         jshint: {
@@ -159,24 +159,18 @@ module.exports = function (grunt) {
         },
         exec: {
             'meteor-init': {
-                command: [
-                    // Make sure Meteor is installed, per https://meteor.com/install.
-                    // The curl'ed script is safe; takes 2 minutes to read source & check.
-                    'type meteor >/dev/null 2>&1 || { curl https://install.meteor.com/ | sh; }',
-                    // Meteor expects package.js to be in the root directory of
-                    // the checkout, but we already have a package.js for Dojo
-                    'mv package.js package.dojo && cp meteor/package.js .'
-                ].join(';')
-            },
-            'meteor-cleanup': {
-                // remove build files and restore Dojo's package.js
-                command: 'rm -rf ".build.*" versions.json; mv package.dojo package.js'
+                // Make sure Meteor is installed, per https://meteor.com/install.
+                // The curl'ed script is safe; takes 2 minutes to read source & check.
+                command: 'type meteor >/dev/null 2>&1 || { curl https://install.meteor.com/ | sh; }'
             },
             'meteor-test': {
-                command: 'spacejam --mongo-url mongodb:// test-packages ./'
+                command: 'spacejam --mongo-url mongodb:// test-packages ./meteor'
             },
             'meteor-publish': {
-                command: 'meteor publish'
+                command: 'cd meteor && meteor publish'
+            },
+            'typescript-test': {
+                command: 'npm run typescript-test'
             }
         }
 
@@ -188,14 +182,15 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
     // Default task.
-    grunt.registerTask('default', ['lint', 'test:node']);
+    grunt.registerTask('default', ['lint', 'test']);
 
     // linting
     grunt.registerTask('lint', ['jshint', 'jscs']);
 
     // test tasks
-    grunt.registerTask('test', ['test:node']);
+    grunt.registerTask('test', ['test:node', 'test:typescript']);
     grunt.registerTask('test:node', ['transpile', 'qtest']);
+    grunt.registerTask('test:typescript', ['exec:typescript-test']);
     // TODO: For some weird reason karma doesn't like the files in
     // build/umd/min/* but works with min/*, so update-index, then git checkout
     grunt.registerTask('test:server', ['transpile', 'update-index', 'karma:server']);

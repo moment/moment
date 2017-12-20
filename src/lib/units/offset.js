@@ -48,12 +48,19 @@ addParseToken(['Z', 'ZZ'], function (input, array, config) {
 var chunkOffset = /([\+\-]|\d\d)/gi;
 
 function offsetFromString(matcher, string) {
-    var matches = ((string || '').match(matcher) || []);
+    var matches = (string || '').match(matcher);
+
+    if (matches === null) {
+        return null;
+    }
+
     var chunk   = matches[matches.length - 1] || [];
     var parts   = (chunk + '').match(chunkOffset) || ['-', 0, 0];
     var minutes = +(parts[1] * 60) + toInt(parts[2]);
 
-    return parts[0] === '+' ? minutes : -minutes;
+    return minutes === 0 ?
+      0 :
+      parts[0] === '+' ? minutes : -minutes;
 }
 
 // Return a moment from input, that is local/utc/zone equivalent to model.
@@ -61,9 +68,9 @@ export function cloneWithOffset(input, model) {
     var res, diff;
     if (model._isUTC) {
         res = model.clone();
-        diff = (isMoment(input) || isDate(input) ? +input : +createLocal(input)) - (+res);
+        diff = (isMoment(input) || isDate(input) ? input.valueOf() : createLocal(input).valueOf()) - res.valueOf();
         // Use low-level api, because this fn is low-level api.
-        res._d.setTime(+res._d + diff);
+        res._d.setTime(res._d.valueOf() + diff);
         hooks.updateOffset(res, false);
         return res;
     } else {
@@ -95,7 +102,7 @@ hooks.updateOffset = function () {};
 // a second time. In case it wants us to change the offset again
 // _changeInProgress == true case, then we have to adjust, because
 // there is no such time in the given timezone.
-export function getSetOffset (input, keepLocalTime) {
+export function getSetOffset (input, keepLocalTime, keepMinutes) {
     var offset = this._offset || 0,
         localAdjust;
     if (!this.isValid()) {
@@ -104,7 +111,10 @@ export function getSetOffset (input, keepLocalTime) {
     if (input != null) {
         if (typeof input === 'string') {
             input = offsetFromString(matchShortOffset, input);
-        } else if (Math.abs(input) < 16) {
+            if (input === null) {
+                return this;
+            }
+        } else if (Math.abs(input) < 16 && !keepMinutes) {
             input = input * 60;
         }
         if (!this._isUTC && keepLocalTime) {
@@ -161,10 +171,16 @@ export function setOffsetToLocal (keepLocalTime) {
 }
 
 export function setOffsetToParsedOffset () {
-    if (this._tzm) {
-        this.utcOffset(this._tzm);
+    if (this._tzm != null) {
+        this.utcOffset(this._tzm, false, true);
     } else if (typeof this._i === 'string') {
-        this.utcOffset(offsetFromString(matchOffset, this._i));
+        var tZone = offsetFromString(matchOffset, this._i);
+        if (tZone != null) {
+            this.utcOffset(tZone);
+        }
+        else {
+            this.utcOffset(0, true);
+        }
     }
     return this;
 }

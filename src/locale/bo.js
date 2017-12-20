@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : tibetan (bo)
+//! locale : Tibetan [bo]
 //! author : Thupten N. Chakrishar : https://github.com/vajradog
 
 import moment from '../moment';
@@ -55,6 +55,7 @@ export default moment.defineLocale('bo', {
         future : '%s ལ་',
         past : '%s སྔན་ལ',
         s : 'ལམ་སང',
+        ss : '%d སྐར་ཆ།',
         m : 'སྐར་མ་གཅིག',
         mm : '%d སྐར་མ',
         h : 'ཆུ་ཚོད་གཅིག',
@@ -77,8 +78,17 @@ export default moment.defineLocale('bo', {
         });
     },
     meridiemParse: /མཚན་མོ|ཞོགས་ཀས|ཉིན་གུང|དགོང་དག|མཚན་མོ/,
-    isPM: function (input) {
-        return /^(ཉིན་གུང|དགོང་དག|མཚན་མོ)$/.test(input);
+    meridiemHour : function (hour, meridiem) {
+        if (hour === 12) {
+            hour = 0;
+        }
+        if ((meridiem === 'མཚན་མོ' && hour >= 4) ||
+                (meridiem === 'ཉིན་གུང' && hour < 5) ||
+                meridiem === 'དགོང་དག') {
+            return hour + 12;
+        } else {
+            return hour;
+        }
     },
     meridiem : function (hour, minute, isLower) {
         if (hour < 4) {

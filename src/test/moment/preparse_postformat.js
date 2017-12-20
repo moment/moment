@@ -41,6 +41,9 @@ module('preparse and postformat', {
                 });
             }
         });
+    },
+    teardown: function () {
+        moment.defineLocale('symbol', null);
     }
 });
 
@@ -59,12 +62,12 @@ test('transform from', function (assert) {
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                   'Today at @:)) AM',     'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'Today at @:@% AM',     'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),       'Today at #:)) AM',     'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'Tomorrow at @:)) AM',  'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Today at !:)) AM',     'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Yesterday at @:)) AM', 'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   'Today at !@:)) PM',     'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'Today at !@:@% PM',     'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       'Today at !:)) PM',      'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'Tomorrow at !@:)) PM',  'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'Today at !!:)) AM',     'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Yesterday at !@:)) PM', 'yesterday at the same time');
 });

@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : hrvatski (hr)
+//! locale : Croatian [hr]
 //! author : Bojan Marković : https://github.com/bmarkovic
 
 import moment from '../moment';
@@ -7,53 +7,62 @@ import moment from '../moment';
 function translate(number, withoutSuffix, key) {
     var result = number + ' ';
     switch (key) {
-    case 'm':
-        return withoutSuffix ? 'jedna minuta' : 'jedne minute';
-    case 'mm':
-        if (number === 1) {
-            result += 'minuta';
-        } else if (number === 2 || number === 3 || number === 4) {
-            result += 'minute';
-        } else {
-            result += 'minuta';
-        }
-        return result;
-    case 'h':
-        return withoutSuffix ? 'jedan sat' : 'jednog sata';
-    case 'hh':
-        if (number === 1) {
-            result += 'sat';
-        } else if (number === 2 || number === 3 || number === 4) {
-            result += 'sata';
-        } else {
-            result += 'sati';
-        }
-        return result;
-    case 'dd':
-        if (number === 1) {
-            result += 'dan';
-        } else {
-            result += 'dana';
-        }
-        return result;
-    case 'MM':
-        if (number === 1) {
-            result += 'mjesec';
-        } else if (number === 2 || number === 3 || number === 4) {
-            result += 'mjeseca';
-        } else {
-            result += 'mjeseci';
-        }
-        return result;
-    case 'yy':
-        if (number === 1) {
-            result += 'godina';
-        } else if (number === 2 || number === 3 || number === 4) {
-            result += 'godine';
-        } else {
-            result += 'godina';
-        }
-        return result;
+        case 'ss':
+            if (number === 1) {
+                result += 'sekunda';
+            } else if (number === 2 || number === 3 || number === 4) {
+                result += 'sekunde';
+            } else {
+                result += 'sekundi';
+            }
+            return result;
+        case 'm':
+            return withoutSuffix ? 'jedna minuta' : 'jedne minute';
+        case 'mm':
+            if (number === 1) {
+                result += 'minuta';
+            } else if (number === 2 || number === 3 || number === 4) {
+                result += 'minute';
+            } else {
+                result += 'minuta';
+            }
+            return result;
+        case 'h':
+            return withoutSuffix ? 'jedan sat' : 'jednog sata';
+        case 'hh':
+            if (number === 1) {
+                result += 'sat';
+            } else if (number === 2 || number === 3 || number === 4) {
+                result += 'sata';
+            } else {
+                result += 'sati';
+            }
+            return result;
+        case 'dd':
+            if (number === 1) {
+                result += 'dan';
+            } else {
+                result += 'dana';
+            }
+            return result;
+        case 'MM':
+            if (number === 1) {
+                result += 'mjesec';
+            } else if (number === 2 || number === 3 || number === 4) {
+                result += 'mjeseca';
+            } else {
+                result += 'mjeseci';
+            }
+            return result;
+        case 'yy':
+            if (number === 1) {
+                result += 'godina';
+            } else if (number === 2 || number === 3 || number === 4) {
+                result += 'godine';
+            } else {
+                result += 'godina';
+            }
+            return result;
     }
 }
 
@@ -63,13 +72,15 @@ export default moment.defineLocale('hr', {
         standalone: 'siječanj_veljača_ožujak_travanj_svibanj_lipanj_srpanj_kolovoz_rujan_listopad_studeni_prosinac'.split('_')
     },
     monthsShort : 'sij._velj._ožu._tra._svi._lip._srp._kol._ruj._lis._stu._pro.'.split('_'),
+    monthsParseExact: true,
     weekdays : 'nedjelja_ponedjeljak_utorak_srijeda_četvrtak_petak_subota'.split('_'),
     weekdaysShort : 'ned._pon._uto._sri._čet._pet._sub.'.split('_'),
     weekdaysMin : 'ne_po_ut_sr_če_pe_su'.split('_'),
+    weekdaysParseExact : true,
     longDateFormat : {
         LT : 'H:mm',
         LTS : 'H:mm:ss',
-        L : 'DD. MM. YYYY',
+        L : 'DD.MM.YYYY',
         LL : 'D. MMMM YYYY',
         LLL : 'D. MMMM YYYY H:mm',
         LLLL : 'dddd, D. MMMM YYYY H:mm'
@@ -79,32 +90,32 @@ export default moment.defineLocale('hr', {
         nextDay  : '[sutra u] LT',
         nextWeek : function () {
             switch (this.day()) {
-            case 0:
-                return '[u] [nedjelju] [u] LT';
-            case 3:
-                return '[u] [srijedu] [u] LT';
-            case 6:
-                return '[u] [subotu] [u] LT';
-            case 1:
-            case 2:
-            case 4:
-            case 5:
-                return '[u] dddd [u] LT';
+                case 0:
+                    return '[u] [nedjelju] [u] LT';
+                case 3:
+                    return '[u] [srijedu] [u] LT';
+                case 6:
+                    return '[u] [subotu] [u] LT';
+                case 1:
+                case 2:
+                case 4:
+                case 5:
+                    return '[u] dddd [u] LT';
             }
         },
         lastDay  : '[jučer u] LT',
         lastWeek : function () {
             switch (this.day()) {
-            case 0:
-            case 3:
-                return '[prošlu] dddd [u] LT';
-            case 6:
-                return '[prošle] [subote] [u] LT';
-            case 1:
-            case 2:
-            case 4:
-            case 5:
-                return '[prošli] dddd [u] LT';
+                case 0:
+                case 3:
+                    return '[prošlu] dddd [u] LT';
+                case 6:
+                    return '[prošle] [subote] [u] LT';
+                case 1:
+                case 2:
+                case 4:
+                case 5:
+                    return '[prošli] dddd [u] LT';
             }
         },
         sameElse : 'L'
@@ -113,6 +124,7 @@ export default moment.defineLocale('hr', {
         future : 'za %s',
         past   : 'prije %s',
         s      : 'par sekundi',
+        ss     : translate,
         m      : translate,
         mm     : translate,
         h      : translate,
@@ -124,11 +136,10 @@ export default moment.defineLocale('hr', {
         y      : 'godinu',
         yy     : translate
     },
-    ordinalParse: /\d{1,2}\./,
+    dayOfMonthOrdinalParse: /\d{1,2}\./,
     ordinal : '%d.',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
     }
 });
-

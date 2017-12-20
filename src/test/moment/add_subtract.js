@@ -80,6 +80,9 @@ test('add long singular reverse args', function (assert) {
 
 test('add string long reverse args', function (assert) {
     var a = moment(), b;
+
+    test.expectedDeprecations('moment().add(period, number)');
+
     a.year(2011);
     a.month(9);
     a.date(12);
@@ -104,6 +107,9 @@ test('add string long reverse args', function (assert) {
 
 test('add string long singular reverse args', function (assert) {
     var a = moment(), b;
+
+    test.expectedDeprecations('moment().add(period, number)');
+
     a.year(2011);
     a.month(9);
     a.date(12);
@@ -128,6 +134,8 @@ test('add string long singular reverse args', function (assert) {
 
 test('add string short reverse args', function (assert) {
     var a = moment();
+    test.expectedDeprecations('moment().add(period, number)');
+
     a.year(2011);
     a.month(9);
     a.date(12);
@@ -210,8 +218,10 @@ test('add string short', function (assert) {
     assert.equal(a.add(1, 'Q').month(), 1, 'Add quarter');
 });
 
-test('add strings string short args', function (assert) {
+test('add strings string short reversed', function (assert) {
     var a = moment();
+    test.expectedDeprecations('moment().add(period, number)');
+
     a.year(2011);
     a.month(9);
     a.date(12);
@@ -231,8 +241,10 @@ test('add strings string short args', function (assert) {
     assert.equal(a.add('Q', '1').month(), 1, 'Add quarter');
 });
 
-test('subtract strings string short args', function (assert) {
+test('subtract strings string short reversed', function (assert) {
     var a = moment();
+    test.expectedDeprecations('moment().subtract(period, number)');
+
     a.year(2011);
     a.month(9);
     a.date(12);
@@ -271,6 +283,19 @@ test('add strings string short', function (assert) {
     assert.equal(a.add('1', 'M').month(), 10, 'Add month');
     assert.equal(a.add('1', 'y').year(), 2012, 'Add year');
     assert.equal(a.add('1', 'Q').month(), 1, 'Add quarter');
+});
+
+test('add no string with milliseconds default', function (assert) {
+    var a = moment();
+    a.year(2011);
+    a.month(9);
+    a.date(12);
+    a.hours(6);
+    a.minutes(7);
+    a.seconds(8);
+    a.milliseconds(500);
+
+    assert.equal(a.add(50).milliseconds(), 550, 'Add milliseconds');
 });
 
 test('subtract strings string short', function (assert) {
@@ -322,4 +347,24 @@ test('add across DST', function (assert) {
     }
     assert.equal(c.hours(), 5, 'adding months over DST difference should result in the same hour');
     assert.equal(e.hours(), 5, 'adding quarters over DST difference should result in the same hour');
+});
+
+test('add decimal values of days and months', function (assert) {
+    assert.equal(moment([2016,3,3]).add(1.5, 'days').date(), 5, 'adding 1.5 days is rounded to adding 2 day');
+    assert.equal(moment([2016,3,3]).add(-1.5, 'days').date(), 1, 'adding -1.5 days is rounded to adding -2 day');
+    assert.equal(moment([2016,3,1]).add(-1.5, 'days').date(), 30, 'adding -1.5 days on first of month wraps around');
+    assert.equal(moment([2016,3,3]).add(1.5, 'months').month(), 5, 'adding 1.5 months adds 2 months');
+    assert.equal(moment([2016,3,3]).add(-1.5, 'months').month(), 1, 'adding -1.5 months adds -2 months');
+    assert.equal(moment([2016,0,3]).add(-1.5, 'months').month(), 10, 'adding -1.5 months at start of year wraps back');
+    assert.equal(moment([2016,3,3]).subtract(1.5, 'days').date(),1, 'subtract 1.5 days is rounded to subtract 2 day');
+    assert.equal(moment([2016,3,2]).subtract(1.5, 'days').date(), 31, 'subtract 1.5 days subtracts 2 days');
+    assert.equal(moment([2016,1,1]).subtract(1.1, 'days').date(), 31, 'subtract 1.1 days wraps to previous month');
+    assert.equal(moment([2016,3,3]).subtract(-1.5, 'days').date(), 5, 'subtract -1.5 days is rounded to subtract -2 day');
+    assert.equal(moment([2016,3,30]).subtract(-1.5, 'days').date(), 2, 'subtract -1.5 days on last of month wraps around');
+    assert.equal(moment([2016,3,3]).subtract(1.5, 'months').month(), 1, 'subtract 1.5 months subtract 2 months');
+    assert.equal(moment([2016,3,3]).subtract(-1.5, 'months').month(), 5, 'subtract -1.5 months subtract -2 month');
+    assert.equal(moment([2016,11,31]).subtract(-1.5, 'months').month(),1, 'subtract -1.5 months at end of year wraps back');
+    assert.equal(moment([2016, 0,1]).add(1.5, 'years').format('YYYY-MM-DD'), '2017-07-01', 'add 1.5 years adds 1 year six months');
+    assert.equal(moment([2016, 0,1]).add(1.6, 'years').format('YYYY-MM-DD'), '2017-08-01', 'add 1.6 years becomes 1.6*12 = 19.2, round, 19 months');
+    assert.equal(moment([2016,0,1]).add(1.1, 'quarters').format('YYYY-MM-DD'), '2016-04-01', 'add 1.1 quarters 1.1*3=3.3, round, 3 months');
 });

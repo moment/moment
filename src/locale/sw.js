@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : swahili (sw)
+//! locale : Swahili [sw]
 //! author : Fahad Kassim : https://github.com/fadsel
 
 import moment from '../moment';
@@ -10,6 +10,7 @@ export default moment.defineLocale('sw', {
     weekdays : 'Jumapili_Jumatatu_Jumanne_Jumatano_Alhamisi_Ijumaa_Jumamosi'.split('_'),
     weekdaysShort : 'Jpl_Jtat_Jnne_Jtan_Alh_Ijm_Jmos'.split('_'),
     weekdaysMin : 'J2_J3_J4_J5_Al_Ij_J1'.split('_'),
+    weekdaysParseExact : true,
     longDateFormat : {
         LT : 'HH:mm',
         LTS : 'HH:mm:ss',
@@ -30,6 +31,7 @@ export default moment.defineLocale('sw', {
         future : '%s baadaye',
         past : 'tokea %s',
         s : 'hivi punde',
+        ss : 'sekunde %d',
         m : 'dakika moja',
         mm : 'dakika %d',
         h : 'saa limoja',

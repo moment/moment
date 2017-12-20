@@ -1,6 +1,7 @@
 import { makeGetSet } from '../moment/get-set';
 import { addFormatToken } from '../format/format';
 import { addUnitAlias } from './aliases';
+import { addUnitPriority } from './priorities';
 import { addRegexToken, match1to2, match1to4, match1to6, match2, match4, match6, matchSigned } from '../parse/regex';
 import { addParseToken } from '../parse/token';
 import { hooks } from '../utils/hooks';
@@ -25,6 +26,10 @@ addFormatToken(0, ['YYYYYY', 6, true], 0, 'year');
 // ALIASES
 
 addUnitAlias('year', 'y');
+
+// PRIORITIES
+
+addUnitPriority('year', 1);
 
 // PARSING
 
@@ -51,7 +56,7 @@ export function daysInYear(year) {
     return isLeapYear(year) ? 366 : 365;
 }
 
-function isLeapYear(year) {
+export function isLeapYear(year) {
     return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 }
 
@@ -63,7 +68,7 @@ hooks.parseTwoDigitYear = function (input) {
 
 // MOMENTS
 
-export var getSetYear = makeGetSet('FullYear', false);
+export var getSetYear = makeGetSet('FullYear', true);
 
 export function getIsLeapYear () {
     return isLeapYear(this.year());

@@ -1,5 +1,6 @@
 //! moment.js locale configuration
-//! locale : Bahasa Malaysia (ms-MY)
+//! locale : Malay [ms-my]
+//! note : DEPRECATED, the correct one is [ms]
 //! author : Weldan Jamili : https://github.com/weldan
 
 import moment from '../moment';
@@ -54,6 +55,7 @@ export default moment.defineLocale('ms-my', {
         future : 'dalam %s',
         past : '%s yang lepas',
         s : 'beberapa saat',
+        ss : '%d saat',
         m : 'seminit',
         mm : '%d minit',
         h : 'sejam',

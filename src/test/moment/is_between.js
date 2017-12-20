@@ -72,6 +72,143 @@ test('is between without units', function (assert) {
     assert.equal(+m, +mCopy, 'isBetween second should not change moment');
 });
 
+test('is between without units inclusivity', function (assert) {
+    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
+    assert.equal(m.isBetween(
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), null, '()'), false, 'start and end are excluded, start is equal to moment');
+    assert.equal(m.isBetween(
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)), null, '()'), false, 'start and end are excluded, end is equal to moment');
+    assert.equal(m.isBetween(
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), null, '()'), true, 'start and end are excluded, is between');
+    assert.equal(m.isBetween(
+        moment(new Date(2009, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)), null, '()'), false, 'start and end are excluded, is not between');
+    assert.equal(m.isBetween(
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)), null, '()'), false, 'start and end are excluded, should fail on same start/end date.');
+
+    assert.equal(m.isBetween(
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), null, '(]'), false, 'start is excluded and end is included should fail on same start date');
+    assert.equal(m.isBetween(
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)), null, '(]'), true, 'start is excluded and end is included should succeed on end date');
+    assert.equal(m.isBetween(
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), null, '(]'), true, 'start is excluded and end is included, is between');
+    assert.equal(m.isBetween(
+        moment(new Date(2009, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)), null, '(]'), false, 'start is excluded and end is included, is not between');
+    assert.equal(m.isBetween(
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)), null, '(]'), false, 'start is excluded and end is included, should fail on same start/end date.');
+
+    assert.equal(m.isBetween(
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), null, '[)'), true, 'start is included and end is excluded should succeed on same start date');
+    assert.equal(m.isBetween(
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)), null, '[)'), false, 'start is included and end is excluded should fail on same end date');
+    assert.equal(m.isBetween(
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), null, '[)'), true, 'start is included and end is excluded, is between');
+    assert.equal(m.isBetween(
+        moment(new Date(2009, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)), null, '[)'), false, 'start is included and end is excluded, is not between');
+    assert.equal(m.isBetween(
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)), null, '[)'), false, 'start is included and end is excluded, should fail on same end and start date');
+
+    assert.equal(m.isBetween(
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), null, '[]'), true, 'start and end inclusive should succeed on same start date');
+    assert.equal(m.isBetween(
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)), null, '[]'), true, 'start and end inclusive should succeed on same end date');
+    assert.equal(m.isBetween(
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), null, '[]'), true, 'start and end inclusive, is between');
+    assert.equal(m.isBetween(
+        moment(new Date(2009, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)), null, '[]'), false, 'start and end inclusive, is not between');
+    assert.equal(m.isBetween(
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)), null, '[]'), true, 'start and end inclusive, should handle same end and start date');
+});
+
+test('is between milliseconds inclusivity', function (assert) {
+    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
+    assert.equal(m.isBetween(
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), 'milliseconds'), true, 'options, no inclusive');
+    assert.equal(m.isBetween(
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), 'milliseconds', '()'), false, 'start and end are excluded, start is equal to moment');
+    assert.equal(m.isBetween(
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)), 'milliseconds', '()'), false, 'start and end are excluded, end is equal to moment');
+    assert.equal(m.isBetween(
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), 'milliseconds', '()'), true, 'start and end are excluded, is between');
+    assert.equal(m.isBetween(
+        moment(new Date(2009, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)), 'milliseconds', '()'), false, 'start and end are excluded, is not between');
+    assert.equal(m.isBetween(
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)), 'milliseconds', '()'), false, 'start and end are excluded, should fail on same start/end date.');
+
+    assert.equal(m.isBetween(
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), 'milliseconds', '(]'), false, 'start is excluded and end is included should fail on same start date');
+    assert.equal(m.isBetween(
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)), 'milliseconds', '(]'), true, 'start is excluded and end is included should succeed on end date');
+    assert.equal(m.isBetween(
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), 'milliseconds', '(]'), true, 'start is excluded and end is included, is between');
+    assert.equal(m.isBetween(
+        moment(new Date(2009, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)), 'milliseconds', '(]'), false, 'start is excluded and end is included, is not between');
+    assert.equal(m.isBetween(
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)), 'milliseconds', '(]'), false, 'start is excluded and end is included, should fail on same start/end date.');
+
+    assert.equal(m.isBetween(
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), 'milliseconds', '[)'), true, 'start is included and end is excluded should succeed on same start date');
+    assert.equal(m.isBetween(
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)), 'milliseconds', '[)'), false, 'start is included and end is excluded should fail on same end date');
+    assert.equal(m.isBetween(
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), 'milliseconds', '[)'), true, 'start is included and end is excluded, is between');
+    assert.equal(m.isBetween(
+        moment(new Date(2009, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)), 'milliseconds', '[)'), false, 'start is included and end is excluded, is not between');
+    assert.equal(m.isBetween(
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)), 'milliseconds', '[)'), false, 'start is included and end is excluded, should fail on same end and start date');
+
+    assert.equal(m.isBetween(
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), 'milliseconds', '[]'), true, 'start and end inclusive should succeed on same start date');
+    assert.equal(m.isBetween(
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)), 'milliseconds', '[]'), true, 'start and end inclusive should succeed on same end date');
+    assert.equal(m.isBetween(
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), 'milliseconds', '[]'), true, 'start and end inclusive, is between');
+    assert.equal(m.isBetween(
+        moment(new Date(2009, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2010, 3, 2, 3, 4, 5, 10)), 'milliseconds', '[]'), false, 'start and end inclusive, is not between');
+    assert.equal(m.isBetween(
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)), 'milliseconds', '[]'), true, 'start and end inclusive, should handle same end and start date');
+});
+
 test('is between year', function (assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
     assert.equal(m.isBetween(

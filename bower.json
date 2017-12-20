@@ -1,5 +1,6 @@
 {
   "name": "moment",
+  "license": "MIT",
   "main": "moment.js",
   "ignore": [
     "**/.*",
@@ -17,6 +18,9 @@
     "Gruntfile.js",
     "Moment.js.nuspec",
     "package.js",
-    "package.json"
+    "package.json",
+    "ISSUE_TEMPLATE.md",
+    "typing-tests",
+    "min/tests.js"
   ]
 }

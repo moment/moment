@@ -1,6 +1,8 @@
 //! moment.js locale configuration
-//! locale : Burmese (my)
+//! locale : Burmese [my]
 //! author : Squar team, mysquar.com
+//! author : David Rossellat : https://github.com/gholadr
+//! author : Tin Aung Lin : https://github.com/thanyawzinmin
 
 import moment from '../moment';
 
@@ -55,6 +57,7 @@ export default moment.defineLocale('my', {
         future: 'လာမည့် %s မှာ',
         past: 'လွန်ခဲ့သော %s က',
         s: 'စက္ကန်.အနည်းငယ်',
+        ss : '%d စက္ကန့်',
         m: 'တစ်မိနစ်',
         mm: '%d မိနစ်',
         h: 'တစ်နာရီ',
