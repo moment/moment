@@ -1,5 +1,6 @@
-// moment.js language configuration
-// locale : Uyghur (China) [ug-CN]
+//! moment.js language configuration
+//! locale : Uyghur (China) [ug-CN]
+//! author: Alim Boyaq : https://github.com/boyaq
 
 import moment from "../moment";
 
