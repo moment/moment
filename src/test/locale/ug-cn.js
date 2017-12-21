@@ -1,20 +1,14 @@
-import { localeModule, test } from "../qunit";
-import moment from "../../moment";
-localeModule("ug-cn");
+import { localeModule, test } from '../qunit';
+import moment from '../../moment';
+localeModule('ug-cn');
 
-test("parse", function(assert) {
+test('parse', function (assert) {
     var tests = 'يانۋار يانۋار_فېۋرال فېۋرال_مارت مارت_ئاپرېل ئاپرېل_ماي ماي_ئىيون ئىيون_ئىيول ئىيول_ئاۋغۇست ئاۋغۇست_سىنتەبىر سىنتەبىر_ئۆكتەبىر ئۆكتەبىر_نويابىر نويابىر_دىكابىر دىكابىر'.split('_'), i;
-    
-    function equalTest(input, mmm, i) {
-        assert.equal(
-            moment(input, mmm).month(),
-            i,
-            input + " should be month " + (i + 1)
-        );
+    function equalTest (input, mmm, i) {
+        assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
-
     for (i = 0; i < 12; i++) {
-        tests[i] = tests[i].split(" ");
+        tests[i] = tests[i].split(' ');
         equalTest(tests[i][0], 'MMM', i);
         equalTest(tests[i][1], 'MMM', i);
         equalTest(tests[i][0], 'MMMM', i);
@@ -24,7 +18,6 @@ test("parse", function(assert) {
         equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
         equalTest(tests[i][1].toLocaleUpperCase(), 'MMMM', i);
     }
-    console.log(tests);
 });
 
 test('format', function (assert) {
