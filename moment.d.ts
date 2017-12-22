@@ -2,7 +2,7 @@ declare function moment(inp?: moment.MomentInput, format?: moment.MomentFormatSp
 declare function moment(inp?: moment.MomentInput, format?: moment.MomentFormatSpecification, language?: string, strict?: boolean): moment.Moment;
 
 declare namespace moment {
-  type RelativeTimeKey = 's' | 'm' | 'mm' | 'h' | 'hh' | 'd' | 'dd' | 'M' | 'MM' | 'y' | 'yy';
+  type RelativeTimeKey = 's' | 'ss' | 'm' | 'mm' | 'h' | 'hh' | 'd' | 'dd' | 'M' | 'MM' | 'y' | 'yy';
   type CalendarKey = 'sameDay' | 'nextDay' | 'lastDay' | 'nextWeek' | 'lastWeek' | 'sameElse' | string;
   type LongDateFormatKey = 'LTS' | 'LT' | 'L' | 'LL' | 'LLL' | 'LLLL' | 'lts' | 'lt' | 'l' | 'll' | 'lll' | 'llll';
 
@@ -82,6 +82,7 @@ declare namespace moment {
     future: RelativeTimeFuturePastVal;
     past: RelativeTimeFuturePastVal;
     s: RelativeTimeSpecVal;
+    ss: RelativeTimeSpecVal;
     m: RelativeTimeSpecVal;
     mm: RelativeTimeSpecVal;
     h: RelativeTimeSpecVal;
@@ -154,6 +155,8 @@ declare namespace moment {
   }
 
   interface Duration {
+    clone(): Duration;
+
     humanize(withSuffix?: boolean): string;
 
     abs(): Duration;
@@ -213,6 +216,7 @@ declare namespace moment {
     future: any;
     past: any;
     s: any;
+    ss: any;
     m: any;
     mm: any;
     h: any;
@@ -406,7 +410,7 @@ declare namespace moment {
     strict?: boolean;
   }
 
-  interface Moment extends Object{
+  interface Moment extends Object {
     format(format?: string): string;
 
     startOf(unitOfTime: unitOfTime.StartOf): Moment;
@@ -538,7 +542,7 @@ declare namespace moment {
 
     toArray(): number[];
     toDate(): Date;
-    toISOString(): string;
+    toISOString(keepOffset?: boolean): string;
     inspect(): string;
     toJSON(): string;
     unix(): number;
@@ -704,6 +708,7 @@ declare namespace moment {
    * Constant used to enable explicit ISO_8601 format parsing.
    */
   export var ISO_8601: MomentBuiltinFormat;
+  export var RFC_2822: MomentBuiltinFormat;
 
   export var defaultFormat: string;
   export var defaultFormatUtc: string;

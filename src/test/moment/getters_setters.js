@@ -101,6 +101,35 @@ test('setters', function (assert) {
     assert.equal(a.month(), 3, 'month edge case');
 });
 
+test('setters should handle garbage input', function (assert) {
+    var a = moment();
+    a.set('year', 2011);
+    a.set('month', 9);
+    a.set('date', 12);
+    a.set('hours', 6);
+    a.set('minutes', 7);
+    a.set('seconds', 8);
+    a.set('milliseconds', 9);
+
+    a.year(undefined);
+    a.month('foo');
+    a.date(null);
+    a.day({a:2,b:3});
+    a.hours('[1]');
+    a.minutes(undefined);
+    a.seconds(null);
+    a.milliseconds(NaN);
+
+    assert.equal(a.year(), 2011, 'year - provided undefined');
+    assert.equal(a.month(), 9, 'month - provided null');
+    assert.equal(a.date(), 12, 'date - provided [1]');
+    assert.equal(a.day(), 3, 'day - provided Infinity');
+    assert.equal(a.hours(), 6, 'hour - provided new Date');
+    assert.equal(a.minutes(), 7, 'minute - provided {a:1,b:2}');
+    assert.equal(a.seconds(), 8, 'second - provided foo');
+    assert.equal(a.milliseconds(), 9, 'milliseconds - provided Infinity');
+});
+
 test('setter programmatic', function (assert) {
     var a = moment();
     a.set('year', 2011);
@@ -238,6 +267,20 @@ test('day setter', function (assert) {
     assert.equal(moment(a).day(14).date(), 23, 'set from wednesday to second next sunday');
     assert.equal(moment(a).day(20).date(), 29, 'set from wednesday to second next saturday');
     assert.equal(moment(a).day(17).date(), 26, 'set from wednesday to second next wednesday');
+});
+
+test('year setter', function (assert) {
+    var a = moment([2015, 3, 15]);
+    assert.equal(moment(a).year(2016).format('YYYY-MM-DD'), '2016-04-15', 'set from 2015 to 2016');
+    assert.equal(moment(a).year(2011).format('YYYY-MM-DD'), '2011-04-15', 'set from 2015 to 2011');
+
+    var b = moment([2012, 1, 29]);
+    assert.equal(moment(b).year(2017).format('YYYY-MM-DD'), '2017-02-28', 'set from last day of february on a leap year to a non leap year');
+    assert.equal(moment(b).year(2004).format('YYYY-MM-DD'), '2004-02-29', 'set from last day of february on a leap year to a leap year');
+
+    var c = moment([2012, 9, 4]);
+    assert.equal(moment(c).year(2017).format('YYYY-MM-DD'), '2017-10-04', 'set from a random day on a leap year to a non leap year');
+    assert.equal(moment(c).year(2004).format('YYYY-MM-DD'), '2004-10-04', 'set from a random day on a leap year to a leap year');
 });
 
 test('object set ordering', function (assert) {

@@ -10,12 +10,19 @@ import { MONTH } from './constants';
 import toInt from '../utils/to-int';
 import isArray from '../utils/is-array';
 import isNumber from '../utils/is-number';
+import mod from '../utils/mod';
 import indexOf from '../utils/index-of';
 import { createUTC } from '../create/utc';
 import getParsingFlags from '../create/parsing-flags';
+import { isLeapYear } from '../units/year';
 
 export function daysInMonth(year, month) {
-    return new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+    if (isNaN(year) || isNaN(month)) {
+        return NaN;
+    }
+    var modMonth = mod(month, 12);
+    year += (month - modMonth) / 12;
+    return modMonth === 1 ? (isLeapYear(year) ? 29 : 28) : (31 - modMonth % 7 % 2);
 }
 
 // FORMATTING

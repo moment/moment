@@ -170,3 +170,6 @@ test('weeks year starting sunday format', function (assert) {
     assert.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3', 'Jan 15 2012 should be week 3');
 });
 
+test('parse with japanese parentheses', function (assert) {
+    assert.ok(moment('2016年5月18日（水）', 'YYYY年M月D日（dd）', true).isValid(), 'parse with japanese parentheses');
+});
