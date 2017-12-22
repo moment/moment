@@ -499,3 +499,8 @@ test('parse zone with a minutes unit abs less than 16 should retain minutes', fu
     assert.equal(o.zone(), -15);
     assert.equal(o.hour(), 0);
 });
+
+test('parse zone with weekday on verifies day acccording to the offset', function (assert) {
+    test.expectedDeprecations();
+    assert.ok(moment.parseZone('Mon 03:59 +12:00', 'ddd HH:mm Z', true).isValid(), 'Monday 03:59');
+});

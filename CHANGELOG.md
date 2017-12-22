@@ -1,6 +1,81 @@
 Changelog
 =========
 
+### 2.20.1 [See changelog](https://gist.github.com/marwahaha/d72c1cb22076373be889b16272cbd187)
+
+* Release Dec 18, 2017
+
+* [#4359](https://github.com/moment/moment/pull/4359) [locale] Fix Arabic locale for months (again)
+* [#4357](https://github.com/moment/moment/pull/4357) [misc] Add optional parameter keepOffset to toISOString
+
+
+### 2.20.0 [See full changelog](https://gist.github.com/marwahaha/e0d4135fbf8bb75fa85c4aa2bddc5031)
+
+* Release Dec 16, 2017
+
+* [#4312](https://github.com/moment/moment/pull/4312) [bugfix] Fix [#4251](https://github.com/moment/moment/pull/4251): Avoid RFC2822 in utc() test
+* [#4240](https://github.com/moment/moment/pull/4240) [bugfix] Fix incorrect strict parsing with full-width parentheses
+* [#4341](https://github.com/moment/moment/pull/4341) [feature] Prevent toISOString converting to UTC (issue [#1751](https://github.com/moment/moment/pull/1751))
+* [#4154](https://github.com/moment/moment/pull/4154) [feature] add format constants to support output to HTML5 input type formats (see [#3928](https://github.com/moment/moment/pull/3928))
+* [#4143](https://github.com/moment/moment/pull/4143) [new locale] mt: Maltese language
+* [#4183](https://github.com/moment/moment/pull/4183) [locale] Relative seconds i18n
+* Various other locale improvements
+
+### 2.19.4 [See changelog](https://gist.github.com/marwahaha/d3b7b0ddf4bdae512244f16e8cc59efb)
+
+* Release Dec 10, 2017
+
+* [#4332](https://github.com/moment/moment/pull/4332) [bugfix] Fix weekday verification for UTC and offset days (fixes [#4227](https://github.com/moment/moment/pull/4227))
+* [#4336](https://github.com/moment/moment/pull/4336) [bugfix] Fix [#4334](https://github.com/moment/moment/pull/4334): Remove unused function call argument
+* [#4246](https://github.com/moment/moment/pull/4246) [misc] Add 'ss' relative time key to typescript definition
+
+### 2.19.3 [See changelog](https://gist.github.com/marwahaha/3654006bc0c2e522451c08d12c0bfabf)
+
+* Release Nov 29, 2017
+
+* [#4326](https://github.com/moment/moment/pull/4326) [bugfix] Fix for ReDOS vulnerability (see [#4163](https://github.com/moment/moment/issues/4163))
+* [#4289](https://github.com/moment/moment/pull/4289) [misc] Fix spelling and formatting for U.S. for es-us
+
+### 2.19.2 [See changelog (it's the same >:D)](https://gist.github.com/ichernev/76b1a3f33d3a8ff9665ce434a45221d0)
+
+* Release Nov 11, 2017
+
+* [#4255](https://github.com/moment/moment/pull/4255) [bugfix] Fix year setter for random days in a leap year, fixes [#4238](https://github.com/moment/moment/issues/4238)
+* [#4242](https://github.com/moment/moment/pull/4242) [bugfix] updateLocale now tries to load parent, fixes [#3626](https://github.com/moment/moment/issues/3626)
+
+### 2.19.1
+
+* Release Oct 11, 2017
+
+Make react native and webpack both work
+* #4225 #4226 #4232
+
+### 2.19.0 [See full changelog](https://gist.github.com/ichernev/5f3f4eb02761b4f765a0cccf02cec603)
+
+* Release Oct 10, 2017
+
+## Fix React Native 0.49+ crash
+* [#4213](https://github.com/moment/moment/pull/4213) [critical] Rename dynamic
+  require to avoid React Native crash
+* [#4214](https://github.com/moment/moment/pull/4214) [fixup] Move require
+  rename inside try/catch, fixes
+  [#4213](https://github.com/moment/moment/issues/4213)
+
+## Features
+
+* [#3735](https://github.com/moment/moment/pull/3735) [feature] Ignore NaN values in setters
+* [#4106](https://github.com/moment/moment/pull/4106) [fixup] Drop isNumeric utility fn, fixes [#3735](https://github.com/moment/moment/issues/3735)
+* [#4080](https://github.com/moment/moment/pull/4080) [feature] Implement a clone method for durations, fixes [#4078](https://github.com/moment/moment/issues/4078)
+* [#4215](https://github.com/moment/moment/pull/4215) [misc] TS: Add duration.clone(), for [#4080](https://github.com/moment/moment/issues/4080)
+
+## Packaging
+
+* [#4003](https://github.com/moment/moment/pull/4003) [pkg] bower: Remove tests from package
+* [#3904](https://github.com/moment/moment/pull/3904) [pkg] jsnext:main -> module in package.json
+* [#4060](https://github.com/moment/moment/pull/4060) [pkg] Account for new rollup interface
+
+Bugfixes, new locales, locale fixes etc...
+
 ### 2.18.1
 
 * Release Mar 22, 2017
