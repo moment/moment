@@ -61,16 +61,16 @@ export function startOf (units) {
             break;
         case 'hour':
             time = this._d.valueOf();
-            time = (time - mod(time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE), MS_PER_HOUR));
+            time -= mod(time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE), MS_PER_HOUR);
             break;
         case 'minute':
             time = this._d.valueOf();
-            this._d.setTime(time - mod(time, MS_PER_MINUTE));
-            return this;
+            time -= mod(time, MS_PER_MINUTE);
+            break;
         case 'second':
             time = this._d.valueOf();
-            this._d.setTime(time - mod(time, MS_PER_SECOND));
-            return this;
+            time -= mod(time, MS_PER_SECOND);
+            break;
     }
 
     this._d.setTime(time);
@@ -109,16 +109,16 @@ export function endOf (units) {
             break;
         case 'hour':
             time = this._d.valueOf();
-            time = (time - mod(time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE), MS_PER_HOUR) + MS_PER_HOUR - 1);
+            time += MS_PER_HOUR - mod(time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE), MS_PER_HOUR) - 1;
             break;
         case 'minute':
             time = this._d.valueOf();
-            this._d.setTime(time - mod(time, MS_PER_MINUTE) + MS_PER_MINUTE - 1);
-            return this;
+            time += MS_PER_MINUTE - mod(time, MS_PER_MINUTE) - 1;
+            break;
         case 'second':
             time = this._d.valueOf();
-            this._d.setTime(time - mod(time, MS_PER_SECOND) + MS_PER_SECOND - 1);
-            return this;
+            time += MS_PER_SECOND - mod(time, MS_PER_SECOND) - 1;
+            break;
     }
 
     this._d.setTime(time);
