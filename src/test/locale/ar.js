@@ -3,18 +3,18 @@ import moment from '../../moment';
 localeModule('ar');
 
 var months = [
-    'كانون الثاني يناير',
-    'شباط فبراير',
-    'آذار مارس',
-    'نيسان أبريل',
-    'أيار مايو',
-    'حزيران يونيو',
-    'تموز يوليو',
-    'آب أغسطس',
-    'أيلول سبتمبر',
-    'تشرين الأول أكتوبر',
-    'تشرين الثاني نوفمبر',
-    'كانون الأول ديسمبر'
+    'يناير',
+    'فبراير',
+    'مارس',
+    'أبريل',
+    'مايو',
+    'يونيو',
+    'يوليو',
+    'أغسطس',
+    'سبتمبر',
+    'أكتوبر',
+    'نوفمبر',
+    'ديسمبر'
 ];
 
 test('parse', function (assert) {
@@ -36,9 +36,9 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a',      'الأحد، شباط فبراير ١٤ ٢٠١٠، ٣:٢٥:٥٠ م'],
+            ['dddd, MMMM Do YYYY, h:mm:ss a',      'الأحد، فبراير ١٤ ٢٠١٠، ٣:٢٥:٥٠ م'],
             ['ddd, hA',                            'أحد، ٣م'],
-            ['M Mo MM MMMM MMM',                   '٢ ٢ ٠٢ شباط فبراير شباط فبراير'],
+            ['M Mo MM MMMM MMM',                   '٢ ٢ ٠٢ فبراير فبراير'],
             ['YYYY YY',                            '٢٠١٠ ١٠'],
             ['D Do DD',                            '١٤ ١٤ ١٤'],
             ['d do dddd ddd dd',                   '٠ ٠ الأحد أحد ح'],
@@ -53,13 +53,13 @@ test('format', function (assert) {
             ['LT',                                 '١٥:٢٥'],
             ['LTS',                                '١٥:٢٥:٥٠'],
             ['L',                                  '١٤/\u200f٢/\u200f٢٠١٠'],
-            ['LL',                                 '١٤ شباط فبراير ٢٠١٠'],
-            ['LLL',                                '١٤ شباط فبراير ٢٠١٠ ١٥:٢٥'],
-            ['LLLL',                               'الأحد ١٤ شباط فبراير ٢٠١٠ ١٥:٢٥'],
+            ['LL',                                 '١٤ فبراير ٢٠١٠'],
+            ['LLL',                                '١٤ فبراير ٢٠١٠ ١٥:٢٥'],
+            ['LLLL',                               'الأحد ١٤ فبراير ٢٠١٠ ١٥:٢٥'],
             ['l',                                  '١٤/\u200f٢/\u200f٢٠١٠'],
-            ['ll',                                 '١٤ شباط فبراير ٢٠١٠'],
-            ['lll',                                '١٤ شباط فبراير ٢٠١٠ ١٥:٢٥'],
-            ['llll',                               'أحد ١٤ شباط فبراير ٢٠١٠ ١٥:٢٥']
+            ['ll',                                 '١٤ فبراير ٢٠١٠'],
+            ['lll',                                '١٤ فبراير ٢٠١٠ ١٥:٢٥'],
+            ['llll',                               'أحد ١٤ فبراير ٢٠١٠ ١٥:٢٥']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -239,4 +239,13 @@ test('no leading zeros in long date formats', function (assert) {
             assert.equal(longDateStr, shortDateStr, 'should not have leading zeros in month or day');
         }
     }
+});
+
+// locale-specific
+test('ar strict mode parsing works', function (assert) {
+    var m, formattedDate;
+    m = moment().locale('ar');
+    formattedDate = m.format('l');
+    assert.equal(moment.utc(formattedDate, 'l', 'ar', false).isValid(), true, 'Non-strict parsing works');
+    assert.equal(moment.utc(formattedDate, 'l', 'ar', true).isValid(), true,'Strict parsing must work');
 });

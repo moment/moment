@@ -71,7 +71,8 @@ module.exports = function (grunt) {
         }
 
         return rollup(rollupOpts).then(function (bundle) {
-            var result = bundle.generate(bundleOpts);
+            return bundle.generate(bundleOpts);
+        }).then(function (result) {
             return result.code;
         });
     }
