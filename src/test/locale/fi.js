@@ -107,33 +107,33 @@ test('format week', function (assert) {
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'muutama sekunti', '44 seconds = few seconds');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'minuutti',      '45 seconds = a minute');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'minuutti',      '89 seconds = a minute');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  'kaksi minuuttia',     '90 seconds = 2 minutes');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  '1 minuutti',      '45 seconds = a minute');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  '1 minuutti',      '89 seconds = a minute');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '2 minuuttia',     '90 seconds = 2 minutes');
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  '44 minuuttia',    '44 minutes = 44 minutes');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  'tunti',       '45 minutes = an hour');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  'tunti',       '89 minutes = an hour');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  'kaksi tuntia',       '90 minutes = 2 hours');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   'viisi tuntia',       '5 hours = 5 hours');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  '1 tunti',       '45 minutes = an hour');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  '1 tunti',       '89 minutes = an hour');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  '2 tuntia',       '90 minutes = 2 hours');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   '5 tuntia',       '5 hours = 5 hours');
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  '21 tuntia',      '21 hours = 21 hours');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  'päivä',         '22 hours = a day');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  'päivä',         '35 hours = a day');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  'kaksi päivää',        '36 hours = 2 days');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   'päivä',         '1 day = a day');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   'viisi päivää',        '5 days = 5 days');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  '1 päivä',         '22 hours = a day');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  '1 päivä',         '35 hours = a day');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  '2 päivää',        '36 hours = 2 days');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   '1 päivä',         '1 day = a day');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   '5 päivää',        '5 days = 5 days');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  '25 päivää',       '25 days = 25 days');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  'kuukausi',       '26 days = a month');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  'kuukausi',       '30 days = a month');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  'kuukausi',       '43 days = a month');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  'kaksi kuukautta',      '46 days = 2 months');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  'kaksi kuukautta',      '75 days = 2 months');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  'kolme kuukautta',      '76 days = 3 months');
-    assert.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   'kuukausi',       '1 month = a month');
-    assert.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   'viisi kuukautta',      '5 months = 5 months');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'vuosi',        '345 days = a year');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), 'kaksi vuotta',       '548 days = 2 years');
-    assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'vuosi',        '1 year = a year');
-    assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   'viisi vuotta',       '5 years = 5 years');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  '1 kuukausi',       '26 days = a month');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  '1 kuukausi',       '30 days = a month');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  '1 kuukausi',       '43 days = a month');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  '2 kuukautta',      '46 days = 2 months');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  '2 kuukautta',      '75 days = 2 months');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  '3 kuukautta',      '76 days = 3 months');
+    assert.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   '1 kuukausi',       '1 month = a month');
+    assert.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   '5 kuukautta',      '5 months = 5 months');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), '1 vuosi',        '345 days = a year');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), '2 vuotta',       '548 days = 2 years');
+    assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   '1 vuosi',        '1 year = a year');
+    assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5 vuotta',       '5 years = 5 years');
 });
 
 test('suffix', function (assert) {
@@ -147,7 +147,7 @@ test('now from now', function (assert) {
 
 test('fromNow', function (assert) {
     assert.equal(moment().add({s: 30}).fromNow(), 'muutaman sekunnin päästä', 'in a few seconds');
-    assert.equal(moment().add({d: 5}).fromNow(), 'viiden päivän päästä', 'in 5 days');
+    assert.equal(moment().add({d: 5}).fromNow(), '5 päivän päästä', 'in 5 days');
 });
 
 test('calendar day', function (assert) {
@@ -190,14 +190,14 @@ test('calendar all else', function (assert) {
     var weeksAgo = moment().subtract({w: 1}),
         weeksFromNow = moment().add({w: 1});
 
-    assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  'yksi viikko sitten');
-    assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'yhden viikon päästä');
+    assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '1 viikko sitten');
+    assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  '1 viikon päästä');
 
     weeksAgo = moment().subtract({w: 2});
     weeksFromNow = moment().add({w: 2});
 
-    assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  'kaksi viikkoa sitten');
-    assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'kaden viikon päästä');
+    assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '2 viikkoa sitten');
+    assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  '2 viikon päästä');
 });
 
 test('weeks year starting sunday formatted', function (assert) {
