@@ -184,22 +184,28 @@ test('reset locale', function (assert) {
 });
 
 test('normalize local name', function (assert) {
-    moment.defineLocale('duration-1', null);
-    moment.defineLocale('duration-1', {
+    moment.defineLocale('custom-locale-1', null);
+    moment.defineLocale('custom-locale-1', {
         relativeTime: {
             s : 'a few seconds',
             ss : '%d Seconds'
         }
     });
-    moment.locale('Duration_1');
-    moment.updateLocale('Duration_1', {
+    // it should load custom-locale-1
+    moment.locale('Custom-locale_1');
+    moment.updateLocale('Custom-locale_1', {
         relativeTime: {
             s : 'A few seconds'
         }
     });
     var start = moment([2007, 1, 28]);
+
+    const previousThreshold = moment.relativeTimeThreshold('ss');
+
     moment.relativeTimeThreshold('ss', 3);
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 3}), true), 'A few seconds', 's uses child');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true), '44 Seconds', 'ss uses base');
-    moment.relativeTimeThreshold('ss', 44);
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: previousThreshold}), true), '44 Seconds', 'ss uses base');
+
+    // tear down
+    moment.relativeTimeThreshold('ss', previousThreshold);
 });
