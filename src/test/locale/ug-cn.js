@@ -3,7 +3,7 @@ import moment from '../../moment';
 localeModule('ug-cn');
 
 test('parse', function (assert) {
-    var tests = 'يانۋار يانۋار_فېۋرال فېۋرال_مارت مارت_ئاپرېل ئاپرېل_ماي ماي_ئىيون ئىيون_ئىيول ئىيول_ئاۋغۇست ئاۋغۇست_سىنتەبىر سىنتەبىر_ئۆكتەبىر ئۆكتەبىر_نويابىر نويابىر_دىكابىر دىكابىر'.split('_'), i;
+    var tests = 'يانۋار يانۋار_فېۋرال فېۋرال_مارت مارت_ئاپرېل ئاپرېل_ماي ماي_ئىيۇن ئىيۇن_ئىيۇل ئىيۇل_ئاۋغۇست ئاۋغۇست_سېنتەبىر سېنتەبىر_ئۆكتەبىر ئۆكتەبىر_نويابىر نويابىر_دېكابىر دېكابىر'.split('_'), i;
     function equalTest (input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
@@ -27,7 +27,7 @@ test('format', function (assert) {
             ['M Mo MM MMMM MMM',                   '2 2 02 فېۋرال فېۋرال'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14-كۈنى 14'],
-            ['d do dddd ddd dd',                   '0 0-كۈنى يەكشەنبە يەك يە'],
+            ['d do dddd ddd dd',                   '0 0-كۈنى يەكشەنبە يە يە'],
             ['DDD DDDo DDDD',                      '45 45-كۈنى 045'],
             ['w wo ww',                            '7 7-ھەپتە 07'],
             ['h hh',                               '3 03'],
@@ -51,7 +51,7 @@ test('format', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'يانۋار يانۋار_فېۋرال فېۋرال_مارت مارت_ئاپرېل ئاپرېل_ماي ماي_ئىيون ئىيون_ئىيول ئىيول_ئاۋغۇست ئاۋغۇست_سىنتەبىر سىنتەبىر_ئۆكتەبىر ئۆكتەبىر_نويابىر نويابىر_دىكابىر دىكابىر'.split('_'), i;
+    var expected = 'يانۋار يانۋار_فېۋرال فېۋرال_مارت مارت_ئاپرېل ئاپرېل_ماي ماي_ئىيۇن ئىيۇن_ئىيۇل ئىيۇل_ئاۋغۇست ئاۋغۇست_سېنتەبىر سېنتەبىر_ئۆكتەبىر ئۆكتەبىر_نويابىر نويابىر_دېكابىر دېكابىر'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
@@ -60,7 +60,7 @@ test('format month', function (assert) {
 
 
 test('format week', function (assert) {
-    var expected = 'يەكشەنبە يەك يە_دۈشەنبە دۈي دۈ_سەيشەنبە سەي سە_چارشەنبە چار چا_پەيشەنبە پەي پە_جۈمە جۈم جۈ_شەنبە شەن شە'.split('_'), i;
+    var expected = 'يەكشەنبە يە يە_دۈشەنبە دۈ دۈ_سەيشەنبە سە سە_چارشەنبە چا چا_پەيشەنبە پە پە_جۈمە جۈ جۈ_شەنبە شە شە'.split('_'), i;
 
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
