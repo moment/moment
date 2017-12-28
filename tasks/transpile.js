@@ -47,13 +47,13 @@ module.exports = function (grunt) {
         // entry, umdName, skipMoment
 
         var rollupOpts = {
-            entry: opts.entry,
+            input: opts.entry,
             plugins: [
                 // babel({})
             ]
         }, bundleOpts = {
             format: 'umd',
-            moduleName: opts.umdName != null ? opts.umdName : 'not_used'
+            name: opts.umdName != null ? opts.umdName : 'not_used'
         };
 
         if (opts.skipMoment) {
