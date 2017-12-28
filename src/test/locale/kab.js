@@ -93,7 +93,6 @@ test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 30]).format('DDDo'),  'wis 30',     'wis 30');
 
     assert.equal(moment([2011, 0, 31]).format('DDDo'),  'wis 31',     'wis 31');
-
 });
 
 test('format month', function (assert) {
