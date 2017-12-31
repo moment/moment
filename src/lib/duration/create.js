@@ -65,7 +65,6 @@ export function createDuration (input, key) {
 
         duration = {};
         duration.ms = diffRes.milliseconds;
-        duration.M = diffRes.months;
     }
 
     ret = new Duration(duration);
@@ -90,17 +89,11 @@ function parseIso (inp, sign) {
 }
 
 function positiveMomentsDifference(base, other) {
-    var res = {milliseconds: 0, months: 0};
+    var res = { milliseconds: 0 };
 
-    res.months = other.month() - base.month() +
-        (other.year() - base.year()) * 12;
-    if (base.clone().add(res.months, 'M').isAfter(other)) {
-        --res.months;
-    }
+        res.milliseconds = +other._d.getTime() - +base._d.getTime();
 
-    res.milliseconds = +other - +(base.clone().add(res.months, 'M'));
-
-    return res;
+        return res;
 }
 
 function momentsDifference(base, other) {
@@ -115,7 +108,6 @@ function momentsDifference(base, other) {
     } else {
         res = positiveMomentsDifference(other, base);
         res.milliseconds = -res.milliseconds;
-        res.months = -res.months;
     }
 
     return res;
