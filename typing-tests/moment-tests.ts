@@ -200,6 +200,9 @@ a8.diff(b8, 'days');
 a8.diff(b8, 'years')
 a8.diff(b8, 'years', true);
 
+moment.min(a8, b8);
+moment.max(a8, b8);
+
 moment([2007, 0, 29]).toDate();
 moment([2007, 1, 23]).toISOString();
 moment(1318874398806).valueOf();
