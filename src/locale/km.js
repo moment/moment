@@ -2,21 +2,36 @@
 //! locale : Cambodian [km]
 //! author : Kruy Vanna : https://github.com/kruyvanna
 
-import moment from '../moment';
+import moment from '../moment'
 
 export default moment.defineLocale('km', {
-    months: 'មករា_កុម្ភៈ_មីនា_មេសា_ឧសភា_មិថុនា_កក្កដា_សីហា_កញ្ញា_តុលា_វិច្ឆិកា_ធ្នូ'.split('_'),
-    monthsShort: 'មករា_កុម្ភៈ_មីនា_មេសា_ឧសភា_មិថុនា_កក្កដា_សីហា_កញ្ញា_តុលា_វិច្ឆិកា_ធ្នូ'.split('_'),
+    months: 'មករា_កុម្ភៈ_មីនា_មេសា_ឧសភា_មិថុនា_កក្កដា_សីហា_កញ្ញា_តុលា_វិច្ឆិកា_ធ្នូ'.split(
+        '_'
+    ),
+    monthsShort: 'មករា_កុម្ភៈ_មីនា_មេសា_ឧសភា_មិថុនា_កក្កដា_សីហា_កញ្ញា_តុលា_វិច្ឆិកា_ធ្នូ'.split(
+        '_'
+    ),
     weekdays: 'អាទិត្យ_ច័ន្ទ_អង្គារ_ពុធ_ព្រហស្បតិ៍_សុក្រ_សៅរ៍'.split('_'),
     weekdaysShort: 'អាទិត្យ_ច័ន្ទ_អង្គារ_ពុធ_ព្រហស្បតិ៍_សុក្រ_សៅរ៍'.split('_'),
     weekdaysMin: 'អាទិត្យ_ច័ន្ទ_អង្គារ_ពុធ_ព្រហស្បតិ៍_សុក្រ_សៅរ៍'.split('_'),
     longDateFormat: {
         LT: 'HH:mm',
-        LTS : 'HH:mm:ss',
+        LTS: 'HH:mm:ss',
         L: 'DD/MM/YYYY',
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY HH:mm',
         LLLL: 'dddd, D MMMM YYYY HH:mm'
+    },
+    meridiemParse: /ព្រឹក|ល្ងាច/,
+    isPM: function(input) {
+        return input === 'ល្ងាច'
+    },
+    meridiem: function(hour, minute, isLower) {
+        if (hour < 12) {
+            return 'ព្រឹក'
+        } else {
+            return 'ល្ងាច'
+        }
     },
     calendar: {
         sameDay: '[ថ្ងៃនេះ ម៉ោង] LT',
@@ -46,5 +61,4 @@ export default moment.defineLocale('km', {
         dow: 1, // Monday is the first day of the week.
         doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
-});
-
+})
