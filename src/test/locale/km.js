@@ -99,7 +99,7 @@ test('format ordinal', function(assert) {
     assert.equal(moment([2011, 0, 30]).format('DDDo'), '30', '30th');
 
     assert.equal(moment([2011, 0, 31]).format('DDDo'), '31', '31st');
-})
+});
 
 test('format month', function(assert) {
     var expected = 'មករា មករា_កុម្ភៈ កុម្ភៈ_មីនា មីនា_មេសា មេសា_ឧសភា ឧសភា_មិថុនា មិថុនា_កក្កដា កក្កដា_សីហា សីហា_កញ្ញា កញ្ញា_តុលា តុលា_វិច្ឆិកា វិច្ឆិកា_ធ្នូ ធ្នូ'.split(
@@ -276,7 +276,7 @@ test('from', function(assert) {
 test('suffix', function(assert) {
     assert.equal(moment(30000).from(0), 'ប៉ុន្មានវិនាទីទៀត', 'prefix');
     assert.equal(moment(0).from(30000), 'ប៉ុន្មានវិនាទីមុន', 'suffix');
-})
+});
 
 test('now from now', function(assert) {
     assert.equal(
@@ -305,7 +305,7 @@ test('fromNow', function(assert) {
         '5 ថ្ងៃទៀត',
         'in 5 days'
     );
-})
+});
 
 test('calendar day', function(assert) {
     var a = moment()
@@ -422,7 +422,7 @@ test('calendar last week', function(assert) {
             'Today - ' + i + ' days end of day'
         );
     }
-})
+});
 
 test('calendar all else', function(assert) {
     var weeksAgo = moment().subtract({
