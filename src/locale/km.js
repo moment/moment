@@ -2,7 +2,7 @@
 //! locale : Cambodian [km]
 //! author : Kruy Vanna : https://github.com/kruyvanna
 
-import moment from '../moment'
+import moment from '../moment';
 
 export default moment.defineLocale('km', {
     months: 'មករា_កុម្ភៈ_មីនា_មេសា_ឧសភា_មិថុនា_កក្កដា_សីហា_កញ្ញា_តុលា_វិច្ឆិកា_ធ្នូ'.split(
@@ -25,13 +25,13 @@ export default moment.defineLocale('km', {
     },
     meridiemParse: /ព្រឹក|ល្ងាច/,
     isPM: function(input) {
-        return input === 'ល្ងាច'
+        return input === 'ល្ងាច';
     },
     meridiem: function(hour, minute, isLower) {
         if (hour < 12) {
-            return 'ព្រឹក'
+            return 'ព្រឹក';
         } else {
-            return 'ល្ងាច'
+            return 'ល្ងាច';
         }
     },
     calendar: {
@@ -62,4 +62,4 @@ export default moment.defineLocale('km', {
         dow: 1, // Monday is the first day of the week.
         doy: 4 // The week that contains Jan 4th is the first week of the year.
     }
-})
+});
