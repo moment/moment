@@ -32,30 +32,30 @@ test('format', function (assert) {
     var a = [
             [
                 'dddd, MMMM Do YYYY, h:mm:ss a',
-                'អាទិត្យ, កុម្ភៈ 14 2010, 3:25:50 ល្ងាច'
+                'អាទិត្យ, កុម្ភៈ ទី១៤ ២០១០, ៣:២៥:៥០ ល្ងាច'
             ],
-            ['ddd, hA', 'អា, 3ល្ងាច'],
-            ['M Mo MM MMMM MMM', '2 2 02 កុម្ភៈ កុម្ភៈ'],
-            ['YYYY YY', '2010 10'],
-            ['D Do DD', '14 14 14'],
-            ['d do dddd ddd dd', '0 0 អាទិត្យ អា អា'],
-            ['DDD DDDo DDDD', '45 45 045'],
-            ['w wo ww', '6 6 06'],
-            ['h hh', '3 03'],
-            ['H HH', '15 15'],
-            ['m mm', '25 25'],
-            ['s ss', '50 50'],
+            ['ddd, hA', 'អា, ៣ល្ងាច'],
+            ['M Mo MM MMMM MMM', '២ ទី២ ០២ កុម្ភៈ កុម្ភៈ'],
+            ['YYYY YY', '២០១០ ១០'],
+            ['D Do DD', '១៤ ទី១៤ ១៤'],
+            ['d do dddd ddd dd', '០ ទី០ អាទិត្យ អា អា'],
+            ['DDD DDDo DDDD', '៤៥ ទី៤៥ ០៤៥'],
+            ['w wo ww', '៦ ទី៦ ០៦'],
+            ['h hh', '៣ ០៣'],
+            ['H HH', '១៥ ១៥'],
+            ['m mm', '២៥ ២៥'],
+            ['s ss', '៥០ ៥០'],
             ['a A', 'ល្ងាច ល្ងាច'],
-            ['[the] DDDo [day of the year]', 'the 45 day of the year'],
-            ['LTS', '15:25:50'],
-            ['L', '14/02/2010'],
-            ['LL', '14 កុម្ភៈ 2010'],
-            ['LLL', '14 កុម្ភៈ 2010 15:25'],
-            ['LLLL', 'អាទិត្យ, 14 កុម្ភៈ 2010 15:25'],
-            ['l', '14/2/2010'],
-            ['ll', '14 កុម្ភៈ 2010'],
-            ['lll', '14 កុម្ភៈ 2010 15:25'],
-            ['llll', 'អា, 14 កុម្ភៈ 2010 15:25']
+            ['[the] DDDo [day of the year]', 'the ទី៤៥ day of the year'],
+            ['LTS', '១៥:២៥:៥០'],
+            ['L', '១៤/០២/២០១០'],
+            ['LL', '១៤ កុម្ភៈ ២០១០'],
+            ['LLL', '១៤ កុម្ភៈ ២០១០ ១៥:២៥'],
+            ['LLLL', 'អាទិត្យ, ១៤ កុម្ភៈ ២០១០ ១៥:២៥'],
+            ['l', '១៤/២/២០១០'],
+            ['ll', '១៤ កុម្ភៈ ២០១០'],
+            ['lll', '១៤ កុម្ភៈ ២០១០ ១៥:២៥'],
+            ['llll', 'អា, ១៤ កុម្ភៈ ២០១០ ១៥:២៥']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -65,40 +65,40 @@ test('format', function (assert) {
 });
 
 test('format ordinal', function (assert) {
-    assert.equal(moment([2011, 0, 1]).format('DDDo'), '1', '1st');
-    assert.equal(moment([2011, 0, 2]).format('DDDo'), '2', '2nd');
-    assert.equal(moment([2011, 0, 3]).format('DDDo'), '3', '3rd');
-    assert.equal(moment([2011, 0, 4]).format('DDDo'), '4', '4th');
-    assert.equal(moment([2011, 0, 5]).format('DDDo'), '5', '5th');
-    assert.equal(moment([2011, 0, 6]).format('DDDo'), '6', '6th');
-    assert.equal(moment([2011, 0, 7]).format('DDDo'), '7', '7th');
-    assert.equal(moment([2011, 0, 8]).format('DDDo'), '8', '8th');
-    assert.equal(moment([2011, 0, 9]).format('DDDo'), '9', '9th');
-    assert.equal(moment([2011, 0, 10]).format('DDDo'), '10', '10th');
+    assert.equal(moment([2011, 0, 1]).format('DDDo'), 'ទី១', '1st');
+    assert.equal(moment([2011, 0, 2]).format('DDDo'), 'ទី២', '2nd');
+    assert.equal(moment([2011, 0, 3]).format('DDDo'), 'ទី៣', '3rd');
+    assert.equal(moment([2011, 0, 4]).format('DDDo'), 'ទី៤', '4th');
+    assert.equal(moment([2011, 0, 5]).format('DDDo'), 'ទី៥', '5th');
+    assert.equal(moment([2011, 0, 6]).format('DDDo'), 'ទី៦', '6th');
+    assert.equal(moment([2011, 0, 7]).format('DDDo'), 'ទី៧', '7th');
+    assert.equal(moment([2011, 0, 8]).format('DDDo'), 'ទី៨', '8th');
+    assert.equal(moment([2011, 0, 9]).format('DDDo'), 'ទី៩', '9th');
+    assert.equal(moment([2011, 0, 10]).format('DDDo'), 'ទី១០', '10th');
 
-    assert.equal(moment([2011, 0, 11]).format('DDDo'), '11', '11th');
-    assert.equal(moment([2011, 0, 12]).format('DDDo'), '12', '12th');
-    assert.equal(moment([2011, 0, 13]).format('DDDo'), '13', '13th');
-    assert.equal(moment([2011, 0, 14]).format('DDDo'), '14', '14th');
-    assert.equal(moment([2011, 0, 15]).format('DDDo'), '15', '15th');
-    assert.equal(moment([2011, 0, 16]).format('DDDo'), '16', '16th');
-    assert.equal(moment([2011, 0, 17]).format('DDDo'), '17', '17th');
-    assert.equal(moment([2011, 0, 18]).format('DDDo'), '18', '18th');
-    assert.equal(moment([2011, 0, 19]).format('DDDo'), '19', '19th');
-    assert.equal(moment([2011, 0, 20]).format('DDDo'), '20', '20th');
+    assert.equal(moment([2011, 0, 11]).format('DDDo'), 'ទី១១', '11st');
+    assert.equal(moment([2011, 0, 12]).format('DDDo'), 'ទី១២', '12nd');
+    assert.equal(moment([2011, 0, 13]).format('DDDo'), 'ទី១៣', '13rd');
+    assert.equal(moment([2011, 0, 14]).format('DDDo'), 'ទី១៤', '14th');
+    assert.equal(moment([2011, 0, 15]).format('DDDo'), 'ទី១៥', '15th');
+    assert.equal(moment([2011, 0, 16]).format('DDDo'), 'ទី១៦', '16th');
+    assert.equal(moment([2011, 0, 17]).format('DDDo'), 'ទី១៧', '17th');
+    assert.equal(moment([2011, 0, 18]).format('DDDo'), 'ទី១៨', '18th');
+    assert.equal(moment([2011, 0, 19]).format('DDDo'), 'ទី១៩', '19th');
+    assert.equal(moment([2011, 0, 20]).format('DDDo'), 'ទី២០', '20th');
 
-    assert.equal(moment([2011, 0, 21]).format('DDDo'), '21', '21st');
-    assert.equal(moment([2011, 0, 22]).format('DDDo'), '22', '22nd');
-    assert.equal(moment([2011, 0, 23]).format('DDDo'), '23', '23rd');
-    assert.equal(moment([2011, 0, 24]).format('DDDo'), '24', '24th');
-    assert.equal(moment([2011, 0, 25]).format('DDDo'), '25', '25th');
-    assert.equal(moment([2011, 0, 26]).format('DDDo'), '26', '26th');
-    assert.equal(moment([2011, 0, 27]).format('DDDo'), '27', '27th');
-    assert.equal(moment([2011, 0, 28]).format('DDDo'), '28', '28th');
-    assert.equal(moment([2011, 0, 29]).format('DDDo'), '29', '29th');
-    assert.equal(moment([2011, 0, 30]).format('DDDo'), '30', '30th');
+    assert.equal(moment([2011, 0, 21]).format('DDDo'), 'ទី២១', '21st');
+    assert.equal(moment([2011, 0, 22]).format('DDDo'), 'ទី២២', '22nd');
+    assert.equal(moment([2011, 0, 23]).format('DDDo'), 'ទី២៣', '23rd');
+    assert.equal(moment([2011, 0, 24]).format('DDDo'), 'ទី២៤', '24th');
+    assert.equal(moment([2011, 0, 25]).format('DDDo'), 'ទី២៥', '25th');
+    assert.equal(moment([2011, 0, 26]).format('DDDo'), 'ទី២៦', '26th');
+    assert.equal(moment([2011, 0, 27]).format('DDDo'), 'ទី២៧', '27th');
+    assert.equal(moment([2011, 0, 28]).format('DDDo'), 'ទី២៨', '28th');
+    assert.equal(moment([2011, 0, 29]).format('DDDo'), 'ទី២៩', '29th');
+    assert.equal(moment([2011, 0, 30]).format('DDDo'), 'ទី៣០', '30th');
 
-    assert.equal(moment([2011, 0, 31]).format('DDDo'), '31', '31st');
+    assert.equal(moment([2011, 0, 31]).format('DDDo'), 'ទី៣១', '31st');
 });
 
 test('format month', function (assert) {
@@ -148,12 +148,12 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({s: 90}), true),
-        '2 នាទី',
+        '២ នាទី',
         '90 seconds = 2 នាទី'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({m: 44}), true),
-        '44 នាទី',
+        '៤៤ នាទី',
         '44 minutes = 44 នាទី'
     );
     assert.equal(
@@ -168,17 +168,17 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({m: 90}), true),
-        '2 ម៉ោង',
+        '២ ម៉ោង',
         '90 minutes = 2 ម៉ោង'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({h: 5}), true),
-        '5 ម៉ោង',
+        '៥ ម៉ោង',
         '5 hours = 5 ម៉ោង'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({h: 21}), true),
-        '21 ម៉ោង',
+        '២១ ម៉ោង',
         '21 hours = 21 ម៉ោង'
     );
     assert.equal(
@@ -193,7 +193,7 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({h: 36}), true),
-        '2 ថ្ងៃ',
+        '២ ថ្ងៃ',
         '36 hours = 2 ថ្ងៃ'
     );
     assert.equal(
@@ -203,12 +203,12 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({d: 5}), true),
-        '5 ថ្ងៃ',
+        '៥ ថ្ងៃ',
         '5 days = 5 ថ្ងៃ'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({d: 25}), true),
-        '25 ថ្ងៃ',
+        '២៥ ថ្ងៃ',
         '25 days = 25 ថ្ងៃ'
     );
     assert.equal(
@@ -228,17 +228,17 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({d: 46}), true),
-        '2 ខែ',
+        '២ ខែ',
         '46 days = 2 ខែ'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({d: 74}), true),
-        '2 ខែ',
+        '២ ខែ',
         '75 days = 2 ខែ'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({d: 76}), true),
-        '3 ខែ',
+        '៣ ខែ',
         '76 days = 3 ខែ'
     );
     assert.equal(
@@ -248,7 +248,7 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({M: 5}), true),
-        '5 ខែ',
+        '៥ ខែ',
         '5 months = 5 ខែ'
     );
     assert.equal(
@@ -258,7 +258,7 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({d: 548}), true),
-        '2 ឆ្នាំ',
+        '២ ឆ្នាំ',
         '548 days = 2 ឆ្នាំ'
     );
     assert.equal(
@@ -268,7 +268,7 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({y: 5}), true),
-        '5 ឆ្នាំ',
+        '៥ ឆ្នាំ',
         '5 years = 5 ឆ្នាំ'
     );
 });
@@ -302,7 +302,7 @@ test('fromNow', function (assert) {
                 d: 5
             })
             .fromNow(),
-        '5 ថ្ងៃទៀត',
+        '៥ ថ្ងៃទៀត',
         'in 5 days'
     );
 });
@@ -315,42 +315,42 @@ test('calendar day', function (assert) {
 
     assert.equal(
         moment(a).calendar(),
-        'ថ្ងៃនេះ ម៉ោង 12:00',
+        'ថ្ងៃនេះ ម៉ោង ១២:០០',
         'today at the same time'
     );
     assert.equal(
         moment(a)
             .add({m: 25})
             .calendar(),
-        'ថ្ងៃនេះ ម៉ោង 12:25',
+        'ថ្ងៃនេះ ម៉ោង ១២:២៥',
         'Now plus 25 min'
     );
     assert.equal(
         moment(a)
             .add({h: 1})
             .calendar(),
-        'ថ្ងៃនេះ ម៉ោង 13:00',
+        'ថ្ងៃនេះ ម៉ោង ១៣:០០',
         'Now plus 1 hour'
     );
     assert.equal(
         moment(a)
             .add({d: 1})
             .calendar(),
-        'ស្អែក ម៉ោង 12:00',
+        'ស្អែក ម៉ោង ១២:០០',
         'tomorrow at the same time'
     );
     assert.equal(
         moment(a)
             .subtract({h: 1})
             .calendar(),
-        'ថ្ងៃនេះ ម៉ោង 11:00',
+        'ថ្ងៃនេះ ម៉ោង ១១:០០',
         'Now minus 1 hour'
     );
     assert.equal(
         moment(a)
             .subtract({d: 1})
             .calendar(),
-        'ម្សិលមិញ ម៉ោង 12:00',
+        'ម្សិលមិញ ម៉ោង ១២:០០',
         'yesterday at the same time'
     );
 });
@@ -457,27 +457,27 @@ test('calendar all else', function (assert) {
 test('weeks year starting sunday formatted', function (assert) {
     assert.equal(
         moment([2012, 0, 1]).format('w ww wo'),
-        '52 52 52',
+        '៥២ ៥២ ទី៥២',
         'Jan  1 2012 should be week 52'
     );
     assert.equal(
         moment([2012, 0, 2]).format('w ww wo'),
-        '1 01 1',
+        '១ ០១ ទី១',
         'Jan  2 2012 should be week 1'
     );
     assert.equal(
         moment([2012, 0, 8]).format('w ww wo'),
-        '1 01 1',
+        '១ ០១ ទី១',
         'Jan  8 2012 should be week 1'
     );
     assert.equal(
         moment([2012, 0, 9]).format('w ww wo'),
-        '2 02 2',
+        '២ ០២ ទី២',
         'Jan  9 2012 should be week 2'
     );
     assert.equal(
         moment([2012, 0, 15]).format('w ww wo'),
-        '2 02 2',
+        '២ ០២ ទី២',
         'Jan 15 2012 should be week 2'
     );
 });
