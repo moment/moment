@@ -24,10 +24,10 @@ export default moment.defineLocale('km', {
         LLLL: 'dddd, D MMMM YYYY HH:mm'
     },
     meridiemParse: /ព្រឹក|ល្ងាច/,
-    isPM: function(input) {
+    isPM: function (input) {
         return input === 'ល្ងាច';
     },
-    meridiem: function(hour, minute, isLower) {
+    meridiem: function (hour, minute, isLower) {
         if (hour < 12) {
             return 'ព្រឹក';
         } else {
