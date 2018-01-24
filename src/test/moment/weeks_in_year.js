@@ -16,6 +16,11 @@ test('isoWeeksInYear', function (assert) {
     assert.equal(moment([2013]).isoWeeksInYear(), 52, '2013 has 52 iso weeks');
     assert.equal(moment([2014]).isoWeeksInYear(), 52, '2014 has 52 iso weeks');
     assert.equal(moment([2015]).isoWeeksInYear(), 53, '2015 has 53 iso weeks');
+    assert.equal(moment([2016]).isoWeeksInYear(), 52, '2016 has 52 iso weeks');
+    assert.equal(moment([2017]).isoWeeksInYear(), 52, '2017 has 52 iso weeks');
+    assert.equal(moment([2018]).isoWeeksInYear(), 52, '2018 has 52 iso weeks');
+    assert.equal(moment([2019]).isoWeeksInYear(), 52, '2019 has 52 iso weeks');
+    assert.equal(moment([2020]).isoWeeksInYear(), 53, '2020 has 53 iso weeks');
 });
 
 test('weeksInYear doy/dow = 1/4', function (assert) {
@@ -85,3 +90,8 @@ test('weeksInYear doy/dow = 0/6', function (assert) {
     assert.equal(moment([2014]).weeksInYear(), 52, '2014 has 52 weeks');
     assert.equal(moment([2015]).weeksInYear(), 52, '2015 has 53 weeks');
 });
+
+test('isoWeeksInYear', function (assert) {
+    assert.equal(moment('2019-12-31').isoWeeksInYear(), 53, 'December 31, 2019 is in ISO year 2020 and ISO year 2020 has 53 weeks');
+})
+

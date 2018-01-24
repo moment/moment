@@ -75,7 +75,7 @@ export function getSetISOWeekYear (input) {
 }
 
 export function getISOWeeksInYear () {
-    return weeksInYear(this.year(), 1, 4);
+    return weeksInYear(this.isoWeekday(7).year(), 1, 4);
 }
 
 export function getWeeksInYear () {
