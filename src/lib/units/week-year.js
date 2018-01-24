@@ -9,6 +9,7 @@ import { hooks } from '../utils/hooks';
 import { createLocal } from '../create/local';
 import { createUTCDate } from '../create/date-from-array';
 
+const THURSDAY = 4;
 // FORMATTING
 
 addFormatToken(0, ['gg', 2], 0, function () {
@@ -75,7 +76,7 @@ export function getSetISOWeekYear (input) {
 }
 
 export function getISOWeeksInYear () {
-    return weeksInYear(this.isoWeekday(7).year(), 1, 4);
+    return weeksInYear(this.isoWeekday(THURSDAY).year(), 1, 4);
 }
 
 export function getWeeksInYear () {

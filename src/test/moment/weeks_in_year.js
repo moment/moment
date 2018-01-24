@@ -3,24 +3,24 @@ import moment from '../../moment';
 
 module('weeks in year');
 
-test('isoWeeksInYear', function (assert) {
-    assert.equal(moment([2004]).isoWeeksInYear(), 53, '2004 has 53 iso weeks');
-    assert.equal(moment([2005]).isoWeeksInYear(), 52, '2005 has 53 iso weeks');
-    assert.equal(moment([2006]).isoWeeksInYear(), 52, '2006 has 53 iso weeks');
-    assert.equal(moment([2007]).isoWeeksInYear(), 52, '2007 has 52 iso weeks');
-    assert.equal(moment([2008]).isoWeeksInYear(), 52, '2008 has 53 iso weeks');
-    assert.equal(moment([2009]).isoWeeksInYear(), 53, '2009 has 53 iso weeks');
-    assert.equal(moment([2010]).isoWeeksInYear(), 52, '2010 has 52 iso weeks');
-    assert.equal(moment([2011]).isoWeeksInYear(), 52, '2011 has 52 iso weeks');
-    assert.equal(moment([2012]).isoWeeksInYear(), 52, '2012 has 52 iso weeks');
-    assert.equal(moment([2013]).isoWeeksInYear(), 52, '2013 has 52 iso weeks');
-    assert.equal(moment([2014]).isoWeeksInYear(), 52, '2014 has 52 iso weeks');
-    assert.equal(moment([2015]).isoWeeksInYear(), 53, '2015 has 53 iso weeks');
-    assert.equal(moment([2016]).isoWeeksInYear(), 52, '2016 has 52 iso weeks');
-    assert.equal(moment([2017]).isoWeeksInYear(), 52, '2017 has 52 iso weeks');
-    assert.equal(moment([2018]).isoWeeksInYear(), 52, '2018 has 52 iso weeks');
-    assert.equal(moment([2019]).isoWeeksInYear(), 52, '2019 has 52 iso weeks');
-    assert.equal(moment([2020]).isoWeeksInYear(), 53, '2020 has 53 iso weeks');
+test('isoWeeksInYear first day of ISO Year', function (assert) {
+    assert.equal(moment('2003-12-29').isoWeeksInYear(), 53, 'ISO year 2004 has 53 iso weeks');
+    assert.equal(moment('2005-01-03').isoWeeksInYear(), 52, 'ISO year 2005 has 53 iso weeks');
+    assert.equal(moment('2006-01-02').isoWeeksInYear(), 52, 'ISO year 2006 has 53 iso weeks');
+    assert.equal(moment('2007-01-01').isoWeeksInYear(), 52, 'ISO year 2007 has 52 iso weeks');
+    assert.equal(moment('2007-12-31').isoWeeksInYear(), 52, 'ISO year 2008 has 53 iso weeks');
+    assert.equal(moment('2008-12-29').isoWeeksInYear(), 53, 'ISO year 2009 has 53 iso weeks');
+    assert.equal(moment('2010-01-04').isoWeeksInYear(), 52, 'ISO year 2010 has 52 iso weeks');
+    assert.equal(moment('2011-01-03').isoWeeksInYear(), 52, 'ISO year 2011 has 52 iso weeks');
+    assert.equal(moment('2012-01-02').isoWeeksInYear(), 52, 'ISO year 2012 has 52 iso weeks');
+    assert.equal(moment('2012-12-31').isoWeeksInYear(), 52, 'ISO year 2013 has 52 iso weeks');
+    assert.equal(moment('2013-12-30').isoWeeksInYear(), 52, 'ISO year 2014 has 52 iso weeks');
+    assert.equal(moment('2014-12-29').isoWeeksInYear(), 53, 'ISO year 2015 has 53 iso weeks');
+    assert.equal(moment('2016-01-04').isoWeeksInYear(), 52, 'ISO year 2016 has 52 iso weeks');
+    assert.equal(moment('2017-01-02').isoWeeksInYear(), 52, 'ISO year 2017 has 52 iso weeks');
+    assert.equal(moment('2018-01-01').isoWeeksInYear(), 52, 'ISO year 2018 has 52 iso weeks');
+    assert.equal(moment('2018-12-31').isoWeeksInYear(), 52, 'ISO year 2019 has 52 iso weeks');
+    assert.equal(moment('2019-12-30').isoWeeksInYear(), 53, 'ISO year 2020 has 53 iso weeks');
 });
 
 test('weeksInYear doy/dow = 1/4', function (assert) {
@@ -91,7 +91,8 @@ test('weeksInYear doy/dow = 0/6', function (assert) {
     assert.equal(moment([2015]).weeksInYear(), 52, '2015 has 53 weeks');
 });
 
-test('isoWeeksInYear', function (assert) {
+test('isoWeeksInYear calendar year !== ISO year', function (assert) {
     assert.equal(moment('2019-12-31').isoWeeksInYear(), 53, 'December 31, 2019 is in ISO year 2020 and ISO year 2020 has 53 weeks');
-})
+    assert.equal(moment('2020-12-31').isoWeeksInYear(), 53, 'December 31, 2020 is in ISO year 2020 and ISO year 2020 has 53 weeks');
+});
 
