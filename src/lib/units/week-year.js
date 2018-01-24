@@ -9,7 +9,10 @@ import { hooks } from '../utils/hooks';
 import { createLocal } from '../create/local';
 import { createUTCDate } from '../create/date-from-array';
 
+// CONSTANTS
+
 const THURSDAY = 4;
+
 // FORMATTING
 
 addFormatToken(0, ['gg', 2], 0, function () {
