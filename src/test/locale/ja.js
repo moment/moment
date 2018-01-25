@@ -126,25 +126,43 @@ test('calendar day', function (assert) {
 
 test('calendar next week', function (assert) {
     var i, m;
+    var dow = moment().day();
     for (i = 2; i < 7; i++) {
         m = moment().add({d: i});
-        assert.equal(m.calendar(),       m.format('[来週]dddd LT'),  'Today + ' + i + ' days current time');
-        m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(m.calendar(),       m.format('[来週]dddd LT'),  'Today + ' + i + ' days beginning of day');
-        m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(m.calendar(),       m.format('[来週]dddd LT'),  'Today + ' + i + ' days end of day');
+        if (dow + i < 7) {
+            assert.equal(m.calendar(),       m.format('dddd LT'),  'Today + ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(m.calendar(),       m.format('dddd LT'),  'Today + ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(m.calendar(),       m.format('dddd LT'),  'Today + ' + i + ' days end of day');
+        } else {
+            assert.equal(m.calendar(),       m.format('[来週]dddd LT'),  'Today + ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(m.calendar(),       m.format('[来週]dddd LT'),  'Today + ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(m.calendar(),       m.format('[来週]dddd LT'),  'Today + ' + i + ' days end of day');
+        }
     }
 });
 
 test('calendar last week', function (assert) {
     var i, m;
+    var dow = moment().day();
     for (i = 2; i < 7; i++) {
         m = moment().subtract({d: i});
-        assert.equal(m.calendar(),       m.format('[前週]dddd LT'),  'Today - ' + i + ' days current time');
-        m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(m.calendar(),       m.format('[前週]dddd LT'),  'Today - ' + i + ' days beginning of day');
-        m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(m.calendar(),       m.format('[前週]dddd LT'),  'Today - ' + i + ' days end of day');
+        if (dow < i) {
+            assert.equal(m.calendar(),       m.format('[先週]dddd LT'),  'Today - ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(m.calendar(),       m.format('[先週]dddd LT'),  'Today - ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(m.calendar(),       m.format('[先週]dddd LT'),  'Today - ' + i + ' days end of day');
+        } else {
+            assert.equal(m.calendar(),       m.format('dddd LT'),  'Today - ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(m.calendar(),       m.format('dddd LT'),  'Today - ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(m.calendar(),       m.format('dddd LT'),  'Today - ' + i + ' days end of day');
+        }
     }
 });
 
