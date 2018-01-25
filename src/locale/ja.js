@@ -16,11 +16,11 @@ export default moment.defineLocale('ja', {
         L : 'YYYY/MM/DD',
         LL : 'YYYY年M月D日',
         LLL : 'YYYY年M月D日 HH:mm',
-        LLLL : 'YYYY年M月D日 HH:mm dddd',
+        LLLL : 'YYYY年M月D日 dddd HH:mm',
         l : 'YYYY/MM/DD',
         ll : 'YYYY年M月D日',
         lll : 'YYYY年M月D日 HH:mm',
-        llll : 'YYYY年M月D日 HH:mm dddd'
+        llll : 'YYYY年M月D日(ddd) HH:mm'
     },
     meridiemParse: /午前|午後/i,
     isPM : function (input) {
