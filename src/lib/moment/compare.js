@@ -1,14 +1,13 @@
 import { isMoment } from './constructor';
 import { normalizeUnits } from '../units/aliases';
 import { createLocal } from '../create/local';
-import isUndefined from '../utils/is-undefined';
 
 export function isAfter (input, units) {
     var localInput = isMoment(input) ? input : createLocal(input);
     if (!(this.isValid() && localInput.isValid())) {
         return false;
     }
-    units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
+    units = normalizeUnits(units) || 'millisecond';
     if (units === 'millisecond') {
         return this.valueOf() > localInput.valueOf();
     } else {
@@ -21,7 +20,7 @@ export function isBefore (input, units) {
     if (!(this.isValid() && localInput.isValid())) {
         return false;
     }
-    units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
+    units = normalizeUnits(units) || 'millisecond';
     if (units === 'millisecond') {
         return this.valueOf() < localInput.valueOf();
     } else {
@@ -30,9 +29,14 @@ export function isBefore (input, units) {
 }
 
 export function isBetween (from, to, units, inclusivity) {
+    var localFrom = isMoment(from) ? from : createLocal(from),
+        localTo = isMoment(to) ? to : createLocal(to);
+    if (!(this.isValid() && localFrom.isValid() && localTo.isValid())) {
+        return false;
+    }
     inclusivity = inclusivity || '()';
-    return (inclusivity[0] === '(' ? this.isAfter(from, units) : !this.isBefore(from, units)) &&
-        (inclusivity[1] === ')' ? this.isBefore(to, units) : !this.isAfter(to, units));
+    return (inclusivity[0] === '(' ? this.isAfter(localFrom, units) : !this.isBefore(localFrom, units)) &&
+        (inclusivity[1] === ')' ? this.isBefore(localTo, units) : !this.isAfter(localTo, units));
 }
 
 export function isSame (input, units) {
@@ -41,7 +45,7 @@ export function isSame (input, units) {
     if (!(this.isValid() && localInput.isValid())) {
         return false;
     }
-    units = normalizeUnits(units || 'millisecond');
+    units = normalizeUnits(units) || 'millisecond';
     if (units === 'millisecond') {
         return this.valueOf() === localInput.valueOf();
     } else {
@@ -51,9 +55,9 @@ export function isSame (input, units) {
 }
 
 export function isSameOrAfter (input, units) {
-    return this.isSame(input, units) || this.isAfter(input,units);
+    return this.isSame(input, units) || this.isAfter(input, units);
 }
 
 export function isSameOrBefore (input, units) {
-    return this.isSame(input, units) || this.isBefore(input,units);
+    return this.isSame(input, units) || this.isBefore(input, units);
 }
