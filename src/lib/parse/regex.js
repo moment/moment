@@ -1,17 +1,19 @@
-export var match1         = /\d/;            //       0 - 9
-export var match2         = /\d\d/;          //      00 - 99
-export var match3         = /\d{3}/;         //     000 - 999
-export var match4         = /\d{4}/;         //    0000 - 9999
-export var match6         = /[+-]?\d{6}/;    // -999999 - 999999
-export var match1to2      = /\d\d?/;         //       0 - 99
-export var match3to4      = /\d\d\d\d?/;     //     999 - 9999
-export var match5to6      = /\d\d\d\d\d\d?/; //   99999 - 999999
-export var match1to3      = /\d{1,3}/;       //       0 - 999
-export var match1to4      = /\d{1,4}/;       //       0 - 9999
-export var match1to6      = /[+-]?\d{1,6}/;  // -999999 - 999999
+export var match1         = /\d/;                           //       0 - 9
+export var match2         = /\d\d/;                         //      00 - 99
+export var match3         = /\d{3}/;                        //     000 - 999
+export var match4         = /\d{4}/;                        //    0000 - 9999
+export var match6         = /[+-]?\d{6}/;                   // -999999 - 999999
+export var match1to2      = /\d\d?/;                        //       0 - 99
+export var match3to4      = /\d\d\d\d?/;                    //     999 - 9999
+export var match5to6      = /\d\d\d\d\d\d?/;                //   99999 - 999999
+export var match1to3      = /\d{1,3}/;                      //       0 - 999
+export var match1to4      = /\d{1,4}/;                      //       0 - 9999
+export var match1to6      = /[+-]?\d{1,6}/;                 // -999999 - 999999
+export var matchDay       = /^([1-9]|[1-2][0-9]|3[0-1])$/   //       1 - 31
+export var matchMonth     = /^([1-9]|1[0-2])$/;             //       1 - 12
 
-export var matchUnsigned  = /\d+/;           //       0 - inf
-export var matchSigned    = /[+-]?\d+/;      //    -inf - inf
+export var matchUnsigned  = /\d+/;              //       0 - inf
+export var matchSigned    = /[+-]?\d+/;         //    -inf - inf
 
 export var matchOffset    = /Z|[+-]\d\d:?\d\d/gi; // +00:00 -00:00 +0000 -0000 or Z
 export var matchShortOffset = /Z|[+-]\d\d(?::?\d\d)?/gi; // +00 -00 +00:00 -00:00 +0000 -0000 or Z
