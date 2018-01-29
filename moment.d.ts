@@ -684,7 +684,9 @@ declare namespace moment {
   export function weekdaysMin(localeSorted: boolean, format: string): string[];
   export function weekdaysMin(localeSorted: boolean, format: string, index: number): string;
 
+  export function min(moments: Moment[]): Moment;
   export function min(...moments: Moment[]): Moment;
+  export function max(moments: Moment[]): Moment;
   export function max(...moments: Moment[]): Moment;
 
   /**
