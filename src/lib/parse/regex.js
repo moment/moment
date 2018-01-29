@@ -9,7 +9,7 @@ export var match5to6      = /\d\d\d\d\d\d?/;                //   99999 - 999999
 export var match1to3      = /\d{1,3}/;                      //       0 - 999
 export var match1to4      = /\d{1,4}/;                      //       0 - 9999
 export var match1to6      = /[+-]?\d{1,6}/;                 // -999999 - 999999
-export var matchDay       = /^([1-9]|[1-2][0-9]|3[0-1])$/   //       1 - 31
+export var matchDay       = /^([1-9]|[1-2][0-9]|3[0-1])$/;  //       1 - 31
 export var matchMonth     = /^([1-9]|1[0-2])$/;             //       1 - 12
 
 export var matchUnsigned  = /\d+/;              //       0 - inf
