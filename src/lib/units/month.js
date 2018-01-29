@@ -3,7 +3,7 @@ import hasOwnProp from '../utils/has-own-prop';
 import { addFormatToken } from '../format/format';
 import { addUnitAlias } from './aliases';
 import { addUnitPriority } from './priorities';
-import { addRegexToken, match1to2, match2, matchWord, regexEscape } from '../parse/regex';
+import { addRegexToken, match1to2, match2, matchWord, regexEscape, matchMonth} from '../parse/regex';
 import { addParseToken } from '../parse/token';
 import { hooks } from '../utils/hooks';
 import { MONTH } from './constants';
@@ -49,7 +49,7 @@ addUnitPriority('month', 8);
 
 // PARSING
 
-addRegexToken('M',    match1to2);
+addRegexToken('M',    match1to2, matchMonth);
 addRegexToken('MM',   match1to2, match2);
 addRegexToken('MMM',  function (isStrict, locale) {
     return locale.monthsShortRegex(isStrict);
