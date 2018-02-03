@@ -17,7 +17,6 @@ function createAdder(direction, name) {
             tmp = val; val = period; period = tmp;
         }
 
-        val = typeof val === 'string' ? +val : val;
         dur = createDuration(val, period);
         addSubtract(this, dur, direction);
         return this;

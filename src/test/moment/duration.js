@@ -52,6 +52,11 @@ test('milliseconds instantiation', function (assert) {
     assert.equal(moment.duration(72).humanize(), 'a few seconds', 'Duration should be valid');
 });
 
+test('milliseconds instantiation with string', function (assert) {
+    assert.equal(moment.duration('72').milliseconds(), 72, 'milliseconds');
+    assert.equal(moment.duration('72').humanize(), 'a few seconds', 'Duration should be valid');
+});
+
 test('undefined instantiation', function (assert) {
     assert.equal(moment.duration(undefined).milliseconds(), 0, 'milliseconds');
     assert.equal(moment.duration(undefined).isValid(), true, '_isValid');
@@ -87,6 +92,25 @@ test('instantiation by type', function (assert) {
     assert.equal(moment.duration(7, 's').seconds(),                   7, 's');
     assert.equal(moment.duration(8, 'milliseconds').milliseconds(),   8, 'milliseconds');
     assert.equal(moment.duration(8, 'ms').milliseconds(),             8, 'ms');
+});
+
+test('instantiation by type with string', function (assert) {
+    assert.equal(moment.duration('1', 'years').years(),                 1, 'years');
+    assert.equal(moment.duration('1', 'y').years(),                     1, 'y');
+    assert.equal(moment.duration('2', 'months').months(),               2, 'months');
+    assert.equal(moment.duration('2', 'M').months(),                    2, 'M');
+    assert.equal(moment.duration('3', 'weeks').weeks(),                 3, 'weeks');
+    assert.equal(moment.duration('3', 'w').weeks(),                     3, 'weeks');
+    assert.equal(moment.duration('4', 'days').days(),                   4, 'days');
+    assert.equal(moment.duration('4', 'd').days(),                      4, 'd');
+    assert.equal(moment.duration('5', 'hours').hours(),                 5, 'hours');
+    assert.equal(moment.duration('5', 'h').hours(),                     5, 'h');
+    assert.equal(moment.duration('6', 'minutes').minutes(),             6, 'minutes');
+    assert.equal(moment.duration('6', 'm').minutes(),                   6, 'm');
+    assert.equal(moment.duration('7', 'seconds').seconds(),             7, 'seconds');
+    assert.equal(moment.duration('7', 's').seconds(),                   7, 's');
+    assert.equal(moment.duration('8', 'milliseconds').milliseconds(),   8, 'milliseconds');
+    assert.equal(moment.duration('8', 'ms').milliseconds(),             8, 'ms');
 });
 
 test('shortcuts', function (assert) {
