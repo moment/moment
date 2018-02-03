@@ -18,6 +18,7 @@ var isoRegex = /^(-|\+)?P(?:([-+]?[0-9,.]*)Y)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9
 
 export function createDuration (input, key) {
     var duration = input,
+        numericInput = typeof input === 'string' && !isNaN(input) ? +input : input,
         // matching against regexp is expensive, do it on demand
         match = null,
         sign,
@@ -30,12 +31,12 @@ export function createDuration (input, key) {
             d  : input._days,
             M  : input._months
         };
-    } else if (isNumber(input)) {
+    } else if (isNumber(numericInput)) {
         duration = {};
         if (key) {
-            duration[key] = input;
+            duration[key] = numericInput;
         } else {
-            duration.milliseconds = input;
+            duration.milliseconds = numericInput;
         }
     } else if (!!(match = aspNetRegex.exec(input))) {
         sign = (match[1] === '-') ? -1 : 1;
