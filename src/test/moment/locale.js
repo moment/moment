@@ -471,6 +471,18 @@ test('moment().lang with missing key doesn\'t change locale', function (assert) 
             'preserve global locale in case of bad locale id');
 });
 
+test('in strict mode, regex day of week parsing treats periods literally, not as the regex-period', function(assert) {
+    moment.defineLocale('periods', {
+        weekdays : 'Mondee_Tuesdee_Wednsee_Thursee_Fridee_Saturdee_Sundee'.split('_'),
+        weekdaysShort : 'mon_tu.s_wed_tuas_fri_sat_sun'.split('_'),
+        weekdaysMin : 'ZA_ZB_ZC_ZD_ZE_ZF_ZG'.split('_'),
+        weekdaysParseExact : false,
+    });
+
+    moment().locale('periods');
+    assert.equal(moment('tuas', 'ddd', true).format('dddd'), 'Thursee');
+});
+
 
 // TODO: Enable this after fixing pl months parse hack hack
 // test('monthsParseExact', function (assert) {
