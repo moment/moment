@@ -151,11 +151,11 @@ test('from', function (assert) {
 
 test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'რამდენიმე წამში',     'ში სუფიქსი');
-    assert.equal(moment(0).from(30000), 'რამდენიმე წამის უკან', 'უკან სუფიქსი');
+    assert.equal(moment(0).from(30000), 'რამდენიმე წამის წინ', 'წინ სუფიქსი');
 });
 
 test('now from now', function (assert) {
-    assert.equal(moment().fromNow(), 'რამდენიმე წამის უკან', 'უნდა აჩვენოს როგორც წარსული');
+    assert.equal(moment().fromNow(), 'რამდენიმე წამის წინ', 'უნდა აჩვენოს როგორც წარსული');
 });
 
 test('fromNow', function (assert) {
@@ -202,7 +202,7 @@ test('calendar all else', function (assert) {
     var weeksAgo = moment().subtract({w: 1}),
         weeksFromNow = moment().add({w: 1});
 
-    assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '1 კვირის უკან');
+    assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '1 კვირის წინ');
     assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  '1 კვირაში');
 
     weeksAgo = moment().subtract({w: 2});
