@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Cambodian [km]
-//! author : Kruy Vanna : https://github.com/kruyvanna
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

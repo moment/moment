@@ -1,7 +1,4 @@
 //! moment.js locale configuration
-//! locale : Ukrainian [uk]
-//! author : zemlanin : https://github.com/zemlanin
-//! Author : Menelion Elensúle : https://github.com/Oire
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

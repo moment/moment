@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Arabic (Kuwait) [ar-kw]
-//! author : Nusret Parlak: https://github.com/nusretparlak
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

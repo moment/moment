@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Malay [ms]
-//! author : Weldan Jamili : https://github.com/weldan
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

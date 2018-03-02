@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Pseudo [x-pseudo]
-//! author : Andrew Hood : https://github.com/andrewhood125
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

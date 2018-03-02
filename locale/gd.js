@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Scottish Gaelic [gd]
-//! author : Jon Ashdown : https://github.com/jonashdown
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

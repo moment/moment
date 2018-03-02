@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Faroese [fo]
-//! author : Ragnar Johannesen : https://github.com/ragnar123
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

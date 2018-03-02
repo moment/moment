@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Tagalog (Philippines) [tl-ph]
-//! author : Dan Hagman : https://github.com/hagmandan
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

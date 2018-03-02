@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Malayalam [ml]
-//! author : Floyd Pink : https://github.com/floydpink
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

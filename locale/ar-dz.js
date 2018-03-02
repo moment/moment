@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Arabic (Algeria) [ar-dz]
-//! author : Noureddine LOUAHEDJ : https://github.com/noureddineme
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
