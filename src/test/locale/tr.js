@@ -22,12 +22,12 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Pazar, Şubat 14\'üncü 2010, 3:25:50 pm'],
+            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Pazar, Şubat 14 2010, 3:25:50 pm'],
             ['ddd, hA',                            'Paz, 3PM'],
             ['M Mo MM MMMM MMM',                   '2 2\'nci 02 Şubat Şub'],
             ['YYYY YY',                            '2010 10'],
-            ['D Do DD',                            '14 14\'üncü 14'],
-            ['d do dddd ddd dd',                   '0 0\'ıncı Pazar Paz Pz'],
+            ['D Do DD',                            '14 14 14'],
+            ['d do dddd ddd dd',                   '0 0 Pazar Paz Pz'],
             ['DDD DDDo DDDD',                      '45 45\'inci 045'],
             ['w wo ww',                            '7 7\'nci 07'],
             ['h hh',                               '3 03'],
@@ -217,4 +217,3 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012,  0,  8]).format('w ww wo'), '2 02 2\'nci', 'Jan  8 2012 should be week 2');
     assert.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 3\'üncü', 'Jan  9 2012 should be week 3');
 });
-
