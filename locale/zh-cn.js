@@ -1,7 +1,4 @@
 //! moment.js locale configuration
-//! locale : Chinese (China) [zh-cn]
-//! author : suupic : https://github.com/suupic
-//! author : Zeno Zeng : https://github.com/zenozeng
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

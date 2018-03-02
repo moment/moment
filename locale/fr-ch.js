@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : French (Switzerland) [fr-ch]
-//! author : Gaspard Bucher : https://github.com/gaspard
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

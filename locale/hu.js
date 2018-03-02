@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Hungarian [hu]
-//! author : Adam Brunner : https://github.com/adambrunner
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Uzbek [uz]
-//! author : Sardor Muminov : https://github.com/muminoff
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale  :  Arabic (Tunisia) [ar-tn]
-//! author : Nader Toukabri : https://github.com/naderio
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

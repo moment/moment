@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Georgian [ka]
-//! author : Irakli Janiashvili : https://github.com/irakli-janiashvili
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Gujarati [gu]
-//! author : Kaushik Thanki : https://github.com/Kaushik1987
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -21,8 +19,8 @@ var symbolMap = {
         '8': '૮',
         '9': '૯',
         '0': '૦'
-    };
-var numberMap = {
+    },
+    numberMap = {
         '૧': '1',
         '૨': '2',
         '૩': '3',

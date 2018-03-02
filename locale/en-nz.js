@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : English (New Zealand) [en-nz]
-//! author : Luke McGregor : https://github.com/lukemcgregor
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

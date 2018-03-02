@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Telugu [te]
-//! author : Krishna Chaitanya Thota : https://github.com/kcthota
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

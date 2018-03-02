@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Klingon [tlh]
-//! author : Dominika Kruk : https://github.com/amaranthrose
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

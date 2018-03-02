@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Bengali [bn]
-//! author : Kaushik Gandhi : https://github.com/kaushikgandhi
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -21,8 +19,8 @@ var symbolMap = {
     '8': '৮',
     '9': '৯',
     '0': '০'
-};
-var numberMap = {
+},
+numberMap = {
     '১': '1',
     '২': '2',
     '৩': '3',

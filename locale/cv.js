@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Chuvash [cv]
-//! author : Anatoly Mironov : https://github.com/mirontoli
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

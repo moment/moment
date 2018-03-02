@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Afrikaans [af]
-//! author : Werner Mollentze : https://github.com/wernerm
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

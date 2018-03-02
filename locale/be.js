@@ -1,8 +1,4 @@
 //! moment.js locale configuration
-//! locale : Belarusian [be]
-//! author : Dmitry Demidov : https://github.com/demidov91
-//! author: Praleska: http://praleska.pro/
-//! Author : Menelion Elensúle : https://github.com/Oire
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

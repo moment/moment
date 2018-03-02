@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Hindi [hi]
-//! author : Mayank Singhal : https://github.com/mayanksinghal
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -21,8 +19,8 @@ var symbolMap = {
     '8': '८',
     '9': '९',
     '0': '०'
-};
-var numberMap = {
+},
+numberMap = {
     '१': '1',
     '२': '2',
     '३': '3',

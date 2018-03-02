@@ -1,6 +1,4 @@
 //! moment.js locale configuration
-//! locale : Basque [eu]
-//! author : Eneko Illarramendi : https://github.com/eillarra
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

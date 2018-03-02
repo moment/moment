@@ -1,7 +1,4 @@
 //! moment.js locale configuration
-//! locale : Welsh [cy]
-//! author : Robert Allen : https://github.com/robgallen
-//! author : https://github.com/ryangreaves
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
