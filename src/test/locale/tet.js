@@ -3,7 +3,7 @@ import moment from '../../moment';
 localeModule('tet');
 
 test('parse', function (assert) {
-    var tests = 'Janeiru Jan_Fevereiru Fev_Marsu Mar_Abril Abr_Maiu Mai_Juniu Jun_Juliu Jul_Augustu Aug_Setembru Set_Outubru Out_Novembru Nov_Dezembru Dez'.split('_'), i;
+    var tests = 'Janeiru Jan_Fevereiru Fev_Marsu Mar_Abril Abr_Maiu Mai_Juñu Jun_Jullu Jul_Agustu Ago_Setembru Set_Outubru Out_Novembru Nov_Dezembru Dez'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
@@ -91,14 +91,14 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'Janeiru Jan_Fevereiru Fev_Marsu Mar_Abril Abr_Maiu Mai_Juniu Jun_Juliu Jul_Augustu Aug_Setembru Set_Outubru Out_Novembru Nov_Dezembru Dez'.split('_'), i;
+    var expected = 'Janeiru Jan_Fevereiru Fev_Marsu Mar_Abril Abr_Maiu Mai_Juñu Jun_Jullu Jul_Agustu Ago_Setembru Set_Outubru Out_Novembru Nov_Dezembru Dez'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
 });
 
 test('format week', function (assert) {
-    var expected = 'Domingu Dom Do_Segunda Seg Seg_Tersa Ters Te_Kuarta Kua Ku_Kinta Kint Ki_Sexta Sext Sex_Sabadu Sab Sa'.split('_'), i;
+    var expected = 'Domingu Dom Do_Segunda Seg Seg_Tersa Ters Te_Kuarta Kua Ku_Kinta Kint Ki_Sesta Sest Ses_Sabadu Sab Sa'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
@@ -109,13 +109,13 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'minutu balun', '44 seconds = a few seconds');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'minutu ida',      '45 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'minutu ida',      '89 seconds = a minute');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  'minutus 2',     '90 seconds = 2 minutes');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  'minutus 44',    '44 minutes = 44 minutes');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  'horas ida',       '45 minutes = an hour');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  'horas ida',       '89 minutes = an hour');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  'horas 2',       '90 minutes = 2 hours');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   'horas 5',       '5 hours = 5 hours');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  'horas 21',      '21 hours = 21 hours');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  'minutu 2',     '90 seconds = 2 minutes');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  'minutu 44',    '44 minutes = 44 minutes');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  'oras ida',       '45 minutes = an hour');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  'oras ida',       '89 minutes = an hour');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  'oras 2',       '90 minutes = 2 hours');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   'oras 5',       '5 hours = 5 hours');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  'oras 21',      '21 hours = 21 hours');
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  'loron ida',         '22 hours = a day');
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  'loron ida',         '35 hours = a day');
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  'loron 2',        '36 hours = 2 days');
