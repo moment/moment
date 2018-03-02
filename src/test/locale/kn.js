@@ -3,7 +3,7 @@ import moment from '../../moment';
 localeModule('kn');
 
 test('parse', function (assert) {
-    var tests = 'ಜನವರಿ ಜನ_ಫೆಬ್ರವರಿ ಫೆಬ್ರ_ಮಾರ್ಚ್ ಮಾರ್ಚ್_ಏಪ್ರಿಲ್ ಏಪ್ರಿಲ್_ಮೇ ಮೇ_ಜೂನ್ ಜೂನ್_ಜುಲೈ ಜುಲೈ_ಆಗಸ್ಟ್ ಆಗಸ್ಟ್_ಸೆಪ್ಟೆಂಬರ್ ಸೆಪ್ಟೆಂಬ_ಅಕ್ಟೋಬರ್ ಅಕ್ಟೋಬ_ನವೆಂಬರ್ ನವೆಂಬ_ಡಿಸೆಂಬರ್ ಡಿಸೆಂಬ'.split('_'), i;
+    var tests = 'ಜನವರಿ ಜನ_ಫೆಬ್ರವರಿ ಫೆಬ್ರ_ಮಾರ್ಚ್ ಮಾರ್ಚ್_ಏಪ್ರಿಲ್ ಏಪ್ರಿಲ್_ಮೇ ಮೇ_ಜೂನ್ ಜೂನ್_ಜುಲೈ ಜುಲೈ_ಆಗಸ್ಟ್ ಆಗಸ್ಟ್_ಸೆಪ್ಟೆಂ ಸೆಪ್ಟೆಂಬ_ಅಕ್ಟೋಬರ್ ಅಕ್ಟೋ_ನವೆಂಬರ್ ನವೆಂ_ಡಿಸೆಂಬರ್ ಡಿಸೆಂ'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
@@ -90,7 +90,7 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'ಜನವರಿ ಜನ_ಫೆಬ್ರವರಿ ಫೆಬ್ರ_ಮಾರ್ಚ್ ಮಾರ್ಚ್_ಏಪ್ರಿಲ್ ಏಪ್ರಿಲ್_ಮೇ ಮೇ_ಜೂನ್ ಜೂನ್_ಜುಲೈ ಜುಲೈ_ಆಗಸ್ಟ್ ಆಗಸ್ಟ್_ಸೆಪ್ಟೆಂಬರ್ ಸೆಪ್ಟೆಂಬ_ಅಕ್ಟೋಬರ್ ಅಕ್ಟೋಬ_ನವೆಂಬರ್ ನವೆಂಬ_ಡಿಸೆಂಬರ್ ಡಿಸೆಂಬ'.split('_'), i;
+    var expected = 'ಜನವರಿ ಜನ_ಫೆಬ್ರವರಿ ಫೆಬ್ರ_ಮಾರ್ಚ್ ಮಾರ್ಚ್_ಏಪ್ರಿಲ್ ಏಪ್ರಿಲ್_ಮೇ ಮೇ_ಜೂನ್ ಜೂನ್_ಜುಲೈ ಜುಲೈ_ಆಗಸ್ಟ್ ಆಗಸ್ಟ್_ಸೆಪ್ಟೆಂಬರ್ ಸೆಪ್ಟೆಂ_ಅಕ್ಟೋಬರ್ ಅಕ್ಟೋ_ನವೆಂಬರ್ ನವೆಂ_ಡಿಸೆಂಬರ್ ಡಿಸೆಂ'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
@@ -222,4 +222,3 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012, 0, 14]).format('w ww wo'), '೨ ೦೨ ೨ನೇ', 'Jan 14 2012 should be week 2');
     assert.equal(moment([2012, 0, 15]).format('w ww wo'), '೩ ೦೩ ೩ನೇ', 'Jan 15 2012 should be week 3');
 });
-
