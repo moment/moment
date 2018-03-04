@@ -1,6 +1,6 @@
 var mathAbs = Math.abs;
 
-export function abs () {
+export function abs() {
     var data           = this._data;
 
     this._milliseconds = mathAbs(this._milliseconds);

@@ -1,27 +1,27 @@
-import { defaultCalendar } from './calendar';
-import { defaultLongDateFormat } from './formats';
-import { defaultInvalidDate } from './invalid';
-import { defaultOrdinal, defaultDayOfMonthOrdinalParse } from './ordinal';
-import { defaultRelativeTime } from './relative';
+import {defaultCalendar} from './calendar';
+import {defaultLongDateFormat} from './formats';
+import {defaultInvalidDate} from './invalid';
+import {defaultOrdinal, defaultDayOfMonthOrdinalParse} from './ordinal';
+import {defaultRelativeTime} from './relative';
 
 // months
 import {
     defaultLocaleMonths,
-    defaultLocaleMonthsShort,
+    defaultLocaleMonthsShort
 } from '../units/month';
 
 // week
-import { defaultLocaleWeek } from '../units/week';
+import {defaultLocaleWeek} from '../units/week';
 
 // weekdays
 import {
     defaultLocaleWeekdays,
     defaultLocaleWeekdaysMin,
-    defaultLocaleWeekdaysShort,
+    defaultLocaleWeekdaysShort
 } from '../units/day-of-week';
 
 // meridiem
-import { defaultLocaleMeridiemParse } from '../units/hour';
+import {defaultLocaleMeridiemParse} from '../units/hour';
 
 export var baseConfig = {
     calendar: defaultCalendar,

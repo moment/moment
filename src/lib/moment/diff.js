@@ -1,8 +1,8 @@
 import absFloor from '../utils/abs-floor';
-import { cloneWithOffset } from '../units/offset';
-import { normalizeUnits } from '../units/aliases';
+import {cloneWithOffset} from '../units/offset';
+import {normalizeUnits} from '../units/aliases';
 
-export function diff (input, units, asFloat) {
+export function diff(input, units, asFloat) {
     var that,
         zoneDelta,
         delta, output;
@@ -36,7 +36,7 @@ export function diff (input, units, asFloat) {
     return asFloat ? output : absFloor(output);
 }
 
-function monthDiff (a, b) {
+function monthDiff(a, b) {
     // difference in months
     var wholeMonthDiff = ((b.year() - a.year()) * 12) + (b.month() - a.month()),
         // b is in (anchor - 1 month, anchor + 1 month)

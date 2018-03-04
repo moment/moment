@@ -1,4 +1,4 @@
-import { module, test } from '../qunit';
+import {module, test} from '../qunit';
 import moment from '../../moment';
 
 module('utc offset');
@@ -37,7 +37,7 @@ test('utcOffset shorthand hours -> minutes', function (assert) {
     var i;
     for (i = -15; i <= 15; ++i) {
         assert.equal(moment().utcOffset(i).utcOffset(), i * 60,
-                '' + i + ' -> ' + i * 60);
+            '' + i + ' -> ' + i * 60);
     }
     assert.equal(moment().utcOffset(-16).utcOffset(), -16, '-16 -> -16');
     assert.equal(moment().utcOffset(16).utcOffset(), 16, '16 -> 16');
@@ -112,11 +112,11 @@ test('distance from the unix epoch', function (assert) {
 
     zoneD.utcOffset(-480);
     assert.equal(+zoneA, +zoneD,
-            'moment should equal moment.utcOffset(-480)');
+        'moment should equal moment.utcOffset(-480)');
 
     zoneE.utcOffset(-1000);
     assert.equal(+zoneA, +zoneE,
-            'moment should equal moment.utcOffset(-1000)');
+        'moment should equal moment.utcOffset(-1000)');
 });
 
 test('update offset after changing any values', function (assert) {
@@ -233,31 +233,31 @@ test('unix offset and timestamp', function (assert) {
 
 test('cloning', function (assert) {
     assert.equal(moment().utcOffset(-120).clone().utcOffset(), -120,
-            'explicit cloning should retain the offset');
+        'explicit cloning should retain the offset');
     assert.equal(moment().utcOffset(120).clone().utcOffset(), 120,
-            'explicit cloning should retain the offset');
+        'explicit cloning should retain the offset');
     assert.equal(moment(moment().utcOffset(-120)).utcOffset(), -120,
-            'implicit cloning should retain the offset');
+        'implicit cloning should retain the offset');
     assert.equal(moment(moment().utcOffset(120)).utcOffset(), 120,
-            'implicit cloning should retain the offset');
+        'implicit cloning should retain the offset');
 });
 
 test('start of / end of', function (assert) {
     var a = moment.utc([2010, 1, 2, 0, 0, 0]).utcOffset(-450);
 
     assert.equal(a.clone().startOf('day').hour(), 0,
-            'start of day should work on moments with utc offset');
+        'start of day should work on moments with utc offset');
     assert.equal(a.clone().startOf('day').minute(), 0,
-            'start of day should work on moments with utc offset');
+        'start of day should work on moments with utc offset');
     assert.equal(a.clone().startOf('hour').minute(), 0,
-            'start of hour should work on moments with utc offset');
+        'start of hour should work on moments with utc offset');
 
     assert.equal(a.clone().endOf('day').hour(), 23,
-            'end of day should work on moments with utc offset');
+        'end of day should work on moments with utc offset');
     assert.equal(a.clone().endOf('day').minute(), 59,
-            'end of day should work on moments with utc offset');
+        'end of day should work on moments with utc offset');
     assert.equal(a.clone().endOf('hour').minute(), 59,
-            'end of hour should work on moments with utc offset');
+        'end of hour should work on moments with utc offset');
 });
 
 test('reset offset with moment#utc', function (assert) {

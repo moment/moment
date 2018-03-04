@@ -9,24 +9,24 @@ var numbersNouns = 'pagh_wa’_cha’_wej_loS_vagh_jav_Soch_chorgh_Hut'.split('_
 function translateFuture(output) {
     var time = output;
     time = (output.indexOf('jaj') !== -1) ?
-    time.slice(0, -3) + 'leS' :
-    (output.indexOf('jar') !== -1) ?
-    time.slice(0, -3) + 'waQ' :
-    (output.indexOf('DIS') !== -1) ?
-    time.slice(0, -3) + 'nem' :
-    time + ' pIq';
+        time.slice(0, -3) + 'leS' :
+        (output.indexOf('jar') !== -1) ?
+            time.slice(0, -3) + 'waQ' :
+            (output.indexOf('DIS') !== -1) ?
+                time.slice(0, -3) + 'nem' :
+                time + ' pIq';
     return time;
 }
 
 function translatePast(output) {
     var time = output;
     time = (output.indexOf('jaj') !== -1) ?
-    time.slice(0, -3) + 'Hu’' :
-    (output.indexOf('jar') !== -1) ?
-    time.slice(0, -3) + 'wen' :
-    (output.indexOf('DIS') !== -1) ?
-    time.slice(0, -3) + 'ben' :
-    time + ' ret';
+        time.slice(0, -3) + 'Hu’' :
+        (output.indexOf('jar') !== -1) ?
+            time.slice(0, -3) + 'wen' :
+            (output.indexOf('DIS') !== -1) ?
+                time.slice(0, -3) + 'ben' :
+                time + ' ret';
     return time;
 }
 
@@ -50,9 +50,9 @@ function translate(number, withoutSuffix, string, isFuture) {
 
 function numberAsNoun(number) {
     var hundred = Math.floor((number % 1000) / 100),
-    ten = Math.floor((number % 100) / 10),
-    one = number % 10,
-    word = '';
+        ten = Math.floor((number % 100) / 10),
+        one = number % 10,
+        word = '';
     if (hundred > 0) {
         word += numbersNouns[hundred] + 'vatlh';
     }

@@ -1,4 +1,4 @@
-import { module, test } from '../qunit';
+import {module, test} from '../qunit';
 import moment from '../../moment';
 import each from '../helpers/each';
 import indexOf from '../../lib/utils/index-of';
@@ -462,13 +462,13 @@ test('moment#locale(false) resets to global locale', function (assert) {
 
 test('moment().locale with missing key doesn\'t change locale', function (assert) {
     assert.equal(moment().locale('boo').localeData(), moment.localeData(),
-            'preserve global locale in case of bad locale id');
+        'preserve global locale in case of bad locale id');
 });
 
 test('moment().lang with missing key doesn\'t change locale', function (assert) {
     test.expectedDeprecations('moment().lang()');
     assert.equal(moment().lang('boo').localeData(), moment.localeData(),
-            'preserve global locale in case of bad locale id');
+        'preserve global locale in case of bad locale id');
 });
 
 

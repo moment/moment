@@ -1,22 +1,22 @@
-import { Moment } from './constructor';
+import {Moment} from './constructor';
 
 var proto = Moment.prototype;
 
-import { add, subtract } from './add-subtract';
-import { calendar, getCalendarFormat } from './calendar';
-import { clone } from './clone';
-import { isBefore, isBetween, isSame, isAfter, isSameOrAfter, isSameOrBefore } from './compare';
-import { diff } from './diff';
-import { format, toString, toISOString, inspect } from './format';
-import { from, fromNow } from './from';
-import { to, toNow } from './to';
-import { stringGet, stringSet } from './get-set';
-import { locale, localeData, lang } from './locale';
-import { prototypeMin, prototypeMax } from './min-max';
-import { startOf, endOf } from './start-end-of';
-import { valueOf, toDate, toArray, toObject, toJSON, unix } from './to-type';
-import { isValid, parsingFlags, invalidAt } from './valid';
-import { creationData } from './creation-data';
+import {add, subtract} from './add-subtract';
+import {calendar, getCalendarFormat} from './calendar';
+import {clone} from './clone';
+import {isBefore, isBetween, isSame, isAfter, isSameOrAfter, isSameOrBefore} from './compare';
+import {diff} from './diff';
+import {format, toString, toISOString, inspect} from './format';
+import {from, fromNow} from './from';
+import {to, toNow} from './to';
+import {stringGet, stringSet} from './get-set';
+import {locale, localeData, lang} from './locale';
+import {prototypeMin, prototypeMax} from './min-max';
+import {startOf, endOf} from './start-end-of';
+import {valueOf, toDate, toArray, toObject, toJSON, unix} from './to-type';
+import {isValid, parsingFlags, invalidAt} from './valid';
+import {creationData} from './creation-data';
 
 proto.add               = add;
 proto.calendar          = calendar;
@@ -58,35 +58,35 @@ proto.valueOf           = valueOf;
 proto.creationData      = creationData;
 
 // Year
-import { getSetYear, getIsLeapYear } from '../units/year';
+import {getSetYear, getIsLeapYear} from '../units/year';
 proto.year       = getSetYear;
 proto.isLeapYear = getIsLeapYear;
 
 // Week Year
-import { getSetWeekYear, getSetISOWeekYear, getWeeksInYear, getISOWeeksInYear } from '../units/week-year';
+import {getSetWeekYear, getSetISOWeekYear, getWeeksInYear, getISOWeeksInYear} from '../units/week-year';
 proto.weekYear    = getSetWeekYear;
 proto.isoWeekYear = getSetISOWeekYear;
 
 // Quarter
-import { getSetQuarter } from '../units/quarter';
+import {getSetQuarter} from '../units/quarter';
 proto.quarter = proto.quarters = getSetQuarter;
 
 // Month
-import { getSetMonth, getDaysInMonth } from '../units/month';
+import {getSetMonth, getDaysInMonth} from '../units/month';
 proto.month       = getSetMonth;
 proto.daysInMonth = getDaysInMonth;
 
 // Week
-import { getSetWeek, getSetISOWeek } from '../units/week';
+import {getSetWeek, getSetISOWeek} from '../units/week';
 proto.week           = proto.weeks        = getSetWeek;
 proto.isoWeek        = proto.isoWeeks     = getSetISOWeek;
 proto.weeksInYear    = getWeeksInYear;
 proto.isoWeeksInYear = getISOWeeksInYear;
 
 // Day
-import { getSetDayOfMonth } from '../units/day-of-month';
-import { getSetDayOfWeek, getSetISODayOfWeek, getSetLocaleDayOfWeek } from '../units/day-of-week';
-import { getSetDayOfYear } from '../units/day-of-year';
+import {getSetDayOfMonth} from '../units/day-of-month';
+import {getSetDayOfWeek, getSetISODayOfWeek, getSetLocaleDayOfWeek} from '../units/day-of-week';
+import {getSetDayOfYear} from '../units/day-of-year';
 proto.date       = getSetDayOfMonth;
 proto.day        = proto.days             = getSetDayOfWeek;
 proto.weekday    = getSetLocaleDayOfWeek;
@@ -94,19 +94,19 @@ proto.isoWeekday = getSetISODayOfWeek;
 proto.dayOfYear  = getSetDayOfYear;
 
 // Hour
-import { getSetHour } from '../units/hour';
+import {getSetHour} from '../units/hour';
 proto.hour = proto.hours = getSetHour;
 
 // Minute
-import { getSetMinute } from '../units/minute';
+import {getSetMinute} from '../units/minute';
 proto.minute = proto.minutes = getSetMinute;
 
 // Second
-import { getSetSecond } from '../units/second';
+import {getSetSecond} from '../units/second';
 proto.second = proto.seconds = getSetSecond;
 
 // Millisecond
-import { getSetMillisecond } from '../units/millisecond';
+import {getSetMillisecond} from '../units/millisecond';
 proto.millisecond = proto.milliseconds = getSetMillisecond;
 
 // Offset
@@ -135,12 +135,12 @@ proto.isUtc                = isUtc;
 proto.isUTC                = isUtc;
 
 // Timezone
-import { getZoneAbbr, getZoneName } from '../units/timezone';
+import {getZoneAbbr, getZoneName} from '../units/timezone';
 proto.zoneAbbr = getZoneAbbr;
 proto.zoneName = getZoneName;
 
 // Deprecations
-import { deprecate } from '../utils/deprecate';
+import {deprecate} from '../utils/deprecate';
 proto.dates  = deprecate('dates accessor is deprecated. Use date instead.', getSetDayOfMonth);
 proto.months = deprecate('months accessor is deprecated. Use month instead', getSetMonth);
 proto.years  = deprecate('years accessor is deprecated. Use year instead', getSetYear);

@@ -1,6 +1,6 @@
-import { normalizeUnits } from '../units/aliases';
+import {normalizeUnits} from '../units/aliases';
 
-export function startOf (units) {
+export function startOf(units) {
     units = normalizeUnits(units);
     // the following switch intentionally omits break keywords
     // to utilize falling through the cases.
@@ -44,7 +44,7 @@ export function startOf (units) {
     return this;
 }
 
-export function endOf (units) {
+export function endOf(units) {
     units = normalizeUnits(units);
     if (units === undefined || units === 'millisecond') {
         return this;

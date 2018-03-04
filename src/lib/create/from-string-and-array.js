@@ -1,7 +1,7 @@
-import { copyConfig } from '../moment/constructor';
-import { configFromStringAndFormat } from './from-string-and-format';
+import {copyConfig} from '../moment/constructor';
+import {configFromStringAndFormat} from './from-string-and-format';
 import getParsingFlags from './parsing-flags';
-import { isValid } from './valid';
+import {isValid} from './valid';
 import extend from '../utils/extend';
 
 // date from string and array of format strings

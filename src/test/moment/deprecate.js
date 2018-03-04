@@ -1,5 +1,5 @@
-import { module, test, expect } from '../qunit';
-import { deprecate } from '../../lib/utils/deprecate';
+import {module, test, expect} from '../qunit';
+import {deprecate} from '../../lib/utils/deprecate';
 import moment from '../../moment';
 
 module('deprecate');

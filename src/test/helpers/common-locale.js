@@ -1,4 +1,4 @@
-import { test, expect } from '../qunit';
+import {test, expect} from '../qunit';
 import each from './each';
 import objectKeys from './object-keys';
 import moment from '../../moment';
@@ -11,11 +11,11 @@ export function defineCommonLocaleTests(locale, options) {
             ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
             testMoment = moment(ordinalStr, 'YYYY MM Do');
             assert.equal(testMoment.year(), 2014,
-                    'lenient day of month ordinal parsing ' + i + ' year check');
+                'lenient day of month ordinal parsing ' + i + ' year check');
             assert.equal(testMoment.month(), 0,
-                    'lenient day of month ordinal parsing ' + i + ' month check');
+                'lenient day of month ordinal parsing ' + i + ' month check');
             assert.equal(testMoment.date(), i,
-                    'lenient day of month ordinal parsing ' + i + ' date check');
+                'lenient day of month ordinal parsing ' + i + ' date check');
         }
     });
 
@@ -24,11 +24,11 @@ export function defineCommonLocaleTests(locale, options) {
         for (i = 1; i <= 31; ++i) {
             testMoment = moment('2014 01 ' + i, 'YYYY MM Do');
             assert.equal(testMoment.year(), 2014,
-                    'lenient day of month ordinal parsing of number ' + i + ' year check');
+                'lenient day of month ordinal parsing of number ' + i + ' year check');
             assert.equal(testMoment.month(), 0,
-                    'lenient day of month ordinal parsing of number ' + i + ' month check');
+                'lenient day of month ordinal parsing of number ' + i + ' month check');
             assert.equal(testMoment.date(), i,
-                    'lenient day of month ordinal parsing of number ' + i + ' date check');
+                'lenient day of month ordinal parsing of number ' + i + ' date check');
         }
     });
 
@@ -48,7 +48,7 @@ export function defineCommonLocaleTests(locale, options) {
                 t1 = moment.utc([2000, 0, 1, h, m]);
                 t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
                 assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
-                        'meridiem at ' + t1.format('HH:mm'));
+                    'meridiem at ' + t1.format('HH:mm'));
             }
         }
     });
@@ -64,7 +64,7 @@ export function defineCommonLocaleTests(locale, options) {
                 // strip escaped sequences
                 var format = data[baseToken].replace(/(\[[^\]]*\])/g, '');
                 assert.equal(false, !!~format.indexOf(srchToken),
-                        'contains ' + srchToken + ' in ' + baseToken);
+                    'contains ' + srchToken + ' in ' + baseToken);
             });
         });
     });

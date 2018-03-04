@@ -1,4 +1,4 @@
-import { module, test } from '../qunit';
+import {module, test} from '../qunit';
 import moment from '../../moment';
 
 module('getters and setters');
@@ -201,11 +201,11 @@ test('setters - falsey values', function (assert) {
 test('chaining setters', function (assert) {
     var a = moment();
     a.year(2011)
-     .month(9)
-     .date(12)
-     .hours(6)
-     .minutes(7)
-     .seconds(8);
+        .month(9)
+        .date(12)
+        .hours(6)
+        .minutes(7)
+        .seconds(8);
     assert.equal(a.year(), 2011, 'year');
     assert.equal(a.month(), 9, 'month');
     assert.equal(a.date(), 12, 'date');

@@ -1,4 +1,4 @@
-import { localeModule, test } from '../qunit';
+import {localeModule, test} from '../qunit';
 import moment from '../../moment';
 localeModule('yo');
 

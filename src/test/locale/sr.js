@@ -198,14 +198,14 @@ test('calendar last week', function (assert) {
 
     function makeFormat(d) {
         var lastWeekDay = [
-                '[prošle] [nedelje] [u] LT',
-                '[prošlog] [ponedeljka] [u] LT',
-                '[prošlog] [utorka] [u] LT',
-                '[prošle] [srede] [u] LT',
-                '[prošlog] [četvrtka] [u] LT',
-                '[prošlog] [petka] [u] LT',
-                '[prošle] [subote] [u] LT'
-            ];
+            '[prošle] [nedelje] [u] LT',
+            '[prošlog] [ponedeljka] [u] LT',
+            '[prošlog] [utorka] [u] LT',
+            '[prošle] [srede] [u] LT',
+            '[prošlog] [četvrtka] [u] LT',
+            '[prošlog] [petka] [u] LT',
+            '[prošle] [subote] [u] LT'
+        ];
 
         return lastWeekDay[d.day()];
     }

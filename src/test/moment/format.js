@@ -1,4 +1,4 @@
-import { module, test } from '../qunit';
+import {module, test} from '../qunit';
 import each from '../helpers/each';
 import moment from '../../moment';
 
@@ -118,7 +118,7 @@ test('unix offset milliseconds', function (assert) {
 
 test('utcOffset sanity checks', function (assert) {
     assert.equal(moment().utcOffset() % 15, 0,
-            'utc offset should be a multiple of 15 (was ' + moment().utcOffset() + ')');
+        'utc offset should be a multiple of 15 (was ' + moment().utcOffset() + ')');
 
     assert.equal(moment().utcOffset(), -(new Date()).getTimezoneOffset(),
         'utcOffset should return the opposite of getTimezoneOffset');
@@ -258,24 +258,24 @@ test('toISOString() when 0 year', function (assert) {
 test('iso week formats', function (assert) {
     // https://en.wikipedia.org/wiki/ISO_week_date
     var cases = {
-        '2005-01-02': '2004-53',
-        '2005-12-31': '2005-52',
-        '2007-01-01': '2007-01',
-        '2007-12-30': '2007-52',
-        '2007-12-31': '2008-01',
-        '2008-01-01': '2008-01',
-        '2008-12-28': '2008-52',
-        '2008-12-29': '2009-01',
-        '2008-12-30': '2009-01',
-        '2008-12-31': '2009-01',
-        '2009-01-01': '2009-01',
-        '2009-12-31': '2009-53',
-        '2010-01-01': '2009-53',
-        '2010-01-02': '2009-53',
-        '2010-01-03': '2009-53',
-        '404-12-31': '0404-53',
-        '405-12-31': '0405-52'
-    }, i, isoWeek, formatted2, formatted1;
+            '2005-01-02': '2004-53',
+            '2005-12-31': '2005-52',
+            '2007-01-01': '2007-01',
+            '2007-12-30': '2007-52',
+            '2007-12-31': '2008-01',
+            '2008-01-01': '2008-01',
+            '2008-12-28': '2008-52',
+            '2008-12-29': '2009-01',
+            '2008-12-30': '2009-01',
+            '2008-12-31': '2009-01',
+            '2009-01-01': '2009-01',
+            '2009-12-31': '2009-53',
+            '2010-01-01': '2009-53',
+            '2010-01-02': '2009-53',
+            '2010-01-03': '2009-53',
+            '404-12-31': '0404-53',
+            '405-12-31': '0405-52'
+        }, i, isoWeek, formatted2, formatted1;
 
     for (i in cases) {
         isoWeek = cases[i].split('-').pop();
@@ -290,24 +290,24 @@ test('iso week formats', function (assert) {
 test('iso week year formats', function (assert) {
     // https://en.wikipedia.org/wiki/ISO_week_date
     var cases = {
-        '2005-01-02': '2004-53',
-        '2005-12-31': '2005-52',
-        '2007-01-01': '2007-01',
-        '2007-12-30': '2007-52',
-        '2007-12-31': '2008-01',
-        '2008-01-01': '2008-01',
-        '2008-12-28': '2008-52',
-        '2008-12-29': '2009-01',
-        '2008-12-30': '2009-01',
-        '2008-12-31': '2009-01',
-        '2009-01-01': '2009-01',
-        '2009-12-31': '2009-53',
-        '2010-01-01': '2009-53',
-        '2010-01-02': '2009-53',
-        '2010-01-03': '2009-53',
-        '404-12-31': '0404-53',
-        '405-12-31': '0405-52'
-    }, i, isoWeekYear, formatted5, formatted4, formatted2;
+            '2005-01-02': '2004-53',
+            '2005-12-31': '2005-52',
+            '2007-01-01': '2007-01',
+            '2007-12-30': '2007-52',
+            '2007-12-31': '2008-01',
+            '2008-01-01': '2008-01',
+            '2008-12-28': '2008-52',
+            '2008-12-29': '2009-01',
+            '2008-12-30': '2009-01',
+            '2008-12-31': '2009-01',
+            '2009-01-01': '2009-01',
+            '2009-12-31': '2009-53',
+            '2010-01-01': '2009-53',
+            '2010-01-02': '2009-53',
+            '2010-01-03': '2009-53',
+            '404-12-31': '0404-53',
+            '405-12-31': '0405-52'
+        }, i, isoWeekYear, formatted5, formatted4, formatted2;
 
     for (i in cases) {
         isoWeekYear = cases[i].split('-')[0];
@@ -323,24 +323,24 @@ test('iso week year formats', function (assert) {
 test('week year formats', function (assert) {
     // https://en.wikipedia.org/wiki/ISO_week_date
     var cases = {
-        '2005-01-02': '2004-53',
-        '2005-12-31': '2005-52',
-        '2007-01-01': '2007-01',
-        '2007-12-30': '2007-52',
-        '2007-12-31': '2008-01',
-        '2008-01-01': '2008-01',
-        '2008-12-28': '2008-52',
-        '2008-12-29': '2009-01',
-        '2008-12-30': '2009-01',
-        '2008-12-31': '2009-01',
-        '2009-01-01': '2009-01',
-        '2009-12-31': '2009-53',
-        '2010-01-01': '2009-53',
-        '2010-01-02': '2009-53',
-        '2010-01-03': '2009-53',
-        '404-12-31': '0404-53',
-        '405-12-31': '0405-52'
-    }, i, isoWeekYear, formatted5, formatted4, formatted2;
+            '2005-01-02': '2004-53',
+            '2005-12-31': '2005-52',
+            '2007-01-01': '2007-01',
+            '2007-12-30': '2007-52',
+            '2007-12-31': '2008-01',
+            '2008-01-01': '2008-01',
+            '2008-12-28': '2008-52',
+            '2008-12-29': '2009-01',
+            '2008-12-30': '2009-01',
+            '2008-12-31': '2009-01',
+            '2009-01-01': '2009-01',
+            '2009-12-31': '2009-53',
+            '2010-01-01': '2009-53',
+            '2010-01-02': '2009-53',
+            '2010-01-03': '2009-53',
+            '404-12-31': '0404-53',
+            '405-12-31': '0405-52'
+        }, i, isoWeekYear, formatted5, formatted4, formatted2;
 
     moment.defineLocale('dow:1,doy:4', {week: {dow: 1, doy: 4}});
 
@@ -405,7 +405,7 @@ test('calendar day timezone', function (assert) {
         z = zones[i];
         a = moment().utcOffset(z).startOf('day').subtract({m: 1});
         assert.equal(moment(a).utcOffset(z).calendar(), 'Yesterday at 11:59 PM',
-                     'Yesterday at 11:59 PM, not Today, or the wrong time, tz = ' + z);
+            'Yesterday at 11:59 PM, not Today, or the wrong time, tz = ' + z);
     }
 
     assert.equal(moment(b).utc().calendar(), 'Yesterday at 11:59 PM', 'Yesterday at 11:59 PM, not Today, or the wrong time');

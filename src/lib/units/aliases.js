@@ -2,7 +2,7 @@ import hasOwnProp from '../utils/has-own-prop';
 
 var aliases = {};
 
-export function addUnitAlias (unit, shorthand) {
+export function addUnitAlias(unit, shorthand) {
     var lowerCase = unit.toLowerCase();
     aliases[lowerCase] = aliases[lowerCase + 's'] = aliases[shorthand] = unit;
 }

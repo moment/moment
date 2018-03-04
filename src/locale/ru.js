@@ -21,8 +21,7 @@ function relativeTimeWithPlural(number, withoutSuffix, key) {
     };
     if (key === 'm') {
         return withoutSuffix ? 'минута' : 'минуту';
-    }
-    else {
+    } else {
         return number + ' ' + plural(format[key], +number);
     }
 }

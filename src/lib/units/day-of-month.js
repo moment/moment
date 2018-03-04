@@ -1,10 +1,10 @@
-import { makeGetSet } from '../moment/get-set';
-import { addFormatToken } from '../format/format';
-import { addUnitAlias } from './aliases';
-import { addUnitPriority } from './priorities';
-import { addRegexToken, match1to2, match2 } from '../parse/regex';
-import { addParseToken } from '../parse/token';
-import { DATE } from './constants';
+import {makeGetSet} from '../moment/get-set';
+import {addFormatToken} from '../format/format';
+import {addUnitAlias} from './aliases';
+import {addUnitPriority} from './priorities';
+import {addRegexToken, match1to2, match2} from '../parse/regex';
+import {addParseToken} from '../parse/token';
+import {DATE} from './constants';
 import toInt from '../utils/to-int';
 
 // FORMATTING
@@ -25,8 +25,8 @@ addRegexToken('DD', match1to2, match2);
 addRegexToken('Do', function (isStrict, locale) {
     // TODO: Remove "ordinalParse" fallback in next major release.
     return isStrict ?
-      (locale._dayOfMonthOrdinalParse || locale._ordinalParse) :
-      locale._dayOfMonthOrdinalParseLenient;
+        (locale._dayOfMonthOrdinalParse || locale._ordinalParse) :
+        locale._dayOfMonthOrdinalParseLenient;
 });
 
 addParseToken(['D', 'DD'], DATE);

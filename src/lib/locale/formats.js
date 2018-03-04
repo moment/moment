@@ -7,7 +7,7 @@ export var defaultLongDateFormat = {
     LLLL : 'dddd, MMMM D, YYYY h:mm A'
 };
 
-export function longDateFormat (key) {
+export function longDateFormat(key) {
     var format = this._longDateFormat[key],
         formatUpper = this._longDateFormat[key.toUpperCase()];
 

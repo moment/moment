@@ -37,32 +37,32 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-        ['dddd, MMMM Do YYYY, h:mm:ss a', 'Didòmhnaich, An Gearran 14mh 2010, 3:25:50 pm'],
-        ['ddd, hA', 'Did, 3PM'],
-        ['M Mo MM MMMM MMM', '2 2na 02 An Gearran Gear'],
-        ['YYYY YY', '2010 10'],
-        ['D Do DD', '14 14mh 14'],
-        ['d do dddd ddd dd', '0 0mh Didòmhnaich Did Dò'],
-        ['DDD DDDo DDDD', '45 45mh 045'],
-        ['w wo ww', '6 6mh 06'],
-        ['h hh', '3 03'],
-        ['H HH', '15 15'],
-        ['m mm', '25 25'],
-        ['s ss', '50 50'],
-        ['a A', 'pm PM'],
-        ['[an] DDDo [latha den bhliadhna]', 'an 45mh latha den bhliadhna'],
-        ['LTS', '15:25:50'],
-        ['L', '14/02/2010'],
-        ['LL', '14 An Gearran 2010'],
-        ['LLL', '14 An Gearran 2010 15:25'],
-        ['LLLL', 'Didòmhnaich, 14 An Gearran 2010 15:25'],
-        ['l', '14/2/2010'],
-        ['ll', '14 Gear 2010'],
-        ['lll', '14 Gear 2010 15:25'],
-        ['llll', 'Did, 14 Gear 2010 15:25']
-    ],
-    b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
-    i;
+            ['dddd, MMMM Do YYYY, h:mm:ss a', 'Didòmhnaich, An Gearran 14mh 2010, 3:25:50 pm'],
+            ['ddd, hA', 'Did, 3PM'],
+            ['M Mo MM MMMM MMM', '2 2na 02 An Gearran Gear'],
+            ['YYYY YY', '2010 10'],
+            ['D Do DD', '14 14mh 14'],
+            ['d do dddd ddd dd', '0 0mh Didòmhnaich Did Dò'],
+            ['DDD DDDo DDDD', '45 45mh 045'],
+            ['w wo ww', '6 6mh 06'],
+            ['h hh', '3 03'],
+            ['H HH', '15 15'],
+            ['m mm', '25 25'],
+            ['s ss', '50 50'],
+            ['a A', 'pm PM'],
+            ['[an] DDDo [latha den bhliadhna]', 'an 45mh latha den bhliadhna'],
+            ['LTS', '15:25:50'],
+            ['L', '14/02/2010'],
+            ['LL', '14 An Gearran 2010'],
+            ['LLL', '14 An Gearran 2010 15:25'],
+            ['LLLL', 'Didòmhnaich, 14 An Gearran 2010 15:25'],
+            ['l', '14/2/2010'],
+            ['ll', '14 Gear 2010'],
+            ['lll', '14 Gear 2010 15:25'],
+            ['llll', 'Did, 14 Gear 2010 15:25']
+        ],
+        b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
+        i;
     for (i = 0; i < a.length; i++) {
         assert.equal(b.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
     }
@@ -200,7 +200,7 @@ test('calendar last week', function (assert) {
 
 test('calendar all else', function (assert) {
     var weeksAgo = moment().subtract({w: 1}),
-       weeksFromNow = moment().add({w: 1});
+        weeksFromNow = moment().add({w: 1});
 
     assert.equal(weeksAgo.calendar(), weeksAgo.format('L'), '1 week ago');
     assert.equal(weeksFromNow.calendar(), weeksFromNow.format('L'), 'in 1 week');

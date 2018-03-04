@@ -1,4 +1,4 @@
-import { module, test } from '../qunit';
+import {module, test} from '../qunit';
 import moment from '../../moment';
 
 module('duration');
@@ -505,9 +505,9 @@ test('bubbling consistency', function (assert) {
         newDays = d.days();
         newMonths = d.months() + d.years() * 12;
         assert.ok(
-                (months === newMonths && days + 1 === newDays) ||
+            (months === newMonths && days + 1 === newDays) ||
                 (months + 1 === newMonths && newDays === 0),
-                'consistent total days ' + totalDays +
+            'consistent total days ' + totalDays +
                 ' was ' + months + ' ' + days +
                 ' now ' + newMonths + ' ' + newDays);
         days = newDays;

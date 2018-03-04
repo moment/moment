@@ -3,7 +3,7 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         env : {
             sauceLabs : (grunt.file.exists('.sauce-labs.creds') ?
-                    grunt.file.readJSON('.sauce-labs.creds') : {})
+                grunt.file.readJSON('.sauce-labs.creds') : {})
         },
         karma : {
             options: {

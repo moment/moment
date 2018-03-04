@@ -1,13 +1,13 @@
-import { addFormatToken } from '../format/format';
-import { addUnitAlias } from './aliases';
-import { addUnitPriority } from './priorities';
-import { addRegexToken, match1to2, match1to4, match1to6, match2, match4, match6, matchSigned } from '../parse/regex';
-import { addWeekParseToken } from '../parse/token';
-import { weekOfYear, weeksInYear, dayOfYearFromWeeks } from './week-calendar-utils';
+import {addFormatToken} from '../format/format';
+import {addUnitAlias} from './aliases';
+import {addUnitPriority} from './priorities';
+import {addRegexToken, match1to2, match1to4, match1to6, match2, match4, match6, matchSigned} from '../parse/regex';
+import {addWeekParseToken} from '../parse/token';
+import {weekOfYear, weeksInYear, dayOfYearFromWeeks} from './week-calendar-utils';
 import toInt from '../utils/to-int';
-import { hooks } from '../utils/hooks';
-import { createLocal } from '../create/local';
-import { createUTCDate } from '../create/date-from-array';
+import {hooks} from '../utils/hooks';
+import {createLocal} from '../create/local';
+import {createUTCDate} from '../create/date-from-array';
 
 // FORMATTING
 
@@ -19,7 +19,7 @@ addFormatToken(0, ['GG', 2], 0, function () {
     return this.isoWeekYear() % 100;
 });
 
-function addWeekYearFormatToken (token, getter) {
+function addWeekYearFormatToken(token, getter) {
     addFormatToken(0, [token, token.length], 0, getter);
 }
 
@@ -60,25 +60,25 @@ addWeekParseToken(['gg', 'GG'], function (input, week, config, token) {
 
 // MOMENTS
 
-export function getSetWeekYear (input) {
+export function getSetWeekYear(input) {
     return getSetWeekYearHelper.call(this,
-            input,
-            this.week(),
-            this.weekday(),
-            this.localeData()._week.dow,
-            this.localeData()._week.doy);
+        input,
+        this.week(),
+        this.weekday(),
+        this.localeData()._week.dow,
+        this.localeData()._week.doy);
 }
 
-export function getSetISOWeekYear (input) {
+export function getSetISOWeekYear(input) {
     return getSetWeekYearHelper.call(this,
-            input, this.isoWeek(), this.isoWeekday(), 1, 4);
+        input, this.isoWeek(), this.isoWeekday(), 1, 4);
 }
 
-export function getISOWeeksInYear () {
+export function getISOWeeksInYear() {
     return weeksInYear(this.year(), 1, 4);
 }
 
-export function getWeeksInYear () {
+export function getWeeksInYear() {
     var weekInfo = this.localeData()._week;
     return weeksInYear(this.year(), weekInfo.dow, weekInfo.doy);
 }
