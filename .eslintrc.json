@@ -1,0 +1,33 @@
+{
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "rules": {
+        "array-bracket-spacing": [2, "never"],
+        "brace-style": [2, "1tbs"],
+        "camelcase": [2, { "properties": "never" }],
+        "comma-dangle": [2, "never"],
+        "comma-style": [2, "last"],
+        "curly": [2, "all"],
+        "eol-last": 2,
+        "indent": [2, 4, { "SwitchCase": 1 }],
+        "keyword-spacing": 2,
+        "new-cap": 2,
+        "no-empty": [2, { "allowEmptyCatch": true }],
+        "no-multi-str": 2,
+        "no-trailing-spaces": 2,
+        "no-with": 2,
+        "object-curly-spacing": [2, "never"],
+        "padded-blocks": [2, "never"],
+        "quotes": [2, "single", { "avoidEscape": true }],
+        "space-before-blocks": [2, "always"],
+        "space-before-function-paren": [
+            2,
+            { "anonymous": "always", "named": "never" }
+        ],
+        "space-in-parens": [2, "never"],
+        "space-infix-ops": 2,
+        "space-unary-ops": [2, { "words": true, "nonwords": false }],
+        "wrap-iife": [2, "any"]
+    }
+}

@@ -130,14 +130,14 @@ module.exports = function (grunt) {
                 jshintrc: true
             }
         },
-        jscs: {
+        eslint: {
             all: [
                 'Gruntfile.js',
                 'tasks/**.js',
                 'src/**/*.js'
             ],
             options: {
-                config: '.jscs.json'
+                config: '.eslintrc.json'
             }
         },
         watch : {
@@ -185,7 +185,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['lint', 'test']);
 
     // linting
-    grunt.registerTask('lint', ['jshint', 'jscs']);
+    grunt.registerTask('lint', ['jshint', 'eslint']);
 
     // test tasks
     grunt.registerTask('test', ['test:node', 'test:typescript']);
