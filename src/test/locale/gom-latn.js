@@ -159,6 +159,10 @@ test('fromNow', function (assert) {
     assert.equal(moment().add({d: 5}).fromNow(), '5 dis', 'in 5 days');
 });
 
+test('ago', function (assert) {
+    assert.equal(moment().subtract({h: 3}).fromNow(), '3 horam adim', '3 hours ago');
+});
+
 test('calendar day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
 
