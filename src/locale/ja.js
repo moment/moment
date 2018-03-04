@@ -16,11 +16,11 @@ export default moment.defineLocale('ja', {
         L : 'YYYY/MM/DD',
         LL : 'YYYY年M月D日',
         LLL : 'YYYY年M月D日 HH:mm',
-        LLLL : 'YYYY年M月D日 HH:mm dddd',
+        LLLL : 'YYYY年M月D日 dddd HH:mm',
         l : 'YYYY/MM/DD',
         ll : 'YYYY年M月D日',
         lll : 'YYYY年M月D日 HH:mm',
-        llll : 'YYYY年M月D日 HH:mm dddd'
+        llll : 'YYYY年M月D日(ddd) HH:mm'
     },
     meridiemParse: /午前|午後/i,
     isPM : function (input) {
@@ -36,9 +36,21 @@ export default moment.defineLocale('ja', {
     calendar : {
         sameDay : '[今日] LT',
         nextDay : '[明日] LT',
-        nextWeek : '[来週]dddd LT',
+        nextWeek : function (now) {
+            if (now.week() < this.week()) {
+                return '[来週]dddd LT';
+            } else {
+                return 'dddd LT';
+            }
+        },
         lastDay : '[昨日] LT',
-        lastWeek : '[前週]dddd LT',
+        lastWeek : function (now) {
+            if (this.week() < now.week()) {
+                return '[先週]dddd LT';
+            } else {
+                return 'dddd LT';
+            }
+        },
         sameElse : 'L'
     },
     dayOfMonthOrdinalParse : /\d{1,2}日/,
