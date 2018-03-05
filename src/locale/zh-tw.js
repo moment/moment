@@ -53,11 +53,11 @@ export default moment.defineLocale('zh-tw', {
         }
     },
     calendar : {
-        sameDay : '[今天]LT',
-        nextDay : '[明天]LT',
-        nextWeek : '[下]ddddLT',
-        lastDay : '[昨天]LT',
-        lastWeek : '[上]ddddLT',
+        sameDay : '[今天] LT',
+        nextDay : '[明天] LT',
+        nextWeek : '[下]dddd LT',
+        lastDay : '[昨天] LT',
+        lastWeek : '[上]dddd LT',
         sameElse : 'L'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(日|月|週)/,
