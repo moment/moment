@@ -39,10 +39,12 @@ There are a number of small backwards incompatible changes with version 2.0.0. [
 
 ## [Changelog](https://github.com/moment/moment/blob/develop/CHANGELOG.md)
 
-## [Contributing](https://github.com/moment/moment/blob/develop/CONTRIBUTING.md)
+## [Contributing](https://github.com/moment/moment/blob/develop/CONTRIBUTING.md) [![Open Source Helpers](https://www.codetriage.com/moment/moment/badges/users.svg)](https://www.codetriage.com/moment/moment)
 
 We're looking for co-maintainers! If you want to become a master of time please
 write to [ichernev](https://github.com/ichernev).
+
+In addition to contributing code, you can help to triage issues. This can include reproducing bug reports, or asking for vital information such as version numbers or reproduction instructions. If you would like to start triaging issues, one easy way to get started is to [subscribe to moment/moment on CodeTriage](https://www.codetriage.com/moment/moment).
 
 ## License
 
