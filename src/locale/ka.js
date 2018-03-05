@@ -41,10 +41,10 @@ export default moment.defineLocale('ka', {
         },
         past : function (s) {
             if ((/(წამი|წუთი|საათი|დღე|თვე)/).test(s)) {
-                return s.replace(/(ი|ე)$/, 'ის უკან');
+                return s.replace(/(ი|ე)$/, 'ის წინ');
             }
             if ((/წელი/).test(s)) {
-                return s.replace(/წელი$/, 'წლის უკან');
+                return s.replace(/წელი$/, 'წლის წინ');
             }
         },
         s : 'რამდენიმე წამი',
