@@ -706,6 +706,8 @@ declare namespace moment {
   export function relativeTimeRounding(): (num: number) => number;
   export function calendarFormat(m: Moment, now: Moment): string;
 
+  export function parseTwoDigitYear(input: string): number;
+
   /**
    * Constant used to enable explicit ISO_8601 format parsing.
    */
