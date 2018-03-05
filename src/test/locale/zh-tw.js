@@ -119,23 +119,23 @@ test('fromNow', function (assert) {
 test('calendar day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                   '今天12:00', 'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      '今天12:25', 'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),       '今天13:00', 'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       '明天12:00', 'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  '今天11:00', 'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  '昨天12:00', 'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   '今天 12:00', 'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      '今天 12:25', 'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       '今天 13:00', 'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       '明天 12:00', 'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  '今天 11:00', 'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  '昨天 12:00', 'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {
     var i, m;
     for (i = 2; i < 7; i++) {
         m = moment().add({d: i});
-        assert.equal(m.calendar(),       m.format('[下]ddddLT'),  'Today + ' + i + ' days current time');
+        assert.equal(m.calendar(),       m.format('[下]dddd LT'),  'Today + ' + i + ' days current time');
         m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(m.calendar(),       m.format('[下]ddddLT'),  'Today + ' + i + ' days beginning of day');
+        assert.equal(m.calendar(),       m.format('[下]dddd LT'),  'Today + ' + i + ' days beginning of day');
         m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(m.calendar(),       m.format('[下]ddddLT'),  'Today + ' + i + ' days end of day');
+        assert.equal(m.calendar(),       m.format('[下]dddd LT'),  'Today + ' + i + ' days end of day');
     }
 });
 
@@ -143,11 +143,11 @@ test('calendar last week', function (assert) {
     var i, m;
     for (i = 2; i < 7; i++) {
         m = moment().subtract({d: i});
-        assert.equal(m.calendar(),       m.format('[上]ddddLT'),  'Today - ' + i + ' days current time');
+        assert.equal(m.calendar(),       m.format('[上]dddd LT'),  'Today - ' + i + ' days current time');
         m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(m.calendar(),       m.format('[上]ddddLT'),  'Today - ' + i + ' days beginning of day');
+        assert.equal(m.calendar(),       m.format('[上]dddd LT'),  'Today - ' + i + ' days beginning of day');
         m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(m.calendar(),       m.format('[上]ddddLT'),  'Today - ' + i + ' days end of day');
+        assert.equal(m.calendar(),       m.format('[上]dddd LT'),  'Today - ' + i + ' days end of day');
     }
 });
 
