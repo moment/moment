@@ -8,6 +8,10 @@ export var defaultLongDateFormat = {
 };
 
 export function longDateFormat (key) {
+    if (!key) {
+        console.warn('dateFormat is one of abbreviated date-time formats LT, L, LL, LLL, LLLL');
+        return;
+    }
     var format = this._longDateFormat[key],
         formatUpper = this._longDateFormat[key.toUpperCase()];
 

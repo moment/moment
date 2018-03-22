@@ -38,6 +38,10 @@ addWeekParseToken(['w', 'ww', 'W', 'WW'], function (input, week, config, token) 
 // LOCALES
 
 export function localeWeek (mom) {
+    if (!mom) {
+        console.warn('moment is required for week(aMoment) method');
+        return;
+    }
     return weekOfYear(mom, this._week.dow, this._week.doy).week;
 }
 

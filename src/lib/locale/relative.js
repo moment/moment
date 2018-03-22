@@ -18,6 +18,10 @@ export var defaultRelativeTime = {
 import isFunction from '../utils/is-function';
 
 export function relativeTime (number, withoutSuffix, string, isFuture) {
+    if (!number) {
+        console.warn("key is on of 's', 'm', 'mm', 'h', 'hh', 'd', 'dd', 'M', 'MM', 'y', 'yy'");
+        return;
+    }
     var output = this._relativeTime[string];
     return (isFunction(output)) ?
         output(number, withoutSuffix, string, isFuture) :
