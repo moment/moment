@@ -1,10 +1,10 @@
 import { isMoment } from './constructor';
 import { normalizeUnits } from '../units/aliases';
-import { createLocal } from '../create/local';
+import { createUTC } from '../create/local';
 import isUndefined from '../utils/is-undefined';
 
 export function isAfter (input, units) {
-    var localInput = isMoment(input) ? input : createLocal(input);
+    var localInput = isMoment(input) ? input : createUTC(input, this._isUTC);
     if (!(this.isValid() && localInput.isValid())) {
         return false;
     }
@@ -17,7 +17,7 @@ export function isAfter (input, units) {
 }
 
 export function isBefore (input, units) {
-    var localInput = isMoment(input) ? input : createLocal(input);
+    var localInput = isMoment(input) ? input : createUTC(input, this._isUTC);
     if (!(this.isValid() && localInput.isValid())) {
         return false;
     }
@@ -36,7 +36,7 @@ export function isBetween (from, to, units, inclusivity) {
 }
 
 export function isSame (input, units) {
-    var localInput = isMoment(input) ? input : createLocal(input),
+    var localInput = isMoment(input) ? input : createUTC(input, this._isUTC),
         inputMs;
     if (!(this.isValid() && localInput.isValid())) {
         return false;
