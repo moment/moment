@@ -30,7 +30,7 @@ export function isBefore (input, units) {
 }
 
 export function isBetween (from, to, units, inclusivity) {
-    if (!(this.isValid())) {
+    if (!this.isValid()) {
         return false;
     }
     inclusivity = inclusivity || '()';
