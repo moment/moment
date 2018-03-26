@@ -355,3 +355,19 @@ test('is between millisecond', function (assert) {
     assert.equal(m.isBetween(m, 'millisecond'), false, 'same moments are not between the same millisecond');
     assert.equal(+m, +mCopy, 'isBetween millisecond should not change moment');
 });
+
+test('is between with invalid date', function (assert) {
+    var m = moment('');
+    assert.equal(m.isBetween(
+                moment(new Date(2001, 3, 2, 3, 4, 5, 10)),
+                moment(new Date(2099, 3, 2, 3, 4, 5, 10))), false, 'date is undefined');
+    assert.equal(m.isBetween(
+                moment(new Date(2001, 3, 2, 3, 4, 5, 10)),
+                moment(new Date(2099, 3, 2, 3, 4, 5, 10)), 'millisecond'), false, 'date is undefined');
+    assert.equal(m.isBetween(
+                moment(new Date(2001, 3, 2, 3, 4, 5, 10)),
+                moment(new Date(2099, 3, 2, 3, 4, 5, 10)), 'millisecond', '()'), false, 'date is undefined');
+    assert.equal(m.isBetween(
+                moment(new Date(2001, 3, 2, 3, 4, 5, 10)),
+                moment(new Date(2099, 3, 2, 3, 4, 5, 10)), 'millisecond', '[]'), false, 'date is undefined');
+});
