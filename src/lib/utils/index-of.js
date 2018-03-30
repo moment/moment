@@ -15,4 +15,4 @@ if (Array.prototype.indexOf) {
     };
 }
 
-export { indexOf as default };
+export {indexOf as default};

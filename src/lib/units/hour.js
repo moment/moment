@@ -1,10 +1,10 @@
-import { makeGetSet } from '../moment/get-set';
-import { addFormatToken } from '../format/format';
-import { addUnitAlias } from './aliases';
-import { addUnitPriority } from './priorities';
-import { addRegexToken, match1to2, match2, match3to4, match5to6 } from '../parse/regex';
-import { addParseToken } from '../parse/token';
-import { HOUR, MINUTE, SECOND } from './constants';
+import {makeGetSet} from '../moment/get-set';
+import {addFormatToken} from '../format/format';
+import {addUnitAlias} from './aliases';
+import {addUnitPriority} from './priorities';
+import {addRegexToken, match1to2, match2, match3to4, match5to6} from '../parse/regex';
+import {addParseToken} from '../parse/token';
+import {HOUR, MINUTE, SECOND} from './constants';
 import toInt from '../utils/to-int';
 import zeroFill from '../utils/zero-fill';
 import getParsingFlags from '../create/parsing-flags';
@@ -41,7 +41,7 @@ addFormatToken('Hmmss', 0, 0, function () {
         zeroFill(this.seconds(), 2);
 });
 
-function meridiem (token, lowercase) {
+function meridiem(token, lowercase) {
     addFormatToken(token, 0, 0, function () {
         return this.localeData().meridiem(this.hours(), this.minutes(), lowercase);
     });
@@ -59,7 +59,7 @@ addUnitPriority('hour', 13);
 
 // PARSING
 
-function matchMeridiem (isStrict, locale) {
+function matchMeridiem(isStrict, locale) {
     return locale._meridiemParse;
 }
 
@@ -119,14 +119,14 @@ addParseToken('Hmmss', function (input, array, config) {
 
 // LOCALES
 
-export function localeIsPM (input) {
+export function localeIsPM(input) {
     // IE8 Quirks Mode & IE7 Standards Mode do not allow accessing strings like arrays
     // Using charAt should be more compatible.
     return ((input + '').toLowerCase().charAt(0) === 'p');
 }
 
 export var defaultLocaleMeridiemParse = /[ap]\.?m?\.?/i;
-export function localeMeridiem (hours, minutes, isLower) {
+export function localeMeridiem(hours, minutes, isLower) {
     if (hours > 11) {
         return isLower ? 'pm' : 'PM';
     } else {

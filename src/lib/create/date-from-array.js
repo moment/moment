@@ -1,4 +1,4 @@
-export function createDate (y, m, d, h, M, s, ms) {
+export function createDate(y, m, d, h, M, s, ms) {
     // can't just apply() to create a date:
     // https://stackoverflow.com/q/181348
     var date = new Date(y, m, d, h, M, s, ms);
@@ -10,7 +10,7 @@ export function createDate (y, m, d, h, M, s, ms) {
     return date;
 }
 
-export function createUTCDate (y) {
+export function createUTCDate(y) {
     var date = new Date(Date.UTC.apply(null, arguments));
 
     // the Date.UTC function remaps years 0-99 to 1900-1999

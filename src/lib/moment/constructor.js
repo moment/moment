@@ -1,4 +1,4 @@
-import { hooks } from '../utils/hooks';
+import {hooks} from '../utils/hooks';
 import hasOwnProp from '../utils/has-own-prop';
 import isUndefined from '../utils/is-undefined';
 import getParsingFlags from '../create/parsing-flags';
@@ -72,6 +72,6 @@ export function Moment(config) {
     }
 }
 
-export function isMoment (obj) {
+export function isMoment(obj) {
     return obj instanceof Moment || (obj != null && obj._isAMomentObject != null);
 }

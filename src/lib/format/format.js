@@ -13,7 +13,7 @@ export var formatTokenFunctions = {};
 // padded:   ['MM', 2]
 // ordinal:  'Mo'
 // callback: function () { this.month() + 1 }
-export function addFormatToken (token, padded, ordinal, callback) {
+export function addFormatToken(token, padded, ordinal, callback) {
     var func = callback;
     if (typeof callback === 'string') {
         func = function () {

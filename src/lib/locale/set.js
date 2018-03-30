@@ -3,7 +3,7 @@ import extend from '../utils/extend';
 import isObject from '../utils/is-object';
 import hasOwnProp from '../utils/has-own-prop';
 
-export function set (config) {
+export function set(config) {
     var prop, i;
     for (i in config) {
         prop = config[i];

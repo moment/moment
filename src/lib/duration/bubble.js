@@ -1,8 +1,8 @@
 import absFloor from '../utils/abs-floor';
 import absCeil from '../utils/abs-ceil';
-import { createUTCDate } from '../create/date-from-array';
+import {createUTCDate} from '../create/date-from-array';
 
-export function bubble () {
+export function bubble() {
     var milliseconds = this._milliseconds;
     var days         = this._days;
     var months       = this._months;
@@ -49,13 +49,13 @@ export function bubble () {
     return this;
 }
 
-export function daysToMonths (days) {
+export function daysToMonths(days) {
     // 400 years have 146097 days (taking into account leap year rules)
     // 400 years have 12 months === 4800
     return days * 4800 / 146097;
 }
 
-export function monthsToDays (months) {
+export function monthsToDays(months) {
     // the reverse of daysToMonths
     return months * 146097 / 4800;
 }

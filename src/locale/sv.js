@@ -48,9 +48,9 @@ export default moment.defineLocale('sv', {
     ordinal : function (number) {
         var b = number % 10,
             output = (~~(number % 100 / 10) === 1) ? 'e' :
-            (b === 1) ? 'a' :
-            (b === 2) ? 'a' :
-            (b === 3) ? 'e' : 'e';
+                (b === 1) ? 'a' :
+                    (b === 2) ? 'a' :
+                        (b === 3) ? 'e' : 'e';
         return number + output;
     },
     week : {

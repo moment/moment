@@ -47,14 +47,14 @@ module.exports = function (grunt) {
         // entry, umdName, skipMoment
 
         var rollupOpts = {
-            input: opts.entry,
-            plugins: [
+                input: opts.entry,
+                plugins: [
                 // babel({})
-            ]
-        }, bundleOpts = {
-            format: 'umd',
-            name: opts.umdName != null ? opts.umdName : 'not_used'
-        };
+                ]
+            }, bundleOpts = {
+                format: 'umd',
+                name: opts.umdName != null ? opts.umdName : 'not_used'
+            };
 
         if (opts.skipMoment) {
             // And this is what people call progress?
@@ -246,53 +246,53 @@ module.exports = function (grunt) {
     });
 
     grunt.task.registerTask('transpile-custom-raw',
-            'build just custom language bundles',
-            function (locales) {
-        var done = this.async();
+        'build just custom language bundles',
+        function (locales) {
+            var done = this.async();
 
-        var localeFiles = locales.split(',').map(function (locale) {
-            var file = grunt.file.expand({cwd: 'src'}, 'locale/' + locale + '.js');
-            if (file.length !== 1) {
+            var localeFiles = locales.split(',').map(function (locale) {
+                var file = grunt.file.expand({cwd: 'src'}, 'locale/' + locale + '.js');
+                if (file.length !== 1) {
                 // we failed to find a locale
-                done(new Error('could not find locale: ' + locale));
-                done = null;
-            } else {
-                return file[0];
+                    done(new Error('could not find locale: ' + locale));
+                    done = null;
+                } else {
+                    return file[0];
+                }
+            });
+
+            // There was an issue with a locale
+            if (done == null) {
+                return;
             }
-        });
 
-        // There was an issue with a locale
-        if (done == null) {
-            return;
-        }
-
-        return generateLocales(
-            'build/umd/min/locales.custom.js',
-            localeFiles,
-            {skipMoment: true}
-        ).then(function () {
-            grunt.log.ok('build/umd/min/locales.custom.js');
-        }).then(function () {
             return generateLocales(
-                'build/umd/min/moment-with-locales.custom.js',
+                'build/umd/min/locales.custom.js',
                 localeFiles,
-                {skipMoment: false});
-        }).then(function () {
-            grunt.log.ok('build/umd/min/moment-with-locales.custom.js');
-        }).then(function () {
-            var moment = require('../build/umd/min/moment-with-locales.custom.js');
-            if (moment.locales().filter(function (locale) {
-                return locale !== 'en';
-            }).length !== localeFiles.length) {
-                throw new Error(
-                    'You probably specified locales requiring ' +
+                {skipMoment: true}
+            ).then(function () {
+                grunt.log.ok('build/umd/min/locales.custom.js');
+            }).then(function () {
+                return generateLocales(
+                    'build/umd/min/moment-with-locales.custom.js',
+                    localeFiles,
+                    {skipMoment: false});
+            }).then(function () {
+                grunt.log.ok('build/umd/min/moment-with-locales.custom.js');
+            }).then(function () {
+                var moment = require('../build/umd/min/moment-with-locales.custom.js');
+                if (moment.locales().filter(function (locale) {
+                    return locale !== 'en';
+                }).length !== localeFiles.length) {
+                    throw new Error(
+                        'You probably specified locales requiring ' +
                     'parent locale, but didn\'t specify parent');
-            }
-        }).then(done, function (e) {
-            grunt.log.error('error transpiling-custom', e);
-            done(e);
+                }
+            }).then(done, function (e) {
+                grunt.log.error('error transpiling-custom', e);
+                done(e);
+            });
         });
-    });
 
     grunt.config('clean.build', [
         'build'
@@ -304,18 +304,18 @@ module.exports = function (grunt) {
     });
 
     grunt.task.registerTask('transpile',
-            'builds all es5 files, optinally creating custom locales',
-            function (locales) {
-        var tasks = [
-            'clean:build',
-            'transpile-raw',
-            'concat:tests'
-        ];
+        'builds all es5 files, optinally creating custom locales',
+        function (locales) {
+            var tasks = [
+                'clean:build',
+                'transpile-raw',
+                'concat:tests'
+            ];
 
-        if (locales) {
-            tasks.push('transpile-custom-raw:' + locales);
-        }
+            if (locales) {
+                tasks.push('transpile-custom-raw:' + locales);
+            }
 
-        grunt.task.run(tasks);
-    });
+            grunt.task.run(tasks);
+        });
 };

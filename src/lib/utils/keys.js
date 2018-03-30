@@ -16,4 +16,4 @@ if (Object.keys) {
     };
 }
 
-export { keys as default };
+export {keys as default};

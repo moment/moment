@@ -6,32 +6,31 @@
 import moment from '../moment';
 
 var symbolMap = {
-    '1': '१',
-    '2': '२',
-    '3': '३',
-    '4': '४',
-    '5': '५',
-    '6': '६',
-    '7': '७',
-    '8': '८',
-    '9': '९',
-    '0': '०'
-},
-numberMap = {
-    '१': '1',
-    '२': '2',
-    '३': '3',
-    '४': '4',
-    '५': '5',
-    '६': '6',
-    '७': '7',
-    '८': '8',
-    '९': '9',
-    '०': '0'
-};
+        '1': '१',
+        '2': '२',
+        '3': '३',
+        '4': '४',
+        '5': '५',
+        '6': '६',
+        '7': '७',
+        '8': '८',
+        '9': '९',
+        '0': '०'
+    },
+    numberMap = {
+        '१': '1',
+        '२': '2',
+        '३': '3',
+        '४': '4',
+        '५': '5',
+        '६': '6',
+        '७': '7',
+        '८': '8',
+        '९': '9',
+        '०': '0'
+    };
 
-function relativeTimeMr(number, withoutSuffix, string, isFuture)
-{
+function relativeTimeMr(number, withoutSuffix, string, isFuture) {
     var output = '';
     if (withoutSuffix) {
         switch (string) {
@@ -48,8 +47,7 @@ function relativeTimeMr(number, withoutSuffix, string, isFuture)
             case 'y': output = 'एक वर्ष'; break;
             case 'yy': output = '%d वर्षे'; break;
         }
-    }
-    else {
+    } else {
         switch (string) {
             case 's': output = 'काही सेकंदां'; break;
             case 'ss': output = '%d सेकंदां'; break;

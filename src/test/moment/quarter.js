@@ -1,4 +1,4 @@
-import { module, test } from '../qunit';
+import {module, test} from '../qunit';
 import moment from '../../moment';
 
 module('quarter');
@@ -77,16 +77,16 @@ test('quarter setter bubble to next year', function (assert) {
 
 test('quarter diff', function (assert) {
     assert.equal(moment('2014-01-01').diff(moment('2014-04-01'), 'quarter'),
-            -1, 'diff -1 quarter');
+        -1, 'diff -1 quarter');
     assert.equal(moment('2014-04-01').diff(moment('2014-01-01'), 'quarter'),
-            1, 'diff 1 quarter');
+        1, 'diff 1 quarter');
     assert.equal(moment('2014-05-01').diff(moment('2014-01-01'), 'quarter'),
-            1, 'diff 1 quarter');
+        1, 'diff 1 quarter');
     assert.ok(Math.abs((4 / 3) - moment('2014-05-01').diff(
-                    moment('2014-01-01'), 'quarter', true)) < 0.00001,
-            'diff 1 1/3 quarter');
+        moment('2014-01-01'), 'quarter', true)) < 0.00001,
+    'diff 1 1/3 quarter');
     assert.equal(moment('2015-01-01').diff(moment('2014-01-01'), 'quarter'),
-            4, 'diff 4 quarters');
+        4, 'diff 4 quarters');
 });
 
 test('quarter setter bubble to previous year', function (assert) {

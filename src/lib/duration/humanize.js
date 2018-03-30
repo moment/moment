@@ -1,4 +1,4 @@
-import { createDuration } from './create';
+import {createDuration} from './create';
 
 var round = Math.round;
 var thresholds = {
@@ -15,7 +15,7 @@ function substituteTimeAgo(string, number, withoutSuffix, isFuture, locale) {
     return locale.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
 }
 
-function relativeTime (posNegDuration, withoutSuffix, locale) {
+function relativeTime(posNegDuration, withoutSuffix, locale) {
     var duration = createDuration(posNegDuration).abs();
     var seconds  = round(duration.as('s'));
     var minutes  = round(duration.as('m'));
@@ -43,11 +43,11 @@ function relativeTime (posNegDuration, withoutSuffix, locale) {
 }
 
 // This function allows you to set the rounding function for relative time strings
-export function getSetRelativeTimeRounding (roundingFunction) {
+export function getSetRelativeTimeRounding(roundingFunction) {
     if (roundingFunction === undefined) {
         return round;
     }
-    if (typeof(roundingFunction) === 'function') {
+    if (typeof (roundingFunction) === 'function') {
         round = roundingFunction;
         return true;
     }
@@ -55,7 +55,7 @@ export function getSetRelativeTimeRounding (roundingFunction) {
 }
 
 // This function allows you to set a threshold for relative time strings
-export function getSetRelativeTimeThreshold (threshold, limit) {
+export function getSetRelativeTimeThreshold(threshold, limit) {
     if (thresholds[threshold] === undefined) {
         return false;
     }
@@ -69,7 +69,7 @@ export function getSetRelativeTimeThreshold (threshold, limit) {
     return true;
 }
 
-export function humanize (withSuffix) {
+export function humanize(withSuffix) {
     if (!this.isValid()) {
         return this.localeData().invalidDate();
     }

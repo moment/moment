@@ -1,4 +1,4 @@
-import { module, test, expect } from '../qunit';
+import {module, test, expect} from '../qunit';
 import moment from '../../moment';
 
 module('add and subtract');

@@ -21,11 +21,9 @@ function relativeTimeWithPlural(number, withoutSuffix, key) {
     };
     if (key === 'm') {
         return withoutSuffix ? 'хвіліна' : 'хвіліну';
-    }
-    else if (key === 'h') {
+    } else if (key === 'h') {
         return withoutSuffix ? 'гадзіна' : 'гадзіну';
-    }
-    else {
+    } else {
         return number + ' ' + plural(format[key], +number);
     }
 }

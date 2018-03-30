@@ -1,5 +1,5 @@
 import extend from './extend';
-import { hooks } from './hooks';
+import {hooks} from './hooks';
 import isUndefined from './is-undefined';
 
 function warn(msg) {

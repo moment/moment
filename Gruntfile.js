@@ -3,7 +3,7 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         env : {
             sauceLabs : (grunt.file.exists('.sauce-labs.creds') ?
-                    grunt.file.readJSON('.sauce-labs.creds') : {})
+                grunt.file.readJSON('.sauce-labs.creds') : {})
         },
         karma : {
             options: {
@@ -130,14 +130,14 @@ module.exports = function (grunt) {
                 jshintrc: true
             }
         },
-        jscs: {
+        eslint: {
             all: [
                 'Gruntfile.js',
                 'tasks/**.js',
                 'src/**/*.js'
             ],
             options: {
-                config: '.jscs.json'
+                config: '.eslintrc.json'
             }
         },
         watch : {
@@ -185,7 +185,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['lint', 'test']);
 
     // linting
-    grunt.registerTask('lint', ['jshint', 'jscs']);
+    grunt.registerTask('lint', ['jshint', 'eslint']);
 
     // test tasks
     grunt.registerTask('test', ['test:node', 'test:typescript']);

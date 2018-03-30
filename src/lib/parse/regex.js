@@ -28,13 +28,13 @@ import isFunction from '../utils/is-function';
 
 var regexes = {};
 
-export function addRegexToken (token, regex, strictRegex) {
+export function addRegexToken(token, regex, strictRegex) {
     regexes[token] = isFunction(regex) ? regex : function (isStrict, localeData) {
         return (isStrict && strictRegex) ? strictRegex : regex;
     };
 }
 
-export function getParseRegexForToken (token, config) {
+export function getParseRegexForToken(token, config) {
     if (!hasOwnProp(regexes, token)) {
         return new RegExp(unescapeFormat(token));
     }

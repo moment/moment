@@ -1,9 +1,9 @@
-import { module, test } from '../qunit';
+import {module, test} from '../qunit';
 import moment from '../../moment';
 
 module('parsing flags');
 
-function flags () {
+function flags() {
     return moment.apply(null, arguments).parsingFlags();
 }
 

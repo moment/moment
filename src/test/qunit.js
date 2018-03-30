@@ -1,14 +1,14 @@
 /*global QUnit:false*/
 
 import moment from '../moment';
-import { defineCommonLocaleTests } from './helpers/common-locale';
-import { setupDeprecationHandler, teardownDeprecationHandler } from './helpers/deprecation-handler';
+import {defineCommonLocaleTests} from './helpers/common-locale';
+import {setupDeprecationHandler, teardownDeprecationHandler} from './helpers/deprecation-handler';
 
 export var test = QUnit.test;
 
 export var expect = QUnit.expect;
 
-export function module (name, lifecycle) {
+export function module(name, lifecycle) {
     QUnit.module(name, {
         setup : function () {
             moment.locale('en');
@@ -29,7 +29,7 @@ export function module (name, lifecycle) {
     });
 }
 
-export function localeModule (name, lifecycle) {
+export function localeModule(name, lifecycle) {
     QUnit.module('locale:' + name, {
         setup : function () {
             moment.locale(name);

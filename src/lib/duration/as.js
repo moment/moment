@@ -1,8 +1,8 @@
-import { daysToMonths, monthsToDays } from './bubble';
-import { normalizeUnits } from '../units/aliases';
+import {daysToMonths, monthsToDays} from './bubble';
+import {normalizeUnits} from '../units/aliases';
 import toInt from '../utils/to-int';
 
-export function as (units) {
+export function as(units) {
     if (!this.isValid()) {
         return NaN;
     }
@@ -33,7 +33,7 @@ export function as (units) {
 }
 
 // TODO: Use this.as('ms')?
-export function valueOf () {
+export function valueOf() {
     if (!this.isValid()) {
         return NaN;
     }
@@ -45,7 +45,7 @@ export function valueOf () {
     );
 }
 
-function makeAs (alias) {
+function makeAs(alias) {
     return function () {
         return this.as(alias);
     };

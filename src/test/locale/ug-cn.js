@@ -1,10 +1,10 @@
-import { localeModule, test } from '../qunit';
+import {localeModule, test} from '../qunit';
 import moment from '../../moment';
 localeModule('ug-cn');
 
 test('parse', function (assert) {
     var tests = 'يانۋار يانۋار_فېۋرال فېۋرال_مارت مارت_ئاپرېل ئاپرېل_ماي ماي_ئىيۇن ئىيۇن_ئىيۇل ئىيۇل_ئاۋغۇست ئاۋغۇست_سېنتەبىر سېنتەبىر_ئۆكتەبىر ئۆكتەبىر_نويابىر نويابىر_دېكابىر دېكابىر'.split('_'), i;
-    function equalTest (input, mmm, i) {
+    function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
     for (i = 0; i < 12; i++) {

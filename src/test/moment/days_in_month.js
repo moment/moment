@@ -1,7 +1,7 @@
-import { module, test } from '../qunit';
+import {module, test} from '../qunit';
 import moment from '../../moment';
 import each from '../helpers/each';
-import { daysInMonth } from '../../lib/units/month';
+import {daysInMonth} from '../../lib/units/month';
 
 module('days in month');
 

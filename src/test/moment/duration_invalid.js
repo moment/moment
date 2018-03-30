@@ -1,4 +1,4 @@
-import { module, test } from '../qunit';
+import {module, test} from '../qunit';
 import moment from '../../moment';
 
 module('invalid');
@@ -71,14 +71,14 @@ test('invalid duration operations', function (assert) {
         assert.ok(isNaN(invalid.years()), 'invalid.years is NaN; i=' + i);
 
         assert.equal(invalid.humanize(),
-                     invalid.localeData().invalidDate(),
-                     'invalid.humanize is localized invalid duration string; i=' + i);
+            invalid.localeData().invalidDate(),
+            'invalid.humanize is localized invalid duration string; i=' + i);
         assert.equal(invalid.toISOString(),
-                     invalid.localeData().invalidDate(),
-                     'invalid.toISOString is localized invalid duration string; i=' + i);
+            invalid.localeData().invalidDate(),
+            'invalid.toISOString is localized invalid duration string; i=' + i);
         assert.equal(invalid.toString(),
-                     invalid.localeData().invalidDate(),
-                     'invalid.toString is localized invalid duration string; i=' + i);
+            invalid.localeData().invalidDate(),
+            'invalid.toString is localized invalid duration string; i=' + i);
         assert.equal(invalid.toJSON(), invalid.localeData().invalidDate(), 'invalid.toJSON is null; i=' + i);
         assert.equal(invalid.locale(), 'en', 'invalid.locale; i=' + i);
         assert.equal(invalid.localeData()._abbr, 'en', 'invalid.localeData()._abbr; i=' + i);
