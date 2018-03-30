@@ -51,7 +51,7 @@ export default moment.defineLocale('az', {
     relativeTime : {
         future : '%s sonra',
         past : '%s əvvəl',
-        s : 'birneçə saniyyə',
+        s : 'birneçə saniyə',
         ss : '%d saniyə',
         m : 'bir dəqiqə',
         mm : '%d dəqiqə',
