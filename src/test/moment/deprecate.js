@@ -1,4 +1,4 @@
-import { module, test, expect } from '../qunit';
+import { module, test } from '../qunit';
 import { deprecate } from '../../lib/utils/deprecate';
 import moment from '../../moment';
 
@@ -11,5 +11,5 @@ test('deprecate', function (assert) {
     var deprecatedFn = deprecate('testing deprecation', fn);
     deprecatedFn();
 
-    expect(0);
+    assert.expect(0);
 });
