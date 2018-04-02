@@ -1,5 +1,5 @@
 //! moment.js language configuration
-//! locale : Uyghur (China) [ug-CN]
+//! locale : Uyghur (China) [ug-cn]
 //! author: boyaq : https://github.com/boyaq
 
 import moment from '../moment';
