@@ -26,7 +26,6 @@
     "es3"      : false,
     "camelcase" : true,
     "globals": {
-        "define": false,
-        "QUnit": true
+        "define": false
     }
 }
