@@ -24,5 +24,5 @@ test('isNumber rejects non-numbers', function (assert) {
     assert.ok(!isNumber([1]), 'array');
     assert.ok(!isNumber('[1,2,3]'), 'string');
     assert.ok(!isNumber(new Date()), 'date');
-    assert.ok(!isNumber({ a: 1, b: 2 }), 'object');
+    assert.ok(!isNumber({a: 1, b: 2}), 'object');
 });
