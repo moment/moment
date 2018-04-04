@@ -1,7 +1,7 @@
 // These tests are for locale independent features
 // locale dependent tests would be in locale test folder
-import { module, test } from '../qunit';
-import moment from '../../moment';
+import { module, test } from '../qunit.js';
+import moment from '../../moment.js';
 
 module('calendar');
 

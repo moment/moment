@@ -15,6 +15,6 @@ import './week-year';
 import './week';
 import './year';
 
-import { normalizeUnits } from './aliases';
+import { normalizeUnits } from './aliases.js';
 
 export { normalizeUnits };

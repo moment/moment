@@ -4,7 +4,7 @@
 //! license : MIT
 //! momentjs.com
 
-import { hooks as moment, setHookCallback } from './lib/utils/hooks';
+import { hooks as moment, setHookCallback } from './lib/utils/hooks.js';
 
 moment.version = '2.22.0';
 
@@ -45,9 +45,9 @@ import {
     getSetRelativeTimeThreshold as relativeTimeThreshold
 } from './lib/duration/duration';
 
-import { normalizeUnits } from './lib/units/units';
+import { normalizeUnits } from './lib/units/units.js';
 
-import isDate from './lib/utils/is-date';
+import isDate from './lib/utils/is-date.js';
 
 setHookCallback(local);
 

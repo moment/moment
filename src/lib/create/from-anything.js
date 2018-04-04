@@ -1,22 +1,22 @@
-import isArray from '../utils/is-array';
-import isObject from '../utils/is-object';
-import isObjectEmpty from '../utils/is-object-empty';
-import isUndefined from '../utils/is-undefined';
-import isNumber from '../utils/is-number';
-import isDate from '../utils/is-date';
-import map from '../utils/map';
-import { createInvalid } from './valid';
-import { Moment, isMoment } from '../moment/constructor';
-import { getLocale } from '../locale/locales';
-import { hooks } from '../utils/hooks';
-import checkOverflow from './check-overflow';
-import { isValid } from './valid';
+import isArray from '../utils/is-array.js';
+import isObject from '../utils/is-object.js';
+import isObjectEmpty from '../utils/is-object-empty.js';
+import isUndefined from '../utils/is-undefined.js';
+import isNumber from '../utils/is-number.js';
+import isDate from '../utils/is-date.js';
+import map from '../utils/map.js';
+import { createInvalid } from './valid.js';
+import { Moment, isMoment } from '../moment/constructor.js';
+import { getLocale } from '../locale/locales.js';
+import { hooks } from '../utils/hooks.js';
+import checkOverflow from './check-overflow.js';
+import { isValid } from './valid.js';
 
-import { configFromStringAndArray }  from './from-string-and-array';
-import { configFromStringAndFormat } from './from-string-and-format';
-import { configFromString }          from './from-string';
-import { configFromArray }           from './from-array';
-import { configFromObject }          from './from-object';
+import { configFromStringAndArray }  from './from-string-and-array.js';
+import { configFromStringAndFormat } from './from-string-and-format.js';
+import { configFromString }          from './from-string.js';
+import { configFromArray }           from './from-array.js';
+import { configFromObject }          from './from-object.js';
 
 function createFromConfig (config) {
     var res = new Moment(checkOverflow(prepareConfig(config)));

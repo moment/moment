@@ -1,8 +1,8 @@
-import { test } from '../qunit';
-import each from './each';
-import objectKeys from './object-keys';
-import moment from '../../moment';
-import defaults from '../../lib/utils/defaults';
+import { test } from '../qunit.js';
+import each from './each.js';
+import objectKeys from './object-keys.js';
+import moment from '../../moment.js';
+import defaults from '../../lib/utils/defaults.js';
 
 export function defineCommonLocaleTests(locale, options) {
     test('lenient day of month ordinal parsing', function (assert) {

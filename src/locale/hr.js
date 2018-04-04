@@ -2,7 +2,7 @@
 //! locale : Croatian [hr]
 //! author : Bojan Marković : https://github.com/bmarkovic
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 function translate(number, withoutSuffix, key) {
     var result = number + ' ';

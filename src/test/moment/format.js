@@ -1,6 +1,6 @@
-import { module, test } from '../qunit';
-import each from '../helpers/each';
-import moment from '../../moment';
+import { module, test } from '../qunit.js';
+import each from '../helpers/each.js';
+import moment from '../../moment.js';
 
 module('format');
 

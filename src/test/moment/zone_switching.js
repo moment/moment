@@ -1,6 +1,6 @@
-import { module, test } from '../qunit';
-import moment from '../../moment';
-import { isNearSpringDST } from '../helpers/dst';
+import { module, test } from '../qunit.js';
+import moment from '../../moment.js';
+import { isNearSpringDST } from '../helpers/dst.js';
 
 module('zone switching');
 

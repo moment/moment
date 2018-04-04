@@ -1,5 +1,5 @@
-import { module, test } from '../qunit';
-import moment from '../../moment';
+import { module, test } from '../qunit.js';
+import moment from '../../moment.js';
 
 module('weeks in year');
 

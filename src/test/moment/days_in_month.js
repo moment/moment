@@ -1,7 +1,7 @@
-import { module, test } from '../qunit';
-import moment from '../../moment';
-import each from '../helpers/each';
-import { daysInMonth } from '../../lib/units/month';
+import { module, test } from '../qunit.js';
+import moment from '../../moment.js';
+import each from '../helpers/each.js';
+import { daysInMonth } from '../../lib/units/month.js';
 
 module('days in month');
 

@@ -1,4 +1,4 @@
-import { normalizeUnits } from '../units/aliases';
+import { normalizeUnits } from '../units/aliases.js';
 
 export function startOf (units) {
     units = normalizeUnits(units);

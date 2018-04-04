@@ -1,4 +1,4 @@
-import hasOwnProp from '../utils/has-own-prop';
+import hasOwnProp from '../utils/has-own-prop.js';
 
 var aliases = {};
 

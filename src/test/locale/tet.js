@@ -1,6 +1,6 @@
-import {test} from '../qunit';
-import {localeModule} from '../qunit-locale';
-import moment from '../../moment';
+import {test} from '../qunit.js';
+import {localeModule} from '../qunit-locale.js';
+import moment from '../../moment.js';
 localeModule('tet');
 
 test('parse', function (assert) {

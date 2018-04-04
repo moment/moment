@@ -1,7 +1,7 @@
-import { module, test } from '../qunit';
-import moment from '../../moment';
-import each from '../helpers/each';
-import indexOf from '../../lib/utils/index-of';
+import { module, test } from '../qunit.js';
+import moment from '../../moment.js';
+import each from '../helpers/each.js';
+import indexOf from '../../lib/utils/index-of.js';
 
 module('locale', {
     setup : function () {

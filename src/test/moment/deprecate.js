@@ -1,6 +1,6 @@
-import { module, test } from '../qunit';
-import { deprecate } from '../../lib/utils/deprecate';
-import moment from '../../moment';
+import { module, test } from '../qunit.js';
+import { deprecate } from '../../lib/utils/deprecate.js';
+import moment from '../../moment.js';
 
 module('deprecate');
 

@@ -1,8 +1,8 @@
-import { defaultCalendar } from './calendar';
-import { defaultLongDateFormat } from './formats';
-import { defaultInvalidDate } from './invalid';
-import { defaultOrdinal, defaultDayOfMonthOrdinalParse } from './ordinal';
-import { defaultRelativeTime } from './relative';
+import { defaultCalendar } from './calendar.js';
+import { defaultLongDateFormat } from './formats.js';
+import { defaultInvalidDate } from './invalid.js';
+import { defaultOrdinal, defaultDayOfMonthOrdinalParse } from './ordinal.js';
+import { defaultRelativeTime } from './relative.js';
 
 // months
 import {
@@ -11,7 +11,7 @@ import {
 } from '../units/month';
 
 // week
-import { defaultLocaleWeek } from '../units/week';
+import { defaultLocaleWeek } from '../units/week.js';
 
 // weekdays
 import {
@@ -21,7 +21,7 @@ import {
 } from '../units/day-of-week';
 
 // meridiem
-import { defaultLocaleMeridiemParse } from '../units/hour';
+import { defaultLocaleMeridiemParse } from '../units/hour.js';
 
 export var baseConfig = {
     calendar: defaultCalendar,

@@ -155,11 +155,11 @@ module.exports = function (grunt) {
     function generateLocales(target, localeFiles, opts) {
         var files = localeFiles,
             code = [
-                'import moment from "./moment";',
+                'import moment from "./moment.js";',
                 'export default moment;'
             ].concat(files.map(function (file) {
                 var identifier = path.basename(file, '.js').replace('-', '_');
-                return 'import ' + identifier + ' from "./' + file + '";';
+                return 'import ' + identifier + ' from .js"./' + file + '";';
             })).concat([
                 // Reset the language back to 'en', because every defineLocale
                 // also sets it.

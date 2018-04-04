@@ -2,7 +2,7 @@
 //! locale : Bulgarian [bg]
 //! author : Krasen Borisov : https://github.com/kraz
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('bg', {
     months : 'януари_февруари_март_април_май_юни_юли_август_септември_октомври_ноември_декември'.split('_'),

@@ -2,7 +2,7 @@
 //! locale : Macedonian [mk]
 //! author : Borislav Mickov : https://github.com/B0k0
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('mk', {
     months : 'јануари_февруари_март_април_мај_јуни_јули_август_септември_октомври_ноември_декември'.split('_'),

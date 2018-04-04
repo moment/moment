@@ -1,11 +1,11 @@
-import { configFromStringAndFormat } from './from-string-and-format';
-import { createUTCDate } from './date-from-array';
-import { configFromArray } from './from-array';
-import { hooks } from '../utils/hooks';
-import { deprecate } from '../utils/deprecate';
-import getParsingFlags from './parsing-flags';
-import {defaultLocaleMonthsShort} from '../units/month';
-import {defaultLocaleWeekdaysShort} from '../units/day-of-week';
+import { configFromStringAndFormat } from './from-string-and-format.js';
+import { createUTCDate } from './date-from-array.js';
+import { configFromArray } from './from-array.js';
+import { hooks } from '../utils/hooks.js';
+import { deprecate } from '../utils/deprecate.js';
+import getParsingFlags from './parsing-flags.js';
+import {defaultLocaleMonthsShort} from '../units/month.js';
+import {defaultLocaleWeekdaysShort} from '../units/day-of-week.js';
 
 // iso 8601 regex
 // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
