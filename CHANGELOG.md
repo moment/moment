@@ -1,13 +1,31 @@
 Changelog
 =========
 
+### 2.22.0 [See full changelog](https://gist.github.com/marwahaha/ae895025dac3f0641fa9ec2e36d282bb)
+
+* Release Mar 30, 2018
+
+* [#4423](https://github.com/moment/moment/pull/4423) [new locale] Added Mongolian locale mn
+* Various locale improvements
+* Minor misc changes
+
+### 2.21.0 [See full changelog](https://gist.github.com/marwahaha/80d19ef882b71df1948df7865efdd40e)
+
+* Release Mar 2, 2018
+
+* [#4391](https://github.com/moment/moment/pull/4391) [bugfix] Fix [#4390](https://github.com/moment/moment/pull/4390): use offset properly in toISOString
+* [#4310](https://github.com/moment/moment/pull/4310) [bugfix] Fix [#3883](https://github.com/moment/moment/pull/3883) lazy load parentLocale in defineLocale, fallback to global if missing
+* [#4085](https://github.com/moment/moment/pull/4085) [misc] Print console warning when setting non-existent locales
+* [#4371](https://github.com/moment/moment/pull/4371) [misc] fix deprecated rollup options
+* New locales: ug-cn, en-il, tg
+* Various locale improvements
+
 ### 2.20.1 [See changelog](https://gist.github.com/marwahaha/d72c1cb22076373be889b16272cbd187)
 
 * Release Dec 18, 2017
 
 * [#4359](https://github.com/moment/moment/pull/4359) [locale] Fix Arabic locale for months (again)
 * [#4357](https://github.com/moment/moment/pull/4357) [misc] Add optional parameter keepOffset to toISOString
-
 
 ### 2.20.0 [See full changelog](https://gist.github.com/marwahaha/e0d4135fbf8bb75fa85c4aa2bddc5031)
 

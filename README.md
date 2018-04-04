@@ -1,6 +1,6 @@
 [![Join the chat at https://gitter.im/moment/moment](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/moment/moment?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[![NPM version][npm-version-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-url] [![MIT License][license-image]][license-url] [![Build Status][travis-image]][travis-url]
+[![NPM version][npm-version-image]][npm-url] [![NPM downloads][npm-downloads-image]][downloads-url] [![MIT License][license-image]][license-url] [![Build Status][travis-image]][travis-url]
 [![Coverage Status](https://coveralls.io/repos/moment/moment/badge.svg?branch=develop)](https://coveralls.io/r/moment/moment?branch=develop)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoment%2Fmoment.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoment%2Fmoment?ref=badge_shield)
 
@@ -39,10 +39,12 @@ There are a number of small backwards incompatible changes with version 2.0.0. [
 
 ## [Changelog](https://github.com/moment/moment/blob/develop/CHANGELOG.md)
 
-## [Contributing](https://github.com/moment/moment/blob/develop/CONTRIBUTING.md)
+## [Contributing](https://github.com/moment/moment/blob/develop/CONTRIBUTING.md) [![Open Source Helpers](https://www.codetriage.com/moment/moment/badges/users.svg)](https://www.codetriage.com/moment/moment)
 
 We're looking for co-maintainers! If you want to become a master of time please
 write to [ichernev](https://github.com/ichernev).
+
+In addition to contributing code, you can help to triage issues. This can include reproducing bug reports, or asking for vital information such as version numbers or reproduction instructions. If you would like to start triaging issues, one easy way to get started is to [subscribe to moment/moment on CodeTriage](https://www.codetriage.com/moment/moment).
 
 ## License
 
@@ -56,6 +58,7 @@ Moment.js is freely distributable under the terms of the [MIT license](https://g
 [npm-url]: https://npmjs.org/package/moment
 [npm-version-image]: http://img.shields.io/npm/v/moment.svg?style=flat
 [npm-downloads-image]: http://img.shields.io/npm/dm/moment.svg?style=flat
+[downloads-url]: https://npmcharts.com/compare/moment?minimal=true
 
 [travis-url]: http://travis-ci.org/moment/moment
 [travis-image]: http://img.shields.io/travis/moment/moment/develop.svg?style=flat

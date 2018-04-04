@@ -684,8 +684,10 @@ declare namespace moment {
   export function weekdaysMin(localeSorted: boolean, format: string): string[];
   export function weekdaysMin(localeSorted: boolean, format: string, index: number): string;
 
-  export function min(...moments: MomentInput[]): Moment;
-  export function max(...moments: MomentInput[]): Moment;
+  export function min(moments: Moment[]): Moment;
+  export function min(...moments: Moment[]): Moment;
+  export function max(moments: Moment[]): Moment;
+  export function max(...moments: Moment[]): Moment;
 
   /**
    * Returns unix time in milliseconds. Overwrite for profit.
@@ -704,6 +706,8 @@ declare namespace moment {
   export function relativeTimeRounding(): (num: number) => number;
   export function calendarFormat(m: Moment, now: Moment): string;
 
+  export function parseTwoDigitYear(input: string): number;
+
   /**
    * Constant used to enable explicit ISO_8601 format parsing.
    */
@@ -712,6 +716,19 @@ declare namespace moment {
 
   export var defaultFormat: string;
   export var defaultFormatUtc: string;
+  
+  export var HTML5_FMT: { 
+    DATETIME_LOCAL: string,
+    DATETIME_LOCAL_SECONDS: string,
+    DATETIME_LOCAL_MS: string,
+    DATE: string,                           
+    TIME: string,                                 
+    TIME_SECONDS: string,                      
+    TIME_MS: string,                        
+    WEEK: string,                           
+    MONTH: string
+  };
+
 }
 
 export = moment;

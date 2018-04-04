@@ -173,10 +173,21 @@ test('define child locale before parent', function (assert) {
         months : 'First_Second_Third_Fourth_Fifth_Sixth_Seventh_Eighth_Ninth_Tenth_Eleventh_Twelveth '.split('_')
     });
     assert.equal(moment.locale(), 'en', 'failed to set a locale requiring missing parent');
+
+    assert.equal(moment('00:00:00 01/January/2017', 'HH:mm:ss DD/MMM/YYYY', 'months-x').locale(), 'en', 'creating moment using child with undefined parent defaults to global');
+
     moment.defineLocale('base-months-x', {
         months : 'One_Two_Three_Four_Five_Six_Seven_Eight_Nine_Ten_Eleven_Twelve'.split('_')
     });
     assert.equal(moment.locale(), 'base-months-x', 'defineLocale should also set the locale (regardless of child locales)');
 
     assert.equal(moment().locale('months-x').month(0).format('MMMM'), 'First', 'loading child before parent locale works');
+});
+
+test('lazy load parentLocale', function (assert) {
+    moment.defineLocale('de_test', {
+        parentLocale: 'de',
+        monthsShort: ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12']
+    });
+    assert.equal(moment.locale(), 'de_test', 'failed to lazy load parentLocale');
 });
