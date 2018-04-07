@@ -3907,21 +3907,6 @@
     proto.years  = deprecate('years accessor is deprecated. Use year instead', getSetYear);
     proto.zone   = deprecate('moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/', getSetZone);
     proto.isDSTShifted = deprecate('isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information', isDaylightSavingTimeShifted);
-    
-    function attachImmutableMethods(proto) {
-        for(var key in proto) {
-            if(typeof proto[key] === 'function' && key!=='clone') {
-                (function(key) {
-                    proto[key+'Immu']=function() {
-                        var clonedMoment = this.clone();
-                        return clonedMoment[key].apply(clonedMoment, arguments.length ?  [].slice.apply(arguments) : []); 
-                    }
-                })(key);
-            }
-        }
-    }
-
-    attachImmutableMethods(proto);
 
     function createUnix (input) {
         return createLocal(input * 1000);
