@@ -7,7 +7,8 @@ var thresholds = {
     m : 45,         // minutes to hour
     h : 22,         // hours to day
     d : 26,         // days to month
-    M : 11          // months to year
+    M : 11,         // months to year
+    w : 16          // weeks to year
 };
 
 // helper function for moment.fn.from, moment.fn.fromNow, and moment.duration.fn.humanize
@@ -23,6 +24,7 @@ function relativeTime (posNegDuration, withoutSuffix, locale) {
     var days     = round(duration.as('d'));
     var months   = round(duration.as('M'));
     var years    = round(duration.as('y'));
+    var weeks    = round(duration.as('w'));
 
     var a = seconds <= thresholds.ss && ['s', seconds]  ||
             seconds < thresholds.s   && ['ss', seconds] ||
@@ -34,6 +36,8 @@ function relativeTime (posNegDuration, withoutSuffix, locale) {
             days    < thresholds.d   && ['dd', days]    ||
             months  <= 1             && ['M']           ||
             months  < thresholds.M   && ['MM', months]  ||
+            weeks  <= 1              && ['w']           ||
+            weeks  <  thresholds.w   && ['w', weeks]    ||
             years   <= 1             && ['y']           || ['yy', years];
 
     a[2] = withoutSuffix;
