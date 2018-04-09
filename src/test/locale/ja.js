@@ -36,15 +36,15 @@ test('format', function (assert) {
             ['s ss',                               '50 50'],
             ['a A',                                '午後 午後'],
             ['[the] DDDo [day of the year]',       'the 45日 day of the year'],
-            ['LTS',                                '午後3時25分50秒'],
+            ['LTS',                                '15:25:50'],
             ['L',                                  '2010/02/14'],
             ['LL',                                 '2010年2月14日'],
-            ['LLL',                                '2010年2月14日午後3時25分'],
-            ['LLLL',                               '2010年2月14日午後3時25分 日曜日'],
-            ['l',                                  '2010/2/14'],
+            ['LLL',                                '2010年2月14日 15:25'],
+            ['LLLL',                               '2010年2月14日 日曜日 15:25'],
+            ['l',                                  '2010/02/14'],
             ['ll',                                 '2010年2月14日'],
-            ['lll',                                '2010年2月14日午後3時25分'],
-            ['llll',                               '2010年2月14日午後3時25分 日']
+            ['lll',                                '2010年2月14日 15:25'],
+            ['llll',                               '2010年2月14日(日) 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -116,35 +116,53 @@ test('fromNow', function (assert) {
 test('calendar day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                   '今日 午後12時0分',     'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      '今日 午後12時25分',    'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),       '今日 午後1時0分',      'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       '明日 午後12時0分',     'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  '今日 午前11時0分',     'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  '昨日 午後12時0分',     'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   '今日 12:00', 'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      '今日 12:25', 'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       '今日 13:00', 'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       '明日 12:00', 'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  '今日 11:00', 'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  '昨日 12:00', 'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {
     var i, m;
+    var dow = moment().day();
     for (i = 2; i < 7; i++) {
         m = moment().add({d: i});
-        assert.equal(m.calendar(),       m.format('[来週]dddd LT'),  'Today + ' + i + ' days current time');
-        m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(m.calendar(),       m.format('[来週]dddd LT'),  'Today + ' + i + ' days beginning of day');
-        m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(m.calendar(),       m.format('[来週]dddd LT'),  'Today + ' + i + ' days end of day');
+        if (dow + i < 7) {
+            assert.equal(m.calendar(),       m.format('dddd LT'),  'Today + ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(m.calendar(),       m.format('dddd LT'),  'Today + ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(m.calendar(),       m.format('dddd LT'),  'Today + ' + i + ' days end of day');
+        } else {
+            assert.equal(m.calendar(),       m.format('[来週]dddd LT'),  'Today + ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(m.calendar(),       m.format('[来週]dddd LT'),  'Today + ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(m.calendar(),       m.format('[来週]dddd LT'),  'Today + ' + i + ' days end of day');
+        }
     }
 });
 
 test('calendar last week', function (assert) {
     var i, m;
+    var dow = moment().day();
     for (i = 2; i < 7; i++) {
         m = moment().subtract({d: i});
-        assert.equal(m.calendar(),       m.format('[前週]dddd LT'),  'Today - ' + i + ' days current time');
-        m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(m.calendar(),       m.format('[前週]dddd LT'),  'Today - ' + i + ' days beginning of day');
-        m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(m.calendar(),       m.format('[前週]dddd LT'),  'Today - ' + i + ' days end of day');
+        if (dow < i) {
+            assert.equal(m.calendar(),       m.format('[先週]dddd LT'),  'Today - ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(m.calendar(),       m.format('[先週]dddd LT'),  'Today - ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(m.calendar(),       m.format('[先週]dddd LT'),  'Today - ' + i + ' days end of day');
+        } else {
+            assert.equal(m.calendar(),       m.format('dddd LT'),  'Today - ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(m.calendar(),       m.format('dddd LT'),  'Today - ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(m.calendar(),       m.format('dddd LT'),  'Today - ' + i + ' days end of day');
+        }
     }
 });
 
@@ -170,3 +188,6 @@ test('weeks year starting sunday format', function (assert) {
     assert.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3', 'Jan 15 2012 should be week 3');
 });
 
+test('parse with japanese parentheses', function (assert) {
+    assert.ok(moment('2016年5月18日（水）', 'YYYY年M月D日（dd）', true).isValid(), 'parse with japanese parentheses');
+});

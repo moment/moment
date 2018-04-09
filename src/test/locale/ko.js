@@ -59,27 +59,27 @@ test('format', function (assert) {
     var a = [
             ['YYYY년 MMMM Do dddd a h:mm:ss',      '2010년 2월 14일 일요일 오후 3:25:50'],
             ['ddd A h',                            '일 오후 3'],
-            ['M Mo MM MMMM MMM',                   '2 2일 02 2월 2월'],
+            ['M Mo MM MMMM MMM',                   '2 2월 02 2월 2월'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14일 14'],
             ['d do dddd ddd dd',                   '0 0일 일요일 일 일'],
             ['DDD DDDo DDDD',                      '45 45일 045'],
-            ['w wo ww',                            '8 8일 08'],
+            ['w wo ww',                            '8 8주 08'],
             ['h hh',                               '3 03'],
             ['H HH',                               '15 15'],
             ['m mm',                               '25 25'],
             ['s ss',                               '50 50'],
             ['a A',                                '오후 오후'],
             ['일년 중 DDDo째 되는 날',                 '일년 중 45일째 되는 날'],
-            ['LTS',                                '오후 3시 25분 50초'],
-            ['L',                                  '2010.02.14'],
+            ['LTS',                                '오후 3:25:50'],
+            ['L',                                  '2010.02.14.'],
             ['LL',                                 '2010년 2월 14일'],
-            ['LLL',                                '2010년 2월 14일 오후 3시 25분'],
-            ['LLLL',                               '2010년 2월 14일 일요일 오후 3시 25분'],
-            ['l',                                  '2010.2.14'],
+            ['LLL',                                '2010년 2월 14일 오후 3:25'],
+            ['LLLL',                               '2010년 2월 14일 일요일 오후 3:25'],
+            ['l',                                  '2010.02.14.'],
             ['ll',                                 '2010년 2월 14일'],
-            ['lll',                                '2010년 2월 14일 오후 3시 25분'],
-            ['llll',                               '2010년 2월 14일 일 오후 3시 25분']
+            ['lll',                                '2010년 2월 14일 오후 3:25'],
+            ['llll',                               '2010년 2월 14일 일요일 오후 3:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -142,8 +142,8 @@ test('format week', function (assert) {
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  '몇 초', '44초 = 몇 초');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  '일분',      '45초 = 일분');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  '일분',      '89초 = 일분');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  '1분',      '45초 = 1분');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  '1분',      '89초 = 1분');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '2분',     '90초 = 2분');
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  '44분',    '44분 = 44분');
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  '한 시간',       '45분 = 한 시간');
@@ -188,12 +188,12 @@ test('fromNow', function (assert) {
 test('calendar day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                   '오늘 오후 12시 0분',     'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      '오늘 오후 12시 25분',    'Now plus 25 min');
-    assert.equal(moment(a).add({h: 1}).calendar(),       '오늘 오후 1시 0분',      'Now plus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       '내일 오후 12시 0분',     'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  '오늘 오전 11시 0분',     'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  '어제 오후 12시 0분',     'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   '오늘 오후 12:00', 'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      '오늘 오후 12:25', 'Now plus 25 min');
+    assert.equal(moment(a).add({h: 1}).calendar(),       '오늘 오후 1:00',  'Now plus 1 hour');
+    assert.equal(moment(a).add({d: 1}).calendar(),       '내일 오후 12:00', 'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  '오늘 오전 11:00', 'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  '어제 오후 12:00', 'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {
@@ -235,10 +235,10 @@ test('calendar all else', function (assert) {
 });
 
 test('weeks year starting sunday format', function (assert) {
-    assert.equal(moment([2012, 0,  1]).format('w ww wo'), '1 01 1일', 'Jan  1 2012 should be week 1');
-    assert.equal(moment([2012, 0,  7]).format('w ww wo'), '1 01 1일', 'Jan  7 2012 should be week 1');
-    assert.equal(moment([2012, 0,  8]).format('w ww wo'), '2 02 2일', 'Jan  8 2012 should be week 2');
-    assert.equal(moment([2012, 0, 14]).format('w ww wo'), '2 02 2일', 'Jan 14 2012 should be week 2');
-    assert.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3일', 'Jan 15 2012 should be week 3');
+    assert.equal(moment([2012, 0,  1]).format('w ww wo'), '1 01 1주', 'Jan  1 2012 should be week 1');
+    assert.equal(moment([2012, 0,  7]).format('w ww wo'), '1 01 1주', 'Jan  7 2012 should be week 1');
+    assert.equal(moment([2012, 0,  8]).format('w ww wo'), '2 02 2주', 'Jan  8 2012 should be week 2');
+    assert.equal(moment([2012, 0, 14]).format('w ww wo'), '2 02 2주', 'Jan 14 2012 should be week 2');
+    assert.equal(moment([2012, 0, 15]).format('w ww wo'), '3 03 3주', 'Jan 15 2012 should be week 3');
 });
 

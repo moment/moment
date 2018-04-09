@@ -134,20 +134,20 @@ test('ordinal', function (assert) {
 test('ordinal parse', function (assert) {
     moment.defineLocale('ordinal-parse-1', null);
     moment.defineLocale('ordinal-parse-1', {
-        ordinalParse : /\d{1,2}x/
+        dayOfMonthOrdinalParse : /\d{1,2}x/
     });
     moment.updateLocale('ordinal-parse-1', {
-        ordinalParse : /\d{1,2}y/
+        dayOfMonthOrdinalParse : /\d{1,2}y/
     });
 
     assert.ok(moment.utc('2015-01-1y', 'YYYY-MM-Do', true).isValid(), 'ordinal parse uses child');
 
     moment.defineLocale('ordinal-parse-2', null);
     moment.defineLocale('ordinal-parse-2', {
-        ordinalParse : /\d{1,2}x/
+        dayOfMonthOrdinalParse : /\d{1,2}x/
     });
     moment.updateLocale('ordinal-parse-2', {
-        ordinalParse : /\d{1,2}/
+        dayOfMonthOrdinalParse : /\d{1,2}/
     });
 
     assert.ok(moment.utc('2015-01-1', 'YYYY-MM-Do', true).isValid(), 'ordinal parse uses child (default)');
@@ -163,4 +163,12 @@ test('months', function (assert) {
         months : 'First_Second_Third_Fourth_Fifth_Sixth_Seventh_Eighth_Ninth_Tenth_Eleventh_Twelveth '.split('_')
     });
     assert.ok(moment.utc('2015-01-01', 'YYYY-MM-DD').format('MMMM'), 'First', 'months uses child');
+});
+
+test('update existing locale', function (assert) {
+    moment.updateLocale('de', {
+        monthsShort: ['JAN', 'FEB', 'MÄR', 'APR', 'MAI', 'JUN', 'JUL', 'AUG', 'SEP', 'OKT', 'NOV', 'DEZ']
+    });
+    assert.equal(moment('2017-02-01').format('YYYY MMM MMMM'), '2017 FEB Februar');
+    moment.updateLocale('de', null);
 });

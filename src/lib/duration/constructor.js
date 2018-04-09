@@ -1,5 +1,6 @@
 import { normalizeObjectUnits } from '../units/aliases';
 import { getLocale } from '../locale/locales';
+import isDurationValid from './valid.js';
 
 export function Duration (duration) {
     var normalizedInput = normalizeObjectUnits(duration),
@@ -13,6 +14,8 @@ export function Duration (duration) {
         seconds = normalizedInput.second || 0,
         milliseconds = normalizedInput.millisecond || 0;
 
+    this._isValid = isDurationValid(normalizedInput);
+
     // representation for dateAddRemove
     this._milliseconds = +milliseconds +
         seconds * 1e3 + // 1000
@@ -22,7 +25,7 @@ export function Duration (duration) {
     // day when working around DST, we need to store them separately
     this._days = +days +
         weeks * 7;
-    // It is impossible translate months into days without knowing
+    // It is impossible to translate months into days without knowing
     // which months you are are talking about, so we have to store
     // it separately.
     this._months = +months +

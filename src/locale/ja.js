@@ -11,12 +11,16 @@ export default moment.defineLocale('ja', {
     weekdaysShort : '日_月_火_水_木_金_土'.split('_'),
     weekdaysMin : '日_月_火_水_木_金_土'.split('_'),
     longDateFormat : {
-        LT : 'Ah時m分',
-        LTS : 'Ah時m分s秒',
+        LT : 'HH:mm',
+        LTS : 'HH:mm:ss',
         L : 'YYYY/MM/DD',
         LL : 'YYYY年M月D日',
-        LLL : 'YYYY年M月D日Ah時m分',
-        LLLL : 'YYYY年M月D日Ah時m分 dddd'
+        LLL : 'YYYY年M月D日 HH:mm',
+        LLLL : 'YYYY年M月D日 dddd HH:mm',
+        l : 'YYYY/MM/DD',
+        ll : 'YYYY年M月D日',
+        lll : 'YYYY年M月D日 HH:mm',
+        llll : 'YYYY年M月D日(ddd) HH:mm'
     },
     meridiemParse: /午前|午後/i,
     isPM : function (input) {
@@ -32,12 +36,24 @@ export default moment.defineLocale('ja', {
     calendar : {
         sameDay : '[今日] LT',
         nextDay : '[明日] LT',
-        nextWeek : '[来週]dddd LT',
+        nextWeek : function (now) {
+            if (now.week() < this.week()) {
+                return '[来週]dddd LT';
+            } else {
+                return 'dddd LT';
+            }
+        },
         lastDay : '[昨日] LT',
-        lastWeek : '[前週]dddd LT',
+        lastWeek : function (now) {
+            if (this.week() < now.week()) {
+                return '[先週]dddd LT';
+            } else {
+                return 'dddd LT';
+            }
+        },
         sameElse : 'L'
     },
-    ordinalParse : /\d{1,2}日/,
+    dayOfMonthOrdinalParse : /\d{1,2}日/,
     ordinal : function (number, period) {
         switch (period) {
             case 'd':
@@ -52,6 +68,7 @@ export default moment.defineLocale('ja', {
         future : '%s後',
         past : '%s前',
         s : '数秒',
+        ss : '%d秒',
         m : '1分',
         mm : '%d分',
         h : '1時間',

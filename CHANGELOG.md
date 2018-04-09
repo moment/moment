@@ -1,6 +1,127 @@
 Changelog
 =========
 
+### 2.22.0 [See full changelog](https://gist.github.com/marwahaha/ae895025dac3f0641fa9ec2e36d282bb)
+
+* Release Mar 30, 2018
+
+* [#4423](https://github.com/moment/moment/pull/4423) [new locale] Added Mongolian locale mn
+* Various locale improvements
+* Minor misc changes
+
+### 2.21.0 [See full changelog](https://gist.github.com/marwahaha/80d19ef882b71df1948df7865efdd40e)
+
+* Release Mar 2, 2018
+
+* [#4391](https://github.com/moment/moment/pull/4391) [bugfix] Fix [#4390](https://github.com/moment/moment/pull/4390): use offset properly in toISOString
+* [#4310](https://github.com/moment/moment/pull/4310) [bugfix] Fix [#3883](https://github.com/moment/moment/pull/3883) lazy load parentLocale in defineLocale, fallback to global if missing
+* [#4085](https://github.com/moment/moment/pull/4085) [misc] Print console warning when setting non-existent locales
+* [#4371](https://github.com/moment/moment/pull/4371) [misc] fix deprecated rollup options
+* New locales: ug-cn, en-il, tg
+* Various locale improvements
+
+### 2.20.1 [See changelog](https://gist.github.com/marwahaha/d72c1cb22076373be889b16272cbd187)
+
+* Release Dec 18, 2017
+
+* [#4359](https://github.com/moment/moment/pull/4359) [locale] Fix Arabic locale for months (again)
+* [#4357](https://github.com/moment/moment/pull/4357) [misc] Add optional parameter keepOffset to toISOString
+
+### 2.20.0 [See full changelog](https://gist.github.com/marwahaha/e0d4135fbf8bb75fa85c4aa2bddc5031)
+
+* Release Dec 16, 2017
+
+* [#4312](https://github.com/moment/moment/pull/4312) [bugfix] Fix [#4251](https://github.com/moment/moment/pull/4251): Avoid RFC2822 in utc() test
+* [#4240](https://github.com/moment/moment/pull/4240) [bugfix] Fix incorrect strict parsing with full-width parentheses
+* [#4341](https://github.com/moment/moment/pull/4341) [feature] Prevent toISOString converting to UTC (issue [#1751](https://github.com/moment/moment/pull/1751))
+* [#4154](https://github.com/moment/moment/pull/4154) [feature] add format constants to support output to HTML5 input type formats (see [#3928](https://github.com/moment/moment/pull/3928))
+* [#4143](https://github.com/moment/moment/pull/4143) [new locale] mt: Maltese language
+* [#4183](https://github.com/moment/moment/pull/4183) [locale] Relative seconds i18n
+* Various other locale improvements
+
+### 2.19.4 [See changelog](https://gist.github.com/marwahaha/d3b7b0ddf4bdae512244f16e8cc59efb)
+
+* Release Dec 10, 2017
+
+* [#4332](https://github.com/moment/moment/pull/4332) [bugfix] Fix weekday verification for UTC and offset days (fixes [#4227](https://github.com/moment/moment/pull/4227))
+* [#4336](https://github.com/moment/moment/pull/4336) [bugfix] Fix [#4334](https://github.com/moment/moment/pull/4334): Remove unused function call argument
+* [#4246](https://github.com/moment/moment/pull/4246) [misc] Add 'ss' relative time key to typescript definition
+
+### 2.19.3 [See changelog](https://gist.github.com/marwahaha/3654006bc0c2e522451c08d12c0bfabf)
+
+* Release Nov 29, 2017
+
+* [#4326](https://github.com/moment/moment/pull/4326) [bugfix] Fix for ReDOS vulnerability (see [#4163](https://github.com/moment/moment/issues/4163))
+* [#4289](https://github.com/moment/moment/pull/4289) [misc] Fix spelling and formatting for U.S. for es-us
+
+### 2.19.2 [See changelog (it's the same >:D)](https://gist.github.com/ichernev/76b1a3f33d3a8ff9665ce434a45221d0)
+
+* Release Nov 11, 2017
+
+* [#4255](https://github.com/moment/moment/pull/4255) [bugfix] Fix year setter for random days in a leap year, fixes [#4238](https://github.com/moment/moment/issues/4238)
+* [#4242](https://github.com/moment/moment/pull/4242) [bugfix] updateLocale now tries to load parent, fixes [#3626](https://github.com/moment/moment/issues/3626)
+
+### 2.19.1
+
+* Release Oct 11, 2017
+
+Make react native and webpack both work
+* #4225 #4226 #4232
+
+### 2.19.0 [See full changelog](https://gist.github.com/ichernev/5f3f4eb02761b4f765a0cccf02cec603)
+
+* Release Oct 10, 2017
+
+## Fix React Native 0.49+ crash
+* [#4213](https://github.com/moment/moment/pull/4213) [critical] Rename dynamic
+  require to avoid React Native crash
+* [#4214](https://github.com/moment/moment/pull/4214) [fixup] Move require
+  rename inside try/catch, fixes
+  [#4213](https://github.com/moment/moment/issues/4213)
+
+## Features
+
+* [#3735](https://github.com/moment/moment/pull/3735) [feature] Ignore NaN values in setters
+* [#4106](https://github.com/moment/moment/pull/4106) [fixup] Drop isNumeric utility fn, fixes [#3735](https://github.com/moment/moment/issues/3735)
+* [#4080](https://github.com/moment/moment/pull/4080) [feature] Implement a clone method for durations, fixes [#4078](https://github.com/moment/moment/issues/4078)
+* [#4215](https://github.com/moment/moment/pull/4215) [misc] TS: Add duration.clone(), for [#4080](https://github.com/moment/moment/issues/4080)
+
+## Packaging
+
+* [#4003](https://github.com/moment/moment/pull/4003) [pkg] bower: Remove tests from package
+* [#3904](https://github.com/moment/moment/pull/3904) [pkg] jsnext:main -> module in package.json
+* [#4060](https://github.com/moment/moment/pull/4060) [pkg] Account for new rollup interface
+
+Bugfixes, new locales, locale fixes etc...
+
+### 2.18.1
+
+* Release Mar 22, 2017
+
+* [#3853](https://github.com/moment/moment/pull/3853) [misc] Fix invalid whitespace character causing inability to parse
+  moment.js
+
+### 2.18.0 [See full changelog](https://gist.github.com/ichernev/78920c5a1e419fb28c6e4546d1b7235c)
+
+* Release Mar 18, 2017
+
+## Features
+
+* [#3708](https://github.com/moment/moment/pull/3708) [feature] RFC2822 parsing
+* [#3611](https://github.com/moment/moment/pull/3611) [feature] Durations gain validity
+* [#3738](https://github.com/moment/moment/pull/3738) [feature] Enable relative time for multiple seconds, request [#2558](https://github.com/moment/moment/issues/2558)
+* [#3766](https://github.com/moment/moment/pull/3766) [feature] Add support for k and kk format parsing
+
+## Bugfixes
+
+* [#3643](https://github.com/moment/moment/pull/3643) [bugfix] Fixes [#3520](https://github.com/moment/moment/issues/3520), parseZone incorrectly handled minutes under 16
+* [#3710](https://github.com/moment/moment/pull/3710) [bugfix] Fixes [#3632](https://github.com/moment/moment/issues/3632), toISOString returns null for invalid date
+* [#3787](https://github.com/moment/moment/pull/3787) [bugfix] Fixes [#3717](https://github.com/moment/moment/issues/3717), ensure day-of-year is non-zero
+* [#3780](https://github.com/moment/moment/pull/3780) [bugfix] Fixes [#3765](https://github.com/moment/moment/issues/3765): Ensure year 0 is formatted with YYYY
+* [#3806](https://github.com/moment/moment/pull/3806) [bugfix] Fixes [#3805](https://github.com/moment/moment/issues/3805), fix locale month getters for standalone/format cases
+
+7 new locales, many locale improvements and some misc changes
+
 ### 2.17.1 [Also available here](https://gist.github.com/ichernev/f38280b2b29c4932914a6d3a4e50bfb2)
 * Release Dec 03, 2016
 
@@ -80,29 +201,30 @@ Also some locale and typescript improvements
 - Release July 20, 2016
 
 ## New Features
-* [#3233](http://github.com/moment/moment/pull/3233) Introduce month.isFormat for format/standalone discovery
-* [#2848](http://github.com/moment/moment/pull/2848) Allow user to get/set the rounding method used when calculating relative time
-* [#3112](http://github.com/moment/moment/pull/3112) optimize configFromStringAndFormat
-* [#3147](http://github.com/moment/moment/pull/3147) Call calendar format function with moment context
-* [#3160](http://github.com/moment/moment/pull/3160) deprecate isDSTShifted
-* [#3175](http://github.com/moment/moment/pull/3175) make moment calendar extensible with ad-hoc options
-* [#3191](http://github.com/moment/moment/pull/3191) toDate returns a copy of the internal date object
-* [#3192](http://github.com/moment/moment/pull/3192) Adding support for rollup import.
-* [#3238](http://github.com/moment/moment/pull/3238) Handle empty object and empty array for creation as now
-* [#3082](http://github.com/moment/moment/pull/3082) Use relative AMD moment dependency
+* [#3233](https://github.com/moment/moment/pull/3233) Introduce month.isFormat for format/standalone discovery
+* [#2848](https://github.com/moment/moment/pull/2848) Allow user to get/set the rounding method used when calculating relative time
+* [#3112](https://github.com/moment/moment/pull/3112) optimize configFromStringAndFormat
+* [#3147](https://github.com/moment/moment/pull/3147) Call calendar format function with moment context
+* [#3160](https://github.com/moment/moment/pull/3160) deprecate isDSTShifted
+* [#3175](https://github.com/moment/moment/pull/3175) make moment calendar extensible with ad-hoc options
+* [#3191](https://github.com/moment/moment/pull/3191) toDate returns a copy of the internal date object
+* [#3192](https://github.com/moment/moment/pull/3192) Adding support for rollup import.
+* [#3238](https://github.com/moment/moment/pull/3238) Handle empty object and empty array for creation as now
+* [#3082](https://github.com/moment/moment/pull/3082) Use relative AMD moment dependency
 
 ## Bugfixes
-* [#3241](http://github.com/moment/moment/pull/3241) Escape all 24 mixed pieces, not only first 12 in computeMonthsParse
-* [#3008](http://github.com/moment/moment/pull/3008) Object setter orders sets based on size of unit
-* [#3177](http://github.com/moment/moment/pull/3177) Bug Fix [#2704](http://github.com/moment/moment/pull/2704) - isoWeekday(String) inconsistent with isoWeekday(Number)
-* [#3230](http://github.com/moment/moment/pull/3230) fix passing date with format string to ignore format string
-* [#3232](http://github.com/moment/moment/pull/3232) Fix negative 0 in certain diff cases
-* [#3235](http://github.com/moment/moment/pull/3235) Use proper locale inheritance for the base locale, fixes [#3137](http://github.com/moment/moment/pull/3137)
+* [#3241](https://github.com/moment/moment/pull/3241) Escape all 24 mixed pieces, not only first 12 in computeMonthsParse
+* [#3008](https://github.com/moment/moment/pull/3008) Object setter orders sets based on size of unit
+* [#3177](https://github.com/moment/moment/pull/3177) Bug Fix [#2704](https://github.com/moment/moment/pull/2704) - isoWeekday(String) inconsistent with isoWeekday(Number)
+* [#3230](https://github.com/moment/moment/pull/3230) fix passing date with format string to ignore format string
+* [#3232](https://github.com/moment/moment/pull/3232) Fix negative 0 in certain diff cases
+* [#3235](https://github.com/moment/moment/pull/3235) Use proper locale inheritance for the base locale, fixes [#3137](https://github.com/moment/moment/pull/3137)
 
 Plus es-do locale and locale bugfixes
 
 ### 2.13.0 [See full changelog](https://gist.github.com/ichernev/0132fcf5b61f7fc140b0bb0090480d49)
 - Release April 18, 2016
+
 ## Enhancements:
 * [#2982](https://github.com/moment/moment/pull/2982) Add 'date' as alias to 'day' for startOf() and endOf().
 * [#2955](https://github.com/moment/moment/pull/2955) Add parsing negative components in durations when ISO 8601

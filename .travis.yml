@@ -1,7 +1,11 @@
 language: node_js
 node_js:
   - "node"
-  - "0.12"
+  - "8"
+  - "7"
+  - "6"
+  - "5"
+  - "4"
 sudo: false
 
 env:
@@ -9,7 +13,8 @@ env:
     - secure: "M4STT2TOZxjzv3cZOgSVi0J4j6enrGjgE+p5YTNUw+S6Dg6FS5pTIPeafu1kGhfm7F0uk7xPVwGKYb+3uWNO9IhkKXz8jySMMQ2iKISHwECGNNuFNjSMD1vIjbIkLwV8TyPO/PurQg2s+WtYz+DoAZsDFKpdaRUtif64OjdQ3vQ="
     - secure: "V+i7kHoGe7VXWGplPNqJz+aDtgDF9Dh9/guoaf2BPyXLvkFW6VgMjJyoNUW7JVsakrWzAz2ubb734vAPDt7BCcFQ2BqfatOmabdFogviCaXC6IqVaEkYS2eSP7MIUPIeWJgnTrDGzkFMDk4K7y5SiVJ8UmYwZxe+tJV7kbb0Yig="
 
-before_script:
+install:
+  - npm install
   - npm install -g grunt-cli
 
 script: grunt build:travis

@@ -23,8 +23,8 @@ test('local to zone, keepLocalTime = true', function (assert) {
         z;
 
     // Apparently there is -12:00 and +14:00
-    // http://en.wikipedia.org/wiki/UTC+14:00
-    // http://en.wikipedia.org/wiki/UTC-12:00
+    // https://en.wikipedia.org/wiki/UTC+14:00
+    // https://en.wikipedia.org/wiki/UTC-12:00
     for (z = -12; z <= 14; ++z) {
         assert.equal(m.clone().zone(z * 60, true).format(fmt), m.format(fmt),
                 'local to zone(' + z + ':00) failed to keep local time');
@@ -37,8 +37,8 @@ test('local to zone, keepLocalTime = false', function (assert) {
         z;
 
     // Apparently there is -12:00 and +14:00
-    // http://en.wikipedia.org/wiki/UTC+14:00
-    // http://en.wikipedia.org/wiki/UTC-12:00
+    // https://en.wikipedia.org/wiki/UTC+14:00
+    // https://en.wikipedia.org/wiki/UTC-12:00
     for (z = -12; z <= 14; ++z) {
         assert.equal(m.clone().zone(z * 60).valueOf(), m.valueOf(),
                 'local to zone(' + z + ':00) failed to keep utc time (implicit)');
@@ -80,8 +80,8 @@ test('zone to local, keepLocalTime = true', function (assert) {
         z;
 
     // Apparently there is -12:00 and +14:00
-    // http://en.wikipedia.org/wiki/UTC+14:00
-    // http://en.wikipedia.org/wiki/UTC-12:00
+    // https://en.wikipedia.org/wiki/UTC+14:00
+    // https://en.wikipedia.org/wiki/UTC-12:00
     for (z = -12; z <= 14; ++z) {
         m.zone(z * 60);
 
@@ -96,8 +96,8 @@ test('zone to local, keepLocalTime = false', function (assert) {
         z;
 
     // Apparently there is -12:00 and +14:00
-    // http://en.wikipedia.org/wiki/UTC+14:00
-    // http://en.wikipedia.org/wiki/UTC-12:00
+    // https://en.wikipedia.org/wiki/UTC+14:00
+    // https://en.wikipedia.org/wiki/UTC-12:00
     for (z = -12; z <= 14; ++z) {
         m.zone(z * 60);
 
