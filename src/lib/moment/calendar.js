@@ -1,8 +1,9 @@
-import { isMoment } from './constructor';
 import { createLocal } from '../create/local';
 import { cloneWithOffset } from '../units/offset';
 import isFunction from '../utils/is-function';
 import { hooks } from '../utils/hooks';
+import { isMomentInput } from '../utils/is-moment-input';
+import isCalendarSpec from '../utils/is-calendar-spec';
 
 export function getCalendarFormat(myMoment, now) {
     var diff = myMoment.diff(now, 'days', true);
@@ -16,9 +17,14 @@ export function getCalendarFormat(myMoment, now) {
 
 export function calendar (time, formats) {
     // Support for single parameter, formats only overload to the calendar function
-    if (arguments.length === 1 && typeof time === 'object' && !isMoment(time)) {
-        formats = arguments[0];
-        time = undefined;
+    if (arguments.length === 1) {
+        if (isMomentInput(arguments[0])) {
+            time = arguments[0];
+            formats = undefined;
+        } else if (isCalendarSpec(arguments[0])) {
+            formats = arguments[0];
+            time = undefined;
+        }
     }
     // We want to compare the start of today, vs this.
     // Getting start-of-today depends on whether we're local/utc/offset or not.

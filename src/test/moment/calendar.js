@@ -56,11 +56,104 @@ test('extending calendar options', function (assert) {
     }
 });
 
-test('calendar overload - passing one parameter formats', function (assert) {
+test('calendar overload time - passing one parameter - a Moment', function (assert) {
     var a = moment().hours(13).minutes(23).seconds(45);
-    assert.equal(moment(a).calendar({
-        'sameDay': function () {
-            return 'h:mm:ssA';
-        }
-    }), '1:23:45PM', 'should equate');
+    var b = moment().add(1, 'd');
+    assert.equal(
+        a.calendar(b),
+        'Yesterday at 1:23 PM',
+        'should equate'
+    );
+});
+
+test('calendar overload time - passing one parameter - a Date', function (assert) {
+    var a = moment().hours(13).minutes(23).seconds(45).subtract(1, 'd');
+    var d = new Date();
+    assert.equal(
+        a.calendar(d),
+        'Yesterday at 1:23 PM',
+        'should equate'
+    );
+});
+
+test('calendar overload time - passing one parameter - a string', function (assert) {
+    var a = moment([2808, 11, 1]);
+    assert.equal(
+        a.calendar('1999-12-31'),
+        '12/01/2808',
+        'should equate'
+    );
+});
+
+test('calendar overload time - passing one parameter - a number', function (assert) {
+    var a = moment([2808, 11, 1]);
+    assert.equal(
+        a.calendar(Date.now()),
+        '12/01/2808',
+        'should equate'
+    );
+});
+
+test('calendar overload time - passing one parameter - an array of numbers', function (assert) {
+    var a = moment().year(2808).month(11).date(1).hours(13).minutes(23).seconds(45);
+    assert.equal(
+        a.calendar([2808, 11, 1, 13, 23, 45]),
+        'Today at 1:23 PM',
+        'should equate'
+    );
+});
+
+test('calendar overload time - passing one parameter - an array of strings', function (assert) {
+    var a = moment().year(2808).month(11).date(1).hours(13).minutes(23).seconds(45);
+    assert.equal(
+        a.calendar(['2808', '11', '1', '13', '23', '45']),
+        'Today at 1:23 PM',
+        'should equate'
+    );
+});
+
+test('calendar overload time - passing one parameter - a moment input object', function (assert) {
+    var a = moment();
+
+    var todayTime = new Date(),
+        month = todayTime.getMonth() + 1,
+        day = todayTime.getDate(),
+        year = todayTime.getFullYear();
+
+    month = month < 10 ? '0' + month.toString() : month;
+    day = day < 10 ? '0' + day.toString() : day;
+
+    var expectedString = month + '/' + day + '/' + year;
+
+    assert.equal(
+        a.calendar({
+            month: 12,
+            day: 1,
+            year: 2808
+        }),
+        expectedString,
+        'should equate'
+    );
+});
+
+test('calendar overload format - passing one parameter - object w/ sameDay as a string', function (assert) {
+    var a = moment().hours(13).minutes(23).seconds(45);
+    assert.equal(
+        a.calendar({'sameDay':'h:mm:ssA'}),
+        '1:23:45PM',
+        'should equate'
+    );
+});
+
+test('calendar overload format - passing one parameter - object w/ sameDay as function returning a string', function (assert) {
+    var a = moment().hours(13).minutes(23).seconds(45);
+    assert.equal(
+        a.calendar({
+            'sameDay': function () {
+                return 'h:mm:ssA';
+            }
+        }),
+        '1:23:45PM',
+        'should equate'
+    );
 });
