@@ -53,7 +53,7 @@ function loadLocale(name) {
         try {
             oldLocale = globalLocale._abbr;
             var aliasedRequire = require;
-            aliasedRequire('../locale/' + name);
+            aliasedRequire('./locale/' + name);
             getSetGlobalLocale(oldLocale);
         } catch (e) {}
     }
