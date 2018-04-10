@@ -34,10 +34,10 @@ function relativeTime (posNegDuration, withoutSuffix, locale) {
             hours   < thresholds.h   && ['hh', hours]   ||
             days    <= 1             && ['d']           ||
             days    < thresholds.d   && ['dd', days]    ||
+            weeks  <= 1              && ['w']           ||
+            weeks   < thresholds.w   && ['ww', weeks]   ||
             months  <= 1             && ['M']           ||
             months  < thresholds.M   && ['MM', months]  ||
-            weeks  <= 1              && ['w']           ||
-            weeks  <  thresholds.w   && ['ww', weeks]    ||
             years   <= 1             && ['y']           || ['yy', years];
 
     a[2] = withoutSuffix;
