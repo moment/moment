@@ -6,8 +6,8 @@ var thresholds = {
     s : 45,         // seconds to minute
     m : 45,         // minutes to hour
     h : 22,         // hours to day
-    d : 5,          // days to week
-    w : 3,          // weeks to month
+    d : 6,          // days to week
+    w : 4,          // weeks to month
     M : 11          // months to year
 };
 
