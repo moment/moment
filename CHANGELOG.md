@@ -1,6 +1,14 @@
 Changelog
 =========
 
+### 2.22.0 [See full changelog](https://gist.github.com/marwahaha/ae895025dac3f0641fa9ec2e36d282bb)
+
+* Release Mar 30, 2018
+
+* [#4423](https://github.com/moment/moment/pull/4423) [new locale] Added Mongolian locale mn
+* Various locale improvements
+* Minor misc changes
+
 ### 2.21.0 [See full changelog](https://gist.github.com/marwahaha/80d19ef882b71df1948df7865efdd40e)
 
 * Release Mar 2, 2018

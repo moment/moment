@@ -1,4 +1,4 @@
-import { test, expect } from '../qunit';
+import { test } from '../qunit';
 import each from './each';
 import objectKeys from './object-keys';
 import moment from '../../moment';
@@ -74,7 +74,7 @@ export function defineCommonLocaleTests(locale, options) {
 
         if (locale === 'tr') {
             // I can't fix it :(
-            expect(0);
+            assert.expect(0);
             return;
         }
         function tester(format) {
@@ -111,7 +111,7 @@ export function defineCommonLocaleTests(locale, options) {
             // upper then lower changes to i
             // ro: there is the letter ț which behaves weird under IE8
             // mt: letter Ħ
-            expect(0);
+            assert.expect(0);
             return;
         }
         function tester(format) {

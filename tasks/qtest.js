@@ -2,13 +2,12 @@ module.exports = function (grunt) {
     grunt.task.registerTask('qtest', 'run tests locally', function () {
         var done = this.async();
 
-        var testrunner = require('qunit');
-
+        var testrunner = require('node-qunit');
         testrunner.options.log.assertions = false;
         testrunner.options.log.tests = false;
         testrunner.options.log.summary = false;
         testrunner.options.log.testing = false;
-        testrunner.options.maxBlockDuration = 120000;
+        testrunner.options.maxBlockDuration = 600000;
 
         var tests;
 
