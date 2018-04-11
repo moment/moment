@@ -1,7 +1,7 @@
 import { addFormatToken } from '../format/format';
 import { addUnitAlias } from './aliases';
 import { addUnitPriority } from './priorities';
-import { addRegexToken, match1to2, matchWord, regexEscape } from '../parse/regex';
+import { addRegexToken, match1to2, matchWord, regexEscape, matchDay } from '../parse/regex';
 import { addWeekParseToken } from '../parse/token';
 import toInt from '../utils/to-int';
 import isArray from '../utils/is-array';
@@ -42,9 +42,9 @@ addUnitPriority('isoWeekday', 11);
 
 // PARSING
 
-addRegexToken('d',    match1to2);
-addRegexToken('e',    match1to2);
-addRegexToken('E',    match1to2);
+addRegexToken('d',    match1to2, matchDay);
+addRegexToken('e',    match1to2, matchDay);
+addRegexToken('E',    match1to2, matchDay);
 addRegexToken('dd',   function (isStrict, locale) {
     return locale.weekdaysMinRegex(isStrict);
 });
