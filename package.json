@@ -86,7 +86,7 @@
     },
     "scripts": {
         "typescript-test": "tsc --project typing-tests",
-        "format": "prettier Gruntfile.js tasks src",
+        "format": "prettier --write Gruntfile.js {tasks,src}/**/*.js",
         "lint": "eslint Gruntfile.js tasks src",
         "pretest": "npm run format && npm run lint",
         "test": "grunt test",

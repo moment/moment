@@ -1,21 +1,9 @@
 // Side effect imports
 import './prototype';
 
-import {
-    getSetGlobalLocale,
-    defineLocale,
-    updateLocale,
-    getLocale,
-    listLocales
-} from './locales';
+import { getSetGlobalLocale, defineLocale, updateLocale, getLocale, listLocales } from './locales';
 
-import {
-    listMonths,
-    listMonthsShort,
-    listWeekdays,
-    listWeekdaysShort,
-    listWeekdaysMin
-} from './lists';
+import { listMonths, listMonthsShort, listWeekdays, listWeekdaysShort, listWeekdaysMin } from './lists';
 
 export {
     getSetGlobalLocale,

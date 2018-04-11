@@ -1,4 +1,4 @@
-module.exports = function (grunt) {
+module.exports = function(grunt) {
     // To set up on mac:
     // * brew install nuget # this fetches mono
     // * go to nuget.org, login, click on username (top right), copy api-key
@@ -22,11 +22,11 @@ module.exports = function (grunt) {
             dest: './'
         }
     });
-    grunt.registerTask('nugetkey_pre', function () {
+    grunt.registerTask('nugetkey_pre', function() {
         grunt.option('key', process.env.NUGET_KEY);
         grunt.option('source', 'https://www.nuget.org/api/v2/package');
     });
-    grunt.registerTask('nugetkey_post', function () {
+    grunt.registerTask('nugetkey_post', function() {
         grunt.option('key', null);
         grunt.option('source', null);
     });
@@ -39,7 +39,5 @@ module.exports = function (grunt) {
         src: 'Moment.js.*.nupkg'
     });
 
-    grunt.registerTask('nuget-publish', [
-        'nugetpack', 'nugetkey_pre', 'nugetkey', 'nugetkey_post', 'nugetpush', 'clean:nuget'
-    ]);
+    grunt.registerTask('nuget-publish', ['nugetpack', 'nugetkey_pre', 'nugetkey', 'nugetkey_post', 'nugetpush', 'clean:nuget']);
 };

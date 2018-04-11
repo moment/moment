@@ -3,7 +3,7 @@ import moment from '../../moment';
 
 module('start and end of units');
 
-test('start of year', function (assert) {
+test('start of year', function(assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('year'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('years'),
         ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('y');
@@ -18,7 +18,7 @@ test('start of year', function (assert) {
     assert.equal(m.milliseconds(), 0, 'strip out the milliseconds');
 });
 
-test('end of year', function (assert) {
+test('end of year', function(assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('year'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('years'),
         ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('y');
@@ -33,7 +33,7 @@ test('end of year', function (assert) {
     assert.equal(m.milliseconds(), 999, 'set the seconds');
 });
 
-test('start of quarter', function (assert) {
+test('start of quarter', function(assert) {
     var m = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).startOf('quarter'),
         ms = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).startOf('quarters'),
         ma = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).startOf('Q');
@@ -49,7 +49,7 @@ test('start of quarter', function (assert) {
     assert.equal(m.milliseconds(), 0, 'strip out the milliseconds');
 });
 
-test('end of quarter', function (assert) {
+test('end of quarter', function(assert) {
     var m = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).endOf('quarter'),
         ms = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).endOf('quarters'),
         ma = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).endOf('Q');
@@ -65,7 +65,7 @@ test('end of quarter', function (assert) {
     assert.equal(m.milliseconds(), 999, 'set the seconds');
 });
 
-test('start of month', function (assert) {
+test('start of month', function(assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('month'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('months'),
         ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('M');
@@ -80,7 +80,7 @@ test('start of month', function (assert) {
     assert.equal(m.milliseconds(), 0, 'strip out the milliseconds');
 });
 
-test('end of month', function (assert) {
+test('end of month', function(assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('month'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('months'),
         ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('M');
@@ -95,7 +95,7 @@ test('end of month', function (assert) {
     assert.equal(m.milliseconds(), 999, 'set the seconds');
 });
 
-test('start of week', function (assert) {
+test('start of week', function(assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('week'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('weeks'),
         ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('w');
@@ -111,7 +111,7 @@ test('start of week', function (assert) {
     assert.equal(m.milliseconds(), 0, 'strip out the milliseconds');
 });
 
-test('end of week', function (assert) {
+test('end of week', function(assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('week'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('weeks'),
         ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('weeks');
@@ -127,7 +127,7 @@ test('end of week', function (assert) {
     assert.equal(m.milliseconds(), 999, 'set the seconds');
 });
 
-test('start of iso-week', function (assert) {
+test('start of iso-week', function(assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('isoWeek'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('isoWeeks'),
         ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('W');
@@ -143,7 +143,7 @@ test('start of iso-week', function (assert) {
     assert.equal(m.milliseconds(), 0, 'strip out the milliseconds');
 });
 
-test('end of iso-week', function (assert) {
+test('end of iso-week', function(assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('isoWeek'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('isoWeeks'),
         ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('W');
@@ -159,7 +159,7 @@ test('end of iso-week', function (assert) {
     assert.equal(m.milliseconds(), 999, 'set the seconds');
 });
 
-test('start of day', function (assert) {
+test('start of day', function(assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('day'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('days'),
         ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('d');
@@ -174,7 +174,7 @@ test('start of day', function (assert) {
     assert.equal(m.milliseconds(), 0, 'strip out the milliseconds');
 });
 
-test('end of day', function (assert) {
+test('end of day', function(assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('day'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('days'),
         ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('d');
@@ -189,7 +189,7 @@ test('end of day', function (assert) {
     assert.equal(m.milliseconds(), 999, 'set the seconds');
 });
 
-test('start of date', function (assert) {
+test('start of date', function(assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('date'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('dates');
 
@@ -203,7 +203,7 @@ test('start of date', function (assert) {
     assert.equal(m.milliseconds(), 0, 'strip out the milliseconds');
 });
 
-test('end of date', function (assert) {
+test('end of date', function(assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('date'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('dates');
 
@@ -217,8 +217,7 @@ test('end of date', function (assert) {
     assert.equal(m.milliseconds(), 999, 'set the seconds');
 });
 
-
-test('start of hour', function (assert) {
+test('start of hour', function(assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('hour'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('hours'),
         ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('h');
@@ -233,7 +232,7 @@ test('start of hour', function (assert) {
     assert.equal(m.milliseconds(), 0, 'strip out the milliseconds');
 });
 
-test('end of hour', function (assert) {
+test('end of hour', function(assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('hour'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('hours'),
         ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('h');
@@ -248,7 +247,7 @@ test('end of hour', function (assert) {
     assert.equal(m.milliseconds(), 999, 'set the seconds');
 });
 
-test('start of minute', function (assert) {
+test('start of minute', function(assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('minute'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('minutes'),
         ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('m');
@@ -263,7 +262,7 @@ test('start of minute', function (assert) {
     assert.equal(m.milliseconds(), 0, 'strip out the milliseconds');
 });
 
-test('end of minute', function (assert) {
+test('end of minute', function(assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('minute'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('minutes'),
         ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('m');
@@ -278,7 +277,7 @@ test('end of minute', function (assert) {
     assert.equal(m.milliseconds(), 999, 'set the seconds');
 });
 
-test('start of second', function (assert) {
+test('start of second', function(assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('second'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('seconds'),
         ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('s');
@@ -293,7 +292,7 @@ test('start of second', function (assert) {
     assert.equal(m.milliseconds(), 0, 'strip out the milliseconds');
 });
 
-test('end of second', function (assert) {
+test('end of second', function(assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('second'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('seconds'),
         ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('s');
@@ -308,13 +307,13 @@ test('end of second', function (assert) {
     assert.equal(m.milliseconds(), 999, 'set the seconds');
 });
 
-test('startOf across DST +1', function (assert) {
+test('startOf across DST +1', function(assert) {
     var oldUpdateOffset = moment.updateOffset,
         // Based on a real story somewhere in America/Los_Angeles
         dstAt = moment('2014-03-09T02:00:00-08:00').parseZone(),
         m;
 
-    moment.updateOffset = function (mom, keepTime) {
+    moment.updateOffset = function(mom, keepTime) {
         if (mom.isBefore(dstAt)) {
             mom.utcOffset(-8, keepTime);
         } else {
@@ -324,36 +323,36 @@ test('startOf across DST +1', function (assert) {
 
     m = moment('2014-03-15T00:00:00-07:00').parseZone();
     m.startOf('y');
-    assert.equal(m.format(), '2014-01-01T00:00:00-08:00', 'startOf(\'year\') across +1');
+    assert.equal(m.format(), '2014-01-01T00:00:00-08:00', "startOf('year') across +1");
 
     m = moment('2014-03-15T00:00:00-07:00').parseZone();
     m.startOf('M');
-    assert.equal(m.format(), '2014-03-01T00:00:00-08:00', 'startOf(\'month\') across +1');
+    assert.equal(m.format(), '2014-03-01T00:00:00-08:00', "startOf('month') across +1");
 
     m = moment('2014-03-09T09:00:00-07:00').parseZone();
     m.startOf('d');
-    assert.equal(m.format(), '2014-03-09T00:00:00-08:00', 'startOf(\'day\') across +1');
+    assert.equal(m.format(), '2014-03-09T00:00:00-08:00', "startOf('day') across +1");
 
     m = moment('2014-03-09T03:05:00-07:00').parseZone();
     m.startOf('h');
-    assert.equal(m.format(), '2014-03-09T03:00:00-07:00', 'startOf(\'hour\') after +1');
+    assert.equal(m.format(), '2014-03-09T03:00:00-07:00', "startOf('hour') after +1");
 
     m = moment('2014-03-09T01:35:00-08:00').parseZone();
     m.startOf('h');
-    assert.equal(m.format(), '2014-03-09T01:00:00-08:00', 'startOf(\'hour\') before +1');
+    assert.equal(m.format(), '2014-03-09T01:00:00-08:00', "startOf('hour') before +1");
 
     // There is no such time as 2:30-7 to try startOf('hour') across that
 
     moment.updateOffset = oldUpdateOffset;
 });
 
-test('startOf across DST -1', function (assert) {
+test('startOf across DST -1', function(assert) {
     var oldUpdateOffset = moment.updateOffset,
         // Based on a real story somewhere in America/Los_Angeles
         dstAt = moment('2014-11-02T02:00:00-07:00').parseZone(),
         m;
 
-    moment.updateOffset = function (mom, keepTime) {
+    moment.updateOffset = function(mom, keepTime) {
         if (mom.isBefore(dstAt)) {
             mom.utcOffset(-7, keepTime);
         } else {
@@ -363,30 +362,30 @@ test('startOf across DST -1', function (assert) {
 
     m = moment('2014-11-15T00:00:00-08:00').parseZone();
     m.startOf('y');
-    assert.equal(m.format(), '2014-01-01T00:00:00-07:00', 'startOf(\'year\') across -1');
+    assert.equal(m.format(), '2014-01-01T00:00:00-07:00', "startOf('year') across -1");
 
     m = moment('2014-11-15T00:00:00-08:00').parseZone();
     m.startOf('M');
-    assert.equal(m.format(), '2014-11-01T00:00:00-07:00', 'startOf(\'month\') across -1');
+    assert.equal(m.format(), '2014-11-01T00:00:00-07:00', "startOf('month') across -1");
 
     m = moment('2014-11-02T09:00:00-08:00').parseZone();
     m.startOf('d');
-    assert.equal(m.format(), '2014-11-02T00:00:00-07:00', 'startOf(\'day\') across -1');
+    assert.equal(m.format(), '2014-11-02T00:00:00-07:00', "startOf('day') across -1");
 
     // note that utc offset is -8
     m = moment('2014-11-02T01:30:00-08:00').parseZone();
     m.startOf('h');
-    assert.equal(m.format(), '2014-11-02T01:00:00-08:00', 'startOf(\'hour\') after +1');
+    assert.equal(m.format(), '2014-11-02T01:00:00-08:00', "startOf('hour') after +1");
 
     // note that utc offset is -7
     m = moment('2014-11-02T01:30:00-07:00').parseZone();
     m.startOf('h');
-    assert.equal(m.format(), '2014-11-02T01:00:00-07:00', 'startOf(\'hour\') before +1');
+    assert.equal(m.format(), '2014-11-02T01:00:00-07:00', "startOf('hour') before +1");
 
     moment.updateOffset = oldUpdateOffset;
 });
 
-test('endOf millisecond and no-arg', function (assert) {
+test('endOf millisecond and no-arg', function(assert) {
     var m = moment();
     assert.equal(+m, +m.clone().endOf(), 'endOf without argument should change time');
     assert.equal(+m, +m.clone().endOf('ms'), 'endOf with ms argument should change time');

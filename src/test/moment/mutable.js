@@ -3,7 +3,7 @@ import moment from '../../moment';
 
 module('mutable');
 
-test('manipulation methods', function (assert) {
+test('manipulation methods', function(assert) {
     var m = moment();
 
     assert.equal(m, m.year(2011), 'year() should be mutable');
@@ -20,7 +20,7 @@ test('manipulation methods', function (assert) {
     assert.equal(m, m.utc(), 'utc() should be mutable');
 });
 
-test('non mutable methods', function (assert) {
+test('non mutable methods', function(assert) {
     var m = moment();
     assert.notEqual(m, m.clone(), 'clone() should not be mutable');
 });

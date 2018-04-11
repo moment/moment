@@ -3,7 +3,7 @@ var indexOf;
 if (Array.prototype.indexOf) {
     indexOf = Array.prototype.indexOf;
 } else {
-    indexOf = function (o) {
+    indexOf = function(o) {
         // I know
         var i;
         for (i = 0; i < this.length; ++i) {

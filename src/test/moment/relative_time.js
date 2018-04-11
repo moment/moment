@@ -3,7 +3,7 @@ import moment from '../../moment';
 
 module('relative time');
 
-test('default thresholds fromNow', function (assert) {
+test('default thresholds fromNow', function(assert) {
     var a = moment();
 
     // Seconds to minutes threshold
@@ -41,7 +41,7 @@ test('default thresholds fromNow', function (assert) {
     assert.equal(a.fromNow(), 'a year ago', 'Above default days to years threshold');
 });
 
-test('default thresholds toNow', function (assert) {
+test('default thresholds toNow', function(assert) {
     var a = moment();
 
     // Seconds to minutes threshold
@@ -79,7 +79,7 @@ test('default thresholds toNow', function (assert) {
     assert.equal(a.toNow(), 'in a year', 'Above default days to years threshold');
 });
 
-test('custom thresholds', function (assert) {
+test('custom thresholds', function(assert) {
     var a;
 
     // Seconds to minute threshold, under 30
@@ -150,7 +150,7 @@ test('custom thresholds', function (assert) {
     moment.relativeTimeThreshold('M', 11);
 });
 
-test('custom rounding', function (assert) {
+test('custom rounding', function(assert) {
     var roundingDefault = moment.relativeTimeRounding();
 
     // Round relative time evaluation down
@@ -163,37 +163,37 @@ test('custom rounding', function (assert) {
     moment.relativeTimeThreshold('M', 12);
 
     var a = moment.utc();
-    a.subtract({minutes: 59, seconds: 59});
+    a.subtract({ minutes: 59, seconds: 59 });
     assert.equal(a.toNow(), 'in 59 minutes', 'Round down towards the nearest minute');
 
     a = moment.utc();
-    a.subtract({hours: 23, minutes: 59, seconds: 59});
+    a.subtract({ hours: 23, minutes: 59, seconds: 59 });
     assert.equal(a.toNow(), 'in 23 hours', 'Round down towards the nearest hour');
 
     a = moment.utc();
-    a.subtract({days: 26, hours: 23, minutes: 59});
+    a.subtract({ days: 26, hours: 23, minutes: 59 });
     assert.equal(a.toNow(), 'in 26 days', 'Round down towards the nearest day (just under)');
 
     a = moment.utc();
-    a.subtract({days: 27});
+    a.subtract({ days: 27 });
     assert.equal(a.toNow(), 'in a month', 'Round down towards the nearest day (just over)');
 
     a = moment.utc();
-    a.subtract({days: 364});
+    a.subtract({ days: 364 });
     assert.equal(a.toNow(), 'in 11 months', 'Round down towards the nearest month');
 
     a = moment.utc();
-    a.subtract({years: 1, days: 364});
+    a.subtract({ years: 1, days: 364 });
     assert.equal(a.toNow(), 'in a year', 'Round down towards the nearest year');
 
     // Do not round relative time evaluation
-    var retainValue = function (value) {
+    var retainValue = function(value) {
         return value.toFixed(3);
     };
     moment.relativeTimeRounding(retainValue);
 
     a = moment.utc();
-    a.subtract({hours: 39});
+    a.subtract({ hours: 39 });
     assert.equal(a.toNow(), 'in 1.625 days', 'Round down towards the nearest year');
 
     // Restore defaults
@@ -205,14 +205,14 @@ test('custom rounding', function (assert) {
     moment.relativeTimeRounding(roundingDefault);
 });
 
-test('retrieve rounding settings', function (assert) {
+test('retrieve rounding settings', function(assert) {
     moment.relativeTimeRounding(Math.round);
     var roundingFunction = moment.relativeTimeRounding();
 
     assert.equal(roundingFunction, Math.round, 'Can retrieve rounding setting');
 });
 
-test('retrieve threshold settings', function (assert) {
+test('retrieve threshold settings', function(assert) {
     moment.relativeTimeThreshold('m', 45);
     var minuteThreshold = moment.relativeTimeThreshold('m');
 

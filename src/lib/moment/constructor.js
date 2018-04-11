@@ -1,11 +1,10 @@
 import { hooks } from '../utils/hooks';
-import hasOwnProp from '../utils/has-own-prop';
 import isUndefined from '../utils/is-undefined';
 import getParsingFlags from '../create/parsing-flags';
 
 // Plugins that add properties should also add the key here (null value),
 // so we can properly clone ourselves.
-var momentProperties = hooks.momentProperties = [];
+var momentProperties = (hooks.momentProperties = []);
 
 export function copyConfig(to, from) {
     var i, prop, val;
@@ -72,6 +71,6 @@ export function Moment(config) {
     }
 }
 
-export function isMoment (obj) {
+export function isMoment(obj) {
     return obj instanceof Moment || (obj != null && obj._isAMomentObject != null);
 }

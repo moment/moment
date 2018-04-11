@@ -1,5 +1,5 @@
-module.exports = function (grunt) {
-    grunt.registerTask('component', function () {
+module.exports = function(grunt) {
+    grunt.registerTask('component', function() {
         var config = JSON.parse(grunt.file.read('component.json'));
 
         config.files = grunt.file.expand('locale/*.js');

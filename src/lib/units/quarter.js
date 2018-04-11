@@ -21,12 +21,12 @@ addUnitPriority('quarter', 7);
 // PARSING
 
 addRegexToken('Q', match1);
-addParseToken('Q', function (input, array) {
+addParseToken('Q', function(input, array) {
     array[MONTH] = (toInt(input) - 1) * 3;
 });
 
 // MOMENTS
 
-export function getSetQuarter (input) {
+export function getSetQuarter(input) {
     return input == null ? Math.ceil((this.month() + 1) / 3) : this.month((input - 1) * 3 + this.month() % 3);
 }

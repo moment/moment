@@ -3,22 +3,37 @@ import moment from '../../moment';
 
 module('normalize units');
 
-test('normalize units', function (assert) {
-    var fullKeys = ['year', 'quarter', 'month', 'isoWeek', 'week', 'day', 'hour', 'minute', 'second', 'millisecond', 'date', 'dayOfYear', 'weekday', 'isoWeekday', 'weekYear', 'isoWeekYear'],
+test('normalize units', function(assert) {
+    var fullKeys = [
+            'year',
+            'quarter',
+            'month',
+            'isoWeek',
+            'week',
+            'day',
+            'hour',
+            'minute',
+            'second',
+            'millisecond',
+            'date',
+            'dayOfYear',
+            'weekday',
+            'isoWeekday',
+            'weekYear',
+            'isoWeekYear'
+        ],
         aliases = ['y', 'Q', 'M', 'W', 'w', 'd', 'h', 'm', 's', 'ms', 'D', 'DDD', 'e', 'E', 'gg', 'GG'],
         length = fullKeys.length,
         fullKey,
         fullKeyCaps,
         fullKeyPlural,
         fullKeyCapsPlural,
-        fullKeyLower,
         alias,
         index;
 
     for (index = 0; index < length; index += 1) {
         fullKey = fullKeys[index];
         fullKeyCaps = fullKey.toUpperCase();
-        fullKeyLower = fullKey.toLowerCase();
         fullKeyPlural = fullKey + 's';
         fullKeyCapsPlural = fullKeyCaps + 's';
         alias = aliases[index];

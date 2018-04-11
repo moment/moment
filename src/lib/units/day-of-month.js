@@ -20,17 +20,15 @@ addUnitPriority('date', 9);
 
 // PARSING
 
-addRegexToken('D',  match1to2);
+addRegexToken('D', match1to2);
 addRegexToken('DD', match1to2, match2);
-addRegexToken('Do', function (isStrict, locale) {
+addRegexToken('Do', function(isStrict, locale) {
     // TODO: Remove "ordinalParse" fallback in next major release.
-    return isStrict ?
-      (locale._dayOfMonthOrdinalParse || locale._ordinalParse) :
-      locale._dayOfMonthOrdinalParseLenient;
+    return isStrict ? locale._dayOfMonthOrdinalParse || locale._ordinalParse : locale._dayOfMonthOrdinalParseLenient;
 });
 
 addParseToken(['D', 'DD'], DATE);
-addParseToken('Do', function (input, array) {
+addParseToken('Do', function(input, array) {
     array[DATE] = toInt(input.match(match1to2)[0]);
 });
 

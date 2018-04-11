@@ -3,16 +3,16 @@ import moment from '../../moment';
 
 module('is moment');
 
-test('is moment object', function (assert) {
-    var MyObj = function () {},
-        extend = function (a, b) {
+test('is moment object', function(assert) {
+    var MyObj = function() {},
+        extend = function(a, b) {
             var i;
             for (i in b) {
                 a[i] = b[i];
             }
             return a;
         };
-    MyObj.prototype.toDate = function () {
+    MyObj.prototype.toDate = function() {
         return new Date();
     };
 
@@ -32,10 +32,10 @@ test('is moment object', function (assert) {
     assert.ok(!moment.isMoment(undefined), 'undefined is not moment object');
 });
 
-test('is moment with hacked hasOwnProperty', function (assert) {
+test('is moment with hacked hasOwnProperty', function(assert) {
     var obj = {};
     // HACK to suppress jshint warning about bad property name
-    obj['hasOwnMoney'.replace('Money', 'Property')] = function () {
+    obj['hasOwnMoney'.replace('Money', 'Property')] = function() {
         return true;
     };
 

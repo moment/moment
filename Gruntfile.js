@@ -1,20 +1,16 @@
-module.exports = function (grunt) {
+module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        env : {
-            sauceLabs : (grunt.file.exists('.sauce-labs.creds') ?
-                    grunt.file.readJSON('.sauce-labs.creds') : {})
+        env: {
+            sauceLabs: grunt.file.exists('.sauce-labs.creds') ? grunt.file.readJSON('.sauce-labs.creds') : {}
         },
-        karma : {
+        karma: {
             options: {
                 browserNoActivityTimeout: 60000,
                 browserDisconnectTimeout: 10000,
                 browserDisconnectTolerance: 2,
                 frameworks: ['qunit'],
-                files: [
-                    'min/moment-with-locales.js',
-                    'min/tests.js'
-                ],
+                files: ['min/moment-with-locales.js', 'min/tests.js'],
                 sauceLabs: {
                     startConnect: true,
                     testName: 'MomentJS'
@@ -100,12 +96,12 @@ module.exports = function (grunt) {
                 ]
             }
         },
-        uglify : {
+        uglify: {
             main: {
                 files: {
-                    'min/moment-with-locales.min.js'     : 'min/moment-with-locales.js',
-                    'min/locales.min.js'                 : 'min/locales.js',
-                    'min/moment.min.js'                  : 'moment.js'
+                    'min/moment-with-locales.min.js': 'min/moment-with-locales.js',
+                    'min/locales.min.js': 'min/locales.js',
+                    'min/moment.min.js': 'moment.js'
                 }
             },
             options: {
@@ -120,11 +116,9 @@ module.exports = function (grunt) {
                 preserveComments: /^!|@preserve|@license|@cc_on/i
             }
         },
-        watch : {
-            test : {
-                files : [
-                    'src/**/*.js'
-                ],
+        watch: {
+            test: {
+                files: ['src/**/*.js'],
                 tasks: ['test']
             }
         },
@@ -148,11 +142,10 @@ module.exports = function (grunt) {
             'typescript-test': {
                 command: 'npm run typescript-test'
             },
-            'coveralls': {
+            coveralls: {
                 command: 'npm run coveralls'
             }
         }
-
     });
 
     grunt.loadTasks('tasks');
@@ -179,10 +172,5 @@ module.exports = function (grunt) {
     grunt.registerTask('meteor-publish', ['exec:meteor-init', 'exec:meteor-publish', 'exec:meteor-cleanup']);
 
     // Task to be run when releasing a new version
-    grunt.registerTask('release', [
-        'default',
-        'update-index',
-        'component',
-        'uglify:main'
-    ]);
+    grunt.registerTask('release', ['default', 'update-index', 'component', 'uglify:main']);
 };

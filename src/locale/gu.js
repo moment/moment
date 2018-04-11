@@ -68,20 +68,20 @@ export default moment.defineLocale('gu', {
         y: 'એક વર્ષ',
         yy: '%d વર્ષ'
     },
-    preparse: function (string) {
-        return string.replace(/[૧૨૩૪૫૬૭૮૯૦]/g, function (match) {
+    preparse: function(string) {
+        return string.replace(/[૧૨૩૪૫૬૭૮૯૦]/g, function(match) {
             return numberMap[match];
         });
     },
-    postformat: function (string) {
-        return string.replace(/\d/g, function (match) {
+    postformat: function(string) {
+        return string.replace(/\d/g, function(match) {
             return symbolMap[match];
         });
     },
     // Gujarati notation for meridiems are quite fuzzy in practice. While there exists
     // a rigid notion of a 'Pahar' it is not used as rigidly in modern Gujarati.
     meridiemParse: /રાત|બપોર|સવાર|સાંજ/,
-    meridiemHour: function (hour, meridiem) {
+    meridiemHour: function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -95,7 +95,7 @@ export default moment.defineLocale('gu', {
             return hour + 12;
         }
     },
-    meridiem: function (hour, minute, isLower) {
+    meridiem: function(hour) {
         if (hour < 4) {
             return 'રાત';
         } else if (hour < 10) {

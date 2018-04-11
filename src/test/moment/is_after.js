@@ -3,8 +3,9 @@ import moment from '../../moment';
 
 module('is after');
 
-test('is after without units', function (assert) {
-    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
+test('is after without units', function(assert) {
+    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        mCopy = moment(m);
     assert.equal(m.isAfter(moment(new Date(2012, 3, 2, 3, 5, 5, 10))), false, 'year is later');
     assert.equal(m.isAfter(moment(new Date(2010, 3, 2, 3, 3, 5, 10))), true, 'year is earlier');
     assert.equal(m.isAfter(moment(new Date(2011, 4, 2, 3, 4, 5, 10))), false, 'month is later');
@@ -24,8 +25,9 @@ test('is after without units', function (assert) {
     assert.equal(+m, +mCopy, 'isAfter second should not change moment');
 });
 
-test('is after year', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
+test('is after year', function(assert) {
+    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)),
+        mCopy = moment(m);
     assert.equal(m.isAfter(moment(new Date(2011, 5, 6, 7, 8, 9, 10)), 'year'), false, 'year match');
     assert.equal(m.isAfter(moment(new Date(2010, 5, 6, 7, 8, 9, 10)), 'years'), true, 'plural should work');
     assert.equal(m.isAfter(moment(new Date(2013, 5, 6, 7, 8, 9, 10)), 'year'), false, 'year is later');
@@ -39,8 +41,9 @@ test('is after year', function (assert) {
     assert.equal(+m, +mCopy, 'isAfter year should not change moment');
 });
 
-test('is after month', function (assert) {
-    var m = moment(new Date(2011, 2, 3, 4, 5, 6, 7)), mCopy = moment(m);
+test('is after month', function(assert) {
+    var m = moment(new Date(2011, 2, 3, 4, 5, 6, 7)),
+        mCopy = moment(m);
     assert.equal(m.isAfter(moment(new Date(2011, 2, 6, 7, 8, 9, 10)), 'month'), false, 'month match');
     assert.equal(m.isAfter(moment(new Date(2010, 2, 6, 7, 8, 9, 10)), 'months'), true, 'plural should work');
     assert.equal(m.isAfter(moment(new Date(2012, 2, 6, 7, 8, 9, 10)), 'month'), false, 'year is later');
@@ -56,8 +59,9 @@ test('is after month', function (assert) {
     assert.equal(+m, +mCopy, 'isAfter month should not change moment');
 });
 
-test('is after day', function (assert) {
-    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 6)), mCopy = moment(m);
+test('is after day', function(assert) {
+    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 6)),
+        mCopy = moment(m);
     assert.equal(m.isAfter(moment(new Date(2011, 3, 2, 7, 8, 9, 10)), 'day'), false, 'day match');
     assert.equal(m.isAfter(moment(new Date(2010, 3, 2, 7, 8, 9, 10)), 'days'), true, 'plural should work');
     assert.equal(m.isAfter(moment(new Date(2012, 3, 2, 7, 8, 9, 10)), 'day'), false, 'year is later');
@@ -75,8 +79,9 @@ test('is after day', function (assert) {
     assert.equal(+m, +mCopy, 'isAfter day should not change moment');
 });
 
-test('is after hour', function (assert) {
-    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 6)), mCopy = moment(m);
+test('is after hour', function(assert) {
+    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 6)),
+        mCopy = moment(m);
     assert.equal(m.isAfter(moment(new Date(2011, 3, 2, 3, 8, 9, 10)), 'hour'), false, 'hour match');
     assert.equal(m.isAfter(moment(new Date(2010, 3, 2, 3, 8, 9, 10)), 'hours'), true, 'plural should work');
     assert.equal(m.isAfter(moment(new Date(2012, 3, 2, 3, 8, 9, 10)), 'hour'), false, 'year is later');
@@ -95,8 +100,9 @@ test('is after hour', function (assert) {
     assert.equal(+m, +mCopy, 'isAfter hour should not change moment');
 });
 
-test('is after minute', function (assert) {
-    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 6)), mCopy = moment(m);
+test('is after minute', function(assert) {
+    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 6)),
+        mCopy = moment(m);
     assert.equal(m.isAfter(moment(new Date(2011, 3, 2, 3, 4, 9, 10)), 'minute'), false, 'minute match');
     assert.equal(m.isAfter(moment(new Date(2010, 3, 2, 3, 4, 9, 10)), 'minutes'), true, 'plural should work');
     assert.equal(m.isAfter(moment(new Date(2012, 3, 2, 3, 4, 9, 10)), 'minute'), false, 'year is later');
@@ -117,8 +123,9 @@ test('is after minute', function (assert) {
     assert.equal(+m, +mCopy, 'isAfter minute should not change moment');
 });
 
-test('is after second', function (assert) {
-    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
+test('is after second', function(assert) {
+    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        mCopy = moment(m);
     assert.equal(m.isAfter(moment(new Date(2011, 3, 2, 3, 4, 5, 10)), 'second'), false, 'second match');
     assert.equal(m.isAfter(moment(new Date(2010, 3, 2, 3, 4, 5, 10)), 'seconds'), true, 'plural should work');
     assert.equal(m.isAfter(moment(new Date(2012, 3, 2, 3, 4, 5, 10)), 'second'), false, 'year is later');
@@ -141,8 +148,9 @@ test('is after second', function (assert) {
     assert.equal(+m, +mCopy, 'isAfter second should not change moment');
 });
 
-test('is after millisecond', function (assert) {
-    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
+test('is after millisecond', function(assert) {
+    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        mCopy = moment(m);
     assert.equal(m.isAfter(moment(new Date(2011, 3, 2, 3, 4, 5, 10)), 'millisecond'), false, 'millisecond match');
     assert.equal(m.isAfter(moment(new Date(2010, 3, 2, 3, 4, 5, 10)), 'milliseconds'), true, 'plural should work');
     assert.equal(m.isAfter(moment(new Date(2012, 3, 2, 3, 4, 5, 10)), 'millisecond'), false, 'year is later');
@@ -163,8 +171,9 @@ test('is after millisecond', function (assert) {
     assert.equal(+m, +mCopy, 'isAfter millisecond should not change moment');
 });
 
-test('is after invalid', function (assert) {
-    var m = moment(), invalid = moment.invalid();
+test('is after invalid', function(assert) {
+    var m = moment(),
+        invalid = moment.invalid();
     assert.equal(m.isAfter(invalid), false, 'valid moment is not after invalid moment');
     assert.equal(invalid.isAfter(m), false, 'invalid moment is not after valid moment');
     assert.equal(m.isAfter(invalid, 'year'), false, 'invalid moment year');

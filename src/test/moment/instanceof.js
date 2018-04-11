@@ -3,10 +3,8 @@ import moment from '../../moment';
 
 module('instanceof');
 
-test('instanceof', function (assert) {
-    var mm = moment([2010, 0, 1]);
-
-    var extend = function (a, b) {
+test('instanceof', function(assert) {
+    var extend = function(a, b) {
         var i;
         for (i in b) {
             a[i] = b[i];

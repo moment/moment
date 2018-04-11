@@ -1,18 +1,19 @@
-module.exports = function (grunt) {
-    grunt.registerTask('bump_version', function (version) {
+module.exports = function(grunt) {
+    grunt.registerTask('bump_version', function(version) {
         if (!version || version.split('.').length !== 3) {
             grunt.fail.fatal('malformed version. Use\n\n    grunt bump_version:1.2.3');
         }
 
         grunt.config('string-replace.moment-js', {
-            files: {'src/moment.js': 'src/moment.js'},
+            files: { 'src/moment.js': 'src/moment.js' },
             options: {
                 replacements: [
                     {
-                        pattern:     /\/\/! version : .*/,
+                        pattern: /\/\/! version : .*/,
                         replacement: '//! version : ' + version
-                    }, {
-                        pattern:     /moment\.version = '.*'/,
+                    },
+                    {
+                        pattern: /moment\.version = '.*'/,
                         replacement: "moment.version = '" + version + "'"
                     }
                 ]
@@ -20,11 +21,11 @@ module.exports = function (grunt) {
         });
 
         grunt.config('string-replace.package-json', {
-            files: {'package.json': 'package.json'},
+            files: { 'package.json': 'package.json' },
             options: {
                 replacements: [
                     {
-                        pattern:     /"version": .*/,
+                        pattern: /"version": .*/,
                         replacement: '"version": "' + version + '",'
                     }
                 ]
@@ -32,11 +33,11 @@ module.exports = function (grunt) {
         });
 
         grunt.config('string-replace.component-json', {
-            files: {'component.json': 'component.json'},
+            files: { 'component.json': 'component.json' },
             options: {
                 replacements: [
                     {
-                        pattern:     /"version": .*/,
+                        pattern: /"version": .*/,
                         replacement: '"version": "' + version + '",'
                     }
                 ]
@@ -44,11 +45,11 @@ module.exports = function (grunt) {
         });
 
         grunt.config('string-replace.moment-js-nuspec', {
-            files: {'Moment.js.nuspec': 'Moment.js.nuspec'},
+            files: { 'Moment.js.nuspec': 'Moment.js.nuspec' },
             options: {
                 replacements: [
                     {
-                        pattern:     /<version>.*<\/version>/,
+                        pattern: /<version>.*<\/version>/,
                         replacement: '<version>' + version + '</version>'
                     }
                 ]
@@ -56,12 +57,12 @@ module.exports = function (grunt) {
         });
 
         grunt.config('string-replace.meteor-package-js', {
-            files: {'meteor/package.js': 'meteor/package.js'},
+            files: { 'meteor/package.js': 'meteor/package.js' },
             options: {
                 replacements: [
                     {
-                        pattern:     /version: .*/,
-                        replacement: 'version: \'' + version + '\','
+                        pattern: /version: .*/,
+                        replacement: "version: '" + version + "',"
                     }
                 ]
             }

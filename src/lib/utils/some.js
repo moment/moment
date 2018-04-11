@@ -2,7 +2,7 @@ var some;
 if (Array.prototype.some) {
     some = Array.prototype.some;
 } else {
-    some = function (fun) {
+    some = function(fun) {
         var t = Object(this);
         var len = t.length >>> 0;
 

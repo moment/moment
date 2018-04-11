@@ -3,11 +3,11 @@ import moment from '../../moment';
 
 module('parsing flags');
 
-function flags () {
+function flags() {
     return moment.apply(null, arguments).parsingFlags();
 }
 
-test('overflow with array', function (assert) {
+test('overflow with array', function(assert) {
     //months
     assert.equal(flags([2010, 0]).overflow, -1, 'month 0 valid');
     assert.equal(flags([2010, 1]).overflow, -1, 'month 1 valid');
@@ -54,7 +54,7 @@ test('overflow with array', function (assert) {
     assert.equal(flags([2010, 1, 1, 24, 0, 0, 1]).overflow, 3, '24:00:00.001 is wrong hour');
 });
 
-test('overflow without format', function (assert) {
+test('overflow without format', function(assert) {
     //months
     assert.equal(flags('2001-01', 'YYYY-MM').overflow, -1, 'month 1 valid');
     assert.equal(flags('2001-12', 'YYYY-MM').overflow, -1, 'month 12 valid');
@@ -62,7 +62,7 @@ test('overflow without format', function (assert) {
 
     //days
     assert.equal(flags('2010-01-16', 'YYYY-MM-DD').overflow, -1, 'date 16 valid');
-    assert.equal(flags('2010-01-0',  'YYYY-MM-DD').overflow, 2, 'date 0 invalid');
+    assert.equal(flags('2010-01-0', 'YYYY-MM-DD').overflow, 2, 'date 0 invalid');
     assert.equal(flags('2010-01-32', 'YYYY-MM-DD').overflow, 2, 'date 32 invalid');
     assert.equal(flags('2012-02-29', 'YYYY-MM-DD').overflow, -1, 'date leap year valid');
     assert.equal(flags('2010-02-29', 'YYYY-MM-DD').overflow, 2, 'date leap year invalid');
@@ -98,7 +98,7 @@ test('overflow without format', function (assert) {
     assert.equal(flags('08:15:12:1000', 'HH:mm:ss:SSSS').overflow, -1, 'millisecond 1000 actually valid');
 });
 
-test('extra tokens', function (assert) {
+test('extra tokens', function(assert) {
     assert.deepEqual(flags('1982-05-25', 'YYYY-MM-DD').unusedTokens, [], 'nothing extra');
     assert.deepEqual(flags('1982-05', 'YYYY-MM-DD').unusedTokens, ['DD'], 'extra formatting token');
     assert.deepEqual(flags('1982', 'YYYY-MM-DD').unusedTokens, ['MM', 'DD'], 'multiple extra formatting tokens');
@@ -107,7 +107,7 @@ test('extra tokens', function (assert) {
     assert.deepEqual(flags('1982 05 1982', 'YYYY-MM-DD').unusedTokens, [], 'different non-formatting token');
 });
 
-test('extra tokens strict', function (assert) {
+test('extra tokens strict', function(assert) {
     assert.deepEqual(flags('1982-05-25', 'YYYY-MM-DD', true).unusedTokens, [], 'nothing extra');
     assert.deepEqual(flags('1982-05', 'YYYY-MM-DD', true).unusedTokens, ['-', 'DD'], 'extra formatting token');
     assert.deepEqual(flags('1982', 'YYYY-MM-DD', true).unusedTokens, ['-', 'MM', '-', 'DD'], 'multiple extra formatting tokens');
@@ -116,34 +116,50 @@ test('extra tokens strict', function (assert) {
     assert.deepEqual(flags('1982 05 1982', 'YYYY-MM-DD', true).unusedTokens, ['-', '-'], 'different non-formatting token');
 });
 
-test('unused input', function (assert) {
+test('unused input', function(assert) {
     assert.deepEqual(flags('1982-05-25', 'YYYY-MM-DD').unusedInput, [], 'normal input');
     assert.deepEqual(flags('1982-05-25 this is more stuff', 'YYYY-MM-DD').unusedInput, [' this is more stuff'], 'trailing nonsense');
     assert.deepEqual(flags('1982-05-25 09:30', 'YYYY-MM-DD').unusedInput, [' 09:30'], ['trailing legit-looking input']);
     assert.deepEqual(flags('1982-05-25 some junk', 'YYYY-MM-DD [some junk]').unusedInput, [], 'junk that actually gets matched');
     assert.deepEqual(flags('stuff at beginning 1982-05-25', 'YYYY-MM-DD').unusedInput, ['stuff at beginning '], 'leading junk');
-    assert.deepEqual(flags('junk 1982 more junk 05 yet more junk25', 'YYYY-MM-DD').unusedInput, ['junk ', ' more junk ', ' yet more junk'], 'interstitial junk');
+    assert.deepEqual(
+        flags('junk 1982 more junk 05 yet more junk25', 'YYYY-MM-DD').unusedInput,
+        ['junk ', ' more junk ', ' yet more junk'],
+        'interstitial junk'
+    );
 });
 
-test('unused input strict', function (assert) {
+test('unused input strict', function(assert) {
     assert.deepEqual(flags('1982-05-25', 'YYYY-MM-DD', true).unusedInput, [], 'normal input');
     assert.deepEqual(flags('1982-05-25 this is more stuff', 'YYYY-MM-DD', true).unusedInput, [' this is more stuff'], 'trailing nonsense');
     assert.deepEqual(flags('1982-05-25 09:30', 'YYYY-MM-DD', true).unusedInput, [' 09:30'], ['trailing legit-looking input']);
     assert.deepEqual(flags('1982-05-25 some junk', 'YYYY-MM-DD [some junk]', true).unusedInput, [], 'junk that actually gets matched');
     assert.deepEqual(flags('stuff at beginning 1982-05-25', 'YYYY-MM-DD', true).unusedInput, ['stuff at beginning '], 'leading junk');
-    assert.deepEqual(flags('junk 1982 more junk 05 yet more junk25', 'YYYY-MM-DD', true).unusedInput, ['junk ', ' more junk ', ' yet more junk'], 'interstitial junk');
+    assert.deepEqual(
+        flags('junk 1982 more junk 05 yet more junk25', 'YYYY-MM-DD', true).unusedInput,
+        ['junk ', ' more junk ', ' yet more junk'],
+        'interstitial junk'
+    );
 });
 
-test('chars left over', function (assert) {
+test('chars left over', function(assert) {
     assert.equal(flags('1982-05-25', 'YYYY-MM-DD').charsLeftOver, 0, 'normal input');
     assert.equal(flags('1982-05-25 this is more stuff', 'YYYY-MM-DD').charsLeftOver, ' this is more stuff'.length, 'trailing nonsense');
     assert.equal(flags('1982-05-25 09:30', 'YYYY-MM-DD').charsLeftOver, ' 09:30'.length, 'trailing legit-looking input');
     assert.equal(flags('stuff at beginning 1982-05-25', 'YYYY-MM-DD').charsLeftOver, 'stuff at beginning '.length, 'leading junk');
-    assert.equal(flags('1982 junk 05 more junk25', 'YYYY-MM-DD').charsLeftOver, [' junk ', ' more junk'].join('').length, 'interstitial junk');
-    assert.equal(flags('stuff at beginning 1982 junk 05 more junk25', 'YYYY-MM-DD').charsLeftOver, ['stuff at beginning ', ' junk ', ' more junk'].join('').length, 'leading and interstitial junk');
+    assert.equal(
+        flags('1982 junk 05 more junk25', 'YYYY-MM-DD').charsLeftOver,
+        [' junk ', ' more junk'].join('').length,
+        'interstitial junk'
+    );
+    assert.equal(
+        flags('stuff at beginning 1982 junk 05 more junk25', 'YYYY-MM-DD').charsLeftOver,
+        ['stuff at beginning ', ' junk ', ' more junk'].join('').length,
+        'leading and interstitial junk'
+    );
 });
 
-test('empty', function (assert) {
+test('empty', function(assert) {
     assert.equal(flags('1982-05-25', 'YYYY-MM-DD').empty, false, 'normal input');
     assert.equal(flags('nothing here', 'YYYY-MM-DD').empty, true, 'pure garbage');
     assert.equal(flags('junk but has the number 2000 in it', 'YYYY-MM-DD').empty, false, 'only mostly garbage');
@@ -151,23 +167,23 @@ test('empty', function (assert) {
     assert.equal(flags('', 'YYYY-MM-DD').empty, true, 'blank string');
 });
 
-test('null', function (assert) {
+test('null', function(assert) {
     assert.equal(flags('1982-05-25', 'YYYY-MM-DD').nullInput, false, 'normal input');
     assert.equal(flags(null).nullInput, true, 'just null');
     assert.equal(flags(null, 'YYYY-MM-DD').nullInput, true, 'null with format');
 });
 
-test('invalid month', function (assert) {
+test('invalid month', function(assert) {
     assert.equal(flags('1982 May', 'YYYY MMMM').invalidMonth, null, 'normal input');
     assert.equal(flags('1982 Laser', 'YYYY MMMM').invalidMonth, 'Laser', 'bad month name');
 });
 
-test('empty format array', function (assert) {
+test('empty format array', function(assert) {
     assert.equal(flags('1982 May', ['YYYY MMM']).invalidFormat, false, 'empty format array');
     assert.equal(flags('1982 May', []).invalidFormat, true, 'empty format array');
 });
 
-test('weekday mismatch', function (assert) {
+test('weekday mismatch', function(assert) {
     // string with format
     assert.equal(flags('Wed 08-10-2017', 'ddd MM-DD-YYYY').weekdayMismatch, true, 'day of week does not match date');
     assert.equal(flags('Thu 08-10-2017', 'ddd MM-DD-YYYY').weekdayMismatch, false, 'day of week matches date');

@@ -1,29 +1,29 @@
 import { normalizeUnits } from '../units/aliases';
 
-export function startOf (units) {
+export function startOf(units) {
     units = normalizeUnits(units);
     // the following switch intentionally omits break keywords
     // to utilize falling through the cases.
     switch (units) {
         case 'year':
             this.month(0);
-            /* falls through */
+        /* falls through */
         case 'quarter':
         case 'month':
             this.date(1);
-            /* falls through */
+        /* falls through */
         case 'week':
         case 'isoWeek':
         case 'day':
         case 'date':
             this.hours(0);
-            /* falls through */
+        /* falls through */
         case 'hour':
             this.minutes(0);
-            /* falls through */
+        /* falls through */
         case 'minute':
             this.seconds(0);
-            /* falls through */
+        /* falls through */
         case 'second':
             this.milliseconds(0);
     }
@@ -44,7 +44,7 @@ export function startOf (units) {
     return this;
 }
 
-export function endOf (units) {
+export function endOf(units) {
     units = normalizeUnits(units);
     if (units === undefined || units === 'millisecond') {
         return this;
@@ -55,5 +55,7 @@ export function endOf (units) {
         units = 'day';
     }
 
-    return this.startOf(units).add(1, (units === 'isoWeek' ? 'week' : units)).subtract(1, 'ms');
+    return this.startOf(units)
+        .add(1, units === 'isoWeek' ? 'week' : units)
+        .subtract(1, 'ms');
 }

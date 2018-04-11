@@ -5,7 +5,8 @@
 import moment from '../moment';
 
 var translator = {
-    words: { //Different grammatical cases
+    words: {
+        //Different grammatical cases
         ss: ['секунда', 'секунде', 'секунди'],
         m: ['један минут', 'једне минуте'],
         mm: ['минут', 'минуте', 'минута'],
@@ -15,10 +16,10 @@ var translator = {
         MM: ['месец', 'месеца', 'месеци'],
         yy: ['година', 'године', 'година']
     },
-    correctGrammaticalCase: function (number, wordKey) {
-        return number === 1 ? wordKey[0] : (number >= 2 && number <= 4 ? wordKey[1] : wordKey[2]);
+    correctGrammaticalCase: function(number, wordKey) {
+        return number === 1 ? wordKey[0] : number >= 2 && number <= 4 ? wordKey[1] : wordKey[2];
     },
-    translate: function (number, withoutSuffix, key) {
+    translate: function(number, withoutSuffix, key) {
         var wordKey = translator.words[key];
         if (key.length === 1) {
             return withoutSuffix ? wordKey[0] : wordKey[1];
@@ -35,10 +36,10 @@ export default moment.defineLocale('sr-cyrl', {
     weekdays: 'недеља_понедељак_уторак_среда_четвртак_петак_субота'.split('_'),
     weekdaysShort: 'нед._пон._уто._сре._чет._пет._суб.'.split('_'),
     weekdaysMin: 'не_по_ут_ср_че_пе_су'.split('_'),
-    weekdaysParseExact : true,
+    weekdaysParseExact: true,
     longDateFormat: {
         LT: 'H:mm',
-        LTS : 'H:mm:ss',
+        LTS: 'H:mm:ss',
         L: 'DD.MM.YYYY',
         LL: 'D. MMMM YYYY',
         LLL: 'D. MMMM YYYY H:mm',
@@ -47,7 +48,7 @@ export default moment.defineLocale('sr-cyrl', {
     calendar: {
         sameDay: '[данас у] LT',
         nextDay: '[сутра у] LT',
-        nextWeek: function () {
+        nextWeek: function() {
             switch (this.day()) {
                 case 0:
                     return '[у] [недељу] [у] LT';
@@ -62,8 +63,8 @@ export default moment.defineLocale('sr-cyrl', {
                     return '[у] dddd [у] LT';
             }
         },
-        lastDay  : '[јуче у] LT',
-        lastWeek : function () {
+        lastDay: '[јуче у] LT',
+        lastWeek: function() {
             var lastWeekDays = [
                 '[прошле] [недеље] [у] LT',
                 '[прошлог] [понедељка] [у] LT',
@@ -75,28 +76,28 @@ export default moment.defineLocale('sr-cyrl', {
             ];
             return lastWeekDays[this.day()];
         },
-        sameElse : 'L'
+        sameElse: 'L'
     },
-    relativeTime : {
-        future : 'за %s',
-        past   : 'пре %s',
-        s      : 'неколико секунди',
-        ss     : translator.translate,
-        m      : translator.translate,
-        mm     : translator.translate,
-        h      : translator.translate,
-        hh     : translator.translate,
-        d      : 'дан',
-        dd     : translator.translate,
-        M      : 'месец',
-        MM     : translator.translate,
-        y      : 'годину',
-        yy     : translator.translate
+    relativeTime: {
+        future: 'за %s',
+        past: 'пре %s',
+        s: 'неколико секунди',
+        ss: translator.translate,
+        m: translator.translate,
+        mm: translator.translate,
+        h: translator.translate,
+        hh: translator.translate,
+        d: 'дан',
+        dd: translator.translate,
+        M: 'месец',
+        MM: translator.translate,
+        y: 'годину',
+        yy: translator.translate
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
-    week : {
-        dow : 1, // Monday is the first day of the week.
-        doy : 7  // The week that contains Jan 1st is the first week of the year.
+    ordinal: '%d.',
+    week: {
+        dow: 1, // Monday is the first day of the week.
+        doy: 7 // The week that contains Jan 1st is the first week of the year.
     }
 });

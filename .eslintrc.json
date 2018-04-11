@@ -6,5 +6,9 @@
     "extends": "eslint:recommended",
     "parserOptions": {
         "sourceType": "module"
+    },
+    "rules": {
+        "no-console": 0,
+        "no-empty": [2, { "allowEmptyCatch": true }]
     }
 }

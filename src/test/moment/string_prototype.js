@@ -3,9 +3,10 @@ import moment from '../../moment';
 
 module('string prototype');
 
-test('string prototype overrides call', function (assert) {
-    var prior = String.prototype.call, b;
-    String.prototype.call = function () {
+test('string prototype overrides call', function(assert) {
+    var prior = String.prototype.call,
+        b;
+    String.prototype.call = function() {
         return null;
     };
 

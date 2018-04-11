@@ -5,11 +5,11 @@ import { setupDeprecationHandler, teardownDeprecationHandler } from './helpers/d
 
 export var test = QUnit.test;
 
-export function module (name, lifecycle) {
+export function module(name, lifecycle) {
     QUnit.module(name, {
-        beforeEach : function () {
+        beforeEach: function() {
             moment.locale('en');
-            moment.createFromInputFallback = function (config) {
+            moment.createFromInputFallback = function(config) {
                 throw new Error('input not handled by moment: ' + config._i);
             };
             setupDeprecationHandler(test, moment, 'core');
@@ -17,7 +17,7 @@ export function module (name, lifecycle) {
                 lifecycle.setup();
             }
         },
-        afterEach : function () {
+        afterEach: function() {
             teardownDeprecationHandler(test, moment, 'core');
             if (lifecycle && lifecycle.teardown) {
                 lifecycle.teardown();

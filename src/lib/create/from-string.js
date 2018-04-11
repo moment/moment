@@ -1,16 +1,15 @@
 import { configFromStringAndFormat } from './from-string-and-format';
 import { createUTCDate } from './date-from-array';
-import { configFromArray } from './from-array';
 import { hooks } from '../utils/hooks';
 import { deprecate } from '../utils/deprecate';
 import getParsingFlags from './parsing-flags';
-import {defaultLocaleMonthsShort} from '../units/month';
-import {defaultLocaleWeekdaysShort} from '../units/day-of-week';
+import { defaultLocaleMonthsShort } from '../units/month';
+import { defaultLocaleWeekdaysShort } from '../units/day-of-week';
 
 // iso 8601 regex
 // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
-var extendedIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
-var basicIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
+var extendedIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
+var basicIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
 
 var tzRegex = /Z|[+-]\d\d(?::?\d\d)?/;
 
@@ -42,14 +41,18 @@ var isoTimes = [
     ['HH', /\d\d/]
 ];
 
-var aspNetJsonRegex = /^\/?Date\((\-?\d+)/i;
+var aspNetJsonRegex = /^\/?Date\((-?\d+)/i;
 
 // date from iso format
 export function configFromISO(config) {
-    var i, l,
+    var i,
+        l,
         string = config._i,
         match = extendedIsoRegex.exec(string) || basicIsoRegex.exec(string),
-        allowTime, dateFormat, timeFormat, tzFormat;
+        allowTime,
+        dateFormat,
+        timeFormat,
+        tzFormat;
 
     if (match) {
         getParsingFlags(config).iso = true;
@@ -128,7 +131,10 @@ function untruncateYear(yearStr) {
 
 function preprocessRFC2822(s) {
     // Remove comments and folding whitespace and replace multiple-spaces with a single space
-    return s.replace(/\([^)]*\)|[\n\t]/g, ' ').replace(/(\s\s+)/g, ' ').trim();
+    return s
+        .replace(/\([^)]*\)|[\n\t]/g, ' ')
+        .replace(/(\s\s+)/g, ' ')
+        .trim();
 }
 
 function checkWeekday(weekdayStr, parsedInput, config) {
@@ -166,7 +172,8 @@ function calculateOffset(obsOffset, militaryOffset, numOffset) {
         return 0;
     } else {
         var hm = parseInt(numOffset, 10);
-        var m = hm % 100, h = (hm - m) / 100;
+        var m = hm % 100,
+            h = (hm - m) / 100;
         return h * 60 + m;
     }
 }
@@ -221,10 +228,10 @@ export function configFromString(config) {
 
 hooks.createFromInputFallback = deprecate(
     'value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), ' +
-    'which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are ' +
-    'discouraged and will be removed in an upcoming major release. Please refer to ' +
-    'http://momentjs.com/guides/#/warnings/js-date/ for more info.',
-    function (config) {
+        'which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are ' +
+        'discouraged and will be removed in an upcoming major release. Please refer to ' +
+        'http://momentjs.com/guides/#/warnings/js-date/ for more info.',
+    function(config) {
         config._d = new Date(config._i + (config._useUTC ? ' UTC' : ''));
     }
 );

@@ -1,9 +1,9 @@
 import zeroFill from '../utils/zero-fill';
 import isFunction from '../utils/is-function';
 
-export var formattingTokens = /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g;
+export var formattingTokens = /(\[[^[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g;
 
-var localFormattingTokens = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g;
+var localFormattingTokens = /(\[[^[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g;
 
 var formatFunctions = {};
 
@@ -13,10 +13,10 @@ export var formatTokenFunctions = {};
 // padded:   ['MM', 2]
 // ordinal:  'Mo'
 // callback: function () { this.month() + 1 }
-export function addFormatToken (token, padded, ordinal, callback) {
+export function addFormatToken(token, padded, ordinal, callback) {
     var func = callback;
     if (typeof callback === 'string') {
-        func = function () {
+        func = function() {
             return this[callback]();
         };
     }
@@ -24,12 +24,12 @@ export function addFormatToken (token, padded, ordinal, callback) {
         formatTokenFunctions[token] = func;
     }
     if (padded) {
-        formatTokenFunctions[padded[0]] = function () {
+        formatTokenFunctions[padded[0]] = function() {
             return zeroFill(func.apply(this, arguments), padded[1], padded[2]);
         };
     }
     if (ordinal) {
-        formatTokenFunctions[ordinal] = function () {
+        formatTokenFunctions[ordinal] = function() {
             return this.localeData().ordinal(func.apply(this, arguments), token);
         };
     }
@@ -43,7 +43,9 @@ function removeFormattingTokens(input) {
 }
 
 function makeFormatFunction(format) {
-    var array = format.match(formattingTokens), i, length;
+    var array = format.match(formattingTokens),
+        i,
+        length;
 
     for (i = 0, length = array.length; i < length; i++) {
         if (formatTokenFunctions[array[i]]) {
@@ -53,8 +55,9 @@ function makeFormatFunction(format) {
         }
     }
 
-    return function (mom) {
-        var output = '', i;
+    return function(mom) {
+        var output = '',
+            i;
         for (i = 0; i < length; i++) {
             output += isFunction(array[i]) ? array[i].call(mom, format) : array[i];
         }

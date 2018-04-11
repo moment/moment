@@ -3,45 +3,40 @@ import moment from '../../moment';
 
 module('invalid');
 
-test('invalid duration', function (assert) {
+test('invalid duration', function(assert) {
     var m = moment.duration.invalid(); // should be invalid
     assert.equal(m.isValid(), false);
     assert.ok(isNaN(m.valueOf()));
 });
 
-test('valid duration', function (assert) {
-    var m = moment.duration({d: null}); // should be valid, for now
+test('valid duration', function(assert) {
+    var m = moment.duration({ d: null }); // should be valid, for now
     assert.equal(m.isValid(), true);
     assert.equal(m.valueOf(), 0);
 });
 
-test('invalid duration - only smallest unit can have decimal', function (assert) {
-    var m = moment.duration({'days': 3.5, 'hours': 1.1}); // should be invalid
+test('invalid duration - only smallest unit can have decimal', function(assert) {
+    var m = moment.duration({ days: 3.5, hours: 1.1 }); // should be invalid
     assert.equal(m.isValid(), false);
     assert.ok(isNaN(m.valueOf())); // .valueOf() returns NaN for invalid durations
 });
 
-test('valid duration - smallest unit can have decimal', function (assert) {
-    var m = moment.duration({'days': 3, 'hours': 1.1}); // should be valid
+test('valid duration - smallest unit can have decimal', function(assert) {
+    var m = moment.duration({ days: 3, hours: 1.1 }); // should be valid
     assert.equal(m.isValid(), true);
     assert.equal(m.asHours(), 73.1);
 });
 
-test('invalid duration with two arguments', function (assert) {
+test('invalid duration with two arguments', function(assert) {
     var m = moment.duration(NaN, 'days');
     assert.equal(m.isValid(), false);
     assert.ok(isNaN(m.valueOf()));
 });
 
-test('invalid duration operations', function (assert) {
-    var invalids = [
-            moment.duration(NaN),
-            moment.duration(NaN, 'days'),
-            moment.duration.invalid()
-        ],
+test('invalid duration operations', function(assert) {
+    var invalids = [moment.duration(NaN), moment.duration(NaN, 'days'), moment.duration.invalid()],
         i,
-        invalid,
-        valid = moment.duration();
+        invalid;
 
     for (i = 0; i < invalids.length; ++i) {
         invalid = invalids[i];
@@ -70,15 +65,21 @@ test('invalid duration operations', function (assert) {
         assert.ok(isNaN(invalid.months()), 'invalid.months is NaN; i=' + i);
         assert.ok(isNaN(invalid.years()), 'invalid.years is NaN; i=' + i);
 
-        assert.equal(invalid.humanize(),
-                     invalid.localeData().invalidDate(),
-                     'invalid.humanize is localized invalid duration string; i=' + i);
-        assert.equal(invalid.toISOString(),
-                     invalid.localeData().invalidDate(),
-                     'invalid.toISOString is localized invalid duration string; i=' + i);
-        assert.equal(invalid.toString(),
-                     invalid.localeData().invalidDate(),
-                     'invalid.toString is localized invalid duration string; i=' + i);
+        assert.equal(
+            invalid.humanize(),
+            invalid.localeData().invalidDate(),
+            'invalid.humanize is localized invalid duration string; i=' + i
+        );
+        assert.equal(
+            invalid.toISOString(),
+            invalid.localeData().invalidDate(),
+            'invalid.toISOString is localized invalid duration string; i=' + i
+        );
+        assert.equal(
+            invalid.toString(),
+            invalid.localeData().invalidDate(),
+            'invalid.toString is localized invalid duration string; i=' + i
+        );
         assert.equal(invalid.toJSON(), invalid.localeData().invalidDate(), 'invalid.toJSON is null; i=' + i);
         assert.equal(invalid.locale(), 'en', 'invalid.locale; i=' + i);
         assert.equal(invalid.localeData()._abbr, 'en', 'invalid.localeData()._abbr; i=' + i);

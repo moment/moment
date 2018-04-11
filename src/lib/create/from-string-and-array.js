@@ -6,12 +6,7 @@ import extend from '../utils/extend';
 
 // date from string and array of format strings
 export function configFromStringAndArray(config) {
-    var tempConfig,
-        bestMoment,
-
-        scoreToBeat,
-        i,
-        currentScore;
+    var tempConfig, bestMoment, scoreToBeat, i, currentScore;
 
     if (config._f.length === 0) {
         getParsingFlags(config).invalidFormat = true;
