@@ -111,33 +111,13 @@ module.exports = function (grunt) {
             options: {
                 mangle: true,
                 compress: {
-                    dead_code: false // jshint ignore:line
+                    dead_code: false
                 },
                 output: {
-                    ascii_only: true // jshint ignore:line
+                    ascii_only: true
                 },
                 report: 'min',
                 preserveComments: /^!|@preserve|@license|@cc_on/i
-            }
-        },
-        jshint: {
-            all: [
-                'Gruntfile.js',
-                'tasks/**.js',
-                'src/**/*.js'
-            ],
-            options: {
-                jshintrc: true
-            }
-        },
-        jscs: {
-            all: [
-                'Gruntfile.js',
-                'tasks/**.js',
-                'src/**/*.js'
-            ],
-            options: {
-                config: '.jscs.json'
             }
         },
         watch : {
@@ -146,10 +126,6 @@ module.exports = function (grunt) {
                     'src/**/*.js'
                 ],
                 tasks: ['test']
-            },
-            jshint : {
-                files : '<%= jshint.all %>',
-                tasks: ['jshint']
             }
         },
         benchmark: {
@@ -185,10 +161,7 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
     // Default task.
-    grunt.registerTask('default', ['lint', 'test']);
-
-    // linting
-    grunt.registerTask('lint', ['jshint', 'jscs']);
+    grunt.registerTask('default', ['test']);
 
     // test tasks
     grunt.registerTask('test', ['test:node', 'test:typescript']);

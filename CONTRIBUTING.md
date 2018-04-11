@@ -47,7 +47,7 @@ cd moment
 npm install -g grunt-cli
 npm install
 git checkout develop  # all patches against develop branch, please!
-grunt                 # this runs tests and jshint
+grunt                 # this runs tests
 ```
 
 Changing locale files

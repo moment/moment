@@ -14,7 +14,7 @@ test('isNumber recognizes numbers', function (assert) {
     assert.ok(isNumber(Math.LN2), 'natural log of two');
     assert.ok(isNumber(Math.PI), 'delicious number');
     assert.ok(isNumber(5e10), 'scientifically notated number');
-    assert.ok(isNumber(new Number(1)), 'number primitive wrapped in an object'); // jshint ignore:line
+    assert.ok(isNumber(new Number(1)), 'number primitive wrapped in an object');
 });
 
 test('isNumber rejects non-numbers', function (assert) {
