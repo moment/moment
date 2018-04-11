@@ -37,9 +37,9 @@
         // There are months name as per Nanakshahi Calender but they are not used as rigidly in modern Punjabi.
         months : 'ਜਨਵਰੀ_ਫ਼ਰਵਰੀ_ਮਾਰਚ_ਅਪ੍ਰੈਲ_ਮਈ_ਜੂਨ_ਜੁਲਾਈ_ਅਗਸਤ_ਸਤੰਬਰ_ਅਕਤੂਬਰ_ਨਵੰਬਰ_ਦਸੰਬਰ'.split('_'),
         monthsShort : 'ਜਨਵਰੀ_ਫ਼ਰਵਰੀ_ਮਾਰਚ_ਅਪ੍ਰੈਲ_ਮਈ_ਜੂਨ_ਜੁਲਾਈ_ਅਗਸਤ_ਸਤੰਬਰ_ਅਕਤੂਬਰ_ਨਵੰਬਰ_ਦਸੰਬਰ'.split('_'),
-        weekdays : 'ਐਤਵਾਰ_ਸੋਮਵਾਰ_ਮੰਗਲਵਾਰ_ਬੁਧਵਾਰ_ਵੀਰਵਾਰ_ਸ਼ੁੱਕਰਵਾਰ_ਸ਼ਨੀਚਰਵਾਰ'.split('_'),
-        weekdaysShort : 'ਐਤ_ਸੋਮ_ਮੰਗਲ_ਬੁਧ_ਵੀਰ_ਸ਼ੁਕਰ_ਸ਼ਨੀ'.split('_'),
-        weekdaysMin : 'ਐਤ_ਸੋਮ_ਮੰਗਲ_ਬੁਧ_ਵੀਰ_ਸ਼ੁਕਰ_ਸ਼ਨੀ'.split('_'),
+        weekdays : 'ਐਤਵਾਰ_ਸੋਮਵਾਰ_ਮੰਗਲਵਾਰ_ਬੁੱਧਵਾਰ_ਵੀਰਵਾਰ_ਸ਼ੁੱਕਰਵਾਰ_ਸ਼ਨੀਚਰਵਾਰ'.split('_'),
+        weekdaysShort : 'ਐਤ_ਸੋਮ_ਮੰਗਲ_ਬੁੱਧ_ਵੀਰ_ਸ਼ੁੱਕਰ_ਸ਼ਨੀ'.split('_'),
+        weekdaysMin : 'ਐਤ_ਸੋਮ_ਮੰਗਲ_ਬੁੱਧ_ਵੀਰ_ਸ਼ੁੱਕਰ_ਸ਼ਨੀ'.split('_'),
         longDateFormat : {
             LT : 'A h:mm ਵਜੇ',
             LTS : 'A h:mm:ss ਵਜੇ',
@@ -49,19 +49,19 @@
             LLLL : 'dddd, D MMMM YYYY, A h:mm ਵਜੇ'
         },
         calendar : {
-            sameDay : '[ਅਜ] LT',
-            nextDay : '[ਕਲ] LT',
-            nextWeek : 'dddd, LT',
-            lastDay : '[ਕਲ] LT',
+            sameDay : '[ਅੱਜ] LT',
+            nextDay : '[ਕੱਲ੍ਹ] LT',
+            nextWeek : '[ਅਗਲੇ] dddd, LT',
+            lastDay : '[ਕੱਲ੍ਹ] LT',
             lastWeek : '[ਪਿਛਲੇ] dddd, LT',
             sameElse : 'L'
         },
         relativeTime : {
             future : '%s ਵਿੱਚ',
             past : '%s ਪਿਛਲੇ',
-            s : 'ਕੁਝ ਸਕਿੰਟ',
+            s : 'ਕੁੱਝ ਸਕਿੰਟ',
             ss : '%d ਸਕਿੰਟ',
-            m : 'ਇਕ ਮਿੰਟ',
+            m : 'ਇੱਕ ਮਿੰਟ',
             mm : '%d ਮਿੰਟ',
             h : 'ਇੱਕ ਘੰਟਾ',
             hh : '%d ਘੰਟੇ',
