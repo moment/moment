@@ -11,7 +11,7 @@ export var defaultRelativeTime = {
     dd : '%d days',
     M  : 'a month',
     MM : '%d months',
-    w  : '%d week',
+    w  : 'a week',
     ww : '%d weeks',
     y  : 'a year',
     yy : '%d years'
