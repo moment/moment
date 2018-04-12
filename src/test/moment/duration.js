@@ -440,12 +440,13 @@ test('humanize', function (assert) {
     assert.equal(moment.duration({hours: 36}).humanize(),    '2 days',        '36 hours = 2 days');
     assert.equal(moment.duration({days: 1}).humanize(),      'a day',         '1 day = a day');
     assert.equal(moment.duration({days: 4}).humanize(),      '4 days',         '4 days = 4 days');
-    assert.equal(moment.duration({days: 5}).humanize(),      'a week',        '5 days = 5 days');
+    assert.equal(moment.duration({days: 5}).humanize(),      '5 days',        '5 days = 5 days');
     assert.equal(moment.duration({weeks: 1}).humanize(),     'a week',        '1 week = a week');
     assert.equal(moment.duration({weeks: 2}).humanize(),     '2 weeks',        '2 weeks = 2 weeks');
     assert.equal(moment.duration({days: 14}).humanize(),     '2 weeks',       '14 days = 2 weeks');
-    assert.equal(moment.duration({days: 18}).humanize(),     '2 weeks',       '18 days = 2 weeks');
+    assert.equal(moment.duration({days: 18}).humanize(),     '3 weeks',       '18 days = 3 weeks');
     assert.equal(moment.duration({days: 19}).humanize(),     '3 weeks',       '19 days = 3 weeks');
+    assert.equal(moment.duration({days: 20}).humanize(),     '3 weeks',       '20 days = 3 weeks');
     assert.equal(moment.duration({weeks: 3}).humanize(),    '3 weeks',       '3 weeks = 3 weeks');
     assert.equal(moment.duration({weeks: 4}).humanize(),    'a month',       '4 weeks = a month');
     assert.equal(moment.duration({days: 26}).humanize(),     'a month',       '26 days = a month');
@@ -463,6 +464,29 @@ test('humanize', function (assert) {
     assert.equal(moment.duration({years: 1}).humanize(),     'a year',        '1 year = a year');
     assert.equal(moment.duration({years: 5}).humanize(),     '5 years',       '5 years = 5 years');
     assert.equal(moment.duration(7200000).humanize(),        '2 hours',       '7200000 = 2 minutes');
+
+    // testing all the days (assuming week # = Math.floor(day # / 6))
+    // should be < 6 days
+    for (var i = 2; i < 5; i++) {
+        assert.equal(moment.duration({days: i}).humanize(),      i + ' days',         i +' days');
+    }
+
+    // should be 1 week (> 6 days)
+    for (var i = 6; i < 11; i++) {
+        var w = Math.floor(i / 6);
+        assert.equal(moment.duration({days: i}).humanize(),      'a week',         i + ' days');
+    }
+
+    // should be 2-3 weeks (6 x 2 to (6 x 3) - 1 days)
+    for (var i = 12; i < 23; i++) {
+        var w = Math.floor(i / 6);
+        assert.equal(moment.duration({days: i}).humanize(),      w + ' weeks',         i + ' days ' + w + ' weeks');
+    }
+
+    // should be 1 month (>= 6 x 3 days)
+    for (var i = 24; i < 30; i++) {
+        assert.equal(moment.duration({days: i}).humanize(),      'a month',         i + ' days');
+    }
 });
 
 test('humanize duration with suffix', function (assert) {
