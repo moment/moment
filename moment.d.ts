@@ -300,7 +300,7 @@ declare namespace moment {
 
     type DurationAs = Base;
 
-    type StartOf = Base | _quarter | _isoWeek | _date | null;
+    type StartOf = Base | _quarter | _isoWeek | _date | void; // null
 
     type Diff = Base | _quarter;
 
