@@ -145,5 +145,23 @@ export function defineCommonLocaleTests(locale, options) {
         assert.equal(moment().localeData().weekdaysShort().length, 7, 'weekdaysShort should return 7 days');
         assert.equal(moment().localeData().weekdaysMin().length, 7, 'monthsShort should return 7 days');
     });
-}
 
+    test('localeData weekdays can localeSort', function (assert) {
+        var weekdays = moment().localeData().weekdays();
+        var weekdaysShort = moment().localeData().weekdaysShort();
+        var weekdaysMin = moment().localeData().weekdaysMin();
+        var shift = moment().localeData()._week.dow;
+        assert.deepEqual(
+            moment().localeData().weekdays(true),
+            weekdays.slice(shift, 7).concat(weekdays.slice(0, shift)),
+            'weekdays should localeSort');
+        assert.deepEqual(
+            moment().localeData().weekdaysShort(true),
+            weekdaysShort.slice(shift, 7).concat(weekdaysShort.slice(0, shift)),
+            'weekdaysShort should localeSort');
+        assert.deepEqual(
+            moment().localeData().weekdaysMin(true),
+            weekdaysMin.slice(shift, 7).concat(weekdaysMin.slice(0, shift)),
+            'weekdaysMin should localeSort');
+    });
+}
