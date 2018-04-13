@@ -98,7 +98,7 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'ਐਤਵਾਰ ਐਤ ਐਤ_ਸੋਮਵਾਰ ਸੋਮ ਸੋਮ_ਮੰਗਲਵਾਰ ਮੰਗਲ ਮੰਗਲ_ਬੁਧਵਾਰ ਬੁਧ ਬੁਧ_ਵੀਰਵਾਰ ਵੀਰ ਵੀਰ_ਸ਼ੁੱਕਰਵਾਰ ਸ਼ੁਕਰ ਸ਼ੁਕਰ_ਸ਼ਨੀਚਰਵਾਰ ਸ਼ਨੀ ਸ਼ਨੀ'.split('_'), i;
+    var expected = 'ਐਤਵਾਰ ਐਤ ਐਤ_ਸੋਮਵਾਰ ਸੋਮ ਸੋਮ_ਮੰਗਲਵਾਰ ਮੰਗਲ ਮੰਗਲ_ਬੁੱਧਵਾਰ ਬੁੱਧ ਬੁੱਧ_ਵੀਰਵਾਰ ਵੀਰ ਵੀਰ_ਸ਼ੁੱਕਰਵਾਰ ਸ਼ੁੱਕਰ ਸ਼ੁੱਕਰ_ਸ਼ਨੀਚਰਵਾਰ ਸ਼ਨੀ ਸ਼ਨੀ'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
@@ -106,9 +106,9 @@ test('format week', function (assert) {
 
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'ਕੁਝ ਸਕਿੰਟ', '44 seconds = a few seconds');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'ਇਕ ਮਿੰਟ',      '45 seconds = a minute');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'ਇਕ ਮਿੰਟ',      '89 seconds = a minute');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'ਕੁੱਝ ਸਕਿੰਟ', '44 seconds = a few seconds');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'ਇੱਕ ਮਿੰਟ',      '45 seconds = a minute');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'ਇੱਕ ਮਿੰਟ',      '89 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '੨ ਮਿੰਟ',     '90 seconds = 2 minutes');
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  '੪੪ ਮਿੰਟ',    '44 minutes = 44 minutes');
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  'ਇੱਕ ਘੰਟਾ',       '45 minutes = an hour');
@@ -137,28 +137,28 @@ test('from', function (assert) {
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), 'ਕੁਝ ਸਕਿੰਟ ਵਿੱਚ',  'prefix');
-    assert.equal(moment(0).from(30000), 'ਕੁਝ ਸਕਿੰਟ ਪਿਛਲੇ', 'suffix');
+    assert.equal(moment(30000).from(0), 'ਕੁੱਝ ਸਕਿੰਟ ਵਿੱਚ',  'prefix');
+    assert.equal(moment(0).from(30000), 'ਕੁੱਝ ਸਕਿੰਟ ਪਹਿਲਾਂ', 'suffix');
 });
 
 test('now from now', function (assert) {
-    assert.equal(moment().fromNow(), 'ਕੁਝ ਸਕਿੰਟ ਪਿਛਲੇ',  'now from now should display as in the past');
+    assert.equal(moment().fromNow(), 'ਕੁੱਝ ਸਕਿੰਟ ਪਹਿਲਾਂ',  'now from now should display as in the past');
 });
 
 test('fromNow', function (assert) {
-    assert.equal(moment().add({s: 30}).fromNow(), 'ਕੁਝ ਸਕਿੰਟ ਵਿੱਚ', 'ਕੁਝ ਸਕਿੰਟ ਵਿੱਚ');
-    assert.equal(moment().add({d: 5}).fromNow(), '੫ ਦਿਨ ਵਿੱਚ', '੫ ਦਿਨ ਵਿੱਚ');
+    assert.equal(moment().add({s: 30}).fromNow(), 'ਕੁੱਝ ਸਕਿੰਟ ਵਿੱਚ', 'ਕੁੱਝ ਸਕਿੰਟ ਵਿੱਚ');
+    assert.equal(moment().add({d: 5}).fromNow(), '੫ ਦਿਨ ਬਾਅਦ', '੫ ਦਿਨ ਬਾਅਦ');
 });
 
 test('calendar day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                   'ਅਜ ਦੁਪਹਿਰ ੧੨:੦੦ ਵਜੇ',  'today at the same time');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'ਅਜ ਦੁਪਹਿਰ ੧੨:੨੫ ਵਜੇ',  'Now plus 25 min');
-    assert.equal(moment(a).add({h: 3}).calendar(),       'ਅਜ ਦੁਪਹਿਰ ੩:੦੦ ਵਜੇ',   'Now plus 3 hours');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'ਕਲ ਦੁਪਹਿਰ ੧੨:੦੦ ਵਜੇ',  'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'ਅਜ ਦੁਪਹਿਰ ੧੧:੦੦ ਵਜੇ',  'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'ਕਲ ਦੁਪਹਿਰ ੧੨:੦੦ ਵਜੇ',  'yesterday at the same time');
+    assert.equal(moment(a).calendar(),                   'ਅੱਜ ਦੁਪਹਿਰ ੧੨:੦੦ ਵਜੇ',  'today at the same time');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'ਅੱਜ ਦੁਪਹਿਰ ੧੨:੨੫ ਵਜੇ',  'Now plus 25 min');
+    assert.equal(moment(a).add({h: 3}).calendar(),       'ਅੱਜ ਦੁਪਹਿਰ ੩:੦੦ ਵਜੇ',   'Now plus 3 hours');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'ਕੱਲ੍ਹ ਦੁਪਹਿਰ ੧੨:੦੦ ਵਜੇ',  'tomorrow at the same time');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'ਅੱਜ ਦੁਪਹਿਰ ੧੧:੦੦ ਵਜੇ',  'Now minus 1 hour');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'ਕੱਲ੍ਹ ਦੁਪਹਿਰ ੧੨:੦੦ ਵਜੇ',  'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {
@@ -210,7 +210,7 @@ test('meridiem invariant', function (assert) {
 
     assert.equal(moment([2011, 2, 23,  2, 30]).format('A'), 'ਰਾਤ', 'before dawn');
     assert.equal(moment([2011, 2, 23,  9, 30]).format('A'), 'ਸਵੇਰ', 'morning');
-    assert.equal(moment([2011, 2, 23, 14, 30]).format('A'), 'ਦੁਪਹਿਰ', ' during day');
+    assert.equal(moment([2011, 2, 23, 14, 30]).format('A'), 'ਦੁਪਹਿਰ', 'during day');
     assert.equal(moment([2011, 2, 23, 17, 30]).format('A'), 'ਸ਼ਾਮ', 'evening');
     assert.equal(moment([2011, 2, 23, 19, 30]).format('A'), 'ਸ਼ਾਮ', 'late evening');
     assert.equal(moment([2011, 2, 23, 21, 20]).format('A'), 'ਰਾਤ', 'night');
