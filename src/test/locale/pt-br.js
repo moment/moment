@@ -25,9 +25,9 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Domingo, fevereiro 14º 2010, 3:25:50 pm'],
+            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Domingo, Fevereiro 14º 2010, 3:25:50 pm'],
             ['ddd, hA',                            'Dom, 3PM'],
-            ['M Mo MM MMMM MMM',                   '2 2º 02 fevereiro fev'],
+            ['M Mo MM MMMM MMM',                   '2 2º 02 Fevereiro Fev'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14º 14'],
             ['d do dddd ddd',                      '0 0º Domingo Dom'],
@@ -41,13 +41,13 @@ test('format', function (assert) {
             ['[the] DDDo [day of the year]',       'the 45º day of the year'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14/02/2010'],
-            ['LL',                                 '14 de fevereiro de 2010'],
-            ['LLL',                                '14 de fevereiro de 2010 às 15:25'],
-            ['LLLL',                               'Domingo, 14 de fevereiro de 2010 às 15:25'],
+            ['LL',                                 '14 de Fevereiro de 2010'],
+            ['LLL',                                '14 de Fevereiro de 2010 às 15:25'],
+            ['LLLL',                               'Domingo, 14 de Fevereiro de 2010 às 15:25'],
             ['l',                                  '14/2/2010'],
-            ['ll',                                 '14 de fev de 2010'],
-            ['lll',                                '14 de fev de 2010 às 15:25'],
-            ['llll',                               'Dom, 14 de fev de 2010 às 15:25']
+            ['ll',                                 '14 de Fev de 2010'],
+            ['lll',                                '14 de Fev de 2010 às 15:25'],
+            ['llll',                               'Dom, 14 de Fev de 2010 às 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
