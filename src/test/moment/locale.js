@@ -471,6 +471,39 @@ test('moment().lang with missing key doesn\'t change locale', function (assert) 
             'preserve global locale in case of bad locale id');
 });
 
+test('when in strict mode with inexact parsing, treat periods in short weekdays literally, not as the regex-period', function (assert) {
+    moment.defineLocale('periods-in-short-weekdays', {
+        weekdays : 'Monday_Tuesday_Wednesday_Thursday_Friday_Saturday_Sunday'.split('_'),
+        weekdaysShort : 'mon_t...s_wed_thurs_fri_sat_sun'.split('_'),
+        weekdaysParseExact : false
+    });
+
+    moment().locale('periods-in-short-weekdays');
+    assert.equal(moment('thurs', 'ddd', true).format('dddd'), 'Thursday');
+});
+
+test('when in strict mode with inexact parsing, treat periods in full weekdays literally, not as the regex-period', function (assert) {
+    moment.defineLocale('periods-in-full-weekdays', {
+        weekdays : 'Monday_T....day_Wednesday_Thursday_Friday_Saturday_Sunday'.split('_'),
+        weekdaysShort : 'mon_tues_wed_thurs_fri_sat_sun'.split('_'),
+        weekdaysParseExact : false
+    });
+
+    moment().locale('periods-in-full-weekdays');
+    assert.equal(moment('Thursday', 'dddd', true).format('ddd'), 'thurs');
+});
+
+test('when in strict mode with inexact parsing, treat periods in min-weekdays literally, not as the regex-period', function (assert) {
+    moment.defineLocale('periods-in-min-weekdays', {
+        weekdays : 'Monday_Tuesday_Wednesday_Thursday_Friday_Saturday_Sunday'.split('_'),
+        weekdaysMin : 'mon_t...s_wed_thurs_fri_sat_sun'.split('_'),
+        weekdaysParseExact : false
+    });
+
+    moment().locale('periods-in-min-weekdays');
+    assert.equal(moment('thurs', 'dd', true).format('dddd'), 'Thursday');
+});
+
 
 // TODO: Enable this after fixing pl months parse hack hack
 // test('monthsParseExact', function (assert) {
