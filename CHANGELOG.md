@@ -1,6 +1,14 @@
 Changelog
 =========
 
+### 2.22.1 [See full changelog](https://gist.github.com/marwahaha/ff2cd13d0eda08afb7a237b10aae558c)
+
+* Release Apr 14, 2018
+
+* [#4495](https://github.com/moment/moment/pull/4495) [bugfix] Added HTML5_FMT to moment.d.ts
+* Minor locale improvements
+* QUnit upgrade and coveralls reporting
+
 ### 2.22.0 [See full changelog](https://gist.github.com/marwahaha/ae895025dac3f0641fa9ec2e36d282bb)
 
 * Release Mar 30, 2018
