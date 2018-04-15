@@ -20,6 +20,22 @@ proto.relativeTime = relativeTime;
 proto.pastFuture = pastFuture;
 proto.set = set;
 
+// Eras
+import {
+    localeEras,
+    localeErasParse,
+    localeErasConvertYear,
+    erasAbbrRegex,
+    erasNameRegex,
+    erasNarrowRegex,
+} from '../units/era';
+proto.eras = localeEras;
+proto.erasParse = localeErasParse;
+proto.erasConvertYear = localeErasConvertYear;
+proto.erasAbbrRegex = erasAbbrRegex;
+proto.erasNameRegex = erasNameRegex;
+proto.erasNarrowRegex = erasNarrowRegex;
+
 // Month
 import {
     localeMonthsParse,

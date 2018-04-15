@@ -69,6 +69,13 @@ proto.unix = unix;
 proto.valueOf = valueOf;
 proto.creationData = creationData;
 
+// Era
+import { getEraName, getEraNarrow, getEraAbbr, getEraYear } from '../units/era';
+proto.eraName = getEraName;
+proto.eraNarrow = getEraNarrow;
+proto.eraAbbr = getEraAbbr;
+proto.eraYear = getEraYear;
+
 // Year
 import { getSetYear, getIsLeapYear } from '../units/year';
 proto.year = getSetYear;

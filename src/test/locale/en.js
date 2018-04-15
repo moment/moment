@@ -67,6 +67,80 @@ test('format', function (assert) {
     }
 });
 
+test('parse era', function (assert) {
+    assert.equal(moment('2010 AD', 'y N', true).isValid(), true, '2010 AD');
+    assert.equal(moment('2010 AD', 'y N', true).year(), 2010, '2010 AD');
+
+    assert.equal(
+        moment('2010 Anno Domini', 'y N', true).isValid(),
+        false,
+        '2010 Anno Domini'
+    );
+    assert.equal(
+        moment('2010 Anno Domini', 'y N', false).isValid(),
+        true,
+        '2010 Anno Domini'
+    );
+    assert.equal(
+        moment('2010 Anno Domini', 'y NNNN', true).isValid(),
+        true,
+        '2010 Anno Domini'
+    );
+    assert.equal(
+        moment('2010 Anno Domini', 'y NNNN', true).year(),
+        2010,
+        '2010 Anno Domini'
+    );
+    assert.equal(
+        moment('2010 Anno Domini', 'y N', false).year(),
+        2010,
+        '2010 Anno Domini'
+    );
+
+    assert.equal(moment('469 BC', 'y N', true).isValid(), true, '469 BC');
+    assert.equal(moment('469 BC', 'y N', true).year(), -468, '469 BC');
+
+    assert.equal(
+        moment('469 Before Christ', 'y NNNN', true).isValid(),
+        true,
+        '469 Before Christ'
+    );
+    assert.equal(
+        moment('469 Before Christ', 'y NNNN', true).year(),
+        -468,
+        '469 Before Christ'
+    );
+});
+
+test('format era', function (assert) {
+    var a = [
+            ['+000001-01-01', 'N, NN, NNN', 'AD, AD, AD'],
+            ['+000001-01-01', 'NNNN', 'Anno Domini'],
+            ['+000001-01-01', 'NNNNN', 'AD'],
+            ['+000001-01-01', 'y', '1'],
+
+            ['+000000-12-31', 'N, NN, NNN', 'BC, BC, BC'],
+            ['+000000-12-31', 'NNNN', 'Before Christ'],
+            ['+000000-12-31', 'NNNNN', 'BC'],
+            ['+000000-12-31', 'y', '1'],
+
+            ['-000001-12-31', 'N, NN, NNN', 'BC, BC, BC'],
+            ['-000001-12-31', 'NNNN', 'Before Christ'],
+            ['-000001-12-31', 'NNNNN', 'BC'],
+            ['-000001-12-31', 'y', '2'],
+        ],
+        i,
+        l;
+
+    for (i = 0, l = a.length; i < l; ++i) {
+        assert.equal(
+            moment(a[i][0]).format(a[i][1]),
+            a[i][2],
+            a[i][0] + '; ' + a[i][1] + ' ---> ' + a[i][2]
+        );
+    }
+});
+
 test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 1]).format('DDDo'), '1st', '1st');
     assert.equal(moment([2011, 0, 2]).format('DDDo'), '2nd', '2nd');

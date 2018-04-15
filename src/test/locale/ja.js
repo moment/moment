@@ -64,6 +64,135 @@ test('format', function (assert) {
     }
 });
 
+test('parse era', function (assert) {
+    // strict
+    assert.equal(
+        moment('平成30年', 'NNNNy年', true).isValid(),
+        true,
+        '平成30年'
+    );
+    assert.equal(moment('平成30年', 'NNNNy年', true).year(), 2018, '平成30年');
+    assert.equal(
+        moment('平成30年', 'NNNNyo', true).isValid(),
+        true,
+        '平成30年'
+    );
+    assert.equal(moment('平成30年', 'NNNNyo', true).year(), 2018, '平成30年');
+
+    assert.equal(moment('平成30年', 'Ny年', true).isValid(), false, '平成30年');
+    assert.equal(moment('平成30年', 'Ny年', false).isValid(), true, '平成30年');
+    assert.equal(moment('㍻30年', 'Ny年', true).isValid(), false, '㍻30年');
+    assert.equal(moment('㍻30年', 'Ny年', false).isValid(), true, '㍻30年');
+    assert.equal(moment('H30年', 'Ny年', false).isValid(), true, 'H30年');
+
+    // abbrv
+    assert.equal(moment('H30年', 'Ny年', true).isValid(), true, 'H30年');
+    assert.equal(moment('H30年', 'Ny年', true).year(), 2018, 'H30年');
+    assert.equal(moment('H30年', 'NNNNy年', true).isValid(), false, 'H30年');
+    assert.equal(moment('H30年', 'NNNNNy年', true).isValid(), false, 'H30年');
+
+    // narrow
+    assert.equal(moment('㍻30年', 'Ny年', true).isValid(), false, '㍻30年');
+    assert.equal(moment('㍻30年', 'NNNNy年', true).isValid(), false, '㍻30年');
+    assert.equal(moment('㍻30年', 'NNNNNy年', true).isValid(), true, '㍻30年');
+    assert.equal(moment('㍻30年', 'NNNNNy年', true).year(), 2018, '㍻30年');
+
+    // ordinal year
+    assert.equal(moment('平成30年', 'NNNNyo', true).year(), 2018, '平成30年');
+    assert.equal(moment('平成元年', 'NNNNyo', true).year(), 1989, '平成元年');
+
+    // old eras
+    assert.equal(moment('昭和64年', 'NNNNyo', true).year(), 1989, '昭和64年');
+    assert.equal(moment('昭和元年', 'NNNNyo', true).year(), 1926, '昭和元年');
+    assert.equal(moment('大正元年', 'NNNNyo', true).year(), 1912, '大正元年');
+    assert.equal(moment('明治6年', 'NNNNyo', true).year(), 1873, '明治6年');
+});
+
+test('format era', function (assert) {
+    var a = [
+            /* First day of Heisei Era */
+            ['+001989-01-08', 'N, NN, NNN', 'H, H, H'],
+            ['+001989-01-08', 'NNNN', '平成'],
+            ['+001989-01-08', 'NNNNN', '㍻'],
+            ['+001989-01-08', 'y yy yyy yyyy', '1 01 001 0001'],
+            ['+001989-01-08', 'yo', '元年'],
+
+            /* Last day of Showa Era */
+            ['+001989-01-07', 'N, NN, NNN', 'S, S, S'],
+            ['+001989-01-07', 'NNNN', '昭和'],
+            ['+001989-01-07', 'NNNNN', '㍼'],
+            ['+001989-01-07', 'y yy yyy yyyy', '64 64 064 0064'],
+            ['+001989-01-07', 'yo', '64年'],
+
+            /* Last day of Showa Era */
+            ['+001926-12-25', 'N, NN, NNN', 'S, S, S'],
+            ['+001926-12-25', 'NNNN', '昭和'],
+            ['+001926-12-25', 'NNNNN', '㍼'],
+            ['+001926-12-25', 'y yy yyy yyyy', '1 01 001 0001'],
+            ['+001926-12-25', 'yo', '元年'],
+
+            /* Last day of Taisho Era */
+            ['+001926-12-24', 'N, NN, NNN', 'T, T, T'],
+            ['+001926-12-24', 'NNNN', '大正'],
+            ['+001926-12-24', 'NNNNN', '㍽'],
+            ['+001926-12-24', 'y yy yyy yyyy', '15 15 015 0015'],
+            ['+001926-12-24', 'yo', '15年'],
+
+            /* First day of Taisho Era */
+            ['+001912-07-30', 'N, NN, NNN', 'T, T, T'],
+            ['+001912-07-30', 'NNNN', '大正'],
+            ['+001912-07-30', 'NNNNN', '㍽'],
+            ['+001912-07-30', 'y yy yyy yyyy', '1 01 001 0001'],
+            ['+001912-07-30', 'yo', '元年'],
+
+            /* Last day of Meiji Era */
+            ['+001912-07-29', 'N, NN, NNN', 'M, M, M'],
+            ['+001912-07-29', 'NNNN', '明治'],
+            ['+001912-07-29', 'NNNNN', '㍾'],
+            ['+001912-07-29', 'y yy yyy yyyy', '45 45 045 0045'],
+            ['+001912-07-29', 'yo', '45年'],
+
+            /* The day the Japanese government had began using the Gregorian calendar */
+            ['+001873-01-01', 'N, NN, NNN', 'M, M, M'],
+            ['+001873-01-01', 'NNNN', '明治'],
+            ['+001873-01-01', 'NNNNN', '㍾'],
+            ['+001873-01-01', 'y yy yyy yyyy', '6 06 006 0006'],
+            ['+001873-01-01', 'yo', '6年'],
+
+            /* Christinan Era */
+            ['+001872-12-31', 'N, NN, NNN', 'AD, AD, AD'],
+            ['+001872-12-31', 'NNNN', '西暦'],
+            ['+001872-12-31', 'NNNNN', 'AD'],
+            ['+001872-12-31', 'y yy yyy yyyy', '1872 1872 1872 1872'],
+            ['+001872-12-31', 'yo', '1872年'],
+
+            ['+000001-01-01', 'N, NN, NNN', 'AD, AD, AD'],
+            ['+000001-01-01', 'NNNN', '西暦'],
+            ['+000001-01-01', 'NNNNN', 'AD'],
+            ['+000001-01-01', 'y', '1'],
+
+            ['+000000-12-31', 'N, NN, NNN', 'BC, BC, BC'],
+            ['+000000-12-31', 'NNNN', '紀元前'],
+            ['+000000-12-31', 'NNNNN', 'BC'],
+            ['+000000-12-31', 'y', '1'],
+
+            ['-000001-12-31', 'N, NN, NNN', 'BC, BC, BC'],
+            ['-000001-12-31', 'NNNN', '紀元前'],
+            ['-000001-12-31', 'NNNNN', 'BC'],
+            ['-000001-12-31', 'y', '2'],
+        ],
+        i,
+        l;
+
+    for (i = 0, l = a.length; i < l; ++i) {
+        assert.equal(
+            moment(a[i][0]).format(a[i][1]),
+            a[i][2],
+            a[i][0] + '; ' + a[i][1] + ' ---> ' + a[i][2]
+        );
+    }
+});
+
 test('format month', function (assert) {
     var expected = '1月 1月_2月 2月_3月 3月_4月 4月_5月 5月_6月 6月_7月 7月_8月 8月_9月 9月_10月 10月_11月 11月_12月 12月'.split(
             '_'
