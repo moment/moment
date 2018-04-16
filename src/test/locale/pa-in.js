@@ -147,7 +147,7 @@ test('now from now', function (assert) {
 
 test('fromNow', function (assert) {
     assert.equal(moment().add({s: 30}).fromNow(), 'ਕੁੱਝ ਸਕਿੰਟ ਵਿੱਚ', 'ਕੁੱਝ ਸਕਿੰਟ ਵਿੱਚ');
-    assert.equal(moment().add({d: 5}).fromNow(), '੫ ਦਿਨ ਬਾਅਦ', '੫ ਦਿਨ ਬਾਅਦ');
+    assert.equal(moment().add({d: 5}).fromNow(), '੫ ਦਿਨ ਵਿੱਚ', '੫ ਦਿਨ ਵਿੱਚ');
 });
 
 test('calendar day', function (assert) {

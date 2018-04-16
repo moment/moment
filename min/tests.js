@@ -13,6 +13,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -100,7 +155,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -137,7 +192,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -173,66 +228,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -242,7 +242,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -478,6 +478,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -565,7 +620,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -602,7 +657,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -638,66 +693,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -707,7 +707,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -943,6 +943,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -1030,7 +1085,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -1067,7 +1122,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -1103,66 +1158,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -1172,7 +1172,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -1408,6 +1408,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -1495,7 +1550,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -1532,7 +1587,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -1568,66 +1623,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -1637,7 +1637,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -1915,6 +1915,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -2002,7 +2057,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -2039,7 +2094,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -2075,66 +2130,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -2144,7 +2144,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -2380,6 +2380,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -2467,7 +2522,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -2504,7 +2559,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -2540,66 +2595,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -2609,7 +2609,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -2852,6 +2852,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -2939,7 +2994,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -2976,7 +3031,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -3012,66 +3067,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -3081,7 +3081,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -3393,6 +3393,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -3480,7 +3535,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -3517,7 +3572,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -3553,66 +3608,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -3622,7 +3622,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -3900,6 +3900,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -3987,7 +4042,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -4024,7 +4079,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -4060,66 +4115,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -4129,7 +4129,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -4375,6 +4375,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -4462,7 +4517,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -4499,7 +4554,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -4535,66 +4590,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -4604,7 +4604,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -4895,6 +4895,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -4982,7 +5037,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -5019,7 +5074,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -5055,66 +5110,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -5124,7 +5124,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -5375,6 +5375,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -5462,7 +5517,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -5499,7 +5554,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -5535,66 +5590,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -5604,7 +5604,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -5810,6 +5810,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -5897,7 +5952,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -5934,7 +5989,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -5970,66 +6025,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -6039,7 +6039,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -6290,6 +6290,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -6377,7 +6432,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -6414,7 +6469,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -6450,66 +6505,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -6519,7 +6519,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -6771,6 +6771,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -6858,7 +6913,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -6895,7 +6950,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -6931,66 +6986,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -7000,7 +7000,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -7253,6 +7253,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -7340,7 +7395,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -7377,7 +7432,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -7413,66 +7468,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -7482,7 +7482,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -7750,6 +7750,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -7837,7 +7892,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -7874,7 +7929,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -7910,66 +7965,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -7979,7 +7979,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -8221,6 +8221,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -8308,7 +8363,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -8345,7 +8400,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -8381,66 +8436,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -8450,7 +8450,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -8783,6 +8783,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -8870,7 +8925,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -8907,7 +8962,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -8943,66 +8998,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -9012,7 +9012,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -9253,6 +9253,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -9340,7 +9395,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -9377,7 +9432,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -9413,66 +9468,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -9482,7 +9482,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -9716,6 +9716,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -9803,7 +9858,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -9840,7 +9895,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -9876,66 +9931,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -9945,7 +9945,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -10183,6 +10183,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -10270,7 +10325,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -10307,7 +10362,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -10343,66 +10398,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -10412,7 +10412,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -10644,6 +10644,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -10731,7 +10786,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -10768,7 +10823,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -10804,66 +10859,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -10873,7 +10873,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -11105,6 +11105,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -11192,7 +11247,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -11229,7 +11284,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -11265,66 +11320,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -11334,7 +11334,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -11565,6 +11565,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -11652,7 +11707,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -11689,7 +11744,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -11725,66 +11780,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -11794,7 +11794,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -12025,6 +12025,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -12112,7 +12167,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -12149,7 +12204,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -12185,66 +12240,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -12254,7 +12254,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -12546,6 +12546,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -12633,7 +12688,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -12670,7 +12725,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -12706,66 +12761,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -12775,7 +12775,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -13011,6 +13011,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -13098,7 +13153,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -13135,7 +13190,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -13171,66 +13226,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -13240,7 +13240,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -13485,6 +13485,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -13572,7 +13627,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -13609,7 +13664,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -13645,66 +13700,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -13714,7 +13714,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -13950,6 +13950,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -14037,7 +14092,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -14074,7 +14129,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -14110,66 +14165,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -14179,7 +14179,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -14415,6 +14415,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -14502,7 +14557,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -14539,7 +14594,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -14575,66 +14630,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -14644,7 +14644,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -14884,6 +14884,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -14971,7 +15026,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -15008,7 +15063,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -15044,66 +15099,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -15113,7 +15113,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -15349,6 +15349,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -15436,7 +15491,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -15473,7 +15528,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -15509,66 +15564,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -15578,7 +15578,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -15839,6 +15839,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -15926,7 +15981,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -15963,7 +16018,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -15999,66 +16054,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -16068,7 +16068,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -16305,6 +16305,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -16392,7 +16447,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -16429,7 +16484,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -16465,66 +16520,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -16534,7 +16534,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -16779,6 +16779,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -16866,7 +16921,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -16903,7 +16958,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -16939,66 +16994,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -17008,7 +17008,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -17254,6 +17254,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -17341,7 +17396,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -17378,7 +17433,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -17414,66 +17469,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -17483,7 +17483,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -17727,6 +17727,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -17814,7 +17869,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -17851,7 +17906,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -17887,66 +17942,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -17956,7 +17956,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -18215,6 +18215,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -18302,7 +18357,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -18339,7 +18394,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -18375,66 +18430,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -18444,7 +18444,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -18679,6 +18679,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -18766,7 +18821,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -18803,7 +18858,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -18839,66 +18894,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -18908,7 +18908,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -19136,6 +19136,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -19223,7 +19278,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -19260,7 +19315,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -19296,66 +19351,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -19365,7 +19365,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -19601,6 +19601,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -19688,7 +19743,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -19725,7 +19780,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -19761,66 +19816,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -19830,7 +19830,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -20067,6 +20067,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -20154,7 +20209,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -20191,7 +20246,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -20227,66 +20282,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -20296,7 +20296,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -20554,6 +20554,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -20641,7 +20696,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -20678,7 +20733,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -20714,66 +20769,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -20783,7 +20783,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -21041,6 +21041,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -21128,7 +21183,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -21165,7 +21220,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -21201,66 +21256,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -21270,7 +21270,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -21528,6 +21528,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -21615,7 +21670,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -21652,7 +21707,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -21688,66 +21743,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -21757,7 +21757,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -21997,6 +21997,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -22084,7 +22139,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -22121,7 +22176,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -22157,66 +22212,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -22226,7 +22226,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -22474,6 +22474,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -22561,7 +22616,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -22598,7 +22653,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -22634,66 +22689,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -22703,7 +22703,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -22947,6 +22947,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -23034,7 +23089,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -23071,7 +23126,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -23107,66 +23162,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -23176,7 +23176,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -23426,6 +23426,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -23513,7 +23568,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -23550,7 +23605,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -23586,66 +23641,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -23655,7 +23655,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -23906,6 +23906,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -23993,7 +24048,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -24030,7 +24085,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -24066,66 +24121,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -24135,7 +24135,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -24335,6 +24335,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -24422,7 +24477,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -24459,7 +24514,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -24495,66 +24550,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -24564,7 +24564,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -24815,6 +24815,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -24902,7 +24957,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -24939,7 +24994,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -24975,66 +25030,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -25044,7 +25044,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -25312,6 +25312,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -25399,7 +25454,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -25436,7 +25491,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -25472,66 +25527,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -25541,7 +25541,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -25790,6 +25790,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -25877,7 +25932,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -25914,7 +25969,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -25950,66 +26005,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -26019,7 +26019,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -26324,6 +26324,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -26411,7 +26466,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -26448,7 +26503,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -26484,66 +26539,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -26553,7 +26553,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -26751,6 +26751,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -26838,7 +26893,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -26875,7 +26930,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -26911,66 +26966,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -26980,7 +26980,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -27222,6 +27222,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -27309,7 +27364,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -27346,7 +27401,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -27382,66 +27437,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -27451,7 +27451,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -27685,6 +27685,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -27772,7 +27827,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -27809,7 +27864,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -27845,66 +27900,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -27914,7 +27914,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -28134,6 +28134,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -28221,7 +28276,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -28258,7 +28313,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -28294,66 +28349,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -28363,7 +28363,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -28564,6 +28564,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -28651,7 +28706,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -28688,7 +28743,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -28724,66 +28779,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -28793,7 +28793,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -29041,6 +29041,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -29128,7 +29183,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -29165,7 +29220,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -29201,66 +29256,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -29270,7 +29270,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -29506,6 +29506,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -29593,7 +29648,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -29630,7 +29685,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -29666,66 +29721,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -29735,7 +29735,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -30245,6 +30245,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -30332,7 +30387,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -30369,7 +30424,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -30405,66 +30460,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -30474,7 +30474,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -30725,6 +30725,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -30812,7 +30867,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -30849,7 +30904,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -30885,66 +30940,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -30954,7 +30954,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -31224,6 +31224,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -31311,7 +31366,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -31348,7 +31403,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -31384,66 +31439,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -31453,7 +31453,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -31689,6 +31689,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -31776,7 +31831,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -31813,7 +31868,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -31849,66 +31904,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -31918,7 +31918,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -32131,6 +32131,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -32218,7 +32273,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -32255,7 +32310,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -32291,66 +32346,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -32360,7 +32360,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -32596,6 +32596,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -32683,7 +32738,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -32720,7 +32775,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -32756,66 +32811,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -32825,7 +32825,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -33081,6 +33081,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -33168,7 +33223,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -33205,7 +33260,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -33241,66 +33296,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -33310,7 +33310,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -33572,6 +33572,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -33659,7 +33714,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -33696,7 +33751,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -33732,66 +33787,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -33801,7 +33801,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -34074,6 +34074,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -34161,7 +34216,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -34198,7 +34253,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -34234,66 +34289,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -34303,7 +34303,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -34539,6 +34539,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -34626,7 +34681,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -34663,7 +34718,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -34699,66 +34754,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -34768,7 +34768,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -35018,6 +35018,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -35105,7 +35160,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -35142,7 +35197,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -35178,66 +35233,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -35247,7 +35247,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -35498,6 +35498,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -35585,7 +35640,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -35622,7 +35677,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -35658,66 +35713,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -35727,7 +35727,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -35972,6 +35972,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -36059,7 +36114,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -36096,7 +36151,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -36132,66 +36187,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -36201,7 +36201,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -36452,6 +36452,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -36539,7 +36594,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -36576,7 +36631,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -36612,66 +36667,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -36681,7 +36681,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -36925,6 +36925,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -37012,7 +37067,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -37049,7 +37104,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -37085,66 +37140,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -37154,7 +37154,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -37398,6 +37398,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -37485,7 +37540,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -37522,7 +37577,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -37558,66 +37613,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -37627,7 +37627,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -37863,6 +37863,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -37950,7 +38005,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -37987,7 +38042,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -38023,66 +38078,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -38092,7 +38092,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -38405,6 +38405,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -38492,7 +38547,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -38529,7 +38584,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -38565,66 +38620,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -38634,7 +38634,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -38870,6 +38870,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -38957,7 +39012,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -38994,7 +39049,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -39030,66 +39085,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -39099,7 +39099,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -39349,6 +39349,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -39436,7 +39491,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -39473,7 +39528,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -39509,66 +39564,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -39578,7 +39578,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -39820,6 +39820,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -39907,7 +39962,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -39944,7 +39999,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -39980,66 +40035,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -40049,7 +40049,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -40291,6 +40291,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -40378,7 +40433,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -40415,7 +40470,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -40451,66 +40506,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -40520,7 +40520,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -40755,6 +40755,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -40842,7 +40897,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -40879,7 +40934,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -40915,66 +40970,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -40984,7 +40984,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -41332,6 +41332,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -41419,7 +41474,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -41456,7 +41511,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -41492,66 +41547,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -41561,7 +41561,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -41862,6 +41862,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -41949,7 +42004,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -41986,7 +42041,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -42022,66 +42077,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -42091,7 +42091,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -42338,6 +42338,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -42425,7 +42480,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -42462,7 +42517,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -42498,66 +42553,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -42567,7 +42567,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -42798,6 +42798,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -42885,7 +42940,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -42922,7 +42977,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -42958,66 +43013,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -43027,7 +43027,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -43270,6 +43270,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -43357,7 +43412,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -43394,7 +43449,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -43430,66 +43485,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -43499,7 +43499,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -43738,13 +43738,13 @@
     test('calendar day', function (assert) {
         var a = moment().hours(12).minutes(0).seconds(0);
 
-        assert.equal(moment(a).calendar(),                   'Сегодня в 12:00',     'today at the same time');
-        assert.equal(moment(a).add({m: 25}).calendar(),      'Сегодня в 12:25',     'Now plus 25 min');
-        assert.equal(moment(a).add({h: 1}).calendar(),       'Сегодня в 13:00',     'Now plus 1 hour');
-        assert.equal(moment(a).add({d: 1}).calendar(),       'Завтра в 12:00',      'tomorrow at the same time');
-        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Сегодня в 11:00',     'Now minus 1 hour');
-        assert.equal(moment(a).subtract({h: 4}).calendar(),  'Сегодня в 8:00',     'Now minus 4 hours');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Вчера в 12:00',       'yesterday at the same time');
+        assert.equal(moment(a).calendar(),                   'Сегодня, в 12:00',     'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'Сегодня, в 12:25',     'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'Сегодня, в 13:00',     'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'Завтра, в 12:00',      'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'Сегодня, в 11:00',     'Now minus 1 hour');
+        assert.equal(moment(a).subtract({h: 4}).calendar(),  'Сегодня, в 8:00',     'Now minus 4 hours');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Вчера, в 12:00',       'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -43753,24 +43753,24 @@
         function makeFormatNext(d) {
             switch (d.day()) {
                 case 0:
-                    return '[В следующее] dddd [в] LT';
+                    return '[В следующее] dddd, [в] LT';
                 case 1:
                 case 2:
                 case 4:
-                    return '[В следующий] dddd [в] LT';
+                    return '[В следующий] dddd, [в] LT';
                 case 3:
                 case 5:
                 case 6:
-                    return '[В следующую] dddd [в] LT';
+                    return '[В следующую] dddd, [в] LT';
             }
         }
 
         function makeFormatThis(d) {
             if (d.day() === 2) {
-                return '[Во] dddd [в] LT';
+                return '[Во] dddd, [в] LT';
             }
             else {
-                return '[В] dddd [в] LT';
+                return '[В] dddd, [в] LT';
             }
         }
 
@@ -43801,24 +43801,24 @@
         function makeFormatLast(d) {
             switch (d.day()) {
                 case 0:
-                    return '[В прошлое] dddd [в] LT';
+                    return '[В прошлое] dddd, [в] LT';
                 case 1:
                 case 2:
                 case 4:
-                    return '[В прошлый] dddd [в] LT';
+                    return '[В прошлый] dddd, [в] LT';
                 case 3:
                 case 5:
                 case 6:
-                    return '[В прошлую] dddd [в] LT';
+                    return '[В прошлую] dddd, [в] LT';
             }
         }
 
         function makeFormatThis(d) {
             if (d.day() === 2) {
-                return '[Во] dddd [в] LT';
+                return '[Во] dddd, [в] LT';
             }
             else {
-                return '[В] dddd [в] LT';
+                return '[В] dddd, [в] LT';
             }
         }
 
@@ -43881,6 +43881,61 @@
             callback(array[i], i, array);
         }
     }
+
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
 
     function objectKeys(obj) {
         if (Object.keys) {
@@ -43969,7 +44024,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -44006,7 +44061,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -44042,66 +44097,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -44111,7 +44111,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -44360,6 +44360,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -44447,7 +44502,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -44484,7 +44539,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -44520,66 +44575,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -44589,7 +44589,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -44835,6 +44835,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -44922,7 +44977,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -44959,7 +45014,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -44995,66 +45050,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -45064,7 +45064,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -45294,6 +45294,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -45381,7 +45436,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -45418,7 +45473,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -45454,66 +45509,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -45523,7 +45523,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -45846,6 +45846,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -45933,7 +45988,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -45970,7 +46025,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -46006,66 +46061,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -46075,7 +46075,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -46434,6 +46434,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -46521,7 +46576,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -46558,7 +46613,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -46594,66 +46649,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -46663,7 +46663,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -46914,6 +46914,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -47001,7 +47056,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -47038,7 +47093,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -47074,66 +47129,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -47143,7 +47143,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -47413,6 +47413,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -47500,7 +47555,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -47537,7 +47592,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -47573,66 +47628,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -47642,7 +47642,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -47912,6 +47912,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -47999,7 +48054,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -48036,7 +48091,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -48072,66 +48127,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -48141,7 +48141,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -48409,6 +48409,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -48496,7 +48551,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -48533,7 +48588,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -48569,66 +48624,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -48638,7 +48638,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -48873,6 +48873,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -48960,7 +49015,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -48997,7 +49052,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -49033,66 +49088,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -49102,7 +49102,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -49337,6 +49337,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -49424,7 +49479,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -49461,7 +49516,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -49497,66 +49552,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -49566,7 +49566,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -49804,6 +49804,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -49891,7 +49946,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -49928,7 +49983,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -49964,66 +50019,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -50033,7 +50033,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -50284,6 +50284,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -50371,7 +50426,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -50408,7 +50463,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -50444,66 +50499,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -50513,7 +50513,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -50749,6 +50749,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -50836,7 +50891,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -50873,7 +50928,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -50909,66 +50964,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -50978,7 +50978,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -51225,6 +51225,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -51312,7 +51367,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -51349,7 +51404,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -51385,66 +51440,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -51454,7 +51454,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -51652,6 +51652,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -51739,7 +51794,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -51776,7 +51831,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -51812,66 +51867,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -51881,7 +51881,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -52115,6 +52115,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -52202,7 +52257,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -52239,7 +52294,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -52275,66 +52330,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -52344,7 +52344,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -52595,6 +52595,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -52682,7 +52737,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -52719,7 +52774,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -52755,66 +52810,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -52824,7 +52824,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -53070,6 +53070,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -53157,7 +53212,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -53194,7 +53249,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -53230,66 +53285,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -53299,7 +53299,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -53538,6 +53538,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -53625,7 +53680,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -53662,7 +53717,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -53698,66 +53753,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -53767,7 +53767,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -54002,6 +54002,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -54089,7 +54144,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -54126,7 +54181,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -54162,66 +54217,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -54231,7 +54231,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -54466,6 +54466,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -54553,7 +54608,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -54590,7 +54645,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -54626,66 +54681,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -54695,7 +54695,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -54903,6 +54903,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -54990,7 +55045,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -55027,7 +55082,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -55063,66 +55118,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -55132,7 +55132,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -55400,6 +55400,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -55487,7 +55542,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -55524,7 +55579,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -55560,66 +55615,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -55629,7 +55629,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -55879,6 +55879,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -55966,7 +56021,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -56003,7 +56058,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -56039,66 +56094,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -56108,7 +56108,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -56344,6 +56344,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -56431,7 +56486,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -56468,7 +56523,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -56504,66 +56559,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -56573,7 +56573,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -56809,6 +56809,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -56896,7 +56951,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -56933,7 +56988,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -56969,66 +57024,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -57038,7 +57038,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -57284,6 +57284,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -57371,7 +57426,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -57408,7 +57463,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -57444,66 +57499,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -57513,7 +57513,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -57749,6 +57749,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -57836,7 +57891,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -57873,7 +57928,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -57909,66 +57964,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -57978,7 +57978,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -58217,6 +58217,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -58304,7 +58359,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -58341,7 +58396,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -58377,66 +58432,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -58446,7 +58446,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -58656,6 +58656,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -58743,7 +58798,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -58780,7 +58835,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -58816,66 +58871,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -58885,7 +58885,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -59102,6 +59102,61 @@
         }
     }
 
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
     function objectKeys(obj) {
         if (Object.keys) {
             return Object.keys(obj);
@@ -59189,7 +59244,7 @@
 
             if (locale === 'tr') {
                 // I can't fix it :(
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -59226,7 +59281,7 @@
                 // upper then lower changes to i
                 // ro: there is the letter ț which behaves weird under IE8
                 // mt: letter Ħ
-                expect(0);
+                assert.expect(0);
                 return;
             }
             function tester(format) {
@@ -59262,66 +59317,11 @@
         });
     }
 
-    function setupDeprecationHandler(test, moment$$1, scope) {
-        test._expectedDeprecations = null;
-        test._observedDeprecations = null;
-        test._oldSupress = moment$$1.suppressDeprecationWarnings;
-        moment$$1.suppressDeprecationWarnings = true;
-        test.expectedDeprecations = function () {
-            test._expectedDeprecations = arguments;
-            test._observedDeprecations = [];
-        };
-        moment$$1.deprecationHandler = function (name, msg) {
-            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
-            if (deprecationId === -1) {
-                throw new Error('Unexpected deprecation thrown name=' +
-                        name + ' msg=' + msg);
-            }
-            test._observedDeprecations[deprecationId] = 1;
-        };
-    }
-
-    function teardownDeprecationHandler(test, moment$$1, scope) {
-        moment$$1.suppressDeprecationWarnings = test._oldSupress;
-
-        if (test._expectedDeprecations != null) {
-            var missedDeprecations = [];
-            each(test._expectedDeprecations, function (deprecationPattern, id) {
-                if (test._observedDeprecations[id] !== 1) {
-                    missedDeprecations.push(deprecationPattern);
-                }
-            });
-            if (missedDeprecations.length !== 0) {
-                throw new Error('Expected deprecation warnings did not happen: ' +
-                        missedDeprecations.join(' '));
-            }
-        }
-    }
-
-    function matchedDeprecation(name, msg, deprecations) {
-        if (deprecations == null) {
-            return -1;
-        }
-        for (var i = 0; i < deprecations.length; ++i) {
-            if (name != null && name === deprecations[i]) {
-                return i;
-            }
-            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /*global QUnit:false*/
-
-    var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function localeModule (name, lifecycle) {
         QUnit.module('locale:' + name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale(name);
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -59331,7 +59331,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 moment.locale('en');
                 teardownDeprecationHandler(test, moment, 'locale');
                 if (lifecycle && lifecycle.teardown) {
@@ -59548,8 +59548,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -59605,11 +59603,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -59619,7 +59615,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -59950,7 +59946,7 @@
         // Detect Safari bug and bail. Hours on 13th March 2011 are shifted
         // with 1 ahead.
         if (new Date(2011, 2, 13, 5, 0, 0).getHours() !== 5) {
-            expect(0);
+            assert.expect(0);
             return;
         }
 
@@ -60013,8 +60009,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -60070,11 +60064,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -60084,7 +60076,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -60165,8 +60157,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -60222,11 +60212,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -60236,7 +60224,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -61507,8 +61495,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -61564,11 +61550,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -61578,7 +61562,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -61636,8 +61620,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -61693,11 +61675,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -61707,7 +61687,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -62163,6 +62143,8 @@
         array[SECOND] = toInt(input.substr(pos2));
     });
 
+    // Pick the first defined of two or three arguments.
+
     hooks.createFromInputFallback = deprecate(
         'value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), ' +
         'which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are ' +
@@ -62289,8 +62271,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -62346,11 +62326,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -62360,7 +62338,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -62395,8 +62373,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -62452,11 +62428,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -62466,7 +62440,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -62552,7 +62526,7 @@
         var deprecatedFn = deprecate('testing deprecation', fn);
         deprecatedFn();
 
-        expect(0);
+        assert.expect(0);
     });
 
 })));
@@ -62571,8 +62545,6 @@
             callback(array[i], i, array);
         }
     }
-
-    // Pick the first defined of two or three arguments.
 
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
@@ -62629,11 +62601,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -62643,7 +62613,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -62914,8 +62884,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -62971,11 +62939,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -62985,7 +62951,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -63773,8 +63739,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -63830,11 +63794,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -63844,7 +63806,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -63913,8 +63875,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -63970,11 +63930,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -63984,7 +63942,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -64094,8 +64052,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -64151,11 +64107,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -64165,7 +64119,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -64726,8 +64680,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -64783,11 +64735,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -64797,7 +64747,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -64873,8 +64823,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -64930,11 +64878,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -64944,7 +64890,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -65352,8 +65298,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -65409,11 +65353,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -65423,7 +65365,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -65475,8 +65417,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -65532,11 +65472,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -65546,7 +65484,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -65751,8 +65689,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -65808,11 +65744,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -65822,7 +65756,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -66016,13 +65950,9 @@
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
 
-    // Pick the first defined of two or three arguments.
-
     /*global QUnit:false*/
 
     var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function isArray(input) {
         return input instanceof Array || Object.prototype.toString.call(input) === '[object Array]';
@@ -66060,8 +65990,6 @@
             callback(array[i], i, array);
         }
     }
-
-    // Pick the first defined of two or three arguments.
 
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
@@ -66118,11 +66046,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -66132,7 +66058,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -66333,8 +66259,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -66390,11 +66314,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -66404,7 +66326,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -66785,8 +66707,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -66842,11 +66762,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -66856,7 +66774,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -66906,8 +66824,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -66963,11 +66879,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -66977,7 +66891,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -67037,13 +66951,9 @@
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
 
-    // Pick the first defined of two or three arguments.
-
     /*global QUnit:false*/
 
     var test = QUnit.test;
-
-    var expect = QUnit.expect;
 
     function isNumber(input) {
         return typeof input === 'number' || Object.prototype.toString.call(input) === '[object Number]';
@@ -67090,8 +67000,6 @@
             callback(array[i], i, array);
         }
     }
-
-    // Pick the first defined of two or three arguments.
 
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
@@ -67148,11 +67056,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -67162,7 +67068,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -67337,8 +67243,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -67394,11 +67298,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -67408,7 +67310,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -67614,8 +67516,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -67671,11 +67571,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -67685,7 +67583,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -67893,8 +67791,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -67950,11 +67846,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -67964,7 +67858,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -68271,8 +68165,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -68328,11 +68220,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -68342,7 +68232,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -68377,8 +68267,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -68434,11 +68322,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -68448,7 +68334,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -68588,8 +68474,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -68645,11 +68529,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -68659,7 +68541,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -69203,8 +69085,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -69260,11 +69140,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -69274,7 +69152,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -69491,8 +69369,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -69548,11 +69424,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -69562,7 +69436,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -69760,8 +69634,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -69817,11 +69689,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -69831,7 +69701,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -69903,8 +69773,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -69960,11 +69828,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -69974,7 +69840,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -70024,8 +69890,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -70081,11 +69945,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -70095,7 +69957,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -70150,8 +70012,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -70207,11 +70067,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -70221,7 +70079,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -70327,8 +70185,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -70384,11 +70240,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -70398,7 +70252,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -70596,8 +70450,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -70653,11 +70505,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -70667,7 +70517,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -70764,8 +70614,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -70821,11 +70669,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -70835,7 +70681,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -70960,8 +70806,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -71017,11 +70861,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -71031,7 +70873,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -71275,8 +71117,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -71332,11 +71172,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -71346,7 +71184,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -71765,8 +71603,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -71822,11 +71658,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -71836,7 +71670,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -71876,8 +71710,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -71933,11 +71765,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -71947,7 +71777,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -71989,7 +71819,7 @@
             assert.deepEqual(moment(expected).toJSON(), expected, 'toJSON invalid');
         } else {
             // IE8
-            expect(0);
+            assert.expect(0);
         }
     });
 
@@ -72003,7 +71833,7 @@
             assert.deepEqual(m.toJSON(), expected, 'toJSON when frozen invalid');
         } else {
             // IE8
-            expect(0);
+            assert.expect(0);
         }
     });
 
@@ -72023,8 +71853,6 @@
             callback(array[i], i, array);
         }
     }
-
-    // Pick the first defined of two or three arguments.
 
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
@@ -72081,11 +71909,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -72095,7 +71921,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -72197,8 +72023,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -72254,11 +72078,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -72268,7 +72090,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -72776,8 +72598,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -72833,11 +72653,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -72847,7 +72665,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -73179,8 +72997,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -73236,11 +73052,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -73250,7 +73064,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -73425,8 +73239,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -73482,11 +73294,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -73496,7 +73306,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -73744,8 +73554,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -73801,11 +73609,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -73815,7 +73621,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -73926,8 +73732,6 @@
         }
     }
 
-    // Pick the first defined of two or three arguments.
-
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
         test._observedDeprecations = null;
@@ -73983,11 +73787,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -73997,7 +73799,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();
@@ -74058,7 +73860,7 @@
     test('utc to local, keepLocalTime = true', function (assert) {
         // Don't test near the spring DST transition
         if (isNearSpringDST()) {
-            expect(0);
+            assert.expect(0);
             return;
         }
 
@@ -74077,7 +73879,7 @@
     test('zone to local, keepLocalTime = true', function (assert) {
         // Don't test near the spring DST transition
         if (isNearSpringDST()) {
-            expect(0);
+            assert.expect(0);
             return;
         }
 
@@ -74132,8 +73934,6 @@
             callback(array[i], i, array);
         }
     }
-
-    // Pick the first defined of two or three arguments.
 
     function setupDeprecationHandler(test, moment$$1, scope) {
         test._expectedDeprecations = null;
@@ -74190,11 +73990,9 @@
 
     var test = QUnit.test;
 
-    var expect = QUnit.expect;
-
     function module$1 (name, lifecycle) {
         QUnit.module(name, {
-            setup : function () {
+            beforeEach : function () {
                 moment.locale('en');
                 moment.createFromInputFallback = function (config) {
                     throw new Error('input not handled by moment: ' + config._i);
@@ -74204,7 +74002,7 @@
                     lifecycle.setup();
                 }
             },
-            teardown : function () {
+            afterEach : function () {
                 teardownDeprecationHandler(test, moment, 'core');
                 if (lifecycle && lifecycle.teardown) {
                     lifecycle.teardown();

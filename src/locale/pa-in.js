@@ -1,32 +1,32 @@
 //! moment.js locale configuration
 //! locale : Punjabi (India) [pa-in]
-//! author : Amandeep Singh : https://github.com/adsingh14
+//! author : Harpreet Singh : https://github.com/harpreetkhalsagtbit | Amandeep Singh : https://github.com/adsingh14
 
 import moment from '../moment';
 
 var symbolMap = {
-	'1': '੧',
-	'2': '੨',
-	'3': '੩',
-	'4': '੪',
-	'5': '੫',
-	'6': '੬',
-	'7': '੭',
-	'8': '੮',
-	'9': '੯',
-	'0': '੦'
+    '1': '੧',
+    '2': '੨',
+    '3': '੩',
+    '4': '੪',
+    '5': '੫',
+    '6': '੬',
+    '7': '੭',
+    '8': '੮',
+    '9': '੯',
+    '0': '੦'
 },
 numberMap = {
-	'੧': '1',
-	'੨': '2',
-	'੩': '3',
-	'੪': '4',
-	'੫': '5',
-	'੬': '6',
-	'੭': '7',
-	'੮': '8',
-	'੯': '9',
-	'੦': '0'
+    '੧': '1',
+    '੨': '2',
+    '੩': '3',
+    '੪': '4',
+    '੫': '5',
+    '੬': '6',
+    '੭': '7',
+    '੮': '8',
+    '੯': '9',
+    '੦': '0'
 };
 
 export default moment.defineLocale('pa-in', {
@@ -57,7 +57,7 @@ export default moment.defineLocale('pa-in', {
         past : '%s ਪਿਛਲੇ',
         s : 'ਕੁੱਝ ਸਕਿੰਟ',
         ss : '%d ਸਕਿੰਟ',
-        m : 'ਇੱਕ ਮਿੰਟ',
+        m : 'ਇਕ ਮਿੰਟ',
         mm : '%d ਮਿੰਟ',
         h : 'ਇੱਕ ਘੰਟਾ',
         hh : '%d ਘੰਟੇ',
@@ -113,3 +113,4 @@ export default moment.defineLocale('pa-in', {
         doy : 6  // The week that contains Jan 1st is the first week of the year.
     }
 });
+
