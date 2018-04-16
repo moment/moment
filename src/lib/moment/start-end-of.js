@@ -4,8 +4,7 @@ import { hooks } from '../utils/hooks';
 var MS_PER_SECOND = 1000;
 var MS_PER_MINUTE = 60 * MS_PER_SECOND;
 var MS_PER_HOUR = 60 * MS_PER_MINUTE;
-var MS_PER_DAY = 24 * MS_PER_HOUR;
-var MS_PER_400_YEARS = (365 * 400 + 97) * MS_PER_DAY;
+var MS_PER_400_YEARS = (365 * 400 + 97) * 24 * MS_PER_HOUR;
 
 // actual modulo - handles negative numbers (for dates before 1970):
 function mod(dividend, divisor) {
