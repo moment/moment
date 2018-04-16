@@ -210,7 +210,7 @@ test('meridiem invariant', function (assert) {
 
     assert.equal(moment([2011, 2, 23,  2, 30]).format('A'), 'ਰਾਤ', 'before dawn');
     assert.equal(moment([2011, 2, 23,  9, 30]).format('A'), 'ਸਵੇਰ', 'morning');
-    assert.equal(moment([2011, 2, 23, 14, 30]).format('A'), 'ਦੁਪਹਿਰ', 'during day');
+    assert.equal(moment([2011, 2, 23, 14, 30]).format('A'), 'ਦੁਪਹਿਰ', ' during day');
     assert.equal(moment([2011, 2, 23, 17, 30]).format('A'), 'ਸ਼ਾਮ', 'evening');
     assert.equal(moment([2011, 2, 23, 19, 30]).format('A'), 'ਸ਼ਾਮ', 'late evening');
     assert.equal(moment([2011, 2, 23, 21, 20]).format('A'), 'ਰਾਤ', 'night');
