@@ -57,7 +57,7 @@ export default moment.defineLocale('pa-in', {
         past : '%s ਪਿਛਲੇ',
         s : 'ਕੁੱਝ ਸਕਿੰਟ',
         ss : '%d ਸਕਿੰਟ',
-        m : 'ਇਕ ਮਿੰਟ',
+        m : 'ਇੱਕ ਮਿੰਟ',
         mm : '%d ਮਿੰਟ',
         h : 'ਇੱਕ ਘੰਟਾ',
         hh : '%d ਘੰਟੇ',
