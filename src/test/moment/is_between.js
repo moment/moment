@@ -362,6 +362,20 @@ test('is between invalid', function (assert) {
         validFrom = moment(new Date(2010, 1, 2, 3, 4, 5, 6)),
         validTo = moment(new Date(2012, 1, 2, 3, 4, 5, 6));
     assert.equal(invalid.isBetween(validFrom, validTo), false, 'this instance invalid');
+    assert.equal(invalid.isBetween(validFrom, validTo, '[]'), false, 'this instance invalid []');
+    assert.equal(invalid.isBetween(validFrom, validTo, '[)'), false, 'this instance invalid [)');
+    assert.equal(invalid.isBetween(validFrom, validTo, '(]'), false, 'this instance invalid (]');
+    assert.equal(invalid.isBetween(validFrom, validTo, '()'), false, 'this instance invalid ()');
+
     assert.equal(valid.isBetween(invalid, validTo), false, 'from invalid moment');
+    assert.equal(valid.isBetween(invalid, validTo, '[]'), false, 'from invalid moment []');
+    assert.equal(valid.isBetween(invalid, validTo, '[)'), false, 'from invalid moment [)');
+    assert.equal(valid.isBetween(invalid, validTo, '(]'), false, 'from invalid moment (]');
+    assert.equal(valid.isBetween(invalid, validTo, '()'), false, 'from invalid moment ()');
+
     assert.equal(valid.isBetween(validFrom, invalid), false, 'to invalid moment');
+    assert.equal(valid.isBetween(validFrom, invalid, '[]'), false, 'to invalid moment []');
+    assert.equal(valid.isBetween(validFrom, invalid, '[)'), false, 'to invalid moment [)');
+    assert.equal(valid.isBetween(validFrom, invalid, '(]'), false, 'to invalid moment (]');
+    assert.equal(valid.isBetween(validFrom, invalid, '()'), false, 'to invalid moment ()');
 });
