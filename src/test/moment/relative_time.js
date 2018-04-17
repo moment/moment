@@ -26,12 +26,19 @@ test('default thresholds fromNow', function (assert) {
     a.subtract(1, 'hours');
     assert.equal(a.fromNow(), 'a day ago', 'Above default hours to day threshold');
 
-    // Days to month threshold
+    // Days to weeks threshold
     a = moment();
-    a.subtract(25, 'days');
-    assert.equal(a.fromNow(), '25 days ago', 'Below default days to month (singular) threshold');
+    a.subtract(5, 'days');
+    assert.equal(a.fromNow(), '5 days ago', 'Below default days to week (singular) threshold');
     a.subtract(1, 'days');
-    assert.equal(a.fromNow(), 'a month ago', 'Above default days to month (singular) threshold');
+    assert.equal(a.fromNow(), 'a week ago', 'Above default days to week (singular) threshold');
+
+    // Weeks to months threshold
+    a = moment();
+    a.subtract(3, 'weeks');
+    assert.equal(a.fromNow(), '3 weeks ago', 'Below default weeks to month threshold');
+    a.subtract(1, 'week');
+    assert.equal(a.fromNow(), 'a month ago', 'Above default weeks to month threshold');
 
     // months to year threshold
     a = moment();
