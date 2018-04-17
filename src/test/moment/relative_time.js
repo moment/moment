@@ -76,7 +76,7 @@ test('default thresholds toNow', function (assert) {
     a.subtract(3, 'weeks');
     assert.equal(a.toNow(), 'in 3 weeks', 'Below default weeks to month threshold');
     a.subtract(1, 'week');
-    asswert.equal(a.toNow(), 'in a month', 'Above default weeks to month threshold');
+    assert.equal(a.toNow(), 'in a month', 'Above default weeks to month threshold');
 
     // Months to year threshold
     a = moment();
