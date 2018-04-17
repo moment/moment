@@ -273,7 +273,8 @@ test('from relative time future', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).subtract({h: 36})),  'in 2 days',        '36 hours = 2 days');
     assert.equal(start.from(moment([2007, 1, 28]).subtract({d: 1})),   'in a day',         '1 day = a day');
     assert.equal(start.from(moment([2007, 1, 28]).subtract({d: 5})),   'in 5 days',        '5 days = 5 days');
-    assert.equal(start.from(moment([2007, 1, 28]).subtract({d: 25})),  'in 25 days',       '25 days = 25 days');
+    assert.equal(start.from(moment([2007, 1, 28]).subtract({d: 24})),  'in 3 weeks',       '24 days = 3 weeks');
+    assert.equal(start.from(moment([2007, 1, 28]).subtract({d: 25})),  'in a month',       '25 days = a month');
     assert.equal(start.from(moment([2007, 1, 28]).subtract({d: 26})),  'in a month',       '26 days = a month');
     assert.equal(start.from(moment([2007, 1, 28]).subtract({d: 30})),  'in a month',       '30 days = a month');
     assert.equal(start.from(moment([2007, 1, 28]).subtract({d: 45})),  'in a month',       '45 days = a month');
@@ -308,7 +309,8 @@ test('from relative time past', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 36})),  '2 days ago',        '36 hours = 2 days');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 1})),   'a day ago',         '1 day = a day');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 5})),   '5 days ago',        '5 days = 5 days');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 25})),  '25 days ago',       '25 days = 25 days');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 24})),  '3 weeks ago',       '24 days = 3 weeks');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 25})),  'a month ago',       '25 days = a month');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 26})),  'a month ago',       '26 days = a month');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 30})),  'a month ago',       '30 days = a month');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 43})),  'a month ago',       '43 days = a month');
