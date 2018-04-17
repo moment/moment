@@ -131,14 +131,23 @@ test('custom thresholds', function (assert) {
     assert.equal(a.fromNow(), 'a day ago', 'Above custom hours to days threshold');
     moment.relativeTimeThreshold('h', 22);
 
-    // Days to month threshold
-    moment.relativeTimeThreshold('d', 28);
+    // Days to week threshold
+    moment.relativeTimeThreshold('d', 5);
     a = moment();
-    a.subtract(27, 'days');
-    assert.equal(a.fromNow(), '27 days ago', 'Below custom days to month (singular) threshold');
-    a.subtract(1, 'days');
-    assert.equal(a.fromNow(), 'a month ago', 'Above custom days to month (singular) threshold');
-    moment.relativeTimeThreshold('d', 26);
+    a.subtract(4, 'days');
+    assert.equal(a.fromNow(), '4 days ago', 'Below custom days to week threshold');
+    a.subtract(1, 'day');
+    assert.equal(a.fromNow(), 'a week ago', 'Above custom days to week threshold');
+    moment.relativeTimeThreshold('d', 6);
+
+    // Week to month threshold
+    moment.relativeTimeThreshold('w', 3);
+    a = moment();
+    a.subtract(2, 'weeks');
+    assert.equal(a.fromNow(), '2 weeks ago', 'Below custom weeks to month (singular) threshold');
+    a.subtract(1, 'week');
+    assert.equal(a.fromNow(), 'a month ago', 'Above custom weeks to month (singular) threshold');
+    moment.relativeTimeThreshold('w', 4);
 
     // months to years threshold
     moment.relativeTimeThreshold('M', 9);
