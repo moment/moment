@@ -64,7 +64,7 @@ test('default thresholds toNow', function (assert) {
     a.subtract(1, 'hours');
     assert.equal(a.toNow(), 'in a day', 'Above default hours to day threshold');
 
-    // Days to month threshold
+    // Days to weeks threshold
     a = moment();
     a.subtract(5, 'days');
     assert.equal(a.toNow(), 'in 5 days', 'Below default days to week (singular) threshold');
