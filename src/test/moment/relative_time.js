@@ -66,12 +66,19 @@ test('default thresholds toNow', function (assert) {
 
     // Days to month threshold
     a = moment();
-    a.subtract(25, 'days');
-    assert.equal(a.toNow(), 'in 25 days', 'Below default days to month (singular) threshold');
+    a.subtract(5, 'days');
+    assert.equal(a.toNow(), 'in 5 days', 'Below default days to week (singular) threshold');
     a.subtract(1, 'days');
-    assert.equal(a.toNow(), 'in a month', 'Above default days to month (singular) threshold');
+    assert.equal(a.toNow(), 'in a week', 'Above default days to week (singular) threshold');
 
-    // months to year threshold
+    // Weeks to months threshold
+    a = moment();
+    a.subtract(3, 'weeks');
+    assert.equal(a.toNow(), 'in 3 weeks', 'Below default weeks to month threshold');
+    a.subtract(1, 'week');
+    asswert.equal(a.toNow(), 'in a month', 'Above default weeks to month threshold');
+
+    // Months to year threshold
     a = moment();
     a.subtract(10, 'months');
     assert.equal(a.toNow(), 'in 10 months', 'Below default days to years threshold');
