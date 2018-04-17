@@ -1,7 +1,7 @@
 //! moment.js locale configuration
 //! locale : Punjabi (India) [pa-in]
-//! author : Harpreet Singh : https://github.com/harpreetkhalsagtbit | Amandeep Singh : https://github.com/adsingh14
-
+//! author : Harpreet Singh : https://github.com/harpreetkhalsagtbit
+//! author : Amandeep Singh : https://github.com/adsingh14
 import moment from '../moment';
 
 var symbolMap = {
