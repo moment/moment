@@ -176,7 +176,7 @@ test('custom rounding', function (assert) {
 
     a = moment.utc();
     a.subtract({days: 27});
-    assert.equal(a.toNow(), 'in a month', 'Round down towards the nearest day (just over)');
+    assert.equal(a.toNow(), 'in 3 weeks', 'Round down towards the nearest day (just over)');
 
     a = moment.utc();
     a.subtract({days: 364});
