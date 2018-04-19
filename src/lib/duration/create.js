@@ -30,7 +30,7 @@ export function createDuration (input, key) {
             d  : input._days,
             M  : input._months
         };
-    } else if (isNumber(input)) {
+    } else if (isNumber(input) && !isNaN(input)) {
         duration = {};
         if (key) {
             duration[key] = input;
