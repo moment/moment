@@ -146,7 +146,7 @@ export function updateLocale(name, config) {
 
         if (locales[name] != null && locales[name].parentLocale != null) {
             // Update existing child locale in-place to avoid memory-leaks
-            locales[name].set(config);
+            locales[name].set(mergeConfigs(locales[name]._config, config));
         } else {
             // MERGE
             tmpLocale = loadLocale(name);
