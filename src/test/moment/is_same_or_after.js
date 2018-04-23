@@ -180,3 +180,9 @@ test('is same or after with invalid moments', function (assert) {
     assert.equal(m.isSameOrAfter(invalid, 'second'), false, 'invalid moment second');
     assert.equal(m.isSameOrAfter(invalid, 'milliseconds'), false, 'invalid moment milliseconds');
 });
+
+test('is same or after with moment.utc', function (assert) {
+    var m = moment;
+    assert.equal(m.utc('2018-01-01').isSameOrAfter('2018-01-02', 'day'), false, 'day is earlier');
+    assert.equal(m.utc('2018-01-01').isSameOrAfter(moment.utc('2018-01-02'), 'day'), false, 'day is earlier');
+});
