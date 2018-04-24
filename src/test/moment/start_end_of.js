@@ -289,7 +289,7 @@ test('start of second', function (assert) {
     assert.equal(m.date(), 2, 'keep the day');
     assert.equal(m.hours(), 3, 'keep the hours');
     assert.equal(m.minutes(), 4, 'keep the minutes');
-    assert.equal(m.seconds(), 5, 'keep the the seconds');
+    assert.equal(m.seconds(), 5, 'keep the seconds');
     assert.equal(m.milliseconds(), 0, 'strip out the milliseconds');
 });
 
