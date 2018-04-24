@@ -35,9 +35,9 @@ export default moment.defineLocale('ka', {
     },
     relativeTime : {
         future : function (s) {
-            return (/(წამი|წუთი|საათი|წელი)/).test(s) ?
-                s.replace(/ი$/, 'ში') :
-                s + 'ში';
+            return s.replace(/(წამ|წუთ|საათ|წელ|დღ|თვ)(ი|ე)/, function($0, $1, $2) {
+                return $2 === 'ი' ? $1 + 'ში' : $1 + $2 + 'ში';
+            });
         },
         past : function (s) {
             if ((/(წამი|წუთი|საათი|დღე|თვე)/).test(s)) {
