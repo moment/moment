@@ -46,6 +46,7 @@ export default moment.defineLocale('ka', {
             if ((/წელი/).test(s)) {
                 return s.replace(/წელი$/, 'წლის წინ');
             }
+            return s;
         },
         s : 'რამდენიმე წამი',
         ss : '%d წამი',
