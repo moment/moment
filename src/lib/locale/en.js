@@ -3,6 +3,24 @@ import { getSetGlobalLocale } from './locales';
 import toInt from '../utils/to-int';
 
 getSetGlobalLocale('en', {
+    eras: [
+        {
+            since:  '0001-01-01',
+            until:  +Infinity,
+            offset: 1,
+            name:   'After Christ',
+            narrow: 'AC',
+            abbr:   'AC'
+        },
+        {
+            since:  '0000-12-31',
+            until:  -Infinity,
+            offset: 1,
+            name:   'Before Christ',
+            narrow: 'BC',
+            abbr:   'BC'
+        }
+    ],
     dayOfMonthOrdinalParse: /\d{1,2}(th|st|nd|rd)/,
     ordinal : function (number) {
         var b = number % 10,
