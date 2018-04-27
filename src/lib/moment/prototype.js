@@ -135,9 +135,10 @@ proto.isUtc                = isUtc;
 proto.isUTC                = isUtc;
 
 // Timezone
-import { getZoneAbbr, getZoneName } from '../units/timezone';
+import { getZoneAbbr, getZoneName, getZoneShortAbbr } from '../units/timezone';
 proto.zoneAbbr = getZoneAbbr;
 proto.zoneName = getZoneName;
+proto.zoneShortAbbr = getZoneShortAbbr;
 
 // Deprecations
 import { deprecate } from '../utils/deprecate';

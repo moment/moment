@@ -24,18 +24,29 @@ function offset (token, separator) {
             offset = -offset;
             sign = '-';
         }
-        return sign + zeroFill(~~(offset / 60), 2) + separator + zeroFill(~~(offset) % 60, 2);
+        var signedOffset = '';
+        switch (separator) {
+            case '.':
+                signedOffset = sign + (((~~(offset / 60)) + separator + (~~(offset) % 60)).replace(/^0+|0+$/g, ''));
+                break;
+            case ':':
+            case '':
+                signedOffset = sign + (zeroFill(~~(offset / 60), 2) + separator + zeroFill(~~(offset) % 60, 2));
+                break;
+        }
+        return signedOffset;
     });
 }
 
 offset('Z', ':');
 offset('ZZ', '');
-
+offset('ZZZ', '.');
 // PARSING
 
 addRegexToken('Z',  matchShortOffset);
 addRegexToken('ZZ', matchShortOffset);
-addParseToken(['Z', 'ZZ'], function (input, array, config) {
+addRegexToken('ZZZ', matchShortOffset);
+addParseToken(['Z', 'ZZ', 'ZZZ'], function (input, array, config) {
     config._useUTC = true;
     config._tzm = offsetFromString(matchShortOffset, input);
 });
@@ -47,20 +58,36 @@ addParseToken(['Z', 'ZZ'], function (input, array, config) {
 // '-1530'  > ['-15', '30']
 var chunkOffset = /([\+\-]|\d\d)/gi;
 
+function shortAbbroffsetFromString(timeZone) {
+    var noDigitBeforeDecimalRegex = /^[+-]\.\d\d?$/gi;
+    if (noDigitBeforeDecimalRegex.test(timeZone)) {
+        timeZone = timeZone.slice(0,1) + '0' + timeZone.slice(1);
+    }
+    var timeZoneRegex = /^[+-]\d{1,2}(\.\d{1,2})?$/gi;
+    var splitRegex = /[+-]|\d\d?/gi;
+    if (timeZoneRegex.test(timeZone)) {
+        return timeZone.match(splitRegex);
+    }
+}
+
 function offsetFromString(matcher, string) {
     var matches = (string || '').match(matcher);
-
     if (matches === null) {
         return null;
     }
-
-    var chunk   = matches[matches.length - 1] || [];
-    var parts   = (chunk + '').match(chunkOffset) || ['-', 0, 0];
-    var minutes = +(parts[1] * 60) + toInt(parts[2]);
-
-    return minutes === 0 ?
-      0 :
-      parts[0] === '+' ? minutes : -minutes;
+    var decimalAndInteger = /^[+-]\d{1,2}(\.\d{1,2})?$/gi;
+    var integerAfterDecimal = /^[+-](\.\d{1,2})?$/gi;
+    if (decimalAndInteger.test(string) || integerAfterDecimal.test(string)) {
+        var shortParts   = shortAbbroffsetFromString(string) || ['-', 0, 0];
+        var shortMinutes = +(shortParts[1] * 60) + toInt(shortParts[2]);
+        return shortMinutes === 0 ? 0 : (shortParts[0] === '+' ? shortMinutes : -shortMinutes);
+    }
+    else {
+        var chunk   = matches[matches.length - 1] || [];
+        var parts   = (chunk + '').match(chunkOffset) || ['-', 0, 0];
+        var minutes = +(parts[1] * 60) + toInt(parts[2]);
+        return minutes === 0 ? 0 : (parts[0] === '+' ? minutes : -minutes);
+    }
 }
 
 // Return a moment from input, that is local/utc/zone equivalent to model.
