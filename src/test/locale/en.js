@@ -58,6 +58,30 @@ test('format', function (assert) {
     }
 });
 
+test('format era', function (assert) {
+    var a = [
+            ['+000001-01-01', 'N, NN, NNN',     'AC, AC, AC'],
+            ['+000001-01-01', 'NNNN',           'After Christ'],
+            ['+000001-01-01', 'NNNNN',          'AC'],
+            ['+000001-01-01', 'y',              '1'],
+
+            ['+000000-12-31', 'N, NN, NNN',     'BC, BC, BC'],
+            ['+000000-12-31', 'NNNN',           'Before Christ'],
+            ['+000000-12-31', 'NNNNN',          'BC'],
+            ['+000000-12-31', 'y',              '1'],
+
+            ['-000001-12-31', 'N, NN, NNN',     'BC, BC, BC'],
+            ['-000001-12-31', 'NNNN',           'Before Christ'],
+            ['-000001-12-31', 'NNNNN',          'BC'],
+            ['-000001-12-31', 'y',              '2']
+        ],
+        i, l;
+
+    for (i = 0, l = a.length; i < l; ++i) {
+        assert.equal(moment(a[i][0]).format(a[i][1]), a[i][2], a[i][0] + '; ' + a[i][1] + ' ---> ' + a[i][2]);
+    }
+});
+
 test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 1]).format('DDDo'), '1st', '1st');
     assert.equal(moment([2011, 0, 2]).format('DDDo'), '2nd', '2nd');
