@@ -1,6 +1,11 @@
 import { addFormatToken } from '../format/format';
+import { addRegexToken, matchUnsigned, regexEscape } from '../parse/regex';
+import { addParseToken } from '../parse/token';
+import { YEAR } from './constants';
 import { hooks as moment } from '../utils/hooks';
 import { getLocale } from '../locale/locales';
+import getParsingFlags from '../create/parsing-flags';
+import hasOwnProp from '../utils/has-own-prop';
 
 addFormatToken('N',     0, 0, 'eraAbbr');
 addFormatToken('NN',    0, 0, 'eraAbbr');
@@ -12,6 +17,41 @@ addFormatToken('y', ['y',    1], 'yo', 'eraYear');
 addFormatToken('y', ['yy',   2],    0, 'eraYear');
 addFormatToken('y', ['yyy',  3],    0, 'eraYear');
 addFormatToken('y', ['yyyy', 4],    0, 'eraYear');
+
+addRegexToken('N',      matchEraAbbr);
+addRegexToken('NN',     matchEraAbbr);
+addRegexToken('NNN',    matchEraAbbr);
+addRegexToken('NNNN',   matchEraName);
+addRegexToken('NNNNN',  matchEraNarrow);
+
+addParseToken(['N', 'NN', 'NNN', 'NNNN', 'NNNNN'], function (input, array, config, token) {
+    var era = config._locale.erasParse(input, token, config._strict);
+    if (era) {
+        getParsingFlags(config).era = era;
+    } else {
+        getParsingFlags(config).invalidEra = input;
+    }
+});
+
+addRegexToken('y',      matchUnsigned);
+addRegexToken('yy',     matchUnsigned);
+addRegexToken('yyy',    matchUnsigned);
+addRegexToken('yyyy',   matchUnsigned);
+addRegexToken('yo',     matchEraYearOrdinal);
+
+addParseToken(['y', 'yy', 'yyy', 'yyyy'], YEAR);
+addParseToken(['yo'], function (input, array, config, token) {
+    var match;
+    if (config._locale._eraYearOrdinalRegex) {
+        match = input.match(config._locale._eraYearOrdinalRegex);
+    }
+
+    if (config._locale.eraYearOrdinalParse) {
+        array[YEAR] = config._locale.eraYearOrdinalParse(input, match);
+    } else {
+        array[YEAR] = parseInt(input, 10);
+    }
+});
 
 export function localeEras(m, format) {
     var i, l, date, eras = this._eras || getLocale('en')._eras;
@@ -36,6 +76,53 @@ export function localeEras(m, format) {
         }
     }
     return eras;
+}
+
+export function localeErasParse(eraName, format, strict) {
+    var i, l, eras = this.eras(),
+        name, abbr, narrow;
+    eraName = eraName.toUpperCase();
+
+    for (i = 0, l = eras.length; i < l; ++i) {
+        name = eras[i].name.toUpperCase();
+        abbr = eras[i].abbr.toUpperCase();
+        narrow = eras[i].narrow.toUpperCase();
+
+        if (strict) {
+            switch (format) {
+                case 'N':
+                case 'NN':
+                case 'NNN':
+                    if (abbr === eraName) {
+                        return eras[i];
+                    }
+                    break;
+
+                case 'NNNN':
+                    if (name === eraName) {
+                        return eras[i];
+                    }
+                    break;
+
+                case 'NNNNN':
+                    if (narrow === eraName) {
+                        return eras[i];
+                    }
+                    break;
+            }
+        } else if ([name, abbr, narrow].includes(eraName)) {
+            return eras[i];
+        }
+    }
+}
+
+export function localeErasConvertYear(era, year) {
+    var dir = era.since <= era.until ? +1 : -1;
+    if (year === undefined) {
+        return moment(era.since).year();
+    } else {
+        return moment(era.since).year() + (year - era.offset) * dir;
+    }
 }
 
 export function getEraName() {
@@ -103,4 +190,61 @@ export function getEraYear() {
     }
 
     return this.year();
+}
+
+export function erasNameRegex(isStrict) {
+    if (!hasOwnProp(this, '_erasNameRegex')) {
+        computeErasParse.call(this);
+    }
+    return isStrict ? this._erasNameRegex : this._erasRegex;
+}
+
+export function erasAbbrRegex(isStrict) {
+    if (!hasOwnProp(this, '_erasAbbrRegex')) {
+        computeErasParse.call(this);
+    }
+    return isStrict ? this._erasAbbrRegex : this._erasRegex;
+}
+
+export function erasNarrowRegex(isStrict) {
+    if (!hasOwnProp(this, '_erasNarrowRegex')) {
+        computeErasParse.call(this);
+    }
+    return isStrict ? this._erasNarrowRegex : this._erasRegex;
+}
+
+function matchEraAbbr(isStrict, locale) {
+    return locale.erasAbbrRegex(isStrict);
+}
+
+function matchEraName(isStrict, locale) {
+    return locale.erasNameRegex(isStrict);
+}
+
+function matchEraNarrow(isStrict, locale) {
+    return locale.erasNarrowRegex(isStrict);
+}
+
+function matchEraYearOrdinal(isStrict, locale) {
+    return locale._eraYearOrdinalRegex || matchUnsigned;
+}
+
+function computeErasParse() {
+    var abbrPieces = [], namePieces = [], narrowPieces = [], mixedPieces = [],
+        i, l, eras = this.eras();
+
+    for (i = 0, l = eras.length; i < l; ++i) {
+        namePieces.push(regexEscape(eras[i].name));
+        abbrPieces.push(regexEscape(eras[i].abbr));
+        narrowPieces.push(regexEscape(eras[i].narrow));
+
+        mixedPieces.push(regexEscape(eras[i].name));
+        mixedPieces.push(regexEscape(eras[i].abbr));
+        mixedPieces.push(regexEscape(eras[i].narrow));
+    }
+
+    this._erasRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
+    this._erasNameRegex = new RegExp('^(' + namePieces.join('|') + ')', 'i');
+    this._erasAbbrRegex = new RegExp('^(' + abbrPieces.join('|') + ')', 'i');
+    this._erasNarrowRegex = new RegExp('^(' + narrowPieces.join('|') + ')', 'i');
 }

@@ -4,7 +4,7 @@ import { getParseRegexForToken }   from '../parse/regex';
 import { addTimeToArrayFromToken } from '../parse/token';
 import { expandFormat, formatTokenFunctions, formattingTokens } from '../format/format';
 import checkOverflow from './check-overflow';
-import { HOUR } from '../units/constants';
+import { YEAR, HOUR } from '../units/constants';
 import { hooks } from '../utils/hooks';
 import getParsingFlags from './parsing-flags';
 
@@ -81,6 +81,12 @@ export function configFromStringAndFormat(config) {
     getParsingFlags(config).meridiem = config._meridiem;
     // handle meridiem
     config._a[HOUR] = meridiemFixWrap(config._locale, config._a[HOUR], config._meridiem);
+
+    // handle era
+    var era = getParsingFlags(config).era;
+    if (era !== null) {
+        config._a[YEAR] = config._locale.erasConvertYear(era, config._a[YEAR]);
+    }
 
     configFromArray(config);
     checkOverflow(config);

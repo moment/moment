@@ -12,6 +12,7 @@ export function isValid(m) {
         var isNowValid = !isNaN(m._d.getTime()) &&
             flags.overflow < 0 &&
             !flags.empty &&
+            !flags.invalidEra &&
             !flags.invalidMonth &&
             !flags.invalidWeekday &&
             !flags.weekdayMismatch &&
