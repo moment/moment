@@ -54,6 +54,42 @@ test('format', function (assert) {
     }
 });
 
+test('parse era', function (assert) {
+    // strict
+    assert.equal(moment('平成30年', 'NNNNy年', true).isValid(), true, '平成30年');
+    assert.equal(moment('平成30年', 'NNNNy年', true).year(), 2018, '平成30年');
+    assert.equal(moment('平成30年', 'NNNNyo', true).isValid(), true, '平成30年');
+    assert.equal(moment('平成30年', 'NNNNyo', true).year(), 2018, '平成30年');
+
+    assert.equal(moment('平成30年', 'Ny年', true).isValid(), false, '平成30年');
+    assert.equal(moment('平成30年', 'Ny年', false).isValid(), true, '平成30年');
+    assert.equal(moment('㍻30年', 'Ny年', true).isValid(), false, '㍻30年');
+    assert.equal(moment('㍻30年', 'Ny年', false).isValid(), true, '㍻30年');
+    assert.equal(moment('H30年', 'Ny年', false).isValid(), true, 'H30年');
+
+    // abbrv
+    assert.equal(moment('H30年', 'Ny年', true).isValid(), true, 'H30年');
+    assert.equal(moment('H30年', 'Ny年', true).year(), 2018, 'H30年');
+    assert.equal(moment('H30年', 'NNNNy年', true).isValid(), false, 'H30年');
+    assert.equal(moment('H30年', 'NNNNNy年', true).isValid(), false, 'H30年');
+
+    // narrow
+    assert.equal(moment('㍻30年', 'Ny年', true).isValid(), false, '㍻30年');
+    assert.equal(moment('㍻30年', 'NNNNy年', true).isValid(), false, '㍻30年');
+    assert.equal(moment('㍻30年', 'NNNNNy年', true).isValid(), true, '㍻30年');
+    assert.equal(moment('㍻30年', 'NNNNNy年', true).year(), 2018, '㍻30年');
+
+    // ordinal year
+    assert.equal(moment('平成30年', 'NNNNyo', true).year(), 2018, '平成30年');
+    assert.equal(moment('平成元年', 'NNNNyo', true).year(), 1989, '平成元年');
+
+    // old eras
+    assert.equal(moment('昭和64年', 'NNNNyo', true).year(), 1989, '昭和64年');
+    assert.equal(moment('昭和元年', 'NNNNyo', true).year(), 1926, '昭和元年');
+    assert.equal(moment('大正元年', 'NNNNyo', true).year(), 1912, '大正元年');
+    assert.equal(moment('明治6年', 'NNNNyo', true).year(), 1873, '明治6年');
+});
+
 test('format era', function (assert) {
     var a = [
             /* First day of Heisei Era */
