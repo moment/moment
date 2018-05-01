@@ -110,7 +110,7 @@ export function localeErasParse(eraName, format, strict) {
                     }
                     break;
             }
-        } else if ([name, abbr, narrow].includes(eraName)) {
+        } else if ([name, abbr, narrow].indexOf(eraName) >= 0) {
             return eras[i];
         }
     }
