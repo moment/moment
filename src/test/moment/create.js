@@ -335,18 +335,22 @@ test('string with format no separators', function (assert) {
 });
 
 test('string with format (timezone)', function (assert) {
+    assert.equal(moment('5 -7', 'H ZZZ').toDate().getUTCHours(), 12, 'parse hours \'5 -7\' ---> \'H ZZZ\'');
     assert.equal(moment('5 -0700', 'H ZZ').toDate().getUTCHours(), 12, 'parse hours \'5 -0700\' ---> \'H ZZ\'');
     assert.equal(moment('5 -07:00', 'H Z').toDate().getUTCHours(), 12, 'parse hours \'5 -07:00\' ---> \'H Z\'');
+    assert.equal(moment('5 -7.3', 'H ZZZ').toDate().getUTCMinutes(), 30, 'parse hours \'5 -7.3\' ---> \'H ZZZ\'');
     assert.equal(moment('5 -0730', 'H ZZ').toDate().getUTCMinutes(), 30, 'parse hours \'5 -0730\' ---> \'H ZZ\'');
     assert.equal(moment('5 -07:30', 'H Z').toDate().getUTCMinutes(), 30, 'parse hours \'5 -07:0\' ---> \'H Z\'');
+    assert.equal(moment('5 +1', 'H ZZZ').toDate().getUTCHours(), 4, 'parse hours \'5 +1\' ---> \'H ZZZ\'');
     assert.equal(moment('5 +0100', 'H ZZ').toDate().getUTCHours(), 4, 'parse hours \'5 +0100\' ---> \'H ZZ\'');
     assert.equal(moment('5 +01:00', 'H Z').toDate().getUTCHours(), 4, 'parse hours \'5 +01:00\' ---> \'H Z\'');
+    assert.equal(moment('5 +1.3', 'H ZZZ').toDate().getUTCMinutes(), 30, 'parse hours \'5 +1.3\' ---> \'H ZZZ\'');
     assert.equal(moment('5 +0130', 'H ZZ').toDate().getUTCMinutes(), 30, 'parse hours \'5 +0130\' ---> \'H ZZ\'');
     assert.equal(moment('5 +01:30', 'H Z').toDate().getUTCMinutes(), 30, 'parse hours \'5 +01:30\' ---> \'H Z\'');
 });
 
 test('string with format (timezone offset)', function (assert) {
-    var a, b, c, d, e, f;
+    var a, b, c, d, e, f, g, h;
     a = new Date(Date.UTC(2011, 0, 1, 1));
     b = moment('2011 1 1 0 -01:00', 'YYYY MM DD HH Z');
     assert.equal(a.getHours(), b.hours(), 'date created with utc == parsed string with timezone offset');
@@ -356,6 +360,9 @@ test('string with format (timezone offset)', function (assert) {
     assert.equal(c.hours(), d.hours(), '10 am central time == 8 am pacific time');
     e = moment.utc('20 07 2012 17:15:00', 'DD MM YYYY HH:mm:ss');
     f = moment.utc('20 07 2012 10:15:00 -0700', 'DD MM YYYY HH:mm:ss ZZ');
+    assert.equal(e.hours(), f.hours(), 'parse timezone offset in utc');
+    g = moment.utc('20 07 2012 17:15:00', 'DD MM YYYY HH:mm:ss');
+    h = moment.utc('20 07 2012 10:15:00 -7', 'DD MM YYYY HH:mm:ss ZZZ');
     assert.equal(e.hours(), f.hours(), 'parse timezone offset in utc');
 });
 

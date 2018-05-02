@@ -28,6 +28,8 @@ function offset (token, separator) {
         switch (separator) {
             case '.':
                 signedOffset = sign + (((~~(offset / 60)) + separator + (~~(offset) % 60)).replace(/^0+|0+$/g, ''));
+                signedOffset = signedOffset[signedOffset.length - 1] === '.' ? signedOffset.slice(0,-1) : signedOffset;
+                signedOffset = signedOffset === '+' ? '+0' : signedOffset;
                 break;
             case ':':
             case '':
@@ -79,7 +81,7 @@ function offsetFromString(matcher, string) {
     var integerAfterDecimal = /^[+-](\.\d{1,2})?$/gi;
     if (decimalAndInteger.test(string) || integerAfterDecimal.test(string)) {
         var shortParts   = shortAbbroffsetFromString(string) || ['-', 0, 0];
-        var shortMinutes = +(shortParts[1] * 60) + toInt(shortParts[2]);
+        var shortMinutes = +(shortParts[1] * 60) + toInt(shortParts[2] ? shortParts[2].replace(/^\d$/, '$&0') : 0);
         return shortMinutes === 0 ? 0 : (shortParts[0] === '+' ? shortMinutes : -shortMinutes);
     }
     else {
