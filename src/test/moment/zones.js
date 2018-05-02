@@ -125,17 +125,20 @@ test('update offset after changing any values', function (assert) {
     };
 
     assert.equal(m.format('ZZ'), '+0000', 'should be at +0000');
+    assert.equal(m.format('ZZZ'), '+0', 'should be at +0');
     assert.equal(m.format('HH:mm'), '00:00', 'should start 12AM at +0000 timezone');
 
     m.__doChange = true;
     m.add(1, 'h');
 
     assert.equal(m.format('ZZ'), '-0200', 'should be at -0200');
+    assert.equal(m.format('ZZZ'), '-2', 'should be at -2');
     assert.equal(m.format('HH:mm'), '23:00', '1AM at +0000 should be 11PM at -0200 timezone');
 
     m.subtract(1, 'h');
 
     assert.equal(m.format('ZZ'), '-0100', 'should be at -0100');
+    assert.equal(m.format('ZZZ'), '-1', 'should be at -1');
     assert.equal(m.format('HH:mm'), '23:00', '12AM at +0000 should be 11PM at -0100 timezone');
 
     moment.updateOffset = oldOffset;
@@ -483,6 +486,26 @@ test('parse zone without a timezone', function (assert) {
     assert.equal(
         m4.format('M D YYYY HH:mm:ss ZZ'),
         '2 1 2016 00:00:00 +0000',
+        'Not providing a timezone should keep the time and change the zone to 0'
+    );
+    assert.equal(
+        m1.format('M D YYYY HH:mm:ss ZZZ'),
+        '2 1 2016 00:00:00 +0',
+        'Not providing a timezone should keep the time and change the zone to 0'
+    );
+    assert.equal(
+        m2.format('M D YYYY HH:mm:ss ZZZ'),
+        '2 1 2016 00:00:00 +0',
+        'Not providing a timezone should keep the time and change the zone to 0'
+    );
+    assert.equal(
+        m3.format('M D YYYY HH:mm:ss ZZZ'),
+        '2 1 2016 00:00:00 +0',
+        'Not providing a timezone should keep the time and change the zone to 0'
+    );
+    assert.equal(
+        m4.format('M D YYYY HH:mm:ss ZZZ'),
+        '2 1 2016 00:00:00 +0',
         'Not providing a timezone should keep the time and change the zone to 0'
     );
 });

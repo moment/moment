@@ -4,6 +4,7 @@ import { addFormatToken } from '../format/format';
 
 addFormatToken('z',  0, 0, 'zoneAbbr');
 addFormatToken('zz', 0, 0, 'zoneName');
+addFormatToken('zzz', 0, 0, 'zoneShortAbbr');
 
 // MOMENTS
 
@@ -13,4 +14,8 @@ export function getZoneAbbr () {
 
 export function getZoneName () {
     return this._isUTC ? 'Coordinated Universal Time' : '';
+}
+
+export function getZoneShortAbbr () {
+    return this._isUTC ? 'UTC' : '';
 }

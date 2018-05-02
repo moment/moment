@@ -67,6 +67,7 @@ test('format timezone', function (assert) {
     var b = moment(new Date(2010, 1, 14, 15, 25, 50, 125));
     assert.ok(b.format('Z').match(/^[\+\-]\d\d:\d\d$/), b.format('Z') + ' should be something like \'+07:30\'');
     assert.ok(b.format('ZZ').match(/^[\+\-]\d{4}$/), b.format('ZZ') + ' should be something like \'+0700\'');
+    assert.ok(b.format('ZZZ').match(/^[\+\-]\d\.\d$/) + ' should be something like \'+7\'');
 });
 
 test('format multiple with utc offset', function (assert) {
