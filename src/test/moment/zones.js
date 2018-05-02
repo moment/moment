@@ -372,11 +372,15 @@ test('zone names', function (assert) {
     assert.equal(moment().format('z'),  '', 'Local zone formatted abbr should be empty');
     assert.equal(moment().zoneName(),   '', 'Local zone name should be empty');
     assert.equal(moment().format('zz'), '', 'Local zone formatted name should be empty');
+    assert.equal(moment().zoneShortAbbr(),   '', 'Local zone name should be empty');
+    assert.equal(moment().format('zzz'), '', 'Local zone formatted name should be empty');
 
     assert.equal(moment.utc().zoneAbbr(),   'UTC', 'UTC zone abbr should be UTC');
     assert.equal(moment.utc().format('z'),  'UTC', 'UTC zone formatted abbr should be UTC');
     assert.equal(moment.utc().zoneName(),   'Coordinated Universal Time', 'UTC zone abbr should be Coordinated Universal Time');
     assert.equal(moment.utc().format('zz'), 'Coordinated Universal Time', 'UTC zone formatted abbr should be Coordinated Universal Time');
+    assert.equal(moment.utc().zoneShortAbbr(),   'UTC', 'UTC zone abbr should be UTC');
+    assert.equal(moment.utc().format('zzz'),  'UTC', 'UTC zone formatted abbr should be UTC');
 });
 
 test('hours alignment with UTC', function (assert) {
