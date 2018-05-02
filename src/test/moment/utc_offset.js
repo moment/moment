@@ -134,17 +134,20 @@ test('update offset after changing any values', function (assert) {
     };
 
     assert.equal(m.format('ZZ'), '+0000', 'should be at +0000');
+    assert.equal(m.format('ZZZ'), '+0', 'should be at +.');
     assert.equal(m.format('HH:mm'), '00:00', 'should start 12AM at +0000 timezone');
 
     m.__doChange = true;
     m.add(1, 'h');
 
     assert.equal(m.format('ZZ'), '-0200', 'should be at -0200');
+    assert.equal(m.format('ZZZ'), '-2', 'should be at -2');
     assert.equal(m.format('HH:mm'), '23:00', '1AM at +0000 should be 11PM at -0200 timezone');
 
     m.subtract(1, 'h');
 
     assert.equal(m.format('ZZ'), '-0100', 'should be at -0100');
+    assert.equal(m.format('ZZZ'), '-1', 'should be at -1');
     assert.equal(m.format('HH:mm'), '23:00', '12AM at +0000 should be 11PM at -0100 timezone');
 
     moment.updateOffset = oldOffset;
@@ -388,11 +391,15 @@ test('zone names', function (assert) {
     assert.equal(moment().format('z'),  '', 'Local zone formatted abbr should be empty');
     assert.equal(moment().zoneName(),   '', 'Local zone name should be empty');
     assert.equal(moment().format('zz'), '', 'Local zone formatted name should be empty');
+    assert.equal(moment().zoneShortAbbr(),   '', 'Local zone name should be empty');
+    assert.equal(moment().format('zzz'), '', 'Local zone formatted name should be empty');
 
     assert.equal(moment.utc().zoneAbbr(),   'UTC', 'UTC zone abbr should be UTC');
     assert.equal(moment.utc().format('z'),  'UTC', 'UTC zone formatted abbr should be UTC');
     assert.equal(moment.utc().zoneName(),   'Coordinated Universal Time', 'UTC zone abbr should be Coordinated Universal Time');
     assert.equal(moment.utc().format('zz'), 'Coordinated Universal Time', 'UTC zone formatted abbr should be Coordinated Universal Time');
+    assert.equal(moment.utc().zoneShortAbbr(),   'UTC', 'UTC zone abbr should be UTC');
+    assert.equal(moment.utc().format('zzz'),  'UTC', 'UTC zone formatted abbr should be UTC');
 });
 
 test('hours alignment with UTC', function (assert) {
@@ -481,4 +488,12 @@ test('timezone format', function (assert) {
     assert.equal(moment().utcOffset(-60).format('ZZ'), '-0100', '+60 -> -0100');
     assert.equal(moment().utcOffset(-90).format('ZZ'), '-0130', '+90 -> -0130');
     assert.equal(moment().utcOffset(-120).format('ZZ'), '-0200', '+120 -> -0200');
+
+    assert.equal(moment().utcOffset(60).format('ZZZ'), '+1', '-60 -> +1');
+    assert.equal(moment().utcOffset(90).format('ZZZ'), '+1.3', '-90 -> +1.3');
+    assert.equal(moment().utcOffset(120).format('ZZZ'), '+2', '-120 -> +2');
+
+    assert.equal(moment().utcOffset(-60).format('ZZZ'), '-1', '+60 -> -1');
+    assert.equal(moment().utcOffset(-90).format('ZZZ'), '-1.3', '+90 -> -1.3');
+    assert.equal(moment().utcOffset(-120).format('ZZZ'), '-2', '+120 -> -2');
 });
