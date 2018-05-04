@@ -88,6 +88,11 @@ function configFromInput(config) {
 export function createLocalOrUTC(input, format, locale, strict, isUTC) {
     var c = {};
 
+    if (format === true || format === false) {
+        strict = format;
+        format = undefined;
+    }
+
     if (locale === true || locale === false) {
         strict = locale;
         locale = undefined;
