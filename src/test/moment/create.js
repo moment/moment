@@ -152,6 +152,14 @@ test('string without format - json', function (assert) {
     assert.equal(moment('/Date(1325132654000-0700)/').valueOf(), 1325132654000, '/Date(1325132654000-0700)/');
 });
 
+test('string without format - strict parsing', function (assert) {
+    assert.equal(moment('Date(1325132654000)', false).valueOf(), 1325132654000, 'Date(1325132654000)');
+    assert.equal(moment('Date(1325132654000)', true).valueOf(), 1325132654000, 'Date(1325132654000)');
+    assert.equal(moment('/Date(1325132654000)/', true).valueOf(), 1325132654000, '/Date(1325132654000)/');
+    assert.equal(moment('1/1/2001', true).isValid(), false, '1/1/2001');
+    assert.equal(moment.utc('1/1/2001', true).isValid(), false, '1/1/2001 utc');
+});
+
 test('string with format dropped am/pm bug', function (assert) {
     moment.locale('en');
 
