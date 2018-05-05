@@ -28,39 +28,53 @@ function relativeTimeWithPlural(number, withoutSuffix, key) {
         return number + ' ' + plural(format[key], +number);
     }
 }
+var weekdays = {
+    nominative: 'неділя_понеділок_вівторок_середа_четвер_п’ятниця_субота'.split('_'),
+    accusative: 'неділю_понеділок_вівторок_середу_четвер_п’ятницю_суботу'.split('_'),
+    genitive: 'неділі_понеділка_вівторка_середи_четверга_п’ятниці_суботи'.split('_')
+};
 function weekdaysCaseReplace(m, format) {
-    var weekdays = {
-        'nominative': 'неділя_понеділок_вівторок_середа_четвер_п’ятниця_субота'.split('_'),
-        'accusative': 'неділю_понеділок_вівторок_середу_четвер_п’ятницю_суботу'.split('_'),
-        'genitive': 'неділі_понеділка_вівторка_середи_четверга_п’ятниці_суботи'.split('_')
-    };
-
     if (!m) {
         return weekdays['nominative'];
     }
 
     var nounCase = (/(\[[ВвУу]\]) ?dddd/).test(format) ?
         'accusative' :
-        ((/\[?(?:минулої|наступної)? ?\] ?dddd/).test(format) ?
+        ((/\] ?dddd/).test(format) ?
             'genitive' :
             'nominative');
     return weekdays[nounCase][m.day()];
 }
 function processHoursFunction(str) {
     return function () {
-        return str + 'о' + (this.hours() === 11 ? 'б' : '') + '] LT';
+        return str + (this.hours() === 11 ? 'об' : 'о') + '] LT';
     };
 }
+var monthsParse = [/^січ/i, /^лют/i, /^бер/i, /^кві/i, /^тра/i, /^чер/i, /^лип/i, /^сер/i, /^вер/i, /^жов/i, /^лис/i, /^гру/i];
+
+var monthsPattern = '(?:січ|берез|квіт|трав|черв|лип|серп|верес|жовт|груд)(?:ень|ня)|лют(?:ий|ого)|листопада?';
+var monthsShortPattern = '(?:січ|лют|бер(?:ез)?|квіт?|трав?|черв?|лип|серп?|вер(?:ес)?|жовт?|лис(?:т(?:оп)?)?|груд?)\\.?';
+
+var monthsStrictRegex = new RegExp('^(' + monthsPattern + ')', 'i');
+var monthsShortStrictRegex = new RegExp('^(' + monthsShortPattern + ')', 'i');
+var monthsNonStrictRegex = new RegExp('^(' + monthsPattern + '|' + monthsShortPattern + ')', 'i');
 
 export default moment.defineLocale('uk', {
     months : {
         'format': 'січня_лютого_березня_квітня_травня_червня_липня_серпня_вересня_жовтня_листопада_грудня'.split('_'),
         'standalone': 'січень_лютий_березень_квітень_травень_червень_липень_серпень_вересень_жовтень_листопад_грудень'.split('_')
     },
-    monthsShort : 'січ_лют_бер_квіт_трав_черв_лип_серп_вер_жовт_лист_груд'.split('_'),
+    monthsShort : 'січ._лют._берез._квіт._трав._черв._лип._серп._верес._жовт._листоп._груд.'.split('_'),
     weekdays : weekdaysCaseReplace,
     weekdaysShort : 'нд_пн_вт_ср_чт_пт_сб'.split('_'),
     weekdaysMin : 'нд_пн_вт_ср_чт_пт_сб'.split('_'),
+    monthsParse : monthsParse,
+    longMonthsParse : monthsParse,
+    shortMonthsParse : monthsParse,
+    monthsRegex : monthsNonStrictRegex,
+    monthsShortRegex : monthsNonStrictRegex,
+    monthsStrictRegex : monthsStrictRegex,
+    monthsShortStrictRegex : monthsShortStrictRegex,
     longDateFormat : {
         LT : 'HH:mm',
         LTS : 'HH:mm:ss',
@@ -72,7 +86,7 @@ export default moment.defineLocale('uk', {
     calendar : {
         sameDay: processHoursFunction('[Сьогодні '),
         nextDay: processHoursFunction('[Завтра '),
-        lastDay: processHoursFunction('[Вчора '),
+        lastDay: processHoursFunction('[Учора '),
         nextWeek: processHoursFunction('[У] dddd ['),
         lastWeek: function () {
             switch (this.day()) {
@@ -121,7 +135,7 @@ export default moment.defineLocale('uk', {
             return 'вечора';
         }
     },
-    dayOfMonthOrdinalParse: /\d{1,2}-(й|го)/,
+    dayOfMonthOrdinalParse: /\d{1,2}-(е|є|го)/,
     ordinal: function (number, period) {
         switch (period) {
             case 'M':
@@ -141,4 +155,3 @@ export default moment.defineLocale('uk', {
         doy : 7  // The week that contains Jan 1st is the first week of the year.
     }
 });
-

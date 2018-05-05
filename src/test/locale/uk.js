@@ -25,7 +25,7 @@ test('format', function (assert) {
     var a = [
             ['dddd, Do MMMM YYYY, HH:mm:ss',       'неділя, 14-го лютого 2010, 15:25:50'],
             ['ddd, h A',                           'нд, 3 дня'],
-            ['M Mo MM MMMM MMM',                   '2 2-й 02 лютий лют'],
+            ['M Mo MM MMMM MMM',                   '2 2-й 02 лютий лют.'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14-го 14'],
             ['d do dddd ddd dd',                   '0 0-й неділя нд нд'],
@@ -36,7 +36,7 @@ test('format', function (assert) {
             ['m mm',                               '25 25'],
             ['s ss',                               '50 50'],
             ['a A',                                'дня дня'],
-            ['DDDo [день року]',                  '45-й день року'],
+            ['DDDo [день року]',                   '45-й день року'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14.02.2010'],
             ['LL',                                 '14 лютого 2010 р.'],
@@ -99,7 +99,7 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'січень січ_лютий лют_березень бер_квітень квіт_травень трав_червень черв_липень лип_серпень серп_вересень вер_жовтень жовт_листопад лист_грудень груд'.split('_'), i;
+    var expected = 'січень січ._лютий лют._березень берез._квітень квіт._травень трав._червень черв._липень лип._серпень серп._вересень верес._жовтень жовт._листопад листоп._грудень груд.'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
@@ -175,7 +175,7 @@ test('calendar day', function (assert) {
     assert.equal(moment(a).add({h: 1}).calendar(),       'Сьогодні о 13:00',   'Now plus 1 hour');
     assert.equal(moment(a).add({d: 1}).calendar(),       'Завтра о 12:00',     'tomorrow at the same time');
     assert.equal(moment(a).subtract({h: 2}).calendar(),  'Сьогодні о 10:00',   'Now minus 2 hours');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Вчора о 12:00',      'yesterday at the same time');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Учора о 12:00',      'yesterday at the same time');
     // A special case for Ukrainian since 11 hours have different preposition
     assert.equal(moment(a).subtract({h: 1}).calendar(),  'Сьогодні об 11:00',  'same day at 11 o\'clock');
 });
@@ -241,3 +241,34 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 3-й', 'Jan  9 2012 should be week 3');
 });
 
+function runParsingAssertions (assert, format, assertions) {
+    for (var i = 0; i < assertions.length; i++) {
+        assert.equal(
+            moment.utc(assertions[i].input, format, true).format(),
+            assertions[i].expected,
+            assertions[i].input
+        );
+    }
+}
+
+test('parse LL dates', function (assert) {
+    runParsingAssertions(assert, 'LL', [
+        {input: '1 травня 2018 р.', expected: '2018-05-01T00:00:00Z'},
+        {input: '2 вересня 2010 р.', expected: '2010-09-02T00:00:00Z'},
+        {input: '23 травня 2018 р.', expected: '2018-05-23T00:00:00Z'},
+        {input: '24 квітня 2018 р.', expected: '2018-04-24T00:00:00Z'}
+    ]);
+});
+
+test('parse ordinal days of month', function (assert) {
+    runParsingAssertions(assert, 'Do MMMM YYYY', [
+        {input: '23-є травня 2018', expected: '2018-05-23T00:00:00Z'},
+        {input: '23-го травня 2018', expected: '2018-05-23T00:00:00Z'},
+        {input: '11-е грудня 2015', expected: '2015-12-11T00:00:00Z'},
+        {input: '11-го грудня 2015', expected: '2015-12-11T00:00:00Z'},
+        {input: '1-е грудня 2015', expected: '2015-12-01T00:00:00Z'},
+        {input: '1-го грудня 2015', expected: '2015-12-01T00:00:00Z'},
+        {input: '1-е травня 2018', expected: '2018-05-01T00:00:00Z'},
+        {input: '1-го травня 2018', expected: '2018-05-01T00:00:00Z'}
+    ]);
+});
