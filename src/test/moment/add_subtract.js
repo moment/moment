@@ -22,6 +22,7 @@ test('add short reverse args', function (assert) {
     assert.equal(a.add({M: 1}).month(), 10, 'Add month');
     assert.equal(a.add({y: 1}).year(), 2012, 'Add year');
     assert.equal(a.add({Q: 1}).month(), 1, 'Add quarter');
+    assert.equal(a.add({C: 1}).year(),2113, 'Add century');
 
     b = moment([2010, 0, 31]).add({M: 1});
     c = moment([2010, 1, 28]).subtract({M: 1});
