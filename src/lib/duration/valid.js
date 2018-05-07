@@ -3,7 +3,7 @@ import indexOf from '../utils/index-of';
 import {Duration} from './constructor';
 import {createDuration} from './create';
 
-var ordering = ['year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', 'millisecond'];
+var ordering = ['century', 'year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', 'millisecond'];
 
 export default function isDurationValid(m) {
     for (var key in m) {
