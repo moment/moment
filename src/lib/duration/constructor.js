@@ -12,7 +12,8 @@ export function Duration (duration) {
         hours = normalizedInput.hour || 0,
         minutes = normalizedInput.minute || 0,
         seconds = normalizedInput.second || 0,
-        milliseconds = normalizedInput.millisecond || 0;
+        milliseconds = normalizedInput.millisecond || 0,
+        centuries = normalizedInput.century || 0;
 
     this._isValid = isDurationValid(normalizedInput);
 
@@ -30,7 +31,8 @@ export function Duration (duration) {
     // it separately.
     this._months = +months +
         quarters * 3 +
-        years * 12;
+        years * 12 +
+        centuries * 12 * 100;
 
     this._data = {};
 
