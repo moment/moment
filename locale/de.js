@@ -26,9 +26,9 @@
         months : 'Januar_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember'.split('_'),
         monthsShort : 'Jan._Feb._März_Apr._Mai_Juni_Juli_Aug._Sep._Okt._Nov._Dez.'.split('_'),
         monthsParseExact : true,
-        weekdays : 'Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag'.split('_'),
-        weekdaysShort : 'So._Mo._Di._Mi._Do._Fr._Sa.'.split('_'),
-        weekdaysMin : 'So_Mo_Di_Mi_Do_Fr_Sa'.split('_'),
+        weekdays : 'Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag_Sonntag'.split('_'),
+        weekdaysShort : 'Mo._Di._Mi._Do._Fr._Sa._So.'.split('_'),
+        weekdaysMin : 'Mo_Di_Mi_Do_Fr_Sa_So'.split('_'),
         weekdaysParseExact : true,
         longDateFormat : {
             LT: 'HH:mm',
