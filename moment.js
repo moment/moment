@@ -1713,7 +1713,9 @@
         config._meridiem = input;
     });
     addParseToken(['h', 'hh'], function (input, array, config) {
-        array[HOUR] = toInt(input);
+        var hinput = toInt(input);
+        getParsingFlags(config).invalidFormat = hinput > 12 ? true : false;
+        array[HOUR] = hinput;
         getParsingFlags(config).bigHour = true;
     });
     addParseToken('hmm', function (input, array, config) {

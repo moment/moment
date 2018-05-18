@@ -39,10 +39,16 @@ test('array bad date', function (assert) {
 test('h/hh with hour > 12', function (assert) {
     assert.ok(moment('06/20/2014 11:51 PM', 'MM/DD/YYYY hh:mm A', true).isValid(), '11 for hh');
     assert.ok(moment('06/20/2014 11:51 AM', 'MM/DD/YYYY hh:mm A', true).isValid(), '11 for hh');
-    assert.ok(moment('06/20/2014 23:51 PM', 'MM/DD/YYYY hh:mm A').isValid(), 'non-strict validity 23 for hh');
+    assert.ok(moment('06/20/2014 11:51 PM', 'MM/DD/YYYY h:mm A', true).isValid(), '11 for h');
+    assert.ok(moment('06/20/2014 11:51 AM', 'MM/DD/YYYY h:mm A', true).isValid(), '11 for h');
+    assert.notOk(moment('06/20/2014 23:51 PM', 'MM/DD/YYYY hh:mm A').isValid(), 'non-strict validity 23 for hh');
     assert.ok(moment('06/20/2014 23:51 PM', 'MM/DD/YYYY hh:mm A').parsingFlags().bigHour, 'non-strict bigHour 23 for hh');
-    assert.ok(!moment('06/20/2014 23:51 PM', 'MM/DD/YYYY hh:mm A', true).isValid(), 'validity 23 for hh');
+    assert.notOk(moment('06/20/2014 23:51 PM', 'MM/DD/YYYY h:mm A').isValid(), 'non-strict validity 23 for h');
+    assert.ok(moment('06/20/2014 23:51 PM', 'MM/DD/YYYY h:mm A').parsingFlags().bigHour, 'non-strict bigHour 23 for h');
+    assert.notOk(moment('06/20/2014 23:51 PM', 'MM/DD/YYYY hh:mm A', true).isValid(), 'strict validity 23 for hh');
     assert.ok(moment('06/20/2014 23:51 PM', 'MM/DD/YYYY hh:mm A', true).parsingFlags().bigHour, 'bigHour 23 for hh');
+    assert.notOk(moment('06/20/2014 23:51 PM', 'MM/DD/YYYY h:mm A', true).isValid(), 'strict validity 23 for h');
+    assert.ok(moment('06/20/2014 23:51 PM', 'MM/DD/YYYY h:mm A', true).parsingFlags().bigHour, 'bigHour 23 for h');
 });
 
 test('array bad date leap year', function (assert) {
