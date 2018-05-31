@@ -1,6 +1,4 @@
-/// <reference path="../moment.d.ts" />
-import moment = require('../moment');
-
+/// <reference path="../../moment.d.ts" />
 moment.parseTwoDigitYear("50");
 
 moment().add('hours', 1).fromNow();
