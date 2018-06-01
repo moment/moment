@@ -628,7 +628,7 @@
         relativeTime : {
             future : '%s sonra',
             past : '%s əvvəl',
-            s : 'birneçə saniyyə',
+            s : 'birneçə saniyə',
             ss : '%d saniyə',
             m : 'bir dəqiqə',
             mm : '%d dəqiqə',
@@ -707,7 +707,7 @@
         weekdays : {
             format: 'нядзелю_панядзелак_аўторак_сераду_чацвер_пятніцу_суботу'.split('_'),
             standalone: 'нядзеля_панядзелак_аўторак_серада_чацвер_пятніца_субота'.split('_'),
-            isFormat: /\[ ?[Вв] ?(?:мінулую|наступную)? ?\] ?dddd/
+            isFormat: /\[ ?[Ууў] ?(?:мінулую|наступную)? ?\] ?dddd/
         },
         weekdaysShort : 'нд_пн_ат_ср_чц_пт_сб'.split('_'),
         weekdaysMin : 'нд_пн_ат_ср_чц_пт_сб'.split('_'),
@@ -5919,7 +5919,7 @@
 
     //! moment.js locale configuration
 
-    var symbolMap$10 = {
+    var symbolMap$a = {
         '1': '१',
         '2': '२',
         '3': '३',
@@ -6028,7 +6028,7 @@
         },
         postformat: function (string) {
             return string.replace(/\d/g, function (match) {
-                return symbolMap$10[match];
+                return symbolMap$a[match];
             });
         },
         meridiemParse: /रात्री|सकाळी|दुपारी|सायंकाळी/,
@@ -6255,7 +6255,7 @@
 
     //! moment.js locale configuration
 
-    var symbolMap$11 = {
+    var symbolMap$b = {
         '1': '၁',
         '2': '၂',
         '3': '၃',
@@ -6266,7 +6266,7 @@
         '8': '၈',
         '9': '၉',
         '0': '၀'
-    }, numberMap$10 = {
+    }, numberMap$a = {
         '၁': '1',
         '၂': '2',
         '၃': '3',
@@ -6320,12 +6320,12 @@
         },
         preparse: function (string) {
             return string.replace(/[၁၂၃၄၅၆၇၈၉၀]/g, function (match) {
-                return numberMap$10[match];
+                return numberMap$a[match];
             });
         },
         postformat: function (string) {
             return string.replace(/\d/g, function (match) {
-                return symbolMap$11[match];
+                return symbolMap$b[match];
             });
         },
         week: {
@@ -6386,7 +6386,7 @@
 
     //! moment.js locale configuration
 
-    var symbolMap$12 = {
+    var symbolMap$c = {
         '1': '१',
         '2': '२',
         '3': '३',
@@ -6398,7 +6398,7 @@
         '9': '९',
         '0': '०'
     },
-    numberMap$11 = {
+    numberMap$b = {
         '१': '1',
         '२': '2',
         '३': '3',
@@ -6429,12 +6429,12 @@
         },
         preparse: function (string) {
             return string.replace(/[१२३४५६७८९०]/g, function (match) {
-                return numberMap$11[match];
+                return numberMap$b[match];
             });
         },
         postformat: function (string) {
             return string.replace(/\d/g, function (match) {
-                return symbolMap$12[match];
+                return symbolMap$c[match];
             });
         },
         meridiemParse: /राति|बिहान|दिउँसो|साँझ/,
@@ -6695,7 +6695,7 @@
 
     //! moment.js locale configuration
 
-    var symbolMap$13 = {
+    var symbolMap$d = {
         '1': '੧',
         '2': '੨',
         '3': '੩',
@@ -6707,7 +6707,7 @@
         '9': '੯',
         '0': '੦'
     },
-    numberMap$12 = {
+    numberMap$c = {
         '੧': '1',
         '੨': '2',
         '੩': '3',
@@ -6738,7 +6738,7 @@
         calendar : {
             sameDay : '[ਅਜ] LT',
             nextDay : '[ਕਲ] LT',
-            nextWeek : 'dddd, LT',
+            nextWeek : '[ਅਗਲਾ] dddd, LT',
             lastDay : '[ਕਲ] LT',
             lastWeek : '[ਪਿਛਲੇ] dddd, LT',
             sameElse : 'L'
@@ -6761,12 +6761,12 @@
         },
         preparse: function (string) {
             return string.replace(/[੧੨੩੪੫੬੭੮੯੦]/g, function (match) {
-                return numberMap$12[match];
+                return numberMap$c[match];
             });
         },
         postformat: function (string) {
             return string.replace(/\d/g, function (match) {
-                return symbolMap$13[match];
+                return symbolMap$d[match];
             });
         },
         // Punjabi notation for meridiems are quite fuzzy in practice. While there exists
@@ -8188,7 +8188,7 @@
 
     //! moment.js locale configuration
 
-    var symbolMap$14 = {
+    var symbolMap$e = {
         '1': '௧',
         '2': '௨',
         '3': '௩',
@@ -8199,7 +8199,7 @@
         '8': '௮',
         '9': '௯',
         '0': '௦'
-    }, numberMap$13 = {
+    }, numberMap$d = {
         '௧': '1',
         '௨': '2',
         '௩': '3',
@@ -8256,12 +8256,12 @@
         },
         preparse: function (string) {
             return string.replace(/[௧௨௩௪௫௬௭௮௯௦]/g, function (match) {
-                return numberMap$13[match];
+                return numberMap$d[match];
             });
         },
         postformat: function (string) {
             return string.replace(/\d/g, function (match) {
-                return symbolMap$14[match];
+                return symbolMap$e[match];
             });
         },
         // refer http://ta.wikipedia.org/s/1er1
@@ -8672,7 +8672,7 @@
         return time;
     }
 
-    function translate$10(number, withoutSuffix, string, isFuture) {
+    function translate$a(number, withoutSuffix, string, isFuture) {
         var numberNoun = numberAsNoun(number);
         switch (string) {
             case 'ss':
@@ -8734,17 +8734,17 @@
             future : translateFuture,
             past : translatePast,
             s : 'puS lup',
-            ss : translate$10,
+            ss : translate$a,
             m : 'wa’ tup',
-            mm : translate$10,
+            mm : translate$a,
             h : 'wa’ rep',
-            hh : translate$10,
+            hh : translate$a,
             d : 'wa’ jaj',
-            dd : translate$10,
+            dd : translate$a,
             M : 'wa’ jar',
-            MM : translate$10,
+            MM : translate$a,
             y : 'wa’ DIS',
-            yy : translate$10
+            yy : translate$a
         },
         dayOfMonthOrdinalParse: /\d{1,2}\./,
         ordinal : '%d.',

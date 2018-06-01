@@ -4258,7 +4258,7 @@
 
     test('from', function (assert) {
         var start = moment([2007, 1, 28]);
-        assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'birneçə saniyyə', '44 seconds = a few seconds');
+        assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'birneçə saniyə', '44 seconds = a few seconds');
         assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'bir dəqiqə',      '45 seconds = a minute');
         assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'bir dəqiqə',      '89 seconds = a minute');
         assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '2 dəqiqə',     '90 seconds = 2 minutes');
@@ -4288,16 +4288,16 @@
     });
 
     test('suffix', function (assert) {
-        assert.equal(moment(30000).from(0), 'birneçə saniyyə sonra',  'prefix');
-        assert.equal(moment(0).from(30000), 'birneçə saniyyə əvvəl', 'suffix');
+        assert.equal(moment(30000).from(0), 'birneçə saniyə sonra',  'prefix');
+        assert.equal(moment(0).from(30000), 'birneçə saniyə əvvəl', 'suffix');
     });
 
     test('now from now', function (assert) {
-        assert.equal(moment().fromNow(), 'birneçə saniyyə əvvəl',  'now from now should display as in the past');
+        assert.equal(moment().fromNow(), 'birneçə saniyə əvvəl',  'now from now should display as in the past');
     });
 
     test('fromNow', function (assert) {
-        assert.equal(moment().add({s: 30}).fromNow(), 'birneçə saniyyə sonra', 'in a few seconds');
+        assert.equal(moment().add({s: 30}).fromNow(), 'birneçə saniyə sonra', 'in a few seconds');
         assert.equal(moment().add({d: 5}).fromNow(), '5 gün sonra', 'in 5 days');
     });
 
@@ -4876,6 +4876,10 @@
         assert.equal(moment([2012,  0,  2]).format('w ww wo'), '2 02 2-і', 'Jan  2 2012 should be week 2');
         assert.equal(moment([2012,  0,  8]).format('w ww wo'), '2 02 2-і', 'Jan  8 2012 should be week 2');
         assert.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 3-і', 'Jan  9 2012 should be week 3');
+    });
+
+    test('calendar should format', function (assert) {
+        assert.equal(moment('2018-04-13').calendar(moment('2018-04-16')), 'У мінулую пятніцу ў 00:00', 'calendar should handle day of week');
     });
 
 })));
@@ -41159,11 +41163,11 @@
         var i, m;
         for (i = 2; i < 7; i++) {
             m = moment().add({d: i});
-            assert.equal(m.calendar(),       m.format('dddd[,] LT'),  'Today + ' + i + ' days current time');
+            assert.equal(m.calendar(),       m.format('[ਅਗਲਾ] dddd[,] LT'),  'Today + ' + i + ' days current time');
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            assert.equal(m.calendar(),       m.format('dddd[,] LT'),  'Today + ' + i + ' days beginning of day');
+            assert.equal(m.calendar(),       m.format('[ਅਗਲਾ] dddd[,] LT'),  'Today + ' + i + ' days beginning of day');
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            assert.equal(m.calendar(),       m.format('dddd[,] LT'),  'Today + ' + i + ' days end of day');
+            assert.equal(m.calendar(),       m.format('[ਅਗਲਾ] dddd[,] LT'),  'Today + ' + i + ' days end of day');
         }
     });
 
@@ -69035,6 +69039,39 @@
                 'preserve global locale in case of bad locale id');
     });
 
+    test('when in strict mode with inexact parsing, treat periods in short weekdays literally, not as the regex-period', function (assert) {
+        moment.defineLocale('periods-in-short-weekdays', {
+            weekdays : 'Monday_Tuesday_Wednesday_Thursday_Friday_Saturday_Sunday'.split('_'),
+            weekdaysShort : 'mon_t...s_wed_thurs_fri_sat_sun'.split('_'),
+            weekdaysParseExact : false
+        });
+
+        moment().locale('periods-in-short-weekdays');
+        assert.equal(moment('thurs', 'ddd', true).format('dddd'), 'Thursday');
+    });
+
+    test('when in strict mode with inexact parsing, treat periods in full weekdays literally, not as the regex-period', function (assert) {
+        moment.defineLocale('periods-in-full-weekdays', {
+            weekdays : 'Monday_T....day_Wednesday_Thursday_Friday_Saturday_Sunday'.split('_'),
+            weekdaysShort : 'mon_tues_wed_thurs_fri_sat_sun'.split('_'),
+            weekdaysParseExact : false
+        });
+
+        moment().locale('periods-in-full-weekdays');
+        assert.equal(moment('Thursday', 'dddd', true).format('ddd'), 'thurs');
+    });
+
+    test('when in strict mode with inexact parsing, treat periods in min-weekdays literally, not as the regex-period', function (assert) {
+        moment.defineLocale('periods-in-min-weekdays', {
+            weekdays : 'Monday_Tuesday_Wednesday_Thursday_Friday_Saturday_Sunday'.split('_'),
+            weekdaysMin : 'mon_t...s_wed_thurs_fri_sat_sun'.split('_'),
+            weekdaysParseExact : false
+        });
+
+        moment().locale('periods-in-min-weekdays');
+        assert.equal(moment('thurs', 'dd', true).format('dddd'), 'Thursday');
+    });
+
 
     // TODO: Enable this after fixing pl months parse hack hack
     // test('monthsParseExact', function (assert) {
@@ -71481,7 +71518,7 @@
         assert.equal(m.date(), 2, 'keep the day');
         assert.equal(m.hours(), 3, 'keep the hours');
         assert.equal(m.minutes(), 4, 'keep the minutes');
-        assert.equal(m.seconds(), 5, 'keep the the seconds');
+        assert.equal(m.seconds(), 5, 'keep the seconds');
         assert.equal(m.milliseconds(), 0, 'strip out the milliseconds');
     });
 
@@ -73320,7 +73357,7 @@
     test('day of year', function (assert) {
         assert.equal(moment([2000,  0,  1]).dayOfYear(),   1, 'Jan  1 2000 should be day 1 of the year');
         assert.equal(moment([2000,  1, 28]).dayOfYear(),  59, 'Feb 28 2000 should be day 59 of the year');
-        assert.equal(moment([2000,  1, 29]).dayOfYear(),  60, 'Feb 28 2000 should be day 60 of the year');
+        assert.equal(moment([2000,  1, 29]).dayOfYear(),  60, 'Feb 29 2000 should be day 60 of the year');
         assert.equal(moment([2000, 11, 31]).dayOfYear(), 366, 'Dec 31 2000 should be day 366 of the year');
         assert.equal(moment([2001,  0,  1]).dayOfYear(),   1, 'Jan  1 2001 should be day 1 of the year');
         assert.equal(moment([2001,  1, 28]).dayOfYear(),  59, 'Feb 28 2001 should be day 59 of the year');
@@ -73331,7 +73368,7 @@
     test('day of year setters', function (assert) {
         assert.equal(moment([2000,  0,  1]).dayOfYear(200).dayOfYear(), 200, 'Setting Jan  1 2000 day of the year to 200 should work');
         assert.equal(moment([2000,  1, 28]).dayOfYear(200).dayOfYear(), 200, 'Setting Feb 28 2000 day of the year to 200 should work');
-        assert.equal(moment([2000,  1, 29]).dayOfYear(200).dayOfYear(), 200, 'Setting Feb 28 2000 day of the year to 200 should work');
+        assert.equal(moment([2000,  1, 29]).dayOfYear(200).dayOfYear(), 200, 'Setting Feb 29 2000 day of the year to 200 should work');
         assert.equal(moment([2000, 11, 31]).dayOfYear(200).dayOfYear(), 200, 'Setting Dec 31 2000 day of the year to 200 should work');
         assert.equal(moment().dayOfYear(1).dayOfYear(),   1, 'Setting day of the year to 1 should work');
         assert.equal(moment().dayOfYear(59).dayOfYear(),  59, 'Setting day of the year to 59 should work');
