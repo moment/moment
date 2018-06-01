@@ -60,7 +60,7 @@
         "karma-firefox-launcher": "latest",
         "karma-qunit": "latest",
         "karma-sauce-launcher": "latest",
-        "load-grunt-tasks": "latest",
+        "load-grunt-tasks": "~3.5.2",
         "node-qunit": "^1.0.0",
         "nyc": "^2.1.4",
         "qunit": "^2.6.0",
