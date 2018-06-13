@@ -18,9 +18,9 @@
             LT : 'HH:mm',
             LTS : 'HH:mm:ss',
             L : 'DD/MM/YYYY',
-            LL : 'D MMMM YYYY',
-            LLL : 'D MMMM YYYY HH:mm',
-            LLLL : 'dddd, D MMMM YYYY HH:mm'
+            LL : 'Do MMMM YYYY',
+            LLL : 'Do MMMM YYYY HH:mm',
+            LLLL : 'dddd, Do MMMM YYYY HH:mm'
         },
         calendar : {
             sameDay : '[Today at] LT',
