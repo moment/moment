@@ -3256,7 +3256,6 @@
         }
 
         zoneDelta = (that.utcOffset() - this.utcOffset()) * 6e4;
-
         units = normalizeUnits(units);
 
         switch (units) {
@@ -3270,8 +3269,7 @@
             case 'week': output = (this - that - zoneDelta) / 6048e5; break; // 1000 * 60 * 60 * 24 * 7, negate dst
             default: output = this - that;
         }
-
-        return asFloat ? output : absFloor(output);
+        return asFloat ? output : absCeil(output);
     }
 
     function monthDiff (a, b) {
@@ -3290,7 +3288,6 @@
             // linear across the month
             adjust = (b - anchor) / (anchor2 - anchor);
         }
-
         //check for negative zero, return zero if negative zero
         return -(wholeMonthDiff + adjust) || 0;
     }
