@@ -1,4 +1,5 @@
 import absFloor from '../utils/abs-floor';
+import absCeil from '../utils/abs-ceil';
 import { cloneWithOffset } from '../units/offset';
 import { normalizeUnits } from '../units/aliases';
 
@@ -33,7 +34,7 @@ export function diff (input, units, asFloat) {
         default: output = this - that;
     }
 
-    return asFloat ? output : absFloor(output);
+    return asFloat ? output : absCeil(output);
 }
 
 function monthDiff (a, b) {
