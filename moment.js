@@ -3269,6 +3269,7 @@
             case 'week': output = (this - that - zoneDelta) / 6048e5; break; // 1000 * 60 * 60 * 24 * 7, negate dst
             default: output = this - that;
         }
+
         return asFloat ? output : absCeil(output);
     }
 
@@ -3288,6 +3289,7 @@
             // linear across the month
             adjust = (b - anchor) / (anchor2 - anchor);
         }
+
         //check for negative zero, return zero if negative zero
         return -(wholeMonthDiff + adjust) || 0;
     }
