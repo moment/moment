@@ -34,6 +34,7 @@ export function diff (input, units, asFloat) {
         default: output = this - that;
     }
 
+    
     return asFloat ? output : absCeil(output);
 }
 
@@ -48,11 +49,14 @@ function monthDiff (a, b) {
         anchor2 = a.clone().add(wholeMonthDiff - 1, 'months');
         // linear across the month
         adjust = (b - anchor) / (anchor - anchor2);
-    } else {
+    } else if (wholeMonthDiff % 1 !== 0) {
         anchor2 = a.clone().add(wholeMonthDiff + 1, 'months');
         // linear across the month
         adjust = (b - anchor) / (anchor2 - anchor);
     }
+    
+    else adjust = 0;
+
 
     //check for negative zero, return zero if negative zero
     return -(wholeMonthDiff + adjust) || 0;
