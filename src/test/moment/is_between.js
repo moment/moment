@@ -209,6 +209,24 @@ test('is between milliseconds inclusivity', function (assert) {
         moment(new Date(2011, 3, 2, 3, 4, 5, 10)), 'milliseconds', '[]'), true, 'start and end inclusive, should handle same end and start date');
 });
 
+test('is between without units inclusivity for invalid date', function (assert) {
+    var m = moment(new Date('non date')),
+        mCopy = moment(m);
+    assert.equal(m.isBetween(
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), null, '()'), false, 'invalid moment');
+
+    assert.equal(m.isBetween(
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), null, '(]'), false, 'invalid moment');
+
+    assert.equal(m.isBetween(
+        moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        moment(new Date(2012, 3, 2, 3, 4, 5, 10)), null, '[)'), false, 'invalid moment');
+
+    assert.equal(m.isBetween('2010-01', '2011-01', null, '[]'), false, 'invalid moment');
+});
+
 test('is between year', function (assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)), mCopy = moment(m);
     assert.equal(m.isBetween(
