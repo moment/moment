@@ -17,7 +17,7 @@ function processRelativeTime(number, withoutSuffix, key, isFuture) {
             } else if (number < 5) {
                 result += withoutSuffix || isFuture ? 'sekunde' : 'sekundah';
             } else {
-                result += withoutSuffix || isFuture ? 'sekund' : 'sekund';
+                result += 'sekund';
             }
             return result;
         case 'm':
