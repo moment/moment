@@ -197,6 +197,8 @@ declare namespace moment {
 
     toISOString(): string;
     toJSON(): string;
+    
+    isValid(): boolean;
 
     /**
      * @deprecated since version 2.8.0
