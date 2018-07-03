@@ -49,7 +49,10 @@ var kab = moment.defineLocale('kab', {
         y : 'aseggas',
         yy : '%d n iseggasen'
     },
-
+    dayOfMonthOrdinalParse: /\d{1,2}(wis|)/,
+    ordinal : function (number) {
+        return 'wis '+number;
+    },
     week : {
         dow : 0, // Sunday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -58,4 +61,3 @@ var kab = moment.defineLocale('kab', {
 
 return kab;
 })));
-
