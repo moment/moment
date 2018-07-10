@@ -83,7 +83,7 @@ export default moment.defineLocale('zh-hk', {
         }
     },
     relativeTime: {
-        future: '%s內',
+        future: '%s後',
         past: '%s前',
         s: '幾秒',
         ss: '%d 秒',
