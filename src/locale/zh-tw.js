@@ -77,7 +77,7 @@ export default moment.defineLocale('zh-tw', {
         }
     },
     relativeTime : {
-        future : '%s內',
+        future : '%s後',
         past : '%s前',
         s : '幾秒',
         ss : '%d 秒',
