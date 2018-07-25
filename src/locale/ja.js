@@ -42,8 +42,8 @@ export default moment.defineLocale('ja', {
             until:  '1873-12-31',
             offset: 1,
             name:   '西暦',
-            narrow: 'AC',
-            abbr:   'AC'
+            narrow: 'AD',
+            abbr:   'AD'
         },
         {
             since:  '0000-12-31',

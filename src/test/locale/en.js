@@ -59,14 +59,14 @@ test('format', function (assert) {
 });
 
 test('parse era', function (assert) {
-    assert.equal(moment('2010 AC', 'y N', true).isValid(), true, '2010 AC');
-    assert.equal(moment('2010 AC', 'y N', true).year(),    2010, '2010 AC');
+    assert.equal(moment('2010 AD', 'y N', true).isValid(), true, '2010 AD');
+    assert.equal(moment('2010 AD', 'y N', true).year(),    2010, '2010 AD');
 
-    assert.equal(moment('2010 After Christ', 'y N', true).isValid(), false, '2010 After Christ');
-    assert.equal(moment('2010 After Christ', 'y N', false).isValid(), true, '2010 After Christ');
-    assert.equal(moment('2010 After Christ', 'y NNNN', true).isValid(), true, '2010 After Christ');
-    assert.equal(moment('2010 After Christ', 'y NNNN', true).year(), 2010, '2010 After Christ');
-    assert.equal(moment('2010 After Christ', 'y N', false).year(), 2010, '2010 After Christ');
+    assert.equal(moment('2010 Anno Domini', 'y N', true).isValid(), false, '2010 Anno Domini');
+    assert.equal(moment('2010 Anno Domini', 'y N', false).isValid(), true, '2010 Anno Domini');
+    assert.equal(moment('2010 Anno Domini', 'y NNNN', true).isValid(), true, '2010 Anno Domini');
+    assert.equal(moment('2010 Anno Domini', 'y NNNN', true).year(), 2010, '2010 Anno Domini');
+    assert.equal(moment('2010 Anno Domini', 'y N', false).year(), 2010, '2010 Anno Domini');
 
     assert.equal(moment('469 BC', 'y N', true).isValid(), true, '469 BC');
     assert.equal(moment('469 BC', 'y N', true).year(), -468, '469 BC');
@@ -77,9 +77,9 @@ test('parse era', function (assert) {
 
 test('format era', function (assert) {
     var a = [
-            ['+000001-01-01', 'N, NN, NNN',     'AC, AC, AC'],
-            ['+000001-01-01', 'NNNN',           'After Christ'],
-            ['+000001-01-01', 'NNNNN',          'AC'],
+            ['+000001-01-01', 'N, NN, NNN',     'AD, AD, AD'],
+            ['+000001-01-01', 'NNNN',           'Anno Domini'],
+            ['+000001-01-01', 'NNNNN',          'AD'],
             ['+000001-01-01', 'y',              '1'],
 
             ['+000000-12-31', 'N, NN, NNN',     'BC, BC, BC'],

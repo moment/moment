@@ -8,9 +8,9 @@ getSetGlobalLocale('en', {
             since:  '0001-01-01',
             until:  +Infinity,
             offset: 1,
-            name:   'After Christ',
-            narrow: 'AC',
-            abbr:   'AC'
+            name:   'Anno Domini',
+            narrow: 'AD',
+            abbr:   'AD'
         },
         {
             since:  '0000-12-31',
