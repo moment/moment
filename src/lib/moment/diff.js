@@ -1,6 +1,10 @@
 import absFloor from '../utils/abs-floor';
 import { cloneWithOffset } from '../units/offset';
 import { normalizeUnits } from '../units/aliases';
+import { createDuration } from '../duration/create';
+import absRound from '../utils/abs-round';
+import { get } from './get-set';
+import { daysInMonth } from '../units/month';
 
 export function diff (input, units, asFloat) {
     var that,
@@ -36,19 +40,45 @@ export function diff (input, units, asFloat) {
     return asFloat ? output : absFloor(output);
 }
 
+function isEndOfMonth(mom) {
+    return mom.date() === daysInMonth(mom.year(), mom.month());
+}
+
+function addWithEndOfMonth(a, b, val) {
+    if (!a.isValid()) {
+        return;
+    }
+    var dur = createDuration(val, 'months');
+    var months = absRound(dur._months);
+    var dayInMonth = a.date();
+    var newMonth = get(a, 'Month') + months;
+    var maxDays = daysInMonth(a.year(), newMonth);
+    // if End of Month, should ignore time difference
+    if (dayInMonth > maxDays || isEndOfMonth(a)) {
+        dayInMonth = maxDays;
+        var h = b._d['get' + (a._isUTC ? 'UTC' : '') + 'Hours']();
+        var m = b._d['get' + (a._isUTC ? 'UTC' : '') + 'Minutes']();
+        var s = b._d['get' + (a._isUTC ? 'UTC' : '') + 'Seconds']();
+        var ms = b._d['get' + (a._isUTC ? 'UTC' : '') + 'Milliseconds']();
+        a._d['set' + (a._isUTC ? 'UTC' : '') + 'Hours'](h, m, s, ms);
+    }
+    a._d['set' + (a._isUTC ? 'UTC' : '') + 'Month'](newMonth, dayInMonth);
+    return a;
+}
+
 function monthDiff (a, b) {
     // difference in months
     var wholeMonthDiff = ((b.year() - a.year()) * 12) + (b.month() - a.month()),
         // b is in (anchor - 1 month, anchor + 1 month)
-        anchor = a.clone().add(wholeMonthDiff, 'months'),
+        anchor = addWithEndOfMonth(a.clone(), b, wholeMonthDiff),
         anchor2, adjust;
 
     if (b - anchor < 0) {
-        anchor2 = a.clone().add(wholeMonthDiff - 1, 'months');
+        anchor2 = addWithEndOfMonth(a.clone(), b, wholeMonthDiff - 1);
         // linear across the month
         adjust = (b - anchor) / (anchor - anchor2);
     } else {
-        anchor2 = a.clone().add(wholeMonthDiff + 1, 'months');
+        anchor2 = addWithEndOfMonth(a.clone(), b, wholeMonthDiff + 1);
         // linear across the month
         adjust = (b - anchor) / (anchor2 - anchor);
     }
