@@ -30,5 +30,5 @@ export function toObject () {
 
 export function toJSON () {
     // new Date(NaN).toJSON() === null
-    return this.isValid() ? this.toISOString() : null;
+    return this.toISOString();
 }
