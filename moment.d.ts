@@ -567,7 +567,7 @@ declare namespace moment {
     isSame(inp?: MomentInput, granularity?: unitOfTime.StartOf): boolean;
     isSameOrAfter(inp?: MomentInput, granularity?: unitOfTime.StartOf): boolean;
     isSameOrBefore(inp?: MomentInput, granularity?: unitOfTime.StartOf): boolean;
-    isBetween(a: MomentInput, b: MomentInput, granularity?: unitOfTime.StartOf, inclusivity?: "()" | "[)" | "(]" | "[]"): boolean;
+    isBetween(a: MomentInput, b: MomentInput, granularity?: unitOfTime.StartOf | null, inclusivity?: "()" | "[)" | "(]" | "[]"): boolean;
 
     /**
      * @deprecated as of 2.8.0, use locale
