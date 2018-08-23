@@ -79,8 +79,16 @@ export function getISOWeeksInYear () {
 }
 
 export function getWeeksInYear () {
-    var weekInfo = this.localeData()._week;
-    return weeksInYear(this.year(), weekInfo.dow, weekInfo.doy);
+    return getWeeksInGivenYear.call(this, this.year());
+}
+
+export function getWeeksInWeekYear () {
+    return getWeeksInGivenYear.call(this, this.weekYear());
+}
+
+function getWeeksInGivenYear(year) {
+    let weekInfo = this.localeData()._week;
+    return weeksInYear(year, weekInfo.dow, weekInfo.doy);
 }
 
 function getSetWeekYearHelper(input, week, weekday, dow, doy) {
