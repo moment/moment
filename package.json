@@ -2,12 +2,12 @@
     "name": "moment",
     "version": "2.22.2",
     "description": "Parse, validate, manipulate, and display dates",
-    "homepage": "http://momentjs.com",
+    "homepage": "https://momentjs.com",
     "author": "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)",
     "contributors": [
         "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
         "Rocky Meza (http://rockymeza.com)",
-        "Matt Johnson <mj1856@hotmail.com> (http://codeofmatt.com)",
+        "Matt Johnson <mj1856@hotmail.com> (https://codeofmatt.com)",
         "Isaac Cambron <isaac@isaaccambron.com> (http://isaaccambron.com)",
         "Andre Polykanine <andre@oire.org> (https://github.com/oire)"
     ],
