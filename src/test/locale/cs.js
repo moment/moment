@@ -4,7 +4,7 @@ import moment from '../../moment';
 localeModule('cs');
 
 test('parse', function (assert) {
-    var tests = 'leden led_únor úno_březen bře_duben dub_květen kvě_červen čvn_červenec čvc_srpen srp_září zář_říjen říj_listopad lis_prosinec pro'.split('_'), i;
+    var tests = 'leden led ledna_únor úno února_březen bře března_duben dub dubna_květen kvě května_červen čvn června_červenec čvc července_srpen srp srpna_září zář září_říjen říj října_listopad lis listopadu_prosinec pro prosince'.split('_'), i;
     function equalTest(input, mmm, monthIndex) {
         assert.equal(moment(input, mmm).month(), monthIndex, input + ' ' + mmm + ' should be month ' + (monthIndex + 1));
     }
@@ -15,19 +15,26 @@ test('parse', function (assert) {
         tests[i] = tests[i].split(' ');
         equalTest(tests[i][0], 'MMM', i);
         equalTest(tests[i][1], 'MMM', i);
+        equalTest(tests[i][2], 'MMM', i);
         equalTest(tests[i][0], 'MMMM', i);
         equalTest(tests[i][1], 'MMMM', i);
+        equalTest(tests[i][2], 'MMMM', i);
         equalTest(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
         equalTest(tests[i][1].toLocaleLowerCase(), 'MMMM', i);
+        equalTest(tests[i][2].toLocaleLowerCase(), 'MMMM', i);
         equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
         equalTest(tests[i][1].toLocaleUpperCase(), 'MMMM', i);
+        equalTest(tests[i][2].toLocaleUpperCase(), 'MMMM', i);
 
         equalTestStrict(tests[i][1], 'MMM', i);
         equalTestStrict(tests[i][0], 'MMMM', i);
+        equalTestStrict(tests[i][2], 'MMMM', i);
         equalTestStrict(tests[i][1].toLocaleLowerCase(), 'MMM', i);
         equalTestStrict(tests[i][1].toLocaleUpperCase(), 'MMM', i);
         equalTestStrict(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
         equalTestStrict(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
+        equalTestStrict(tests[i][2].toLocaleLowerCase(), 'MMMM', i);
+        equalTestStrict(tests[i][2].toLocaleUpperCase(), 'MMMM', i);
     }
 });
 
