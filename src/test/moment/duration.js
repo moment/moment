@@ -50,6 +50,9 @@ test('object instantiation with strings', function (assert) {
 test('milliseconds instantiation', function (assert) {
     assert.equal(moment.duration(72).milliseconds(), 72, 'milliseconds');
     assert.equal(moment.duration(72).humanize(), 'a few seconds', 'Duration should be valid');
+    assert.equal(moment.duration(72.0).milliseconds(), 72, 'milliseconds');
+    assert.equal(moment.duration(72.1).milliseconds(), 72, 'milliseconds should not include partial milliseconds');
+    assert.equal(moment.duration(72.9).milliseconds(), 72, 'milliseconds should not include partial milliseconds');
 });
 
 test('undefined instantiation', function (assert) {
@@ -87,17 +90,20 @@ test('instantiation by type', function (assert) {
     assert.equal(moment.duration(7, 's').seconds(),                   7, 's');
     assert.equal(moment.duration(8, 'milliseconds').milliseconds(),   8, 'milliseconds');
     assert.equal(moment.duration(8, 'ms').milliseconds(),             8, 'ms');
+    assert.equal(moment.duration(8.1, 'milliseconds').milliseconds(), 8, 'milliseconds should not include partial milliseconds');
+    assert.equal(moment.duration(8.9, 'ms').milliseconds(),           8, 'milliseconds should not include partial milliseconds');
 });
 
 test('shortcuts', function (assert) {
-    assert.equal(moment.duration({y: 1}).years(),         1, 'years = y');
-    assert.equal(moment.duration({M: 2}).months(),        2, 'months = M');
-    assert.equal(moment.duration({w: 3}).weeks(),         3, 'weeks = w');
-    assert.equal(moment.duration({d: 4}).days(),          4, 'days = d');
-    assert.equal(moment.duration({h: 5}).hours(),         5, 'hours = h');
-    assert.equal(moment.duration({m: 6}).minutes(),       6, 'minutes = m');
-    assert.equal(moment.duration({s: 7}).seconds(),       7, 'seconds = s');
-    assert.equal(moment.duration({ms: 8}).milliseconds(), 8, 'milliseconds = ms');
+    assert.equal(moment.duration({y: 1}).years(),           1, 'years = y');
+    assert.equal(moment.duration({M: 2}).months(),          2, 'months = M');
+    assert.equal(moment.duration({w: 3}).weeks(),           3, 'weeks = w');
+    assert.equal(moment.duration({d: 4}).days(),            4, 'days = d');
+    assert.equal(moment.duration({h: 5}).hours(),           5, 'hours = h');
+    assert.equal(moment.duration({m: 6}).minutes(),         6, 'minutes = m');
+    assert.equal(moment.duration({s: 7}).seconds(),         7, 'seconds = s');
+    assert.equal(moment.duration({ms: 8}).milliseconds(),   8, 'milliseconds = ms');
+    assert.equal(moment.duration({ms: 8.8}).milliseconds(), 8, 'milliseconds = ms');
 });
 
 test('generic getter', function (assert) {
@@ -182,7 +188,7 @@ test('instantiation from 24-hour time >24 hours', function (assert) {
     assert.equal(moment.duration('26:45').milliseconds(), 0, '0 milliseconds');
 });
 
-test('instatiation from serialized C# TimeSpan zero', function (assert) {
+test('instantiation from serialized C# TimeSpan zero', function (assert) {
     assert.equal(moment.duration('00:00:00').years(), 0, '0 years');
     assert.equal(moment.duration('00:00:00').days(), 0, '0 days');
     assert.equal(moment.duration('00:00:00').hours(), 0, '0 hours');
@@ -191,7 +197,7 @@ test('instatiation from serialized C# TimeSpan zero', function (assert) {
     assert.equal(moment.duration('00:00:00').milliseconds(), 0, '0 milliseconds');
 });
 
-test('instatiation from serialized C# TimeSpan with days', function (assert) {
+test('instantiation from serialized C# TimeSpan with days', function (assert) {
     assert.equal(moment.duration('1.02:03:04.9999999').years(), 0, '0 years');
     assert.equal(moment.duration('1.02:03:04.9999999').days(), 1, '1 day');
     assert.equal(moment.duration('1.02:03:04.9999999').hours(), 2, '2 hours');
@@ -207,7 +213,7 @@ test('instatiation from serialized C# TimeSpan with days', function (assert) {
     assert.equal(moment.duration('1 02:03:04.9999999').milliseconds(), 0, '0 milliseconds');
 });
 
-test('instatiation from serialized C# TimeSpan without days', function (assert) {
+test('instantiation from serialized C# TimeSpan without days', function (assert) {
     assert.equal(moment.duration('01:02:03.9999999').years(), 0, '0 years');
     assert.equal(moment.duration('01:02:03.9999999').days(), 0, '0 days');
     assert.equal(moment.duration('01:02:03.9999999').hours(), 1, '1 hour');
@@ -225,7 +231,7 @@ test('instatiation from serialized C# TimeSpan without days', function (assert) 
     assert.equal(moment.duration('500:59:59.8888888').hours(), 20, '500 hours overflows to 20 hours');
 });
 
-test('instatiation from serialized C# TimeSpan without days or milliseconds', function (assert) {
+test('instantiation from serialized C# TimeSpan without days or milliseconds', function (assert) {
     assert.equal(moment.duration('01:02:03').years(), 0, '0 years');
     assert.equal(moment.duration('01:02:03').days(), 0, '0 days');
     assert.equal(moment.duration('01:02:03').hours(), 1, '1 hour');
@@ -234,7 +240,7 @@ test('instatiation from serialized C# TimeSpan without days or milliseconds', fu
     assert.equal(moment.duration('01:02:03').milliseconds(), 0, '0 milliseconds');
 });
 
-test('instatiation from serialized C# TimeSpan without milliseconds', function (assert) {
+test('instantiation from serialized C# TimeSpan without milliseconds', function (assert) {
     assert.equal(moment.duration('1.02:03:04').years(), 0, '0 years');
     assert.equal(moment.duration('1.02:03:04').days(), 1, '1 day');
     assert.equal(moment.duration('1.02:03:04').hours(), 2, '2 hours');
@@ -273,7 +279,7 @@ test('instantiation from serialized C# TimeSpan with high millisecond precision'
     assert.equal(moment.duration('+00:00:15.7205000').milliseconds(), 721, '721 milliseconds');
 });
 
-test('instatiation from serialized C# TimeSpan maxValue', function (assert) {
+test('instantiation from serialized C# TimeSpan maxValue', function (assert) {
     var d = moment.duration('10675199.02:48:05.4775807');
 
     assert.equal(d.years(), 29227, '29227 years');
@@ -286,7 +292,7 @@ test('instatiation from serialized C# TimeSpan maxValue', function (assert) {
     assert.equal(d.milliseconds(), 478, '478 milliseconds');
 });
 
-test('instatiation from serialized C# TimeSpan minValue', function (assert) {
+test('instantiation from serialized C# TimeSpan minValue', function (assert) {
     var d = moment.duration('-10675199.02:48:05.4775808');
 
     assert.equal(d.years(), -29227, '29653 years');
@@ -299,7 +305,7 @@ test('instatiation from serialized C# TimeSpan minValue', function (assert) {
     assert.equal(d.milliseconds(), -478, '478 milliseconds');
 });
 
-test('instatiation from serialized C# TimeSpan maxValue with + sign', function (assert) {
+test('instantiation from serialized C# TimeSpan maxValue with + sign', function (assert) {
     var d = moment.duration('+10675199.02:48:05.4775808');
 
     assert.equal(d.years(), 29227, '29653 years');
