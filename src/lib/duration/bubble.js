@@ -1,6 +1,6 @@
 import absFloor from '../utils/abs-floor';
 import absCeil from '../utils/abs-ceil';
-import { createUTCDate } from '../create/date-from-array';
+import fpMath from '../utils/fp-math';
 
 export function bubble () {
     var milliseconds = this._milliseconds;
@@ -13,14 +13,14 @@ export function bubble () {
     // check: https://github.com/moment/moment/issues/2166
     if (!((milliseconds >= 0 && days >= 0 && months >= 0) ||
             (milliseconds <= 0 && days <= 0 && months <= 0))) {
-        milliseconds += absCeil(monthsToDays(months) + days) * 864e5;
+        milliseconds = fpMath(milliseconds, '+', fpMath(absCeil(monthsToDays(months) + days), '*', 864e5));
         days = 0;
         months = 0;
     }
 
     // The following code bubbles up values, see the tests for
     // examples of what that means.
-    data.milliseconds = milliseconds % 1000;
+    data.milliseconds = absFloor(milliseconds % 1000);
 
     seconds           = absFloor(milliseconds / 1000);
     data.seconds      = seconds % 60;
@@ -31,16 +31,16 @@ export function bubble () {
     hours             = absFloor(minutes / 60);
     data.hours        = hours % 24;
 
-    days += absFloor(hours / 24);
+    days = fpMath(days, '+', absFloor(hours / 24));
 
     // convert days to months
     monthsFromDays = absFloor(daysToMonths(days));
-    months += monthsFromDays;
-    days -= absCeil(monthsToDays(monthsFromDays));
+    months = absFloor(fpMath(months, '+', monthsFromDays));
+    days = absFloor(fpMath(days, '-', absCeil(monthsToDays(monthsFromDays))));
 
     // 12 months -> 1 year
     years = absFloor(months / 12);
-    months %= 12;
+    months = absFloor(months % 12);
 
     data.days   = days;
     data.months = months;
@@ -52,10 +52,10 @@ export function bubble () {
 export function daysToMonths (days) {
     // 400 years have 146097 days (taking into account leap year rules)
     // 400 years have 12 months === 4800
-    return days * 4800 / 146097;
+    return fpMath(fpMath(days, '*', 4800), '/', 146097);
 }
 
 export function monthsToDays (months) {
     // the reverse of daysToMonths
-    return months * 146097 / 4800;
+    return fpMath(fpMath(months, '*', 146097), '/', 4800);
 }
