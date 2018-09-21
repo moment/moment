@@ -13,7 +13,7 @@ export function Duration (duration) {
         hours = normalizedInput.hour || 0,
         minutes = normalizedInput.minute || 0,
         seconds = normalizedInput.second || 0,
-        milliseconds = normalizedInput.millisecond || 0;
+        milliseconds = Math.floor(normalizedInput.millisecond || 0); // no partial milliseconds
 
     this._isValid = isDurationValid(normalizedInput);
 

@@ -51,6 +51,9 @@ test('milliseconds instantiation', function (assert) {
     assert.equal(moment.duration(72).milliseconds(), 72, 'milliseconds');
     assert.equal(moment.duration(72).humanize(), 'a few seconds', 'Duration should be valid');
     assert.equal(moment.duration(72.0).milliseconds(), 72, 'milliseconds');
+    assert.equal(moment.duration(72.1).milliseconds(), 72, 'milliseconds should not include partial milliseconds');
+    assert.equal(moment.duration(72.9).milliseconds(), 72, 'milliseconds should not include partial milliseconds');
+    assert.equal(moment.duration(72.0).milliseconds(), 72, 'milliseconds');
     assert.equal(moment.duration(72.1).milliseconds(), 72, 'milliseconds should be an integer');
     assert.equal(moment.duration(72.9).milliseconds(), 72, 'milliseconds should be an integer');
 });
@@ -90,6 +93,8 @@ test('instantiation by type', function (assert) {
     assert.equal(moment.duration(7, 's').seconds(),                   7, 's');
     assert.equal(moment.duration(8, 'milliseconds').milliseconds(),   8, 'milliseconds');
     assert.equal(moment.duration(8, 'ms').milliseconds(),             8, 'ms');
+    assert.equal(moment.duration(8.1, 'milliseconds').milliseconds(), 8, 'milliseconds should not include partial milliseconds');
+    assert.equal(moment.duration(8.9, 'ms').milliseconds(),           8, 'milliseconds should not include partial milliseconds');
 });
 
 test('instantiation by type (fractional)', function(assert) {
