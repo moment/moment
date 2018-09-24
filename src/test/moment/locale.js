@@ -511,8 +511,9 @@ test('when weekdays is passed \'true\' as argument, days have to be ordered base
     var neLocaleData = moment();
     neLocaleData.locale('ne');
 
-    assert.deepEqual(deLocaleData.localeData().weekdays(true), ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']);
-    assert.deepEqual(neLocaleData.localeData().weekdays(true), [ 'आइतबार', 'सोमबार', 'मङ्गलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार' ]);
+    assert.deepEqual(deLocaleData.localeData().weekdays(true), ['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag']);
+    assert.deepEqual(deLocaleData.localeData().weekdays(), ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag']);
+    assert.deepEqual(neLocaleData.localeData().weekdays(true), ['आइतबार','सोमबार','मङ्गलबार','बुधबार','बिहिबार','शुक्रबार','शनिबार']);
 });
 
 
