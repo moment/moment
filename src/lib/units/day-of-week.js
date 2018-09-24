@@ -99,6 +99,27 @@ function parseIsoWeekday(input, locale) {
 
 export var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_');
 export function localeWeekdays (m, format) {
+    if (typeof m === 'boolean') {
+        if (isArray(this._weekdays)) {
+            var dow = this._week.dow;
+    
+            if (dow === 0) {
+                return this._weekdays;
+            } else {
+                var beforeFirstDay = this._weekdays.slice(0, dow);
+                var afterFirstDay = this._weekdays.slice(dow, this._weekdays.length);
+    
+                for (var i = 0; i < beforeFirstDay.length; i++) {
+                    afterFirstDay.push(beforeFirstDay[i]);
+                }
+    
+                return afterFirstDay;
+            }
+        } else {
+            return this._weekdays;
+        }
+    }
+    
     if (!m) {
         return isArray(this._weekdays) ? this._weekdays :
             this._weekdays['standalone'];

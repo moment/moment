@@ -504,6 +504,17 @@ test('when in strict mode with inexact parsing, treat periods in min-weekdays li
     assert.equal(moment('thurs', 'dd', true).format('dddd'), 'Thursday');
 });
 
+test('when weekdays is passed \'true\' as argument, days have to be ordered based on locale first day of the week', function (assert) {
+    var deLocaleData = moment();
+    deLocaleData.locale('de');
+
+    var neLocaleData = moment();
+    neLocaleData.locale('ne');
+
+    assert.deepEqual(deLocaleData.localeData().weekdays(true), ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']);
+    assert.deepEqual(neLocaleData.localeData().weekdays(true), [ 'आइतबार', 'सोमबार', 'मङ्गलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार' ]);
+});
+
 
 // TODO: Enable this after fixing pl months parse hack hack
 // test('monthsParseExact', function (assert) {
