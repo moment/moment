@@ -411,6 +411,7 @@ declare namespace moment {
   }
 
   interface Moment extends Object {
+    new(value?: any): Moment;    
     format(format?: string): string;
 
     startOf(unitOfTime: unitOfTime.StartOf): Moment;
@@ -729,6 +730,7 @@ declare namespace moment {
     MONTH: string
   };
 
+  export var Moment: Moment;
 }
 
 export = moment;
