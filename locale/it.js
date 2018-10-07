@@ -23,16 +23,24 @@
             LLLL : 'dddd D MMMM YYYY HH:mm'
         },
         calendar : {
-            sameDay: '[Oggi alle] LT',
-            nextDay: '[Domani alle] LT',
-            nextWeek: 'dddd [alle] LT',
-            lastDay: '[Ieri alle] LT',
+            sameDay: function () {
+                return '[Oggi all' + ((this.hours() !== 1) ? 'e ' : '\'') + ']LT';
+            },
+            nextDay: function () {
+                return '[Domani all' + ((this.hours() !== 1) ? 'e ' : '\'') + ']LT';
+            },
+            nextWeek: function () {
+                return 'dddd [all' + ((this.hours() !== 1) ? 'e ' : '\'') + ']LT';
+            },
+            lastDay: function () {
+                return '[Ieri all' + ((this.hours() !== 1) ? 'e ' : '\'') + ']LT';
+            },
             lastWeek: function () {
                 switch (this.day()) {
                     case 0:
-                        return '[la scorsa] dddd [alle] LT';
+                        return '[La scorsa] dddd [all' + ((this.hours() !== 1) ? 'e ' : '\'') + ']LT';
                     default:
-                        return '[lo scorso] dddd [alle] LT';
+                        return '[Lo scorso] dddd [all' + ((this.hours() !== 1) ? 'e ' : '\'') + ']LT';
                 }
             },
             sameElse: 'L'
