@@ -347,6 +347,27 @@ test('startOf across DST +1', function (assert) {
     moment.updateOffset = oldUpdateOffset;
 });
 
+test('endOf across DST +1', function (assert) {
+    var oldUpdateOffset = moment.updateOffset,
+        // Based on a real story somewhere in America/Sao_Paulo
+        dstAt = moment('2018-11-04T00:00:00-03:00').parseZone(),
+        m;
+
+    moment.updateOffset = function (mom, keepTime) {
+        if (mom.isBefore(dstAt)) {
+            mom.utcOffset(-3, keepTime);
+        } else {
+            mom.utcOffset(-2, keepTime);
+        }
+    };
+
+    m = moment('2018-11-04T09:00:00-02:00').parseZone();
+    m.endOf('d');
+    assert.equal(m.format(), '2018-11-04T23:59:59-02:00', 'endOf(\'d\') across +1');
+
+    moment.updateOffset = oldUpdateOffset;
+});
+
 test('startOf across DST -1', function (assert) {
     var oldUpdateOffset = moment.updateOffset,
         // Based on a real story somewhere in America/Los_Angeles
