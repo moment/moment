@@ -197,7 +197,7 @@ declare namespace moment {
 
     toISOString(): string;
     toJSON(): string;
-    
+
     isValid(): boolean;
 
     /**
@@ -283,7 +283,7 @@ declare namespace moment {
 
   type MomentFormatSpecification = string | MomentBuiltinFormat | (string | MomentBuiltinFormat)[];
 
-  namespace unitOfTime {
+  export namespace unitOfTime {
     type Base = (
       "year" | "years" | "y" |
       "month" | "months" | "M" |
@@ -300,15 +300,15 @@ declare namespace moment {
     type _date = "date" | "dates" | "D";
     type DurationConstructor = Base | _quarter | _isoWeek;
 
-    type DurationAs = Base;
+    export type DurationAs = Base;
 
-    type StartOf = Base | _quarter | _isoWeek | _date | void; // null
+    export type StartOf = Base | _quarter | _isoWeek | _date | void; // null
 
-    type Diff = Base | _quarter;
+    export type Diff = Base | _quarter;
 
-    type MomentConstructor = Base | _date;
+    export type MomentConstructor = Base | _date;
 
-    type All = Base | _quarter | _isoWeek | _date |
+    export type All = Base | _quarter | _isoWeek | _date |
       "weekYear" | "weekYears" | "gg" |
       "isoWeekYear" | "isoWeekYears" | "GG" |
       "dayOfYear" | "dayOfYears" | "DDD" |
@@ -718,16 +718,16 @@ declare namespace moment {
 
   export var defaultFormat: string;
   export var defaultFormatUtc: string;
-  
-  export var HTML5_FMT: { 
+
+  export var HTML5_FMT: {
     DATETIME_LOCAL: string,
     DATETIME_LOCAL_SECONDS: string,
     DATETIME_LOCAL_MS: string,
-    DATE: string,                           
-    TIME: string,                                 
-    TIME_SECONDS: string,                      
-    TIME_MS: string,                        
-    WEEK: string,                           
+    DATE: string,
+    TIME: string,
+    TIME_SECONDS: string,
+    TIME_MS: string,
+    WEEK: string,
     MONTH: string
   };
 
