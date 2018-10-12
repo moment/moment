@@ -281,7 +281,7 @@ declare namespace moment {
 
   type MomentFormatSpecification = string | MomentBuiltinFormat | (string | MomentBuiltinFormat)[];
 
-  namespace unitOfTime {
+  export namespace unitOfTime {
     type Base = (
       "year" | "years" | "y" |
       "month" | "months" | "M" |
@@ -298,15 +298,15 @@ declare namespace moment {
     type _date = "date" | "dates" | "D";
     type DurationConstructor = Base | _quarter;
 
-    type DurationAs = Base;
+    export type DurationAs = Base;
 
-    type StartOf = Base | _quarter | _isoWeek | _date;
+    export type StartOf = Base | _quarter | _isoWeek | _date;
 
-    type Diff = Base | _quarter;
+    export type Diff = Base | _quarter;
 
-    type MomentConstructor = Base | _date;
+    export type MomentConstructor = Base | _date;
 
-    type All = Base | _quarter | _isoWeek | _date |
+    export type All = Base | _quarter | _isoWeek | _date |
       "weekYear" | "weekYears" | "gg" |
       "isoWeekYear" | "isoWeekYears" | "GG" |
       "dayOfYear" | "dayOfYears" | "DDD" |
