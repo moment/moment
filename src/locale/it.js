@@ -2,6 +2,7 @@
 //! locale : Italian [it]
 //! author : Lorenzo : https://github.com/aliem
 //! author: Mattia Larentis: https://github.com/nostalgiaz
+//! author: Marco : https://github.com/Manfre98
 
 import moment from '../moment';
 
@@ -20,16 +21,24 @@ export default moment.defineLocale('it', {
         LLLL : 'dddd D MMMM YYYY HH:mm'
     },
     calendar : {
-        sameDay: '[Oggi alle] LT',
-        nextDay: '[Domani alle] LT',
-        nextWeek: 'dddd [alle] LT',
-        lastDay: '[Ieri alle] LT',
+        sameDay: function () {
+            return '[Oggi a' + ((this.hours() > 1) ? 'lle ' : (this.hours() === 0) ? ' ' : 'll\'') + ']LT';
+        },
+        nextDay: function () {
+            return '[Domani a' + ((this.hours() > 1) ? 'lle ' : (this.hours() === 0) ? ' ' : 'll\'') + ']LT';
+        },
+        nextWeek: function () {
+            return 'dddd [a' + ((this.hours() > 1) ? 'lle ' : (this.hours() === 0) ? ' ' : 'll\'') + ']LT';
+        },
+        lastDay: function () {
+            return '[Ieri a' + ((this.hours() > 1) ? 'lle ' : (this.hours() === 0) ? ' ' : 'll\'') + ']LT';
+        },
         lastWeek: function () {
             switch (this.day()) {
                 case 0:
-                    return '[la scorsa] dddd [alle] LT';
+                    return '[La scorsa] dddd [a' + ((this.hours() > 1) ? 'lle ' : (this.hours() === 0) ? ' ' : 'll\'') + ']LT';
                 default:
-                    return '[lo scorso] dddd [alle] LT';
+                    return '[Lo scorso] dddd [a' + ((this.hours() > 1) ? 'lle ' : (this.hours() === 0) ? ' ' : 'll\'') + ']LT';
             }
         },
         sameElse: 'L'
