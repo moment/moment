@@ -62,7 +62,7 @@
         "karma-sauce-launcher": "latest",
         "load-grunt-tasks": "~3.5.2",
         "node-qunit": "^1.0.0",
-        "nyc": "^13.1.0",
+        "nyc": "~11.9.0",
         "qunit": "^2.7.1",
         "rollup": "latest",
         "spacejam": "latest",
