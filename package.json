@@ -38,7 +38,7 @@
     "license": "MIT",
     "devDependencies": {
         "benchmark": "latest",
-        "coveralls": "^2.11.2",
+        "coveralls": "^3.0.2",
         "es6-promise": "latest",
         "grunt": "~0.4",
         "grunt-benchmark": "latest",
