@@ -398,7 +398,7 @@ declare namespace moment {
   }
 
   type MomentInput = Moment | Date | string | number | (number | string)[] | MomentInputObject | void; // null | undefined
-  type DurationInputArg1 = Duration | number | string | FromTo | DurationInputObject | void; // null | undefined
+  type DurationInputArg1 = Duration | number | FromTo | DurationInputObject | void; // null | undefined
   type DurationInputArg2 = unitOfTime.DurationConstructor;
   type LocaleSpecifier = string | Moment | Duration | string[] | boolean;
 
