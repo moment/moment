@@ -32,6 +32,15 @@ test('parse', function (assert) {
                 moment(input, mmm).month()
         );
     }
+
+    // function equalTestStrict(input, mmm, monthIndex) {
+    //     assert.equal(
+    //         moment(input, mmm, true).month(),
+    //         monthIndex,
+    //         input + ' ' + mmm + ' should be strict month ' + (monthIndex + 1)
+    //     );
+    // }
+
     for (i = 0; i < 12; i++) {
         equalTest(tests[i], 'MMM', i);
         equalTest(tests[i], 'MMM', i);
@@ -41,6 +50,14 @@ test('parse', function (assert) {
         equalTest(tests[i].toLocaleLowerCase(), 'MMMM', i);
         equalTest(tests[i].toLocaleUpperCase(), 'MMMM', i);
         equalTest(tests[i].toLocaleUpperCase(), 'MMMM', i);
+
+        // All strict parsing tests fail
+        // equalTestStrict(tests[i][1], 'MMM', i);
+        // equalTestStrict(tests[i][0], 'MMMM', i);
+        // equalTestStrict(tests[i][1].toLocaleLowerCase(), 'MMM', i);
+        // equalTestStrict(tests[i][1].toLocaleUpperCase(), 'MMM', i);
+        // equalTestStrict(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
+        // equalTestStrict(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
     }
 });
 

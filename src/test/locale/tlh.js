@@ -3,13 +3,28 @@ import { localeModule } from '../qunit-locale';
 import moment from '../../moment';
 localeModule('tlh');
 
-//Current parsing method doesn't allow parsing correctly months 10, 11 and 12.
-/*
- * test('parse', function (assert) {
-    var tests = 'tera’ jar wa’.jar wa’_tera’ jar cha’.jar cha’_tera’ jar wej.jar wej_tera’ jar loS.jar loS_tera’ jar vagh.jar vagh_tera’ jar jav.jar jav_tera’ jar Soch.jar Soch_tera’ jar chorgh.jar chorgh_tera’ jar Hut.jar Hut_tera’ jar wa’maH.jar wa’maH_tera’ jar wa’maH wa’.jar wa’maH wa’_tera’ jar wa’maH cha’.jar wa’maH cha’'.split('_'), i;
+test('parse', function (assert) {
+    var tests = 'tera’ jar wa’.jar wa’_tera’ jar cha’.jar cha’_tera’ jar wej.jar wej_tera’ jar loS.jar loS_tera’ jar vagh.jar vagh_tera’ jar jav.jar jav_tera’ jar Soch.jar Soch_tera’ jar chorgh.jar chorgh_tera’ jar Hut.jar Hut_tera’ jar wa’maH.jar wa’maH_tera’ jar wa’maH wa’.jar wa’maH wa’_tera’ jar wa’maH cha’.jar wa’maH cha’'.split(
+            '_'
+        ),
+        i;
+
     function equalTest(input, mmm, i) {
-        assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
+        assert.equal(
+            moment(input, mmm).month(),
+            i,
+            input + ' should be month ' + (i + 1)
+        );
     }
+
+    function equalTestStrict(input, mmm, monthIndex) {
+        assert.equal(
+            moment(input, mmm, true).month(),
+            monthIndex,
+            input + ' ' + mmm + ' should be strict month ' + (monthIndex + 1)
+        );
+    }
+
     for (i = 0; i < 12; i++) {
         tests[i] = tests[i].split('.');
         equalTest(tests[i][0], 'MMM', i);
@@ -20,9 +35,16 @@ localeModule('tlh');
         equalTest(tests[i][1].toLocaleLowerCase(), 'MMMM', i);
         equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
         equalTest(tests[i][1].toLocaleUpperCase(), 'MMMM', i);
+
+        equalTestStrict(tests[i][1], 'MMM', i);
+        equalTestStrict(tests[i][0], 'MMMM', i);
+        equalTestStrict(tests[i][1].toLocaleLowerCase(), 'MMM', i);
+        equalTestStrict(tests[i][1].toLocaleUpperCase(), 'MMM', i);
+        equalTestStrict(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
+        equalTestStrict(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
     }
 });
-*/
+
 test('format', function (assert) {
     var a = [
             [
