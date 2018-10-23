@@ -5,9 +5,15 @@ localeModule('zh-hk');
 
 test('parse', function (assert) {
     var tests = '一月 1月_二月 2月_三月 3月_四月 4月_五月 5月_六月 6月_七月 7月_八月 8月_九月 9月_十月 10月_十一月 11月_十二月 12月'.split('_'), i;
+
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
+
+    function equalTestStrict(input, mmm, monthIndex) {
+        assert.equal(moment(input, mmm, true).month(), monthIndex, input + ' ' + mmm + ' should be strict month ' + (monthIndex + 1));
+    }
+
     for (i = 0; i < 12; i++) {
         tests[i] = tests[i].split(' ');
         equalTest(tests[i][0], 'MMM', i);
@@ -18,6 +24,13 @@ test('parse', function (assert) {
         equalTest(tests[i][1].toLocaleLowerCase(), 'MMMM', i);
         equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
         equalTest(tests[i][1].toLocaleUpperCase(), 'MMMM', i);
+
+        equalTestStrict(tests[i][1], 'MMM', i);
+        equalTestStrict(tests[i][0], 'MMMM', i);
+        equalTestStrict(tests[i][1].toLocaleLowerCase(), 'MMM', i);
+        equalTestStrict(tests[i][1].toLocaleUpperCase(), 'MMM', i);
+        equalTestStrict(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
+        equalTestStrict(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
     }
 });
 
