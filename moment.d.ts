@@ -518,7 +518,6 @@ declare namespace moment {
     isoWeekday(d: number|string): Moment;
     weekYear(): number;
     weekYear(d: number): Moment;
-    isoWeekYear(): number;
     isoWeekYear(d: number): Moment;
     week(): number;
     week(d: number): Moment;
@@ -538,7 +537,7 @@ declare namespace moment {
     fromNow(withoutSuffix?: boolean): string;
     toNow(withoutPrefix?: boolean): string;
 
-    diff(b: MomentInput, unitOfTime?: unitOfTime.Diff, precise?: boolean): number;
+    diff(b: any, unitOfTime?: unitOfTime.Diff, precise?: boolean): number;
 
     toArray(): number[];
     toDate(): Date;
