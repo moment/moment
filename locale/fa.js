@@ -67,7 +67,7 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : 'در %s',
+            future : '%s دیگر',
             past : '%s پیش',
             s : 'چند ثانیه',
             ss : 'ثانیه d%',
