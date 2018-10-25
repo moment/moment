@@ -4,15 +4,15 @@ import isDurationValid from './valid.js';
 
 export function Duration (duration) {
     var normalizedInput = normalizeObjectUnits(duration),
-        years = normalizedInput.year || 0,
-        quarters = normalizedInput.quarter || 0,
-        months = normalizedInput.month || 0,
-        weeks = normalizedInput.week || 0,
-        days = normalizedInput.day || 0,
-        hours = normalizedInput.hour || 0,
-        minutes = normalizedInput.minute || 0,
-        seconds = normalizedInput.second || 0,
-        milliseconds = normalizedInput.millisecond || 0;
+        years = normalizedInput.year || null,
+        quarters = normalizedInput.quarter || null,
+        months = normalizedInput.month || null,
+        weeks = normalizedInput.week || null,
+        days = normalizedInput.day || null,
+        hours = normalizedInput.hour || null,
+        minutes = normalizedInput.minute || null,
+        seconds = normalizedInput.second || null,
+        milliseconds = normalizedInput.millisecond || null;
 
     this._isValid = isDurationValid(normalizedInput);
 
