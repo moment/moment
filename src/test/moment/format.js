@@ -536,3 +536,8 @@ test('Y token', function (assert) {
     assert.equal(moment('9999-01-01', 'Y-MM-DD', true).format('Y'), '9999', 'format 9999 with Y');
     assert.equal(moment('10000-01-01', 'Y-MM-DD', true).format('Y'), '+10000', 'format 10000 with Y');
 });
+
+test('HTML5_FMT.WEEK', function (assert) {
+    assert.equal(moment('2004-W01', moment.HTML5_FMT.WEEK).format(moment.HTML5_FMT.WEEK), '2004-W01', 'issue #4698 regression');
+    assert.equal(moment('2019-W01').format(moment.HTML5_FMT.WEEK), '2019-W01', 'issue #4833 regression');
+});
