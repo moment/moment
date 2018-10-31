@@ -6,7 +6,7 @@ import moment from '../moment';
 
 export default moment.defineLocale('vi', {
     months : 'tháng 1_tháng 2_tháng 3_tháng 4_tháng 5_tháng 6_tháng 7_tháng 8_tháng 9_tháng 10_tháng 11_tháng 12'.split('_'),
-    monthsShort : 'Thg01_Thg02_Thg03_Thg04_Thg05_Thg06_Thg07_Thg08_Thg09_Thg10_Thg11_Thg12'.split('_'),
+    monthsShort : 'Thg 01_Thg 02_Thg 03_Thg 04_Thg 05_Thg 06_Thg 07_Thg 08_Thg 09_Thg 10_Thg 11_Thg 12'.split('_'),
     monthsParseExact : true,
     weekdays : 'chủ nhật_thứ hai_thứ ba_thứ tư_thứ năm_thứ sáu_thứ bảy'.split('_'),
     weekdaysShort : 'CN_T2_T3_T4_T5_T6_T7'.split('_'),
