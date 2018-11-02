@@ -46,7 +46,7 @@
         "grunt-contrib-clean": "latest",
         "grunt-contrib-concat": "latest",
         "grunt-contrib-copy": "latest",
-        "grunt-contrib-jshint": "latest",
+        "grunt-contrib-jshint": "0.8.0",
         "grunt-contrib-uglify": "latest",
         "grunt-contrib-watch": "^1.1.0",
         "grunt-env": "latest",
@@ -65,7 +65,6 @@
         "nyc": "~11.9.0",
         "qunit": "^2.7.1",
         "rollup": "latest",
-        "spacejam": "latest",
         "typescript": "^1.8.10",
         "uglify-js": "latest"
     },
