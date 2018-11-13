@@ -44,7 +44,6 @@ months = [
 
 
 export default moment.defineLocale('ku', {
-    
     months : months,
     monthsShort : months,
     weekdays : 'یه‌كشه‌ممه‌_دووشه‌ممه‌_سێشه‌ممه‌_چوارشه‌ممه‌_پێنجشه‌ممه‌_هه‌ینی_شه‌ممه‌'.split('_'),
@@ -60,7 +59,6 @@ export default moment.defineLocale('ku', {
         LLLL : 'dddd, D MMMM YYYY HH:mm'
     },
     meridiemParse: /ئێواره‌|به‌یانی/,
-    
     isPM: function (input) {
         return /ئێواره‌/.test(input);
     },

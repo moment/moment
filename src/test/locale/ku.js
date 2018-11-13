@@ -3,7 +3,7 @@ import {localeModule} from '../qunit-locale';
 import moment from '../../moment';
 localeModule('ku');
 
-months = [
+var months = [
     'کانونی دووەم',
     'شوبات',
     'ئازار',
@@ -37,7 +37,6 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-        
             ['dddd, MMMM Do YYYY, h:mm:ss a',      'یه‌كشه‌ممه‌، شوبات ١٤ ٢٠١٠، ٣:٢٥:٥٠ ئێواره‌'],
             ['ddd, hA',                            'یه‌كشه‌م، ٣ئێواره‌'],
             ['M Mo MM MMMM MMM',                   '٢ ٢ ٠٢ شوبات شوبات'],
@@ -61,7 +60,6 @@ test('format', function (assert) {
             ['ll',                                 '١٤ شوبات ٢٠١٠'],
             ['lll',                                '١٤ شوبات ٢٠١٠ ١٥:٢٥'],
             ['llll',                               'یه‌كشه‌م، ١٤ شوبات ٢٠١٠ ١٥:٢٥']
-            
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
