@@ -112,7 +112,7 @@
                 switch (this.day()) {
                     case 0:
                     case 3:
-                        return '[prošlu] dddd [u] LT';
+                        return '[prošlu] [nedjelju] [u] LT';
                     case 6:
                         return '[prošle] [subote] [u] LT';
                     case 1:
