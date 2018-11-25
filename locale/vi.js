@@ -44,7 +44,7 @@
             nextDay: '[Ngày mai lúc] LT',
             nextWeek: 'dddd [tuần tới lúc] LT',
             lastDay: '[Hôm qua lúc] LT',
-            lastWeek: 'dddd [tuần rồi lúc] LT',
+            lastWeek: 'dddd [tuần trước lúc] LT',
             sameElse: 'L'
         },
         relativeTime : {
