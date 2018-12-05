@@ -74,6 +74,10 @@ export function createDuration (input, key) {
         ret._locale = input._locale;
     }
 
+    if (isDuration(input) && hasOwnProp(input, '_isValid')) {
+        ret._isValid = input._isValid;
+    }
+
     return ret;
 }
 
