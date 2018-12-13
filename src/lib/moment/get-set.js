@@ -3,7 +3,7 @@ import { getPrioritizedUnits } from '../units/priorities';
 import { hooks } from '../utils/hooks';
 import isFunction from '../utils/is-function';
 import { daysInMonth } from '../units/month';
-import { isLeapYear } from '../units/year';
+import { isLeapYear } from '../utils/is-leap-year';
 
 export function makeGetSet (unit, keepTime) {
     return function (value) {
