@@ -6,7 +6,8 @@ var thresholds = {
     s : 45,         // seconds to minute
     m : 45,         // minutes to hour
     h : 22,         // hours to day
-    d : 26,         // days to month
+    d : 7,          // days to week
+    w : 4,          // weeks to month
     M : 11          // months to year
 };
 
@@ -21,6 +22,7 @@ function relativeTime (posNegDuration, withoutSuffix, locale) {
     var minutes  = round(duration.as('m'));
     var hours    = round(duration.as('h'));
     var days     = round(duration.as('d'));
+    var weeks    = round(duration.as('w'));
     var months   = round(duration.as('M'));
     var years    = round(duration.as('y'));
 
@@ -32,6 +34,8 @@ function relativeTime (posNegDuration, withoutSuffix, locale) {
             hours   < thresholds.h   && ['hh', hours]   ||
             days    <= 1             && ['d']           ||
             days    < thresholds.d   && ['dd', days]    ||
+            weeks   <= 1             && ['w']           ||
+            weeks   < thresholds.w   && ['ww', weeks]   ||
             months  <= 1             && ['M']           ||
             months  < thresholds.M   && ['MM', months]  ||
             years   <= 1             && ['y']           || ['yy', years];

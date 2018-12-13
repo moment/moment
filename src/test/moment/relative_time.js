@@ -26,12 +26,19 @@ test('default thresholds fromNow', function (assert) {
     a.subtract(1, 'hours');
     assert.equal(a.fromNow(), 'a day ago', 'Above default hours to day threshold');
 
+
     // Days to month threshold
     a = moment();
-    a.subtract(25, 'days');
-    assert.equal(a.fromNow(), '25 days ago', 'Below default days to month (singular) threshold');
+    a.subtract(6, 'days');
+    assert.equal(a.fromNow(), '6 days ago', 'Below default days to month (singular) threshold');
     a.subtract(1, 'days');
-    assert.equal(a.fromNow(), 'a month ago', 'Above default days to month (singular) threshold');
+    assert.equal(a.fromNow(), 'a week ago', 'Above default days to month (singular) threshold');
+
+    a = moment();
+    a.subtract(3, 'w');
+    assert.equal(a.fromNow(), '3 weeks ago', 'Below default weeks to month threshold');
+    a.subtract(1, 'w');
+    assert.equal(a.fromNow(), 'a month ago', 'Below default weeks to month threshold');
 
     // months to year threshold
     a = moment();
@@ -66,9 +73,16 @@ test('default thresholds toNow', function (assert) {
 
     // Days to month threshold
     a = moment();
-    a.subtract(25, 'days');
-    assert.equal(a.toNow(), 'in 25 days', 'Below default days to month (singular) threshold');
+    a.subtract(6, 'days');
+    assert.equal(a.toNow(), 'in 6 days', 'Below default days to month (singular) threshold');
     a.subtract(1, 'days');
+    assert.equal(a.toNow(), 'in a week', 'Above default days to month (singular) threshold');
+
+    // Days to month threshold
+    a = moment();
+    a.subtract(3, 'w');
+    assert.equal(a.toNow(), 'in 3 weeks', 'Below default days to month (singular) threshold');
+    a.subtract(1, 'w');
     assert.equal(a.toNow(), 'in a month', 'Above default days to month (singular) threshold');
 
     // months to year threshold
@@ -176,7 +190,7 @@ test('custom rounding', function (assert) {
 
     a = moment.utc();
     a.subtract({days: 27});
-    assert.equal(a.toNow(), 'in a month', 'Round down towards the nearest day (just over)');
+    assert.equal(a.toNow(), 'in 3 weeks', 'Round down towards the nearest day (just over)');
 
     a = moment.utc();
     a.subtract({days: 364});
