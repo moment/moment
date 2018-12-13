@@ -197,6 +197,8 @@ declare namespace moment {
 
     toISOString(): string;
     toJSON(): string;
+    
+    isValid(): boolean;
 
     /**
      * @deprecated since version 2.8.0
@@ -300,7 +302,7 @@ declare namespace moment {
 
     type DurationAs = Base;
 
-    type StartOf = Base | _quarter | _isoWeek | _date;
+    type StartOf = Base | _quarter | _isoWeek | _date | void; // null
 
     type Diff = Base | _quarter;
 

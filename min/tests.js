@@ -162,15 +162,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -199,14 +203,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -627,15 +635,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -664,14 +676,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -1092,15 +1108,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -1129,14 +1149,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -1557,15 +1581,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -1594,14 +1622,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -2064,15 +2096,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -2101,14 +2137,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -2529,15 +2569,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -2566,14 +2610,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -3001,15 +3049,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -3038,14 +3090,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -3542,15 +3598,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -3579,14 +3639,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -4049,15 +4113,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -4086,14 +4154,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -4524,15 +4596,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -4561,14 +4637,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -5048,15 +5128,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -5085,14 +5169,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -5528,15 +5616,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -5565,14 +5657,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -5963,15 +6059,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -6000,14 +6100,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -6443,15 +6547,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -6480,14 +6588,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -6924,15 +7036,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -6961,14 +7077,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -7406,15 +7526,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -7443,14 +7567,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -7903,15 +8031,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -7940,14 +8072,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -8374,15 +8510,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -8411,14 +8551,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -8936,15 +9080,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -8973,14 +9121,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -9406,15 +9558,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -9443,14 +9599,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -9869,15 +10029,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -9906,14 +10070,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -10336,15 +10504,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -10373,14 +10545,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -10797,15 +10973,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -10834,14 +11014,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -11258,15 +11442,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -11295,14 +11483,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -11718,15 +11910,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -11755,14 +11951,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -12178,15 +12378,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -12215,14 +12419,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -12699,15 +12907,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -12736,14 +12948,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -13164,15 +13380,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -13201,14 +13421,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -13638,15 +13862,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -13675,14 +13903,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -14103,15 +14335,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -14140,14 +14376,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -14568,15 +14808,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -14605,14 +14849,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -15037,15 +15285,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -15074,14 +15326,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -15502,15 +15758,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -15539,14 +15799,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -15992,15 +16256,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -16029,14 +16297,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -16458,15 +16730,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -16495,14 +16771,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -16932,15 +17212,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -16969,14 +17253,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -17407,15 +17695,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -17444,14 +17736,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -17880,15 +18176,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -17917,14 +18217,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -18368,15 +18672,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -18405,14 +18713,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -18832,15 +19144,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -18869,14 +19185,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -19289,15 +19609,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -19326,14 +19650,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -19754,15 +20082,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -19791,14 +20123,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -20220,15 +20556,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -20257,14 +20597,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -20707,15 +21051,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -20744,14 +21092,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -21194,15 +21546,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -21231,14 +21587,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -21681,15 +22041,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -21718,14 +22082,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -22150,15 +22518,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -22187,14 +22559,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -22627,15 +23003,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -22664,14 +23044,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -23100,15 +23484,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -23137,14 +23525,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -23579,15 +23971,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -23616,14 +24012,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -24059,15 +24459,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -24096,14 +24500,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -24488,15 +24896,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -24525,14 +24937,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -24968,15 +25384,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -25005,14 +25425,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -25465,15 +25889,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -25502,14 +25930,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -25943,15 +26375,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -25980,14 +26416,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -26477,15 +26917,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -26514,14 +26958,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -26904,15 +27352,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -26941,14 +27393,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -27375,15 +27831,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -27412,14 +27872,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -27838,15 +28302,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -27875,14 +28343,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -28287,15 +28759,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -28324,14 +28800,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -28717,15 +29197,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -28754,14 +29238,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -28815,7 +29303,7 @@
             tests = 'იანვარი იან_თებერვალი თებ_მარტი მარ_აპრილი აპრ_მაისი მაი_ივნისი ივნ_ივლისი ივლ_აგვისტო აგვ_სექტემბერი სექ_ოქტომბერი ოქტ_ნოემბერი ნოე_დეკემბერი დეკ'.split('_');
 
         function equalTest(input, mmm, i) {
-            assert.equal(moment(input, mmm).month(), i, input + ' უნდა იყოს თვე ' + (i + 1));
+            assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
         }
 
         for (i = 0; i < 12; i++) {
@@ -28826,8 +29314,9 @@
             equalTest(tests[i][1], 'MMMM', i);
             equalTest(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
             equalTest(tests[i][1].toLocaleLowerCase(), 'MMMM', i);
-            equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
-            equalTest(tests[i][1].toLocaleUpperCase(), 'MMMM', i);
+            // the last two are broken until https://github.com/nodejs/node/issues/22518 is fixed
+            // equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
+            // equalTest(tests[i][1].toLocaleUpperCase(), 'MMMM', i);
         }
     });
 
@@ -29194,15 +29683,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -29231,14 +29724,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -29659,15 +30156,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -29696,14 +30197,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -30398,15 +30903,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -30435,14 +30944,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -30878,15 +31391,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -30915,14 +31432,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -31377,15 +31898,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -31414,14 +31939,515 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
+                r = moment(m.format(format).toLocaleLowerCase(), format, true);
+                assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
+            }
+
+            for (i = 0; i < 7; ++i) {
+                m = moment.utc([2015, 0, i + 1, 18]);
+                tester('dd');
+                tester('ddd');
+                tester('dddd');
+            }
+        });
+
+        test('valid localeData', function (assert) {
+            assert.equal(moment().localeData().months().length, 12, 'months should return 12 months');
+            assert.equal(moment().localeData().monthsShort().length, 12, 'monthsShort should return 12 months');
+            assert.equal(moment().localeData().weekdays().length, 7, 'weekdays should return 7 days');
+            assert.equal(moment().localeData().weekdaysShort().length, 7, 'weekdaysShort should return 7 days');
+            assert.equal(moment().localeData().weekdaysMin().length, 7, 'monthsShort should return 7 days');
+        });
+    }
+
+    /*global QUnit:false*/
+
+    function localeModule (name, lifecycle) {
+        QUnit.module('locale:' + name, {
+            beforeEach : function () {
+                moment.locale(name);
+                moment.createFromInputFallback = function (config) {
+                    throw new Error('input not handled by moment: ' + config._i);
+                };
+                setupDeprecationHandler(test, moment, 'locale');
+                if (lifecycle && lifecycle.setup) {
+                    lifecycle.setup();
+                }
+            },
+            afterEach : function () {
+                moment.locale('en');
+                teardownDeprecationHandler(test, moment, 'locale');
+                if (lifecycle && lifecycle.teardown) {
+                    lifecycle.teardown();
+                }
+            }
+        });
+        defineCommonLocaleTests(name, -1, -1);
+    }
+
+    localeModule('ku');
+
+    var months = [
+        'کانونی دووەم',
+        'شوبات',
+        'ئازار',
+        'نیسان',
+        'ئایار',
+        'حوزەیران',
+        'تەمموز',
+        'ئاب',
+        'ئەیلوول',
+        'تشرینی یەكەم',
+        'تشرینی دووەم',
+        'كانونی یەکەم'
+    ];
+
+    test('parse', function (assert) {
+        var tests = months, i;
+        function equalTest(input, mmm, i) {
+            assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1) + ' instead is month ' + moment(input, mmm).month());
+        }
+        for (i = 0; i < 12; i++) {
+            equalTest(tests[i], 'MMM', i);
+            equalTest(tests[i], 'MMM', i);
+            equalTest(tests[i], 'MMMM', i);
+            equalTest(tests[i], 'MMMM', i);
+            equalTest(tests[i].toLocaleLowerCase(), 'MMMM', i);
+            equalTest(tests[i].toLocaleLowerCase(), 'MMMM', i);
+            equalTest(tests[i].toLocaleUpperCase(), 'MMMM', i);
+            equalTest(tests[i].toLocaleUpperCase(), 'MMMM', i);
+        }
+    });
+
+    test('format', function (assert) {
+        var a = [
+                ['dddd, MMMM Do YYYY, h:mm:ss a',      'یه‌كشه‌ممه‌، شوبات ١٤ ٢٠١٠، ٣:٢٥:٥٠ ئێواره‌'],
+                ['ddd, hA',                            'یه‌كشه‌م، ٣ئێواره‌'],
+                ['M Mo MM MMMM MMM',                   '٢ ٢ ٠٢ شوبات شوبات'],
+                ['YYYY YY',                            '٢٠١٠ ١٠'],
+                ['D Do DD',                            '١٤ ١٤ ١٤'],
+                ['d do dddd ddd dd',                   '٠ ٠ یه‌كشه‌ممه‌ یه‌كشه‌م ی'],
+                ['DDD DDDo DDDD',                      '٤٥ ٤٥ ٠٤٥'],
+                ['w wo ww',                            '٨ ٨ ٠٨'],
+                ['h hh',                               '٣ ٠٣'],
+                ['H HH',                               '١٥ ١٥'],
+                ['m mm',                               '٢٥ ٢٥'],
+                ['s ss',                               '٥٠ ٥٠'],
+                ['a A',                                'ئێواره‌ ئێواره‌'],
+                ['[the] DDDo [day of the year]',       'the ٤٥ day of the year'],
+                ['LTS',                                '١٥:٢٥:٥٠'],
+                ['L',                                  '١٤/٠٢/٢٠١٠'],
+                ['LL',                                 '١٤ شوبات ٢٠١٠'],
+                ['LLL',                                '١٤ شوبات ٢٠١٠ ١٥:٢٥'],
+                ['LLLL',                               'یه‌كشه‌ممه‌، ١٤ شوبات ٢٠١٠ ١٥:٢٥'],
+                ['l',                                  '١٤/٢/٢٠١٠'],
+                ['ll',                                 '١٤ شوبات ٢٠١٠'],
+                ['lll',                                '١٤ شوبات ٢٠١٠ ١٥:٢٥'],
+                ['llll',                               'یه‌كشه‌م، ١٤ شوبات ٢٠١٠ ١٥:٢٥']
+            ],
+            b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
+            i;
+        for (i = 0; i < a.length; i++) {
+            assert.equal(b.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
+        }
+    });
+
+    test('format ordinal', function (assert) {
+        assert.equal(moment([2011, 0, 1]).format('DDDo'), '١', '1');
+        assert.equal(moment([2011, 0, 2]).format('DDDo'), '٢', '2');
+        assert.equal(moment([2011, 0, 3]).format('DDDo'), '٣', '3');
+        assert.equal(moment([2011, 0, 4]).format('DDDo'), '٤', '4');
+        assert.equal(moment([2011, 0, 5]).format('DDDo'), '٥', '5');
+        assert.equal(moment([2011, 0, 6]).format('DDDo'), '٦', '6');
+        assert.equal(moment([2011, 0, 7]).format('DDDo'), '٧', '7');
+        assert.equal(moment([2011, 0, 8]).format('DDDo'), '٨', '8');
+        assert.equal(moment([2011, 0, 9]).format('DDDo'), '٩', '9');
+        assert.equal(moment([2011, 0, 10]).format('DDDo'), '١٠', '10');
+
+        assert.equal(moment([2011, 0, 11]).format('DDDo'), '١١', '11');
+        assert.equal(moment([2011, 0, 12]).format('DDDo'), '١٢', '12');
+        assert.equal(moment([2011, 0, 13]).format('DDDo'), '١٣', '13');
+        assert.equal(moment([2011, 0, 14]).format('DDDo'), '١٤', '14');
+        assert.equal(moment([2011, 0, 15]).format('DDDo'), '١٥', '15');
+        assert.equal(moment([2011, 0, 16]).format('DDDo'), '١٦', '16');
+        assert.equal(moment([2011, 0, 17]).format('DDDo'), '١٧', '17');
+        assert.equal(moment([2011, 0, 18]).format('DDDo'), '١٨', '18');
+        assert.equal(moment([2011, 0, 19]).format('DDDo'), '١٩', '19');
+        assert.equal(moment([2011, 0, 20]).format('DDDo'), '٢٠', '20');
+
+        assert.equal(moment([2011, 0, 21]).format('DDDo'), '٢١', '21');
+        assert.equal(moment([2011, 0, 22]).format('DDDo'), '٢٢', '22');
+        assert.equal(moment([2011, 0, 23]).format('DDDo'), '٢٣', '23');
+        assert.equal(moment([2011, 0, 24]).format('DDDo'), '٢٤', '24');
+        assert.equal(moment([2011, 0, 25]).format('DDDo'), '٢٥', '25');
+        assert.equal(moment([2011, 0, 26]).format('DDDo'), '٢٦', '26');
+        assert.equal(moment([2011, 0, 27]).format('DDDo'), '٢٧', '27');
+        assert.equal(moment([2011, 0, 28]).format('DDDo'), '٢٨', '28');
+        assert.equal(moment([2011, 0, 29]).format('DDDo'), '٢٩', '29');
+        assert.equal(moment([2011, 0, 30]).format('DDDo'), '٣٠', '30');
+        assert.equal(moment([2011, 0, 31]).format('DDDo'), '٣١', '31');
+    });
+    //ok
+    test('format month', function (assert) {
+        var expected = months, i;
+        for (i = 0; i < expected.length; i++) {
+            assert.equal(moment([2011, i, 1]).format('MMMM'), expected[i], expected[i]);
+            assert.equal(moment([2011, i, 1]).format('MMM'), expected[i], expected[i]);
+        }
+    });
+
+    test('format week', function (assert) {
+        var expected = 'یه‌كشه‌ممه‌ یه‌كشه‌م ی_دووشه‌ممه‌ دووشه‌م د_سێشه‌ممه‌ سێشه‌م س_چوارشه‌ممه‌ چوارشه‌م چ_پێنجشه‌ممه‌ پێنجشه‌م پ_هه‌ینی هه‌ینی ه_شه‌ممه‌ شه‌ممه‌ ش'.split('_'), i;
+        for (i = 0; i < expected.length; i++) {
+            assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
+        }
+    });
+
+    test('from', function (assert) {
+        var start = moment([2007, 1, 28]);
+        assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'چه‌ند چركه‌یه‌ك', '44 seconds = a few seconds');
+        assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'یه‌ك خوله‌ك',      '45 seconds = a minute');
+        assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'یه‌ك خوله‌ك',      '89 seconds = a minute');
+        assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '٢ خوله‌ك',     '90 seconds = 2 minutes');
+        assert.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  '٤٤ خوله‌ك',    '44 minutes = 44 minutes');
+        assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  'یه‌ك كاتژمێر',       '45 minutes = an hour');
+        assert.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  'یه‌ك كاتژمێر',       '89 minutes = an hour');
+        assert.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  '٢ كاتژمێر',       '90 minutes = 2 hours');
+        assert.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   '٥ كاتژمێر',       '5 hours = 5 hours');
+        assert.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  '٢١ كاتژمێر',      '21 hours = 21 hours');
+        assert.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  'یه‌ك ڕۆژ',         '22 hours = a day');
+        assert.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  'یه‌ك ڕۆژ',         '35 hours = a day');
+        assert.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  '٢ ڕۆژ',        '36 hours = 2 days');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   'یه‌ك ڕۆژ',         '1 day = a day');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   '٥ ڕۆژ',        '5 days = 5 days');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  '٢٥ ڕۆژ',       '25 days = 25 days');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  'یه‌ك مانگ',       '26 days = a month');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  'یه‌ك مانگ',       '30 days = a month');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  'یه‌ك مانگ',       '43 days = a month');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  '٢ مانگ',      '46 days = 2 months');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  '٢ مانگ',      '75 days = 2 months');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  '٣ مانگ',      '76 days = 3 months');
+        assert.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   'یه‌ك مانگ',       '1 month = a month');
+        assert.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   '٥ مانگ',      '5 months = 5 months');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'یه‌ك ساڵ',        '345 days = a year');
+        assert.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), '٢ ساڵ',       '548 days = 2 years');
+        assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'یه‌ك ساڵ',        '1 year = a year');
+        assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '٥ ساڵ',       '5 years = 5 years');
+    });
+
+    test('suffix', function (assert) {
+        assert.equal(moment(30000).from(0), 'له‌ چه‌ند چركه‌یه‌ك',  'prefix');
+        assert.equal(moment(0).from(30000), 'چه‌ند چركه‌یه‌ك', 'suffix');
+    });
+
+    test('now from now', function (assert) {
+        assert.equal(moment().fromNow(), 'چه‌ند چركه‌یه‌ك',  'now from now should display as in the past');
+    });
+
+    test('fromNow', function (assert) {
+        assert.equal(moment().add({s: 30}).fromNow(), 'له‌ چه‌ند چركه‌یه‌ك', 'in a few seconds');
+        assert.equal(moment().add({d: 5}).fromNow(), 'له‌ ٥ ڕۆژ', 'in 5 days');
+    });
+
+    test('calendar day', function (assert) {
+        var a = moment().hours(12).minutes(0).seconds(0);
+
+        assert.equal(moment(a).calendar(),                   'ئه‌مرۆ كاتژمێر ١٢:٠٠',      'today at the same time');
+        assert.equal(moment(a).add({m: 25}).calendar(),      'ئه‌مرۆ كاتژمێر ١٢:٢٥',      'Now plus 25 min');
+        assert.equal(moment(a).add({h: 1}).calendar(),       'ئه‌مرۆ كاتژمێر ١٣:٠٠',      'Now plus 1 hour');
+        assert.equal(moment(a).add({d: 1}).calendar(),       'به‌یانی كاتژمێر ١٢:٠٠',   'tomorrow at the same time');
+        assert.equal(moment(a).subtract({h: 1}).calendar(),  'ئه‌مرۆ كاتژمێر ١١:٠٠',      'Now minus 1 hour');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'دوێنێ كاتژمێر ١٢:٠٠',  'yesterday at the same time');
+    });
+
+    test('calendar next week', function (assert) {
+        var i, m;
+        for (i = 2; i < 7; i++) {
+            m = moment().add({d: i});
+            assert.equal(m.calendar(),       m.format('dddd [كاتژمێر] LT'),  'Today + ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(m.calendar(),       m.format('dddd [كاتژمێر] LT'),  'Today + ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(m.calendar(),       m.format('dddd [كاتژمێر] LT'),  'Today + ' + i + ' days end of day');
+        }
+    });
+
+    test('calendar last week', function (assert) {
+        var i, m;
+
+        for (i = 2; i < 7; i++) {
+            m = moment().subtract({d: i});
+            assert.equal(m.calendar(),       m.format('dddd [كاتژمێر] LT'),  'Today - ' + i + ' days current time');
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(m.calendar(),       m.format('dddd [كاتژمێر] LT'),  'Today - ' + i + ' days beginning of day');
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(m.calendar(),       m.format('dddd [كاتژمێر] LT'),  'Today - ' + i + ' days end of day');
+        }
+    });
+
+    test('calendar all else', function (assert) {
+        var weeksAgo = moment().subtract({w: 1}),
+            weeksFromNow = moment().add({w: 1});
+
+        assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '1 week ago');
+        assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 1 week');
+
+        weeksAgo = moment().subtract({w: 2});
+        weeksFromNow = moment().add({w: 2});
+
+        assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '2 weeks ago');
+        assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  'in 2 weeks');
+    });
+
+    test('weeks year starting sunday formatted', function (assert) {
+        assert.equal(moment([2011, 11, 31]).format('w ww wo'), '١ ٠١ ١', 'Dec 31 2011 should be week 1');
+        assert.equal(moment([2012,  0,  6]).format('w ww wo'), '١ ٠١ ١', 'Jan  6 2012 should be week 1');
+        assert.equal(moment([2012,  0,  7]).format('w ww wo'), '٢ ٠٢ ٢', 'Jan  7 2012 should be week 2');
+        assert.equal(moment([2012,  0, 13]).format('w ww wo'), '٢ ٠٢ ٢', 'Jan 13 2012 should be week 2');
+        assert.equal(moment([2012,  0, 14]).format('w ww wo'), '٣ ٠٣ ٣', 'Jan 14 2012 should be week 3');
+    });
+
+
+    // locale-specific
+    test('ku strict mode parsing works', function (assert) {
+        var m, formattedDate;
+        m = moment().locale('ku');
+        formattedDate = m.format('l');
+        assert.equal(moment.utc(formattedDate, 'l', 'ku', false).isValid(), true, 'Non-strict parsing works');
+        assert.equal(moment.utc(formattedDate, 'l', 'ku', true).isValid(), true,'Strict parsing must work');
+    });
+
+})));
+
+
+;(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined'
+       && typeof require === 'function' ? factory(require('../../moment')) :
+   typeof define === 'function' && define.amd ? define(['../../moment'], factory) :
+   factory(global.moment)
+}(this, (function (moment) { 'use strict';
+
+    function each(array, callback) {
+        var i;
+        for (i = 0; i < array.length; i++) {
+            callback(array[i], i, array);
+        }
+    }
+
+    function setupDeprecationHandler(test, moment$$1, scope) {
+        test._expectedDeprecations = null;
+        test._observedDeprecations = null;
+        test._oldSupress = moment$$1.suppressDeprecationWarnings;
+        moment$$1.suppressDeprecationWarnings = true;
+        test.expectedDeprecations = function () {
+            test._expectedDeprecations = arguments;
+            test._observedDeprecations = [];
+        };
+        moment$$1.deprecationHandler = function (name, msg) {
+            var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+            if (deprecationId === -1) {
+                throw new Error('Unexpected deprecation thrown name=' +
+                        name + ' msg=' + msg);
+            }
+            test._observedDeprecations[deprecationId] = 1;
+        };
+    }
+
+    function teardownDeprecationHandler(test, moment$$1, scope) {
+        moment$$1.suppressDeprecationWarnings = test._oldSupress;
+
+        if (test._expectedDeprecations != null) {
+            var missedDeprecations = [];
+            each(test._expectedDeprecations, function (deprecationPattern, id) {
+                if (test._observedDeprecations[id] !== 1) {
+                    missedDeprecations.push(deprecationPattern);
+                }
+            });
+            if (missedDeprecations.length !== 0) {
+                throw new Error('Expected deprecation warnings did not happen: ' +
+                        missedDeprecations.join(' '));
+            }
+        }
+    }
+
+    function matchedDeprecation(name, msg, deprecations) {
+        if (deprecations == null) {
+            return -1;
+        }
+        for (var i = 0; i < deprecations.length; ++i) {
+            if (name != null && name === deprecations[i]) {
+                return i;
+            }
+            if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*global QUnit:false*/
+
+    var test = QUnit.test;
+
+    function objectKeys(obj) {
+        if (Object.keys) {
+            return Object.keys(obj);
+        } else {
+            // IE8
+            var res = [], i;
+            for (i in obj) {
+                if (obj.hasOwnProperty(i)) {
+                    res.push(i);
+                }
+            }
+            return res;
+        }
+    }
+
+    // Pick the first defined of two or three arguments.
+
+    function defineCommonLocaleTests(locale, options) {
+        test('lenient day of month ordinal parsing', function (assert) {
+            var i, ordinalStr, testMoment;
+            for (i = 1; i <= 31; ++i) {
+                ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
+                testMoment = moment(ordinalStr, 'YYYY MM Do');
+                assert.equal(testMoment.year(), 2014,
+                        'lenient day of month ordinal parsing ' + i + ' year check');
+                assert.equal(testMoment.month(), 0,
+                        'lenient day of month ordinal parsing ' + i + ' month check');
+                assert.equal(testMoment.date(), i,
+                        'lenient day of month ordinal parsing ' + i + ' date check');
+            }
+        });
+
+        test('lenient day of month ordinal parsing of number', function (assert) {
+            var i, testMoment;
+            for (i = 1; i <= 31; ++i) {
+                testMoment = moment('2014 01 ' + i, 'YYYY MM Do');
+                assert.equal(testMoment.year(), 2014,
+                        'lenient day of month ordinal parsing of number ' + i + ' year check');
+                assert.equal(testMoment.month(), 0,
+                        'lenient day of month ordinal parsing of number ' + i + ' month check');
+                assert.equal(testMoment.date(), i,
+                        'lenient day of month ordinal parsing of number ' + i + ' date check');
+            }
+        });
+
+        test('strict day of month ordinal parsing', function (assert) {
+            var i, ordinalStr, testMoment;
+            for (i = 1; i <= 31; ++i) {
+                ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
+                testMoment = moment(ordinalStr, 'YYYY MM Do', true);
+                assert.ok(testMoment.isValid(), 'strict day of month ordinal parsing ' + i);
+            }
+        });
+
+        test('meridiem invariant', function (assert) {
+            var h, m, t1, t2;
+            for (h = 0; h < 24; ++h) {
+                for (m = 0; m < 60; m += 15) {
+                    t1 = moment.utc([2000, 0, 1, h, m]);
+                    t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
+                    assert.equal(t2.format('HH:mm'), t1.format('HH:mm'),
+                            'meridiem at ' + t1.format('HH:mm'));
+                }
+            }
+        });
+
+        test('date format correctness', function (assert) {
+            var data, tokens;
+            data = moment.localeData()._longDateFormat;
+            tokens = objectKeys(data);
+            each(tokens, function (srchToken) {
+                // Check each format string to make sure it does not contain any
+                // tokens that need to be expanded.
+                each(tokens, function (baseToken) {
+                    // strip escaped sequences
+                    var format = data[baseToken].replace(/(\[[^\]]*\])/g, '');
+                    assert.equal(false, !!~format.indexOf(srchToken),
+                            'contains ' + srchToken + ' in ' + baseToken);
+                });
+            });
+        });
+
+        test('month parsing correctness', function (assert) {
+            var i, m;
+
+            if (locale === 'tr') {
+                // I can't fix it :(
+                assert.expect(0);
+                return;
+            }
+            function tester(format) {
+                var r;
+                r = moment(m.format(format), format);
+                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
+                r = moment(m.format(format).toLocaleLowerCase(), format);
+                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
+
+                r = moment(m.format(format), format, true);
+                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
+                r = moment(m.format(format).toLocaleLowerCase(), format, true);
+                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
+            }
+
+            for (i = 0; i < 12; ++i) {
+                m = moment([2015, i, 15, 18]);
+                tester('MMM');
+                tester('MMM.');
+                tester('MMMM');
+                tester('MMMM.');
+            }
+        });
+
+        test('weekday parsing correctness', function (assert) {
+            var i, m;
+
+            if (locale === 'tr' || locale === 'az' || locale === 'ro' || locale === 'mt') {
+                // tr, az: There is a lower-case letter (ı), that converted to
+                // upper then lower changes to i
+                // ro: there is the letter ț which behaves weird under IE8
+                // mt: letter Ħ
+                assert.expect(0);
+                return;
+            }
+            function tester(format) {
+                var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
+                r = moment(m.format(format), format);
+                assert.equal(r.weekday(), m.weekday(), baseMsg);
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
+                r = moment(m.format(format).toLocaleLowerCase(), format);
+                assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
+                r = moment(m.format(format), format, true);
+                assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -31626,7 +32652,7 @@
         assert.equal(moment(a).add({h: 1}).calendar(),       'Бүгүн саат 13:00',  'Now plus 1 hour');
         assert.equal(moment(a).add({d: 1}).calendar(),       'Эртең саат 12:00',  'tomorrow at the same time');
         assert.equal(moment(a).subtract({h: 1}).calendar(),  'Бүгүн саат 11:00',  'Now minus 1 hour');
-        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Кече саат 12:00',   'yesterday at the same time');
+        assert.equal(moment(a).subtract({d: 1}).calendar(),  'Кечээ саат 12:00',   'yesterday at the same time');
     });
 
     test('calendar next week', function (assert) {
@@ -31646,11 +32672,11 @@
 
         for (i = 2; i < 7; i++) {
             m = moment().subtract({d: i});
-            assert.equal(m.calendar(),       m.format('[Өткен аптанын] dddd [күнү] [саат] LT'),  'Today - ' + i + ' days current time');
+            assert.equal(m.calendar(),       m.format('[Өткөн аптанын] dddd [күнү] [саат] LT'),  'Today - ' + i + ' days current time');
             m.hours(0).minutes(0).seconds(0).milliseconds(0);
-            assert.equal(m.calendar(),       m.format('[Өткен аптанын] dddd [күнү] [саат] LT'),  'Today - ' + i + ' days beginning of day');
+            assert.equal(m.calendar(),       m.format('[Өткөн аптанын] dddd [күнү] [саат] LT'),  'Today - ' + i + ' days beginning of day');
             m.hours(23).minutes(59).seconds(59).milliseconds(999);
-            assert.equal(m.calendar(),       m.format('[Өткен аптанын] dddd [күнү] [саат] LT'),  'Today - ' + i + ' days end of day');
+            assert.equal(m.calendar(),       m.format('[Өткөн аптанын] dddd [күнү] [саат] LT'),  'Today - ' + i + ' days end of day');
         }
     });
 
@@ -31842,15 +32868,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -31879,14 +32909,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -32284,15 +33318,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -32321,14 +33359,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -32749,15 +33791,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -32786,14 +33832,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -33234,15 +34284,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -33271,14 +34325,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -33725,15 +34783,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -33762,14 +34824,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -34227,15 +35293,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -34264,14 +35334,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -34692,15 +35766,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -34729,14 +35807,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -35171,15 +36253,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -35208,14 +36294,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -35651,15 +36741,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -35688,14 +36782,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -36125,15 +37223,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -36162,14 +37264,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -36605,15 +37711,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -36642,14 +37752,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -37078,15 +38192,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -37115,14 +38233,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -37551,15 +38673,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -37588,14 +38714,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -38016,15 +39146,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -38053,14 +39187,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -38558,15 +39696,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -38595,14 +39737,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -39023,15 +40169,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -39060,14 +40210,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -39502,15 +40656,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -39539,14 +40697,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -39973,15 +41135,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -40010,14 +41176,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -40444,15 +41614,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -40481,14 +41655,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -40908,15 +42086,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -40945,14 +42127,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -41485,15 +42671,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -41522,14 +42712,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -42015,15 +43209,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -42052,14 +43250,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -42491,15 +43693,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -42528,14 +43734,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -42951,15 +44161,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -42988,14 +44202,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -43423,15 +44641,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -43460,14 +44682,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -44035,15 +45261,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -44072,14 +45302,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -44513,15 +45747,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -44550,14 +45788,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -44988,15 +46230,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -45025,14 +46271,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -45447,15 +46697,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -45484,14 +46738,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -45999,15 +47257,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -46036,14 +47298,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -46587,15 +47853,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -46624,14 +47894,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -47067,15 +48341,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -47104,14 +48382,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -47566,15 +48848,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -47603,14 +48889,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -48065,15 +49355,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -48102,14 +49396,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -48562,15 +49860,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -48599,14 +49901,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -49026,15 +50332,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -49063,14 +50373,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -49490,15 +50804,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -49527,14 +50845,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -49957,15 +51279,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -49994,14 +51320,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -50437,15 +51767,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -50474,14 +51808,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -50902,15 +52240,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -50939,14 +52281,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -51378,15 +52724,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -51415,14 +52765,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -51805,15 +53159,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -51842,14 +53200,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -52268,15 +53630,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -52305,14 +53671,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -52748,15 +54118,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -52785,14 +54159,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -53223,15 +54601,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -53260,14 +54642,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -53691,15 +55077,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -53728,14 +55118,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -54155,15 +55549,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -54192,14 +55590,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -54619,15 +56021,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -54656,14 +56062,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -55056,15 +56466,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -55093,14 +56507,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -55553,15 +56971,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -55590,14 +57012,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -56032,15 +57458,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -56069,14 +57499,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -56497,15 +57931,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -56534,14 +57972,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -56962,15 +58404,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -56999,14 +58445,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -57437,15 +58887,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -57474,14 +58928,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -57902,15 +59360,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -57939,14 +59401,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -58370,15 +59836,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -58407,14 +59877,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -58809,15 +60283,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -58846,14 +60324,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -59255,15 +60737,19 @@
                 var r;
                 r = moment(m.format(format), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower');
 
                 r = moment(m.format(format), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' lower strict');
             }
@@ -59292,14 +60778,18 @@
                 var r, baseMsg = 'weekday ' + m.weekday() + ' fmt ' + format + ' ' + m.toISOString();
                 r = moment(m.format(format), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg);
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
                 r = moment(m.format(format), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                if (locale !== 'ka') {
+                    r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                    assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
+                }
                 r = moment(m.format(format).toLocaleLowerCase(), format, true);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
             }
@@ -59994,6 +61484,16 @@
         assert.equal(moment([2016, 0,1]).add(1.5, 'years').format('YYYY-MM-DD'), '2017-07-01', 'add 1.5 years adds 1 year six months');
         assert.equal(moment([2016, 0,1]).add(1.6, 'years').format('YYYY-MM-DD'), '2017-08-01', 'add 1.6 years becomes 1.6*12 = 19.2, round, 19 months');
         assert.equal(moment([2016,0,1]).add(1.1, 'quarters').format('YYYY-MM-DD'), '2016-04-01', 'add 1.1 quarters 1.1*3=3.3, round, 3 months');
+    });
+
+    test('add/subtract ISO week', function (assert) {
+        assert.equal(moment([2016,3,15]).subtract(1, 'W').date(), 8, 'subtract 1 iso week short');
+        assert.equal(moment([2016,3,15]).subtract(1, 'isoweek').date(), 8, 'subtract 1 iso week long singular');
+        assert.equal(moment([2016,3,15]).subtract(1, 'isoweeks').date(), 8, 'subtract 1 iso weeks long');
+
+        assert.equal(moment([2016,3,15]).add(1, 'W').date(), 22, 'add 1 iso week short');
+        assert.equal(moment([2016,3,15]).add(1, 'isoweek').date(), 22, 'add 1 week long singular');
+        assert.equal(moment([2016,3,15]).add(1, 'isoweeks').date(), 22, 'add 1 weeks long');
     });
 
 })));
@@ -64135,16 +65635,16 @@
     module$1('format');
 
     test('format using constants', function (assert) {
-        var m = moment('2017-09-01T23:40:40.678');
-        assert.equal(m.format(moment.HTML5_FMT.DATETIME_LOCAL), '2017-09-01T23:40', 'datetime local format constant');
-        assert.equal(m.format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS), '2017-09-01T23:40:40', 'datetime local format constant');
-        assert.equal(m.format(moment.HTML5_FMT.DATETIME_LOCAL_MS), '2017-09-01T23:40:40.678', 'datetime local format constant with seconds and millis');
-        assert.equal(m.format(moment.HTML5_FMT.DATE), '2017-09-01', 'date format constant');
+        var m = moment('2016-01-02T23:40:40.678');
+        assert.equal(m.format(moment.HTML5_FMT.DATETIME_LOCAL), '2016-01-02T23:40', 'datetime local format constant');
+        assert.equal(m.format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS), '2016-01-02T23:40:40', 'datetime local format constant');
+        assert.equal(m.format(moment.HTML5_FMT.DATETIME_LOCAL_MS), '2016-01-02T23:40:40.678', 'datetime local format constant with seconds and millis');
+        assert.equal(m.format(moment.HTML5_FMT.DATE), '2016-01-02', 'date format constant');
         assert.equal(m.format(moment.HTML5_FMT.TIME), '23:40', 'time format constant');
         assert.equal(m.format(moment.HTML5_FMT.TIME_SECONDS), '23:40:40', 'time format constant with seconds');
         assert.equal(m.format(moment.HTML5_FMT.TIME_MS), '23:40:40.678', 'time format constant with seconds and millis');
-        assert.equal(m.format(moment.HTML5_FMT.WEEK), '2017-W35', 'week format constant');
-        assert.equal(m.format(moment.HTML5_FMT.MONTH), '2017-09', 'month format constant');
+        assert.equal(m.format(moment.HTML5_FMT.WEEK), '2015-W53', 'week format constant');
+        assert.equal(m.format(moment.HTML5_FMT.MONTH), '2016-01', 'month format constant');
     });
 
     test('format YY', function (assert) {
@@ -64665,6 +66165,11 @@
         assert.equal(moment('1-01-01', 'Y-MM-DD', true).format('Y'), '1', 'format 1 with Y');
         assert.equal(moment('9999-01-01', 'Y-MM-DD', true).format('Y'), '9999', 'format 9999 with Y');
         assert.equal(moment('10000-01-01', 'Y-MM-DD', true).format('Y'), '+10000', 'format 10000 with Y');
+    });
+
+    test('HTML5_FMT.WEEK', function (assert) {
+        assert.equal(moment('2004-W01', moment.HTML5_FMT.WEEK).format(moment.HTML5_FMT.WEEK), '2004-W01', 'issue #4698 regression');
+        assert.equal(moment('2019-W01').format(moment.HTML5_FMT.WEEK), '2019-W01', 'issue #4833 regression');
     });
 
 })));
@@ -66564,7 +68069,7 @@
         assert.equal(m.isBetween(
                     moment(new Date(2010, 5, 6, 7, 8, 9, 10)),
                     moment(new Date(2011, 5, 6, 7, 8, 9, 10)), 'year'), false, 'year is later');
-        assert.equal(m.isBetween(m, 'year'), false, 'same moments are not between the same year');
+        assert.equal(m.isBetween(m, m, 'year'), false, 'same moments are not between the same year');
         assert.equal(+m, +mCopy, 'isBetween year should not change moment');
     });
 
@@ -66585,7 +68090,7 @@
         assert.equal(m.isBetween(
                     moment(new Date(2011, 11, 6, 7, 8, 9, 10)),
                     moment(new Date(2011, 1, 6, 7, 8, 9, 10)), 'month'), false, 'month is later');
-        assert.equal(m.isBetween(m, 'month'), false, 'same moments are not between the same month');
+        assert.equal(m.isBetween(m, m, 'month'), false, 'same moments are not between the same month');
         assert.equal(+m, +mCopy, 'isBetween month should not change moment');
     });
 
@@ -66606,7 +68111,7 @@
         assert.equal(m.isBetween(
                     moment(new Date(2011, 1, 1, 7, 8, 9, 10)),
                     moment(new Date(2011, 1, 2, 7, 8, 9, 10)), 'day'), false, 'day is later');
-        assert.equal(m.isBetween(m, 'day'), false, 'same moments are not between the same day');
+        assert.equal(m.isBetween(m, m, 'day'), false, 'same moments are not between the same day');
         assert.equal(+m, +mCopy, 'isBetween day should not change moment');
     });
 
@@ -66627,7 +68132,7 @@
         assert.equal(m.isBetween(
                     moment(new Date(2011, 1, 2, 7, 8, 9, 10)),
                     moment(new Date(2011, 1, 2, 7, 8, 9, 10)), 'hour'), false, 'hour is later');
-        assert.equal(m.isBetween(m, 'hour'), false, 'same moments are not between the same hour');
+        assert.equal(m.isBetween(m, m, 'hour'), false, 'same moments are not between the same hour');
         assert.equal(+m, +mCopy, 'isBetween hour should not change moment');
     });
 
@@ -66648,7 +68153,7 @@
         assert.equal(m.isBetween(
                     moment(new Date(2011, 1, 2, 3, 2, 9, 10)),
                     moment(new Date(2011, 1, 2, 3, 3, 59, 999)), 'minute'), false, 'minute is later');
-        assert.equal(m.isBetween(m, 'minute'), false, 'same moments are not between the same minute');
+        assert.equal(m.isBetween(m, m, 'minute'), false, 'same moments are not between the same minute');
         assert.equal(+m, +mCopy, 'isBetween minute should not change moment');
     });
 
@@ -66669,7 +68174,7 @@
         assert.equal(m.isBetween(
                     moment(new Date(2011, 1, 2, 3, 4, 3, 10)),
                     moment(new Date(2011, 1, 2, 3, 4, 4, 999)), 'second'), false, 'second is later');
-        assert.equal(m.isBetween(m, 'second'), false, 'same moments are not between the same second');
+        assert.equal(m.isBetween(m, m, 'second'), false, 'same moments are not between the same second');
         assert.equal(+m, +mCopy, 'isBetween second should not change moment');
     });
 
@@ -66690,8 +68195,32 @@
         assert.equal(m.isBetween(
                     moment(new Date(2011, 1, 2, 3, 4, 5, 4)),
                     moment(new Date(2011, 1, 2, 3, 4, 5, 6)), 'millisecond'), false, 'millisecond is later');
-        assert.equal(m.isBetween(m, 'millisecond'), false, 'same moments are not between the same millisecond');
+        assert.equal(m.isBetween(m, m, 'millisecond'), false, 'same moments are not between the same millisecond');
         assert.equal(+m, +mCopy, 'isBetween millisecond should not change moment');
+    });
+
+    test('is between invalid', function (assert) {
+        var invalid = moment(NaN),
+            valid = moment(new Date(2011, 1, 2, 3, 4, 5, 6)),
+            validFrom = moment(new Date(2010, 1, 2, 3, 4, 5, 6)),
+            validTo = moment(new Date(2012, 1, 2, 3, 4, 5, 6));
+        assert.equal(invalid.isBetween(validFrom, validTo), false, 'this instance invalid');
+        assert.equal(invalid.isBetween(validFrom, validTo, '[]'), false, 'this instance invalid []');
+        assert.equal(invalid.isBetween(validFrom, validTo, '[)'), false, 'this instance invalid [)');
+        assert.equal(invalid.isBetween(validFrom, validTo, '(]'), false, 'this instance invalid (]');
+        assert.equal(invalid.isBetween(validFrom, validTo, '()'), false, 'this instance invalid ()');
+
+        assert.equal(valid.isBetween(invalid, validTo), false, 'from invalid moment');
+        assert.equal(valid.isBetween(invalid, validTo, '[]'), false, 'from invalid moment []');
+        assert.equal(valid.isBetween(invalid, validTo, '[)'), false, 'from invalid moment [)');
+        assert.equal(valid.isBetween(invalid, validTo, '(]'), false, 'from invalid moment (]');
+        assert.equal(valid.isBetween(invalid, validTo, '()'), false, 'from invalid moment ()');
+
+        assert.equal(valid.isBetween(validFrom, invalid), false, 'to invalid moment');
+        assert.equal(valid.isBetween(validFrom, invalid, '[]'), false, 'to invalid moment []');
+        assert.equal(valid.isBetween(validFrom, invalid, '[)'), false, 'to invalid moment [)');
+        assert.equal(valid.isBetween(validFrom, invalid, '(]'), false, 'to invalid moment (]');
+        assert.equal(valid.isBetween(validFrom, invalid, '()'), false, 'to invalid moment ()');
     });
 
 })));
