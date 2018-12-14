@@ -111,8 +111,9 @@
             lastWeek : function () {
                 switch (this.day()) {
                     case 0:
-                    case 3:
                         return '[prošlu] [nedjelju] [u] LT';
+                    case 3:
+                        return '[prošlu] [srijedu] [u] LT';
                     case 6:
                         return '[prošle] [subote] [u] LT';
                     case 1:
