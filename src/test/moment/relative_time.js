@@ -96,7 +96,7 @@ test('custom thresholds', function (assert) {
 
     a = moment();
     a.subtract(54, 'seconds');
-    assert.equal(a.fromNow(), 'a few seconds ago', 'Below custom seconds to minutes threshold');
+    assert.equal(a.fromNow(), '54 seconds ago', 'Below custom seconds to minutes threshold');
     a.subtract(1, 'seconds');
     assert.equal(a.fromNow(), 'a minute ago', 'Above custom seconds to minutes threshold');
 
@@ -148,6 +148,16 @@ test('custom thresholds', function (assert) {
     a.subtract(1, 'months');
     assert.equal(a.fromNow(), 'a year ago', 'Above custom days to years threshold');
     moment.relativeTimeThreshold('M', 11);
+
+    // multiple thresholds
+    moment.relativeTimeThreshold('ss', 3);
+    a = moment();
+    a.subtract(4, 'seconds');
+    assert.equal(a.fromNow(), '4 seconds ago', 'Before setting s relative time threshold');
+    moment.relativeTimeThreshold('s', 59);
+    assert.equal(a.fromNow(), '4 seconds ago', 'After setting s relative time threshold');
+    moment.relativeTimeThreshold('ss', 44);
+    moment.relativeTimeThreshold('s', 45);
 });
 
 test('custom rounding', function (assert) {

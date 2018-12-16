@@ -63,7 +63,7 @@ export function getSetRelativeTimeThreshold (threshold, limit) {
         return thresholds[threshold];
     }
     thresholds[threshold] = limit;
-    if (threshold === 's') {
+    if (threshold === 's' && thresholds.ss >= limit) {
         thresholds.ss = limit - 1;
     }
     return true;
