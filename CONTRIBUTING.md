@@ -27,7 +27,7 @@ Starting from version 2.10.0 the code is placed under `src/`.
 * `src/test/moment/*.js` moment core tests
 * `src/test/locale/*.js` locale tests
 
-We're using ES6 module system, but nothing else ES6, because of performance
+We are using ES6 module system, but nothing else ES6, because of performance
 considerations (added code by the transpiler, less than optimal translation to
 ES5). So please do not use that fancy new ES6 feature in your patch, it won't
 be accepted.
