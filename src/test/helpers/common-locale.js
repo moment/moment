@@ -1,7 +1,7 @@
 import { test } from '../qunit.js';
 import each from './each.js';
 import objectKeys from './object-keys.js';
-import moment from '../../moment.js.js';
+import moment from '../../moment.js';
 import defaults from '../../lib/utils/defaults.js';
 
 export function defineCommonLocaleTests(locale, options) {
