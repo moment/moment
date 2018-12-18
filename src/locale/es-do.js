@@ -1,7 +1,7 @@
 //! moment.js locale configuration
 //! locale : Spanish (Dominican Republic) [es-do]
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var monthsShortDot = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split('_'),
     monthsShort = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_');

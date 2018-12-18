@@ -1,14 +1,14 @@
-import { Locale } from './constructor';
+import { Locale } from './constructor.js';
 
 var proto = Locale.prototype;
 
-import { calendar } from './calendar';
-import { longDateFormat } from './formats';
-import { invalidDate } from './invalid';
-import { ordinal } from './ordinal';
-import { preParsePostFormat } from './pre-post-format';
-import { relativeTime, pastFuture } from './relative';
-import { set } from './set';
+import { calendar } from './calendar.js';
+import { longDateFormat } from './formats.js';
+import { invalidDate } from './invalid.js';
+import { ordinal } from './ordinal.js';
+import { preParsePostFormat } from './pre-post-format.js';
+import { relativeTime, pastFuture } from './relative.js';
+import { set } from './set.js';
 
 proto.calendar        = calendar;
 proto.longDateFormat  = longDateFormat;
@@ -27,7 +27,7 @@ import {
     localeMonthsShort,
     monthsRegex,
     monthsShortRegex
-} from '../units/month';
+} from '../units/month.js';
 
 proto.months            =        localeMonths;
 proto.monthsShort       =        localeMonthsShort;
@@ -36,7 +36,7 @@ proto.monthsRegex       = monthsRegex;
 proto.monthsShortRegex  = monthsShortRegex;
 
 // Week
-import { localeWeek, localeFirstDayOfYear, localeFirstDayOfWeek } from '../units/week';
+import { localeWeek, localeFirstDayOfYear, localeFirstDayOfWeek } from '../units/week.js';
 proto.week = localeWeek;
 proto.firstDayOfYear = localeFirstDayOfYear;
 proto.firstDayOfWeek = localeFirstDayOfWeek;
@@ -51,7 +51,7 @@ import {
     weekdaysRegex,
     weekdaysShortRegex,
     weekdaysMinRegex
-} from '../units/day-of-week';
+} from '../units/day-of-week.js';
 
 proto.weekdays       =        localeWeekdays;
 proto.weekdaysMin    =        localeWeekdaysMin;
@@ -63,7 +63,7 @@ proto.weekdaysShortRegex  =        weekdaysShortRegex;
 proto.weekdaysMinRegex    =        weekdaysMinRegex;
 
 // Hours
-import { localeIsPM, localeMeridiem } from '../units/hour';
+import { localeIsPM, localeMeridiem } from '../units/hour.js';
 
 proto.isPM = localeIsPM;
 proto.meridiem = localeMeridiem;

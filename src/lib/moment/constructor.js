@@ -1,7 +1,7 @@
-import { hooks } from '../utils/hooks';
-import hasOwnProp from '../utils/has-own-prop';
-import isUndefined from '../utils/is-undefined';
-import getParsingFlags from '../create/parsing-flags';
+import { hooks } from '../utils/hooks.js';
+import hasOwnProp from '../utils/has-own-prop.js';
+import isUndefined from '../utils/is-undefined.js';
+import getParsingFlags from '../create/parsing-flags.js';
 
 // Plugins that add properties should also add the key here (null value),
 // so we can properly clone ourselves.

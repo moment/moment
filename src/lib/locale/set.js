@@ -1,7 +1,7 @@
-import isFunction from '../utils/is-function';
-import extend from '../utils/extend';
-import isObject from '../utils/is-object';
-import hasOwnProp from '../utils/has-own-prop';
+import isFunction from '../utils/is-function.js';
+import extend from '../utils/extend.js';
+import isObject from '../utils/is-object.js';
+import hasOwnProp from '../utils/has-own-prop.js';
 
 export function set (config) {
     var prop, i;

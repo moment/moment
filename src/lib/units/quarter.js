@@ -1,10 +1,10 @@
-import { addFormatToken } from '../format/format';
-import { addUnitAlias } from './aliases';
-import { addUnitPriority } from './priorities';
-import { addRegexToken, match1 } from '../parse/regex';
-import { addParseToken } from '../parse/token';
-import { MONTH } from './constants';
-import toInt from '../utils/to-int';
+import { addFormatToken } from '../format/format.js';
+import { addUnitAlias } from './aliases.js';
+import { addUnitPriority } from './priorities.js';
+import { addRegexToken, match1 } from '../parse/regex.js';
+import { addParseToken } from '../parse/token.js';
+import { MONTH } from './constants.js';
+import toInt from '../utils/to-int.js';
 
 // FORMATTING
 

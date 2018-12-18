@@ -15,7 +15,7 @@ export var defaultRelativeTime = {
     yy : '%d years'
 };
 
-import isFunction from '../utils/is-function';
+import isFunction from '../utils/is-function.js';
 
 export function relativeTime (number, withoutSuffix, string, isFuture) {
     var output = this._relativeTime[string];

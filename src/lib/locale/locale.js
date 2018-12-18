@@ -1,5 +1,5 @@
 // Side effect imports
-import './prototype';
+import './prototype.js';
 
 import {
     getSetGlobalLocale,
@@ -7,7 +7,7 @@ import {
     updateLocale,
     getLocale,
     listLocales
-} from './locales';
+} from './locales.js';
 
 import {
     listMonths,
@@ -15,7 +15,7 @@ import {
     listWeekdays,
     listWeekdaysShort,
     listWeekdaysMin
-} from './lists';
+} from './lists.js';
 
 export {
     getSetGlobalLocale,
@@ -30,10 +30,10 @@ export {
     listWeekdaysMin
 };
 
-import { deprecate } from '../utils/deprecate';
-import { hooks } from '../utils/hooks';
+import { deprecate } from '../utils/deprecate.js';
+import { hooks } from '../utils/hooks.js';
 
 hooks.lang = deprecate('moment.lang is deprecated. Use moment.locale instead.', getSetGlobalLocale);
 hooks.langData = deprecate('moment.langData is deprecated. Use moment.localeData instead.', getLocale);
 
-import './en';
+import './en.js';

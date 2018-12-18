@@ -2,7 +2,7 @@
 //! locale : Portuguese [pt]
 //! author : Jefferson : https://github.com/jalex79
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('pt', {
     months : 'janeiro_fevereiro_março_abril_maio_junho_julho_agosto_setembro_outubro_novembro_dezembro'.split('_'),

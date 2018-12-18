@@ -1,7 +1,7 @@
-import { createLocal } from '../create/local';
-import { cloneWithOffset } from '../units/offset';
-import isFunction from '../utils/is-function';
-import { hooks } from '../utils/hooks';
+import { createLocal } from '../create/local.js';
+import { cloneWithOffset } from '../units/offset.js';
+import isFunction from '../utils/is-function.js';
+import { hooks } from '../utils/hooks.js';
 
 export function getCalendarFormat(myMoment, now) {
     var diff = myMoment.diff(now, 'days', true);

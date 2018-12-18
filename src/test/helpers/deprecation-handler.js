@@ -1,4 +1,4 @@
-import each from './each';
+import each from './each.js';
 
 export function setupDeprecationHandler(test, moment, scope) {
     test._expectedDeprecations = null;

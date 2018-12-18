@@ -2,7 +2,7 @@
 //! locale : Cambodian [km]
 //! author : Kruy Vanna : https://github.com/kruyvanna
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var symbolMap = {
     '1': '១',

@@ -4,7 +4,7 @@
 //! author : Mia Nordentoft Imperatori : https://github.com/miestasmia
 //! comment : miestasmia corrected the translation by colindean
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('eo', {
     months : 'januaro_februaro_marto_aprilo_majo_junio_julio_aŭgusto_septembro_oktobro_novembro_decembro'.split('_'),

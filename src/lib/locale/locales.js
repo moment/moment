@@ -1,13 +1,13 @@
-import isArray from '../utils/is-array';
-import hasOwnProp from '../utils/has-own-prop';
-import isUndefined from '../utils/is-undefined';
-import compareArrays from '../utils/compare-arrays';
-import { deprecateSimple } from '../utils/deprecate';
-import { mergeConfigs } from './set';
-import { Locale } from './constructor';
-import keys from '../utils/keys';
+import isArray from '../utils/is-array.js';
+import hasOwnProp from '../utils/has-own-prop.js';
+import isUndefined from '../utils/is-undefined.js';
+import compareArrays from '../utils/compare-arrays.js';
+import { deprecateSimple } from '../utils/deprecate.js';
+import { mergeConfigs } from './set.js';
+import { Locale } from './constructor.js';
+import keys from '../utils/keys.js';
 
-import { baseConfig } from './base-config';
+import { baseConfig } from './base-config.js';
 
 // internal storage for locale config files
 var locales = {};

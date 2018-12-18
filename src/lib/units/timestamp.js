@@ -1,7 +1,7 @@
-import { addFormatToken } from '../format/format';
-import { addRegexToken, matchTimestamp, matchSigned } from '../parse/regex';
-import { addParseToken } from '../parse/token';
-import toInt from '../utils/to-int';
+import { addFormatToken } from '../format/format.js';
+import { addRegexToken, matchTimestamp, matchSigned } from '../parse/regex.js';
+import { addParseToken } from '../parse/token.js';
+import toInt from '../utils/to-int.js';
 
 // FORMATTING
 

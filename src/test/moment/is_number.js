@@ -1,4 +1,4 @@
-import { module, test } from '../qunit';
+import { module, test } from '../qunit.js';
 import isNumber from '../../lib/utils/is-number.js';
 
 

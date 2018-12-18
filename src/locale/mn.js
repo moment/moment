@@ -2,7 +2,7 @@
 //! locale : Mongolian [mn]
 //! author : Javkhlantugs Nyamdorj : https://github.com/javkhaanj7
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 function translate(number, withoutSuffix, key, isFuture) {
     switch (key) {
