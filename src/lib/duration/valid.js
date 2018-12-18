@@ -1,7 +1,7 @@
-import toInt from '../utils/to-int';
-import indexOf from '../utils/index-of';
-import {Duration} from './constructor';
-import {createDuration} from './create';
+import toInt from '../utils/to-int.js';
+import indexOf from '../utils/index-of.js';
+import {Duration} from './constructor.js';
+import {createDuration} from './create.js';
 
 var ordering = ['year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', 'millisecond'];
 

@@ -1,5 +1,5 @@
-import { normalizeObjectUnits } from '../units/aliases';
-import { getLocale } from '../locale/locales';
+import { normalizeObjectUnits } from '../units/aliases.js';
+import { getLocale } from '../locale/locales.js';
 import isDurationValid from './valid.js';
 
 export function Duration (duration) {

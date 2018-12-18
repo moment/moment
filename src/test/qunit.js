@@ -1,7 +1,7 @@
 /*global QUnit:false*/
 
-import moment from '../moment';
-import { setupDeprecationHandler, teardownDeprecationHandler } from './helpers/deprecation-handler';
+import moment from '../moment.js';
+import { setupDeprecationHandler, teardownDeprecationHandler } from './helpers/deprecation-handler.js';
 
 export var test = QUnit.test;
 

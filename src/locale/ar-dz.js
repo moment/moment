@@ -2,7 +2,7 @@
 //! locale : Arabic (Algeria) [ar-dz]
 //! author : Noureddine LOUAHEDJ : https://github.com/noureddineme
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('ar-dz', {
     months : 'جانفي_فيفري_مارس_أفريل_ماي_جوان_جويلية_أوت_سبتمبر_أكتوبر_نوفمبر_ديسمبر'.split('_'),

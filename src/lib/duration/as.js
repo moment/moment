@@ -1,6 +1,6 @@
-import { daysToMonths, monthsToDays } from './bubble';
-import { normalizeUnits } from '../units/aliases';
-import toInt from '../utils/to-int';
+import { daysToMonths, monthsToDays } from './bubble.js';
+import { normalizeUnits } from '../units/aliases.js';
+import toInt from '../utils/to-int.js';
 
 export function as (units) {
     if (!this.isValid()) {

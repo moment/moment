@@ -1,4 +1,4 @@
-import { module, test } from '../qunit';
+import { module, test } from '../qunit.js';
 import isArray from '../../lib/utils/is-array.js';
 
 

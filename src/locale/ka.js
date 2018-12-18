@@ -2,7 +2,7 @@
 //! locale : Georgian [ka]
 //! author : Irakli Janiashvili : https://github.com/irakli-janiashvili
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('ka', {
     months : {

@@ -2,7 +2,7 @@
 //! locale : Nepalese [ne]
 //! author : suvash : https://github.com/suvash
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var symbolMap = {
     '1': '१',

@@ -4,9 +4,9 @@
 //! license : MIT
 //! momentjs.com
 
-import { hooks as moment, setHookCallback } from './lib/utils/hooks';
+import { hooks as moment, setHookCallback } from './lib/utils/hooks.js';
 
-moment.version = '2.23.0';
+moment.version = '2.23.0.js';
 
 import {
     min,
@@ -19,11 +19,11 @@ import {
     createLocal     as local,
     createInvalid   as invalid,
     createInZone    as parseZone
-} from './lib/moment/moment';
+} from './lib/moment/moment.js';
 
 import {
     getCalendarFormat
-} from './lib/moment/calendar';
+} from './lib/moment/calendar.js';
 
 import {
     defineLocale,
@@ -36,18 +36,18 @@ import {
     listWeekdays       as weekdays,
     listWeekdaysMin    as weekdaysMin,
     listWeekdaysShort  as weekdaysShort
-} from './lib/locale/locale';
+} from './lib/locale/locale.js';
 
 import {
     isDuration,
     createDuration              as duration,
     getSetRelativeTimeRounding  as relativeTimeRounding,
     getSetRelativeTimeThreshold as relativeTimeThreshold
-} from './lib/duration/duration';
+} from './lib/duration/duration.js';
 
-import { normalizeUnits } from './lib/units/units';
+import { normalizeUnits } from './lib/units/units.js';
 
-import isDate from './lib/utils/is-date';
+import isDate from './lib/utils/is-date.js';
 
 setHookCallback(local);
 

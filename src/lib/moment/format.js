@@ -1,6 +1,6 @@
-import { formatMoment } from '../format/format';
-import { hooks } from '../utils/hooks';
-import isFunction from '../utils/is-function';
+import { formatMoment } from '../format/format.js';
+import { hooks } from '../utils/hooks.js';
+import isFunction from '../utils/is-function.js';
 
 hooks.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ';
 hooks.defaultFormatUtc = 'YYYY-MM-DDTHH:mm:ss[Z]';

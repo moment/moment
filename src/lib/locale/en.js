@@ -1,6 +1,6 @@
-import './prototype';
-import { getSetGlobalLocale } from './locales';
-import toInt from '../utils/to-int';
+import './prototype.js';
+import { getSetGlobalLocale } from './locales.js';
+import toInt from '../utils/to-int.js';
 
 getSetGlobalLocale('en', {
     dayOfMonthOrdinalParse: /\d{1,2}(th|st|nd|rd)/,

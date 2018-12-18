@@ -2,7 +2,7 @@
 //! locale : Tajik [tg]
 //! author : Orif N. Jr. : https://github.com/orif-jr
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var suffixes = {
     0: '-ум',

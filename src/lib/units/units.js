@@ -1,20 +1,20 @@
 // Side effect imports
-import './day-of-month';
-import './day-of-week';
-import './day-of-year';
-import './hour';
-import './millisecond';
-import './minute';
-import './month';
-import './offset';
-import './quarter';
-import './second';
-import './timestamp';
-import './timezone';
-import './week-year';
-import './week';
-import './year';
+import './day-of-month.js';
+import './day-of-week.js';
+import './day-of-year.js';
+import './hour.js';
+import './millisecond.js';
+import './minute.js';
+import './month.js';
+import './offset.js';
+import './quarter.js';
+import './second.js';
+import './timestamp.js';
+import './timezone.js';
+import './week-year.js';
+import './week.js';
+import './year.js';
 
-import { normalizeUnits } from './aliases';
+import { normalizeUnits } from './aliases.js';
 
 export { normalizeUnits };

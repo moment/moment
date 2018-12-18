@@ -1,12 +1,12 @@
-import { Duration, isDuration } from './constructor';
-import isNumber from '../utils/is-number';
-import toInt from '../utils/to-int';
-import absRound from '../utils/abs-round';
-import hasOwnProp from '../utils/has-own-prop';
-import { DATE, HOUR, MINUTE, SECOND, MILLISECOND } from '../units/constants';
-import { cloneWithOffset } from '../units/offset';
-import { createLocal } from '../create/local';
-import { createInvalid as invalid } from './valid';
+import { Duration, isDuration } from './constructor.js';
+import isNumber from '../utils/is-number.js';
+import toInt from '../utils/to-int.js';
+import absRound from '../utils/abs-round.js';
+import hasOwnProp from '../utils/has-own-prop.js';
+import { DATE, HOUR, MINUTE, SECOND, MILLISECOND } from '../units/constants.js';
+import { cloneWithOffset } from '../units/offset.js';
+import { createLocal } from '../create/local.js';
+import { createInvalid as invalid } from './valid.js';
 
 // ASP.NET json date format regex
 var aspNetRegex = /^(\-|\+)?(?:(\d*)[. ])?(\d+)\:(\d+)(?:\:(\d+)(\.\d*)?)?$/;

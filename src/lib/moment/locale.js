@@ -1,5 +1,5 @@
-import { getLocale } from '../locale/locales';
-import { deprecate } from '../utils/deprecate';
+import { getLocale } from '../locale/locales.js';
+import { deprecate } from '../utils/deprecate.js';
 
 // If passed a locale key, it will set the locale for this
 // instance.  Otherwise, it will return the locale configuration

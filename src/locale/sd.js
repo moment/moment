@@ -2,7 +2,7 @@
 //! locale : Sindhi [sd]
 //! author : Narain Sagar : https://github.com/narainsagar
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var months = [
     'جنوري',

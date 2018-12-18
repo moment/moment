@@ -2,7 +2,7 @@
 //! locale : Kurdish [ku]
 //! author : Shahram Mebashar : https://github.com/ShahramMebashar
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var symbolMap = {
     '1': '١',

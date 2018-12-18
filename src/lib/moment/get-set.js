@@ -1,9 +1,9 @@
-import { normalizeUnits, normalizeObjectUnits } from '../units/aliases';
-import { getPrioritizedUnits } from '../units/priorities';
-import { hooks } from '../utils/hooks';
-import isFunction from '../utils/is-function';
-import { daysInMonth } from '../units/month';
-import { isLeapYear } from '../units/year';
+import { normalizeUnits, normalizeObjectUnits } from '../units/aliases.js';
+import { getPrioritizedUnits } from '../units/priorities.js';
+import { hooks } from '../utils/hooks.js';
+import isFunction from '../utils/is-function.js';
+import { daysInMonth } from '../units/month.js';
+import { isLeapYear } from '../units/year.js';
 
 export function makeGetSet (unit, keepTime) {
     return function (value) {

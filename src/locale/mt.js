@@ -2,7 +2,7 @@
 //! locale : Maltese (Malta) [mt]
 //! author : Alessandro Maruccia : https://github.com/alesma
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('mt', {
     months : 'Jannar_Frar_Marzu_April_Mejju_Ġunju_Lulju_Awwissu_Settembru_Ottubru_Novembru_Diċembru'.split('_'),

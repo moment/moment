@@ -2,7 +2,7 @@
 //! locale : Faroese [fo]
 //! author : Ragnar Johannesen : https://github.com/ragnar123
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('fo', {
     months : 'januar_februar_mars_apríl_mai_juni_juli_august_september_oktober_november_desember'.split('_'),

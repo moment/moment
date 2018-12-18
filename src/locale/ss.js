@@ -3,7 +3,7 @@
 //! author : Nicolai Davies<mail@nicolai.io> : https://github.com/nicolaidavies
 
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('ss', {
     months : "Bhimbidvwane_Indlovana_Indlov'lenkhulu_Mabasa_Inkhwekhweti_Inhlaba_Kholwane_Ingci_Inyoni_Imphala_Lweti_Ingongoni".split('_'),

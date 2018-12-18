@@ -2,7 +2,7 @@
 //! locale : Basque [eu]
 //! author : Eneko Illarramendi : https://github.com/eillarra
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('eu', {
     months : 'urtarrila_otsaila_martxoa_apirila_maiatza_ekaina_uztaila_abuztua_iraila_urria_azaroa_abendua'.split('_'),

@@ -1,9 +1,9 @@
 /*global QUnit:false*/
 
-import moment from '../moment';
-import { defineCommonLocaleTests } from './helpers/common-locale';
-import { setupDeprecationHandler, teardownDeprecationHandler } from './helpers/deprecation-handler';
-import { test } from './qunit';
+import moment from '../moment.js';
+import { defineCommonLocaleTests } from './helpers/common-locale.js';
+import { setupDeprecationHandler, teardownDeprecationHandler } from './helpers/deprecation-handler.js';
+import { test } from './qunit.js';
 
 export function localeModule (name, lifecycle) {
     QUnit.module('locale:' + name, {

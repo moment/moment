@@ -2,7 +2,7 @@
 //! locale : Tibetan [bo]
 //! author : Thupten N. Chakrishar : https://github.com/vajradog
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var symbolMap = {
     '1': '༡',
