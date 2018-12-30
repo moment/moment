@@ -4,7 +4,7 @@ import moment from '../../moment';
 localeModule('hu');
 
 test('parse', function (assert) {
-    var tests = 'január jan_február feb_március márc_április ápr_május máj_június jún_július júl_augusztus aug_szeptember szept_október okt_november nov_december dec'.split('_'),
+    var tests = 'január jan._február feb._március márc._április ápr._május máj._június jún._július júl._augusztus aug._szeptember szept._október okt._november nov._december dec.'.split('_'),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
@@ -26,7 +26,7 @@ test('format', function (assert) {
     var a = [
             ['dddd, MMMM Do YYYY, HH:mm:ss',      'vasárnap, február 14. 2010, 15:25:50'],
             ['ddd, HH',                            'vas, 15'],
-            ['M Mo MM MMMM MMM',                   '2 2. 02 február feb'],
+            ['M Mo MM MMMM MMM',                   '2 2. 02 február feb.'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14. 14'],
             ['d do dddd ddd dd',                   '0 0. vasárnap vas v'],
@@ -42,9 +42,9 @@ test('format', function (assert) {
             ['LLL',                                '2010. február 14. 15:25'],
             ['LLLL',                               '2010. február 14., vasárnap 15:25'],
             ['l',                                  '2010.2.14.'],
-            ['ll',                                 '2010. feb 14.'],
-            ['lll',                                '2010. feb 14. 15:25'],
-            ['llll',                               '2010. feb 14., vas 15:25']
+            ['ll',                                 '2010. feb. 14.'],
+            ['lll',                                '2010. feb. 14. 15:25'],
+            ['llll',                               '2010. feb. 14., vas 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -103,7 +103,7 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'január jan_február feb_március márc_április ápr_május máj_június jún_július júl_augusztus aug_szeptember szept_október okt_november nov_december dec'.split('_'),
+    var expected = 'január jan._február feb._március márc._április ápr._május máj._június jún._július júl._augusztus aug._szeptember szept._október okt._november nov._december dec.'.split('_'),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
@@ -221,4 +221,3 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012,  0,  8]).format('w ww wo'), '1 01 1.', 'Jan  8 2012 should be week 1');
     assert.equal(moment([2012,  0,  9]).format('w ww wo'), '2 02 2.', 'Jan  9 2012 should be week 2');
 });
-
