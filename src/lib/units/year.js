@@ -2,7 +2,7 @@ import { makeGetSet } from '../moment/get-set';
 import { addFormatToken } from '../format/format';
 import { addUnitAlias } from './aliases';
 import { addUnitPriority } from './priorities';
-import { addRegexToken, match1to2, match1to4, match1to6, match2, match4, match6, matchSigned } from '../parse/regex';
+import { addRegexToken, match1to2, match1to4, match1to6, match2or4, match2, match4, match6, matchSigned } from '../parse/regex';
 import { addParseToken } from '../parse/token';
 import { hooks } from '../utils/hooks';
 import { YEAR } from './constants';
@@ -17,6 +17,10 @@ addFormatToken('Y', 0, 0, function () {
 
 addFormatToken(0, ['YY', 2], 0, function () {
     return this.year() % 100;
+});
+
+addFormatToken(0, ['YYY', 3], 0, function () {
+    return this.year();
 });
 
 addFormatToken(0, ['YYYY',   4],       0, 'year');
@@ -35,12 +39,16 @@ addUnitPriority('year', 1);
 
 addRegexToken('Y',      matchSigned);
 addRegexToken('YY',     match1to2, match2);
+addRegexToken('YYY',    match1to4, match2or4);
 addRegexToken('YYYY',   match1to4, match4);
 addRegexToken('YYYYY',  match1to6, match6);
 addRegexToken('YYYYYY', match1to6, match6);
 
 addParseToken(['YYYYY', 'YYYYYY'], YEAR);
 addParseToken('YYYY', function (input, array) {
+    array[YEAR] = input.length === 2 ? hooks.parseTwoDigitYear(input) : toInt(input);
+});
+addParseToken('YYY', function (input, array) {
     array[YEAR] = input.length === 2 ? hooks.parseTwoDigitYear(input) : toInt(input);
 });
 addParseToken('YY', function (input, array) {

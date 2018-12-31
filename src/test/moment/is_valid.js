@@ -85,6 +85,16 @@ test('string with spaceless format', function (assert) {
     assert.equal(moment('10Sep2001', 'DDMMMYYYY').isValid(), true, 'Parsing 10Sep2001 should result in a valid date');
 });
 
+test('string with format YYY', function (assert) {
+    assert.equal(moment('2010-01-01', 'YYY-MM-DD', true).isValid(), true, '2010 should be parsed with YYY token');
+    assert.equal(moment('-123-01-01', 'YYY-MM-DD', true).isValid(), false, '-123 should be parsed with YYY token');
+    assert.equal(moment('0-01-01', 'YYY-MM-DD', true).isValid(), false, '0 should be parsed with YYY token');
+    assert.equal(moment('18-01-01', 'YYY-MM-DD', true).isValid(), true, '18 should be parsed with YYY token');
+    assert.equal(moment('123-01-01', 'YYY-MM-DD', true).isValid(), false, '123 should be parsed with YYY token');
+    assert.equal(moment('9999-01-01', 'YYY-MM-DD', true).isValid(), true, '9999 should be parsed with YYY token');
+    assert.equal(moment('10000-01-01', 'YYY-MM-DD', true).isValid(), false, '10000 should be parsed with YYY token');
+});
+
 test('invalid string iso 8601', function (assert) {
     var tests = [
         '2010-00-00',

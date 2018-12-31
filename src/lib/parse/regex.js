@@ -9,6 +9,7 @@ export var match5to6      = /\d\d\d\d\d\d?/; //   99999 - 999999
 export var match1to3      = /\d{1,3}/;       //       0 - 999
 export var match1to4      = /\d{1,4}/;       //       0 - 9999
 export var match1to6      = /[+-]?\d{1,6}/;  // -999999 - 999999
+export var match2or4      = /(\d{4}|\d\d)/;  // 00 - 99 || 0000 - 9999
 
 export var matchUnsigned  = /\d+/;           //       0 - inf
 export var matchSigned    = /[+-]?\d+/;      //    -inf - inf
