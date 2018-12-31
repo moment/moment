@@ -1,6 +1,16 @@
 Changelog
 =========
 
+### 2.23.0 [See full changelog](https://gist.github.com/marwahaha/eadb7ac11b761290399a576f8b2419a5)
+
+* Release Dec 12, 2018
+
+* [#4863](https://github.com/moment/moment/pull/4863) [new locale] added Kurdish language (ku)
+* [#4417](https://github.com/moment/moment/pull/4417) [bugfix] isBetween should return false for invalid dates
+* [#4700](https://github.com/moment/moment/pull/4700) [bugfix] Fix [#4698](https://github.com/moment/moment/pull/4698): Use ISO WeekYear for HTML5_FMT.WEEK
+* [#4563](https://github.com/moment/moment/pull/4563) [feature] Fix [#4518](https://github.com/moment/moment/pull/4518): Add support to add/subtract ISO weeks
+* other locale changes, build process changes, typos
+
 ### 2.22.2 [See full changelog](https://gist.github.com/marwahaha/4d992c13c2dbc0f59d4d8acae1dc6d3a)
 
 * Release May 31, 2018
