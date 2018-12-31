@@ -1,6 +1,6 @@
 {
   "name": "moment",
-  "version": "2.22.2",
+  "version": "2.23.0",
   "main": "moment.js",
   "description": "Parse, validate, manipulate, and display dates in JavaScript.",
   "files": [
@@ -69,6 +69,7 @@
     "locale/km.js",
     "locale/kn.js",
     "locale/ko.js",
+    "locale/ku.js",
     "locale/ky.js",
     "locale/lb.js",
     "locale/lo.js",
