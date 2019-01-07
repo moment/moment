@@ -121,11 +121,11 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'eka mintan',      '89 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '2 mintanim',     '90 seconds = 2 minutes');
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  '44 mintanim',    '44 minutes = 44 minutes');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  'eka horan',       '45 minutes = an hour');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  'eka horan',       '89 minutes = an hour');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  '2 horanim',       '90 minutes = 2 hours');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   '5 horanim',       '5 hours = 5 hours');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  '21 horanim',      '21 hours = 21 hours');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  'eka voran',       '45 minutes = an hour');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  'eka voran',       '89 minutes = an hour');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  '2 voranim',       '90 minutes = 2 hours');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   '5 voranim',       '5 hours = 5 hours');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  '21 voranim',      '21 hours = 21 hours');
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  'eka disan',         '22 hours = a day');
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  'eka disan',         '35 hours = a day');
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  '2 disanim',        '36 hours = 2 days');
@@ -161,7 +161,7 @@ test('fromNow', function (assert) {
 });
 
 test('ago', function (assert) {
-    assert.equal(moment().subtract({h: 3}).fromNow(), '3 horam adim', '3 hours ago');
+    assert.equal(moment().subtract({h: 3}).fromNow(), '3 voram adim', '3 hours ago');
 });
 
 test('calendar day', function (assert) {
