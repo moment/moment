@@ -1,6 +1,7 @@
 //! moment.js locale configuration
 //! locale : Spanish (United States) [es-us]
 //! author : bustta : https://github.com/bustta
+//! author : chrisrodz : https://github.com/chrisrodz
 
 import moment from '../moment';
 
