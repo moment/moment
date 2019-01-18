@@ -4,7 +4,7 @@ var proto = Duration.prototype;
 
 import { abs } from './abs';
 import { add, subtract } from './add-subtract';
-import { as, asMilliseconds, asSeconds, asMinutes, asHours, asDays, asWeeks, asMonths, asYears, valueOf } from './as';
+import { as, asMilliseconds, asSeconds, asMinutes, asHours, asDays, asWeeks, asMonths, asQuarters, asYears, valueOf } from './as';
 import { bubble } from './bubble';
 import { clone } from './clone';
 import { get, milliseconds, seconds, minutes, hours, days, months, years, weeks } from './get';
@@ -25,6 +25,7 @@ proto.asHours        = asHours;
 proto.asDays         = asDays;
 proto.asWeeks        = asWeeks;
 proto.asMonths       = asMonths;
+proto.asQuarters     = asQuarters;
 proto.asYears        = asYears;
 proto.valueOf        = valueOf;
 proto._bubble        = bubble;
