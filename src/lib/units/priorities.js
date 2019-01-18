@@ -1,3 +1,5 @@
+import hasOwnProp from '../utils/has-own-prop';
+
 var priorities = {};
 
 export function addUnitPriority(unit, priority) {
@@ -7,7 +9,9 @@ export function addUnitPriority(unit, priority) {
 export function getPrioritizedUnits(unitsObj) {
     var units = [];
     for (var u in unitsObj) {
-        units.push({unit: u, priority: priorities[u]});
+        if (hasOwnProp(unitsObj, u)) {
+            units.push({unit: u, priority: priorities[u]});
+        }
     }
     units.sort(function (a, b) {
         return a.priority - b.priority;
