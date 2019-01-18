@@ -57,6 +57,7 @@ test('invalid duration operations', function (assert) {
         assert.ok(isNaN(invalid.asDays()), 'invalid.asDays is NaN; i=' + i);
         assert.ok(isNaN(invalid.asWeeks()), 'invalid.asWeeks is NaN; i=' + i);
         assert.ok(isNaN(invalid.asMonths()), 'invalid.asMonths is NaN; i=' + i);
+        assert.ok(isNaN(invalid.asQuarters()), 'invalid.asQuarters is NaN; i=' + i);
         assert.ok(isNaN(invalid.asYears()), 'invalid.asYears is NaN; i=' + i);
         assert.ok(isNaN(invalid.valueOf()), 'invalid.valueOf is NaN; i=' + i);
         assert.ok(isNaN(invalid.get('hours')), 'invalid.get is NaN; i=' + i);
