@@ -41,13 +41,13 @@ test('format', function (assert) {
             ['LT',                                 '3:25 PM'],
             ['LTS',                                '3:25:50 PM'],
             ['L',                                  '02/14/2010'],
-            ['LL',                                 'febrero de 14 de 2010'],
-            ['LLL',                                'febrero de 14 de 2010 3:25 PM'],
-            ['LLLL',                               'domingo, febrero de 14 de 2010 3:25 PM'],
+            ['LL',                                 '14 de febrero de 2010'],
+            ['LLL',                                '14 de febrero de 2010 3:25 PM'],
+            ['LLLL',                               'domingo, 14 de febrero de 2010 3:25 PM'],
             ['l',                                  '2/14/2010'],
-            ['ll',                                 'feb. de 14 de 2010'],
-            ['lll',                                'feb. de 14 de 2010 3:25 PM'],
-            ['llll',                               'dom., feb. de 14 de 2010 3:25 PM']
+            ['ll',                                 '14 de feb. de 2010'],
+            ['lll',                                '14 de feb. de 2010 3:25 PM'],
+            ['llll',                               'dom., 14 de feb. de 2010 3:25 PM']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
