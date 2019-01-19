@@ -1,10 +1,10 @@
 //! moment.js locale configuration
-//! locale : English (Ireland) [en-ie]
-//! author : Chris Cartlidge : https://github.com/chriscartlidge
+//! locale : English (Singapore) [en-SG]
+//! author : Matthew Castrillon-Madrigal : https://github.com/techdimension
 
 import moment from '../moment';
 
-export default moment.defineLocale('en-ie', {
+export default moment.defineLocale('en-SG', {
     months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
     monthsShort : 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
     weekdays : 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
@@ -16,7 +16,7 @@ export default moment.defineLocale('en-ie', {
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
         LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LLLL : 'dddd, D MMMM YYYY HH:mm'
     },
     calendar : {
         sameDay : '[Today at] LT',

@@ -1,7 +1,7 @@
 import {test} from '../qunit';
 import {localeModule} from '../qunit-locale';
 import moment from '../../moment';
-localeModule('en-ie');
+localeModule('en-SG');
 
 test('parse', function (assert) {
     var tests = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sep_October Oct_November Nov_December Dec'.split('_'), i;
@@ -41,11 +41,11 @@ test('format', function (assert) {
             ['L',                                  '14/02/2010'],
             ['LL',                                 '14 February 2010'],
             ['LLL',                                '14 February 2010 15:25'],
-            ['LLLL',                               'Sunday 14 February 2010 15:25'],
+            ['LLLL',                               'Sunday, 14 February 2010 15:25'],
             ['l',                                  '14/2/2010'],
             ['ll',                                 '14 Feb 2010'],
             ['lll',                                '14 Feb 2010 15:25'],
-            ['llll',                               'Sun 14 Feb 2010 15:25']
+            ['llll',                               'Sun, 14 Feb 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
