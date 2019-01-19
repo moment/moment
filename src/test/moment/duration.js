@@ -439,13 +439,10 @@ test('humanize', function (assert) {
     assert.equal(moment.duration({hours: 35}).humanize(),    'a day',         '35 hours = a day');
     assert.equal(moment.duration({hours: 36}).humanize(),    '2 days',        '36 hours = 2 days');
     assert.equal(moment.duration({days: 1}).humanize(),      'a day',         '1 day = a day');
-    assert.equal(moment.duration({days: 6}).humanize(),      '6 days',        '6 days = 6 days');
-    assert.equal(moment.duration({days: 7}).humanize(),      'a week',        '1 week = 7 days');
-    assert.equal(moment.duration({weeks: 2}).humanize(),     '2 weeks',       '2 weeks = 2 weeks');
-    assert.equal(moment.duration({days: 21}).humanize(),     '3 weeks',       '21 days = 3 weeks');
-    assert.equal(moment.duration({days: 23}).humanize(),     '3 weeks',       '23 days = 3 weeks');
-    assert.equal(moment.duration({weeks: 3}).humanize(),     '3 weeks',       '3 weeks = 3 weeks');
-    assert.equal(moment.duration({weeks: 4}).humanize(),     'a month',       '4 weeks = a month');
+    assert.equal(moment.duration({days: 5}).humanize(),      '5 days',        '5 days = 5 days');
+    assert.equal(moment.duration({weeks: 1}).humanize(),     '7 days',        '1 week = 7 days');
+    assert.equal(moment.duration({days: 25}).humanize(),     '25 days',       '25 days = 25 days');
+    assert.equal(moment.duration({days: 26}).humanize(),     'a month',       '26 days = a month');
     assert.equal(moment.duration({days: 30}).humanize(),     'a month',       '30 days = a month');
     assert.equal(moment.duration({days: 45}).humanize(),     'a month',       '45 days = a month');
     assert.equal(moment.duration({days: 46}).humanize(),     '2 months',      '46 days = 2 months');

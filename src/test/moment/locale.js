@@ -273,12 +273,7 @@ test('from relative time future', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).subtract({h: 36})),  'in 2 days',        '36 hours = 2 days');
     assert.equal(start.from(moment([2007, 1, 28]).subtract({d: 1})),   'in a day',         '1 day = a day');
     assert.equal(start.from(moment([2007, 1, 28]).subtract({d: 5})),   'in 5 days',        '5 days = 5 days');
-    assert.equal(start.from(moment([2007, 1, 28]).subtract({d: 6})),   'in 6 days',        '6 days = 6 days');
-    assert.equal(start.from(moment([2007, 1, 28]).subtract({d: 7})),   'in a week',        '7 days = 1 week');
-    assert.equal(start.from(moment([2007, 1, 28]).subtract({w: 1})),   'in a week',        '1 week = 1 week');
-    assert.equal(start.from(moment([2007, 1, 28]).subtract({w: 2})),   'in 2 weeks',       '2 weeks = 2 weeks');
-    assert.equal(start.from(moment([2007, 1, 28]).subtract({w: 3})),   'in 3 weeks',       '3 weeks = 3 weeks');
-    assert.equal(start.from(moment([2007, 1, 28]).subtract({w: 4})),   'in a month',       '4 weeks = 1 month');
+    assert.equal(start.from(moment([2007, 1, 28]).subtract({d: 25})),  'in 25 days',       '25 days = 25 days');
     assert.equal(start.from(moment([2007, 1, 28]).subtract({d: 26})),  'in a month',       '26 days = a month');
     assert.equal(start.from(moment([2007, 1, 28]).subtract({d: 30})),  'in a month',       '30 days = a month');
     assert.equal(start.from(moment([2007, 1, 28]).subtract({d: 45})),  'in a month',       '45 days = a month');
@@ -313,12 +308,7 @@ test('from relative time past', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 36})),  '2 days ago',        '36 hours = 2 days');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 1})),   'a day ago',         '1 day = a day');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 5})),   '5 days ago',        '5 days = 5 days');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 6})),   '6 days ago',        '6 days = 6 days');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 7})),   'a week ago',        '7 days = 1 week');
-    assert.equal(start.from(moment([2007, 1, 28]).add({w: 1})),   'a week ago',        '1 week = 1 week');
-    assert.equal(start.from(moment([2007, 1, 28]).add({w: 2})),   '2 weeks ago',       '2 weeks = 2 weeks');
-    assert.equal(start.from(moment([2007, 1, 28]).add({w: 3})),   '3 weeks ago',       '3 weeks = 2 weeks');
-    assert.equal(start.from(moment([2007, 1, 28]).add({w: 4})),   'a month ago',       '4 weeks = 1 month');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 25})),  '25 days ago',       '25 days = 25 days');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 26})),  'a month ago',       '26 days = a month');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 30})),  'a month ago',       '30 days = a month');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 43})),  'a month ago',       '43 days = a month');
