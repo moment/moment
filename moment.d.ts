@@ -79,20 +79,20 @@ declare namespace moment {
   type RelativeTimeFuturePastVal = string | ((relTime: string) => string);
 
   interface RelativeTimeSpec {
-    future: RelativeTimeFuturePastVal;
-    past: RelativeTimeFuturePastVal;
-    s: RelativeTimeSpecVal;
-    ss: RelativeTimeSpecVal;
-    m: RelativeTimeSpecVal;
-    mm: RelativeTimeSpecVal;
-    h: RelativeTimeSpecVal;
-    hh: RelativeTimeSpecVal;
-    d: RelativeTimeSpecVal;
-    dd: RelativeTimeSpecVal;
-    M: RelativeTimeSpecVal;
-    MM: RelativeTimeSpecVal;
-    y: RelativeTimeSpecVal;
-    yy: RelativeTimeSpecVal;
+    future?: RelativeTimeFuturePastVal;
+    past?: RelativeTimeFuturePastVal;
+    s?: RelativeTimeSpecVal;
+    ss?: RelativeTimeSpecVal;
+    m?: RelativeTimeSpecVal;
+    mm?: RelativeTimeSpecVal;
+    h?: RelativeTimeSpecVal;
+    hh?: RelativeTimeSpecVal;
+    d?: RelativeTimeSpecVal;
+    dd?: RelativeTimeSpecVal;
+    M?: RelativeTimeSpecVal;
+    MM?: RelativeTimeSpecVal;
+    y?: RelativeTimeSpecVal;
+    yy?: RelativeTimeSpecVal;
   }
 
   interface LongDateFormatSpec {
