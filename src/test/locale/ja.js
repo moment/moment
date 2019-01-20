@@ -192,3 +192,10 @@ test('weeks year starting sunday format', function (assert) {
 test('parse with japanese parentheses', function (assert) {
     assert.ok(moment('2016年5月18日（水）', 'YYYY年M月D日（dd）', true).isValid(), 'parse with japanese parentheses');
 });
+
+test('calendar return on year overlap', function (assert) {
+    assert.equal(moment('2018-01-06').locale('ja').calendar(moment('2018-01-09')), '先週土曜日 00:00', 'calendar() with next week should be 先週土曜日');
+    assert.equal(moment('2017-12-31').locale('ja').calendar(moment('2018-01-03')), '先週土曜日 00:00', 'calendar() with next week should be 先週土曜日 even on year overlap');
+    assert.equal(moment('2018-01-09').locale('ja').calendar(moment('2018-01-06')), '来週火曜日 00:00', 'calendar() with previous week should be 来週火曜日');
+    assert.equal(moment('2018-01-03').locale('ja').calendar(moment('2017-12-31')), '来週火曜日 00:00', 'calendar() with previous week should be 来週火曜日 even on year overlap');
+});
