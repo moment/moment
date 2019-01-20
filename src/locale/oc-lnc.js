@@ -1,6 +1,6 @@
 //! moment.js locale configuration
 //! locale : Occitan, lengadocian dialecte [oc-lnc]
-//! author : Quentin PAGÈS
+//! author : Quentin PAGÈS : https://github.com/Quenty31
 
 import moment from '../moment';
 
