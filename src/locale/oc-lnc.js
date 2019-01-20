@@ -10,7 +10,7 @@ export default moment.defineLocale('oc-lnc', {
         format: 'de genièr_de febrièr_de març_d\'abril_de mai_de junh_de julhet_d\'agost_de setembre_d\'octòbre_de novembre_de decembre'.split('_'),
         isFormat: /D[oD]?(\s)+MMMM/
     },
-    monthsShort : 'gen._febr._març._abr._mai._junh._julh._ago._set._oct._nov._dec.'.split('_'),
+    monthsShort : 'gen._febr._març_abr._mai_junh_julh._ago._set._oct._nov._dec.'.split('_'),
     monthsParseExact : true,
     weekdays : 'dimenge_diluns_dimars_dimècres_dijòus_divendres_dissabte'.split('_'),
     weekdaysShort : 'dg._dl._dm._dc._dj._dv._ds.'.split('_'),

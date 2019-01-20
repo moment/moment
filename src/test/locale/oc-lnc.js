@@ -4,7 +4,7 @@ import moment from '../../moment';
 localeModule('oc-lnc');
 
 test('parse', function (assert) {
-    var tests = 'genièr gen._febrièr febr._març març_abril abr._mai mai_junh junh_julhet jul._agost ag._setembre set._octòbre oct._novembre nov._decembre dec.'.split('_'), i;
+    var tests = 'genièr gen._febrièr febr._març març_abril abr._mai mai_junh junh_julhet julh._agost ago._setembre set._octòbre oct._novembre nov._decembre dec.'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
@@ -92,7 +92,7 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'genièr gen._febrièr febr._març març_abril abr._mai mai_junh junh_julhet jul._agost ag._setembre set._octòbre oct._novembre nov._decembre dec.'.split('_'), i;
+    var expected = 'genièr gen._febrièr febr._març març_abril abr._mai mai_junh junh_julhet julh._agost ago._setembre set._octòbre oct._novembre nov._decembre dec.'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
@@ -116,7 +116,7 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  'una ora',       '89 minutes = an hour');
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  '2 oras',       '90 minutes = 2 hours');
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   '5 oras',       '5 hours = 5 hours');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  '21 oreas',      '21 hours = 21 hours');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  '21 oras',      '21 hours = 21 hours');
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  'un jorn',         '22 hours = a day');
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  'un jorn',         '35 hours = a day');
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  '2 jorns',        '36 hours = 2 days');
@@ -138,7 +138,7 @@ test('from', function (assert) {
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), 'd\'aquí unas segons',  'prefix');
+    assert.equal(moment(30000).from(0), 'd\'aquí unas segondas',  'prefix');
     assert.equal(moment(0).from(30000), 'fa unas segondas', 'suffix');
 });
 
