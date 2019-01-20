@@ -37,9 +37,9 @@ export default moment.defineLocale('es-us', {
         LT : 'h:mm A',
         LTS : 'h:mm:ss A',
         L : 'MM/DD/YYYY',
-        LL : 'MMMM [de] D [de] YYYY',
-        LLL : 'MMMM [de] D [de] YYYY h:mm A',
-        LLLL : 'dddd, MMMM [de] D [de] YYYY h:mm A'
+        LL : 'D [de] MMMM [de] YYYY',
+        LLL : 'D [de] MMMM [de] YYYY h:mm A',
+        LLLL : 'dddd, D [de] MMMM [de] YYYY h:mm A'
     },
     calendar : {
         sameDay : function () {
