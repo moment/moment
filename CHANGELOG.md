@@ -1,6 +1,16 @@
 Changelog
 =========
 
+### 2.24.0 [See full changelog](https://gist.github.com/marwahaha/12366fe45bee328f33acf125d4cd540e)
+
+* Release Jan 21, 2019
+
+* [#4338](https://github.com/moment/moment/pull/4338) [bugfix] Fix startOf/endOf DST issues while boosting performance
+* [#4553](https://github.com/moment/moment/pull/4553) [feature] Add localeSort param to Locale weekday methods
+* [#4887](https://github.com/moment/moment/pull/4887) [bugfix] Make Duration#as work with quarters
+* 3 new locales (it-ch, ga, en-SG)
+* Lots of locale improvements
+
 ### 2.23.0 [See full changelog](https://gist.github.com/marwahaha/eadb7ac11b761290399a576f8b2419a5)
 
 * Release Dec 12, 2018
