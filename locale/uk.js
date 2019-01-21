@@ -38,6 +38,9 @@
             'genitive': 'неділі_понеділка_вівторка_середи_четверга_п’ятниці_суботи'.split('_')
         };
 
+        if (m === true) {
+            return weekdays['nominative'].slice(1, 7).concat(weekdays['nominative'].slice(0, 1));
+        }
         if (!m) {
             return weekdays['nominative'];
         }
