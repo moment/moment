@@ -90,7 +90,7 @@ function parseIso (inp, sign) {
 }
 
 function positiveMomentsDifference(base, other) {
-    var res = {milliseconds: 0, months: 0};
+    var res = {};
 
     res.months = other.month() - base.month() +
         (other.year() - base.year()) * 12;
