@@ -143,11 +143,11 @@ test('suffix', function (assert) {
 });
 
 test('now from now', function (assert) {
-    assert.equal(moment().fromNow(), 'за неколку секунди',  'now from now should display as in the past');
+    assert.equal(moment().fromNow(), 'пред неколку секунди',  'now from now should display as in the past');
 });
 
 test('fromNow', function (assert) {
-    assert.equal(moment().add({s: 30}).fromNow(), 'после неколку секунди', 'in a few seconds');
+    assert.equal(moment().add({s: 30}).fromNow(), 'за неколку секунди', 'in a few seconds');
     assert.equal(moment().add({d: 5}).fromNow(),  'за 5 дена', 'in 5 days');
 });
 
