@@ -108,8 +108,8 @@ test('format week', function (assert) {
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'неколку секунди', '44 seconds = a few seconds');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'едма минута',     '45 seconds = a minute');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'едма минута',     '89 seconds = a minute');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'една минута',     '45 seconds = a minute');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'една минута',     '89 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '2 минути',        '90 seconds = 2 minutes');
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  '44 минути',       '44 minutes = 44 minutes');
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  'еден час',        '45 minutes = an hour');
@@ -131,9 +131,9 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  '3 месеци',        '76 days = 3 months');
     assert.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   'еден месец',      '1 month = a month');
     assert.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   '5 месеци',        '5 months = 5 months');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'едма година',     '345 days = a year');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'една година',     '345 days = a year');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), '2 години',        '548 days = 2 years');
-    assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'едма година',     '1 year = a year');
+    assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'една година',     '1 year = a year');
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5 години',        '5 years = 5 years');
 });
 
