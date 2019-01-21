@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : Irish or Irish Gaelic [gd]
+//! locale : Irish or Irish Gaelic [ga]
 //! author : André Silva : https://github.com/askpt
 
 import moment from '../moment';
