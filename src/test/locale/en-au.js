@@ -208,3 +208,31 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012, 0,  9]).format('w ww wo'),   '2 02 2nd', 'Jan  9 2012 should be week 2');
     assert.equal(moment([2012, 0, 15]).format('w ww wo'),   '2 02 2nd', 'Jan 15 2012 should be week 2');
 });
+
+// Concrete test for Locale#weekdaysMin
+test('Weekdays sort by locale', function (assert) {
+    assert.deepEqual(
+        moment().localeData('en-au').weekdays(),
+        'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+        'weekdays start on Sunday');
+    assert.deepEqual(
+        moment().localeData('en-au').weekdays(true),
+        'Monday_Tuesday_Wednesday_Thursday_Friday_Saturday_Sunday'.split('_'),
+        'locale-sorted weekdays start on Monday');
+    assert.deepEqual(
+        moment().localeData('en-au').weekdaysShort(),
+        'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
+        'weekdaysShort start on Sunday');
+    assert.deepEqual(
+        moment().localeData('en-au').weekdaysShort(true),
+        'Mon_Tue_Wed_Thu_Fri_Sat_Sun'.split('_'),
+        'locale-sorted weekdaysShort start on Monday');
+    assert.deepEqual(
+        moment().localeData('en-au').weekdaysMin(),
+        'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
+        'weekdaysMin start on Sunday');
+    assert.deepEqual(
+        moment().localeData('en-au').weekdaysMin(true),
+        'Mo_Tu_We_Th_Fr_Sa_Su'.split('_'),
+        'locale-sorted weekdaysMin start on Monday');
+});
