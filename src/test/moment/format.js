@@ -312,7 +312,7 @@ test('iso week year formats', function (assert) {
     };
 
     eachOwnProp(cases, function(i) {
-        var isoWeekYear, formatted5, formatted4, formatted2
+        var isoWeekYear, formatted5, formatted4, formatted2;
         isoWeekYear = cases[i].split('-')[0];
         formatted5 = moment(i, 'YYYY-MM-DD').format('GGGGG');
         assert.equal('0' + isoWeekYear, formatted5, i + ': GGGGG should be ' + isoWeekYear + ', but ' + formatted5);
@@ -348,7 +348,7 @@ test('week year formats', function (assert) {
     moment.defineLocale('dow:1,doy:4', {week: {dow: 1, doy: 4}});
 
     eachOwnProp(cases, function(i) {
-        var isoWeekYear, formatted5, formatted4, formatted2
+        var isoWeekYear, formatted5, formatted4, formatted2;
         isoWeekYear = cases[i].split('-')[0];
         formatted5 = moment(i, 'YYYY-MM-DD').format('ggggg');
         assert.equal('0' + isoWeekYear, formatted5, i + ': ggggg should be ' + isoWeekYear + ', but ' + formatted5);
