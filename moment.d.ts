@@ -55,7 +55,7 @@ declare namespace moment {
 
   interface WeekSpec {
     dow: number;
-    doy: number;
+    doy?: number;
   }
 
   type CalendarSpecVal = string | ((m?: MomentInput, now?: Moment) => string);
