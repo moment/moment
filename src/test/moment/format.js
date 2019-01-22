@@ -278,7 +278,7 @@ test('iso week formats', function (assert) {
         '405-12-31': '0405-52'
     };
 
-    eachOwnProp(cases, function(i) {
+    eachOwnProp(cases, function (i) {
         var isoWeek, formatted2, formatted1;
         isoWeek = cases[i].split('-').pop();
         formatted2 = moment(i, 'YYYY-MM-DD').format('WW');
@@ -311,7 +311,7 @@ test('iso week year formats', function (assert) {
         '405-12-31': '0405-52'
     };
 
-    eachOwnProp(cases, function(i) {
+    eachOwnProp(cases, function (i) {
         var isoWeekYear, formatted5, formatted4, formatted2;
         isoWeekYear = cases[i].split('-')[0];
         formatted5 = moment(i, 'YYYY-MM-DD').format('GGGGG');
@@ -347,7 +347,7 @@ test('week year formats', function (assert) {
 
     moment.defineLocale('dow:1,doy:4', {week: {dow: 1, doy: 4}});
 
-    eachOwnProp(cases, function(i) {
+    eachOwnProp(cases, function (i) {
         var isoWeekYear, formatted5, formatted4, formatted2;
         isoWeekYear = cases[i].split('-')[0];
         formatted5 = moment(i, 'YYYY-MM-DD').format('ggggg');

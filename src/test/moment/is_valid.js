@@ -30,7 +30,7 @@ test('array bad date', function (assert) {
         moment.utc([2100, 0, 32])
     ];
 
-    each(tests, function(m) {
+    each(tests, function (m) {
         assert.equal(m.isValid(), false);
     });
 });

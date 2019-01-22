@@ -477,7 +477,7 @@ test('parsing RFC 2822', function (assert) {
         'Mon, 02 Jan 2017 06:00:00 EDT': [2017, 0, 2, 6, 0, 0, -4 * 60]
     };
 
-    eachOwnProp(testCases, function(inp) {
+    eachOwnProp(testCases, function (inp) {
         var tokens = testCases[inp],
             parseResult = moment(inp, moment.RFC_2822, true).parseZone(),
             expResult = moment.utc(tokens.slice(0, 6)).utcOffset(tokens[6], true);
@@ -494,7 +494,7 @@ test('non RFC 2822 strings', function (assert) {
         'RFC2822 datetime with mismatching Day (weekday v date)': 'Mon, 01 Nov 2016 01:23:45 GMT'
     };
 
-    eachOwnProp(testCases, function(testCase) {
+    eachOwnProp(testCases, function (testCase) {
         var testResult = moment(testCases[testCase], moment.RFC_2822, true);
         assert.ok(!testResult.isValid(), testCase + ': ' + testResult + ' - is invalid rfc2822');
         assert.ok(!testResult.parsingFlags().rfc2822, testCase + ': ' + testResult + ' - rfc2822 parsingFlag');
@@ -514,7 +514,7 @@ test('parsing RFC 2822 in a different locale', function (assert) {
 
     try {
         moment.locale('ru');
-        eachOwnProp(testCases, function(testCase) {
+        eachOwnProp(testCases, function (testCase) {
             var testResult = moment(testCases[testCase], moment.RFC_2822, true);
             assert.ok(testResult.isValid(), testResult);
             assert.ok(testResult.parsingFlags().rfc2822, testResult + ' - rfc2822 parsingFlag');
@@ -533,7 +533,7 @@ test('non RFC 2822 strings in a different locale', function (assert) {
 
     try {
         moment.locale('ru');
-        eachOwnProp(testCases, function(testCase) {
+        eachOwnProp(testCases, function (testCase) {
             var testResult = moment(testCases[testCase], moment.RFC_2822, true);
             assert.ok(!testResult.isValid(), testResult);
             assert.ok(!testResult.parsingFlags().rfc2822, testResult + ' - rfc2822 parsingFlag');
