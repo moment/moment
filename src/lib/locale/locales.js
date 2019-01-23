@@ -160,6 +160,9 @@ export function updateLocale(name, config) {
         if (locales[name] != null) {
             if (locales[name].parentLocale != null) {
                 locales[name] = locales[name].parentLocale;
+                if (name === getSetGlobalLocale()) {
+                    getSetGlobalLocale(name);
+                }
             } else if (locales[name] != null) {
                 delete locales[name];
             }
