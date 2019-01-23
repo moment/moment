@@ -172,3 +172,13 @@ test('update existing locale', function (assert) {
     assert.equal(moment('2017-02-01').format('YYYY MMM MMMM'), '2017 FEB Februar');
     moment.updateLocale('de', null);
 });
+
+test('reset locale', function (assert) {
+    moment.locale('de');
+    var resultBeforeUpdate = moment('2017-02-01').format('YYYY MMM MMMM');
+    moment.updateLocale('de', {
+        monthsShort: ['JAN', 'FEB', 'MÄR', 'APR', 'MAI', 'JUN', 'JUL', 'AUG', 'SEP', 'OKT', 'NOV', 'DEZ']
+    });
+    moment.updateLocale('de', null);
+    assert.equal(moment('2017-02-01').format('YYYY MMM MMMM'), resultBeforeUpdate);
+});
