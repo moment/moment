@@ -217,3 +217,6 @@ test('test short months proper', function (assert) {
     assert.equal(moment(str, 'DD-MMM-YYYY').month(), '7', '02-ago-2016 month should be 7');
 });
 
+test('translated invalid date', function (assert) {
+    assert.equal(moment('nonsense', 'DD-MMM-YYYY').format(), 'Fecha invalida', 'Invalid date should translate');
+});
