@@ -1,7 +1,7 @@
 //! moment.js locale configuration
 //! locale : Macedonian [mk]
 //! author : Borislav Mickov : https://github.com/B0k0
-
+//! author : Sashko Todorov : https://github.com/bkyceh
 import moment from '../moment';
 
 export default moment.defineLocale('mk', {
