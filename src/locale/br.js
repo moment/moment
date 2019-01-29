@@ -56,12 +56,12 @@ export default moment.defineLocale('br', {
     weekdaysMin : 'Su_Lu_Me_Mer_Ya_Gw_Sa'.split('_'),
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'h[e]mm A',
-        LTS : 'h[e]mm:ss A',
+        LT : 'HH[e]mm',
+        LTS : 'HH[e]mm:ss',
         L : 'DD/MM/YYYY',
         LL : 'D [a viz] MMMM YYYY',
-        LLL : 'D [a viz] MMMM YYYY h[e]mm A',
-        LLLL : 'dddd, D [a viz] MMMM YYYY h[e]mm A'
+        LLL : 'D [a viz] MMMM YYYY HH[e]mm',
+        LLLL : 'dddd, D [a viz] MMMM YYYY HH[e]mm'
     },
     calendar : {
         sameDay : '[Hiziv da] LT',
