@@ -194,8 +194,8 @@ test('parse with japanese parentheses', function (assert) {
 });
 
 test('calendar return on year overlap', function (assert) {
-    assert.equal(moment('2018-01-06').locale('ja').calendar(moment('2018-01-09')), '先週土曜日 00:00', 'calendar() with next week should be 先週土曜日');
-    assert.equal(moment('2017-12-31').locale('ja').calendar(moment('2018-01-03')), '先週土曜日 00:00', 'calendar() with next week should be 先週土曜日 even on year overlap');
-    assert.equal(moment('2018-01-09').locale('ja').calendar(moment('2018-01-06')), '来週火曜日 00:00', 'calendar() with previous week should be 来週火曜日');
-    assert.equal(moment('2018-01-03').locale('ja').calendar(moment('2017-12-31')), '来週火曜日 00:00', 'calendar() with previous week should be 来週火曜日 even on year overlap');
+    assert.equal(moment([2018,  0,  6]).calendar(moment([2018,  0,  9])), '先週土曜日 00:00', 'calendar() with next week should be 先週土曜日');
+    assert.equal(moment([2017, 11, 31]).calendar(moment([2018,  0,  3])), '先週土曜日 00:00', 'calendar() with next week should be 先週土曜日 even on year overlap');
+    assert.equal(moment([2018,  0,  9]).calendar(moment([2018,  0,  6])), '来週火曜日 00:00', 'calendar() with previous week should be 来週火曜日');
+    assert.equal(moment([2018,  0,  3]).calendar(moment([2017, 11, 31])), '来週火曜日 00:00', 'calendar() with previous week should be 来週火曜日 even on year overlap');
 });
