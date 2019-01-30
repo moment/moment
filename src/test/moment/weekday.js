@@ -100,7 +100,7 @@ test('weekday first day of week Tuesday (dow 2)', function (assert) {
     assert.equal(moment([2029, 8, 19]).weekday(), 1, 'Sep 19 2029 is Wednesday -- 1st day');
     assert.equal(moment([2013, 3, 25]).weekday(), 2, 'Apr 25 2013 is Thursday  -- 2nd day');
     assert.equal(moment([2015, 2,  6]).weekday(), 3, 'Mar  6 2015 is Friday    -- 3nd day');
-    assert.equal(moment([1970, 0,  3]).weekday(), 4, 'Jan  3 1970 is Staturday -- 4th day');
+    assert.equal(moment([1970, 0,  3]).weekday(), 4, 'Jan  3 1970 is Saturday  -- 4th day');
     assert.equal(moment([2001, 4, 13]).weekday(), 5, 'May 13 2001 is Sunday    -- 5th day');
     assert.equal(moment([2000, 0,  3]).weekday(), 6, 'Jan  3 2000 is Monday    -- 6th day');
 });
@@ -131,7 +131,7 @@ test('weekday first day of week Thursday (dow 4)', function (assert) {
 test('weekday first day of week Friday (dow 5)', function (assert) {
     moment.locale('dow: 5,doy: 6', {week: {dow: 5, doy: 6}});
     assert.equal(moment([1985, 1,  8]).weekday(), 0, 'Feb  8 1985 is Friday    -- 0th day');
-    assert.equal(moment([2029, 8, 22]).weekday(), 1, 'Sep 22 2029 is Staturday -- 1st day');
+    assert.equal(moment([2029, 8, 22]).weekday(), 1, 'Sep 22 2029 is Saturday  -- 1st day');
     assert.equal(moment([2013, 3, 28]).weekday(), 2, 'Apr 28 2013 is Sunday    -- 2nd day');
     assert.equal(moment([2015, 2,  9]).weekday(), 3, 'Mar  9 2015 is Monday    -- 3nd day');
     assert.equal(moment([1970, 0,  6]).weekday(), 4, 'Jan  6 1970 is Tuesday   -- 4th day');
@@ -141,7 +141,7 @@ test('weekday first day of week Friday (dow 5)', function (assert) {
 
 test('weekday first day of week Saturday (dow 6)', function (assert) {
     moment.locale('dow: 6,doy: 6', {week: {dow: 6, doy: 6}});
-    assert.equal(moment([1985, 1,  9]).weekday(), 0, 'Feb  9 1985 is Staturday -- 0th day');
+    assert.equal(moment([1985, 1,  9]).weekday(), 0, 'Feb  9 1985 is Saturday  -- 0th day');
     assert.equal(moment([2029, 8, 23]).weekday(), 1, 'Sep 23 2029 is Sunday    -- 1st day');
     assert.equal(moment([2013, 3, 29]).weekday(), 2, 'Apr 29 2013 is Monday    -- 2nd day');
     assert.equal(moment([2015, 2, 10]).weekday(), 3, 'Mar 10 2015 is Tuesday   -- 3nd day');
