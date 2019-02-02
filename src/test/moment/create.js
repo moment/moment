@@ -756,21 +756,21 @@ test('parsing weekdays verifies the day', function (assert) {
     assert.ok(moment('Thu 08-10-2017', 'ddd MM-DD-YYYY').isValid(), 'because day of week is correct for the date');
 });
 
-test('parsing weekday on utc dates verifies day acccording to utc time', function (assert) {
+test('parsing weekday on utc dates verifies day according to utc time', function (assert) {
     assert.ok(moment.utc('Mon 03:59', 'ddd HH:mm').isValid(), 'Monday 03:59');
 });
 
-test('parsing weekday on local dates verifies day acccording to local time', function (assert) {
+test('parsing weekday on local dates verifies day according to local time', function (assert) {
     // this doesn't do much useful if you're not in the US or at least close to it
     assert.ok(moment('Mon 03:59', 'ddd HH:mm').isValid(), 'Monday 03:59');
 });
 
-test('parsing weekday on utc dates with specified offsets verifies day acccording to that offset', function (assert) {
+test('parsing weekday on utc dates with specified offsets verifies day according to that offset', function (assert) {
     assert.ok(moment.utc('Mon 03:59 +12:00', 'ddd HH:mm Z', true).isValid(), 'Monday 03:59');
 });
 
-test('parsing weekday on local dates with specified offsets verifies day acccording to that offset', function (assert) {
-    // if you're in the US, these times will all be sometime Sunday, but they shoud parse as Monday
+test('parsing weekday on local dates with specified offsets verifies day according to that offset', function (assert) {
+    // if you're in the US, these times will all be sometime Sunday, but they should parse as Monday
     assert.ok(moment('Mon 03:59 +12:00', 'ddd HH:mm Z', true).isValid(), 'Monday 03:59');
 });
 
