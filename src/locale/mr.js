@@ -118,29 +118,29 @@ export default moment.defineLocale('mr', {
         });
     },
     meridiemParse: /पहाटे|सकाळी|दुपारी|सायंकाळी|रात्री/,
-        meridiemHour: function (hour, meridiem) {
-            if (hour === 12) {
-                hour = 0;
-            }
-            if (meridiem === 'पहाटे' || meridiem === 'सकाळी') {
-                return hour;
-            } else if (meridiem === 'दुपारी' || meridiem === 'सायंकाळी' || meridiem === 'रात्री') {
-                return hour >= 12 ? hour : hour + 12;
-            }
-        },
-        meridiem: function (hour, minute, isLower) {
-            if (hour >= 0 && hour < 6) {
-                return 'पहाटे';
-            } else if (hour < 12) {
-                return 'सकाळी';
-            } else if (hour < 17) {
-                return 'दुपारी';
-            } else if (hour < 20) {
-                return 'सायंकाळी';
-            } else {
-                return 'रात्री';
-            }
-        },
+    meridiemHour: function (hour, meridiem) {
+        if (hour === 12) {
+            hour = 0;
+        }
+        if (meridiem === 'पहाटे' || meridiem === 'सकाळी') {
+            return hour;
+        } else if (meridiem === 'दुपारी' || meridiem === 'सायंकाळी' || meridiem === 'रात्री') {
+            return hour >= 12 ? hour : hour + 12;
+        }
+    },
+    meridiem: function (hour, minute, isLower) {
+        if (hour >= 0 && hour < 6) {
+            return 'पहाटे';
+        } else if (hour < 12) {
+            return 'सकाळी';
+        } else if (hour < 17) {
+            return 'दुपारी';
+        } else if (hour < 20) {
+            return 'सायंकाळी';
+        } else {
+            return 'रात्री';
+        }
+    },
     week : {
         dow : 0, // Sunday is the first day of the week.
         doy : 6  // The week that contains Jan 6th is the first week of the year.
