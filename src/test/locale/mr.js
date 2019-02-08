@@ -157,7 +157,7 @@ test('calendar day', function (assert) {
     assert.equal(moment(a).add({m: 25}).calendar(),      'आज दुपारी १२:२५ वाजता',    'Now plus 25 min');
     assert.equal(moment(a).add({h: 3}).calendar(),       'आज दुपारी ३:०० वाजता',     'Now plus 3 hours');
     assert.equal(moment(a).add({d: 1}).calendar(),       'उद्या दुपारी १२:०० वाजता', 'tomorrow at the same time');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'आज दुपारी ११:०० वाजता',    'Now minus 1 hour');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'आज सकाळी ११:०० वाजता',    'Now minus 1 hour');
     assert.equal(moment(a).subtract({d: 1}).calendar(),  'काल दुपारी १२:०० वाजता',   'yesterday at the same time');
 });
 
@@ -201,14 +201,14 @@ test('calendar all else', function (assert) {
 });
 
 test('meridiem', function (assert) {
-    assert.equal(moment([2011, 2, 23,  2, 30]).format('a'), 'रात्री', 'before dawn');
+    assert.equal(moment([2011, 2, 23,  2, 30]).format('a'), 'पहाटे', 'before dawn');
     assert.equal(moment([2011, 2, 23,  9, 30]).format('a'), 'सकाळी', 'morning');
     assert.equal(moment([2011, 2, 23, 14, 30]).format('a'), 'दुपारी', 'during day');
     assert.equal(moment([2011, 2, 23, 17, 30]).format('a'), 'सायंकाळी', 'evening');
     assert.equal(moment([2011, 2, 23, 19, 30]).format('a'), 'सायंकाळी', 'late evening');
     assert.equal(moment([2011, 2, 23, 21, 20]).format('a'), 'रात्री', 'night');
 
-    assert.equal(moment([2011, 2, 23,  2, 30]).format('A'), 'रात्री', 'before dawn');
+    assert.equal(moment([2011, 2, 23,  2, 30]).format('A'), 'पहाटे', 'before dawn');
     assert.equal(moment([2011, 2, 23,  9, 30]).format('A'), 'सकाळी', 'morning');
     assert.equal(moment([2011, 2, 23, 14, 30]).format('A'), 'दुपारी', ' during day');
     assert.equal(moment([2011, 2, 23, 17, 30]).format('A'), 'सायंकाळी', 'evening');
