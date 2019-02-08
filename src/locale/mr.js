@@ -123,9 +123,9 @@ export default moment.defineLocale('mr', {
                 hour = 0;
             }
             if (meridiem === 'पहाटे' || meridiem === 'सकाळी') {
-                return hour
+                return hour;
             } else if (meridiem === 'दुपारी' || meridiem === 'सायंकाळी' || meridiem === 'रात्री') {
-                return hour >= 12 ? hour : hour + 12
+                return hour >= 12 ? hour : hour + 12;
             }
         },
         meridiem: function (hour, minute, isLower) {
