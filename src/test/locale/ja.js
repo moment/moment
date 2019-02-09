@@ -23,9 +23,9 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, a h:mm:ss',      '日曜日, 二月 14日 2010, 午後 3:25:50'],
+            ['dddd, MMMM Do YYYY, a h:mm:ss',      '日曜日, 2月 14日 2010, 午後 3:25:50'],
             ['ddd, Ah',                            '日, 午後3'],
-            ['M Mo MM MMMM MMM',                   '2 2 02 二月 2月'],
+            ['M Mo MM MMMM MMM',                   '2 2 02 2月 2月'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14日 14'],
             ['d do dddd ddd dd',                   '0 0日 日曜日 日 日'],
@@ -55,7 +55,7 @@ test('format', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = '一月 1月_二月 2月_三月 3月_四月 4月_五月 5月_六月 6月_七月 7月_八月 8月_九月 9月_十月 10月_十一月 11月_十二月 12月'.split('_'), i;
+    var expected = '1月 1月_2月 2月_3月 3月_4月 4月_5月 5月_6月 6月_7月 7月_8月 8月_9月 9月_10月 10月_11月 11月_12月 12月'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
