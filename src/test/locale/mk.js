@@ -108,37 +108,37 @@ test('format week', function (assert) {
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'неколку секунди', '44 seconds = a few seconds');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'минута',          '45 seconds = a minute');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'минута',          '89 seconds = a minute');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'една минута',     '45 seconds = a minute');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'една минута',     '89 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '2 минути',        '90 seconds = 2 minutes');
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  '44 минути',       '44 minutes = 44 minutes');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  'час',             '45 minutes = an hour');
-    assert.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  'час',             '89 minutes = an hour');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  'еден час',        '45 minutes = an hour');
+    assert.equal(start.from(moment([2007, 1, 28]).add({m: 89}), true),  'еден час',        '89 minutes = an hour');
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 90}), true),  '2 часа',          '90 minutes = 2 hours');
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 5}), true),   '5 часа',          '5 hours = 5 hours');
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  '21 часа',         '21 hours = 21 hours');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  'ден',             '22 hours = a day');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  'ден',             '35 hours = a day');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  'еден ден',        '22 hours = a day');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  'еден ден',        '35 hours = a day');
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  '2 дена',          '36 hours = 2 days');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   'ден',             '1 day = a day');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   'еден ден',        '1 day = a day');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   '5 дена',          '5 days = 5 days');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  '25 дена',         '25 days = 25 days');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  'месец',           '26 days = a month');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  'месец',           '30 days = a month');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  'месец',           '43 days = a month');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  'еден месец',      '26 days = a month');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  'еден месец',      '30 days = a month');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  'еден месец',      '43 days = a month');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  '2 месеци',        '46 days = 2 months');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  '2 месеци',        '75 days = 2 months');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  '3 месеци',        '76 days = 3 months');
-    assert.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   'месец',           '1 month = a month');
+    assert.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   'еден месец',      '1 month = a month');
     assert.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   '5 месеци',        '5 months = 5 months');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'година',          '345 days = a year');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'една година',     '345 days = a year');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), '2 години',        '548 days = 2 years');
-    assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'година',          '1 year = a year');
+    assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'една година',     '1 year = a year');
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '5 години',        '5 years = 5 years');
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), 'после неколку секунди', 'prefix');
+    assert.equal(moment(30000).from(0), 'за неколку секунди', 'prefix');
     assert.equal(moment(0).from(30000), 'пред неколку секунди',  'suffix');
 });
 
@@ -147,8 +147,8 @@ test('now from now', function (assert) {
 });
 
 test('fromNow', function (assert) {
-    assert.equal(moment().add({s: 30}).fromNow(), 'после неколку секунди', 'in a few seconds');
-    assert.equal(moment().add({d: 5}).fromNow(),  'после 5 дена', 'in 5 days');
+    assert.equal(moment().add({s: 30}).fromNow(), 'за неколку секунди', 'in a few seconds');
+    assert.equal(moment().add({d: 5}).fromNow(),  'за 5 дена', 'in 5 days');
 });
 
 test('calendar day', function (assert) {

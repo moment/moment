@@ -46,8 +46,8 @@ export default moment.defineLocale('ky', {
         sameDay : '[Бүгүн саат] LT',
         nextDay : '[Эртең саат] LT',
         nextWeek : 'dddd [саат] LT',
-        lastDay : '[Кече саат] LT',
-        lastWeek : '[Өткен аптанын] dddd [күнү] [саат] LT',
+        lastDay : '[Кечээ саат] LT',
+        lastWeek : '[Өткөн аптанын] dddd [күнү] [саат] LT',
         sameElse : 'L'
     },
     relativeTime : {

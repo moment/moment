@@ -160,7 +160,7 @@ test('months', function (assert) {
     });
     moment.updateLocale('months', {
         parentLocale: 'base-months',
-        months : 'First_Second_Third_Fourth_Fifth_Sixth_Seventh_Eighth_Ninth_Tenth_Eleventh_Twelveth '.split('_')
+        months : 'First_Second_Third_Fourth_Fifth_Sixth_Seventh_Eighth_Ninth_Tenth_Eleventh_Twelfth '.split('_')
     });
     assert.ok(moment.utc('2015-01-01', 'YYYY-MM-DD').format('MMMM'), 'First', 'months uses child');
 });
@@ -171,4 +171,14 @@ test('update existing locale', function (assert) {
     });
     assert.equal(moment('2017-02-01').format('YYYY MMM MMMM'), '2017 FEB Februar');
     moment.updateLocale('de', null);
+});
+
+test('reset locale', function (assert) {
+    moment.locale('de');
+    var resultBeforeUpdate = moment('2017-02-01').format('YYYY MMM MMMM');
+    moment.updateLocale('de', {
+        monthsShort: ['JAN', 'FEB', 'MÄR', 'APR', 'MAI', 'JUN', 'JUL', 'AUG', 'SEP', 'OKT', 'NOV', 'DEZ']
+    });
+    moment.updateLocale('de', null);
+    assert.equal(moment('2017-02-01').format('YYYY MMM MMMM'), resultBeforeUpdate);
 });

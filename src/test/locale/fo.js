@@ -108,8 +108,8 @@ test('format week', function (assert) {
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'fá sekund', '44 seconds = a few seconds');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'ein minutt',    '45 seconds = a minute');
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'ein minutt',    '89 seconds = a minute');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'ein minuttur',    '45 seconds = a minute');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'ein minuttur',    '89 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '2 minuttir',  '90 seconds = 2 minutes');
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 44}), true),  '44 minuttir', '44 minutes = 44 minutes');
     assert.equal(start.from(moment([2007, 1, 28]).add({m: 45}), true),  'ein tími',     '45 minutes = an hour');
@@ -123,13 +123,13 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   'ein dagur',      '1 day = a day');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   '5 dagar',      '5 days = 5 days');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  '25 dagar',     '25 days = 25 days');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  'ein mánaði',    '26 days = a month');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  'ein mánaði',    '30 days = a month');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  'ein mánaði',    '43 days = a month');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  'ein mánaður',    '26 days = a month');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  'ein mánaður',    '30 days = a month');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  'ein mánaður',    '43 days = a month');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true),  '2 mánaðir',   '46 days = 2 months');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true),  '2 mánaðir',   '75 days = 2 months');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true),  '3 mánaðir',   '76 days = 3 months');
-    assert.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   'ein mánaði',    '1 month = a month');
+    assert.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true),   'ein mánaður',    '1 month = a month');
     assert.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true),   '5 mánaðir',   '5 months = 5 months');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'eitt ár',       '345 days = a year');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), '2 ár',        '548 days = 2 years');

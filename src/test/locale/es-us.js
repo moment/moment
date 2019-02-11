@@ -41,13 +41,13 @@ test('format', function (assert) {
             ['LT',                                 '3:25 PM'],
             ['LTS',                                '3:25:50 PM'],
             ['L',                                  '02/14/2010'],
-            ['LL',                                 'febrero de 14 de 2010'],
-            ['LLL',                                'febrero de 14 de 2010 3:25 PM'],
-            ['LLLL',                               'domingo, febrero de 14 de 2010 3:25 PM'],
+            ['LL',                                 '14 de febrero de 2010'],
+            ['LLL',                                '14 de febrero de 2010 3:25 PM'],
+            ['LLLL',                               'domingo, 14 de febrero de 2010 3:25 PM'],
             ['l',                                  '2/14/2010'],
-            ['ll',                                 'feb. de 14 de 2010'],
-            ['lll',                                'feb. de 14 de 2010 3:25 PM'],
-            ['llll',                               'dom., feb. de 14 de 2010 3:25 PM']
+            ['ll',                                 '14 de feb. de 2010'],
+            ['lll',                                '14 de feb. de 2010 3:25 PM'],
+            ['llll',                               'dom., 14 de feb. de 2010 3:25 PM']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -217,4 +217,14 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012, 0,  8]).format('w ww wo'),   '2 02 2º', 'Jan  8 2012 should be week 2');
     assert.equal(moment([2012, 0, 14]).format('w ww wo'),   '2 02 2º', 'Jan 14 2012 should be week 2');
     assert.equal(moment([2012, 0, 15]).format('w ww wo'),   '3 03 3º', 'Jan 15 2012 should be week 3');
+});
+
+test('test short months proper', function (assert) {
+    var str = '02-ago-2016'; // "02-ago-2016"
+    assert.equal(moment(str, 'DD-MMM-YYYY').month(), 7, '02-ago-2016 month should be 7');
+    assert.equal(moment(str, 'DD-MMM-YYYY', true).month(), 7, '02-ago-2016 strict parse month should be 7');
+});
+
+test('test lenient month parsing', function (assert) {
+    assert.ok(moment('nov 01, 2015', 'MMM D, YYYY', true).isValid(), 'nov 01, 2015 should parse correctly');
 });

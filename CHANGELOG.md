@@ -1,6 +1,26 @@
 Changelog
 =========
 
+### 2.24.0 [See full changelog](https://gist.github.com/marwahaha/12366fe45bee328f33acf125d4cd540e)
+
+* Release Jan 21, 2019
+
+* [#4338](https://github.com/moment/moment/pull/4338) [bugfix] Fix startOf/endOf DST issues while boosting performance
+* [#4553](https://github.com/moment/moment/pull/4553) [feature] Add localeSort param to Locale weekday methods
+* [#4887](https://github.com/moment/moment/pull/4887) [bugfix] Make Duration#as work with quarters
+* 3 new locales (it-ch, ga, en-SG)
+* Lots of locale improvements
+
+### 2.23.0 [See full changelog](https://gist.github.com/marwahaha/eadb7ac11b761290399a576f8b2419a5)
+
+* Release Dec 12, 2018
+
+* [#4863](https://github.com/moment/moment/pull/4863) [new locale] added Kurdish language (ku)
+* [#4417](https://github.com/moment/moment/pull/4417) [bugfix] isBetween should return false for invalid dates
+* [#4700](https://github.com/moment/moment/pull/4700) [bugfix] Fix [#4698](https://github.com/moment/moment/pull/4698): Use ISO WeekYear for HTML5_FMT.WEEK
+* [#4563](https://github.com/moment/moment/pull/4563) [feature] Fix [#4518](https://github.com/moment/moment/pull/4518): Add support to add/subtract ISO weeks
+* other locale changes, build process changes, typos
+
 ### 2.22.2 [See full changelog](https://gist.github.com/marwahaha/4d992c13c2dbc0f59d4d8acae1dc6d3a)
 
 * Release May 31, 2018

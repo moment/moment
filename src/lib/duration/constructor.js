@@ -7,7 +7,7 @@ export function Duration (duration) {
         years = normalizedInput.year || 0,
         quarters = normalizedInput.quarter || 0,
         months = normalizedInput.month || 0,
-        weeks = normalizedInput.week || 0,
+        weeks = normalizedInput.week || normalizedInput.isoWeek || 0,
         days = normalizedInput.day || 0,
         hours = normalizedInput.hour || 0,
         minutes = normalizedInput.minute || 0,
