@@ -99,7 +99,7 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'sundag sun su_måndag mån må_tysdag tys ty_onsdag ons on_torsdag tor to_fredag fre fr_laurdag lau lø'.split('_'), i;
+    var expected = 'sundag sun su_måndag mån må_tysdag tys ty_onsdag ons on_torsdag tor to_fredag fre fr_laurdag lau la'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
