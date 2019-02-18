@@ -183,12 +183,12 @@ test('calendar last week', function (assert) {
             case 0:
             case 3:
             case 6:
-                return '[В изминалата] dddd [в] LT';
+                return '[Миналата] dddd [в] LT';
             case 1:
             case 2:
             case 4:
             case 5:
-                return '[В изминалия] dddd [в] LT';
+                return '[Миналия] dddd [в] LT';
         }
     }
 
@@ -223,4 +223,3 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012,  0,  8]).format('w ww wo'), '2 02 2-ри', 'Jan  8 2012 should be week 2');
     assert.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 3-ти', 'Jan  9 2012 should be week 3');
 });
-

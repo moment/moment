@@ -28,12 +28,12 @@ export default moment.defineLocale('bg', {
                 case 0:
                 case 3:
                 case 6:
-                    return '[В изминалата] dddd [в] LT';
+                    return '[Миналата] dddd [в] LT';
                 case 1:
                 case 2:
                 case 4:
                 case 5:
-                    return '[В изминалия] dddd [в] LT';
+                    return '[Миналия] dddd [в] LT';
             }
         },
         sameElse : 'L'
@@ -79,4 +79,3 @@ export default moment.defineLocale('bg', {
         doy : 7  // The week that contains Jan 7th is the first week of the year.
     }
 });
-

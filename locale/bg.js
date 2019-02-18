@@ -32,12 +32,12 @@
                     case 0:
                     case 3:
                     case 6:
-                        return '[Миналата] dddd [в] LT';
+                        return '[В изминалата] dddd [в] LT';
                     case 1:
                     case 2:
                     case 4:
                     case 5:
-                        return '[Миналия] dddd [в] LT';
+                        return '[В изминалия] dddd [в] LT';
                 }
             },
             sameElse : 'L'
