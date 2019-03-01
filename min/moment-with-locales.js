@@ -1848,7 +1848,9 @@
             try {
                 oldLocale = globalLocale._abbr;
                 var aliasedRequire = require;
-                aliasedRequire('./locale/' + name);
+                
+                // fix: './locale/' + name => the require of 'locale' module is requesting the wrong directory
+                aliasedRequire('../locale/' + name);
                 getSetGlobalLocale(oldLocale);
             } catch (e) {}
         }
