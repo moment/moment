@@ -1,7 +1,7 @@
 import {test} from '../qunit';
 import {localeModule} from '../qunit-locale';
 import moment from '../../moment';
-localeModule('en-SG');
+localeModule('en-sg');
 
 test('parse', function (assert) {
     var tests = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sep_October Oct_November Nov_December Dec'.split('_'), i;

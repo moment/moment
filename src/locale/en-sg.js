@@ -1,10 +1,10 @@
 //! moment.js locale configuration
-//! locale : English (Singapore) [en-SG]
+//! locale : English (Singapore) [en-sg]
 //! author : Matthew Castrillon-Madrigal : https://github.com/techdimension
 
 import moment from '../moment';
 
-export default moment.defineLocale('en-SG', {
+export default moment.defineLocale('en-sg', {
     months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
     monthsShort : 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
     weekdays : 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
