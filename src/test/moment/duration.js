@@ -774,9 +774,9 @@ test('subtract', function (assert) {
 
 test('eq', function (assert) {
     var didThrow, errorMessage;
-    var durTwoDays = moment.duration({ days: 2 });
-    var durThreeDays = moment.duration({ days: 3 });
-    var durFortyEightHours = moment.duration({ hours: 48 });
+    var durTwoDays = moment.duration({days: 2});
+    var durThreeDays = moment.duration({days: 3});
+    var durFortyEightHours = moment.duration({hours: 48});
 
     try {
         durTwoDays.eq(moment());
@@ -784,7 +784,7 @@ test('eq', function (assert) {
         didThrow = true;
         errorMessage = error.message;
     }
-    
+
     assert.equal(errorMessage, operandNotDurationErrorMessage, 'Error message should be as expected');
     assert.ok(didThrow, 'Equals comparison should throw if operand is not a Moment Duration instance');
     assert.equal(durTwoDays.eq(durFortyEightHours), true, 'Equals comparison should return true for equivalent durations');
@@ -793,9 +793,9 @@ test('eq', function (assert) {
 
 test('gt', function (assert) {
     var didThrow, errorMessage;
-    var durTwoDays = moment.duration({ days: 2 });
-    var durThreeDays = moment.duration({ days: 3 });
-    var durFortyEightHours = moment.duration({ hours: 48 });
+    var durTwoDays = moment.duration({days: 2});
+    var durThreeDays = moment.duration({days: 3});
+    var durFortyEightHours = moment.duration({hours: 48});
 
     try {
         durTwoDays.gt(moment());
@@ -813,9 +813,9 @@ test('gt', function (assert) {
 
 test('lt', function (assert) {
     var didThrow, errorMessage;
-    var durTwoDays = moment.duration({ days: 2 });
-    var durThreeDays = moment.duration({ days: 3 });
-    var durFortyEightHours = moment.duration({ hours: 48 });
+    var durTwoDays = moment.duration({days: 2});
+    var durThreeDays = moment.duration({days: 3});
+    var durFortyEightHours = moment.duration({hours: 48});
 
     try {
         durTwoDays.lt(moment());
@@ -833,9 +833,9 @@ test('lt', function (assert) {
 
 test('gte', function (assert) {
     var didThrow, errorMessage;
-    var durTwoDays = moment.duration({ days: 2 });
-    var durThreeDays = moment.duration({ days: 3 });
-    var durFortyEightHours = moment.duration({ hours: 48 });
+    var durTwoDays = moment.duration({days: 2});
+    var durThreeDays = moment.duration({days: 3});
+    var durFortyEightHours = moment.duration({hours: 48});
 
     try {
         durTwoDays.gte(moment());
@@ -853,9 +853,9 @@ test('gte', function (assert) {
 
 test('lte', function (assert) {
     var didThrow, errorMessage;
-    var durTwoDays = moment.duration({ days: 2 });
-    var durThreeDays = moment.duration({ days: 3 });
-    var durFortyEightHours = moment.duration({ hours: 48 });
+    var durTwoDays = moment.duration({days: 2});
+    var durThreeDays = moment.duration({days: 3});
+    var durFortyEightHours = moment.duration({hours: 48});
 
     try {
         durTwoDays.lte(moment());
