@@ -1,5 +1,6 @@
 import { module, test } from '../qunit';
 import moment from '../../moment';
+import { operandNotDurationErrorMessage } from '../../lib/duration/comparison-operators'
 
 module('duration');
 
@@ -769,6 +770,105 @@ test('subtract', function (assert) {
     assert.equal(d.subtract(14, 'days')._days, 0, 'Subtract days');
     assert.equal(d.subtract(10000)._milliseconds, 5 * 60 * 60 * 1000 - 10000, 'Subtract milliseconds');
     assert.equal(d.subtract({h: 1, m: 59})._milliseconds, 3 * 60 * 60 * 1000 + 1 * 60 * 1000 - 10000, 'Subtract hour:minute');
+});
+
+test('eq', function (assert) {
+    var didThrow, errorMessage;
+    var durTwoDays = moment.duration({ days: 2 })
+    var durThreeDays = moment.duration({ days: 3 })
+    var durFortyEightHours = moment.duration({ hours: 48 })
+
+    try {
+        durTwoDays.eq(moment())
+    } catch (error) {
+        didThrow = true;
+        errorMessage = error.message
+    }
+    
+    assert.equal(errorMessage, operandNotDurationErrorMessage, 'Error message should be as expected')
+    assert.ok(didThrow, 'Equals comparison should throw if operand is not a Moment Duration instance')
+    assert.equal(durTwoDays.eq(durFortyEightHours), true, 'Equals comparison should return true for equivalent durations')
+    assert.equal(durTwoDays.eq(durThreeDays), false, 'Equals comparison should return false for non-equivalent durations')
+});
+
+test('gt', function (assert) {
+    var didThrow, errorMessage;
+    var durTwoDays = moment.duration({ days: 2 })
+    var durThreeDays = moment.duration({ days: 3 })
+    var durFortyEightHours = moment.duration({ hours: 48 })
+
+    try {
+        durTwoDays.gt(moment())
+    } catch (error) {
+        didThrow = true;
+        errorMessage = error.message
+    }
+
+    assert.equal(errorMessage, operandNotDurationErrorMessage, 'Error message should be as expected')
+    assert.ok(didThrow, 'Greater-than comparison should throw if operand is not a Moment Duration instance')
+    assert.equal(durThreeDays.gt(durTwoDays), true, 'Greater-than comparison should return true when larger duration calls the function with a smaller duration as input')
+    assert.equal(durTwoDays.gt(durThreeDays), false, 'Greater-than comparison should return false when smaller duration calls the function with a larger duration as input')
+    assert.equal(durTwoDays.gt(durFortyEightHours), false, 'Greater-than comparison should return false when a duration calls the function with an equivalent duration as input')
+});
+
+test('lt', function (assert) {
+    var didThrow, errorMessage;
+    var durTwoDays = moment.duration({ days: 2 })
+    var durThreeDays = moment.duration({ days: 3 })
+    var durFortyEightHours = moment.duration({ hours: 48 })
+
+    try {
+        durTwoDays.lt(moment())
+    } catch (error) {
+        didThrow = true;
+        errorMessage = error.message
+    }
+
+    assert.equal(errorMessage, operandNotDurationErrorMessage, 'Error message should be as expected')
+    assert.ok(didThrow, 'Less-than comparison should throw if operand is not a Moment Duration instance')
+    assert.equal(durTwoDays.lt(durThreeDays), true, 'Less-than comparison should return true when smaller duration calls the function with a larger duration as input')
+    assert.equal(durThreeDays.lt(durTwoDays), false, 'Less-than comparison should return false when larger duration calls the function with a smaller duration as input')
+    assert.equal(durTwoDays.lt(durFortyEightHours), false, 'Less-than comparison should return false when a duration calls the function with an equivalent duration as input')
+});
+
+test('gte', function (assert) {
+    var didThrow, errorMessage;
+    var durTwoDays = moment.duration({ days: 2 })
+    var durThreeDays = moment.duration({ days: 3 })
+    var durFortyEightHours = moment.duration({ hours: 48 })
+
+    try {
+        durTwoDays.gte(moment())
+    } catch (error) {
+        didThrow = true;
+        errorMessage = error.message
+    }
+
+    assert.equal(errorMessage, operandNotDurationErrorMessage, 'Error message should be as expected')
+    assert.ok(didThrow, 'Greater-than-or-equals comparison should throw if operand is not a Moment Duration instance')
+    assert.equal(durThreeDays.gte(durTwoDays), true, 'Greater-than-or-equals comparison should return true when larger duration calls the function with a smaller duration as input')
+    assert.equal(durTwoDays.gte(durThreeDays), false, 'Greater-than-or-equals comparison should return false when smaller duration calls the function with a larger duration as input')
+    assert.equal(durTwoDays.gte(durFortyEightHours), true, 'Greater-than-or-equals comparison should return true when a duration calls the function with an equivalent duration as input')
+});
+
+test('lte', function (assert) {
+    var didThrow, errorMessage;
+    var durTwoDays = moment.duration({ days: 2 })
+    var durThreeDays = moment.duration({ days: 3 })
+    var durFortyEightHours = moment.duration({ hours: 48 })
+
+    try {
+        durTwoDays.lte(moment())
+    } catch (error) {
+        didThrow = true;
+        errorMessage = error.message
+    }
+
+    assert.equal(errorMessage, operandNotDurationErrorMessage, 'Error message should be as expected')
+    assert.ok(didThrow, 'Less-than-or-equals comparison should throw if operand is not a Moment Duration instance')
+    assert.equal(durTwoDays.lte(durThreeDays), true, 'Less-than-or-equals comparison should return true when smaller duration calls the function with a larger duration as input')
+    assert.equal(durThreeDays.lte(durTwoDays), false, 'Less-than-or-equals comparison should return false when larger duration calls the function with a smaller duration as input')
+    assert.equal(durTwoDays.lte(durFortyEightHours), true, 'Less-than-or-equals comparison should return true when a duration calls the function with an equivalent duration as input')
 });
 
 test('JSON.stringify duration', function (assert) {
