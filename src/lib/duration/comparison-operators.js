@@ -10,7 +10,7 @@ function withDurationOperand (operatorFunc) {
     } else {
       return operatorFunc(parentDur, operand);
     }
-  }
+  };
 }
 
 function _eq (durA, durB) {
