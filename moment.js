@@ -3998,6 +3998,10 @@
     proto.zone   = deprecate('moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/', getSetZone);
     proto.isDSTShifted = deprecate('isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information', isDaylightSavingTimeShifted);
 
+    proto[Symbol.for('nodejs.util.inspect.custom')] = function () {
+        return 'Moment<' + this.format() + '>';
+    };
+
     function createUnix (input) {
         return createLocal(input * 1000);
     }
