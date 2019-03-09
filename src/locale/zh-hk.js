@@ -92,5 +92,9 @@ export default moment.defineLocale('zh-hk', {
         MM : '%d 個月',
         y : '1 年',
         yy : '%d 年'
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
