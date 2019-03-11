@@ -1,6 +1,6 @@
 //! moment.js locale configuration
 //! locale : Vietnamese [vi]
-//! author : Bang Nguyen : https://github.com/bangnk
+//! author : Chien Kira : https://github.com/chienkira
 
 import moment from '../moment';
 
@@ -40,7 +40,7 @@ export default moment.defineLocale('vi', {
         nextDay: '[Ngày mai lúc] LT',
         nextWeek: 'dddd [tuần tới lúc] LT',
         lastDay: '[Hôm qua lúc] LT',
-        lastWeek: 'dddd [tuần rồi lúc] LT',
+        lastWeek: 'dddd [tuần trước lúc] LT',
         sameElse: 'L'
     },
     relativeTime : {
