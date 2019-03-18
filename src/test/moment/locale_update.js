@@ -173,6 +173,15 @@ test('update existing locale', function (assert) {
     moment.updateLocale('de', null);
 });
 
+test('update nonexisting locale', function (assert) {
+    test.expectedDeprecations('updateLocale');
+    moment.locale('en');
+    moment.updateLocale('dude', {months: ['Movember']});
+    assert.equal(moment.locale(), 'dude');
+    assert.equal(moment().locale('dude').locale(), 'dude');
+    moment.defineLocale('dude', null);
+});
+
 test('reset locale', function (assert) {
     moment.locale('de');
     var resultBeforeUpdate = moment('2017-02-01').format('YYYY MMM MMMM');

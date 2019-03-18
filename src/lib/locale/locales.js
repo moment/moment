@@ -142,6 +142,14 @@ export function defineLocale (name, config) {
 
 export function updateLocale(name, config) {
     if (config != null) {
+        if (locales[name] === undefined) {
+            deprecateSimple('updateLocale',
+                'use moment.defineLocale(localeName, config) to create ' +
+                'a new locale. moment.updateLocale(localeName, config) ' +
+                'should only be used for changing an existing locale. ' +
+                'See http://momentjs.com/guides/#/warnings/define-locale/ for more info.');
+            return defineLocale(name, config);
+        }
         var locale, tmpLocale, parentConfig = baseConfig;
         // MERGE
         tmpLocale = loadLocale(name);
