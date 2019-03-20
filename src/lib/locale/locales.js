@@ -194,7 +194,12 @@ export function getLocale (key) {
         key = [key];
     }
 
-    return chooseLocale(key.map(normalizeLocale));
+    var normalizedKey = [];
+    for (var i = 0; i < key.length; i++) {
+        normalizedKey.push(normalizeLocale(key[i]));
+    }
+
+    return chooseLocale(normalizedKey);
 }
 
 export function listLocales() {
