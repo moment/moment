@@ -41,7 +41,7 @@ export default moment.defineLocale('ro', {
         nextDay: '[mâine la] LT',
         nextWeek: 'dddd [la] LT',
         lastDay: '[ieri la] LT',
-        lastWeek: '[fosta] dddd [la] LT',
+        lastWeek: '[săptămâna trecută] dddd [la] LT',
         sameElse: 'L'
     },
     relativeTime : {
