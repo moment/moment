@@ -26,12 +26,12 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a', 'dimanche, février 14 2010, 3:25:50 pm'],
+            ['dddd, MMMM Do YYYY, h:mm:ss a', 'Dimanche, février 14 2010, 3:25:50 pm'],
             ['ddd, hA',                       'dim., 3PM'],
             ['M Mo MM MMMM MMM',              '2 2e 02 février févr.'],
             ['YYYY YY',                       '2010 10'],
             ['D Do DD',                       '14 14 14'],
-            ['d do dddd ddd dd',              '0 0e dimanche dim. di'],
+            ['d do dddd ddd dd',              '0 0e Dimanche dim. di'],
             ['DDD DDDo DDDD',                 '45 45e 045'],
             ['w wo ww',                       '6 6e 06'],
             ['h hh',                          '3 03'],
@@ -45,7 +45,7 @@ test('format', function (assert) {
             ['L',                             '14/02/2010'],
             ['LL',                            '14 février 2010'],
             ['LLL',                           '14 février 2010 15:25'],
-            ['LLLL',                          'dimanche 14 février 2010 15:25'],
+            ['LLLL',                          'Dimanche 14 février 2010 15:25'],
             ['l',                             '14/2/2010'],
             ['ll',                            '14 févr. 2010'],
             ['lll',                           '14 févr. 2010 15:25'],
@@ -122,7 +122,7 @@ test('format month', function (assert) {
 
 test('format week', function (assert) {
     var i,
-        expected = 'dimanche dim. di_lundi lun. lu_mardi mar. ma_mercredi mer. me_jeudi jeu. je_vendredi ven. ve_samedi sam. sa'.split('_');
+        expected = 'Dimanche dim. di_Lundi lun. lu_Mardi mar. ma_Mercredi mer. me_Jeudi jeu. je_Vendredi ven. ve_Samedi sam. sa'.split('_');
 
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
