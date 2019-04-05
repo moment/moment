@@ -1,3 +1,5 @@
+import { formattingTokens } from '../format/format';
+
 export var defaultLongDateFormat = {
     LTS  : 'h:mm:ss A',
     LT   : 'h:mm A',
@@ -15,9 +17,12 @@ export function longDateFormat (key) {
         return format;
     }
 
-    this._longDateFormat[key] = formatUpper.replace(/MMMM|MM|DD|dddd/g, function (val) {
-        return val.slice(1);
-    });
+    this._longDateFormat[key] = formatUpper.match(formattingTokens).map(function (tok) {
+        if (tok === 'MMMM' || tok === 'MM' || tok === 'DD' || tok === 'dddd') {
+            return tok.slice(1);
+        }
+        return tok;
+    }).join('');
 
     return this._longDateFormat[key];
 }
