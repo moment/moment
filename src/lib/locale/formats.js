@@ -15,7 +15,7 @@ export function longDateFormat (key) {
         return format;
     }
 
-    this._longDateFormat[key] = formatUpper.replace(/MMMM|MM|DD|dddd/g, function (val) {
+    this._longDateFormat[key] = formatUpper.replace(/(MMMM|MM|DD|dddd)(?![^\[\]]*\])/g, function (val) {
         return val.slice(1);
     });
 
