@@ -53,16 +53,19 @@ function addWithEndOfMonth(a, b, val) {
     var dayInMonth = a.date();
     var newMonth = get(a, 'Month') + months;
     var maxDays = daysInMonth(a.year(), newMonth);
+    const utcChecked = a._isUTC ? 'UTC' : '';
+    const getUtcChecked = 'get' + utcChecked;
+    const setUtcChecked = 'set' + utcChecked;
     // if End of Month, should ignore time difference
     if (dayInMonth > maxDays || isEndOfMonth(a)) {
         dayInMonth = maxDays;
-        var h = b._d['get' + (a._isUTC ? 'UTC' : '') + 'Hours']();
-        var m = b._d['get' + (a._isUTC ? 'UTC' : '') + 'Minutes']();
-        var s = b._d['get' + (a._isUTC ? 'UTC' : '') + 'Seconds']();
-        var ms = b._d['get' + (a._isUTC ? 'UTC' : '') + 'Milliseconds']();
-        a._d['set' + (a._isUTC ? 'UTC' : '') + 'Hours'](h, m, s, ms);
+        const h = b._d[getUtcChecked + 'Hours']();
+        const m = b._d[getUtcChecked + 'Minutes']();
+        const s = b._d[getUtcChecked + 'Seconds']();
+        const ms = b._d[getUtcChecked + 'Milliseconds']();
+        a._d[setUtcChecked + 'Hours'](h, m, s, ms);
     }
-    a._d['set' + (a._isUTC ? 'UTC' : '') + 'Month'](newMonth, dayInMonth);
+    a._d[setUtcChecked + 'Month'](newMonth, dayInMonth);
     return a;
 }
 
