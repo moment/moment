@@ -10,7 +10,7 @@
  }(this, (function (moment) { 'use strict';
 
 
- var symbolMap = {
+  var symbolMap = {
      '1': '۱',
      '2': '۲',
      '3': '۳',
@@ -35,12 +35,12 @@
      '۰': '0'
  };
 
- var fa = moment.defineLocale('fa', {
+  var ps = moment.defineLocale('ps', {
      months : 'سلواغه_كب_وری_غويی_غبرګولی_چنګاښ_زمری_وږی_تله_لړم_ليندۍ_مرغومی'.split('_'),
      monthsShort : 'سلواغه_كب_وری_غويی_غبرګولی_چنګاښ_زمری_وږی_تله_لړم_ليندۍ_مرغومی'.split('_'),
-     weekdays : 'یک\u200cشنبه_دوشنبه_سه\u200cشنبه_چهارشنبه_پنج\u200cشنبه_جمعه_شنبه'.split('_'),
-     weekdaysShort : 'یک\u200cشنبه_دوشنبه_سه\u200cشنبه_چهارشنبه_پنج\u200cشنبه_جمعه_شنبه'.split('_'),
-     weekdaysMin : 'ی_د_س_چ_پ_ج_ش'.split('_'),
+     weekdays : 'اتوار_ ګول_نهه_شورو_زیارت_جمعه_خالي ورځ'.split('_'),
+     weekdaysShort : 'اتوار_ ګول_نهه_شورو_زیارت_جمعه_خالي ورځ'.split('_'),
+     weekdaysMin : 'ا_ګ_ن_ش_ز_ج_خ'.split('_'),
      weekdaysParseExact : true,
      longDateFormat : {
          LT : 'HH:mm',
@@ -102,6 +102,6 @@
      }
  });
 
- return fa;
+  return ps;
 
- })));
+  })));
