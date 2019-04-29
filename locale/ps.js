@@ -43,12 +43,16 @@
      weekdaysMin : 'ا_ګ_ن_ش_ز_ج_خ'.split('_'),
      weekdaysParseExact : true,
      longDateFormat : {
-         LT : 'HH:mm',
-         LTS : 'HH:mm:ss',
-         L : 'DD/MM/YYYY',
-         LL : 'D MMMM YYYY',
-         LLL : 'D MMMM YYYY HH:mm',
-         LLLL : 'dddd, D MMMM YYYY HH:mm'
+        LT : 'HH:mm',
+        LTS : 'HH:mm:ss',
+        L : 'YYYY/MM/DD',
+        LL : 'YYYYکالMمیاشتDورځ',
+        LLL : 'YYYYکالMمیاشتDورځ HH:mm',
+        LLLL : 'YYYYکالMمیاشتDورځ HH:mm dddd',
+        l : 'YYYY/MM/DD',
+        ll : 'YYYYکالMمیاشتDورځ',
+        lll : 'YYYYکالMمیاشتDورځ HH:mm',
+        llll : 'YYYYکالMمیاشتDورځ HH:mm dddd'
      },
      meridiemParse: /د غرمې دمخه|ماسپښین/,
      isPM: function (input) {
@@ -94,8 +98,8 @@
              return symbolMap[match];
          }).replace(/,/g, '،');
      },
-     dayOfMonthOrdinalParse: /\d{1,2}م/,
-     ordinal : '%dم',
+     dayOfMonthOrdinalParse: /\d{1,2}\./,
+     ordinal : '%d',
      week : {
          dow : 6, // Saturday is the first day of the week.
          doy : 12 // The week that contains Jan 1st is the first week of the year.
