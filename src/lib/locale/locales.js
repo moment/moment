@@ -136,7 +136,7 @@ export function updateLocale(name, config) {
         tmpLocale = loadLocale(name);
         if (tmpLocale != null) {
             parentConfig = tmpLocale._config;
-        }
+
         config = mergeConfigs(parentConfig, config);
         locale = new Locale(config);
         locale.parentLocale = locales[name];
@@ -144,6 +144,15 @@ export function updateLocale(name, config) {
 
         // backwards compat for now: also set the locale
         getSetGlobalLocale(name);
+        }
+        else
+        {
+            deprecateSimple('defineLocaleOverride',
+            'use moment.updateLocale(localeName, config) to change ' +
+            'an existing locale. moment.defineLocale(localeName, ' +
+            'config) should only be used for creating a new locale ' +
+            'See http://momentjs.com/guides/#/warnings/define-locale/ for more info.');
+        }
     } else {
         // pass null for config to unupdate, useful for tests
         if (locales[name] != null) {
