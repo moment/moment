@@ -88,7 +88,7 @@
         "typescript-test": "tsc --project typing-tests",
         "test": "grunt test",
         "coverage": "nyc npm test && nyc report",
-        "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+        "coveralls": "nyc npm test && nyc report --reporter=text-lcov --reporter=cobertura | coveralls"
     },
     "spm": {
         "main": "moment.js",

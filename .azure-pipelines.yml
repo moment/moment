@@ -1,0 +1,85 @@
+trigger:
+- develop
+
+variables:
+  COVERALLS_GIT_BRANCH: '$(Build.SourceBranchName)'
+  COVERALLS_GIT_COMMIT: '$(Build.SourceVersion)'
+  COVERALLS_SERVICE_JOB_ID: '$(Build.BuildId)'
+  COVERALLS_SERVICE_NAME: 'Azure Pipelines'
+  CI_PULL_REQUEST: '$(System.PullRequest.PullRequestNumber)'
+
+jobs:
+- job: Linux 
+  strategy:
+    matrix:
+      Node 4:
+        NODE_VERSION: '4.x'
+      Node 5:
+        NODE_VERSION: '5.x'
+      Node 6:
+        NODE_VERSION: '6.x'
+      Node 7:
+        NODE_VERSION: '7.x'
+      Node 8:
+        NODE_VERSION: '8.x'
+      Node 12:
+        NODE_VERSION: '12.x'
+        COVERAGE: 'true'
+  pool:
+    vmImage: 'ubuntu-16.04'
+
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '$(NODE_VERSION)'
+    displayName: 'Install Node $(NODE_VERSION)'
+
+  - script: |
+      if [[ `npm -v` == 2* ]]; then npm i -g npm@3; fi
+      npm install
+      npm install -g grunt-cli
+    displayName: 'npm install'
+
+  - script: grunt
+    displayName: 'grunt'
+
+  - script: npm run coveralls
+    env:
+      COVERALLS_REPO_TOKEN: $(COVERALLS_REPO_TOKEN)
+    condition: and(succeeded(), eq(variables['COVERAGE'], 'true'))
+    displayName: 'Code coverage'
+
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: Cobertura
+      summaryFileLocation: '$(Build.SourcesDirectory)/coverage/cobertura-coverage.xml'
+    condition: and(succeeded(), eq(variables['COVERAGE'], 'true'))
+    displayName: 'Publish code coverage'
+
+- job: Windows 
+  strategy:
+    matrix:
+      Node 6:
+        NODE_VERSION: '6.x'
+      Node 7:
+        NODE_VERSION: '7.x'
+      Node 8:
+        NODE_VERSION: '8.x'
+      Node 12:
+        NODE_VERSION: '12.x'
+  pool:
+    vmImage: 'vs2017-win2016'
+
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '$(NODE_VERSION)'
+    displayName: 'Install Node $(NODE_VERSION)'
+
+  - script: |
+      npm install
+      npm install -g grunt-cli
+    displayName: 'npm install'
+
+  - script: grunt
+    displayName: 'grunt'
