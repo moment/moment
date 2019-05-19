@@ -49,6 +49,8 @@ test('object instantiation with strings', function (assert) {
 
 test('milliseconds instantiation', function (assert) {
     assert.equal(moment.duration(72).milliseconds(), 72, 'milliseconds');
+    assert.equal(moment.duration(72.4).milliseconds(), 72, 'milliseconds should not be integer');
+    assert.equal(moment.duration(72.6).milliseconds(), 72, 'milliseconds should be integer');
     assert.equal(moment.duration(72).humanize(), 'a few seconds', 'Duration should be valid');
 });
 
@@ -87,6 +89,8 @@ test('instantiation by type', function (assert) {
     assert.equal(moment.duration(7, 's').seconds(),                   7, 's');
     assert.equal(moment.duration(8, 'milliseconds').milliseconds(),   8, 'milliseconds');
     assert.equal(moment.duration(8, 'ms').milliseconds(),             8, 'ms');
+    assert.equal(moment.duration(8.4, 'milliseconds').milliseconds(), 8, 'milliseconds should be integer');
+    assert.equal(moment.duration(8.4, 'ms').milliseconds(),           8, 'milliseconds should be integer');
 });
 
 test('shortcuts', function (assert) {
@@ -98,6 +102,7 @@ test('shortcuts', function (assert) {
     assert.equal(moment.duration({m: 6}).minutes(),       6, 'minutes = m');
     assert.equal(moment.duration({s: 7}).seconds(),       7, 'seconds = s');
     assert.equal(moment.duration({ms: 8}).milliseconds(), 8, 'milliseconds = ms');
+    assert.equal(moment.duration({ms: 8.4}).milliseconds(), 8, 'milliseconds = ms');
 });
 
 test('generic getter', function (assert) {
