@@ -36,7 +36,7 @@ test('format', function (assert) {
             ['m mm',                               '25 25'],
             ['s ss',                               '50 50'],
             ['a A',                                'pm PM'],
-            ['[the] DDDo [day of the year]',       'the 45. day of the year'],
+            ['[den] DDDo [dagen i året]',          'den 45. dagen i året'],
             ['LTS',                                '15:25:50'],
             ['L',                                  '14.02.2010'],
             ['LL',                                 '14. februar 2010'],
@@ -99,7 +99,7 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'sundag sun su_måndag mån må_tysdag tys ty_onsdag ons on_torsdag tor to_fredag fre fr_laurdag lau lø'.split('_'), i;
+    var expected = 'sundag sun su_måndag mån må_tysdag tys ty_onsdag ons on_torsdag tor to_fredag fre fr_laurdag lau la'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
@@ -107,7 +107,7 @@ test('format week', function (assert) {
 
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'nokre sekund', '44 sekunder = a few seconds');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'nokre sekund', '44 seconds = a few seconds');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'eit minutt',   '45 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'eit minutt',   '89 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  '2 minutt',     '90 seconds = 2 minutes');
