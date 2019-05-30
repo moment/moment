@@ -138,11 +138,11 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true), 'mí', '26 days = a month');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true), 'mí', '30 days = a month');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true), 'mí', '43 days = a month');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true), '2 mí', '46 days = 2 months');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true), '2 mí', '75 days = 2 months');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true), '3 mí', '76 days = 3 months');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 46}), true), '2 míonna', '46 days = 2 months');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 74}), true), '2 míonna', '75 days = 2 months');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 76}), true), '3 míonna', '76 days = 3 months');
     assert.equal(start.from(moment([2007, 1, 28]).add({M: 1}), true), 'mí', '1 month = a month');
-    assert.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true), '5 mí', '5 months = 5 months');
+    assert.equal(start.from(moment([2007, 1, 28]).add({M: 5}), true), '5 míonna', '5 months = 5 months');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 345}), true), 'bliain', '345 days = a year');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), '2 bliain', '548 days = 2 years');
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true), 'bliain', '1 year = a year');
@@ -171,7 +171,7 @@ test('calendar day', function (assert) {
     assert.equal(moment(a).add({h: 1}).calendar(),      'Inniu ag 13:00',   'Now plus 1 hour');
     assert.equal(moment(a).add({d: 1}).calendar(),      'Amárach ag 12:00', 'tomorrow at the same time');
     assert.equal(moment(a).subtract({h: 1}).calendar(), 'Inniu ag 11:00',   'Now minus 1 hour');
-    assert.equal(moment(a).subtract({d: 1}).calendar(), 'Inné aig 12:00',      'yesterday at the same time');
+    assert.equal(moment(a).subtract({d: 1}).calendar(), 'Inné ag 12:00',      'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {
