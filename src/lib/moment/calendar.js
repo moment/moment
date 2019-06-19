@@ -29,5 +29,5 @@ export function isWeekend() {
     if (!(this.isValid())) {
         return false;
     }
-    return [0, 6].includes(this.weekday());
+    return [0, 6].indexOf(this.weekday()) !== -1;
 }
