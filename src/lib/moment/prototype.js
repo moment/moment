@@ -3,7 +3,7 @@ import { Moment } from './constructor';
 var proto = Moment.prototype;
 
 import { add, subtract } from './add-subtract';
-import { calendar, getCalendarFormat } from './calendar';
+import { calendar, getCalendarFormat, isWeekend } from './calendar';
 import { clone } from './clone';
 import { isBefore, isBetween, isSame, isAfter, isSameOrAfter, isSameOrBefore } from './compare';
 import { diff } from './diff';
@@ -20,6 +20,7 @@ import { creationData } from './creation-data';
 
 proto.add               = add;
 proto.calendar          = calendar;
+proto.isWeekend         = isWeekend;
 proto.clone             = clone;
 proto.diff              = diff;
 proto.endOf             = endOf;

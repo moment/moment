@@ -24,3 +24,10 @@ export function calendar (time, formats) {
 
     return this.format(output || this.localeData().calendar(format, this, createLocal(now)));
 }
+
+export function isWeekend() {
+    if (!(this.isValid())) {
+        return false;
+    }
+    return [0, 6].includes(this.weekday());
+}

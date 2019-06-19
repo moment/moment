@@ -234,3 +234,8 @@ test('weekdays strict parsing', function (assert) {
     }
 });
 
+test('day is a weekend', function (assert) {
+    assert.equal(moment([2019, 5, 15]).isWeekend(), true);
+    assert.equal(moment([2019, 5, 17]).isWeekend(), false);
+});
+

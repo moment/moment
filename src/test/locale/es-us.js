@@ -228,3 +228,8 @@ test('test short months proper', function (assert) {
 test('test lenient month parsing', function (assert) {
     assert.ok(moment('nov 01, 2015', 'MMM D, YYYY', true).isValid(), 'nov 01, 2015 should parse correctly');
 });
+
+test('day is a weekend', function (assert) {
+    assert.equal(moment([2019, 5, 16]).isWeekend(), true);
+    assert.equal(moment([2019, 5, 18]).isWeekend(), false);
+});

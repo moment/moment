@@ -208,3 +208,8 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012, 0,  9]).format('w ww wo'),   '2 02 2nd', 'Jan  9 2012 should be week 2');
     assert.equal(moment([2012, 0, 15]).format('w ww wo'),   '2 02 2nd', 'Jan 15 2012 should be week 2');
 });
+
+test('day is a weekend', function (assert) {
+    assert.equal(moment([2019, 5, 17]).isWeekend(), true, 'Monday');
+    assert.equal(moment([2019, 5, 18]).isWeekend(), false, 'Tuesday');
+});

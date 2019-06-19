@@ -431,6 +431,7 @@ declare namespace moment {
     subtract(unit: unitOfTime.DurationConstructor, amount: number|string): Moment;
 
     calendar(time?: MomentInput, formats?: CalendarSpec): string;
+    isWeekend(): boolean;
 
     clone(): Moment;
 
