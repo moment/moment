@@ -2,8 +2,13 @@ import extend from '../utils/extend';
 import { createUTC } from './utc';
 import getParsingFlags from '../create/parsing-flags';
 import some from '../utils/some';
+import isDate from '../utils/is-date';
 
 export function isValid(m) {
+    if (!isDate(m._d)) {
+        m._isValid = false;
+        return m._isValid;
+    }
     if (m._isValid == null) {
         var flags = getParsingFlags(m);
         var parsedParts = some.call(flags.parsedDateParts, function (i) {
