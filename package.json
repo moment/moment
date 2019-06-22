@@ -25,6 +25,13 @@
     "main": "./moment.js",
     "jsnext:main": "./src/moment.js",
     "typings": "./moment.d.ts",
+    "typesVersions": {
+        ">=3.1": {
+            "*": [
+                "ts3.1-typings/*"
+            ]
+        }
+    },
     "engines": {
         "node": "*"
     },
@@ -62,6 +69,7 @@
         "karma-sauce-launcher": "latest",
         "load-grunt-tasks": "~3.5.2",
         "node-qunit": "^1.0.0",
+        "npx": "10.2.0",
         "nyc": "~11.9.0",
         "qunit": "^2.7.1",
         "rollup": "~0.67.4",
@@ -85,6 +93,7 @@
         }
     },
     "scripts": {
+        "ts3.1-typescript-test": "npx typescript@3.1 --project ts3.1-typing-tests",
         "typescript-test": "tsc --project typing-tests",
         "test": "grunt test",
         "coverage": "nyc npm test && nyc report",

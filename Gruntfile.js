@@ -172,6 +172,9 @@ module.exports = function (grunt) {
             'typescript-test': {
                 command: 'npm run typescript-test'
             },
+            'ts3.1-typescript-test': {
+                command: 'npm run ts3.1-typescript-test'
+            },
             'coveralls': {
                 command: 'npm run coveralls'
             }
