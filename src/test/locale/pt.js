@@ -25,7 +25,7 @@ test('format', function (assert) {
     var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss a',      'Domingo, fevereiro 14º 2010, 3:25:50 pm'],
             ['ddd, hA',                            'Dom, 3PM'],
-            ['M Mo MM MMMM MMM',                   '2 2º 02 fevereiro Fev'],
+            ['M Mo MM MMMM MMM',                   '2 2º 02 fevereiro fev'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14º 14'],
             ['d do dddd ddd',                      '0 0º Domingo Dom'],
