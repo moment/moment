@@ -3,6 +3,7 @@
 //! author : Ben : https://github.com/ben-lin
 //! author : Chris Lam : https://github.com/hehachris
 //! author : Konstantin : https://github.com/skfd
+//! author : Anthony : https://github.com/anthonylau
 
 import moment from '../moment';
 
