@@ -5,13 +5,14 @@ import { hooks } from '../utils/hooks';
 
 export function getCalendarFormat(myMoment, now) {
     var diff = myMoment.diff(now, 'days', true);
+    const sameYear = myMoment.format('YYYY') === now.format('YYYY');
     return diff < -6 ? 'sameElse' :
             diff < -1 ? 'lastWeek' :
             diff < 0 ? 'lastDay' :
             diff < 1 ? 'sameDay' :
             diff < 2 ? 'nextDay' :
-            diff < 7 ? 'nextWeek' : 
-            myMoment.format('YYYY') === now.format('YYYY') ? 'sameYear' : 'sameElse';
+            diff < 7 ? 'nextWeek' :
+            sameYear ? 'sameYear' : 'sameElse';
 }
 
 export function calendar (time, formats) {
