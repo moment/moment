@@ -4,10 +4,12 @@
     "target": "es6",
     "module": "commonjs",
     "noEmit": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "allowJs": true
   },
   "files": [
     "../moment.d.ts",
+    "./moment-js-tests.js",
     "./moment-tests.ts"
   ]
 }
