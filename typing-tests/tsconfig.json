@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "target": "es6",
+    "lib": ["ES2015"],
     "module": "commonjs",
     "noEmit": true,
     "noImplicitAny": true,
