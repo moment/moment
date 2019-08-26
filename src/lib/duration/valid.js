@@ -6,8 +6,8 @@ import {createDuration} from './create';
 var ordering = ['year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', 'millisecond'];
 
 export default function isDurationValid(m) {
-    for (var key in m) {
-        if (m.hasOwnProperty(key) && !(indexOf.call(ordering, key) !== -1 && (m[key] == null || !isNaN(m[key])))) {
+    for (var key of Object.getOwnPropertyNames(m)) {
+        if (!(indexOf.call(ordering, key) !== -1 && (m[key] == null || !isNaN(m[key])))) {
             return false;
         }
     }
