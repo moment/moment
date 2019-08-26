@@ -85,3 +85,10 @@ test('invalid duration operations', function (assert) {
         assert.equal(invalid.localeData()._abbr, 'en', 'invalid.localeData()._abbr; i=' + i);
     }
 });
+
+test('valid duration with extended prototype', function (assert) {
+    Object.prototype.foo = 'bar';
+    var m = moment.duration({d: null});
+    assert.equal(m.isValid(), true);
+    delete Object.prototype.foo;
+});
