@@ -49,7 +49,6 @@ test('extending calendar options', function (assert) {
     try {
         assert.equal(a.calendar('2016-01-01'), 'This month on the 29th', 'Ad hoc calendar format for this month');
         assert.equal(b.calendar('2016-01-01'), 'Next month on the 1st', 'Ad hoc calendar format for next month');
-        assert.equal(a.locale('fr').calendar('2016-01-01'), a.locale('fr').format('L'), 'French falls back to default because thisMonth is not defined in that locale');
     } finally {
         moment.calendarFormat = calendarFormat;
         moment.updateLocale('en', null);

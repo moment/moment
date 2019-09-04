@@ -166,19 +166,19 @@ test('months', function (assert) {
 });
 
 test('update existing locale', function (assert) {
-    moment.updateLocale('de', {
+    moment.updateLocale('es', {
         monthsShort: ['JAN', 'FEB', 'MÄR', 'APR', 'MAI', 'JUN', 'JUL', 'AUG', 'SEP', 'OKT', 'NOV', 'DEZ']
     });
-    assert.equal(moment('2017-02-01').format('YYYY MMM MMMM'), '2017 FEB Februar');
-    moment.updateLocale('de', null);
+    assert.equal(moment('2017-02-01').format('YYYY MMM MMMM'), '2017 FEB febrero');
+    moment.updateLocale('es', null);
 });
 
 test('reset locale', function (assert) {
-    moment.locale('de');
+    moment.locale('es');
     var resultBeforeUpdate = moment('2017-02-01').format('YYYY MMM MMMM');
-    moment.updateLocale('de', {
+    moment.updateLocale('es', {
         monthsShort: ['JAN', 'FEB', 'MÄR', 'APR', 'MAI', 'JUN', 'JUL', 'AUG', 'SEP', 'OKT', 'NOV', 'DEZ']
     });
-    moment.updateLocale('de', null);
+    moment.updateLocale('es', null);
     assert.equal(moment('2017-02-01').format('YYYY MMM MMMM'), resultBeforeUpdate);
 });

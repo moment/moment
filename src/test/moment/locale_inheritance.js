@@ -185,9 +185,9 @@ test('define child locale before parent', function (assert) {
 });
 
 test('lazy load parentLocale', function (assert) {
-    moment.defineLocale('de_test', {
-        parentLocale: 'de',
+    moment.defineLocale('en_test', {
+        parentLocale: 'en',
         monthsShort: ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12']
     });
-    assert.equal(moment.locale(), 'de_test', 'failed to lazy load parentLocale');
+    assert.equal(moment.locale(), 'en_test', 'failed to lazy load parentLocale');
 });

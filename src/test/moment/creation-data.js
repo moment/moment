@@ -14,13 +14,6 @@ test('valid date', function (assert) {
     assert.equal(orig.isUTC, false, 'not a UTC date');
 });
 
-test('valid date at fr locale', function (assert) {
-    var dat = moment('1992-10-22', 'YYYY-MM-DD', 'fr');
-    var orig = dat.creationData();
-
-    assert.equal(orig.locale._abbr, 'fr', 'locale is fr');
-});
-
 test('valid date with formats', function (assert) {
     var dat = moment('29-06-1995', ['MM-DD-YYYY', 'DD-MM', 'DD-MM-YYYY']);
     var orig = dat.creationData();
