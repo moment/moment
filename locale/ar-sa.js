@@ -40,8 +40,8 @@
         weekdaysMin : 'ح_ن_ث_ر_خ_ج_س'.split('_'),
         weekdaysParseExact : true,
         longDateFormat : {
-            LT : 'HH:mm',
-            LTS : 'HH:mm:ss',
+            LT : 'HH:mm a',
+            LTS : 'HH:mm:ss a',
             L : 'DD/MM/YYYY',
             LL : 'D MMMM YYYY',
             LLL : 'D MMMM YYYY HH:mm',
