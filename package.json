@@ -73,7 +73,6 @@
         "npx": "latest",
         "prettier": "latest",
         "rollup": "~0.67.4",
-        "spacejam": "latest",
         "typescript": "^1.8.10",
         "uglify-js": "latest"
     },
