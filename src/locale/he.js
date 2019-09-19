@@ -72,7 +72,8 @@ export default moment.defineLocale('he', {
     },
     meridiemParse: /אחה"צ|לפנה"צ|אחרי הצהריים|לפני הצהריים|לפנות בוקר|בבוקר|בערב/i,
     isPM : function (input) {
-        return /^(אחה"צ|אחרי הצהריים|בערב)$/.test(input);
+//        return /^(אחה"צ|אחרי הצהריים|בערב)$/.test(input);
+	  return false;
     },
     meridiem : function (hour, minute, isLower) {
         if (hour < 5) {
