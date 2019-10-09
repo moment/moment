@@ -412,7 +412,7 @@ declare namespace moment {
     strict?: boolean;
   }
 
-  interface Moment extends Object {
+  export interface Moment extends Object {
     format(format?: string): string;
 
     startOf(unitOfTime: unitOfTime.StartOf): Moment;
