@@ -1,4 +1,8 @@
 //! moment.js
+//! version  : 2.24.0
+//! authors  : Iskren Ivov Chernev, Moment.js contributors
+//! license  : MIT
+//! homepage : http://momentjs.com
 
 ;(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
