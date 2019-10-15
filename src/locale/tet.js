@@ -31,8 +31,8 @@ export default moment.defineLocale('tet', {
     relativeTime : {
         future : 'iha %s',
         past : '%s liuba',
-        s : 'segundu balun',
-        ss : 'segundu %d',
+        s : 'minutu balun',
+        ss : 'minutu %d',
         m : 'minutu ida',
         mm : 'minutu %d',
         h : 'oras ida',
