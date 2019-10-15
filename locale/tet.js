@@ -33,8 +33,8 @@
         relativeTime : {
             future : 'iha %s',
             past : '%s liuba',
-            s : 'minutu balun',
-            ss : 'minutu %d',
+            s : 'segundu balun',
+            ss : 'segundu %d',
             m : 'minutu ida',
             mm : 'minutu %d',
             h : 'oras ida',
