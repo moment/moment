@@ -1,6 +1,5 @@
 import { configFromStringAndFormat } from './from-string-and-format';
 import { createUTCDate } from './date-from-array';
-import { configFromArray } from './from-array';
 import { hooks } from '../utils/hooks';
 import { deprecate } from '../utils/deprecate';
 import getParsingFlags from './parsing-flags';
