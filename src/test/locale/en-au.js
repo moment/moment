@@ -217,22 +217,22 @@ test('Weekdays sort by locale', function (assert) {
         'weekdays start on Sunday');
     assert.deepEqual(
         moment().localeData('en-au').weekdays(true),
-        'Monday_Tuesday_Wednesday_Thursday_Friday_Saturday_Sunday'.split('_'),
-        'locale-sorted weekdays start on Monday');
+        'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+        'locale-sorted weekdays start on Sunday');
     assert.deepEqual(
         moment().localeData('en-au').weekdaysShort(),
         'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
         'weekdaysShort start on Sunday');
     assert.deepEqual(
         moment().localeData('en-au').weekdaysShort(true),
-        'Mon_Tue_Wed_Thu_Fri_Sat_Sun'.split('_'),
-        'locale-sorted weekdaysShort start on Monday');
+        'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
+        'locale-sorted weekdaysShort start on Sunday');
     assert.deepEqual(
         moment().localeData('en-au').weekdaysMin(),
         'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
         'weekdaysMin start on Sunday');
     assert.deepEqual(
         moment().localeData('en-au').weekdaysMin(true),
-        'Mo_Tu_We_Th_Fr_Sa_Su'.split('_'),
-        'locale-sorted weekdaysMin start on Monday');
+        'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
+        'locale-sorted weekdaysMin start on Sunday');
 });
