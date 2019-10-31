@@ -3,7 +3,7 @@ Submitting Issues
 
 If you are submitting a bug, please create a [jsfiddle](http://jsfiddle.net/) demonstrating the issue.
 
-Read before submitting Pull Requests
+Read before submitting Pull Requests (If you are familiar with the rules, you can skip this)
 ====================================
 
  * **Pull requests to the `master` branch will be closed.** Please submit all pull requests to the `develop` branch.
