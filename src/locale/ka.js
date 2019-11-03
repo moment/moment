@@ -15,12 +15,12 @@ export default moment.defineLocale('ka', {
     weekdaysShort : 'კვი_ორშ_სამ_ოთხ_ხუთ_პარ_შაბ'.split('_'),
     weekdaysMin : 'კვ_ორ_სა_ოთ_ხუ_პა_შა'.split('_'),
     longDateFormat : {
-        LT : 'h:mm A',
-        LTS : 'h:mm:ss A',
+        LT : 'HH:mm',
+        LTS : 'HH:mm:ss',
         L : 'DD/MM/YYYY',
         LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY h:mm A',
-        LLLL : 'dddd, D MMMM YYYY h:mm A'
+        LLL : 'D MMMM YYYY HH:mm',
+        LLLL : 'dddd, D MMMM YYYY HH:mm'
     },
     calendar : {
         sameDay : '[დღეს] LT[-ზე]',
