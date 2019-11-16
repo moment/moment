@@ -109,6 +109,7 @@ module.exports = function (grunt) {
                 }
             },
             options: {
+                sourceMap: true,
                 mangle: true,
                 compress: {
                     dead_code: false // jshint ignore:line
