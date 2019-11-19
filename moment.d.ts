@@ -317,37 +317,37 @@ declare namespace moment {
   }
 
   interface MomentInputObject {
-    years?: number;
-    year?: number;
-    y?: number;
+    years?: number | string;
+    year?: number | string;
+    y?: number | string;
 
-    months?: number;
-    month?: number;
-    M?: number;
+    months?: number | string;
+    month?: number | string;
+    M?: number | string;
 
-    days?: number;
-    day?: number;
-    d?: number;
+    days?: number | string;
+    day?: number | string;
+    d?: number | string;
 
-    dates?: number;
-    date?: number;
-    D?: number;
+    dates?: number | string;
+    date?: number | string;
+    D?: number | string;
 
-    hours?: number;
-    hour?: number;
-    h?: number;
+    hours?: number | string;
+    hour?: number | string;
+    h?: number | string;
 
-    minutes?: number;
-    minute?: number;
-    m?: number;
+    minutes?: number | string;
+    minute?: number | string;
+    m?: number | string;
 
-    seconds?: number;
-    second?: number;
-    s?: number;
+    seconds?: number | string;
+    second?: number | string;
+    s?: number | string;
 
-    milliseconds?: number;
-    millisecond?: number;
-    ms?: number;
+    milliseconds?: number | string;
+    millisecond?: number | string;
+    ms?: number | string;
   }
 
   interface DurationInputObject extends MomentInputObject {
