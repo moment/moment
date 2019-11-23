@@ -64,7 +64,7 @@ function makeFormatFunction(format) {
 
 // format date using native date object
 export function formatMoment(m, format) {
-    if (!m.isValid()) {
+    if (!m.isValid() || isNaN(m)) {
         return m.localeData().invalidDate();
     }
 
