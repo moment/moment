@@ -27,9 +27,9 @@ export default moment.defineLocale('it', {
         lastWeek: function () {
             switch (this.day()) {
                 case 0:
-                    return '[la scorsa] dddd [alle] LT';
+                    return '[la] dddd [scorsa alle] LT';
                 default:
-                    return '[lo scorso] dddd [alle] LT';
+                    return '[il] dddd [scorsa alle] LT';
             }
         },
         sameElse: 'L'
