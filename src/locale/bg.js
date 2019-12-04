@@ -48,7 +48,7 @@ export default moment.defineLocale('bg', {
         h : 'час',
         hh : '%d часа',
         d : 'ден',
-        dd : '%d дни',
+        dd : '%d дена',
         M : 'месец',
         MM : '%d месеца',
         y : 'година',
