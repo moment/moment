@@ -91,7 +91,7 @@
         },
         calendar : {
             sameDay: '[اليوم عند الساعة] LT',
-            nextDay: '[غدًا عند الساعة] LT',
+            nextDay: '[غداً عند الساعة] LT',
             nextWeek: 'dddd [عند الساعة] LT',
             lastDay: '[أمس عند الساعة] LT',
             lastWeek: 'dddd [عند الساعة] LT',
