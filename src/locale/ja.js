@@ -37,7 +37,7 @@ export default moment.defineLocale('ja', {
         sameDay : '[今日] LT',
         nextDay : '[明日] LT',
         nextWeek : function (now) {
-            if (now.week() < this.week()) {
+            if (now.week() !== this.week()) {
                 return '[来週]dddd LT';
             } else {
                 return 'dddd LT';
