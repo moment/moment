@@ -66,6 +66,15 @@ test('library getters and setters', function (assert) {
     assert.equal(moment.locale(), 'en-gb', 'Normalize locale key underscore');
 });
 
+test('locale loading performance', function (assert) {
+    // this will fallback to en
+    const start = Date.now();
+    for (var i = 0; i < 1000; i++) {
+        moment.locale('en-US');
+    }
+    assert.ok(Date.now() - start < 10);
+});
+
 test('library setter array of locales', function (assert) {
     assert.equal(moment.locale(['non-existent', 'fr', 'also-non-existent']), 'fr', 'passing an array uses the first valid locale');
     assert.equal(moment.locale(['es', 'fr', 'also-non-existent']), 'es', 'passing an array uses the first valid locale');
