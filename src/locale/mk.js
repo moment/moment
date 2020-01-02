@@ -28,12 +28,12 @@ export default moment.defineLocale('mk', {
                 case 0:
                 case 3:
                 case 6:
-                    return '[Изминатата] dddd [во] LT';
+                    return '[Минатата] dddd [во] LT';
                 case 1:
                 case 2:
                 case 4:
                 case 5:
-                    return '[Изминатиот] dddd [во] LT';
+                    return '[Минатиот] dddd [во] LT';
             }
         },
         sameElse : 'L'
@@ -43,15 +43,15 @@ export default moment.defineLocale('mk', {
         past : 'пред %s',
         s : 'неколку секунди',
         ss : '%d секунди',
-        m : 'една минута',
+        m : '1 минута',
         mm : '%d минути',
-        h : 'еден час',
+        h : '1 час',
         hh : '%d часа',
-        d : 'еден ден',
+        d : '1 ден',
         dd : '%d дена',
-        M : 'еден месец',
+        M : '1 месец',
         MM : '%d месеци',
-        y : 'една година',
+        y : '1 година',
         yy : '%d години'
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(ев|ен|ти|ви|ри|ми)/,
