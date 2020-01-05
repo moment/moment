@@ -125,7 +125,7 @@ Make react native and webpack both work
 ## Packaging
 
 * [#4003](https://github.com/moment/moment/pull/4003) [pkg] bower: Remove tests from package
-* [#3904](https://github.com/moment/moment/pull/3904) [pkg] jsnext:main -> module in package.json
+* [#3904](https://github.com/moment/moment/pull/3904) [pkg] module: ESModule entry
 * [#4060](https://github.com/moment/moment/pull/4060) [pkg] Account for new rollup interface
 
 Bugfixes, new locales, locale fixes etc...
