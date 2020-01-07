@@ -10,7 +10,7 @@
 
     var eo = moment.defineLocale('eo', {
         months : 'januaro_februaro_marto_aprilo_majo_junio_julio_aŭgusto_septembro_oktobro_novembro_decembro'.split('_'),
-        monthsShort : 'jan_feb_mar_apr_maj_jun_jul_aŭg_sep_okt_nov_dec'.split('_'),
+        monthsShort : 'jan_feb_mart_apr_maj_jun_jul_aŭg_sept_okt_nov_dec'.split('_'),
         weekdays : 'dimanĉo_lundo_mardo_merkredo_ĵaŭdo_vendredo_sabato'.split('_'),
         weekdaysShort : 'dim_lun_mard_merk_ĵaŭ_ven_sab'.split('_'),
         weekdaysMin : 'di_lu_ma_me_ĵa_ve_sa'.split('_'),
@@ -20,7 +20,7 @@
             L : 'YYYY-MM-DD',
             LL : 'D[-a de] MMMM, YYYY',
             LLL : 'D[-a de] MMMM, YYYY HH:mm',
-            LLLL : 'dddd, [la] D[-a de] MMMM, YYYY HH:mm'
+            LLLL : 'dddd[n], [la] D[-an de] MMMM, YYYY HH:mm'
         },
         meridiemParse: /[ap]\.t\.m/i,
         isPM: function (input) {
@@ -36,25 +36,25 @@
         calendar : {
             sameDay : '[Hodiaŭ je] LT',
             nextDay : '[Morgaŭ je] LT',
-            nextWeek : 'dddd [je] LT',
+            nextWeek : 'dddd[n je] LT',
             lastDay : '[Hieraŭ je] LT',
-            lastWeek : '[pasinta] dddd [je] LT',
+            lastWeek : '[pasintan] dddd[n je] LT',
             sameElse : 'L'
         },
         relativeTime : {
             future : 'post %s',
             past : 'antaŭ %s',
-            s : 'sekundoj',
+            s : 'kelkaj sekundoj',
             ss : '%d sekundoj',
-            m : 'minuto',
+            m : 'unu minuto',
             mm : '%d minutoj',
-            h : 'horo',
+            h : 'unu horo',
             hh : '%d horoj',
-            d : 'tago',//ne 'diurno', ĉar estas uzita por proksimumo
+            d : 'unu tago',//ne 'diurno', ĉar estas uzita por proksimumo
             dd : '%d tagoj',
-            M : 'monato',
+            M : 'unu monato',
             MM : '%d monatoj',
-            y : 'jaro',
+            y : 'unu jaro',
             yy : '%d jaroj'
         },
         dayOfMonthOrdinalParse: /\d{1,2}a/,
