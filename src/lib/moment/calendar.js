@@ -4,13 +4,28 @@ import isFunction from '../utils/is-function';
 import { hooks } from '../utils/hooks';
 
 export function getCalendarFormat(myMoment, now) {
-    var diff = myMoment.diff(now, 'days', true);
-    return diff < -6 ? 'sameElse' :
-            diff < -1 ? 'lastWeek' :
-            diff < 0 ? 'lastDay' :
-            diff < 1 ? 'sameDay' :
-            diff < 2 ? 'nextDay' :
-            diff < 7 ? 'nextWeek' : 'sameElse';
+    if (myMoment.year() === now.year()) {
+        switch (myMoment.week() - now.week()) {
+            case 0:
+                const diff = myMoment.diff(now, 'days');
+                if (diff === 0) {
+                    return 'sameDay';
+                } else if (diff === 1) {
+                    return 'nextDay';
+                } else if (diff === -1) {
+                    return 'lastDay';
+                }
+                return 'sameElse';
+            case 1:
+                return 'nextWeek';
+            case -1:
+                return 'lastWeek';
+            default:
+                return 'sameElse';
+        }
+    } else {
+        return 'sameElse';
+    }
 }
 
 export function calendar (time, formats) {
