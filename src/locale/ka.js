@@ -1,6 +1,6 @@
 //! moment.js locale configuration
 //! locale : Georgian [ka]
-//! author : Irakli Janiashvili : https://github.com/iJaniashvili
+//! author : Irakli Janiashvili : https://github.com/IrakliJani
 
 import moment from '../moment';
 
