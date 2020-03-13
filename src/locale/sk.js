@@ -124,7 +124,7 @@ export default moment.defineLocale('sk', {
         sameElse: 'L'
     },
     relativeTime : {
-        future : 'za %s',
+        future : 'o %s',
         past : 'pred %s',
         s : translate,
         ss : translate,
@@ -146,4 +146,3 @@ export default moment.defineLocale('sk', {
         doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
-
