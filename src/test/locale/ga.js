@@ -4,16 +4,16 @@ import moment from '../../moment';
 localeModule('ga');
 
 var months = [
-    'Eanáir,Eaná',
-    'Feabhra,Feab',
+    'Eanáir,Ean',
+    'Feabhra,Feabh',
     'Márta,Márt',
-    'Aibreán,Aibr',
+    'Aibreán,Aib',
     'Bealtaine,Beal',
-    'Méitheamh,Méit',
+    'Meitheamh,Meith',
     'Iúil,Iúil',
-    'Lúnasa,Lúna',
-    'Meán Fómhair,Meán',
-    'Deaireadh Fómhair,Deai',
+    'Lúnasa,Lún',
+    'Meán Fómhair,M.F.',
+    'Deireadh Fómhair,D.F.',
     'Samhain,Samh',
     'Nollaig,Noll'
 ];
@@ -39,11 +39,11 @@ test('parse', function (assert) {
 test('format', function (assert) {
     var a = [
         ['dddd, MMMM Do YYYY, h:mm:ss a', 'Dé Domhnaigh, Feabhra 14mh 2010, 3:25:50 pm'],
-        ['ddd, hA', 'Dom, 3PM'],
-        ['M Mo MM MMMM MMM', '2 2na 02 Feabhra Feab'],
+        ['ddd, hA', 'Domh, 3PM'],
+        ['M Mo MM MMMM MMM', '2 2na 02 Feabhra Feabh'],
         ['YYYY YY', '2010 10'],
         ['D Do DD', '14 14mh 14'],
-        ['d do dddd ddd dd', '0 0mh Dé Domhnaigh Dom Do'],
+        ['d do dddd ddd dd', '0 0mh Dé Domhnaigh Domh Do'],
         ['DDD DDDo DDDD', '45 45mh 045'],
         ['w wo ww', '6 6mh 06'],
         ['h hh', '3 03'],
@@ -58,9 +58,9 @@ test('format', function (assert) {
         ['LLL', '14 Feabhra 2010 15:25'],
         ['LLLL', 'Dé Domhnaigh, 14 Feabhra 2010 15:25'],
         ['l', '14/2/2010'],
-        ['ll', '14 Feab 2010'],
-        ['lll', '14 Feab 2010 15:25'],
-        ['llll', 'Dom, 14 Feab 2010 15:25']
+        ['ll', '14 Feabh 2010'],
+        ['lll', '14 Feabh 2010 15:25'],
+        ['llll', 'Domh, 14 Feabh 2010 15:25']
     ],
     b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
     i;
@@ -111,7 +111,7 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = ['Dé Domhnaigh Dom Do', 'Dé Luain Lua Lu', 'Dé Máirt Mái Má', 'Dé Céadaoin Céa Ce', 'Déardaoin Déa Dé', 'Dé hAoine hAo hA', 'Dé Satharn Sat Sa'];
+    var expected = ['Dé Domhnaigh Domh Do', 'Dé Luain Luan Lu', 'Dé Máirt Máirt Má', 'Dé Céadaoin Céad Cé', 'Déardaoin Déar Dé', 'Dé hAoine Aoine A', 'Dé Sathairn Sath Sa'];
     for (var i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
@@ -214,10 +214,10 @@ test('calendar all else', function (assert) {
 });
 
 test('weeks year starting sunday formatted', function (assert) {
-    assert.equal(moment([2012, 0, 1]).format('w ww wo'), '52 52 52na', 'Eaná  1 2012 should be week 52');
-    assert.equal(moment([2012, 0, 2]).format('w ww wo'), '1 01 1d', 'Eaná  2 2012 should be week 1');
-    assert.equal(moment([2012, 0, 8]).format('w ww wo'), '1 01 1d', 'Eaná  8 2012 should be week 1');
-    assert.equal(moment([2012, 0, 9]).format('w ww wo'), '2 02 2na', 'Eaná  9 2012 should be week 2');
-    assert.equal(moment([2012, 0, 15]).format('w ww wo'), '2 02 2na', 'Eaná 15 2012 should be week 2');
+    assert.equal(moment([2012, 0, 1]).format('w ww wo'), '52 52 52na', 'Ean  1 2012 should be week 52');
+    assert.equal(moment([2012, 0, 2]).format('w ww wo'), '1 01 1d', 'Ean  2 2012 should be week 1');
+    assert.equal(moment([2012, 0, 8]).format('w ww wo'), '1 01 1d', 'Ean  8 2012 should be week 1');
+    assert.equal(moment([2012, 0, 9]).format('w ww wo'), '2 02 2na', 'Ean  9 2012 should be week 2');
+    assert.equal(moment([2012, 0, 15]).format('w ww wo'), '2 02 2na', 'Ean 15 2012 should be week 2');
 });
 
