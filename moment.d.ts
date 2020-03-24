@@ -399,7 +399,7 @@ declare namespace moment {
     to: MomentInput;
   }
 
-  type MomentInput = Moment | Date | string | number | (number | string)[] | MomentInputObject | void; // null | undefined
+  type MomentInput = Moment | Readonly<Date> | string | number | (number | string)[] | Readonly<MomentInputObject> | void; // null | undefined
   type DurationInputArg1 = Duration | number | string | FromTo | DurationInputObject | void; // null | undefined
   type DurationInputArg2 = unitOfTime.DurationConstructor;
   type LocaleSpecifier = string | Moment | Duration | string[] | boolean;
