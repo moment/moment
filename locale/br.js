@@ -99,6 +99,13 @@
         week : {
             dow : 1, // Monday is the first day of the week.
             doy : 4  // The week that contains Jan 4th is the first week of the year.
+        },
+        meridiemParse : /a.m.|g.m./, // goude merenn | a-raok merenn
+        isPM : function (token) {
+	        return token === 'g.m.';
+        },
+        meridiem : function (hour, minute, isLower) {
+	        return hour < 12 ? 'a.m.' : 'g.m.';
         }
     });
 
