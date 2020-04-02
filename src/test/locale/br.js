@@ -25,7 +25,7 @@ test('format', function (assert) {
     moment.locale('br');
     var a = [
             ['dddd, MMMM Do YYYY, h:mm:ss a',      'Sul, C\'hwevrer 14vet 2010, 3:25:50 g.m.'],
-            ['ddd, h A',                            'Sul, 3 G.M.'],
+            ['ddd, h A',                            'Sul, 3 g.m.'],
             ['M Mo MM MMMM MMM',                   '2 2vet 02 C\'hwevrer C\'hwe'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14vet 14'],
