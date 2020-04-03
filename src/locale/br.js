@@ -73,7 +73,7 @@ export default moment.defineLocale('br', {
     },
     relativeTime : {
         future : 'a-benn %s',
-        past : '%s \'zo',
+        past : '%s ʼzo',
         s : 'un nebeud segondennoù',
         ss : '%d eilenn',
         m : 'ur vunutenn',
