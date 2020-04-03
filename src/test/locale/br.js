@@ -4,7 +4,7 @@ import moment from '../../moment';
 localeModule('br');
 
 test('parse', function (assert) {
-    var tests = 'Genver Gen_C\'hwevrer C\'hwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker'.split('_'), i;
+    var tests = 'Genver Gen_Cʼhwevrer Cʼhwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
@@ -24,9 +24,9 @@ test('parse', function (assert) {
 test('format', function (assert) {
     moment.locale('br');
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Sul, C\'hwevrer 14vet 2010, 3:25:50 g.m.'],
+            ['dddd, MMMM Do YYYY, h:mm:ss a',      'Sul, Cʼhwevrer 14vet 2010, 3:25:50 g.m.'],
             ['ddd, h A',                            'Sul, 3 g.m.'],
-            ['M Mo MM MMMM MMM',                   '2 2vet 02 C\'hwevrer C\'hwe'],
+            ['M Mo MM MMMM MMM',                   '2 2vet 02 Cʼhwevrer Cʼhwe'],
             ['YYYY YY',                            '2010 10'],
             ['D Do DD',                            '14 14vet 14'],
             ['d do dddd ddd dd',                   '0 0vet Sul Sul Su'],
@@ -38,9 +38,9 @@ test('format', function (assert) {
             ['s ss',                               '50 50'],
             ['DDDo [devezh] [ar] [vloaz]',       '45vet devezh ar vloaz'],
             ['L',                                  '14/02/2010'],
-            ['LL',                                 '14 a viz C\'hwevrer 2010'],
-            ['LLL',                                '14 a viz C\'hwevrer 2010 15:25'],
-            ['LLLL',                               'Sul, 14 a viz C\'hwevrer 2010 15:25']
+            ['LL',                                 '14 a viz Cʼhwevrer 2010'],
+            ['LLL',                                '14 a viz Cʼhwevrer 2010 15:25'],
+            ['LLLL',                               'Sul, 14 a viz Cʼhwevrer 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -89,7 +89,7 @@ test('format ordinal', function (assert) {
 
 test('format month', function (assert) {
     moment.locale('br');
-    var expected = 'Genver Gen_C\'hwevrer C\'hwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker'.split('_'), i;
+    var expected = 'Genver Gen_Cʼhwevrer Cʼhwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
@@ -97,7 +97,7 @@ test('format month', function (assert) {
 
 test('format week', function (assert) {
     moment.locale('br');
-    var expected = 'Sul Sul Su_Lun Lun Lu_Meurzh Meu Me_Merc\'her Mer Mer_Yaou Yao Ya_Gwener Gwe Gw_Sadorn Sad Sa'.split('_'), i;
+    var expected = 'Sul Sul Su_Lun Lun Lu_Meurzh Meu Me_Mercʼher Mer Mer_Yaou Yao Ya_Gwener Gwe Gw_Sadorn Sad Sa'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
@@ -139,12 +139,12 @@ test('from', function (assert) {
 test('suffix', function (assert) {
     moment.locale('br');
     assert.equal(moment(30000).from(0), 'a-benn un nebeud segondennoù',  'prefix');
-    assert.equal(moment(0).from(30000), 'un nebeud segondennoù \'zo', 'suffix');
+    assert.equal(moment(0).from(30000), 'un nebeud segondennoù ʼzo', 'suffix');
 });
 
 test('now from now', function (assert) {
     moment.locale('br');
-    assert.equal(moment().fromNow(), 'un nebeud segondennoù \'zo',  'now from now should display as in the past');
+    assert.equal(moment().fromNow(), 'un nebeud segondennoù ʼzo',  'now from now should display as in the past');
 });
 
 test('fromNow', function (assert) {
@@ -163,8 +163,8 @@ test('calendar day', function (assert) {
     assert.equal(moment(a).add({h: 1}).calendar(),       'Hiziv da 13:00',        'Now plus 1 hour');
     assert.equal(moment(a).add({h: 3}).calendar(),  'Hiziv da 15:00',        'Now plus 3 hour');
     assert.equal(moment(a).subtract({h: 1}).calendar(),  'Hiziv da 11:00',        'Now minus 1 hour');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'Warc\'hoazh da 12:00',  'tomorrow at the same time');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Dec\'h da 12:00',       'yesterday at the same time');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'Warcʼhoazh da 12:00',  'tomorrow at the same time');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'Decʼh da 12:00',       'yesterday at the same time');
 });
 
 test('calendar next week', function (assert) {
