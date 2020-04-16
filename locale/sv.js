@@ -51,10 +51,10 @@
         dayOfMonthOrdinalParse: /\d{1,2}(e|a)/,
         ordinal : function (number) {
             var b = number % 10,
-                output = (~~(number % 100 / 10) === 1) ? ':e' :
-                (b === 1) ? ':a' :
-                (b === 2) ? ':a' :
-                (b === 3) ? ':e' : ':e';
+                output = (~~(number % 100 / 10) === 1) ? 'e' :
+                (b === 1) ? 'a' :
+                (b === 2) ? 'a' :
+                (b === 3) ? 'e' : 'e';
             return number + output;
         },
         week : {
