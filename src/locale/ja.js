@@ -45,7 +45,7 @@ export default moment.defineLocale('ja', {
         },
         lastDay : '[昨日] LT',
         lastWeek : function (now) {
-            if (this.week() < now.week()) {
+            if (this.week() !== now.week()) {
                 return '[先週]dddd LT';
             } else {
                 return 'dddd LT';
