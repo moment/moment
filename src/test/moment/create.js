@@ -47,6 +47,13 @@ test('object', function (assert) {
     }
 });
 
+test('invalid date for object with zero value date or day keys', function (assert) {
+    assert.equal(moment({date: '0'}).format(), 'Invalid date');
+    assert.equal(moment({date: 0}).format(), 'Invalid date');
+    assert.equal(moment({day: '0'}).format(), 'Invalid date');
+    assert.equal(moment({day: 0}).format(), 'Invalid date');
+});
+
 test('multi format array copying', function (assert) {
     var importantArray = ['MM/DD/YYYY', 'YYYY-MM-DD', 'MM-DD-YYYY'];
     moment('1999-02-13', importantArray);
