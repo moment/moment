@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : Chinese (Taiwan) [zh-tw]
+//! locale : Chinese (Macau) [zh-mo]
 //! author : Ben : https://github.com/ben-lin
 //! author : Chris Lam : https://github.com/hehachris
 //! author : Tan Yuanhong : https://github.com/le0tan
