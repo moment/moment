@@ -456,7 +456,7 @@ test('humanize', function (assert) {
     assert.equal(moment.duration({days: 548}).humanize(),    '2 years',       '548 days = 2 years');
     assert.equal(moment.duration({years: 1}).humanize(),     'a year',        '1 year = a year');
     assert.equal(moment.duration({years: 5}).humanize(),     '5 years',       '5 years = 5 years');
-    assert.equal(moment.duration(7200000).humanize(),        '2 hours',       '7200000 = 2 minutes');
+    assert.equal(moment.duration(7200000).humanize(),        '2 hours',       '7200000 = 2 hours');
 });
 
 test('humanize duration with suffix', function (assert) {
