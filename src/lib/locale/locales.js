@@ -1,5 +1,4 @@
 import isArray from '../utils/is-array';
-import hasOwnProp from '../utils/has-own-prop';
 import isUndefined from '../utils/is-undefined';
 import compareArrays from '../utils/compare-arrays';
 import { deprecateSimple } from '../utils/deprecate';

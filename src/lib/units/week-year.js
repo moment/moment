@@ -6,7 +6,6 @@ import { addWeekParseToken } from '../parse/token';
 import { weekOfYear, weeksInYear, dayOfYearFromWeeks } from './week-calendar-utils';
 import toInt from '../utils/to-int';
 import { hooks } from '../utils/hooks';
-import { createLocal } from '../create/local';
 import { createUTCDate } from '../create/date-from-array';
 
 // FORMATTING
