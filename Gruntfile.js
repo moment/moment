@@ -172,6 +172,9 @@ module.exports = function (grunt) {
             'typescript-test': {
                 command: 'npm run typescript-test'
             },
+            'ts3.1-typescript-test': {
+                command: 'npm run ts3.1-typescript-test'
+            },
             'coveralls': {
                 command: 'npm run coveralls'
             }
@@ -191,9 +194,10 @@ module.exports = function (grunt) {
     grunt.registerTask('lint', ['jshint', 'jscs']);
 
     // test tasks
-    grunt.registerTask('test', ['test:node', 'test:typescript']);
+    grunt.registerTask('test', ['test:node', 'test:typescript', 'test:typescript-3.1']);
     grunt.registerTask('test:node', ['transpile', 'qtest']);
     grunt.registerTask('test:typescript', ['exec:typescript-test']);
+    grunt.registerTask('test:typescript-3.1', ['exec:ts3.1-typescript-test']);
     // TODO: For some weird reason karma doesn't like the files in
     // build/umd/min/* but works with min/*, so update-index, then git checkout
     grunt.registerTask('test:server', ['transpile', 'update-index', 'karma:server']);
