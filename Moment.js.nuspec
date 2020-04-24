@@ -23,7 +23,10 @@
   <files>
       <file src="moment.js" target="Content\Scripts" />
       <file src="min/moment.min.js" target="Content\Scripts" />
+      <file src="min/moment.min.js.map" target="Content\Scripts" />
       <file src="min/moment-with-locales.js" target="Content\Scripts" />
+      <file src="min/moment-with-locales.js.map" target="Content\Scripts" />
       <file src="min/moment-with-locales.min.js" target="Content\Scripts" />
+      <file src="min/moment-with-locales.min.js.map" target="Content\Scripts" />
   </files>
 </package>
