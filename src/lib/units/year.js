@@ -4,6 +4,7 @@ import { addUnitAlias } from './aliases';
 import { addUnitPriority } from './priorities';
 import { addRegexToken, match1to2, match1to4, match1to6, match2, match4, match6, matchSigned } from '../parse/regex';
 import { addParseToken } from '../parse/token';
+import { isLeapYear } from '../utils/is-leap-year';
 import { hooks } from '../utils/hooks';
 import { YEAR } from './constants';
 import toInt from '../utils/to-int';
@@ -56,9 +57,7 @@ export function daysInYear(year) {
     return isLeapYear(year) ? 366 : 365;
 }
 
-export function isLeapYear(year) {
-    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-}
+export { isLeapYear };
 
 // HOOKS
 
