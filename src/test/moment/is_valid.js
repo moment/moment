@@ -1,4 +1,5 @@
 import { module, test } from '../qunit';
+import each from '../helpers/each';
 import moment from '../../moment';
 
 module('is valid');
@@ -27,13 +28,11 @@ test('array bad date', function (assert) {
         moment([2100, 0, 32]),
         moment.utc([2010, 0, 0]),
         moment.utc([2100, 0, 32])
-    ],
-    i, m;
+    ];
 
-    for (i in tests) {
-        m = tests[i];
+    each(tests, function (m) {
         assert.equal(m.isValid(), false);
-    }
+    });
 });
 
 test('h/hh with hour > 12', function (assert) {

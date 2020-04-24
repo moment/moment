@@ -6,11 +6,13 @@ import hasOwnProp from '../utils/has-own-prop';
 export function set (config) {
     var prop, i;
     for (i in config) {
-        prop = config[i];
-        if (isFunction(prop)) {
-            this[i] = prop;
-        } else {
-            this['_' + i] = prop;
+        if (hasOwnProp(config, i)) {
+            prop = config[i];
+            if (isFunction(prop)) {
+                this[i] = prop;
+            } else {
+                this['_' + i] = prop;
+            }
         }
     }
     this._config = config;

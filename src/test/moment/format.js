@@ -1,5 +1,6 @@
 import { module, test } from '../qunit';
 import each from '../helpers/each';
+import eachOwnProp from '../helpers/each-own-prop';
 import moment from '../../moment';
 
 module('format');
@@ -275,16 +276,17 @@ test('iso week formats', function (assert) {
         '2010-01-03': '2009-53',
         '404-12-31': '0404-53',
         '405-12-31': '0405-52'
-    }, i, isoWeek, formatted2, formatted1;
+    };
 
-    for (i in cases) {
+    eachOwnProp(cases, function (i) {
+        var isoWeek, formatted2, formatted1;
         isoWeek = cases[i].split('-').pop();
         formatted2 = moment(i, 'YYYY-MM-DD').format('WW');
         assert.equal(isoWeek, formatted2, i + ': WW should be ' + isoWeek + ', but ' + formatted2);
         isoWeek = isoWeek.replace(/^0+/, '');
         formatted1 = moment(i, 'YYYY-MM-DD').format('W');
         assert.equal(isoWeek, formatted1, i + ': W should be ' + isoWeek + ', but ' + formatted1);
-    }
+    });
 });
 
 test('iso week year formats', function (assert) {
@@ -307,9 +309,10 @@ test('iso week year formats', function (assert) {
         '2010-01-03': '2009-53',
         '404-12-31': '0404-53',
         '405-12-31': '0405-52'
-    }, i, isoWeekYear, formatted5, formatted4, formatted2;
+    };
 
-    for (i in cases) {
+    eachOwnProp(cases, function (i) {
+        var isoWeekYear, formatted5, formatted4, formatted2;
         isoWeekYear = cases[i].split('-')[0];
         formatted5 = moment(i, 'YYYY-MM-DD').format('GGGGG');
         assert.equal('0' + isoWeekYear, formatted5, i + ': GGGGG should be ' + isoWeekYear + ', but ' + formatted5);
@@ -317,7 +320,7 @@ test('iso week year formats', function (assert) {
         assert.equal(isoWeekYear, formatted4, i + ': GGGG should be ' + isoWeekYear + ', but ' + formatted4);
         formatted2 = moment(i, 'YYYY-MM-DD').format('GG');
         assert.equal(isoWeekYear.slice(2, 4), formatted2, i + ': GG should be ' + isoWeekYear + ', but ' + formatted2);
-    }
+    });
 });
 
 test('week year formats', function (assert) {
@@ -340,11 +343,12 @@ test('week year formats', function (assert) {
         '2010-01-03': '2009-53',
         '404-12-31': '0404-53',
         '405-12-31': '0405-52'
-    }, i, isoWeekYear, formatted5, formatted4, formatted2;
+    };
 
     moment.defineLocale('dow:1,doy:4', {week: {dow: 1, doy: 4}});
 
-    for (i in cases) {
+    eachOwnProp(cases, function (i) {
+        var isoWeekYear, formatted5, formatted4, formatted2;
         isoWeekYear = cases[i].split('-')[0];
         formatted5 = moment(i, 'YYYY-MM-DD').format('ggggg');
         assert.equal('0' + isoWeekYear, formatted5, i + ': ggggg should be ' + isoWeekYear + ', but ' + formatted5);
@@ -352,7 +356,7 @@ test('week year formats', function (assert) {
         assert.equal(isoWeekYear, formatted4, i + ': gggg should be ' + isoWeekYear + ', but ' + formatted4);
         formatted2 = moment(i, 'YYYY-MM-DD').format('gg');
         assert.equal(isoWeekYear.slice(2, 4), formatted2, i + ': gg should be ' + isoWeekYear + ', but ' + formatted2);
-    }
+    });
     moment.defineLocale('dow:1,doy:4', null);
 });
 
@@ -445,20 +449,6 @@ test('quarter ordinal formats', function (assert) {
 });
 
 // test('full expanded format is returned from abbreviated formats', function (assert) {
-//     function objectKeys(obj) {
-//         if (Object.keys) {
-//             return Object.keys(obj);
-//         } else {
-//             // IE8
-//             var res = [], i;
-//             for (i in obj) {
-//                 if (obj.hasOwnProperty(i)) {
-//                     res.push(i);
-//                 }
-//             }
-//             return res;
-//         }
-//     }
 
 //     var locales =
 //         'ar-sa ar-tn ar az be bg bn bo br bs ca cs cv cy da de-at de dv el ' +
@@ -468,10 +458,8 @@ test('quarter ordinal formats', function (assert) {
 //         'sr sv sw ta te th tl-ph tlh tr tzl tzm-latn tzm uk uz vi zh-cn zh-tw';
 
 //     each(locales.split(' '), function (locale) {
-//         var data, tokens;
-//         data = moment().locale(locale).localeData()._longDateFormat;
-//         tokens = objectKeys(data);
-//         each(tokens, function (token) {
+//         var data = moment().locale(locale).localeData()._longDateFormat;
+//         eachOwnProp(data, function (token) {
 //             // Check each format string to make sure it does not contain any
 //             // tokens that need to be expanded.
 //             each(tokens, function (i) {
