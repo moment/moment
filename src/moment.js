@@ -42,7 +42,8 @@ import {
     isDuration,
     createDuration              as duration,
     getSetRelativeTimeRounding  as relativeTimeRounding,
-    getSetRelativeTimeThreshold as relativeTimeThreshold
+    getSetRelativeTimeThreshold as relativeTimeThreshold,
+    getSetRelativeTimeIncludeWeeks as relativeTimeIncludeWeeks
 } from './lib/duration/duration';
 
 import { normalizeUnits } from './lib/units/units';
@@ -51,33 +52,34 @@ import isDate from './lib/utils/is-date';
 
 setHookCallback(local);
 
-moment.fn                    = fn;
-moment.min                   = min;
-moment.max                   = max;
-moment.now                   = now;
-moment.utc                   = utc;
-moment.unix                  = unix;
-moment.months                = months;
-moment.isDate                = isDate;
-moment.locale                = locale;
-moment.invalid               = invalid;
-moment.duration              = duration;
-moment.isMoment              = isMoment;
-moment.weekdays              = weekdays;
-moment.parseZone             = parseZone;
-moment.localeData            = localeData;
-moment.isDuration            = isDuration;
-moment.monthsShort           = monthsShort;
-moment.weekdaysMin           = weekdaysMin;
-moment.defineLocale          = defineLocale;
-moment.updateLocale          = updateLocale;
-moment.locales               = locales;
-moment.weekdaysShort         = weekdaysShort;
-moment.normalizeUnits        = normalizeUnits;
-moment.relativeTimeRounding  = relativeTimeRounding;
-moment.relativeTimeThreshold = relativeTimeThreshold;
-moment.calendarFormat        = getCalendarFormat;
-moment.prototype             = fn;
+moment.fn                       = fn;
+moment.min                      = min;
+moment.max                      = max;
+moment.now                      = now;
+moment.utc                      = utc;
+moment.unix                     = unix;
+moment.months                   = months;
+moment.isDate                   = isDate;
+moment.locale                   = locale;
+moment.invalid                  = invalid;
+moment.duration                 = duration;
+moment.isMoment                 = isMoment;
+moment.weekdays                 = weekdays;
+moment.parseZone                = parseZone;
+moment.localeData               = localeData;
+moment.isDuration               = isDuration;
+moment.monthsShort              = monthsShort;
+moment.weekdaysMin              = weekdaysMin;
+moment.defineLocale             = defineLocale;
+moment.updateLocale             = updateLocale;
+moment.locales                  = locales;
+moment.weekdaysShort            = weekdaysShort;
+moment.normalizeUnits           = normalizeUnits;
+moment.relativeTimeRounding     = relativeTimeRounding;
+moment.relativeTimeThreshold    = relativeTimeThreshold;
+moment.relativeTimeIncludeWeeks = relativeTimeIncludeWeeks;
+moment.calendarFormat           = getCalendarFormat;
+moment.prototype                = fn;
 
 // currently HTML5 input type only supports 24-hour formats
 moment.HTML5_FMT = {
