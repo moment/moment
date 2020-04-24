@@ -19,7 +19,8 @@ export default moment.defineLocale('eo', {
         L : 'YYYY-MM-DD',
         LL : '[la] D[-an de] MMMM, YYYY',
         LLL : '[la] D[-an de] MMMM, YYYY HH:mm',
-        LLLL : 'dddd[n], [la] D[-an de] MMMM, YYYY HH:mm'
+        LLLL : 'dddd[n], [la] D[-an de] MMMM, YYYY HH:mm',
+        llll : 'ddd, [la] D[-an de] MMM, YYYY HH:mm'
     },
     meridiemParse: /[ap]\.t\.m/i,
     isPM: function (input) {
