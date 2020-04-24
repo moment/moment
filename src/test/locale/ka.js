@@ -41,15 +41,15 @@ test('format', function (assert) {
             ['s ss',                          '50 50'],
             ['a A',                           'pm PM'],
             ['წლის DDDo დღე',                 'წლის 45-ე დღე'],
-            ['LTS',                           '3:25:50 PM'],
+            ['LTS',                           '15:25:50'],
             ['L',                             '14/02/2010'],
-            ['LL',                            '14 თებერვალს 2010'],
-            ['LLL',                           '14 თებერვალს 2010 3:25 PM'],
-            ['LLLL',                          'კვირა, 14 თებერვალს 2010 3:25 PM'],
+            ['LL',                            '14 თებერვალი 2010'],
+            ['LLL',                           '14 თებერვალი 2010 15:25'],
+            ['LLLL',                          'კვირა, 14 თებერვალი 2010 15:25'],
             ['l',                             '14/2/2010'],
             ['ll',                            '14 თებ 2010'],
-            ['lll',                           '14 თებ 2010 3:25 PM'],
-            ['llll',                          'კვი, 14 თებ 2010 3:25 PM']
+            ['lll',                           '14 თებ 2010 15:25'],
+            ['llll',                          'კვი, 14 თებ 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -162,18 +162,18 @@ test('now from now', function (assert) {
 
 test('fromNow', function (assert) {
     assert.equal(moment().add({s: 30}).fromNow(), 'რამდენიმე წამში', 'რამდენიმე წამში');
-    assert.equal(moment().add({d: 5}).fromNow(), '5 დღეში', '5 დღეში');
+    assert.equal(moment().add({d: 5}).fromNow(),  '5 დღეში',         '5 დღეში');
 });
 
 test('calendar day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(),                   'დღეს 12:00 PM-ზე',  'დღეს ამავე დროს');
-    assert.equal(moment(a).add({m: 25}).calendar(),      'დღეს 12:25 PM-ზე',  'ახლანდელ დროს დამატებული 25 წუთი');
-    assert.equal(moment(a).add({h: 1}).calendar(),       'დღეს 1:00 PM-ზე',   'ახლანდელ დროს დამატებული 1 საათი');
-    assert.equal(moment(a).add({d: 1}).calendar(),       'ხვალ 12:00 PM-ზე',  'ხვალ ამავე დროს');
-    assert.equal(moment(a).subtract({h: 1}).calendar(),  'დღეს 11:00 AM-ზე',  'ახლანდელ დროს გამოკლებული 1 საათი');
-    assert.equal(moment(a).subtract({d: 1}).calendar(),  'გუშინ 12:00 PM-ზე', 'გუშინ ამავე დროს');
+    assert.equal(moment(a).calendar(),                   'დღეს 12:00-ზე',    'დღეს ამავე დროს');
+    assert.equal(moment(a).add({m: 25}).calendar(),      'დღეს 12:25-ზე',    'ახლანდელ დროს დამატებული 25 წუთი');
+    assert.equal(moment(a).add({h: 1}).calendar(),       'დღეს 13:00-ზე',    'ახლანდელ დროს დამატებული 1 საათი');
+    assert.equal(moment(a).add({d: 1}).calendar(),       'ხვალ 12:00-ზე',    'ხვალ ამავე დროს');
+    assert.equal(moment(a).subtract({h: 1}).calendar(),  'დღეს 11:00-ზე', 'ახლანდელ დროს გამოკლებული 1 საათი');
+    assert.equal(moment(a).subtract({d: 1}).calendar(),  'გუშინ 12:00-ზე',   'გუშინ ამავე დროს');
 });
 
 test('calendar next week', function (assert) {
@@ -204,13 +204,13 @@ test('calendar all else', function (assert) {
     var weeksAgo = moment().subtract({w: 1}),
         weeksFromNow = moment().add({w: 1});
 
-    assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '1 კვირის წინ');
+    assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),      '1 კვირის წინ');
     assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  '1 კვირაში');
 
     weeksAgo = moment().subtract({w: 2});
     weeksFromNow = moment().add({w: 2});
 
-    assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),  '2 კვირის წინ');
+    assert.equal(weeksAgo.calendar(),       weeksAgo.format('L'),      '2 კვირის წინ');
     assert.equal(weeksFromNow.calendar(),   weeksFromNow.format('L'),  '2 კვირაში');
 });
 
