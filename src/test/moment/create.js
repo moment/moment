@@ -429,6 +429,11 @@ test('string with array of formats + ISO', function (assert) {
     assert.equal(moment('2014-05-05', ['YYYY-MM-DD', moment.ISO_8601]).parsingFlags().iso, false, 'iso: edge case array precedence not iso');
 });
 
+test('strict parsing invalid date against array of formats', function (assert) {
+    var b = moment('2/30/2019 7:00pm', ['M/DD/YYYY h:mma", "MM/DD/YYYY h:mma", "M-D-YYYY h:mma", "MM-D-YYYY h:mma'], true);
+    assert.deepEqual(b.parsingFlags().parsedDateParts, [2019,1,30,7,0], 'strict parsing multiple formats should still select the best format even if the date is invalid');
+});
+
 test('string with format - years', function (assert) {
     assert.equal(moment('67', 'YY').format('YYYY'), '2067', '67 > 2067');
     assert.equal(moment('68', 'YY').format('YYYY'), '2068', '68 > 2068');
