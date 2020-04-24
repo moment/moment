@@ -45,7 +45,7 @@ test('format', function (assert) {
             ['l',                                  '2010-2-14'],
             ['ll',                                 'la 14-an de feb, 2010'],
             ['lll',                                'la 14-an de feb, 2010 15:25'],
-            ['llll',                               'dim, la 14-an de feb, 2010 15:25']
+            ['llll',                               'dimn, la 14-an de feb, 2010 15:25']
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -147,7 +147,7 @@ test('now from now', function (assert) {
 });
 
 test('fromNow', function (assert) {
-    assert.equal(moment().add({s: 30}).fromNow(), 'post kelakj sekundoj', 'post kelkaj sekundoj');
+    assert.equal(moment().add({s: 30}).fromNow(), 'post kelkaj sekundoj', 'post kelkaj sekundoj');
     assert.equal(moment().add({d: 5}).fromNow(), 'post 5 tagoj', 'post 5 tagoj');
 });
 
@@ -167,11 +167,11 @@ test('calendar next week', function (assert) {
 
     for (i = 2; i < 7; i++) {
         m = moment().add({d: i});
-        assert.equal(m.calendar(),       m.format('dddd [je] LT'),  'Today + ' + i + ' days current time');
+        assert.equal(m.calendar(),       m.format('dddd[n] [je] LT'),  'Today + ' + i + ' days current time');
         m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(m.calendar(),       m.format('dddd [je] LT'),  'Today + ' + i + ' days beginning of day');
+        assert.equal(m.calendar(),       m.format('dddd[n] [je] LT'),  'Today + ' + i + ' days beginning of day');
         m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(m.calendar(),       m.format('dddd [je] LT'),  'Today + ' + i + ' days end of day');
+        assert.equal(m.calendar(),       m.format('dddd[n] [je] LT'),  'Today + ' + i + ' days end of day');
     }
 });
 
