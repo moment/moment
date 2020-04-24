@@ -128,6 +128,13 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), '۲ سال',       '548 days = 2 years');
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'یک سال',      '1 year = a year');
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '۵ سال',       '5 years = 5 years');
+    var s = moment.relativeTimeThreshold('s');
+    var ss = moment.relativeTimeThreshold('ss');
+    moment.relativeTimeThreshold('s', 60);
+    moment.relativeTimeThreshold('ss', 0);
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  '۴۴ ثانیه', '44 seconds = 44 seconds');
+    moment.relativeTimeThreshold('s', s);
+    moment.relativeTimeThreshold('ss', ss);
 });
 
 test('suffix', function (assert) {
