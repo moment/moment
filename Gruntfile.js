@@ -153,9 +153,12 @@ module.exports = function (grunt) {
             }
         },
         benchmark: {
-            all: {
-                src: ['benchmarks/*.js']
-            }
+            compare: {src: ['benchmarks/compare.js']},
+            startOf: {src: ['benchmarks/startOf.js']},
+            endOf: {src: ['benchmarks/endOf.js']},
+            get: {src: ['benchmarks/get.js']},
+            set: {src: ['benchmarks/set.js']},
+            all: {src: ['benchmarks/*.js']}
         },
         exec: {
             'meteor-init': {
