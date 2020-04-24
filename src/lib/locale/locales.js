@@ -47,14 +47,18 @@ function chooseLocale(names) {
 function loadLocale(name) {
     var oldLocale = null;
     // TODO: Find a better way to register and load all the locales in Node
-    if (!locales[name] && (typeof module !== 'undefined') &&
+    if (locales[name] === undefined && (typeof module !== 'undefined') &&
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
             var aliasedRequire = require;
             aliasedRequire('./locale/' + name);
             getSetGlobalLocale(oldLocale);
-        } catch (e) {}
+        } catch (e) {
+            // mark as not found to avoid repeating expensive file require call causing high CPU
+            // when trying to find en-US, en_US, en-us for every format call
+            locales[name] = null; // null means not found
+        }
     }
     return locales[name];
 }
