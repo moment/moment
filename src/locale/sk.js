@@ -124,7 +124,7 @@ export default moment.defineLocale('sk', {
         sameElse: 'L'
     },
     relativeTime : {
-        future : 'o %s',
+        future : 'za %s',
         past : 'pred %s',
         s : translate,
         ss : translate,
