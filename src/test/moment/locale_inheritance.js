@@ -76,8 +76,8 @@ test('long date format', function (assert) {
     moment.defineLocale('child-ldf', {
         parentLocale: 'base-ldf',
         longDateFormat: {
-            LLL  : '[child] MMMM D, YYYY h:mm A',
-            LLLL : '[child] dddd, MMMM D, YYYY h:mm A'
+            LLL  : '[SUMMER child] MMMM D, YYYY h:mm A',
+            LLLL : '[SUMMER child] dddd, MMMM D, YYYY h:mm A'
         }
     });
 
@@ -89,10 +89,10 @@ test('long date format', function (assert) {
     assert.equal(anchor.format('l'), '9/6/2015', 'l uses base');
     assert.equal(anchor.format('LL'), 'September 6, 2015', 'LL uses base');
     assert.equal(anchor.format('ll'), 'Sep 6, 2015', 'll uses base');
-    assert.equal(anchor.format('LLL'), 'child September 6, 2015 12:34 PM', 'LLL uses child');
-    assert.equal(anchor.format('lll'), 'child Sep 6, 2015 12:34 PM', 'lll uses child');
-    assert.equal(anchor.format('LLLL'), 'child Sunday, September 6, 2015 12:34 PM', 'LLLL uses child');
-    assert.equal(anchor.format('llll'), 'child Sun, Sep 6, 2015 12:34 PM', 'llll uses child');
+    assert.equal(anchor.format('LLL'), 'SUMMER child September 6, 2015 12:34 PM', 'LLL uses child');
+    assert.equal(anchor.format('lll'), 'SUMMER child Sep 6, 2015 12:34 PM', 'lll uses child');
+    assert.equal(anchor.format('LLLL'), 'SUMMER child Sunday, September 6, 2015 12:34 PM', 'LLLL uses child');
+    assert.equal(anchor.format('llll'), 'SUMMER child Sun, Sep 6, 2015 12:34 PM', 'llll uses child');
 });
 
 test('ordinal', function (assert) {
