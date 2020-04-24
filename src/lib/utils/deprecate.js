@@ -1,6 +1,5 @@
 import extend from './extend';
 import { hooks } from './hooks';
-import isUndefined from './is-undefined';
 import hasOwnProp from './has-own-prop';
 
 function warn(msg) {

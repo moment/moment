@@ -48,6 +48,13 @@ test('object', function (assert) {
     }
 });
 
+test('invalid date for object with zero value date or day keys', function (assert) {
+    assert.equal(moment({date: '0'}).format(), 'Invalid date');
+    assert.equal(moment({date: 0}).format(), 'Invalid date');
+    assert.equal(moment({day: '0'}).format(), 'Invalid date');
+    assert.equal(moment({day: 0}).format(), 'Invalid date');
+});
+
 test('multi format array copying', function (assert) {
     var importantArray = ['MM/DD/YYYY', 'YYYY-MM-DD', 'MM-DD-YYYY'];
     moment('1999-02-13', importantArray);
@@ -423,6 +430,11 @@ test('string with array of formats + ISO', function (assert) {
     assert.equal(moment('2014-05-05', ['YYYY-MM-DD', moment.ISO_8601]).parsingFlags().iso, false, 'iso: edge case array precedence not iso');
 });
 
+test('strict parsing invalid date against array of formats', function (assert) {
+    var b = moment('2/30/2019 7:00pm', ['M/DD/YYYY h:mma", "MM/DD/YYYY h:mma", "M-D-YYYY h:mma", "MM-D-YYYY h:mma'], true);
+    assert.deepEqual(b.parsingFlags().parsedDateParts, [2019,1,30,7,0], 'strict parsing multiple formats should still select the best format even if the date is invalid');
+});
+
 test('string with format - years', function (assert) {
     assert.equal(moment('67', 'YY').format('YYYY'), '2067', '67 > 2067');
     assert.equal(moment('68', 'YY').format('YYYY'), '2068', '68 > 2068');
@@ -752,21 +764,21 @@ test('parsing weekdays verifies the day', function (assert) {
     assert.ok(moment('Thu 08-10-2017', 'ddd MM-DD-YYYY').isValid(), 'because day of week is correct for the date');
 });
 
-test('parsing weekday on utc dates verifies day acccording to utc time', function (assert) {
+test('parsing weekday on utc dates verifies day according to utc time', function (assert) {
     assert.ok(moment.utc('Mon 03:59', 'ddd HH:mm').isValid(), 'Monday 03:59');
 });
 
-test('parsing weekday on local dates verifies day acccording to local time', function (assert) {
+test('parsing weekday on local dates verifies day according to local time', function (assert) {
     // this doesn't do much useful if you're not in the US or at least close to it
     assert.ok(moment('Mon 03:59', 'ddd HH:mm').isValid(), 'Monday 03:59');
 });
 
-test('parsing weekday on utc dates with specified offsets verifies day acccording to that offset', function (assert) {
+test('parsing weekday on utc dates with specified offsets verifies day according to that offset', function (assert) {
     assert.ok(moment.utc('Mon 03:59 +12:00', 'ddd HH:mm Z', true).isValid(), 'Monday 03:59');
 });
 
-test('parsing weekday on local dates with specified offsets verifies day acccording to that offset', function (assert) {
-    // if you're in the US, these times will all be sometime Sunday, but they shoud parse as Monday
+test('parsing weekday on local dates with specified offsets verifies day according to that offset', function (assert) {
+    // if you're in the US, these times will all be sometime Sunday, but they should parse as Monday
     assert.ok(moment('Mon 03:59 +12:00', 'ddd HH:mm Z', true).isValid(), 'Monday 03:59');
 });
 

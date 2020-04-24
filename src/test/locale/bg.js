@@ -4,7 +4,7 @@ import moment from '../../moment';
 localeModule('bg');
 
 test('parse', function (assert) {
-    var tests = 'януари янр_февруари фев_март мар_април апр_май май_юни юни_юли юли_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split('_'), i;
+    var tests = 'януари яну_февруари фев_март мар_април апр_май май_юни юни_юли юли_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
@@ -93,7 +93,7 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'януари янр_февруари фев_март мар_април апр_май май_юни юни_юли юли_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split('_'), i;
+    var expected = 'януари яну_февруари фев_март мар_април апр_май май_юни юни_юли юли_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
@@ -183,12 +183,12 @@ test('calendar last week', function (assert) {
             case 0:
             case 3:
             case 6:
-                return '[В изминалата] dddd [в] LT';
+                return '[Миналата] dddd [в] LT';
             case 1:
             case 2:
             case 4:
             case 5:
-                return '[В изминалия] dddd [в] LT';
+                return '[Миналия] dddd [в] LT';
         }
     }
 
@@ -223,4 +223,3 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012,  0,  8]).format('w ww wo'), '2 02 2-ри', 'Jan  8 2012 should be week 2');
     assert.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 3-ти', 'Jan  9 2012 should be week 3');
 });
-

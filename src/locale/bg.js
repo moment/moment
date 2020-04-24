@@ -6,7 +6,7 @@ import moment from '../moment';
 
 export default moment.defineLocale('bg', {
     months : 'януари_февруари_март_април_май_юни_юли_август_септември_октомври_ноември_декември'.split('_'),
-    monthsShort : 'янр_фев_мар_апр_май_юни_юли_авг_сеп_окт_ное_дек'.split('_'),
+    monthsShort : 'яну_фев_мар_апр_май_юни_юли_авг_сеп_окт_ное_дек'.split('_'),
     weekdays : 'неделя_понеделник_вторник_сряда_четвъртък_петък_събота'.split('_'),
     weekdaysShort : 'нед_пон_вто_сря_чет_пет_съб'.split('_'),
     weekdaysMin : 'нд_пн_вт_ср_чт_пт_сб'.split('_'),
@@ -28,12 +28,12 @@ export default moment.defineLocale('bg', {
                 case 0:
                 case 3:
                 case 6:
-                    return '[В изминалата] dddd [в] LT';
+                    return '[Миналата] dddd [в] LT';
                 case 1:
                 case 2:
                 case 4:
                 case 5:
-                    return '[В изминалия] dddd [в] LT';
+                    return '[Миналия] dddd [в] LT';
             }
         },
         sameElse : 'L'
@@ -79,4 +79,3 @@ export default moment.defineLocale('bg', {
         doy : 7  // The week that contains Jan 7th is the first week of the year.
     }
 });
-

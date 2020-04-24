@@ -1,5 +1,4 @@
 import isArray from '../utils/is-array';
-import hasOwnProp from '../utils/has-own-prop';
 import isUndefined from '../utils/is-undefined';
 import compareArrays from '../utils/compare-arrays';
 import { deprecateSimple } from '../utils/deprecate';
@@ -160,6 +159,9 @@ export function updateLocale(name, config) {
         if (locales[name] != null) {
             if (locales[name].parentLocale != null) {
                 locales[name] = locales[name].parentLocale;
+                if (name === getSetGlobalLocale()) {
+                    getSetGlobalLocale(name);
+                }
             } else if (locales[name] != null) {
                 delete locales[name];
             }

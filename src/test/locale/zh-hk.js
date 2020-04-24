@@ -169,16 +169,16 @@ test('calendar all else', function (assert) {
 test('meridiem', function (assert) {
     assert.equal(moment([2011, 2, 23,  0, 0]).format('a'), '凌晨', 'before dawn');
     assert.equal(moment([2011, 2, 23,  6, 0]).format('a'), '早上', 'morning');
-    assert.equal(moment([2011, 2, 23,  9, 0]).format('a'), '上午', 'before noon');
+    assert.equal(moment([2011, 2, 23,  11, 59]).format('a'), '上午', 'before noon');
     assert.equal(moment([2011, 2, 23, 12, 0]).format('a'), '中午', 'noon');
-    assert.equal(moment([2011, 2, 23, 13, 0]).format('a'), '下午', 'after noon');
+    assert.equal(moment([2011, 2, 23, 12, 1]).format('a'), '下午', 'after noon');
     assert.equal(moment([2011, 2, 23, 18, 0]).format('a'), '晚上', 'night');
 
     assert.equal(moment([2011, 2, 23,  0, 0]).format('A'), '凌晨', 'before dawn');
     assert.equal(moment([2011, 2, 23,  6, 0]).format('A'), '早上', 'morning');
-    assert.equal(moment([2011, 2, 23,  9, 0]).format('A'), '上午', 'before noon');
+    assert.equal(moment([2011, 2, 23,  11, 59]).format('A'), '上午', 'before noon');
     assert.equal(moment([2011, 2, 23, 12, 0]).format('A'), '中午', 'noon');
-    assert.equal(moment([2011, 2, 23, 13, 0]).format('A'), '下午', 'afternoon');
+    assert.equal(moment([2011, 2, 23, 12, 1]).format('A'), '下午', 'afternoon');
     assert.equal(moment([2011, 2, 23, 18, 0]).format('A'), '晚上', 'night');
 });
 
