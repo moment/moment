@@ -107,8 +107,9 @@ export default moment.defineLocale('hr', {
         lastWeek : function () {
             switch (this.day()) {
                 case 0:
+                    return '[prošlu] [nedjelju] [u] LT';
                 case 3:
-                    return '[prošlu] dddd [u] LT';
+                    return '[prošlu] [srijedu] [u] LT';
                 case 6:
                     return '[prošle] [subote] [u] LT';
                 case 1:
