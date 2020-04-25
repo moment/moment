@@ -9,8 +9,7 @@ import {defaultLocaleWeekdaysShort} from '../units/day-of-week';
 // iso 8601 regex
 // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
 var extendedIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
-var basicIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
-var yearIsoRegex = /^\s*(\d{4})$/;
+var basicIsoRegex =    /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d|))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
 
 var tzRegex = /Z|[+-]\d\d(?::?\d\d)?/;
 
@@ -23,10 +22,10 @@ var isoDates = [
     ['YYYY-MM', /\d{4}-\d\d/, false],
     ['YYYYYYMMDD', /[+-]\d{10}/],
     ['YYYYMMDD', /\d{8}/],
-    // YYYYMM is NOT allowed by the standard
     ['GGGG[W]WWE', /\d{4}W\d{3}/],
     ['GGGG[W]WW', /\d{4}W\d{2}/, false],
     ['YYYYDDD', /\d{7}/],
+    ['YYYYMM', /\d{6}/, false],
     ['YYYY', /\d{4}/, false]
 ];
 
@@ -49,7 +48,7 @@ var aspNetJsonRegex = /^\/?Date\((\-?\d+)/i;
 export function configFromISO(config) {
     var i, l,
         string = config._i,
-        match = extendedIsoRegex.exec(string) || basicIsoRegex.exec(string) || yearIsoRegex.exec(string),
+        match = extendedIsoRegex.exec(string) || basicIsoRegex.exec(string),
         allowTime, dateFormat, timeFormat, tzFormat;
 
     if (match) {

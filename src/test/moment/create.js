@@ -564,19 +564,25 @@ test('parsing iso', function (assert) {
         }
         return '' + input;
     },
-    hourOffset = (offset > 0 ? Math.floor(offset / 60) : Math.ceil(offset / 60)),
-    minOffset = offset - (hourOffset * 60),
-    tz = (offset >= 0) ?
-        '+' + pad(hourOffset) + ':' + pad(minOffset) :
-        '-' + pad(-hourOffset) + ':' + pad(-minOffset),
+    offStr = function (offset) {
+        var hourOffset = (offset > 0 ? Math.floor(offset / 60) : Math.ceil(offset / 60)),
+            minOffset = offset - (hourOffset * 60);
+        return offset >= 0 ?
+            '+' + pad(hourOffset) + ':' + pad(minOffset) :
+            '-' + pad(-hourOffset) + ':' + pad(-minOffset);
+    },
+    tz = offStr(offset),
+    tz0 = offStr(moment([2011, 0, 1]).utcOffset()),
     tz2 = tz.replace(':', ''),
     tz3 = tz2.slice(0, 3),
     //Tz3 removes minutes digit so will break the tests when parsed if they all use the same minutes digit
+    hourOffset = (offset > 0 ? Math.floor(offset / 60) : Math.ceil(offset / 60)),
+    minOffset = offset - (hourOffset * 60),
     minutesForTz3 = pad((4 + minOffset) % 60),
-    minute = pad(4 + minOffset),
+    // minute = pad(4 + minOffset),
 
     formats = [
-        ['2011',                          '2011-01-01T00:00:00.000' + tz],
+        ['2011',                          '2011-01-01T00:00:00.000' + tz0],
         ['2011-10',                       '2011-10-01T00:00:00.000' + tz],
         ['2011-10-08',                    '2011-10-08T00:00:00.000' + tz],
         ['2011-10-08T18',                 '2011-10-08T18:00:00.000' + tz],
@@ -743,7 +749,6 @@ test('parsing iso', function (assert) {
 test('non iso 8601 strings', function (assert) {
     assert.ok(!moment('2015-10T10:15', moment.ISO_8601, true).isValid(), 'incomplete date with time');
     assert.ok(!moment('2015-W10T10:15', moment.ISO_8601, true).isValid(), 'incomplete week date with time');
-    assert.ok(!moment('201510', moment.ISO_8601, true).isValid(), 'basic YYYYMM is not allowed');
     assert.ok(!moment('2015W10T1015', moment.ISO_8601, true).isValid(), 'incomplete week date with time (basic)');
     assert.ok(!moment('2015-10-08T1015', moment.ISO_8601, true).isValid(), 'mixing extended and basic format');
     assert.ok(!moment('20151008T10:15', moment.ISO_8601, true).isValid(), 'mixing basic and extended format');
