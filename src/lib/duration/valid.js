@@ -1,3 +1,4 @@
+import hasOwnProp from '../utils/has-own-prop';
 import toInt from '../utils/to-int';
 import indexOf from '../utils/index-of';
 import {Duration} from './constructor';
@@ -7,7 +8,7 @@ var ordering = ['year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'se
 
 export default function isDurationValid(m) {
     for (var key in m) {
-        if (!(indexOf.call(ordering, key) !== -1 && (m[key] == null || !isNaN(m[key])))) {
+        if (hasOwnProp(m, key) && !(indexOf.call(ordering, key) !== -1 && (m[key] == null || !isNaN(m[key])))) {
             return false;
         }
     }

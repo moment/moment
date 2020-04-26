@@ -79,9 +79,9 @@ export default {
         LT : 'H:mm',
         LTS : 'H:mm:ss',
         L : 'DD.MM.YYYY',
-        LL : 'D. MMMM YYYY',
-        LLL : 'D. MMMM YYYY H:mm',
-        LLLL : 'dddd, D. MMMM YYYY H:mm'
+        LL : 'Do MMMM YYYY',
+        LLL : 'Do MMMM YYYY H:mm',
+        LLLL : 'dddd, Do MMMM YYYY H:mm'
     },
     calendar : {
         sameDay  : '[danas u] LT',
@@ -105,8 +105,9 @@ export default {
         lastWeek : function () {
             switch (this.day()) {
                 case 0:
+                    return '[prošlu] [nedjelju] [u] LT';
                 case 3:
-                    return '[prošlu] dddd [u] LT';
+                    return '[prošlu] [srijedu] [u] LT';
                 case 6:
                     return '[prošle] [subote] [u] LT';
                 case 1:

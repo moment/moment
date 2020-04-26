@@ -29,8 +29,8 @@ export default {
     relativeTime : {
         future : 'iha %s',
         past : '%s liuba',
-        s : 'minutu balun',
-        ss : 'minutu %d',
+        s : 'segundu balun',
+        ss : 'segundu %d',
         m : 'minutu ida',
         mm : 'minutu %d',
         h : 'oras ida',
@@ -46,9 +46,9 @@ export default {
     ordinal : function (number) {
         var b = number % 10,
             output = (~~(number % 100 / 10) === 1) ? 'th' :
-            (b === 1) ? 'st' :
-            (b === 2) ? 'nd' :
-            (b === 3) ? 'rd' : 'th';
+                (b === 1) ? 'st' :
+                (b === 2) ? 'nd' :
+                (b === 3) ? 'rd' : 'th';
         return number + output;
     },
     week : {

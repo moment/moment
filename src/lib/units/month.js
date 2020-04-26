@@ -14,7 +14,7 @@ import mod from '../utils/mod';
 import indexOf from '../utils/index-of';
 import { createUTC } from '../create/utc';
 import getParsingFlags from '../create/parsing-flags';
-import { isLeapYear } from '../units/year';
+import { isLeapYear } from '../utils/is-leap-year';
 
 export function daysInMonth(year, month) {
     if (isNaN(year) || isNaN(month)) {

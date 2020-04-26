@@ -4,7 +4,7 @@ import moment from '../../moment';
 localeModule('bg');
 
 test('parse', function (assert) {
-    var tests = 'януари янр_февруари фев_март мар_април апр_май май_юни юни_юли юли_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split('_'), i;
+    var tests = 'януари яну_февруари фев_март мар_април апр_май май_юни юни_юли юли_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
@@ -93,7 +93,7 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'януари янр_февруари фев_март мар_април апр_май май_юни юни_юли юли_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split('_'), i;
+    var expected = 'януари яну_февруари фев_март мар_април апр_май май_юни юни_юли юли_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split('_'), i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM MMM'), expected[i], expected[i]);
     }
@@ -120,10 +120,10 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 21}), true),  '21 часа',         '21 hours = 21 hours');
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 22}), true),  'ден',             '22 hours = a day');
     assert.equal(start.from(moment([2007, 1, 28]).add({h: 35}), true),  'ден',             '35 hours = a day');
-    assert.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  '2 дни',           '36 hours = 2 days');
+    assert.equal(start.from(moment([2007, 1, 28]).add({h: 36}), true),  '2 дена',          '36 hours = 2 days');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 1}), true),   'ден',             '1 day = a day');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   '5 дни',           '5 days = 5 days');
-    assert.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  '25 дни',          '25 days = 25 days');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 5}), true),   '5 дена',          '5 days = 5 days');
+    assert.equal(start.from(moment([2007, 1, 28]).add({d: 25}), true),  '25 дена',         '25 days = 25 days');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 26}), true),  'месец',           '26 days = a month');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 30}), true),  'месец',           '30 days = a month');
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 43}), true),  'месец',           '43 days = a month');
@@ -149,7 +149,7 @@ test('now from now', function (assert) {
 
 test('fromNow', function (assert) {
     assert.equal(moment().add({s: 30}).fromNow(), 'след няколко секунди', 'in a few seconds');
-    assert.equal(moment().add({d: 5}).fromNow(), 'след 5 дни', 'in 5 days');
+    assert.equal(moment().add({d: 5}).fromNow(), 'след 5 дена', 'in 5 days');
 });
 
 test('calendar day', function (assert) {
@@ -183,12 +183,12 @@ test('calendar last week', function (assert) {
             case 0:
             case 3:
             case 6:
-                return '[В изминалата] dddd [в] LT';
+                return '[Миналата] dddd [в] LT';
             case 1:
             case 2:
             case 4:
             case 5:
-                return '[В изминалия] dddd [в] LT';
+                return '[Миналия] dddd [в] LT';
         }
     }
 
@@ -223,4 +223,3 @@ test('weeks year starting sunday formatted', function (assert) {
     assert.equal(moment([2012,  0,  8]).format('w ww wo'), '2 02 2-ри', 'Jan  8 2012 should be week 2');
     assert.equal(moment([2012,  0,  9]).format('w ww wo'), '3 03 3-ти', 'Jan  9 2012 should be week 3');
 });
-

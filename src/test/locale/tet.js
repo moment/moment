@@ -107,7 +107,7 @@ test('format week', function (assert) {
 
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
-    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'minutu balun', '44 seconds = a few seconds');
+    assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'segundu balun', '44 seconds = a few seconds');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'minutu ida',      '45 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'minutu ida',      '89 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 90}), true),  'minutu 2',     '90 seconds = 2 minutes');
@@ -138,16 +138,16 @@ test('from', function (assert) {
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), 'iha minutu balun',  'prefix');
-    assert.equal(moment(0).from(30000), 'minutu balun liuba', 'suffix');
+    assert.equal(moment(30000).from(0), 'iha segundu balun',  'prefix');
+    assert.equal(moment(0).from(30000), 'segundu balun liuba', 'suffix');
 });
 
 test('now from now', function (assert) {
-    assert.equal(moment().fromNow(), 'minutu balun liuba',  'now from now should display as in the past');
+    assert.equal(moment().fromNow(), 'segundu balun liuba',  'now from now should display as in the past');
 });
 
 test('fromNow', function (assert) {
-    assert.equal(moment().add({s: 30}).fromNow(), 'iha minutu balun', 'in a few seconds');
+    assert.equal(moment().add({s: 30}).fromNow(), 'iha segundu balun', 'in a few seconds');
     assert.equal(moment().add({d: 5}).fromNow(), 'iha loron 5', 'in 5 days');
 });
 

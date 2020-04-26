@@ -1,7 +1,5 @@
 import isArray from '../utils/is-array';
-import hasOwnProp from '../utils/has-own-prop';
 import isUndefined from '../utils/is-undefined';
-import compareArrays from '../utils/compare-arrays';
 import { deprecateSimple } from '../utils/deprecate';
 import { mergeConfigs } from './set';
 import { Locale } from './constructor';
@@ -13,6 +11,16 @@ import { baseConfig } from './base-config';
 var locales = {};
 var localeFamilies = {};
 var globalLocale;
+
+function commonPrefix(arr1, arr2) {
+    var i, minl = Math.min(arr1.length, arr2.length);
+    for (i = 0; i < minl; i += 1) {
+        if (arr1[i] !== arr2[i]) {
+            return i;
+        }
+    }
+    return minl;
+}
 
 function normalizeLocale(key) {
     return key ? key.toLowerCase().replace('_', '-') : key;
@@ -34,7 +42,7 @@ function chooseLocale(names) {
             if (locale) {
                 return locale;
             }
-            if (next && next.length >= j && compareArrays(split, next, true) >= j - 1) {
+            if (next && next.length >= j && commonPrefix(split, next) >= j - 1) {
                 //the next array item is better than a shallower substring of this one
                 break;
             }
@@ -48,14 +56,18 @@ function chooseLocale(names) {
 function loadLocale(name) {
     var oldLocale = null;
     // TODO: Find a better way to register and load all the locales in Node
-    if (!locales[name] && (typeof module !== 'undefined') &&
+    if (locales[name] === undefined && (typeof module !== 'undefined') &&
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
             var aliasedRequire = require;
-            aliasedRequire('./locale/' + name);
+            aliasedRequire((typeof __dirname !== undefined ? __dirname : '.') + '/locale/' + name);
             getSetGlobalLocale(oldLocale);
-        } catch (e) {}
+        } catch (e) {
+            // mark as not found to avoid repeating expensive file require call causing high CPU
+            // when trying to find en-US, en_US, en-us for every format call
+            locales[name] = null; // null means not found
+        }
     }
     return locales[name];
 }

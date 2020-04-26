@@ -64,7 +64,7 @@ export default {
         future : 'در %s',
         past : '%s پیش',
         s : 'چند ثانیه',
-        ss : 'ثانیه d%',
+        ss : '%d ثانیه',
         m : 'یک دقیقه',
         mm : '%d دقیقه',
         h : 'یک ساعت',
@@ -93,4 +93,3 @@ export default {
         doy : 12 // The week that contains Jan 12th is the first week of the year.
     }
 };
-

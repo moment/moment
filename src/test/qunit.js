@@ -4,6 +4,7 @@ import moment from '../moment';
 import { setupDeprecationHandler, teardownDeprecationHandler } from './helpers/deprecation-handler';
 
 export var test = QUnit.test;
+export var only = QUnit.only;
 
 export function module (name, lifecycle) {
     QUnit.module(name, {

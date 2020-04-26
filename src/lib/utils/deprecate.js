@@ -1,6 +1,6 @@
 import extend from './extend';
 import { hooks } from './hooks';
-import isUndefined from './is-undefined';
+import hasOwnProp from './has-own-prop';
 
 function warn(msg) {
     if (hooks.suppressDeprecationWarnings === false &&
@@ -24,7 +24,9 @@ export function deprecate(msg, fn) {
                 if (typeof arguments[i] === 'object') {
                     arg += '\n[' + i + '] ';
                     for (var key in arguments[0]) {
-                        arg += key + ': ' + arguments[0][key] + ', ';
+                        if (hasOwnProp(arguments[0], key)) {
+                            arg += key + ': ' + arguments[0][key] + ', ';
+                        }
                     }
                     arg = arg.slice(0, -2); // Remove trailing comma and space
                 } else {

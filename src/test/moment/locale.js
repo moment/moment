@@ -424,7 +424,7 @@ test('return locale name', function (assert) {
     var registered = moment.locale('return-this', {});
 
     assert.equal(registered, 'return-this', 'returns the locale configured');
-    moment.locale('return-this', null);
+    moment.defineLocale('return-this', null);
 });
 
 test('changing the global locale doesn\'t affect existing instances', function (assert) {

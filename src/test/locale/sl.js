@@ -38,11 +38,11 @@ test('format', function (assert) {
             ['a A',                                'pm PM'],
             ['[the] DDDo [day of the year]',       'the 45. day of the year'],
             ['LTS',                                '15:25:50'],
-            ['L',                                  '14.02.2010'],
+            ['L',                                  '14. 02. 2010'],
             ['LL',                                 '14. februar 2010'],
             ['LLL',                                '14. februar 2010 15:25'],
             ['LLLL',                               'nedelja, 14. februar 2010 15:25'],
-            ['l',                                  '14.2.2010'],
+            ['l',                                  '14. 2. 2010'],
             ['ll',                                 '14. feb. 2010'],
             ['lll',                                '14. feb. 2010 15:25'],
             ['llll',                               'ned., 14. feb. 2010 15:25']

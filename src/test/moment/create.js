@@ -1,4 +1,5 @@
 import { module, test } from '../qunit';
+import eachOwnProp from '../helpers/each-own-prop';
 import moment from '../../moment';
 
 module('create');
@@ -45,6 +46,13 @@ test('object', function (assert) {
     for (i = 0; i < tests.length; ++i) {
         assert.equal(moment(tests[i][0]).format(fmt), tests[i][1]);
     }
+});
+
+test('invalid date for object with zero value date or day keys', function (assert) {
+    assert.equal(moment({date: '0'}).format(), 'Invalid date');
+    assert.equal(moment({date: 0}).format(), 'Invalid date');
+    assert.equal(moment({day: '0'}).format(), 'Invalid date');
+    assert.equal(moment({day: 0}).format(), 'Invalid date');
 });
 
 test('multi format array copying', function (assert) {
@@ -422,6 +430,11 @@ test('string with array of formats + ISO', function (assert) {
     assert.equal(moment('2014-05-05', ['YYYY-MM-DD', moment.ISO_8601]).parsingFlags().iso, false, 'iso: edge case array precedence not iso');
 });
 
+test('strict parsing invalid date against array of formats', function (assert) {
+    var b = moment('2/30/2019 7:00pm', ['M/DD/YYYY h:mma", "MM/DD/YYYY h:mma", "M-D-YYYY h:mma", "MM-D-YYYY h:mma'], true);
+    assert.deepEqual(b.parsingFlags().parsedDateParts, [2019,1,30,7,0], 'strict parsing multiple formats should still select the best format even if the date is invalid');
+});
+
 test('string with format - years', function (assert) {
     assert.equal(moment('67', 'YY').format('YYYY'), '2067', '67 > 2067');
     assert.equal(moment('68', 'YY').format('YYYY'), '2068', '68 > 2068');
@@ -476,17 +489,15 @@ test('parsing RFC 2822', function (assert) {
         'Mon, 02 Jan 2017 06:00:00 EDT': [2017, 0, 2, 6, 0, 0, -4 * 60]
     };
 
-    var inp, tokens, parseResult, expResult;
-
-    for (inp in testCases) {
-        tokens = testCases[inp];
-        parseResult = moment(inp, moment.RFC_2822, true).parseZone();
-        expResult = moment.utc(tokens.slice(0, 6)).utcOffset(tokens[6], true);
+    eachOwnProp(testCases, function (inp) {
+        var tokens = testCases[inp],
+            parseResult = moment(inp, moment.RFC_2822, true).parseZone(),
+            expResult = moment.utc(tokens.slice(0, 6)).utcOffset(tokens[6], true);
         assert.ok(parseResult.isValid(), inp);
         assert.ok(parseResult.parsingFlags().rfc2822, inp + ' - rfc2822 parsingFlag');
         assert.equal(parseResult.utcOffset(), expResult.utcOffset(), inp + ' - zone');
         assert.equal(parseResult.valueOf(), expResult.valueOf(), inp + ' - correctness');
-    }
+    });
 });
 
 test('non RFC 2822 strings', function (assert) {
@@ -494,13 +505,12 @@ test('non RFC 2822 strings', function (assert) {
         'RFC2822 datetime with all options but invalid day delimiter': 'Tue. 01 Nov 2016 01:23:45 GMT',
         'RFC2822 datetime with mismatching Day (weekday v date)': 'Mon, 01 Nov 2016 01:23:45 GMT'
     };
-    var testCase;
 
-    for (testCase in testCases) {
+    eachOwnProp(testCases, function (testCase) {
         var testResult = moment(testCases[testCase], moment.RFC_2822, true);
         assert.ok(!testResult.isValid(), testCase + ': ' + testResult + ' - is invalid rfc2822');
         assert.ok(!testResult.parsingFlags().rfc2822, testCase + ': ' + testResult + ' - rfc2822 parsingFlag');
-    }
+    });
 });
 
 test('parsing RFC 2822 in a different locale', function (assert) {
@@ -513,15 +523,14 @@ test('parsing RFC 2822 in a different locale', function (assert) {
         'clean RFC2822 datetime with single-digit day-of-month': 'Tue, 1 Nov 2016 06:23:45 GMT',
         'RFC2822 datetime with CFWSs': '(Init Comment) Tue,\n 1 Nov              2016 (Split\n Comment)  07:23:45 +0000 (GMT)'
     };
-    var testCase;
 
     try {
         moment.locale('ru');
-        for (testCase in testCases) {
+        eachOwnProp(testCases, function (testCase) {
             var testResult = moment(testCases[testCase], moment.RFC_2822, true);
             assert.ok(testResult.isValid(), testResult);
             assert.ok(testResult.parsingFlags().rfc2822, testResult + ' - rfc2822 parsingFlag');
-        }
+        });
     }
     finally {
         moment.locale('en');
@@ -533,15 +542,14 @@ test('non RFC 2822 strings in a different locale', function (assert) {
         'RFC2822 datetime with all options but invalid day delimiter': 'Tue. 01 Nov 2016 01:23:45 GMT',
         'RFC2822 datetime with mismatching Day (week v date)': 'Mon, 01 Nov 2016 01:23:45 GMT'
     };
-    var testCase;
 
     try {
         moment.locale('ru');
-        for (testCase in testCases) {
+        eachOwnProp(testCases, function (testCase) {
             var testResult = moment(testCases[testCase], moment.RFC_2822, true);
             assert.ok(!testResult.isValid(), testResult);
             assert.ok(!testResult.parsingFlags().rfc2822, testResult + ' - rfc2822 parsingFlag');
-        }
+        });
     }
     finally {
         moment.locale('en');
@@ -556,18 +564,26 @@ test('parsing iso', function (assert) {
         }
         return '' + input;
     },
-    hourOffset = (offset > 0 ? Math.floor(offset / 60) : Math.ceil(offset / 60)),
-    minOffset = offset - (hourOffset * 60),
-    tz = (offset >= 0) ?
-        '+' + pad(hourOffset) + ':' + pad(minOffset) :
-        '-' + pad(-hourOffset) + ':' + pad(-minOffset),
+    offStr = function (offset) {
+        var hourOffset = (offset > 0 ? Math.floor(offset / 60) : Math.ceil(offset / 60)),
+            minOffset = offset - (hourOffset * 60);
+        return offset >= 0 ?
+            '+' + pad(hourOffset) + ':' + pad(minOffset) :
+            '-' + pad(-hourOffset) + ':' + pad(-minOffset);
+    },
+    tz = offStr(offset),
+    tz0 = offStr(moment([2011, 0, 1]).utcOffset()),
     tz2 = tz.replace(':', ''),
     tz3 = tz2.slice(0, 3),
     //Tz3 removes minutes digit so will break the tests when parsed if they all use the same minutes digit
+    hourOffset = (offset > 0 ? Math.floor(offset / 60) : Math.ceil(offset / 60)),
+    minOffset = offset - (hourOffset * 60),
     minutesForTz3 = pad((4 + minOffset) % 60),
-    minute = pad(4 + minOffset),
+    // minute = pad(4 + minOffset),
 
     formats = [
+        ['2011',                          '2011-01-01T00:00:00.000' + tz0],
+        ['2011-10',                       '2011-10-01T00:00:00.000' + tz],
         ['2011-10-08',                    '2011-10-08T00:00:00.000' + tz],
         ['2011-10-08T18',                 '2011-10-08T18:00:00.000' + tz],
         ['2011-10-08T18:04',              '2011-10-08T18:04:00.000' + tz],
@@ -733,7 +749,6 @@ test('parsing iso', function (assert) {
 test('non iso 8601 strings', function (assert) {
     assert.ok(!moment('2015-10T10:15', moment.ISO_8601, true).isValid(), 'incomplete date with time');
     assert.ok(!moment('2015-W10T10:15', moment.ISO_8601, true).isValid(), 'incomplete week date with time');
-    assert.ok(!moment('201510', moment.ISO_8601, true).isValid(), 'basic YYYYMM is not allowed');
     assert.ok(!moment('2015W10T1015', moment.ISO_8601, true).isValid(), 'incomplete week date with time (basic)');
     assert.ok(!moment('2015-10-08T1015', moment.ISO_8601, true).isValid(), 'mixing extended and basic format');
     assert.ok(!moment('20151008T10:15', moment.ISO_8601, true).isValid(), 'mixing basic and extended format');

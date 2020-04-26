@@ -30,12 +30,12 @@ export function createDuration (input, key) {
             d  : input._days,
             M  : input._months
         };
-    } else if (isNumber(input)) {
+    } else if (isNumber(input) || !isNaN(+input)) {
         duration = {};
         if (key) {
-            duration[key] = input;
+            duration[key] = +input;
         } else {
-            duration.milliseconds = input;
+            duration.milliseconds = +input;
         }
     } else if (!!(match = aspNetRegex.exec(input))) {
         sign = (match[1] === '-') ? -1 : 1;
@@ -72,6 +72,10 @@ export function createDuration (input, key) {
 
     if (isDuration(input) && hasOwnProp(input, '_locale')) {
         ret._locale = input._locale;
+    }
+
+    if (isDuration(input) && hasOwnProp(input, '_isValid')) {
+        ret._isValid = input._isValid;
     }
 
     return ret;

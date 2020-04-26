@@ -2,7 +2,7 @@
     "name": "moment",
     "version": "2.24.0",
     "description": "Parse, validate, manipulate, and display dates",
-    "homepage": "http://momentjs.com",
+    "homepage": "https://momentjs.com",
     "author": "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)",
     "contributors": [
         "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
@@ -24,7 +24,15 @@
     ],
     "main": "./moment.js",
     "jsnext:main": "./src/moment.js",
+    "module": "./src/moment.js",
     "typings": "./moment.d.ts",
+    "typesVersions": {
+        ">=3.1": {
+            "*": [
+                "ts3.1-typings/*"
+            ]
+        }
+    },
     "engines": {
         "node": "*"
     },
@@ -40,7 +48,7 @@
         "benchmark": "latest",
         "coveralls": "^3.0.2",
         "es6-promise": "latest",
-        "grunt": "~0.4",
+        "grunt": "latest",
         "grunt-benchmark": "latest",
         "grunt-cli": "latest",
         "grunt-contrib-clean": "latest",
@@ -61,9 +69,9 @@
         "karma-qunit": "latest",
         "karma-sauce-launcher": "latest",
         "load-grunt-tasks": "~3.5.2",
-        "node-qunit": "^1.0.0",
-        "nyc": "~11.9.0",
-        "qunit": "^2.7.1",
+        "node-qunit": "latest",
+        "nyc": "latest",
+        "npx": "latest",
         "rollup": "~0.67.4",
         "spacejam": "latest",
         "typescript": "^1.8.10",
@@ -85,6 +93,7 @@
         }
     },
     "scripts": {
+        "ts3.1-typescript-test": "npx typescript@3.1 --project ts3.1-typing-tests",
         "typescript-test": "tsc --project typing-tests",
         "test": "grunt test",
         "coverage": "nyc npm test && nyc report",

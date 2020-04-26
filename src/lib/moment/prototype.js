@@ -51,6 +51,11 @@ proto.toObject          = toObject;
 proto.toDate            = toDate;
 proto.toISOString       = toISOString;
 proto.inspect           = inspect;
+if (typeof Symbol !== undefined && Symbol.for != null) {
+    proto[Symbol.for('nodejs.util.inspect.custom')] = function () {
+        return 'Moment<' + this.format() + '>';
+    };
+}
 proto.toJSON            = toJSON;
 proto.toString          = toString;
 proto.unix              = unix;

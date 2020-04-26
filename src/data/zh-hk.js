@@ -3,6 +3,7 @@
 //! author : Ben : https://github.com/ben-lin
 //! author : Chris Lam : https://github.com/hehachris
 //! author : Konstantin : https://github.com/skfd
+//! author : Anthony : https://github.com/anthonylau
 
 export default {
     months : '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'),
@@ -41,9 +42,9 @@ export default {
             return '凌晨';
         } else if (hm < 900) {
             return '早上';
-        } else if (hm < 1130) {
+        } else if (hm < 1200) {
             return '上午';
-        } else if (hm < 1230) {
+        } else if (hm === 1200) {
             return '中午';
         } else if (hm < 1800) {
             return '下午';

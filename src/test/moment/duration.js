@@ -52,6 +52,11 @@ test('milliseconds instantiation', function (assert) {
     assert.equal(moment.duration(72).humanize(), 'a few seconds', 'Duration should be valid');
 });
 
+test('milliseconds instantiation with string', function (assert) {
+    assert.equal(moment.duration('72').milliseconds(), 72, 'milliseconds');
+    assert.equal(moment.duration('72').humanize(), 'a few seconds', 'Duration should be valid');
+});
+
 test('undefined instantiation', function (assert) {
     assert.equal(moment.duration(undefined).milliseconds(), 0, 'milliseconds');
     assert.equal(moment.duration(undefined).isValid(), true, '_isValid');
@@ -87,6 +92,25 @@ test('instantiation by type', function (assert) {
     assert.equal(moment.duration(7, 's').seconds(),                   7, 's');
     assert.equal(moment.duration(8, 'milliseconds').milliseconds(),   8, 'milliseconds');
     assert.equal(moment.duration(8, 'ms').milliseconds(),             8, 'ms');
+});
+
+test('instantiation by type with string', function (assert) {
+    assert.equal(moment.duration('1', 'years').years(),                 1, 'years');
+    assert.equal(moment.duration('1', 'y').years(),                     1, 'y');
+    assert.equal(moment.duration('2', 'months').months(),               2, 'months');
+    assert.equal(moment.duration('2', 'M').months(),                    2, 'M');
+    assert.equal(moment.duration('3', 'weeks').weeks(),                 3, 'weeks');
+    assert.equal(moment.duration('3', 'w').weeks(),                     3, 'weeks');
+    assert.equal(moment.duration('4', 'days').days(),                   4, 'days');
+    assert.equal(moment.duration('4', 'd').days(),                      4, 'd');
+    assert.equal(moment.duration('5', 'hours').hours(),                 5, 'hours');
+    assert.equal(moment.duration('5', 'h').hours(),                     5, 'h');
+    assert.equal(moment.duration('6', 'minutes').minutes(),             6, 'minutes');
+    assert.equal(moment.duration('6', 'm').minutes(),                   6, 'm');
+    assert.equal(moment.duration('7', 'seconds').seconds(),             7, 'seconds');
+    assert.equal(moment.duration('7', 's').seconds(),                   7, 's');
+    assert.equal(moment.duration('8', 'milliseconds').milliseconds(),   8, 'milliseconds');
+    assert.equal(moment.duration('8', 'ms').milliseconds(),             8, 'ms');
 });
 
 test('shortcuts', function (assert) {
@@ -456,7 +480,7 @@ test('humanize', function (assert) {
     assert.equal(moment.duration({days: 548}).humanize(),    '2 years',       '548 days = 2 years');
     assert.equal(moment.duration({years: 1}).humanize(),     'a year',        '1 year = a year');
     assert.equal(moment.duration({years: 5}).humanize(),     '5 years',       '5 years = 5 years');
-    assert.equal(moment.duration(7200000).humanize(),        '2 hours',       '7200000 = 2 minutes');
+    assert.equal(moment.duration(7200000).humanize(),        '2 hours',       '7200000 = 2 hours');
 });
 
 test('humanize duration with suffix', function (assert) {
@@ -464,6 +488,29 @@ test('humanize duration with suffix', function (assert) {
     assert.equal(moment.duration({seconds:  44}).humanize(true),  'in a few seconds', '44 seconds = a few seconds');
     assert.equal(moment.duration({seconds: -44}).humanize(true),  'a few seconds ago', '44 seconds = a few seconds');
     assert.equal(moment.duration({seconds: +44}).humanize(true),  'in a few seconds', '44 seconds = a few seconds');
+    assert.equal(moment.duration({seconds:  44}).humanize({withSuffix: true}),  'in a few seconds', '44 seconds = a few seconds');
+    assert.equal(moment.duration({seconds: -44}).humanize({withSuffix: true}),  'a few seconds ago', '44 seconds = a few seconds');
+    assert.equal(moment.duration({seconds: +44}).humanize({withSuffix: true}),  'in a few seconds', '44 seconds = a few seconds');
+});
+
+test('humanize duration with options', function (assert) {
+    var thresholds = {s: 9};
+    moment.locale('en');
+    assert.equal(
+        moment.duration({seconds: -10}).humanize({thresholds: thresholds}),
+        'a minute',
+        '10 seconds = a minute (with thresholds)'
+    );
+    assert.equal(
+        moment.duration({seconds: 10}).humanize({thresholds: thresholds, withSuffix: true}),
+        'in a minute',
+        '10 seconds = a minute (with thresholds and suffix)'
+    );
+    assert.equal(
+        moment.duration({weeks: 3}).humanize({thresholds: {d: 7, w: 4}, withSuffix: true}),
+        'in 3 weeks',
+        'in 3 weeks = in 3 weeks (with thresholds and suffix)'
+    );
 });
 
 test('bubble value up', function (assert) {

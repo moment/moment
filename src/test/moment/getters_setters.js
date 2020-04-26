@@ -281,6 +281,12 @@ test('year setter', function (assert) {
     var c = moment([2012, 9, 4]);
     assert.equal(moment(c).year(2017).format('YYYY-MM-DD'), '2017-10-04', 'set from a random day on a leap year to a non leap year');
     assert.equal(moment(c).year(2004).format('YYYY-MM-DD'), '2004-10-04', 'set from a random day on a leap year to a leap year');
+
+    var d = moment([2020, 1, 29]);
+    assert.equal(moment(d).year('2020').format('YYYY-MM-DD'), '2020-02-29', 'set from last day of february in 2020 to the same year, provided as string');
+
+    var e = moment([2012, 1, 29]);
+    assert.equal(moment(e).year('2020').format('YYYY-MM-DD'), '2020-02-29', 'set from last day of february on a leap year to 2020, provided as string');
 });
 
 test('object set ordering', function (assert) {

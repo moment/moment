@@ -1,8 +1,6 @@
 import { test } from '../qunit';
-import each from './each';
-import objectKeys from './object-keys';
+import eachOwnProp from './each-own-prop';
 import moment from '../../moment';
-import defaults from '../../lib/utils/defaults';
 
 export function defineCommonLocaleTests(locale, options) {
     test('lenient day of month ordinal parsing', function (assert) {
@@ -54,13 +52,11 @@ export function defineCommonLocaleTests(locale, options) {
     });
 
     test('date format correctness', function (assert) {
-        var data, tokens;
-        data = moment.localeData()._longDateFormat;
-        tokens = objectKeys(data);
-        each(tokens, function (srchToken) {
+        var data = moment.localeData()._longDateFormat;
+        eachOwnProp(data, function (srchToken) {
             // Check each format string to make sure it does not contain any
             // tokens that need to be expanded.
-            each(tokens, function (baseToken) {
+            eachOwnProp(data, function (baseToken) {
                 // strip escaped sequences
                 var format = data[baseToken].replace(/(\[[^\]]*\])/g, '');
                 assert.equal(false, !!~format.indexOf(srchToken),

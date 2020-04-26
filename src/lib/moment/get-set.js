@@ -3,7 +3,8 @@ import { getPrioritizedUnits } from '../units/priorities';
 import { hooks } from '../utils/hooks';
 import isFunction from '../utils/is-function';
 import { daysInMonth } from '../units/month';
-import { isLeapYear } from '../units/year';
+import { isLeapYear } from '../utils/is-leap-year';
+import toInt from '../utils/to-int';
 
 export function makeGetSet (unit, keepTime) {
     return function (value) {
@@ -25,6 +26,7 @@ export function get (mom, unit) {
 export function set (mom, unit, value) {
     if (mom.isValid() && !isNaN(value)) {
         if (unit === 'FullYear' && isLeapYear(mom.year()) && mom.month() === 1 && mom.date() === 29) {
+            value = toInt(value);
             mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value, mom.month(), daysInMonth(value, mom.month()));
         }
         else {
