@@ -177,15 +177,21 @@ export function updateLocale(name, config) {
         var locale,
             tmpLocale,
             parentConfig = baseConfig;
-        // MERGE
-        tmpLocale = loadLocale(name);
-        if (tmpLocale != null) {
-            parentConfig = tmpLocale._config;
+
+        if (locales[name] != null && locales[name].parentLocale != null) {
+            // Update existing child locale in-place to avoid memory-leaks
+            locales[name].set(mergeConfigs(locales[name]._config, config));
+        } else {
+            // MERGE
+            tmpLocale = loadLocale(name);
+            if (tmpLocale != null) {
+                parentConfig = tmpLocale._config;
+            }
+            config = mergeConfigs(parentConfig, config);
+            locale = new Locale(config);
+            locale.parentLocale = locales[name];
+            locales[name] = locale;
         }
-        config = mergeConfigs(parentConfig, config);
-        locale = new Locale(config);
-        locale.parentLocale = locales[name];
-        locales[name] = locale;
 
         // backwards compat for now: also set the locale
         getSetGlobalLocale(name);
