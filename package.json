@@ -74,7 +74,9 @@
         "rollup": "~0.67.4",
         "spacejam": "latest",
         "typescript": "^1.8.10",
-        "uglify-js": "latest"
+        "uglify-js": "latest",
+        "husky": "^2.2.0",
+        "lint-staged": "^8.1.5"
     },
     "ender": "./ender.js",
     "dojoBuild": "package.js",
@@ -96,7 +98,27 @@
         "typescript-test": "tsc --project typing-tests",
         "test": "grunt test",
         "coverage": "nyc npm test && nyc report",
-        "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+        "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
+        "lint": "grunt lint"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "src/**/*.js": [
+            "npm run lint",
+            "git add"
+        ],
+        "tasks/**.js": [
+            "npm run lint",
+            "git add"
+        ],
+        "Gruntfile.js": [
+            "npm run lint",
+            "git add"
+        ]
     },
     "spm": {
         "main": "moment.js",
