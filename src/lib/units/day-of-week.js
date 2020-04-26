@@ -100,7 +100,19 @@ function shiftWeekdays (ws, n) {
     return ws.slice(n, 7).concat(ws.slice(0, n));
 }
 
-export var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_');
+var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+    defaultLocaleWeekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
+    defaultLocaleWeekdaysMin = 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
+    defaultWeekdaysRegex = matchWord,
+    defaultWeekdaysShortRegex = matchWord,
+    defaultWeekdaysMinRegex = matchWord;
+
+export {
+    defaultLocaleWeekdays,
+    defaultLocaleWeekdaysShort,
+    defaultLocaleWeekdaysMin
+}
+
 export function localeWeekdays (m, format) {
     var weekdays = isArray(this._weekdays) ? this._weekdays :
         this._weekdays[(m && m !== true && this._weekdays.isFormat.test(format)) ? 'format' : 'standalone'];
@@ -108,13 +120,11 @@ export function localeWeekdays (m, format) {
         : (m) ? weekdays[m.day()] : weekdays;
 }
 
-export var defaultLocaleWeekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_');
 export function localeWeekdaysShort (m) {
     return (m === true) ? shiftWeekdays(this._weekdaysShort, this._week.dow)
         : (m) ? this._weekdaysShort[m.day()] : this._weekdaysShort;
 }
 
-export var defaultLocaleWeekdaysMin = 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_');
 export function localeWeekdaysMin (m) {
     return (m === true) ? shiftWeekdays(this._weekdaysMin, this._week.dow)
         : (m) ? this._weekdaysMin[m.day()] : this._weekdaysMin;
@@ -264,7 +274,6 @@ export function getSetISODayOfWeek (input) {
     }
 }
 
-var defaultWeekdaysRegex = matchWord;
 export function weekdaysRegex (isStrict) {
     if (this._weekdaysParseExact) {
         if (!hasOwnProp(this, '_weekdaysRegex')) {
@@ -284,7 +293,6 @@ export function weekdaysRegex (isStrict) {
     }
 }
 
-var defaultWeekdaysShortRegex = matchWord;
 export function weekdaysShortRegex (isStrict) {
     if (this._weekdaysParseExact) {
         if (!hasOwnProp(this, '_weekdaysRegex')) {
@@ -304,7 +312,6 @@ export function weekdaysShortRegex (isStrict) {
     }
 }
 
-var defaultWeekdaysMinRegex = matchWord;
 export function weekdaysMinRegex (isStrict) {
     if (this._weekdaysParseExact) {
         if (!hasOwnProp(this, '_weekdaysRegex')) {

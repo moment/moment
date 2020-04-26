@@ -215,8 +215,7 @@ test('instance locale persists with cloning', function (assert) {
     moment.locale('en');
 
     var a = moment([2012, 5, 6]).locale('es'),
-        b = a.clone(),
-        c = moment(a);
+        b = a.clone();
 
     assert.equal(b.format('MMMM'), 'junio', 'using moment.fn.clone()');
     assert.equal(b.format('MMMM'), 'junio', 'using moment()');

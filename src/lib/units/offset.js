@@ -18,8 +18,8 @@ import { hooks } from '../utils/hooks';
 
 function offset (token, separator) {
     addFormatToken(token, 0, 0, function () {
-        var offset = this.utcOffset();
-        var sign = '+';
+        var offset = this.utcOffset(),
+         sign = '+';
         if (offset < 0) {
             offset = -offset;
             sign = '-';
@@ -48,19 +48,19 @@ addParseToken(['Z', 'ZZ'], function (input, array, config) {
 var chunkOffset = /([\+\-]|\d\d)/gi;
 
 function offsetFromString(matcher, string) {
-    var matches = (string || '').match(matcher);
+    var matches = (string || '').match(matcher), chunk, parts, minutes;
 
     if (matches === null) {
         return null;
     }
 
-    var chunk   = matches[matches.length - 1] || [];
-    var parts   = (chunk + '').match(chunkOffset) || ['-', 0, 0];
-    var minutes = +(parts[1] * 60) + toInt(parts[2]);
+    chunk   = matches[matches.length - 1] || [];
+    parts   = (chunk + '').match(chunkOffset) || ['-', 0, 0];
+    minutes = +(parts[1] * 60) + toInt(parts[2]);
 
     return minutes === 0 ?
-      0 :
-      parts[0] === '+' ? minutes : -minutes;
+        0 :
+        parts[0] === '+' ? minutes : -minutes;
 }
 
 // Return a moment from input, that is local/utc/zone equivalent to model.
@@ -206,13 +206,13 @@ export function isDaylightSavingTimeShifted () {
         return this._isDSTShifted;
     }
 
-    var c = {};
+    var c = {}, other;
 
     copyConfig(c, this);
     c = prepareConfig(c);
 
     if (c._a) {
-        var other = c._isUTC ? createUTC(c._a) : createLocal(c._a);
+        other = c._isUTC ? createUTC(c._a) : createLocal(c._a);
         this._isDSTShifted = this.isValid() &&
             compareArrays(c._a, other.toArray()) > 0;
     } else {

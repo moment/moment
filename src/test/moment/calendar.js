@@ -15,13 +15,13 @@ test('passing a function', function (assert) {
 });
 
 test('extending calendar options', function (assert) {
-    var calendarFormat = moment.calendarFormat;
+    var calendarFormat = moment.calendarFormat, a, b;
 
     moment.calendarFormat = function (myMoment, now) {
-        var diff = myMoment.diff(now, 'days', true);
-        var nextMonth = now.clone().add(1, 'month');
+        var diff = myMoment.diff(now, 'days', true),
+         nextMonth = now.clone().add(1, 'month'),
 
-        var retVal =  diff < -6 ? 'sameElse' :
+         retVal =  diff < -6 ? 'sameElse' :
             diff < -1 ? 'lastWeek' :
             diff < 0 ? 'lastDay' :
             diff < 1 ? 'sameDay' :
@@ -44,8 +44,10 @@ test('extending calendar options', function (assert) {
                 sameElse : 'L'
             }
     });
-    var a = moment('2016-01-01').add(28, 'days');
-    var b = moment('2016-01-01').add(1, 'month');
+
+    a = moment('2016-01-01').add(28, 'days');
+    b = moment('2016-01-01').add(1, 'month');
+
     try {
         assert.equal(a.calendar('2016-01-01'), 'This month on the 29th', 'Ad hoc calendar format for this month');
         assert.equal(b.calendar('2016-01-01'), 'Next month on the 1st', 'Ad hoc calendar format for next month');
@@ -57,8 +59,8 @@ test('extending calendar options', function (assert) {
 });
 
 test('calendar overload time - passing one parameter - a Moment', function (assert) {
-    var a = moment().hours(13).minutes(23).seconds(45);
-    var b = moment().add(1, 'd');
+    var a = moment().hours(13).minutes(23).seconds(45),
+     b = moment().add(1, 'd');
     assert.equal(
         a.calendar(b),
         'Yesterday at 1:23 PM',
@@ -67,8 +69,8 @@ test('calendar overload time - passing one parameter - a Moment', function (asse
 });
 
 test('calendar overload time - passing one parameter - a Date', function (assert) {
-    var a = moment().hours(13).minutes(23).seconds(45).subtract(1, 'd');
-    var d = new Date();
+    var a = moment().hours(13).minutes(23).seconds(45).subtract(1, 'd'),
+     d = new Date();
     assert.equal(
         a.calendar(d),
         'Yesterday at 1:23 PM',
@@ -113,17 +115,17 @@ test('calendar overload time - passing one parameter - an array of strings', fun
 });
 
 test('calendar overload time - passing one parameter - a moment input object', function (assert) {
-    var a = moment();
+    var a = moment(),
 
-    var todayTime = new Date(),
+     todayTime = new Date(),
         month = todayTime.getMonth() + 1,
         day = todayTime.getDate(),
-        year = todayTime.getFullYear();
+        year = todayTime.getFullYear(), expectedString;
 
     month = month < 10 ? '0' + month.toString() : month;
     day = day < 10 ? '0' + day.toString() : day;
 
-    var expectedString = month + '/' + day + '/' + year;
+    expectedString = month + '/' + day + '/' + year;
 
     assert.equal(
         a.calendar({

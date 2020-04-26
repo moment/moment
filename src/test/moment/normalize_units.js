@@ -11,14 +11,12 @@ test('normalize units', function (assert) {
         fullKeyCaps,
         fullKeyPlural,
         fullKeyCapsPlural,
-        fullKeyLower,
         alias,
         index;
 
     for (index = 0; index < length; index += 1) {
         fullKey = fullKeys[index];
         fullKeyCaps = fullKey.toUpperCase();
-        fullKeyLower = fullKey.toLowerCase();
         fullKeyPlural = fullKey + 's';
         fullKeyCapsPlural = fullKeyCaps + 's';
         alias = aliases[index];

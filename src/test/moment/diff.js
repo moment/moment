@@ -103,7 +103,7 @@ test('diff month', function (assert) {
 });
 
 test('diff across DST', function (assert) {
-    var dst = dstForYear(2012), a, b, daysInMonth;
+    var dst = dstForYear(2012), a, b;
     if (!dst) {
         assert.equal(42, 42, 'at least one assertion');
         return;
@@ -111,7 +111,6 @@ test('diff across DST', function (assert) {
 
     a = dst.moment;
     b = a.clone().utc().add(12, 'hours').local();
-    daysInMonth = (a.daysInMonth() + b.daysInMonth()) / 2;
     assert.equal(b.diff(a, 'milliseconds', true), 12 * 60 * 60 * 1000,
             'ms diff across DST');
     assert.equal(b.diff(a, 'seconds', true), 12 * 60 * 60,
@@ -135,7 +134,6 @@ test('diff across DST', function (assert) {
 
     a = dst.moment;
     b = a.clone().utc().add(12 + dst.diff, 'hours').local();
-    daysInMonth = (a.daysInMonth() + b.daysInMonth()) / 2;
 
     assert.equal(b.diff(a, 'milliseconds', true),
             (12 + dst.diff) * 60 * 60 * 1000,

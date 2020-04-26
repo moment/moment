@@ -461,10 +461,10 @@ test('timezone format', function (assert) {
 
 test('parse zone without a timezone', function (assert) {
     test.expectedDeprecations();
-    var m1 = moment.parseZone('2016-02-01T00:00:00');
-    var m2 = moment.parseZone('2016-02-01T00:00:00Z');
-    var m3 = moment.parseZone('2016-02-01T00:00:00+00:00'); //Someone might argue this is not necessary, you could even argue that is wrong being here.
-    var m4 = moment.parseZone('2016-02-01T00:00:00+0000'); //Someone might argue this is not necessary, you could even argue that is wrong being here.
+    var m1 = moment.parseZone('2016-02-01T00:00:00'),
+     m2 = moment.parseZone('2016-02-01T00:00:00Z'),
+     m3 = moment.parseZone('2016-02-01T00:00:00+00:00'), //Someone might argue this is not necessary, you could even argue that is wrong being here.
+     m4 = moment.parseZone('2016-02-01T00:00:00+0000'); //Someone might argue this is not necessary, you could even argue that is wrong being here.
     assert.equal(
         m1.format('M D YYYY HH:mm:ss ZZ'),
         '2 1 2016 00:00:00 +0000',
@@ -490,11 +490,12 @@ test('parse zone without a timezone', function (assert) {
 test('parse zone with a minutes unit abs less than 16 should retain minutes', function (assert) {
     //ensure when minutes are explicitly parsed, they are retained
     //instead of converted to hours, even if less than 16
-    var n = moment.parseZone('2013-01-01T00:00:00-00:15');
+    var n = moment.parseZone('2013-01-01T00:00:00-00:15'), o;
     assert.equal(n.utcOffset(), -15);
     assert.equal(n.zone(), 15);
     assert.equal(n.hour(), 0);
-    var o = moment.parseZone('2013-01-01T00:00:00+00:15');
+
+    o = moment.parseZone('2013-01-01T00:00:00+00:15');
     assert.equal(o.utcOffset(), 15);
     assert.equal(o.zone(), -15);
     assert.equal(o.hour(), 0);

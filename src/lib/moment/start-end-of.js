@@ -1,10 +1,10 @@
 import { normalizeUnits } from '../units/aliases';
 import { hooks } from '../utils/hooks';
 
-var MS_PER_SECOND = 1000;
-var MS_PER_MINUTE = 60 * MS_PER_SECOND;
-var MS_PER_HOUR = 60 * MS_PER_MINUTE;
-var MS_PER_400_YEARS = (365 * 400 + 97) * 24 * MS_PER_HOUR;
+var MS_PER_SECOND = 1000,
+ MS_PER_MINUTE = 60 * MS_PER_SECOND,
+ MS_PER_HOUR = 60 * MS_PER_MINUTE,
+ MS_PER_400_YEARS = (365 * 400 + 97) * 24 * MS_PER_HOUR;
 
 // actual modulo - handles negative numbers (for dates before 1970):
 function mod(dividend, divisor) {
@@ -32,13 +32,13 @@ function utcStartOfDate(y, m, d) {
 }
 
 export function startOf (units) {
-    var time;
+    var time, startOfDate;
     units = normalizeUnits(units);
     if (units === undefined || units === 'millisecond' || !this.isValid()) {
         return this;
     }
 
-    var startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
+    startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
 
     switch (units) {
         case 'year':
@@ -80,13 +80,13 @@ export function startOf (units) {
 }
 
 export function endOf (units) {
-    var time;
+    var time, startOfDate;
     units = normalizeUnits(units);
     if (units === undefined || units === 'millisecond' || !this.isValid()) {
         return this;
     }
 
-    var startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
+    startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
 
     switch (units) {
         case 'year':

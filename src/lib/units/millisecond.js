@@ -52,7 +52,7 @@ addRegexToken('S',    match1to3, match1);
 addRegexToken('SS',   match1to3, match2);
 addRegexToken('SSS',  match1to3, match3);
 
-var token;
+var token, getSetMillisecond;
 for (token = 'SSSS'; token.length <= 9; token += 'S') {
     addRegexToken(token, matchUnsigned);
 }
@@ -64,6 +64,9 @@ function parseMs(input, array) {
 for (token = 'S'; token.length <= 9; token += 'S') {
     addParseToken(token, parseMs);
 }
-// MOMENTS
 
-export var getSetMillisecond = makeGetSet('Milliseconds', false);
+getSetMillisecond = makeGetSet('Milliseconds', false);
+
+export {
+    getSetMillisecond
+}

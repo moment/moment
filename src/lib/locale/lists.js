@@ -3,8 +3,8 @@ import { getLocale } from './locales';
 import { createUTC } from '../create/utc';
 
 function get (format, index, field, setter) {
-    var locale = getLocale();
-    var utc = createUTC().set(setter, index);
+    var locale = getLocale(),
+     utc = createUTC().set(setter, index);
     return locale[field](utc, format);
 }
 
@@ -20,8 +20,8 @@ function listMonthsImpl (format, index, field) {
         return get(format, index, field, 'month');
     }
 
-    var i;
-    var out = [];
+    var i,
+     out = [];
     for (i = 0; i < 12; i++) {
         out[i] = get(format, i, field, 'month');
     }
@@ -58,14 +58,13 @@ function listWeekdaysImpl (localeSorted, format, index, field) {
     }
 
     var locale = getLocale(),
-        shift = localeSorted ? locale._week.dow : 0;
+        shift = localeSorted ? locale._week.dow : 0,
+        i, out = [];
 
     if (index != null) {
         return get(format, (index + shift) % 7, field, 'day');
     }
 
-    var i;
-    var out = [];
     for (i = 0; i < 7; i++) {
         out[i] = get(format, (i + shift) % 7, field, 'day');
     }

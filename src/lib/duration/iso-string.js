@@ -17,10 +17,17 @@ export function toISOString() {
         return this.localeData().invalidDate();
     }
 
-    var seconds = abs(this._milliseconds) / 1000;
-    var days         = abs(this._days);
-    var months       = abs(this._months);
-    var minutes, hours, years;
+    var seconds = abs(this._milliseconds) / 1000,
+        days         = abs(this._days),
+        months       = abs(this._months),
+        minutes, hours, years, s, total = this.asSeconds(),
+        totalSign, ymSign, daysSign, hmsSign;
+
+    if (!total) {
+        // this is the same as C#'s (Noda) and python (isodate)...
+        // but not other JS (goog.date)
+        return 'P0D';
+    }
 
     // 3600 seconds -> 60 minutes -> 1 hour
     minutes           = absFloor(seconds / 60);
@@ -34,31 +41,19 @@ export function toISOString() {
 
 
     // inspired by https://github.com/dordille/moment-isoduration/blob/master/moment.isoduration.js
-    var Y = years;
-    var M = months;
-    var D = days;
-    var h = hours;
-    var m = minutes;
-    var s = seconds ? seconds.toFixed(3).replace(/\.?0+$/, '') : '';
-    var total = this.asSeconds();
+    s = seconds ? seconds.toFixed(3).replace(/\.?0+$/, '') : '';
 
-    if (!total) {
-        // this is the same as C#'s (Noda) and python (isodate)...
-        // but not other JS (goog.date)
-        return 'P0D';
-    }
-
-    var totalSign = total < 0 ? '-' : '';
-    var ymSign = sign(this._months) !== sign(total) ? '-' : '';
-    var daysSign = sign(this._days) !== sign(total) ? '-' : '';
-    var hmsSign = sign(this._milliseconds) !== sign(total) ? '-' : '';
+    totalSign = total < 0 ? '-' : '';
+    ymSign = sign(this._months) !== sign(total) ? '-' : '';
+    daysSign = sign(this._days) !== sign(total) ? '-' : '';
+    hmsSign = sign(this._milliseconds) !== sign(total) ? '-' : '';
 
     return totalSign + 'P' +
-        (Y ? ymSign + Y + 'Y' : '') +
-        (M ? ymSign + M + 'M' : '') +
-        (D ? daysSign + D + 'D' : '') +
-        ((h || m || s) ? 'T' : '') +
-        (h ? hmsSign + h + 'H' : '') +
-        (m ? hmsSign + m + 'M' : '') +
-        (s ? hmsSign + s + 'S' : '');
+        (years ? ymSign + years + 'Y' : '') +
+        (months ? ymSign + months + 'M' : '') +
+        (days ? daysSign + days + 'D' : '') +
+        ((hours || minutes || seconds) ? 'T' : '') +
+        (hours ? hmsSign + hours + 'H' : '') +
+        (minutes ? hmsSign + minutes + 'M' : '') +
+        (seconds ? hmsSign + s + 'S' : '');
 }

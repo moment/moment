@@ -105,15 +105,8 @@ test('with locale data', function (assert) {
         weekdays = 'one_two_three_four_five_six_seven'.split('_'),
         weekdaysShort = 'on_tw_th_fo_fi_si_se'.split('_'),
         weekdaysMin = '1_2_3_4_5_6_7'.split('_'),
-        weekdaysLocale = 'four_five_six_seven_one_two_three'.split('_'),
-        weekdaysShortLocale = 'fo_fi_si_se_on_tw_th'.split('_'),
-        weekdaysMinLocale = '4_5_6_7_1_2_3'.split('_'),
-        week = {
-            dow : 3,
-            doy : 6
-        };
 
-    var customLocale = moment.localeData('numerologists');
+     customLocale = moment.localeData('numerologists');
 
     assert.deepEqual(customLocale.months(), months);
     assert.deepEqual(customLocale.monthsShort(), monthsShort);

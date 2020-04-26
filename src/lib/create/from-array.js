@@ -90,7 +90,7 @@ export function configFromArray (config) {
 }
 
 function dayOfYearFromWeekInfo(config) {
-    var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow;
+    var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow, curWeek;
 
     w = config._w;
     if (w.GG != null || w.W != null || w.E != null) {
@@ -111,7 +111,7 @@ function dayOfYearFromWeekInfo(config) {
         dow = config._locale._week.dow;
         doy = config._locale._week.doy;
 
-        var curWeek = weekOfYear(createLocal(), dow, doy);
+        curWeek = weekOfYear(createLocal(), dow, doy);
 
         weekYear = defaults(w.gg, config._a[YEAR], curWeek.year);
 

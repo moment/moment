@@ -181,7 +181,7 @@ test('custom thresholds', function (assert) {
 });
 
 test('custom rounding', function (assert) {
-    var roundingDefault = moment.relativeTimeRounding();
+    var roundingDefault = moment.relativeTimeRounding(), a, retainValue;
 
     // Round relative time evaluation down
     moment.relativeTimeRounding(Math.floor);
@@ -192,7 +192,7 @@ test('custom rounding', function (assert) {
     moment.relativeTimeThreshold('d', 27);
     moment.relativeTimeThreshold('M', 12);
 
-    var a = moment.utc();
+    a = moment.utc();
     a.subtract({minutes: 59, seconds: 59});
     assert.equal(a.toNow(), 'in 59 minutes', 'Round down towards the nearest minute');
 
@@ -217,7 +217,7 @@ test('custom rounding', function (assert) {
     assert.equal(a.toNow(), 'in a year', 'Round down towards the nearest year');
 
     // Do not round relative time evaluation
-    var retainValue = function (value) {
+    retainValue = function (value) {
         return value.toFixed(3);
     };
     moment.relativeTimeRounding(retainValue);

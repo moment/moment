@@ -49,6 +49,6 @@ export function addSubtract (mom, duration, isAdding, updateOffset) {
     }
 }
 
-export var add      = createAdder(1, 'add');
-export var subtract = createAdder(-1, 'subtract');
+export var add = createAdder(1, 'add'),
+    subtract = createAdder(-1, 'subtract');
 

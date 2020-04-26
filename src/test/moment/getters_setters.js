@@ -216,7 +216,7 @@ test('chaining setters', function (assert) {
 });
 
 test('setter with multiple unit values', function (assert) {
-    var a = moment();
+    var a = moment(), c;
     a.set({
         year: 2011,
         month: 9,
@@ -235,7 +235,7 @@ test('setter with multiple unit values', function (assert) {
     assert.equal(a.seconds(), 8, 'second');
     assert.equal(a.milliseconds(), 9, 'milliseconds');
 
-    var c = moment([2016,0,1]);
+    c = moment([2016,0,1]);
     assert.equal(c.set({weekYear: 2016}).weekYear(), 2016, 'week year correctly sets with object syntax');
     assert.equal(c.set({quarter: 3}).quarter(), 3, 'quarter sets correctly with object syntax');
 });
@@ -270,32 +270,32 @@ test('day setter', function (assert) {
 });
 
 test('year setter', function (assert) {
-    var a = moment([2015, 3, 15]);
+    var a = moment([2015, 3, 15]), b, c, d, e;
     assert.equal(moment(a).year(2016).format('YYYY-MM-DD'), '2016-04-15', 'set from 2015 to 2016');
     assert.equal(moment(a).year(2011).format('YYYY-MM-DD'), '2011-04-15', 'set from 2015 to 2011');
 
-    var b = moment([2012, 1, 29]);
+    b = moment([2012, 1, 29]);
     assert.equal(moment(b).year(2017).format('YYYY-MM-DD'), '2017-02-28', 'set from last day of february on a leap year to a non leap year');
     assert.equal(moment(b).year(2004).format('YYYY-MM-DD'), '2004-02-29', 'set from last day of february on a leap year to a leap year');
 
-    var c = moment([2012, 9, 4]);
+    c = moment([2012, 9, 4]);
     assert.equal(moment(c).year(2017).format('YYYY-MM-DD'), '2017-10-04', 'set from a random day on a leap year to a non leap year');
     assert.equal(moment(c).year(2004).format('YYYY-MM-DD'), '2004-10-04', 'set from a random day on a leap year to a leap year');
 
-    var d = moment([2020, 1, 29]);
+    d = moment([2020, 1, 29]);
     assert.equal(moment(d).year('2020').format('YYYY-MM-DD'), '2020-02-29', 'set from last day of february in 2020 to the same year, provided as string');
 
-    var e = moment([2012, 1, 29]);
+    e = moment([2012, 1, 29]);
     assert.equal(moment(e).year('2020').format('YYYY-MM-DD'), '2020-02-29', 'set from last day of february on a leap year to 2020, provided as string');
 });
 
 test('object set ordering', function (assert) {
-    var a = moment([2016,3,30]);
+    var a = moment([2016,3,30]), b, c;
     assert.equal(a.set({date:31, month:4}).date(), 31, 'setter order automatically arranged by size');
-    var b = moment([2015,1,28]);
+    b = moment([2015,1,28]);
     assert.equal(b.set({date:29, year: 2016}).format('YYYY-MM-DD'), '2016-02-29', 'year is prioritized over date');
     //check a nonexistent time in US isn't set
-    var c = moment([2016,2,13]);
+    c = moment([2016,2,13]);
     c.set({
         hour:2,
         minutes:30,

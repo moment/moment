@@ -130,9 +130,9 @@ test('valid string iso 8601 - not strict', function (assert) {
         '20100130T235959,999-0700',
         '20100130T000000,000+0700',
         '20100130 000000,000Z'
-    ];
+    ], i;
 
-    for (var i = 0; i < tests.length; i++) {
+    for (i = 0; i < tests.length; i++) {
         assert.equal(moment(tests[i]).isValid(), true, tests[i] + ' should be valid in normal');
         assert.equal(moment.utc(tests[i]).isValid(), true, tests[i] + ' should be valid in normal');
     }

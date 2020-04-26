@@ -97,8 +97,8 @@ addParseToken('hmm', function (input, array, config) {
     getParsingFlags(config).bigHour = true;
 });
 addParseToken('hmmss', function (input, array, config) {
-    var pos1 = input.length - 4;
-    var pos2 = input.length - 2;
+    var pos1 = input.length - 4,
+     pos2 = input.length - 2;
     array[HOUR] = toInt(input.substr(0, pos1));
     array[MINUTE] = toInt(input.substr(pos1, 2));
     array[SECOND] = toInt(input.substr(pos2));
@@ -110,8 +110,8 @@ addParseToken('Hmm', function (input, array, config) {
     array[MINUTE] = toInt(input.substr(pos));
 });
 addParseToken('Hmmss', function (input, array, config) {
-    var pos1 = input.length - 4;
-    var pos2 = input.length - 2;
+    var pos1 = input.length - 4,
+     pos2 = input.length - 2;
     array[HOUR] = toInt(input.substr(0, pos1));
     array[MINUTE] = toInt(input.substr(pos1, 2));
     array[SECOND] = toInt(input.substr(pos2));
@@ -125,7 +125,13 @@ export function localeIsPM (input) {
     return ((input + '').toLowerCase().charAt(0) === 'p');
 }
 
-export var defaultLocaleMeridiemParse = /[ap]\.?m?\.?/i;
+export var defaultLocaleMeridiemParse = /[ap]\.?m?\.?/i,
+    // Setting the hour should keep the time, because the user explicitly
+    // specified which hour they want. So trying to maintain the same hour (in
+    // a new timezone) makes sense. Adding/subtracting hours does not follow
+    // this rule.
+    getSetHour = makeGetSet('Hours', true);
+
 export function localeMeridiem (hours, minutes, isLower) {
     if (hours > 11) {
         return isLower ? 'pm' : 'PM';
@@ -133,12 +139,3 @@ export function localeMeridiem (hours, minutes, isLower) {
         return isLower ? 'am' : 'AM';
     }
 }
-
-
-// MOMENTS
-
-// Setting the hour should keep the time, because the user explicitly
-// specified which hour they want. So trying to maintain the same hour (in
-// a new timezone) makes sense. Adding/subtracting hours does not follow
-// this rule.
-export var getSetHour = makeGetSet('Hours', true);

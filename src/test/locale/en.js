@@ -221,9 +221,9 @@ test('weeks year starting sunday format', function (assert) {
 
 test('weekdays strict parsing', function (assert) {
     var m = moment('2015-01-01T12', moment.ISO_8601, true),
-        enLocale = moment.localeData('en');
+        enLocale = moment.localeData('en'), i;
 
-    for (var i = 0; i < 7; ++i) {
+    for (i = 0; i < 7; ++i) {
         assert.equal(moment(enLocale.weekdays(m.day(i), ''), 'dddd', true).isValid(), true, 'parse weekday ' + i);
         assert.equal(moment(enLocale.weekdaysShort(m.day(i), ''), 'ddd', true).isValid(), true, 'parse short weekday ' + i);
         assert.equal(moment(enLocale.weekdaysMin(m.day(i), ''), 'dd', true).isValid(), true, 'parse min weekday ' + i);

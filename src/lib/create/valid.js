@@ -5,11 +5,11 @@ import some from '../utils/some';
 
 export function isValid(m) {
     if (m._isValid == null) {
-        var flags = getParsingFlags(m);
-        var parsedParts = some.call(flags.parsedDateParts, function (i) {
+        var flags = getParsingFlags(m),
+         parsedParts = some.call(flags.parsedDateParts, function (i) {
             return i != null;
-        });
-        var isNowValid = !isNaN(m._d.getTime()) &&
+        }),
+         isNowValid = !isNaN(m._d.getTime()) &&
             flags.overflow < 0 &&
             !flags.empty &&
             !flags.invalidMonth &&

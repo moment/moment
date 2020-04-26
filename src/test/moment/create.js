@@ -1,5 +1,6 @@
 import { module, test } from '../qunit';
 import eachOwnProp from '../helpers/each-own-prop';
+import hasOwnProp from '../helpers/has-own-prop';
 import moment from '../../moment';
 
 module('create');
@@ -108,7 +109,7 @@ test('moment', function (assert) {
 });
 
 test('cloning moment should only copy own properties', function (assert) {
-    assert.ok(!moment().clone().hasOwnProperty('month'), 'Should not clone prototype methods');
+    assert.ok(!hasOwnProp(moment().clone(), 'month'), 'Should not clone prototype methods');
 });
 
 test('cloning moment works with weird clones', function (assert) {
@@ -1045,13 +1046,13 @@ function getVerifier(test) {
 }
 
 test('parsing week and weekday information', function (assert) {
-    var ver = getVerifier(assert);
-    var currentWeekOfYear = moment().weeks();
-    var expectedDate2012 = moment([2012, 0, 1])
+    var ver = getVerifier(assert),
+     currentWeekOfYear = moment().weeks(),
+     expectedDate2012 = moment([2012, 0, 1])
       .day(0)
       .add((currentWeekOfYear - 1), 'weeks')
-      .format('YYYY MM DD');
-    var expectedDate1999 = moment([1999, 0, 1])
+      .format('YYYY MM DD'),
+     expectedDate1999 = moment([1999, 0, 1])
       .day(0)
       .add((currentWeekOfYear - 1), 'weeks')
       .format('YYYY MM DD');
@@ -1228,11 +1229,11 @@ test('Y token', function (assert) {
 });
 
 test('parsing flags retain parsed date parts', function (assert) {
-    var a = moment('10 p', 'hh:mm a');
+    var a = moment('10 p', 'hh:mm a'), b;
     assert.equal(a.parsingFlags().parsedDateParts[3], 10, 'parsed 10 as the hour');
     assert.equal(a.parsingFlags().parsedDateParts[0], undefined, 'year was not parsed');
     assert.equal(a.parsingFlags().meridiem, 'p', 'meridiem flag was added');
-    var b = moment('10:30', ['MMDDYY', 'HH:mm']);
+    b = moment('10:30', ['MMDDYY', 'HH:mm']);
     assert.equal(b.parsingFlags().parsedDateParts[3], 10, 'multiple format parshing matched hour');
     assert.equal(b.parsingFlags().parsedDateParts[0], undefined, 'array is properly copied, no residual data from first token parse');
 });
@@ -1250,9 +1251,10 @@ test('invalid dates return invalid for methods that access the _d prop', functio
 });
 
 test('k, kk', function (assert) {
-    for (var i = -1; i <= 24; i++) {
-        var kVal = i + ':15:59';
-        var kkVal = (i < 10 ? '0' : '') + i + ':15:59';
+    var i, kVal, kkVal;
+    for (i = -1; i <= 24; i++) {
+        kVal = i + ':15:59';
+        kkVal = (i < 10 ? '0' : '') + i + ':15:59';
         if (i !== 24) {
             assert.ok(moment(kVal, 'k:mm:ss').isSame(moment(kVal, 'H:mm:ss')), kVal + ' k parsing');
             assert.ok(moment(kkVal, 'kk:mm:ss').isSame(moment(kkVal, 'HH:mm:ss')), kkVal + ' kk parsing');

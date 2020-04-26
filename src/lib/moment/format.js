@@ -13,8 +13,8 @@ export function toISOString(keepOffset) {
     if (!this.isValid()) {
         return null;
     }
-    var utc = keepOffset !== true;
-    var m = utc ? this.clone().utc() : this;
+    var utc = keepOffset !== true,
+     m = utc ? this.clone().utc() : this;
     if (m.year() < 0 || m.year() > 9999) {
         return formatMoment(m, utc ? 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYYYY-MM-DD[T]HH:mm:ss.SSSZ');
     }
@@ -39,16 +39,16 @@ export function inspect () {
     if (!this.isValid()) {
         return 'moment.invalid(/* ' + this._i + ' */)';
     }
-    var func = 'moment';
-    var zone = '';
+    var func = 'moment',
+     zone = '', prefix, year, datetime, suffix;
     if (!this.isLocal()) {
         func = this.utcOffset() === 0 ? 'moment.utc' : 'moment.parseZone';
         zone = 'Z';
     }
-    var prefix = '[' + func + '("]';
-    var year = (0 <= this.year() && this.year() <= 9999) ? 'YYYY' : 'YYYYYY';
-    var datetime = '-MM-DD[T]HH:mm:ss.SSS';
-    var suffix = zone + '[")]';
+    prefix = '[' + func + '("]';
+    year = (0 <= this.year() && this.year() <= 9999) ? 'YYYY' : 'YYYYYY';
+    datetime = '-MM-DD[T]HH:mm:ss.SSS';
+    suffix = zone + '[")]';
 
     return this.format(prefix + year + datetime + suffix);
 }

@@ -22,8 +22,8 @@ test('toArray', function (assert) {
 });
 
 test('toDate returns a copy of the internal date', function (assert) {
-    var m = moment();
-    var d = m.toDate();
+    var m = moment(),
+     d = m.toDate();
     m.year(0);
     assert.notEqual(d, m.toDate());
 });
@@ -40,8 +40,8 @@ test('toJSON', function (assert) {
 
 test('toJSON works when moment is frozen', function (assert) {
     if (Date.prototype.toISOString) {
-        var expected = new Date().toISOString();
-        var m = moment(expected);
+        var expected = new Date().toISOString(),
+         m = moment(expected);
         if (Object.freeze != null) {
             Object.freeze(m);
         }

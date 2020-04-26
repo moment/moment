@@ -1,5 +1,4 @@
 import { module, test } from '../qunit';
-import each from '../helpers/each';
 import eachOwnProp from '../helpers/each-own-prop';
 import moment from '../../moment';
 

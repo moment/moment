@@ -99,7 +99,7 @@ test('format week', function (assert) {
 });
 
 test('from', function (assert) {
-    var start = moment([2007, 1, 28]);
+    var start = moment([2007, 1, 28]), s, ss;
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  'چند ثانیه', '44 seconds = a few seconds');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 45}), true),  'یک دقیقه',       '45 seconds = a minute');
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 89}), true),  'یک دقیقه',       '89 seconds = a minute');
@@ -128,8 +128,10 @@ test('from', function (assert) {
     assert.equal(start.from(moment([2007, 1, 28]).add({d: 548}), true), '۲ سال',       '548 days = 2 years');
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 1}), true),   'یک سال',      '1 year = a year');
     assert.equal(start.from(moment([2007, 1, 28]).add({y: 5}), true),   '۵ سال',       '5 years = 5 years');
-    var s = moment.relativeTimeThreshold('s');
-    var ss = moment.relativeTimeThreshold('ss');
+
+    s = moment.relativeTimeThreshold('s');
+    ss = moment.relativeTimeThreshold('ss');
+
     moment.relativeTimeThreshold('s', 60);
     moment.relativeTimeThreshold('ss', 0);
     assert.equal(start.from(moment([2007, 1, 28]).add({s: 44}), true),  '۴۴ ثانیه', '44 seconds = 44 seconds');

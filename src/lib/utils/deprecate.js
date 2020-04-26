@@ -17,13 +17,13 @@ export function deprecate(msg, fn) {
             hooks.deprecationHandler(null, msg);
         }
         if (firstTime) {
-            var args = [];
-            var arg;
-            for (var i = 0; i < arguments.length; i++) {
+            var args = [],
+                arg, i, key;
+            for (i = 0; i < arguments.length; i++) {
                 arg = '';
                 if (typeof arguments[i] === 'object') {
                     arg += '\n[' + i + '] ';
-                    for (var key in arguments[0]) {
+                    for (key in arguments[0]) {
                         if (hasOwnProp(arguments[0], key)) {
                             arg += key + ': ' + arguments[0][key] + ', ';
                         }

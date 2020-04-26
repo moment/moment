@@ -2,9 +2,10 @@ module.exports = function (grunt) {
     // var esperanto = require('esperanto');
     var rollup = require('rollup').rollup;
     // var babel = require('rollup-plugin-babel');
-    var path = require('path');
-    var Promise = require('es6-promise').Promise;
-    var TMP_DIR = 'build/tmp';
+    var path = require('path'),
+        Promise = require('es6-promise').Promise,
+        TMP_DIR = 'build/tmp',
+        headerCache = {};
 
     function moveComments(code, moveType) {
         var comments = [], rest = [], skipId = -1;
@@ -32,7 +33,6 @@ module.exports = function (grunt) {
         return comments.concat([''], rest).join('\n');
     }
 
-    var headerCache = {};
     function getHeaderByFile(headerFile) {
         if (headerFile === 'none') {
             return '';
@@ -248,9 +248,9 @@ module.exports = function (grunt) {
     grunt.task.registerTask('transpile-custom-raw',
             'build just custom language bundles',
             function (locales) {
-        var done = this.async();
+        var done = this.async(),
 
-        var localeFiles = locales.split(',').map(function (locale) {
+         localeFiles = locales.split(',').map(function (locale) {
             var file = grunt.file.expand({cwd: 'src'}, 'locale/' + locale + '.js');
             if (file.length !== 1) {
                 // we failed to find a locale

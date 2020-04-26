@@ -23,8 +23,10 @@ test('parse', function (assert) {
         assert.equal(moment(monthName, monthFormat).month(), monthNum, monthName + ' should be month ' + (monthNum + 1));
     }
 
-    for (var i = 0; i < 12; i++) {
-        var testMonth = months[i].split(',');
+    var i, testMonth;
+    for (i = 0; i < 12; i++) {
+        testMonth = months[i].split(',');
+
         equalTest(testMonth[0], 'MMM', i);
         equalTest(testMonth[1], 'MMM', i);
         equalTest(testMonth[0], 'MMMM', i);
@@ -104,15 +106,16 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = months;
-    for (var i = 0; i < expected.length; i++) {
+    var expected = months, i;
+    for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, i, 1]).format('MMMM,MMM'), expected[i], expected[i]);
     }
 });
 
 test('format week', function (assert) {
-    var expected = ['Dé Domhnaigh Domh Do', 'Dé Luain Luan Lu', 'Dé Máirt Máirt Má', 'Dé Céadaoin Céad Cé', 'Déardaoin Déar Dé', 'Dé hAoine Aoine A', 'Dé Sathairn Sath Sa'];
-    for (var i = 0; i < expected.length; i++) {
+    var expected = ['Dé Domhnaigh Domh Do', 'Dé Luain Luan Lu', 'Dé Máirt Máirt Má', 'Dé Céadaoin Céad Cé', 'Déardaoin Déar Dé', 'Dé hAoine Aoine A', 'Dé Sathairn Sath Sa'],
+        i;
+    for (i = 0; i < expected.length; i++) {
         assert.equal(moment([2011, 0, 2 + i]).format('dddd ddd dd'), expected[i], expected[i]);
     }
 });

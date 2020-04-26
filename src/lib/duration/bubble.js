@@ -2,11 +2,11 @@ import absFloor from '../utils/abs-floor';
 import absCeil from '../utils/abs-ceil';
 
 export function bubble () {
-    var milliseconds = this._milliseconds;
-    var days         = this._days;
-    var months       = this._months;
-    var data         = this._data;
-    var seconds, minutes, hours, years, monthsFromDays;
+    var milliseconds = this._milliseconds,
+     days         = this._days,
+     months       = this._months,
+     data         = this._data,
+     seconds, minutes, hours, years, monthsFromDays;
 
     // if we have a mix of positive and negative values, bubble down first
     // check: https://github.com/moment/moment/issues/2166

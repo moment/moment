@@ -6,9 +6,9 @@ export function as (units) {
     if (!this.isValid()) {
         return NaN;
     }
-    var days;
-    var months;
-    var milliseconds = this._milliseconds;
+    var days,
+     months,
+     milliseconds = this._milliseconds;
 
     units = normalizeUnits(units);
 
@@ -55,12 +55,24 @@ function makeAs (alias) {
     };
 }
 
-export var asMilliseconds = makeAs('ms');
-export var asSeconds      = makeAs('s');
-export var asMinutes      = makeAs('m');
-export var asHours        = makeAs('h');
-export var asDays         = makeAs('d');
-export var asWeeks        = makeAs('w');
-export var asMonths       = makeAs('M');
-export var asQuarters     = makeAs('Q');
-export var asYears        = makeAs('y');
+var asMilliseconds = makeAs('ms'),
+    asSeconds      = makeAs('s'),
+    asMinutes      = makeAs('m'),
+    asHours        = makeAs('h'),
+    asDays         = makeAs('d'),
+    asWeeks        = makeAs('w'),
+    asMonths       = makeAs('M'),
+    asQuarters     = makeAs('Q'),
+    asYears        = makeAs('y');
+
+export {
+    asMilliseconds,
+    asSeconds,
+    asMinutes,
+    asHours,
+    asDays,
+    asWeeks,
+    asMonths,
+    asQuarters,
+    asYears
+}

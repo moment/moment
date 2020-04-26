@@ -5,12 +5,12 @@
 import moment from '../moment';
 
 var months = 'leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec'.split('_'),
-    monthsShort = 'led_úno_bře_dub_kvě_čvn_čvc_srp_zář_říj_lis_pro'.split('_');
+    monthsShort = 'led_úno_bře_dub_kvě_čvn_čvc_srp_zář_říj_lis_pro'.split('_'),
 
-var monthsParse = [/^led/i, /^úno/i, /^bře/i, /^dub/i, /^kvě/i, /^(čvn|červen$|června)/i, /^(čvc|červenec|července)/i, /^srp/i, /^zář/i, /^říj/i, /^lis/i, /^pro/i];
+ monthsParse = [/^led/i, /^úno/i, /^bře/i, /^dub/i, /^kvě/i, /^(čvn|červen$|června)/i, /^(čvc|červenec|července)/i, /^srp/i, /^zář/i, /^říj/i, /^lis/i, /^pro/i],
 // NOTE: 'červen' is substring of 'červenec'; therefore 'červenec' must precede 'červen' in the regex to be fully matched.
 // Otherwise parser matches '1. červenec' as '1. červen' + 'ec'.
-var monthsRegex = /^(leden|únor|březen|duben|květen|červenec|července|červen|června|srpen|září|říjen|listopad|prosinec|led|úno|bře|dub|kvě|čvn|čvc|srp|zář|říj|lis|pro)/i;
+ monthsRegex = /^(leden|únor|březen|duben|květen|červenec|července|červen|června|srpen|září|říjen|listopad|prosinec|led|úno|bře|dub|kvě|čvn|čvc|srp|zář|říj|lis|pro)/i;
 
 function plural(n) {
     return (n > 1) && (n < 5) && (~~(n / 10) !== 1);
@@ -26,7 +26,6 @@ function translate(number, withoutSuffix, key, isFuture) {
             } else {
                 return result + 'sekundami';
             }
-            break;
         case 'm':  // a minute / in a minute / a minute ago
             return withoutSuffix ? 'minuta' : (isFuture ? 'minutu' : 'minutou');
         case 'mm': // 9 minutes / in 9 minutes / 9 minutes ago
@@ -35,7 +34,6 @@ function translate(number, withoutSuffix, key, isFuture) {
             } else {
                 return result + 'minutami';
             }
-            break;
         case 'h':  // an hour / in an hour / an hour ago
             return withoutSuffix ? 'hodina' : (isFuture ? 'hodinu' : 'hodinou');
         case 'hh': // 9 hours / in 9 hours / 9 hours ago
@@ -44,7 +42,6 @@ function translate(number, withoutSuffix, key, isFuture) {
             } else {
                 return result + 'hodinami';
             }
-            break;
         case 'd':  // a day / in a day / a day ago
             return (withoutSuffix || isFuture) ? 'den' : 'dnem';
         case 'dd': // 9 days / in 9 days / 9 days ago
@@ -53,7 +50,6 @@ function translate(number, withoutSuffix, key, isFuture) {
             } else {
                 return result + 'dny';
             }
-            break;
         case 'M':  // a month / in a month / a month ago
             return (withoutSuffix || isFuture) ? 'měsíc' : 'měsícem';
         case 'MM': // 9 months / in 9 months / 9 months ago
@@ -62,7 +58,6 @@ function translate(number, withoutSuffix, key, isFuture) {
             } else {
                 return result + 'měsíci';
             }
-            break;
         case 'y':  // a year / in a year / a year ago
             return (withoutSuffix || isFuture) ? 'rok' : 'rokem';
         case 'yy': // 9 years / in 9 years / 9 years ago
@@ -71,7 +66,6 @@ function translate(number, withoutSuffix, key, isFuture) {
             } else {
                 return result + 'lety';
             }
-            break;
     }
 }
 

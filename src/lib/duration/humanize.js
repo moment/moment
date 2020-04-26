@@ -1,7 +1,7 @@
 import { createDuration } from './create';
 
-var round = Math.round;
-var thresholds = {
+var round = Math.round,
+ thresholds = {
     ss: 44,         // a few seconds to seconds
     s : 45,         // seconds to minute
     m : 45,         // minutes to hour
@@ -17,16 +17,16 @@ function substituteTimeAgo(string, number, withoutSuffix, isFuture, locale) {
 }
 
 function relativeTime (posNegDuration, withoutSuffix, thresholds, locale) {
-    var duration = createDuration(posNegDuration).abs();
-    var seconds  = round(duration.as('s'));
-    var minutes  = round(duration.as('m'));
-    var hours    = round(duration.as('h'));
-    var days     = round(duration.as('d'));
-    var months   = round(duration.as('M'));
-    var weeks    = round(duration.as('w'));
-    var years    = round(duration.as('y'));
+    var duration = createDuration(posNegDuration).abs(),
+     seconds  = round(duration.as('s')),
+     minutes  = round(duration.as('m')),
+     hours    = round(duration.as('h')),
+     days     = round(duration.as('d')),
+     months   = round(duration.as('M')),
+     weeks    = round(duration.as('w')),
+     years    = round(duration.as('y')),
 
-    var a = seconds <= thresholds.ss && ['s', seconds]  ||
+     a = seconds <= thresholds.ss && ['s', seconds]  ||
             seconds < thresholds.s   && ['ss', seconds] ||
             minutes <= 1             && ['m']           ||
             minutes < thresholds.m   && ['mm', minutes] ||
@@ -83,19 +83,20 @@ export function humanize (withSuffixOrOptions) {
         return this.localeData().invalidDate();
     }
 
-    var withSuffix = false;
-    var th = thresholds;
+    var withSuffix = false,
+        th = thresholds,
+        ws, t, locale, output;
 
     if (typeof withSuffixOrOptions === 'boolean') {
         withSuffix = withSuffixOrOptions;
     }
     else if (typeof withSuffixOrOptions === 'object') {
-        var ws = withSuffixOrOptions.withSuffix;
+        ws = withSuffixOrOptions.withSuffix;
         if (typeof ws === 'boolean') {
             withSuffix = ws;
         }
 
-        var t = withSuffixOrOptions.thresholds;
+        t = withSuffixOrOptions.thresholds;
         if (typeof t === 'object') {
             // Fill in missing keys with the current values
             th = Object.assign({}, thresholds, t);
@@ -105,8 +106,8 @@ export function humanize (withSuffixOrOptions) {
         }
     }
 
-    var locale = this.localeData();
-    var output = relativeTime(this, !withSuffix, th, locale);
+    locale = this.localeData();
+    output = relativeTime(this, !withSuffix, th, locale);
 
     if (withSuffix) {
         output = locale.pastFuture(+this, output);

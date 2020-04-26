@@ -173,8 +173,8 @@ test('instantiation from another duration', function (assert) {
 });
 
 test('explicit cloning', function (assert) {
-    var durationA = moment.duration(5, 'milliseconds');
-    var durationB = durationA.clone();
+    var durationA = moment.duration(5, 'milliseconds'),
+     durationB = durationA.clone();
     durationA.add(5, 'milliseconds');
     assert.notEqual(durationA.milliseconds(), durationB.milliseconds(), 'Calling duration.clone() on a duration will create a clone');
 });
@@ -737,8 +737,8 @@ test('add', function (assert) {
 });
 
 test('add to moment', function (assert) {
-    var d = moment.duration({months: 1, seconds: -1});
-    var m = moment('2017-03-01').add(d);
+    var d = moment.duration({months: 1, seconds: -1}),
+     m = moment('2017-03-01').add(d);
     assert.equal(m.month(), 2, 'Adds months before time');
     assert.equal(m.date(), 31, 'Adds time after months');
 });

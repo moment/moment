@@ -8,9 +8,9 @@ import keys from '../utils/keys';
 import { baseConfig } from './base-config';
 
 // internal storage for locale config files
-var locales = {};
-var localeFamilies = {};
-var globalLocale;
+var locales = {},
+ localeFamilies = {},
+ globalLocale;
 
 function commonPrefix(arr1, arr2) {
     var i, minl = Math.min(arr1.length, arr2.length);
@@ -54,13 +54,13 @@ function chooseLocale(names) {
 }
 
 function loadLocale(name) {
-    var oldLocale = null;
+    var oldLocale = null, aliasedRequire;
     // TODO: Find a better way to register and load all the locales in Node
     if (locales[name] === undefined && (typeof module !== 'undefined') &&
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            var aliasedRequire = require;
+            aliasedRequire = require;
             aliasedRequire((typeof __dirname !== undefined ? __dirname : '.') + '/locale/' + name);
             getSetGlobalLocale(oldLocale);
         } catch (e) {

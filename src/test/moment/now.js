@@ -13,8 +13,6 @@ test('now', function (assert) {
 });
 
 test('now - Date mocked', function (assert) {
-    // We need to test mocking the global Date object, so disable 'Read Only' jshint check
-    /* jshint -W020 */
     var RealDate = Date,
         customTimeMs = moment('2015-01-01T01:30:00.000Z').valueOf();
 
@@ -28,11 +26,13 @@ test('now - Date mocked', function (assert) {
 
     MockDate.prototype = RealDate.prototype;
 
+    // eslint-disable-next-line
     Date = MockDate;
 
     try {
         assert.equal(moment().valueOf(), customTimeMs, 'moment now() time should use the global Date object');
     } finally {
+        // eslint-disable-next-line
         Date = RealDate;
     }
 });

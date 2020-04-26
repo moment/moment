@@ -73,7 +73,7 @@ test('is between without units', function (assert) {
 });
 
 test('is between without units inclusivity', function (assert) {
-    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
+    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10));
     assert.equal(m.isBetween(
         moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
         moment(new Date(2012, 3, 2, 3, 4, 5, 10)), null, '()'), false, 'start and end are excluded, start is equal to moment');
@@ -140,7 +140,7 @@ test('is between without units inclusivity', function (assert) {
 });
 
 test('is between milliseconds inclusivity', function (assert) {
-    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)), mCopy = moment(m);
+    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10));
     assert.equal(m.isBetween(
         moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
         moment(new Date(2012, 3, 2, 3, 4, 5, 10)), 'milliseconds'), true, 'options, no inclusive');

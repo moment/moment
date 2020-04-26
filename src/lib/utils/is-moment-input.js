@@ -20,9 +20,9 @@ export function isMomentInput(input) {
 }
 
 export function isMomentInputObject(input) {
-    var objectTest = isObject(input) && !isObjectEmpty(input);
+    var objectTest = isObject(input) && !isObjectEmpty(input),
 
-    var propertyTest = false,
+     propertyTest = false,
         properties = [
             'years',
             'year',
@@ -48,9 +48,10 @@ export function isMomentInputObject(input) {
             'milliseconds',
             'millisecond',
             'ms'
-        ];
+        ],
+        property;
 
-    for (var property of properties) {
+    for (property of properties) {
         propertyTest = propertyTest || hasOwnProp(input, property);
     }
 

@@ -126,8 +126,8 @@ test('calendar day', function (assert) {
 });
 
 test('calendar next week', function (assert) {
-    var i, m;
-    var dow = moment().day();
+    var i, m,
+     dow = moment().day();
     for (i = 2; i < 7; i++) {
         m = moment().add({d: i});
         if (dow + i < 7) {
@@ -147,8 +147,8 @@ test('calendar next week', function (assert) {
 });
 
 test('calendar last week', function (assert) {
-    var i, m;
-    var dow = moment().day();
+    var i, m,
+     dow = moment().day();
     for (i = 2; i < 7; i++) {
         m = moment().subtract({d: i});
         if (dow < i) {

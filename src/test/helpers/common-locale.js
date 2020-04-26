@@ -152,10 +152,10 @@ export function defineCommonLocaleTests(locale, options) {
     });
 
     test('localeData weekdays can localeSort', function (assert) {
-        var weekdays = moment().localeData().weekdays();
-        var weekdaysShort = moment().localeData().weekdaysShort();
-        var weekdaysMin = moment().localeData().weekdaysMin();
-        var shift = moment().localeData()._week.dow;
+        var weekdays = moment().localeData().weekdays(),
+         weekdaysShort = moment().localeData().weekdaysShort(),
+         weekdaysMin = moment().localeData().weekdaysMin(),
+         shift = moment().localeData()._week.dow;
         assert.deepEqual(
             moment().localeData().weekdays(true),
             weekdays.slice(shift, 7).concat(weekdays.slice(0, shift)),

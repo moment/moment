@@ -5,7 +5,7 @@ import { normalizeUnits } from '../units/aliases';
 export function diff (input, units, asFloat) {
     var that,
         zoneDelta,
-        delta, output;
+        output;
 
     if (!this.isValid()) {
         return NaN;

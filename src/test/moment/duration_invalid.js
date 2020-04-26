@@ -64,8 +64,7 @@ test('invalid duration operations', function (assert) {
             moment.duration.invalid()
         ],
         i,
-        invalid,
-        valid = moment.duration();
+        invalid;
 
     for (i = 0; i < invalids.length; ++i) {
         invalid = invalids[i];
