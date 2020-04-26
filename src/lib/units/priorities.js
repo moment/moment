@@ -7,10 +7,11 @@ export function addUnitPriority(unit, priority) {
 }
 
 export function getPrioritizedUnits(unitsObj) {
-    var units = [], u;
+    var units = [],
+        u;
     for (u in unitsObj) {
         if (hasOwnProp(unitsObj, u)) {
-            units.push({unit: u, priority: priorities[u]});
+            units.push({ unit: u, priority: priorities[u] });
         }
     }
     units.sort(function (a, b) {

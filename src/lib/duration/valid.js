@@ -1,14 +1,32 @@
 import hasOwnProp from '../utils/has-own-prop';
 import toInt from '../utils/to-int';
 import indexOf from '../utils/index-of';
-import {createDuration} from './create';
+import { createDuration } from './create';
 
-var ordering = ['year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', 'millisecond'];
+var ordering = [
+    'year',
+    'quarter',
+    'month',
+    'week',
+    'day',
+    'hour',
+    'minute',
+    'second',
+    'millisecond',
+];
 
 export default function isDurationValid(m) {
-    var key, unitHasDecimal = false, i;
+    var key,
+        unitHasDecimal = false,
+        i;
     for (key in m) {
-        if (hasOwnProp(m, key) && !(indexOf.call(ordering, key) !== -1 && (m[key] == null || !isNaN(m[key])))) {
+        if (
+            hasOwnProp(m, key) &&
+            !(
+                indexOf.call(ordering, key) !== -1 &&
+                (m[key] == null || !isNaN(m[key]))
+            )
+        ) {
             return false;
         }
     }

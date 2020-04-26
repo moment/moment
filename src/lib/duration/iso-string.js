@@ -2,7 +2,7 @@ import absFloor from '../utils/abs-floor';
 var abs = Math.abs;
 
 function sign(x) {
-    return ((x > 0) - (x < 0)) || +x;
+    return (x > 0) - (x < 0) || +x;
 }
 
 export function toISOString() {
@@ -18,10 +18,17 @@ export function toISOString() {
     }
 
     var seconds = abs(this._milliseconds) / 1000,
-        days         = abs(this._days),
-        months       = abs(this._months),
-        minutes, hours, years, s, total = this.asSeconds(),
-        totalSign, ymSign, daysSign, hmsSign;
+        days = abs(this._days),
+        months = abs(this._months),
+        minutes,
+        hours,
+        years,
+        s,
+        total = this.asSeconds(),
+        totalSign,
+        ymSign,
+        daysSign,
+        hmsSign;
 
     if (!total) {
         // this is the same as C#'s (Noda) and python (isodate)...
@@ -30,15 +37,14 @@ export function toISOString() {
     }
 
     // 3600 seconds -> 60 minutes -> 1 hour
-    minutes           = absFloor(seconds / 60);
-    hours             = absFloor(minutes / 60);
+    minutes = absFloor(seconds / 60);
+    hours = absFloor(minutes / 60);
     seconds %= 60;
     minutes %= 60;
 
     // 12 months -> 1 year
-    years  = absFloor(months / 12);
+    years = absFloor(months / 12);
     months %= 12;
-
 
     // inspired by https://github.com/dordille/moment-isoduration/blob/master/moment.isoduration.js
     s = seconds ? seconds.toFixed(3).replace(/\.?0+$/, '') : '';
@@ -48,12 +54,15 @@ export function toISOString() {
     daysSign = sign(this._days) !== sign(total) ? '-' : '';
     hmsSign = sign(this._milliseconds) !== sign(total) ? '-' : '';
 
-    return totalSign + 'P' +
+    return (
+        totalSign +
+        'P' +
         (years ? ymSign + years + 'Y' : '') +
         (months ? ymSign + months + 'M' : '') +
         (days ? daysSign + days + 'D' : '') +
-        ((hours || minutes || seconds) ? 'T' : '') +
+        (hours || minutes || seconds ? 'T' : '') +
         (hours ? hmsSign + hours + 'H' : '') +
         (minutes ? hmsSign + minutes + 'M' : '') +
-        (seconds ? hmsSign + s + 'S' : '');
+        (seconds ? hmsSign + s + 'S' : '')
+    );
 }

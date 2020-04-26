@@ -2,7 +2,7 @@ import hasOwnProp from './has-own-prop';
 
 export default function isObjectEmpty(obj) {
     if (Object.getOwnPropertyNames) {
-        return (Object.getOwnPropertyNames(obj).length === 0);
+        return Object.getOwnPropertyNames(obj).length === 0;
     } else {
         var k;
         for (k in obj) {

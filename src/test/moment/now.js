@@ -8,8 +8,14 @@ test('now', function (assert) {
         momentNowTime = moment.now(),
         afterMomentCreationTime = new Date().valueOf();
 
-    assert.ok(startOfTest <= momentNowTime, 'moment now() time should be now, not in the past');
-    assert.ok(momentNowTime <= afterMomentCreationTime, 'moment now() time should be now, not in the future');
+    assert.ok(
+        startOfTest <= momentNowTime,
+        'moment now() time should be now, not in the past'
+    );
+    assert.ok(
+        momentNowTime <= afterMomentCreationTime,
+        'moment now() time should be now, not in the future'
+    );
 });
 
 test('now - Date mocked', function (assert) {
@@ -30,7 +36,11 @@ test('now - Date mocked', function (assert) {
     Date = MockDate;
 
     try {
-        assert.equal(moment().valueOf(), customTimeMs, 'moment now() time should use the global Date object');
+        assert.equal(
+            moment().valueOf(),
+            customTimeMs,
+            'moment now() time should use the global Date object'
+        );
     } finally {
         // eslint-disable-next-line
         Date = RealDate;
@@ -47,8 +57,16 @@ test('now - custom value', function (assert) {
     };
 
     try {
-        assert.equal(moment().toISOString(), customTimeStr, 'moment() constructor should use the function defined by moment.now, but it did not');
-        assert.equal(moment.utc().toISOString(), customTimeStr, 'moment() constructor should use the function defined by moment.now, but it did not');
+        assert.equal(
+            moment().toISOString(),
+            customTimeStr,
+            'moment() constructor should use the function defined by moment.now, but it did not'
+        );
+        assert.equal(
+            moment.utc().toISOString(),
+            customTimeStr,
+            'moment() constructor should use the function defined by moment.now, but it did not'
+        );
     } finally {
         moment.now = oldFn;
     }
@@ -56,9 +74,9 @@ test('now - custom value', function (assert) {
 
 test('empty object, empty array', function (assert) {
     function assertIsNow(gen, msg) {
-        var before = +(new Date()),
+        var before = +new Date(),
             mid = gen(),
-            after = +(new Date());
+            after = +new Date();
         assert.ok(before <= +mid && +mid <= after, 'should be now : ' + msg);
     }
     assertIsNow(function () {

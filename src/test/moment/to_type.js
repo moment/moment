@@ -5,13 +5,13 @@ module('to type');
 
 test('toObject', function (assert) {
     var expected = {
-        years:2010,
-        months:3,
-        date:5,
-        hours:15,
-        minutes:10,
-        seconds:3,
-        milliseconds:123
+        years: 2010,
+        months: 3,
+        date: 5,
+        hours: 15,
+        minutes: 10,
+        seconds: 3,
+        milliseconds: 123,
     };
     assert.deepEqual(moment(expected).toObject(), expected, 'toObject invalid');
 });
@@ -23,7 +23,7 @@ test('toArray', function (assert) {
 
 test('toDate returns a copy of the internal date', function (assert) {
     var m = moment(),
-     d = m.toDate();
+        d = m.toDate();
     m.year(0);
     assert.notEqual(d, m.toDate());
 });
@@ -41,7 +41,7 @@ test('toJSON', function (assert) {
 test('toJSON works when moment is frozen', function (assert) {
     if (Date.prototype.toISOString) {
         var expected = new Date().toISOString(),
-         m = moment(expected);
+            m = moment(expected);
         if (Object.freeze != null) {
             Object.freeze(m);
         }

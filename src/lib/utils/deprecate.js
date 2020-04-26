@@ -3,8 +3,11 @@ import { hooks } from './hooks';
 import hasOwnProp from './has-own-prop';
 
 function warn(msg) {
-    if (hooks.suppressDeprecationWarnings === false &&
-            (typeof console !==  'undefined') && console.warn) {
+    if (
+        hooks.suppressDeprecationWarnings === false &&
+        typeof console !== 'undefined' &&
+        console.warn
+    ) {
         console.warn('Deprecation warning: ' + msg);
     }
 }
@@ -18,7 +21,9 @@ export function deprecate(msg, fn) {
         }
         if (firstTime) {
             var args = [],
-                arg, i, key;
+                arg,
+                i,
+                key;
             for (i = 0; i < arguments.length; i++) {
                 arg = '';
                 if (typeof arguments[i] === 'object') {
@@ -34,7 +39,13 @@ export function deprecate(msg, fn) {
                 }
                 args.push(arg);
             }
-            warn(msg + '\nArguments: ' + Array.prototype.slice.call(args).join('') + '\n' + (new Error()).stack);
+            warn(
+                msg +
+                    '\nArguments: ' +
+                    Array.prototype.slice.call(args).join('') +
+                    '\n' +
+                    new Error().stack
+            );
             firstTime = false;
         }
         return fn.apply(this, arguments);

@@ -5,10 +5,7 @@ import { defaultOrdinal, defaultDayOfMonthOrdinalParse } from './ordinal';
 import { defaultRelativeTime } from './relative';
 
 // months
-import {
-    defaultLocaleMonths,
-    defaultLocaleMonthsShort,
-} from '../units/month';
+import { defaultLocaleMonths, defaultLocaleMonthsShort } from '../units/month';
 
 // week
 import { defaultLocaleWeek } from '../units/week';
@@ -40,5 +37,5 @@ export var baseConfig = {
     weekdaysMin: defaultLocaleWeekdaysMin,
     weekdaysShort: defaultLocaleWeekdaysShort,
 
-    meridiemParse: defaultLocaleMeridiemParse
+    meridiemParse: defaultLocaleMeridiemParse,
 };

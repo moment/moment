@@ -4,7 +4,6 @@ import isObject from './is-object';
 
 export default function isCalendarSpec(input) {
     var objectTest = isObject(input) && !isObjectEmpty(input),
-
         propertyTest = false,
         properties = [
             'sameDay',
@@ -12,10 +11,9 @@ export default function isCalendarSpec(input) {
             'lastDay',
             'nextWeek',
             'lastWeek',
-            'sameElse'
+            'sameElse',
         ],
         property;
-
 
     for (property of properties) {
         propertyTest = propertyTest || hasOwnProp(input, property);

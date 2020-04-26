@@ -4,7 +4,7 @@ import getParsingFlags from '../create/parsing-flags';
 
 // Plugins that add properties should also add the key here (null value),
 // so we can properly clone ourselves.
-var momentProperties = hooks.momentProperties = [],
+var momentProperties = (hooks.momentProperties = []),
     updateInProgress = false;
 
 export function copyConfig(to, from) {
@@ -70,6 +70,8 @@ export function Moment(config) {
     }
 }
 
-export function isMoment (obj) {
-    return obj instanceof Moment || (obj != null && obj._isAMomentObject != null);
+export function isMoment(obj) {
+    return (
+        obj instanceof Moment || (obj != null && obj._isAMomentObject != null)
+    );
 }

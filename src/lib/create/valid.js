@@ -6,22 +6,24 @@ import some from '../utils/some';
 export function isValid(m) {
     if (m._isValid == null) {
         var flags = getParsingFlags(m),
-         parsedParts = some.call(flags.parsedDateParts, function (i) {
-            return i != null;
-        }),
-         isNowValid = !isNaN(m._d.getTime()) &&
-            flags.overflow < 0 &&
-            !flags.empty &&
-            !flags.invalidMonth &&
-            !flags.invalidWeekday &&
-            !flags.weekdayMismatch &&
-            !flags.nullInput &&
-            !flags.invalidFormat &&
-            !flags.userInvalidated &&
-            (!flags.meridiem || (flags.meridiem && parsedParts));
+            parsedParts = some.call(flags.parsedDateParts, function (i) {
+                return i != null;
+            }),
+            isNowValid =
+                !isNaN(m._d.getTime()) &&
+                flags.overflow < 0 &&
+                !flags.empty &&
+                !flags.invalidMonth &&
+                !flags.invalidWeekday &&
+                !flags.weekdayMismatch &&
+                !flags.nullInput &&
+                !flags.invalidFormat &&
+                !flags.userInvalidated &&
+                (!flags.meridiem || (flags.meridiem && parsedParts));
 
         if (m._strict) {
-            isNowValid = isNowValid &&
+            isNowValid =
+                isNowValid &&
                 flags.charsLeftOver === 0 &&
                 flags.unusedTokens.length === 0 &&
                 flags.bigHour === undefined;
@@ -29,20 +31,18 @@ export function isValid(m) {
 
         if (Object.isFrozen == null || !Object.isFrozen(m)) {
             m._isValid = isNowValid;
-        }
-        else {
+        } else {
             return isNowValid;
         }
     }
     return m._isValid;
 }
 
-export function createInvalid (flags) {
+export function createInvalid(flags) {
     var m = createUTC(NaN);
     if (flags != null) {
         extend(getParsingFlags(m), flags);
-    }
-    else {
+    } else {
         getParsingFlags(m).userInvalidated = true;
     }
 

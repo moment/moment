@@ -5,7 +5,8 @@ export default function objectKeys(obj) {
         return Object.keys(obj);
     } else {
         // IE8
-        var res = [], i;
+        var res = [],
+            i;
         for (i in obj) {
             if (hasOwnProp(obj, i)) {
                 res.push(i);

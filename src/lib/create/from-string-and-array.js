@@ -8,7 +8,6 @@ import extend from '../utils/extend';
 export function configFromStringAndArray(config) {
     var tempConfig,
         bestMoment,
-
         scoreToBeat,
         i,
         currentScore,
@@ -44,7 +43,11 @@ export function configFromStringAndArray(config) {
         getParsingFlags(tempConfig).score = currentScore;
 
         if (!bestFormatIsValid) {
-            if (scoreToBeat == null || currentScore < scoreToBeat || validFormatFound) {
+            if (
+                scoreToBeat == null ||
+                currentScore < scoreToBeat ||
+                validFormatFound
+            ) {
                 scoreToBeat = currentScore;
                 bestMoment = tempConfig;
                 if (validFormatFound) {
