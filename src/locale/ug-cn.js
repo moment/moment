@@ -22,7 +22,7 @@ export default moment.defineLocale('ug-cn', {
         L: 'YYYY-MM-DD',
         LL: 'YYYY-يىلىM-ئاينىڭD-كۈنى',
         LLL: 'YYYY-يىلىM-ئاينىڭD-كۈنى، HH:mm',
-        LLLL: 'dddd، YYYY-يىلىM-ئاينىڭD-كۈنى، HH:mm'
+        LLLL: 'dddd، YYYY-يىلىM-ئاينىڭD-كۈنى، HH:mm',
     },
     meridiemParse: /يېرىم كېچە|سەھەر|چۈشتىن بۇرۇن|چۈش|چۈشتىن كېيىن|كەچ/,
     meridiemHour: function (hour, meridiem) {
@@ -63,7 +63,7 @@ export default moment.defineLocale('ug-cn', {
         nextWeek: '[كېلەركى] dddd [سائەت] LT',
         lastDay: '[تۆنۈگۈن] LT',
         lastWeek: '[ئالدىنقى] dddd [سائەت] LT',
-        sameElse: 'L'
+        sameElse: 'L',
     },
     relativeTime: {
         future: '%s كېيىن',
@@ -79,7 +79,7 @@ export default moment.defineLocale('ug-cn', {
         M: 'بىر ئاي',
         MM: '%d ئاي',
         y: 'بىر يىل',
-        yy: '%d يىل'
+        yy: '%d يىل',
     },
 
     dayOfMonthOrdinalParse: /\d{1,2}(-كۈنى|-ئاي|-ھەپتە)/,
@@ -105,6 +105,6 @@ export default moment.defineLocale('ug-cn', {
     week: {
         // GB/T 7408-1994《数据元和交换格式·信息交换·日期和时间表示法》与ISO 8601:1988等效
         dow: 1, // Monday is the first day of the week.
-        doy: 7 // The week that contains Jan 1st is the first week of the year.
-    }
+        doy: 7, // The week that contains Jan 1st is the first week of the year.
+    },
 });

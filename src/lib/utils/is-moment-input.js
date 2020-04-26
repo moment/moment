@@ -4,25 +4,26 @@ import isObject from './is-object';
 import isDate from './is-date';
 import isNumber from './is-number';
 import isString from './is-string';
-import {isMoment} from '../moment/constructor';
+import { isMoment } from '../moment/constructor';
 import isArray from './is-array';
 
 // type MomentInput = Moment | Date | string | number | (number | string)[] | MomentInputObject | void; // null | undefined
 export function isMomentInput(input) {
-    return isMoment(input) ||
+    return (
+        isMoment(input) ||
         isDate(input) ||
         isString(input) ||
         isNumber(input) ||
         isNumberOrStringArray(input) ||
         isMomentInputObject(input) ||
         input === null ||
-        input === undefined;
+        input === undefined
+    );
 }
 
 export function isMomentInputObject(input) {
-    var objectTest = isObject(input) && !isObjectEmpty(input);
-
-    var propertyTest = false,
+    var objectTest = isObject(input) && !isObjectEmpty(input),
+        propertyTest = false,
         properties = [
             'years',
             'year',
@@ -47,23 +48,25 @@ export function isMomentInputObject(input) {
             's',
             'milliseconds',
             'millisecond',
-            'ms'
-        ];
+            'ms',
+        ],
+        property;
 
-    for (var property of properties) {
+    for (property of properties) {
         propertyTest = propertyTest || hasOwnProp(input, property);
     }
 
     return objectTest && propertyTest;
 }
 
-function isNumberOrStringArray (input) {
+function isNumberOrStringArray(input) {
     var arrayTest = isArray(input),
         dataTypeTest = false;
     if (arrayTest) {
-        dataTypeTest = input.filter(function (item) {
-            return !isNumber(item) && isString(input);
-        }).length === 0;
+        dataTypeTest =
+            input.filter(function (item) {
+                return !isNumber(item) && isString(input);
+            }).length === 0;
     }
     return arrayTest && dataTypeTest;
 }

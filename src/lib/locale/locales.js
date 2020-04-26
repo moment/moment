@@ -8,12 +8,13 @@ import keys from '../utils/keys';
 import { baseConfig } from './base-config';
 
 // internal storage for locale config files
-var locales = {};
-var localeFamilies = {};
-var globalLocale;
+var locales = {},
+    localeFamilies = {},
+    globalLocale;
 
 function commonPrefix(arr1, arr2) {
-    var i, minl = Math.min(arr1.length, arr2.length);
+    var i,
+        minl = Math.min(arr1.length, arr2.length);
     for (i = 0; i < minl; i += 1) {
         if (arr1[i] !== arr2[i]) {
             return i;
@@ -30,7 +31,11 @@ function normalizeLocale(key) {
 // try ['en-au', 'en-gb'] as 'en-au', 'en-gb', 'en', as in move through the list trying each
 // substring from most specific to least, but move to the next array item if it's a more specific variant than the current root
 function chooseLocale(names) {
-    var i = 0, j, next, locale, split;
+    var i = 0,
+        j,
+        next,
+        locale,
+        split;
 
     while (i < names.length) {
         split = normalizeLocale(names[i]).split('-');
@@ -42,7 +47,11 @@ function chooseLocale(names) {
             if (locale) {
                 return locale;
             }
-            if (next && next.length >= j && commonPrefix(split, next) >= j - 1) {
+            if (
+                next &&
+                next.length >= j &&
+                commonPrefix(split, next) >= j - 1
+            ) {
                 //the next array item is better than a shallower substring of this one
                 break;
             }
@@ -54,14 +63,23 @@ function chooseLocale(names) {
 }
 
 function loadLocale(name) {
-    var oldLocale = null;
+    var oldLocale = null,
+        aliasedRequire;
     // TODO: Find a better way to register and load all the locales in Node
-    if (locales[name] === undefined && (typeof module !== 'undefined') &&
-            module && module.exports) {
+    if (
+        locales[name] === undefined &&
+        typeof module !== 'undefined' &&
+        module &&
+        module.exports
+    ) {
         try {
             oldLocale = globalLocale._abbr;
-            var aliasedRequire = require;
-            aliasedRequire((typeof __dirname !== undefined ? __dirname : '.') + '/locale/' + name);
+            aliasedRequire = require;
+            aliasedRequire(
+                (typeof __dirname !== undefined ? __dirname : '.') +
+                    '/locale/' +
+                    name
+            );
             getSetGlobalLocale(oldLocale);
         } catch (e) {
             // mark as not found to avoid repeating expensive file require call causing high CPU
@@ -75,24 +93,24 @@ function loadLocale(name) {
 // This function will load locale and then set the global locale.  If
 // no arguments are passed in, it will simply return the current global
 // locale key.
-export function getSetGlobalLocale (key, values) {
+export function getSetGlobalLocale(key, values) {
     var data;
     if (key) {
         if (isUndefined(values)) {
             data = getLocale(key);
-        }
-        else {
+        } else {
             data = defineLocale(key, values);
         }
 
         if (data) {
             // moment.duration._locale = moment._locale = data;
             globalLocale = data;
-        }
-        else {
-            if ((typeof console !==  'undefined') && console.warn) {
+        } else {
+            if (typeof console !== 'undefined' && console.warn) {
                 //warn user if arguments are passed but the locale could not be set
-                console.warn('Locale ' + key +  ' not found. Did you forget to load it?');
+                console.warn(
+                    'Locale ' + key + ' not found. Did you forget to load it?'
+                );
             }
         }
     }
@@ -100,16 +118,19 @@ export function getSetGlobalLocale (key, values) {
     return globalLocale._abbr;
 }
 
-export function defineLocale (name, config) {
+export function defineLocale(name, config) {
     if (config !== null) {
-        var locale, parentConfig = baseConfig;
+        var locale,
+            parentConfig = baseConfig;
         config.abbr = name;
         if (locales[name] != null) {
-            deprecateSimple('defineLocaleOverride',
-                    'use moment.updateLocale(localeName, config) to change ' +
+            deprecateSimple(
+                'defineLocaleOverride',
+                'use moment.updateLocale(localeName, config) to change ' +
                     'an existing locale. moment.defineLocale(localeName, ' +
                     'config) should only be used for creating a new locale ' +
-                    'See http://momentjs.com/guides/#/warnings/define-locale/ for more info.');
+                    'See http://momentjs.com/guides/#/warnings/define-locale/ for more info.'
+            );
             parentConfig = locales[name]._config;
         } else if (config.parentLocale != null) {
             if (locales[config.parentLocale] != null) {
@@ -124,7 +145,7 @@ export function defineLocale (name, config) {
                     }
                     localeFamilies[config.parentLocale].push({
                         name: name,
-                        config: config
+                        config: config,
                     });
                     return null;
                 }
@@ -143,7 +164,6 @@ export function defineLocale (name, config) {
         // created, so we won't end up with the child locale set.
         getSetGlobalLocale(name);
 
-
         return locales[name];
     } else {
         // useful for testing
@@ -154,7 +174,9 @@ export function defineLocale (name, config) {
 
 export function updateLocale(name, config) {
     if (config != null) {
-        var locale, tmpLocale, parentConfig = baseConfig;
+        var locale,
+            tmpLocale,
+            parentConfig = baseConfig;
         // MERGE
         tmpLocale = loadLocale(name);
         if (tmpLocale != null) {
@@ -184,7 +206,7 @@ export function updateLocale(name, config) {
 }
 
 // returns locale data
-export function getLocale (key) {
+export function getLocale(key) {
     var locale;
 
     if (key && key._locale && key._locale._abbr) {

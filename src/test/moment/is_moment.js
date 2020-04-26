@@ -18,8 +18,14 @@ test('is moment object', function (assert) {
 
     assert.ok(moment.isMoment(moment()), 'simple moment object');
     assert.ok(moment.isMoment(moment(null)), 'invalid moment object');
-    assert.ok(moment.isMoment(extend({}, moment())), 'externally cloned moments are moments');
-    assert.ok(moment.isMoment(extend({}, moment.utc())), 'externally cloned utc moments are moments');
+    assert.ok(
+        moment.isMoment(extend({}, moment())),
+        'externally cloned moments are moments'
+    );
+    assert.ok(
+        moment.isMoment(extend({}, moment.utc())),
+        'externally cloned utc moments are moments'
+    );
 
     assert.ok(!moment.isMoment(new MyObj()), 'myObj is not moment object');
     assert.ok(!moment.isMoment(moment), 'moment function is not moment object');
@@ -39,5 +45,8 @@ test('is moment with hacked hasOwnProperty', function (assert) {
         return true;
     };
 
-    assert.ok(!moment.isMoment(obj), 'isMoment works even if passed object has a wrong hasOwnProperty implementation (ie8)');
+    assert.ok(
+        !moment.isMoment(obj),
+        'isMoment works even if passed object has a wrong hasOwnProperty implementation (ie8)'
+    );
 });

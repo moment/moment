@@ -7,33 +7,38 @@
 import moment from '../moment';
 
 var symbolMap = {
-    '1': '၁',
-    '2': '၂',
-    '3': '၃',
-    '4': '၄',
-    '5': '၅',
-    '6': '၆',
-    '7': '၇',
-    '8': '၈',
-    '9': '၉',
-    '0': '၀'
-}, numberMap = {
-    '၁': '1',
-    '၂': '2',
-    '၃': '3',
-    '၄': '4',
-    '၅': '5',
-    '၆': '6',
-    '၇': '7',
-    '၈': '8',
-    '၉': '9',
-    '၀': '0'
-};
+        '1': '၁',
+        '2': '၂',
+        '3': '၃',
+        '4': '၄',
+        '5': '၅',
+        '6': '၆',
+        '7': '၇',
+        '8': '၈',
+        '9': '၉',
+        '0': '၀',
+    },
+    numberMap = {
+        '၁': '1',
+        '၂': '2',
+        '၃': '3',
+        '၄': '4',
+        '၅': '5',
+        '၆': '6',
+        '၇': '7',
+        '၈': '8',
+        '၉': '9',
+        '၀': '0',
+    };
 
 export default moment.defineLocale('my', {
-    months: 'ဇန်နဝါရီ_ဖေဖော်ဝါရီ_မတ်_ဧပြီ_မေ_ဇွန်_ဇူလိုင်_သြဂုတ်_စက်တင်ဘာ_အောက်တိုဘာ_နိုဝင်ဘာ_ဒီဇင်ဘာ'.split('_'),
+    months: 'ဇန်နဝါရီ_ဖေဖော်ဝါရီ_မတ်_ဧပြီ_မေ_ဇွန်_ဇူလိုင်_သြဂုတ်_စက်တင်ဘာ_အောက်တိုဘာ_နိုဝင်ဘာ_ဒီဇင်ဘာ'.split(
+        '_'
+    ),
     monthsShort: 'ဇန်_ဖေ_မတ်_ပြီ_မေ_ဇွန်_လိုင်_သြ_စက်_အောက်_နို_ဒီ'.split('_'),
-    weekdays: 'တနင်္ဂနွေ_တနင်္လာ_အင်္ဂါ_ဗုဒ္ဓဟူး_ကြာသပတေး_သောကြာ_စနေ'.split('_'),
+    weekdays: 'တနင်္ဂနွေ_တနင်္လာ_အင်္ဂါ_ဗုဒ္ဓဟူး_ကြာသပတေး_သောကြာ_စနေ'.split(
+        '_'
+    ),
     weekdaysShort: 'နွေ_လာ_ဂါ_ဟူး_ကြာ_သော_နေ'.split('_'),
     weekdaysMin: 'နွေ_လာ_ဂါ_ဟူး_ကြာ_သော_နေ'.split('_'),
 
@@ -43,7 +48,7 @@ export default moment.defineLocale('my', {
         L: 'DD/MM/YYYY',
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY HH:mm',
-        LLLL: 'dddd D MMMM YYYY HH:mm'
+        LLLL: 'dddd D MMMM YYYY HH:mm',
     },
     calendar: {
         sameDay: '[ယနေ.] LT [မှာ]',
@@ -51,13 +56,13 @@ export default moment.defineLocale('my', {
         nextWeek: 'dddd LT [မှာ]',
         lastDay: '[မနေ.က] LT [မှာ]',
         lastWeek: '[ပြီးခဲ့သော] dddd LT [မှာ]',
-        sameElse: 'L'
+        sameElse: 'L',
     },
     relativeTime: {
         future: 'လာမည့် %s မှာ',
         past: 'လွန်ခဲ့သော %s က',
         s: 'စက္ကန်.အနည်းငယ်',
-        ss : '%d စက္ကန့်',
+        ss: '%d စက္ကန့်',
         m: 'တစ်မိနစ်',
         mm: '%d မိနစ်',
         h: 'တစ်နာရီ',
@@ -67,7 +72,7 @@ export default moment.defineLocale('my', {
         M: 'တစ်လ',
         MM: '%d လ',
         y: 'တစ်နှစ်',
-        yy: '%d နှစ်'
+        yy: '%d နှစ်',
     },
     preparse: function (string) {
         return string.replace(/[၁၂၃၄၅၆၇၈၉၀]/g, function (match) {
@@ -81,7 +86,6 @@ export default moment.defineLocale('my', {
     },
     week: {
         dow: 1, // Monday is the first day of the week.
-        doy: 4 // The week that contains Jan 4th is the first week of the year.
-    }
+        doy: 4, // The week that contains Jan 4th is the first week of the year.
+    },
 });
-
