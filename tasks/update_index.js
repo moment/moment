@@ -7,9 +7,9 @@ module.exports = function (grunt) {
             'locale/*.js',
             'min/locales.js',
             'min/moment-with-locales.js',
-            'min/tests.js'
+            'min/tests.js',
         ],
-        dest: '.'
+        dest: '.',
     });
 
     grunt.registerTask('update-index', ['copy:index-files']);
