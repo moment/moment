@@ -27,9 +27,21 @@ test('parse', function (assert) {
             input + ' should be month ' + (i + 1)
         );
     }
+
+    function equalTestStrict(input, mmm, monthIndex) {
+        assert.equal(
+            moment(input, mmm, true).month(),
+            monthIndex,
+            input + ' ' + mmm + ' should be strict month ' + (monthIndex + 1)
+        );
+    }
+
     for (var i = 0; i < 12; i++) {
         equalTest(months[i], 'MMM', i);
         equalTest(months[i], 'MMMM', i);
+
+        equalTestStrict(months[i], 'MMM', i);
+        equalTestStrict(months[i], 'MMMM', i);
     }
 });
 
