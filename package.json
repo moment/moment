@@ -103,7 +103,8 @@
         "prettier-fmt": "prettier --write Gruntfile.js 'tasks/*.js' 'src/**/*.js'",
         "coverage": "nyc npm test && nyc report",
         "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
-        "lint": "grunt lint"
+        "lint": "grunt lint",
+        "lint:staged": "lint-staged"
     },
     "husky": {
         "hooks": {
@@ -112,15 +113,18 @@
     },
     "lint-staged": {
         "src/**/*.js": [
-            "npm run lint",
+            "prettier --write",
+            "eslint",
             "git add"
         ],
-        "tasks/**.js": [
-            "npm run lint",
+        "tasks/*.js": [
+            "prettier --write",
+            "eslint",
             "git add"
         ],
         "Gruntfile.js": [
-            "npm run lint",
+            "prettier --write",
+            "eslint",
             "git add"
         ]
     },
