@@ -214,10 +214,9 @@ export function configFromRFC2822(config) {
     }
 }
 
-// date from iso format or fallback
+// date from 1) ASP.NET, 2) ISO, 3) RFC 2822 formats, or 4) optional fallback if parsing isn't strict
 export function configFromString(config) {
     var matched = aspNetJsonRegex.exec(config._i);
-
     if (matched !== null) {
         config._d = new Date(+matched[1]);
         return;
@@ -237,8 +236,12 @@ export function configFromString(config) {
         return;
     }
 
-    // Final attempt, use Input Fallback
-    hooks.createFromInputFallback(config);
+    if (config._strict) {
+        config._isValid = false;
+    } else {
+        // Final attempt, use Input Fallback
+        hooks.createFromInputFallback(config);
+    }
 }
 
 hooks.createFromInputFallback = deprecate(
