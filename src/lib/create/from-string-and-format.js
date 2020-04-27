@@ -8,7 +8,7 @@ import {
     formattingTokens,
 } from '../format/format';
 import checkOverflow from './check-overflow';
-import { HOUR } from '../units/constants';
+import { YEAR, HOUR } from '../units/constants';
 import { hooks } from '../utils/hooks';
 import getParsingFlags from './parsing-flags';
 
@@ -40,7 +40,8 @@ export function configFromStringAndFormat(config) {
         token,
         skipped,
         stringLength = string.length,
-        totalParsedInputLength = 0;
+        totalParsedInputLength = 0,
+        era;
 
     tokens =
         expandFormat(config._f, config._locale).match(formattingTokens) || [];
@@ -98,6 +99,12 @@ export function configFromStringAndFormat(config) {
         config._a[HOUR],
         config._meridiem
     );
+
+    // handle era
+    era = getParsingFlags(config).era;
+    if (era !== null) {
+        config._a[YEAR] = config._locale.erasConvertYear(era, config._a[YEAR]);
+    }
 
     configFromArray(config);
     checkOverflow(config);

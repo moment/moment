@@ -5,6 +5,59 @@
 import moment from '../moment';
 
 export default moment.defineLocale('ja', {
+    eras: [
+        {
+            since: '1989-01-08',
+            offset: 1,
+            name: '平成',
+            narrow: '㍻',
+            abbr: 'H',
+        },
+        {
+            since: '1926-12-25',
+            until: '1989-01-07',
+            offset: 1,
+            name: '昭和',
+            narrow: '㍼',
+            abbr: 'S',
+        },
+        {
+            since: '1912-07-30',
+            until: '1926-12-24',
+            offset: 1,
+            name: '大正',
+            narrow: '㍽',
+            abbr: 'T',
+        },
+        {
+            since: '1873-01-01',
+            until: '1912-07-29',
+            offset: 6,
+            name: '明治',
+            narrow: '㍾',
+            abbr: 'M',
+        },
+        {
+            since: '0001-01-01',
+            until: '1873-12-31',
+            offset: 1,
+            name: '西暦',
+            narrow: 'AD',
+            abbr: 'AD',
+        },
+        {
+            since: '0000-12-31',
+            until: -Infinity,
+            offset: 1,
+            name: '紀元前',
+            narrow: 'BC',
+            abbr: 'BC',
+        },
+    ],
+    eraYearOrdinalRegex: /(元|\d+)年/,
+    eraYearOrdinalParse: function (input, match) {
+        return match[1] === '元' ? 1 : parseInt(match[1] || input, 10);
+    },
     months: '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
     monthsShort: '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split(
         '_'
@@ -58,6 +111,8 @@ export default moment.defineLocale('ja', {
     dayOfMonthOrdinalParse: /\d{1,2}日/,
     ordinal: function (number, period) {
         switch (period) {
+            case 'y':
+                return number === 1 ? '元年' : number + '年';
             case 'd':
             case 'D':
             case 'DDD':
