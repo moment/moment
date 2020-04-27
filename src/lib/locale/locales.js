@@ -188,6 +188,12 @@ export function updateLocale(name, config) {
                 parentConfig = tmpLocale._config;
             }
             config = mergeConfigs(parentConfig, config);
+            if (tmpLocale == null) {
+                // updateLocale is called for creating a new locale
+                // Set abbr so it will have a name (getters return
+                // undefined otherwise).
+                config.abbr = name;
+            }
             locale = new Locale(config);
             locale.parentLocale = locales[name];
             locales[name] = locale;
