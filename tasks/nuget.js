@@ -19,8 +19,8 @@ module.exports = function (grunt) {
     grunt.config('nugetpack', {
         dist: {
             src: 'Moment.js.nuspec',
-            dest: './'
-        }
+            dest: './',
+        },
     });
     grunt.registerTask('nugetkey_pre', function () {
         grunt.option('key', process.env.NUGET_KEY);
@@ -32,14 +32,19 @@ module.exports = function (grunt) {
     });
     grunt.config('nugetpush', {
         dist: {
-            src: 'Moment.js.*.nupkg'
-        }
+            src: 'Moment.js.*.nupkg',
+        },
     });
     grunt.config('clean.nuget', {
-        src: 'Moment.js.*.nupkg'
+        src: 'Moment.js.*.nupkg',
     });
 
     grunt.registerTask('nuget-publish', [
-        'nugetpack', 'nugetkey_pre', 'nugetkey', 'nugetkey_post', 'nugetpush', 'clean:nuget'
+        'nugetpack',
+        'nugetkey_pre',
+        'nugetkey',
+        'nugetkey_post',
+        'nugetpush',
+        'clean:nuget',
     ]);
 };
