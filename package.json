@@ -76,8 +76,8 @@
         "spacejam": "latest",
         "typescript": "^1.8.10",
         "uglify-js": "latest",
-        "husky": "^2.2.0",
-        "lint-staged": "^8.1.5"
+        "husky": "^4.2.5",
+        "lint-staged": "^10.1.7"
     },
     "ender": "./ender.js",
     "dojoBuild": "package.js",
