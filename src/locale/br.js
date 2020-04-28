@@ -48,6 +48,44 @@ function softMutation(text) {
     return mutationTable[text.charAt(0)] + text.substring(1);
 }
 
+var monthsParse = [
+    /^genver/i,
+    /^c[ʼ\']hwevrer/i,
+    /^meurzh/i,
+    /^ebrel/i,
+    /^mae/i,
+    /^mezheven/i,
+    /^gouere/i,
+    /^eost/i,
+    /^gwengolo/i,
+    /^here/i,
+    /^du/i,
+    /^kerzu/i
+];
+var monthsShortParse = [
+    /^gen/i,
+    /^c[ʼ\']hwe/i,
+    /^meu/i,
+    /^ebr/i,
+    /^mae/i,
+    /^eve/i,
+    /^gou/i,
+    /^eos/i,
+    /^gwe/i,
+    /^her/i,
+    /^du/i,
+    /^ker/i
+];
+var weekdaysParse = [
+    /^sul/i,
+    /^lun/i,
+    /^meurzh/i,
+    /^merc[ʼ\']her/i,
+    /^yaou/i,
+    /^gwener/i,
+    /^sadorn/i
+];
+
 export default moment.defineLocale('br', {
     months : 'Genver_Cʼhwevrer_Meurzh_Ebrel_Mae_Mezheven_Gouere_Eost_Gwengolo_Here_Du_Kerzu'.split('_'),
     monthsShort : 'Gen_Cʼhwe_Meu_Ebr_Mae_Eve_Gou_Eos_Gwe_Her_Du_Ker'.split('_'),
@@ -55,6 +93,10 @@ export default moment.defineLocale('br', {
     weekdaysShort : 'Sul_Lun_Meu_Mer_Yao_Gwe_Sad'.split('_'),
     weekdaysMin : 'Su_Lu_Me_Mer_Ya_Gw_Sa'.split('_'),
     weekdaysParseExact : true,
+    monthsParse : monthsParse,
+    monthsShortParse : monthsShortParse,
+    weekdaysParse  : weekdaysParse ,
+    
     longDateFormat : {
         LT : 'HH:mm',
         LTS : 'HH:mm:ss',
