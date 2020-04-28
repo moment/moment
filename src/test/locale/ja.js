@@ -81,17 +81,9 @@ test('format', function (assert) {
 
 test('parse era', function (assert) {
     // strict
-    assert.equal(
-        moment('令和2年', 'NNNNy年', true).isValid(),
-        true,
-        '令和2年'
-    );
+    assert.equal(moment('令和2年', 'NNNNy年', true).isValid(), true, '令和2年');
     assert.equal(moment('令和2年', 'NNNNy年', true).year(), 2020, '令和2年');
-    assert.equal(
-        moment('令和2年', 'NNNNyo', true).isValid(),
-        true,
-        '令和2年'
-    );
+    assert.equal(moment('令和2年', 'NNNNyo', true).isValid(), true, '令和2年');
     assert.equal(moment('令和2年', 'NNNNyo', true).year(), 2020, '令和2年');
 
     assert.equal(moment('令和2年', 'Ny年', true).isValid(), false, '令和2年');
@@ -110,7 +102,7 @@ test('parse era', function (assert) {
     assert.equal(moment('㋿2年', 'Ny年', true).isValid(), false, '㋿2年');
     assert.equal(moment('㋿2年', 'NNNNy年', true).isValid(), false, '㋿2年');
     assert.equal(moment('㋿2年', 'NNNNNy年', true).isValid(), true, '㋿2年');
-    assert.equal(moment('㋿2年', 'NNNNNy年', true).year(),  2020, '㋿2年');
+    assert.equal(moment('㋿2年', 'NNNNNy年', true).year(), 2020, '㋿2年');
 
     // ordinal year
     assert.equal(moment('令和2年', 'NNNNyo', true).year(), 2020, '平成30年');
