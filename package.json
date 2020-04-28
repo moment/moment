@@ -96,8 +96,8 @@
         "typescript-test": "node_modules/typescript/bin/tsc --project typing-tests",
         "test": "grunt test",
         "eslint": "eslint Gruntfile.js tasks src",
-        "prettier-check": "prettier --check Gruntfile.js 'tasks/*.js' 'src/**/*.js'",
-        "prettier-fmt": "prettier --write Gruntfile.js 'tasks/*.js' 'src/**/*.js'",
+        "prettier-check": "prettier --check Gruntfile.js tasks src",
+        "prettier-fmt": "prettier --write Gruntfile.js tasks src",
         "coverage": "nyc npm test && nyc report",
         "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
     },
