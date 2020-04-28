@@ -141,10 +141,6 @@ module.exports = function (grunt) {
                 command:
                     'type meteor >/dev/null 2>&1 || { curl https://install.meteor.com/ | sh; }',
             },
-            'meteor-test': {
-                command:
-                    'spacejam --mongo-url mongodb:// test-packages ./meteor',
-            },
             'meteor-publish': {
                 command: 'cd meteor && meteor publish',
             },
