@@ -7,6 +7,13 @@ import moment from '../moment';
 export default moment.defineLocale('ja', {
     eras: [
         {
+            since: '2019-05-01',
+            offset: 1,
+            name: '令和',
+            narrow: '㋿',
+            abbr: 'R',
+        },
+        {
             since: '1989-01-08',
             offset: 1,
             name: '平成',
