@@ -40,7 +40,7 @@ test('is moment object', function (assert) {
 
 test('is moment with hacked hasOwnProperty', function (assert) {
     var obj = {};
-    // HACK to suppress jshint warning about bad property name
+    // HACK to suppress linter warning about bad property name
     obj['hasOwnMoney'.replace('Money', 'Property')] = function () {
         return true;
     };

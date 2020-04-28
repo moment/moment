@@ -3,7 +3,6 @@ import { localeModule } from '../qunit-locale';
 import moment from '../../moment';
 localeModule('si');
 
-/*jshint -W100*/
 test('parse', function (assert) {
     var tests = 'ජනවාරි ජන_පෙබරවාරි පෙබ_මාර්තු මාර්_අප්‍රේල් අප්_මැයි මැයි_ජූනි ජූනි_ජූලි ජූලි_අගෝස්තු අගෝ_සැප්තැම්බර් සැප්_ඔක්තෝබර් ඔක්_නොවැම්බර් නොවැ_දෙසැම්බර් දෙසැ'.split(
             '_'
