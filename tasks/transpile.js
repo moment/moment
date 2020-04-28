@@ -80,7 +80,7 @@ module.exports = function (grunt) {
                 return bundle.generate(bundleOpts);
             })
             .then(function (result) {
-                return result.code;
+                return result.output[0].code;
             });
     }
 
