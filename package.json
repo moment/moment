@@ -70,10 +70,10 @@
         "load-grunt-tasks": "~3.5.2",
         "node-qunit": "latest",
         "nyc": "latest",
-        "npx": "latest",
         "prettier": "latest",
         "rollup": "~0.67.4",
         "typescript": "^1.8.10",
+        "typescript3": "npm:typescript@^3.1.6",
         "uglify-js": "latest"
     },
     "ender": "./ender.js",
@@ -92,8 +92,8 @@
         }
     },
     "scripts": {
-        "ts3.1-typescript-test": "npx typescript@3.1 --project ts3.1-typing-tests",
-        "typescript-test": "tsc --project typing-tests",
+        "ts3.1-typescript-test": "node_modules/typescript3/bin/tsc --project ts3.1-typing-tests",
+        "typescript-test": "node_modules/typescript/bin/tsc --project typing-tests",
         "test": "grunt test",
         "eslint": "eslint Gruntfile.js tasks src",
         "prettier-check": "prettier --check Gruntfile.js 'tasks/*.js' 'src/**/*.js'",
