@@ -210,13 +210,36 @@ test('diff month', function (assert) {
 });
 
 test('end of month diff', function (assert) {
-    assert.equal(moment([2016, 1, 29]).diff([2016, 0, 30], 'months'), 1, 'Feb 29 to Jan 30 should be 1 month');
-    assert.equal(moment([2016, 1, 29]).diff([2016, 0, 31], 'months'), 1, 'Feb 30 to Jan 31 should be 1 month');
-    assert.equal(moment([2016, 4, 31]).add(1,'month').diff(moment([2016, 4, 31]), 'month'), 1, '(May 31 plus 1 month) to May 31 should be 1 month diff');
+    assert.equal(
+        moment('2016-02-29').diff('2016-01-30', 'months'),
+        1,
+        'Feb 29 to Jan 30 should be 1 month'
+    );
+    assert.equal(
+        moment('2016-02-29').diff('2016-01-31', 'months'),
+        1,
+        'Feb 29 to Jan 31 should be 1 month'
+    );
+    assert.equal(
+        moment('2016-05-31')
+            .add(1, 'month')
+            .diff(moment('2016-05-31'), 'month'),
+        1,
+        '(May 31 plus 1 month) to May 31 should be 1 month diff'
+    );
 });
 
 test('end of month diff with time behind', function (assert) {
-    assert.equal(moment([2017, 2, 31, 1]).diff([2017, 1, 28, 2], 'months'), 1, 'Feb 28 to March 31 should be 1 month');
+    assert.equal(
+        moment('2017-03-31').diff('2017-02-28', 'months'),
+        1,
+        'Feb 28 to March 31 should be 1 month'
+    );
+    assert.equal(
+        moment('2017-02-28').diff('2017-03-31', 'months'),
+        -1,
+        'Feb 28 to March 31 should be 1 month'
+    );
 });
 
 test('diff across DST', function (assert) {
