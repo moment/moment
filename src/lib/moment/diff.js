@@ -52,6 +52,11 @@ export function diff(input, units, asFloat) {
 }
 
 function monthDiff(a, b) {
+    if (a.date() < b.date()) {
+        // end-of-month calculations work correct when the start month has more
+        // days than the end month.
+        return -monthDiff(b, a);
+    }
     // difference in months
     var wholeMonthDiff = (b.year() - a.year()) * 12 + (b.month() - a.month()),
         // b is in (anchor - 1 month, anchor + 1 month)
