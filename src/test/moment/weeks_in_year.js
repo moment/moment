@@ -177,6 +177,7 @@ test('weeksInYear doy/dow = 0/6', function (assert) {
 });
 
 test('isoWeeksInYear calendar year !== ISO year', function (assert) {
+    var m = moment('2010-01-01');
     assert.equal(
         moment('2019-12-31').isoWeeksInYear(),
         53,
@@ -186,5 +187,15 @@ test('isoWeeksInYear calendar year !== ISO year', function (assert) {
         moment('2020-12-31').isoWeeksInYear(),
         53,
         'December 31, 2020 is in ISO year 2020 and ISO year 2020 has 53 weeks'
+    );
+    assert.equal(
+        m.isoWeeksInYear(),
+        53,
+        '2010-01-01 is isoWeekYear 2009, which has 53 iso weeks'
+    );
+    assert.equal(
+        +m,
+        +moment('2010-01-01'),
+        'isoWeeksInYear does not modify moment object'
     );
 });
