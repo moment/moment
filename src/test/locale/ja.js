@@ -81,42 +81,36 @@ test('format', function (assert) {
 
 test('parse era', function (assert) {
     // strict
-    assert.equal(
-        moment('平成30年', 'NNNNy年', true).isValid(),
-        true,
-        '平成30年'
-    );
-    assert.equal(moment('平成30年', 'NNNNy年', true).year(), 2018, '平成30年');
-    assert.equal(
-        moment('平成30年', 'NNNNyo', true).isValid(),
-        true,
-        '平成30年'
-    );
-    assert.equal(moment('平成30年', 'NNNNyo', true).year(), 2018, '平成30年');
+    assert.equal(moment('令和2年', 'NNNNy年', true).isValid(), true, '令和2年');
+    assert.equal(moment('令和2年', 'NNNNy年', true).year(), 2020, '令和2年');
+    assert.equal(moment('令和2年', 'NNNNyo', true).isValid(), true, '令和2年');
+    assert.equal(moment('令和2年', 'NNNNyo', true).year(), 2020, '令和2年');
 
-    assert.equal(moment('平成30年', 'Ny年', true).isValid(), false, '平成30年');
-    assert.equal(moment('平成30年', 'Ny年', false).isValid(), true, '平成30年');
-    assert.equal(moment('㍻30年', 'Ny年', true).isValid(), false, '㍻30年');
-    assert.equal(moment('㍻30年', 'Ny年', false).isValid(), true, '㍻30年');
-    assert.equal(moment('H30年', 'Ny年', false).isValid(), true, 'H30年');
+    assert.equal(moment('令和2年', 'Ny年', true).isValid(), false, '令和2年');
+    assert.equal(moment('令和2年', 'Ny年', false).isValid(), true, '令和2年');
+    assert.equal(moment('㋿2年', 'Ny年', true).isValid(), false, '㋿2年');
+    assert.equal(moment('㋿2年', 'Ny年', false).isValid(), true, '㋿2年');
+    assert.equal(moment('R2', 'Ny', false).isValid(), true, 'R2');
 
     // abbrv
-    assert.equal(moment('H30年', 'Ny年', true).isValid(), true, 'H30年');
-    assert.equal(moment('H30年', 'Ny年', true).year(), 2018, 'H30年');
-    assert.equal(moment('H30年', 'NNNNy年', true).isValid(), false, 'H30年');
-    assert.equal(moment('H30年', 'NNNNNy年', true).isValid(), false, 'H30年');
+    assert.equal(moment('R2', 'Ny', true).isValid(), true, 'R2');
+    assert.equal(moment('R2', 'Ny', true).year(), 2020, 'R2');
+    assert.equal(moment('R2', 'NNNNy', true).isValid(), false, 'R2');
+    assert.equal(moment('R2', 'NNNNNy', true).isValid(), false, 'R2');
 
     // narrow
-    assert.equal(moment('㍻30年', 'Ny年', true).isValid(), false, '㍻30年');
-    assert.equal(moment('㍻30年', 'NNNNy年', true).isValid(), false, '㍻30年');
-    assert.equal(moment('㍻30年', 'NNNNNy年', true).isValid(), true, '㍻30年');
-    assert.equal(moment('㍻30年', 'NNNNNy年', true).year(), 2018, '㍻30年');
+    assert.equal(moment('㋿2年', 'Ny年', true).isValid(), false, '㋿2年');
+    assert.equal(moment('㋿2年', 'NNNNy年', true).isValid(), false, '㋿2年');
+    assert.equal(moment('㋿2年', 'NNNNNy年', true).isValid(), true, '㋿2年');
+    assert.equal(moment('㋿2年', 'NNNNNy年', true).year(), 2020, '㋿2年');
 
     // ordinal year
-    assert.equal(moment('平成30年', 'NNNNyo', true).year(), 2018, '平成30年');
-    assert.equal(moment('平成元年', 'NNNNyo', true).year(), 1989, '平成元年');
+    assert.equal(moment('令和2年', 'NNNNyo', true).year(), 2020, '平成30年');
+    assert.equal(moment('令和元年', 'NNNNyo', true).year(), 2019, '平成元年');
 
     // old eras
+    assert.equal(moment('平成30年', 'NNNNyo', true).year(), 2018, '平成30年');
+    assert.equal(moment('平成元年', 'NNNNyo', true).year(), 1989, '平成元年');
     assert.equal(moment('昭和64年', 'NNNNyo', true).year(), 1989, '昭和64年');
     assert.equal(moment('昭和元年', 'NNNNyo', true).year(), 1926, '昭和元年');
     assert.equal(moment('大正元年', 'NNNNyo', true).year(), 1912, '大正元年');
@@ -125,6 +119,20 @@ test('parse era', function (assert) {
 
 test('format era', function (assert) {
     var a = [
+            /* First day of Reiwa Era */
+            ['+002019-05-01', 'N, NN, NNN', 'R, R, R'],
+            ['+002019-05-01', 'NNNN', '令和'],
+            ['+002019-05-01', 'NNNNN', '㋿'],
+            ['+002019-05-01', 'y yy yyy yyyy', '1 01 001 0001'],
+            ['+002019-05-01', 'yo', '元年'],
+
+            /* Last day of Heisei Era */
+            ['+002019-04-30', 'N, NN, NNN', 'H, H, H'],
+            ['+002019-04-30', 'NNNN', '平成'],
+            ['+002019-04-30', 'NNNNN', '㍻'],
+            ['+002019-04-30', 'y yy yyy yyyy', '31 31 031 0031'],
+            ['+002019-04-30', 'yo', '31年'],
+
             /* First day of Heisei Era */
             ['+001989-01-08', 'N, NN, NNN', 'H, H, H'],
             ['+001989-01-08', 'NNNN', '平成'],
