@@ -99,6 +99,10 @@ export function getSetISOWeekYear(input) {
 }
 
 export function getISOWeeksInYear() {
+    return weeksInYear(this.year(), 1, 4);
+}
+
+export function getISOWeeksInISOWeekYear() {
     return weeksInYear(this.isoWeekYear(), 1, 4);
 }
 
