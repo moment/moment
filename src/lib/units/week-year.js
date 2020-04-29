@@ -106,17 +106,14 @@ export function getISOWeeksInYear() {
     return weeksInYear(this.isoWeekday(THURSDAY).year(), 1, 4);
 }
 
-export function getWeeksInYear () {
-    return getWeeksInGivenYear.call(this, this.year());
-}
-
-export function getWeeksInWeekYear () {
-    return getWeeksInGivenYear.call(this, this.weekYear());
-}
-
-function getWeeksInGivenYear(year) {
+export function getWeeksInYear() {
     let weekInfo = this.localeData()._week;
-    return weeksInYear(year, weekInfo.dow, weekInfo.doy);
+    return weeksInYear(this.year(), weekInfo.dow, weekInfo.doy);
+}
+
+export function getWeeksInWeekYear() {
+    let weekInfo = this.localeData()._week;
+    return weeksInYear(this.weekYear(), weekInfo.dow, weekInfo.doy);
 }
 
 function getSetWeekYearHelper(input, week, weekday, dow, doy) {
