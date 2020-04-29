@@ -408,9 +408,9 @@ function computeWeekdaysParse() {
     for (i = 0; i < 7; i++) {
         // make the regex if we don't have it already
         mom = createUTC([2000, 1]).day(i);
-        minp = this.weekdaysMin(mom, '');
-        shortp = this.weekdaysShort(mom, '');
-        longp = this.weekdays(mom, '');
+        minp = regexEscape(this.weekdaysMin(mom, ''));
+        shortp = regexEscape(this.weekdaysShort(mom, ''));
+        longp = regexEscape(this.weekdays(mom, ''));
         minPieces.push(minp);
         shortPieces.push(shortp);
         longPieces.push(longp);
@@ -424,11 +424,6 @@ function computeWeekdaysParse() {
     shortPieces.sort(cmpLenRev);
     longPieces.sort(cmpLenRev);
     mixedPieces.sort(cmpLenRev);
-    for (i = 0; i < 7; i++) {
-        shortPieces[i] = regexEscape(shortPieces[i]);
-        longPieces[i] = regexEscape(longPieces[i]);
-        mixedPieces[i] = regexEscape(mixedPieces[i]);
-    }
 
     this._weekdaysRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
     this._weekdaysShortRegex = this._weekdaysRegex;

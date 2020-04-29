@@ -524,3 +524,40 @@ test('0 hour is invalid in strict', function (assert) {
         '0 hour is valid in normal'
     );
 });
+
+test('format locale', function (assert) {
+    var a = [
+            ['uto 15.05.2018', 'dd DD.MM.YYYY', 'bs'],
+            ['dt 15.05.2018', 'dd DD.MM.YYYY', 'ca'],
+            ['Di 15.05.2018', 'dd DD.MM.YYYY', 'de-dt'],
+            ['Di 15.05.2018', 'dd DD.MM.YYYY', 'de'],
+            ['mar 15.05.2018', 'dd DD.MM.YYYY', 'es-do'],
+            ['mar 15.05.2018', 'dd DD.MM.YYYY', 'es-us'],
+            ['Di 15.05.2018', 'dd DD.MM.YYYY', 'es'],
+            ['ar 15.05.2018', 'dd DD.MM.YYYY', 'eu'],
+            ['mar 15.05.2018', 'dd DD.MM.YYYY', 'fr-ca'],
+            ['mar 15.05.2018', 'dd DD.MM.YYYY', 'fr-ch'],
+            ['mar 15.05.2018', 'dd DD.MM.YYYY', 'fr'],
+            ['ti 15.05.2018', 'dd DD.MM.YYYY', 'fy'],
+            ['mar 15.05.2018', 'dd DD.MM.YYYY', 'gl'],
+            ['मंगळ 15.05.2018', 'dd DD.MM.YYYY', 'gom-deva'],
+            ['Mon 15.05.2018', 'dd DD.MM.YYYY', 'gom-latn'],
+            ['uto 15.05.2018', 'dd DD.MM.YYYY', 'hr'],
+            ['Dë 15.05.2018', 'dd DD.MM.YYYY', 'lb'],
+            ['uto 15.05.2018', 'dd DD.MM.YYYY', 'me'],
+            ['ti 15.05.2018', 'dd DD.MM.YYYY', 'nb'],
+            ['मङ्गल 15.05.2018', 'dd DD.MM.YYYY', 'ne'],
+            ['di 15.05.2018', 'dd DD.MM.YYYY', 'nl-be'],
+            ['di 15.05.2018', 'dd DD.MM.YYYY', 'nl'],
+            ['ty 15.05.2018', 'dd DD.MM.YYYY', 'nn'],
+            ['dm 15.05.2018', 'dd DD.MM.YYYY', 'oc-lnc'],
+            ['tor 15.05.2018', 'dd DD.MM.YYYY', 'sl'],
+            ['уто 15.05.2018', 'dd DD.MM.YYYY', 'sr-cyrl'],
+            ['uto 15.05.2018', 'dd DD.MM.YYYY', 'sr'],
+            ['uto 15.05.2018', 'dd DD.MM.YYYY', 'sr'],
+        ],
+        i;
+    for (i = 0; i < a.length; i++) {
+        assert.ok(moment(a[i][0], a[i][1], a[i][2]).isValid());
+    }
+});
