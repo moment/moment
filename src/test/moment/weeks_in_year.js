@@ -94,52 +94,69 @@ test('isoWeeksInYear first day of ISO Year', function (assert) {
 test('weeksInYear doy/dow = 1/4', function (assert) {
     moment.locale('1/4', { week: { dow: 1, doy: 4 } });
 
-    assert.equal(moment([2004]).weeksInYear(), 53, '2004 has 53 weeks');
-    assert.equal(moment([2005]).weeksInYear(), 52, '2005 has 53 weeks');
-    assert.equal(moment([2006]).weeksInYear(), 52, '2006 has 53 weeks');
-    assert.equal(moment([2007]).weeksInYear(), 52, '2007 has 52 weeks');
-    assert.equal(moment([2008]).weeksInYear(), 52, '2008 has 53 weeks');
-    assert.equal(moment([2009]).weeksInYear(), 53, '2009 has 53 weeks');
-    assert.equal(moment([2010]).weeksInYear(), 52, '2010 has 52 weeks');
-    assert.equal(moment([2011]).weeksInYear(), 52, '2011 has 52 weeks');
-    assert.equal(moment([2012]).weeksInYear(), 52, '2012 has 52 weeks');
-    assert.equal(moment([2013]).weeksInYear(), 52, '2013 has 52 weeks');
-    assert.equal(moment([2014]).weeksInYear(), 52, '2014 has 52 weeks');
-    assert.equal(moment([2015]).weeksInYear(), 53, '2015 has 53 weeks');
+    assert.equal(moment('2004-01-01').weeksInYear(), 53, '2004 has 53 weeks');
+    assert.equal(moment('2005-01-01').weeksInYear(), 52, '2005 has 52 weeks');
+    assert.equal(
+        moment('2005-01-01').weeksInWeekYear(),
+        53,
+        '2005-01-01 is weekYear 2014, which has 53 weeks'
+    );
+    assert.equal(moment('2006-01-01').weeksInYear(), 52, '2006 has 52 weeks');
+    assert.equal(moment('2007-01-01').weeksInYear(), 52, '2007 has 52 weeks');
+    assert.equal(moment('2008-01-01').weeksInYear(), 52, '2008 has 52 weeks');
+    assert.equal(moment('2009-01-01').weeksInYear(), 53, '2009 has 53 weeks');
+    assert.equal(moment('2010-01-01').weeksInYear(), 52, '2010 has 52 weeks');
+    assert.equal(
+        moment('2010-01-01').weeksInWeekYear(),
+        53,
+        '2010-01-01 is weekYear 2009, which has 53 weeks'
+    );
+    assert.equal(moment('2011-01-01').weeksInYear(), 52, '2011 has 52 weeks');
+    assert.equal(moment('2012-01-01').weeksInYear(), 52, '2012 has 52 weeks');
+    assert.equal(moment('2013-01-01').weeksInYear(), 52, '2013 has 52 weeks');
+    assert.equal(moment('2014-01-01').weeksInYear(), 52, '2014 has 52 weeks');
+    assert.equal(moment('2015-01-01').weeksInYear(), 53, '2015 has 53 weeks');
+    assert.equal(moment('2016-01-01').weeksInYear(), 52, '2016 has 52 weeks');
+    assert.equal(
+        moment('2016-01-01').weeksInWeekYear(),
+        53,
+        '2016-01-01 is weekYear 2015, which has 53 weeks'
+    );
 });
 
 test('weeksInYear doy/dow = 6/12', function (assert) {
     moment.locale('6/12', { week: { dow: 6, doy: 12 } });
 
     assert.equal(moment([2004]).weeksInYear(), 53, '2004 has 53 weeks');
-    assert.equal(moment([2005]).weeksInYear(), 52, '2005 has 53 weeks');
-    assert.equal(moment([2006]).weeksInYear(), 52, '2006 has 53 weeks');
+    assert.equal(moment([2005]).weeksInYear(), 52, '2005 has 52 weeks');
+    assert.equal(moment([2006]).weeksInYear(), 52, '2006 has 52 weeks');
     assert.equal(moment([2007]).weeksInYear(), 52, '2007 has 52 weeks');
-    assert.equal(moment([2008]).weeksInYear(), 52, '2008 has 53 weeks');
-    assert.equal(moment([2009]).weeksInYear(), 52, '2009 has 53 weeks');
-    assert.equal(moment([2010]).weeksInYear(), 53, '2010 has 52 weeks');
+    assert.equal(moment([2008]).weeksInYear(), 52, '2008 has 52 weeks');
+    assert.equal(moment([2009]).weeksInYear(), 52, '2009 has 52 weeks');
+    assert.equal(moment([2010]).weeksInYear(), 53, '2010 has 53 weeks');
     assert.equal(moment([2011]).weeksInYear(), 52, '2011 has 52 weeks');
     assert.equal(moment([2012]).weeksInYear(), 52, '2012 has 52 weeks');
     assert.equal(moment([2013]).weeksInYear(), 52, '2013 has 52 weeks');
     assert.equal(moment([2014]).weeksInYear(), 52, '2014 has 52 weeks');
-    assert.equal(moment([2015]).weeksInYear(), 52, '2015 has 53 weeks');
+    assert.equal(moment([2015]).weeksInYear(), 52, '2015 has 52 weeks');
 });
 
 test('weeksInYear doy/dow = 1/7', function (assert) {
     moment.locale('1/7', { week: { dow: 1, doy: 7 } });
 
-    assert.equal(moment([2004]).weeksInYear(), 52, '2004 has 53 weeks');
-    assert.equal(moment([2005]).weeksInYear(), 52, '2005 has 53 weeks');
+    assert.equal(moment([2004]).weeksInYear(), 52, '2004 has 52 weeks');
+    assert.equal(moment([2005]).weeksInYear(), 52, '2005 has 52 weeks');
     assert.equal(moment([2006]).weeksInYear(), 53, '2006 has 53 weeks');
     assert.equal(moment([2007]).weeksInYear(), 52, '2007 has 52 weeks');
-    assert.equal(moment([2008]).weeksInYear(), 52, '2008 has 53 weeks');
-    assert.equal(moment([2009]).weeksInYear(), 52, '2009 has 53 weeks');
+    assert.equal(moment([2008]).weeksInYear(), 52, '2008 has 52 weeks');
+    assert.equal(moment([2009]).weeksInYear(), 52, '2009 has 52 weeks');
     assert.equal(moment([2010]).weeksInYear(), 52, '2010 has 52 weeks');
     assert.equal(moment([2011]).weeksInYear(), 52, '2011 has 52 weeks');
-    assert.equal(moment([2012]).weeksInYear(), 53, '2012 has 52 weeks');
+    assert.equal(moment([2012]).weeksInYear(), 53, '2012 has 53 weeks');
     assert.equal(moment([2013]).weeksInYear(), 52, '2013 has 52 weeks');
     assert.equal(moment([2014]).weeksInYear(), 52, '2014 has 52 weeks');
-    assert.equal(moment([2015]).weeksInYear(), 52, '2015 has 53 weeks');
+    assert.equal(moment([2015]).weeksInYear(), 52, '2015 has 52 weeks');
+    assert.equal(moment([2016]).weeksInYear(), 52, '2016 has 52 weeks');
 });
 
 test('weeksInYear doy/dow = 0/6', function (assert) {
