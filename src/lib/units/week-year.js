@@ -21,10 +21,6 @@ import toInt from '../utils/to-int';
 import { hooks } from '../utils/hooks';
 import { createUTCDate } from '../create/date-from-array';
 
-// CONSTANTS
-
-const THURSDAY = 4;
-
 // FORMATTING
 
 addFormatToken(0, ['gg', 2], 0, function () {
@@ -103,7 +99,7 @@ export function getSetISOWeekYear(input) {
 }
 
 export function getISOWeeksInYear() {
-    return weeksInYear(this.isoWeekday(THURSDAY).year(), 1, 4);
+    return weeksInYear(this.isoWeekYear(), 1, 4);
 }
 
 export function getWeeksInYear() {
