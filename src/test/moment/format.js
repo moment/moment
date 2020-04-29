@@ -377,7 +377,6 @@ test('toISOString without UTC conversion', function (assert) {
 // See https://nodejs.org/dist/latest/docs/api/util.html#util_custom_inspect_function_on_objects
 test('inspect', function (assert) {
     function roundtrip(m) {
-        /*jshint evil:true */
         return new Function('moment', 'return ' + m.inspect())(moment);
     }
     function testInspect(date, string) {

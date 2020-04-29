@@ -7,34 +7,14 @@ module.exports = function (grunt) {
         TMP_DIR = 'build/tmp',
         headerCache = {};
 
-    function moveComments(code, moveType) {
-        var comments = [],
-            rest = [],
-            skipId = -1;
-        code.split('\n').forEach(function (line, i) {
-            var isComment = false;
-            if (line.trim().slice(0, 3) === '//!') {
-                isComment = true;
-            }
-            if (isComment && moveType === 'main-only') {
-                if (
-                    i === skipId + 1 ||
-                    line.trim() === '//! moment.js locale configuration'
-                ) {
-                    skipId = i;
-                    // continue to next line
-                    return;
-                }
-            }
-
-            if (isComment) {
-                comments.push(line.trim());
-            } else {
-                rest.push(line);
-            }
-        });
-
-        return comments.concat([''], rest).join('\n');
+    function collectComments(filename) {
+        return grunt.file
+            .read(filename)
+            .split('\n')
+            .filter(function (line) {
+                return line.startsWith('//!');
+            })
+            .join('\n');
     }
 
     function getHeaderByFile(headerFile) {
@@ -80,7 +60,7 @@ module.exports = function (grunt) {
                 return bundle.generate(bundleOpts);
             })
             .then(function (result) {
-                return result.code;
+                return result.output[0].code;
             });
     }
 
@@ -94,16 +74,17 @@ module.exports = function (grunt) {
                 ? opts.headerFile
                 : 'templates/default.js',
             header = getHeaderByFile(headerFile),
-            skipLines = opts.skipLines != null ? opts.skipLines : 5;
+            skipLines = opts.skipLines != null ? opts.skipLines : 5,
+            entry = path.join(opts.base, opts.entry);
 
         return rollupBundle({
-            entry: path.join(opts.base, opts.entry),
+            entry: entry,
             skipMoment: opts.skipMoment != null ? opts.skipMoment : false,
             umdName: umdName,
         }).then(function (code) {
             var fixed = header + code.split('\n').slice(skipLines).join('\n');
             if (opts.moveComments) {
-                fixed = moveComments(fixed, opts.moveComments);
+                fixed = collectComments(entry) + '\n\n' + fixed;
             }
             grunt.file.write(opts.target, fixed);
         });

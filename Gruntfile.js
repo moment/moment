@@ -111,44 +111,20 @@ module.exports = function (grunt) {
                 sourceMap: true,
                 mangle: true,
                 compress: {
-                    dead_code: false, // jshint ignore:line
+                    dead_code: false,
                 },
                 output: {
-                    ascii_only: true, // jshint ignore:line
+                    ascii_only: true,
                 },
                 report: 'min',
                 preserveComments: /^!|@preserve|@license|@cc_on/i,
             },
         },
-        // jshint: {
-        //     all: [
-        //         'Gruntfile.js',
-        //         'tasks/**.js',
-        //         'src/**/*.js'
-        //     ],
-        //     options: {
-        //         jshintrc: true
-        //     }
-        // },
-        // jscs: {
-        //     all: [
-        //         'Gruntfile.js',
-        //         'tasks/**.js',
-        //         'src/**/*.js'
-        //     ],
-        //     options: {
-        //         config: '.jscs.json'
-        //     }
-        // },
         watch: {
             test: {
                 files: ['src/**/*.js'],
                 tasks: ['test'],
             },
-            // jshint : {
-            //     files : '<%= jshint.all %>',
-            //     tasks: ['jshint']
-            // }
         },
         benchmark: {
             compare: { src: ['benchmarks/compare.js'] },
@@ -164,10 +140,6 @@ module.exports = function (grunt) {
                 // The curl'ed script is safe; takes 2 minutes to read source & check.
                 command:
                     'type meteor >/dev/null 2>&1 || { curl https://install.meteor.com/ | sh; }',
-            },
-            'meteor-test': {
-                command:
-                    'spacejam --mongo-url mongodb:// test-packages ./meteor',
             },
             'meteor-publish': {
                 command: 'cd meteor && meteor publish',
