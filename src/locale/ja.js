@@ -15,6 +15,7 @@ export default moment.defineLocale('ja', {
         },
         {
             since: '1989-01-08',
+            until: '2019-04-30',
             offset: 1,
             name: '平成',
             narrow: '㍻',
