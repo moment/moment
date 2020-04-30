@@ -129,6 +129,14 @@ declare namespace moment {
 
   type MonthWeekdayFn = (momentToFormat: Moment, format?: string) => string;
   type WeekdaySimpleFn = (momentToFormat: Moment) => string;
+  interface EraSpec {
+    since: string | number;
+    until: string | number;
+    offset: number;
+    name: string;
+    narrow: string;
+    abbr: string;
+  }
 
   interface LocaleSpecification {
     months?: string[] | StandaloneFormatSpec | MonthWeekdayFn;
@@ -151,6 +159,7 @@ declare namespace moment {
     ordinalParse?: RegExp;
 
     week?: WeekSpec;
+    eras?: EraSpec[];
 
     // Allow anything: in general any property that is passed as locale spec is
     // put in the locale object so it can be used by locale functions
@@ -344,82 +353,83 @@ declare namespace moment {
       "isoWeekday" | "isoWeekdays" | "E";
   }
 
+  type numberlike = number | string;
   interface MomentInputObject {
-    years?: number;
-    year?: number;
-    y?: number;
+    years?: numberlike;
+    year?: numberlike;
+    y?: numberlike;
 
-    months?: number;
-    month?: number;
-    M?: number;
+    months?: numberlike;
+    month?: numberlike;
+    M?: numberlike;
 
-    days?: number;
-    day?: number;
-    d?: number;
+    days?: numberlike;
+    day?: numberlike;
+    d?: numberlike;
 
-    dates?: number;
-    date?: number;
-    D?: number;
+    dates?: numberlike;
+    date?: numberlike;
+    D?: numberlike;
 
-    hours?: number;
-    hour?: number;
-    h?: number;
+    hours?: numberlike;
+    hour?: numberlike;
+    h?: numberlike;
 
-    minutes?: number;
-    minute?: number;
-    m?: number;
+    minutes?: numberlike;
+    minute?: numberlike;
+    m?: numberlike;
 
-    seconds?: number;
-    second?: number;
-    s?: number;
+    seconds?: numberlike;
+    second?: numberlike;
+    s?: numberlike;
 
-    milliseconds?: number;
-    millisecond?: number;
-    ms?: number;
+    milliseconds?: numberlike;
+    millisecond?: numberlike;
+    ms?: numberlike;
   }
 
   interface DurationInputObject extends MomentInputObject {
-    quarters?: number;
-    quarter?: number;
-    Q?: number;
+    quarters?: numberlike;
+    quarter?: numberlike;
+    Q?: numberlike;
 
-    weeks?: number;
-    week?: number;
-    w?: number;
+    weeks?: numberlike;
+    week?: numberlike;
+    w?: numberlike;
   }
 
   interface MomentSetObject extends MomentInputObject {
-    weekYears?: number;
-    weekYear?: number;
-    gg?: number;
+    weekYears?: numberlike;
+    weekYear?: numberlike;
+    gg?: numberlike;
 
-    isoWeekYears?: number;
-    isoWeekYear?: number;
-    GG?: number;
+    isoWeekYears?: numberlike;
+    isoWeekYear?: numberlike;
+    GG?: numberlike;
 
-    quarters?: number;
-    quarter?: number;
-    Q?: number;
+    quarters?: numberlike;
+    quarter?: numberlike;
+    Q?: numberlike;
 
-    weeks?: number;
-    week?: number;
-    w?: number;
+    weeks?: numberlike;
+    week?: numberlike;
+    w?: numberlike;
 
-    isoWeeks?: number;
-    isoWeek?: number;
-    W?: number;
+    isoWeeks?: numberlike;
+    isoWeek?: numberlike;
+    W?: numberlike;
 
-    dayOfYears?: number;
-    dayOfYear?: number;
-    DDD?: number;
+    dayOfYears?: numberlike;
+    dayOfYear?: numberlike;
+    DDD?: numberlike;
 
-    weekdays?: number;
-    weekday?: number;
-    e?: number;
+    weekdays?: numberlike;
+    weekday?: numberlike;
+    e?: numberlike;
 
-    isoWeekdays?: number;
-    isoWeekday?: number;
-    E?: number;
+    isoWeekdays?: numberlike;
+    isoWeekday?: numberlike;
+    E?: numberlike;
   }
 
   interface FromTo {
@@ -458,7 +468,9 @@ declare namespace moment {
      */
     subtract(unit: unitOfTime.DurationConstructor, amount: number|string): Moment;
 
-    calendar(time?: MomentInput, formats?: CalendarSpec): string;
+    calendar(): string;
+    calendar(formats: CalendarSpec): string;
+    calendar(time: MomentInput, formats?: CalendarSpec): string;
 
     clone(): Moment;
 
@@ -559,7 +571,9 @@ declare namespace moment {
     isoWeeks(): number;
     isoWeeks(d: number): Moment;
     weeksInYear(): number;
+    weeksInWeekYear(): number;
     isoWeeksInYear(): number;
+    isoWeeksInISOWeekYear(): number;
     dayOfYear(): number;
     dayOfYear(d: number): Moment;
 
