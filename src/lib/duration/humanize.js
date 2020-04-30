@@ -79,33 +79,27 @@ export function getSetRelativeTimeThreshold(threshold, limit) {
     return true;
 }
 
-export function humanize(withSuffixOrOptions) {
+export function humanize(argWithSuffix, argThresholds) {
     if (!this.isValid()) {
         return this.localeData().invalidDate();
     }
 
     var withSuffix = false,
         th = thresholds,
-        ws,
-        t,
         locale,
         output;
 
-    if (typeof withSuffixOrOptions === 'boolean') {
-        withSuffix = withSuffixOrOptions;
-    } else if (typeof withSuffixOrOptions === 'object') {
-        ws = withSuffixOrOptions.withSuffix;
-        if (typeof ws === 'boolean') {
-            withSuffix = ws;
-        }
-
-        t = withSuffixOrOptions.thresholds;
-        if (typeof t === 'object') {
-            // Fill in missing keys with the current values
-            th = Object.assign({}, thresholds, t);
-            if (typeof t.s === 'number') {
-                th.ss = t.s - 1;
-            }
+    if (typeof argWithSuffix === 'object') {
+        argThresholds = argWithSuffix;
+        argWithSuffix = false;
+    }
+    if (typeof argWithSuffix === 'boolean') {
+        withSuffix = argWithSuffix;
+    }
+    if (typeof argThresholds === 'object') {
+        th = Object.assign({}, thresholds, argThresholds);
+        if (argThresholds.s != null && argThresholds.ss == null) {
+            th.ss = argThresholds.s - 1;
         }
     }
 

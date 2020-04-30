@@ -1153,44 +1153,30 @@ test('humanize duration with suffix', function (assert) {
         'in a few seconds',
         '44 seconds = a few seconds'
     );
-    assert.equal(
-        moment.duration({ seconds: 44 }).humanize({ withSuffix: true }),
-        'in a few seconds',
-        '44 seconds = a few seconds'
-    );
-    assert.equal(
-        moment.duration({ seconds: -44 }).humanize({ withSuffix: true }),
-        'a few seconds ago',
-        '44 seconds = a few seconds'
-    );
-    assert.equal(
-        moment.duration({ seconds: +44 }).humanize({ withSuffix: true }),
-        'in a few seconds',
-        '44 seconds = a few seconds'
-    );
 });
 
-test('humanize duration with options', function (assert) {
+test('humanize duration with thresholds', function (assert) {
     var thresholds = { s: 9 };
     moment.locale('en');
     assert.equal(
-        moment.duration({ seconds: -10 }).humanize({ thresholds: thresholds }),
+        moment.duration({ seconds: -10 }).humanize(thresholds),
         'a minute',
         '10 seconds = a minute (with thresholds)'
     );
     assert.equal(
-        moment
-            .duration({ seconds: 10 })
-            .humanize({ thresholds: thresholds, withSuffix: true }),
+        moment.duration({ seconds: 10 }).humanize(true, thresholds),
         'in a minute',
         '10 seconds = a minute (with thresholds and suffix)'
     );
     assert.equal(
-        moment
-            .duration({ weeks: 3 })
-            .humanize({ thresholds: { d: 7, w: 4 }, withSuffix: true }),
+        moment.duration({ weeks: 3 }).humanize(true, { d: 7, w: 4 }),
         'in 3 weeks',
         'in 3 weeks = in 3 weeks (with thresholds and suffix)'
+    );
+    assert.equal(
+        moment.duration({ weeks: 3 }).humanize(false, { d: 7, w: 4 }),
+        '3 weeks',
+        '3 weeks = 3 weeks (with thresholds and suffix == false)'
     );
 });
 
