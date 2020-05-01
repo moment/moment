@@ -31,6 +31,7 @@ mkdir $dest
 
 cp $src/moment.js $dest
 cp $src/moment.d.ts $dest
+cp -r $src/ts3.1-typings $dest
 cp $src/package.json $dest
 cp $src/README.md $dest
 cp $src/CHANGELOG.md $dest
