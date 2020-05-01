@@ -76,9 +76,7 @@ function loadLocale(name) {
             oldLocale = globalLocale._abbr;
             aliasedRequire = require;
             aliasedRequire(
-                (typeof __dirname !== undefined ? __dirname : '.') +
-                    '/locale/' +
-                    name
+                `${typeof __dirname !== undefined ? __dirname : '..'}/locale/${name}`
             );
             getSetGlobalLocale(oldLocale);
         } catch (e) {
