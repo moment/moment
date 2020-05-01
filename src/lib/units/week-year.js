@@ -107,12 +107,12 @@ export function getISOWeeksInISOWeekYear() {
 }
 
 export function getWeeksInYear() {
-    let weekInfo = this.localeData()._week;
+    var weekInfo = this.localeData()._week;
     return weeksInYear(this.year(), weekInfo.dow, weekInfo.doy);
 }
 
 export function getWeeksInWeekYear() {
-    let weekInfo = this.localeData()._week;
+    var weekInfo = this.localeData()._week;
     return weeksInYear(this.weekYear(), weekInfo.dow, weekInfo.doy);
 }
 

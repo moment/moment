@@ -50,9 +50,11 @@ export function isMomentInputObject(input) {
             'millisecond',
             'ms',
         ],
+        i,
         property;
 
-    for (property of properties) {
+    for (i = 0; i < properties.length; i += 1) {
+        property = properties[i];
         propertyTest = propertyTest || hasOwnProp(input, property);
     }
 

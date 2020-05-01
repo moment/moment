@@ -13,9 +13,11 @@ export default function isCalendarSpec(input) {
             'lastWeek',
             'sameElse',
         ],
+        i,
         property;
 
-    for (property of properties) {
+    for (i = 0; i < properties.length; i += 1) {
+        property = properties[i];
         propertyTest = propertyTest || hasOwnProp(input, property);
     }
 
