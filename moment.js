@@ -1,5 +1,5 @@
 //! moment.js
-//! version : 2.25.0
+//! version : 2.25.1
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -2089,11 +2089,7 @@
             try {
                 oldLocale = globalLocale._abbr;
                 aliasedRequire = require;
-                aliasedRequire(
-                    (typeof __dirname !== undefined ? __dirname : '.') +
-                        '/locale/' +
-                        name
-                );
+                aliasedRequire('./locale/' + name);
                 getSetGlobalLocale(oldLocale);
             } catch (e) {
                 // mark as not found to avoid repeating expensive file require call causing high CPU
@@ -4914,7 +4910,7 @@
     proto.toDate = toDate;
     proto.toISOString = toISOString;
     proto.inspect = inspect;
-    if (typeof Symbol !== undefined && Symbol.for != null) {
+    if (typeof Symbol !== 'undefined' && Symbol.for != null) {
         proto[Symbol.for('nodejs.util.inspect.custom')] = function () {
             return 'Moment<' + this.format() + '>';
         };
@@ -5624,7 +5620,7 @@
 
     //! moment.js
 
-    hooks.version = '2.25.0';
+    hooks.version = '2.25.1';
 
     setHookCallback(createLocal);
 
