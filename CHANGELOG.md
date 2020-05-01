@@ -1,6 +1,18 @@
 Changelog
 =========
 
+### 2.25.0 [See full changelog](https://gist.github.com/ichernev/6148e64df2427e455b10ce6a18de1a65)
+
+* Release May 1, 2020
+
+* [#4611](https://github.com/moment/moment/issues/4611) [022dc038](https://github.com/moment/moment/commit/022dc038) [feature] Support for strict string parsing, fixes [#2469](https://github.com/moment/moment/issues/2469)
+* [#4599](https://github.com/moment/moment/issues/4599) [4b615b9d](https://github.com/moment/moment/commit/4b615b9d) [feature] Add support for eras in en and jp
+* [#4296](https://github.com/moment/moment/issues/4296) [757d4ff8](https://github.com/moment/moment/commit/757d4ff8) [feature] Accept custom relative thresholds in duration.humanize
+
+* 18 bigfixes
+* 36 locale fixes
+* 5 new locales (oc-lnc, zh-mo, en-in, gom-deva, fil)
+
 ### 2.24.0 [See full changelog](https://gist.github.com/marwahaha/12366fe45bee328f33acf125d4cd540e)
 
 * Release Jan 21, 2019

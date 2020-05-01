@@ -7,13 +7,15 @@
         <owners>Cory Deppen, Iskren Chernev</owners>
         <description>A lightweight JavaScript date library for parsing, manipulating, and formatting dates.</description>
         <releaseNotes>
-            * Release Jan 21, 2019
+            * Release May 1, 2020
 
-            * [#4338](https://github.com/moment/moment/pull/4338) [bugfix] Fix startOf/endOf DST issues while boosting performance
-            * [#4553](https://github.com/moment/moment/pull/4553) [feature] Add localeSort param to Locale weekday methods
-            * [#4887](https://github.com/moment/moment/pull/4887) [bugfix] Make Duration#as work with quarters
-            * 3 new locales (it-ch, ga, en-SG)
-            * Lots of locale improvements
+            * [#4611](https://github.com/moment/moment/issues/4611) [022dc038](https://github.com/moment/moment/commit/022dc038) [feature] Support for strict string parsing, fixes [#2469](https://github.com/moment/moment/issues/2469)
+            * [#4599](https://github.com/moment/moment/issues/4599) [4b615b9d](https://github.com/moment/moment/commit/4b615b9d) [feature] Add support for eras in en and jp
+            * [#4296](https://github.com/moment/moment/issues/4296) [757d4ff8](https://github.com/moment/moment/commit/757d4ff8) [feature] Accept custom relative thresholds in duration.humanize
+
+            * 18 bigfixes
+            * 36 locale fixes
+            * 5 new locales (oc-lnc, zh-mo, en-in, gom-deva, fil)
         </releaseNotes>
         <projectUrl>http://momentjs.com/</projectUrl>
         <iconUrl>http://pbs.twimg.com/profile_images/482670411402858496/Xrtdc94q_normal.png</iconUrl>
