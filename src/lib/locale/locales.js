@@ -64,7 +64,8 @@ function chooseLocale(names) {
 
 function loadLocale(name) {
     var oldLocale = null,
-        aliasedRequire;
+        aliasedRequire,
+        localePath;
     // TODO: Find a better way to register and load all the locales in Node
     if (
         locales[name] === undefined &&
@@ -75,11 +76,10 @@ function loadLocale(name) {
         try {
             oldLocale = globalLocale._abbr;
             aliasedRequire = require;
-            aliasedRequire(
-                (typeof __dirname !== undefined ? __dirname : '.') +
-                    '/locale/' +
-                    name
-            );
+            localePath = (typeof __dirname !== 'undefined' ? __dirname : '.') +
+                '/locale/' +
+                name;
+            aliasedRequire(localePath);
             getSetGlobalLocale(oldLocale);
         } catch (e) {
             // mark as not found to avoid repeating expensive file require call causing high CPU
