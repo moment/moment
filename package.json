@@ -82,6 +82,7 @@
         "files": [
             "moment.js",
             "moment.d.ts",
+            "ts3.1-typings",
             "locale"
         ],
         "map": {
