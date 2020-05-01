@@ -37,7 +37,7 @@ module.exports = function (grunt) {
                 ],
             },
             bundleOpts = {
-                format: 'umd',
+                format: opts.format != null ? opts.format : 'umd',
                 name: opts.umdName != null ? opts.umdName : 'not_used',
             };
 
@@ -81,6 +81,7 @@ module.exports = function (grunt) {
             entry: entry,
             skipMoment: opts.skipMoment != null ? opts.skipMoment : false,
             umdName: umdName,
+            format: opts.format,
         }).then(function (code) {
             var fixed = header + code.split('\n').slice(skipLines).join('\n');
             if (opts.moveComments) {
@@ -192,6 +193,21 @@ module.exports = function (grunt) {
         })
             .then(function () {
                 grunt.log.ok('build/umd/moment.js');
+            })
+            .then(function () {
+                return transpile({
+                    base: 'src',
+                    entry: 'moment.js',
+                    umdName: 'moment',
+                    headerFile: 'templates/empty.js',
+                    target: 'build/esm/moment.js',
+                    format: 'es',
+                    skipLines: 0,
+                    moveComments: true,
+                });
+            })
+            .then(function () {
+                grunt.log.ok('build/esm/moment.js');
             })
             .then(function () {
                 return transpileMany({
