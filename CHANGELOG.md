@@ -1,6 +1,19 @@
 Changelog
 =========
 
+### 2.25.1
+
+* Release May 1, 2020
+
+This is a quick patch release to address some of the issues raised after
+releasing 2.25.0.
+
+* [2e268635](https://github.com/moment/moment/commit/2e268635) [misc] Revert #5269 due to webpack warning
+* [226799e1](https://github.com/moment/moment/commit/226799e1) [locale] fil: Fix metadata comment
+* [a83a521](https://github.com/moment/moment/commit/a83a521) [bugfix] Fix typeoff usages
+* [e324334](https://github.com/moment/moment/commit/e324334) [pkg] Add ts3.1-typings in npm package
+* [28cc23e](https://github.com/moment/moment/commit/28cc23e) [misc] Remove deleted generated locale en-SG
+
 ### 2.25.0 [See full changelog](https://gist.github.com/ichernev/6148e64df2427e455b10ce6a18de1a65)
 
 * Release May 1, 2020
