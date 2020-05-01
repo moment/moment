@@ -41,6 +41,7 @@ cp -r $src/src $dest && rm -r $dest/src/test
 cp $src/ender.js $dest
 cp $src/package.js $dest
 cp $src/.npmignore $dest
+cp -r $src/ts3.1-typings $dest
 
 rm -rf $src
 
