@@ -24,7 +24,6 @@
     ],
     "main": "./moment.js",
     "jsnext:main": "./src/moment.js",
-    "module": "./src/moment.js",
     "typings": "./moment.d.ts",
     "typesVersions": {
         ">=3.1": {
