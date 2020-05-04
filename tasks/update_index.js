@@ -11,6 +11,22 @@ module.exports = function (grunt) {
         ],
         dest: '.',
     });
+    grunt.config('copy.esm', {
+        expand: true,
+        cwd: 'build/esm',
+        src: ['moment.js'],
+        dest: 'dist',
+    });
+    grunt.config('copy.esm-locales', {
+        expand: true,
+        cwd: 'src',
+        src: ['locale/*.js'],
+        dest: 'dist',
+    });
 
-    grunt.registerTask('update-index', ['copy:index-files']);
+    grunt.registerTask('update-index', [
+        'copy:index-files',
+        'copy:esm',
+        'copy:esm-locales',
+    ]);
 };
