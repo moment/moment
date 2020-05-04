@@ -5614,7 +5614,7 @@
 
     //! moment.js
 
-    hooks.version = '2.25.1';
+    hooks.version = '2.25.2';
 
     setHookCallback(createLocal);
 
@@ -7988,6 +7988,13 @@
 
     //! moment.js locale configuration
 
+    function isFunction$1(input) {
+        return (
+            (typeof Function !== 'undefined' && input instanceof Function) ||
+            Object.prototype.toString.call(input) === '[object Function]'
+        );
+    }
+
     hooks.defineLocale('el', {
         monthsNominativeEl: 'Ιανουάριος_Φεβρουάριος_Μάρτιος_Απρίλιος_Μάιος_Ιούνιος_Ιούλιος_Αύγουστος_Σεπτέμβριος_Οκτώβριος_Νοέμβριος_Δεκέμβριος'.split(
             '_'
@@ -8051,7 +8058,7 @@
         calendar: function (key, mom) {
             var output = this._calendarEl[key],
                 hours = mom && mom.hours();
-            if (isFunction(output)) {
+            if (isFunction$1(output)) {
                 output = output.apply(mom);
             }
             return output.replace('{}', hours % 12 === 1 ? 'στη' : 'στις');

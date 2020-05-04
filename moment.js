@@ -1,5 +1,5 @@
 //! moment.js
-//! version : 2.25.1
+//! version : 2.25.2
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -5620,7 +5620,7 @@
 
     //! moment.js
 
-    hooks.version = '2.25.1';
+    hooks.version = '2.25.2';
 
     setHookCallback(createLocal);
 
