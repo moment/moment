@@ -7,16 +7,12 @@
         <owners>Cory Deppen, Iskren Chernev</owners>
         <description>A lightweight JavaScript date library for parsing, manipulating, and formatting dates.</description>
         <releaseNotes>
-            * Release May 1, 2020
+            * Release May 4, 2020
 
-            This is a quick patch release to address some of the issues raised after
-            releasing 2.25.0.
-
-            * 2e268635 [misc] Revert #5269 due to webpack warning
-            * 226799e1 [locale] fil: Fix metadata comment
-            * 1a83a521 [bugfix] Fix typeoff usages
-            * 6e324334 [pkg] Add ts3.1-typings in npm package
-            * 728cc23e [misc] Remove deleted generated locale en-SG
+            This release includes ES Module bundled moment, separate from it's source code
+            under dist/ folder. This might alleviate issues with finding the `./locale
+            subfolder for loading locales. This might also mean now webpack will bundle all
+            locales automatically, unless told otherwise.
         </releaseNotes>
         <projectUrl>http://momentjs.com/</projectUrl>
         <iconUrl>http://pbs.twimg.com/profile_images/482670411402858496/Xrtdc94q_normal.png</iconUrl>

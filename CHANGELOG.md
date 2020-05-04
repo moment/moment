@@ -1,6 +1,15 @@
 Changelog
 =========
 
+### 2.25.2
+
+* Release May 4, 2020
+
+This release includes ES Module bundled moment, separate from it's source code
+under dist/ folder. This might alleviate issues with finding the `./locale
+subfolder for loading locales. This might also mean now webpack will bundle all
+locales automatically, unless told otherwise.
+
 ### 2.25.1
 
 * Release May 1, 2020
