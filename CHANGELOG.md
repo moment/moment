@@ -1,6 +1,13 @@
 Changelog
 =========
 
+### 2.25.3
+
+* Release May 4, 2020
+
+Remove package.json module property. It looks like webpack behaves differently
+for modules loaded via module vs jsnext:main.
+
 ### 2.25.2
 
 * Release May 4, 2020
