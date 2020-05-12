@@ -52,7 +52,7 @@ export default moment.defineLocale('mk', {
         M : '1 месец',
         MM : '%d месеци',
         y : '1 година',
-        yy : '%d години'
+        yy : '%d години',
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(ев|ен|ти|ви|ри|ми)/,
     ordinal : function (number) {
