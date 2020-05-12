@@ -154,12 +154,12 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ s: 45 }), true),
-        'една минута',
+        '1 минута',
         '45 seconds = a minute'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ s: 89 }), true),
-        'една минута',
+        '1 минута',
         '89 seconds = a minute'
     );
     assert.equal(
@@ -174,12 +174,12 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ m: 45 }), true),
-        'еден час',
+        '1 час',
         '45 minutes = an hour'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ m: 89 }), true),
-        'еден час',
+        '1 час',
         '89 minutes = an hour'
     );
     assert.equal(
@@ -204,7 +204,7 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ h: 35 }), true),
-        'еден ден',
+        '1 ден',
         '35 hours = a day'
     );
     assert.equal(
@@ -214,7 +214,7 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ d: 1 }), true),
-        'еден ден',
+        '1 ден',
         '1 day = a day'
     );
     assert.equal(
@@ -229,17 +229,17 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ d: 26 }), true),
-        'еден месец',
+        '1 месец',
         '26 days = a month'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ d: 30 }), true),
-        'еден месец',
+        '1 месец',
         '30 days = a month'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ d: 43 }), true),
-        'еден месец',
+        '1 месец',
         '43 days = a month'
     );
     assert.equal(
@@ -279,7 +279,7 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ y: 1 }), true),
-        'една година',
+        '1 година',
         '1 year = a year'
     );
     assert.equal(
@@ -378,12 +378,12 @@ test('calendar last week', function (assert) {
             case 0:
             case 3:
             case 6:
-                return '[Изминатата] dddd [во] LT';
+                return '[Минатата] dddd [во] LT';
             case 1:
             case 2:
             case 4:
             case 5:
-                return '[Изминатиот] dddd [во] LT';
+                return '[Минатиот] dddd [во] LT';
         }
     }
 
