@@ -2199,11 +2199,18 @@ test('strict parsing', function (assert) {
     );
     assert.equal(
         moment('2012-05-25', 'YYYY-M-DD', true).isValid(),
+        false,
+        'valid one-digit month'
+    );
+
+    assert.equal(
+        moment('2012-05-25', 'YYYY-MM-DD', true).isValid(),
         true,
         'valid one-digit month'
     );
+
     assert.equal(
-        moment('2012-05-25', 'YYYY-MM-DD', true).isValid(),
+        moment('2012-11-25', 'YYYY-M-DD', true).isValid(),
         true,
         'valid one-digit month'
     );
@@ -2219,12 +2226,18 @@ test('strict parsing', function (assert) {
         'invalid one-digit day'
     );
     assert.equal(
-        moment('2012-05-02', 'YYYY-MM-D', true).isValid(),
+        moment('2012-05-02', 'YYYY-MM-DD', true).isValid(),
         true,
         'valid two-digit day'
     );
     assert.equal(
         moment('2012-05-02', 'YYYY-MM-DD', true).isValid(),
+        true,
+        'valid two-digit day'
+    );
+
+    assert.equal(
+        moment('2012-05-12', 'YYYY-MM-D', true).isValid(),
         true,
         'valid two-digit day'
     );
@@ -2239,6 +2252,90 @@ test('strict parsing', function (assert) {
         false,
         'invalid four-digit year'
     );
+
+    assert.equal(
+        moment('2002-05-02 09:30:26', 'YYYY-MM-DD H:mm:ss', true).isValid(),
+        false,
+        'invalid two-digit hour'
+    )
+
+    assert.equal(
+        moment('2002-05-02 11:30:26', 'YYYY-MM-DD H:mm:ss', true).isValid(),
+        true,
+        'valid two-digit hour'
+    )
+
+    assert.equal(
+        moment('2002-05-02 09:30:26', 'YYYY-MM-DD h:mm:ss', true).isValid(),
+        false,
+        'invalid two-digit hour'
+    )
+
+    assert.equal(
+        moment('2002-05-02 11:30:26', 'YYYY-MM-DD h:mm:ss', true).isValid(),
+        true,
+        'valid two-digit hour'
+    )
+
+    assert.equal(
+        moment('2002-05-02 09:30:26', 'YYYY-MM-DD k:mm:ss', true).isValid(),
+        false,
+        'invalid two-digit hour'
+    )
+
+    assert.equal(
+        moment('2002-05-02 11:30:26', 'YYYY-MM-DD k:mm:ss', true).isValid(),
+        true,
+        'valid two-digit hour'
+    )
+
+    assert.equal(
+        moment('2002-05-02 11:09:26', 'YYYY-MM-DD hh:m:ss', true).isValid(),
+        false,
+        'invalid two-digit minute'
+    )
+
+    assert.equal(
+        moment('2002-05-02 11:12:26', 'YYYY-MM-DD hh:m:ss', true).isValid(),
+        true,
+        'valid two-digit minute'
+    )
+
+    assert.equal(
+        moment('2002-05-02 11:09:06', 'YYYY-MM-DD hh:mm:s', true).isValid(),
+        false,
+        'invalid two-digit second'
+    )
+
+    assert.equal(
+        moment('2002-05-02 11:09:16', 'YYYY-MM-DD hh:mm:s', true).isValid(),
+        true,
+        'valid two-digit second'
+    )
+
+    assert.equal(
+        moment('2012-W07', 'YYYY-[W]W', true).isValid(),
+        false,
+        'invalid two-digit week'
+    )
+
+    assert.equal(
+        moment('2012-W17', 'YYYY-[W]W', true).isValid(),
+        true,
+        'valid two-digit week'
+    )
+
+    assert.equal(
+        moment('2012-W07', 'YYYY-[W]w', true).isValid(),
+        false,
+        'invalid two-digit week'
+    )
+
+    assert.equal(
+        moment('2012-W17', 'YYYY-[W]w', true).isValid(),
+        true,
+        'valid two-digit week'
+    )
 
     //thse are kinda pointless, but they should work as expected
     assert.equal(
