@@ -110,14 +110,8 @@ export function defineCommonLocaleTests(locale, options) {
             var r;
             r = moment(m.format(format), format);
             assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
-            if (locale !== 'ka') {
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(
-                    r.month(),
-                    m.month(),
-                    'month ' + i + ' fmt ' + format + ' upper'
-                );
-            }
+            r = moment(m.format(format).toLocaleUpperCase(), format);
+            assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper');
             r = moment(m.format(format).toLocaleLowerCase(), format);
             assert.equal(
                 r.month(),
@@ -126,19 +120,9 @@ export function defineCommonLocaleTests(locale, options) {
             );
 
             r = moment(m.format(format), format, true);
-            assert.equal(
-                r.month(),
-                m.month(),
-                'month ' + i + ' fmt ' + format + ' strict'
-            );
-            if (locale !== 'ka') {
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(
-                    r.month(),
-                    m.month(),
-                    'month ' + i + ' fmt ' + format + ' upper strict'
-                );
-            }
+            assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' strict');
+            r = moment(m.format(format).toLocaleUpperCase(), format, true);
+            assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format + ' upper strict');
             r = moment(m.format(format).toLocaleLowerCase(), format, true);
             assert.equal(
                 r.month(),
@@ -185,22 +169,14 @@ export function defineCommonLocaleTests(locale, options) {
                     m.toISOString();
             r = moment(m.format(format), format);
             assert.equal(r.weekday(), m.weekday(), baseMsg);
-            if (locale !== 'ka') {
-                r = moment(m.format(format).toLocaleUpperCase(), format);
-                assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
-            }
+            r = moment(m.format(format).toLocaleUpperCase(), format);
+            assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
             r = moment(m.format(format).toLocaleLowerCase(), format);
             assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
             r = moment(m.format(format), format, true);
             assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
-            if (locale !== 'ka') {
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
-                assert.equal(
-                    r.weekday(),
-                    m.weekday(),
-                    baseMsg + ' upper strict'
-                );
-            }
+            r = moment(m.format(format).toLocaleUpperCase(), format, true);
+            assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper strict');
             r = moment(m.format(format).toLocaleLowerCase(), format, true);
             assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
         }
