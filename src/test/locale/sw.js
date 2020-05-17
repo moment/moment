@@ -209,7 +209,7 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ h: 36 }), true),
-        'masiku 2',
+        'siku 2',
         '36 hours = 2 days'
     );
     assert.equal(
@@ -219,12 +219,12 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ d: 5 }), true),
-        'masiku 5',
+        'siku 5',
         '5 days = 5 days'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ d: 25 }), true),
-        'masiku 25',
+        'siku 25',
         '25 days = 25 days'
     );
     assert.equal(
@@ -310,7 +310,7 @@ test('fromNow', function (assert) {
     );
     assert.equal(
         moment().add({ d: 5 }).fromNow(),
-        'masiku 5 baadaye',
+        'siku 5 baadaye',
         'in 5 days'
     );
 });
