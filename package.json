@@ -47,7 +47,7 @@
         "benchmark": "latest",
         "coveralls": "latest",
         "es6-promise": "latest",
-        "eslint": "latest",
+        "eslint": "~6",
         "grunt": "latest",
         "grunt-benchmark": "latest",
         "grunt-cli": "latest",
