@@ -17,7 +17,7 @@ var suffixes = {
     3: "'ünjü",
     4: "'ünji",
     100: "'ünji",
-    6: "'ncy",
+    6: "'njy",
     9: "'unjy",
     10: "'unjy",
     30: "'unjy",
@@ -47,7 +47,7 @@ export default moment.defineLocale('tk', {
         sameDay: '[bugün sagat] LT',
         nextDay: '[ertir sagat] LT',
         nextWeek: '[indiki] dddd [sagat] LT',
-        lastDay: '[düyn] LT',
+        lastDay: '[düýn] LT',
         lastWeek: '[geçen] dddd [sagat] LT',
         sameElse: 'L',
     },
@@ -76,7 +76,7 @@ export default moment.defineLocale('tk', {
             default:
                 if (number === 0) {
                     // special case for zero
-                    return number + "'inji";
+                    return number + "'unjy";
                 }
                 var a = number % 10,
                     b = (number % 100) - a,
