@@ -139,6 +139,9 @@ moment().isoWeeks();
 moment().isoWeeks(45);
 moment().dayOfYear();
 moment().dayOfYear(45);
+moment().weeksInYear();
+moment().isoWeeksInYear();
+moment().isoWeeksInISOWeekYear();
 
 moment().set('year', 2013);
 moment().set('month', 3);  // April

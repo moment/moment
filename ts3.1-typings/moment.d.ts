@@ -543,6 +543,7 @@ declare namespace moment {
     isoWeeks(d: number): Moment;
     weeksInYear(): number;
     isoWeeksInYear(): number;
+    isoWeeksInISOWeekYear(): number;
     dayOfYear(): number;
     dayOfYear(d: number): Moment;
 
