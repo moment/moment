@@ -178,23 +178,22 @@ declare namespace moment {
     milliseconds: number;
   }
 
-  interface HumanizeOptions {
-    withSuffix?: boolean;
-    thresholds?: {
-      ss?: number;
-      s?: number;
-      m?: number;
-      h?: number;
-      d?: number;
-      w?: number | void;
-      M?: number;
-    };
+  interface argThresholdOpts {
+    ss?: number;
+    s?: number;
+    m?: number;
+    h?: number;
+    d?: number;
+    w?: number | void;
+    M?: number;
   }
 
   interface Duration {
     clone(): Duration;
 
-    humanize(withSuffixOrOptions?: boolean | HumanizeOptions): string;
+    humanize(argWithSuffix?: boolean, argThresholds?: argThresholdOpts): string;
+    
+    humanize(argThresholds?: argThresholdOpts): string;
 
     abs(): Duration;
 
