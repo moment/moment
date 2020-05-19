@@ -1,0 +1,21 @@
+{
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 6
+    },
+    "rules": {
+        "no-console": 0,
+        "no-empty": [2, { "allowEmptyCatch": true }],
+        "no-unused-vars": ["error", { "args": "none" }],
+        "no-useless-escape": 0,
+        "one-var": 2
+    },
+    "globals": {
+        "Symbol": "readonly"
+    }
+}
