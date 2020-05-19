@@ -42,6 +42,22 @@ test('parse', function (assert) {
         equalTestStrict(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
         equalTestStrict(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
     }
+
+    // check with regular quote mark
+    var monthsWithRegularQuoteMark = ["C'hwevrer", "C'hwe"];
+    equalTest(monthsWithRegularQuoteMark[0], 'MMM', 1);
+    equalTest(monthsWithRegularQuoteMark[1], 'MMM', 1);
+    equalTest(monthsWithRegularQuoteMark[0], 'MMMM', 1);
+    equalTest(monthsWithRegularQuoteMark[1], 'MMMM', 1);
+    equalTest(monthsWithRegularQuoteMark[0].toLocaleLowerCase(), 'MMM', 1);
+    equalTest(monthsWithRegularQuoteMark[1].toLocaleLowerCase(), 'MMM', 1);
+    equalTest(monthsWithRegularQuoteMark[0].toLocaleUpperCase(), 'MMMM', 1);
+    equalTest(monthsWithRegularQuoteMark[1].toLocaleUpperCase(), 'MMMM', 1);
+
+    equalTestStrict(monthsWithRegularQuoteMark[1], 'MMM', 1);
+    equalTest(monthsWithRegularQuoteMark[0], 'MMMM', 1);
+    equalTest(monthsWithRegularQuoteMark[1].toLocaleLowerCase(), 'MMM', 1);
+    equalTest(monthsWithRegularQuoteMark[0].toLocaleUpperCase(), 'MMMM', 1);
 });
 
 test('format', function (assert) {

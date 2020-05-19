@@ -49,26 +49,12 @@ function softMutation(text) {
 }
 
 var monthsParse = [
-        /^genver/i,
-        /^c[ʼ\']hwevrer/i,
-        /^meurzh/i,
-        /^ebrel/i,
-        /^mae/i,
-        /^mezheven/i,
-        /^gouere/i,
-        /^eost/i,
-        /^gwengolo/i,
-        /^here/i,
-        /^du/i,
-        /^kerzu/i,
-    ],
-    monthsShortParse = [
         /^gen/i,
         /^c[ʼ\']hwe/i,
         /^meu/i,
         /^ebr/i,
         /^mae/i,
-        /^eve/i,
+        /^[mez|eve]/i,
         /^gou/i,
         /^eos/i,
         /^gwe/i,
@@ -76,6 +62,9 @@ var monthsParse = [
         /^du/i,
         /^ker/i,
     ],
+    monthsRegex = /^(genver|c[ʼ\']hwevrer|meurzh|ebrel|mae|mezheven|gouere|eost|gwengolo|here|du|kerzu|gen|c[ʼ\']hwe|meu|ebr|mae|eve|gou|eos|gwe|her|du|ker)/i,
+    monthsStrictRegex = /^(genver|c[ʼ\']hwevrer|meurzh|ebrel|mae|mezheven|gouere|eost|gwengolo|here|du|kerzu)/i,
+    monthsShortStrictRegex = /^(gen|c[ʼ\']hwe|meu|ebr|mae|eve|gou|eos|gwe|her|du|ker)/i,
     weekdaysParse = [
         /^sul/i,
         /^lun/i,
@@ -95,9 +84,17 @@ export default moment.defineLocale('br', {
     weekdaysShort: 'Sul_Lun_Meu_Mer_Yao_Gwe_Sad'.split('_'),
     weekdaysMin: 'Su_Lu_Me_Mer_Ya_Gw_Sa'.split('_'),
     weekdaysParseExact: true,
+
+    monthsRegex: monthsRegex,
+    monthsShortRegex: monthsRegex,
+    monthsStrictRegex: monthsStrictRegex,
+    monthsShortStrictRegex: monthsShortStrictRegex,
     monthsParse: monthsParse,
-    monthsShortParse: monthsShortParse,
-    weekdaysParse: weekdaysParse,
+    longMonthsParse: monthsParse,
+    monthsShortParse: monthsParse,
+
+    // todo change later if it works
+    // weekdaysParse: weekdaysParse,
 
     longDateFormat: {
         LT: 'HH:mm',
