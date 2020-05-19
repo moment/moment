@@ -17,14 +17,6 @@ test('parse', function (assert) {
         );
     }
 
-    function equalTestStrict(input, mmm, monthIndex) {
-        assert.equal(
-            moment(input, mmm, true).month(),
-            monthIndex,
-            input + ' ' + mmm + ' should be strict month ' + (monthIndex + 1)
-        );
-    }
-
     for (i = 0; i < 12; i++) {
         tests[i] = tests[i].split(',');
         equalTest(tests[i][0], '[tháng] M', i);
