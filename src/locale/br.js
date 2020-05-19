@@ -49,45 +49,47 @@ function softMutation(text) {
 }
 
 var monthsParse = [
-    /^genver/i,
-    /^c[ʼ\']hwevrer/i,
-    /^meurzh/i,
-    /^ebrel/i,
-    /^mae/i,
-    /^mezheven/i,
-    /^gouere/i,
-    /^eost/i,
-    /^gwengolo/i,
-    /^here/i,
-    /^du/i,
-    /^kerzu/i
-],
+        /^genver/i,
+        /^c[ʼ\']hwevrer/i,
+        /^meurzh/i,
+        /^ebrel/i,
+        /^mae/i,
+        /^mezheven/i,
+        /^gouere/i,
+        /^eost/i,
+        /^gwengolo/i,
+        /^here/i,
+        /^du/i,
+        /^kerzu/i,
+    ],
     monthsShortParse = [
-    /^gen/i,
-    /^c[ʼ\']hwe/i,
-    /^meu/i,
-    /^ebr/i,
-    /^mae/i,
-    /^eve/i,
-    /^gou/i,
-    /^eos/i,
-    /^gwe/i,
-    /^her/i,
-    /^du/i,
-    /^ker/i
-],
+        /^gen/i,
+        /^c[ʼ\']hwe/i,
+        /^meu/i,
+        /^ebr/i,
+        /^mae/i,
+        /^eve/i,
+        /^gou/i,
+        /^eos/i,
+        /^gwe/i,
+        /^her/i,
+        /^du/i,
+        /^ker/i,
+    ],
     weekdaysParse = [
-    /^sul/i,
-    /^lun/i,
-    /^meurzh/i,
-    /^merc[ʼ\']her/i,
-    /^yaou/i,
-    /^gwener/i,
-    /^sadorn/i
-];
+        /^sul/i,
+        /^lun/i,
+        /^meurzh/i,
+        /^merc[ʼ\']her/i,
+        /^yaou/i,
+        /^gwener/i,
+        /^sadorn/i,
+    ];
 
 export default moment.defineLocale('br', {
-    months: 'Genver_Cʼhwevrer_Meurzh_Ebrel_Mae_Mezheven_Gouere_Eost_Gwengolo_Here_Du_Kerzu'.split('_'),
+    months: 'Genver_Cʼhwevrer_Meurzh_Ebrel_Mae_Mezheven_Gouere_Eost_Gwengolo_Here_Du_Kerzu'.split(
+        '_'
+    ),
     monthsShort: 'Gen_Cʼhwe_Meu_Ebr_Mae_Eve_Gou_Eos_Gwe_Her_Du_Ker'.split('_'),
     weekdays: 'Sul_Lun_Meurzh_Mercʼher_Yaou_Gwener_Sadorn'.split('_'),
     weekdaysShort: 'Sul_Lun_Meu_Mer_Yao_Gwe_Sad'.split('_'),
@@ -95,15 +97,15 @@ export default moment.defineLocale('br', {
     weekdaysParseExact: true,
     monthsParse: monthsParse,
     monthsShortParse: monthsShortParse,
-    weekdaysParse: weekdaysParse ,
-    
+    weekdaysParse: weekdaysParse,
+
     longDateFormat: {
         LT: 'HH:mm',
         LTS: 'HH:mm:ss',
         L: 'DD/MM/YYYY',
         LL: 'D [a viz] MMMM YYYY',
         LLL: 'D [a viz] MMMM YYYY HH:mm',
-        LLLL: 'dddd, D [a viz] MMMM YYYY HH:mm'
+        LLLL: 'dddd, D [a viz] MMMM YYYY HH:mm',
     },
     calendar: {
         sameDay: '[Hiziv da] LT',
@@ -111,7 +113,7 @@ export default moment.defineLocale('br', {
         nextWeek: 'dddd [da] LT',
         lastDay: '[Decʼh da] LT',
         lastWeek: 'dddd [paset da] LT',
-        sameElse: 'L'
+        sameElse: 'L',
     },
     relativeTime: {
         future: 'a-benn %s',
@@ -127,7 +129,7 @@ export default moment.defineLocale('br', {
         M: 'ur miz',
         MM: relativeTimeWithMutation,
         y: 'ur bloaz',
-        yy: specialMutationForYears
+        yy: specialMutationForYears,
     },
     dayOfMonthOrdinalParse: /\d{1,2}(añ|vet)/,
     ordinal: function (number) {
@@ -136,7 +138,7 @@ export default moment.defineLocale('br', {
     },
     week: {
         dow: 1, // Monday is the first day of the week.
-        doy: 4  // The week that contains Jan 4th is the first week of the year.
+        doy: 4, // The week that contains Jan 4th is the first week of the year.
     },
     meridiemParse: /a.m.|g.m./, // goude merenn | a-raok merenn
     isPM: function (token) {
@@ -144,5 +146,5 @@ export default moment.defineLocale('br', {
     },
     meridiem: function (hour, minute, isLower) {
         return hour < 12 ? 'a.m.' : 'g.m.';
-    }
+    },
 });
