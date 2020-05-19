@@ -61,8 +61,8 @@ var monthsParse = [
     /^here/i,
     /^du/i,
     /^kerzu/i
-];
-var monthsShortParse = [
+],
+    monthsShortParse = [
     /^gen/i,
     /^c[ʼ\']hwe/i,
     /^meu/i,
@@ -75,8 +75,8 @@ var monthsShortParse = [
     /^her/i,
     /^du/i,
     /^ker/i
-];
-var weekdaysParse = [
+],
+    weekdaysParse = [
     /^sul/i,
     /^lun/i,
     /^meurzh/i,
