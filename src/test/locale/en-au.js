@@ -455,7 +455,8 @@ test('Weekdays sort by locale', function (assert) {
     assert.deepEqual(
         moment().localeData('en-au').weekdays(true),
         'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
-        'locale-sorted weekdays start on Sunday');
+        'locale-sorted weekdays start on Sunday'
+    );
     assert.deepEqual(
         moment().localeData('en-au').weekdaysShort(),
         'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
@@ -464,7 +465,8 @@ test('Weekdays sort by locale', function (assert) {
     assert.deepEqual(
         moment().localeData('en-au').weekdaysShort(true),
         'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
-        'locale-sorted weekdaysShort start on Sunday');
+        'locale-sorted weekdaysShort start on Sunday'
+    );
     assert.deepEqual(
         moment().localeData('en-au').weekdaysMin(),
         'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
@@ -473,5 +475,6 @@ test('Weekdays sort by locale', function (assert) {
     assert.deepEqual(
         moment().localeData('en-au').weekdaysMin(true),
         'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
-        'locale-sorted weekdaysMin start on Sunday');
+        'locale-sorted weekdaysMin start on Sunday'
+    );
 });
