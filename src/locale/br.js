@@ -54,7 +54,7 @@ var monthsParse = [
         /^meu/i,
         /^ebr/i,
         /^mae/i,
-        /^[mez|eve]/i,
+        /^(mez|eve)/i,
         /^gou/i,
         /^eos/i,
         /^gwe/i,
@@ -91,7 +91,7 @@ export default moment.defineLocale('br', {
     monthsShortStrictRegex: monthsShortStrictRegex,
     monthsParse: monthsParse,
     longMonthsParse: monthsParse,
-    monthsShortParse: monthsParse,
+    shortMonthsParse: monthsParse,
 
     // todo change later if it works
     // weekdaysParse: weekdaysParse,
