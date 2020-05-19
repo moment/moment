@@ -39,13 +39,6 @@
         weekdays : 'Pazar_Pazartesi_Salı_Çarşamba_Perşembe_Cuma_Cumartesi'.split('_'),
         weekdaysShort : 'Paz_Pts_Sal_Çar_Per_Cum_Cts'.split('_'),
         weekdaysMin : 'Pz_Pt_Sa_Ça_Pe_Cu_Ct'.split('_'),
-        meridiem: function(hours, minutes, isLower) {
-          if (hours < 12) {
-            return isLower ? 'öö' : 'ÖÖ';
-          } else {
-            return isLower ? 'ös' : 'ÖS';
-          }
-        },
         longDateFormat : {
             LT : 'HH:mm',
             LTS : 'HH:mm:ss',
