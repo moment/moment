@@ -4,11 +4,61 @@ import moment from '../../moment';
 module('listers');
 
 test('default', function (assert) {
-    assert.deepEqual(moment.months(), ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']);
-    assert.deepEqual(moment.monthsShort(), ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']);
-    assert.deepEqual(moment.weekdays(), ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
-    assert.deepEqual(moment.weekdaysShort(), ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']);
-    assert.deepEqual(moment.weekdaysMin(), ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']);
+    assert.deepEqual(moment.months(), [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+    ]);
+    assert.deepEqual(moment.monthsShort(), [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+    ]);
+    assert.deepEqual(moment.weekdays(), [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+    ]);
+    assert.deepEqual(moment.weekdaysShort(), [
+        'Sun',
+        'Mon',
+        'Tue',
+        'Wed',
+        'Thu',
+        'Fri',
+        'Sat',
+    ]);
+    assert.deepEqual(moment.weekdaysMin(), [
+        'Su',
+        'Mo',
+        'Tu',
+        'We',
+        'Th',
+        'Fr',
+        'Sa',
+    ]);
 });
 
 test('index', function (assert) {
@@ -25,7 +75,9 @@ test('index', function (assert) {
 });
 
 test('localized', function (assert) {
-    var months = 'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split('_'),
+    var months = 'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split(
+            '_'
+        ),
         monthsShort = 'on_tw_th_fo_fi_si_se_ei_ni_te_el_tw'.split('_'),
         weekdays = 'one_two_three_four_five_six_seven'.split('_'),
         weekdaysShort = 'on_tw_th_fo_fi_si_se'.split('_'),
@@ -34,17 +86,17 @@ test('localized', function (assert) {
         weekdaysShortLocale = 'fo_fi_si_se_on_tw_th'.split('_'),
         weekdaysMinLocale = '4_5_6_7_1_2_3'.split('_'),
         week = {
-            dow : 3,
-            doy : 6
+            dow: 3,
+            doy: 6,
         };
 
     moment.locale('numerologists', {
-        months : months,
-        monthsShort : monthsShort,
-        weekdays : weekdays,
+        months: months,
+        monthsShort: monthsShort,
+        weekdays: weekdays,
         weekdaysShort: weekdaysShort,
         weekdaysMin: weekdaysMin,
-        week : week
+        week: week,
     });
 
     assert.deepEqual(moment.months(), months);
@@ -79,15 +131,18 @@ test('localized', function (assert) {
 });
 
 test('with functions', function (assert) {
-    var monthsShort = 'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split('_'),
-        monthsShortWeird = 'onesy_twosy_threesy_foursy_fivesy_sixsy_sevensy_eightsy_ninesy_tensy_elevensy_twelvesy'.split('_');
+    var monthsShort = 'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split(
+            '_'
+        ),
+        monthsShortWeird = 'onesy_twosy_threesy_foursy_fivesy_sixsy_sevensy_eightsy_ninesy_tensy_elevensy_twelvesy'.split(
+            '_'
+        );
 
     moment.locale('difficult', {
-
         monthsShort: function (m, format) {
             var arr = format.match(/-MMM-/) ? monthsShortWeird : monthsShort;
             return arr[m.month()];
-        }
+        },
     });
 
     assert.deepEqual(moment.monthsShort(), monthsShort);
@@ -100,20 +155,14 @@ test('with functions', function (assert) {
 });
 
 test('with locale data', function (assert) {
-    var months = 'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split('_'),
+    var months = 'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split(
+            '_'
+        ),
         monthsShort = 'on_tw_th_fo_fi_si_se_ei_ni_te_el_tw'.split('_'),
         weekdays = 'one_two_three_four_five_six_seven'.split('_'),
         weekdaysShort = 'on_tw_th_fo_fi_si_se'.split('_'),
         weekdaysMin = '1_2_3_4_5_6_7'.split('_'),
-        weekdaysLocale = 'four_five_six_seven_one_two_three'.split('_'),
-        weekdaysShortLocale = 'fo_fi_si_se_on_tw_th'.split('_'),
-        weekdaysMinLocale = '4_5_6_7_1_2_3'.split('_'),
-        week = {
-            dow : 3,
-            doy : 6
-        };
-
-    var customLocale = moment.localeData('numerologists');
+        customLocale = moment.localeData('numerologists');
 
     assert.deepEqual(customLocale.months(), months);
     assert.deepEqual(customLocale.monthsShort(), monthsShort);

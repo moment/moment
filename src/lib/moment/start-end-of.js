@@ -1,14 +1,14 @@
 import { normalizeUnits } from '../units/aliases';
 import { hooks } from '../utils/hooks';
 
-var MS_PER_SECOND = 1000;
-var MS_PER_MINUTE = 60 * MS_PER_SECOND;
-var MS_PER_HOUR = 60 * MS_PER_MINUTE;
-var MS_PER_400_YEARS = (365 * 400 + 97) * 24 * MS_PER_HOUR;
+var MS_PER_SECOND = 1000,
+    MS_PER_MINUTE = 60 * MS_PER_SECOND,
+    MS_PER_HOUR = 60 * MS_PER_MINUTE,
+    MS_PER_400_YEARS = (365 * 400 + 97) * 24 * MS_PER_HOUR;
 
 // actual modulo - handles negative numbers (for dates before 1970):
 function mod(dividend, divisor) {
-    return (dividend % divisor + divisor) % divisor;
+    return ((dividend % divisor) + divisor) % divisor;
 }
 
 function localStartOfDate(y, m, d) {
@@ -31,30 +31,42 @@ function utcStartOfDate(y, m, d) {
     }
 }
 
-export function startOf (units) {
-    var time;
+export function startOf(units) {
+    var time, startOfDate;
     units = normalizeUnits(units);
     if (units === undefined || units === 'millisecond' || !this.isValid()) {
         return this;
     }
 
-    var startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
+    startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
 
     switch (units) {
         case 'year':
             time = startOfDate(this.year(), 0, 1);
             break;
         case 'quarter':
-            time = startOfDate(this.year(), this.month() - this.month() % 3, 1);
+            time = startOfDate(
+                this.year(),
+                this.month() - (this.month() % 3),
+                1
+            );
             break;
         case 'month':
             time = startOfDate(this.year(), this.month(), 1);
             break;
         case 'week':
-            time = startOfDate(this.year(), this.month(), this.date() - this.weekday());
+            time = startOfDate(
+                this.year(),
+                this.month(),
+                this.date() - this.weekday()
+            );
             break;
         case 'isoWeek':
-            time = startOfDate(this.year(), this.month(), this.date() - (this.isoWeekday() - 1));
+            time = startOfDate(
+                this.year(),
+                this.month(),
+                this.date() - (this.isoWeekday() - 1)
+            );
             break;
         case 'day':
         case 'date':
@@ -62,7 +74,10 @@ export function startOf (units) {
             break;
         case 'hour':
             time = this._d.valueOf();
-            time -= mod(time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE), MS_PER_HOUR);
+            time -= mod(
+                time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE),
+                MS_PER_HOUR
+            );
             break;
         case 'minute':
             time = this._d.valueOf();
@@ -79,30 +94,45 @@ export function startOf (units) {
     return this;
 }
 
-export function endOf (units) {
-    var time;
+export function endOf(units) {
+    var time, startOfDate;
     units = normalizeUnits(units);
     if (units === undefined || units === 'millisecond' || !this.isValid()) {
         return this;
     }
 
-    var startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
+    startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
 
     switch (units) {
         case 'year':
             time = startOfDate(this.year() + 1, 0, 1) - 1;
             break;
         case 'quarter':
-            time = startOfDate(this.year(), this.month() - this.month() % 3 + 3, 1) - 1;
+            time =
+                startOfDate(
+                    this.year(),
+                    this.month() - (this.month() % 3) + 3,
+                    1
+                ) - 1;
             break;
         case 'month':
             time = startOfDate(this.year(), this.month() + 1, 1) - 1;
             break;
         case 'week':
-            time = startOfDate(this.year(), this.month(), this.date() - this.weekday() + 7) - 1;
+            time =
+                startOfDate(
+                    this.year(),
+                    this.month(),
+                    this.date() - this.weekday() + 7
+                ) - 1;
             break;
         case 'isoWeek':
-            time = startOfDate(this.year(), this.month(), this.date() - (this.isoWeekday() - 1) + 7) - 1;
+            time =
+                startOfDate(
+                    this.year(),
+                    this.month(),
+                    this.date() - (this.isoWeekday() - 1) + 7
+                ) - 1;
             break;
         case 'day':
         case 'date':
@@ -110,7 +140,13 @@ export function endOf (units) {
             break;
         case 'hour':
             time = this._d.valueOf();
-            time += MS_PER_HOUR - mod(time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE), MS_PER_HOUR) - 1;
+            time +=
+                MS_PER_HOUR -
+                mod(
+                    time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE),
+                    MS_PER_HOUR
+                ) -
+                1;
             break;
         case 'minute':
             time = this._d.valueOf();

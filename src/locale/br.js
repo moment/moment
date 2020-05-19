@@ -6,9 +6,9 @@ import moment from '../moment';
 
 function relativeTimeWithMutation(number, withoutSuffix, key) {
     var format = {
-        'mm': 'munutenn',
-        'MM': 'miz',
-        'dd': 'devezh'
+        mm: 'munutenn',
+        MM: 'miz',
+        dd: 'devezh',
     };
     return number + ' ' + mutation(format[key], number);
 }
@@ -38,9 +38,9 @@ function mutation(text, number) {
 }
 function softMutation(text) {
     var mutationTable = {
-        'm': 'v',
-        'b': 'v',
-        'd': 'z'
+        m: 'v',
+        b: 'v',
+        d: 'z',
     };
     if (mutationTable[text.charAt(0)] === undefined) {
         return text;
@@ -87,63 +87,62 @@ var weekdaysParse = [
 ];
 
 export default moment.defineLocale('br', {
-    months : 'Genver_Cʼhwevrer_Meurzh_Ebrel_Mae_Mezheven_Gouere_Eost_Gwengolo_Here_Du_Kerzu'.split('_'),
-    monthsShort : 'Gen_Cʼhwe_Meu_Ebr_Mae_Eve_Gou_Eos_Gwe_Her_Du_Ker'.split('_'),
-    weekdays : 'Sul_Lun_Meurzh_Mercʼher_Yaou_Gwener_Sadorn'.split('_'),
-    weekdaysShort : 'Sul_Lun_Meu_Mer_Yao_Gwe_Sad'.split('_'),
-    weekdaysMin : 'Su_Lu_Me_Mer_Ya_Gw_Sa'.split('_'),
-    weekdaysParseExact : true,
-    monthsParse : monthsParse,
-    monthsShortParse : monthsShortParse,
-    weekdaysParse  : weekdaysParse ,
+    months: 'Genver_Cʼhwevrer_Meurzh_Ebrel_Mae_Mezheven_Gouere_Eost_Gwengolo_Here_Du_Kerzu'.split('_'),
+    monthsShort: 'Gen_Cʼhwe_Meu_Ebr_Mae_Eve_Gou_Eos_Gwe_Her_Du_Ker'.split('_'),
+    weekdays: 'Sul_Lun_Meurzh_Mercʼher_Yaou_Gwener_Sadorn'.split('_'),
+    weekdaysShort: 'Sul_Lun_Meu_Mer_Yao_Gwe_Sad'.split('_'),
+    weekdaysMin: 'Su_Lu_Me_Mer_Ya_Gw_Sa'.split('_'),
+    weekdaysParseExact: true,
+    monthsParse: monthsParse,
+    monthsShortParse: monthsShortParse,
+    weekdaysParse: weekdaysParse ,
     
-    longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D [a viz] MMMM YYYY',
-        LLL : 'D [a viz] MMMM YYYY HH:mm',
-        LLLL : 'dddd, D [a viz] MMMM YYYY HH:mm'
+    longDateFormat: {
+        LT: 'HH:mm',
+        LTS: 'HH:mm:ss',
+        L: 'DD/MM/YYYY',
+        LL: 'D [a viz] MMMM YYYY',
+        LLL: 'D [a viz] MMMM YYYY HH:mm',
+        LLLL: 'dddd, D [a viz] MMMM YYYY HH:mm'
     },
-    calendar : {
-        sameDay : '[Hiziv da] LT',
-        nextDay : '[Warcʼhoazh da] LT',
-        nextWeek : 'dddd [da] LT',
-        lastDay : '[Decʼh da] LT',
-        lastWeek : 'dddd [paset da] LT',
-        sameElse : 'L'
+    calendar: {
+        sameDay: '[Hiziv da] LT',
+        nextDay: '[Warcʼhoazh da] LT',
+        nextWeek: 'dddd [da] LT',
+        lastDay: '[Decʼh da] LT',
+        lastWeek: 'dddd [paset da] LT',
+        sameElse: 'L'
     },
-    relativeTime : {
-        future : 'a-benn %s',
-        past : '%s ʼzo',
-        s : 'un nebeud segondennoù',
-        ss : '%d eilenn',
-        m : 'ur vunutenn',
-        mm : relativeTimeWithMutation,
-        h : 'un eur',
-        hh : '%d eur',
-        d : 'un devezh',
-        dd : relativeTimeWithMutation,
-        M : 'ur miz',
-        MM : relativeTimeWithMutation,
-        y : 'ur bloaz',
-        yy : specialMutationForYears
+    relativeTime: {
+        future: 'a-benn %s',
+        past: '%s ʼzo',
+        s: 'un nebeud segondennoù',
+        ss: '%d eilenn',
+        m: 'ur vunutenn',
+        mm: relativeTimeWithMutation,
+        h: 'un eur',
+        hh: '%d eur',
+        d: 'un devezh',
+        dd: relativeTimeWithMutation,
+        M: 'ur miz',
+        MM: relativeTimeWithMutation,
+        y: 'ur bloaz',
+        yy: specialMutationForYears
     },
     dayOfMonthOrdinalParse: /\d{1,2}(añ|vet)/,
-    ordinal : function (number) {
-        var output = (number === 1) ? 'añ' : 'vet';
+    ordinal: function (number) {
+        var output = number === 1 ? 'añ' : 'vet';
         return number + output;
     },
-    week : {
-        dow : 1, // Monday is the first day of the week.
-        doy : 4  // The week that contains Jan 4th is the first week of the year.
+    week: {
+        dow: 1, // Monday is the first day of the week.
+        doy: 4  // The week that contains Jan 4th is the first week of the year.
     },
-    meridiemParse : /a.m.|g.m./, // goude merenn | a-raok merenn
-    isPM : function (token) {
+    meridiemParse: /a.m.|g.m./, // goude merenn | a-raok merenn
+    isPM: function (token) {
         return token === 'g.m.';
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem: function (hour, minute, isLower) {
         return hour < 12 ? 'a.m.' : 'g.m.';
     }
 });
-

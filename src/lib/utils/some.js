@@ -3,10 +3,11 @@ if (Array.prototype.some) {
     some = Array.prototype.some;
 } else {
     some = function (fun) {
-        var t = Object(this);
-        var len = t.length >>> 0;
+        var t = Object(this),
+            len = t.length >>> 0,
+            i;
 
-        for (var i = 0; i < len; i++) {
+        for (i = 0; i < len; i++) {
             if (i in t && fun.call(this, t[i], i, t)) {
                 return true;
             }
