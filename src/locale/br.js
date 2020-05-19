@@ -84,6 +84,7 @@ export default moment.defineLocale('br', {
     weekdaysShort: 'Sul_Lun_Meu_Mer_Yao_Gwe_Sad'.split('_'),
     weekdaysMin: 'Su_Lu_Me_Mer_Ya_Gw_Sa'.split('_'),
     weekdaysParseExact: true,
+    // weekdaysParse: weekdaysParse,
 
     monthsRegex: monthsRegex,
     monthsShortRegex: monthsRegex,
@@ -92,9 +93,6 @@ export default moment.defineLocale('br', {
     monthsParse: monthsParse,
     longMonthsParse: monthsParse,
     shortMonthsParse: monthsParse,
-
-    // todo change later if it works
-    // weekdaysParse: weekdaysParse,
 
     longDateFormat: {
         LT: 'HH:mm',

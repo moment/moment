@@ -54,10 +54,30 @@ test('parse', function (assert) {
     equalTest(monthsWithRegularQuoteMark[0].toLocaleUpperCase(), 'MMMM', 1);
     equalTest(monthsWithRegularQuoteMark[1].toLocaleUpperCase(), 'MMMM', 1);
 
+    assert.notEqual(
+        moment(monthsWithRegularQuoteMark[0], 'MMM', true).month(),
+        1
+    );
     equalTestStrict(monthsWithRegularQuoteMark[1], 'MMM', 1);
     equalTest(monthsWithRegularQuoteMark[0], 'MMMM', 1);
+    assert.notEqual(
+        moment(monthsWithRegularQuoteMark[1], 'MMMM', true).month(),
+        1
+    );
     equalTest(monthsWithRegularQuoteMark[1].toLocaleLowerCase(), 'MMM', 1);
     equalTest(monthsWithRegularQuoteMark[0].toLocaleUpperCase(), 'MMMM', 1);
+
+    // check weekday with regular quote mark
+    assert.equal(
+        moment("merc'her", 'dddd', true).day(),
+        3,
+        "merc'her (regular quote)"
+    );
+    assert.equal(
+        moment('mercʼher', 'dddd', true).day(),
+        3,
+        'mercʼher (special quote)'
+    );
 });
 
 test('format', function (assert) {
