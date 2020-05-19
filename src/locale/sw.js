@@ -41,7 +41,7 @@ export default moment.defineLocale('sw', {
         h: 'saa limoja',
         hh: 'masaa %d',
         d: 'siku moja',
-        dd: 'masiku %d',
+        dd: 'siku %d',
         M: 'mwezi mmoja',
         MM: 'miezi %d',
         y: 'mwaka mmoja',
