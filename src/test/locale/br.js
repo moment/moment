@@ -7,7 +7,9 @@ test('parse', function (assert) {
     var tests = 'Genver Gen_Cʼhwevrer Cʼhwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker'.split(
             '_'
         ),
-        i;
+        i,
+        monthsWithRegularQuoteMark = ["C'hwevrer", "C'hwe"];
+
     function equalTest(input, mmm, i) {
         assert.equal(
             moment(input, mmm).month(),
@@ -44,7 +46,6 @@ test('parse', function (assert) {
     }
 
     // check with regular quote mark
-    var monthsWithRegularQuoteMark = ["C'hwevrer", "C'hwe"];
     equalTest(monthsWithRegularQuoteMark[0], 'MMM', 1);
     equalTest(monthsWithRegularQuoteMark[1], 'MMM', 1);
     equalTest(monthsWithRegularQuoteMark[0], 'MMMM', 1);

@@ -65,7 +65,7 @@ var monthsParse = [
     monthsRegex = /^(genver|c[ʼ\']hwevrer|meurzh|ebrel|mae|mezheven|gouere|eost|gwengolo|here|du|kerzu|gen|c[ʼ\']hwe|meu|ebr|mae|eve|gou|eos|gwe|her|du|ker)/i,
     monthsStrictRegex = /^(genver|c[ʼ\']hwevrer|meurzh|ebrel|mae|mezheven|gouere|eost|gwengolo|here|du|kerzu)/i,
     monthsShortStrictRegex = /^(gen|c[ʼ\']hwe|meu|ebr|mae|eve|gou|eos|gwe|her|du|ker)/i,
-    weekdaysParse = [
+    fullWeekdaysParse = [
         /^sul/i,
         /^lun/i,
         /^meurzh/i,
@@ -73,6 +73,24 @@ var monthsParse = [
         /^yaou/i,
         /^gwener/i,
         /^sadorn/i,
+    ],
+    shortWeekdaysParse = [
+        /^Sul/i,
+        /^Lun/i,
+        /^Meu/i,
+        /^Mer/i,
+        /^Yao/i,
+        /^Gwe/i,
+        /^Sad/i,
+    ],
+    minWeekdaysParse = [
+        /^Su/i,
+        /^Lu/i,
+        /^Me([^r]|$)/i,
+        /^Mer/i,
+        /^Ya/i,
+        /^Gw/i,
+        /^Sa/i,
     ];
 
 export default moment.defineLocale('br', {
@@ -83,8 +101,10 @@ export default moment.defineLocale('br', {
     weekdays: 'Sul_Lun_Meurzh_Mercʼher_Yaou_Gwener_Sadorn'.split('_'),
     weekdaysShort: 'Sul_Lun_Meu_Mer_Yao_Gwe_Sad'.split('_'),
     weekdaysMin: 'Su_Lu_Me_Mer_Ya_Gw_Sa'.split('_'),
-    weekdaysParseExact: true,
-    // weekdaysParse: weekdaysParse,
+    weekdaysParse: minWeekdaysParse,
+    fullWeekdaysParse: fullWeekdaysParse,
+    shortWeekdaysParse: shortWeekdaysParse,
+    minWeekdaysParse: minWeekdaysParse,
 
     monthsRegex: monthsRegex,
     monthsShortRegex: monthsRegex,
