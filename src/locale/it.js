@@ -39,7 +39,7 @@ export default moment.defineLocale('it', {
         sameElse: 'L',
     },
     relativeTime: {
-        future : 'tra %s',
+        future: 'tra %s',
         past: '%s fa',
         s: 'alcuni secondi',
         ss: '%d secondi',
