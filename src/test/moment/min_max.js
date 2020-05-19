@@ -17,7 +17,11 @@ test('min', function (assert) {
     assert.equal(moment.min(past, now), past, 'min(past, now)');
     assert.equal(moment.min(now), now, 'min(now, past)');
 
-    assert.equal(moment.min([now, future, past]), past, 'min([now, future, past])');
+    assert.equal(
+        moment.min([now, future, past]),
+        past,
+        'min([now, future, past])'
+    );
     assert.equal(moment.min([now, past]), past, 'min(now, past)');
     assert.equal(moment.min([now]), now, 'min(now)');
 
@@ -31,15 +35,35 @@ test('max', function (assert) {
         past = now.clone().subtract(1, 'month'),
         invalid = moment.invalid();
 
-    assert.equal(moment.max(now, future, past), future, 'max(now, future, past)');
-    assert.equal(moment.max(future, now, past), future, 'max(future, now, past)');
-    assert.equal(moment.max(future, past, now), future, 'max(future, past, now)');
-    assert.equal(moment.max(past, future, now), future, 'max(past, future, now)');
+    assert.equal(
+        moment.max(now, future, past),
+        future,
+        'max(now, future, past)'
+    );
+    assert.equal(
+        moment.max(future, now, past),
+        future,
+        'max(future, now, past)'
+    );
+    assert.equal(
+        moment.max(future, past, now),
+        future,
+        'max(future, past, now)'
+    );
+    assert.equal(
+        moment.max(past, future, now),
+        future,
+        'max(past, future, now)'
+    );
     assert.equal(moment.max(now, past), now, 'max(now, past)');
     assert.equal(moment.max(past, now), now, 'max(past, now)');
     assert.equal(moment.max(now), now, 'max(now, past)');
 
-    assert.equal(moment.max([now, future, past]), future, 'max([now, future, past])');
+    assert.equal(
+        moment.max([now, future, past]),
+        future,
+        'max([now, future, past])'
+    );
     assert.equal(moment.max([now, past]), now, 'max(now, past)');
     assert.equal(moment.max([now]), now, 'max(now)');
 

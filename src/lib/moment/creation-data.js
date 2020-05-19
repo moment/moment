@@ -4,6 +4,6 @@ export function creationData() {
         format: this._f,
         locale: this._locale,
         isUTC: this._isUTC,
-        strict: this._strict
+        strict: this._strict,
     };
 }

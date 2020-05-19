@@ -47,6 +47,10 @@ write to [ichernev](https://github.com/ichernev).
 
 In addition to contributing code, you can help to triage issues. This can include reproducing bug reports, or asking for vital information such as version numbers or reproduction instructions. If you would like to start triaging issues, one easy way to get started is to [subscribe to moment/moment on CodeTriage](https://www.codetriage.com/moment/moment).
 
+### Frequently asked questions
+
+See [FAQ.md](FAQ.md).
+
 ## License
 
 Moment.js is freely distributable under the terms of the [MIT license](https://github.com/moment/moment/blob/develop/LICENSE).

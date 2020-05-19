@@ -11,7 +11,7 @@ test('invalid', function (assert) {
 });
 
 test('invalid with existing flag', function (assert) {
-    var m = moment.invalid({invalidMonth : 'whatchamacallit'});
+    var m = moment.invalid({ invalidMonth: 'whatchamacallit' });
     assert.equal(m.isValid(), false);
     assert.equal(m.parsingFlags().userInvalidated, false);
     assert.equal(m.parsingFlags().invalidMonth, 'whatchamacallit');
@@ -19,7 +19,7 @@ test('invalid with existing flag', function (assert) {
 });
 
 test('invalid with custom flag', function (assert) {
-    var m = moment.invalid({tooBusyWith : 'reiculating splines'});
+    var m = moment.invalid({ tooBusyWith: 'reiculating splines' });
     assert.equal(m.isValid(), false);
     assert.equal(m.parsingFlags().userInvalidated, false);
     assert.equal(m.parsingFlags().tooBusyWith, 'reiculating splines');
@@ -31,7 +31,7 @@ test('invalid operations', function (assert) {
             moment.invalid(),
             moment('xyz', 'l'),
             moment('2015-01-35', 'YYYY-MM-DD'),
-            moment('2015-01-25 a', 'YYYY-MM-DD', true)
+            moment('2015-01-25 a', 'YYYY-MM-DD', true),
         ],
         i,
         invalid,
@@ -42,14 +42,28 @@ test('invalid operations', function (assert) {
     for (i = 0; i < invalids.length; ++i) {
         invalid = invalids[i];
 
-        assert.ok(!invalid.clone().add(5, 'hours').isValid(), 'invalid.add is invalid');
-        assert.equal(invalid.calendar(), 'Invalid date', 'invalid.calendar is \'Invalid date\'');
+        assert.ok(
+            !invalid.clone().add(5, 'hours').isValid(),
+            'invalid.add is invalid'
+        );
+        assert.equal(
+            invalid.calendar(),
+            'Invalid date',
+            "invalid.calendar is 'Invalid date'"
+        );
         assert.ok(!invalid.clone().isValid(), 'invalid.clone is invalid');
         assert.ok(isNaN(invalid.diff(valid)), 'invalid.diff(valid) is NaN');
         assert.ok(isNaN(valid.diff(invalid)), 'valid.diff(invalid) is NaN');
         assert.ok(isNaN(invalid.diff(invalid)), 'invalid.diff(invalid) is NaN');
-        assert.ok(!invalid.clone().endOf('month').isValid(), 'invalid.endOf is invalid');
-        assert.equal(invalid.format(), 'Invalid date', 'invalid.format is \'Invalid date\'');
+        assert.ok(
+            !invalid.clone().endOf('month').isValid(),
+            'invalid.endOf is invalid'
+        );
+        assert.equal(
+            invalid.format(),
+            'Invalid date',
+            "invalid.format is 'Invalid date'"
+        );
         assert.equal(invalid.from(), 'Invalid date');
         assert.equal(invalid.from(valid), 'Invalid date');
         assert.equal(valid.from(invalid), 'Invalid date');
@@ -89,7 +103,15 @@ test('invalid operations', function (assert) {
         assert.ok(!invalid.clone().startOf('month').isValid());
 
         assert.ok(!invalid.clone().subtract(5, 'days').isValid());
-        assert.deepEqual(invalid.toArray(), [NaN, NaN, NaN, NaN, NaN, NaN, NaN]);
+        assert.deepEqual(invalid.toArray(), [
+            NaN,
+            NaN,
+            NaN,
+            NaN,
+            NaN,
+            NaN,
+            NaN,
+        ]);
         assert.deepEqual(invalid.toObject(), {
             years: NaN,
             months: NaN,
@@ -97,7 +119,7 @@ test('invalid operations', function (assert) {
             hours: NaN,
             minutes: NaN,
             seconds: NaN,
-            milliseconds: NaN
+            milliseconds: NaN,
         });
         assert.ok(moment.isDate(invalid.toDate()));
         assert.ok(isNaN(invalid.toDate().valueOf()));
@@ -174,8 +196,17 @@ test('invalid operations', function (assert) {
 
         assert.ok(!invalid.isLeapYear());
 
-        assert.equal(moment.duration({from: invalid, to: valid}).asMilliseconds(), 0);
-        assert.equal(moment.duration({from: valid, to: invalid}).asMilliseconds(), 0);
-        assert.equal(moment.duration({from: invalid, to: invalid}).asMilliseconds(), 0);
+        assert.equal(
+            moment.duration({ from: invalid, to: valid }).asMilliseconds(),
+            0
+        );
+        assert.equal(
+            moment.duration({ from: valid, to: invalid }).asMilliseconds(),
+            0
+        );
+        assert.equal(
+            moment.duration({ from: invalid, to: invalid }).asMilliseconds(),
+            0
+        );
     }
 });
