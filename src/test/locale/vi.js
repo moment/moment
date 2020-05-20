@@ -26,14 +26,14 @@ test('parse', function (assert) {
 
     for (i = 0; i < 12; i++) {
         tests[i] = tests[i].split(',');
-        equalTest(tests[i][0], '[tháng] M', i);
-        equalTest(tests[i][1], '[Thg ]M', i);
-        equalTest(tests[i][0], '[tháng] MM', i);
-        equalTest(tests[i][1], '[Thg ]MM', i);
-        equalTest(tests[i][0].toLocaleLowerCase(), '[THÁNG] M', i);
-        equalTest(tests[i][1].toLocaleLowerCase(), '[THG ]M', i);
-        equalTest(tests[i][0].toLocaleUpperCase(), '[THÁNG] MM', i);
-        equalTest(tests[i][1].toLocaleUpperCase(), '[THG ]MM', i);
+        equalTest(tests[i][0], 'MMM', i);
+        equalTest(tests[i][1], 'MMM', i);
+        equalTest(tests[i][0], 'MMMM', i);
+        equalTest(tests[i][1], 'MMMM', i);
+        equalTest(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
+        equalTest(tests[i][1].toLocaleLowerCase(), 'MMMM', i);
+        equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
+        equalTest(tests[i][1].toLocaleUpperCase(), 'MMMM', i);
 
         equalTestStrict(tests[i][1], 'MMM', i);
         equalTestStrict(tests[i][0], 'MMMM', i);
