@@ -1,6 +1,12 @@
 Changelog
 =========
 
+### 2.26.0 [See full changelog](https://gist.github.com/marwahaha/0725c40740560854a849b096ea7b7590)
+
+* Release May 19, 2020
+
+TypeScript fixes and many locale improvements
+
 ### 2.25.3
 
 * Release May 4, 2020
