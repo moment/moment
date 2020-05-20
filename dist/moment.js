@@ -1,5 +1,5 @@
 //! moment.js
-//! version : 2.25.3
+//! version : 2.26.0
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -2757,8 +2757,6 @@ function configFromStringAndFormat(config) {
         token = tokens[i];
         parsedInput = (string.match(getParseRegexForToken(token, config)) ||
             [])[0];
-        // console.log('token', token, 'parsedInput', parsedInput,
-        //         'regex', getParseRegexForToken(token, config));
         if (parsedInput) {
             skipped = string.substr(0, string.indexOf(parsedInput));
             if (skipped.length > 0) {
@@ -5614,7 +5612,7 @@ addParseToken('x', function (input, array, config) {
 
 //! moment.js
 
-hooks.version = '2.25.3';
+hooks.version = '2.26.0';
 
 setHookCallback(createLocal);
 
