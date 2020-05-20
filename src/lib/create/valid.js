@@ -6,7 +6,7 @@ import some from '../utils/some';
 export function isValid(m) {
     var flags = null,
         parsedParts = false,
-        isNowValid = (m._d && !isNaN(m._d.getTime()));
+        isNowValid = m._d && !isNaN(m._d.getTime());
     if (isNowValid) {
         flags = getParsingFlags(m);
         parsedParts = some.call(flags.parsedDateParts, function (i) {
