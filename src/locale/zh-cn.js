@@ -2,6 +2,7 @@
 //! locale : Chinese (China) [zh-cn]
 //! author : suupic : https://github.com/suupic
 //! author : Zeno Zeng : https://github.com/zenozeng
+//! author : uu109 : https://github.com/uu109
 
 import moment from '../moment';
 
