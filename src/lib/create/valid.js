@@ -4,12 +4,14 @@ import getParsingFlags from '../create/parsing-flags';
 import some from '../utils/some';
 
 export function isValid(m) {
-    var isNowValid = (m._d && !isNaN(m._d.getTime()));
+    var flags = null,
+        parsedParts = false,
+        isNowValid = (m._d && !isNaN(m._d.getTime()));
     if (isNowValid) {
-        var flags = getParsingFlags(m),
-            parsedParts = some.call(flags.parsedDateParts, function (i) {
-                return i != null;
-            });
+        flags = getParsingFlags(m);
+        parsedParts = some.call(flags.parsedDateParts, function (i) {
+            return i != null;
+        });
         isNowValid =
             flags.overflow < 0 &&
             !flags.empty &&
