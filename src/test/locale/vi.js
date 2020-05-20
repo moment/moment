@@ -1,4 +1,3 @@
-import moment from '../../moment';
 import { test } from '../qunit';
 import { localeModule } from '../qunit-locale';
 localeModule('vi');
