@@ -563,8 +563,24 @@ test('format locale', function (assert) {
 });
 
 test('destructive operation', function (assert) {
-    assert.equal(moment('2018-05-15').add(100, 'years').isValid(), true, 'add 100 years is valid');
-    assert.equal(moment('2018-05-15').add(1000000, 'years').isValid(), false, 'add 1000000 years is invalid');
-    assert.equal(moment('2018-05-15').subtract(100, 'years').isValid(), true, 'subtract 100 years is valid');
-    assert.equal(moment('2018-05-15').subtract(1000000, 'years').isValid(), false, 'subtract 1000000 years is invalid');
-})
+    assert.equal(
+        moment('2018-05-15').add(100, 'years').isValid(),
+        true,
+        'add 100 years is valid'
+    );
+    assert.equal(
+        moment('2018-05-15').add(1000000, 'years').isValid(),
+        false,
+        'add 1000000 years is invalid'
+    );
+    assert.equal(
+        moment('2018-05-15').subtract(100, 'years').isValid(),
+        true,
+        'subtract 100 years is valid'
+    );
+    assert.equal(
+        moment('2018-05-15').subtract(1000000, 'years').isValid(),
+        false,
+        'subtract 1000000 years is invalid'
+    );
+});
