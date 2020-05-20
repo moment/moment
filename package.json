@@ -1,6 +1,6 @@
 {
     "name": "moment",
-    "version": "2.25.3",
+    "version": "2.26.0",
     "description": "Parse, validate, manipulate, and display dates",
     "homepage": "https://momentjs.com",
     "author": "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)",
@@ -46,6 +46,7 @@
     "devDependencies": {
         "benchmark": "latest",
         "coveralls": "latest",
+        "cross-env": "^6.0.3",
         "es6-promise": "latest",
         "eslint": "~6",
         "grunt": "latest",
@@ -91,8 +92,8 @@
         }
     },
     "scripts": {
-        "ts3.1-typescript-test": "node_modules/typescript3/bin/tsc --project ts3.1-typing-tests",
-        "typescript-test": "node_modules/typescript/bin/tsc --project typing-tests",
+        "ts3.1-typescript-test": "cross-env node_modules/typescript3/bin/tsc --project ts3.1-typing-tests",
+        "typescript-test": "cross-env node_modules/typescript/bin/tsc --project typing-tests",
         "test": "grunt test",
         "eslint": "eslint Gruntfile.js tasks src",
         "prettier-check": "prettier --check Gruntfile.js tasks src",
