@@ -310,50 +310,94 @@ test('calendar day', function (assert) {
 });
 
 test('calendar next week', function (assert) {
-    var i, m;
+    var i,
+        m,
+        week = moment().week();
     for (i = 2; i < 7; i++) {
         m = moment().add({ d: i });
-        assert.equal(
-            m.calendar(),
-            m.format('[下]ddddLT'),
-            'Today + ' + i + ' days current time'
-        );
-        m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(
-            m.calendar(),
-            m.format('[下]ddddLT'),
-            'Today + ' + i + ' days beginning of day'
-        );
-        m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(
-            m.calendar(),
-            m.format('[下]ddddLT'),
-            'Today + ' + i + ' days end of day'
-        );
+        if (week === m.week()) {
+            assert.equal(
+                m.calendar(),
+                m.format('[本]dddLT'),
+                'Today + ' + i + ' days current time'
+            );
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(
+                m.calendar(),
+                m.format('[本]dddLT'),
+                'Today + ' + i + ' days beginning of day'
+            );
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(
+                m.calendar(),
+                m.format('[本]dddLT'),
+                'Today + ' + i + ' days end of day'
+            );
+        } else {
+            assert.equal(
+                m.calendar(),
+                m.format('[下]dddLT'),
+                'Today + ' + i + ' days current time'
+            );
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(
+                m.calendar(),
+                m.format('[下]dddLT'),
+                'Today + ' + i + ' days beginning of day'
+            );
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(
+                m.calendar(),
+                m.format('[下]dddLT'),
+                'Today + ' + i + ' days end of day'
+            );
+        }
     }
 });
 
 test('calendar last week', function (assert) {
-    var i, m;
+    var i,
+        m,
+        week = moment().week();
     for (i = 2; i < 7; i++) {
         m = moment().subtract({ d: i });
-        assert.equal(
-            m.calendar(),
-            m.format('[上]ddddLT'),
-            'Today - ' + i + ' days current time'
-        );
-        m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(
-            m.calendar(),
-            m.format('[上]ddddLT'),
-            'Today - ' + i + ' days beginning of day'
-        );
-        m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(
-            m.calendar(),
-            m.format('[上]ddddLT'),
-            'Today - ' + i + ' days end of day'
-        );
+        if (week !== m.week()) {
+            assert.equal(
+                m.calendar(),
+                m.format('[上]dddLT'),
+                'Today - ' + i + ' days current time'
+            );
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(
+                m.calendar(),
+                m.format('[上]dddLT'),
+                'Today - ' + i + ' days beginning of day'
+            );
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(
+                m.calendar(),
+                m.format('[上]dddLT'),
+                'Today - ' + i + ' days end of day'
+            );
+        } else {
+            assert.equal(
+                m.calendar(),
+                m.format('[本]dddLT'),
+                'Today - ' + i + ' days current time'
+            );
+            m.hours(0).minutes(0).seconds(0).milliseconds(0);
+            assert.equal(
+                m.calendar(),
+                m.format('[本]dddLT'),
+                'Today - ' + i + ' days beginning of day'
+            );
+            m.hours(23).minutes(59).seconds(59).milliseconds(999);
+            assert.equal(
+                m.calendar(),
+                m.format('[本]dddLT'),
+                'Today - ' + i + ' days end of day'
+            );
+        }
     }
 });
 
