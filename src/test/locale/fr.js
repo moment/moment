@@ -7,6 +7,9 @@ test('parse', function (assert) {
     var i,
         tests = 'janvier janv._février févr._mars mars_avril avr._mai mai_juin juin_juillet juil._août août_septembre sept._octobre oct._novembre nov._décembre déc.'.split(
             '_'
+        ),
+        testsNoDot = 'janvier janv_février févr_mars mars_avril avr_mai mai_juin juin_juillet juil_août août_septembre sept_octobre oct_novembre nov_décembre déc'.split(
+            '_'
         );
 
     function equalTest(input, mmm, i) {
@@ -42,6 +45,25 @@ test('parse', function (assert) {
         equalTestStrict(tests[i][1].toLocaleUpperCase(), 'MMM', i);
         equalTestStrict(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
         equalTestStrict(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
+    }
+
+    for (i = 0; i < 12; i++) {
+        testsNoDot[i] = testsNoDot[i].split(' ');
+        equalTest(testsNoDot[i][0], 'MMM', i);
+        equalTest(testsNoDot[i][1], 'MMM', i);
+        equalTest(testsNoDot[i][0], 'MMMM', i);
+        equalTest(testsNoDot[i][1], 'MMMM', i);
+        equalTest(testsNoDot[i][0].toLocaleLowerCase(), 'MMMM', i);
+        equalTest(testsNoDot[i][1].toLocaleLowerCase(), 'MMMM', i);
+        equalTest(testsNoDot[i][0].toLocaleUpperCase(), 'MMMM', i);
+        equalTest(testsNoDot[i][1].toLocaleUpperCase(), 'MMMM', i);
+
+        equalTestStrict(testsNoDot[i][1], 'MMM', i);
+        equalTestStrict(testsNoDot[i][0], 'MMMM', i);
+        equalTestStrict(testsNoDot[i][1].toLocaleLowerCase(), 'MMM', i);
+        equalTestStrict(testsNoDot[i][1].toLocaleUpperCase(), 'MMM', i);
+        equalTestStrict(testsNoDot[i][0].toLocaleLowerCase(), 'MMMM', i);
+        equalTestStrict(testsNoDot[i][0].toLocaleUpperCase(), 'MMMM', i);
     }
 });
 
