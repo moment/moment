@@ -319,32 +319,32 @@ test('calendar day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
     assert.equal(
         moment(a).calendar(),
-        'leo saa 12:00',
+        'leo saa 12:00 PM',
         'today at the same time'
     );
     assert.equal(
         moment(a).add({ m: 25 }).calendar(),
-        'leo saa 12:25',
+        'leo saa 12:25 PM',
         'Now plus 25 min'
     );
     assert.equal(
         moment(a).add({ h: 1 }).calendar(),
-        'leo saa 13:00',
+        'leo saa 01:00 PM',
         'Now plus 1 hour'
     );
     assert.equal(
         moment(a).add({ d: 1 }).calendar(),
-        'kesho saa 12:00',
+        'kesho saa 12:00 PM',
         'tomorrow at the same time'
     );
     assert.equal(
         moment(a).subtract({ h: 1 }).calendar(),
-        'leo saa 11:00',
+        'leo saa 11:00 AM',
         'Now minus 1 hour'
     );
     assert.equal(
         moment(a).subtract({ d: 1 }).calendar(),
-        'jana 12:00',
+        'jana 12:00 PM',
         'yesterday at the same time'
     );
 });
