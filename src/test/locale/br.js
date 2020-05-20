@@ -4,10 +4,12 @@ import moment from '../../moment';
 localeModule('br');
 
 test('parse', function (assert) {
-    var tests = "Genver Gen_C'hwevrer C'hwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker".split(
+    var tests = 'Genver Gen_Cʼhwevrer Cʼhwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker'.split(
             '_'
         ),
-        i;
+        i,
+        monthsWithRegularQuoteMark = ["C'hwevrer", "C'hwe"];
+
     function equalTest(input, mmm, i) {
         assert.equal(
             moment(input, mmm).month(),
@@ -42,6 +44,41 @@ test('parse', function (assert) {
         equalTestStrict(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
         equalTestStrict(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
     }
+
+    // check with regular quote mark
+    equalTest(monthsWithRegularQuoteMark[0], 'MMM', 1);
+    equalTest(monthsWithRegularQuoteMark[1], 'MMM', 1);
+    equalTest(monthsWithRegularQuoteMark[0], 'MMMM', 1);
+    equalTest(monthsWithRegularQuoteMark[1], 'MMMM', 1);
+    equalTest(monthsWithRegularQuoteMark[0].toLocaleLowerCase(), 'MMM', 1);
+    equalTest(monthsWithRegularQuoteMark[1].toLocaleLowerCase(), 'MMM', 1);
+    equalTest(monthsWithRegularQuoteMark[0].toLocaleUpperCase(), 'MMMM', 1);
+    equalTest(monthsWithRegularQuoteMark[1].toLocaleUpperCase(), 'MMMM', 1);
+
+    assert.notEqual(
+        moment(monthsWithRegularQuoteMark[0], 'MMM', true).month(),
+        1
+    );
+    equalTestStrict(monthsWithRegularQuoteMark[1], 'MMM', 1);
+    equalTest(monthsWithRegularQuoteMark[0], 'MMMM', 1);
+    assert.notEqual(
+        moment(monthsWithRegularQuoteMark[1], 'MMMM', true).month(),
+        1
+    );
+    equalTest(monthsWithRegularQuoteMark[1].toLocaleLowerCase(), 'MMM', 1);
+    equalTest(monthsWithRegularQuoteMark[0].toLocaleUpperCase(), 'MMMM', 1);
+
+    // check weekday with regular quote mark
+    assert.equal(
+        moment("merc'her", 'dddd', true).day(),
+        3,
+        "merc'her (regular quote)"
+    );
+    assert.equal(
+        moment('mercʼher', 'dddd', true).day(),
+        3,
+        'mercʼher (special quote)'
+    );
 });
 
 test('format', function (assert) {
@@ -49,10 +86,10 @@ test('format', function (assert) {
     var a = [
             [
                 'dddd, MMMM Do YYYY, h:mm:ss a',
-                "Sul, C'hwevrer 14vet 2010, 3:25:50 pm",
+                'Sul, Cʼhwevrer 14vet 2010, 3:25:50 g.m.',
             ],
-            ['ddd, h A', 'Sul, 3 PM'],
-            ['M Mo MM MMMM MMM', "2 2vet 02 C'hwevrer C'hwe"],
+            ['ddd, h A', 'Sul, 3 g.m.'],
+            ['M Mo MM MMMM MMM', '2 2vet 02 Cʼhwevrer Cʼhwe'],
             ['YYYY YY', '2010 10'],
             ['D Do DD', '14 14vet 14'],
             ['d do dddd ddd dd', '0 0vet Sul Sul Su'],
@@ -64,9 +101,9 @@ test('format', function (assert) {
             ['s ss', '50 50'],
             ['DDDo [devezh] [ar] [vloaz]', '45vet devezh ar vloaz'],
             ['L', '14/02/2010'],
-            ['LL', "14 a viz C'hwevrer 2010"],
-            ['LLL', "14 a viz C'hwevrer 2010 15:25"],
-            ['LLLL', "Sul, 14 a viz C'hwevrer 2010 15:25"],
+            ['LL', '14 a viz Cʼhwevrer 2010'],
+            ['LLL', '14 a viz Cʼhwevrer 2010 15:25'],
+            ['LLLL', 'Sul, 14 a viz Cʼhwevrer 2010 15:25'],
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -115,7 +152,7 @@ test('format ordinal', function (assert) {
 
 test('format month', function (assert) {
     moment.locale('br');
-    var expected = "Genver Gen_C'hwevrer C'hwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker".split(
+    var expected = 'Genver Gen_Cʼhwevrer Cʼhwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker'.split(
             '_'
         ),
         i;
@@ -130,7 +167,7 @@ test('format month', function (assert) {
 
 test('format week', function (assert) {
     moment.locale('br');
-    var expected = "Sul Sul Su_Lun Lun Lu_Meurzh Meu Me_Merc'her Mer Mer_Yaou Yao Ya_Gwener Gwe Gw_Sadorn Sad Sa".split(
+    var expected = 'Sul Sul Su_Lun Lun Lu_Meurzh Meu Me_Mercʼher Mer Mer_Yaou Yao Ya_Gwener Gwe Gw_Sadorn Sad Sa'.split(
             '_'
         ),
         i;
@@ -295,14 +332,14 @@ test('suffix', function (assert) {
         'a-benn un nebeud segondennoù',
         'prefix'
     );
-    assert.equal(moment(0).from(30000), "un nebeud segondennoù 'zo", 'suffix');
+    assert.equal(moment(0).from(30000), 'un nebeud segondennoù ʼzo', 'suffix');
 });
 
 test('now from now', function (assert) {
     moment.locale('br');
     assert.equal(
         moment().fromNow(),
-        "un nebeud segondennoù 'zo",
+        'un nebeud segondennoù ʼzo',
         'now from now should display as in the past'
     );
 });
@@ -353,12 +390,12 @@ test('calendar day', function (assert) {
     );
     assert.equal(
         moment(a).add({ d: 1 }).calendar(),
-        "Warc'hoazh da 12:00",
+        'Warcʼhoazh da 12:00',
         'tomorrow at the same time'
     );
     assert.equal(
         moment(a).subtract({ d: 1 }).calendar(),
-        "Dec'h da 12:00",
+        'Decʼh da 12:00',
         'yesterday at the same time'
     );
 });

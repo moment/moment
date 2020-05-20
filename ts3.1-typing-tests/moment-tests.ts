@@ -136,6 +136,9 @@ moment().isoWeeks();
 moment().isoWeeks(45);
 moment().dayOfYear();
 moment().dayOfYear(45);
+moment().weeksInYear();
+moment().isoWeeksInYear();
+moment().isoWeeksInISOWeekYear();
 
 moment().set('year', 2013);
 moment().set('month', 3);  // April
@@ -236,6 +239,15 @@ moment(1316116057189).fromNow();
 moment.localeData('en');
 var globalLang = moment();
 var localLang = moment();
+var thresholds = {
+    ss: 44, 
+    s: 45,
+    m: 45,
+    h: 22,
+    d: 26,
+    w: 2,
+    M: 11,
+};
 localLang.localeData();
 localLang.format('LLLL');
 globalLang.format('LLLL');
@@ -264,6 +276,9 @@ moment.duration({
 });
 moment.duration(1, "minute").clone();
 moment.duration(1, "minutes").humanize();
+moment.duration(1, "minutes").humanize(true);
+moment.duration(1, "minutes").humanize(thresholds);
+moment.duration(1, "minutes").humanize(true, thresholds);
 moment.duration(500).milliseconds();
 moment.duration(500).asMilliseconds();
 moment.duration(500).seconds();

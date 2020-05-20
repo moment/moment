@@ -70,7 +70,7 @@ export default moment.defineLocale('id', {
         yy: '%d tahun',
     },
     week: {
-        dow: 1, // Monday is the first day of the week.
-        doy: 7, // The week that contains Jan 7th is the first week of the year.
+        dow: 0, // Sunday is the first day of the week.
+        doy: 6, // The week that contains Jan 6th is the first week of the year.
     },
 });
