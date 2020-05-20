@@ -431,3 +431,46 @@ test('weeks year starting sunday formatted', function (assert) {
         'Jan 15 2012 should be week 2'
     );
 });
+
+test('duration humanize week threshold', function (assert) {
+    assert.equal(
+        moment.duration(1, 'week').humanize({ d: 7, w: 4 }),
+        'eine Woche',
+        'a week'
+    );
+    assert.equal(
+        moment.duration(-1, 'week').humanize({ d: 7, w: 4 }),
+        'eine Woche',
+        'a week'
+    );
+    assert.equal(
+        moment.duration(-1, 'week').humanize(true, { d: 7, w: 4 }),
+        'vor einer Woche',
+        'a week ago'
+    );
+    assert.equal(
+        moment.duration(1, 'week').humanize(true, { d: 7, w: 4 }),
+        'in einer Woche',
+        'in a week'
+    );
+    assert.equal(
+        moment.duration(2, 'week').humanize({ d: 7, w: 4 }),
+        '2 Wochen',
+        '2 weeks'
+    );
+    assert.equal(
+        moment.duration(-2, 'week').humanize({ d: 7, w: 4 }),
+        '2 Wochen',
+        '2 weeks'
+    );
+    assert.equal(
+        moment.duration(2, 'week').humanize(true, { d: 7, w: 4 }),
+        'in 2 Wochen',
+        'in 2 week'
+    );
+    assert.equal(
+        moment.duration(-2, 'week').humanize(true, { d: 7, w: 4 }),
+        'vor 2 Wochen',
+        '2 weeks ago'
+    );
+});
