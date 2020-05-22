@@ -6,7 +6,8 @@ if (Object.keys) {
     keys = Object.keys;
 } else {
     keys = function (obj) {
-        var i, res = [];
+        var i,
+            res = [];
         for (i in obj) {
             if (hasOwnProp(obj, i)) {
                 res.push(i);

@@ -1,5 +1,5 @@
 export var defaultInvalidDate = 'Invalid date';
 
-export function invalidDate () {
+export function invalidDate() {
     return this._invalidDate;
 }
