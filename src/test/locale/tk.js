@@ -443,4 +443,3 @@ test('weeks year starting sunday formatted', function (assert) {
         'Jan 15 2012 should be week 2'
     );
 });
-
