@@ -4,7 +4,7 @@ import moment from '../../moment';
 localeModule('tk');
 
 test('parse', function (assert) {
-    var tests = 'Ýanwar Ýan_Fewral Few_Mart Mar_Aprel Apr_Maý Maý_Iýun Iýu_Iýul Iýu_Awgust Awg_Sentýabr Sen_Oktýabr Okt_Noýabr Noý_Dekabr Dek'.split(
+    var tests = 'Ýanwar Ýan_Fewral Few_Mart Mar_Aprel Apr_Maý Maý_Iýun Iýn_Iýul Iýl_Awgust Awg_Sentýabr Sen_Oktýabr Okt_Noýabr Noý_Dekabr Dek'.split(
             '_'
         ),
         i;
@@ -53,7 +53,7 @@ test('format', function (assert) {
             ['ddd, hA', 'Ýek, 3PM'],
             ['M Mo MM MMMM MMM', "2 2'nji 02 Fewral Few"],
             ['YYYY YY', '2010 10'],
-            ['D Do DD', "14 14'nji 14"],
+            ['D Do DD', '14 14 14'],
             ['d do dddd ddd dd', '0 0 Ýekşenbe Ýek Ýk'],
             ['DDD DDDo DDDD', "45 45'inji 045"],
             ['w wo ww', "7 7'nji 07"],
@@ -118,7 +118,7 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'Ýanwar Ýan_Fewral Few_Mart Mar_Aprel Apr_Maý Maý_Iýun Iýu_Iýul Iýu_Awgust Awg_Sentýabr Sen_Oktýabr Okt_Noýabr Noý_Dekabr Dek'.split(
+    var expected = 'Ýanwar Ýan_Fewral Few_Mart Mar_Aprel Apr_Maý Maý_Iýun Iýn_Iýul Iýl_Awgust Awg_Sentýabr Sen_Oktýabr Okt_Noýabr Noý_Dekabr Dek'.split(
             '_'
         ),
         i;
@@ -132,7 +132,7 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'Ýekşenbe Ýek Ýk_Duşenbe Duş Dş_Sişenbe Siş Sş_Çarşenbe Çar Çr_Penşenbe Per Pn_Anna Ann An_Şenbe Şen Şn'.split(
+    var expected = 'Ýekşenbe Ýek Ýk_Duşenbe Duş Dş_Sişenbe Siş Sş_Çarşenbe Çar Çr_Penşenbe Pen Pn_Anna Ann An_Şenbe Şen Şn'.split(
             '_'
         ),
         i;
@@ -291,7 +291,7 @@ test('from', function (assert) {
 
 test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'birnäçe sekunt soň', 'prefix');
-    assert.equal(moment(0).from(30000), 'birkaç sekunt öň', 'suffix');
+    assert.equal(moment(0).from(30000), 'birnäçe sekunt öň', 'suffix');
 });
 
 test('now from now', function (assert) {
@@ -331,7 +331,7 @@ test('calendar day', function (assert) {
     );
     assert.equal(
         moment(a).add({ d: 1 }).calendar(),
-        'düýn sagat 12:00',
+        'ertir sagat 12:00',
         'tomorrow at the same time'
     );
     assert.equal(
@@ -419,27 +419,27 @@ test('calendar all else', function (assert) {
 test('weeks year starting sunday formatted', function (assert) {
     assert.equal(
         moment([2012, 0, 1]).format('w ww wo'),
-        "52 52 52'nji",
-        'Jan  1 2012 should be week 52'
+        "1 01 1'nji",
+        'Jan  1 2012 should be week 1'
     );
     assert.equal(
         moment([2012, 0, 2]).format('w ww wo'),
-        "1 01 1'nji",
-        'Jan  2 2012 should be week 1'
+        "2 02 2'nji",
+        'Jan  2 2012 should be week 2'
     );
     assert.equal(
         moment([2012, 0, 8]).format('w ww wo'),
-        "1 01 1'nji",
-        'Jan  8 2012 should be week 1'
+        "2 02 2'nji",
+        'Jan  8 2012 should be week 2'
     );
     assert.equal(
         moment([2012, 0, 9]).format('w ww wo'),
-        "2 02 2'nji",
-        'Jan  9 2012 should be week 2'
+        "3 03 3'ünji",
+        'Jan  9 2012 should be week 3'
     );
     assert.equal(
         moment([2012, 0, 15]).format('w ww wo'),
-        "2 02 2'nji",
-        'Jan 15 2012 should be week 2'
+        "3 03 3'ünji",
+        'Jan 15 2012 should be week 3'
     );
 });

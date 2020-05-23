@@ -14,7 +14,7 @@ var suffixes = {
     7: "'nji",
     20: "'nji",
     50: "'nji",
-    3: "'ünjü",
+    3: "'ünji",
     4: "'ünji",
     100: "'ünji",
     6: "'njy",
