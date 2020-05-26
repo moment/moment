@@ -298,6 +298,26 @@ adur.subtract(bdur).days();
 adur.subtract(1).days();
 adur.subtract(1, 'd').days();
 
+var calendarFormat = {
+    sameDay: '[Today]',
+    nextDay: '[Tomorrow]',
+    nextWeek: 'dddd',
+    lastDay: '[Yesterday]',
+    lastWeek: '[Last] dddd',
+    sameElse: 'DD/MM/YYYY'
+};
+moment().calendar();
+moment().calendar(null);
+moment().calendar(calendarFormat);
+moment().calendar(null, {
+    sameDay: '[Today]',
+    nextDay: '[Tomorrow]',
+    nextWeek: 'dddd',
+    lastDay: '[Yesterday]',
+    lastWeek: '[Last] dddd',
+    sameElse: 'DD/MM/YYYY'
+});
+
 // Selecting a language
 moment.locale();
 moment.locale('en');
@@ -334,6 +354,7 @@ moment.locale('en', {
         hh: "%d hours",
         d: "a day",
         dd: "%d days",
+        w: "%d weeks",
         M: "a month",
         MM: "%d months",
         y: "a year",
