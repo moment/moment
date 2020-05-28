@@ -1073,3 +1073,19 @@ test('week year setter works', function (assert) {
         '2013-w30-4 to 2015'
     );
 });
+
+test('week year repeatedly settings under different locales', function (assert) {
+    var localeList = [[1, 4, '2015-12-31 Th'], [1, 7, '2015-01-01 Th'], [0, 6, '2015-01-02 Fr'], [6, 12, '2015-12-27 Sa']];
+    for (var i = 0, len = localeList.length; i < len; i++) {
+        var item = localeList[i];
+        moment.locale('locale test' + i, { week: { dow: item[0], doy: item[1] } })
+        var originDate = moment.utc('2016-01-01', moment.ISO_8601, true)
+        for (var j = 0; j < 3; j++) {
+            assert.equal(
+                originDate.weekYear(2015).format('gggg-MM-DD dd'),
+                item[2],
+                '2016-01-01 to 2015'
+            );
+        }
+    }
+});

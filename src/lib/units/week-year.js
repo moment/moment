@@ -77,6 +77,14 @@ addWeekParseToken(['gg', 'GG'], function (input, week, config, token) {
 // MOMENTS
 
 export function getSetWeekYear(input) {
+    if (
+        input != null &&
+        this.format(this._f) !== this._i &&
+        hooks.isMoment(this)
+    ) {
+        var createFunc = this._isUTC ? hooks.utc : hooks;
+        this._d = createFunc(this._i, this._f, this._strict)._d;
+    }
     return getSetWeekYearHelper.call(
         this,
         input,
