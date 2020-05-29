@@ -419,7 +419,7 @@ test('calendar all else', function (assert) {
 test('weeks year starting sunday formatted', function (assert) {
     assert.equal(
         moment([2012, 0, 1]).format('w ww wo'),
-        "1 01 1'nji",
+        "1 01 1'inji",
         'Jan  1 2012 should be week 1'
     );
     assert.equal(
