@@ -2,7 +2,7 @@ declare function moment(inp?: moment.MomentInput, format?: moment.MomentFormatSp
 declare function moment(inp?: moment.MomentInput, format?: moment.MomentFormatSpecification, language?: string, strict?: boolean): moment.Moment;
 
 declare namespace moment {
-  type RelativeTimeKey = 's' | 'ss' | 'm' | 'mm' | 'h' | 'hh' | 'd' | 'dd' | 'M' | 'MM' | 'y' | 'yy';
+  type RelativeTimeKey = 's' | 'ss' | 'm' | 'mm' | 'h' | 'hh' | 'd' | 'dd' | 'w' | 'M' | 'MM' | 'y' | 'yy';
   type CalendarKey = 'sameDay' | 'nextDay' | 'lastDay' | 'nextWeek' | 'lastWeek' | 'sameElse' | string;
   type LongDateFormatKey = 'LTS' | 'LT' | 'L' | 'LL' | 'LLL' | 'LLLL' | 'lts' | 'lt' | 'l' | 'll' | 'lll' | 'llll';
 
@@ -89,6 +89,7 @@ declare namespace moment {
     hh?: RelativeTimeSpecVal;
     d?: RelativeTimeSpecVal;
     dd?: RelativeTimeSpecVal;
+    w?: RelativeTimeSpecVal;
     M?: RelativeTimeSpecVal;
     MM?: RelativeTimeSpecVal;
     y?: RelativeTimeSpecVal;
@@ -441,6 +442,8 @@ declare namespace moment {
      */
     subtract(unit: unitOfTime.DurationConstructor, amount: number|string): Moment;
 
+    calendar(): string;
+    calendar(formats: CalendarSpec): string;
     calendar(time?: MomentInput, formats?: CalendarSpec): string;
 
     clone(): Moment;
