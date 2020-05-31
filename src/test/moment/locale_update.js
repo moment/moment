@@ -269,7 +269,6 @@ test('months', function (assert) {
 });
 
 test('update existing locale', function (assert) {
-    moment.locale('de');
     moment.updateLocale('de', {
         monthsShort: [
             'JAN',
@@ -286,6 +285,7 @@ test('update existing locale', function (assert) {
             'DEZ',
         ],
     });
+    moment.locale('de');
 
     assert.equal(
         moment('2017-02-01').format('YYYY MMM MMMM'),

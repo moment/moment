@@ -189,10 +189,6 @@ export function updateLocale(name, config) {
             locale.parentLocale = locales[name];
             locales[name] = locale;
         }
-
-        if (name === getSetGlobalLocale()) {
-            getSetGlobalLocale(name);
-        }
     } else {
         // pass null for config to unupdate, useful for tests
         if (locales[name] != null) {
