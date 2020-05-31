@@ -1,4 +1,19 @@
+/**
+ * @param strict Strict parsing disables the deprecated fallback to the native Date constructor when
+ * parsing a string.
+ */
+declare function moment(inp?: moment.MomentInput, strict?: boolean): moment.Moment;
+/**
+ * @param strict Strict parsing requires that the format and input match exactly, including delimeters.
+ * Strict parsing is frequently the best parsing option. For more information about choosing strict vs
+ * forgiving parsing, see the [parsing guide](https://momentjs.com/guides/#/parsing/).
+ */
 declare function moment(inp?: moment.MomentInput, format?: moment.MomentFormatSpecification, strict?: boolean): moment.Moment;
+/**
+ * @param strict Strict parsing requires that the format and input match exactly, including delimeters.
+ * Strict parsing is frequently the best parsing option. For more information about choosing strict vs
+ * forgiving parsing, see the [parsing guide](https://momentjs.com/guides/#/parsing/).
+ */
 declare function moment(inp?: moment.MomentInput, format?: moment.MomentFormatSpecification, language?: string, strict?: boolean): moment.Moment;
 
 declare namespace moment {
