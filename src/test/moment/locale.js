@@ -272,7 +272,11 @@ test('library deprecations', function (assert) {
 test('defineLocale', function (assert) {
     moment.locale('en');
     moment.defineLocale('dude', { months: ['Movember'] });
-    assert.equal(moment().locale(), 'dude', 'defineLocale also sets it');
+    assert.equal(
+        moment().locale(),
+        'en',
+        'defineLocale does not set the locale'
+    );
     assert.equal(
         moment().locale('dude').locale(),
         'dude',
@@ -965,6 +969,7 @@ test('when in strict mode with inexact parsing, treat periods in short weekdays 
         weekdaysShort: 'mon_t...s_wed_thurs_fri_sat_sun'.split('_'),
         weekdaysParseExact: false,
     });
+    moment.locale('periods-in-short-weekdays');
 
     moment().locale('periods-in-short-weekdays');
     assert.equal(moment('thurs', 'ddd', true).format('dddd'), 'Thursday');
@@ -978,6 +983,7 @@ test('when in strict mode with inexact parsing, treat periods in full weekdays l
         weekdaysShort: 'mon_tues_wed_thurs_fri_sat_sun'.split('_'),
         weekdaysParseExact: false,
     });
+    moment.locale('periods-in-full-weekdays');
 
     moment().locale('periods-in-full-weekdays');
     assert.equal(moment('Thursday', 'dddd', true).format('ddd'), 'thurs');
@@ -991,6 +997,7 @@ test('when in strict mode with inexact parsing, treat periods in min-weekdays li
         weekdaysMin: 'mon_t...s_wed_thurs_fri_sat_sun'.split('_'),
         weekdaysParseExact: false,
     });
+    moment.locale('periods-in-min-weekdays');
 
     moment().locale('periods-in-min-weekdays');
     assert.equal(moment('thurs', 'dd', true).format('dddd'), 'Thursday');

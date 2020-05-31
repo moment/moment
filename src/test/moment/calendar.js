@@ -61,6 +61,7 @@ test('extending calendar options', function (assert) {
             sameElse: 'L',
         },
     });
+    moment.locale('en');
 
     a = moment('2016-01-01').add(28, 'days');
     b = moment('2016-01-01').add(1, 'month');

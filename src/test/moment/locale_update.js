@@ -174,6 +174,7 @@ test('ordinal', function (assert) {
     moment.updateLocale('ordinal-1', {
         ordinal: '%dy',
     });
+    moment.locale('ordinal-1');
 
     assert.equal(
         moment.utc('2015-02-03', moment.ISO_8601).format('Do'),
@@ -190,6 +191,7 @@ test('ordinal', function (assert) {
             return num + 'y';
         },
     });
+    moment.locale('ordinal-2');
 
     assert.equal(
         moment.utc('2015-02-03', moment.ISO_8601).format('Do'),
@@ -206,6 +208,7 @@ test('ordinal', function (assert) {
     moment.updateLocale('ordinal-3', {
         ordinal: '%dy',
     });
+    moment.locale('ordinal-3');
 
     assert.equal(
         moment.utc('2015-02-03', moment.ISO_8601).format('Do'),
@@ -222,6 +225,7 @@ test('ordinal parse', function (assert) {
     moment.updateLocale('ordinal-parse-1', {
         dayOfMonthOrdinalParse: /\d{1,2}y/,
     });
+    moment.locale('ordinal-parse-1');
 
     assert.ok(
         moment.utc('2015-01-1y', 'YYYY-MM-Do', true).isValid(),
@@ -235,6 +239,7 @@ test('ordinal parse', function (assert) {
     moment.updateLocale('ordinal-parse-2', {
         dayOfMonthOrdinalParse: /\d{1,2}/,
     });
+    moment.locale('ordinal-parse-2');
 
     assert.ok(
         moment.utc('2015-01-1', 'YYYY-MM-Do', true).isValid(),
@@ -255,6 +260,7 @@ test('months', function (assert) {
             '_'
         ),
     });
+    moment.locale('months');
     assert.ok(
         moment.utc('2015-01-01', 'YYYY-MM-DD').format('MMMM'),
         'First',
@@ -263,6 +269,7 @@ test('months', function (assert) {
 });
 
 test('update existing locale', function (assert) {
+    moment.locale('de');
     moment.updateLocale('de', {
         monthsShort: [
             'JAN',
@@ -279,6 +286,7 @@ test('update existing locale', function (assert) {
             'DEZ',
         ],
     });
+
     assert.equal(
         moment('2017-02-01').format('YYYY MMM MMMM'),
         '2017 FEB Februar'
@@ -289,6 +297,7 @@ test('update existing locale', function (assert) {
 test('update non-existing locale', function (assert) {
     moment.locale('en');
     moment.updateLocale('dude', { months: ['Movember'] });
+    moment.locale('dude');
     assert.equal(moment.locale(), 'dude');
     assert.equal(moment().locale('dude').locale(), 'dude');
     moment.defineLocale('dude', null);

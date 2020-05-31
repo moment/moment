@@ -155,11 +155,6 @@ export function defineLocale(name, config) {
             });
         }
 
-        // backwards compat for now: also set the locale
-        // make sure we set the locale AFTER all child locales have been
-        // created, so we won't end up with the child locale set.
-        getSetGlobalLocale(name);
-
         return locales[name];
     } else {
         // useful for testing
@@ -195,8 +190,9 @@ export function updateLocale(name, config) {
             locales[name] = locale;
         }
 
-        // backwards compat for now: also set the locale
-        getSetGlobalLocale(name);
+        if (name === getSetGlobalLocale()) {
+            getSetGlobalLocale(name);
+        }
     } else {
         // pass null for config to unupdate, useful for tests
         if (locales[name] != null) {

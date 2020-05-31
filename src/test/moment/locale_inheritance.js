@@ -175,6 +175,7 @@ test('ordinal', function (assert) {
         parentLocale: 'base-ordinal-1',
         ordinal: '%dy',
     });
+    moment.locale('child-ordinal-1');
 
     assert.equal(
         moment.utc('2015-02-03', moment.ISO_8601).format('Do'),
@@ -191,6 +192,7 @@ test('ordinal', function (assert) {
             return num + 'y';
         },
     });
+    moment.locale('child-ordinal-2');
 
     assert.equal(
         moment.utc('2015-02-03', moment.ISO_8601).format('Do'),
@@ -207,6 +209,7 @@ test('ordinal', function (assert) {
         parentLocale: 'base-ordinal-3',
         ordinal: '%dy',
     });
+    moment.locale('child-ordinal-3');
 
     assert.equal(
         moment.utc('2015-02-03', moment.ISO_8601).format('Do'),
@@ -223,6 +226,7 @@ test('ordinal parse', function (assert) {
         parentLocale: 'base-ordinal-parse-1',
         dayOfMonthOrdinalParse: /\d{1,2}y/,
     });
+    moment.locale('child-ordinal-parse-1');
 
     assert.ok(
         moment.utc('2015-01-1y', 'YYYY-MM-Do', true).isValid(),
@@ -236,6 +240,7 @@ test('ordinal parse', function (assert) {
         parentLocale: 'base-ordinal-parse-2',
         dayOfMonthOrdinalParse: /\d{1,2}/,
     });
+    moment.locale('child-ordinal-parse-2');
 
     assert.ok(
         moment.utc('2015-01-1', 'YYYY-MM-Do', true).isValid(),
@@ -255,6 +260,7 @@ test('months', function (assert) {
             '_'
         ),
     });
+    moment.locale('child-months');
     assert.ok(
         moment.utc('2015-01-01', 'YYYY-MM-DD').format('MMMM'),
         'First',
@@ -272,6 +278,7 @@ test('define child locale before parent', function (assert) {
             '_'
         ),
     });
+    moment.locale('months-x');
     assert.equal(
         moment.locale(),
         'en',
@@ -293,11 +300,6 @@ test('define child locale before parent', function (assert) {
             '_'
         ),
     });
-    assert.equal(
-        moment.locale(),
-        'base-months-x',
-        'defineLocale should also set the locale (regardless of child locales)'
-    );
 
     assert.equal(
         moment().locale('months-x').month(0).format('MMMM'),
@@ -324,6 +326,7 @@ test('lazy load parentLocale', function (assert) {
             'M12',
         ],
     });
+    moment.locale('de_test');
     assert.equal(
         moment.locale(),
         'de_test',

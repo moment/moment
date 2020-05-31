@@ -575,6 +575,7 @@ test('week year formats', function (assert) {
     };
 
     moment.defineLocale('dow:1,doy:4', { week: { dow: 1, doy: 4 } });
+    moment.locale('dow:1,doy:4');
 
     eachOwnProp(cases, function (i) {
         var isoWeekYear, formatted5, formatted4, formatted2;
@@ -641,6 +642,7 @@ test('iso weekday formats', function (assert) {
 
 test('weekday formats', function (assert) {
     moment.defineLocale('dow: 3,doy: 5', { week: { dow: 3, doy: 5 } });
+    moment.locale('dow: 3,doy: 5');
     assert.equal(
         moment([1985, 1, 6]).format('e'),
         '0',
@@ -690,6 +692,7 @@ test('toJSON skips postformat', function (assert) {
             s.replace(/./g, 'X');
         },
     });
+    moment.locale('postformat');
     assert.equal(
         moment.utc([2000, 0, 1]).toJSON(),
         '2000-01-01T00:00:00.000Z',
