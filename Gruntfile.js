@@ -191,6 +191,9 @@ module.exports = function (grunt) {
     // Default task.
     grunt.registerTask('default', ['lint', 'test']);
 
+    // fix
+    grunt.registerTask('fix', ['exec:prettier-fmt']);
+
     // linting
     grunt.registerTask('lint', ['exec:eslint', 'exec:prettier-check']);
 
