@@ -44,8 +44,8 @@ To contribute, fork the library and install grunt and dependencies. You need
 ```bash
 git clone https://github.com/moment/moment.git
 cd moment
-npm install -g grunt-cli 
-npm install              
+npm install -g grunt-cli
+npm install
 git checkout develop  # all patches against develop branch, please!
 grunt                 # this runs tests, eslint and prettier-check
 ```
