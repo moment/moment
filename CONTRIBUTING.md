@@ -47,7 +47,7 @@ cd moment
 npm install -g grunt-cli
 npm install
 git checkout develop  # all patches against develop branch, please!
-grunt                 # this runs tests and jshint
+grunt                 # this runs tests, eslint and prettier-check
 ```
 
 Changing locale files
@@ -68,11 +68,14 @@ Grunt tasks
 We use Grunt for managing the build. Here are some useful Grunt tasks:
 
   * `grunt` The default task lints the code and runs the tests. You should make sure you do this before submitting a PR.
-  * `grunt test` run the tests.
+  * `grunt test` Run the tests.
+  * `grunt lint` Perform syntax and code style checks.
   * `grunt release` Build everything, including minified files (do not include
     those in Pull Requests)
   * `grunt transpile:fr,ru` Build custom locale bundles `moment-with-locales.custom.js` and `locales.custom.js` inside `build/umd/min` containing just French and Russian.
   * `grunt size` Print size statistics.
+
+**Note:** If the prompt message is `Code style issues found in the above file(s). Forgot to run Prettier?`, Please run `npm run prettier-fmt`. 
 
 Becoming a moment team member
 =============================
