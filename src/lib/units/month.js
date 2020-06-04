@@ -314,27 +314,24 @@ function computeMonthsParse() {
         longPieces = [],
         mixedPieces = [],
         i,
-        mom;
+        mom,
+        shortP,
+        longP;
     for (i = 0; i < 12; i++) {
         // make the regex if we don't have it already
         mom = createUTC([2000, i]);
-        shortPieces.push(this.monthsShort(mom, ''));
-        longPieces.push(this.months(mom, ''));
-        mixedPieces.push(this.months(mom, ''));
-        mixedPieces.push(this.monthsShort(mom, ''));
+        shortP = regexEscape(this.monthsShort(mom, ''));
+        longP = regexEscape(this.months(mom, ''));
+        shortPieces.push(shortP);
+        longPieces.push(longP);
+        mixedPieces.push(longP);
+        mixedPieces.push(shortP);
     }
     // Sorting makes sure if one month (or abbr) is a prefix of another it
     // will match the longer piece.
     shortPieces.sort(cmpLenRev);
     longPieces.sort(cmpLenRev);
     mixedPieces.sort(cmpLenRev);
-    for (i = 0; i < 12; i++) {
-        shortPieces[i] = regexEscape(shortPieces[i]);
-        longPieces[i] = regexEscape(longPieces[i]);
-    }
-    for (i = 0; i < 24; i++) {
-        mixedPieces[i] = regexEscape(mixedPieces[i]);
-    }
 
     this._monthsRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
     this._monthsShortRegex = this._monthsRegex;
