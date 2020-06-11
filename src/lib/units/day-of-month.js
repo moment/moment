@@ -2,7 +2,12 @@ import { makeGetSet } from '../moment/get-set';
 import { addFormatToken } from '../format/format';
 import { addUnitAlias } from './aliases';
 import { addUnitPriority } from './priorities';
-import { addRegexToken, match1to2, match2 } from '../parse/regex';
+import {
+    addRegexToken,
+    match1to2,
+    match2,
+    match1to2NoLeadingZero,
+} from '../parse/regex';
 import { addParseToken } from '../parse/token';
 import { DATE } from './constants';
 import toInt from '../utils/to-int';
@@ -20,7 +25,7 @@ addUnitPriority('date', 9);
 
 // PARSING
 
-addRegexToken('D', match1to2);
+addRegexToken('D', match1to2, match1to2NoLeadingZero);
 addRegexToken('DD', match1to2, match2);
 addRegexToken('Do', function (isStrict, locale) {
     // TODO: Remove "ordinalParse" fallback in next major release.

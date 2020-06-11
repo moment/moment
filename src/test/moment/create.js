@@ -2199,8 +2199,8 @@ test('strict parsing', function (assert) {
     );
     assert.equal(
         moment('2012-05-25', 'YYYY-M-DD', true).isValid(),
-        true,
-        'valid one-digit month'
+        false,
+        'isValid one-digit month'
     );
     assert.equal(
         moment('2012-05-25', 'YYYY-MM-DD', true).isValid(),
@@ -2220,8 +2220,8 @@ test('strict parsing', function (assert) {
     );
     assert.equal(
         moment('2012-05-02', 'YYYY-MM-D', true).isValid(),
-        true,
-        'valid two-digit day'
+        false,
+        'isValid two-digit day'
     );
     assert.equal(
         moment('2012-05-02', 'YYYY-MM-DD', true).isValid(),
@@ -2255,6 +2255,114 @@ test('strict parsing', function (assert) {
         moment('123', 'S', true).isValid(),
         false,
         'invalid three-digit milisecond'
+    );
+
+    assert.equal(
+        moment('2002-05-02 09:30:26', 'YYYY-MM-DD H:mm:ss', true).isValid(),
+        false,
+        'invalid two-digit hour'
+    );
+
+    assert.equal(
+        moment('2002-05-02 11:30:26', 'YYYY-MM-DD H:mm:ss', true).isValid(),
+        true,
+        'valid two-digit hour'
+    );
+
+    assert.equal(
+        moment('2002-05-02 09:30:26', 'YYYY-MM-DD h:mm:ss', true).isValid(),
+        false,
+        'invalid two-digit hour'
+    );
+
+    assert.equal(
+        moment('2002-05-02 11:30:26', 'YYYY-MM-DD h:mm:ss', true).isValid(),
+        true,
+        'valid two-digit hour'
+    );
+
+    assert.equal(
+        moment('2002-05-02 09:30:26', 'YYYY-MM-DD k:mm:ss', true).isValid(),
+        false,
+        'invalid two-digit hour'
+    );
+
+    assert.equal(
+        moment('2002-05-02 11:30:26', 'YYYY-MM-DD k:mm:ss', true).isValid(),
+        true,
+        'valid two-digit hour'
+    );
+
+    assert.equal(
+        moment('2002-05-02 11:09:26', 'YYYY-MM-DD hh:m:ss', true).isValid(),
+        false,
+        'invalid two-digit minute'
+    );
+
+    assert.equal(
+        moment('2002-05-02 11:12:26', 'YYYY-MM-DD hh:m:ss', true).isValid(),
+        true,
+        'valid two-digit minute'
+    );
+
+    assert.equal(
+        moment('2002-05-02 11:09:06', 'YYYY-MM-DD hh:mm:s', true).isValid(),
+        false,
+        'invalid two-digit second'
+    );
+
+    assert.equal(
+        moment('2002-05-02 11:09:16', 'YYYY-MM-DD hh:mm:s', true).isValid(),
+        true,
+        'valid two-digit second'
+    );
+
+    assert.equal(
+        moment('2012-W07', 'YYYY-[W]W', true).isValid(),
+        false,
+        'invalid two-digit week'
+    );
+
+    assert.equal(
+        moment('2012-W17', 'YYYY-[W]W', true).isValid(),
+        true,
+        'valid two-digit week'
+    );
+
+    assert.equal(
+        moment('2012-W07', 'YYYY-[W]w', true).isValid(),
+        false,
+        'invalid two-digit week'
+    );
+
+    assert.equal(
+        moment('2012-W17', 'YYYY-[W]w', true).isValid(),
+        true,
+        'valid two-digit week'
+    );
+
+    assert.equal(
+        moment('08 June 2012', ['D MMMM YYYY'], true).isValid(),
+        false,
+        'invalid two-digit day'
+    );
+
+    assert.equal(
+        moment('18 June 2012', ['D MMMM YYYY'], true).isValid(),
+        true,
+        'valid two-digit day'
+    );
+
+    assert.equal(
+        moment('2012-05-02', 'YYYY-M-DD', true).isValid(),
+        false,
+        'invalid two-digit month'
+    );
+
+    assert.equal(
+        moment('2012-11-02', 'YYYY-M-DD', true).isValid(),
+        true,
+        'valid two-digit month'
     );
 
     assert.equal(

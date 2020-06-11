@@ -483,7 +483,7 @@ test('test short months proper', function (assert) {
 
 test('test lenient month parsing', function (assert) {
     assert.ok(
-        moment('nov 01, 2015', 'MMM D, YYYY', true).isValid(),
+        moment('nov 01, 2015', 'MMM DD, YYYY', true).isValid(),
         'nov 01, 2015 should parse correctly'
     );
 });

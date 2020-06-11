@@ -8,6 +8,8 @@ import {
     match2,
     match3to4,
     match5to6,
+    match1to2NoLeadingZero,
+    match1to2HasZero,
 } from '../parse/regex';
 import { addParseToken } from '../parse/token';
 import { HOUR, MINUTE, SECOND } from './constants';
@@ -83,9 +85,9 @@ function matchMeridiem(isStrict, locale) {
 
 addRegexToken('a', matchMeridiem);
 addRegexToken('A', matchMeridiem);
-addRegexToken('H', match1to2);
-addRegexToken('h', match1to2);
-addRegexToken('k', match1to2);
+addRegexToken('H', match1to2, match1to2HasZero);
+addRegexToken('h', match1to2, match1to2NoLeadingZero);
+addRegexToken('k', match1to2, match1to2NoLeadingZero);
 addRegexToken('HH', match1to2, match2);
 addRegexToken('hh', match1to2, match2);
 addRegexToken('kk', match1to2, match2);

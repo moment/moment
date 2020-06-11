@@ -9,6 +9,7 @@ import {
     match2,
     matchWord,
     regexEscape,
+    match1to2NoLeadingZero,
 } from '../parse/regex';
 import { addParseToken } from '../parse/token';
 import { hooks } from '../utils/hooks';
@@ -59,7 +60,7 @@ addUnitPriority('month', 8);
 
 // PARSING
 
-addRegexToken('M', match1to2);
+addRegexToken('M', match1to2, match1to2NoLeadingZero);
 addRegexToken('MM', match1to2, match2);
 addRegexToken('MMM', function (isStrict, locale) {
     return locale.monthsShortRegex(isStrict);
