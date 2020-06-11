@@ -1,5 +1,10 @@
 import { addFormatToken } from '../format/format';
-import { addRegexToken, match1to2, match2 } from '../parse/regex';
+import {
+    addRegexToken,
+    match1to2,
+    match2,
+    match1to2NoLeadingZero,
+} from '../parse/regex';
 import { addWeekParseToken } from '../parse/token';
 import toInt from '../utils/to-int';
 import { weekOfYear } from './week-calendar-utils';
@@ -11,9 +16,9 @@ addFormatToken('W', ['WW', 2], 'Wo', 'isoWeek');
 
 // PARSING
 
-addRegexToken('w', match1to2);
+addRegexToken('w', match1to2, match1to2NoLeadingZero);
 addRegexToken('ww', match1to2, match2);
-addRegexToken('W', match1to2);
+addRegexToken('W', match1to2, match1to2NoLeadingZero);
 addRegexToken('WW', match1to2, match2);
 
 addWeekParseToken(
