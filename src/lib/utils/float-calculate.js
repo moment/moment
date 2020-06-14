@@ -17,7 +17,7 @@ function toBigInt(floatNum) {
         len,
         mag,
         intNum;
-        
+
     if (Math.floor(floatNum) === floatNum) {
         bigInt.num = floatNum;
         return bigInt;
