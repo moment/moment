@@ -2814,3 +2814,34 @@ test('k, kk', function (assert) {
         }
     }
 });
+
+test('Invalid date will throw an error', function (assert) {
+    var i,
+        data,
+        dataList = [
+            ['10:32:17 027', null],
+            ['20202-02-01', moment.ISO_8601],
+            ['20202-02-01', moment.RFC_2822],
+            ['20202-02-01', []],
+            [new Date(NaN), null],
+        ];
+    moment.suppressCreateError = false;
+    for (i = 0; i < dataList.length; i++) {
+        data = dataList[i];
+        try {
+            moment(data[0], data[1]);
+        } catch (error) {
+            assert.ok(
+                error instanceof Error,
+                'Invalid date returns an instance of Error'
+            );
+            if (error.toJSON) {
+                assert.ok(
+                    error.toJSON instanceof Function,
+                    'Error instance contains toJSON method'
+                );
+            }
+        }
+    }
+    moment.suppressCreateError = true;
+});

@@ -11,6 +11,7 @@ import checkOverflow from './check-overflow';
 import { YEAR, HOUR } from '../units/constants';
 import { hooks } from '../utils/hooks';
 import getParsingFlags from './parsing-flags';
+import createError from '../utils/create-error';
 
 // constant that refers to the ISO standard
 hooks.ISO_8601 = function () {};
@@ -23,10 +24,22 @@ export function configFromStringAndFormat(config) {
     // TODO: Move this to another part of the creation flow to prevent circular deps
     if (config._f === hooks.ISO_8601) {
         configFromISO(config);
+        createError(
+            config._i + ' does not match the `ISO 8601` standard',
+            config._d,
+            config._i,
+            config._f
+        );
         return;
     }
     if (config._f === hooks.RFC_2822) {
         configFromRFC2822(config);
+        createError(
+            config._i + ' does not match the `RFC 2822` standard',
+            config._d,
+            config._i,
+            config._f
+        );
         return;
     }
     config._a = [];
