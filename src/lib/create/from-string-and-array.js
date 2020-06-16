@@ -3,6 +3,7 @@ import { configFromStringAndFormat } from './from-string-and-format';
 import getParsingFlags from './parsing-flags';
 import { isValid } from './valid';
 import extend from '../utils/extend';
+import createError from '../utils/create-error';
 
 // date from string and array of format strings
 export function configFromStringAndArray(config) {
@@ -18,6 +19,12 @@ export function configFromStringAndArray(config) {
     if (configfLen === 0) {
         getParsingFlags(config).invalidFormat = true;
         config._d = new Date(NaN);
+        createError(
+            "Invalid `format`, its length shouldn't be 0",
+            config._d,
+            config._i,
+            config._f
+        );
         return;
     }
 

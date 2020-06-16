@@ -1,6 +1,7 @@
 import { hooks } from '../utils/hooks';
 import isUndefined from '../utils/is-undefined';
 import getParsingFlags from '../create/parsing-flags';
+import createError from '../utils/create-error';
 
 // Plugins that add properties should also add the key here (null value),
 // so we can properly clone ourselves.
@@ -63,6 +64,7 @@ export function Moment(config) {
     this._d = new Date(config._d != null ? config._d.getTime() : NaN);
     if (!this.isValid()) {
         this._d = new Date(NaN);
+        createError('invalid moment instance', config._d, config._i, config._f);
     }
     // Prevent infinite loop in case updateOffset creates new moment
     // objects.
