@@ -3,6 +3,23 @@ import { localeModule } from '../qunit-locale';
 import moment from '../../moment';
 localeModule('pl');
 
+test('months', function (assert) {
+    assert.deepEqual(moment.months(), [
+        'styczeń',
+        'luty',
+        'marzec',
+        'kwiecień',
+        'maj',
+        'czerwiec',
+        'lipiec',
+        'sierpień',
+        'wrzesień',
+        'październik',
+        'listopad',
+        'grudzień',
+    ]);
+});
+
 test('parse', function (assert) {
     var tests = 'styczeń stycznia sty_luty lutego lut_marzec marca mar_kwiecień kwietnia kwi_maj maja maj_czerwiec czerwca cze_lipiec lipca lip_sierpień sierpnia sie_wrzesień września wrz_październik października paź_listopad listopada lis_grudzień grudnia gru'.split(
             '_'
