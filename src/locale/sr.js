@@ -57,7 +57,7 @@ export default moment.defineLocale('sr', {
         L: 'D. M. YYYY.',
         LL: 'D. MMMM YYYY.',
         LLL: 'D. MMMM YYYY. H:mm',
-        LLLL: 'dddd, D. MMMM YYYY. H:mm'
+        LLLL: 'dddd, D. MMMM YYYY. H:mm',
     },
     calendar: {
         sameDay: '[danas u] LT',
