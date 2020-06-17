@@ -289,6 +289,37 @@ test('from', function (assert) {
     );
 });
 
+test('from ss threshold set', function (assert) {
+    var start = moment([2007, 1, 28]),
+        s = moment.relativeTimeThreshold('s'),
+        ss = moment.relativeTimeThreshold('ss');
+    moment.relativeTimeThreshold('s', 45);
+    moment.relativeTimeThreshold('ss', 10);
+
+    assert.equal(
+        start.from(moment([2007, 1, 28]).add({ s: 10 }), true),
+        'muutama sekunti',
+        '10 seconds = few seconds'
+    );
+    assert.equal(
+        start.from(moment([2007, 1, 28]).add({ s: 11 }), true),
+        '11 sekuntia',
+        '11 seconds = 11 seconds'
+    );
+    assert.equal(
+        start.from(moment([2007, 1, 28]).add({ s: 44 }), true),
+        '44 sekuntia',
+        '44 seconds = 44 seconds'
+    );
+    assert.equal(
+        start.from(moment([2007, 1, 28]).add({ s: 45 }), true),
+        'minuutti',
+        '45 seconds = a minute'
+    );
+    moment.relativeTimeThreshold('s', s);
+    moment.relativeTimeThreshold('ss', ss);
+});
+
 test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'muutaman sekunnin päästä', 'prefix');
     assert.equal(moment(0).from(30000), 'muutama sekunti sitten', 'suffix');
