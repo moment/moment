@@ -292,13 +292,13 @@ test('from', function (assert) {
 
 test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'અમુક પળો મા', 'prefix');
-    assert.equal(moment(0).from(30000), 'અમુક પળો પેહલા', 'suffix');
+    assert.equal(moment(0).from(30000), 'અમુક પળો પહેલા', 'suffix');
 });
 
 test('now from now', function (assert) {
     assert.equal(
         moment().fromNow(),
-        'અમુક પળો પેહલા',
+        'અમુક પળો પહેલા',
         'now from now should display as in the past'
     );
 });

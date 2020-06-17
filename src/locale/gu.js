@@ -60,7 +60,7 @@ export default moment.defineLocale('gu', {
     },
     relativeTime: {
         future: '%s મા',
-        past: '%s પેહલા',
+        past: '%s પહેલા',
         s: 'અમુક પળો',
         ss: '%d સેકંડ',
         m: 'એક મિનિટ',
