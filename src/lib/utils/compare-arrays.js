@@ -7,8 +7,10 @@ export default function compareArrays(array1, array2, dontConvert) {
         diffs = 0,
         i;
     for (i = 0; i < len; i++) {
-        if ((dontConvert && array1[i] !== array2[i]) ||
-            (!dontConvert && toInt(array1[i]) !== toInt(array2[i]))) {
+        if (
+            (dontConvert && array1[i] !== array2[i]) ||
+            (!dontConvert && toInt(array1[i]) !== toInt(array2[i]))
+        ) {
             diffs++;
         }
     }

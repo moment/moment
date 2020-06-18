@@ -23,6 +23,8 @@ var day10 = moment([2010, 6, 10]);
 var array = [2010, 1, 14, 15, 25, 50, 125];
 var day11 = moment(Date.UTC.apply({}, array));
 var day12 = moment.unix(1318781876);
+var day13 = moment("/Date(1198908717056-0700)/", true);
+var day14 = moment("foobazbar", 'L', true);
 
 // TODO: reenable in 2.0
 // moment(null);
@@ -137,6 +139,9 @@ moment().isoWeeks();
 moment().isoWeeks(45);
 moment().dayOfYear();
 moment().dayOfYear(45);
+moment().weeksInYear();
+moment().isoWeeksInYear();
+moment().isoWeeksInISOWeekYear();
 
 moment().set('year', 2013);
 moment().set('month', 3);  // April
@@ -237,6 +242,15 @@ moment(1316116057189).fromNow();
 moment.localeData('en');
 var globalLang = moment();
 var localLang = moment();
+var thresholds = {
+    ss: 44, 
+    s: 45,
+    m: 45,
+    h: 22,
+    d: 26,
+    w: 2,
+    M: 11,
+};
 localLang.localeData();
 localLang.format('LLLL');
 globalLang.format('LLLL');
@@ -266,6 +280,9 @@ moment.duration({
 });
 moment.duration(1, "minute").clone();
 moment.duration(1, "minutes").humanize();
+moment.duration(1, "minutes").humanize(true);
+moment.duration(1, "minutes").humanize(thresholds);
+moment.duration(1, "minutes").humanize(true, thresholds);
 moment.duration(500).milliseconds();
 moment.duration(500).asMilliseconds();
 moment.duration(500).seconds();
@@ -280,6 +297,26 @@ var bdur = moment.duration(2, 'd');
 adur.subtract(bdur).days();
 adur.subtract(1).days();
 adur.subtract(1, 'd').days();
+
+var calendarFormat = {
+    sameDay: '[Today]',
+    nextDay: '[Tomorrow]',
+    nextWeek: 'dddd',
+    lastDay: '[Yesterday]',
+    lastWeek: '[Last] dddd',
+    sameElse: 'DD/MM/YYYY'
+};
+moment().calendar();
+moment().calendar(null);
+moment().calendar(calendarFormat);
+moment().calendar(null, {
+    sameDay: '[Today]',
+    nextDay: '[Tomorrow]',
+    nextWeek: 'dddd',
+    lastDay: '[Yesterday]',
+    lastWeek: '[Last] dddd',
+    sameElse: 'DD/MM/YYYY'
+});
 
 // Selecting a language
 moment.locale();
@@ -317,6 +354,7 @@ moment.locale('en', {
         hh: "%d hours",
         d: "a day",
         dd: "%d days",
+        w: "%d weeks",
         M: "a month",
         MM: "%d months",
         y: "a year",

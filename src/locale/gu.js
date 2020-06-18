@@ -14,7 +14,7 @@ var symbolMap = {
         '7': '૭',
         '8': '૮',
         '9': '૯',
-        '0': '૦'
+        '0': '૦',
     },
     numberMap = {
         '૧': '1',
@@ -26,14 +26,20 @@ var symbolMap = {
         '૭': '7',
         '૮': '8',
         '૯': '9',
-        '૦': '0'
+        '૦': '0',
     };
 
 export default moment.defineLocale('gu', {
-    months: 'જાન્યુઆરી_ફેબ્રુઆરી_માર્ચ_એપ્રિલ_મે_જૂન_જુલાઈ_ઑગસ્ટ_સપ્ટેમ્બર_ઑક્ટ્બર_નવેમ્બર_ડિસેમ્બર'.split('_'),
-    monthsShort: 'જાન્યુ._ફેબ્રુ._માર્ચ_એપ્રિ._મે_જૂન_જુલા._ઑગ._સપ્ટે._ઑક્ટ્._નવે._ડિસે.'.split('_'),
+    months: 'જાન્યુઆરી_ફેબ્રુઆરી_માર્ચ_એપ્રિલ_મે_જૂન_જુલાઈ_ઑગસ્ટ_સપ્ટેમ્બર_ઑક્ટ્બર_નવેમ્બર_ડિસેમ્બર'.split(
+        '_'
+    ),
+    monthsShort: 'જાન્યુ._ફેબ્રુ._માર્ચ_એપ્રિ._મે_જૂન_જુલા._ઑગ._સપ્ટે._ઑક્ટ્._નવે._ડિસે.'.split(
+        '_'
+    ),
     monthsParseExact: true,
-    weekdays: 'રવિવાર_સોમવાર_મંગળવાર_બુધ્વાર_ગુરુવાર_શુક્રવાર_શનિવાર'.split('_'),
+    weekdays: 'રવિવાર_સોમવાર_મંગળવાર_બુધ્વાર_ગુરુવાર_શુક્રવાર_શનિવાર'.split(
+        '_'
+    ),
     weekdaysShort: 'રવિ_સોમ_મંગળ_બુધ્_ગુરુ_શુક્ર_શનિ'.split('_'),
     weekdaysMin: 'ર_સો_મં_બુ_ગુ_શુ_શ'.split('_'),
     longDateFormat: {
@@ -42,7 +48,7 @@ export default moment.defineLocale('gu', {
         L: 'DD/MM/YYYY',
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY, A h:mm વાગ્યે',
-        LLLL: 'dddd, D MMMM YYYY, A h:mm વાગ્યે'
+        LLLL: 'dddd, D MMMM YYYY, A h:mm વાગ્યે',
     },
     calendar: {
         sameDay: '[આજ] LT',
@@ -50,11 +56,11 @@ export default moment.defineLocale('gu', {
         nextWeek: 'dddd, LT',
         lastDay: '[ગઇકાલે] LT',
         lastWeek: '[પાછલા] dddd, LT',
-        sameElse: 'L'
+        sameElse: 'L',
     },
     relativeTime: {
         future: '%s મા',
-        past: '%s પેહલા',
+        past: '%s પહેલા',
         s: 'અમુક પળો',
         ss: '%d સેકંડ',
         m: 'એક મિનિટ',
@@ -66,7 +72,7 @@ export default moment.defineLocale('gu', {
         M: 'એક મહિનો',
         MM: '%d મહિનો',
         y: 'એક વર્ષ',
-        yy: '%d વર્ષ'
+        yy: '%d વર્ષ',
     },
     preparse: function (string) {
         return string.replace(/[૧૨૩૪૫૬૭૮૯૦]/g, function (match) {
@@ -110,6 +116,6 @@ export default moment.defineLocale('gu', {
     },
     week: {
         dow: 0, // Sunday is the first day of the week.
-        doy: 6 // The week that contains Jan 6th is the first week of the year.
-    }
+        doy: 6, // The week that contains Jan 6th is the first week of the year.
+    },
 });

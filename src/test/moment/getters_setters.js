@@ -34,12 +34,20 @@ test('getters programmatic', function (assert) {
     assert.equal(a.get('dayOfYear'), a.dayOfYear(), 'dayOfYear');
 
     //getter no longer sets values when passed an object
-    assert.equal(moment([2016,0,1]).get({year:2015}).year(), 2016, 'getter no longer sets values when passed an object');
+    assert.equal(
+        moment([2016, 0, 1]).get({ year: 2015 }).year(),
+        2016,
+        'getter no longer sets values when passed an object'
+    );
 });
 
 test('setters plural', function (assert) {
     var a = moment();
-    test.expectedDeprecations('years accessor', 'months accessor', 'dates accessor');
+    test.expectedDeprecations(
+        'years accessor',
+        'months accessor',
+        'dates accessor'
+    );
 
     a.years(2011);
     a.months(9);
@@ -114,7 +122,7 @@ test('setters should handle garbage input', function (assert) {
     a.year(undefined);
     a.month('foo');
     a.date(null);
-    a.day({a:2,b:3});
+    a.day({ a: 2, b: 3 });
     a.hours('[1]');
     a.minutes(undefined);
     a.seconds(null);
@@ -185,9 +193,21 @@ test('setters strings', function (assert) {
     assert.equal(a.clone().day(0).day('Wed').day(), 3, 'day short name');
     assert.equal(a.clone().day(0).day('We').day(), 3, 'day minimal name');
     assert.equal(a.clone().day(0).day('invalid').day(), 0, 'invalid day name');
-    assert.equal(a.clone().month(0).month('April').month(), 3, 'month full name');
-    assert.equal(a.clone().month(0).month('Apr').month(), 3, 'month short name');
-    assert.equal(a.clone().month(0).month('invalid').month(), 0, 'invalid month name');
+    assert.equal(
+        a.clone().month(0).month('April').month(),
+        3,
+        'month full name'
+    );
+    assert.equal(
+        a.clone().month(0).month('Apr').month(),
+        3,
+        'month short name'
+    );
+    assert.equal(
+        a.clone().month(0).month('invalid').month(),
+        0,
+        'invalid month name'
+    );
 });
 
 test('setters - falsey values', function (assert) {
@@ -200,12 +220,7 @@ test('setters - falsey values', function (assert) {
 
 test('chaining setters', function (assert) {
     var a = moment();
-    a.year(2011)
-     .month(9)
-     .date(12)
-     .hours(6)
-     .minutes(7)
-     .seconds(8);
+    a.year(2011).month(9).date(12).hours(6).minutes(7).seconds(8);
     assert.equal(a.year(), 2011, 'year');
     assert.equal(a.month(), 9, 'month');
     assert.equal(a.date(), 12, 'date');
@@ -216,7 +231,8 @@ test('chaining setters', function (assert) {
 });
 
 test('setter with multiple unit values', function (assert) {
-    var a = moment();
+    var a = moment(),
+        c;
     a.set({
         year: 2011,
         month: 9,
@@ -224,7 +240,7 @@ test('setter with multiple unit values', function (assert) {
         hours: 6,
         minutes: 7,
         seconds: 8,
-        milliseconds: 9
+        milliseconds: 9,
     });
     assert.equal(a.year(), 2011, 'year');
     assert.equal(a.month(), 9, 'month');
@@ -235,9 +251,17 @@ test('setter with multiple unit values', function (assert) {
     assert.equal(a.seconds(), 8, 'second');
     assert.equal(a.milliseconds(), 9, 'milliseconds');
 
-    var c = moment([2016,0,1]);
-    assert.equal(c.set({weekYear: 2016}).weekYear(), 2016, 'week year correctly sets with object syntax');
-    assert.equal(c.set({quarter: 3}).quarter(), 3, 'quarter sets correctly with object syntax');
+    c = moment([2016, 0, 1]);
+    assert.equal(
+        c.set({ weekYear: 2016 }).weekYear(),
+        2016,
+        'week year correctly sets with object syntax'
+    );
+    assert.equal(
+        c.set({ quarter: 3 }).quarter(),
+        3,
+        'quarter sets correctly with object syntax'
+    );
 });
 
 test('day setter', function (assert) {
@@ -254,48 +278,144 @@ test('day setter', function (assert) {
     a = moment([2011, 0, 12]);
     assert.equal(moment(a).day(0).date(), 9, 'set from wednesday to sunday');
     assert.equal(moment(a).day(6).date(), 15, 'set from wednesday to saturday');
-    assert.equal(moment(a).day(3).date(), 12, 'set from wednesday to wednesday');
+    assert.equal(
+        moment(a).day(3).date(),
+        12,
+        'set from wednesday to wednesday'
+    );
 
-    assert.equal(moment(a).day(-7).date(), 2, 'set from wednesday to last sunday');
-    assert.equal(moment(a).day(-1).date(), 8, 'set from wednesday to last saturday');
-    assert.equal(moment(a).day(-4).date(), 5, 'set from wednesday to last wednesday');
+    assert.equal(
+        moment(a).day(-7).date(),
+        2,
+        'set from wednesday to last sunday'
+    );
+    assert.equal(
+        moment(a).day(-1).date(),
+        8,
+        'set from wednesday to last saturday'
+    );
+    assert.equal(
+        moment(a).day(-4).date(),
+        5,
+        'set from wednesday to last wednesday'
+    );
 
-    assert.equal(moment(a).day(7).date(), 16, 'set from wednesday to next sunday');
-    assert.equal(moment(a).day(13).date(), 22, 'set from wednesday to next saturday');
-    assert.equal(moment(a).day(10).date(), 19, 'set from wednesday to next wednesday');
+    assert.equal(
+        moment(a).day(7).date(),
+        16,
+        'set from wednesday to next sunday'
+    );
+    assert.equal(
+        moment(a).day(13).date(),
+        22,
+        'set from wednesday to next saturday'
+    );
+    assert.equal(
+        moment(a).day(10).date(),
+        19,
+        'set from wednesday to next wednesday'
+    );
 
-    assert.equal(moment(a).day(14).date(), 23, 'set from wednesday to second next sunday');
-    assert.equal(moment(a).day(20).date(), 29, 'set from wednesday to second next saturday');
-    assert.equal(moment(a).day(17).date(), 26, 'set from wednesday to second next wednesday');
+    assert.equal(
+        moment(a).day(14).date(),
+        23,
+        'set from wednesday to second next sunday'
+    );
+    assert.equal(
+        moment(a).day(20).date(),
+        29,
+        'set from wednesday to second next saturday'
+    );
+    assert.equal(
+        moment(a).day(17).date(),
+        26,
+        'set from wednesday to second next wednesday'
+    );
 });
 
 test('year setter', function (assert) {
-    var a = moment([2015, 3, 15]);
-    assert.equal(moment(a).year(2016).format('YYYY-MM-DD'), '2016-04-15', 'set from 2015 to 2016');
-    assert.equal(moment(a).year(2011).format('YYYY-MM-DD'), '2011-04-15', 'set from 2015 to 2011');
+    var a = moment([2015, 3, 15]),
+        b,
+        c,
+        d,
+        e;
+    assert.equal(
+        moment(a).year(2016).format('YYYY-MM-DD'),
+        '2016-04-15',
+        'set from 2015 to 2016'
+    );
+    assert.equal(
+        moment(a).year(2011).format('YYYY-MM-DD'),
+        '2011-04-15',
+        'set from 2015 to 2011'
+    );
 
-    var b = moment([2012, 1, 29]);
-    assert.equal(moment(b).year(2017).format('YYYY-MM-DD'), '2017-02-28', 'set from last day of february on a leap year to a non leap year');
-    assert.equal(moment(b).year(2004).format('YYYY-MM-DD'), '2004-02-29', 'set from last day of february on a leap year to a leap year');
+    b = moment([2012, 1, 29]);
+    assert.equal(
+        moment(b).year(2017).format('YYYY-MM-DD'),
+        '2017-02-28',
+        'set from last day of february on a leap year to a non leap year'
+    );
+    assert.equal(
+        moment(b).year(2004).format('YYYY-MM-DD'),
+        '2004-02-29',
+        'set from last day of february on a leap year to a leap year'
+    );
 
-    var c = moment([2012, 9, 4]);
-    assert.equal(moment(c).year(2017).format('YYYY-MM-DD'), '2017-10-04', 'set from a random day on a leap year to a non leap year');
-    assert.equal(moment(c).year(2004).format('YYYY-MM-DD'), '2004-10-04', 'set from a random day on a leap year to a leap year');
+    c = moment([2012, 9, 4]);
+    assert.equal(
+        moment(c).year(2017).format('YYYY-MM-DD'),
+        '2017-10-04',
+        'set from a random day on a leap year to a non leap year'
+    );
+    assert.equal(
+        moment(c).year(2004).format('YYYY-MM-DD'),
+        '2004-10-04',
+        'set from a random day on a leap year to a leap year'
+    );
+
+    d = moment([2020, 1, 29]);
+    assert.equal(
+        moment(d).year('2020').format('YYYY-MM-DD'),
+        '2020-02-29',
+        'set from last day of february in 2020 to the same year, provided as string'
+    );
+
+    e = moment([2012, 1, 29]);
+    assert.equal(
+        moment(e).year('2020').format('YYYY-MM-DD'),
+        '2020-02-29',
+        'set from last day of february on a leap year to 2020, provided as string'
+    );
 });
 
 test('object set ordering', function (assert) {
-    var a = moment([2016,3,30]);
-    assert.equal(a.set({date:31, month:4}).date(), 31, 'setter order automatically arranged by size');
-    var b = moment([2015,1,28]);
-    assert.equal(b.set({date:29, year: 2016}).format('YYYY-MM-DD'), '2016-02-29', 'year is prioritized over date');
+    var a = moment([2016, 3, 30]),
+        b,
+        c;
+    assert.equal(
+        a.set({ date: 31, month: 4 }).date(),
+        31,
+        'setter order automatically arranged by size'
+    );
+    b = moment([2015, 1, 28]);
+    assert.equal(
+        b.set({ date: 29, year: 2016 }).format('YYYY-MM-DD'),
+        '2016-02-29',
+        'year is prioritized over date'
+    );
     //check a nonexistent time in US isn't set
-    var c = moment([2016,2,13]);
+    c = moment([2016, 2, 13]);
     c.set({
-        hour:2,
-        minutes:30,
-        date: 14
+        hour: 2,
+        minutes: 30,
+        date: 14,
     });
-    assert.equal(c.format('YYYY-MM-DDTHH:mm'), '2016-03-14T02:30', 'setting hours, minutes date puts date first allowing time set to work');
+    assert.equal(
+        c.format('YYYY-MM-DDTHH:mm'),
+        '2016-03-14T02:30',
+        'setting hours, minutes date puts date first allowing time set to work'
+    );
 });
 
 test('string setters', function (assert) {
