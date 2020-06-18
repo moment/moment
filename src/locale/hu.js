@@ -58,6 +58,7 @@ export default moment.defineLocale('hu', {
     monthsShort: 'jan._feb._márc._ápr._máj._jún._júl._aug._szept._okt._nov._dec.'.split(
         '_'
     ),
+    monthsParseExact: true,
     weekdays: 'vasárnap_hétfő_kedd_szerda_csütörtök_péntek_szombat'.split('_'),
     weekdaysShort: 'vas_hét_kedd_sze_csüt_pén_szo'.split('_'),
     weekdaysMin: 'v_h_k_sze_cs_p_szo'.split('_'),
