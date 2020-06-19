@@ -2022,3 +2022,9 @@ test('duration plugins', function (assert) {
     };
     durationObject.foo(5);
 });
+
+test('valueOf and asMilliseconds have the same function', function (assert) {
+    var t1 = +moment.duration({ months: 2 }),
+        t2 = moment.duration({ months: 2 }).asMilliseconds();
+    assert.ok(t1 === t2, 'the final value should be equal');
+});
