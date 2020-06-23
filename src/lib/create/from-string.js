@@ -1,5 +1,5 @@
 import { configFromStringAndFormat } from './from-string-and-format';
-import { createUTCDate } from './date-from-array';
+import { createUTCDate, createDate } from './date-from-array';
 import { hooks } from '../utils/hooks';
 import { deprecate } from '../utils/deprecate';
 import getParsingFlags from './parsing-flags';
@@ -155,13 +155,18 @@ function preprocessRFC2822(s) {
 
 function checkWeekday(weekdayStr, parsedInput, config) {
     if (weekdayStr) {
-        // TODO: Replace the vanilla JS Date object with an independent day-of-week check.
         var weekdayProvided = defaultLocaleWeekdaysShort.indexOf(weekdayStr),
-            weekdayActual = new Date(
-                parsedInput[0],
-                parsedInput[1],
-                parsedInput[2]
-            ).getDay();
+            i,
+            date,
+            weekdayActual;
+        for (i = 0; i < 7; i++) {
+            parsedInput[i] = parsedInput[i] || 0;
+        }
+        date = (config._useUTC ? createUTCDate : createDate).apply(
+            null,
+            parsedInput
+        );
+        weekdayActual = config._useUTC ? date.getUTCDay() : date.getDay();
         if (weekdayProvided !== weekdayActual) {
             getParsingFlags(config).weekdayMismatch = true;
             config._isValid = false;
