@@ -21,18 +21,31 @@ import indexOf from '../utils/index-of';
 import { createUTC } from '../create/utc';
 import getParsingFlags from '../create/parsing-flags';
 import { isLeapYear } from '../utils/is-leap-year';
+import { FEBRUARY, monthToNumberOfDays } from './month-constants';
 
-export function daysInMonth(year, month) {
-    if (isNaN(year) || isNaN(month)) {
+/**
+ * Given a year and a number of months to add or substract (12 months == 1 year),
+ * returns the number of days in that month, accounting for leap years
+ * @param {*} year the year u
+ * @param {*} numMonths a number of months (positive or negative) to add or
+ * subtract to the year for determine the number of months
+ * @example given year 2020 and month 26, we are really getting days in month 2 of year 2022
+ */
+export function daysInMonth(year, numMonths) {
+    if (isNaN(year) || isNaN(numMonths)) {
         return NaN;
     }
-    var modMonth = mod(month, 12);
-    year += (month - modMonth) / 12;
-    return modMonth === 1
-        ? isLeapYear(year)
-            ? 29
-            : 28
-        : 31 - ((modMonth % 7) % 2);
+
+    var monthsInYear = 12,
+        month = mod(numMonths, monthsInYear),
+        offsetInYears = (numMonths - month) / 12;
+
+    if (month === FEBRUARY) {
+        year += offsetInYears;
+        return isLeapYear(year) ? 29 : 28;
+    }
+
+    return monthToNumberOfDays[month];
 }
 
 // FORMATTING
