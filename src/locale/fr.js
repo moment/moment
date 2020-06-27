@@ -2,7 +2,7 @@
 //! locale : French [fr]
 //! author : John Fischer : https://github.com/jfroffice
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var monthsStrictRegex = /^(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)/i,
     monthsShortStrictRegex = /(janv\.?|févr\.?|mars|avr\.?|mai|juin|juil\.?|août|sept\.?|oct\.?|nov\.?|déc\.?)/i,

@@ -2,7 +2,7 @@
 //! locale : Swahili [sw]
 //! author : Fahad Kassim : https://github.com/fadsel
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('sw', {
     months: 'Januari_Februari_Machi_Aprili_Mei_Juni_Julai_Agosti_Septemba_Oktoba_Novemba_Desemba'.split(

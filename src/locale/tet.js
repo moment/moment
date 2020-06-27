@@ -4,7 +4,7 @@
 //! author : Onorio De J. Afonso : https://github.com/marobo
 //! author : Sonia Simoes : https://github.com/soniasimoes
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('tet', {
     months: 'Janeiru_Fevereiru_Marsu_Abril_Maiu_Juñu_Jullu_Agustu_Setembru_Outubru_Novembru_Dezembru'.split(

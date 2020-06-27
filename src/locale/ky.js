@@ -2,7 +2,7 @@
 //! locale : Kyrgyz [ky]
 //! author : Chyngyz Arystan uulu : https://github.com/chyngyz
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var suffixes = {
     0: '-чү',

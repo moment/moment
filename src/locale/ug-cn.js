@@ -2,7 +2,7 @@
 //! locale : Uyghur (China) [ug-cn]
 //! author: boyaq : https://github.com/boyaq
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('ug-cn', {
     months: 'يانۋار_فېۋرال_مارت_ئاپرېل_ماي_ئىيۇن_ئىيۇل_ئاۋغۇست_سېنتەبىر_ئۆكتەبىر_نويابىر_دېكابىر'.split(

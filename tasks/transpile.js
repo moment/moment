@@ -46,6 +46,7 @@ module.exports = function (grunt) {
             rollupOpts.external = [
                 './moment',
                 '../moment',
+                '../moment.js',
                 '../../moment',
                 path.resolve('src/moment'),
                 path.resolve('build/tmp/moment'),

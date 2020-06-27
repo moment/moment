@@ -2,7 +2,7 @@
 //! locale : Czech [cs]
 //! author : petrbela : https://github.com/petrbela
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var months = 'leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec'.split(
         '_'

@@ -4,7 +4,7 @@
 //! author : Menelion Elensúle : https://github.com/Oire
 //! author : Коренберг Марк : https://github.com/socketpair
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 function plural(word, num) {
     var forms = word.split('_');
