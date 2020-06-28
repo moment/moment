@@ -48,7 +48,7 @@ export default moment.defineLocale('tg', {
     },
     calendar : {
         sameDay : '[Имрӯз соати] LT',
-        nextDay : '[Пагоҳ соати] LT',
+        nextDay : '[Фардо соати] LT',
         lastDay : '[Дирӯз соати] LT',
         nextWeek : 'dddd[и] [ҳафтаи оянда соати] LT',
         lastWeek : 'dddd[и] [ҳафтаи гузашта соати] LT',
