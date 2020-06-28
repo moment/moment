@@ -1,6 +1,5 @@
-import { module, test } from '../qunit';
+import { test } from '../qunit';
 import isNumber from '../../lib/utils/is-number.js';
-
 
 test('isNumber recognizes numbers', function (assert) {
     assert.ok(isNumber(1), 'simple integer');
@@ -10,11 +9,11 @@ test('isNumber recognizes numbers', function (assert) {
     assert.ok(isNumber(Infinity), 'largest number');
     assert.ok(isNumber(-Infinity), 'smallest number');
     assert.ok(isNumber(NaN), 'not number');
-    assert.ok(isNumber(1.100393830000), 'decimal numbers');
+    assert.ok(isNumber(1.10039383), 'decimal numbers');
     assert.ok(isNumber(Math.LN2), 'natural log of two');
     assert.ok(isNumber(Math.PI), 'delicious number');
     assert.ok(isNumber(5e10), 'scientifically notated number');
-    assert.ok(isNumber(new Number(1)), 'number primitive wrapped in an object'); // jshint ignore:line
+    assert.ok(isNumber(new Number(1)), 'number primitive wrapped in an object');
 });
 
 test('isNumber rejects non-numbers', function (assert) {
@@ -24,5 +23,5 @@ test('isNumber rejects non-numbers', function (assert) {
     assert.ok(!isNumber([1]), 'array');
     assert.ok(!isNumber('[1,2,3]'), 'string');
     assert.ok(!isNumber(new Date()), 'date');
-    assert.ok(!isNumber({a:1,b:2}), 'object');
+    assert.ok(!isNumber({ a: 1, b: 2 }), 'object');
 });

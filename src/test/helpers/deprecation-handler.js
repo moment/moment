@@ -10,10 +10,15 @@ export function setupDeprecationHandler(test, moment, scope) {
         test._observedDeprecations = [];
     };
     moment.deprecationHandler = function (name, msg) {
-        var deprecationId = matchedDeprecation(name, msg, test._expectedDeprecations);
+        var deprecationId = matchedDeprecation(
+            name,
+            msg,
+            test._expectedDeprecations
+        );
         if (deprecationId === -1) {
-            throw new Error('Unexpected deprecation thrown name=' +
-                    name + ' msg=' + msg);
+            throw new Error(
+                'Unexpected deprecation thrown name=' + name + ' msg=' + msg
+            );
         }
         test._observedDeprecations[deprecationId] = 1;
     };
@@ -30,8 +35,10 @@ export function teardownDeprecationHandler(test, moment, scope) {
             }
         });
         if (missedDeprecations.length !== 0) {
-            throw new Error('Expected deprecation warnings did not happen: ' +
-                    missedDeprecations.join(' '));
+            throw new Error(
+                'Expected deprecation warnings did not happen: ' +
+                    missedDeprecations.join(' ')
+            );
         }
     }
 }
@@ -44,7 +51,10 @@ function matchedDeprecation(name, msg, deprecations) {
         if (name != null && name === deprecations[i]) {
             return i;
         }
-        if (msg != null && msg.substring(0, deprecations[i].length) === deprecations[i]) {
+        if (
+            msg != null &&
+            msg.substring(0, deprecations[i].length) === deprecations[i]
+        ) {
             return i;
         }
     }

@@ -217,7 +217,6 @@ test('end of date', function (assert) {
     assert.equal(m.milliseconds(), 999, 'set the seconds');
 });
 
-
 test('start of hour', function (assert) {
     var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('hour'),
         ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('hours'),
@@ -289,7 +288,7 @@ test('start of second', function (assert) {
     assert.equal(m.date(), 2, 'keep the day');
     assert.equal(m.hours(), 3, 'keep the hours');
     assert.equal(m.minutes(), 4, 'keep the minutes');
-    assert.equal(m.seconds(), 5, 'keep the the seconds');
+    assert.equal(m.seconds(), 5, 'keep the seconds');
     assert.equal(m.milliseconds(), 0, 'strip out the milliseconds');
 });
 
@@ -324,23 +323,43 @@ test('startOf across DST +1', function (assert) {
 
     m = moment('2014-03-15T00:00:00-07:00').parseZone();
     m.startOf('y');
-    assert.equal(m.format(), '2014-01-01T00:00:00-08:00', 'startOf(\'year\') across +1');
+    assert.equal(
+        m.format(),
+        '2014-01-01T00:00:00-08:00',
+        "startOf('year') across +1"
+    );
 
     m = moment('2014-03-15T00:00:00-07:00').parseZone();
     m.startOf('M');
-    assert.equal(m.format(), '2014-03-01T00:00:00-08:00', 'startOf(\'month\') across +1');
+    assert.equal(
+        m.format(),
+        '2014-03-01T00:00:00-08:00',
+        "startOf('month') across +1"
+    );
 
     m = moment('2014-03-09T09:00:00-07:00').parseZone();
     m.startOf('d');
-    assert.equal(m.format(), '2014-03-09T00:00:00-08:00', 'startOf(\'day\') across +1');
+    assert.equal(
+        m.format(),
+        '2014-03-09T00:00:00-08:00',
+        "startOf('day') across +1"
+    );
 
     m = moment('2014-03-09T03:05:00-07:00').parseZone();
     m.startOf('h');
-    assert.equal(m.format(), '2014-03-09T03:00:00-07:00', 'startOf(\'hour\') after +1');
+    assert.equal(
+        m.format(),
+        '2014-03-09T03:00:00-07:00',
+        "startOf('hour') after +1"
+    );
 
     m = moment('2014-03-09T01:35:00-08:00').parseZone();
     m.startOf('h');
-    assert.equal(m.format(), '2014-03-09T01:00:00-08:00', 'startOf(\'hour\') before +1');
+    assert.equal(
+        m.format(),
+        '2014-03-09T01:00:00-08:00',
+        "startOf('hour') before +1"
+    );
 
     // There is no such time as 2:30-7 to try startOf('hour') across that
 
@@ -363,33 +382,157 @@ test('startOf across DST -1', function (assert) {
 
     m = moment('2014-11-15T00:00:00-08:00').parseZone();
     m.startOf('y');
-    assert.equal(m.format(), '2014-01-01T00:00:00-07:00', 'startOf(\'year\') across -1');
+    assert.equal(
+        m.format(),
+        '2014-01-01T00:00:00-07:00',
+        "startOf('year') across -1"
+    );
 
     m = moment('2014-11-15T00:00:00-08:00').parseZone();
     m.startOf('M');
-    assert.equal(m.format(), '2014-11-01T00:00:00-07:00', 'startOf(\'month\') across -1');
+    assert.equal(
+        m.format(),
+        '2014-11-01T00:00:00-07:00',
+        "startOf('month') across -1"
+    );
 
     m = moment('2014-11-02T09:00:00-08:00').parseZone();
     m.startOf('d');
-    assert.equal(m.format(), '2014-11-02T00:00:00-07:00', 'startOf(\'day\') across -1');
+    assert.equal(
+        m.format(),
+        '2014-11-02T00:00:00-07:00',
+        "startOf('day') across -1"
+    );
 
     // note that utc offset is -8
     m = moment('2014-11-02T01:30:00-08:00').parseZone();
     m.startOf('h');
-    assert.equal(m.format(), '2014-11-02T01:00:00-08:00', 'startOf(\'hour\') after +1');
+    assert.equal(
+        m.format(),
+        '2014-11-02T01:00:00-08:00',
+        "startOf('hour') after +1"
+    );
 
     // note that utc offset is -7
     m = moment('2014-11-02T01:30:00-07:00').parseZone();
     m.startOf('h');
-    assert.equal(m.format(), '2014-11-02T01:00:00-07:00', 'startOf(\'hour\') before +1');
+    assert.equal(
+        m.format(),
+        '2014-11-02T01:00:00-07:00',
+        "startOf('hour') before +1"
+    );
 
     moment.updateOffset = oldUpdateOffset;
 });
 
 test('endOf millisecond and no-arg', function (assert) {
     var m = moment();
-    assert.equal(+m, +m.clone().endOf(), 'endOf without argument should change time');
-    assert.equal(+m, +m.clone().endOf('ms'), 'endOf with ms argument should change time');
-    assert.equal(+m, +m.clone().endOf('millisecond'), 'endOf with millisecond argument should change time');
-    assert.equal(+m, +m.clone().endOf('milliseconds'), 'endOf with milliseconds argument should change time');
+    assert.equal(
+        +m,
+        +m.clone().endOf(),
+        'endOf without argument should change time'
+    );
+    assert.equal(
+        +m,
+        +m.clone().endOf('ms'),
+        'endOf with ms argument should change time'
+    );
+    assert.equal(
+        +m,
+        +m.clone().endOf('millisecond'),
+        'endOf with millisecond argument should change time'
+    );
+    assert.equal(
+        +m,
+        +m.clone().endOf('milliseconds'),
+        'endOf with milliseconds argument should change time'
+    );
+});
+
+test('startOf for year zero', function (assert) {
+    var m = moment('0000-02-29T12:34:56.789Z').parseZone();
+    assert.equal(
+        m.clone().startOf('ms').toISOString(),
+        '0000-02-29T12:34:56.789Z',
+        'startOf millisecond should preserve year'
+    );
+    assert.equal(
+        m.clone().startOf('s').toISOString(),
+        '0000-02-29T12:34:56.000Z',
+        'startOf second should preserve year'
+    );
+    assert.equal(
+        m.clone().startOf('m').toISOString(),
+        '0000-02-29T12:34:00.000Z',
+        'startOf minute should preserve year'
+    );
+    assert.equal(
+        m.clone().startOf('h').toISOString(),
+        '0000-02-29T12:00:00.000Z',
+        'startOf hour should preserve year'
+    );
+    assert.equal(
+        m.clone().startOf('d').toISOString(),
+        '0000-02-29T00:00:00.000Z',
+        'startOf day should preserve year'
+    );
+    assert.equal(
+        m.clone().startOf('M').toISOString(),
+        '0000-02-01T00:00:00.000Z',
+        'startOf month should preserve year'
+    );
+    assert.equal(
+        m.clone().startOf('Q').toISOString(),
+        '0000-01-01T00:00:00.000Z',
+        'startOf quarter should preserve year'
+    );
+    assert.equal(
+        m.clone().startOf('y').toISOString(),
+        '0000-01-01T00:00:00.000Z',
+        'startOf year should preserve year'
+    );
+});
+
+test('endOf for year zero', function (assert) {
+    var m = moment('0000-02-29T12:34:56.789Z').parseZone();
+    assert.equal(
+        m.clone().endOf('ms').toISOString(),
+        '0000-02-29T12:34:56.789Z',
+        'endOf millisecond should preserve year'
+    );
+    assert.equal(
+        m.clone().endOf('s').toISOString(),
+        '0000-02-29T12:34:56.999Z',
+        'endOf second should preserve year'
+    );
+    assert.equal(
+        m.clone().endOf('m').toISOString(),
+        '0000-02-29T12:34:59.999Z',
+        'endOf minute should preserve year'
+    );
+    assert.equal(
+        m.clone().endOf('h').toISOString(),
+        '0000-02-29T12:59:59.999Z',
+        'endOf hour should preserve year'
+    );
+    assert.equal(
+        m.clone().endOf('d').toISOString(),
+        '0000-02-29T23:59:59.999Z',
+        'endOf day should preserve year'
+    );
+    assert.equal(
+        m.clone().endOf('M').toISOString(),
+        '0000-02-29T23:59:59.999Z',
+        'endOf month should preserve year'
+    );
+    assert.equal(
+        m.clone().endOf('Q').toISOString(),
+        '0000-03-31T23:59:59.999Z',
+        'endOf quarter should preserve year'
+    );
+    assert.equal(
+        m.clone().endOf('y').toISOString(),
+        '0000-12-31T23:59:59.999Z',
+        'endOf year should preserve year'
+    );
 });
