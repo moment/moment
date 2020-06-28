@@ -1,6 +1,155 @@
 Changelog
 =========
 
+### 2.27.0 [See full changelog](https://gist.github.com/marwahaha/5100c9c2f42019067b1f6cefc333daa7)
+
+* Release June 18, 2020
+
+Added Turkmen locale, other locale improvements, slight TypeScript fixes
+
+### 2.26.0 [See full changelog](https://gist.github.com/marwahaha/0725c40740560854a849b096ea7b7590)
+
+* Release May 19, 2020
+
+TypeScript fixes and many locale improvements
+
+### 2.25.3
+
+* Release May 4, 2020
+
+Remove package.json module property. It looks like webpack behaves differently
+for modules loaded via module vs jsnext:main.
+
+### 2.25.2
+
+* Release May 4, 2020
+
+This release includes ES Module bundled moment, separate from it's source code
+under dist/ folder. This might alleviate issues with finding the `./locale
+subfolder for loading locales. This might also mean now webpack will bundle all
+locales automatically, unless told otherwise.
+
+### 2.25.1
+
+* Release May 1, 2020
+
+This is a quick patch release to address some of the issues raised after
+releasing 2.25.0.
+
+* [2e268635](https://github.com/moment/moment/commit/2e268635) [misc] Revert #5269 due to webpack warning
+* [226799e1](https://github.com/moment/moment/commit/226799e1) [locale] fil: Fix metadata comment
+* [a83a521](https://github.com/moment/moment/commit/a83a521) [bugfix] Fix typeoff usages
+* [e324334](https://github.com/moment/moment/commit/e324334) [pkg] Add ts3.1-typings in npm package
+* [28cc23e](https://github.com/moment/moment/commit/28cc23e) [misc] Remove deleted generated locale en-SG
+
+### 2.25.0 [See full changelog](https://gist.github.com/ichernev/6148e64df2427e455b10ce6a18de1a65)
+
+* Release May 1, 2020
+
+* [#4611](https://github.com/moment/moment/issues/4611) [022dc038](https://github.com/moment/moment/commit/022dc038) [feature] Support for strict string parsing, fixes [#2469](https://github.com/moment/moment/issues/2469)
+* [#4599](https://github.com/moment/moment/issues/4599) [4b615b9d](https://github.com/moment/moment/commit/4b615b9d) [feature] Add support for eras in en and jp
+* [#4296](https://github.com/moment/moment/issues/4296) [757d4ff8](https://github.com/moment/moment/commit/757d4ff8) [feature] Accept custom relative thresholds in duration.humanize
+
+* 18 bigfixes
+* 36 locale fixes
+* 5 new locales (oc-lnc, zh-mo, en-in, gom-deva, fil)
+
+### 2.24.0 [See full changelog](https://gist.github.com/marwahaha/12366fe45bee328f33acf125d4cd540e)
+
+* Release Jan 21, 2019
+
+* [#4338](https://github.com/moment/moment/pull/4338) [bugfix] Fix startOf/endOf DST issues while boosting performance
+* [#4553](https://github.com/moment/moment/pull/4553) [feature] Add localeSort param to Locale weekday methods
+* [#4887](https://github.com/moment/moment/pull/4887) [bugfix] Make Duration#as work with quarters
+* 3 new locales (it-ch, ga, en-SG)
+* Lots of locale improvements
+
+### 2.23.0 [See full changelog](https://gist.github.com/marwahaha/eadb7ac11b761290399a576f8b2419a5)
+
+* Release Dec 12, 2018
+
+* [#4863](https://github.com/moment/moment/pull/4863) [new locale] added Kurdish language (ku)
+* [#4417](https://github.com/moment/moment/pull/4417) [bugfix] isBetween should return false for invalid dates
+* [#4700](https://github.com/moment/moment/pull/4700) [bugfix] Fix [#4698](https://github.com/moment/moment/pull/4698): Use ISO WeekYear for HTML5_FMT.WEEK
+* [#4563](https://github.com/moment/moment/pull/4563) [feature] Fix [#4518](https://github.com/moment/moment/pull/4518): Add support to add/subtract ISO weeks
+* other locale changes, build process changes, typos
+
+### 2.22.2 [See full changelog](https://gist.github.com/marwahaha/4d992c13c2dbc0f59d4d8acae1dc6d3a)
+
+* Release May 31, 2018
+
+* [#4564](https://github.com/moment/moment/pull/4564) [bugfix] Avoid using trim()
+* [#4453](https://github.com/moment/moment/pull/4453) [bugfix] Treat periods as periods, not regex-anything period, for weekday parsing in strict mode.
+* Minor locale improvements (pa-in, be, az)
+
+### 2.22.1 [See full changelog](https://gist.github.com/marwahaha/ff2cd13d0eda08afb7a237b10aae558c)
+
+* Release Apr 14, 2018
+
+* [#4495](https://github.com/moment/moment/pull/4495) [bugfix] Added HTML5_FMT to moment.d.ts
+* Minor locale improvements
+* QUnit upgrade and coveralls reporting
+
+### 2.22.0 [See full changelog](https://gist.github.com/marwahaha/ae895025dac3f0641fa9ec2e36d282bb)
+
+* Release Mar 30, 2018
+
+* [#4423](https://github.com/moment/moment/pull/4423) [new locale] Added Mongolian locale mn
+* Various locale improvements
+* Minor misc changes
+
+### 2.21.0 [See full changelog](https://gist.github.com/marwahaha/80d19ef882b71df1948df7865efdd40e)
+
+* Release Mar 2, 2018
+
+* [#4391](https://github.com/moment/moment/pull/4391) [bugfix] Fix [#4390](https://github.com/moment/moment/pull/4390): use offset properly in toISOString
+* [#4310](https://github.com/moment/moment/pull/4310) [bugfix] Fix [#3883](https://github.com/moment/moment/pull/3883) lazy load parentLocale in defineLocale, fallback to global if missing
+* [#4085](https://github.com/moment/moment/pull/4085) [misc] Print console warning when setting non-existent locales
+* [#4371](https://github.com/moment/moment/pull/4371) [misc] fix deprecated rollup options
+* New locales: ug-cn, en-il, tg
+* Various locale improvements
+
+### 2.20.1 [See changelog](https://gist.github.com/marwahaha/d72c1cb22076373be889b16272cbd187)
+
+* Release Dec 18, 2017
+
+* [#4359](https://github.com/moment/moment/pull/4359) [locale] Fix Arabic locale for months (again)
+* [#4357](https://github.com/moment/moment/pull/4357) [misc] Add optional parameter keepOffset to toISOString
+
+### 2.20.0 [See full changelog](https://gist.github.com/marwahaha/e0d4135fbf8bb75fa85c4aa2bddc5031)
+
+* Release Dec 16, 2017
+
+* [#4312](https://github.com/moment/moment/pull/4312) [bugfix] Fix [#4251](https://github.com/moment/moment/pull/4251): Avoid RFC2822 in utc() test
+* [#4240](https://github.com/moment/moment/pull/4240) [bugfix] Fix incorrect strict parsing with full-width parentheses
+* [#4341](https://github.com/moment/moment/pull/4341) [feature] Prevent toISOString converting to UTC (issue [#1751](https://github.com/moment/moment/pull/1751))
+* [#4154](https://github.com/moment/moment/pull/4154) [feature] add format constants to support output to HTML5 input type formats (see [#3928](https://github.com/moment/moment/pull/3928))
+* [#4143](https://github.com/moment/moment/pull/4143) [new locale] mt: Maltese language
+* [#4183](https://github.com/moment/moment/pull/4183) [locale] Relative seconds i18n
+* Various other locale improvements
+
+### 2.19.4 [See changelog](https://gist.github.com/marwahaha/d3b7b0ddf4bdae512244f16e8cc59efb)
+
+* Release Dec 10, 2017
+
+* [#4332](https://github.com/moment/moment/pull/4332) [bugfix] Fix weekday verification for UTC and offset days (fixes [#4227](https://github.com/moment/moment/pull/4227))
+* [#4336](https://github.com/moment/moment/pull/4336) [bugfix] Fix [#4334](https://github.com/moment/moment/pull/4334): Remove unused function call argument
+* [#4246](https://github.com/moment/moment/pull/4246) [misc] Add 'ss' relative time key to typescript definition
+
+### 2.19.3 [See changelog](https://gist.github.com/marwahaha/3654006bc0c2e522451c08d12c0bfabf)
+
+* Release Nov 29, 2017
+
+* [#4326](https://github.com/moment/moment/pull/4326) [bugfix] Fix for ReDOS vulnerability (see [#4163](https://github.com/moment/moment/issues/4163))
+* [#4289](https://github.com/moment/moment/pull/4289) [misc] Fix spelling and formatting for U.S. for es-us
+
+### 2.19.2 [See changelog (it's the same >:D)](https://gist.github.com/ichernev/76b1a3f33d3a8ff9665ce434a45221d0)
+
+* Release Nov 11, 2017
+
+* [#4255](https://github.com/moment/moment/pull/4255) [bugfix] Fix year setter for random days in a leap year, fixes [#4238](https://github.com/moment/moment/issues/4238)
+* [#4242](https://github.com/moment/moment/pull/4242) [bugfix] updateLocale now tries to load parent, fixes [#3626](https://github.com/moment/moment/issues/3626)
+
 ### 2.19.1
 
 * Release Oct 11, 2017

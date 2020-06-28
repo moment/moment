@@ -5,12 +5,12 @@ import { createDuration } from './create';
 import { isDuration } from './constructor';
 import {
     getSetRelativeTimeRounding,
-    getSetRelativeTimeThreshold
+    getSetRelativeTimeThreshold,
 } from './humanize';
 
 export {
     createDuration,
     isDuration,
     getSetRelativeTimeRounding,
-    getSetRelativeTimeThreshold
+    getSetRelativeTimeThreshold,
 };

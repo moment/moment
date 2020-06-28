@@ -5,23 +5,38 @@ import isFunction from '../utils/is-function';
 hooks.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ';
 hooks.defaultFormatUtc = 'YYYY-MM-DDTHH:mm:ss[Z]';
 
-export function toString () {
+export function toString() {
     return this.clone().locale('en').format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
 }
 
-export function toISOString() {
+export function toISOString(keepOffset) {
     if (!this.isValid()) {
         return null;
     }
-    var m = this.clone().utc();
+    var utc = keepOffset !== true,
+        m = utc ? this.clone().utc() : this;
     if (m.year() < 0 || m.year() > 9999) {
-        return formatMoment(m, 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
+        return formatMoment(
+            m,
+            utc
+                ? 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]'
+                : 'YYYYYY-MM-DD[T]HH:mm:ss.SSSZ'
+        );
     }
     if (isFunction(Date.prototype.toISOString)) {
         // native implementation is ~50x faster, use it when we can
-        return this.toDate().toISOString();
+        if (utc) {
+            return this.toDate().toISOString();
+        } else {
+            return new Date(this.valueOf() + this.utcOffset() * 60 * 1000)
+                .toISOString()
+                .replace('Z', formatMoment(m, 'Z'));
+        }
     }
-    return formatMoment(m, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
+    return formatMoment(
+        m,
+        utc ? 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYY-MM-DD[T]HH:mm:ss.SSSZ'
+    );
 }
 
 /**
@@ -30,27 +45,33 @@ export function toISOString() {
  *
  * @link https://nodejs.org/dist/latest/docs/api/util.html#util_custom_inspect_function_on_objects
  */
-export function inspect () {
+export function inspect() {
     if (!this.isValid()) {
         return 'moment.invalid(/* ' + this._i + ' */)';
     }
-    var func = 'moment';
-    var zone = '';
+    var func = 'moment',
+        zone = '',
+        prefix,
+        year,
+        datetime,
+        suffix;
     if (!this.isLocal()) {
         func = this.utcOffset() === 0 ? 'moment.utc' : 'moment.parseZone';
         zone = 'Z';
     }
-    var prefix = '[' + func + '("]';
-    var year = (0 <= this.year() && this.year() <= 9999) ? 'YYYY' : 'YYYYYY';
-    var datetime = '-MM-DD[T]HH:mm:ss.SSS';
-    var suffix = zone + '[")]';
+    prefix = '[' + func + '("]';
+    year = 0 <= this.year() && this.year() <= 9999 ? 'YYYY' : 'YYYYYY';
+    datetime = '-MM-DD[T]HH:mm:ss.SSS';
+    suffix = zone + '[")]';
 
     return this.format(prefix + year + datetime + suffix);
 }
 
-export function format (inputString) {
+export function format(inputString) {
     if (!inputString) {
-        inputString = this.isUtc() ? hooks.defaultFormatUtc : hooks.defaultFormat;
+        inputString = this.isUtc()
+            ? hooks.defaultFormatUtc
+            : hooks.defaultFormat;
     }
     var output = formatMoment(this, inputString);
     return this.localeData().postformat(output);
