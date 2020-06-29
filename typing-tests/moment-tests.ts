@@ -30,6 +30,7 @@ var day14 = moment("foobazbar", 'L', true);
 // moment(null);
 moment(undefined);
 moment({ years: 2010, months: 3, days: 5, hours: 15, minutes: 10, seconds: 3, milliseconds: 123 });
+moment("20140101", true);
 moment("20140101", "YYYYMMDD", true);
 moment("20140101", "YYYYMMDD", "en");
 moment("20140101", "YYYYMMDD", "en", true);
@@ -86,7 +87,8 @@ moment().add('days', 7).subtract('months', 1).year(2009).hours(0).minutes(0).sec
 
 moment().add('days', 7);
 moment().add('days', 7).add('months', 1);
-moment().add({days:7,months:1});
+moment().add({days:7, months:1});
+moment().add({years: "2011", quarters: ,months: "1", days: "7", hours: "24", minutes: "52", seconds: "20", milliseconds: "30"});
 moment().add('milliseconds', 1000000);
 moment().add('days', 360);
 moment([2010, 0, 31]);
@@ -391,7 +393,22 @@ moment.locale('en', {
     week: {
         dow: 1,
         doy: 4
-    }
+    },
+    eras: [{
+        since:  '0001-01-01',
+        until:  +Infinity,
+        offset: 1,
+        name:   'Anno Domini',
+        narrow: 'AD',
+        abbr:   'AD'
+    }, {
+        until:   -Infinity,
+        since:  '0000-12-31',
+        offset: 1,
+        name:   'Before Christ',
+        narrow: 'BC',
+        abbr:   'BC'
+    }]
 });
 
 moment.locale('en', {
