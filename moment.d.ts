@@ -760,6 +760,8 @@ declare namespace moment {
 
   export var defaultFormat: string;
   export var defaultFormatUtc: string;
+  export var suppressDeprecationWarnings: boolean;
+  export var deprecationHandler: ((name: string | void, msg: string) => void) | void;
 
   export var HTML5_FMT: {
     DATETIME_LOCAL: string,
