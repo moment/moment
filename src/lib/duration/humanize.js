@@ -112,8 +112,10 @@ export function humanize(argWithSuffix, argThresholds) {
 
     return locale.postformat(output);
 }
+
+// This function allows you to create duration instance from string
 export function parseFromString(duration) {
-    duration = duration.split(" ");
+    duration = duration.split(' ');
     var obj = {};
     for (let i = 1; i <= duration.length; i += 2) {
         obj[duration[i]] = duration[i - 1];
