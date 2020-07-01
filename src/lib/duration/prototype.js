@@ -30,7 +30,7 @@ import {
     years,
     weeks,
 } from './get';
-import { humanize } from './humanize';
+import { humanize, parseFromString } from './humanize';
 import { toISOString } from './iso-string';
 import { lang, locale, localeData } from '../moment/locale';
 import { isValid } from './valid';
@@ -67,6 +67,7 @@ proto.toString = toISOString;
 proto.toJSON = toISOString;
 proto.locale = locale;
 proto.localeData = localeData;
+proto.fromString = parseFromString;
 
 // Deprecations
 import { deprecate } from '../utils/deprecate';

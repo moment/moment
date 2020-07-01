@@ -112,3 +112,12 @@ export function humanize(argWithSuffix, argThresholds) {
 
     return locale.postformat(output);
 }
+export function parseFromString(duration) {
+    duration = duration.split(" ");
+    let obj = {};
+    for (let i = 1; i <= duration.length; i += 2) {
+        obj[duration[i]] = duration[i - 1];
+    }
+    
+    return createDuration(obj);
+}
