@@ -46,6 +46,7 @@ export default moment.defineLocale('tg', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY HH:mm',
         LLLL: 'dddd, D MMMM YYYY HH:mm',
+        LLD: 'dddd, D MMMM YYYY',
     },
     calendar: {
         sameDay: '[Имрӯз соати] LT',

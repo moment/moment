@@ -255,6 +255,8 @@ localLang.localeData();
 localLang.format('LLLL');
 globalLang.format('LLLL');
 
+// need LLD test here?
+
 // TODO: reenable in 2.0
 // moment.duration(null);
 moment.duration(undefined);
@@ -340,6 +342,7 @@ moment.locale('en', {
         LT: "h:mm A",
         L: "MM/DD/YYYY",
         LL: "MMMM D YYYY",
+        LLD: "dddd, MMMM D YYYY",
         LLL: "MMMM D YYYY LT",
         LLLL: "dddd, MMMM D YYYY LT"
     },
@@ -469,7 +472,9 @@ moment.locale('en', {
         L: "MM/DD/YYYY",
         l: "M/D/YYYY",
         LL: "MMMM Do YYYY",
+        LLD: "dddd, MMMM Do YYYY",
         ll: "MMM D YYYY",
+        lld: "ddd, MMM D YYYY",
         LLL: "MMMM Do YYYY LT",
         lll: "MMM D YYYY LT",
         LLLL: "dddd, MMMM Do YYYY LT",
@@ -483,6 +488,7 @@ moment.locale('en', {
         LT: "h:mm A",
         L: "MM/DD/YYYY",
         LL: "MMMM Do YYYY",
+        LLD: "dddd, MMMM Do YYYY",
         LLL: "MMMM Do YYYY LT",
         LLLL: "dddd, MMMM Do YYYY LT"
     }

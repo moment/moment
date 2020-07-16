@@ -50,6 +50,7 @@ export default moment.defineLocale('ta', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY, HH:mm',
         LLLL: 'dddd, D MMMM YYYY, HH:mm',
+        LLD: 'dddd, D MMMM YYYY',
     },
     calendar: {
         sameDay: '[இன்று] LT',

@@ -121,6 +121,7 @@ export default moment.defineLocale('br', {
         LL: 'D [a viz] MMMM YYYY',
         LLL: 'D [a viz] MMMM YYYY HH:mm',
         LLLL: 'dddd, D [a viz] MMMM YYYY HH:mm',
+        LLD: 'dddd, D [a viz] MMMM YYYY',
     },
     calendar: {
         sameDay: '[Hiziv da] LT',

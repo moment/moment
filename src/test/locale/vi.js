@@ -69,10 +69,12 @@ test('format', function (assert) {
             ['LL', '14 tháng 2 năm 2010'],
             ['LLL', '14 tháng 2 năm 2010 15:25'],
             ['LLLL', 'chủ nhật, 14 tháng 2 năm 2010 15:25'],
+            ['LLD', 'chủ nhật, 14 tháng 2 năm 2010'],
             ['l', '14/2/2010'],
             ['ll', '14 Thg 02 2010'],
             ['lll', '14 Thg 02 2010 15:25'],
             ['llll', 'CN, 14 Thg 02 2010 15:25'],
+            ['lld', 'CN, 14 Thg 02 2010'],
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;

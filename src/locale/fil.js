@@ -22,6 +22,7 @@ export default moment.defineLocale('fil', {
         LL: 'MMMM D, YYYY',
         LLL: 'MMMM D, YYYY HH:mm',
         LLLL: 'dddd, MMMM DD, YYYY HH:mm',
+        LLD: 'dddd, MMMM DD, YYYY',
     },
     calendar: {
         sameDay: 'LT [ngayong araw]',

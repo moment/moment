@@ -22,6 +22,7 @@ export default moment.defineLocale('tzl', {
         LL: 'D. MMMM [dallas] YYYY',
         LLL: 'D. MMMM [dallas] YYYY HH.mm',
         LLLL: 'dddd, [li] D. MMMM [dallas] YYYY HH.mm',
+        LLD: 'dddd, [li] D. MMMM [dallas] YYYY',
     },
     meridiemParse: /d\'o|d\'a/i,
     isPM: function (input) {

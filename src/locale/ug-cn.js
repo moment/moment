@@ -23,6 +23,7 @@ export default moment.defineLocale('ug-cn', {
         LL: 'YYYY-يىلىM-ئاينىڭD-كۈنى',
         LLL: 'YYYY-يىلىM-ئاينىڭD-كۈنى، HH:mm',
         LLLL: 'dddd، YYYY-يىلىM-ئاينىڭD-كۈنى، HH:mm',
+        LLD: 'dddd، YYYY-يىلىM-ئاينىڭD-كۈنى،',
     },
     meridiemParse: /يېرىم كېچە|سەھەر|چۈشتىن بۇرۇن|چۈش|چۈشتىن كېيىن|كەچ/,
     meridiemHour: function (hour, meridiem) {

@@ -33,7 +33,9 @@ export default moment.defineLocale('ca', {
         LLL: 'D MMMM [de] YYYY [a les] H:mm',
         lll: 'D MMM YYYY, H:mm',
         LLLL: 'dddd D MMMM [de] YYYY [a les] H:mm',
+        LLD: 'dddd D MMMM [de] YYYY',
         llll: 'ddd D MMM YYYY, H:mm',
+        lld: 'ddd D MMM YYYY',
     },
     calendar: {
         sameDay: function () {

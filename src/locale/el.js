@@ -55,6 +55,7 @@ export default moment.defineLocale('el', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY h:mm A',
         LLLL: 'dddd, D MMMM YYYY h:mm A',
+        LLD: 'dddd, D MMMM YYYY',
     },
     calendarEl: {
         sameDay: '[Σήμερα {}] LT',

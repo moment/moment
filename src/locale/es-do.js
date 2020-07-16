@@ -54,6 +54,7 @@ export default moment.defineLocale('es-do', {
         LL: 'D [de] MMMM [de] YYYY',
         LLL: 'D [de] MMMM [de] YYYY h:mm A',
         LLLL: 'dddd, D [de] MMMM [de] YYYY h:mm A',
+        LLD: 'dddd, D [de] MMMM [de] YYYY',
     },
     calendar: {
         sameDay: function () {

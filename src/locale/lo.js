@@ -22,6 +22,7 @@ export default moment.defineLocale('lo', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY HH:mm',
         LLLL: 'ວັນdddd D MMMM YYYY HH:mm',
+        LLD: 'ວັນdddd D MMMM YYYY',
     },
     meridiemParse: /ຕອນເຊົ້າ|ຕອນແລງ/,
     isPM: function (input) {

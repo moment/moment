@@ -23,6 +23,7 @@ export default moment.defineLocale('th', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY เวลา H:mm',
         LLLL: 'วันddddที่ D MMMM YYYY เวลา H:mm',
+        LLD: 'วันddddที่ D MMMM YYYY',
     },
     meridiemParse: /ก่อนเที่ยง|หลังเที่ยง/,
     isPM: function (input) {

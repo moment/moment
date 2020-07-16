@@ -79,6 +79,7 @@ export default moment.defineLocale('sk', {
         LL: 'D. MMMM YYYY',
         LLL: 'D. MMMM YYYY H:mm',
         LLLL: 'dddd D. MMMM YYYY H:mm',
+        LLD: 'dddd D. MMMM YYYY',
     },
     calendar: {
         sameDay: '[dnes o] LT',

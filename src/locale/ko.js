@@ -20,10 +20,12 @@ export default moment.defineLocale('ko', {
         LL: 'YYYY년 MMMM D일',
         LLL: 'YYYY년 MMMM D일 A h:mm',
         LLLL: 'YYYY년 MMMM D일 dddd A h:mm',
+        LLD: 'YYYY년 MMMM D일 dddd',
         l: 'YYYY.MM.DD.',
         ll: 'YYYY년 MMMM D일',
         lll: 'YYYY년 MMMM D일 A h:mm',
         llll: 'YYYY년 MMMM D일 dddd A h:mm',
+        lld: 'YYYY년 MMMM D일 dddd',
     },
     calendar: {
         sameDay: '오늘 LT',

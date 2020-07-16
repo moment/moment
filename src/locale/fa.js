@@ -51,6 +51,7 @@ export default moment.defineLocale('fa', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY HH:mm',
         LLLL: 'dddd, D MMMM YYYY HH:mm',
+        LLD: 'dddd, D MMMM YYYY',
     },
     meridiemParse: /قبل از ظهر|بعد از ظهر/,
     isPM: function (input) {

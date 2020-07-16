@@ -47,7 +47,9 @@ export default moment.defineLocale('gom-latn', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY A h:mm [vazta]',
         LLLL: 'dddd, MMMM Do, YYYY, A h:mm [vazta]',
+        LLD: 'dddd, MMMM Do, YYYY',
         llll: 'ddd, D MMM YYYY, A h:mm [vazta]',
+        lld: 'ddd, D MMM YYYY',
     },
     calendar: {
         sameDay: '[Aiz] LT',

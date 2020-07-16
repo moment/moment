@@ -184,7 +184,7 @@ test('library ensure inheritance', function (assert) {
     );
 });
 
-test('library ensure inheritance LT L LL LLL LLLL', function (assert) {
+test('library ensure inheritance LT L LL LLD LLL LLLL', function (assert) {
     var locale = 'test-inherit-lt';
 
     moment.defineLocale(locale, {
@@ -192,6 +192,7 @@ test('library ensure inheritance LT L LL LLL LLLL', function (assert) {
             LT: '-[LT]-',
             L: '-[L]-',
             LL: '-[LL]-',
+            LLD: '-[LLD]-',
             LLL: '-[LLL]-',
             LLLL: '-[LLLL]-',
         },

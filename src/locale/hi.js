@@ -47,6 +47,7 @@ export default moment.defineLocale('hi', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY, A h:mm बजे',
         LLLL: 'dddd, D MMMM YYYY, A h:mm बजे',
+        LLD: 'dddd, D MMMM YYYY',
     },
     calendar: {
         sameDay: '[आज] LT',

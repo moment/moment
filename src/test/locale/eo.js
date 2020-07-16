@@ -68,10 +68,12 @@ test('format', function (assert) {
             ['LL', 'la 14-an de februaro, 2010'],
             ['LLL', 'la 14-an de februaro, 2010 15:25'],
             ['LLLL', 'dimanĉon, la 14-an de februaro, 2010 15:25'],
+            ['LLD', 'dimanĉon, la 14-an de februaro, 2010'],
             ['l', '2010-2-14'],
             ['ll', 'la 14-an de feb, 2010'],
             ['lll', 'la 14-an de feb, 2010 15:25'],
             ['llll', 'dim, la 14-an de feb, 2010 15:25'],
+            ['lld', 'dim, la 14-an de feb, 2010'],
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;

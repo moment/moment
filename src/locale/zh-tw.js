@@ -22,10 +22,12 @@ export default moment.defineLocale('zh-tw', {
         LL: 'YYYY年M月D日',
         LLL: 'YYYY年M月D日 HH:mm',
         LLLL: 'YYYY年M月D日dddd HH:mm',
+        LLD: 'YYYY年M月D日dddd',
         l: 'YYYY/M/D',
         ll: 'YYYY年M月D日',
         lll: 'YYYY年M月D日 HH:mm',
         llll: 'YYYY年M月D日dddd HH:mm',
+        lld: 'YYYY年M月D日dddd',
     },
     meridiemParse: /凌晨|早上|上午|中午|下午|晚上/,
     meridiemHour: function (hour, meridiem) {

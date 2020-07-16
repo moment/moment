@@ -49,6 +49,7 @@ export default moment.defineLocale('mn', {
         LL: 'YYYY оны MMMMын D',
         LLL: 'YYYY оны MMMMын D HH:mm',
         LLLL: 'dddd, YYYY оны MMMMын D HH:mm',
+        LLD: 'dddd, YYYY оны MMMMын D',
     },
     meridiemParse: /ҮӨ|ҮХ/i,
     isPM: function (input) {

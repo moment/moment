@@ -25,10 +25,12 @@ export default moment.defineLocale('eu', {
         LL: 'YYYY[ko] MMMM[ren] D[a]',
         LLL: 'YYYY[ko] MMMM[ren] D[a] HH:mm',
         LLLL: 'dddd, YYYY[ko] MMMM[ren] D[a] HH:mm',
+        LLD: 'dddd, YYYY[ko] MMMM[ren] D[a]',
         l: 'YYYY-M-D',
         ll: 'YYYY[ko] MMM D[a]',
         lll: 'YYYY[ko] MMM D[a] HH:mm',
         llll: 'ddd, YYYY[ko] MMM D[a] HH:mm',
+        lld: 'ddd, YYYY[ko] MMM D[a]',
     },
     calendar: {
         sameDay: '[gaur] LT[etan]',

@@ -47,6 +47,7 @@ export default moment.defineLocale('km', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY HH:mm',
         LLLL: 'dddd, D MMMM YYYY HH:mm',
+        LLD: 'dddd, D MMMM YYYY',
     },
     meridiemParse: /ព្រឹក|ល្ងាច/,
     isPM: function (input) {

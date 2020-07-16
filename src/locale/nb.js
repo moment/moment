@@ -25,6 +25,7 @@ export default moment.defineLocale('nb', {
         LL: 'D. MMMM YYYY',
         LLL: 'D. MMMM YYYY [kl.] HH:mm',
         LLLL: 'dddd D. MMMM YYYY [kl.] HH:mm',
+        LLD: 'dddd D. MMMM YYYY',
     },
     calendar: {
         sameDay: '[i dag kl.] LT',

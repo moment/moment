@@ -21,6 +21,7 @@ export default moment.defineLocale('uz-latn', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY HH:mm',
         LLLL: 'D MMMM YYYY, dddd HH:mm',
+        LLD: 'D MMMM YYYY, dddd',
     },
     calendar: {
         sameDay: '[Bugun soat] LT [da]',

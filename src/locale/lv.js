@@ -59,6 +59,7 @@ export default moment.defineLocale('lv', {
         LL: 'YYYY. [gada] D. MMMM',
         LLL: 'YYYY. [gada] D. MMMM, HH:mm',
         LLLL: 'YYYY. [gada] D. MMMM, dddd, HH:mm',
+        LLD: 'YYYY. [gada] D. MMMM, dddd',
     },
     calendar: {
         sameDay: '[Šodien pulksten] LT',

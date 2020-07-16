@@ -101,6 +101,7 @@ declare namespace moment {
     LT: string;
     L: string;
     LL: string;
+    LLD: string;
     LLL: string;
     LLLL: string;
 
@@ -109,6 +110,7 @@ declare namespace moment {
     lt?: string;
     l?: string;
     ll?: string;
+    lld?: string;
     lll?: string;
     llll?: string;
   }

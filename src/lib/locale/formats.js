@@ -5,6 +5,7 @@ export var defaultLongDateFormat = {
     LT: 'h:mm A',
     L: 'MM/DD/YYYY',
     LL: 'MMMM D, YYYY',
+    LLD: 'dddd, MMMM D, YYYY',
     LLL: 'MMMM D, YYYY h:mm A',
     LLLL: 'dddd, MMMM D, YYYY h:mm A',
 };
