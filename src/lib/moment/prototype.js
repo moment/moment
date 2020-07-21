@@ -12,6 +12,7 @@ import {
     isAfter,
     isSameOrAfter,
     isSameOrBefore,
+    isToday,
 } from './compare';
 import { diff } from './diff';
 import { format, toString, toISOString, inspect } from './format';
@@ -43,6 +44,7 @@ proto.isBetween = isBetween;
 proto.isSame = isSame;
 proto.isSameOrAfter = isSameOrAfter;
 proto.isSameOrBefore = isSameOrBefore;
+proto.isToday = isToday;
 proto.isValid = isValid;
 proto.lang = lang;
 proto.locale = locale;
