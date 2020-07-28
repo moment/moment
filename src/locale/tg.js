@@ -104,10 +104,24 @@ export default moment.defineLocale('tg', {
         }
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(ум|юм)/,
-    ordinal: function (number) {
+    ordinal: function (number, period) {
         var a = number % 10,
-            b = number >= 100 ? 100 : null;
-        return number + (suffixes[number] || suffixes[a] || suffixes[b]);
+            b = number >= 100 ? 100 : null,
+            output = number + (suffixes[number] || suffixes[a] || suffixes[b]);
+
+        switch (period) {
+            case 'M':
+            case 'd':
+            case 'DDD':
+                return output;
+            case 'D':
+                return output + 'и';
+            case 'w':
+            case 'W':
+                return output;
+            default:
+                return output;
+        }
     },
     week: {
         dow: 1, // Monday is the first day of the week.
