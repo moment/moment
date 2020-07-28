@@ -1,5 +1,5 @@
 import { test } from '../qunit';
-import { localeModule } from '../qunit-locale'
+import { localeModule } from '../qunit-locale';
 import moment from '../../moment';
 localeModule('tg');
 
