@@ -34,7 +34,7 @@ test('format', function (assert) {
     var a = [
             [
                 'dddd, Do MMMM YYYY, h:mm:ss',
-                'якшанбе, 14-ум феврал 2010, 3:25:50',
+                'якшанбе, 14-ум феврали 2010, 3:25:50',
             ],
             ['ddd, h A', 'яшб, 3 рӯз'],
             ['M Mo MM MMMM MMM', '2 2-юм 02 феврал фев'],
