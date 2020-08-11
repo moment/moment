@@ -56,7 +56,7 @@ test('format', function (assert) {
             ['D Do DD', '14 14er 14'],
             ['d do dddd ddd dd', '0 0 Aitar Ait. Ai'],
             ['DDD DDDo DDDD', '45 45 045'],
-            ['w wo ww', '6 6 06'],
+            ['w wo ww', '7 7 07'],
             ['h hh', '3 03'],
             ['H HH', '15 15'],
             ['m mm', '25 25'],
