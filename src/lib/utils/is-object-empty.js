@@ -1,4 +1,4 @@
-import hasOwnProp from './has-own-prop';
+import hasOwnProp from './has-own-prop.js';
 
 export default function isObjectEmpty(obj) {
     if (Object.getOwnPropertyNames) {

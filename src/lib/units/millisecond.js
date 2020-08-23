@@ -1,7 +1,7 @@
-import { makeGetSet } from '../moment/get-set';
-import { addFormatToken } from '../format/format';
-import { addUnitAlias } from './aliases';
-import { addUnitPriority } from './priorities';
+import { makeGetSet } from '../moment/get-set.js';
+import { addFormatToken } from '../format/format.js';
+import { addUnitAlias } from './aliases.js';
+import { addUnitPriority } from './priorities.js';
 import {
     addRegexToken,
     match1,
@@ -9,10 +9,10 @@ import {
     match3,
     match1to3,
     matchUnsigned,
-} from '../parse/regex';
-import { addParseToken } from '../parse/token';
-import { MILLISECOND } from './constants';
-import toInt from '../utils/to-int';
+} from '../parse/regex.js';
+import { addParseToken } from '../parse/token.js';
+import { MILLISECOND } from './constants.js';
+import toInt from '../utils/to-int.js';
 
 // FORMATTING
 

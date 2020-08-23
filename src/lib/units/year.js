@@ -1,7 +1,7 @@
-import { makeGetSet } from '../moment/get-set';
-import { addFormatToken } from '../format/format';
-import { addUnitAlias } from './aliases';
-import { addUnitPriority } from './priorities';
+import { makeGetSet } from '../moment/get-set.js';
+import { addFormatToken } from '../format/format.js';
+import { addUnitAlias } from './aliases.js';
+import { addUnitPriority } from './priorities.js';
 import {
     addRegexToken,
     match1to2,
@@ -11,13 +11,13 @@ import {
     match4,
     match6,
     matchSigned,
-} from '../parse/regex';
-import { addParseToken } from '../parse/token';
-import { isLeapYear } from '../utils/is-leap-year';
-import { hooks } from '../utils/hooks';
-import { YEAR } from './constants';
-import toInt from '../utils/to-int';
-import zeroFill from '../utils/zero-fill';
+} from '../parse/regex.js';
+import { addParseToken } from '../parse/token.js';
+import { isLeapYear } from '../utils/is-leap-year.js';
+import { hooks } from '../utils/hooks.js';
+import { YEAR } from './constants.js';
+import toInt from '../utils/to-int.js';
+import zeroFill from '../utils/zero-fill.js';
 
 // FORMATTING
 

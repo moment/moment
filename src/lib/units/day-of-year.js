@@ -1,9 +1,9 @@
-import { addFormatToken } from '../format/format';
-import { addUnitAlias } from './aliases';
-import { addUnitPriority } from './priorities';
-import { addRegexToken, match3, match1to3 } from '../parse/regex';
-import { addParseToken } from '../parse/token';
-import toInt from '../utils/to-int';
+import { addFormatToken } from '../format/format.js';
+import { addUnitAlias } from './aliases.js';
+import { addUnitPriority } from './priorities.js';
+import { addRegexToken, match3, match1to3 } from '../parse/regex.js';
+import { addParseToken } from '../parse/token.js';
+import toInt from '../utils/to-int.js';
 
 // FORMATTING
 

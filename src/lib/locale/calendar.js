@@ -7,7 +7,7 @@ export var defaultCalendar = {
     sameElse: 'L',
 };
 
-import isFunction from '../utils/is-function';
+import isFunction from '../utils/is-function.js';
 
 export function calendar(key, mom, now) {
     var output = this._calendar[key] || this._calendar['sameElse'];

@@ -1,19 +1,19 @@
-import { addFormatToken } from '../format/format';
-import { addUnitAlias } from './aliases';
-import { addUnitPriority } from './priorities';
+import { addFormatToken } from '../format/format.js';
+import { addUnitAlias } from './aliases.js';
+import { addUnitPriority } from './priorities.js';
 import {
     addRegexToken,
     match1to2,
     matchWord,
     regexEscape,
-} from '../parse/regex';
-import { addWeekParseToken } from '../parse/token';
-import toInt from '../utils/to-int';
-import isArray from '../utils/is-array';
-import indexOf from '../utils/index-of';
-import hasOwnProp from '../utils/has-own-prop';
-import { createUTC } from '../create/utc';
-import getParsingFlags from '../create/parsing-flags';
+} from '../parse/regex.js';
+import { addWeekParseToken } from '../parse/token.js';
+import toInt from '../utils/to-int.js';
+import isArray from '../utils/is-array.js';
+import indexOf from '../utils/index-of.js';
+import hasOwnProp from '../utils/has-own-prop.js';
+import { createUTC } from '../create/utc.js';
+import getParsingFlags from '../create/parsing-flags.js';
 
 // FORMATTING
 

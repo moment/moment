@@ -1,6 +1,6 @@
-import { isMoment } from './constructor';
-import { normalizeUnits } from '../units/aliases';
-import { createLocal } from '../create/local';
+import { isMoment } from './constructor.js';
+import { normalizeUnits } from '../units/aliases.js';
+import { createLocal } from '../create/local.js';
 
 export function isAfter(input, units) {
     var localInput = isMoment(input) ? input : createLocal(input);

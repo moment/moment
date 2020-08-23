@@ -2,7 +2,7 @@
 //! locale : Scottish Gaelic [gd]
 //! author : Jon Ashdown : https://github.com/jonashdown
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var months = [
         'Am Faoilleach',

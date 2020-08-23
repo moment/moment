@@ -3,7 +3,7 @@
 //! author : Kristaps Karlsons : https://github.com/skakri
 //! author : Jānis Elmeris : https://github.com/JanisE
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var units = {
     ss: 'sekundes_sekundēm_sekunde_sekundes'.split('_'),

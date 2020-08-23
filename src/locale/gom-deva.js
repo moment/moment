@@ -2,7 +2,7 @@
 //! locale : Konkani Devanagari script [gom-deva]
 //! author : The Discoverer : https://github.com/WikiDiscoverer
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 function processRelativeTime(number, withoutSuffix, key, isFuture) {
     var format = {

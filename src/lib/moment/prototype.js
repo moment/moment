@@ -1,10 +1,10 @@
-import { Moment } from './constructor';
+import { Moment } from './constructor.js';
 
 var proto = Moment.prototype;
 
-import { add, subtract } from './add-subtract';
-import { calendar } from './calendar';
-import { clone } from './clone';
+import { add, subtract } from './add-subtract.js';
+import { calendar } from './calendar.js';
+import { clone } from './clone.js';
 import {
     isBefore,
     isBetween,
@@ -12,18 +12,18 @@ import {
     isAfter,
     isSameOrAfter,
     isSameOrBefore,
-} from './compare';
-import { diff } from './diff';
-import { format, toString, toISOString, inspect } from './format';
-import { from, fromNow } from './from';
-import { to, toNow } from './to';
-import { stringGet, stringSet } from './get-set';
-import { locale, localeData, lang } from './locale';
-import { prototypeMin, prototypeMax } from './min-max';
-import { startOf, endOf } from './start-end-of';
-import { valueOf, toDate, toArray, toObject, toJSON, unix } from './to-type';
-import { isValid, parsingFlags, invalidAt } from './valid';
-import { creationData } from './creation-data';
+} from './compare.js';
+import { diff } from './diff.js';
+import { format, toString, toISOString, inspect } from './format.js';
+import { from, fromNow } from './from.js';
+import { to, toNow } from './to.js';
+import { stringGet, stringSet } from './get-set.js';
+import { locale, localeData, lang } from './locale.js';
+import { prototypeMin, prototypeMax } from './min-max.js';
+import { startOf, endOf } from './start-end-of.js';
+import { valueOf, toDate, toArray, toObject, toJSON, unix } from './to-type.js';
+import { isValid, parsingFlags, invalidAt } from './valid.js';
+import { creationData } from './creation-data.js';
 
 proto.add = add;
 proto.calendar = calendar;
@@ -70,14 +70,14 @@ proto.valueOf = valueOf;
 proto.creationData = creationData;
 
 // Era
-import { getEraName, getEraNarrow, getEraAbbr, getEraYear } from '../units/era';
+import { getEraName, getEraNarrow, getEraAbbr, getEraYear } from '../units/era.js';
 proto.eraName = getEraName;
 proto.eraNarrow = getEraNarrow;
 proto.eraAbbr = getEraAbbr;
 proto.eraYear = getEraYear;
 
 // Year
-import { getSetYear, getIsLeapYear } from '../units/year';
+import { getSetYear, getIsLeapYear } from '../units/year.js';
 proto.year = getSetYear;
 proto.isLeapYear = getIsLeapYear;
 
@@ -89,21 +89,21 @@ import {
     getWeeksInWeekYear,
     getISOWeeksInYear,
     getISOWeeksInISOWeekYear,
-} from '../units/week-year';
+} from '../units/week-year.js';
 proto.weekYear = getSetWeekYear;
 proto.isoWeekYear = getSetISOWeekYear;
 
 // Quarter
-import { getSetQuarter } from '../units/quarter';
+import { getSetQuarter } from '../units/quarter.js';
 proto.quarter = proto.quarters = getSetQuarter;
 
 // Month
-import { getSetMonth, getDaysInMonth } from '../units/month';
+import { getSetMonth, getDaysInMonth } from '../units/month.js';
 proto.month = getSetMonth;
 proto.daysInMonth = getDaysInMonth;
 
 // Week
-import { getSetWeek, getSetISOWeek } from '../units/week';
+import { getSetWeek, getSetISOWeek } from '../units/week.js';
 proto.week = proto.weeks = getSetWeek;
 proto.isoWeek = proto.isoWeeks = getSetISOWeek;
 proto.weeksInYear = getWeeksInYear;
@@ -112,13 +112,13 @@ proto.isoWeeksInYear = getISOWeeksInYear;
 proto.isoWeeksInISOWeekYear = getISOWeeksInISOWeekYear;
 
 // Day
-import { getSetDayOfMonth } from '../units/day-of-month';
+import { getSetDayOfMonth } from '../units/day-of-month.js';
 import {
     getSetDayOfWeek,
     getSetISODayOfWeek,
     getSetLocaleDayOfWeek,
-} from '../units/day-of-week';
-import { getSetDayOfYear } from '../units/day-of-year';
+} from '../units/day-of-week.js';
+import { getSetDayOfYear } from '../units/day-of-year.js';
 proto.date = getSetDayOfMonth;
 proto.day = proto.days = getSetDayOfWeek;
 proto.weekday = getSetLocaleDayOfWeek;
@@ -126,19 +126,19 @@ proto.isoWeekday = getSetISODayOfWeek;
 proto.dayOfYear = getSetDayOfYear;
 
 // Hour
-import { getSetHour } from '../units/hour';
+import { getSetHour } from '../units/hour.js';
 proto.hour = proto.hours = getSetHour;
 
 // Minute
-import { getSetMinute } from '../units/minute';
+import { getSetMinute } from '../units/minute.js';
 proto.minute = proto.minutes = getSetMinute;
 
 // Second
-import { getSetSecond } from '../units/second';
+import { getSetSecond } from '../units/second.js';
 proto.second = proto.seconds = getSetSecond;
 
 // Millisecond
-import { getSetMillisecond } from '../units/millisecond';
+import { getSetMillisecond } from '../units/millisecond.js';
 proto.millisecond = proto.milliseconds = getSetMillisecond;
 
 // Offset
@@ -154,7 +154,7 @@ import {
     isLocal,
     isUtcOffset,
     isUtc,
-} from '../units/offset';
+} from '../units/offset.js';
 proto.utcOffset = getSetOffset;
 proto.utc = setOffsetToUTC;
 proto.local = setOffsetToLocal;
@@ -167,12 +167,12 @@ proto.isUtc = isUtc;
 proto.isUTC = isUtc;
 
 // Timezone
-import { getZoneAbbr, getZoneName } from '../units/timezone';
+import { getZoneAbbr, getZoneName } from '../units/timezone.js';
 proto.zoneAbbr = getZoneAbbr;
 proto.zoneName = getZoneName;
 
 // Deprecations
-import { deprecate } from '../utils/deprecate';
+import { deprecate } from '../utils/deprecate.js';
 proto.dates = deprecate(
     'dates accessor is deprecated. Use date instead.',
     getSetDayOfMonth

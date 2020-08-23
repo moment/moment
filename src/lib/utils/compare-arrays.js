@@ -1,4 +1,4 @@
-import toInt from './to-int';
+import toInt from './to-int.js';
 
 // compare two arrays, return the number of differences
 export default function compareArrays(array1, array2, dontConvert) {

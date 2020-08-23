@@ -1,18 +1,18 @@
-import zeroFill from '../utils/zero-fill';
-import { createDuration } from '../duration/create';
-import { addSubtract } from '../moment/add-subtract';
-import { isMoment, copyConfig } from '../moment/constructor';
-import { addFormatToken } from '../format/format';
-import { addRegexToken, matchOffset, matchShortOffset } from '../parse/regex';
-import { addParseToken } from '../parse/token';
-import { createLocal } from '../create/local';
-import { prepareConfig } from '../create/from-anything';
-import { createUTC } from '../create/utc';
-import isDate from '../utils/is-date';
-import toInt from '../utils/to-int';
-import isUndefined from '../utils/is-undefined';
-import compareArrays from '../utils/compare-arrays';
-import { hooks } from '../utils/hooks';
+import zeroFill from '../utils/zero-fill.js';
+import { createDuration } from '../duration/create.js';
+import { addSubtract } from '../moment/add-subtract.js';
+import { isMoment, copyConfig } from '../moment/constructor.js';
+import { addFormatToken } from '../format/format.js';
+import { addRegexToken, matchOffset, matchShortOffset } from '../parse/regex.js';
+import { addParseToken } from '../parse/token.js';
+import { createLocal } from '../create/local.js';
+import { prepareConfig } from '../create/from-anything.js';
+import { createUTC } from '../create/utc.js';
+import isDate from '../utils/is-date.js';
+import toInt from '../utils/to-int.js';
+import isUndefined from '../utils/is-undefined.js';
+import compareArrays from '../utils/compare-arrays.js';
+import { hooks } from '../utils/hooks.js';
 
 // FORMATTING
 

@@ -1,11 +1,11 @@
-import { hooks } from '../utils/hooks';
-import { createDate, createUTCDate } from './date-from-array';
-import { daysInYear } from '../units/year';
+import { hooks } from '../utils/hooks.js';
+import { createDate, createUTCDate } from './date-from-array.js';
+import { daysInYear } from '../units/year.js';
 import {
     weekOfYear,
     weeksInYear,
     dayOfYearFromWeeks,
-} from '../units/week-calendar-utils';
+} from '../units/week-calendar-utils.js';
 import {
     YEAR,
     MONTH,
@@ -14,10 +14,10 @@ import {
     MINUTE,
     SECOND,
     MILLISECOND,
-} from '../units/constants';
-import { createLocal } from './local';
-import defaults from '../utils/defaults';
-import getParsingFlags from './parsing-flags';
+} from '../units/constants.js';
+import { createLocal } from './local.js';
+import defaults from '../utils/defaults.js';
+import getParsingFlags from './parsing-flags.js';
 
 function currentDateArray(config) {
     // hooks is actually the exported moment object

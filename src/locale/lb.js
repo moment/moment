@@ -3,7 +3,7 @@
 //! author : mweimerskirch : https://github.com/mweimerskirch
 //! author : David Raison : https://github.com/kwisatz
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 function processRelativeTime(number, withoutSuffix, key, isFuture) {
     var format = {

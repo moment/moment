@@ -2,7 +2,7 @@
 //! locale : Maldivian [dv]
 //! author : Jawish Hameed : https://github.com/jawish
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var months = [
         'ޖެނުއަރީ',

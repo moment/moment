@@ -1,6 +1,6 @@
-import isNumber from '../utils/is-number';
-import { getLocale } from './locales';
-import { createUTC } from '../create/utc';
+import isNumber from '../utils/is-number.js';
+import { getLocale } from './locales.js';
+import { createUTC } from '../create/utc.js';
 
 function get(format, index, field, setter) {
     var locale = getLocale(),

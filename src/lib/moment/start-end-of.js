@@ -1,5 +1,5 @@
-import { normalizeUnits } from '../units/aliases';
-import { hooks } from '../utils/hooks';
+import { normalizeUnits } from '../units/aliases.js';
+import { hooks } from '../utils/hooks.js';
 
 var MS_PER_SECOND = 1000,
     MS_PER_MINUTE = 60 * MS_PER_SECOND,

@@ -1,9 +1,9 @@
-import { Duration } from './constructor';
+import { Duration } from './constructor.js';
 
 var proto = Duration.prototype;
 
-import { abs } from './abs';
-import { add, subtract } from './add-subtract';
+import { abs } from './abs.js';
+import { add, subtract } from './add-subtract.js';
 import {
     as,
     asMilliseconds,
@@ -16,9 +16,9 @@ import {
     asQuarters,
     asYears,
     valueOf,
-} from './as';
-import { bubble } from './bubble';
-import { clone } from './clone';
+} from './as.js';
+import { bubble } from './bubble.js';
+import { clone } from './clone.js';
 import {
     get,
     milliseconds,
@@ -29,11 +29,11 @@ import {
     months,
     years,
     weeks,
-} from './get';
-import { humanize } from './humanize';
-import { toISOString } from './iso-string';
-import { lang, locale, localeData } from '../moment/locale';
-import { isValid } from './valid';
+} from './get.js';
+import { humanize } from './humanize.js';
+import { toISOString } from './iso-string.js';
+import { lang, locale, localeData } from '../moment/locale.js';
+import { isValid } from './valid.js';
 
 proto.isValid = isValid;
 proto.abs = abs;
@@ -69,7 +69,7 @@ proto.locale = locale;
 proto.localeData = localeData;
 
 // Deprecations
-import { deprecate } from '../utils/deprecate';
+import { deprecate } from '../utils/deprecate.js';
 
 proto.toIsoString = deprecate(
     'toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)',

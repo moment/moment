@@ -3,7 +3,7 @@
 //! authors : https://github.com/mechuwind
 //!           Stephen Ramthun : https://github.com/stephenramthun
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('nn', {
     months: 'januar_februar_mars_april_mai_juni_juli_august_september_oktober_november_desember'.split(

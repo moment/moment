@@ -2,7 +2,7 @@
 //! locale : Tamil [ta]
 //! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var symbolMap = {
         '1': '௧',

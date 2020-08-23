@@ -1,6 +1,6 @@
-import { addFormatToken } from '../format/format';
-import { addUnitAlias } from './aliases';
-import { addUnitPriority } from './priorities';
+import { addFormatToken } from '../format/format.js';
+import { addUnitAlias } from './aliases.js';
+import { addUnitPriority } from './priorities.js';
 import {
     addRegexToken,
     match1to2,
@@ -10,16 +10,16 @@ import {
     match4,
     match6,
     matchSigned,
-} from '../parse/regex';
-import { addWeekParseToken } from '../parse/token';
+} from '../parse/regex.js';
+import { addWeekParseToken } from '../parse/token.js';
 import {
     weekOfYear,
     weeksInYear,
     dayOfYearFromWeeks,
-} from './week-calendar-utils';
-import toInt from '../utils/to-int';
-import { hooks } from '../utils/hooks';
-import { createUTCDate } from '../create/date-from-array';
+} from './week-calendar-utils.js';
+import toInt from '../utils/to-int.js';
+import { hooks } from '../utils/hooks.js';
+import { createUTCDate } from '../create/date-from-array.js';
 
 // FORMATTING
 

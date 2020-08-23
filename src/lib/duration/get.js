@@ -1,5 +1,5 @@
-import { normalizeUnits } from '../units/aliases';
-import absFloor from '../utils/abs-floor';
+import { normalizeUnits } from '../units/aliases.js';
+import absFloor from '../utils/abs-floor.js';
 
 export function get(units) {
     units = normalizeUnits(units);

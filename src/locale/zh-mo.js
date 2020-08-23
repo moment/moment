@@ -4,7 +4,7 @@
 //! author : Chris Lam : https://github.com/hehachris
 //! author : Tan Yuanhong : https://github.com/le0tan
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('zh-mo', {
     months: '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split(

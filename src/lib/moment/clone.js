@@ -1,4 +1,4 @@
-import { Moment } from './constructor';
+import { Moment } from './constructor.js';
 
 export function clone() {
     return new Moment(this);

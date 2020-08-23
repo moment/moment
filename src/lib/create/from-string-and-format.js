@@ -1,16 +1,16 @@
-import { configFromISO, configFromRFC2822 } from './from-string';
-import { configFromArray } from './from-array';
-import { getParseRegexForToken } from '../parse/regex';
-import { addTimeToArrayFromToken } from '../parse/token';
+import { configFromISO, configFromRFC2822 } from './from-string.js';
+import { configFromArray } from './from-array.js';
+import { getParseRegexForToken } from '../parse/regex.js';
+import { addTimeToArrayFromToken } from '../parse/token.js';
 import {
     expandFormat,
     formatTokenFunctions,
     formattingTokens,
-} from '../format/format';
-import checkOverflow from './check-overflow';
-import { YEAR, HOUR } from '../units/constants';
-import { hooks } from '../utils/hooks';
-import getParsingFlags from './parsing-flags';
+} from '../format/format.js';
+import checkOverflow from './check-overflow.js';
+import { YEAR, HOUR } from '../units/constants.js';
+import { hooks } from '../utils/hooks.js';
+import getParsingFlags from './parsing-flags.js';
 
 // constant that refers to the ISO standard
 hooks.ISO_8601 = function () {};

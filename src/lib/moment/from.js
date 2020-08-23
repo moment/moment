@@ -1,6 +1,6 @@
-import { createDuration } from '../duration/create';
-import { createLocal } from '../create/local';
-import { isMoment } from '../moment/constructor';
+import { createDuration } from '../duration/create.js';
+import { createLocal } from '../create/local.js';
+import { isMoment } from '../moment/constructor.js';
 
 export function from(time, withoutSuffix) {
     if (

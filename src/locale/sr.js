@@ -2,7 +2,7 @@
 //! locale : Serbian [sr]
 //! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var translator = {
     words: {

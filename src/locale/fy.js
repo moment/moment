@@ -2,7 +2,7 @@
 //! locale : Frisian [fy]
 //! author : Robin van der Vliet : https://github.com/robin0van0der0v
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var monthsShortWithDots = 'jan._feb._mrt._apr._mai_jun._jul._aug._sep._okt._nov._des.'.split(
         '_'

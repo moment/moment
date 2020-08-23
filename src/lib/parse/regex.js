@@ -39,8 +39,8 @@ export {
     matchWord,
 };
 
-import hasOwnProp from '../utils/has-own-prop';
-import isFunction from '../utils/is-function';
+import hasOwnProp from '../utils/has-own-prop.js';
+import isFunction from '../utils/is-function.js';
 
 regexes = {};
 

@@ -1,6 +1,6 @@
-import hasOwnProp from '../utils/has-own-prop';
-import isNumber from '../utils/is-number';
-import toInt from '../utils/to-int';
+import hasOwnProp from '../utils/has-own-prop.js';
+import isNumber from '../utils/is-number.js';
+import toInt from '../utils/to-int.js';
 
 var tokens = {};
 

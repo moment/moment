@@ -1,4 +1,4 @@
-import absFloor from '../utils/abs-floor';
+import absFloor from '../utils/abs-floor.js';
 var abs = Math.abs;
 
 function sign(x) {

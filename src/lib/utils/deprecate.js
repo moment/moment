@@ -1,6 +1,6 @@
-import extend from './extend';
-import { hooks } from './hooks';
-import hasOwnProp from './has-own-prop';
+import extend from './extend.js';
+import { hooks } from './hooks.js';
+import hasOwnProp from './has-own-prop.js';
 
 function warn(msg) {
     if (

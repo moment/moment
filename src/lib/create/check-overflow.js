@@ -1,4 +1,4 @@
-import { daysInMonth } from '../units/month';
+import { daysInMonth } from '../units/month.js';
 import {
     YEAR,
     MONTH,
@@ -9,8 +9,8 @@ import {
     MILLISECOND,
     WEEK,
     WEEKDAY,
-} from '../units/constants';
-import getParsingFlags from '../create/parsing-flags';
+} from '../units/constants.js';
+import getParsingFlags from '../create/parsing-flags.js';
 
 export default function checkOverflow(m) {
     var overflow,

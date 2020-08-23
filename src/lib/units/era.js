@@ -1,11 +1,11 @@
-import { addFormatToken } from '../format/format';
-import { addRegexToken, matchUnsigned, regexEscape } from '../parse/regex';
-import { addParseToken } from '../parse/token';
-import { YEAR } from './constants';
-import { hooks as moment } from '../utils/hooks';
-import { getLocale } from '../locale/locales';
-import getParsingFlags from '../create/parsing-flags';
-import hasOwnProp from '../utils/has-own-prop';
+import { addFormatToken } from '../format/format.js';
+import { addRegexToken, matchUnsigned, regexEscape } from '../parse/regex.js';
+import { addParseToken } from '../parse/token.js';
+import { YEAR } from './constants.js';
+import { hooks as moment } from '../utils/hooks.js';
+import { getLocale } from '../locale/locales.js';
+import getParsingFlags from '../create/parsing-flags.js';
+import hasOwnProp from '../utils/has-own-prop.js';
 
 addFormatToken('N', 0, 0, 'eraAbbr');
 addFormatToken('NN', 0, 0, 'eraAbbr');

@@ -1,4 +1,4 @@
-import { formattingTokens } from '../format/format';
+import { formattingTokens } from '../format/format.js';
 
 export var defaultLongDateFormat = {
     LTS: 'h:mm:ss A',

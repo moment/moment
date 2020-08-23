@@ -1,7 +1,7 @@
-import hasOwnProp from '../utils/has-own-prop';
-import toInt from '../utils/to-int';
-import indexOf from '../utils/index-of';
-import { createDuration } from './create';
+import hasOwnProp from '../utils/has-own-prop.js';
+import toInt from '../utils/to-int.js';
+import indexOf from '../utils/index-of.js';
+import { createDuration } from './create.js';
 
 var ordering = [
     'year',

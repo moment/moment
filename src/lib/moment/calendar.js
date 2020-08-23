@@ -1,9 +1,9 @@
-import { createLocal } from '../create/local';
-import { cloneWithOffset } from '../units/offset';
-import isFunction from '../utils/is-function';
-import { hooks } from '../utils/hooks';
-import { isMomentInput } from '../utils/is-moment-input';
-import isCalendarSpec from '../utils/is-calendar-spec';
+import { createLocal } from '../create/local.js';
+import { cloneWithOffset } from '../units/offset.js';
+import isFunction from '../utils/is-function.js';
+import { hooks } from '../utils/hooks.js';
+import { isMomentInput } from '../utils/is-moment-input.js';
+import isCalendarSpec from '../utils/is-calendar-spec.js';
 
 export function getCalendarFormat(myMoment, now) {
     var diff = myMoment.diff(now, 'days', true);

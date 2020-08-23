@@ -2,7 +2,7 @@
 //! locale : Irish or Irish Gaelic [ga]
 //! author : André Silva : https://github.com/askpt
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var months = [
         'Eanáir',

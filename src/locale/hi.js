@@ -2,7 +2,7 @@
 //! locale : Hindi [hi]
 //! author : Mayank Singhal : https://github.com/mayanksinghal
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var symbolMap = {
         '1': '१',

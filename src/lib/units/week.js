@@ -1,10 +1,10 @@
-import { addFormatToken } from '../format/format';
-import { addUnitAlias } from './aliases';
-import { addUnitPriority } from './priorities';
-import { addRegexToken, match1to2, match2 } from '../parse/regex';
-import { addWeekParseToken } from '../parse/token';
-import toInt from '../utils/to-int';
-import { weekOfYear } from './week-calendar-utils';
+import { addFormatToken } from '../format/format.js';
+import { addUnitAlias } from './aliases.js';
+import { addUnitPriority } from './priorities.js';
+import { addRegexToken, match1to2, match2 } from '../parse/regex.js';
+import { addWeekParseToken } from '../parse/token.js';
+import toInt from '../utils/to-int.js';
+import { weekOfYear } from './week-calendar-utils.js';
 
 // FORMATTING
 
