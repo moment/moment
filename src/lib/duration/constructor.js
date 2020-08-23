@@ -1,6 +1,6 @@
 import { normalizeObjectUnits } from '../units/aliases';
 import { getLocale } from '../locale/locales';
-import isDurationValid from './valid.js';
+import isDurationValid from './valid';
 
 export function Duration(duration) {
     var normalizedInput = normalizeObjectUnits(duration),
