@@ -13,6 +13,17 @@ Read before submitting Pull Requests
    `moment.js`, `locale/*.js`, `min/*.js`. Don't worry, we'll build them when
    we cut a release.
 
+Format Pull Requests
+====================
+
+Prefix the title of your pull request with  one of the following
+* [bugfix]
+* [feature]
+* [locale]
+* [misc]
+* [new locale]
+
+
 Code organization
 =================
 
