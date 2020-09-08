@@ -470,7 +470,7 @@ test('test short months proper', function (assert) {
 test('translated invalid date', function (assert) {
     assert.equal(
         moment('nonsense', 'DD-MMM-YYYY').format(),
-        'Fecha invalida',
+        'Fecha inválida',
         'Invalid date should translate'
     );
 });

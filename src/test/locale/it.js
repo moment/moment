@@ -289,15 +289,15 @@ test('from', function (assert) {
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), 'in alcuni secondi', 'prefix');
+    assert.equal(moment(30000).from(0), 'tra alcuni secondi', 'prefix');
     assert.equal(moment(0).from(30000), 'alcuni secondi fa', 'suffix');
 });
 
 test('fromNow', function (assert) {
     assert.equal(
         moment().add({ s: 30 }).fromNow(),
-        'in alcuni secondi',
-        'in seconds'
+        'tra alcuni secondi',
+        'tra seconds'
     );
     assert.equal(moment().add({ d: 5 }).fromNow(), 'tra 5 giorni', 'in 5 days');
 });

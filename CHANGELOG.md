@@ -1,6 +1,12 @@
 Changelog
 =========
 
+### 2.27.0 [See full changelog](https://gist.github.com/marwahaha/5100c9c2f42019067b1f6cefc333daa7)
+
+* Release June 18, 2020
+
+Added Turkmen locale, other locale improvements, slight TypeScript fixes
+
 ### 2.26.0 [See full changelog](https://gist.github.com/marwahaha/0725c40740560854a849b096ea7b7590)
 
 * Release May 19, 2020
