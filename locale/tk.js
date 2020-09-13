@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : Turkmen [trk]
+//! locale : Turkmen [tk]
 //! author : Atamyrat Abdyrahmanov : https://github.com/atamyratabdy
 
 ;(function (global, factory) {

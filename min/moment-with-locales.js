@@ -4398,7 +4398,7 @@
             eras = this.localeData().eras();
         for (i = 0, l = eras.length; i < l; ++i) {
             // truncate time
-            val = this.startOf('day').valueOf();
+            val = this.clone().startOf('day').valueOf();
 
             if (eras[i].since <= val && val <= eras[i].until) {
                 return eras[i].name;
@@ -4418,7 +4418,7 @@
             eras = this.localeData().eras();
         for (i = 0, l = eras.length; i < l; ++i) {
             // truncate time
-            val = this.startOf('day').valueOf();
+            val = this.clone().startOf('day').valueOf();
 
             if (eras[i].since <= val && val <= eras[i].until) {
                 return eras[i].narrow;
@@ -4438,7 +4438,7 @@
             eras = this.localeData().eras();
         for (i = 0, l = eras.length; i < l; ++i) {
             // truncate time
-            val = this.startOf('day').valueOf();
+            val = this.clone().startOf('day').valueOf();
 
             if (eras[i].since <= val && val <= eras[i].until) {
                 return eras[i].abbr;
@@ -4461,7 +4461,7 @@
             dir = eras[i].since <= eras[i].until ? +1 : -1;
 
             // truncate time
-            val = this.startOf('day').valueOf();
+            val = this.clone().startOf('day').valueOf();
 
             if (
                 (eras[i].since <= val && val <= eras[i].until) ||
@@ -5612,7 +5612,7 @@
 
     //! moment.js
 
-    hooks.version = '2.27.0';
+    hooks.version = '2.28.0';
 
     setHookCallback(createLocal);
 
@@ -6533,7 +6533,7 @@
         relativeTime: {
             future: '%s sonra',
             past: '%s əvvəl',
-            s: 'birneçə saniyə',
+            s: 'bir neçə saniyə',
             ss: '%d saniyə',
             m: 'bir dəqiqə',
             mm: '%d dəqiqə',
@@ -9128,7 +9128,7 @@
             dow: 1, // Monday is the first day of the week.
             doy: 4, // The week that contains Jan 4th is the first week of the year.
         },
-        invalidDate: 'Fecha invalida',
+        invalidDate: 'Fecha inválida',
     });
 
     //! moment.js locale configuration
@@ -10248,8 +10248,8 @@
             }
         },
         week: {
-            dow: 1, // Monday is the first day of the week.
-            doy: 4, // The week that contains Jan 4th is the first week of the year.
+            dow: 0, // Sunday is the first day of the week
+            doy: 3, // The week that contains Jan 4th is the first week of the year (7 + 0 - 4)
         },
         meridiemParse: /राती|सकाळीं|दनपारां|सांजे/,
         meridiemHour: function (hour, meridiem) {
@@ -10369,8 +10369,8 @@
             }
         },
         week: {
-            dow: 1, // Monday is the first day of the week.
-            doy: 4, // The week that contains Jan 4th is the first week of the year.
+            dow: 0, // Sunday is the first day of the week
+            doy: 3, // The week that contains Jan 4th is the first week of the year (7 + 0 - 4)
         },
         meridiemParse: /rati|sokallim|donparam|sanje/,
         meridiemHour: function (hour, meridiem) {
@@ -16719,7 +16719,7 @@
         },
     });
 
-    //! moment.js language configuration
+    //! moment.js locale configuration
 
     hooks.defineLocale('ug-cn', {
         months: 'يانۋار_فېۋرال_مارت_ئاپرېل_ماي_ئىيۇن_ئىيۇل_ئاۋغۇست_سېنتەبىر_ئۆكتەبىر_نويابىر_دېكابىر'.split(
