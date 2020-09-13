@@ -1,6 +1,12 @@
 Changelog
 =========
 
+### 2.28.0 [See full changelog](https://gist.github.com/marwahaha/028fd6c2b2470b2804857cfd63c0e94f)
+
+* Release Sept 13, 2020
+
+Fix bug where .format() modifies original instance, and locale updates
+
 ### 2.27.0 [See full changelog](https://gist.github.com/marwahaha/5100c9c2f42019067b1f6cefc333daa7)
 
 * Release June 18, 2020
