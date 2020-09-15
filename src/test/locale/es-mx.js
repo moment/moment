@@ -1,7 +1,7 @@
 import { test } from '../qunit';
 import { localeModule } from '../qunit-locale';
 import moment from '../../moment';
-localeModule('es');
+localeModule('es-mx');
 
 test('parse', function (assert) {
     var tests = 'enero ene._febrero feb._marzo mar._abril abr._mayo may._junio jun._julio jul._agosto ago._septiembre sep._octubre oct._noviembre nov._diciembre dic.'.split(
@@ -56,7 +56,7 @@ test('format', function (assert) {
             ['D Do DD', '14 14º 14'],
             ['d do dddd ddd dd', '0 0º domingo dom. do'],
             ['DDD DDDo DDDD', '45 45º 045'],
-            ['w wo ww', '6 6º 06'],
+            ['w wo ww', '7 7º 07'],
             ['YYYY-MMM-DD', '2010-feb-14'],
             ['h hh', '3 03'],
             ['H HH', '15 15'],
@@ -433,8 +433,8 @@ test('calendar all else', function (assert) {
 test('weeks year starting sunday formatted', function (assert) {
     assert.equal(
         moment([2012, 0, 1]).format('w ww wo'),
-        '52 52 52º',
-        'Jan  1 2012 should be week 52'
+        '1 01 1º',
+        'Jan  1 2012 should be week 1'
     );
     assert.equal(
         moment([2012, 0, 2]).format('w ww wo'),
@@ -443,8 +443,8 @@ test('weeks year starting sunday formatted', function (assert) {
     );
     assert.equal(
         moment([2012, 0, 8]).format('w ww wo'),
-        '1 01 1º',
-        'Jan  8 2012 should be week 1'
+        '2 02 2º',
+        'Jan  8 2012 should be week 2'
     );
     assert.equal(
         moment([2012, 0, 9]).format('w ww wo'),
@@ -453,41 +453,45 @@ test('weeks year starting sunday formatted', function (assert) {
     );
     assert.equal(
         moment([2012, 0, 15]).format('w ww wo'),
-        '2 02 2º',
-        'Jan 15 2012 should be week 2'
+        '3 03 3º',
+        'Jan 15 2012 should be week 3'
     );
 });
 
 // Concrete test for Locale#weekdaysMin
 test('Weekdays sort by locale', function (assert) {
+    const weekdays = 'domingo_lunes_martes_miércoles_jueves_viernes_sábado',
+          weekdaysShort = 'dom._lun._mar._mié._jue._vie._sáb.',
+          weekdaysMin   = 'do_lu_ma_mi_ju_vi_sá';
+
     assert.deepEqual(
-        moment().localeData('en-au').weekdays(),
-        'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+        moment().localeData().weekdays(),
+        weekdays.split('_'),
         'weekdays start on Sunday'
     );
     assert.deepEqual(
-        moment().localeData('en-au').weekdays(true),
-        'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+        moment().localeData().weekdays(true),
+        weekdays.split('_'),
         'locale-sorted weekdays start on Sunday'
     );
     assert.deepEqual(
-        moment().localeData('en-au').weekdaysShort(),
-        'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
+        moment().localeData().weekdaysShort(),
+        weekdaysShort.split('_'),
         'weekdaysShort start on Sunday'
     );
     assert.deepEqual(
-        moment().localeData('en-au').weekdaysShort(true),
-        'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
+        moment().localeData().weekdaysShort(true),
+        weekdaysShort.split('_'),
         'locale-sorted weekdaysShort start on Sunday'
     );
     assert.deepEqual(
-        moment().localeData('en-au').weekdaysMin(),
-        'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
+        moment().localeData().weekdaysMin(),
+        weekdaysMin.split('_'),
         'weekdaysMin start on Sunday'
     );
     assert.deepEqual(
-        moment().localeData('en-au').weekdaysMin(true),
-        'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
+        moment().localeData().weekdaysMin(true),
+        weekdaysMin.split('_'),
         'locale-sorted weekdaysMin start on Sunday'
     );
 });
