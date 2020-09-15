@@ -1,20 +1,21 @@
 //! moment.js locale configuration
 //! locale : Tamil [ta]
-//! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404, Naveen Bharathi : https://github.com/naveen-bharathi
+//! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
+//! author : Naveen Bharathi : https://github.com/naveen-bharathi
 
 import moment from '../moment';
 
 var symbolMap = {
-        '1': '1',
-        '2': '2',
-        '3': '3',
-        '4': '4',
-        '5': '5',
-        '6': '6',
-        '7': '7',
-        '8': '8',
-        '9': '9',
-        '0': '0',
+        1: '1',
+        2: '2',
+        3: '3',
+        4: '4',
+        5: '5',
+        6: '6',
+        7: '7',
+        8: '8',
+        9: '9',
+        0: '0',
     },
     numberMap = {
         '1': '1',
