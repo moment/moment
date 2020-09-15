@@ -1,5 +1,5 @@
 //! moment.js
-//! version : 2.27.0
+//! version : 2.28.0
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -4398,7 +4398,7 @@ function getEraName() {
         eras = this.localeData().eras();
     for (i = 0, l = eras.length; i < l; ++i) {
         // truncate time
-        val = this.startOf('day').valueOf();
+        val = this.clone().startOf('day').valueOf();
 
         if (eras[i].since <= val && val <= eras[i].until) {
             return eras[i].name;
@@ -4418,7 +4418,7 @@ function getEraNarrow() {
         eras = this.localeData().eras();
     for (i = 0, l = eras.length; i < l; ++i) {
         // truncate time
-        val = this.startOf('day').valueOf();
+        val = this.clone().startOf('day').valueOf();
 
         if (eras[i].since <= val && val <= eras[i].until) {
             return eras[i].narrow;
@@ -4438,7 +4438,7 @@ function getEraAbbr() {
         eras = this.localeData().eras();
     for (i = 0, l = eras.length; i < l; ++i) {
         // truncate time
-        val = this.startOf('day').valueOf();
+        val = this.clone().startOf('day').valueOf();
 
         if (eras[i].since <= val && val <= eras[i].until) {
             return eras[i].abbr;
@@ -4461,7 +4461,7 @@ function getEraYear() {
         dir = eras[i].since <= eras[i].until ? +1 : -1;
 
         // truncate time
-        val = this.startOf('day').valueOf();
+        val = this.clone().startOf('day').valueOf();
 
         if (
             (eras[i].since <= val && val <= eras[i].until) ||
@@ -5612,7 +5612,7 @@ addParseToken('x', function (input, array, config) {
 
 //! moment.js
 
-hooks.version = '2.27.0';
+hooks.version = '2.28.0';
 
 setHookCallback(createLocal);
 

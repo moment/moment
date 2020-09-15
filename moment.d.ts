@@ -4,13 +4,13 @@
  */
 declare function moment(inp?: moment.MomentInput, strict?: boolean): moment.Moment;
 /**
- * @param strict Strict parsing requires that the format and input match exactly, including delimeters.
+ * @param strict Strict parsing requires that the format and input match exactly, including delimiters.
  * Strict parsing is frequently the best parsing option. For more information about choosing strict vs
  * forgiving parsing, see the [parsing guide](https://momentjs.com/guides/#/parsing/).
  */
 declare function moment(inp?: moment.MomentInput, format?: moment.MomentFormatSpecification, strict?: boolean): moment.Moment;
 /**
- * @param strict Strict parsing requires that the format and input match exactly, including delimeters.
+ * @param strict Strict parsing requires that the format and input match exactly, including delimiters.
  * Strict parsing is frequently the best parsing option. For more information about choosing strict vs
  * forgiving parsing, see the [parsing guide](https://momentjs.com/guides/#/parsing/).
  */
@@ -663,7 +663,22 @@ declare namespace moment {
   export var fn: Moment;
 
   // NOTE(constructor): Same as moment constructor
+  /**
+   * @param strict Strict parsing disables the deprecated fallback to the native Date constructor when
+   * parsing a string.
+   */
+  export function utc(inp?: MomentInput, strict?: boolean): Moment;
+  /**
+   * @param strict Strict parsing requires that the format and input match exactly, including delimiters.
+   * Strict parsing is frequently the best parsing option. For more information about choosing strict vs
+   * forgiving parsing, see the [parsing guide](https://momentjs.com/guides/#/parsing/).
+   */
   export function utc(inp?: MomentInput, format?: MomentFormatSpecification, strict?: boolean): Moment;
+  /**
+   * @param strict Strict parsing requires that the format and input match exactly, including delimiters.
+   * Strict parsing is frequently the best parsing option. For more information about choosing strict vs
+   * forgiving parsing, see the [parsing guide](https://momentjs.com/guides/#/parsing/).
+   */
   export function utc(inp?: MomentInput, format?: MomentFormatSpecification, language?: string, strict?: boolean): Moment;
 
   export function unix(timestamp: number): Moment;
@@ -760,6 +775,8 @@ declare namespace moment {
 
   export var defaultFormat: string;
   export var defaultFormatUtc: string;
+  export var suppressDeprecationWarnings: boolean;
+  export var deprecationHandler: ((name: string | void, msg: string) => void) | void;
 
   export var HTML5_FMT: {
     DATETIME_LOCAL: string,
