@@ -56,7 +56,7 @@ test('format', function (assert) {
             ['D Do DD', '14 14 14'],
             ['d do dddd ddd dd', '0 0 الأحد احد ح'],
             ['DDD DDDo DDDD', '45 45 045'],
-            ['w wo ww', '8 8 08'],
+            ['w wo ww', '7 7 07'],
             ['h hh', '3 03'],
             ['H HH', '15 15'],
             ['m mm', '25 25'],
@@ -417,7 +417,7 @@ test('calendar all else', function (assert) {
     );
 });
 
-test('weeks year starting sunday formatted', function (assert) {
+test('weeks year starting monday formatted', function (assert) {
     assert.equal(
         moment([2011, 11, 31]).format('w ww wo'),
         '1 01 1',
@@ -425,8 +425,8 @@ test('weeks year starting sunday formatted', function (assert) {
     );
     assert.equal(
         moment([2012, 0, 6]).format('w ww wo'),
-        '1 01 1',
-        'Jan  6 2012 should be week 1'
+        '2 02 2',
+        'Jan  6 2012 should be week 2'
     );
     assert.equal(
         moment([2012, 0, 7]).format('w ww wo'),
@@ -435,8 +435,8 @@ test('weeks year starting sunday formatted', function (assert) {
     );
     assert.equal(
         moment([2012, 0, 13]).format('w ww wo'),
-        '2 02 2',
-        'Jan 13 2012 should be week 2'
+        '3 03 3',
+        'Jan 13 2012 should be week 3'
     );
     assert.equal(
         moment([2012, 0, 14]).format('w ww wo'),
