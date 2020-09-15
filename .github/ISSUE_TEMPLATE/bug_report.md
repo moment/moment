@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report to help us improve moment
+about: Create a report to help us improve Moment.js
 
 ---
 
@@ -33,7 +33,6 @@ If applicable, add screenshots to help explain your problem.
 
 **Moment-specific environment**
 
-* Node version [e.g. 8.15.0, 10.15.1, ...]
 * The time zone setting of the machine the code is running on
 * The time and date at which the code was run
 * Other libraries in use (TypeScript, Immutable.js, etc)
