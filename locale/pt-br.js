@@ -60,8 +60,6 @@
         },
         dayOfMonthOrdinalParse: /\d{1,2}º/,
         ordinal: '%dº',
-        invalidDate: 'Data inválida',
-        
     });
 
     return ptBr;
