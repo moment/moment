@@ -70,10 +70,12 @@ test('format', function (assert) {
             ['LL', 'Fewuruyekalo tile 14 san 2010'],
             ['LLL', 'Fewuruyekalo tile 14 san 2010 lɛrɛ 15:25'],
             ['LLLL', 'Kari Fewuruyekalo tile 14 san 2010 lɛrɛ 15:25'],
+            ['LLD', 'Kari Fewuruyekalo tile 14 san 2010'],
             ['l', '14/2/2010'],
             ['ll', 'Few tile 14 san 2010'],
             ['lll', 'Few tile 14 san 2010 lɛrɛ 15:25'],
             ['llll', 'Kar Few tile 14 san 2010 lɛrɛ 15:25'],
+            ['lld', 'Kar Few tile 14 san 2010'],
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;

@@ -125,6 +125,7 @@ test('long date format', function (assert) {
             LT: 'h:mm A',
             L: 'MM/DD/YYYY',
             LL: 'MMMM D, YYYY',
+            LLD: 'dddd, MMMM D, YYYY',
             LLL: 'MMMM D, YYYY h:mm A',
             LLLL: 'dddd, MMMM D, YYYY h:mm A',
         },
@@ -143,7 +144,13 @@ test('long date format', function (assert) {
     assert.equal(anchor.format('L'), '09/06/2015', 'L uses base');
     assert.equal(anchor.format('l'), '9/6/2015', 'l uses base');
     assert.equal(anchor.format('LL'), 'September 6, 2015', 'LL uses base');
+    assert.equal(
+        anchor.format('LLD'),
+        'Sunday, September 6, 2015',
+        'LLD uses base'
+    );
     assert.equal(anchor.format('ll'), 'Sep 6, 2015', 'll uses base');
+    assert.equal(anchor.format('lld'), 'Sun, Sep 6, 2015', 'lld uses base');
     assert.equal(
         anchor.format('LLL'),
         'child September 6, 2015 12:34 PM',

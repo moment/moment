@@ -21,6 +21,7 @@ export default moment.defineLocale('en-ca', {
         LL: 'MMMM D, YYYY',
         LLL: 'MMMM D, YYYY h:mm A',
         LLLL: 'dddd, MMMM D, YYYY h:mm A',
+        LLD: 'dddd, MMMM D, YYYY',
     },
     calendar: {
         sameDay: '[Today at] LT',

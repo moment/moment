@@ -98,6 +98,7 @@ export default moment.defineLocale('ru', {
         LL: 'D MMMM YYYY г.',
         LLL: 'D MMMM YYYY г., H:mm',
         LLLL: 'dddd, D MMMM YYYY г., H:mm',
+        LLD: 'dddd, D MMMM YYYY г.',
     },
     calendar: {
         sameDay: '[Сегодня, в] LT',

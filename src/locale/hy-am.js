@@ -26,6 +26,7 @@ export default moment.defineLocale('hy-am', {
         LL: 'D MMMM YYYY թ.',
         LLL: 'D MMMM YYYY թ., HH:mm',
         LLLL: 'dddd, D MMMM YYYY թ., HH:mm',
+        LLD: 'dddd, D MMMM YYYY թ.',
     },
     calendar: {
         sameDay: '[այսօր] LT',

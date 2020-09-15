@@ -47,7 +47,9 @@ export default moment.defineLocale('gom-deva', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY A h:mm [वाजतां]',
         LLLL: 'dddd, MMMM Do, YYYY, A h:mm [वाजतां]',
+        LLD: 'dddd, MMMM Do, YYYY',
         llll: 'ddd, D MMM YYYY, A h:mm [वाजतां]',
+        lld: 'ddd, D MMM YYYY',
     },
     calendar: {
         sameDay: '[आयज] LT',

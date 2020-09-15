@@ -21,6 +21,7 @@ export default moment.defineLocale('tzm', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY HH:mm',
         LLLL: 'dddd D MMMM YYYY HH:mm',
+        LLD: 'dddd D MMMM YYYY',
     },
     calendar: {
         sameDay: '[ⴰⵙⴷⵅ ⴴ] LT',

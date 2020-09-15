@@ -24,6 +24,7 @@ export default moment.defineLocale('x-pseudo', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY HH:mm',
         LLLL: 'dddd, D MMMM YYYY HH:mm',
+        LLD: 'dddd, D MMMM YYYY',
     },
     calendar: {
         sameDay: '[T~ódá~ý át] LT',

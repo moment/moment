@@ -20,6 +20,7 @@ export default moment.defineLocale('jv', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY [pukul] HH.mm',
         LLLL: 'dddd, D MMMM YYYY [pukul] HH.mm',
+        LLD: 'dddd, D MMMM YYYY',
     },
     meridiemParse: /enjing|siyang|sonten|ndalu/,
     meridiemHour: function (hour, meridiem) {

@@ -49,6 +49,7 @@ export default moment.defineLocale('pa-in', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY, A h:mm ਵਜੇ',
         LLLL: 'dddd, D MMMM YYYY, A h:mm ਵਜੇ',
+        LLD: 'dddd, D MMMM YYYY',
     },
     calendar: {
         sameDay: '[ਅਜ] LT',

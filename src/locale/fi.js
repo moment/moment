@@ -83,10 +83,12 @@ export default moment.defineLocale('fi', {
         LL: 'Do MMMM[ta] YYYY',
         LLL: 'Do MMMM[ta] YYYY, [klo] HH.mm',
         LLLL: 'dddd, Do MMMM[ta] YYYY, [klo] HH.mm',
+        LLD: 'dddd, Do MMMM[ta] YYYY',
         l: 'D.M.YYYY',
         ll: 'Do MMM YYYY',
         lll: 'Do MMM YYYY, [klo] HH.mm',
         llll: 'ddd, Do MMM YYYY, [klo] HH.mm',
+        lld: 'ddd, Do MMM YYYY',
     },
     calendar: {
         sameDay: '[tänään] [klo] LT',

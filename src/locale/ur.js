@@ -34,6 +34,7 @@ export default moment.defineLocale('ur', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY HH:mm',
         LLLL: 'dddd، D MMMM YYYY HH:mm',
+        LLD: 'dddd، D MMMM YYYY',
     },
     meridiemParse: /صبح|شام/,
     isPM: function (input) {

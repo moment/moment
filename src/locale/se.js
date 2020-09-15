@@ -23,6 +23,7 @@ export default moment.defineLocale('se', {
         LL: 'MMMM D. [b.] YYYY',
         LLL: 'MMMM D. [b.] YYYY [ti.] HH:mm',
         LLLL: 'dddd, MMMM D. [b.] YYYY [ti.] HH:mm',
+        LLD: 'dddd, MMMM D. [b.] YYYY',
     },
     calendar: {
         sameDay: '[otne ti] LT',

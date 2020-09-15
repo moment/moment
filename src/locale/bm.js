@@ -20,6 +20,7 @@ export default moment.defineLocale('bm', {
         LL: 'MMMM [tile] D [san] YYYY',
         LLL: 'MMMM [tile] D [san] YYYY [lɛrɛ] HH:mm',
         LLLL: 'dddd MMMM [tile] D [san] YYYY [lɛrɛ] HH:mm',
+        LLD: 'dddd MMMM [tile] D [san] YYYY',
     },
     calendar: {
         sameDay: '[Bi lɛrɛ] LT',

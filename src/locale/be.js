@@ -62,6 +62,7 @@ export default moment.defineLocale('be', {
         LL: 'D MMMM YYYY г.',
         LLL: 'D MMMM YYYY г., HH:mm',
         LLLL: 'dddd, D MMMM YYYY г., HH:mm',
+        LLD: 'dddd, D MMMM YYYY г.',
     },
     calendar: {
         sameDay: '[Сёння ў] LT',

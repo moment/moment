@@ -52,6 +52,7 @@ export default moment.defineLocale('bo', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY, A h:mm',
         LLLL: 'dddd, D MMMM YYYY, A h:mm',
+        LLD: 'dddd, D MMMM YYYY',
     },
     calendar: {
         sameDay: '[དི་རིང] LT',

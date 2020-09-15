@@ -50,6 +50,7 @@ export default moment.defineLocale('ne', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY, Aको h:mm बजे',
         LLLL: 'dddd, D MMMM YYYY, Aको h:mm बजे',
+        LLD: 'dddd, D MMMM YYYY',
     },
     preparse: function (string) {
         return string.replace(/[१२३४५६७८९०]/g, function (match) {

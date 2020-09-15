@@ -67,6 +67,7 @@ export default moment.defineLocale('hu', {
         LL: 'YYYY. MMMM D.',
         LLL: 'YYYY. MMMM D. H:mm',
         LLLL: 'YYYY. MMMM D., dddd H:mm',
+        LLD: 'YYYY. MMMM D., dddd',
     },
     meridiemParse: /de|du/i,
     isPM: function (input) {

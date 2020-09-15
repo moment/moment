@@ -22,6 +22,7 @@ export default moment.defineLocale('pt-br', {
         LL: 'D [de] MMMM [de] YYYY',
         LLL: 'D [de] MMMM [de] YYYY [às] HH:mm',
         LLLL: 'dddd, D [de] MMMM [de] YYYY [às] HH:mm',
+        LLD: 'dddd, D [de] MMMM [de] YYYY',
     },
     calendar: {
         sameDay: '[Hoje às] LT',

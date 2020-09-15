@@ -22,6 +22,7 @@ export default moment.defineLocale('ss', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY h:mm A',
         LLLL: 'dddd, D MMMM YYYY h:mm A',
+        LLD: 'dddd, D MMMM YYYY',
     },
     calendar: {
         sameDay: '[Namuhla nga] LT',

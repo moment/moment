@@ -74,8 +74,8 @@ test('format escape brackets', function (assert) {
         'localized tokens with escaped localized tokens'
     );
     assert.equal(
-        b.format('[L LL LLL LLLL aLa]'),
-        'L LL LLL LLLL aLa',
+        b.format('[L LL LLD LLL LLLL aLa]'),
+        'L LL LLD LLL LLLL aLa',
         'localized tokens with escaped localized tokens'
     );
     assert.equal(

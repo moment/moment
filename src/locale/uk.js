@@ -88,6 +88,7 @@ export default moment.defineLocale('uk', {
         LL: 'D MMMM YYYY р.',
         LLL: 'D MMMM YYYY р., HH:mm',
         LLLL: 'dddd, D MMMM YYYY р., HH:mm',
+        LLD: 'dddd, D MMMM YYYY р.',
     },
     calendar: {
         sameDay: processHoursFunction('[Сьогодні '),

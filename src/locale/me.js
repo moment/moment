@@ -58,6 +58,7 @@ export default moment.defineLocale('me', {
         LL: 'D. MMMM YYYY',
         LLL: 'D. MMMM YYYY H:mm',
         LLLL: 'dddd, D. MMMM YYYY H:mm',
+        LLD: 'dddd, D. MMMM YYYY',
     },
     calendar: {
         sameDay: '[danas u] LT',

@@ -49,6 +49,7 @@ export default moment.defineLocale('gu', {
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY, A h:mm વાગ્યે',
         LLLL: 'dddd, D MMMM YYYY, A h:mm વાગ્યે',
+        LLD: 'dddd, D MMMM YYYY',
     },
     calendar: {
         sameDay: '[આજ] LT',
