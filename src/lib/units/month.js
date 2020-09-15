@@ -227,8 +227,6 @@ export function localeMonthsParse(monthName, format, strict) {
 // MOMENTS
 
 export function setMonth(mom, value) {
-    var dayOfMonth;
-
     if (!mom.isValid()) {
         // No op
         return mom;
@@ -246,8 +244,13 @@ export function setMonth(mom, value) {
         }
     }
 
-    dayOfMonth = Math.min(mom.date(), daysInMonth(mom.year(), value));
-    mom._d['set' + (mom._isUTC ? 'UTC' : '') + 'Month'](value, dayOfMonth);
+    var month = value,
+        date = mom.date();
+
+    date = date < 29 ? date : Math.min(date, daysInMonth(mom.year(), month));
+    void (mom._isUTC
+        ? mom._d.setUTCMonth(month, date)
+        : mom._d.setMonth(month, date));
     return mom;
 }
 
