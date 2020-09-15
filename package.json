@@ -71,7 +71,7 @@
         "lodash": ">=4.17.19",
         "node-qunit": "latest",
         "nyc": "latest",
-        "prettier": "2.0.5",
+        "prettier": "latest",
         "qunit": "^2.10.0",
         "rollup": "2.17.1",
         "typescript": "^1.8.10",
