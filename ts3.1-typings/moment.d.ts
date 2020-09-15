@@ -724,7 +724,6 @@ declare namespace moment {
   export function calendarFormat(m: Moment, now: Moment): string;
 
   export function parseTwoDigitYear(input: string): number;
-
   /**
    * Constant used to enable explicit ISO_8601 format parsing.
    */
@@ -733,6 +732,9 @@ declare namespace moment {
 
   export var defaultFormat: string;
   export var defaultFormatUtc: string;
+
+  export var suppressDeprecationWarnings: boolean;
+  export var deprecationHandler: ((name: string | null, msg: string) => void) | null | undefined;
 
   export var HTML5_FMT: {
     DATETIME_LOCAL: string,

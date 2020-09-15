@@ -550,3 +550,8 @@ moment.locale('en', {
 console.log(moment.version);
 
 moment.defaultFormat = 'YYYY-MM-DD HH:mm';
+
+moment.suppressDeprecationWarnings = true;
+moment.deprecationHandler = null;
+moment.deprecationHandler = undefined;
+moment.deprecationHandler = function(name: string | void, msg: string) {}
