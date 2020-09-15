@@ -1,6 +1,7 @@
 //! moment.js locale configuration
 //! locale : Serbian Cyrillic [sr-cyrl]
 //! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
+//! author : Stefan Crnjaković <stefan@hotmail.rs> : https://github.com/crnjakovic
 
 import moment from '../moment';
 
