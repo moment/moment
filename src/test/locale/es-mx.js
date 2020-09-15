@@ -461,8 +461,8 @@ test('weeks year starting sunday formatted', function (assert) {
 // Concrete test for Locale#weekdaysMin
 test('Weekdays sort by locale', function (assert) {
     const weekdays = 'domingo_lunes_martes_miércoles_jueves_viernes_sábado',
-          weekdaysShort = 'dom._lun._mar._mié._jue._vie._sáb.',
-          weekdaysMin   = 'do_lu_ma_mi_ju_vi_sá';
+        weekdaysShort = 'dom._lun._mar._mié._jue._vie._sáb.',
+        weekdaysMin = 'do_lu_ma_mi_ju_vi_sá';
 
     assert.deepEqual(
         moment().localeData().weekdays(),
