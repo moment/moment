@@ -53,4 +53,5 @@ export default moment.defineLocale('pt-br', {
     },
     dayOfMonthOrdinalParse: /\d{1,2}º/,
     ordinal: '%dº',
+    invalidDate: 'Data inválida',
 });

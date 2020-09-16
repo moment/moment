@@ -184,3 +184,31 @@ test('calendar overload format - passing one parameter - object w/ sameDay as fu
         'should equate'
     );
 });
+
+test('defaulting to current date', function (assert) {
+    var a = moment().hours(13).minutes(23).seconds(45);
+    assert.equal(moment(a).calendar(), 'Today at 1:23 PM', 'should equate');
+});
+
+test('calendar overload time - passing one parameter - a falsy value', function (assert) {
+    var a = moment().hours(13).minutes(23).seconds(45),
+        tests = [
+            '',
+            0,
+            -0,
+            // 0n,
+            false,
+            NaN,
+            null,
+            undefined,
+        ],
+        i;
+
+    for (i = 0; i < tests.length; ++i) {
+        assert.equal(
+            moment(a).calendar(tests[i]),
+            'Today at 1:23 PM',
+            'should equate'
+        );
+    }
+});

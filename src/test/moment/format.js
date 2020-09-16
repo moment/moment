@@ -927,3 +927,25 @@ test('HTML5_FMT.WEEK', function (assert) {
         'issue #4833 regression'
     );
 });
+
+test('does not modify original moment instance', function (assert) {
+    let m = moment(0),
+        original = moment(0);
+    m.format('yyyy-MM-DD');
+    assert.equal(
+        m.toISOString(),
+        original.toISOString(),
+        'issue #5571 regression'
+    );
+
+    assert.deepEqual(
+        moment(new Date('2020-08-11 23:59:59'))
+            .format('yyyy-MM-DD HH:mm:ss')
+            .split(' '),
+        moment(new Date('2020-08-11 23:59:59'))
+            .format('HH:mm:ss yyyy-MM-DD')
+            .split(' ')
+            .reverse(),
+        'issue #5681 regression'
+    );
+});

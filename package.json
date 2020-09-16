@@ -1,6 +1,6 @@
 {
     "name": "moment",
-    "version": "2.27.0",
+    "version": "2.28.0",
     "description": "Parse, validate, manipulate, and display dates",
     "homepage": "https://momentjs.com",
     "author": "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)",
@@ -68,11 +68,12 @@
         "karma-qunit": "latest",
         "karma-sauce-launcher": "4.1.4",
         "load-grunt-tasks": "latest",
+        "lodash": ">=4.17.19",
         "node-qunit": "latest",
         "nyc": "latest",
         "prettier": "latest",
         "qunit": "^2.10.0",
-        "rollup": "latest",
+        "rollup": "2.17.1",
         "typescript": "^1.8.10",
         "typescript3": "npm:typescript@^3.1.6",
         "uglify-js": "latest"
