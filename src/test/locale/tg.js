@@ -8,6 +8,7 @@ test('parse', function (assert) {
             '_'
         ),
         i;
+
     function equalTest(input, mmm, i) {
         assert.equal(
             moment(input, mmm).month(),
@@ -48,7 +49,7 @@ test('format', function (assert) {
     var a = [
             [
                 'dddd, Do MMMM YYYY, h:mm:ss',
-                'якшанбе, 14-ум феврал 2010, 3:25:50',
+                'якшанбе, 14-ум феврали 2010, 3:25:50',
             ],
             ['ddd, h A', 'яшб, 3 рӯз'],
             ['M Mo MM MMMM MMM', '2 2-юм 02 феврал фев'],
@@ -64,11 +65,11 @@ test('format', function (assert) {
             ['a A', 'рӯз рӯз'],
             ['DDDo [рӯзи сол]', '45-ум рӯзи сол'],
             ['LTS', '15:25:50'],
-            ['L', '14/02/2010'],
-            ['LL', '14 феврал 2010'],
-            ['LLL', '14 феврал 2010 15:25'],
-            ['LLLL', 'якшанбе, 14 феврал 2010 15:25'],
-            ['l', '14/2/2010'],
+            ['L', '14.02.2010'],
+            ['LL', '14 феврали 2010'],
+            ['LLL', '14 феврали 2010 15:25'],
+            ['LLLL', 'якшанбе, 14 феврали 2010 15:25'],
+            ['l', '14.2.2010'],
             ['ll', '14 фев 2010'],
             ['lll', '14 фев 2010 15:25'],
             ['llll', 'яшб, 14 фев 2010 15:25'],
@@ -346,7 +347,7 @@ test('calendar day', function (assert) {
     );
     assert.equal(
         moment(a).add({ d: 1 }).calendar(),
-        'Пагоҳ соати 12:00',
+        'Фардо соати 12:00',
         'tomorrow at the same time'
     );
     assert.equal(
