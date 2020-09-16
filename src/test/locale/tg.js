@@ -35,6 +35,13 @@ test('parse', function (assert) {
         equalTest(tests[i][1].toLocaleLowerCase(), 'MMMM', i);
         equalTest(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
         equalTest(tests[i][1].toLocaleUpperCase(), 'MMMM', i);
+
+        equalTestStrict(tests[i][1], 'MMM', i);
+        equalTestStrict(tests[i][0], 'MMMM', i);
+        equalTestStrict(tests[i][1].toLocaleLowerCase(), 'MMM', i);
+        equalTestStrict(tests[i][1].toLocaleUpperCase(), 'MMM', i);
+        equalTestStrict(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
+        equalTestStrict(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
     }
 });
 
