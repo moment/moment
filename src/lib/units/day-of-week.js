@@ -1,3 +1,4 @@
+import { get } from '../moment/get-set';
 import { addFormatToken } from '../format/format';
 import { addUnitAlias } from './aliases';
 import { addUnitPriority } from './priorities';
@@ -297,7 +298,8 @@ export function getSetDayOfWeek(input) {
     if (!this.isValid()) {
         return input != null ? this : NaN;
     }
-    var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
+
+    var day = get(this, 'Day');
     if (input != null) {
         input = parseWeekday(input, this.localeData());
         return this.add(input - day, 'd');

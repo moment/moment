@@ -35,7 +35,8 @@ export function get(mom, unit) {
             return isUTC ? d.getUTCHours() : d.getHours();
         case 'Date':
             return isUTC ? d.getUTCDate() : d.getDate();
-        // case 'Day': return isUTC ? d.getUTCDay() : d.getDay(); // Not used
+        case 'Day':
+            return isUTC ? d.getUTCDay() : d.getDay();
         case 'Month':
             return isUTC ? d.getUTCMonth() : d.getMonth();
         case 'FullYear':
@@ -68,8 +69,10 @@ export function set(mom, unit, value) {
             return void (isUTC ? d.setUTCHours(value) : d.setHours(value));
         case 'Date':
             return void (isUTC ? d.setUTCDate(value) : d.setDate(value));
-        // case 'Day': return void (isUTC ? d.setUTCDay(value) : d.setDay(value)); // Not real
-        // case 'Month': return void (isUTC ? d.setUTCMonth(value) : d.setMonth(value)); // Not used
+        // case 'Day': // Not real
+        //    return void (isUTC ? d.setUTCDay(value) : d.setDay(value));
+        // case 'Month': // Not used because we need to pass two variables
+        //     return void (isUTC ? d.setUTCMonth(value) : d.setMonth(value));
         case 'FullYear':
             break; // See below ...
         default:
