@@ -52,8 +52,6 @@
             hh: '%d timer',
             d: 'en dag',
             dd: '%d dager',
-            w: 'en uke',
-            ww: '%d uker',
             M: 'en måned',
             MM: '%d måneder',
             y: 'ett år',
