@@ -54,6 +54,8 @@ export default moment.defineLocale('th', {
         hh: '%d ชั่วโมง',
         d: '1 วัน',
         dd: '%d วัน',
+        w: '1 สัปดาห์',
+        ww: '%d สัปดาห์',
         M: '1 เดือน',
         MM: '%d เดือน',
         y: '1 ปี',

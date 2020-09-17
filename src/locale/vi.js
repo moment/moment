@@ -61,6 +61,8 @@ export default moment.defineLocale('vi', {
         hh: '%d giờ',
         d: 'một ngày',
         dd: '%d ngày',
+        w: 'một tuần',
+        ww: '%d tuần',
         M: 'một tháng',
         MM: '%d tháng',
         y: 'một năm',
