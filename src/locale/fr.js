@@ -67,7 +67,7 @@ export default moment.defineLocale('fr', {
         hh: '%d heures',
         d: 'un jour',
         dd: '%d jours',
-        w: 'un semaine',
+        w: 'une semaine',
         ww: '%d semaines',
         M: 'un mois',
         MM: '%d mois',
