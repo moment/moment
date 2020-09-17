@@ -12,7 +12,7 @@ function relativeTimeWithPlural(number, withoutSuffix, key) {
             mm: 'minute',
             hh: 'ore',
             dd: 'zile',
-            ww: 'saptamani',
+            ww: 'săptămâni',
             MM: 'luni',
             yy: 'ani',
         },
