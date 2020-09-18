@@ -5,6 +5,18 @@ import { daysInMonth } from '../../lib/units/month';
 
 module('days in month');
 
+test('days in month of all but february', function (assert) {
+    var days = [31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    for (var year = 1899; year < 2100; year++) {
+        for (var month = 0; month < 12; month++) {
+            if (month != 1) {
+                assert.equal(moment([year, month]).daysInMonth(), days[month]);
+                assert.equal(daysInMonth(year, month), days[month]);
+            }
+        }
+    }
+});
+
 test('days in month', function (assert) {
     each([31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31], function (days, i) {
         var firstDay = moment([2012, i]),
@@ -46,6 +58,10 @@ test('days in month leap years', function (assert) {
 });
 
 test('days in month with NaN inputs', function (assert) {
+    assert.ok(
+        isNaN(daysInMonth(NaN, NaN)),
+        'year and month NaN inputs should return NaN'
+    );
     assert.ok(isNaN(daysInMonth(2, NaN)), 'month NaN inputs should return NaN');
     assert.ok(isNaN(daysInMonth(NaN, 0)), 'year NaN inputs should return NaN');
     assert.ok(
