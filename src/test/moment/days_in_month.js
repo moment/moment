@@ -6,9 +6,11 @@ import { daysInMonth } from '../../lib/units/month';
 module('days in month');
 
 test('days in month of all but february', function (assert) {
-    var days = [31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    for (var year = 1899; year < 2100; year++) {
-        for (var month = 0; month < 12; month++) {
+    var days = [31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+        year,
+        month;
+    for (year = 1899; year < 2100; year++) {
+        for (month = 0; month < 12; month++) {
             if (month != 1) {
                 assert.equal(moment([year, month]).daysInMonth(), days[month]);
                 assert.equal(daysInMonth(year, month), days[month]);
