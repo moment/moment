@@ -2,19 +2,6 @@ import { module, test } from '../qunit';
 import moment from '../../moment';
 import each from '../helpers/each';
 import { daysInMonth } from '../../lib/units/month';
-import {
-    JANUARY,
-    MARCH,
-    APRIL,
-    MAY,
-    JUNE,
-    AUGUST,
-    SEPTEMBER,
-    OCTOBER,
-    NOVEMBER,
-    DECEMBER,
-    FEBRUARY,
-} from '../../lib/units/month-constants';
 
 module('days in month');
 
@@ -35,111 +22,30 @@ test('days in month', function (assert) {
     });
 });
 
-test('days in month of January', function (assert) {
-    for (var year = 1899; year < 2100; year++) {
-        assert.equal(moment([year, JANUARY]).daysInMonth(), 31);
-        assert.equal(daysInMonth(year, JANUARY), 31);
-    }
-});
-
-test('days in month of March', function (assert) {
-    for (var year = 1899; year < 2100; year++) {
-        assert.equal(moment([year, MARCH]).daysInMonth(), 31);
-        assert.equal(daysInMonth(year, MARCH), 31);
-    }
-});
-
-test('days in month of April', function (assert) {
-    for (var year = 1899; year < 2100; year++) {
-        assert.equal(moment([year, APRIL]).daysInMonth(), 30);
-        assert.equal(daysInMonth(year, APRIL), 30);
-    }
-});
-
-test('days in month of May', function (assert) {
-    for (var year = 1899; year < 2100; year++) {
-        assert.equal(moment([year, MAY]).daysInMonth(), 31);
-        assert.equal(daysInMonth(year, MAY), 31);
-    }
-});
-
-test('days in month of June', function (assert) {
-    for (var year = 1899; year < 2100; year++) {
-        assert.equal(moment([year, JUNE]).daysInMonth(), 30);
-        assert.equal(daysInMonth(year, JUNE), 30);
-    }
-});
-
-test('days in month of July', function (assert) {
-    for (var year = 1899; year < 2100; year++) {
-        assert.equal(moment([year, MAY]).daysInMonth(), 31);
-        assert.equal(daysInMonth(year, MAY), 31);
-    }
-});
-
-test('days in month of August', function (assert) {
-    for (var year = 1899; year < 2100; year++) {
-        assert.equal(moment([year, AUGUST]).daysInMonth(), 31);
-        assert.equal(daysInMonth(year, AUGUST), 31);
-    }
-});
-
-test('days in month of September', function (assert) {
-    for (var year = 1899; year < 2100; year++) {
-        assert.equal(moment([year, SEPTEMBER]).daysInMonth(), 30);
-        assert.equal(daysInMonth(year, SEPTEMBER), 30);
-    }
-});
-
-test('days in month of October', function (assert) {
-    for (var year = 1899; year < 2100; year++) {
-        assert.equal(moment([year, OCTOBER]).daysInMonth(), 31);
-        assert.equal(daysInMonth(year, OCTOBER), 31);
-    }
-});
-
-test('days in month of November', function (assert) {
-    for (var year = 1899; year < 2100; year++) {
-        assert.equal(moment([year, NOVEMBER]).daysInMonth(), 30);
-        assert.equal(daysInMonth(year, NOVEMBER), 30);
-    }
-});
-
-test('days in month of December', function (assert) {
-    for (var year = 1899; year < 2100; year++) {
-        assert.equal(moment([year, DECEMBER]).daysInMonth(), 31);
-        assert.equal(daysInMonth(year, DECEMBER), 31);
-    }
-});
-
 test('days in month leap years', function (assert) {
     assert.equal(
-        moment([2010, FEBRUARY]).daysInMonth(),
+        moment([2010, 1]).daysInMonth(),
         28,
         'Feb 2010 should have 28 days'
     );
     assert.equal(
-        moment([2100, FEBRUARY]).daysInMonth(),
+        moment([2100, 1]).daysInMonth(),
         28,
         'Feb 2100 should have 28 days'
     );
     assert.equal(
-        moment([2008, FEBRUARY]).daysInMonth(),
+        moment([2008, 1]).daysInMonth(),
         29,
         'Feb 2008 should have 29 days'
     );
     assert.equal(
-        moment([2000, FEBRUARY]).daysInMonth(),
+        moment([2000, 1]).daysInMonth(),
         29,
         'Feb 2000 should have 29 days'
     );
 });
 
 test('days in month with NaN inputs', function (assert) {
-    assert.ok(
-        isNaN(daysInMonth(NaN, NaN)),
-        'year and month NaN inputs should return NaN'
-    );
     assert.ok(isNaN(daysInMonth(2, NaN)), 'month NaN inputs should return NaN');
     assert.ok(isNaN(daysInMonth(NaN, 0)), 'year NaN inputs should return NaN');
     assert.ok(
