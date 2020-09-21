@@ -10,20 +10,20 @@ var monthsNominative = 'styczeń_luty_marzec_kwiecień_maj_czerwiec_lipiec_sierp
     monthsSubjective = 'stycznia_lutego_marca_kwietnia_maja_czerwca_lipca_sierpnia_września_października_listopada_grudnia'.split(
         '_'
     ),
- monthsParse = [
-    /^sty/i,
-    /^lut/i,
-    /^mar/i,
-    /^kwi/i,
-    /^maj/i,
-    /^cze/i,
-    /^lip/i,
-    /^sie/i,
-    /^wrz/i,
-    /^paź/i,
-    /^lis/i,
-    /^gru/i,
-];
+    monthsParse = [
+        /^sty/i,
+        /^lut/i,
+        /^mar/i,
+        /^kwi/i,
+        /^maj/i,
+        /^cze/i,
+        /^lip/i,
+        /^sie/i,
+        /^wrz/i,
+        /^paź/i,
+        /^lis/i,
+        /^gru/i,
+    ];
 function plural(n) {
     return n % 10 < 5 && n % 10 > 1 && ~~(n / 10) % 10 !== 1;
 }
