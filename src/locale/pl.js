@@ -9,7 +9,21 @@ var monthsNominative = 'styczeń_luty_marzec_kwiecień_maj_czerwiec_lipiec_sierp
     ),
     monthsSubjective = 'stycznia_lutego_marca_kwietnia_maja_czerwca_lipca_sierpnia_września_października_listopada_grudnia'.split(
         '_'
-    );
+    ),
+    monthsParse = [
+        /^sty/i,
+        /^lut/i,
+        /^mar/i,
+        /^kwi/i,
+        /^maj/i,
+        /^cze/i,
+        /^lip/i,
+        /^sie/i,
+        /^wrz/i,
+        /^paź/i,
+        /^lis/i,
+        /^gru/i,
+    ];
 function plural(n) {
     return n % 10 < 5 && n % 10 > 1 && ~~(n / 10) % 10 !== 1;
 }
@@ -37,17 +51,6 @@ export default moment.defineLocale('pl', {
     months: function (momentToFormat, format) {
         if (!momentToFormat) {
             return monthsNominative;
-        } else if (format === '') {
-            // Hack: if format empty we know this is used to generate
-            // RegExp by moment. Give then back both valid forms of months
-            // in RegExp ready format.
-            return (
-                '(' +
-                monthsSubjective[momentToFormat.month()] +
-                '|' +
-                monthsNominative[momentToFormat.month()] +
-                ')'
-            );
         } else if (/D MMMM/.test(format)) {
             return monthsSubjective[momentToFormat.month()];
         } else {
@@ -55,6 +58,9 @@ export default moment.defineLocale('pl', {
         }
     },
     monthsShort: 'sty_lut_mar_kwi_maj_cze_lip_sie_wrz_paź_lis_gru'.split('_'),
+    monthsParse: monthsParse,
+    longMonthsParse: monthsParse,
+    shortMonthsParse: monthsParse,
     weekdays: 'niedziela_poniedziałek_wtorek_środa_czwartek_piątek_sobota'.split(
         '_'
     ),
