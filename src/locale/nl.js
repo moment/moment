@@ -83,6 +83,8 @@ export default moment.defineLocale('nl', {
         hh: '%d uur',
         d: 'één dag',
         dd: '%d dagen',
+        w: 'één week',
+        ww: '%d weken',
         M: 'één maand',
         MM: '%d maanden',
         y: 'één jaar',

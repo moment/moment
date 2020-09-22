@@ -105,6 +105,8 @@ export default moment.defineLocale('zh-cn', {
         hh: '%d 小时',
         d: '1 天',
         dd: '%d 天',
+        w: '1 周',
+        ww: '%d 周',
         M: '1 个月',
         MM: '%d 个月',
         y: '1 年',

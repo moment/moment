@@ -40,6 +40,8 @@ function translate(number, withoutSuffix, key) {
             return withoutSuffix ? 'godzina' : 'godzinę';
         case 'hh':
             return result + (plural(number) ? 'godziny' : 'godzin');
+        case 'ww':
+            return result + (plural(number) ? 'tygodnie' : 'tygodni');
         case 'MM':
             return result + (plural(number) ? 'miesiące' : 'miesięcy');
         case 'yy':
@@ -121,6 +123,8 @@ export default moment.defineLocale('pl', {
         hh: translate,
         d: '1 dzień',
         dd: '%d dni',
+        w: 'tydzień',
+        ww: translate,
         M: 'miesiąc',
         MM: translate,
         y: 'rok',
