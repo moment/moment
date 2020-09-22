@@ -74,6 +74,8 @@ export default moment.defineLocale('tr', {
         hh: '%d saat',
         d: 'bir gün',
         dd: '%d gün',
+        w: 'bir hafta',
+        ww: '%d hafta',
         M: 'bir ay',
         MM: '%d ay',
         y: 'bir yıl',

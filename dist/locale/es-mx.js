@@ -1,6 +1,6 @@
 //! moment.js locale configuration
-//! locale : Spanish [es]
-//! author : Julio Napurí : https://github.com/julionc
+//! locale : Spanish (Mexico) [es-mx]
+//! author : JC Franco : https://github.com/jcfranco
 
 import moment from '../moment';
 
@@ -24,7 +24,7 @@ var monthsShortDot = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic
     ],
     monthsRegex = /^(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre|ene\.?|feb\.?|mar\.?|abr\.?|may\.?|jun\.?|jul\.?|ago\.?|sep\.?|oct\.?|nov\.?|dic\.?)/i;
 
-export default moment.defineLocale('es', {
+export default moment.defineLocale('es-mx', {
     months: 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split(
         '_'
     ),
@@ -99,7 +99,7 @@ export default moment.defineLocale('es', {
     dayOfMonthOrdinalParse: /\d{1,2}º/,
     ordinal: '%dº',
     week: {
-        dow: 1, // Monday is the first day of the week.
+        dow: 0, // Sunday is the first day of the week.
         doy: 4, // The week that contains Jan 4th is the first week of the year.
     },
     invalidDate: 'Fecha inválida',

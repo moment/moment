@@ -88,6 +88,8 @@ export default moment.defineLocale('es-do', {
         hh: '%d horas',
         d: 'un día',
         dd: '%d días',
+        w: 'una semana',
+        ww: '%d semanas',
         M: 'un mes',
         MM: '%d meses',
         y: 'un año',

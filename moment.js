@@ -1,5 +1,5 @@
 //! moment.js
-//! version : 2.28.0
+//! version : 2.29.0
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -3726,7 +3726,10 @@
     function calendar$1(time, formats) {
         // Support for single parameter, formats only overload to the calendar function
         if (arguments.length === 1) {
-            if (isMomentInput(arguments[0])) {
+            if (!arguments[0]) {
+                time = undefined;
+                formats = undefined;
+            } else if (isMomentInput(arguments[0])) {
                 time = arguments[0];
                 formats = undefined;
             } else if (isCalendarSpec(arguments[0])) {
@@ -5618,7 +5621,7 @@
 
     //! moment.js
 
-    hooks.version = '2.28.0';
+    hooks.version = '2.29.0';
 
     setHookCallback(createLocal);
 

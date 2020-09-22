@@ -1,6 +1,6 @@
 //! moment.js locale configuration
-//! locale : Bengali [bn]
-//! author : Kaushik Gandhi : https://github.com/kaushikgandhi
+//! locale : Bengali (Bangladesh) [bn-bd]
+//! author : Asraf Hossain Patoary : https://github.com/ashwoolford
 
 import moment from '../moment';
 
@@ -29,7 +29,7 @@ var symbolMap = {
         '০': '0',
     };
 
-export default moment.defineLocale('bn', {
+export default moment.defineLocale('bn-bd', {
     months: 'জানুয়ারি_ফেব্রুয়ারি_মার্চ_এপ্রিল_মে_জুন_জুলাই_আগস্ট_সেপ্টেম্বর_অক্টোবর_নভেম্বর_ডিসেম্বর'.split(
         '_'
     ),
@@ -83,30 +83,40 @@ export default moment.defineLocale('bn', {
             return symbolMap[match];
         });
     },
-    meridiemParse: /রাত|সকাল|দুপুর|বিকাল|রাত/,
+
+    meridiemParse: /রাত|ভোর|সকাল|দুপুর|বিকাল|সন্ধ্যা|রাত/,
     meridiemHour: function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
-        if (
-            (meridiem === 'রাত' && hour >= 4) ||
-            (meridiem === 'দুপুর' && hour < 5) ||
-            meridiem === 'বিকাল'
-        ) {
-            return hour + 12;
-        } else {
+        if (meridiem === 'রাত') {
+            return hour < 4 ? hour : hour + 12;
+        } else if (meridiem === 'ভোর') {
             return hour;
+        } else if (meridiem === 'সকাল') {
+            return hour;
+        } else if (meridiem === 'দুপুর') {
+            return hour >= 3 ? hour : hour + 12;
+        } else if (meridiem === 'বিকাল') {
+            return hour + 12;
+        } else if (meridiem === 'সন্ধ্যা') {
+            return hour + 12;
         }
     },
+
     meridiem: function (hour, minute, isLower) {
         if (hour < 4) {
             return 'রাত';
-        } else if (hour < 10) {
+        } else if (hour < 6) {
+            return 'ভোর';
+        } else if (hour < 12) {
             return 'সকাল';
-        } else if (hour < 17) {
+        } else if (hour < 15) {
             return 'দুপুর';
-        } else if (hour < 20) {
+        } else if (hour < 18) {
             return 'বিকাল';
+        } else if (hour < 20) {
+            return 'সন্ধ্যা';
         } else {
             return 'রাত';
         }
