@@ -87,7 +87,7 @@ export default moment.defineLocale('hi', {
             return symbolMap[match];
         });
     },
-    // Hindi notation for meridiems are quite fuzzy in practice. While there exists.
+    // Hindi notation for meridiems are quite fuzzy in practice. While there exists
     // a rigid notion of a 'Pahar' it is not used as rigidly in modern Hindi.
     meridiemParse: /रात|सुबह|दोपहर|शाम/,
     meridiemHour: function (hour, meridiem) {
