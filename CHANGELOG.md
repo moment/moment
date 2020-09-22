@@ -1,6 +1,16 @@
 Changelog
 =========
 
+### 2.29.0 [See full changelog](https://gist.github.com/marwahaha/b0111718641a6461800066549957ec14)
+
+* Release Sept 22, 2020
+
+New locales (es-mx, bn-bd).
+Minor bugfixes and locale improvements.
+More tests.
+Moment is in maintenance mode. Read more at this link:
+https://momentjs.com/docs/#/-project-status/
+
 ### 2.28.0 [See full changelog](https://gist.github.com/marwahaha/028fd6c2b2470b2804857cfd63c0e94f)
 
 * Release Sept 13, 2020
