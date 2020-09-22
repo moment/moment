@@ -31,10 +31,6 @@ function translate(number, withoutSuffix, key, isFuture) {
             return 'egy' + (isFuture || withoutSuffix ? ' nap' : ' napja');
         case 'dd':
             return num + (isFuture || withoutSuffix ? ' nap' : ' napja');
-        case 'w':
-            return 'egy' + (isFuture || withoutSuffix ? ' hét' : ' hétja');
-        case 'ww':
-            return num + (isFuture || withoutSuffix ? ' hét' : ' hétja');
         case 'M':
             return 'egy' + (isFuture || withoutSuffix ? ' hónap' : ' hónapja');
         case 'MM':
@@ -108,8 +104,6 @@ export default moment.defineLocale('hu', {
         hh: translate,
         d: translate,
         dd: translate,
-        w: translate,
-        ww: translate,
         M: translate,
         MM: translate,
         y: translate,
