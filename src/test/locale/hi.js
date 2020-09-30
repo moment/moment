@@ -129,6 +129,30 @@ test('format month', function (assert) {
     }
 });
 
+test('format month case', function (assert) {
+    var months = {
+            nominative: 'जनवरी_फरवरी_मार्च_अप्रैल_मई_जून_जुलाई_अगस्त_सितंबर_अक्टूबर_नवंबर_दिसंबर'.split(
+                '_'
+            ),
+            accusative: 'जनवरी_फ़रवरी_मार्च_अप्रैल_मई_जून_जुलाई_अगस्त_सितम्बर_अक्टूबर_नवम्बर_दिसम्बर'.split(
+                '_'
+            ),
+        },
+        i;
+    for (i = 0; i < 12; i++) {
+        assert.equal(
+            moment([2011, i, 1]).format('D MMMM'),
+            '१ ' + months.accusative[i],
+            '१ ' + months.accusative[i]
+        );
+        assert.equal(
+            moment([2011, i, 1]).format('MMMM'),
+            months.nominative[i],
+            '१ ' + months.nominative[i]
+        );
+    }
+});
+
 test('format week', function (assert) {
     var expected = 'रविवार रवि र_सोमवार सोम सो_मंगलवार मंगल मं_बुधवार बुध बु_गुरूवार गुरू गु_शुक्रवार शुक्र शु_शनिवार शनि श'.split(
             '_'
