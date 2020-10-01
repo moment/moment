@@ -168,9 +168,9 @@ test('format month case', function (assert) {
             '१ ' + months.accusative[i]
         );
         assert.equal(
-            moment([2011, i, 1]).format('D, MMMM'),
-            '१, ' + months.nominative[i],
-            '१, ' + months.nominative[i]
+            moment([2011, i, 1]).format('MMMM'),
+            months.nominative[i],
+            '१ ' + months.nominative[i]
         );
     }
 });
