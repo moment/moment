@@ -59,8 +59,8 @@
             sameElse: 'L',
         },
         relativeTime: {
-            future: '%s soň',
-            past: '%s öň',
+            future: '%s galdy',
+            past: '%s geçdi',
             s: 'birnäçe sekunt',
             m: 'bir minut',
             mm: '%d minut',
