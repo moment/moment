@@ -18,7 +18,8 @@ var ordering = [
 export default function isDurationValid(m) {
     var key,
         unitHasDecimal = false,
-        i;
+        i,
+        orderLen = ordering.length;
     for (key in m) {
         if (
             hasOwnProp(m, key) &&
@@ -31,7 +32,7 @@ export default function isDurationValid(m) {
         }
     }
 
-    for (i = 0; i < ordering.length; ++i) {
+    for (i = 0; i < orderLen; ++i) {
         if (m[ordering[i]]) {
             if (unitHasDecimal) {
                 return false; // only allow non-integers for smallest unit

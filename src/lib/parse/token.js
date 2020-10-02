@@ -6,7 +6,8 @@ var tokens = {};
 
 export function addParseToken(token, callback) {
     var i,
-        func = callback;
+        func = callback,
+        tokenLen;
     if (typeof token === 'string') {
         token = [token];
     }
@@ -15,7 +16,8 @@ export function addParseToken(token, callback) {
             array[callback] = toInt(input);
         };
     }
-    for (i = 0; i < token.length; i++) {
+    tokenLen = token.length;
+    for (i = 0; i < tokenLen; i++) {
         tokens[token[i]] = func;
     }
 }
