@@ -300,6 +300,11 @@ test('now from now', function (assert) {
         'prije par sekundi',
         'now from now should display as in the past'
     );
+    assert.equal(
+        moment().subtract({ h: 1 }).fromNow(),
+        'prije jedan sat',
+        '1 hour ago'
+    );
 });
 
 test('fromNow', function (assert) {
@@ -308,6 +313,12 @@ test('fromNow', function (assert) {
         'za par sekundi',
         'in a few seconds'
     );
+    assert.equal(
+        moment().add({ m: 1 }).fromNow(),
+        'za jednu minutu',
+        'in 1 minute'
+    );
+    assert.equal(moment().add({ h: 1 }).fromNow(), 'za jedan sat', 'in 1 hour');
     assert.equal(moment().add({ d: 5 }).fromNow(), 'za 5 dana', 'in 5 days');
 });
 
