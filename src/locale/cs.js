@@ -4,9 +4,14 @@
 
 import moment from '../moment';
 
-var months = 'leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec'.split(
-        '_'
-    ),
+var months = {
+        format: 'leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec'.split(
+            '_'
+        ),
+        standalone: 'ledna_února_března_dubna_května_června_července_srpena_září_říjena_listopada_prosince'.split(
+            '_'
+        ),
+    },
     monthsShort = 'led_úno_bře_dub_kvě_čvn_čvc_srp_zář_říj_lis_pro'.split('_'),
     monthsParse = [
         /^led/i,
@@ -90,7 +95,7 @@ export default moment.defineLocale('cs', {
     monthsShortRegex: monthsRegex,
     // NOTE: 'červen' is substring of 'červenec'; therefore 'červenec' must precede 'červen' in the regex to be fully matched.
     // Otherwise parser matches '1. červenec' as '1. červen' + 'ec'.
-    monthsStrictRegex: /^(leden|ledna|února|únor|březen|března|duben|dubna|květen|května|červenec|července|červen|června|srpen|srpna|září|říjen|října|listopadu|listopad|prosinec|prosince)/i,
+    monthsStrictRegex: /^(leden|ledna|února|únor|březen|března|duben|dubna|květen|května|červenec|července|červen|června|srpena|srpna|srpen|září|říjena|říjen|října|listopada|listopadu|listopad|prosinec|prosince)/i,
     monthsShortStrictRegex: /^(led|úno|bře|dub|kvě|čvn|čvc|srp|zář|říj|lis|pro)/i,
     monthsParse: monthsParse,
     longMonthsParse: monthsParse,
