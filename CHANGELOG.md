@@ -1,6 +1,12 @@
 Changelog
 =========
 
+### 2.29.1 [See full changelog](https://gist.github.com/marwahaha/cc478ba01a1292ab4bd4e861d164d99b)
+
+* Release Oct 6, 2020
+
+Updated deprecation message, bugfix in hi locale
+
 ### 2.29.0 [See full changelog](https://gist.github.com/marwahaha/b0111718641a6461800066549957ec14)
 
 * Release Sept 22, 2020
