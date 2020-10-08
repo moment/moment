@@ -18,7 +18,7 @@ var translator = {
         M: ['један месец', 'једног месеца'],
         MM: ['месец', 'месеца', 'месеци'],
         y: ['једну годину', 'једне године'],
-        yy: ['година', 'године', 'година'],
+        yy: ['годину', 'године', 'година'],
     },
     correctGrammaticalCase: function (number, wordKey) {
         if (number % 10 >= 1 && number % 10 <= 4 && (number % 100 < 10 || number % 100 >= 20)) {
@@ -40,7 +40,7 @@ var translator = {
         if (
             key === 'yy' &&
             withoutSuffix &&
-            word === 'godinu') {
+            word === 'годину') {
                     return (number + ' година')
         }
 
