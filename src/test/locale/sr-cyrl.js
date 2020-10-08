@@ -165,12 +165,12 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ s: 90 }), true),
-        '2 минуте',
+        '2 минута',
         '90 seconds = 2 minutes'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ m: 44 }), true),
-        '44 минуте',
+        '44 минута',
         '44 minutes = 44 minutes'
     );
     assert.equal(

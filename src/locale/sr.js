@@ -11,7 +11,7 @@ var translator = {
         //Different grammatical cases
         ss: ['sekunda', 'sekunde', 'sekundi'],
         m: ['jedan minut', 'jednog minuta'],
-        mm: ['minut', 'minute', 'minuta'],
+        mm: ['minut', 'minuta', 'minuta'],
         h: ['jedan sat', 'jednog sata'],
         hh: ['sat', 'sata', 'sati'],
         d: ['jedan dan', 'jednog dana'],
