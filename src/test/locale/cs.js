@@ -120,7 +120,7 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'ledna led_února úno_března bře_dubna dub_května kvě_června čvn_července čvc_srpena srp_září zář_říjena říj_listopada lis_prosince pro'.split(
+    var expected = 'ledna led_února úno_března bře_dubna dub_května kvě_června čvn_července čvc_srpna srp_září zář_října říj_listopadu lis_prosince pro'.split(
             '_'
         ),
         i;
@@ -135,7 +135,7 @@ test('format month', function (assert) {
 
 test('format month case', function (assert) {
     var months = {
-            nominative: 'ledna_února_března_dubna_května_června_července_srpena_září_říjena_listopada_prosince'.split(
+            nominative: 'ledna_února_března_dubna_května_června_července_srpna_září_října_listopadu_prosince'.split(
                 '_'
             ),
             accusative: 'leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec'.split(
