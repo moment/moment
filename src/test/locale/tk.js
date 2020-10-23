@@ -290,14 +290,14 @@ test('from', function (assert) {
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), 'birnäçe sekunt soň', 'prefix');
-    assert.equal(moment(0).from(30000), 'birnäçe sekunt öň', 'suffix');
+    assert.equal(moment(30000).from(0), 'birnäçe sekunt galdy', 'prefix');
+    assert.equal(moment(0).from(30000), 'birnäçe sekunt geçdi', 'suffix');
 });
 
 test('now from now', function (assert) {
     assert.equal(
         moment().fromNow(),
-        'birnäçe sekunt öň',
+        'birnäçe sekunt geçdi',
         'now from now should display as in the past'
     );
 });
@@ -305,10 +305,10 @@ test('now from now', function (assert) {
 test('fromNow', function (assert) {
     assert.equal(
         moment().add({ s: 30 }).fromNow(),
-        'birnäçe sekunt soň',
+        'birnäçe sekunt galdy',
         'in a few seconds'
     );
-    assert.equal(moment().add({ d: 5 }).fromNow(), '5 gün soň', 'in 5 days');
+    assert.equal(moment().add({ d: 5 }).fromNow(), '5 gün galdy', 'in 5 days');
 });
 
 test('calendar day', function (assert) {
