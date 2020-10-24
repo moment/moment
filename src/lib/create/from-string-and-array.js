@@ -12,15 +12,16 @@ export function configFromStringAndArray(config) {
         i,
         currentScore,
         validFormatFound,
-        bestFormatIsValid = false;
+        bestFormatIsValid = false,
+        configfLen = config._f.length;
 
-    if (config._f.length === 0) {
+    if (configfLen === 0) {
         getParsingFlags(config).invalidFormat = true;
         config._d = new Date(NaN);
         return;
     }
 
-    for (i = 0; i < config._f.length; i++) {
+    for (i = 0; i < configfLen; i++) {
         currentScore = 0;
         validFormatFound = false;
         tempConfig = copyConfig({}, config);
