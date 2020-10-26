@@ -21,30 +21,31 @@ var translator = {
         yy: ['годину', 'године', 'година'],
     },
     correctGrammaticalCase: function (number, wordKey) {
-        if (number % 10 >= 1 && number % 10 <= 4 && (number % 100 < 10 || number % 100 >= 20)) {
-            return number % 10 === 1 ? wordKey[0] : wordKey[1]
+        if (
+            number % 10 >= 1 &&
+            number % 10 <= 4 &&
+            (number % 100 < 10 || number % 100 >= 20)
+        ) {
+            return number % 10 === 1 ? wordKey[0] : wordKey[1];
         }
-        return wordKey[2]
+        return wordKey[2];
     },
     translate: function (number, withoutSuffix, key, isFuture) {
         var wordKey = translator.words[key];
 
         if (key.length === 1) {
             // Nominativ
-            if (key === 'y' && withoutSuffix) return 'једна година'
+            if (key === 'y' && withoutSuffix) return 'једна година';
             return isFuture || withoutSuffix ? wordKey[0] : wordKey[1];
         }
 
-        const word = translator.correctGrammaticalCase(number, wordKey)
+        const word = translator.correctGrammaticalCase(number, wordKey);
         // Nominativ
-        if (
-            key === 'yy' &&
-            withoutSuffix &&
-            word === 'годину') {
-                    return (number + ' година')
+        if (key === 'yy' && withoutSuffix && word === 'годину') {
+            return number + ' година';
         }
 
-        return (number + ' ' + word);
+        return number + ' ' + word;
     },
 };
 
