@@ -5,6 +5,23 @@
 import moment from '../moment';
 
 export default moment.defineLocale('sv', {
+    eras: [
+        {
+            since: '0001-01-01',
+            offset: 1,
+            name: 'efter Kristus',
+            narrow: 'e.Kr.',
+            abbr: 'e.Kr.',
+        },
+        {
+            since: '0000-12-31',
+            until: -Infinity,
+            offset: 1,
+            name: 'före Kristus',
+            narrow: 'f.Kr.',
+            abbr: 'f.Kr.',
+        },
+    ],
     months: 'januari_februari_mars_april_maj_juni_juli_augusti_september_oktober_november_december'.split(
         '_'
     ),
@@ -12,6 +29,17 @@ export default moment.defineLocale('sv', {
     weekdays: 'söndag_måndag_tisdag_onsdag_torsdag_fredag_lördag'.split('_'),
     weekdaysShort: 'sön_mån_tis_ons_tor_fre_lör'.split('_'),
     weekdaysMin: 'sö_må_ti_on_to_fr_lö'.split('_'),
+    meridiemParse: /fm|em/i,
+    isPM: function (input) {
+        return /^em$/i.test(input);
+    },
+    meridiem: function (hours, minutes, isLower) {
+        if (hours < 12) {
+            return 'fm';
+        } else {
+            return 'em';
+        }
+    },
     longDateFormat: {
         LT: 'HH:mm',
         LTS: 'HH:mm:ss',
@@ -56,8 +84,6 @@ export default moment.defineLocale('sv', {
                     ? ':a'
                     : b === 2
                     ? ':a'
-                    : b === 3
-                    ? ':e'
                     : ':e';
         return number + output;
     },
