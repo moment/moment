@@ -19,6 +19,17 @@
         weekdays: 'söndag_måndag_tisdag_onsdag_torsdag_fredag_lördag'.split('_'),
         weekdaysShort: 'sön_mån_tis_ons_tor_fre_lör'.split('_'),
         weekdaysMin: 'sö_må_ti_on_to_fr_lö'.split('_'),
+        meridiemParse: /fm|em/i,
+        isPM: function (input) {
+            return /^em$/i.test(input);
+        },
+        meridiem: function (hours, minutes, isLower) {
+            if (hours < 12) {
+                return 'fm';
+            } else {
+                return 'em';
+            }
+        },
         longDateFormat: {
             LT: 'HH:mm',
             LTS: 'HH:mm:ss',
@@ -62,9 +73,7 @@
                         : b === 1
                         ? ':a'
                         : b === 2
-                        ? ':a'
-                        : b === 3
-                        ? ':e'
+                        ? ':a's
                         : ':e';
             return number + output;
         },
