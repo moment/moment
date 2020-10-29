@@ -585,7 +585,7 @@ declare namespace moment {
 
     diff(b: MomentInput, unitOfTime?: unitOfTime.Diff, precise?: boolean): number;
 
-    toArray(): [number, number, number, number, number, number, number];
+    toArray(): number[];
     toDate(): Date;
     toISOString(keepOffset?: boolean): string;
     inspect(): string;
