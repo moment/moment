@@ -52,7 +52,7 @@ export default moment.defineLocale('bg', {
         h: 'час',
         hh: '%d часа',
         d: 'ден',
-        dd: '%d дена',
+        dd: '%d дни',
         w: 'седмица',
         ww: '%d седмици',
         M: 'месец',
