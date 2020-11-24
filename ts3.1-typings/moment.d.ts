@@ -427,10 +427,10 @@ declare namespace moment {
     to: MomentInput;
   }
 
-  type MomentInput = Moment | Date | string | number | (number | string)[] | MomentInputObject | null | undefined;
+  type MomentInput = ReadonlyMoment | Date | string | number | (number | string)[] | MomentInputObject | null | undefined;
   type DurationInputArg1 = Duration | number | string | FromTo | DurationInputObject | null | undefined;
   type DurationInputArg2 = unitOfTime.DurationConstructor;
-  type LocaleSpecifier = string | Moment | Duration | string[] | boolean;
+  type LocaleSpecifier = string | ReadonlyMoment | Duration | string[] | boolean;
 
   interface MomentCreationData {
     input: MomentInput;
