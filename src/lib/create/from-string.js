@@ -63,12 +63,13 @@ export function configFromISO(config) {
         allowTime,
         dateFormat,
         timeFormat,
-        tzFormat;
+        tzFormat,
+        isoDatesLen = isoDates.length,
+        isoTimesLen = isoTimes.length;
 
     if (match) {
         getParsingFlags(config).iso = true;
-
-        for (i = 0, l = isoDates.length; i < l; i++) {
+        for (i = 0, l = isoDatesLen; i < l; i++) {
             if (isoDates[i][1].exec(match[1])) {
                 dateFormat = isoDates[i][0];
                 allowTime = isoDates[i][2] !== false;
@@ -80,7 +81,7 @@ export function configFromISO(config) {
             return;
         }
         if (match[3]) {
-            for (i = 0, l = isoTimes.length; i < l; i++) {
+            for (i = 0, l = isoTimesLen; i < l; i++) {
                 if (isoTimes[i][1].exec(match[3])) {
                     // match[2] should be 'T' or space
                     timeFormat = (match[2] || ' ') + isoTimes[i][0];

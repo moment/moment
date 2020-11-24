@@ -161,6 +161,8 @@ var getMonth: number = moment().month();
 var getQuater: number = moment().quarter();
 var getYear: number = moment().year();
 
+var date: [number, number, number, number, number, number, number] = moment().toArray();
+
 moment().hours(0).minutes(0).seconds(0).milliseconds(0);
 
 var a3 = moment([2011, 0, 1, 8]);

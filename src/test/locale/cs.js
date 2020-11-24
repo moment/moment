@@ -51,9 +51,9 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss', 'neděle, únor 14. 2010, 3:25:50'],
+            ['dddd, MMMM Do YYYY, h:mm:ss', 'neděle, února 14. 2010, 3:25:50'],
             ['ddd, h', 'ne, 3'],
-            ['M Mo MM MMMM MMM', '2 2. 02 únor úno'],
+            ['M Mo MM MMMM MMM', '2 2. 02 února úno'],
             ['YYYY YY', '2010 10'],
             ['D Do DD', '14 14. 14'],
             ['d do dddd ddd dd', '0 0. neděle ne ne'],
@@ -67,9 +67,9 @@ test('format', function (assert) {
             ['DDDo [den v roce]', '45. den v roce'],
             ['LTS', '15:25:50'],
             ['L', '14.02.2010'],
-            ['LL', '14. únor 2010'],
-            ['LLL', '14. únor 2010 15:25'],
-            ['LLLL', 'neděle 14. únor 2010 15:25'],
+            ['LL', '14. února 2010'],
+            ['LLL', '14. února 2010 15:25'],
+            ['LLLL', 'neděle 14. února 2010 15:25'],
             ['l', '14. 2. 2010'],
             ['ll', '14. úno 2010'],
             ['lll', '14. úno 2010 15:25'],
@@ -120,7 +120,7 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'leden led_únor úno_březen bře_duben dub_květen kvě_červen čvn_červenec čvc_srpen srp_září zář_říjen říj_listopad lis_prosinec pro'.split(
+    var expected = 'ledna led_února úno_března bře_dubna dub_května kvě_června čvn_července čvc_srpna srp_září zář_října říj_listopadu lis_prosince pro'.split(
             '_'
         ),
         i;
@@ -129,6 +129,30 @@ test('format month', function (assert) {
             moment([2011, i, 1]).format('MMMM MMM'),
             expected[i],
             expected[i]
+        );
+    }
+});
+
+test('format month case', function (assert) {
+    var months = {
+            nominative: 'ledna_února_března_dubna_května_června_července_srpna_září_října_listopadu_prosince'.split(
+                '_'
+            ),
+            accusative: 'leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec'.split(
+                '_'
+            ),
+        },
+        i;
+    for (i = 0; i < 12; i++) {
+        assert.equal(
+            moment([2011, i, 1]).format('D MMMM'),
+            '1 ' + months.accusative[i],
+            '1 ' + months.accusative[i]
+        );
+        assert.equal(
+            moment([2011, i, 1]).format('MMMM'),
+            months.nominative[i],
+            '1 ' + months.nominative[i]
         );
     }
 });
