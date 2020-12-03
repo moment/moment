@@ -53,7 +53,6 @@
     ];
 
     // http://new.gramota.ru/spravka/rules/139-prop : § 103
-    // Сокращения месяцев: http://new.gramota.ru/spravka/buro/search-answer?s=242637
     // CLDR data:          http://www.unicode.org/cldr/charts/28/summary/ru.html#1753
     var ru = moment.defineLocale('ru', {
         months: {
@@ -65,11 +64,10 @@
             ),
         },
         monthsShort: {
-            // по CLDR именно "июл." и "июн.", но какой смысл менять букву на точку?
-            format: 'янв._февр._мар._апр._мая_июня_июля_авг._сент._окт._нояб._дек.'.split(
+            format: 'янв_фев_мар_апр_мая_июн_июл_авг_сен_окт_ноя_дек'.split(
                 '_'
             ),
-            standalone: 'янв._февр._март_апр._май_июнь_июль_авг._сент._окт._нояб._дек.'.split(
+            standalone: 'янв_фев_мар_апр_май_июн_июл_авг_сен_окт_ноя_дек'.split(
                 '_'
             ),
         },
