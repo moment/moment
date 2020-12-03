@@ -46,7 +46,6 @@ var monthsParse = [
 ];
 
 // http://new.gramota.ru/spravka/rules/139-prop : § 103
-// Сокращения месяцев: http://new.gramota.ru/spravka/buro/search-answer?s=242637
 // CLDR data:          http://www.unicode.org/cldr/charts/28/summary/ru.html#1753
 export default moment.defineLocale('ru', {
     months: {
@@ -58,11 +57,10 @@ export default moment.defineLocale('ru', {
         ),
     },
     monthsShort: {
-        // по CLDR именно "июл." и "июн.", но какой смысл менять букву на точку?
-        format: 'янв._февр._мар._апр._мая_июня_июля_авг._сент._окт._нояб._дек.'.split(
+        format: 'янв_фев_мар_апр_мая_июн_июл_авг_сен_окт_ноя_дек'.split(
             '_'
         ),
-        standalone: 'янв._февр._март_апр._май_июнь_июль_авг._сент._окт._нояб._дек.'.split(
+        standalone: 'янв_фев_мар_апр_май_июн_июл_авг_сен_окт_ноя_дек'.split(
             '_'
         ),
     },
@@ -91,7 +89,7 @@ export default moment.defineLocale('ru', {
     monthsStrictRegex: /^(январ[яь]|феврал[яь]|марта?|апрел[яь]|ма[яй]|июн[яь]|июл[яь]|августа?|сентябр[яь]|октябр[яь]|ноябр[яь]|декабр[яь])/i,
 
     // Выражение, которое соответствует только сокращённым формам
-    monthsShortStrictRegex: /^(янв\.|февр?\.|мар[т.]|апр\.|ма[яй]|июн[ья.]|июл[ья.]|авг\.|сент?\.|окт\.|нояб?\.|дек\.)/i,
+    monthsShortStrictRegex: /^(янв|февр?|март?|апр|ма[яй]|июн[ья]?|июл[ья]?|авг|сент?|окт|нояб?|дек)/i,
     longDateFormat: {
         LT: 'H:mm',
         LTS: 'H:mm:ss',
