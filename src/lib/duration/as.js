@@ -23,6 +23,25 @@ export function as(units) {
             case 'year':
                 return months / 12;
         }
+    } else if (this._totalMilliseconds !== undefined) {
+        // if _totalMilliseconds is provided return a more precise value (issue #5267)
+        days = this._totalMilliseconds / 864e5;
+        switch (units) {
+            case 'week':
+                return days / 7;
+            case 'day':
+                return days;
+            case 'hour':
+                return days * 24;
+            case 'minute':
+                return days * 1440;
+            case 'second':
+                return days * 86400;
+            case 'millisecond':
+                return this._totalMilliseconds;
+            default:
+                throw new Error('Unknown unit ' + units);
+        }
     } else {
         // handle milliseconds separately because of floating point math errors (issue #1867)
         days = this._days + Math.round(monthsToDays(this._months));

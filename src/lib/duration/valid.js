@@ -13,6 +13,7 @@ var ordering = [
     'minute',
     'second',
     'millisecond',
+    'totalMilliseconds',
 ];
 
 export default function isDurationValid(m) {

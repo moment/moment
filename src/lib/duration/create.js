@@ -72,6 +72,7 @@ export function createDuration(input, key) {
         duration = {};
         duration.ms = diffRes.milliseconds;
         duration.M = diffRes.months;
+        duration.total_ms = diffRes.totalMilliseconds;
     }
 
     ret = new Duration(duration);
@@ -109,6 +110,7 @@ function positiveMomentsDifference(base, other) {
     }
 
     res.milliseconds = +other - +base.clone().add(res.months, 'M');
+    res.totalMilliseconds = +other - +base;
 
     return res;
 }
@@ -126,6 +128,7 @@ function momentsDifference(base, other) {
         res = positiveMomentsDifference(other, base);
         res.milliseconds = -res.milliseconds;
         res.months = -res.months;
+        res.totalMilliseconds = -res.totalMilliseconds;
     }
 
     return res;

@@ -46,6 +46,31 @@ function relativeTime(posNegDuration, withoutSuffix, thresholds, locale) {
         (months < thresholds.M && ['MM', months]) ||
         (years <= 1 && ['y']) || ['yy', years];
 
+    // if possible a more precise duration should be calculated using _totalMilliseconds if possible
+    if (
+        a[0] !== 'M' &&
+        a[0] !== 'MM' &&
+        a[0] !== 'y' &&
+        a[0] !== 'yy' &&
+        months > 1 &&
+        posNegDuration._totalMilliseconds !== undefined
+    ) {
+        duration = createDuration(posNegDuration._totalMilliseconds).abs();
+        seconds = round(duration.as('s'));
+        minutes = round(duration.as('m'));
+        hours = round(duration.as('h'));
+        days = round(duration.as('d'));
+        a =
+            (seconds <= thresholds.ss && ['s', seconds]) ||
+            (seconds < thresholds.s && ['ss', seconds]) ||
+            (minutes <= 1 && ['m']) ||
+            (minutes < thresholds.m && ['mm', minutes]) ||
+            (hours <= 1 && ['h']) ||
+            (hours < thresholds.h && ['hh', hours]) ||
+            (days <= 1 && ['d']) ||
+            (days < thresholds.d && ['dd', days]);
+    }
+
     a[2] = withoutSuffix;
     a[3] = +posNegDuration > 0;
     a[4] = locale;

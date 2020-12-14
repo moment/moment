@@ -47,6 +47,7 @@ addFormatToken(0, ['SSSSSSSSS', 9], 0, function () {
 // ALIASES
 
 addUnitAlias('millisecond', 'ms');
+addUnitAlias('totalMilliseconds', 'total_ms');
 
 // PRIORITY
 
