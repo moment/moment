@@ -156,7 +156,9 @@ test('default thresholds toNow', function (assert) {
 });
 
 test('custom thresholds', function (assert) {
-    var a, dd;
+    var a,
+        dd,
+        roundingDefault = moment.relativeTimeRounding();
 
     // including weeks
     moment.relativeTimeThreshold('w', 4);
@@ -324,6 +326,30 @@ test('custom thresholds', function (assert) {
         'a few seconds ago',
         'After setting s relative time threshold'
     );
+
+    moment.relativeTimeThreshold('d', 365);
+    a = moment('2020-12-13 12:00:00');
+    assert.equal(
+        a.from(a.clone().subtract(55, 'days'), true),
+        '55 days',
+        '55 days = 55 days'
+    );
+
+    moment.relativeTimeRounding((x) => x.toFixed(1));
+    assert.equal(
+        moment('2019-08-30 23:59:59').from(moment('2019-10-25 12:00:00'), true),
+        '55.5 days',
+        '55.5 days = 55.5 days'
+    );
+    moment.relativeTimeRounding(roundingDefault);
+
+    assert.equal(
+        moment('2019-02-19 17:25:05').from(moment('2019-05-16 17:25:05'), true),
+        '86 days',
+        '86 days = 86 days'
+    );
+
+    moment.relativeTimeThreshold('d', 26);
     moment.relativeTimeThreshold('ss', 44);
     moment.relativeTimeThreshold('s', 45);
 });

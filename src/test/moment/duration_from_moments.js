@@ -36,6 +36,20 @@ test('day diff, separate months', function (assert) {
     assert.equal(d.as('days'), 29);
 });
 
+test('day diff, seperated by >= 2 months', function (assert) {
+    var m1 = moment('2020-12-13T00:00:00.000Z'),
+        m2 = moment('2020-10-19T00:00:00.000Z'),
+        d = moment.duration({ to: m1, from: m2 });
+
+    assert.equal(d.as('days'), 55);
+
+    m1 = moment('2019-08-30T23:59:59.999Z');
+    m2 = moment('2019-10-25T12:00:00.000Z');
+    d = moment.duration({ from: m1, to: m2 });
+
+    assert.equal(d.as('days'), 55.50000001157407)
+});
+
 test('hour diff', function (assert) {
     var m1 = moment('2012-01-15T17:00:00.000Z'),
         m2 = moment('2012-01-16T03:00:00.000Z'),

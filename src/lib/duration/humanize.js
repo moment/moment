@@ -46,7 +46,7 @@ function relativeTime(posNegDuration, withoutSuffix, thresholds, locale) {
         (months < thresholds.M && ['MM', months]) ||
         (years <= 1 && ['y']) || ['yy', years];
 
-    // if possible a more precise duration should be calculated using _totalMilliseconds if possible
+    // should utilize _totalMilliseconds for more precise calculation for units other than months and years
     if (
         a[0] !== 'M' &&
         a[0] !== 'MM' &&
