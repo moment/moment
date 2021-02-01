@@ -59,9 +59,21 @@ export default moment.defineLocale('zh-tw', {
     calendar: {
         sameDay: '[今天] LT',
         nextDay: '[明天] LT',
-        nextWeek: '[下]dddd LT',
+        nextWeek: function (now) {
+            if (now.week() !== this.week()) {
+                return '[下]dddd LT';
+            } else {
+                return 'dddd LT';
+            }
+        },
         lastDay: '[昨天] LT',
-        lastWeek: '[上]dddd LT',
+        lastWeek: function (now) {
+            if (this.week() !== now.week()) {
+                return '[上]dddd LT';
+            } else {
+                return 'dddd LT';
+            }
+        },
         sameElse: 'L',
     },
     dayOfMonthOrdinalParse: /\d{1,2}(日|月|週)/,
