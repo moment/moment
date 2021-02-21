@@ -293,7 +293,7 @@ test('from', function (assert) {
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), 'za pár sekúnd', 'prefix');
+    assert.equal(moment(30000).from(0), 'o pár sekúnd', 'prefix');
     assert.equal(moment(0).from(30000), 'pred pár sekundami', 'suffix');
 });
 
@@ -308,46 +308,46 @@ test('now from now', function (assert) {
 test('fromNow (future)', function (assert) {
     assert.equal(
         moment().add({ s: 30 }).fromNow(),
-        'za pár sekúnd',
+        'o pár sekúnd',
         'in a few seconds'
     );
-    assert.equal(moment().add({ m: 1 }).fromNow(), 'za minútu', 'in a minute');
+    assert.equal(moment().add({ m: 1 }).fromNow(), 'o minútu', 'in a minute');
     assert.equal(
         moment().add({ m: 3 }).fromNow(),
-        'za 3 minúty',
+        'o 3 minúty',
         'in 3 minutes'
     );
     assert.equal(
         moment().add({ m: 10 }).fromNow(),
-        'za 10 minút',
+        'o 10 minút',
         'in 10 minutes'
     );
-    assert.equal(moment().add({ h: 1 }).fromNow(), 'za hodinu', 'in an hour');
-    assert.equal(moment().add({ h: 3 }).fromNow(), 'za 3 hodiny', 'in 3 hours');
+    assert.equal(moment().add({ h: 1 }).fromNow(), 'o hodinu', 'in an hour');
+    assert.equal(moment().add({ h: 3 }).fromNow(), 'o 3 hodiny', 'in 3 hours');
     assert.equal(
         moment().add({ h: 10 }).fromNow(),
-        'za 10 hodín',
+        'o 10 hodín',
         'in 10 hours'
     );
-    assert.equal(moment().add({ d: 1 }).fromNow(), 'za deň', 'in a day');
-    assert.equal(moment().add({ d: 3 }).fromNow(), 'za 3 dni', 'in 3 days');
-    assert.equal(moment().add({ d: 10 }).fromNow(), 'za 10 dní', 'in 10 days');
-    assert.equal(moment().add({ M: 1 }).fromNow(), 'za mesiac', 'in a month');
+    assert.equal(moment().add({ d: 1 }).fromNow(), 'o deň', 'in a day');
+    assert.equal(moment().add({ d: 3 }).fromNow(), 'o 3 dni', 'in 3 days');
+    assert.equal(moment().add({ d: 10 }).fromNow(), 'o 10 dní', 'in 10 days');
+    assert.equal(moment().add({ M: 1 }).fromNow(), 'o mesiac', 'in a month');
     assert.equal(
         moment().add({ M: 3 }).fromNow(),
-        'za 3 mesiace',
+        'o 3 mesiace',
         'in 3 months'
     );
     assert.equal(
         moment().add({ M: 10 }).fromNow(),
-        'za 10 mesiacov',
+        'o 10 mesiacov',
         'in 10 months'
     );
-    assert.equal(moment().add({ y: 1 }).fromNow(), 'za rok', 'in a year');
-    assert.equal(moment().add({ y: 3 }).fromNow(), 'za 3 roky', 'in 3 years');
+    assert.equal(moment().add({ y: 1 }).fromNow(), 'o rok', 'in a year');
+    assert.equal(moment().add({ y: 3 }).fromNow(), 'o 3 roky', 'in 3 years');
     assert.equal(
         moment().add({ y: 10 }).fromNow(),
-        'za 10 rokov',
+        'o 10 rokov',
         'in 10 years'
     );
 });
@@ -596,7 +596,7 @@ test('humanize duration', function (assert) {
     );
     assert.equal(
         moment.duration(1, 'minutes').humanize(true),
-        'za minútu',
+        'o minútu',
         'in a minute'
     );
     assert.equal(
