@@ -24,19 +24,17 @@ addRegexToken('NNN', matchEraAbbr);
 addRegexToken('NNNN', matchEraName);
 addRegexToken('NNNNN', matchEraNarrow);
 
-addParseToken(['N', 'NN', 'NNN', 'NNNN', 'NNNNN'], function (
-    input,
-    array,
-    config,
-    token
-) {
-    var era = config._locale.erasParse(input, token, config._strict);
-    if (era) {
-        getParsingFlags(config).era = era;
-    } else {
-        getParsingFlags(config).invalidEra = input;
+addParseToken(
+    ['N', 'NN', 'NNN', 'NNNN', 'NNNNN'],
+    function (input, array, config, token) {
+        var era = config._locale.erasParse(input, token, config._strict);
+        if (era) {
+            getParsingFlags(config).era = era;
+        } else {
+            getParsingFlags(config).invalidEra = input;
+        }
     }
-});
+);
 
 addRegexToken('y', matchUnsigned);
 addRegexToken('yy', matchUnsigned);

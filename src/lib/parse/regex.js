@@ -65,15 +65,12 @@ function unescapeFormat(s) {
     return regexEscape(
         s
             .replace('\\', '')
-            .replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function (
-                matched,
-                p1,
-                p2,
-                p3,
-                p4
-            ) {
-                return p1 || p2 || p3 || p4;
-            })
+            .replace(
+                /\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g,
+                function (matched, p1, p2, p3, p4) {
+                    return p1 || p2 || p3 || p4;
+                }
+            )
     );
 }
 
