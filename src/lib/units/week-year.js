@@ -61,14 +61,12 @@ addRegexToken('gggg', match1to4, match4);
 addRegexToken('GGGGG', match1to6, match6);
 addRegexToken('ggggg', match1to6, match6);
 
-addWeekParseToken(['gggg', 'ggggg', 'GGGG', 'GGGGG'], function (
-    input,
-    week,
-    config,
-    token
-) {
-    week[token.substr(0, 2)] = toInt(input);
-});
+addWeekParseToken(
+    ['gggg', 'ggggg', 'GGGG', 'GGGGG'],
+    function (input, week, config, token) {
+        week[token.substr(0, 2)] = toInt(input);
+    }
+);
 
 addWeekParseToken(['gg', 'GG'], function (input, week, config, token) {
     week[token] = hooks.parseTwoDigitYear(input);
