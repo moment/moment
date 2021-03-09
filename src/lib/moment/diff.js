@@ -3,7 +3,7 @@ import { cloneWithOffset } from '../units/offset';
 import { normalizeUnits } from '../units/aliases';
 
 export function diff(input, units, asFloat) {
-    var that, zoneDelta, output;
+    var that, output;
 
     if (!this.isValid()) {
         return NaN;
@@ -14,8 +14,6 @@ export function diff(input, units, asFloat) {
     if (!that.isValid()) {
         return NaN;
     }
-
-    zoneDelta = (that.utcOffset() - this.utcOffset()) * 6e4;
 
     units = normalizeUnits(units);
 
@@ -39,10 +37,10 @@ export function diff(input, units, asFloat) {
             output = (this - that) / 36e5;
             break; // 1000 * 60 * 60
         case 'day':
-            output = (this - that - zoneDelta) / 864e5;
+            output = (this - that) / 864e5;
             break; // 1000 * 60 * 60 * 24, negate dst
         case 'week':
-            output = (this - that - zoneDelta) / 6048e5;
+            output = (this - that) / 6048e5;
             break; // 1000 * 60 * 60 * 24 * 7, negate dst
         default:
             output = this - that;
