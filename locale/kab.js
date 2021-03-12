@@ -12,7 +12,7 @@
 
     //! moment.js locale configuration
 
-    var monthsStrictRegex = /^(yennayer|fuṛar|meɣres|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)/i,
+    var monthsStrictRegex = /^(yennayer|fuṛar|meɣres|yebrir|mai|juin|juillet|août|septembre|octobre|novembre|décembre)/i,
         monthsShortStrictRegex = /(janv\.?|févr\.?|mars|avr\.?|mai|juin|juil\.?|août|sept\.?|oct\.?|nov\.?|déc\.?)/i,
         monthsRegex = /(janv\.?|févr\.?|mars|avr\.?|mai|juin|juil\.?|août|sept\.?|oct\.?|nov\.?|déc\.?|janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)/i,
         monthsParse = [
