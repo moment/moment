@@ -12,22 +12,22 @@
 
     //! moment.js locale configuration
 
-    var monthsStrictRegex = /^(yennayer|fuṛar|meɣres|yebrir|mai|juin|juillet|août|septembre|octobre|novembre|décembre)/i,
-        monthsShortStrictRegex = /(janv\.?|févr\.?|mars|avr\.?|mai|juin|juil\.?|août|sept\.?|oct\.?|nov\.?|déc\.?)/i,
-        monthsRegex = /(janv\.?|févr\.?|mars|avr\.?|mai|juin|juil\.?|août|sept\.?|oct\.?|nov\.?|déc\.?|janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)/i,
+    var monthsStrictRegex = /^(yennayer|fuṛar|meɣres|yebrir|mayyu|yunyu|yulyu|ɣuct|ctembeṛ|tubeṛ|nunembeṛ|duǧembeṛ)/i,
+        monthsShortStrictRegex = /(yen\.?|fur\.?|meɣ|yeb\.?|may|yun|yul\.?|ɣuc|cte\.?|tub\.?|nun\.?|duǧ\.?)/i,
+        monthsRegex = /(yen\.?|fur\.?|meɣ|yeb\.?|may|yun|yul\.?|ɣuc|cte\.?|tub\.?|nun\.?|duǧ\.?|yennayer|fuṛar|meɣres|yebrir|mayyu|yunyu|yulyu|ɣuct|ctembeṛ|tubeṛ|nunembeṛ|duǧembeṛ)/i,
         monthsParse = [
-            /^janv/i,
-            /^févr/i,
-            /^mars/i,
-            /^avr/i,
-            /^mai/i,
-            /^juin/i,
-            /^juil/i,
-            /^août/i,
-            /^sept/i,
-            /^oct/i,
-            /^nov/i,
-            /^déc/i,
+            /^yen/i,
+            /^fur/i,
+            /^meɣ/i,
+            /^yeb/i,
+            /^may/i,
+            /^yun/i,
+            /^yul/i,
+            /^ɣuc/i,
+            /^cte/i,
+            /^tub/i,
+            /^nun/i,
+            /^duǧ/i,
         ];
 
     var kab = moment.defineLocale('kab', {
