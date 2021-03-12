@@ -13,8 +13,8 @@
     //! moment.js locale configuration
 
     var monthsStrictRegex = /^(yennayer|fuṛar|meɣres|yebrir|mayyu|yunyu|yulyu|ɣuct|ctembeṛ|tubeṛ|nunembeṛ|duǧembeṛ)/i,
-        monthsShortStrictRegex = /(yen\.?|fur\.?|meɣ|yeb\.?|may|yun|yul\.?|ɣuc|cte\.?|tub\.?|nun\.?|duǧ\.?)/i,
-        monthsRegex = /(yen\.?|fur\.?|meɣ|yeb\.?|may|yun|yul\.?|ɣuc|cte\.?|tub\.?|nun\.?|duǧ\.?|yennayer|fuṛar|meɣres|yebrir|mayyu|yunyu|yulyu|ɣuct|ctembeṛ|tubeṛ|nunembeṛ|duǧembeṛ)/i,
+        monthsShortStrictRegex = /(yen\.?|fur\.?|meɣ\.?|yeb\.?|may\.?|yun\.?|yul\.?|ɣuc\.?|cte\.?|tub\.?|nun\.?|duǧ\.?)/i,
+        monthsRegex = /(yen\.?|fur\.?|meɣ\.?|yeb\.?|may\.?|yun\.?|yul\.?|ɣuc\.?|cte\.?|tub\.?|nun\.?|duǧ\.?|yennayer|fuṛar|meɣres|yebrir|mayyu|yunyu|yulyu|ɣuct|ctembeṛ|tubeṛ|nunembeṛ|duǧembeṛ)/i,
         monthsParse = [
             /^yen/i,
             /^fur/i,
@@ -31,10 +31,10 @@
         ];
 
     var kab = moment.defineLocale('kab', {
-        months: 'janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre'.split(
+        months: 'yennayer_fuṛar_meɣres_yebrir_mayyu_yunyu_yulyu_ɣuct_ctembeṛ_tubeṛ_nunembeṛ_duǧembeṛ'.split(
             '_'
         ),
-        monthsShort: 'janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.'.split(
+        monthsShort: 'yen._fur._meɣ._yeb._may._yun._yul._ɣuc._cte._tub._nun._duǧ.'.split(
             '_'
         ),
         monthsRegex: monthsRegex,
@@ -44,9 +44,9 @@
         monthsParse: monthsParse,
         longMonthsParse: monthsParse,
         shortMonthsParse: monthsParse,
-        weekdays: 'dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi'.split('_'),
-        weekdaysShort: 'dim._lun._mar._mer._jeu._ven._sam.'.split('_'),
-        weekdaysMin: 'di_lu_ma_me_je_ve_sa'.split('_'),
+        weekdays: 'acer_arim_aram_ahad_amhad_sem_sed'.split('_'),
+        weekdaysShort: 'ace._ari._ara._aha._amh._sem_sed'.split('_'),
+        weekdaysMin: 'cr_ri_ra_hd_mh_sm_sd'.split('_'),
         weekdaysParseExact: true,
         longDateFormat: {
             LT: 'HH:mm',
@@ -57,57 +57,34 @@
             LLLL: 'dddd D MMMM YYYY HH:mm',
         },
         calendar: {
-            sameDay: '[Aujourd’hui à] LT',
-            nextDay: '[Demain à] LT',
-            nextWeek: 'dddd [à] LT',
-            lastDay: '[Hier à] LT',
-            lastWeek: 'dddd [dernier à] LT',
+            sameDay: '[Ass-a ɣef] LT',
+            nextDay: '[Azekka ɣef] LT',
+            nextWeek: 'dddd [ɣef] LT',
+            lastDay: '[Iḍelli ɣef] LT',
+            lastWeek: 'dddd [yezrin ɣef] LT',
             sameElse: 'L',
         },
         relativeTime: {
-            future: 'dans %s',
-            past: 'il y a %s',
-            s: 'quelques secondes',
-            ss: '%d secondes',
-            m: 'une minute',
-            mm: '%d minutes',
-            h: 'une heure',
-            hh: '%d heures',
-            d: 'un jour',
-            dd: '%d jours',
-            w: 'une semaine',
-            ww: '%d semaines',
-            M: 'un mois',
-            MM: '%d mois',
-            y: 'un an',
-            yy: '%d ans',
-        },
-        dayOfMonthOrdinalParse: /\d{1,2}(er|)/,
-        ordinal: function (number, period) {
-            switch (period) {
-                // TODO: Return 'e' when day of month > 1. Move this case inside
-                // block for masculine words below.
-                // See https://github.com/moment/moment/issues/3375
-                case 'D':
-                    return number + (number === 1 ? 'er' : '');
-
-                // Words with masculine grammatical gender: mois, trimestre, jour
-                default:
-                case 'M':
-                case 'Q':
-                case 'DDD':
-                case 'd':
-                    return number + (number === 1 ? 'er' : 'e');
-
-                // Words with feminine grammatical gender: semaine
-                case 'w':
-                case 'W':
-                    return number + (number === 1 ? 're' : 'e');
-            }
+            future: 'deg %s',
+            past: '%s aya',
+            s: 'kra n tesinin',
+            ss: '%d n tesinin',
+            m: 'taseddast',
+            mm: '%d n tsedatin',
+            h: 'asrag',
+            hh: '%d n yisragen',
+            d: 'ass',
+            dd: '%d n wussan',
+            w: 'amalas',
+            ww: '%d n yimalas',
+            M: 'aggur',
+            MM: '%d n wagguren',
+            y: 'aseggas',
+            yy: '%d n yuseggasen',
         },
         week: {
-            dow: 1, // Monday is the first day of the week.
-            doy: 4, // The week that contains Jan 4th is the first week of the year.
+            dow: 0, // Monday is the first day of the week.
+            doy: 12, // The week that contains Jan 12th is the first week of the year.
         },
     });
 
