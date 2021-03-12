@@ -1,7 +1,7 @@
 //! moment.js locale configuration
 //! locale : Kabyle [kab]
-//! authors : Slimane Selyan Amiri : https://github.com/SelyanKab
-//!           ZiriSut : https://github.com/ZiriSut
+//! author : Slimane Selyan Amiri : https://github.com/SelyanKab
+//! author : ZiriSut : https://github.com/ZiriSut
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
