@@ -12,15 +12,15 @@
     //! moment.js locale configuration
 
     var tzmLatn = moment.defineLocale('tzm-latn', {
-        months: 'innayr_brˤayrˤ_marˤsˤ_ibrir_mayyw_ywnyw_ywlywz_ɣwšt_šwtanbir_ktˤwbrˤ_nwwanbir_dwjnbir'.split(
+        months: 'yennayer_yebṛayeṛ_maṛṣ_ibrir_mayyu_yunyu_yulyuz_ɣuct_cutanbir_kṭuber_nwanbir_dujanbir'.split(
             '_'
         ),
-        monthsShort: 'innayr_brˤayrˤ_marˤsˤ_ibrir_mayyw_ywnyw_ywlywz_ɣwšt_šwtanbir_ktˤwbrˤ_nwwanbir_dwjnbir'.split(
+        monthsShort: 'yen_yeb_maṛ_ibr_may_yun_yul_ɣuc_cut_kṭu_nwa_duj'.split(
             '_'
         ),
-        weekdays: 'asamas_aynas_asinas_akras_akwas_asimwas_asiḍyas'.split('_'),
-        weekdaysShort: 'asamas_aynas_asinas_akras_akwas_asimwas_asiḍyas'.split('_'),
-        weekdaysMin: 'asamas_aynas_asinas_akras_akwas_asimwas_asiḍyas'.split('_'),
+        weekdays: 'asamas_aynas_asinas_akṛas_akwas_asimwas_asiḍyas'.split('_'),
+        weekdaysShort: 'asa_ayn_asn_akṛ_akw_asm_asḍ'.split('_'),
+        weekdaysMin: 'asa_ayn_asn_akṛ_akw_asm_asḍ'.split('_'),
         longDateFormat: {
             LT: 'HH:mm',
             LTS: 'HH:mm:ss',
@@ -30,31 +30,33 @@
             LLLL: 'dddd D MMMM YYYY HH:mm',
         },
         calendar: {
-            sameDay: '[asdkh g] LT',
-            nextDay: '[aska g] LT',
+            sameDay: '[g] LT',
+            nextDay: '[asekka g] LT',
             nextWeek: 'dddd [g] LT',
-            lastDay: '[assant g] LT',
+            lastDay: '[assennaṭ g] LT',
             lastWeek: 'dddd [g] LT',
             sameElse: 'L',
         },
         relativeTime: {
-            future: 'dadkh s yan %s',
-            past: 'yan %s',
-            s: 'imik',
-            ss: '%d imik',
-            m: 'minuḍ',
-            mm: '%d minuḍ',
-            h: 'saɛa',
-            hh: '%d tassaɛin',
+            future: 'g %s',
+            past: '%s aya',
+            s: 'kra n tsina',
+            ss: '%d n tsina',
+            m: 'tusdidt',
+            mm: '%d n tusdidin',
+            h: 'tasragt',
+            hh: '%d n tesragin',
             d: 'ass',
-            dd: '%d ossan',
-            M: 'ayowr',
-            MM: '%d iyyirn',
-            y: 'asgas',
-            yy: '%d isgasn',
+            dd: '%d n wussan',
+            w: 'imalass',
+            ww: '%d n imalassen',
+            M: 'ayyur',
+            MM: '%d n wayyurn',
+            y: 'aseggʷas',
+            yy: '%d n iseggʷasen',
         },
         week: {
-            dow: 6, // Saturday is the first day of the week.
+            dow: 1, // Monday is the first day of the week.
             doy: 12, // The week that contains Jan 12th is the first week of the year.
         },
     });
