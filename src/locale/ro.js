@@ -52,7 +52,7 @@ export default moment.defineLocale('ro', {
     },
     relativeTime: {
         future: 'peste %s',
-        past: '%s în urmă',
+        past: 'în urmă cu %s',
         s: 'câteva secunde',
         ss: relativeTimeWithPlural,
         m: 'un minut',
