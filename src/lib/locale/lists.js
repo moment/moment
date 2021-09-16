@@ -37,7 +37,6 @@ function listMonthsImpl(format, index, field) {
 // (true, fmt, 5)
 // (true, fmt)
 function listWeekdaysImpl(localeSorted, format, index, field) {
-    console.log({format, localeSorted})
     if (typeof localeSorted === 'boolean') {
         if (isNumber(format) || !Number.isNaN(parseInt(format))) {
             index = parseInt(format);
