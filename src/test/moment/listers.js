@@ -172,16 +172,7 @@ test('with locale data', function (assert) {
 });
 
 test('with value string and numeric', function (assert) {
-    moment.locale('en')
-    assert.equal(
-        moment.weekdays(5),
-        "Friday",
-        "Friday"
-    )
-
-    assert.equal(
-        moment.weekdays("5"),
-        "Friday",
-        "Friday"
-    )
+    moment.locale('en');
+    assert.equal(moment.weekdays(5), 'Friday');
+    assert.equal(moment.weekdays('5'), 'Friday');
 });
