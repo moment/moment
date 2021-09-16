@@ -37,9 +37,10 @@ function listMonthsImpl(format, index, field) {
 // (true, fmt, 5)
 // (true, fmt)
 function listWeekdaysImpl(localeSorted, format, index, field) {
+    console.log({format, localeSorted})
     if (typeof localeSorted === 'boolean') {
-        if (isNumber(format)) {
-            index = format;
+        if (isNumber(format) || !Number.isNaN(parseInt(format))) {
+            index = parseInt(format);
             format = undefined;
         }
 
@@ -49,8 +50,8 @@ function listWeekdaysImpl(localeSorted, format, index, field) {
         index = format;
         localeSorted = false;
 
-        if (isNumber(format)) {
-            index = format;
+        if (isNumber(format) || !Number.isNaN(parseInt(format))) {
+            index = parseInt(format);
             format = undefined;
         }
 
@@ -61,7 +62,6 @@ function listWeekdaysImpl(localeSorted, format, index, field) {
         shift = localeSorted ? locale._week.dow : 0,
         i,
         out = [];
-
     if (index != null) {
         return get(format, (index + shift) % 7, field, 'day');
     }

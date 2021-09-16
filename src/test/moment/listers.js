@@ -170,3 +170,18 @@ test('with locale data', function (assert) {
     assert.deepEqual(customLocale.weekdaysShort(), weekdaysShort);
     assert.deepEqual(customLocale.weekdaysMin(), weekdaysMin);
 });
+
+test('with value string and numeric', function (assert) {
+    moment.locale('en')
+    assert.equal(
+        moment.weekdays(5),
+        "Friday",
+        "Friday"
+    )
+
+    assert.equal(
+        moment.weekdays("5"),
+        "Friday",
+        "Friday"
+    )
+});
