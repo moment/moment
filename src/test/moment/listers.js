@@ -75,9 +75,10 @@ test('index', function (assert) {
 });
 
 test('localized', function (assert) {
-    var months = 'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split(
-            '_'
-        ),
+    var months =
+            'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split(
+                '_'
+            ),
         monthsShort = 'on_tw_th_fo_fi_si_se_ei_ni_te_el_tw'.split('_'),
         weekdays = 'one_two_three_four_five_six_seven'.split('_'),
         weekdaysShort = 'on_tw_th_fo_fi_si_se'.split('_'),
@@ -131,12 +132,14 @@ test('localized', function (assert) {
 });
 
 test('with functions', function (assert) {
-    var monthsShort = 'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split(
-            '_'
-        ),
-        monthsShortWeird = 'onesy_twosy_threesy_foursy_fivesy_sixsy_sevensy_eightsy_ninesy_tensy_elevensy_twelvesy'.split(
-            '_'
-        );
+    var monthsShort =
+            'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split(
+                '_'
+            ),
+        monthsShortWeird =
+            'onesy_twosy_threesy_foursy_fivesy_sixsy_sevensy_eightsy_ninesy_tensy_elevensy_twelvesy'.split(
+                '_'
+            );
 
     moment.locale('difficult', {
         monthsShort: function (m, format) {
@@ -155,9 +158,10 @@ test('with functions', function (assert) {
 });
 
 test('with locale data', function (assert) {
-    var months = 'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split(
-            '_'
-        ),
+    var months =
+            'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split(
+                '_'
+            ),
         monthsShort = 'on_tw_th_fo_fi_si_se_ei_ni_te_el_tw'.split('_'),
         weekdays = 'one_two_three_four_five_six_seven'.split('_'),
         weekdaysShort = 'on_tw_th_fo_fi_si_se'.split('_'),

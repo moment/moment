@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('mk');
 
 test('parse', function (assert) {
-    var tests = 'јануари јан_февруари фев_март мар_април апр_мај мај_јуни јун_јули јул_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split(
-            '_'
-        ),
+    var tests =
+            'јануари јан_февруари фев_март мар_април апр_мај мај_јуни јун_јули јул_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split(
+                '_'
+            ),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -118,9 +119,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'јануари јан_февруари фев_март мар_април апр_мај мај_јуни јун_јули јул_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split(
-            '_'
-        ),
+    var expected =
+            'јануари јан_февруари фев_март мар_април апр_мај мај_јуни јун_јули јул_август авг_септември сеп_октомври окт_ноември ное_декември дек'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -132,9 +134,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'недела нед нe_понеделник пон пo_вторник вто вт_среда сре ср_четврток чет че_петок пет пе_сабота саб сa'.split(
-            '_'
-        ),
+    var expected =
+            'недела нед нe_понеделник пон пo_вторник вто вт_среда сре ср_четврток чет че_петок пет пе_сабота саб сa'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(

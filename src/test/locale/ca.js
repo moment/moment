@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('ca');
 
 test('parse', function (assert) {
-    var tests = 'gener gen._febrer febr._març març_abril abr._maig maig_juny juny_juliol jul._agost ag._setembre set._octubre oct._novembre nov._desembre des.'.split(
-            '_'
-        ),
+    var tests =
+            'gener gen._febrer febr._març març_abril abr._maig maig_juny juny_juliol jul._agost ag._setembre set._octubre oct._novembre nov._desembre des.'.split(
+                '_'
+            ),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -118,9 +119,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'gener gen._febrer febr._març març_abril abr._maig maig_juny juny_juliol jul._agost ag._setembre set._octubre oct._novembre nov._desembre des.'.split(
-            '_'
-        ),
+    var expected =
+            'gener gen._febrer febr._març març_abril abr._maig maig_juny juny_juliol jul._agost ag._setembre set._octubre oct._novembre nov._desembre des.'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -132,9 +134,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'diumenge dg. dg_dilluns dl. dl_dimarts dt. dt_dimecres dc. dc_dijous dj. dj_divendres dv. dv_dissabte ds. ds'.split(
-            '_'
-        ),
+    var expected =
+            'diumenge dg. dg_dilluns dl. dl_dimarts dt. dt_dimecres dc. dc_dijous dj. dj_divendres dv. dv_dissabte ds. ds'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(

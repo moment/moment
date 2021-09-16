@@ -1117,15 +1117,8 @@ test('parsing RFC 2822', function (assert) {
         'Tue, 01 Nov 2016 01:23:45 +0000': [2016, 10, 1, 1, 23, 45, 0],
         'Tue, 01 Nov 16 04:23:45 Z': [2016, 10, 1, 4, 23, 45, 0],
         '01 Nov 2016 05:23:45 z': [2016, 10, 1, 5, 23, 45, 0],
-        '(Init Comment) Tue,\n 1 Nov              2016 (Split\n Comment)  07:23:45 +0000 (GMT)': [
-            2016,
-            10,
-            1,
-            7,
-            23,
-            45,
-            0,
-        ],
+        '(Init Comment) Tue,\n 1 Nov              2016 (Split\n Comment)  07:23:45 +0000 (GMT)':
+            [2016, 10, 1, 7, 23, 45, 0],
         'Mon, 02 Jan 2017 06:00:00 -0800': [2017, 0, 2, 6, 0, 0, -8 * 60],
         'Mon, 02 Jan 2017 06:00:00 +0800': [2017, 0, 2, 6, 0, 0, +8 * 60],
         'Mon, 02 Jan 2017 06:00:00 +0330': [
@@ -2329,9 +2322,10 @@ test('parsing into a locale', function (assert) {
         months: 'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split(
             '_'
         ),
-        monthsShort: 'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split(
-            '_'
-        ),
+        monthsShort:
+            'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split(
+                '_'
+            ),
     });
 
     moment.locale('en');
@@ -2471,9 +2465,10 @@ test('parsing localized weekdays', function (assert) {
     var ver = getVerifier(assert);
     try {
         moment.locale('dow:1,doy:4', {
-            weekdays: 'dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi'.split(
-                '_'
-            ),
+            weekdays:
+                'dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi'.split(
+                    '_'
+                ),
             weekdaysShort: 'dim._lun._mar._mer._jeu._ven._sam.'.split('_'),
             weekdaysMin: 'Di_Lu_Ma_Me_Je_Ve_Sa'.split('_'),
             week: { dow: 1, doy: 4 },
