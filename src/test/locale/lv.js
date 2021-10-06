@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('lv');
 
 test('parse', function (assert) {
-    var tests = 'janvāris jan_februāris feb_marts mar_aprīlis apr_maijs mai_jūnijs jūn_jūlijs jūl_augusts aug_septembris sep_oktobris okt_novembris nov_decembris dec'.split(
-            '_'
-        ),
+    var tests =
+            'janvāris jan_februāris feb_marts mar_aprīlis apr_maijs mai_jūnijs jūn_jūlijs jūl_augusts aug_septembris sep_oktobris okt_novembris nov_decembris dec'.split(
+                '_'
+            ),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -117,9 +118,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'janvāris jan_februāris feb_marts mar_aprīlis apr_maijs mai_jūnijs jūn_jūlijs jūl_augusts aug_septembris sep_oktobris okt_novembris nov_decembris dec'.split(
-            '_'
-        ),
+    var expected =
+            'janvāris jan_februāris feb_marts mar_aprīlis apr_maijs mai_jūnijs jūn_jūlijs jūl_augusts aug_septembris sep_oktobris okt_novembris nov_decembris dec'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -131,9 +133,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'svētdiena Sv Sv_pirmdiena P P_otrdiena O O_trešdiena T T_ceturtdiena C C_piektdiena Pk Pk_sestdiena S S'.split(
-            '_'
-        ),
+    var expected =
+            'svētdiena Sv Sv_pirmdiena P P_otrdiena O O_trešdiena T T_ceturtdiena C C_piektdiena Pk Pk_sestdiena S S'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(

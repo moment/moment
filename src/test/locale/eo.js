@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('eo');
 
 test('parse', function (assert) {
-    var tests = 'januaro jan_februaro feb_marto mart_aprilo apr_majo maj_junio jun_julio jul_aŭgusto aŭg_septembro sept_oktobro okt_novembro nov_decembro dec'.split(
-            '_'
-        ),
+    var tests =
+            'januaro jan_februaro feb_marto mart_aprilo apr_majo maj_junio jun_julio jul_aŭgusto aŭg_septembro sept_oktobro okt_novembro nov_decembro dec'.split(
+                '_'
+            ),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -118,9 +119,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'januaro jan_februaro feb_marto mart_aprilo apr_majo maj_junio jun_julio jul_aŭgusto aŭg_septembro sept_oktobro okt_novembro nov_decembro dec'.split(
-            '_'
-        ),
+    var expected =
+            'januaro jan_februaro feb_marto mart_aprilo apr_majo maj_junio jun_julio jul_aŭgusto aŭg_septembro sept_oktobro okt_novembro nov_decembro dec'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -132,9 +134,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'dimanĉo dim di_lundo lun lu_mardo mard ma_merkredo merk me_ĵaŭdo ĵaŭ ĵa_vendredo ven ve_sabato sab sa'.split(
-            '_'
-        ),
+    var expected =
+            'dimanĉo dim di_lundo lun lu_mardo mard ma_merkredo merk me_ĵaŭdo ĵaŭ ĵa_vendredo ven ve_sabato sab sa'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(

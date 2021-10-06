@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('pt-br');
 
 test('parse', function (assert) {
-    var tests = 'janeiro jan_fevereiro fev_março mar_abril abr_maio mai_junho jun_julho jul_agosto ago_setembro set_outubro out_novembro nov_dezembro dez'.split(
-            '_'
-        ),
+    var tests =
+            'janeiro jan_fevereiro fev_março mar_abril abr_maio mai_junho jun_julho jul_agosto ago_setembro set_outubro out_novembro nov_dezembro dez'.split(
+                '_'
+            ),
         i;
 
     function equalTest(input, mmm, i) {
@@ -119,9 +120,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'janeiro jan_fevereiro fev_março mar_abril abr_maio mai_junho jun_julho jul_agosto ago_setembro set_outubro out_novembro nov_dezembro dez'.split(
-            '_'
-        ),
+    var expected =
+            'janeiro jan_fevereiro fev_março mar_abril abr_maio mai_junho jun_julho jul_agosto ago_setembro set_outubro out_novembro nov_dezembro dez'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -133,9 +135,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'domingo dom do_segunda-feira seg 2ª_terça-feira ter 3ª_quarta-feira qua 4ª_quinta-feira qui 5ª_sexta-feira sex 6ª_sábado sáb sá'.split(
-            '_'
-        ),
+    var expected =
+            'domingo dom do_segunda-feira seg 2ª_terça-feira ter 3ª_quarta-feira qua 4ª_quinta-feira qui 5ª_sexta-feira sex 6ª_sábado sáb sá'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(

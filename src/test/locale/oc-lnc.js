@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('oc-lnc');
 
 test('parse', function (assert) {
-    var tests = 'genièr gen._febrièr febr._març març_abril abr._mai mai_junh junh_julhet julh._agost ago._setembre set._octòbre oct._novembre nov._decembre dec.'.split(
-            '_'
-        ),
+    var tests =
+            'genièr gen._febrièr febr._març març_abril abr._mai mai_junh junh_julhet julh._agost ago._setembre set._octòbre oct._novembre nov._decembre dec.'.split(
+                '_'
+            ),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -102,9 +103,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'genièr gen._febrièr febr._març març_abril abr._mai mai_junh junh_julhet julh._agost ago._setembre set._octòbre oct._novembre nov._decembre dec.'.split(
-            '_'
-        ),
+    var expected =
+            'genièr gen._febrièr febr._març març_abril abr._mai mai_junh junh_julhet julh._agost ago._setembre set._octòbre oct._novembre nov._decembre dec.'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -116,9 +118,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'dimenge dg. dg_diluns dl. dl_dimars dm. dm_dimècres dc. dc_dijòus dj. dj_divendres dv. dv_dissabte ds. ds'.split(
-            '_'
-        ),
+    var expected =
+            'dimenge dg. dg_diluns dl. dl_dimars dm. dm_dimècres dc. dc_dijòus dj. dj_divendres dv. dv_dissabte ds. ds'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(

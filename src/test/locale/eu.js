@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('eu');
 
 test('parse', function (assert) {
-    var tests = 'urtarrila urt._otsaila ots._martxoa mar._apirila api._maiatza mai._ekaina eka._uztaila uzt._abuztua abu._iraila ira._urria urr._azaroa aza._abendua abe.'.split(
-            '_'
-        ),
+    var tests =
+            'urtarrila urt._otsaila ots._martxoa mar._apirila api._maiatza mai._ekaina eka._uztaila uzt._abuztua abu._iraila ira._urria urr._azaroa aza._abendua abe.'.split(
+                '_'
+            ),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -118,9 +119,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'urtarrila urt._otsaila ots._martxoa mar._apirila api._maiatza mai._ekaina eka._uztaila uzt._abuztua abu._iraila ira._urria urr._azaroa aza._abendua abe.'.split(
-            '_'
-        ),
+    var expected =
+            'urtarrila urt._otsaila ots._martxoa mar._apirila api._maiatza mai._ekaina eka._uztaila uzt._abuztua abu._iraila ira._urria urr._azaroa aza._abendua abe.'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -132,9 +134,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'igandea ig. ig_astelehena al. al_asteartea ar. ar_asteazkena az. az_osteguna og. og_ostirala ol. ol_larunbata lr. lr'.split(
-            '_'
-        ),
+    var expected =
+            'igandea ig. ig_astelehena al. al_asteartea ar. ar_asteazkena az. az_osteguna og. og_ostirala ol. ol_larunbata lr. lr'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(

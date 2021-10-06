@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('sv');
 
 test('parse', function (assert) {
-    var tests = 'Januari Jan_Februari Feb_Mars Mar_April Apr_Maj Maj_Juni Jun_Juli Jul_Augusti Aug_September Sep_Oktober Okt_November Nov_December Dec'.split(
-            '_'
-        ),
+    var tests =
+            'Januari Jan_Februari Feb_Mars Mar_April Apr_Maj Maj_Juni Jun_Juli Jul_Augusti Aug_September Sep_Oktober Okt_November Nov_December Dec'.split(
+                '_'
+            ),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -118,9 +119,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'Januari Jan_Februari Feb_Mars Mar_April Apr_Maj Maj_Juni Jun_Juli Jul_Augusti Aug_September Sep_Oktober Okt_November Nov_December Dec'.split(
-            '_'
-        ),
+    var expected =
+            'Januari Jan_Februari Feb_Mars Mar_April Apr_Maj Maj_Juni Jun_Juli Jul_Augusti Aug_September Sep_Oktober Okt_November Nov_December Dec'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -132,9 +134,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'Söndag Sön Sö_Måndag Mån Må_Tisdag Tis Ti_Onsdag Ons On_Torsdag Tor To_Fredag Fre Fr_Lördag Lör Lö'.split(
-            '_'
-        ),
+    var expected =
+            'Söndag Sön Sö_Måndag Mån Må_Tisdag Tis Ti_Onsdag Ons On_Torsdag Tor To_Fredag Fre Fr_Lördag Lör Lö'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(

@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('tg');
 
 test('parse', function (assert) {
-    var tests = 'январ янв_феврал фев_март мар_апрел апр_май май_июн июн_июл июл_август авг_сентябр сен_октябр окт_ноябр ноя_декабр дек'.split(
-            '_'
-        ),
+    var tests =
+            'январ янв_феврал фев_март мар_апрел апр_май май_июн июн_июл июл_август авг_сентябр сен_октябр окт_ноябр ноя_декабр дек'.split(
+                '_'
+            ),
         i;
 
     function equalTest(input, mmm, i) {
@@ -134,9 +135,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'январ янв_феврал фев_март мар_апрел апр_май май_июн июн_июл июл_август авг_сентябр сен_октябр окт_ноябр ноя_декабр дек'.split(
-            '_'
-        ),
+    var expected =
+            'январ янв_феврал фев_март мар_апрел апр_май май_июн июн_июл июл_август авг_сентябр сен_октябр окт_ноябр ноя_декабр дек'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -148,9 +150,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'якшанбе яшб яш_душанбе дшб дш_сешанбе сшб сш_чоршанбе чшб чш_панҷшанбе пшб пш_ҷумъа ҷум ҷм_шанбе шнб шб'.split(
-            '_'
-        ),
+    var expected =
+            'якшанбе яшб яш_душанбе дшб дш_сешанбе сшб сш_чоршанбе чшб чш_панҷшанбе пшб пш_ҷумъа ҷум ҷм_шанбе шнб шб'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(

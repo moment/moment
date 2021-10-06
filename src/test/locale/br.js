@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('br');
 
 test('parse', function (assert) {
-    var tests = 'Genver Gen_Cʼhwevrer Cʼhwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker'.split(
-            '_'
-        ),
+    var tests =
+            'Genver Gen_Cʼhwevrer Cʼhwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker'.split(
+                '_'
+            ),
         i,
         monthsWithRegularQuoteMark = ["C'hwevrer", "C'hwe"];
 
@@ -152,9 +153,10 @@ test('format ordinal', function (assert) {
 
 test('format month', function (assert) {
     moment.locale('br');
-    var expected = 'Genver Gen_Cʼhwevrer Cʼhwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker'.split(
-            '_'
-        ),
+    var expected =
+            'Genver Gen_Cʼhwevrer Cʼhwe_Meurzh Meu_Ebrel Ebr_Mae Mae_Mezheven Eve_Gouere Gou_Eost Eos_Gwengolo Gwe_Here Her_Du Du_Kerzu Ker'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -167,9 +169,10 @@ test('format month', function (assert) {
 
 test('format week', function (assert) {
     moment.locale('br');
-    var expected = 'Sul Sul Su_Lun Lun Lu_Meurzh Meu Me_Mercʼher Mer Mer_Yaou Yao Ya_Gwener Gwe Gw_Sadorn Sad Sa'.split(
-            '_'
-        ),
+    var expected =
+            'Sul Sul Su_Lun Lun Lu_Meurzh Meu Me_Mercʼher Mer Mer_Yaou Yao Ya_Gwener Gwe Gw_Sadorn Sad Sa'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(

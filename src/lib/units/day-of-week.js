@@ -105,9 +105,8 @@ function shiftWeekdays(ws, n) {
     return ws.slice(n, 7).concat(ws.slice(0, n));
 }
 
-var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split(
-        '_'
-    ),
+var defaultLocaleWeekdays =
+        'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
     defaultLocaleWeekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
     defaultLocaleWeekdaysMin = 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
     defaultWeekdaysRegex = matchWord,

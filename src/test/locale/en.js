@@ -5,9 +5,10 @@ localeModule('en');
 
 test('parse', function (assert) {
     var i,
-        tests = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sep_October Oct_November Nov_December Dec'.split(
-            '_'
-        );
+        tests =
+            'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sep_October Oct_November Nov_December Dec'.split(
+                '_'
+            );
 
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -195,9 +196,10 @@ test('format ordinal', function (assert) {
 
 test('format month', function (assert) {
     var i,
-        expected = 'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sep_October Oct_November Nov_December Dec'.split(
-            '_'
-        );
+        expected =
+            'January Jan_February Feb_March Mar_April Apr_May May_June Jun_July Jul_August Aug_September Sep_October Oct_November Nov_December Dec'.split(
+                '_'
+            );
 
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -210,9 +212,10 @@ test('format month', function (assert) {
 
 test('format week', function (assert) {
     var i,
-        expected = 'Sunday Sun Su_Monday Mon Mo_Tuesday Tue Tu_Wednesday Wed We_Thursday Thu Th_Friday Fri Fr_Saturday Sat Sa'.split(
-            '_'
-        );
+        expected =
+            'Sunday Sun Su_Monday Mon Mo_Tuesday Tue Tu_Wednesday Wed We_Thursday Thu Th_Friday Fri Fr_Saturday Sat Sa'.split(
+                '_'
+            );
 
     for (i = 0; i < expected.length; i++) {
         assert.equal(

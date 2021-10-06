@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('ro');
 
 test('parse', function (assert) {
-    var tests = 'ianuarie ian._februarie feb._martie mart._aprilie apr._mai mai_iunie iun._iulie iul._august aug._septembrie sept._octombrie oct._noiembrie nov._decembrie dec.'.split(
-            '_'
-        ),
+    var tests =
+            'ianuarie ian._februarie feb._martie mart._aprilie apr._mai mai_iunie iun._iulie iul._august aug._septembrie sept._octombrie oct._noiembrie nov._decembrie dec.'.split(
+                '_'
+            ),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -118,9 +119,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'ianuarie ian._februarie feb._martie mart._aprilie apr._mai mai_iunie iun._iulie iul._august aug._septembrie sept._octombrie oct._noiembrie nov._decembrie dec.'.split(
-            '_'
-        ),
+    var expected =
+            'ianuarie ian._februarie feb._martie mart._aprilie apr._mai mai_iunie iun._iulie iul._august aug._septembrie sept._octombrie oct._noiembrie nov._decembrie dec.'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -132,9 +134,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'duminică Dum Du_luni Lun Lu_marți Mar Ma_miercuri Mie Mi_joi Joi Jo_vineri Vin Vi_sâmbătă Sâm Sâ'.split(
-            '_'
-        ),
+    var expected =
+            'duminică Dum Du_luni Lun Lu_marți Mar Ma_miercuri Mie Mi_joi Joi Jo_vineri Vin Vi_sâmbătă Sâm Sâ'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
