@@ -4,7 +4,7 @@ import moment from '../../moment';
 localeModule('sv');
 
 test('parse', function (assert) {
-    var tests = 'januari jan_februari feb_mars mar_april apr_maj maj_juni jun_juli jul_augusti aug_september sep_oktober okt_november nov_december dec'.split(
+    var tests = 'Januari Jan_Februari Feb_Mars Mar_April Apr_Maj Maj_Juni Jun_Juli Jul_Augusti Aug_September Sep_Oktober Okt_November Nov_December Dec'.split(
             '_'
         ),
         i;
@@ -48,13 +48,13 @@ test('format', function (assert) {
     var a = [
             [
                 'dddd, MMMM Do YYYY, h:mm:ss a',
-                'söndag, februari 14:e 2010, 3:25:50 pm',
+                'Söndag, Februari 14:e 2010, 3:25:50 pm',
             ],
-            ['ddd, hA', 'sön, 3PM'],
-            ['M Mo MM MMMM MMM', '2 2:a 02 februari feb'],
+            ['ddd, hA', 'Sön, 3PM'],
+            ['M Mo MM MMMM MMM', '2 2:a 02 Februari Feb'],
             ['YYYY YY', '2010 10'],
             ['D Do DD', '14 14:e 14'],
-            ['d do dddd ddd dd', '0 0:e söndag sön sö'],
+            ['d do dddd ddd dd', '0 0:e Söndag Sön Sö'],
             ['DDD DDDo DDDD', '45 45:e 045'],
             ['w wo ww', '6 6:e 06'],
             ['h hh', '3 03'],
@@ -65,13 +65,13 @@ test('format', function (assert) {
             ['[the] DDDo [day of the year]', 'the 45:e day of the year'],
             ['LTS', '15:25:50'],
             ['L', '2010-02-14'],
-            ['LL', '14 februari 2010'],
-            ['LLL', '14 februari 2010 kl. 15:25'],
-            ['LLLL', 'söndag 14 februari 2010 kl. 15:25'],
+            ['LL', '14 Februari 2010'],
+            ['LLL', '14 Februari 2010 kl. 15:25'],
+            ['LLLL', 'Söndag 14 Februari 2010 kl. 15:25'],
             ['l', '2010-2-14'],
-            ['ll', '14 feb 2010'],
-            ['lll', '14 feb 2010 15:25'],
-            ['llll', 'sön 14 feb 2010 15:25'],
+            ['ll', '14 Feb 2010'],
+            ['lll', '14 Feb 2010 15:25'],
+            ['llll', 'Sön 14 Feb 2010 15:25'],
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -118,7 +118,7 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'januari jan_februari feb_mars mar_april apr_maj maj_juni jun_juli jul_augusti aug_september sep_oktober okt_november nov_december dec'.split(
+    var expected = 'Januari Jan_Februari Feb_Mars Mar_April Apr_Maj Maj_Juni Jun_Juli Jul_Augusti Aug_September Sep_Oktober Okt_November Nov_December Dec'.split(
             '_'
         ),
         i;
@@ -132,7 +132,7 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'söndag sön sö_måndag mån må_tisdag tis ti_onsdag ons on_torsdag tor to_fredag fre fr_lördag lör lö'.split(
+    var expected = 'Söndag Sön Sö_Måndag Mån Må_Tisdag Tis Ti_Onsdag Ons On_Torsdag Tor To_Fredag Fre Fr_Lördag Lör Lö'.split(
             '_'
         ),
         i;
