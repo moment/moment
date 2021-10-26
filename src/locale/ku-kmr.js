@@ -11,26 +11,26 @@
 
 import moment from '../moment';
 
-const processRelativeTime = (num, withoutSuffix, key, isFuture) => {
+function processRelativeTime(num, withoutSuffix, key, isFuture) {
     var format = {
         s: ['çend sanîye', 'çend sanîyeyan', 'çend sanîyeyên'],
-        ss: [num + ' sanîye', num + ' sanîyeyan', 'di '+num+' sanîyeyan de'],
+        ss: [num + ' sanîye', num + ' sanîyeyan', 'di ' + num + ' sanîyeyan de'],
         m: ['deqîqeyek', 'deqîqeyekê', 'deqîqeyeke'],
-        mm: [num + ' deqîqe', num + ' deqîqeyan', 'di '+num+' deqîqeyan de'],
+        mm: [num + ' deqîqe', num + ' deqîqeyan', 'di ' + num + ' deqîqeyan de'],
         h: ['saetek', 'saetekê', 'saeteke'],
-        hh: [num + ' saet', num + ' saetan', 'di '+num+' saetan de'],
+        hh: [num + ' saet', num + ' saetan', 'di ' + num + ' saetan de'],
         d: ['rojek', 'rojekê', 'rojeke'],
-        dd: [num + ' roj', num + ' rojan', 'di '+num+' rojan de'],
+        dd: [num + ' roj', num + ' rojan', 'di ' + num + ' rojan de'],
         w: ['hefteyek', 'hefteyekê', 'hefteyeke'],
-        ww: [num + ' hefte', num + ' hefteyan', 'di '+num+' hefteyan de'],
+        ww: [num + ' hefte', num + ' hefteyan', 'di ' + num + ' hefteyan de'],
         M: ['mehek', 'mehekê', 'meheke'],
-        MM: [num + ' meh', num + ' mehan', 'di '+num+' mehan de'],
+        MM: [num + ' meh', num + ' mehan', 'di ' + num + ' mehan de'],
         y: ['salek', 'salekê', 'saleke'],
-        yy: [num + ' sal', num + ' salan', 'di '+num+' salan de'],
+        yy: [num + ' sal', num + ' salan', 'di ' + num + ' salan de'],
     };
     return withoutSuffix ? format[key][0] : format[key][1];
 }
-// const obliqueNumSuffix = (num) => {
+// function obliqueNumSuffix(num) {
 //     if(num.includes(':'))
 //         num = parseInt(num.split(':')[0]);
 //     else
@@ -38,11 +38,11 @@ const processRelativeTime = (num, withoutSuffix, key, isFuture) => {
 //     return num == 0 || num % 10 == 1 ? 'ê' 
 //                         : (num > 10 && num % 10 == 0 ? 'î' : 'an'); 
 // }
-const ezafeNumSuffix = (num) => {
-    num = ''+num;
-    const l = num.substring(num.length - 1),
+function ezafeNumSuffix(num) {
+    num = '' + num;
+    var l = num.substring(num.length - 1),
         ll = num.length > 1 ? num.substring(num.length - 2) : '';
-    if(!(ll == 12 || ll == 13) && (l == '2' || l == '3' || ll == '50' || l == '70' || l == '80'))
+    if (!(ll == 12 || ll == 13) && (l == '2' || l == '3' || ll == '50' || l == '70' || l == '80'))
         return 'yê';
     return 'ê';
 }
@@ -87,7 +87,7 @@ export default moment.defineLocale('ku-kmr', {
         nextDay: function (h) { return '[Sibê di saet] LT [de]'; },
         nextWeek: function (h) { return 'dddd [di saet] LT [de]'; },
         lastDay: function () { return '[Duh di saet] LT [de]'; },
-        lastWeek: function () { return  'dddd[a borî di saet] LT [de]'; },
+        lastWeek: function () { return 'dddd[a borî di saet] LT [de]'; },
         sameElse: 'L',
     },
     relativeTime: {
@@ -111,9 +111,9 @@ export default moment.defineLocale('ku-kmr', {
     dayOfMonthOrdinalParse: /\d{1,2}(?:yê|ê|\.)/,
     ordinal: (num, period) => {
         let p = period.toLowerCase();
-        if(p.includes('w') || p.includes('m'))
-            return num+'.';
-            
+        if (p.includes('w') || p.includes('m'))
+            return num + '.';
+
         return num + ezafeNumSuffix(num);
     },
     week: {
