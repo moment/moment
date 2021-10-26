@@ -2,9 +2,9 @@
 //! locale : Northern Kurdish [ku-kmr]
 //! authors : Mazlum Özdogan : https://github.com/mergehez
 
-// All rules except for month names are according to 
+// All rules except for month names are according to
 // the spelling rules which are defined in the book 'Rêbera Rastnivîsînê' from Komxebata Kurmancîyê.
-// Komxebata Kurmancîyê is a work group that studied different uses in Kurdish language (Kurmanji/Northern Kurdish), 
+// Komxebata Kurmancîyê is a work group that studied different uses in Kurdish language (Kurmanji/Northern Kurdish),
 // chose one of alternatives as standard and publish them via their book.
 // There are 18 Kurdish linguists in the group.
 // The group was formed by Mesopotamia Foundation
@@ -13,20 +13,20 @@ import moment from '../moment';
 
 function processRelativeTime(num, withoutSuffix, key, isFuture) {
     var format = {
-        s: ['çend sanîye', 'çend sanîyeyan', 'çend sanîyeyên'],
-        ss: [num + ' sanîye', num + ' sanîyeyan', 'di ' + num + ' sanîyeyan de'],
-        m: ['deqîqeyek', 'deqîqeyekê', 'deqîqeyeke'],
-        mm: [num + ' deqîqe', num + ' deqîqeyan', 'di ' + num + ' deqîqeyan de'],
-        h: ['saetek', 'saetekê', 'saeteke'],
-        hh: [num + ' saet', num + ' saetan', 'di ' + num + ' saetan de'],
-        d: ['rojek', 'rojekê', 'rojeke'],
-        dd: [num + ' roj', num + ' rojan', 'di ' + num + ' rojan de'],
-        w: ['hefteyek', 'hefteyekê', 'hefteyeke'],
-        ww: [num + ' hefte', num + ' hefteyan', 'di ' + num + ' hefteyan de'],
-        M: ['mehek', 'mehekê', 'meheke'],
-        MM: [num + ' meh', num + ' mehan', 'di ' + num + ' mehan de'],
-        y: ['salek', 'salekê', 'saleke'],
-        yy: [num + ' sal', num + ' salan', 'di ' + num + ' salan de'],
+        s: ['çend sanîye', 'çend sanîyeyan'],
+        ss: [num + ' sanîye', num + ' sanîyeyan'],
+        m: ['deqîqeyek', 'deqîqeyekê'],
+        mm: [num + ' deqîqe', num + ' deqîqeyan'],
+        h: ['saetek', 'saetekê'],
+        hh: [num + ' saet', num + ' saetan'],
+        d: ['rojek', 'rojekê'],
+        dd: [num + ' roj', num + ' rojan'],
+        w: ['hefteyek', 'hefteyekê'],
+        ww: [num + ' hefte', num + ' hefteyan'],
+        M: ['mehek', 'mehekê'],
+        MM: [num + ' meh', num + ' mehan'],
+        y: ['salek', 'salekê'],
+        yy: [num + ' sal', num + ' salan'],
     };
     return withoutSuffix ? format[key][0] : format[key][1];
 }
@@ -35,32 +35,31 @@ function processRelativeTime(num, withoutSuffix, key, isFuture) {
 //         num = parseInt(num.split(':')[0]);
 //     else
 //         num = parseInt(num);
-//     return num == 0 || num % 10 == 1 ? 'ê' 
-//                         : (num > 10 && num % 10 == 0 ? 'î' : 'an'); 
+//     return num == 0 || num % 10 == 1 ? 'ê'
+//                         : (num > 10 && num % 10 == 0 ? 'î' : 'an');
 // }
 function ezafeNumSuffix(num) {
     num = '' + num;
     var l = num.substring(num.length - 1),
         ll = num.length > 1 ? num.substring(num.length - 2) : '';
-    if (!(ll == 12 || ll == 13) && (l == '2' || l == '3' || ll == '50' || l == '70' || l == '80'))
+    if (
+        !(ll == 12 || ll == 13) &&
+        (l == '2' || l == '3' || ll == '50' || l == '70' || l == '80')
+    )
         return 'yê';
     return 'ê';
 }
 
 export default moment.defineLocale('ku-kmr', {
-    // According to the spelling rules defined by the work group of Weqfa Mezopotamyayê (Mesopotamia Foundation) 
+    // According to the spelling rules defined by the work group of Weqfa Mezopotamyayê (Mesopotamia Foundation)
     // this should be: 'Kanûna Paşîn_Sibat_Adar_Nîsan_Gulan_Hezîran_Tîrmeh_Tebax_Îlon_Çirîya Pêşîn_Çirîya Paşîn_Kanûna Pêşîn'
     // But the names below are more well known and handy
     months: 'Rêbendan_Sibat_Adar_Nîsan_Gulan_Hezîran_Tîrmeh_Tebax_Îlon_Cotmeh_Mijdar_Berfanbar'.split(
         '_'
     ),
-    monthsShort: 'Rêb_Sib_Ada_Nîs_Gul_Hez_Tîr_Teb_Îlo_Cot_Mij_Ber'.split(
-        '_'
-    ),
+    monthsShort: 'Rêb_Sib_Ada_Nîs_Gul_Hez_Tîr_Teb_Îlo_Cot_Mij_Ber'.split('_'),
     monthsParseExact: true,
-    weekdays: 'Yekşem_Duşem_Sêşem_Çarşem_Pêncşem_În_Şemî'.split(
-        '_'
-    ),
+    weekdays: 'Yekşem_Duşem_Sêşem_Çarşem_Pêncşem_În_Şemî'.split('_'),
     weekdaysShort: 'Yek_Du_Sê_Çar_Pên_În_Şem'.split('_'),
     weekdaysMin: 'Ye_Du_Sê_Ça_Pê_În_Şe'.split('_'),
     meridiem: function (hours, minutes, isLower) {
@@ -83,11 +82,11 @@ export default moment.defineLocale('ku-kmr', {
         llll: 'ddd[.], Do MMM[.] YYYY[an] HH:mm',
     },
     calendar: {
-        sameDay: function (h) { return '[Îro di saet] LT [de]'; },
-        nextDay: function (h) { return '[Sibê di saet] LT [de]'; },
-        nextWeek: function (h) { return 'dddd [di saet] LT [de]'; },
-        lastDay: function () { return '[Duh di saet] LT [de]'; },
-        lastWeek: function () { return 'dddd[a borî di saet] LT [de]'; },
+        sameDay: '[Îro di saet] LT [de]',
+        nextDay: '[Sibê di saet] LT [de]',
+        nextWeek: 'dddd [di saet] LT [de]',
+        lastDay: '[Duh di saet] LT [de]',
+        lastWeek: 'dddd[a borî di saet] LT [de]',
         sameElse: 'L',
     },
     relativeTime: {
@@ -106,13 +105,12 @@ export default moment.defineLocale('ku-kmr', {
         M: processRelativeTime,
         MM: processRelativeTime,
         y: processRelativeTime,
-        yy: processRelativeTime
+        yy: processRelativeTime,
     },
     dayOfMonthOrdinalParse: /\d{1,2}(?:yê|ê|\.)/,
     ordinal: (num, period) => {
         let p = period.toLowerCase();
-        if (p.includes('w') || p.includes('m'))
-            return num + '.';
+        if (p.includes('w') || p.includes('m')) return num + '.';
 
         return num + ezafeNumSuffix(num);
     },

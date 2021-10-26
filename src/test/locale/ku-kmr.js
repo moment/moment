@@ -5,9 +5,10 @@ localeModule('ku-kmr');
 
 test('parse', function (assert) {
     var i,
-        tests = 'Rêbendan Rêb_Sibat Sib_Adar Ada_Nîsan Nîs_Gulan Gul_Hezîran Hez_Tîrmeh Tîr_Tebax Teb_Îlon Îlo_Cotmeh Cot_Mijdar Mij_Berfanbar Ber'.split(
-            '_'
-        );
+        tests =
+            'Rêbendan Rêb_Sibat Sib_Adar Ada_Nîsan Nîs_Gulan Gul_Hezîran Hez_Tîrmeh Tîr_Tebax Teb_Îlon Îlo_Cotmeh Cot_Mijdar Mij_Berfanbar Ber'.split(
+                '_'
+            );
 
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -195,9 +196,10 @@ test('format ordinal', function (assert) {
 
 test('format month', function (assert) {
     var i,
-        expected = 'Rêbendan Rêb_Sibat Sib_Adar Ada_Nîsan Nîs_Gulan Gul_Hezîran Hez_Tîrmeh Tîr_Tebax Teb_Îlon Îlo_Cotmeh Cot_Mijdar Mij_Berfanbar Ber'.split(
-            '_'
-        );
+        expected =
+            'Rêbendan Rêb_Sibat Sib_Adar Ada_Nîsan Nîs_Gulan Gul_Hezîran Hez_Tîrmeh Tîr_Tebax Teb_Îlon Îlo_Cotmeh Cot_Mijdar Mij_Berfanbar Ber'.split(
+                '_'
+            );
 
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -210,9 +212,10 @@ test('format month', function (assert) {
 
 test('format week', function (assert) {
     var i,
-        expected = 'Yekşem Yek Ye_Duşem Du Du_Sêşem Sê Sê_Çarşem Çar Ça_Pêncşem Pên Pê_În În În_Şemî Şem Şe'.split(
-            '_'
-        );
+        expected =
+            'Yekşem Yek Ye_Duşem Du Du_Sêşem Sê Sê_Çarşem Çar Ça_Pêncşem Pên Pê_În În În_Şemî Şem Şe'.split(
+                '_'
+            );
 
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -387,7 +390,11 @@ test('fromNow', function (assert) {
         'di çend sanîyeyan de',
         'in a few seconds'
     );
-    assert.equal(moment().add({ d: 5 }).fromNow(), 'di 5 rojan de', 'in 5 days');
+    assert.equal(
+        moment().add({ d: 5 }).fromNow(),
+        'di 5 rojan de',
+        'in 5 days'
+    );
 });
 
 test('calendar day', function (assert) {
@@ -527,24 +534,24 @@ test('weeks year starting sunday formatted', function (assert) {
 
 test('weekdays strict parsing', function (assert) {
     var m = moment('2015-01-01T12', moment.ISO_8601, true),
-        kuKmrLocale = moment.localeData('ku-kmr'),
+        locale = moment.localeData('ku-kmr'),
         i;
 
     for (i = 0; i < 7; ++i) {
         assert.equal(
-            moment(kuKmrLocale.weekdays(m.day(i), ''), 'dddd', true).isValid(),
+            moment(locale.weekdays(m.day(i), ''), 'dddd', true).isValid(),
             true,
-            'parse weekday ' + i + ', val from moment: ' + m.day(i) + " => " + moment(kuKmrLocale.weekdays(m.day(i), ''), 'dddd', true)
+            'parse weekday ' + i
         );
         assert.equal(
-            moment(kuKmrLocale.weekdaysShort(m.day(i), ''), 'ddd', true).isValid(),
+            moment(locale.weekdaysShort(m.day(i), ''), 'ddd', true).isValid(),
             true,
-            'parse short weekday ' + i + ', val from moment: ' + m.day(i) + " => " + moment(kuKmrLocale.weekdaysShort(m.day(i), ''), 'ddd', true)
+            'parse short weekday ' + i
         );
         assert.equal(
-            moment(kuKmrLocale.weekdaysMin(m.day(i), ''), 'dd', true).isValid(),
+            moment(locale.weekdaysMin(m.day(i), ''), 'dd', true).isValid(),
             true,
-            'parse min weekday ' + i + ', val from moment: ' + m.day(i) + " => " + moment(kuKmrLocale.weekdaysMin(m.day(i), ''), 'dd', true)
+            'parse min weekday ' + i
         );
 
         // negative tests
@@ -552,12 +559,12 @@ test('weekdays strict parsing', function (assert) {
         // assert.equal(
         //     moment(kuKmrLocale.weekdaysMin(m.day(i), ''), 'ddd', true).isValid(),
         //     false,
-        //     'negative parse short weekday ' + i + ', val from moment: ' + m.day(i) + " => " + moment(kuKmrLocale.weekdaysMin(m.day(i), ''), 'ddd', true)
+        //     'negative parse short weekday ' + i
         // );
         // assert.equal(
         //     moment(kuKmrLocale.weekdaysShort(m.day(i), ''), 'dd', true).isValid(),
         //     false,
-        //     'negative parse min weekday ' + i + ', val from moment: ' + m.day(i) + " => " + moment(kuKmrLocale.weekdaysShort(m.day(i), ''), 'dd', true)
+        //     'negative parse min weekday ' + i
         // );
     }
 });
