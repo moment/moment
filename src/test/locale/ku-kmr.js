@@ -195,11 +195,11 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var i,
-        expected =
+    var expected =
             'Rêbendan Rêb_Sibat Sib_Adar Ada_Nîsan Nîs_Gulan Gul_Hezîran Hez_Tîrmeh Tîr_Tebax Teb_Îlon Îlo_Cotmeh Cot_Mijdar Mij_Berfanbar Ber'.split(
                 '_'
-            );
+            ),
+        i;
 
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -211,11 +211,11 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var i,
-        expected =
+    var expected =
             'Yekşem Yek Ye_Duşem Du Du_Sêşem Sê Sê_Çarşem Çar Ça_Pêncşem Pên Pê_În În În_Şemî Şem Şe'.split(
                 '_'
-            );
+            ),
+        i;
 
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -556,15 +556,5 @@ test('weekdays strict parsing', function (assert) {
 
         // negative tests
         // short and min are always equal for index 1,2 and 5
-        // assert.equal(
-        //     moment(kuKmrLocale.weekdaysMin(m.day(i), ''), 'ddd', true).isValid(),
-        //     false,
-        //     'negative parse short weekday ' + i
-        // );
-        // assert.equal(
-        //     moment(kuKmrLocale.weekdaysShort(m.day(i), ''), 'dd', true).isValid(),
-        //     false,
-        //     'negative parse min weekday ' + i
-        // );
     }
 });
