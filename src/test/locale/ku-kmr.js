@@ -50,7 +50,7 @@ test('format', function (assert) {
     var a = [
             [
                 'dddd, Do MMMM YYYY, h:mm:ss a',
-                'Yekşem, 14ê Sibat 2010, 3:25:50 pn'
+                'Yekşem, 14ê Sibat 2010, 3:25:50 pn',
             ],
             ['ddd, hA', 'Yek, 3PN'],
             ['M Mo MM MMMM MMM', '2 2. 02 Sibat Sib'],
@@ -73,7 +73,7 @@ test('format', function (assert) {
             ['l', '14.2.2010'],
             ['ll', '14ê Sib. 2010an'],
             ['lll', '14ê Sib. 2010an 15:25'],
-            ['llll', 'Yek., 14ê Sib. 2010an 15:25']
+            ['llll', 'Yek., 14ê Sib. 2010an 15:25'],
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -143,7 +143,7 @@ test('format era', function (assert) {
             ['-000001-12-31', 'N, NN, NNN', 'BC, BC, BC'],
             ['-000001-12-31', 'NNNN', 'Before Christ'],
             ['-000001-12-31', 'NNNNN', 'BC'],
-            ['-000001-12-31', 'y', '2']
+            ['-000001-12-31', 'y', '2'],
         ],
         i,
         l;
