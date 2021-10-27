@@ -5,10 +5,9 @@ localeModule('ku-kmr');
 
 test('parse', function (assert) {
     var i,
-        tests =
-            'Rêbendan Rêb_Sibat Sib_Adar Ada_Nîsan Nîs_Gulan Gul_Hezîran Hez_Tîrmeh Tîr_Tebax Teb_Îlon Îlo_Cotmeh Cot_Mijdar Mij_Berfanbar Ber'.split(
-                '_'
-            );
+        tests = 'Rêbendan Rêb_Sibat Sib_Adar Ada_Nîsan Nîs_Gulan Gul_Hezîran Hez_Tîrmeh Tîr_Tebax Teb_Îlon Îlo_Cotmeh Cot_Mijdar Mij_Berfanbar Ber'.split(
+            '_'
+        );
 
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -195,10 +194,9 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected =
-            'Rêbendan Rêb_Sibat Sib_Adar Ada_Nîsan Nîs_Gulan Gul_Hezîran Hez_Tîrmeh Tîr_Tebax Teb_Îlon Îlo_Cotmeh Cot_Mijdar Mij_Berfanbar Ber'.split(
-                '_'
-            ),
+    var expected = 'Rêbendan Rêb_Sibat Sib_Adar Ada_Nîsan Nîs_Gulan Gul_Hezîran Hez_Tîrmeh Tîr_Tebax Teb_Îlon Îlo_Cotmeh Cot_Mijdar Mij_Berfanbar Ber'.split(
+            '_'
+        ),
         i;
 
     for (i = 0; i < expected.length; i++) {
@@ -211,10 +209,9 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected =
-            'Yekşem Yek Ye_Duşem Du Du_Sêşem Sê Sê_Çarşem Çar Ça_Pêncşem Pên Pê_În În În_Şemî Şem Şe'.split(
-                '_'
-            ),
+    var expected = 'Yekşem Yek Ye_Duşem Du Du_Sêşem Sê Sê_Çarşem Çar Ça_Pêncşem Pên Pê_În În În_Şemî Şem Şe'.split(
+            '_'
+        ),
         i;
 
     for (i = 0; i < expected.length; i++) {
