@@ -303,7 +303,7 @@ test('fromNow', function (assert) {
         'an e puer Sekonnen',
         'in a few seconds'
     );
-    assert.equal(moment().add({ d: 5 }).fromNow(), 'in 5 Tagen', 'in 5 days');
+    assert.equal(moment().add({ d: 5 }).fromNow(), 'an 5 Deeg', 'in 5 days');
 });
 
 test('calendar day', function (assert) {

@@ -13,7 +13,7 @@ function processRelativeTime(number, withoutSuffix, key, isFuture) {
         w: ['eng Woch', 'enger Woch'],
         M: ['een Mount', 'engem Mount'],
         MM: [number + ' Méint', number + ' Méinten'],
-        y: ['een Joer', 'engem Joer'],
+        y: ['ee Joer', 'engem Joer'],
         yy: [number + ' Joer', number + ' Joeren'],
     };
     return withoutSuffix ? format[key][0] : format[key][1];
