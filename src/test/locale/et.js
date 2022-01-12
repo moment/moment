@@ -63,15 +63,15 @@ test('format', function (assert) {
             ['s ss', '50 50'],
             ['a A', 'pm PM'],
             ['[aasta] DDDo [päev]', 'aasta 45. päev'],
-            ['LTS', '15:25:50'],
+            ['LTS', '15.25.50'],
             ['L', '14.02.2010'],
             ['LL', '14. veebruar 2010'],
-            ['LLL', '14. veebruar 2010 15:25'],
-            ['LLLL', 'pühapäev, 14. veebruar 2010 15:25'],
+            ['LLL', '14. veebruar 2010 15.25'],
+            ['LLLL', 'pühapäev, 14. veebruar 2010 15.25'],
             ['l', '14.2.2010'],
             ['ll', '14. veebr 2010'],
-            ['lll', '14. veebr 2010 15:25'],
-            ['llll', 'P, 14. veebr 2010 15:25'],
+            ['lll', '14. veebr 2010 15.25'],
+            ['llll', 'P, 14. veebr 2010 15.25'],
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -406,30 +406,30 @@ test('fromNow', function (assert) {
 test('calendar day', function (assert) {
     var a = moment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(), 'Täna, 12:00', 'today at the same time');
+    assert.equal(moment(a).calendar(), 'Täna, 12.00', 'today at the same time');
     assert.equal(
         moment(a).add({ m: 25 }).calendar(),
-        'Täna, 12:25',
+        'Täna, 12.25',
         'Now plus 25 min'
     );
     assert.equal(
         moment(a).add({ h: 1 }).calendar(),
-        'Täna, 13:00',
+        'Täna, 13.00',
         'Now plus 1 hour'
     );
     assert.equal(
         moment(a).add({ d: 1 }).calendar(),
-        'Homme, 12:00',
+        'Homme, 12.00',
         'tomorrow at the same time'
     );
     assert.equal(
         moment(a).subtract({ h: 1 }).calendar(),
-        'Täna, 11:00',
+        'Täna, 11.00',
         'Now minus 1 hour'
     );
     assert.equal(
         moment(a).subtract({ d: 1 }).calendar(),
-        'Eile, 12:00',
+        'Eile, 12.00',
         'yesterday at the same time'
     );
 });
