@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('tet');
 
 test('parse', function (assert) {
-    var tests = 'Janeiru Jan_Fevereiru Fev_Marsu Mar_Abril Abr_Maiu Mai_Juñu Jun_Jullu Jul_Agustu Ago_Setembru Set_Outubru Out_Novembru Nov_Dezembru Dez'.split(
-            '_'
-        ),
+    var tests =
+            'Janeiru Jan_Fevereiru Fev_Marsu Mar_Abril Abr_Maiu Mai_Juñu Jun_Jullu Jul_Agustu Ago_Setembru Set_Outubru Out_Novembru Nov_Dezembru Dez'.split(
+                '_'
+            ),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -118,9 +119,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'Janeiru Jan_Fevereiru Fev_Marsu Mar_Abril Abr_Maiu Mai_Juñu Jun_Jullu Jul_Agustu Ago_Setembru Set_Outubru Out_Novembru Nov_Dezembru Dez'.split(
-            '_'
-        ),
+    var expected =
+            'Janeiru Jan_Fevereiru Fev_Marsu Mar_Abril Abr_Maiu Mai_Juñu Jun_Jullu Jul_Agustu Ago_Setembru Set_Outubru Out_Novembru Nov_Dezembru Dez'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -132,9 +134,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'Domingu Dom Do_Segunda Seg Seg_Tersa Ters Te_Kuarta Kua Ku_Kinta Kint Ki_Sesta Sest Ses_Sabadu Sab Sa'.split(
-            '_'
-        ),
+    var expected =
+            'Domingu Dom Do_Segunda Seg Seg_Tersa Ters Te_Kuarta Kua Ku_Kinta Kint Ki_Sesta Sest Ses_Sabadu Sab Sa'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(

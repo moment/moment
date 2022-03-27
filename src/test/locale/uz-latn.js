@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('uz-latn');
 
 test('parse', function (assert) {
-    var tests = 'Yanvar Yan_Fevral Fev_Mart Mar_Aprel Apr_May May_Iyun Iyun_Iyul Iyul_Avgust Avg_Sentabr Sen_Oktabr Okt_Noyabr Noy_Dekabr Dek'.split(
-            '_'
-        ),
+    var tests =
+            'Yanvar Yan_Fevral Fev_Mart Mar_Aprel Apr_May May_Iyun Iyun_Iyul Iyul_Avgust Avg_Sentabr Sen_Oktabr Okt_Noyabr Noy_Dekabr Dek'.split(
+                '_'
+            ),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -118,9 +119,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'Yanvar Yan_Fevral Fev_Mart Mar_Aprel Apr_May May_Iyun Iyun_Iyul Iyul_Avgust Avg_Sentabr Sen_Oktabr Okt_Noyabr Noy_Dekabr Dek'.split(
-            '_'
-        ),
+    var expected =
+            'Yanvar Yan_Fevral Fev_Mart Mar_Aprel Apr_May May_Iyun Iyun_Iyul Iyul_Avgust Avg_Sentabr Sen_Oktabr Okt_Noyabr Noy_Dekabr Dek'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -132,9 +134,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'Yakshanba Yak Ya_Dushanba Dush Du_Seshanba Sesh Se_Chorshanba Chor Cho_Payshanba Pay Pa_Juma Jum Ju_Shanba Shan Sha'.split(
-            '_'
-        ),
+    var expected =
+            'Yakshanba Yak Ya_Dushanba Dush Du_Seshanba Sesh Se_Chorshanba Chor Cho_Payshanba Pay Pa_Juma Jum Ju_Shanba Shan Sha'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(

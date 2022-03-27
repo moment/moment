@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('gl');
 
 test('parse', function (assert) {
-    var tests = 'xaneiro xan._febreiro feb._marzo mar._abril abr._maio mai._xuño xuñ._xullo xul._agosto ago._setembro set._outubro out._novembro nov._decembro dec.'.split(
-            '_'
-        ),
+    var tests =
+            'xaneiro xan._febreiro feb._marzo mar._abril abr._maio mai._xuño xuñ._xullo xul._agosto ago._setembro set._outubro out._novembro nov._decembro dec.'.split(
+                '_'
+            ),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -117,9 +118,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'xaneiro xan._febreiro feb._marzo mar._abril abr._maio mai._xuño xuñ._xullo xul._agosto ago._setembro set._outubro out._novembro nov._decembro dec.'.split(
-            '_'
-        ),
+    var expected =
+            'xaneiro xan._febreiro feb._marzo mar._abril abr._maio mai._xuño xuñ._xullo xul._agosto ago._setembro set._outubro out._novembro nov._decembro dec.'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -131,9 +133,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'domingo dom. do_luns lun. lu_martes mar. ma_mércores mér. mé_xoves xov. xo_venres ven. ve_sábado sáb. sá'.split(
-            '_'
-        ),
+    var expected =
+            'domingo dom. do_luns lun. lu_martes mar. ma_mércores mér. mé_xoves xov. xo_venres ven. ve_sábado sáb. sá'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(

@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('zh-hk');
 
 test('parse', function (assert) {
-    var tests = '一月 1月_二月 2月_三月 3月_四月 4月_五月 5月_六月 6月_七月 7月_八月 8月_九月 9月_十月 10月_十一月 11月_十二月 12月'.split(
-            '_'
-        ),
+    var tests =
+            '一月 1月_二月 2月_三月 3月_四月 4月_五月 5月_六月 6月_七月 7月_八月 8月_九月 9月_十月 10月_十一月 11月_十二月 12月'.split(
+                '_'
+            ),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -82,9 +83,10 @@ test('format', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = '一月 1月_二月 2月_三月 3月_四月 4月_五月 5月_六月 6月_七月 7月_八月 8月_九月 9月_十月 10月_十一月 11月_十二月 12月'.split(
-            '_'
-        ),
+    var expected =
+            '一月 1月_二月 2月_三月 3月_四月 4月_五月 5月_六月 6月_七月 7月_八月 8月_九月 9月_十月 10月_十一月 11月_十二月 12月'.split(
+                '_'
+            ),
         i;
 
     for (i = 0; i < expected.length; i++) {
@@ -97,9 +99,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = '星期日 週日 日_星期一 週一 一_星期二 週二 二_星期三 週三 三_星期四 週四 四_星期五 週五 五_星期六 週六 六'.split(
-            '_'
-        ),
+    var expected =
+            '星期日 週日 日_星期一 週一 一_星期二 週二 二_星期三 週三 三_星期四 週四 四_星期五 週五 五_星期六 週六 六'.split(
+                '_'
+            ),
         i;
 
     for (i = 0; i < expected.length; i++) {

@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('id');
 
 test('parse', function (assert) {
-    var tests = 'Januari Jan_Februari Feb_Maret Mar_April Apr_Mei Mei_Juni Jun_Juli Jul_Agustus Agt_September Sep_Oktober Okt_November Nov_Desember Des'.split(
-            '_'
-        ),
+    var tests =
+            'Januari Jan_Februari Feb_Maret Mar_April Apr_Mei Mei_Juni Jun_Juli Jul_Agustus Agt_September Sep_Oktober Okt_November Nov_Desember Des'.split(
+                '_'
+            ),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -80,9 +81,10 @@ test('format', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'Januari Jan_Februari Feb_Maret Mar_April Apr_Mei Mei_Juni Jun_Juli Jul_Agustus Agt_September Sep_Oktober Okt_November Nov_Desember Des'.split(
-            '_'
-        ),
+    var expected =
+            'Januari Jan_Februari Feb_Maret Mar_April Apr_Mei Mei_Juni Jun_Juli Jul_Agustus Agt_September Sep_Oktober Okt_November Nov_Desember Des'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -94,9 +96,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'Minggu Min Mg_Senin Sen Sn_Selasa Sel Sl_Rabu Rab Rb_Kamis Kam Km_Jumat Jum Jm_Sabtu Sab Sb'.split(
-            '_'
-        ),
+    var expected =
+            'Minggu Min Mg_Senin Sen Sn_Selasa Sel Sl_Rabu Rab Rb_Kamis Kam Km_Jumat Jum Jm_Sabtu Sab Sb'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(

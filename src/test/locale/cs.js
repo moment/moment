@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('cs');
 
 test('parse', function (assert) {
-    var tests = 'leden led ledna_únor úno února_březen bře března_duben dub dubna_květen kvě května_červen čvn června_červenec čvc července_srpen srp srpna_září zář září_říjen říj října_listopad lis listopadu_prosinec pro prosince'.split(
-            '_'
-        ),
+    var tests =
+            'leden led ledna_únor úno února_březen bře března_duben dub dubna_květen kvě května_červen čvn června_červenec čvc července_srpen srp srpna_září zář září_říjen říj října_listopad lis listopadu_prosinec pro prosince'.split(
+                '_'
+            ),
         i;
     function equalTest(input, mmm, monthIndex) {
         assert.equal(
@@ -120,9 +121,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'ledna led_února úno_března bře_dubna dub_května kvě_června čvn_července čvc_srpna srp_září zář_října říj_listopadu lis_prosince pro'.split(
-            '_'
-        ),
+    var expected =
+            'ledna led_února úno_března bře_dubna dub_května kvě_června čvn_července čvc_srpna srp_září zář_října říj_listopadu lis_prosince pro'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -135,12 +137,14 @@ test('format month', function (assert) {
 
 test('format month case', function (assert) {
     var months = {
-            nominative: 'ledna_února_března_dubna_května_června_července_srpna_září_října_listopadu_prosince'.split(
-                '_'
-            ),
-            accusative: 'leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec'.split(
-                '_'
-            ),
+            nominative:
+                'ledna_února_března_dubna_května_června_července_srpna_září_října_listopadu_prosince'.split(
+                    '_'
+                ),
+            accusative:
+                'leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec'.split(
+                    '_'
+                ),
         },
         i;
     for (i = 0; i < 12; i++) {
@@ -158,9 +162,10 @@ test('format month case', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'neděle ne ne_pondělí po po_úterý út út_středa st st_čtvrtek čt čt_pátek pá pá_sobota so so'.split(
-            '_'
-        ),
+    var expected =
+            'neděle ne ne_pondělí po po_úterý út út_středa st st_čtvrtek čt čt_pátek pá pá_sobota so so'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
