@@ -313,36 +313,36 @@ test('fromNow', function (assert) {
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
     assert.equal(
         moment(a).calendar(),
-        'આજ રાત ૨:૦૦ વાગ્યે',
+        'આજ બપોર ૧૨:૦૦ વાગ્યે',
         'today at the same time'
     );
     assert.equal(
         moment(a).add({ m: 25 }).calendar(),
-        'આજ રાત ૨:૨૫ વાગ્યે',
+        'આજ બપોર ૧૨:૨૫ વાગ્યે',
         'Now plus 25 min'
     );
     assert.equal(
         moment(a).add({ h: 3 }).calendar(),
-        'આજ સવાર ૫:૦૦ વાગ્યે',
+        'આજ બપોર ૩:૦૦ વાગ્યે',
         'Now plus 3 hour'
     );
     assert.equal(
         moment(a).add({ d: 1 }).calendar(),
-        'કાલે રાત ૨:૦૦ વાગ્યે',
+        'કાલે બપોર ૧૨:૦૦ વાગ્યે',
         'tomorrow at the same time'
     );
     assert.equal(
         moment(a).subtract({ h: 1 }).calendar(),
-        'આજ રાત ૧:૦૦ વાગ્યે',
+        'આજ બપોર ૧૧:૦૦ વાગ્યે',
         'Now minus 1 hour'
     );
     assert.equal(
         moment(a).subtract({ d: 1 }).calendar(),
-        'ગઇકાલે રાત ૨:૦૦ વાગ્યે',
+        'ગઇકાલે બપોર ૧૨:૦૦ વાગ્યે',
         'yesterday at the same time'
     );
 });
