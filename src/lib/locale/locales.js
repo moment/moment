@@ -62,6 +62,11 @@ function chooseLocale(names) {
     return globalLocale;
 }
 
+function isLocaleNameSane(name) {
+    // Prevent names that look like filesystem paths, i.e contain '/' or '\'
+    return name.match('^[^/\\\\]*$') != null;
+}
+
 function loadLocale(name) {
     var oldLocale = null,
         aliasedRequire;
@@ -70,7 +75,8 @@ function loadLocale(name) {
         locales[name] === undefined &&
         typeof module !== 'undefined' &&
         module &&
-        module.exports
+        module.exports &&
+        isLocaleNameSane(name)
     ) {
         try {
             oldLocale = globalLocale._abbr;
