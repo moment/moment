@@ -1,6 +1,12 @@
 Changelog
 =========
 
+### 2.29.2 [See full changelog](https://gist.github.com/ichernev/1904b564f6679d9aac1ae08ce13bc45c)
+
+* Release Apr 3 2022
+
+Address https://github.com/advisories/GHSA-8hfj-j24r-96c4
+
 ### 2.29.1 [See full changelog](https://gist.github.com/marwahaha/cc478ba01a1292ab4bd4e861d164d99b)
 
 * Release Oct 6, 2020
