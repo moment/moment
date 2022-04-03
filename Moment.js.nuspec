@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Moment.js</id>
-        <version>2.29.1</version>
+        <version>2.29.2</version>
         <authors>Tim Wood, Iskren Chernev, Moment.js contributors</authors>
         <owners>Cory Deppen, Iskren Chernev</owners>
         <description>A lightweight JavaScript date library for parsing, manipulating, and formatting dates.</description>
