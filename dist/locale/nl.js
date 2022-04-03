@@ -5,12 +5,10 @@
 
 import moment from '../moment';
 
-var monthsShortWithDots = 'jan._feb._mrt._apr._mei_jun._jul._aug._sep._okt._nov._dec.'.split(
-        '_'
-    ),
-    monthsShortWithoutDots = 'jan_feb_mrt_apr_mei_jun_jul_aug_sep_okt_nov_dec'.split(
-        '_'
-    ),
+var monthsShortWithDots =
+        'jan._feb._mrt._apr._mei_jun._jul._aug._sep._okt._nov._dec.'.split('_'),
+    monthsShortWithoutDots =
+        'jan_feb_mrt_apr_mei_jun_jul_aug_sep_okt_nov_dec'.split('_'),
     monthsParse = [
         /^jan/i,
         /^feb/i,
@@ -25,7 +23,8 @@ var monthsShortWithDots = 'jan._feb._mrt._apr._mei_jun._jul._aug._sep._okt._nov.
         /^nov/i,
         /^dec/i,
     ],
-    monthsRegex = /^(januari|februari|maart|april|mei|ju[nl]i|augustus|september|oktober|november|december|jan\.?|feb\.?|mrt\.?|apr\.?|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i;
+    monthsRegex =
+        /^(januari|februari|maart|april|mei|ju[nl]i|augustus|september|oktober|november|december|jan\.?|feb\.?|mrt\.?|apr\.?|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i;
 
 export default moment.defineLocale('nl', {
     months: 'januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december'.split(
@@ -43,16 +42,17 @@ export default moment.defineLocale('nl', {
 
     monthsRegex: monthsRegex,
     monthsShortRegex: monthsRegex,
-    monthsStrictRegex: /^(januari|februari|maart|april|mei|ju[nl]i|augustus|september|oktober|november|december)/i,
-    monthsShortStrictRegex: /^(jan\.?|feb\.?|mrt\.?|apr\.?|mei|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i,
+    monthsStrictRegex:
+        /^(januari|februari|maart|april|mei|ju[nl]i|augustus|september|oktober|november|december)/i,
+    monthsShortStrictRegex:
+        /^(jan\.?|feb\.?|mrt\.?|apr\.?|mei|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i,
 
     monthsParse: monthsParse,
     longMonthsParse: monthsParse,
     shortMonthsParse: monthsParse,
 
-    weekdays: 'zondag_maandag_dinsdag_woensdag_donderdag_vrijdag_zaterdag'.split(
-        '_'
-    ),
+    weekdays:
+        'zondag_maandag_dinsdag_woensdag_donderdag_vrijdag_zaterdag'.split('_'),
     weekdaysShort: 'zo._ma._di._wo._do._vr._za.'.split('_'),
     weekdaysMin: 'zo_ma_di_wo_do_vr_za'.split('_'),
     weekdaysParseExact: true,
