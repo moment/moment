@@ -39,7 +39,7 @@ var translator = {
             return isFuture || withoutSuffix ? wordKey[0] : wordKey[1];
         }
 
-        const word = translator.correctGrammaticalCase(number, wordKey);
+        var word = translator.correctGrammaticalCase(number, wordKey);
         // Nominativ
         if (key === 'yy' && withoutSuffix && word === 'godinu') {
             return number + ' godina';
