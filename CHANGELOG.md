@@ -5,7 +5,7 @@ Changelog
 
 * Release Apr 3 2022
 
-Address https://github.com/advisories/GHSA-8hfj-j24r-96c4
+Address https://github.com/moment/moment/security/advisories/GHSA-8hfj-j24r-96c4
 
 ### 2.29.1 [See full changelog](https://gist.github.com/marwahaha/cc478ba01a1292ab4bd4e861d164d99b)
 
