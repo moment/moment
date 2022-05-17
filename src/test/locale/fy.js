@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('fy');
 
 test('parse', function (assert) {
-    var tests = 'jannewaris jan._febrewaris feb._maart mrt._april apr._maaie mai._juny jun._july jul._augustus aug._septimber sep._oktober okt._novimber nov._desimber des.'.split(
-            '_'
-        ),
+    var tests =
+            'jannewaris jan._febrewaris feb._maart mrt._april apr._maaie mai._juny jun._july jul._augustus aug._septimber sep._oktober okt._novimber nov._desimber des.'.split(
+                '_'
+            ),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -121,9 +122,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'jannewaris jan._febrewaris feb._maart mrt._april apr._maaie mai_juny jun._july jul._augustus aug._septimber sep._oktober okt._novimber nov._desimber des.'.split(
-            '_'
-        ),
+    var expected =
+            'jannewaris jan._febrewaris feb._maart mrt._april apr._maaie mai_juny jun._july jul._augustus aug._septimber sep._oktober okt._novimber nov._desimber des.'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -135,9 +137,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'snein si. Si_moandei mo. Mo_tiisdei ti. Ti_woansdei wo. Wo_tongersdei to. To_freed fr. Fr_sneon so. So'.split(
-            '_'
-        ),
+    var expected =
+            'snein si. Si_moandei mo. Mo_tiisdei ti. Ti_woansdei wo. Wo_tongersdei to. To_freed fr. Fr_sneon so. So'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(

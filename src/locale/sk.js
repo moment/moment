@@ -5,9 +5,10 @@
 
 import moment from '../moment';
 
-var months = 'január_február_marec_apríl_máj_jún_júl_august_september_október_november_december'.split(
-        '_'
-    ),
+var months =
+        'január_február_marec_apríl_máj_jún_júl_august_september_október_november_december'.split(
+            '_'
+        ),
     monthsShort = 'jan_feb_mar_apr_máj_jún_júl_aug_sep_okt_nov_dec'.split('_');
 function plural(n) {
     return n > 1 && n < 5;

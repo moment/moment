@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('mt');
 
 test('parse', function (assert) {
-    var tests = 'Jannar Jan_Frar Fra_Marzu Mar_April Apr_Mejju Mej_Ġunju Ġun_Lulju Lul_Awwissu Aww_Settembru Set_Ottubru Ott_Novembru Nov_Diċembru Diċ'.split(
-            '_'
-        ),
+    var tests =
+            'Jannar Jan_Frar Fra_Marzu Mar_April Apr_Mejju Mej_Ġunju Ġun_Lulju Lul_Awwissu Aww_Settembru Set_Ottubru Ott_Novembru Nov_Diċembru Diċ'.split(
+                '_'
+            ),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -118,9 +119,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'Jannar Jan_Frar Fra_Marzu Mar_April Apr_Mejju Mej_Ġunju Ġun_Lulju Lul_Awwissu Aww_Settembru Set_Ottubru Ott_Novembru Nov_Diċembru Diċ'.split(
-            '_'
-        ),
+    var expected =
+            'Jannar Jan_Frar Fra_Marzu Mar_April Apr_Mejju Mej_Ġunju Ġun_Lulju Lul_Awwissu Aww_Settembru Set_Ottubru Ott_Novembru Nov_Diċembru Diċ'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -132,9 +134,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'Il-Ħadd Ħad Ħa_It-Tnejn Tne Tn_It-Tlieta Tli Tl_L-Erbgħa Erb Er_Il-Ħamis Ħam Ħa_Il-Ġimgħa Ġim Ġi_Is-Sibt Sib Si'.split(
-            '_'
-        ),
+    var expected =
+            'Il-Ħadd Ħad Ħa_It-Tnejn Tne Tn_It-Tlieta Tli Tl_L-Erbgħa Erb Er_Il-Ħamis Ħam Ħa_Il-Ġimgħa Ġim Ġi_Is-Sibt Sib Si'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(

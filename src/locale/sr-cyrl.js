@@ -39,7 +39,7 @@ var translator = {
             return isFuture || withoutSuffix ? wordKey[0] : wordKey[1];
         }
 
-        const word = translator.correctGrammaticalCase(number, wordKey);
+        var word = translator.correctGrammaticalCase(number, wordKey);
         // Nominativ
         if (key === 'yy' && withoutSuffix && word === 'годину') {
             return number + ' година';
@@ -53,9 +53,8 @@ export default moment.defineLocale('sr-cyrl', {
     months: 'јануар_фебруар_март_април_мај_јун_јул_август_септембар_октобар_новембар_децембар'.split(
         '_'
     ),
-    monthsShort: 'јан._феб._мар._апр._мај_јун_јул_авг._сеп._окт._нов._дец.'.split(
-        '_'
-    ),
+    monthsShort:
+        'јан._феб._мар._апр._мај_јун_јул_авг._сеп._окт._нов._дец.'.split('_'),
     monthsParseExact: true,
     weekdays: 'недеља_понедељак_уторак_среда_четвртак_петак_субота'.split('_'),
     weekdaysShort: 'нед._пон._уто._сре._чет._пет._суб.'.split('_'),

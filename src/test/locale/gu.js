@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('gu');
 
 test('parse', function (assert) {
-    var tests = 'જાન્યુઆરી જાન્યુ._ફેબ્રુઆરી ફેબ્રુ._માર્ચ માર્ચ_એપ્રિલ એપ્રિ._મે મે_જૂન જૂન_જુલાઈ જુલા._ઑગસ્ટ ઑગ._સપ્ટેમ્બર સપ્ટે._ઑક્ટ્બર ઑક્ટ્._નવેમ્બર નવે._ડિસેમ્બર ડિસે..'.split(
-            '_'
-        ),
+    var tests =
+            'જાન્યુઆરી જાન્યુ._ફેબ્રુઆરી ફેબ્રુ._માર્ચ માર્ચ_એપ્રિલ એપ્રિ._મે મે_જૂન જૂન_જુલાઈ જુલા._ઑગસ્ટ ઑગ._સપ્ટેમ્બર સપ્ટે._ઑક્ટ્બર ઑક્ટ્._નવેમ્બર નવે._ડિસેમ્બર ડિસે..'.split(
+                '_'
+            ),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -119,9 +120,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'જાન્યુઆરી જાન્યુ._ફેબ્રુઆરી ફેબ્રુ._માર્ચ માર્ચ_એપ્રિલ એપ્રિ._મે મે_જૂન જૂન_જુલાઈ જુલા._ઑગસ્ટ ઑગ._સપ્ટેમ્બર સપ્ટે._ઑક્ટ્બર ઑક્ટ્._નવેમ્બર નવે._ડિસેમ્બર ડિસે.'.split(
-            '_'
-        ),
+    var expected =
+            'જાન્યુઆરી જાન્યુ._ફેબ્રુઆરી ફેબ્રુ._માર્ચ માર્ચ_એપ્રિલ એપ્રિ._મે મે_જૂન જૂન_જુલાઈ જુલા._ઑગસ્ટ ઑગ._સપ્ટેમ્બર સપ્ટે._ઑક્ટ્બર ઑક્ટ્._નવેમ્બર નવે._ડિસેમ્બર ડિસે.'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -133,9 +135,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'રવિવાર રવિ ર_સોમવાર સોમ સો_મંગળવાર મંગળ મં_બુધ્વાર બુધ્ બુ_ગુરુવાર ગુરુ ગુ_શુક્રવાર શુક્ર શુ_શનિવાર શનિ શ'.split(
-            '_'
-        ),
+    var expected =
+            'રવિવાર રવિ ર_સોમવાર સોમ સો_મંગળવાર મંગળ મં_બુધ્વાર બુધ્ બુ_ગુરુવાર ગુરુ ગુ_શુક્રવાર શુક્ર શુ_શનિવાર શનિ શ'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -313,36 +316,36 @@ test('fromNow', function (assert) {
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
     assert.equal(
         moment(a).calendar(),
-        'આજ રાત ૨:૦૦ વાગ્યે',
+        'આજ બપોર ૧૨:૦૦ વાગ્યે',
         'today at the same time'
     );
     assert.equal(
         moment(a).add({ m: 25 }).calendar(),
-        'આજ રાત ૨:૨૫ વાગ્યે',
+        'આજ બપોર ૧૨:૨૫ વાગ્યે',
         'Now plus 25 min'
     );
     assert.equal(
         moment(a).add({ h: 3 }).calendar(),
-        'આજ સવાર ૫:૦૦ વાગ્યે',
+        'આજ બપોર ૩:૦૦ વાગ્યે',
         'Now plus 3 hour'
     );
     assert.equal(
         moment(a).add({ d: 1 }).calendar(),
-        'કાલે રાત ૨:૦૦ વાગ્યે',
+        'કાલે બપોર ૧૨:૦૦ વાગ્યે',
         'tomorrow at the same time'
     );
     assert.equal(
         moment(a).subtract({ h: 1 }).calendar(),
-        'આજ રાત ૧:૦૦ વાગ્યે',
+        'આજ બપોર ૧૧:૦૦ વાગ્યે',
         'Now minus 1 hour'
     );
     assert.equal(
         moment(a).subtract({ d: 1 }).calendar(),
-        'ગઇકાલે રાત ૨:૦૦ વાગ્યે',
+        'ગઇકાલે બપોર ૧૨:૦૦ વાગ્યે',
         'yesterday at the same time'
     );
 });

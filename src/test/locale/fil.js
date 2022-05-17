@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('fil');
 
 test('parse', function (assert) {
-    var tests = 'Enero Ene_Pebrero Peb_Marso Mar_Abril Abr_Mayo May_Hunyo Hun_Hulyo Hul_Agosto Ago_Setyembre Set_Oktubre Okt_Nobyembre Nob_Disyembre Dis'.split(
-            '_'
-        ),
+    var tests =
+            'Enero Ene_Pebrero Peb_Marso Mar_Abril Abr_Mayo May_Hunyo Hun_Hulyo Hul_Agosto Ago_Setyembre Set_Oktubre Okt_Nobyembre Nob_Disyembre Dis'.split(
+                '_'
+            ),
         i;
 
     function equalTest(input, mmm, i) {
@@ -119,9 +120,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'Enero Ene_Pebrero Peb_Marso Mar_Abril Abr_Mayo May_Hunyo Hun_Hulyo Hul_Agosto Ago_Setyembre Set_Oktubre Okt_Nobyembre Nob_Disyembre Dis'.split(
-            '_'
-        ),
+    var expected =
+            'Enero Ene_Pebrero Peb_Marso Mar_Abril Abr_Mayo May_Hunyo Hun_Hulyo Hul_Agosto Ago_Setyembre Set_Oktubre Okt_Nobyembre Nob_Disyembre Dis'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -133,9 +135,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'Linggo Lin Li_Lunes Lun Lu_Martes Mar Ma_Miyerkules Miy Mi_Huwebes Huw Hu_Biyernes Biy Bi_Sabado Sab Sab'.split(
-            '_'
-        ),
+    var expected =
+            'Linggo Lin Li_Lunes Lun Lu_Martes Mar Ma_Miyerkules Miy Mi_Huwebes Huw Hu_Biyernes Biy Bi_Sabado Sab Sab'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(

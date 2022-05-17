@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('tk');
 
 test('parse', function (assert) {
-    var tests = 'Ýanwar Ýan_Fewral Few_Mart Mar_Aprel Apr_Maý Maý_Iýun Iýn_Iýul Iýl_Awgust Awg_Sentýabr Sen_Oktýabr Okt_Noýabr Noý_Dekabr Dek'.split(
-            '_'
-        ),
+    var tests =
+            'Ýanwar Ýan_Fewral Few_Mart Mar_Aprel Apr_Maý Maý_Iýun Iýn_Iýul Iýl_Awgust Awg_Sentýabr Sen_Oktýabr Okt_Noýabr Noý_Dekabr Dek'.split(
+                '_'
+            ),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -118,9 +119,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'Ýanwar Ýan_Fewral Few_Mart Mar_Aprel Apr_Maý Maý_Iýun Iýn_Iýul Iýl_Awgust Awg_Sentýabr Sen_Oktýabr Okt_Noýabr Noý_Dekabr Dek'.split(
-            '_'
-        ),
+    var expected =
+            'Ýanwar Ýan_Fewral Few_Mart Mar_Aprel Apr_Maý Maý_Iýun Iýn_Iýul Iýl_Awgust Awg_Sentýabr Sen_Oktýabr Okt_Noýabr Noý_Dekabr Dek'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -132,9 +134,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'Ýekşenbe Ýek Ýk_Duşenbe Duş Dş_Sişenbe Siş Sş_Çarşenbe Çar Çr_Penşenbe Pen Pn_Anna Ann An_Şenbe Şen Şn'.split(
-            '_'
-        ),
+    var expected =
+            'Ýekşenbe Ýek Ýk_Duşenbe Duş Dş_Sişenbe Siş Sş_Çarşenbe Çar Çr_Penşenbe Pen Pn_Anna Ann An_Şenbe Şen Şn'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(

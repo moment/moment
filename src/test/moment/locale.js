@@ -959,9 +959,10 @@ test("moment().lang with missing key doesn't change locale", function (assert) {
 
 test('when in strict mode with inexact parsing, treat periods in short weekdays literally, not as the regex-period', function (assert) {
     moment.defineLocale('periods-in-short-weekdays', {
-        weekdays: 'Monday_Tuesday_Wednesday_Thursday_Friday_Saturday_Sunday'.split(
-            '_'
-        ),
+        weekdays:
+            'Monday_Tuesday_Wednesday_Thursday_Friday_Saturday_Sunday'.split(
+                '_'
+            ),
         weekdaysShort: 'mon_t...s_wed_thurs_fri_sat_sun'.split('_'),
         weekdaysParseExact: false,
     });
@@ -972,9 +973,10 @@ test('when in strict mode with inexact parsing, treat periods in short weekdays 
 
 test('when in strict mode with inexact parsing, treat periods in full weekdays literally, not as the regex-period', function (assert) {
     moment.defineLocale('periods-in-full-weekdays', {
-        weekdays: 'Monday_T....day_Wednesday_Thursday_Friday_Saturday_Sunday'.split(
-            '_'
-        ),
+        weekdays:
+            'Monday_T....day_Wednesday_Thursday_Friday_Saturday_Sunday'.split(
+                '_'
+            ),
         weekdaysShort: 'mon_tues_wed_thurs_fri_sat_sun'.split('_'),
         weekdaysParseExact: false,
     });
@@ -985,9 +987,10 @@ test('when in strict mode with inexact parsing, treat periods in full weekdays l
 
 test('when in strict mode with inexact parsing, treat periods in min-weekdays literally, not as the regex-period', function (assert) {
     moment.defineLocale('periods-in-min-weekdays', {
-        weekdays: 'Monday_Tuesday_Wednesday_Thursday_Friday_Saturday_Sunday'.split(
-            '_'
-        ),
+        weekdays:
+            'Monday_Tuesday_Wednesday_Thursday_Friday_Saturday_Sunday'.split(
+                '_'
+            ),
         weekdaysMin: 'mon_t...s_wed_thurs_fri_sat_sun'.split('_'),
         weekdaysParseExact: false,
     });
