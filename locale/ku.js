@@ -1,129 +1,80 @@
 //! moment.js locale configuration
 //! locale : Kurdish [ku]
-//! author : Shahram Mebashar : https://github.com/ShahramMebashar
+//! author : Cyax : https://github.com/CYAXXX
 
-;(function (global, factory) {
-   typeof exports === 'object' && typeof module !== 'undefined'
-       && typeof require === 'function' ? factory(require('../moment')) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
-   factory(global.moment)
-}(this, (function (moment) { 'use strict';
 
-    //! moment.js locale configuration
+import moment from '../moment';
 
-    var symbolMap = {
-            1: '١',
-            2: '٢',
-            3: '٣',
-            4: '٤',
-            5: '٥',
-            6: '٦',
-            7: '٧',
-            8: '٨',
-            9: '٩',
-            0: '٠',
-        },
-        numberMap = {
-            '١': '1',
-            '٢': '2',
-            '٣': '3',
-            '٤': '4',
-            '٥': '5',
-            '٦': '6',
-            '٧': '7',
-            '٨': '8',
-            '٩': '9',
-            '٠': '0',
-        },
-        months = [
-            'کانونی دووەم',
-            'شوبات',
-            'ئازار',
-            'نیسان',
-            'ئایار',
-            'حوزەیران',
-            'تەمموز',
-            'ئاب',
-            'ئەیلوول',
-            'تشرینی یەكەم',
-            'تشرینی دووەم',
-            'كانونی یەکەم',
-        ];
-
-    var ku = moment.defineLocale('ku', {
-        months: months,
-        monthsShort: months,
-        weekdays: 'یه‌كشه‌ممه‌_دووشه‌ممه‌_سێشه‌ممه‌_چوارشه‌ممه‌_پێنجشه‌ممه‌_هه‌ینی_شه‌ممه‌'.split(
-            '_'
-        ),
-        weekdaysShort: 'یه‌كشه‌م_دووشه‌م_سێشه‌م_چوارشه‌م_پێنجشه‌م_هه‌ینی_شه‌ممه‌'.split(
-            '_'
-        ),
-        weekdaysMin: 'ی_د_س_چ_پ_ه_ش'.split('_'),
-        weekdaysParseExact: true,
-        longDateFormat: {
-            LT: 'HH:mm',
-            LTS: 'HH:mm:ss',
-            L: 'DD/MM/YYYY',
-            LL: 'D MMMM YYYY',
-            LLL: 'D MMMM YYYY HH:mm',
-            LLLL: 'dddd, D MMMM YYYY HH:mm',
-        },
-        meridiemParse: /ئێواره‌|به‌یانی/,
-        isPM: function (input) {
-            return /ئێواره‌/.test(input);
-        },
-        meridiem: function (hour, minute, isLower) {
-            if (hour < 12) {
-                return 'به‌یانی';
-            } else {
-                return 'ئێواره‌';
-            }
-        },
-        calendar: {
-            sameDay: '[ئه‌مرۆ كاتژمێر] LT',
-            nextDay: '[به‌یانی كاتژمێر] LT',
-            nextWeek: 'dddd [كاتژمێر] LT',
-            lastDay: '[دوێنێ كاتژمێر] LT',
-            lastWeek: 'dddd [كاتژمێر] LT',
-            sameElse: 'L',
-        },
-        relativeTime: {
-            future: 'له‌ %s',
-            past: '%s',
-            s: 'چه‌ند چركه‌یه‌ك',
-            ss: 'چركه‌ %d',
-            m: 'یه‌ك خوله‌ك',
-            mm: '%d خوله‌ك',
-            h: 'یه‌ك كاتژمێر',
-            hh: '%d كاتژمێر',
-            d: 'یه‌ك ڕۆژ',
-            dd: '%d ڕۆژ',
-            M: 'یه‌ك مانگ',
-            MM: '%d مانگ',
-            y: 'یه‌ك ساڵ',
-            yy: '%d ساڵ',
-        },
-        preparse: function (string) {
-            return string
-                .replace(/[١٢٣٤٥٦٧٨٩٠]/g, function (match) {
-                    return numberMap[match];
-                })
-                .replace(/،/g, ',');
-        },
-        postformat: function (string) {
-            return string
-                .replace(/\d/g, function (match) {
-                    return symbolMap[match];
-                })
-                .replace(/,/g, '،');
-        },
-        week: {
-            dow: 6, // Saturday is the first day of the week.
-            doy: 12, // The week that contains Jan 12th is the first week of the year.
-        },
-    });
-
-    return ku;
-
-})));
+export default moment.defineLocale('ku', {
+    months: 'Çile_Reşemî_Adar_Avrêl_Gulan_Pûşber_Tîrmeh_Tebax_Îlon_Cotmeh_Mijdar_Berfanbar'.split(
+        '_'
+    ),
+    monthsShort: 'Çil_Reş_Adr_Avr_Gul_Pûş_Tîr_Teb_Îlo_Cot_Mij_Ber'.split('_'),
+    weekdays: 'Yekşem_Duşem_Sêşem_Çarşem_Pêncşem_În_Şemî'.split(
+        '_'
+    ),
+    weekdaysShort: 'Yek_Duş_Sêş_Çarş_Pênc_În_Şem'.split('_'),
+    weekdaysMin: 'Ye_Du_Sê_Ça_Pê_În_Şe'.split('_'),
+    longDateFormat: {
+        LT: 'HH:mm',
+        LTS: 'HH:mm:ss',
+        L: 'DD/MM/YYYY',
+        LL: 'D MMMM YYYY',
+        LLL: 'D MMMM YYYY HH:mm',
+        LLLL: 'dddd, D MMMM YYYY HH:mm',
+    },
+    calendar: {
+        sameDay: '[Îro di demjimêr] LT',
+        nextDay: '[Sibehe di demjimêr] LT',
+        nextWeek: 'dddd [di demjimêr] LT',
+        lastDay: '[Duh di demjimêr] LT',
+        lastWeek: '[Hefteya Dawî] dddd [di demjimêr] LT',
+        sameElse: 'L',
+    },
+    relativeTime: {
+        future: 'di %s',
+        past: '%s borî',
+        s: 'çirke',
+        ss: '%d çirke',
+        m: 'yek xulek',
+        mm: '%d xulek',
+        h: 'demjimêr',
+        hh: '%d demjimêr',
+        d: ' roj',
+        dd: '%d roj',
+        M: ' meh',
+        MM: '%d meh',
+        y: 'sal',
+        yy: '%d sal',
+    },
+    meridiem: function (hours, minutes, isLower) {
+        if (hours < 12) {
+            return isLower ? 'bn' : 'BN';
+        } else {
+            return isLower ? 'pn' : 'PN';
+        }
+    },
+    meridiemParse: /bn|BN|pn|PN/,
+    isPM: function (input) {
+        return input === 'pn' || input === 'PN';
+    },
+    dayOfMonthOrdinalParse: /\d{1,2,3,4}(yemîn|yemîn|yemîn|emîn)/,
+    ordinal: function (number) {
+        var b = number % 10,
+            output =
+                ~~((number % 100) / 10) === 1
+                    ? 'emîn'
+                    : b === 1
+                    ? 'yemîn'
+                    : b === 2
+                    ? 'yemîn'
+                    : b === 3
+                    ? 'yemîn'
+                    : 'emîn';
+        return number + output;
+    },
+    week: {
+        dow: 1, // Monday is the first day of the week.
+        doy: 4, // The week that contains Jan 4th is the first week of the year.
+    },
+});
