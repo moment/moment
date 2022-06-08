@@ -151,7 +151,7 @@ function untruncateYear(yearStr) {
 function preprocessRFC2822(s) {
     // Remove comments and folding whitespace and replace multiple-spaces with a single space
     return s
-        .replace(/\([a-zA-Z0-9\s]*\)|[\n\t]/g, ' ')
+        .replace(/\((?:(?!\().)*\)|[\n\t]/gs, ' ')
         .replace(/(\s\s+)/g, ' ')
         .replace(/^\s\s*/, '')
         .replace(/\s\s*$/, '');
