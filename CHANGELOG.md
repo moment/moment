@@ -1,6 +1,13 @@
 Changelog
 =========
 
+### 2.29.3 [Full changelog](https://gist.github.com/ichernev/edebd440f49adcaec72e5e77b791d8be)
+
+* Release Apr 17, 2022
+  * [#5995](https://github.com/moment/moment/pull/5995) [bugfix] Remove const usage
+  * [#5990](https://github.com/moment/moment/pull/5990) misc: fix advisory link
+
+
 ### 2.29.2 [See full changelog](https://gist.github.com/ichernev/1904b564f6679d9aac1ae08ce13bc45c)
 
 * Release Apr 3 2022
