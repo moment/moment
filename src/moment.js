@@ -1,12 +1,12 @@
 //! moment.js
-//! version : 2.29.3
+//! version : 2.29.4
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
 
 import { hooks as moment, setHookCallback } from './lib/utils/hooks';
 
-moment.version = '2.29.3';
+moment.version = '2.29.4';
 
 import {
     min,
