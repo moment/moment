@@ -1,6 +1,11 @@
 Changelog
 =========
 
+### 2.29.4
+
+* Release Jul 6, 2022
+  * [#6015](https://github.com/moment/moment/pull/6015) [bugfix] Fix ReDoS in preprocessRFC2822 regex
+
 ### 2.29.3 [Full changelog](https://gist.github.com/ichernev/edebd440f49adcaec72e5e77b791d8be)
 
 * Release Apr 17, 2022
