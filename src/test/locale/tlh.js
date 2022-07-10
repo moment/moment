@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('tlh');
 
 test('parse', function (assert) {
-    var tests = 'tera’ jar wa’.jar wa’_tera’ jar cha’.jar cha’_tera’ jar wej.jar wej_tera’ jar loS.jar loS_tera’ jar vagh.jar vagh_tera’ jar jav.jar jav_tera’ jar Soch.jar Soch_tera’ jar chorgh.jar chorgh_tera’ jar Hut.jar Hut_tera’ jar wa’maH.jar wa’maH_tera’ jar wa’maH wa’.jar wa’maH wa’_tera’ jar wa’maH cha’.jar wa’maH cha’'.split(
-            '_'
-        ),
+    var tests =
+            'tera’ jar wa’.jar wa’_tera’ jar cha’.jar cha’_tera’ jar wej.jar wej_tera’ jar loS.jar loS_tera’ jar vagh.jar vagh_tera’ jar jav.jar jav_tera’ jar Soch.jar Soch_tera’ jar chorgh.jar chorgh_tera’ jar Hut.jar Hut_tera’ jar wa’maH.jar wa’maH_tera’ jar wa’maH wa’.jar wa’maH wa’_tera’ jar wa’maH cha’.jar wa’maH cha’'.split(
+                '_'
+            ),
         i;
 
     function equalTest(input, mmm, i) {
@@ -119,9 +120,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'tera’ jar wa’ jar wa’_tera’ jar cha’ jar cha’_tera’ jar wej jar wej_tera’ jar loS jar loS_tera’ jar vagh jar vagh_tera’ jar jav jar jav_tera’ jar Soch jar Soch_tera’ jar chorgh jar chorgh_tera’ jar Hut jar Hut_tera’ jar wa’maH jar wa’maH_tera’ jar wa’maH wa’ jar wa’maH wa’_tera’ jar wa’maH cha’ jar wa’maH cha’'.split(
-            '_'
-        ),
+    var expected =
+            'tera’ jar wa’ jar wa’_tera’ jar cha’ jar cha’_tera’ jar wej jar wej_tera’ jar loS jar loS_tera’ jar vagh jar vagh_tera’ jar jav jar jav_tera’ jar Soch jar Soch_tera’ jar chorgh jar chorgh_tera’ jar Hut jar Hut_tera’ jar wa’maH jar wa’maH_tera’ jar wa’maH wa’ jar wa’maH wa’_tera’ jar wa’maH cha’ jar wa’maH cha’'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -133,9 +135,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'lojmItjaj lojmItjaj lojmItjaj_DaSjaj DaSjaj DaSjaj_povjaj povjaj povjaj_ghItlhjaj ghItlhjaj ghItlhjaj_loghjaj loghjaj loghjaj_buqjaj buqjaj buqjaj_ghInjaj ghInjaj ghInjaj'.split(
-            '_'
-        ),
+    var expected =
+            'lojmItjaj lojmItjaj lojmItjaj_DaSjaj DaSjaj DaSjaj_povjaj povjaj povjaj_ghItlhjaj ghItlhjaj ghItlhjaj_loghjaj loghjaj loghjaj_buqjaj buqjaj buqjaj_ghInjaj ghInjaj ghInjaj'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(

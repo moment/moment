@@ -5,12 +5,14 @@ localeModule('fr');
 
 test('parse', function (assert) {
     var i,
-        tests = 'janvier janv._février févr._mars mars_avril avr._mai mai_juin juin_juillet juil._août août_septembre sept._octobre oct._novembre nov._décembre déc.'.split(
-            '_'
-        ),
-        testsNoDot = 'janvier janv_février févr_mars mars_avril avr_mai mai_juin juin_juillet juil_août août_septembre sept_octobre oct_novembre nov_décembre déc'.split(
-            '_'
-        );
+        tests =
+            'janvier janv._février févr._mars mars_avril avr._mai mai_juin juin_juillet juil._août août_septembre sept._octobre oct._novembre nov._décembre déc.'.split(
+                '_'
+            ),
+        testsNoDot =
+            'janvier janv_février févr_mars mars_avril avr_mai mai_juin juin_juillet juil_août août_septembre sept_octobre oct_novembre nov_décembre déc'.split(
+                '_'
+            );
 
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -159,9 +161,10 @@ test('format ordinal', function (assert) {
 
 test('format month', function (assert) {
     var i,
-        expected = 'janvier janv._février févr._mars mars_avril avr._mai mai_juin juin_juillet juil._août août_septembre sept._octobre oct._novembre nov._décembre déc.'.split(
-            '_'
-        );
+        expected =
+            'janvier janv._février févr._mars mars_avril avr._mai mai_juin juin_juillet juil._août août_septembre sept._octobre oct._novembre nov._décembre déc.'.split(
+                '_'
+            );
 
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -174,9 +177,10 @@ test('format month', function (assert) {
 
 test('format week', function (assert) {
     var i,
-        expected = 'dimanche dim. di_lundi lun. lu_mardi mar. ma_mercredi mer. me_jeudi jeu. je_vendredi ven. ve_samedi sam. sa'.split(
-            '_'
-        );
+        expected =
+            'dimanche dim. di_lundi lun. lu_mardi mar. ma_mercredi mer. me_jeudi jeu. je_vendredi ven. ve_samedi sam. sa'.split(
+                '_'
+            );
 
     for (i = 0; i < expected.length; i++) {
         assert.equal(

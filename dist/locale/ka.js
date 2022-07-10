@@ -10,9 +10,10 @@ export default moment.defineLocale('ka', {
     ),
     monthsShort: 'იან_თებ_მარ_აპრ_მაი_ივნ_ივლ_აგვ_სექ_ოქტ_ნოე_დეკ'.split('_'),
     weekdays: {
-        standalone: 'კვირა_ორშაბათი_სამშაბათი_ოთხშაბათი_ხუთშაბათი_პარასკევი_შაბათი'.split(
-            '_'
-        ),
+        standalone:
+            'კვირა_ორშაბათი_სამშაბათი_ოთხშაბათი_ხუთშაბათი_პარასკევი_შაბათი'.split(
+                '_'
+            ),
         format: 'კვირას_ორშაბათს_სამშაბათს_ოთხშაბათს_ხუთშაბათს_პარასკევს_შაბათს'.split(
             '_'
         ),
@@ -38,13 +39,12 @@ export default moment.defineLocale('ka', {
     },
     relativeTime: {
         future: function (s) {
-            return s.replace(/(წამ|წუთ|საათ|წელ|დღ|თვ)(ი|ე)/, function (
-                $0,
-                $1,
-                $2
-            ) {
-                return $2 === 'ი' ? $1 + 'ში' : $1 + $2 + 'ში';
-            });
+            return s.replace(
+                /(წამ|წუთ|საათ|წელ|დღ|თვ)(ი|ე)/,
+                function ($0, $1, $2) {
+                    return $2 === 'ი' ? $1 + 'ში' : $1 + $2 + 'ში';
+                }
+            );
         },
         past: function (s) {
             if (/(წამი|წუთი|საათი|დღე|თვე)/.test(s)) {

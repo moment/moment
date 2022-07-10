@@ -5,9 +5,10 @@ localeModule('vi');
 
 test('parse', function (assert) {
     var i,
-        tests = 'tháng 1,Thg 01_tháng 2,Thg 02_tháng 3,Thg 03_tháng 4,Thg 04_tháng 5,Thg 05_tháng 6,Thg 06_tháng 7,Thg 07_tháng 8,Thg 08_tháng 9,Thg 09_tháng 10,Thg 10_tháng 11,Thg 11_tháng 12,Thg 12'.split(
-            '_'
-        );
+        tests =
+            'tháng 1,Thg 01_tháng 2,Thg 02_tháng 3,Thg 03_tháng 4,Thg 04_tháng 5,Thg 05_tháng 6,Thg 06_tháng 7,Thg 07_tháng 8,Thg 08_tháng 9,Thg 09_tháng 10,Thg 10_tháng 11,Thg 11_tháng 12,Thg 12'.split(
+                '_'
+            );
 
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -121,9 +122,10 @@ test('format ordinal', function (assert) {
 
 test('format month', function (assert) {
     var i,
-        expected = 'tháng 1,Thg 01_tháng 2,Thg 02_tháng 3,Thg 03_tháng 4,Thg 04_tháng 5,Thg 05_tháng 6,Thg 06_tháng 7,Thg 07_tháng 8,Thg 08_tháng 9,Thg 09_tháng 10,Thg 10_tháng 11,Thg 11_tháng 12,Thg 12'.split(
-            '_'
-        );
+        expected =
+            'tháng 1,Thg 01_tháng 2,Thg 02_tháng 3,Thg 03_tháng 4,Thg 04_tháng 5,Thg 05_tháng 6,Thg 06_tháng 7,Thg 07_tháng 8,Thg 08_tháng 9,Thg 09_tháng 10,Thg 10_tháng 11,Thg 11_tháng 12,Thg 12'.split(
+                '_'
+            );
 
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -136,9 +138,10 @@ test('format month', function (assert) {
 
 test('format week', function (assert) {
     var i,
-        expected = 'chủ nhật CN CN_thứ hai T2 T2_thứ ba T3 T3_thứ tư T4 T4_thứ năm T5 T5_thứ sáu T6 T6_thứ bảy T7 T7'.split(
-            '_'
-        );
+        expected =
+            'chủ nhật CN CN_thứ hai T2 T2_thứ ba T3 T3_thứ tư T4 T4_thứ năm T5 T5_thứ sáu T6 T6_thứ bảy T7 T7'.split(
+                '_'
+            );
 
     for (i = 0; i < expected.length; i++) {
         assert.equal(

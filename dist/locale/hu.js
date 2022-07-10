@@ -5,9 +5,8 @@
 
 import moment from '../moment';
 
-var weekEndings = 'vasárnap hétfőn kedden szerdán csütörtökön pénteken szombaton'.split(
-    ' '
-);
+var weekEndings =
+    'vasárnap hétfőn kedden szerdán csütörtökön pénteken szombaton'.split(' ');
 function translate(number, withoutSuffix, key, isFuture) {
     var num = number;
     switch (key) {
@@ -55,9 +54,10 @@ export default moment.defineLocale('hu', {
     months: 'január_február_március_április_május_június_július_augusztus_szeptember_október_november_december'.split(
         '_'
     ),
-    monthsShort: 'jan._feb._márc._ápr._máj._jún._júl._aug._szept._okt._nov._dec.'.split(
-        '_'
-    ),
+    monthsShort:
+        'jan._feb._márc._ápr._máj._jún._júl._aug._szept._okt._nov._dec.'.split(
+            '_'
+        ),
     monthsParseExact: true,
     weekdays: 'vasárnap_hétfő_kedd_szerda_csütörtök_péntek_szombat'.split('_'),
     weekdaysShort: 'vas_hét_kedd_sze_csüt_pén_szo'.split('_'),

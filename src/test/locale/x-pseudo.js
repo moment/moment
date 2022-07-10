@@ -4,9 +4,10 @@ import moment from '../../moment';
 localeModule('x-pseudo');
 
 test('parse', function (assert) {
-    var tests = 'J~áñúá~rý J~áñ_F~ébrú~árý ~Féb_~Márc~h ~Már_Áp~ríl ~Ápr_~Máý ~Máý_~Júñé~ ~Júñ_Júl~ý ~Júl_Áú~gúst~ ~Áúg_Sép~témb~ér ~Sép_Ó~ctób~ér ~Óct_Ñ~óvém~bér ~Ñóv_~Décé~mbér ~Déc'.split(
-            '_'
-        ),
+    var tests =
+            'J~áñúá~rý J~áñ_F~ébrú~árý ~Féb_~Márc~h ~Már_Áp~ríl ~Ápr_~Máý ~Máý_~Júñé~ ~Júñ_Júl~ý ~Júl_Áú~gúst~ ~Áúg_Sép~témb~ér ~Sép_Ó~ctób~ér ~Óct_Ñ~óvém~bér ~Ñóv_~Décé~mbér ~Déc'.split(
+                '_'
+            ),
         i;
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -118,9 +119,10 @@ test('format ordinal', function (assert) {
 });
 
 test('format month', function (assert) {
-    var expected = 'J~áñúá~rý J~áñ_F~ébrú~árý ~Féb_~Márc~h ~Már_Áp~ríl ~Ápr_~Máý ~Máý_~Júñé~ ~Júñ_Júl~ý ~Júl_Áú~gúst~ ~Áúg_Sép~témb~ér ~Sép_Ó~ctób~ér ~Óct_Ñ~óvém~bér ~Ñóv_~Décé~mbér ~Déc'.split(
-            '_'
-        ),
+    var expected =
+            'J~áñúá~rý J~áñ_F~ébrú~árý ~Féb_~Márc~h ~Már_Áp~ríl ~Ápr_~Máý ~Máý_~Júñé~ ~Júñ_Júl~ý ~Júl_Áú~gúst~ ~Áúg_Sép~témb~ér ~Sép_Ó~ctób~ér ~Óct_Ñ~óvém~bér ~Ñóv_~Décé~mbér ~Déc'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -132,9 +134,10 @@ test('format month', function (assert) {
 });
 
 test('format week', function (assert) {
-    var expected = 'S~úñdá~ý S~úñ S~ú_Mó~ñdáý~ ~Móñ Mó~_Túé~sdáý~ ~Túé Tú_Wéd~ñésd~áý ~Wéd ~Wé_T~húrs~dáý ~Thú T~h_~Fríd~áý ~Frí Fr~_S~átúr~dáý ~Sát Sá'.split(
-            '_'
-        ),
+    var expected =
+            'S~úñdá~ý S~úñ S~ú_Mó~ñdáý~ ~Móñ Mó~_Túé~sdáý~ ~Túé Tú_Wéd~ñésd~áý ~Wéd ~Wé_T~húrs~dáý ~Thú T~h_~Fríd~áý ~Frí Fr~_S~átúr~dáý ~Sát Sá'.split(
+                '_'
+            ),
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -312,36 +315,36 @@ test('fromNow', function (assert) {
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(2).minutes(0).seconds(0);
+    var a = moment().hours(12).minutes(0).seconds(0);
 
     assert.equal(
         moment(a).calendar(),
-        'T~ódá~ý át 02:00',
+        'T~ódá~ý át 12:00',
         'today at the same time'
     );
     assert.equal(
         moment(a).add({ m: 25 }).calendar(),
-        'T~ódá~ý át 02:25',
+        'T~ódá~ý át 12:25',
         'Now plus 25 min'
     );
     assert.equal(
         moment(a).add({ h: 1 }).calendar(),
-        'T~ódá~ý át 03:00',
+        'T~ódá~ý át 13:00',
         'Now plus 1 hour'
     );
     assert.equal(
         moment(a).add({ d: 1 }).calendar(),
-        'T~ómó~rró~w át 02:00',
+        'T~ómó~rró~w át 12:00',
         'tomorrow at the same time'
     );
     assert.equal(
         moment(a).subtract({ h: 1 }).calendar(),
-        'T~ódá~ý át 01:00',
+        'T~ódá~ý át 11:00',
         'Now minus 1 hour'
     );
     assert.equal(
         moment(a).subtract({ d: 1 }).calendar(),
-        'Ý~ést~érdá~ý át 02:00',
+        'Ý~ést~érdá~ý át 12:00',
         'yesterday at the same time'
     );
 });

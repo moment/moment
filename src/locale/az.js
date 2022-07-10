@@ -30,9 +30,10 @@ export default moment.defineLocale('az', {
         '_'
     ),
     monthsShort: 'yan_fev_mar_apr_may_iyn_iyl_avq_sen_okt_noy_dek'.split('_'),
-    weekdays: 'Bazar_Bazar ertəsi_Çərşənbə axşamı_Çərşənbə_Cümə axşamı_Cümə_Şənbə'.split(
-        '_'
-    ),
+    weekdays:
+        'Bazar_Bazar ertəsi_Çərşənbə axşamı_Çərşənbə_Cümə axşamı_Cümə_Şənbə'.split(
+            '_'
+        ),
     weekdaysShort: 'Baz_BzE_ÇAx_Çər_CAx_Cüm_Şən'.split('_'),
     weekdaysMin: 'Bz_BE_ÇA_Çə_CA_Cü_Şə'.split('_'),
     weekdaysParseExact: true,

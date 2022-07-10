@@ -5,9 +5,10 @@ localeModule('bm');
 
 test('parse', function (assert) {
     var i,
-        tests = 'Zanwuyekalo Zan_Fewuruyekalo Few_Marisikalo Mar_Awirilikalo Awi_Mɛkalo Mɛ_Zuwɛnkalo Zuw_Zuluyekalo Zul_Utikalo Uti_Sɛtanburukalo Sɛt_ɔkutɔburukalo ɔku_Nowanburukalo Now_Desanburukalo Des'.split(
-            '_'
-        );
+        tests =
+            'Zanwuyekalo Zan_Fewuruyekalo Few_Marisikalo Mar_Awirilikalo Awi_Mɛkalo Mɛ_Zuwɛnkalo Zuw_Zuluyekalo Zul_Utikalo Uti_Sɛtanburukalo Sɛt_ɔkutɔburukalo ɔku_Nowanburukalo Now_Desanburukalo Des'.split(
+                '_'
+            );
 
     function equalTest(input, mmm, i) {
         assert.equal(
@@ -85,9 +86,10 @@ test('format', function (assert) {
 
 test('format month', function (assert) {
     var i,
-        expected = 'Zanwuyekalo Zan_Fewuruyekalo Few_Marisikalo Mar_Awirilikalo Awi_Mɛkalo Mɛ_Zuwɛnkalo Zuw_Zuluyekalo Zul_Utikalo Uti_Sɛtanburukalo Sɛt_ɔkutɔburukalo ɔku_Nowanburukalo Now_Desanburukalo Des'.split(
-            '_'
-        );
+        expected =
+            'Zanwuyekalo Zan_Fewuruyekalo Few_Marisikalo Mar_Awirilikalo Awi_Mɛkalo Mɛ_Zuwɛnkalo Zuw_Zuluyekalo Zul_Utikalo Uti_Sɛtanburukalo Sɛt_ɔkutɔburukalo ɔku_Nowanburukalo Now_Desanburukalo Des'.split(
+                '_'
+            );
 
     for (i = 0; i < expected.length; i++) {
         assert.equal(
@@ -100,9 +102,10 @@ test('format month', function (assert) {
 
 test('format week', function (assert) {
     var i,
-        expected = 'Kari Kar Ka_Ntɛnɛn Ntɛ Nt_Tarata Tar Ta_Araba Ara Ar_Alamisa Ala Al_Juma Jum Ju_Sibiri Sib Si'.split(
-            '_'
-        );
+        expected =
+            'Kari Kar Ka_Ntɛnɛn Ntɛ Nt_Tarata Tar Ta_Araba Ara Ar_Alamisa Ala Al_Juma Jum Ju_Sibiri Sib Si'.split(
+                '_'
+            );
 
     for (i = 0; i < expected.length; i++) {
         assert.equal(
