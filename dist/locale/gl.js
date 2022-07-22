@@ -2,7 +2,7 @@
 //! locale : Galician [gl]
 //! author : Juan G. Hurtado : https://github.com/juanghurtado
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('gl', {
     months: 'xaneiro_febreiro_marzo_abril_maio_xuño_xullo_agosto_setembro_outubro_novembro_decembro'.split(

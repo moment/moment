@@ -2,7 +2,7 @@
 //! locale : Bengali (Bangladesh) [bn-bd]
 //! author : Asraf Hossain Patoary : https://github.com/ashwoolford
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var symbolMap = {
         1: '১',

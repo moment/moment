@@ -6,7 +6,7 @@
 //! author : forabi https://github.com/forabi
 //! author : Noureddine LOUAHEDJ : https://github.com/noureddinem
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var pluralForm = function (n) {
         return n === 0

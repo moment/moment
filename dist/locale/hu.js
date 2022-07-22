@@ -3,7 +3,7 @@
 //! author : Adam Brunner : https://github.com/adambrunner
 //! author : Peter Viszt  : https://github.com/passatgt
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var weekEndings =
     'vasárnap hétfőn kedden szerdán csütörtökön pénteken szombaton'.split(' ');

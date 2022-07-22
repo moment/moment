@@ -2,7 +2,7 @@
 //! locale : Occitan, lengadocian dialecte [oc-lnc]
 //! author : Quentin PAGÈS : https://github.com/Quenty31
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('oc-lnc', {
     months: {

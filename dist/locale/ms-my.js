@@ -3,7 +3,7 @@
 //! note : DEPRECATED, the correct one is [ms]
 //! author : Weldan Jamili : https://github.com/weldan
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('ms-my', {
     months: 'Januari_Februari_Mac_April_Mei_Jun_Julai_Ogos_September_Oktober_November_Disember'.split(

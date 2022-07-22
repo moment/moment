@@ -2,7 +2,7 @@
 //! locale : Turkmen [tk]
 //! author : Atamyrat Abdyrahmanov : https://github.com/atamyratabdy
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var suffixes = {
     1: "'inji",

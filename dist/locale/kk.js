@@ -2,7 +2,7 @@
 //! locale : Kazakh [kk]
 //! authors : Nurlan Rakhimzhanov : https://github.com/nurlan
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var suffixes = {
     0: '-ші',

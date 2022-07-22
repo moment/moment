@@ -3,7 +3,7 @@
 //! author : Harshad Kale : https://github.com/kalehv
 //! author : Vivek Athalye : https://github.com/vnathalye
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var symbolMap = {
         1: '१',
