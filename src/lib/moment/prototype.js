@@ -99,8 +99,11 @@ proto.quarter = proto.quarters = getSetQuarter;
 
 // Month
 import { getSetMonth, getDaysInMonth } from '../units/month';
+import { getMonthName } from '../moment/month-name'
+
 proto.month = getSetMonth;
 proto.daysInMonth = getDaysInMonth;
+proto.getMonthName = getMonthName;
 
 // Week
 import { getSetWeek, getSetISOWeek } from '../units/week';
