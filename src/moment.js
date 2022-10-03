@@ -9,6 +9,8 @@ import { hooks as moment, setHookCallback } from './lib/utils/hooks';
 moment.version = '2.29.4';
 
 import {
+    APA,
+    MLA,
     min,
     max,
     now,

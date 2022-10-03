@@ -4,6 +4,7 @@ import { createInvalid } from '../create/valid';
 import { isMoment } from './constructor';
 import { min, max } from './min-max';
 import { now } from './now';
+import { MLA, APA } from './reference-format'
 import momentPrototype from './prototype';
 
 function createUnix(input) {
@@ -15,6 +16,8 @@ function createInZone() {
 }
 
 export {
+    APA,
+    MLA,
     now,
     min,
     max,
