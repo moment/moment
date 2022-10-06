@@ -1,8 +1,6 @@
 import { get } from '../moment/get-set';
 import hasOwnProp from '../utils/has-own-prop';
 import { addFormatToken } from '../format/format';
-import { addUnitAlias } from './aliases';
-import { addUnitPriority } from './priorities';
 import {
     addRegexToken,
     match1to2,
@@ -49,13 +47,6 @@ addFormatToken('MMMM', 0, 0, function (format) {
     return this.localeData().months(this, format);
 });
 
-// ALIASES
-
-addUnitAlias('month', 'M');
-
-// PRIORITY
-
-addUnitPriority('month', 8);
 
 // PARSING
 
