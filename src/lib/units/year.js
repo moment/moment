@@ -1,7 +1,5 @@
 import { makeGetSet } from '../moment/get-set';
 import { addFormatToken } from '../format/format';
-import { addUnitAlias } from './aliases';
-import { addUnitPriority } from './priorities';
 import {
     addRegexToken,
     match1to2,
@@ -33,14 +31,6 @@ addFormatToken(0, ['YY', 2], 0, function () {
 addFormatToken(0, ['YYYY', 4], 0, 'year');
 addFormatToken(0, ['YYYYY', 5], 0, 'year');
 addFormatToken(0, ['YYYYYY', 6, true], 0, 'year');
-
-// ALIASES
-
-addUnitAlias('year', 'y');
-
-// PRIORITIES
-
-addUnitPriority('year', 1);
 
 // PARSING
 
