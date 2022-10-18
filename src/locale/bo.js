@@ -91,9 +91,7 @@ export default moment.defineLocale('bo', {
     },
     meridiemParse: /མཚན་མོ|ཞོགས་ཀས|ཉིན་གུང|དགོང་དག|མཚན་མོ/,
     meridiemHour: function (hour, meridiem) {
-        if (hour === 12) {
-            hour = 0;
-        }
+        hour === 12 && hour = 0;
         if (
             (meridiem === 'མཚན་མོ' && hour >= 4) ||
             (meridiem === 'ཉིན་གུང' && hour < 5) ||
