@@ -5,10 +5,10 @@
 import moment from '../moment';
 
 var months = {
-        format: 'leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec'.split(
+        standalone: 'leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec'.split(
             '_'
         ),
-        standalone:
+        format:
             'ledna_února_března_dubna_května_června_července_srpna_září_října_listopadu_prosince'.split(
                 '_'
             ),
