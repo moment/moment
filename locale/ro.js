@@ -35,7 +35,7 @@
             '_'
         ),
         monthsShort:
-            'ian._feb._mart._apr._mai_iun._iul._aug._sept._oct._nov._dec.'.split(
+            'ian._feb._mart._apr._mai._iun._iul._aug._sept._oct._nov._dec.'.split(
                 '_'
             ),
         monthsParseExact: true,
