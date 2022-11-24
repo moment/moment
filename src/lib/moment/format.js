@@ -6,7 +6,7 @@ hooks.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ';
 hooks.defaultFormatUtc = 'YYYY-MM-DDTHH:mm:ss[Z]';
 
 export function toString() {
-    return this.clone().locale('en').format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
+    return this.clone().locale('en').format('ddd DD MMM YYYY HH:mm:ss ZZ');
 }
 
 export function toISOString(keepOffset) {
