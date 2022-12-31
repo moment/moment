@@ -25,10 +25,10 @@ export default moment.defineLocale('ku', {
     },
     calendar: {
         sameDay: '[Îro di demjimêr] LT [de]',
-        nextDay: '[Sibê di demjimêr] LT [de]',
+        nextDay: '[Siba di demjimêr] LT [de]',
         nextWeek: 'dddd [di demjimêr] LT [de]',
-        lastDay: '[Duh di demjimêr] LT [de]',
-        lastWeek: '[Hefteya dawî] dddd [di demjimêr] LT [de]',
+        lastDay: '[Roja borî di demjimêr] LT [de]',
+        lastWeek: '[Hefteya borî] dddd [di demjimêr] LT [de]',
         sameElse: 'L',
     },
     relativeTime: {
@@ -36,7 +36,7 @@ export default moment.defineLocale('ku', {
         past: 'berî %s',
         s: 'çirke',
         ss: '%d çirke',
-        m: 'yek xulek',
+        m: 'xulek',
         mm: '%d xulek',
         h: 'demjimêr',
         hh: '%d demjimêr',
