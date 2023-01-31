@@ -62,7 +62,7 @@ export function Moment(config) {
     copyConfig(this, config);
     this._d = new Date(config._d != null ? config._d.getTime() : NaN);
     if (!this.isValid()) {
-        this._d = new Date(NaN);
+        throw Error("moment: invalid config");
     }
     // Prevent infinite loop in case updateOffset creates new moment
     // objects.
