@@ -19,46 +19,6 @@ var priorities = {
     year: 1
 }
 
-/*
-var priorities = {};
-
-export function addUnitPriority(unit, priority) {
-    priorities[unit] = priority;
-}
-
-
-//day-of-month.js
-addUnitPriority('date', 9);
-//day-of-week.js
-addUnitPriority('day', 11);
-addUnitPriority('weekday', 11);
-addUnitPriority('isoWeekday', 11);
-//day-of-year.js
-addUnitPriority('dayOfYear', 4);
-//hour.js
-addUnitPriority('hour', 13);
-//millisecond.js
-addUnitPriority('millisecond', 16);
-//minute.js
-addUnitPriority('minute', 14);
-//month.js
-addUnitPriority('month', 8);
-//quarter.js
-addUnitPriority('quarter', 7);
-//second.js
-addUnitPriority('second', 15);
-//week-year.js
-addUnitPriority('weekYear', 1);
-addUnitPriority('isoWeekYear', 1);
-//week.js
-addUnitPriority('week', 5);
-addUnitPriority('isoWeek', 5);
-//year.js
-addUnitPriority('year', 1);
-
-
-*/
-
 export function getPrioritizedUnits(unitsObj) {
     var units = [],
         u;

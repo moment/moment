@@ -52,45 +52,6 @@ var aliases =
     year: 'year'
   }
 
-/*
-
-var aliases = {};
-
-export function addUnitAlias(unit, shorthand) {
-    var lowerCase = unit.toLowerCase();
-    aliases[lowerCase] = aliases[lowerCase + 's'] = aliases[shorthand] = unit;
-}
-
-//day-of-month.js
-addUnitAlias('date', 'D');
-//day-of-week.js
-addUnitAlias('day', 'd');
-addUnitAlias('weekday', 'e');
-addUnitAlias('isoWeekday', 'E');
-//day-of-year.js
-addUnitAlias('dayOfYear', 'DDD');
-//hour.js
-addUnitAlias('hour', 'h');
-//millisecond.js
-addUnitAlias('millisecond', 'ms');
-//minute.js
-addUnitAlias('minute', 'm');
-//month.js
-addUnitAlias('month', 'M');
-//quarter.js
-addUnitAlias('quarter', 'Q');
-//second.js
-addUnitAlias('second', 's');
-//week-year.js
-addUnitAlias('weekYear', 'gg');
-addUnitAlias('isoWeekYear', 'GG');
-//week.js
-addUnitAlias('week', 'w');
-addUnitAlias('isoWeek', 'W');
-//year.js
-addUnitAlias('year', 'y');
-
-*/
 export function normalizeUnits(units) {
     return typeof units === 'string'
         ? aliases[units] || aliases[units.toLowerCase()]
