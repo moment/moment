@@ -6,11 +6,11 @@ import { min, max } from './min-max';
 import { now } from './now';
 import momentPrototype from './prototype';
 
-function createUnix (input) {
+function createUnix(input) {
     return createLocal(input * 1000);
 }
 
-function createInZone () {
+function createInZone() {
     return createLocal.apply(null, arguments).parseZone();
 }
 
@@ -24,5 +24,5 @@ export {
     createLocal,
     createInZone,
     createInvalid,
-    momentPrototype
+    momentPrototype,
 };

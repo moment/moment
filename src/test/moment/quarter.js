@@ -4,13 +4,13 @@ import moment from '../../moment';
 module('quarter');
 
 test('library quarter getter', function (assert) {
-    assert.equal(moment([1985,  1,  4]).quarter(), 1, 'Feb  4 1985 is Q1');
-    assert.equal(moment([2029,  8, 18]).quarter(), 3, 'Sep 18 2029 is Q3');
-    assert.equal(moment([2013,  3, 24]).quarter(), 2, 'Apr 24 2013 is Q2');
-    assert.equal(moment([2015,  2,  5]).quarter(), 1, 'Mar  5 2015 is Q1');
-    assert.equal(moment([1970,  0,  2]).quarter(), 1, 'Jan  2 1970 is Q1');
+    assert.equal(moment([1985, 1, 4]).quarter(), 1, 'Feb  4 1985 is Q1');
+    assert.equal(moment([2029, 8, 18]).quarter(), 3, 'Sep 18 2029 is Q3');
+    assert.equal(moment([2013, 3, 24]).quarter(), 2, 'Apr 24 2013 is Q2');
+    assert.equal(moment([2015, 2, 5]).quarter(), 1, 'Mar  5 2015 is Q1');
+    assert.equal(moment([1970, 0, 2]).quarter(), 1, 'Jan  2 1970 is Q1');
     assert.equal(moment([2001, 11, 12]).quarter(), 4, 'Dec 12 2001 is Q4');
-    assert.equal(moment([2000,  0,  2]).quarter(), 1, 'Jan  2 2000 is Q1');
+    assert.equal(moment([2000, 0, 2]).quarter(), 1, 'Jan  2 2000 is Q1');
 });
 
 test('quarter setter singular', function (assert) {
@@ -76,17 +76,33 @@ test('quarter setter bubble to next year', function (assert) {
 });
 
 test('quarter diff', function (assert) {
-    assert.equal(moment('2014-01-01').diff(moment('2014-04-01'), 'quarter'),
-            -1, 'diff -1 quarter');
-    assert.equal(moment('2014-04-01').diff(moment('2014-01-01'), 'quarter'),
-            1, 'diff 1 quarter');
-    assert.equal(moment('2014-05-01').diff(moment('2014-01-01'), 'quarter'),
-            1, 'diff 1 quarter');
-    assert.ok(Math.abs((4 / 3) - moment('2014-05-01').diff(
-                    moment('2014-01-01'), 'quarter', true)) < 0.00001,
-            'diff 1 1/3 quarter');
-    assert.equal(moment('2015-01-01').diff(moment('2014-01-01'), 'quarter'),
-            4, 'diff 4 quarters');
+    assert.equal(
+        moment('2014-01-01').diff(moment('2014-04-01'), 'quarter'),
+        -1,
+        'diff -1 quarter'
+    );
+    assert.equal(
+        moment('2014-04-01').diff(moment('2014-01-01'), 'quarter'),
+        1,
+        'diff 1 quarter'
+    );
+    assert.equal(
+        moment('2014-05-01').diff(moment('2014-01-01'), 'quarter'),
+        1,
+        'diff 1 quarter'
+    );
+    assert.ok(
+        Math.abs(
+            4 / 3 -
+                moment('2014-05-01').diff(moment('2014-01-01'), 'quarter', true)
+        ) < 0.00001,
+        'diff 1 1/3 quarter'
+    );
+    assert.equal(
+        moment('2015-01-01').diff(moment('2014-01-01'), 'quarter'),
+        4,
+        'diff 4 quarters'
+    );
 });
 
 test('quarter setter bubble to previous year', function (assert) {

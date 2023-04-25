@@ -1,8 +1,23 @@
+/**
+ * @param strict Strict parsing disables the deprecated fallback to the native Date constructor when
+ * parsing a string.
+ */
+declare function moment(inp?: moment.MomentInput, strict?: boolean): moment.Moment;
+/**
+ * @param strict Strict parsing requires that the format and input match exactly, including delimiters.
+ * Strict parsing is frequently the best parsing option. For more information about choosing strict vs
+ * forgiving parsing, see the [parsing guide](https://momentjs.com/guides/#/parsing/).
+ */
 declare function moment(inp?: moment.MomentInput, format?: moment.MomentFormatSpecification, strict?: boolean): moment.Moment;
+/**
+ * @param strict Strict parsing requires that the format and input match exactly, including delimiters.
+ * Strict parsing is frequently the best parsing option. For more information about choosing strict vs
+ * forgiving parsing, see the [parsing guide](https://momentjs.com/guides/#/parsing/).
+ */
 declare function moment(inp?: moment.MomentInput, format?: moment.MomentFormatSpecification, language?: string, strict?: boolean): moment.Moment;
 
 declare namespace moment {
-  type RelativeTimeKey = 's' | 'ss' | 'm' | 'mm' | 'h' | 'hh' | 'd' | 'dd' | 'M' | 'MM' | 'y' | 'yy';
+  type RelativeTimeKey = 's' | 'ss' | 'm' | 'mm' | 'h' | 'hh' | 'd' | 'dd' | 'w' | 'ww' | 'M' | 'MM' | 'y' | 'yy';
   type CalendarKey = 'sameDay' | 'nextDay' | 'lastDay' | 'nextWeek' | 'lastWeek' | 'sameElse' | string;
   type LongDateFormatKey = 'LTS' | 'LT' | 'L' | 'LL' | 'LLL' | 'LLLL' | 'lts' | 'lt' | 'l' | 'll' | 'lll' | 'llll';
 
@@ -55,7 +70,7 @@ declare namespace moment {
 
   interface WeekSpec {
     dow: number;
-    doy: number;
+    doy?: number;
   }
 
   type CalendarSpecVal = string | ((m?: MomentInput, now?: Moment) => string);
@@ -89,6 +104,8 @@ declare namespace moment {
     hh?: RelativeTimeSpecVal;
     d?: RelativeTimeSpecVal;
     dd?: RelativeTimeSpecVal;
+    w?: RelativeTimeSpecVal
+    ww?: RelativeTimeSpecVal;
     M?: RelativeTimeSpecVal;
     MM?: RelativeTimeSpecVal;
     y?: RelativeTimeSpecVal;
@@ -114,6 +131,14 @@ declare namespace moment {
 
   type MonthWeekdayFn = (momentToFormat: Moment, format?: string) => string;
   type WeekdaySimpleFn = (momentToFormat: Moment) => string;
+  interface EraSpec {
+    since: string | number;
+    until: string | number;
+    offset: number;
+    name: string;
+    narrow: string;
+    abbr: string;
+  }
 
   interface LocaleSpecification {
     months?: string[] | StandaloneFormatSpec | MonthWeekdayFn;
@@ -136,6 +161,7 @@ declare namespace moment {
     ordinalParse?: RegExp;
 
     week?: WeekSpec;
+    eras?: EraSpec[];
 
     // Allow anything: in general any property that is passed as locale spec is
     // put in the locale object so it can be used by locale functions
@@ -154,10 +180,22 @@ declare namespace moment {
     milliseconds: number;
   }
 
+  interface argThresholdOpts {
+    ss?: number;
+    s?: number;
+    m?: number;
+    h?: number;
+    d?: number;
+    w?: number | void;
+    M?: number;
+  }
+
   interface Duration {
     clone(): Duration;
 
-    humanize(withSuffix?: boolean): string;
+    humanize(argWithSuffix?: boolean, argThresholds?: argThresholdOpts): string;
+    
+    humanize(argThresholds?: argThresholdOpts): string;
 
     abs(): Duration;
 
@@ -197,7 +235,7 @@ declare namespace moment {
 
     toISOString(): string;
     toJSON(): string;
-    
+
     isValid(): boolean;
 
     /**
@@ -283,7 +321,7 @@ declare namespace moment {
 
   type MomentFormatSpecification = string | MomentBuiltinFormat | (string | MomentBuiltinFormat)[];
 
-  namespace unitOfTime {
+  export namespace unitOfTime {
     type Base = (
       "year" | "years" | "y" |
       "month" | "months" | "M" |
@@ -298,17 +336,17 @@ declare namespace moment {
     type _quarter = "quarter" | "quarters" | "Q";
     type _isoWeek = "isoWeek" | "isoWeeks" | "W";
     type _date = "date" | "dates" | "D";
-    type DurationConstructor = Base | _quarter;
+    type DurationConstructor = Base | _quarter | _isoWeek;
 
-    type DurationAs = Base;
+    export type DurationAs = Base;
 
-    type StartOf = Base | _quarter | _isoWeek | _date | void; // null
+    export type StartOf = Base | _quarter | _isoWeek | _date | void; // null
 
-    type Diff = Base | _quarter;
+    export type Diff = Base | _quarter;
 
-    type MomentConstructor = Base | _date;
+    export type MomentConstructor = Base | _date;
 
-    type All = Base | _quarter | _isoWeek | _date |
+    export type All = Base | _quarter | _isoWeek | _date |
       "weekYear" | "weekYears" | "gg" |
       "isoWeekYear" | "isoWeekYears" | "GG" |
       "dayOfYear" | "dayOfYears" | "DDD" |
@@ -316,82 +354,83 @@ declare namespace moment {
       "isoWeekday" | "isoWeekdays" | "E";
   }
 
+  type numberlike = number | string;
   interface MomentInputObject {
-    years?: number;
-    year?: number;
-    y?: number;
+    years?: numberlike;
+    year?: numberlike;
+    y?: numberlike;
 
-    months?: number;
-    month?: number;
-    M?: number;
+    months?: numberlike;
+    month?: numberlike;
+    M?: numberlike;
 
-    days?: number;
-    day?: number;
-    d?: number;
+    days?: numberlike;
+    day?: numberlike;
+    d?: numberlike;
 
-    dates?: number;
-    date?: number;
-    D?: number;
+    dates?: numberlike;
+    date?: numberlike;
+    D?: numberlike;
 
-    hours?: number;
-    hour?: number;
-    h?: number;
+    hours?: numberlike;
+    hour?: numberlike;
+    h?: numberlike;
 
-    minutes?: number;
-    minute?: number;
-    m?: number;
+    minutes?: numberlike;
+    minute?: numberlike;
+    m?: numberlike;
 
-    seconds?: number;
-    second?: number;
-    s?: number;
+    seconds?: numberlike;
+    second?: numberlike;
+    s?: numberlike;
 
-    milliseconds?: number;
-    millisecond?: number;
-    ms?: number;
+    milliseconds?: numberlike;
+    millisecond?: numberlike;
+    ms?: numberlike;
   }
 
   interface DurationInputObject extends MomentInputObject {
-    quarters?: number;
-    quarter?: number;
-    Q?: number;
+    quarters?: numberlike;
+    quarter?: numberlike;
+    Q?: numberlike;
 
-    weeks?: number;
-    week?: number;
-    w?: number;
+    weeks?: numberlike;
+    week?: numberlike;
+    w?: numberlike;
   }
 
   interface MomentSetObject extends MomentInputObject {
-    weekYears?: number;
-    weekYear?: number;
-    gg?: number;
+    weekYears?: numberlike;
+    weekYear?: numberlike;
+    gg?: numberlike;
 
-    isoWeekYears?: number;
-    isoWeekYear?: number;
-    GG?: number;
+    isoWeekYears?: numberlike;
+    isoWeekYear?: numberlike;
+    GG?: numberlike;
 
-    quarters?: number;
-    quarter?: number;
-    Q?: number;
+    quarters?: numberlike;
+    quarter?: numberlike;
+    Q?: numberlike;
 
-    weeks?: number;
-    week?: number;
-    w?: number;
+    weeks?: numberlike;
+    week?: numberlike;
+    w?: numberlike;
 
-    isoWeeks?: number;
-    isoWeek?: number;
-    W?: number;
+    isoWeeks?: numberlike;
+    isoWeek?: numberlike;
+    W?: numberlike;
 
-    dayOfYears?: number;
-    dayOfYear?: number;
-    DDD?: number;
+    dayOfYears?: numberlike;
+    dayOfYear?: numberlike;
+    DDD?: numberlike;
 
-    weekdays?: number;
-    weekday?: number;
-    e?: number;
+    weekdays?: numberlike;
+    weekday?: numberlike;
+    e?: numberlike;
 
-    isoWeekdays?: number;
-    isoWeekday?: number;
-    E?: number;
+    isoWeekdays?: numberlike;
+    isoWeekday?: numberlike;
+    E?: numberlike;
   }
 
   interface FromTo {
@@ -430,7 +469,9 @@ declare namespace moment {
      */
     subtract(unit: unitOfTime.DurationConstructor, amount: number|string): Moment;
 
-    calendar(time?: MomentInput, formats?: CalendarSpec): string;
+    calendar(): string;
+    calendar(formats: CalendarSpec): string;
+    calendar(time: MomentInput, formats?: CalendarSpec): string;
 
     clone(): Moment;
 
@@ -531,7 +572,9 @@ declare namespace moment {
     isoWeeks(): number;
     isoWeeks(d: number): Moment;
     weeksInYear(): number;
+    weeksInWeekYear(): number;
     isoWeeksInYear(): number;
+    isoWeeksInISOWeekYear(): number;
     dayOfYear(): number;
     dayOfYear(d: number): Moment;
 
@@ -621,7 +664,22 @@ declare namespace moment {
   export var fn: Moment;
 
   // NOTE(constructor): Same as moment constructor
+  /**
+   * @param strict Strict parsing disables the deprecated fallback to the native Date constructor when
+   * parsing a string.
+   */
+  export function utc(inp?: MomentInput, strict?: boolean): Moment;
+  /**
+   * @param strict Strict parsing requires that the format and input match exactly, including delimiters.
+   * Strict parsing is frequently the best parsing option. For more information about choosing strict vs
+   * forgiving parsing, see the [parsing guide](https://momentjs.com/guides/#/parsing/).
+   */
   export function utc(inp?: MomentInput, format?: MomentFormatSpecification, strict?: boolean): Moment;
+  /**
+   * @param strict Strict parsing requires that the format and input match exactly, including delimiters.
+   * Strict parsing is frequently the best parsing option. For more information about choosing strict vs
+   * forgiving parsing, see the [parsing guide](https://momentjs.com/guides/#/parsing/).
+   */
   export function utc(inp?: MomentInput, format?: MomentFormatSpecification, language?: string, strict?: boolean): Moment;
 
   export function unix(timestamp: number): Moment;
@@ -718,16 +776,18 @@ declare namespace moment {
 
   export var defaultFormat: string;
   export var defaultFormatUtc: string;
-  
-  export var HTML5_FMT: { 
+  export var suppressDeprecationWarnings: boolean;
+  export var deprecationHandler: ((name: string | void, msg: string) => void) | void;
+
+  export var HTML5_FMT: {
     DATETIME_LOCAL: string,
     DATETIME_LOCAL_SECONDS: string,
     DATETIME_LOCAL_MS: string,
-    DATE: string,                           
-    TIME: string,                                 
-    TIME_SECONDS: string,                      
-    TIME_MS: string,                        
-    WEEK: string,                           
+    DATE: string,
+    TIME: string,
+    TIME_SECONDS: string,
+    TIME_MS: string,
+    WEEK: string,
     MONTH: string
   };
 

@@ -4,7 +4,7 @@ import { deprecate } from '../utils/deprecate';
 // If passed a locale key, it will set the locale for this
 // instance.  Otherwise, it will return the locale configuration
 // variables for this instance.
-export function locale (key) {
+export function locale(key) {
     var newLocaleData;
 
     if (key === undefined) {
@@ -29,6 +29,6 @@ export var lang = deprecate(
     }
 );
 
-export function localeData () {
+export function localeData() {
     return this._locale;
 }

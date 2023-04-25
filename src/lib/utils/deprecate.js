@@ -1,10 +1,13 @@
 import extend from './extend';
 import { hooks } from './hooks';
-import isUndefined from './is-undefined';
+import hasOwnProp from './has-own-prop';
 
 function warn(msg) {
-    if (hooks.suppressDeprecationWarnings === false &&
-            (typeof console !==  'undefined') && console.warn) {
+    if (
+        hooks.suppressDeprecationWarnings === false &&
+        typeof console !== 'undefined' &&
+        console.warn
+    ) {
         console.warn('Deprecation warning: ' + msg);
     }
 }
@@ -17,14 +20,19 @@ export function deprecate(msg, fn) {
             hooks.deprecationHandler(null, msg);
         }
         if (firstTime) {
-            var args = [];
-            var arg;
-            for (var i = 0; i < arguments.length; i++) {
+            var args = [],
+                arg,
+                i,
+                key,
+                argLen = arguments.length;
+            for (i = 0; i < argLen; i++) {
                 arg = '';
                 if (typeof arguments[i] === 'object') {
                     arg += '\n[' + i + '] ';
-                    for (var key in arguments[0]) {
-                        arg += key + ': ' + arguments[0][key] + ', ';
+                    for (key in arguments[0]) {
+                        if (hasOwnProp(arguments[0], key)) {
+                            arg += key + ': ' + arguments[0][key] + ', ';
+                        }
                     }
                     arg = arg.slice(0, -2); // Remove trailing comma and space
                 } else {
@@ -32,7 +40,13 @@ export function deprecate(msg, fn) {
                 }
                 args.push(arg);
             }
-            warn(msg + '\nArguments: ' + Array.prototype.slice.call(args).join('') + '\n' + (new Error()).stack);
+            warn(
+                msg +
+                    '\nArguments: ' +
+                    Array.prototype.slice.call(args).join('') +
+                    '\n' +
+                    new Error().stack
+            );
             firstTime = false;
         }
         return fn.apply(this, arguments);

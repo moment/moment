@@ -1,6 +1,99 @@
 Changelog
 =========
 
+### 2.29.4
+
+* Release Jul 6, 2022
+  * [#6015](https://github.com/moment/moment/pull/6015) [bugfix] Fix ReDoS in preprocessRFC2822 regex
+
+### 2.29.3 [Full changelog](https://gist.github.com/ichernev/edebd440f49adcaec72e5e77b791d8be)
+
+* Release Apr 17, 2022
+  * [#5995](https://github.com/moment/moment/pull/5995) [bugfix] Remove const usage
+  * [#5990](https://github.com/moment/moment/pull/5990) misc: fix advisory link
+
+
+### 2.29.2 [See full changelog](https://gist.github.com/ichernev/1904b564f6679d9aac1ae08ce13bc45c)
+
+* Release Apr 3 2022
+
+Address https://github.com/moment/moment/security/advisories/GHSA-8hfj-j24r-96c4
+
+### 2.29.1 [See full changelog](https://gist.github.com/marwahaha/cc478ba01a1292ab4bd4e861d164d99b)
+
+* Release Oct 6, 2020
+
+Updated deprecation message, bugfix in hi locale
+
+### 2.29.0 [See full changelog](https://gist.github.com/marwahaha/b0111718641a6461800066549957ec14)
+
+* Release Sept 22, 2020
+
+New locales (es-mx, bn-bd).
+Minor bugfixes and locale improvements.
+More tests.
+Moment is in maintenance mode. Read more at this link:
+https://momentjs.com/docs/#/-project-status/
+
+### 2.28.0 [See full changelog](https://gist.github.com/marwahaha/028fd6c2b2470b2804857cfd63c0e94f)
+
+* Release Sept 13, 2020
+
+Fix bug where .format() modifies original instance, and locale updates
+
+### 2.27.0 [See full changelog](https://gist.github.com/marwahaha/5100c9c2f42019067b1f6cefc333daa7)
+
+* Release June 18, 2020
+
+Added Turkmen locale, other locale improvements, slight TypeScript fixes
+
+### 2.26.0 [See full changelog](https://gist.github.com/marwahaha/0725c40740560854a849b096ea7b7590)
+
+* Release May 19, 2020
+
+TypeScript fixes and many locale improvements
+
+### 2.25.3
+
+* Release May 4, 2020
+
+Remove package.json module property. It looks like webpack behaves differently
+for modules loaded via module vs jsnext:main.
+
+### 2.25.2
+
+* Release May 4, 2020
+
+This release includes ES Module bundled moment, separate from it's source code
+under dist/ folder. This might alleviate issues with finding the `./locale
+subfolder for loading locales. This might also mean now webpack will bundle all
+locales automatically, unless told otherwise.
+
+### 2.25.1
+
+* Release May 1, 2020
+
+This is a quick patch release to address some of the issues raised after
+releasing 2.25.0.
+
+* [2e268635](https://github.com/moment/moment/commit/2e268635) [misc] Revert #5269 due to webpack warning
+* [226799e1](https://github.com/moment/moment/commit/226799e1) [locale] fil: Fix metadata comment
+* [a83a521](https://github.com/moment/moment/commit/a83a521) [bugfix] Fix typeoff usages
+* [e324334](https://github.com/moment/moment/commit/e324334) [pkg] Add ts3.1-typings in npm package
+* [28cc23e](https://github.com/moment/moment/commit/28cc23e) [misc] Remove deleted generated locale en-SG
+
+### 2.25.0 [See full changelog](https://gist.github.com/ichernev/6148e64df2427e455b10ce6a18de1a65)
+
+* Release May 1, 2020
+
+* [#4611](https://github.com/moment/moment/issues/4611) [022dc038](https://github.com/moment/moment/commit/022dc038) [feature] Support for strict string parsing, fixes [#2469](https://github.com/moment/moment/issues/2469)
+* [#4599](https://github.com/moment/moment/issues/4599) [4b615b9d](https://github.com/moment/moment/commit/4b615b9d) [feature] Add support for eras in en and jp
+* [#4296](https://github.com/moment/moment/issues/4296) [757d4ff8](https://github.com/moment/moment/commit/757d4ff8) [feature] Accept custom relative thresholds in duration.humanize
+
+* 18 bigfixes
+* 36 locale fixes
+* 5 new locales (oc-lnc, zh-mo, en-in, gom-deva, fil)
+
 ### 2.24.0 [See full changelog](https://gist.github.com/marwahaha/12366fe45bee328f33acf125d4cd540e)
 
 * Release Jan 21, 2019

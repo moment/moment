@@ -1,8 +1,8 @@
 {
     "name": "moment",
-    "version": "2.24.0",
+    "version": "2.29.4",
     "description": "Parse, validate, manipulate, and display dates",
-    "homepage": "http://momentjs.com",
+    "homepage": "https://momentjs.com",
     "author": "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)",
     "contributors": [
         "Tim Wood <washwithcare@gmail.com> (http://timwoodcreates.com/)",
@@ -23,8 +23,15 @@
         "ender"
     ],
     "main": "./moment.js",
-    "jsnext:main": "./src/moment.js",
+    "jsnext:main": "./dist/moment.js",
     "typings": "./moment.d.ts",
+    "typesVersions": {
+        ">=3.1": {
+            "*": [
+                "ts3.1-typings/*"
+            ]
+        }
+    },
     "engines": {
         "node": "*"
     },
@@ -38,20 +45,20 @@
     "license": "MIT",
     "devDependencies": {
         "benchmark": "latest",
-        "coveralls": "^3.0.2",
+        "coveralls": "latest",
+        "cross-env": "^6.0.3",
         "es6-promise": "latest",
-        "grunt": "~0.4",
+        "eslint": "~6",
+        "grunt": "latest",
         "grunt-benchmark": "latest",
         "grunt-cli": "latest",
         "grunt-contrib-clean": "latest",
         "grunt-contrib-concat": "latest",
         "grunt-contrib-copy": "latest",
-        "grunt-contrib-jshint": "latest",
         "grunt-contrib-uglify": "latest",
-        "grunt-contrib-watch": "^1.1.0",
+        "grunt-contrib-watch": "latest",
         "grunt-env": "latest",
         "grunt-exec": "latest",
-        "grunt-jscs": "latest",
         "grunt-karma": "latest",
         "grunt-nuget": "latest",
         "grunt-string-replace": "latest",
@@ -59,14 +66,16 @@
         "karma-chrome-launcher": "latest",
         "karma-firefox-launcher": "latest",
         "karma-qunit": "latest",
-        "karma-sauce-launcher": "latest",
-        "load-grunt-tasks": "~3.5.2",
-        "node-qunit": "^1.0.0",
-        "nyc": "~11.9.0",
-        "qunit": "^2.7.1",
-        "rollup": "~0.67.4",
-        "spacejam": "latest",
+        "karma-sauce-launcher": "4.1.4",
+        "load-grunt-tasks": "latest",
+        "lodash": ">=4.17.19",
+        "node-qunit": "latest",
+        "nyc": "latest",
+        "prettier": "latest",
+        "qunit": "^2.10.0",
+        "rollup": "2.17.1",
         "typescript": "^1.8.10",
+        "typescript3": "npm:typescript@^3.1.6",
         "uglify-js": "latest"
     },
     "ender": "./ender.js",
@@ -85,8 +94,12 @@
         }
     },
     "scripts": {
-        "typescript-test": "tsc --project typing-tests",
+        "ts3.1-typescript-test": "cross-env node_modules/typescript3/bin/tsc --project ts3.1-typing-tests",
+        "typescript-test": "cross-env node_modules/typescript/bin/tsc --project typing-tests",
         "test": "grunt test",
+        "eslint": "eslint Gruntfile.js tasks src",
+        "prettier-check": "prettier --check Gruntfile.js tasks src",
+        "prettier-fmt": "prettier --write Gruntfile.js tasks src",
         "coverage": "nyc npm test && nyc report",
         "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
     },
