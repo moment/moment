@@ -101,6 +101,7 @@ proto.quarter = proto.quarters = getSetQuarter;
 import { getSetMonth, getDaysInMonth } from '../units/month';
 proto.month = getSetMonth;
 proto.daysInMonth = getDaysInMonth;
+proto.getMonthName = getMonthName;
 
 // Week
 import { getSetWeek, getSetISOWeek } from '../units/week';
@@ -173,6 +174,7 @@ proto.zoneName = getZoneName;
 
 // Deprecations
 import { deprecate } from '../utils/deprecate';
+import { getMonthName } from './moment-name';
 proto.dates = deprecate(
     'dates accessor is deprecated. Use date instead.',
     getSetDayOfMonth
