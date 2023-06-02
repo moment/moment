@@ -15,7 +15,7 @@ export default moment.defineLocale('or', {
     weekdays: 'ରବିବାର_ସୋମବାର_ମଙ୍ଗଳବାର_ବୁଧବାର_ଗୁରୁବାର_ଶୁକ୍ରବାର_ଶନିବାର'.split(
         '_'
     ),
-    weekdaysShort: 'ରବି_ସୋମ_ମଙ୍ଗଳ_ବୁଧ_ଗୁରୁବ_ଶୁକ୍ରବ_ଶନି'.split('_'),
+    weekdaysShort: 'ରବି_ସୋମ_ମଙ୍ଗଳ_ବୁଧ_ଗୁରୁ_ଶୁକ୍ର_ଶନି'.split('_'),
     weekdaysMin: 'ର_ସୋ_ମ_ବୁ_ଗୁ_ଶୁ_ଶ'.split('_'),
     longDateFormat: {
         LT: 'A h:mm',
