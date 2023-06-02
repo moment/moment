@@ -28,7 +28,7 @@ export default moment.defineLocale('or', {
     calendar: {
         sameDay: '[ଆଜି |] LT',
         nextDay: '[ଆସନ୍ତାକାଲି |] LT',
-        nextWeek: 'dddd, LT',
+        nextWeek: 'ଆସନ୍ତା ସପ୍ତାହ, LT',
         lastDay: '[ଗତକାଲି] LT',
         lastWeek: '[ଶେଷ] dddd, LT',
         sameElse: 'L',
