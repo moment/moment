@@ -30,7 +30,7 @@ export default moment.defineLocale('or', {
         nextDay: '[ଆସନ୍ତାକାଲି |] LT',
         nextWeek: 'ଆସନ୍ତା ସପ୍ତାହ, LT',
         lastDay: '[ଗତକାଲି] LT',
-        lastWeek: '[ଶେଷ] dddd, LT',
+        lastWeek: '[ଶେଷ ସପ୍ତାହ] dddd, LT',
         sameElse: 'L',
     },
     relativeTime: {
