@@ -63,6 +63,13 @@
         weekdaysShort: 'zo._ma._di._wo._do._vr._za.'.split('_'),
         weekdaysMin: 'zo_ma_di_wo_do_vr_za'.split('_'),
         weekdaysParseExact: true,
+        meridiemParse: /vm|nm/,
+        isPM: function (input) {
+            return input.charAt(0) === 'n';
+        },
+        meridiem: function (hours, minutes, isLower) {
+            return hours < 12 ? 'vm' : 'nm';
+        },
         longDateFormat: {
             LT: 'HH:mm',
             LTS: 'HH:mm:ss',
