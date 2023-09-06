@@ -29,7 +29,10 @@ function currentDateArray(config) {
             nowValue.getUTCDate(),
         ];
     }
-    return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
+
+    const now = hooks();
+
+    return [now.year(), now.month(), now.date()];
 }
 
 // convert an array to a date.
