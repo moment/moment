@@ -84,5 +84,45 @@ var symbolMap={
         postformat: function (string) {
             return string.replace(/\d/g, function (match) {
                 return symbolMap[match];
-            })}
+           
         });
+    },
+    dayOfMonthOrdinalParse: /\d{1,2}ର୍ଥ/,
+    ordinal: '%dର୍ଥ',
+    meridiemParse: /ରାତି|ସକାଳ|ଅପରାହ୍ନ|ସନ୍ଧ୍ୟା/,
+    meridiemHour: function (hour, meridiem) {
+      if (hour === 12) {
+        hour = 0;
+      }
+      if (meridiem === 'ରାତି') {
+        return hour < 4 ? hour : hour + 12;
+      } else if (meridiem === 'ସକାଳ') {
+        return hour;
+      } else if (meridiem === 'ଅପରାହ୍ନ') {
+        return hour >= 10 ? hour : hour + 12;
+      } else if (meridiem === 'ସନ୍ଧ୍ୟା') {
+        return hour + 12;
+      }
+    },
+    meridiem: function (hour, minute, isLower) {
+      if (hour < 4) {
+        return 'ରାତି';
+      } else if (hour < 10) {
+        return 'ସକାଳ';
+      } else if (hour < 17) {
+        return 'ଅପରାହ୍ନ';
+      } else if (hour < 20) {
+        return 'ସନ୍ଧ୍ୟା';
+      } else {
+        return 'ରାତି';
+      }
+    },
+    week: {
+      dow: 0, // Sunday is the first day of the week.
+      doy: 6, // The week that contains Jan 6th is the first week of the year.
+    },
+  });
+
+  return or;
+
+})));
