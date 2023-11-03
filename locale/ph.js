@@ -12,7 +12,7 @@
 
     //! moment.js locale configuration
 
-    var enAu = moment.defineLocale('en-au', {
+    var ph = moment.defineLocale('ph', {
         months: 'Enero_Pebrero_Marso_Abril_Mayo_Hunyo_Hulyo_Agosto_Setyembre_Octobre_Nobyembre_Desyembre'.split(
             '_'
         ),
@@ -75,6 +75,6 @@
         },
     });
 
-    return enAu;
+    return ph;
 
 })));
