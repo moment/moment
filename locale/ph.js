@@ -35,7 +35,7 @@
             nextDay: '[Bukas at] LT',
             nextWeek: 'dddd [at] LT',
             lastDay: '[Kahapon at] LT',
-            lastWeek: '[Last] dddd [at] LT',
+            lastWeek: '[Isang Linggo] dddd [at] LT',
             sameElse: 'L',
         },
         relativeTime: {
