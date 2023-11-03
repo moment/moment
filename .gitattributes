@@ -1,4 +1,0 @@
-# we don't have non-text files, don't take chances with git's text=auto
-* text
-# this file is read by nuget (Windows) tooling, lets keep it happy
-Moment.js.nuspec eol=crlf
