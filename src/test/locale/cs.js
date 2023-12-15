@@ -52,9 +52,9 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss', 'neděle, února 14. 2010, 3:25:50'],
+            ['dddd, Do MMMM YYYY, h:mm:ss', 'neděle, 14. února 2010, 3:25:50'],
             ['ddd, h', 'ne, 3'],
-            ['M Mo MM MMMM MMM', '2 2. 02 února úno'],
+            ['M Mo MM MMMM MMM', '2 2. 02 únor úno'],
             ['YYYY YY', '2010 10'],
             ['D Do DD', '14 14. 14'],
             ['d do dddd ddd dd', '0 0. neděle ne ne'],
@@ -122,7 +122,7 @@ test('format ordinal', function (assert) {
 
 test('format month', function (assert) {
     var expected =
-            'ledna led_února úno_března bře_dubna dub_května kvě_června čvn_července čvc_srpna srp_září zář_října říj_listopadu lis_prosince pro'.split(
+            'leden led_únor úno_březen bře_duben dub_květen kvě_červen čvn_červenec čvc_srpen srp_září zář_říjen říj_listopad lis_prosinec pro'.split(
                 '_'
             ),
         i;
@@ -137,11 +137,11 @@ test('format month', function (assert) {
 
 test('format month case', function (assert) {
     var months = {
-            nominative:
+            accusative:
                 'ledna_února_března_dubna_května_června_července_srpna_září_října_listopadu_prosince'.split(
                     '_'
                 ),
-            accusative:
+            nominative:
                 'leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec'.split(
                     '_'
                 ),
