@@ -1,7 +1,5 @@
 import { makeGetSet } from '../moment/get-set';
 import { addFormatToken } from '../format/format';
-import { addUnitAlias } from './aliases';
-import { addUnitPriority } from './priorities';
 import {
     addRegexToken,
     match1to2,
@@ -67,13 +65,6 @@ function meridiem(token, lowercase) {
 
 meridiem('a', true);
 meridiem('A', false);
-
-// ALIASES
-
-addUnitAlias('hour', 'h');
-
-// PRIORITY
-addUnitPriority('hour', 13);
 
 // PARSING
 
