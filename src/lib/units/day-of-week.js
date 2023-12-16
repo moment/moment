@@ -130,24 +130,24 @@ export function localeWeekdays(m, format) {
     return m === true
         ? shiftWeekdays(weekdays, this._week.dow)
         : m
-        ? weekdays[m.day()]
-        : weekdays;
+          ? weekdays[m.day()]
+          : weekdays;
 }
 
 export function localeWeekdaysShort(m) {
     return m === true
         ? shiftWeekdays(this._weekdaysShort, this._week.dow)
         : m
-        ? this._weekdaysShort[m.day()]
-        : this._weekdaysShort;
+          ? this._weekdaysShort[m.day()]
+          : this._weekdaysShort;
 }
 
 export function localeWeekdaysMin(m) {
     return m === true
         ? shiftWeekdays(this._weekdaysMin, this._week.dow)
         : m
-        ? this._weekdaysMin[m.day()]
-        : this._weekdaysMin;
+          ? this._weekdaysMin[m.day()]
+          : this._weekdaysMin;
 }
 
 function handleStrictParse(weekdayName, format, strict) {

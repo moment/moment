@@ -67,12 +67,12 @@ export default moment.defineLocale('oc-lnc', {
             number === 1
                 ? 'r'
                 : number === 2
-                ? 'n'
-                : number === 3
-                ? 'r'
-                : number === 4
-                ? 't'
-                : 'è';
+                  ? 'n'
+                  : number === 3
+                    ? 'r'
+                    : number === 4
+                      ? 't'
+                      : 'è';
         if (period === 'w' || period === 'W') {
             output = 'a';
         }

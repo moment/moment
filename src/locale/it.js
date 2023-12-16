@@ -61,8 +61,8 @@ export default moment.defineLocale('it', {
                         (this.hours() > 1
                             ? 'lle '
                             : this.hours() === 0
-                            ? ' '
-                            : "ll'") +
+                              ? ' '
+                              : "ll'") +
                         ']LT'
                     );
                 default:
@@ -71,8 +71,8 @@ export default moment.defineLocale('it', {
                         (this.hours() > 1
                             ? 'lle '
                             : this.hours() === 0
-                            ? ' '
-                            : "ll'") +
+                              ? ' '
+                              : "ll'") +
                         ']LT'
                     );
             }
