@@ -64,7 +64,8 @@ function chooseLocale(names) {
 
 function isLocaleNameSane(name) {
     // Prevent names that look like filesystem paths, i.e contain '/' or '\'
-    return name.match('^[^/\\\\]*$') != null;
+    // Ensure name is available and function returns boolean
+    return !!(name && name.match('^[^/\\\\]*$'));
 }
 
 function loadLocale(name) {
