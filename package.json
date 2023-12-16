@@ -48,7 +48,7 @@
         "coveralls": "latest",
         "cross-env": "^6.0.3",
         "es6-promise": "latest",
-        "eslint": "~6",
+        "eslint": "latest",
         "grunt": "latest",
         "grunt-benchmark": "latest",
         "grunt-cli": "latest",
@@ -76,7 +76,8 @@
         "rollup": "2.17.1",
         "typescript": "^1.8.10",
         "typescript3": "npm:typescript@^3.1.6",
-        "uglify-js": "latest"
+        "uglify-js": "latest",
+        "@types/node": "17.0.21"
     },
     "ender": "./ender.js",
     "dojoBuild": "package.js",
