@@ -16,8 +16,8 @@ var priorities = {
     isoWeekYear: 1,
     week: 5,
     isoWeek: 5,
-    year: 1
-}
+    year: 1,
+};
 
 export function getPrioritizedUnits(unitsObj) {
     var units = [],

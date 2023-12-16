@@ -7,7 +7,6 @@ import toInt from '../utils/to-int';
 
 addFormatToken('DDD', ['DDDD', 3], 'DDDo', 'dayOfYear');
 
-
 // PARSING
 
 addRegexToken('DDD', match1to3);

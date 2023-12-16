@@ -42,7 +42,6 @@ addFormatToken(0, ['SSSSSSSSS', 9], 0, function () {
     return this.millisecond() * 1000000;
 });
 
-
 // PARSING
 
 addRegexToken('S', match1to3, match1);

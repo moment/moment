@@ -47,7 +47,6 @@ addFormatToken('MMMM', 0, 0, function (format) {
     return this.localeData().months(this, format);
 });
 
-
 // PARSING
 
 addRegexToken('M', match1to2);

@@ -8,7 +8,6 @@ import { MINUTE } from './constants';
 
 addFormatToken('m', ['mm', 2], 0, 'minute');
 
-
 // PARSING
 
 addRegexToken('m', match1to2);

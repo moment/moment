@@ -1,7 +1,6 @@
 import hasOwnProp from '../utils/has-own-prop';
 
-var aliases = 
-{
+var aliases = {
     D: 'date',
     dates: 'date',
     date: 'date',
@@ -49,8 +48,8 @@ var aliases =
     isoweek: 'isoWeek',
     y: 'year',
     years: 'year',
-    year: 'year'
-  }
+    year: 'year',
+};
 
 export function normalizeUnits(units) {
     return typeof units === 'string'

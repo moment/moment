@@ -8,7 +8,6 @@ import { SECOND } from './constants';
 
 addFormatToken('s', ['ss', 2], 0, 'second');
 
-
 // PARSING
 
 addRegexToken('s', match1to2);

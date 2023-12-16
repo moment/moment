@@ -9,7 +9,6 @@ import { weekOfYear } from './week-calendar-utils';
 addFormatToken('w', ['ww', 2], 'wo', 'week');
 addFormatToken('W', ['WW', 2], 'Wo', 'isoWeek');
 
-
 // PARSING
 
 addRegexToken('w', match1to2);

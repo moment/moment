@@ -40,7 +40,6 @@ addWeekYearFormatToken('GGGGG', 'isoWeekYear');
 
 // ALIASES
 
-
 // PARSING
 
 addRegexToken('G', matchSigned);
