@@ -2,6 +2,8 @@ Submitting Issues
 =================
 
 If you are submitting a bug, please create a [jsfiddle](http://jsfiddle.net/) demonstrating the issue.
+Note: Before raising a new issue, please do check the existing issues and make sure your issue doesn’t exist.
+
 
 Read before submitting Pull Requests
 ====================================

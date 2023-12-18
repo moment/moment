@@ -28,8 +28,8 @@ function translateSingular(number, withoutSuffix, key, isFuture) {
     return withoutSuffix
         ? forms(key)[0]
         : isFuture
-        ? forms(key)[1]
-        : forms(key)[2];
+          ? forms(key)[1]
+          : forms(key)[2];
 }
 function special(number) {
     return number % 10 === 0 || (number > 10 && number < 20);

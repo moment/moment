@@ -765,27 +765,9 @@ test('timezone format', function (assert) {
     assert.equal(moment().zone(-90).format('ZZ'), '+0130', '-90 -> +0130');
     assert.equal(moment().zone(-120).format('ZZ'), '+0200', '-120 -> +0200');
 
-    assert.equal(
-        moment()
-            .zone(+60)
-            .format('ZZ'),
-        '-0100',
-        '+60 -> -0100'
-    );
-    assert.equal(
-        moment()
-            .zone(+90)
-            .format('ZZ'),
-        '-0130',
-        '+90 -> -0130'
-    );
-    assert.equal(
-        moment()
-            .zone(+120)
-            .format('ZZ'),
-        '-0200',
-        '+120 -> -0200'
-    );
+    assert.equal(moment().zone(+60).format('ZZ'), '-0100', '+60 -> -0100');
+    assert.equal(moment().zone(+90).format('ZZ'), '-0130', '+90 -> -0130');
+    assert.equal(moment().zone(+120).format('ZZ'), '-0200', '+120 -> -0200');
 });
 
 test('parse zone without a timezone', function (assert) {

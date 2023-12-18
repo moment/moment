@@ -30,22 +30,22 @@ test('extending calendar options', function (assert) {
                 diff < -6
                     ? 'sameElse'
                     : diff < -1
-                    ? 'lastWeek'
-                    : diff < 0
-                    ? 'lastDay'
-                    : diff < 1
-                    ? 'sameDay'
-                    : diff < 2
-                    ? 'nextDay'
-                    : diff < 7
-                    ? 'nextWeek'
-                    : myMoment.month() === now.month() &&
-                      myMoment.year() === now.year()
-                    ? 'thisMonth'
-                    : nextMonth.month() === myMoment.month() &&
-                      nextMonth.year() === myMoment.year()
-                    ? 'nextMonth'
-                    : 'sameElse';
+                      ? 'lastWeek'
+                      : diff < 0
+                        ? 'lastDay'
+                        : diff < 1
+                          ? 'sameDay'
+                          : diff < 2
+                            ? 'nextDay'
+                            : diff < 7
+                              ? 'nextWeek'
+                              : myMoment.month() === now.month() &&
+                                  myMoment.year() === now.year()
+                                ? 'thisMonth'
+                                : nextMonth.month() === myMoment.month() &&
+                                    nextMonth.year() === myMoment.year()
+                                  ? 'nextMonth'
+                                  : 'sameElse';
         return retVal;
     };
 
