@@ -248,6 +248,15 @@ test('instantiation from another duration', function (assert) {
 });
 
 test('explicit cloning', function (assert) {
+    var duration = moment.duration(1.1234, 'hours');
+    assert.equal(
+        duration.milliseconds(),
+        240,
+        'Float number calculation will not lose accuracy'
+    );
+});
+
+test('float number calculation', function (assert) {
     var durationA = moment.duration(5, 'milliseconds'),
         durationB = durationA.clone();
     durationA.add(5, 'milliseconds');
