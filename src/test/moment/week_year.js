@@ -62,6 +62,14 @@ test('week year', function (assert) {
     assert.equal(moment([2008, 11, 29]).weekYear(), 2009);
     assert.equal(moment([2009, 11, 27]).weekYear(), 2009);
     assert.equal(moment([2009, 11, 28]).weekYear(), 2010);
+
+    moment.locale('dow:1 doy:4', { week: { dow: 1, doy: 4 } });
+    assert.equal(moment([2015, 11, 27]).locale('dow:1 doy:4').weekYear(), 2015);
+    assert.equal(
+        moment([2015, 11, 27]).locale('dow:1 doy:4').weekYear(2015).date(),
+        27
+    );
+    moment.defineLocale('dow:1 doy:4', null);
 });
 
 // Verifies that the week number, week day computation is correct for all dow, doy combinations
