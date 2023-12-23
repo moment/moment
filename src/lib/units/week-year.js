@@ -69,7 +69,7 @@ export function getSetWeekYear(input) {
         this,
         input,
         this.week(),
-        this.weekday(),
+        this.weekday() + this.localeData()._week.dow,
         this.localeData()._week.dow,
         this.localeData()._week.doy
     );
