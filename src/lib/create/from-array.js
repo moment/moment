@@ -18,6 +18,7 @@ import {
 import { createLocal } from './local';
 import defaults from '../utils/defaults';
 import getParsingFlags from './parsing-flags';
+import createError from '../utils/create-error';
 
 function currentDateArray(config) {
     // hooks is actually the exported moment object
@@ -100,6 +101,12 @@ export function configFromArray(config) {
     config._d = (config._useUTC ? createUTCDate : createDate).apply(
         null,
         input
+    );
+    createError(
+        config._i + ' failed to build a Date using `new Date()`',
+        config._d,
+        config._i,
+        config._f
     );
     expectedWeekday = config._useUTC
         ? config._d.getUTCDay()
