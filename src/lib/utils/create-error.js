@@ -4,12 +4,13 @@ import isDate from './is-date';
 /**
  * Update an Error with the specified date, input and format.
  *
- * @param {*} error The error to update
+ * @param {*} message The error message
  * @param {*} date The date
  * @param {*} input The input
  * @param {*} format The format
  */
-function enhanceError(error, date, input, format) {
+function makeError(message, date, input, format) {
+    var error = new Error(message);
     error.date = date;
     error.input = input;
     error.format = format;
@@ -28,7 +29,7 @@ function enhanceError(error, date, input, format) {
             stack: this.stack,
         };
     };
-    throw error;
+    return error;
 }
 
 /**
@@ -46,8 +47,7 @@ export default function createError(message, date, input, format) {
     if (isDate(date) && date.toString() !== 'Invalid Date') {
         return;
     }
-    var error = new Error(message);
-    enhanceError(error, date, input, format);
+    throw makeError(message, date, input, format);
 }
 
 // Specify whether to disable throwing errors, ths default value is `true`
