@@ -178,12 +178,12 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ m: 45 }), true),
-        'en time',
+        'én time',
         '45 minutes = an hour'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ m: 89 }), true),
-        'en time',
+        'én time',
         '89 minutes = an hour'
     );
     assert.equal(
@@ -203,12 +203,12 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ h: 22 }), true),
-        'en dag',
+        'én dag',
         '22 hours = a day'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ h: 35 }), true),
-        'en dag',
+        'én dag',
         '35 hours = a day'
     );
     assert.equal(
@@ -218,7 +218,7 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ d: 1 }), true),
-        'en dag',
+        'én dag',
         '1 day = a day'
     );
     assert.equal(
@@ -233,17 +233,17 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ d: 26 }), true),
-        'en måned',
+        'én måned',
         '26 days = a month'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ d: 30 }), true),
-        'en måned',
+        'én måned',
         '30 days = a month'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ d: 43 }), true),
-        'en måned',
+        'én måned',
         '43 days = a month'
     );
     assert.equal(
@@ -263,7 +263,7 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ M: 1 }), true),
-        'en måned',
+        'én måned',
         '1 month = a month'
     );
     assert.equal(
