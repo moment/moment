@@ -2,9 +2,7 @@ import { normalizeUnits, normalizeObjectUnits } from '../units/aliases';
 import { getPrioritizedUnits } from '../units/priorities';
 import { hooks } from '../utils/hooks';
 import isFunction from '../utils/is-function';
-import { daysInMonth } from '../units/month';
-import { isLeapYear } from '../utils/is-leap-year';
-import toInt from '../utils/to-int';
+import { isLeapYear } from '../units/year';
 
 export function makeGetSet(unit, keepTime) {
     return function (value) {
@@ -19,29 +17,75 @@ export function makeGetSet(unit, keepTime) {
 }
 
 export function get(mom, unit) {
-    return mom.isValid()
-        ? mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]()
-        : NaN;
+    if (!mom.isValid()) {
+        return NaN;
+    }
+
+    var d = mom._d,
+        isUTC = mom._isUTC;
+
+    switch (unit) {
+        case 'Milliseconds':
+            return isUTC ? d.getUTCMilliseconds() : d.getMilliseconds();
+        case 'Seconds':
+            return isUTC ? d.getUTCSeconds() : d.getSeconds();
+        case 'Minutes':
+            return isUTC ? d.getUTCMinutes() : d.getMinutes();
+        case 'Hours':
+            return isUTC ? d.getUTCHours() : d.getHours();
+        case 'Date':
+            return isUTC ? d.getUTCDate() : d.getDate();
+        case 'Day':
+            return isUTC ? d.getUTCDay() : d.getDay();
+        case 'Month':
+            return isUTC ? d.getUTCMonth() : d.getMonth();
+        case 'FullYear':
+            return isUTC ? d.getUTCFullYear() : d.getFullYear();
+        default:
+            return NaN; // Just in case
+    }
 }
 
 export function set(mom, unit, value) {
-    if (mom.isValid() && !isNaN(value)) {
-        if (
-            unit === 'FullYear' &&
-            isLeapYear(mom.year()) &&
-            mom.month() === 1 &&
-            mom.date() === 29
-        ) {
-            value = toInt(value);
-            mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](
-                value,
-                mom.month(),
-                daysInMonth(value, mom.month())
-            );
-        } else {
-            mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
-        }
+    var d, isUTC, year, month, date;
+
+    if (!mom.isValid() || isNaN(value)) {
+        return;
     }
+
+    d = mom._d;
+    isUTC = mom._isUTC;
+
+    switch (unit) {
+        case 'Milliseconds':
+            return void (isUTC
+                ? d.setUTCMilliseconds(value)
+                : d.setMilliseconds(value));
+        case 'Seconds':
+            return void (isUTC ? d.setUTCSeconds(value) : d.setSeconds(value));
+        case 'Minutes':
+            return void (isUTC ? d.setUTCMinutes(value) : d.setMinutes(value));
+        case 'Hours':
+            return void (isUTC ? d.setUTCHours(value) : d.setHours(value));
+        case 'Date':
+            return void (isUTC ? d.setUTCDate(value) : d.setDate(value));
+        // case 'Day': // Not real
+        //    return void (isUTC ? d.setUTCDay(value) : d.setDay(value));
+        // case 'Month': // Not used because we need to pass two variables
+        //     return void (isUTC ? d.setUTCMonth(value) : d.setMonth(value));
+        case 'FullYear':
+            break; // See below ...
+        default:
+            return; // Just in case
+    }
+
+    year = value;
+    month = mom.month();
+    date = mom.date();
+    date = date === 29 && month === 1 && !isLeapYear(year) ? 28 : date;
+    void (isUTC
+        ? d.setUTCFullYear(year, month, date)
+        : d.setFullYear(year, month, date));
 }
 
 // MOMENTS
