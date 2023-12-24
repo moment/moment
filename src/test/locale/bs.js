@@ -157,12 +157,12 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ s: 45 }), true),
-        'jedna minuta',
+        'prije jedne minute',
         '45 seconds = a minute'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ s: 89 }), true),
-        'jedna minuta',
+        'prije jedne minute',
         '89 seconds = a minute'
     );
     assert.equal(
@@ -177,12 +177,12 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ m: 45 }), true),
-        'jedan sat',
+        'prije jedan sat',
         '45 minutes = an hour'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ m: 89 }), true),
-        'jedan sat',
+        'prije jedan sat',
         '89 minutes = an hour'
     );
     assert.equal(

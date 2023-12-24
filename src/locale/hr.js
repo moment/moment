@@ -17,7 +17,7 @@ function translate(number, withoutSuffix, key) {
             }
             return result;
         case 'm':
-            return withoutSuffix ? 'jedna minuta' : 'jedne minute';
+            return withoutSuffix ? 'prije jedne minute' : 'za jednu minutu';
         case 'mm':
             if (number === 1) {
                 result += 'minuta';
@@ -28,7 +28,7 @@ function translate(number, withoutSuffix, key) {
             }
             return result;
         case 'h':
-            return withoutSuffix ? 'jedan sat' : 'jednog sata';
+            return withoutSuffix ? 'prije jedan sat' : 'za jedan sat';
         case 'hh':
             if (number === 1) {
                 result += 'sat';
