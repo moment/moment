@@ -1,37 +1,38 @@
 import moment from '../moment';
 
 var symbolMap = {
-  1: '୧',
-  2: '୨',
-  3: '୩',
-  4: '୪',
-  5: '୫',
-  6: '୬',
-  7: '୭',
-  8: '୮',
-  9: '୯',
-  0: '୦',
-},
-numberMap = {
-  '୧': '1',
-  '୨': '2',
-  '୩': '3',
-  '୪': '4',
-  '୫': '5',
-  '୬': '6',
-  '୭': '7',
-  '୮': '8',
-  '୯': '9',
-  '୦': '0',
-};
+        1: '୧',
+        2: '୨',
+        3: '୩',
+        4: '୪',
+        5: '୫',
+        6: '୬',
+        7: '୭',
+        8: '୮',
+        9: '୯',
+        0: '୦',
+    },
+    numberMap = {
+        '୧': '1',
+        '୨': '2',
+        '୩': '3',
+        '୪': '4',
+        '୫': '5',
+        '୬': '6',
+        '୭': '7',
+        '୮': '8',
+        '୯': '9',
+        '୦': '0',
+    };
 
 export default moment.defineLocale('or', {
     months: 'ଜାନୁଆରୀ_ଫେବ୍ରୁୟାରୀ_ମାର୍ଚ୍ଚ_ଅପ୍ରେଲ_ମେ_ଜୁନ_ଜୁଲାଇ_ଅଗଷ୍ଟ_ସେପ୍ଟେମ୍ବର_ଅକ୍ଟୋବର_ନଭେମ୍ବର_ଡିସେମ୍ବର'.split(
         '_'
     ),
-    monthsShort: 'ଜାନ_ଫେବ୍ରୁ_ମାର୍_ଅପ୍ରଲ_ମେ_ଜୁନ_ଜୁଲ_ଅଗଷ୍ଟ_ସେପ୍_ଅକ୍ଟୋବ_ନଭେମ_ଡିସେ'.split(
-        '_'
-    ),
+    monthsShort:
+        'ଜାନ_ଫେବ୍ରୁ_ମାର୍_ଅପ୍ରଲ_ମେ_ଜୁନ_ଜୁଲ_ଅଗଷ୍ଟ_ସେପ୍_ଅକ୍ଟୋବ_ନଭେମ_ଡିସେ'.split(
+            '_'
+        ),
     monthsParseExact: true,
     weekdays: 'ରବିବାର_ସୋମବାର_ମଙ୍ଗଳବାର_ବୁଧବାର_ଗୁରୁବାର_ଶୁକ୍ରବାର_ଶନିବାର'.split(
         '_'
@@ -71,14 +72,14 @@ export default moment.defineLocale('or', {
         yy: '%d ବର୍ଷ',
     },
     preparse: function (string) {
-      return string.replace(/[୧୨୩୪୫୬୭୮୯୦]/g, function (match) {
-        return numberMap[match];
-      });
+        return string.replace(/[୧୨୩୪୫୬୭୮୯୦]/g, function (match) {
+            return numberMap[match];
+        });
     },
     postformat: function (string) {
-      return string.replace(/\d/g, function (match) {
-        return symbolMap[match];
-      });
+        return string.replace(/\d/g, function (match) {
+            return symbolMap[match];
+        });
     },
     dayOfMonthOrdinalParse: /\d{1,2}ର୍ଥ/,
     ordinal: '%dର୍ଥ',

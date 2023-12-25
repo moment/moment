@@ -77,7 +77,10 @@ test('format', function (assert) {
             ['M Mo MM MMMM MMM', '୨ ୨ ୦୨ ମାଘ ବହୁ ଦୂରରେ.'],
             ['YYYY YY', '୨୦୧୦ ୧୦'],
             ['D Do DD', '୧୪ ୧୪ ୧୪'],
-            ['d do dddd ddd dd', '० ० ରବିବାର ସୂର୍ଯ୍ୟ ଦେବନାଗରୀ ଶୈଳୀର ୨୭ତମ ବ୍ୟଞ୍ଜନ [ସମ୍ପାଦନା]'],
+            [
+                'd do dddd ddd dd',
+                '० ० ରବିବାର ସୂର୍ଯ୍ୟ ଦେବନାଗରୀ ଶୈଳୀର ୨୭ତମ ବ୍ୟଞ୍ଜନ [ସମ୍ପାଦନା]',
+            ],
             ['DDD DDDo DDDD', '୪୫ ୪୫ ୦୪୫'],
             ['w wo ww', '୮ ୮ ୦୮'],
             ['h hh', '୩ ୦୩'],
@@ -341,7 +344,11 @@ test('from', function (assert) {
 
 test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'କିଛି ମୁହୂର୍ତ୍ତରେ', 'prefix');
-    assert.equal(moment(0).from(30000), 'ମାତ୍ର କିଛି ମୁହୂର୍ତ୍ତ ପୂର୍ବରୁ', 'suffix');
+    assert.equal(
+        moment(0).from(30000),
+        'ମାତ୍ର କିଛି ମୁହୂର୍ତ୍ତ ପୂର୍ବରୁ',
+        'suffix'
+    );
 });
 
 test('now from now', function (assert) {
