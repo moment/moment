@@ -108,8 +108,8 @@ export default moment.defineLocale('ku-kmr', {
         yy: processRelativeTime,
     },
     dayOfMonthOrdinalParse: /\d{1,2}(?:yê|ê|\.)/,
-    ordinal: (num, period) => {
-        let p = period.toLowerCase();
+    ordinal: function (num, period) {
+        var p = period.toLowerCase();
         if (p.includes('w') || p.includes('m')) return num + '.';
 
         return num + ezafeNumSuffix(num);
