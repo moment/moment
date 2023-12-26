@@ -17,7 +17,6 @@ import { configFromStringAndFormat } from './from-string-and-format';
 import { configFromString } from './from-string';
 import { configFromArray } from './from-array';
 import { configFromObject } from './from-object';
-import createError from '../utils/create-error';
 
 function createFromConfig(config) {
     var res = new Moment(checkOverflow(prepareConfig(config)));
@@ -84,12 +83,6 @@ function configFromInput(config) {
     } else {
         hooks.createFromInputFallback(config);
     }
-    createError(
-        config._i + ' failed to build a Date using `new Date()`',
-        config._d,
-        config._i,
-        config._f
-    );
 }
 
 export function createLocalOrUTC(input, format, locale, strict, isUTC) {

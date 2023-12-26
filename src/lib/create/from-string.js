@@ -5,7 +5,6 @@ import { deprecate } from '../utils/deprecate';
 import getParsingFlags from './parsing-flags';
 import { defaultLocaleMonthsShort } from '../units/month';
 import { defaultLocaleWeekdaysShort } from '../units/day-of-week';
-import createError from '../utils/create-error';
 
 // iso 8601 regex
 // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
@@ -224,36 +223,21 @@ export function configFromString(config) {
     var matched = aspNetJsonRegex.exec(config._i);
     if (matched !== null) {
         config._d = new Date(+matched[1]);
-        return createError(
-            matched[1] + ' failed to build a Date using `new Date()`',
-            config._d,
-            config._i,
-            config._f
-        );
+        return;
     }
 
     configFromISO(config);
     if (config._isValid === false) {
         delete config._isValid;
     } else {
-        return createError(
-            config._i + ' does not match the `ISO 8601` standard',
-            config._d,
-            config._i,
-            config._f
-        );
+        return;
     }
 
     configFromRFC2822(config);
     if (config._isValid === false) {
         delete config._isValid;
     } else {
-        return createError(
-            config._i + ' does not match the `RFC 2822` standard',
-            config._d,
-            config._i,
-            config._f
-        );
+        return;
     }
 
     if (config._strict) {
@@ -261,12 +245,6 @@ export function configFromString(config) {
     } else {
         // Final attempt, use Input Fallback
         hooks.createFromInputFallback(config);
-        createError(
-            config._i + ' failed to build a Date using `new Date()`',
-            config._d,
-            config._i,
-            config._f
-        );
     }
 }
 
