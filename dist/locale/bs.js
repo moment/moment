@@ -1,9 +1,21 @@
 //! moment.js locale configuration
 //! locale : Bosnian [bs]
 //! author : Nedim Cholich : https://github.com/frontyard
+//! author : Rasid Redzic : https://github.com/rasidre
 //! based on (hr) translation by Bojan Marković
 
 import moment from '../moment';
+
+function processRelativeTime(number, withoutSuffix, key, isFuture) {
+    switch (key) {
+        case 'm':
+            return withoutSuffix
+                ? 'jedna minuta'
+                : isFuture
+                  ? 'jednu minutu'
+                  : 'jedne minute';
+    }
+}
 
 function translate(number, withoutSuffix, key) {
     var result = number + ' ';
@@ -17,8 +29,6 @@ function translate(number, withoutSuffix, key) {
                 result += 'sekundi';
             }
             return result;
-        case 'm':
-            return withoutSuffix ? 'jedna minuta' : 'jedne minute';
         case 'mm':
             if (number === 1) {
                 result += 'minuta';
@@ -29,7 +39,7 @@ function translate(number, withoutSuffix, key) {
             }
             return result;
         case 'h':
-            return withoutSuffix ? 'jedan sat' : 'jednog sata';
+            return withoutSuffix ? 'jedan sat' : 'jedan sat';
         case 'hh':
             if (number === 1) {
                 result += 'sat';
@@ -130,7 +140,7 @@ export default moment.defineLocale('bs', {
         past: 'prije %s',
         s: 'par sekundi',
         ss: translate,
-        m: translate,
+        m: processRelativeTime,
         mm: translate,
         h: translate,
         hh: translate,

@@ -53,12 +53,12 @@ export default moment.defineLocale('sv', {
                 ~~((number % 100) / 10) === 1
                     ? ':e'
                     : b === 1
-                    ? ':a'
-                    : b === 2
-                    ? ':a'
-                    : b === 3
-                    ? ':e'
-                    : ':e';
+                      ? ':a'
+                      : b === 2
+                        ? ':a'
+                        : b === 3
+                          ? ':e'
+                          : ':e';
         return number + output;
     },
     week: {
