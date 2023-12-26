@@ -60,7 +60,7 @@ var asMilliseconds = makeAs('ms'),
     asMonths = makeAs('M'),
     asQuarters = makeAs('Q'),
     asYears = makeAs('y'),
-    valueOf = makeAs('ms');
+    valueOf = asMilliseconds;
 
 export {
     asMilliseconds,
