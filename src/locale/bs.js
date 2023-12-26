@@ -12,8 +12,8 @@ function processRelativeTime(number, withoutSuffix, key, isFuture) {
             return withoutSuffix
                 ? 'jedna minuta'
                 : isFuture
-                ? 'jednu minutu'
-                : 'jedne minute';
+                  ? 'jednu minutu'
+                  : 'jedne minute';
     }
 }
 
