@@ -1,6 +1,9 @@
 Changelog
 =========
 
+### 2.30.0 [Full changelog](https://gist.github.com/ichernev/e277bcd1f0eeabb834f60a777237925a)
+* Release Dec 26, 2023
+
 ### 2.29.4
 
 * Release Jul 6, 2022
