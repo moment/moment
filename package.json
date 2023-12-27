@@ -1,6 +1,6 @@
 {
     "name": "moment",
-    "version": "2.30.0",
+    "version": "2.30.1",
     "description": "Parse, validate, manipulate, and display dates",
     "homepage": "https://momentjs.com",
     "author": "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)",
