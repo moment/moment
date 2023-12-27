@@ -1,6 +1,11 @@
 Changelog
 =========
 
+### 2.30.1
+* Release Dec 27, 2023
+* Revert https://github.com/moment/moment/pull/5827, because it's breaking
+  a lot of TS code.
+
 ### 2.30.0 [Full changelog](https://gist.github.com/ichernev/e277bcd1f0eeabb834f60a777237925a)
 * Release Dec 26, 2023
 
