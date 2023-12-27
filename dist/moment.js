@@ -1,5 +1,5 @@
 //! moment.js
-//! version : 2.30.0
+//! version : 2.30.1
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -5632,7 +5632,7 @@ addParseToken('x', function (input, array, config) {
 
 //! moment.js
 
-hooks.version = '2.30.0';
+hooks.version = '2.30.1';
 
 setHookCallback(createLocal);
 
