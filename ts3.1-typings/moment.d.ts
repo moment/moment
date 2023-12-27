@@ -184,7 +184,7 @@ declare namespace moment {
     clone(): Duration;
 
     humanize(argWithSuffix?: boolean, argThresholds?: argThresholdOpts): string;
-
+    
     humanize(argThresholds?: argThresholdOpts): string;
 
     abs(): Duration;
@@ -575,7 +575,7 @@ declare namespace moment {
 
     toArray(): [number, number, number, number, number, number, number];
     toDate(): Date;
-    toISOString(keepOffset?: boolean): string | null;
+    toISOString(keepOffset?: boolean): string;
     inspect(): string;
     toJSON(): string;
     unix(): number;
