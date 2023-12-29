@@ -56,7 +56,7 @@
             y: 'un an',
             yy: '%d ans',
         },
-        dayOfMonthOrdinalParse: /\d{1,2}(er|e)/,
+        dayOfMonthOrdinalParse: /\d{1,2}(er|)/,
         ordinal: function (number, period) {
             switch (period) {
                 // TODO: Return 'e' when day of month > 1. Move this case inside
