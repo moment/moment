@@ -345,60 +345,25 @@ test('calendar day', function (assert) {
 test('calendar next week', function (assert) {
     var i, m;
     for (i = 2; i < 7; i++) {
-        m = moment().add({ d: i });
-        assert.equal(
-            m.calendar(),
-            m.format('dddd [às] LT'),
-            'Today + ' + i + ' days current time'
-        );
+        m = moment().add({d: i});
+        assert.equal(m.calendar(), m.hours() > 2 ? m.format('dddd [às] LT') : m.format('dddd [à] LT'),  'Today + ' + i + ' days current time');
         m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(
-            m.calendar(),
-            m.format('dddd [às] LT'),
-            'Today + ' + i + ' days beginning of day'
-        );
+        assert.equal(m.calendar(),m.hours() > 2 ? m.format('dddd [às] LT') : m.format('dddd [à] LT'),  'Today + ' + i + ' days beginning of day');
         m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(
-            m.calendar(),
-            m.format('dddd [às] LT'),
-            'Today + ' + i + ' days end of day'
-        );
+        assert.equal(m.calendar(),m.hours() > 2 ? m.format('dddd [às] LT') : m.format('dddd [à] LT'),  'Today + ' + i + ' days end of day');
     }
 });
 
 test('calendar last week', function (assert) {
-    var i, m;
+    var i, m, s;
     for (i = 2; i < 7; i++) {
-        m = moment().subtract({ d: i });
-        assert.equal(
-            m.calendar(),
-            m.format(
-                m.day() === 0 || m.day() === 6
-                    ? '[Último] dddd [às] LT'
-                    : '[Última] dddd [às] LT'
-            ),
-            'Today - ' + i + ' days current time'
-        );
+        m = moment().subtract({d: i});
+        s = m.hours() > 2 ? 'às' : 'à'
+        assert.equal(m.calendar(),       m.format((m.day() === 0 || m.day() === 6) ? '[Último] dddd ' + '[' + s + '] LT' : '[Última] dddd ' + '[' + s + '] LT'),  'Today - ' + i + ' days current time');
         m.hours(0).minutes(0).seconds(0).milliseconds(0);
-        assert.equal(
-            m.calendar(),
-            m.format(
-                m.day() === 0 || m.day() === 6
-                    ? '[Último] dddd [às] LT'
-                    : '[Última] dddd [às] LT'
-            ),
-            'Today - ' + i + ' days beginning of day'
-        );
+        assert.equal(m.calendar(),       m.format((m.day() === 0 || m.day() === 6) ? '[Último] dddd [à] LT' : '[Última] dddd [à] LT'),  'Today - ' + i + ' days beginning of day');
         m.hours(23).minutes(59).seconds(59).milliseconds(999);
-        assert.equal(
-            m.calendar(),
-            m.format(
-                m.day() === 0 || m.day() === 6
-                    ? '[Último] dddd [às] LT'
-                    : '[Última] dddd [às] LT'
-            ),
-            'Today - ' + i + ' days end of day'
-        );
+        assert.equal(m.calendar(),       m.format((m.day() === 0 || m.day() === 6) ? '[Último] dddd ' + '[' + s + '] LT' : '[Última] dddd ' + '[' + s + '] LT'),  'Today - ' + i + ' days end of day');
     }
 });
 
