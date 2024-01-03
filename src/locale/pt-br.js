@@ -5,34 +5,29 @@
 import moment from '../moment';
 
 export default moment.defineLocale('pt-br', {
-    months: 'janeiro_fevereiro_março_abril_maio_junho_julho_agosto_setembro_outubro_novembro_dezembro'.split(
-        '_'
-    ),
-    monthsShort: 'jan_fev_mar_abr_mai_jun_jul_ago_set_out_nov_dez'.split('_'),
-    weekdays:
-        'domingo_segunda-feira_terça-feira_quarta-feira_quinta-feira_sexta-feira_sábado'.split(
-            '_'
-        ),
-    weekdaysShort: 'dom_seg_ter_qua_qui_sex_sáb'.split('_'),
-    weekdaysMin: 'do_2ª_3ª_4ª_5ª_6ª_sá'.split('_'),
-    weekdaysParseExact: true,
-    longDateFormat: {
-        LT: 'HH:mm',
-        LTS: 'HH:mm:ss',
-        L: 'DD/MM/YYYY',
-        LL: 'D [de] MMMM [de] YYYY',
-        LLL: 'D [de] MMMM [de] YYYY [às] HH:mm',
-        LLLL: 'dddd, D [de] MMMM [de] YYYY [às] HH:mm',
+    months : 'Janeiro_Fevereiro_Março_Abril_Maio_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro'.split('_'),
+    monthsShort : 'Jan_Fev_Mar_Abr_Mai_Jun_Jul_Ago_Set_Out_Nov_Dez'.split('_'),
+    weekdays : 'Domingo_Segunda-feira_Terça-feira_Quarta-feira_Quinta-feira_Sexta-feira_Sábado'.split('_'),
+    weekdaysShort : 'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'),
+    weekdaysMin : 'Do_2ª_3ª_4ª_5ª_6ª_Sá'.split('_'),
+    weekdaysParseExact : true,
+    longDateFormat : {
+        LT : 'HH:mm',
+        LTS : 'HH:mm:ss',
+        L : 'DD/MM/YYYY',
+        LL : 'D [de] MMMM [de] YYYY',
+        LLL : function() { return 'D [de] MMMM [de] YYYY ' + (this.hours() < 2 ? '[à]' : '[às]') + ' HH:mm';},
+        LLLL : function() { return 'dddd, D [de] MMMM [de] YYYY ' + (this.hours() < 2 ? '[à]' : '[às]') + ' HH:mm';},
     },
-    calendar: {
-        sameDay: '[Hoje às] LT',
-        nextDay: '[Amanhã às] LT',
-        nextWeek: 'dddd [às] LT',
-        lastDay: '[Ontem às] LT',
+    calendar:  {
+        sameDay: function() { return '[Hoje] ' + (this.hours() < 2 ? '[à]' : '[às]') + ' LT'; },
+        nextDay: function() { return '[Amanhã] ' + (this.hours() < 2 ? '[à]' : '[às]') + ' LT'; },
+        nextWeek: function() { return 'dddd ' + (this.hours() < 2 ? '[à]' : '[às]') + ' LT'; },
+        lastDay: function() { return '[Ontem] ' + (this.hours() < 2 ? '[à]' : '[às]') + ' LT'; },
         lastWeek: function () {
-            return this.day() === 0 || this.day() === 6
-                ? '[Último] dddd [às] LT' // Saturday + Sunday
-                : '[Última] dddd [às] LT'; // Monday - Friday
+            return (this.day() === 0 || this.day() === 6) ?
+                '[Último] dddd ' + (this.hours() < 2 ? '[à]' : '[às]') + ' LT': // Saturday + Sunday
+                '[Última] dddd ' + (this.hours() < 2 ? '[à]' : '[às]') + ' LT'; // Monday - Friday
         },
         sameElse: 'L',
     },
