@@ -5,7 +5,7 @@ localeModule('id');
 
 test('parse', function (assert) {
     var tests =
-            'Januari Jan_Februari Feb_Maret Mar_April Apr_Mei Mei_Juni Jun_Juli Jul_Agustus Agt_September Sep_Oktober Okt_November Nov_Desember Des'.split(
+            'Januari Jan_Februari Feb_Maret Mar_April Apr_Mei Mei_Juni Jun_Juli Jul_Agustus Agu_September Sep_Oktober Okt_November Nov_Desember Des'.split(
                 '_'
             ),
         i;
@@ -82,7 +82,7 @@ test('format', function (assert) {
 
 test('format month', function (assert) {
     var expected =
-            'Januari Jan_Februari Feb_Maret Mar_April Apr_Mei Mei_Juni Jun_Juli Jul_Agustus Agt_September Sep_Oktober Okt_November Nov_Desember Des'.split(
+            'Januari Jan_Februari Feb_Maret Mar_April Apr_Mei Mei_Juni Jun_Juli Jul_Agustus Agu_September Sep_Oktober Okt_November Nov_Desember Des'.split(
                 '_'
             ),
         i;
