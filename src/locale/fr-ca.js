@@ -49,14 +49,19 @@ export default moment.defineLocale('fr-ca', {
         y: 'un an',
         yy: '%d ans',
     },
-    dayOfMonthOrdinalParse: /\d{1,2}(er|e)/,
+    dayOfMonthOrdinalParse: /\d{1,2}(er|)/,
     ordinal: function (number, period) {
         switch (period) {
+            // TODO: Return 'e' when day of month > 1. Move this case inside
+            // block for masculine words below.
+            // See https://github.com/moment/moment/issues/3375
+            case 'D':
+                return number + (number === 1 ? 'er' : '');
+
             // Words with masculine grammatical gender: mois, trimestre, jour
             default:
             case 'M':
             case 'Q':
-            case 'D':
             case 'DDD':
             case 'd':
                 return number + (number === 1 ? 'er' : 'e');
