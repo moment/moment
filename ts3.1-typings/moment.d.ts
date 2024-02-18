@@ -427,10 +427,10 @@ declare namespace moment {
     to: MomentInput;
   }
 
-  type MomentInput = Moment | Date | string | number | (number | string)[] | MomentInputObject | null | undefined;
+  type MomentInput = ReadonlyMoment | Date | string | number | (number | string)[] | MomentInputObject | null | undefined;
   type DurationInputArg1 = Duration | number | string | FromTo | DurationInputObject | null | undefined;
   type DurationInputArg2 = unitOfTime.DurationConstructor;
-  type LocaleSpecifier = string | Moment | Duration | string[] | boolean;
+  type LocaleSpecifier = string | ReadonlyMoment | Duration | string[] | boolean;
 
   interface MomentCreationData {
     input: MomentInput;
@@ -440,9 +440,132 @@ declare namespace moment {
     strict?: boolean;
   }
 
-  interface Moment extends Object {
+  interface ReadonlyMoment extends Object {
     format(format?: string): string;
 
+    calendar(): string;
+    calendar(formats: CalendarSpec): string;
+    calendar(time?: MomentInput, formats?: CalendarSpec): string;
+
+    clone(): Moment;
+
+    /**
+     * @return Unix timestamp in milliseconds
+     */
+    valueOf(): number;
+
+    // current date/time in local mode
+    isLocal(): boolean;
+
+    // current date/time in UTC mode
+    isUTC(): boolean;
+    /**
+     * @deprecated use isUTC
+     */
+    isUtc(): boolean;
+
+    isValid(): boolean;
+    invalidAt(): number;
+
+    hasAlignedHourOffset(other?: MomentInput): boolean;
+
+    creationData(): MomentCreationData;
+    parsingFlags(): MomentParsingFlags;
+    year(): number;
+    /**
+     * @deprecated use year()
+     */
+    years(): number;
+    quarter(): number;
+    quarters(): number;
+    month(): number;
+    /**
+     * @deprecated use month()
+     */
+    months(): number;
+    day(): number;
+    days(): number;
+    date(): number;
+    /**
+     * @deprecated use date()
+     */
+    dates(): number;
+    hour(): number;
+    hours(): number;
+    minute(): number;
+    minutes(): number;
+    second(): number;
+    seconds(): number;
+    millisecond(): number;
+    milliseconds(): number;
+    weekday(): number;
+    isoWeekday(): number;
+    weekYear(): number;
+    isoWeekYear(): number;
+    week(): number;
+    weeks(): number;
+    isoWeek(): number;
+    isoWeeks(): number;
+    weeksInYear(): number;
+    isoWeeksInYear(): number;
+    isoWeeksInISOWeekYear(): number;
+    dayOfYear(): number;
+
+    from(inp: MomentInput, suffix?: boolean): string;
+    to(inp: MomentInput, suffix?: boolean): string;
+    fromNow(withoutSuffix?: boolean): string;
+    toNow(withoutPrefix?: boolean): string;
+
+    diff(b: MomentInput, unitOfTime?: unitOfTime.Diff, precise?: boolean): number;
+
+    toArray(): [number, number, number, number, number, number, number];
+    toDate(): Date;
+    toISOString(keepOffset?: boolean): string;
+    inspect(): string;
+    toJSON(): string;
+    unix(): number;
+
+    isLeapYear(): boolean;
+    /**
+     * @deprecated in favor of utcOffset
+     */
+    zone(): number;
+    utcOffset(): number;
+    isUtcOffset(): boolean;
+    daysInMonth(): number;
+    isDST(): boolean;
+
+    zoneAbbr(): string;
+    zoneName(): string;
+
+    isBefore(inp?: MomentInput, granularity?: unitOfTime.StartOf): boolean;
+    isAfter(inp?: MomentInput, granularity?: unitOfTime.StartOf): boolean;
+    isSame(inp?: MomentInput, granularity?: unitOfTime.StartOf): boolean;
+    isSameOrAfter(inp?: MomentInput, granularity?: unitOfTime.StartOf): boolean;
+    isSameOrBefore(inp?: MomentInput, granularity?: unitOfTime.StartOf): boolean;
+    isBetween(a: MomentInput, b: MomentInput, granularity?: unitOfTime.StartOf, inclusivity?: "()" | "[)" | "(]" | "[]"): boolean;
+
+    /**
+     * @deprecated as of 2.8.0, use locale
+     */
+    lang(): Locale;
+
+    locale(): string;
+
+    localeData(): Locale;
+
+    /**
+     * @deprecated no reliable implementation
+     */
+    isDSTShifted(): boolean;
+
+
+    get(unit: unitOfTime.All): number;
+
+    toObject(): MomentObjectOutput;
+  }
+
+  interface Moment extends ReadonlyMoment {
     startOf(unitOfTime: unitOfTime.StartOf): Moment;
     endOf(unitOfTime: unitOfTime.StartOf): Moment;
 
@@ -458,37 +581,13 @@ declare namespace moment {
      */
     subtract(unit: unitOfTime.DurationConstructor, amount: number|string): Moment;
 
-    calendar(): string;
-    calendar(formats: CalendarSpec): string;
-    calendar(time?: MomentInput, formats?: CalendarSpec): string;
-
-    clone(): Moment;
-
-    /**
-     * @return Unix timestamp in milliseconds
-     */
-    valueOf(): number;
-
     // current date/time in local mode
     local(keepLocalTime?: boolean): Moment;
-    isLocal(): boolean;
 
     // current date/time in UTC mode
     utc(keepLocalTime?: boolean): Moment;
-    isUTC(): boolean;
-    /**
-     * @deprecated use isUTC
-     */
-    isUtc(): boolean;
 
     parseZone(): Moment;
-    isValid(): boolean;
-    invalidAt(): number;
-
-    hasAlignedHourOffset(other?: MomentInput): boolean;
-
-    creationData(): MomentCreationData;
-    parsingFlags(): MomentParsingFlags;
 
     year(y: number): Moment;
     year(): number;
@@ -566,21 +665,6 @@ declare namespace moment {
     dayOfYear(): number;
     dayOfYear(d: number): Moment;
 
-    from(inp: MomentInput, suffix?: boolean): string;
-    to(inp: MomentInput, suffix?: boolean): string;
-    fromNow(withoutSuffix?: boolean): string;
-    toNow(withoutPrefix?: boolean): string;
-
-    diff(b: MomentInput, unitOfTime?: unitOfTime.Diff, precise?: boolean): number;
-
-    toArray(): [number, number, number, number, number, number, number];
-    toDate(): Date;
-    toISOString(keepOffset?: boolean): string;
-    inspect(): string;
-    toJSON(): string;
-    unix(): number;
-
-    isLeapYear(): boolean;
     /**
      * @deprecated in favor of utcOffset
      */
@@ -588,19 +672,6 @@ declare namespace moment {
     zone(b: number|string): Moment;
     utcOffset(): number;
     utcOffset(b: number|string, keepLocalTime?: boolean): Moment;
-    isUtcOffset(): boolean;
-    daysInMonth(): number;
-    isDST(): boolean;
-
-    zoneAbbr(): string;
-    zoneName(): string;
-
-    isBefore(inp?: MomentInput, granularity?: unitOfTime.StartOf): boolean;
-    isAfter(inp?: MomentInput, granularity?: unitOfTime.StartOf): boolean;
-    isSame(inp?: MomentInput, granularity?: unitOfTime.StartOf): boolean;
-    isSameOrAfter(inp?: MomentInput, granularity?: unitOfTime.StartOf): boolean;
-    isSameOrBefore(inp?: MomentInput, granularity?: unitOfTime.StartOf): boolean;
-    isBetween(a: MomentInput, b: MomentInput, granularity?: unitOfTime.StartOf, inclusivity?: "()" | "[)" | "(]" | "[]"): boolean;
 
     /**
      * @deprecated as of 2.8.0, use locale
@@ -613,13 +684,6 @@ declare namespace moment {
 
     locale(): string;
     locale(locale: LocaleSpecifier): Moment;
-
-    localeData(): Locale;
-
-    /**
-     * @deprecated no reliable implementation
-     */
-    isDSTShifted(): boolean;
 
     // NOTE(constructor): Same as moment constructor
     /**
@@ -641,11 +705,8 @@ declare namespace moment {
      */
     min(inp?: MomentInput, format?: MomentFormatSpecification, language?: string, strict?: boolean): Moment;
 
-    get(unit: unitOfTime.All): number;
     set(unit: unitOfTime.All, value: number): Moment;
     set(objectLiteral: MomentSetObject): Moment;
-
-    toObject(): MomentObjectOutput;
   }
 
   export var version: string;
