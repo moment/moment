@@ -3,7 +3,7 @@ import moment from '../../moment';
 
 module('invalid');
 
-test('invalid', function (assert) {
+test('invalidd', function (assert) {
     var m = moment.invalid();
     assert.equal(m.isValid(), false);
     assert.equal(m.parsingFlags().userInvalidated, true);
