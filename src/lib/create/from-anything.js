@@ -77,9 +77,9 @@ function configFromInput(config) {
         configFromArray(config);
     } else if (isObject(input)) {
         configFromObject(config);
-    } else if (isNumber(input)) {
+    } else if (isNumber(input) || !isNaN(+input)) {
         // from milliseconds
-        config._d = new Date(input);
+        config._d = new Date(+input);
     } else {
         hooks.createFromInputFallback(config);
     }
