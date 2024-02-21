@@ -2,7 +2,7 @@
 //! locale : Czech [cs]
 //! author : petrbela : https://github.com/petrbela
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var months = {
         standalone:

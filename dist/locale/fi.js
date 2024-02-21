@@ -2,7 +2,7 @@
 //! locale : Finnish [fi]
 //! author : Tarmo Aidantausta : https://github.com/bleadof
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var numbersPast =
         'nolla yksi kaksi kolme neljä viisi kuusi seitsemän kahdeksan yhdeksän'.split(

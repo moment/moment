@@ -2,7 +2,7 @@
 //! locale : English (Australia) [en-au]
 //! author : Jared Morse : https://github.com/jarcoal
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('en-au', {
     months: 'January_February_March_April_May_June_July_August_September_October_November_December'.split(

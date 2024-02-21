@@ -3,7 +3,7 @@
 //! author : Robert Allen : https://github.com/robgallen
 //! author : https://github.com/ryangreaves
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('cy', {
     months: 'Ionawr_Chwefror_Mawrth_Ebrill_Mai_Mehefin_Gorffennaf_Awst_Medi_Hydref_Tachwedd_Rhagfyr'.split(

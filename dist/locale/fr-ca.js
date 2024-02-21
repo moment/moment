@@ -2,7 +2,7 @@
 //! locale : French (Canada) [fr-ca]
 //! author : Jonathan Abourbih : https://github.com/jonbca
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('fr-ca', {
     months: 'janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre'.split(

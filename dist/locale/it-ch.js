@@ -2,7 +2,7 @@
 //! locale : Italian (Switzerland) [it-ch]
 //! author : xfh : https://github.com/xfh
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('it-ch', {
     months: 'gennaio_febbraio_marzo_aprile_maggio_giugno_luglio_agosto_settembre_ottobre_novembre_dicembre'.split(

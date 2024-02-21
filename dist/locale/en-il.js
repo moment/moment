@@ -2,7 +2,7 @@
 //! locale : English (Israel) [en-il]
 //! author : Chris Gedrim : https://github.com/chrisgedrim
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('en-il', {
     months: 'January_February_March_April_May_June_July_August_September_October_November_December'.split(

@@ -4,7 +4,7 @@
 //! author : David Rossellat : https://github.com/gholadr
 //! author : Tin Aung Lin : https://github.com/thanyawzinmin
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var symbolMap = {
         1: '၁',

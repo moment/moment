@@ -2,7 +2,7 @@
 //! locale : Japanese [ja]
 //! author : LI Long : https://github.com/baryon
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('ja', {
     eras: [

@@ -4,7 +4,7 @@
 //! author : Rasid Redzic : https://github.com/rasidre
 //! based on (hr) translation by Bojan Marković
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 function processRelativeTime(number, withoutSuffix, key, isFuture) {
     switch (key) {

@@ -4,7 +4,7 @@
 //! author : Ahmed Elkhatib
 //! author : forabi https://github.com/forabi
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var symbolMap = {
         1: '١',

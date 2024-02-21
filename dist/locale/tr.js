@@ -3,7 +3,7 @@
 //! authors : Erhan Gundogan : https://github.com/erhangundogan,
 //!           Burak Yiğit Kaya: https://github.com/BYK
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 var suffixes = {
     1: "'inci",

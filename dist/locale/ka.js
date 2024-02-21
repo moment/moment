@@ -2,7 +2,7 @@
 //! locale : Georgian [ka]
 //! author : Irakli Janiashvili : https://github.com/IrakliJani
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('ka', {
     months: 'იანვარი_თებერვალი_მარტი_აპრილი_მაისი_ივნისი_ივლისი_აგვისტო_სექტემბერი_ოქტომბერი_ნოემბერი_დეკემბერი'.split(

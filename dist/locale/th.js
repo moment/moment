@@ -2,7 +2,7 @@
 //! locale : Thai [th]
 //! author : Kridsada Thanabulpong : https://github.com/sirn
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('th', {
     months: 'มกราคม_กุมภาพันธ์_มีนาคม_เมษายน_พฤษภาคม_มิถุนายน_กรกฎาคม_สิงหาคม_กันยายน_ตุลาคม_พฤศจิกายน_ธันวาคม'.split(

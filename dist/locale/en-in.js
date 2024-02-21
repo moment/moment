@@ -2,7 +2,7 @@
 //! locale : English (India) [en-in]
 //! author : Jatin Agrawal : https://github.com/jatinag22
 
-import moment from '../moment';
+import moment from '../moment.js';
 
 export default moment.defineLocale('en-in', {
     months: 'January_February_March_April_May_June_July_August_September_October_November_December'.split(
