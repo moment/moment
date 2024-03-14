@@ -34,9 +34,9 @@
         calendar: {
             sameDay: '[leo saa] LT',
             nextDay: '[kesho saa] LT',
-            nextWeek: '[wiki ijayo] dddd [saat] LT',
+            nextWeek: '[wiki ijayo] dddd [saa] LT',
             lastDay: '[jana] LT',
-            lastWeek: '[wiki iliyopita] dddd [saat] LT',
+            lastWeek: '[wiki iliyopita] dddd [saa] LT',
             sameElse: 'L',
         },
         relativeTime: {
