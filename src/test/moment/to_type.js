@@ -29,6 +29,8 @@ test('toDate returns a copy of the internal date', function (assert) {
 });
 
 test('toJSON', function (assert) {
+    assert.strictEqual(moment(null).toJSON(), null, 'toJSON null');
+
     if (Date.prototype.toISOString) {
         var expected = new Date().toISOString();
         assert.deepEqual(moment(expected).toJSON(), expected, 'toJSON invalid');

@@ -589,7 +589,7 @@ declare namespace moment {
     toDate(): Date;
     toISOString(keepOffset?: boolean): string;
     inspect(): string;
-    toJSON(): string;
+    toJSON(): string | null;
     unix(): number;
 
     isLeapYear(): boolean;
