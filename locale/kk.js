@@ -47,10 +47,10 @@
         longDateFormat: {
             LT: 'HH:mm',
             LTS: 'HH:mm:ss',
-            L: 'YYYY.DD.MM',
-            LL: 'YYYY [ж] D MMMM',
-            LLL: 'YYYY [ж] D MMMM HH:mm',
-            LLLL: 'YYYY [ж] D MMMM, dddd HH:mm',
+            L: 'DD.MM.YYYY',
+            LL: 'D MMMM YYYY',
+            LLL: 'D MMMM YYYY HH:mm',
+            LLLL: 'dddd, D MMMM YYYY HH:mm',
         },
         calendar: {
             sameDay: '[Бүгін сағат] LT',
