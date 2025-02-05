@@ -52,7 +52,7 @@ export default moment.defineLocale('pt-br', {
         y: 'um ano',
         yy: '%d anos',
     },
-    dayOfMonthOrdinalParse: /\d{1,2}º/,
-    ordinal: '%dº',
+    dayOfMonthOrdinalParse: /\d{1,2}º?/,
+    ordinal: (number) => (number === 1 ? '1º' : String(number)),
     invalidDate: 'Data inválida',
 });
