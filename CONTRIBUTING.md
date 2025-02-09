@@ -73,7 +73,7 @@ We use Grunt for managing the build. Here are some useful Grunt tasks:
   * `grunt test` Run the tests.
   * `grunt lint` Perform syntax and code style checks.
   * `grunt release` Build everything, including minified files (do not include
-    those in Pull Requests)
+    those in Pull Requests). 
   * `grunt transpile:fr,ru` Build custom locale bundles `moment-with-locales.custom.js` and `locales.custom.js` inside `build/umd/min` containing just French and Russian.
   * `grunt size` Print size statistics.
 
