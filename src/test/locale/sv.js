@@ -135,7 +135,7 @@ test('format month', function (assert) {
 
 test('format week', function (assert) {
     var expected =
-            'söndag sön sö_måndag mån må_tisdag tis ti_onsdag ons on_torsdag tor to_fredag fre fr_lördag lör lö'.split(
+            'söndag sön sö_måndag mån må_tisdag tis ti_onsdag ons on_torsdag tors to_fredag fre fr_lördag lör lö'.split(
                 '_'
             ),
         i;
