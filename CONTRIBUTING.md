@@ -77,6 +77,25 @@ We use Grunt for managing the build. Here are some useful Grunt tasks:
 
 **Note:** If the prompt message is `Code style issues found in the above file(s). Forgot to run Prettier?`, Please run `npm run prettier-fmt`. 
 
+Running Benchmarks
+==================
+
+To run benchmarks, you can use the `benchmark` Grunt task. The benchmark files are located in the `benchmarks` directory.
+
+To run a specific benchmark, use the following command:
+```bash
+grunt benchmark:<benchmark-name>
+```
+For example, to run the `add` benchmark:
+```bash
+grunt benchmark:add
+```
+
+To run all benchmarks, use the following command:
+```bash
+grunt benchmark:all
+```
+
 Becoming a moment team member
 =============================
 

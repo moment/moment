@@ -10,7 +10,7 @@ var tests = unitsUnderTest.reduce(function (testsSoFar, unit) {
 
 function generateTestForUnit(unit) {
     return {
-        setup: function(){var base = base; var unit = unit;},
+        setup: function(){base = moment('2013-05-25');},
         fn: function(){base.add(8, unit);},
         async: true
     };

@@ -252,4 +252,13 @@ module.exports = function (grunt) {
         'component',
         'uglify:main',
     ]);
+
+    // Task to run benchmarks
+    grunt.registerTask('benchmark', 'Run benchmarks', function (target) {
+        if (target) {
+            grunt.task.run('benchmark:' + target);
+        } else {
+            grunt.task.run('benchmark:all');
+        }
+    });
 };
