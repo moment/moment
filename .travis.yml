@@ -1,9 +1,9 @@
 language: node_js
 node_js:
   - "node"
+  - "18"
   - "16"
   - "14"
-  - "12"
 sudo: false
 
 env:
