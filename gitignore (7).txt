@@ -1,0 +1,45 @@
+# Ignore sensitive information files
+.env
+*.env
+.env.*.local
+
+# Ignore log files
+*.log
+*.log.*
+
+# Ignore temporary files
+*.tmp
+*.temp
+*~
+
+# Ignore directories that may contain sensitive data
+node_modules/
+vendor/
+.DS_Store
+
+# Ignore build and dependency directories
+build/
+dist/
+tmp/
+out/
+
+# Ignore configuration files
+config.local.json
+settings.local.json
+
+# Ignore credentials and API keys
+*.pem
+*.key
+*.crt
+*.p12
+
+# Ignore IDE and editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+
+# Ignore OS generated files
+Thumbs.db
+.DS_Store
