@@ -81,6 +81,31 @@ test('format', function (assert) {
     }
 });
 
+test('format apostrophed prepositions', function (assert) {
+    const examples = [
+        {
+            date: [2025, 3, 4],
+            format: 'LL',
+            want: '4 d’abril de 2025',
+        },
+        {
+            date: [2025, 7, 8],
+            format: 'LL',
+            want: '8 d’agost de 2025',
+        },
+        {
+            date: [2025, 9, 10],
+            format: 'LL',
+            want: '10 d’octubre de 2025',
+        }
+    ]
+
+    examples.forEach(({ date, format, want }) => {
+        const got = moment(date).format(format);
+        assert.equal(got, want, `${date}, ${format}: got ${got}, want ${want}`);
+    })
+});
+
 test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 1]).format('DDDo'), '1r', '1r');
     assert.equal(moment([2011, 0, 2]).format('DDDo'), '2n', '2n');
@@ -470,6 +495,6 @@ test('weeks year starting sunday formatted', function (assert) {
 
 test('day and month', function (assert) {
     assert.equal(moment([2012, 1, 15]).format('D MMMM'), '15 de febrer');
-    assert.equal(moment([2012, 9, 15]).format('D MMMM'), "15 d'octubre");
+    assert.equal(moment([2012, 9, 15]).format('D MMMM'), "15 d’octubre");
     assert.equal(moment([2012, 9, 15]).format('MMMM, D'), 'octubre, 15');
 });
