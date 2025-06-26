@@ -949,3 +949,13 @@ test('does not modify original moment instance', function (assert) {
         'issue #5681 regression'
     );
 });
+
+test('toDateString returns correct format', function (assert) {
+    var m = moment('2025-06-27T18:12:45');
+    assert.equal(m.toDateString(), '2025-06-27');
+});
+
+test('toDateTimeString returns correct format', function (assert) {
+    var m = moment('2025-06-27T18:12:45');
+    assert.equal(m.toDateTimeString(), '2025-06-27 18:12:45');
+});

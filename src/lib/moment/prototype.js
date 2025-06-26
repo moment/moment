@@ -193,5 +193,13 @@ proto.isDSTShifted = deprecate(
     'isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information',
     isDaylightSavingTimeShifted
 );
+// -- Added helper methods --
+proto.toDateString = function () {
+    return this.format('YYYY-MM-DD');
+};
+
+proto.toDateTimeString = function () {
+    return this.format('YYYY-MM-DD HH:mm:ss');
+};
 
 export default proto;
