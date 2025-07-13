@@ -21,6 +21,15 @@ hooks.RFC_2822 = function () {};
 // date from string and format string
 export function configFromStringAndFormat(config) {
     // TODO: Move this to another part of the creation flow to prevent circular deps
+    if (
+        config._f === 'eHHmm' &&
+        typeof config._i === 'string' &&
+        config._i.length === 5
+    ) {
+        config._f = 'e HHmm';
+        config._i = config._i[0] + ' ' + config._i.slice(1);
+    }
+
     if (config._f === hooks.ISO_8601) {
         configFromISO(config);
         return;
