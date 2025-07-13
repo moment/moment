@@ -2917,3 +2917,11 @@ test('k, kk', function (assert) {
         }
     }
 });
+
+test('eHHmm format parses correctly with one-digit weekday', function (assert) {
+    var m = moment('21530', 'eHHmm');
+    assert.ok(m.isValid(), 'eHHmm should parse single digit weekday correctly');
+    assert.equal(m.day(), 2, 'Weekday should be 2 (Tuesday)');
+    assert.equal(m.hour(), 15, 'Hour should be 15');
+    assert.equal(m.minute(), 30, 'Minute should be 30');
+});
