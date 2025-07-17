@@ -149,7 +149,7 @@ declare namespace moment {
     calendar?: CalendarSpec;
     relativeTime?: RelativeTimeSpec;
     invalidDate?: string;
-    ordinal?: (n: number) => string;
+    ordinal?: (n: number, p: string) => string;
     ordinalParse?: RegExp;
 
     week?: WeekSpec;
