@@ -358,19 +358,19 @@ test('calendar next week', function (assert) {
         m = moment().add({ d: i });
         assert.equal(
             m.calendar(),
-            m.format('[wiki ijayo] dddd [saat] LT'),
+            m.format('[wiki ijayo] dddd [saa] LT'),
             'Today + ' + i + ' days current time'
         );
         m.hours(0).minutes(0).seconds(0).milliseconds(0);
         assert.equal(
             m.calendar(),
-            m.format('[wiki ijayo] dddd [saat] LT'),
+            m.format('[wiki ijayo] dddd [saa] LT'),
             'Today + ' + i + ' days beginning of day'
         );
         m.hours(23).minutes(59).seconds(59).milliseconds(999);
         assert.equal(
             m.calendar(),
-            m.format('[wiki ijayo] dddd [saat] LT'),
+            m.format('[wiki ijayo] dddd [saa] LT'),
             'Today + ' + i + ' days end of day'
         );
     }
@@ -383,19 +383,19 @@ test('calendar last week', function (assert) {
         m = moment().subtract({ d: i });
         assert.equal(
             m.calendar(),
-            m.format('[wiki iliyopita] dddd [saat] LT'),
+            m.format('[wiki iliyopita] dddd [saa] LT'),
             'Today - ' + i + ' days current time'
         );
         m.hours(0).minutes(0).seconds(0).milliseconds(0);
         assert.equal(
             m.calendar(),
-            m.format('[wiki iliyopita] dddd [saat] LT'),
+            m.format('[wiki iliyopita] dddd [saa] LT'),
             'Today - ' + i + ' days beginning of day'
         );
         m.hours(23).minutes(59).seconds(59).milliseconds(999);
         assert.equal(
             m.calendar(),
-            m.format('[wiki iliyopita] dddd [saat] LT'),
+            m.format('[wiki iliyopita] dddd [saa] LT'),
             'Today - ' + i + ' days end of day'
         );
     }
