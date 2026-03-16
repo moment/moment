@@ -35,6 +35,6 @@ test('strict', function (assert) {
     );
     assert.ok(
         !moment('2015-01-02', 'YYYY-MM-DD').creationData().strict,
-        'strict is true'
+        'strict is false'
     );
 });
