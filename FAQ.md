@@ -23,6 +23,6 @@ If you don't have these config above, the default import won't work, and you'll 
 
 Note: It is recommended to use `import moment from 'moment'`.
 
-### Case and Program
+### Cases and problems
 
 Known cases so far: [#5444](https://github.com/moment/moment/issues/5444), [#5248](https://github.com/moment/moment/issues/5348) and [#5449](https://github.com/moment/moment/issues/5449).
