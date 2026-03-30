@@ -659,7 +659,7 @@ test('weekday formats', function (assert) {
     assert.equal(
         moment([2015, 2, 7]).format('e'),
         '3',
-        'Mar  7 2015 is Saturday  -- 3nd day'
+        'Mar  7 2015 is Saturday  -- 3rd day'
     );
     assert.equal(
         moment([1970, 0, 4]).format('e'),

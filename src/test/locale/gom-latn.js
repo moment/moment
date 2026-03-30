@@ -6,7 +6,7 @@ localeModule('gom-latn');
 test('parse', function (assert) {
     var i,
         tests =
-            'Janer Jan._Febrer Feb._Mars Mars_Abril Abr._Mai Mai_Jun Jun_Julai Jul._Agost Ago._Setembr Set._Otubr Otu._Novembr Nov._Dezembr Dez.'.split(
+            'Janer Jan._Febrer Feb._Mars Mars_Abril Abr._Mai Mai_Jun Jun_Julai Jul._Agost Ago._Setembr Set._Otubr Out._Novembr Nov._Dezembr Dez.'.split(
                 '_'
             );
 
@@ -122,7 +122,7 @@ test('format ordinal', function (assert) {
 test('format month', function (assert) {
     var i,
         expected =
-            'Janer Jan._Febrer Feb._Mars Mars_Abril Abr._Mai Mai_Jun Jun_Julai Jul._Agost Ago._Setembr Set._Otubr Otu._Novembr Nov._Dezembr Dez.'.split(
+            'Janer Jan._Febrer Feb._Mars Mars_Abril Abr._Mai Mai_Jun Jun_Julai Jul._Agost Ago._Setembr Set._Otubr Out._Novembr Nov._Dezembr Dez.'.split(
                 '_'
             );
 
@@ -138,7 +138,7 @@ test('format month', function (assert) {
 test('format week', function (assert) {
     var i,
         expected =
-            "Aitar Ait. Ai_Somar Som. Sm_Mongllar Mon. Mo_Budhvar Bud. Bu_Birestar Bre. Br_Sukrar Suk. Su_Son'var Son. Sn".split(
+            "Aitar Ait. Ai_Somar Some. Sm_Mongllar Mon. Mo_Budhvar Bud. Bu_Birestar Bre. Br_Sukrar Suk. Su_Son'var Son. Sn".split(
                 '_'
             );
 

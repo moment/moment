@@ -26,7 +26,7 @@ var day12 = moment.unix(1318781876);
 var day13 = moment("/Date(1198908717056-0700)/", true);
 var day14 = moment("foobazbar", 'L', true);
 
-// TODO: reenable in 2.0
+// TODO: re-enable in 2.0
 // moment(null);
 moment(undefined);
 moment({ years: 2010, months: 3, days: 5, hours: 15, minutes: 10, seconds: 3, milliseconds: 123 });
@@ -255,7 +255,7 @@ localLang.localeData();
 localLang.format('LLLL');
 globalLang.format('LLLL');
 
-// TODO: reenable in 2.0
+// TODO: re-enable in 2.0
 // moment.duration(null);
 moment.duration(undefined);
 moment.duration(100);
@@ -323,7 +323,7 @@ moment.locale();
 moment.locale('en');
 moment.locale(['en', 'fr']);
 
-// TODO: Reenable in 2.0
+// TODO: Re-enable in 2.0
 // moment.defineLocale('en', null);
 // moment.updateLocale('en', null);
 // moment.locale('en', null);

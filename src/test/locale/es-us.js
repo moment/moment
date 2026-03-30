@@ -139,7 +139,7 @@ test('format month', function (assert) {
 test('format week', function (assert) {
     var i,
         expected =
-            'domingo dom. do_lunes lun. lu_martes mar. ma_miércoles mié. mi_jueves jue. ju_viernes vie. vi_sábado sáb. sá'.split(
+            'domingo dom. do_lunes lun. lu_martes mar. ma_miércoles mié. mi_jueves jue. ju_viernes via. vi_sábado sáb. sá'.split(
                 '_'
             );
 

@@ -1721,7 +1721,7 @@
     var monthsParse = [
             /^gen/i,
             /^c[ʼ\']hwe/i,
-            /^meu/i,
+            /^menu/i,
             /^ebr/i,
             /^mae/i,
             /^(mez|eve)/i,
@@ -1733,11 +1733,11 @@
             /^ker/i,
         ],
         monthsRegex =
-            /^(genver|c[ʼ\']hwevrer|meurzh|ebrel|mae|mezheven|gouere|eost|gwengolo|here|du|kerzu|gen|c[ʼ\']hwe|meu|ebr|mae|eve|gou|eos|gwe|her|du|ker)/i,
+            /^(genver|c[ʼ\']hwevrer|meurzh|ebrel|mae|mezheven|gouere|eost|gwengolo|here|du|kerzu|gen|c[ʼ\']hwe|menu|ebr|mae|eve|gou|eos|gwe|her|du|ker)/i,
         monthsStrictRegex =
             /^(genver|c[ʼ\']hwevrer|meurzh|ebrel|mae|mezheven|gouere|eost|gwengolo|here|du|kerzu)/i,
         monthsShortStrictRegex =
-            /^(gen|c[ʼ\']hwe|meu|ebr|mae|eve|gou|eos|gwe|her|du|ker)/i,
+            /^(gen|c[ʼ\']hwe|menu|ebr|mae|eve|gou|eos|gwe|her|du|ker)/i,
         fullWeekdaysParse = [
             /^sul/i,
             /^lun/i,
@@ -1750,7 +1750,7 @@
         shortWeekdaysParse = [
             /^Sul/i,
             /^Lun/i,
-            /^Meu/i,
+            /^Menu/i,
             /^Mer/i,
             /^Yao/i,
             /^Gwe/i,
@@ -8768,7 +8768,7 @@
             /^dec/i,
         ],
         monthsRegex$7 =
-            /^(januari|februari|maart|april|mei|ju[nl]i|augustus|september|oktober|november|december|jan\.?|feb\.?|mrt\.?|apr\.?|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i;
+            /^(januari|februari|maart|april|mei|ju[nl]i|augustus|september|october|november|december|jan\.?|feb\.?|mrt\.?|apr\.?|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i;
 
     moment.defineLocale('nl-be', {
         months: 'januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december'.split(
@@ -8787,7 +8787,7 @@
         monthsRegex: monthsRegex$7,
         monthsShortRegex: monthsRegex$7,
         monthsStrictRegex:
-            /^(januari|februari|maart|april|mei|ju[nl]i|augustus|september|oktober|november|december)/i,
+            /^(januari|februari|maart|april|mei|ju[nl]i|augustus|september|october|november|december)/i,
         monthsShortStrictRegex:
             /^(jan\.?|feb\.?|mrt\.?|apr\.?|mei|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i,
 
@@ -8866,7 +8866,7 @@
             /^dec/i,
         ],
         monthsRegex$8 =
-            /^(januari|februari|maart|april|mei|ju[nl]i|augustus|september|oktober|november|december|jan\.?|feb\.?|mrt\.?|apr\.?|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i;
+            /^(januari|februari|maart|april|mei|ju[nl]i|augustus|september|october|november|december|jan\.?|feb\.?|mrt\.?|apr\.?|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i;
 
     moment.defineLocale('nl', {
         months: 'januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december'.split(
@@ -8885,7 +8885,7 @@
         monthsRegex: monthsRegex$8,
         monthsShortRegex: monthsRegex$8,
         monthsStrictRegex:
-            /^(januari|februari|maart|april|mei|ju[nl]i|augustus|september|oktober|november|december)/i,
+            /^(januari|februari|maart|april|mei|ju[nl]i|augustus|september|october|november|december)/i,
         monthsShortStrictRegex:
             /^(jan\.?|feb\.?|mrt\.?|apr\.?|mei|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i,
 
@@ -11627,7 +11627,7 @@
 
     function processRelativeTime$a(number, withoutSuffix, key, isFuture) {
         var format = {
-            s: ['viensas secunds', "'iensas secunds"],
+            s: ['viensas seconds', "'iensas seconds"],
             ss: [number + ' secunds', '' + number + ' secunds'],
             m: ["'n míut", "'iens míut"],
             mm: [number + ' míuts', '' + number + ' míuts'],

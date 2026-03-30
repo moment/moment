@@ -294,13 +294,13 @@ test('from', function (assert) {
 
 test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'osprei viensas secunds', 'prefix');
-    assert.equal(moment(0).from(30000), "ja'iensas secunds", 'suffix');
+    assert.equal(moment(0).from(30000), "ja'iensas seconds", 'suffix');
 });
 
 test('now from now', function (assert) {
     assert.equal(
         moment().fromNow(),
-        "ja'iensas secunds",
+        "ja'iensas seconds",
         'now from now should display as in the past'
     );
 });

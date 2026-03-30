@@ -162,7 +162,7 @@ test('setter programmatic', function (assert) {
     assert.equal(a.month(), 3, 'month edge case');
 });
 
-test('setters programatic with weeks', function (assert) {
+test('setters programmatic with weeks', function (assert) {
     var a = moment();
     a.set('weekYear', 2001);
     a.set('week', 49);
@@ -176,7 +176,7 @@ test('setters programatic with weeks', function (assert) {
     assert.equal(a.weekday(), 1, 'weekday');
 });
 
-test('setters programatic with weeks ISO', function (assert) {
+test('setters programmatic with weeks ISO', function (assert) {
     var a = moment();
     a.set('isoWeekYear', 2001);
     a.set('isoWeek', 49);
