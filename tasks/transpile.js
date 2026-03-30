@@ -348,7 +348,7 @@ module.exports = function (grunt) {
 
     grunt.task.registerTask(
         'transpile',
-        'builds all es5 files, optinally creating custom locales',
+        'builds all es5 files, optionally creating custom locales',
         function (locales) {
             var tasks = ['clean:build', 'transpile-raw', 'concat:tests'];
 
