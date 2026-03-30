@@ -170,7 +170,7 @@ test('format month', function (assert) {
 test('format week', function (assert) {
     moment.locale('br');
     var expected =
-            'Sul Sul Su_Lun Lun Lu_Meurzh Meu Me_Mercʼher Mer Mer_Yaou Yao Ya_Gwener Gwe Gw_Sadorn Sad Sa'.split(
+            'Sul Sul Su_Lun Lun Lu_Meurzh Menu Me_Mercʼher Mer Mer_Yaou Yao Ya_Gwener Gwe Gw_Sadorn Sad Sa'.split(
                 '_'
             ),
         i;

@@ -75,7 +75,7 @@
 
     function processRelativeTime(number, withoutSuffix, key, isFuture) {
         var format = {
-            s: ['viensas secunds', "'iensas secunds"],
+            s: ['viensas seconds', "'iensas seconds"],
             ss: [number + ' secunds', '' + number + ' secunds'],
             m: ["'n míut", "'iens míut"],
             mm: [number + ' míuts', '' + number + ' míuts'],

@@ -135,7 +135,7 @@ test('format month', function (assert) {
 
 test('format week', function (assert) {
     var expected =
-            'Il-Ħadd Ħad Ħa_It-Tnejn Tne Tn_It-Tlieta Tli Tl_L-Erbgħa Erb Er_Il-Ħamis Ħam Ħa_Il-Ġimgħa Ġim Ġi_Is-Sibt Sib Si'.split(
+            'Il-Ħadd Ħad Ħa_It-Tnejn The Tn_It-Tlieta Tli Tl_L-Erbgħa Erb Er_Il-Ħamis Ħam Ħa_Il-Ġimgħa Ġim Ġi_Is-Sibt Sib Si'.split(
                 '_'
             ),
         i;

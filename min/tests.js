@@ -14632,7 +14632,7 @@
     test('format week', function (assert) {
         moment.locale('br');
         var expected =
-                'Sul Sul Su_Lun Lun Lu_Meurzh Meu Me_Mercʼher Mer Mer_Yaou Yao Ya_Gwener Gwe Gw_Sadorn Sad Sa'.split(
+                'Sul Sul Su_Lun Lun Lu_Meurzh Menu Me_Mercʼher Mer Mer_Yaou Yao Ya_Gwener Gwe Gw_Sadorn Sad Sa'.split(
                     '_'
                 ),
             i;
@@ -15448,10 +15448,10 @@
         var a = [
                 [
                     'dddd, Do MMMM YYYY, h:mm:ss a',
-                    'nedjelja, 14. februar 2010, 3:25:50 pm',
+                    'nedjelja, 14. february 2010, 3:25:50 pm',
                 ],
                 ['ddd, hA', 'ned., 3PM'],
-                ['M Mo MM MMMM MMM', '2 2. 02 februar feb.'],
+                ['M Mo MM MMMM MMM', '2 2. 02 february feb.'],
                 ['YYYY YY', '2010 10'],
                 ['D Do DD', '14 14. 14'],
                 ['d do dddd ddd dd', '0 0. nedjelja ned. ne'],
@@ -15465,9 +15465,9 @@
                 ['[the] DDDo [day of the year]', 'the 45. day of the year'],
                 ['LTS', '15:25:50'],
                 ['L', '14.02.2010'],
-                ['LL', '14. februar 2010'],
-                ['LLL', '14. februar 2010 15:25'],
-                ['LLLL', 'nedjelja, 14. februar 2010 15:25'],
+                ['LL', '14. february 2010'],
+                ['LLL', '14. february 2010 15:25'],
+                ['LLLL', 'nedjelja, 14. february 2010 15:25'],
                 ['l', '14.2.2010'],
                 ['ll', '14. feb. 2010'],
                 ['lll', '14. feb. 2010 15:25'],
@@ -19953,10 +19953,10 @@
         var a = [
                 [
                     'dddd [den] Do MMMM YYYY, h:mm:ss a',
-                    'søndag den 14. februar 2010, 3:25:50 pm',
+                    'søndag den 14. february 2010, 3:25:50 pm',
                 ],
                 ['ddd hA', 'søn 3PM'],
-                ['M Mo MM MMMM MMM', '2 2. 02 februar feb'],
+                ['M Mo MM MMMM MMM', '2 2. 02 february feb'],
                 ['YYYY YY', '2010 10'],
                 ['D Do DD', '14 14. 14'],
                 ['d do dddd ddd dd', '0 0. søndag søn sø'],
@@ -19970,9 +19970,9 @@
                 ['[den] DDDo [dag på året]', 'den 45. dag på året'],
                 ['LTS', '15:25:50'],
                 ['L', '14.02.2010'],
-                ['LL', '14. februar 2010'],
-                ['LLL', '14. februar 2010 15:25'],
-                ['LLLL', 'søndag d. 14. februar 2010 kl. 15:25'],
+                ['LL', '14. february 2010'],
+                ['LLL', '14. february 2010 15:25'],
+                ['LLLL', 'søndag d. 14. february 2010 kl. 15:25'],
                 ['l', '14.2.2010'],
                 ['ll', '14. feb 2010'],
                 ['lll', '14. feb 2010 15:25'],
@@ -20039,7 +20039,7 @@
 
     test('format week', function (assert) {
         var expected =
-                'søndag søn sø_mandag man ma_tirsdag tir ti_onsdag ons on_torsdag tor to_fredag fre fr_lørdag lør lø'.split(
+                'søndag søn sø_mandag man ma_tirsdag tir ti_onsdag owns on_torsdag tor to_fredag fre fr_lørdag lør lø'.split(
                     '_'
                 ),
             i;
@@ -20797,10 +20797,10 @@
         var a = [
                 [
                     'dddd, Do MMMM YYYY, h:mm:ss a',
-                    'Sonntag, 14. Februar 2010, 3:25:50 pm',
+                    'Sonntag, 14. February 2010, 3:25:50 pm',
                 ],
                 ['ddd, hA', 'So., 3PM'],
-                ['M Mo MM MMMM MMM', '2 2. 02 Februar Feb.'],
+                ['M Mo MM MMMM MMM', '2 2. 02 February Feb.'],
                 ['YYYY YY', '2010 10'],
                 ['D Do DD', '14 14. 14'],
                 ['d do dddd ddd dd', '0 0. Sonntag So. So'],
@@ -20814,9 +20814,9 @@
                 ['[the] DDDo [day of the year]', 'the 45. day of the year'],
                 ['LTS', '15:25:50'],
                 ['L', '14.02.2010'],
-                ['LL', '14. Februar 2010'],
-                ['LLL', '14. Februar 2010 15:25'],
-                ['LLLL', 'Sonntag, 14. Februar 2010 15:25'],
+                ['LL', '14. February 2010'],
+                ['LLL', '14. February 2010 15:25'],
+                ['LLLL', 'Sonntag, 14. February 2010 15:25'],
                 ['l', '14.2.2010'],
                 ['ll', '14. Feb. 2010'],
                 ['lll', '14. Feb. 2010 15:25'],
@@ -21668,10 +21668,10 @@
         var a = [
                 [
                     'dddd, Do MMMM YYYY, h:mm:ss a',
-                    'Sonntag, 14. Februar 2010, 3:25:50 pm',
+                    'Sonntag, 14. February 2010, 3:25:50 pm',
                 ],
                 ['ddd, hA', 'So, 3PM'],
-                ['M Mo MM MMMM MMM', '2 2. 02 Februar Feb.'],
+                ['M Mo MM MMMM MMM', '2 2. 02 February Feb.'],
                 ['YYYY YY', '2010 10'],
                 ['D Do DD', '14 14. 14'],
                 ['d do dddd ddd dd', '0 0. Sonntag So So'],
@@ -21686,9 +21686,9 @@
                 ['LT', '15:25'],
                 ['LTS', '15:25:50'],
                 ['L', '14.02.2010'],
-                ['LL', '14. Februar 2010'],
-                ['LLL', '14. Februar 2010 15:25'],
-                ['LLLL', 'Sonntag, 14. Februar 2010 15:25'],
+                ['LL', '14. February 2010'],
+                ['LLL', '14. February 2010 15:25'],
+                ['LLLL', 'Sonntag, 14. February 2010 15:25'],
                 ['l', '14.2.2010'],
                 ['ll', '14. Feb. 2010'],
                 ['lll', '14. Feb. 2010 15:25'],
@@ -22545,10 +22545,10 @@
         var a = [
                 [
                     'dddd, Do MMMM YYYY, h:mm:ss a',
-                    'Sonntag, 14. Februar 2010, 3:25:50 pm',
+                    'Sonntag, 14. February 2010, 3:25:50 pm',
                 ],
                 ['ddd, hA', 'So., 3PM'],
-                ['M Mo MM MMMM MMM', '2 2. 02 Februar Feb.'],
+                ['M Mo MM MMMM MMM', '2 2. 02 February Feb.'],
                 ['YYYY YY', '2010 10'],
                 ['D Do DD', '14 14. 14'],
                 ['d do dddd ddd dd', '0 0. Sonntag So. So'],
@@ -22562,9 +22562,9 @@
                 ['[the] DDDo [day of the year]', 'the 45. day of the year'],
                 ['LTS', '15:25:50'],
                 ['L', '14.02.2010'],
-                ['LL', '14. Februar 2010'],
-                ['LLL', '14. Februar 2010 15:25'],
-                ['LLLL', 'Sonntag, 14. Februar 2010 15:25'],
+                ['LL', '14. February 2010'],
+                ['LLL', '14. February 2010 15:25'],
+                ['LLLL', 'Sonntag, 14. February 2010 15:25'],
                 ['l', '14.2.2010'],
                 ['ll', '14. Feb. 2010'],
                 ['lll', '14. Feb. 2010 15:25'],
@@ -33854,7 +33854,7 @@
 
     test('format week', function (assert) {
         var expected =
-                'domingo dom. do_lunes lun. lu_martes mar. ma_miércoles mié. mi_jueves jue. ju_viernes vie. vi_sábado sáb. sá'.split(
+                'domingo dom. do_lunes lun. lu_martes mar. ma_miércoles mié. mi_jueves jue. ju_viernes via. vi_sábado sáb. sá'.split(
                     '_'
                 ),
             i;
@@ -34723,7 +34723,7 @@
 
     test('format week', function (assert) {
         var expected =
-                'domingo dom. do_lunes lun. lu_martes mar. ma_miércoles mié. mi_jueves jue. ju_viernes vie. vi_sábado sáb. sá'.split(
+                'domingo dom. do_lunes lun. lu_martes mar. ma_miércoles mié. mi_jueves jue. ju_viernes via. vi_sábado sáb. sá'.split(
                     '_'
                 ),
             i;
@@ -35636,7 +35636,7 @@
     test('format week', function (assert) {
         var i,
             expected =
-                'domingo dom. do_lunes lun. lu_martes mar. ma_miércoles mié. mi_jueves jue. ju_viernes vie. vi_sábado sáb. sá'.split(
+                'domingo dom. do_lunes lun. lu_martes mar. ma_miércoles mié. mi_jueves jue. ju_viernes via. vi_sábado sáb. sá'.split(
                     '_'
                 );
 
@@ -36518,7 +36518,7 @@
 
     test('format week', function (assert) {
         var expected =
-                'domingo dom. do_lunes lun. lu_martes mar. ma_miércoles mié. mi_jueves jue. ju_viernes vie. vi_sábado sáb. sá'.split(
+                'domingo dom. do_lunes lun. lu_martes mar. ma_miércoles mié. mi_jueves jue. ju_viernes via. vi_sábado sáb. sá'.split(
                     '_'
                 ),
             i;
@@ -41659,10 +41659,10 @@
         var a = [
                 [
                     'dddd [tann] Do MMMM YYYY, h:mm:ss a',
-                    'sunnudagur tann 14. februar 2010, 3:25:50 pm',
+                    'sunnudagur tann 14. february 2010, 3:25:50 pm',
                 ],
                 ['ddd hA', 'sun 3PM'],
-                ['M Mo MM MMMM MMM', '2 2. 02 februar feb'],
+                ['M Mo MM MMMM MMM', '2 2. 02 february feb'],
                 ['YYYY YY', '2010 10'],
                 ['D Do DD', '14 14. 14'],
                 ['d do dddd ddd dd', '0 0. sunnudagur sun su'],
@@ -41676,9 +41676,9 @@
                 ['[tann] DDDo [dagin á árinum]', 'tann 45. dagin á árinum'],
                 ['LTS', '15:25:50'],
                 ['L', '14/02/2010'],
-                ['LL', '14 februar 2010'],
-                ['LLL', '14 februar 2010 15:25'],
-                ['LLLL', 'sunnudagur 14. februar, 2010 15:25'],
+                ['LL', '14 february 2010'],
+                ['LLL', '14 february 2010 15:25'],
+                ['LLLL', 'sunnudagur 14. february, 2010 15:25'],
                 ['l', '14/2/2010'],
                 ['ll', '14 feb 2010'],
                 ['lll', '14 feb 2010 15:25'],
@@ -49312,7 +49312,7 @@
     test('parse', function (assert) {
         var i,
             tests =
-                'Janer Jan._Febrer Feb._Mars Mars_Abril Abr._Mai Mai_Jun Jun_Julai Jul._Agost Ago._Setembr Set._Otubr Otu._Novembr Nov._Dezembr Dez.'.split(
+                'Janer Jan._Febrer Feb._Mars Mars_Abril Abr._Mai Mai_Jun Jun_Julai Jul._Agost Ago._Setembr Set._Otubr Out._Novembr Nov._Dezembr Dez.'.split(
                     '_'
                 );
 
@@ -49428,7 +49428,7 @@
     test('format month', function (assert) {
         var i,
             expected =
-                'Janer Jan._Febrer Feb._Mars Mars_Abril Abr._Mai Mai_Jun Jun_Julai Jul._Agost Ago._Setembr Set._Otubr Otu._Novembr Nov._Dezembr Dez.'.split(
+                'Janer Jan._Febrer Feb._Mars Mars_Abril Abr._Mai Mai_Jun Jun_Julai Jul._Agost Ago._Setembr Set._Otubr Out._Novembr Nov._Dezembr Dez.'.split(
                     '_'
                 );
 
@@ -49444,7 +49444,7 @@
     test('format week', function (assert) {
         var i,
             expected =
-                "Aitar Ait. Ai_Somar Som. Sm_Mongllar Mon. Mo_Budhvar Bud. Bu_Birestar Bre. Br_Sukrar Suk. Su_Son'var Son. Sn".split(
+                "Aitar Ait. Ai_Somar Some. Sm_Mongllar Mon. Mo_Budhvar Bud. Bu_Birestar Bre. Br_Sukrar Suk. Su_Son'var Son. Sn".split(
                     '_'
                 );
 
@@ -53715,7 +53715,7 @@
                 ['M Mo MM MMMM MMM', '2 2. 02 február feb.'],
                 ['YYYY YY', '2010 10'],
                 ['D Do DD', '14 14. 14'],
-                ['d do dddd ddd dd', '0 0. vasárnap vas v'],
+                ['d do dddd ddd dd', '0 0. vasárnap was v'],
                 ['DDD DDDo DDDD', '45 45. 045'],
                 ['w wo ww', '6 6. 06'],
                 ['H HH', '15 15'],
@@ -53730,7 +53730,7 @@
                 ['l', '2010.2.14.'],
                 ['ll', '2010. feb. 14.'],
                 ['lll', '2010. feb. 14. 15:25'],
-                ['llll', '2010. feb. 14., vas 15:25'],
+                ['llll', '2010. feb. 14., was 15:25'],
             ],
             b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
             i;
@@ -67773,10 +67773,10 @@
         var a = [
                 [
                     'dddd, Do MMMM YYYY, HH:mm:ss',
-                    'Sonndeg, 14. Februar 2010, 15:25:50',
+                    'Sonndeg, 14. February 2010, 15:25:50',
                 ],
                 ['ddd, HH:mm', 'So., 15:25'],
-                ['M Mo MM MMMM MMM', '2 2. 02 Februar Febr.'],
+                ['M Mo MM MMMM MMM', '2 2. 02 February Febr.'],
                 ['YYYY YY', '2010 10'],
                 ['D Do DD', '14 14. 14'],
                 ['d do dddd ddd dd', '0 0. Sonndeg So. So'],
@@ -67790,9 +67790,9 @@
                 ['[the] DDDo [day of the year]', 'the 45. day of the year'],
                 ['LTS', '15:25:50 Auer'],
                 ['L', '14.02.2010'],
-                ['LL', '14. Februar 2010'],
-                ['LLL', '14. Februar 2010 15:25 Auer'],
-                ['LLLL', 'Sonndeg, 14. Februar 2010 15:25 Auer'],
+                ['LL', '14. February 2010'],
+                ['LLL', '14. February 2010 15:25 Auer'],
+                ['LLLL', 'Sonndeg, 14. February 2010 15:25 Auer'],
                 ['l', '14.2.2010'],
                 ['ll', '14. Febr. 2010'],
                 ['lll', '14. Febr. 2010 15:25 Auer'],
@@ -71307,10 +71307,10 @@
         var a = [
                 [
                     'dddd, Do MMMM YYYY, h:mm:ss a',
-                    'nedjelja, 14. februar 2010, 3:25:50 pm',
+                    'nedjelja, 14. february 2010, 3:25:50 pm',
                 ],
                 ['ddd, hA', 'ned., 3PM'],
-                ['M Mo MM MMMM MMM', '2 2. 02 februar feb.'],
+                ['M Mo MM MMMM MMM', '2 2. 02 february feb.'],
                 ['YYYY YY', '2010 10'],
                 ['D Do DD', '14 14. 14'],
                 ['d do dddd ddd dd', '0 0. nedjelja ned. ne'],
@@ -71324,9 +71324,9 @@
                 ['[the] DDDo [day of the year]', 'the 45. day of the year'],
                 ['LTS', '15:25:50'],
                 ['L', '14.02.2010'],
-                ['LL', '14. februar 2010'],
-                ['LLL', '14. februar 2010 15:25'],
-                ['LLLL', 'nedjelja, 14. februar 2010 15:25'],
+                ['LL', '14. february 2010'],
+                ['LLL', '14. february 2010 15:25'],
+                ['LLLL', 'nedjelja, 14. february 2010 15:25'],
                 ['l', '14.2.2010'],
                 ['ll', '14. feb. 2010'],
                 ['lll', '14. feb. 2010 15:25'],
@@ -78408,7 +78408,7 @@
 
     test('format week', function (assert) {
         var expected =
-                'Il-Ħadd Ħad Ħa_It-Tnejn Tne Tn_It-Tlieta Tli Tl_L-Erbgħa Erb Er_Il-Ħamis Ħam Ħa_Il-Ġimgħa Ġim Ġi_Is-Sibt Sib Si'.split(
+                'Il-Ħadd Ħad Ħa_It-Tnejn The Tn_It-Tlieta Tli Tl_L-Erbgħa Erb Er_Il-Ħamis Ħam Ħa_Il-Ġimgħa Ġim Ġi_Is-Sibt Sib Si'.split(
                     '_'
                 ),
             i;
@@ -80177,10 +80177,10 @@
         var a = [
                 [
                     'dddd, MMMM Do YYYY, h:mm:ss a',
-                    'søndag, februar 14. 2010, 3:25:50 pm',
+                    'søndag, february 14. 2010, 3:25:50 pm',
                 ],
                 ['ddd, hA', 'sø., 3PM'],
-                ['M Mo MM MMMM MMM', '2 2. 02 februar feb.'],
+                ['M Mo MM MMMM MMM', '2 2. 02 february feb.'],
                 ['YYYY YY', '2010 10'],
                 ['D Do DD', '14 14. 14'],
                 ['d do dddd ddd dd', '0 0. søndag sø. sø'],
@@ -80194,9 +80194,9 @@
                 ['[den] DDDo [dagen i året]', 'den 45. dagen i året'],
                 ['LTS', '15:25:50'],
                 ['L', '14.02.2010'],
-                ['LL', '14. februar 2010'],
-                ['LLL', '14. februar 2010 kl. 15:25'],
-                ['LLLL', 'søndag 14. februar 2010 kl. 15:25'],
+                ['LL', '14. february 2010'],
+                ['LLL', '14. february 2010 kl. 15:25'],
+                ['LLLL', 'søndag 14. february 2010 kl. 15:25'],
                 ['l', '14.2.2010'],
                 ['ll', '14. feb. 2010'],
                 ['lll', '14. feb. 2010 kl. 15:25'],
@@ -83632,10 +83632,10 @@
         var a = [
                 [
                     'dddd, MMMM Do YYYY, h:mm:ss a',
-                    'sundag, februar 14. 2010, 3:25:50 pm',
+                    'sundag, february 14. 2010, 3:25:50 pm',
                 ],
                 ['ddd, hA', 'su., 3PM'],
-                ['M Mo MM MMMM MMM', '2 2. 02 februar feb.'],
+                ['M Mo MM MMMM MMM', '2 2. 02 february feb.'],
                 ['YYYY YY', '2010 10'],
                 ['D Do DD', '14 14. 14'],
                 ['d do dddd ddd dd', '0 0. sundag su. su'],
@@ -83649,9 +83649,9 @@
                 ['[the] DDDo [day of the year]', 'the 45. day of the year'],
                 ['LTS', '15:25:50'],
                 ['L', '14.02.2010'],
-                ['LL', '14. februar 2010'],
-                ['LLL', '14. februar 2010 kl. 15:25'],
-                ['LLLL', 'sundag 14. februar 2010 kl. 15:25'],
+                ['LL', '14. february 2010'],
+                ['LLL', '14. february 2010 kl. 15:25'],
+                ['LLLL', 'sundag 14. february 2010 kl. 15:25'],
                 ['l', '14.2.2010'],
                 ['ll', '14. feb. 2010'],
                 ['lll', '14. feb. 2010 kl. 15:25'],
@@ -89147,7 +89147,7 @@
                 ['M Mo MM MMMM MMM', '2 2 02 februarie feb.'],
                 ['YYYY YY', '2010 10'],
                 ['D Do DD', '14 14 14'],
-                ['d do dddd ddd dd', '0 0 duminică Dum Du'],
+                ['d do dddd ddd dd', '0 0 duminică Dumb Du'],
                 ['DDD DDDo DDDD', '45 45 045'],
                 ['w wo ww', '7 7 07'],
                 ['h hh', '3 03'],
@@ -89227,7 +89227,7 @@
 
     test('format week', function (assert) {
         var expected =
-                'duminică Dum Du_luni Lun Lu_marți Mar Ma_miercuri Mie Mi_joi Joi Jo_vineri Vin Vi_sâmbătă Sâm Sâ'.split(
+                'duminică Dumb Du_luni Lun Lu_marți Mar Ma_miercuri Mie Mi_joi Joi Jo_vineri Vin Vi_sâmbătă Sâm Sâ'.split(
                     '_'
                 ),
             i;
@@ -94668,10 +94668,10 @@
         var a = [
                 [
                     'dddd, Do MMMM YYYY, h:mm:ss a',
-                    'nedelja, 14. februar 2010, 3:25:50 pm',
+                    'nedelja, 14. february 2010, 3:25:50 pm',
                 ],
                 ['ddd, hA', 'ned., 3PM'],
-                ['M Mo MM MMMM MMM', '2 2. 02 februar feb.'],
+                ['M Mo MM MMMM MMM', '2 2. 02 february feb.'],
                 ['YYYY YY', '2010 10'],
                 ['D Do DD', '14 14. 14'],
                 ['d do dddd ddd dd', '0 0. nedelja ned. ne'],
@@ -94685,9 +94685,9 @@
                 ['[the] DDDo [day of the year]', 'the 45. day of the year'],
                 ['LTS', '15:25:50'],
                 ['L', '14. 02. 2010'],
-                ['LL', '14. februar 2010'],
-                ['LLL', '14. februar 2010 15:25'],
-                ['LLLL', 'nedelja, 14. februar 2010 15:25'],
+                ['LL', '14. february 2010'],
+                ['LLL', '14. february 2010 15:25'],
+                ['LLLL', 'nedelja, 14. february 2010 15:25'],
                 ['l', '14. 2. 2010'],
                 ['ll', '14. feb. 2010'],
                 ['lll', '14. feb. 2010 15:25'],
@@ -97605,10 +97605,10 @@
         var a = [
                 [
                     'dddd, Do MMMM YYYY, h:mm:ss a',
-                    'nedelja, 14. februar 2010, 3:25:50 pm',
+                    'nedelja, 14. february 2010, 3:25:50 pm',
                 ],
                 ['ddd, hA', 'ned., 3PM'],
-                ['M Mo MM MMMM MMM', '2 2. 02 februar feb.'],
+                ['M Mo MM MMMM MMM', '2 2. 02 february feb.'],
                 ['YYYY YY', '2010 10'],
                 ['D Do DD', '14 14. 14'],
                 ['d do dddd ddd dd', '0 0. nedelja ned. ne'],
@@ -97622,9 +97622,9 @@
                 ['[the] DDDo [day of the year]', 'the 45. day of the year'],
                 ['LTS', '15:25:50'],
                 ['L', '14. 2. 2010.'],
-                ['LL', '14. februar 2010.'],
-                ['LLL', '14. februar 2010. 15:25'],
-                ['LLLL', 'nedelja, 14. februar 2010. 15:25'],
+                ['LL', '14. february 2010.'],
+                ['LLL', '14. february 2010. 15:25'],
+                ['LLLL', 'nedelja, 14. february 2010. 15:25'],
                 ['l', '14. 2. 2010.'],
                 ['ll', '14. feb. 2010.'],
                 ['lll', '14. feb. 2010. 15:25'],
@@ -99470,7 +99470,7 @@
 
     test('format week', function (assert) {
         var expected =
-                'söndag sön sö_måndag mån må_tisdag tis ti_onsdag ons on_torsdag tor to_fredag fre fr_lördag lör lö'.split(
+                'söndag sön sö_måndag mån må_tisdag tis ti_onsdag owns on_torsdag tor to_fredag fre fr_lördag lör lö'.split(
                     '_'
                 ),
             i;
@@ -108978,13 +108978,13 @@
 
     test('suffix', function (assert) {
         assert.equal(moment(30000).from(0), 'osprei viensas secunds', 'prefix');
-        assert.equal(moment(0).from(30000), "ja'iensas secunds", 'suffix');
+        assert.equal(moment(0).from(30000), "ja'iensas seconds", 'suffix');
     });
 
     test('now from now', function (assert) {
         assert.equal(
             moment().fromNow(),
-            "ja'iensas secunds",
+            "ja'iensas seconds",
             'now from now should display as in the past'
         );
     });
@@ -124528,12 +124528,12 @@
     });
 
     function getVerifier(test) {
-        return function (input, format, expected, description, asymetrical) {
+        return function (input, format, expected, description, asymmetrical) {
             var m = moment(input, format);
             test.equal(m.format('YYYY MM DD'), expected, 'compare: ' + description);
 
             //test round trip
-            if (!asymetrical) {
+            if (!asymmetrical) {
                 test.equal(m.format(format), input, 'round trip: ' + description);
             }
         };
@@ -130262,7 +130262,7 @@
         assert.equal(
             moment([2015, 2, 7]).format('e'),
             '3',
-            'Mar  7 2015 is Saturday  -- 3nd day'
+            'Mar  7 2015 is Saturday  -- 3rd day'
         );
         assert.equal(
             moment([1970, 0, 4]).format('e'),
@@ -131070,7 +131070,7 @@
         assert.equal(a.month(), 3, 'month edge case');
     });
 
-    test('setters programatic with weeks', function (assert) {
+    test('setters programmatic with weeks', function (assert) {
         var a = moment();
         a.set('weekYear', 2001);
         a.set('week', 49);
@@ -131084,7 +131084,7 @@
         assert.equal(a.weekday(), 1, 'weekday');
     });
 
-    test('setters programatic with weeks ISO', function (assert) {
+    test('setters programmatic with weeks ISO', function (assert) {
         var a = moment();
         a.set('isoWeekYear', 2001);
         a.set('isoWeek', 49);
@@ -146551,7 +146551,7 @@
         assert.equal(
             moment([2015, 2, 4]).weekday(),
             3,
-            'Mar  4 2015 is Wednesday -- 3nd day'
+            'Mar  4 2015 is Wednesday -- 3rd day'
         );
         assert.equal(
             moment([1970, 0, 1]).weekday(),
@@ -146590,7 +146590,7 @@
         assert.equal(
             moment([2015, 2, 5]).weekday(),
             3,
-            'Mar  5 2015 is Thursday  -- 3nd day'
+            'Mar  5 2015 is Thursday  -- 3rd day'
         );
         assert.equal(
             moment([1970, 0, 2]).weekday(),
@@ -146629,7 +146629,7 @@
         assert.equal(
             moment([2015, 2, 6]).weekday(),
             3,
-            'Mar  6 2015 is Friday    -- 3nd day'
+            'Mar  6 2015 is Friday    -- 3rd day'
         );
         assert.equal(
             moment([1970, 0, 3]).weekday(),
@@ -146668,7 +146668,7 @@
         assert.equal(
             moment([2015, 2, 7]).weekday(),
             3,
-            'Mar  7 2015 is Saturday  -- 3nd day'
+            'Mar  7 2015 is Saturday  -- 3rd day'
         );
         assert.equal(
             moment([1970, 0, 4]).weekday(),
@@ -146707,7 +146707,7 @@
         assert.equal(
             moment([2015, 2, 8]).weekday(),
             3,
-            'Mar  8 2015 is Sunday    -- 3nd day'
+            'Mar  8 2015 is Sunday    -- 3rd day'
         );
         assert.equal(
             moment([1970, 0, 5]).weekday(),
@@ -146746,7 +146746,7 @@
         assert.equal(
             moment([2015, 2, 9]).weekday(),
             3,
-            'Mar  9 2015 is Monday    -- 3nd day'
+            'Mar  9 2015 is Monday    -- 3rd day'
         );
         assert.equal(
             moment([1970, 0, 6]).weekday(),
@@ -146785,7 +146785,7 @@
         assert.equal(
             moment([2015, 2, 10]).weekday(),
             3,
-            'Mar 10 2015 is Tuesday   -- 3nd day'
+            'Mar 10 2015 is Tuesday   -- 3rd day'
         );
         assert.equal(
             moment([1970, 0, 7]).weekday(),

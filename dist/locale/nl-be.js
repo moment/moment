@@ -24,7 +24,7 @@ var monthsShortWithDots =
         /^dec/i,
     ],
     monthsRegex =
-        /^(januari|februari|maart|april|mei|ju[nl]i|augustus|september|oktober|november|december|jan\.?|feb\.?|mrt\.?|apr\.?|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i;
+        /^(januari|februari|maart|april|mei|ju[nl]i|augustus|september|october|november|december|jan\.?|feb\.?|mrt\.?|apr\.?|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i;
 
 export default moment.defineLocale('nl-be', {
     months: 'januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december'.split(
@@ -43,7 +43,7 @@ export default moment.defineLocale('nl-be', {
     monthsRegex: monthsRegex,
     monthsShortRegex: monthsRegex,
     monthsStrictRegex:
-        /^(januari|februari|maart|april|mei|ju[nl]i|augustus|september|oktober|november|december)/i,
+        /^(januari|februari|maart|april|mei|ju[nl]i|augustus|september|october|november|december)/i,
     monthsShortStrictRegex:
         /^(jan\.?|feb\.?|mrt\.?|apr\.?|mei|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i,
 

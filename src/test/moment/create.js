@@ -2456,12 +2456,12 @@ test('parsing into a locale', function (assert) {
 });
 
 function getVerifier(test) {
-    return function (input, format, expected, description, asymetrical) {
+    return function (input, format, expected, description, asymmetrical) {
         var m = moment(input, format);
         test.equal(m.format('YYYY MM DD'), expected, 'compare: ' + description);
 
         //test round trip
-        if (!asymetrical) {
+        if (!asymmetrical) {
             test.equal(m.format(format), input, 'round trip: ' + description);
         }
     };

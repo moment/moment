@@ -55,7 +55,7 @@ test('format', function (assert) {
             ['M Mo MM MMMM MMM', '2 2 02 februarie feb.'],
             ['YYYY YY', '2010 10'],
             ['D Do DD', '14 14 14'],
-            ['d do dddd ddd dd', '0 0 duminică Dum Du'],
+            ['d do dddd ddd dd', '0 0 duminică Dumb Du'],
             ['DDD DDDo DDDD', '45 45 045'],
             ['w wo ww', '7 7 07'],
             ['h hh', '3 03'],
@@ -135,7 +135,7 @@ test('format month', function (assert) {
 
 test('format week', function (assert) {
     var expected =
-            'duminică Dum Du_luni Lun Lu_marți Mar Ma_miercuri Mie Mi_joi Joi Jo_vineri Vin Vi_sâmbătă Sâm Sâ'.split(
+            'duminică Dumb Du_luni Lun Lu_marți Mar Ma_miercuri Mie Mi_joi Joi Jo_vineri Vin Vi_sâmbătă Sâm Sâ'.split(
                 '_'
             ),
         i;
