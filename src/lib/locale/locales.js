@@ -69,8 +69,7 @@ function isLocaleNameSane(name) {
 }
 
 function loadLocale(name) {
-    var oldLocale = null,
-        aliasedRequire;
+    var oldLocale = null;
     // TODO: Find a better way to register and load all the locales in Node
     if (
         locales[name] === undefined &&
@@ -81,8 +80,16 @@ function loadLocale(name) {
     ) {
         try {
             oldLocale = globalLocale._abbr;
-            aliasedRequire = require;
-            aliasedRequire('./locale/' + name);
+            // The webpackIgnore / @vite-ignore magic comments instruct
+            // Webpack and Vite to leave this `require` alone, so they no
+            // longer emit a "Can't resolve './locale'" warning when moment
+            // is bundled. In bundled environments the call will simply
+            // throw at runtime (caught below), and consumers should
+            // import the locales they need explicitly. In Node.js the
+            // call still works as before. See #6092.
+            require(
+                /* webpackIgnore: true */ /* @vite-ignore */ './locale/' + name
+            );
             getSetGlobalLocale(oldLocale);
         } catch (e) {
             // mark as not found to avoid repeating expensive file require call causing high CPU
