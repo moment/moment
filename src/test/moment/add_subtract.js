@@ -422,6 +422,49 @@ test('add across DST', function (assert) {
     );
 });
 
+test('issue 4743: add days across midnight DST transition', function (assert) {
+    // Simulate a timezone like America/Santiago whose DST starts at 00:00
+    // local time. Native Date#setDate is unreliable for the moment of the
+    // transition because the wall-clock midnight does not exist locally,
+    // and V8 may resolve the gap by stepping the local hour backward,
+    // producing a result on the previous calendar date. moment should
+    // still advance the date by one full day. See #4743.
+    // 2018-08-12 04:00 UTC == 2018-08-12 00:00 in -04:00, the last instant
+    // of standard time. From this UTC instant onward, the offset is -03:00.
+    var origGetTimezoneOffset = Date.prototype.getTimezoneOffset,
+        dstStartUTC = Date.UTC(2018, 7, 12, 4),
+        startUTC,
+        m,
+        m2;
+    Date.prototype.getTimezoneOffset = function () {
+        return this.valueOf() < dstStartUTC ? 240 : 180;
+    };
+    try {
+        // 2018-08-11 00:00 in -04:00 == 2018-08-11 04:00 UTC
+        startUTC = Date.UTC(2018, 7, 11, 4);
+        m = moment(startUTC).add(1, 'day');
+        // Expected: 2018-08-12 00:00 in -03:00 == 2018-08-12 03:00 UTC
+        assert.equal(
+            m.valueOf(),
+            Date.UTC(2018, 7, 12, 3),
+            'add 1 day at midnight DST should advance the local date by 1 day'
+        );
+
+        // Going the other way across the gap: 2018-08-13 00:00 in -03:00
+        // minus one day. Local 2018-08-12 00:00 does not exist, so the
+        // result will be the first valid local instant on Aug 12 (01:00),
+        // but the calendar date must still advance backward by one day.
+        m2 = moment(Date.UTC(2018, 7, 13, 3)).subtract(1, 'day');
+        assert.equal(
+            m2.valueOf(),
+            Date.UTC(2018, 7, 12, 4),
+            'subtract 1 day at midnight DST should retreat the local date by 1 day'
+        );
+    } finally {
+        Date.prototype.getTimezoneOffset = origGetTimezoneOffset;
+    }
+});
+
 test('add decimal values of days and months', function (assert) {
     assert.equal(
         moment([2016, 3, 3]).add(1.5, 'days').date(),
