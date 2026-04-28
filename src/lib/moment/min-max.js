@@ -41,7 +41,10 @@ function pickBy(fn, moments) {
     }
     res = moments[0];
     for (i = 1; i < moments.length; ++i) {
-        if (!moments[i].isValid() || moments[i][fn](res)) {
+        if (!moments[i].isValid()) {
+            return createInvalid();
+        }
+        if (moments[i][fn](res)) {
             res = moments[i];
         }
     }

@@ -27,6 +27,9 @@ test('min', function (assert) {
 
     assert.equal(moment.min([now, invalid]), invalid, 'min(now, invalid)');
     assert.equal(moment.min([invalid, now]), invalid, 'min(invalid, now)');
+
+    assert.ok(!moment.min(invalid, now, past).isValid(), 'min(invalid, now, past) should be invalid');
+    assert.ok(!moment.min([invalid, future, past]).isValid(), 'min([invalid, future, past]) should be invalid');
 });
 
 test('max', function (assert) {
@@ -69,4 +72,7 @@ test('max', function (assert) {
 
     assert.equal(moment.max([now, invalid]), invalid, 'max(now, invalid)');
     assert.equal(moment.max([invalid, now]), invalid, 'max(invalid, now)');
+
+    assert.ok(!moment.max(invalid, now, past).isValid(), 'max(invalid, now, past) should be invalid');
+    assert.ok(!moment.max([invalid, future, past]).isValid(), 'max([invalid, future, past]) should be invalid');
 });
