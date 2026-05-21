@@ -46,6 +46,17 @@ test('iso weekday', function (assert) {
     }
 });
 
+test('weekday parsing reads exactly one digit before time', function (assert) {
+    moment.locale('en');
+
+    var localeWeekday = moment('21530', 'eHHmm');
+
+    assert.equal(localeWeekday.isValid(), true, 'eHHmm is valid');
+    assert.equal(localeWeekday.weekday(), 2, 'e parses one digit');
+    assert.equal(localeWeekday.hour(), 15, 'e leaves hours intact');
+    assert.equal(localeWeekday.minute(), 30, 'e leaves minutes intact');
+});
+
 test('iso weekday setter', function (assert) {
     var a = moment([2011, 0, 10]);
     assert.equal(moment(a).isoWeekday(1).date(), 10, 'set from mon to mon');

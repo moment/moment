@@ -36,7 +36,7 @@ addFormatToken('E', 0, 0, 'isoWeekday');
 // PARSING
 
 addRegexToken('d', match1to2);
-addRegexToken('e', match1to2);
+addRegexToken('e', match1to2Weekday);
 addRegexToken('E', match1to2);
 addRegexToken('dd', function (isStrict, locale) {
     return locale.weekdaysMinRegex(isStrict);
@@ -79,6 +79,12 @@ function parseWeekday(input, locale) {
     }
 
     return null;
+}
+
+// In compact numeric formats like eHHmm, e must leave digits for the following
+// token while keeping wider separated inputs like "04" working.
+function match1to2Weekday() {
+    return /[0-6](?=\d{2})|\d\d?/;
 }
 
 function parseIsoWeekday(input, locale) {
