@@ -2,6 +2,7 @@
 //! locale : Ukrainian [uk]
 //! author : zemlanin : https://github.com/zemlanin
 //! Author : Menelion Elensúle : https://github.com/Oire
+//! Author : Oleksandr Trukhnii : https://github.com/JohnJunior
 
 import moment from '../moment';
 
@@ -162,6 +163,6 @@ export default moment.defineLocale('uk', {
     },
     week: {
         dow: 1, // Monday is the first day of the week.
-        doy: 7, // The week that contains Jan 7th is the first week of the year.
+        doy: 4, // The week that contains Jan 4th is the first week of the year.
     },
 });
