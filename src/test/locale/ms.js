@@ -65,15 +65,15 @@ test('format', function (assert) {
             ['s ss', '50 50'],
             ['a A', 'petang petang'],
             ['[hari] [ke] DDDo [tahun] ini', 'hari ke 45 tahun ini'],
-            ['LTS', '15.25.50'],
+            ['LTS', '15:25:50'],
             ['L', '14/02/2010'],
             ['LL', '14 Februari 2010'],
-            ['LLL', '14 Februari 2010 pukul 15.25'],
-            ['LLLL', 'Ahad, 14 Februari 2010 pukul 15.25'],
+            ['LLL', '14 Februari 2010 pukul 15:25'],
+            ['LLLL', 'Ahad, 14 Februari 2010 pukul 15:25'],
             ['l', '14/2/2010'],
             ['ll', '14 Feb 2010'],
-            ['lll', '14 Feb 2010 pukul 15.25'],
-            ['llll', 'Ahd, 14 Feb 2010 pukul 15.25'],
+            ['lll', '14 Feb 2010 pukul 15:25'],
+            ['llll', 'Ahd, 14 Feb 2010 pukul 15:25'],
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -328,32 +328,32 @@ test('calendar day', function (assert) {
 
     assert.equal(
         moment(a).calendar(),
-        'Hari ini pukul 12.00',
+        'Hari ini pukul 12:00',
         'hari ini pada waktu yang sama'
     );
     assert.equal(
         moment(a).add({ m: 25 }).calendar(),
-        'Hari ini pukul 12.25',
+        'Hari ini pukul 12:25',
         'Sekarang tambah 25 minit'
     );
     assert.equal(
         moment(a).add({ h: 1 }).calendar(),
-        'Hari ini pukul 13.00',
+        'Hari ini pukul 13:00',
         'Sekarang tambah 1 jam'
     );
     assert.equal(
         moment(a).add({ d: 1 }).calendar(),
-        'Esok pukul 12.00',
+        'Esok pukul 12:00',
         'esok pada waktu yang sama'
     );
     assert.equal(
         moment(a).subtract({ h: 1 }).calendar(),
-        'Hari ini pukul 11.00',
+        'Hari ini pukul 11:00',
         'Sekarang tolak 1 jam'
     );
     assert.equal(
         moment(a).subtract({ d: 1 }).calendar(),
-        'Kelmarin pukul 12.00',
+        'Kelmarin pukul 12:00',
         'kelmarin pada waktu yang sama'
     );
 });
