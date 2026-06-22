@@ -949,3 +949,19 @@ test('does not modify original moment instance', function (assert) {
         'issue #5681 regression'
     );
 });
+
+test('format with Object prototype keys', function (assert) {
+    var m = moment([2025, 2, 16]);
+
+    assert.notEqual(
+        m.format('constructor'),
+        m.toString(),
+        '"constructor" should not resolve to Object.prototype.constructor'
+    );
+
+    assert.notEqual(
+        m.format('toString'),
+        '[object Object]',
+        '"toString" should not resolve to Object.prototype.toString'
+    );
+});
