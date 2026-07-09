@@ -2149,7 +2149,6 @@
     }
 
     function loadLocale(name) {
-
         var oldLocale = null,
             aliasedRequire;
         // TODO: Find a better way to register and load all the locales in Node
@@ -2163,7 +2162,7 @@
             try {
                 oldLocale = globalLocale._abbr;
                 aliasedRequire = require;
-                aliasedRequire('./locale/' + name.toLowerCase());
+                aliasedRequire('./locale/' + name);
                 getSetGlobalLocale(oldLocale);
             } catch (e) {
                 // mark as not found to avoid repeating expensive file require call causing high CPU
