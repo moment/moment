@@ -1,4 +1,4 @@
-# [Moment.js](http://momentjs.com/)
+# [Moment.js](https://momentjs.com/)
 
 [![NPM version][npm-version-image]][npm-url]
 [![NPM downloads][npm-downloads-image]][npm-downloads-url]
