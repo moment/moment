@@ -78,28 +78,3 @@ We use Grunt for managing the build. Here are some useful Grunt tasks:
   * `grunt size` Print size statistics.
 
 **Note:** If the prompt message is `Code style issues found in the above file(s). Forgot to run Prettier?`, Please run `npm run prettier-fmt`. 
-
-Becoming a moment team member
-=============================
-
-Moment's team members have extra powers and responsibilities. If you want to
-become one -- be active in our repositories by answering issues, reviewing PRs,
-discussing changes, submitting PRs for open bugs. Any help on
-[moment/moment](https://github.com/moment/moment),
-[moment/momentjs.com](https://github.com/moment/momentjs.com),
-[moment/moment-timezone](https://github.com/moment/moment-timezone) will be
-noticed.
-
-Once you've proven to be trustworthy, submit your request to the
-[gitter chat](https://gitter.im/moment/moment), and it will be reviewed by the
-existing team.
-
-Once you become a member:
-* you can tell your friends
-* you can close issues submitted by others
-
-But also:
-* be active in the repositories
-* pick up work nobody else wants to
-* attend a monthly meeting
-* participate in the internal slack group
