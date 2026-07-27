@@ -1,5 +1,6 @@
 import zeroFill from '../utils/zero-fill';
 import isFunction from '../utils/is-function';
+import hasOwnProp from '../utils/has-own-prop';
 
 var formattingTokens =
         /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|N{1,5}|YYYYYY|YYYYY|YYYY|YY|y{2,4}|yo?|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g,
@@ -77,10 +78,12 @@ export function formatMoment(m, format) {
     }
 
     format = expandFormat(format, m.localeData());
-    formatFunctions[format] =
-        formatFunctions[format] || makeFormatFunction(format);
+    var cacheKey = '$' + format;
+    if (!hasOwnProp(formatFunctions, cacheKey)) {
+        formatFunctions[cacheKey] = makeFormatFunction(format);
+    }
 
-    return formatFunctions[format](m);
+    return formatFunctions[cacheKey](m);
 }
 
 export function expandFormat(format, locale) {

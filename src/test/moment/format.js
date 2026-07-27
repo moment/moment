@@ -949,3 +949,23 @@ test('does not modify original moment instance', function (assert) {
         'issue #5681 regression'
     );
 });
+
+test('format strings matching Object prototype keys', function (assert) {
+    var m = moment([2025, 2, 16, 12, 34, 56, 789]);
+
+    assert.equal(
+        m.format('constructor'),
+        'con56tructor',
+        'constructor is treated as a format string'
+    );
+    assert.equal(
+        m.format('toString'),
+        'to7tring',
+        'toString is treated as a format string'
+    );
+    assert.equal(
+        m.format('__proto__'),
+        '__proto__',
+        '__proto__ is treated as a format string'
+    );
+});
