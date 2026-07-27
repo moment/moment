@@ -68,7 +68,7 @@ function isNumberOrStringArray(input) {
     if (arrayTest) {
         dataTypeTest =
             input.filter(function (item) {
-                return !isNumber(item) && isString(input);
+                return !isNumber(item) && !isString(item);
             }).length === 0;
     }
     return arrayTest && dataTypeTest;
