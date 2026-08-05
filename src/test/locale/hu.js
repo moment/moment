@@ -319,8 +319,16 @@ test('from ss threshold set', function (assert) {
         '11 másodperc',
         '11 seconds = 11 seconds'
     );
-    assert.equal(moment(0).from(11000), '11 másodperce', '11 seconds ago with suffix');
-    assert.equal(moment(11000).from(0), '11 másodperc múlva', '11 seconds future with suffix');
+    assert.equal(
+        moment(0).from(11000),
+        '11 másodperce',
+        '11 seconds ago with suffix'
+    );
+    assert.equal(
+        moment(11000).from(0),
+        '11 másodperc múlva',
+        '11 seconds future with suffix'
+    );
 
     moment.relativeTimeThreshold('s', s);
     moment.relativeTimeThreshold('ss', ss);
