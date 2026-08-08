@@ -31,6 +31,11 @@ export var prototypeMin = deprecate(
 //
 // moments should either be an array of moment objects or an array, whose
 // first element is an array of moment objects.
+//
+// Arguments that are not moment objects (e.g. plain strings or numbers)
+// are skipped, so `moment.max('a', valid)` can no longer return the raw
+// string. Explicitly invalid moments still poison the result, matching
+// the long-standing behaviour of `moment.min`/`moment.max` (see #6143).
 function pickBy(fn, moments) {
     var res, i;
     if (moments.length === 1 && isArray(moments[0])) {
@@ -39,9 +44,15 @@ function pickBy(fn, moments) {
     if (!moments.length) {
         return createLocal();
     }
-    res = moments[0];
-    for (i = 1; i < moments.length; ++i) {
-        if (!moments[i].isValid() || moments[i][fn](res)) {
+    res = createInvalid();
+    for (i = 0; i < moments.length; ++i) {
+        if (typeof moments[i].isValid !== 'function') {
+            continue;
+        }
+        if (!moments[i].isValid()) {
+            return moments[i];
+        }
+        if (!res.isValid() || moments[i][fn](res)) {
             res = moments[i];
         }
     }

@@ -27,6 +27,22 @@ test('min', function (assert) {
 
     assert.equal(moment.min([now, invalid]), invalid, 'min(now, invalid)');
     assert.equal(moment.min([invalid, now]), invalid, 'min(invalid, now)');
+
+    assert.ok(
+        moment.min('a', now).isValid() &&
+            moment.min('a', now).valueOf() === now.valueOf(),
+        'min should skip non-moment arguments (string)'
+    );
+    assert.ok(
+        moment.min(1, now).isValid() &&
+            moment.min(1, now).valueOf() === now.valueOf(),
+        'min should skip non-moment arguments (number)'
+    );
+    assert.ok(
+        !moment.min('a', 'b').isValid() ||
+            moment.min('a', 'b').isValid() === false,
+        'min with only non-moment arguments returns the default'
+    );
 });
 
 test('max', function (assert) {
@@ -69,4 +85,20 @@ test('max', function (assert) {
 
     assert.equal(moment.max([now, invalid]), invalid, 'max(now, invalid)');
     assert.equal(moment.max([invalid, now]), invalid, 'max(invalid, now)');
+
+    assert.ok(
+        moment.max('a', now).isValid() &&
+            moment.max('a', now).valueOf() === now.valueOf(),
+        'max should skip non-moment arguments (string)'
+    );
+    assert.ok(
+        moment.max(1, now).isValid() &&
+            moment.max(1, now).valueOf() === now.valueOf(),
+        'max should skip non-moment arguments (number)'
+    );
+    assert.ok(
+        !moment.max('a', 'b').isValid() ||
+            moment.max('a', 'b').isValid() === false,
+        'max with only non-moment arguments returns the default'
+    );
 });
