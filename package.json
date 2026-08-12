@@ -13,6 +13,27 @@
     "main": "./moment.js",
     "jsnext:main": "./dist/moment.js",
     "typings": "./moment.d.ts",
+    "files": [
+        "dist/",
+        "locale/",
+        "min/locales.js",
+        "min/locales.min.js",
+        "min/locales.min.js.map",
+        "min/moment-with-locales.js",
+        "min/moment-with-locales.min.js",
+        "min/moment-with-locales.min.js.map",
+        "min/moment.min.js",
+        "min/moment.min.js.map",
+        "src/lib/",
+        "src/locale/",
+        "src/moment.js",
+        "ts3.1-typings/",
+        "CHANGELOG.md",
+        "ender.js",
+        "moment.d.ts",
+        "moment.js",
+        "package.js"
+    ],
     "typesVersions": {
         ">=3.1": {
             "*": [
