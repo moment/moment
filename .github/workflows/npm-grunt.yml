@@ -15,12 +15,11 @@ jobs:
 
     strategy:
       matrix:
-        # Use the latest version of Node.js, plus the 3 most recent LTS lines
         node-version:
+          - 22
+          - 24
+          - 26
           - latest
-          - lts/*
-          - lts/-1
-          - lts/-2 # Probably EOL depending on release schedules, but still good to test
 
     steps:
     - uses: actions/checkout@v7

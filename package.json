@@ -38,6 +38,13 @@
     "engines": {
         "node": "*"
     },
+    "devEngines": {
+        "runtime": {
+            "name": "node",
+            "version": ">=22",
+            "onFail": "error"
+        }
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/moment/moment.git"
