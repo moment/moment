@@ -9,15 +9,12 @@ export var defaultLongDateFormat = {
     LLLL: 'dddd, MMMM D, YYYY h:mm A',
 };
 
-import isFunction from '../utils/is-function';
-
-export function longDateFormat (key, mom, now) {
-
+export function longDateFormat(key) {
     var format = this._longDateFormat[key],
         formatUpper = this._longDateFormat[key.toUpperCase()];
 
     if (format || !formatUpper) {
-        return isFunction(format) ? format.call(mom, now) : format;
+        return format;
     }
 
     this._longDateFormat[key] = formatUpper
