@@ -44,7 +44,6 @@
     "devDependencies": {
         "@eslint/js": "^10.0.1",
         "benchmark": "^2.1.4",
-        "coveralls": "^3.1.1",
         "es6-promise": "^4.2.8",
         "eslint": "^10.8.1",
         "globals": "^17.11.0",
@@ -113,8 +112,7 @@
         "eslint": "eslint Gruntfile.js tasks src",
         "prettier-check": "prettier --check .",
         "prettier-fmt": "prettier --write .",
-        "coverage": "nyc npm test && nyc report",
-        "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+        "coverage": "nyc npm test && nyc report --reporter=lcov"
     },
     "spm": {
         "main": "moment.js",

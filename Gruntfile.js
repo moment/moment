@@ -147,9 +147,6 @@ module.exports = function (grunt) {
             'typescript-test': {
                 command: 'npm run typescript-test',
             },
-            coveralls: {
-                command: 'npm run coveralls',
-            },
             eslint: {
                 command: 'npm run eslint',
             },
@@ -229,8 +226,6 @@ module.exports = function (grunt) {
         'exec:meteor-cleanup',
     ]);
 
-    // travis build task
-    grunt.registerTask('build:travis', ['lint', 'exec:coveralls']);
     grunt.registerTask('meteor-publish', [
         'exec:meteor-init',
         'exec:meteor-publish',
