@@ -32,6 +32,12 @@ module.exports = function (grunt) {
 
         var rollupOpts = {
                 input: opts.entry,
+                strictDeprecations: true,
+                onwarn: function (warning, defaultHandler) {
+                    if (warning.code !== 'CIRCULAR_DEPENDENCY') {
+                        defaultHandler(warning);
+                    }
+                },
                 plugins: [
                     // babel({})
                 ],
@@ -83,6 +89,9 @@ module.exports = function (grunt) {
             umdName: umdName,
             format: opts.format,
         }).then(function (code) {
+            if (header && code.endsWith('\n}));\n')) {
+                code = code.slice(0, -5) + '})));\n';
+            }
             var fixed = header + code.split('\n').slice(skipLines).join('\n');
             if (opts.moveComments) {
                 fixed = collectComments(entry) + '\n\n' + fixed;
@@ -176,7 +185,7 @@ module.exports = function (grunt) {
                 opts.skipMoment === true
                     ? 'templates/locale-header.js'
                     : 'templates/default.js',
-            skipLines: opts.skipMoment === true ? 7 : 5,
+            skipLines: 5,
         });
     }
 
@@ -214,7 +223,7 @@ module.exports = function (grunt) {
                     base: 'src',
                     pattern: 'locale/*.js',
                     headerFile: 'templates/locale-header.js',
-                    skipLines: 7,
+                    skipLines: 5,
                     moveComments: true,
                     targetDir: 'build/umd',
                     skipMoment: true,
@@ -228,7 +237,7 @@ module.exports = function (grunt) {
                     base: 'src',
                     pattern: 'test/moment/*.js',
                     headerFile: 'templates/test-header.js',
-                    skipLines: 7,
+                    skipLines: 5,
                     moveComments: true,
                     targetDir: 'build/umd',
                     skipMoment: true,
@@ -242,7 +251,7 @@ module.exports = function (grunt) {
                     base: 'src',
                     pattern: 'test/locale/*.js',
                     headerFile: 'templates/test-header.js',
-                    skipLines: 7,
+                    skipLines: 5,
                     moveComments: true,
                     targetDir: 'build/umd',
                     skipMoment: true,
