@@ -4,6 +4,7 @@
 [![NPM downloads][npm-downloads-image]][npm-downloads-url]
 [![MIT License][license-image]][license-url]
 [![Coverage Status][coveralls-image]][coveralls-url]
+[![FOSSA Status][fossa-badge-image]][fossa-badge-url]
 
 A JavaScript date library for parsing, validating, manipulating, and formatting dates.
 
@@ -29,6 +30,8 @@ npm install moment
 
 Moment.js is freely distributable under the terms of the [MIT license][license-url].
 
+[![FOSSA Status][fossa-large-image]][fossa-large-url]
+
 [license-image]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat
 [license-url]: LICENSE
 [npm-url]: https://npmjs.org/package/moment
@@ -37,3 +40,7 @@ Moment.js is freely distributable under the terms of the [MIT license][license-u
 [npm-downloads-url]: https://npmcharts.com/compare/moment?minimal=true
 [coveralls-image]: https://coveralls.io/repos/moment/moment/badge.svg?branch=develop
 [coveralls-url]: https://coveralls.io/r/moment/moment?branch=develop
+[fossa-badge-image]: https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoment%2Fmoment.svg?type=shield
+[fossa-badge-url]: https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoment%2Fmoment?ref=badge_shield
+[fossa-large-image]: https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoment%2Fmoment.svg?type=large
+[fossa-large-url]: https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoment%2Fmoment?ref=badge_large
