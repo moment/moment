@@ -1,15 +1,17 @@
 module.exports = function (grunt) {
     grunt.task.registerTask('qtest', 'run tests locally', function () {
         var done = this.async(),
-            testrunner,
-            tests;
+            spawn = require('child_process').spawn,
+            tests,
+            child,
+            completed = false;
 
-        testrunner = require('node-qunit');
-        testrunner.options.log.assertions = false;
-        testrunner.options.log.tests = false;
-        testrunner.options.log.summary = false;
-        testrunner.options.log.testing = false;
-        testrunner.options.maxBlockDuration = 600000;
+        function complete(err) {
+            if (!completed) {
+                completed = true;
+                done(err);
+            }
+        }
 
         if (grunt.option('only') != null) {
             tests = grunt.file.expand.apply(
@@ -34,23 +36,27 @@ module.exports = function (grunt) {
             );
         }
 
-        testrunner.run(
-            {
-                code: 'build/umd/moment.js',
-                tests: tests,
-            },
-            function (err, report) {
-                if (err) {
-                    console.log('woot', err, report);
-                    done(err);
-                    return;
-                }
-                err = null;
-                if (report.failed !== 0) {
-                    err = new Error(report.failed + ' tests failed');
-                }
-                done(err);
-            }
+        child = spawn(
+            process.execPath,
+            [
+                require.resolve('qunit/bin/qunit'),
+                '--reporter',
+                require.resolve('./qunit-reporter'),
+            ].concat(tests),
+            { stdio: 'inherit' }
         );
+
+        child.on('error', complete);
+        child.on('exit', function (code, signal) {
+            if (signal) {
+                complete(new Error('QUnit exited due to signal ' + signal));
+            } else {
+                complete(
+                    code === 0
+                        ? null
+                        : new Error('QUnit exited with code ' + code)
+                );
+            }
+        });
     });
 };

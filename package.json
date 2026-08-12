@@ -68,7 +68,6 @@
         "karma-sauce-launcher": "^4.3.6",
         "load-grunt-tasks": "^5.1.0",
         "lodash": "^4.18.1",
-        "node-qunit": "^2.0.2",
         "nyc": "^18.0.0",
         "prettier": "^3.9.6",
         "qunit": "^2.26.0",
