@@ -7,9 +7,9 @@
 
 A JavaScript date library for parsing, validating, manipulating, and formatting dates.
 
-> ⚠️ Moment.js is a legacy project, now in **maintenance mode**.  In most cases, you should choose a different library. For more details and recommendations, please see [Project Status](https://momentjs.com/docs/#/-project-status/) in the docs.
+> ⚠️ Moment.js is a legacy project, now in **maintenance mode**. In most cases, you should choose a different library. For more details and recommendations, please see [Project Status](https://momentjs.com/docs/#/-project-status/) in the docs.
 
-*Thank you.*
+_Thank you._
 
 ## Resources
 
@@ -31,12 +31,9 @@ Moment.js is freely distributable under the terms of the [MIT license][license-u
 
 [license-image]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat
 [license-url]: LICENSE
-
 [npm-url]: https://npmjs.org/package/moment
 [npm-version-image]: https://img.shields.io/npm/v/moment.svg?style=flat
-
 [npm-downloads-image]: https://img.shields.io/npm/dm/moment.svg?style=flat
 [npm-downloads-url]: https://npmcharts.com/compare/moment?minimal=true
-
 [coveralls-image]: https://coveralls.io/repos/moment/moment/badge.svg?branch=develop
 [coveralls-url]: https://coveralls.io/r/moment/moment?branch=develop

@@ -2,9 +2,9 @@ name: NodeJS with Grunt
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: ['develop']
   pull_request:
-    branches: [ "develop" ]
+    branches: ['develop']
 
 permissions:
   contents: read
@@ -22,14 +22,14 @@ jobs:
           - latest
 
     steps:
-    - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v7
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Build
-      run: |
-        npm install
-        grunt
+      - name: Build
+        run: |
+          npm install
+          grunt

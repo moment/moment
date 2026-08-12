@@ -1,0 +1,11 @@
+# Generated distribution files
+dist/
+locale/
+min/
+moment.js
+
+# Must remain parseable by TypeScript 1.8; Prettier emits newer union syntax.
+moment.d.ts
+
+# Build fragments are not standalone JavaScript programs.
+templates/
