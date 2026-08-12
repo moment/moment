@@ -5,9 +5,10 @@ import moment from '../../moment';
 localeModule('am-et');
 
 test('parse', function (assert) {
-    var tests = 'ጃንዩወሪ ጃን_ፌብሩወሪ ፌብ_ማርች ማር_ኤፕሪል ኤፕር_ሜይ ሜይ_ጁን ጁን_ጁላይ ጁላይ_ኦገስት ኦገ_ሴፕቴምበር ሴፕ_ኦክቶበር ኦክቶ_ኖቬምበር ኖቬ_ዲሴምበር ዲሴ'.split(
-            '_'
-        ),
+    var tests =
+            'ጃንዩወሪ ጃን_ፌብሩወሪ ፌብ_ማርች ማር_ኤፕሪል ኤፕር_ሜይ ሜይ_ጁን ጁን_ጁላይ ጁላይ_ኦገስት ኦገ_ሴፕቴምበር ሴፕ_ኦክቶበር ኦክቶ_ኖቬምበር ኖቬ_ዲሴምበር ዲሴ'.split(
+                '_'
+            ),
         i;
 
     function equalTest(input, mmm, i) {
@@ -29,25 +30,28 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, MMMM Do YYYY, h:mm:ss a', 'እሁድ, ጃንዩወሪ 14ኛ 2010, 3:25:50 ከሰዓት'],
-            ['ddd, hA', 'እሁ, 3ከሰዓት'],
+            [
+                'dddd, MMMM Do YYYY, h:mm:ss a',
+                'ሀሙስ, ጃንዩወሪ 14ኛ 2010, 3:25:50 ከሰዓት',
+            ],
+            ['ddd, hA', 'ሀሙ, 3ከሰዓት'],
             ['M Mo MM MMMM MMM', '1 1ኛ 01 ጃንዩወሪ ጃን'],
             ['YYYY YY', '2010 10'],
             ['D Do DD', '14 14ኛ 14'],
-            ['d do dddd ddd dd', '0 0ኛ እሁድ እሁ እሁ'],
+            ['d do dddd ddd dd', '4 4ኛ ሀሙስ ሀሙ ሀ'],
             ['DDD DDDo DDDD', '14 14ኛ 014'],
-            ['w wo ww', '2 2ኛ 02'],
+            ['w wo ww', '3 3ኛ 03'],
             ['h hh', '3 03'],
             ['H HH', '15 15'],
             ['m mm', '25 25'],
             ['s ss', '50 50'],
             ['a A', 'ከሰዓት ከሰዓት'],
             ['[ዓመተ] DDDD', 'ዓመተ 014'],
-            ['LTS', '15:25:50'],
+            ['LTS', '3:25:50 ከሰዓት'],
             ['L', '14/01/2010'],
             ['LL', '14 ጃንዩወሪ 2010'],
-            ['LLL', '14 ጃንዩወሪ 2010 15:25'],
-            ['LLLL', 'እሁድ, 14 ጃንዩወሪ 2010 15:25'],
+            ['LLL', '14 ጃንዩወሪ 2010 3:25 ከሰዓት'],
+            ['LLLL', 'ሀሙስ, 14 ጃንዩወሪ 2010 3:25 ከሰዓት'],
         ],
         b = moment(new Date(2010, 0, 14, 15, 25, 50, 125)),
         i;
@@ -62,17 +66,17 @@ test('calendar', function (assert) {
 
     assert.equal(
         moment(a).calendar(),
-        'ዛሬ በ 12:00',
+        'ዛሬ በ 12:00 ከሰዓት',
         'today at the same time'
     );
     assert.equal(
         moment(a).add({ d: 1 }).calendar(),
-        'ነገ በ 12:00',
+        'ነገ በ 12:00 ከሰዓት',
         'tomorrow at the same time'
     );
     assert.equal(
         moment(a).subtract({ d: 1 }).calendar(),
-        'ትናንትና በ 12:00',
+        'ትናንትና በ 12:00 ከሰዓት',
         'yesterday at the same time'
     );
 });
