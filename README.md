@@ -40,7 +40,7 @@ Moment.js is freely distributable under the terms of the [MIT license][license-u
 [npm-downloads-url]: https://npmcharts.com/compare/moment?minimal=true
 [coveralls-image]: https://coveralls.io/repos/moment/moment/badge.svg?branch=develop
 [coveralls-url]: https://coveralls.io/r/moment/moment?branch=develop
-[fossa-badge-image]: https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoment%2Fmoment.svg?type=shield
-[fossa-badge-url]: https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoment%2Fmoment?ref=badge_shield
-[fossa-large-image]: https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoment%2Fmoment.svg?type=large
-[fossa-large-url]: https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoment%2Fmoment?ref=badge_large
+[fossa-badge-image]: https://app.fossa.io/api/projects/custom%2B20126%2Fgithub.com%2Fmoment%2Fmoment.svg?type=shield
+[fossa-badge-url]: https://app.fossa.io/projects/custom%2B20126%2Fgithub.com%2Fmoment%2Fmoment?ref=badge_shield
+[fossa-large-image]: https://app.fossa.io/api/projects/custom%2B20126%2Fgithub.com%2Fmoment%2Fmoment.svg?type=large
+[fossa-large-url]: https://app.fossa.io/projects/custom%2B20126%2Fgithub.com%2Fmoment%2Fmoment?ref=badge_large
