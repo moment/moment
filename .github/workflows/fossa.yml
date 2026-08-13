@@ -12,8 +12,6 @@ jobs:
   license-scan:
     name: License scan
     runs-on: ubuntu-latest
-    env:
-      FOSSA_API_KEY: ${{ secrets.FOSSA_API_KEY }}
 
     steps:
       - uses: actions/checkout@v7
@@ -27,12 +25,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install FOSSA CLI
-        run: |
-          curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install-latest.sh | sudo bash
-
-      - name: Analyze dependencies and project licenses
-        run: fossa analyze --experimental-force-first-party-scans
+      - name: Analyze dependencies
+        uses: fossas/fossa-action@v2
+        with:
+          api-key: ${{ secrets.FOSSA_API_KEY }}
 
       - name: Test license policy
-        run: fossa test
+        uses: fossas/fossa-action@v2
+        with:
+          api-key: ${{ secrets.FOSSA_API_KEY }}
+          run-tests: true
