@@ -286,6 +286,31 @@ test('update existing locale', function (assert) {
     moment.updateLocale('de', null);
 });
 
+test('lazy load locale with normalized name before update', function (assert) {
+    var locale = moment.updateLocale('DE', { monthsShort: ['JAN'] }),
+        january = locale.months(moment.utc([2017, 0]));
+
+    assert.equal(
+        january,
+        'Januar',
+        'inherits the lazy-loaded locale configuration'
+    );
+    assert.equal(locale._abbr, 'de', 'returns the normalized locale');
+    assert.equal(moment.locale(), 'de', 'sets the normalized locale globally');
+    assert.equal(
+        moment.locales().indexOf('DE'),
+        -1,
+        'does not create an unnormalized locale entry'
+    );
+
+    moment.updateLocale('DE', null);
+    assert.notEqual(
+        moment.localeData('de').monthsShort(moment.utc([2017, 0]), ''),
+        'JAN',
+        'resets the normalized locale using the original name'
+    );
+});
+
 test('update non-existing locale', function (assert) {
     moment.locale('en');
     moment.updateLocale('dude', { months: ['Movember'] });

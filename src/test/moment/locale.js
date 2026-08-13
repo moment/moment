@@ -91,6 +91,46 @@ test('library getters and setters', function (assert) {
 
     moment.locale('EN_gb');
     assert.equal(moment.locale(), 'en-gb', 'Normalize locale key underscore');
+    assert.equal(
+        indexOf.call(moment.locales(), 'EN_gb'),
+        -1,
+        'Do not cache the unnormalized locale key'
+    );
+    assert.equal(
+        indexOf.call(moment.locales(), 'en_gb'),
+        -1,
+        'Do not cache a partially normalized locale key'
+    );
+});
+
+test('preserve exact custom locale names', function (assert) {
+    moment.defineLocale('Mixed_Custom', { months: ['Movember'] });
+
+    assert.equal(
+        moment.localeData('Mixed_Custom')._abbr,
+        'Mixed_Custom',
+        'finds a custom locale before normalizing its name'
+    );
+    assert.equal(
+        moment.locale(),
+        'Mixed_Custom',
+        'sets a custom locale using its exact name'
+    );
+
+    moment.defineLocale('Mixed_Custom', null);
+});
+
+test('do not load invalid built-in locale names', function (assert) {
+    var invalidNames = ['.', '..', 'locale name', 'en@gb'];
+
+    each(invalidNames, function (name) {
+        moment.localeData(name);
+        assert.equal(
+            indexOf.call(moment.locales(), name),
+            -1,
+            'does not cache invalid locale name "' + name + '"'
+        );
+    });
 });
 
 test('library setter array of locales', function (assert) {

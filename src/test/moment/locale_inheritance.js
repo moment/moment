@@ -308,7 +308,7 @@ test('define child locale before parent', function (assert) {
 
 test('lazy load parentLocale', function (assert) {
     moment.defineLocale('de_test', {
-        parentLocale: 'de',
+        parentLocale: 'DE',
         monthsShort: [
             'M1',
             'M2',
@@ -327,6 +327,6 @@ test('lazy load parentLocale', function (assert) {
     assert.equal(
         moment.locale(),
         'de_test',
-        'failed to lazy load parentLocale'
+        'lazy loads a parentLocale with a normalized name'
     );
 });
