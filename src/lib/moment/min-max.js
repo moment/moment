@@ -2,6 +2,7 @@ import { deprecate } from '../utils/deprecate';
 import isArray from '../utils/is-array';
 import { createLocal } from '../create/local';
 import { createInvalid } from '../create/valid';
+import { isMoment } from './constructor';
 
 export var prototypeMin = deprecate(
         'moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/',
@@ -46,7 +47,7 @@ function pickBy(fn, moments) {
     }
     res = createInvalid();
     for (i = 0; i < moments.length; ++i) {
-        if (typeof moments[i].isValid !== 'function') {
+        if (!isMoment(moments[i])) {
             continue;
         }
         if (!moments[i].isValid()) {
