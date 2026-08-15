@@ -4,7 +4,7 @@ const globals = require('globals');
 module.exports = [
     js.configs.recommended,
     {
-        files: ['Gruntfile.js', 'tasks/**/*.js', 'src/**/*.js'],
+        files: ['scripts/**/*.js', 'src/**/*.js', 'test/**/*.js'],
         languageOptions: {
             ecmaVersion: 2015,
             sourceType: 'module',
@@ -21,6 +21,21 @@ module.exports = [
             'no-useless-assignment': 'off',
             'no-useless-escape': 'off',
             'one-var': 'error',
+        },
+    },
+    {
+        files: ['scripts/**/*.js'],
+        languageOptions: {
+            ecmaVersion: 'latest',
+        },
+        rules: {
+            'one-var': 'off',
+        },
+    },
+    {
+        files: ['test/setup*.js'],
+        languageOptions: {
+            ecmaVersion: 2020,
         },
     },
 ];

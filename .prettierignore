@@ -1,8 +1,8 @@
 # Generated distribution files
-dist/
-locale/
-min/
-moment.js
+/dist/
+/locale/
+/min/
+/moment.js
 
 # Must remain parseable by TypeScript 1.8; Prettier emits newer union syntax.
 moment.d.ts
