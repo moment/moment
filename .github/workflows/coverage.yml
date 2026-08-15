@@ -1,0 +1,35 @@
+name: Coverage
+
+on:
+  push:
+    branches: ['develop']
+  pull_request:
+    branches: ['develop']
+
+permissions:
+  contents: read
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Use Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run coverage
+        run: npm run coverage
+
+      - name: Report coverage to Coveralls
+        run: |
+          curl -fsSL https://github.com/coverallsapp/coverage-reporter/releases/latest/download/coveralls-linux-x86_64.tar.gz | tar -xz
+          ./coveralls report coverage/lcov.info
+        env:
+          COVERALLS_REPO_TOKEN: ${{ github.token }}
