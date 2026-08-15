@@ -27,9 +27,9 @@ export default moment.defineLocale('sw', {
     calendar: {
         sameDay: '[leo saa] LT',
         nextDay: '[kesho saa] LT',
-        nextWeek: '[wiki ijayo] dddd [saa] LT',
+        nextWeek: 'dddd [ijayo saa] LT',
         lastDay: '[jana] LT',
-        lastWeek: '[wiki iliyopita] dddd [saa] LT',
+        lastWeek: 'dddd [iliyopita saa] LT',
         sameElse: 'L',
     },
     relativeTime: {
