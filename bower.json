@@ -15,7 +15,7 @@
         "composer.json",
         "CONTRIBUTING.md",
         "ender.js",
-        "package.js",
+        "dojo.profile.js",
         "package.json",
         "ISSUE_TEMPLATE.md",
         "typing-tests"

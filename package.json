@@ -32,7 +32,7 @@
         "ender.js",
         "moment.d.ts",
         "moment.js",
-        "package.js"
+        "dojo.profile.js"
     ],
     "typesVersions": {
         ">=3.1": {
@@ -83,7 +83,7 @@
         "vitest": "^4.0.0"
     },
     "ender": "./ender.js",
-    "dojoBuild": "package.js",
+    "dojoBuild": "dojo.profile.js",
     "jspm": {
         "files": [
             "moment.js",
