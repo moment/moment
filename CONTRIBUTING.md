@@ -9,7 +9,7 @@ Read before submitting Pull Requests
 
 - **Pull requests to the `master` branch will be closed.** Please submit all pull requests to the `develop` branch.
 - **You will be required to sign a JS Foundation CLA before your pull request can be merged.** [Sign it right now](https://cla.js.foundation/moment/moment).
-- **Locale translations will not be merged without unit tests.** See [the British English unit tests](https://github.com/moment/moment/blob/develop/src/test/locale/en-gb.js) for an example.
+- **Locale translations will not be merged without unit tests.** See [the British English unit tests](https://github.com/moment/moment/blob/develop/test/locale/en-gb.test.js) for an example.
 - **Do not include the minified files in your pull request.** These are
   `moment.js`, `locale/*.js`, `min/*.js`. Don't worry, we'll build them when
   we cut a release.
@@ -20,13 +20,13 @@ Code organization
 Starting from version 2.10.0 the code is placed under `src/`.
 `moment.js`, `locale/*.js`, `min/*.js` are generated only on release.
 
-**DO NOT** submit changes to the generated files. Instead only change
-`src/**/*.js` and run the tests.
+**DO NOT** submit changes to the generated files. Instead, change the source
+and test files and run the tests.
 
 - `src/lib/**/*.js` moment core files
 - `src/locale/*.js` locale files
-- `src/test/moment/*.js` moment core tests
-- `src/test/locale/*.js` locale tests
+- `test/moment/*.test.js` moment core tests
+- `test/locale/*.test.js` locale tests
 
 We're using ES6 module system, but nothing else ES6, because of performance
 considerations (added code by the transpiler, less than optimal translation to
@@ -36,7 +36,7 @@ be accepted.
 Setting up development environment
 ==================================
 
-To contribute, fork the library and install grunt and dependencies. You need
+To contribute, fork the library and install the dependencies. You need
 [git](http://git-scm.com/) and
 [node](http://nodejs.org/); you might use
 [nvm](https://github.com/creationix/nvm) or
@@ -45,10 +45,10 @@ To contribute, fork the library and install grunt and dependencies. You need
 ```bash
 git clone https://github.com/moment/moment.git
 cd moment
-npm install -g grunt-cli
 npm install
 git checkout develop  # all patches against develop branch, please!
-grunt                 # this runs tests, eslint and prettier-check
+npm run validate         # this runs tests and lint checks
+npm run typescript-test  # this runs TypeScript declaration tests
 ```
 
 Changing locale files
@@ -63,17 +63,18 @@ In order for your pull request to get merged it must have approval of original
 author, or at least one other native speaker has to approve of the change
 (happens rarely).
 
-Grunt tasks
-===========
+Development scripts
+===================
 
-We use Grunt for managing the build. Here are some useful Grunt tasks:
+The build and development commands are exposed as npm scripts:
 
-- `grunt` The default task lints the code and runs the tests. You should make sure you do this before submitting a PR.
-- `grunt test` Run the tests.
-- `grunt lint` Perform syntax and code style checks.
-- `grunt release` Build everything, including minified files (do not include
+- `npm run validate` Lint the code and run the tests. You should make sure you do this before submitting a PR.
+- `npm test` Run the tests.
+- `npm run typescript-test` Run the TypeScript declaration tests.
+- `npm run lint` Perform syntax and code style checks.
+- `npm run release` Build everything, including minified files (do not include
   those in Pull Requests)
-- `grunt transpile:fr,ru` Build custom locale bundles `moment-with-locales.custom.js` and `locales.custom.js` inside `build/umd/min` containing just French and Russian.
-- `grunt size` Print size statistics.
+- `npm run build:custom -- fr,ru` Build custom locale bundles `moment-with-locales.custom.js` and `locales.custom.js` inside `build/umd/min` containing just French and Russian.
+- `npm run benchmark -- compare` Run a benchmark, or omit the name to run all benchmarks.
 
 **Note:** If the prompt message is `Code style issues found in the above file(s). Forgot to run Prettier?`, Please run `npm run prettier-fmt`.
