@@ -99,6 +99,7 @@
     },
     "scripts": {
         "typescript-test": "npm run typescript-test:1 && npm run typescript-test:2 && npm run typescript-test:3.0 && npm run typescript-test:3.1 && npm run typescript-test:3.9 && npm run typescript-test:4 && npm run typescript-test:5 && npm run typescript-test:6 && npm run typescript-test:7",
+        "typescript-test:package": "node scripts/test-typescript-package.js",
         "typescript-test:1": "node node_modules/typescript1/lib/tsc.js --project typing-tests/legacy",
         "typescript-test:2": "node node_modules/typescript2/lib/tsc.js --project typing-tests/legacy --types empty --typeRoots typing-tests/legacy/types",
         "typescript-test:3.0": "node node_modules/typescript3_0/lib/tsc.js --project typing-tests/legacy --types empty --typeRoots typing-tests/legacy/types",
@@ -115,6 +116,9 @@
         "update-index": "node scripts/update-index.js",
         "update-component": "node scripts/update-component.js",
         "minify": "node scripts/minify.js",
+        "package": "npm pack --ignore-scripts",
+        "package:dry-run": "npm pack --dry-run --ignore-scripts",
+        "check-package": "node scripts/check-package.js",
         "release": "npm run lint && npm test && npm run build && npm run update-index && npm run update-component && npm run minify",
         "benchmark": "node scripts/benchmark.js",
         "bump-version": "node scripts/bump-version.js",
