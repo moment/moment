@@ -72,6 +72,8 @@ The build and development commands are exposed as npm scripts:
 - `npm test` Run the tests.
 - `npm run typescript-test` Run the TypeScript declaration tests.
 - `npm run lint` Perform syntax and code style checks.
+- `npm run package:dry-run` Preview the files included in the npm package.
+- `npm run check-package -- path/to/moment` Test an installed package's runtime artifacts.
 - `npm run release` Build everything, including minified files (do not include
   those in Pull Requests)
 - `npm run build:custom -- fr,ru` Build custom locale bundles `moment-with-locales.custom.js` and `locales.custom.js` inside `build/umd/min` containing just French and Russian.
