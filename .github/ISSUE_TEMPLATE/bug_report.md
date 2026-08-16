@@ -3,10 +3,14 @@ name: Bug report
 about: Create a report to help us improve Moment.js
 ---
 
-**Describe the bug**
+# Bug Report
+
+## Describe the Bug
+
 A clear and concise description of what the bug is.
 
-**To Reproduce**
+## To Reproduce
+
 Steps to reproduce the behavior:
 
 1. Go to '...'
@@ -14,26 +18,28 @@ Steps to reproduce the behavior:
 3. Scroll down to '....'
 4. See error
 
-**Expected behavior**
+## Expected Behavior
+
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
+## Screenshots
+
 If applicable, add screenshots to help explain your problem.
 
-**Desktop (please complete the following information):**
+## Desktop
 
 - OS: [e.g. iOS]
 - Browser [e.g. chrome, safari]
 - Version [e.g. 22]
 
-**Smartphone (please complete the following information if applicable):**
+## Smartphone
 
 - Device: [e.g. iPhone6]
 - OS: [e.g. iOS8.1]
 - Browser [e.g. firefox, safari]
 - Version [e.g. 22]
 
-**Moment-specific environment**
+## Moment-Specific Environment
 
 - The time zone setting of the machine the code is running on
 - The time and date at which the code was run
@@ -41,13 +47,14 @@ If applicable, add screenshots to help explain your problem.
 
 Please run the following code in your environment and include the output:
 
-```
-console.log((new Date()).toString())
-console.log((new Date()).toLocaleString())
-console.log((new Date()).getTimezoneOffset())
-console.log(navigator.userAgent)
-console.log(moment.version)
+```js
+console.log(new Date().toString());
+console.log(new Date().toLocaleString());
+console.log(new Date().getTimezoneOffset());
+console.log(navigator.userAgent);
+console.log(moment.version);
 ```
 
-**Additional context**
+## Additional Context
+
 Add any other context about the problem here.

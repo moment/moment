@@ -3,7 +3,8 @@
 ## Preparing A Release
 
 1. Update the changelog and version with `pnpm release:bump-version x.y.z`.
-2. Run `pnpm release` to test the project and update the committed distribution files.
+2. Run `pnpm release` to test the project and update the committed distribution
+   files.
 3. Review and commit the source, metadata, and generated distribution changes.
 4. Ensure the protected source branch is green.
 5. Create and push the matching bare version tag, for example `2.31.0`.
@@ -19,7 +20,8 @@ The release workflow runs for version tags such as `2.31.0`. It:
 2. Runs lint, runtime tests, and the release build.
 3. Verifies that rebuilding does not change the committed distribution files.
 4. Builds the npm tarball twice and verifies its SHA-256 reproducibility.
-5. Installs and tests the exact tarball, including declarations with TypeScript 1.8 through 7.
+5. Installs and tests the exact tarball, including declarations with TypeScript
+   1.8 through 7.
 6. Uploads the tarball and checksum as workflow artifacts.
 7. Publishes the tested tarball to npm with provenance.
 

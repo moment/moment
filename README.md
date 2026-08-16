@@ -6,9 +6,13 @@
 [![Coverage Status][coveralls-image]][coveralls-url]
 [![FOSSA Status][fossa-badge-image]][fossa-badge-url]
 
-A JavaScript date library for parsing, validating, manipulating, and formatting dates.
+A JavaScript date library for parsing, validating, manipulating, and formatting
+dates.
 
-> ⚠️ Moment.js is a legacy project, now in **maintenance mode**. In most cases, you should choose a different library. For more details and recommendations, please see [Project Status](https://momentjs.com/docs/#/-project-status/) in the docs.
+> ⚠️ Moment.js is a legacy project, now in **maintenance mode**. In most cases,
+> you should choose a different library. For more details and recommendations,
+> please see [Project Status](https://momentjs.com/docs/#/-project-status/) in the
+> docs.
 
 _Thank you._
 
@@ -20,7 +24,8 @@ _Thank you._
 
 ## Installation
 
-If you still need to use Moment.js, you can install it using a package manager like npm, yarn, or bun.
+If you still need to use Moment.js, you can install it using a package manager
+like npm, yarn, or bun.
 
 ```bash
 npm install moment
