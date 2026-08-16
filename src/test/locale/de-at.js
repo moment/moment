@@ -46,6 +46,79 @@ test('parse', function (assert) {
     }
 });
 
+test('parse short months without trailing dot (issue #6300)', function (assert) {
+    // Feb.toLocaleString('de-AT', {month: 'short'}) yields "Feb" without a
+    // trailing dot, which used to fail to parse and silently default to
+    // month index 0 (January). Both the dotted and undotted spellings must
+    // parse to the correct month for every month name, short and long.
+    var longNames =
+            'Jänner_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember'.split(
+                '_'
+            ),
+        shortNamesWithDot =
+            'Jän._Feb._März_Apr._Mai_Juni_Juli_Aug._Sep._Okt._Nov._Dez.'.split(
+                '_'
+            ),
+        shortNamesWithoutDot =
+            'Jän_Feb_März_Apr_Mai_Juni_Juli_Aug_Sep_Okt_Nov_Dez'.split('_'),
+        i;
+
+    for (i = 0; i < 12; i++) {
+        assert.equal(
+            moment(shortNamesWithDot[i], 'MMM').month(),
+            i,
+            shortNamesWithDot[i] + ' (MMM, with dot) should be month ' + (i + 1)
+        );
+        assert.equal(
+            moment(shortNamesWithoutDot[i], 'MMM').month(),
+            i,
+            shortNamesWithoutDot[i] +
+                ' (MMM, without dot) should be month ' +
+                (i + 1)
+        );
+        assert.equal(
+            moment(longNames[i], 'MMMM').month(),
+            i,
+            longNames[i] + ' (MMMM) should be month ' + (i + 1)
+        );
+
+        assert.equal(
+            moment('15.' + (i + 1) + '.2000', 'DD.MM.YYYY').format('MMM'),
+            shortNamesWithDot[i],
+            'MMM output for month ' + (i + 1) + ' should be unchanged'
+        );
+        assert.equal(
+            moment('15.' + (i + 1) + '.2000', 'DD.MM.YYYY').format('MMMM'),
+            longNames[i],
+            'MMMM output for month ' + (i + 1) + ' should be unchanged'
+        );
+    }
+
+    // The exact repro from the issue, adapted to de-at.
+    assert.equal(
+        moment('Feb 15, 2000', 'MMM DD, YYYY').month(),
+        1,
+        'Feb 15, 2000 should parse as February, not January'
+    );
+});
+
+test('parse ICU short month names', function (assert) {
+    // new Date(2000, m, 15).toLocaleString('de-AT', {month: 'short'})
+    // truncates März/Juni/Juli to Mär/Jun/Jul (no dot) and Jänner to Jän
+    // (no dot), unlike moment's own monthsShort output. These must parse too.
+    var icuShortNames =
+            'Jän_Feb_Mär_Apr_Mai_Jun_Jul_Aug_Sep_Okt_Nov_Dez'.split('_'),
+        i;
+
+    for (i = 0; i < 12; i++) {
+        assert.equal(
+            moment(icuShortNames[i], 'MMM').month(),
+            i,
+            icuShortNames[i] + ' (ICU short) should be month ' + (i + 1)
+        );
+    }
+});
+
 test('format', function (assert) {
     var a = [
             [
