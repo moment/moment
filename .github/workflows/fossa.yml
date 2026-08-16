@@ -21,12 +21,7 @@ jobs:
         with:
           cache: true
 
-      - name: Analyze dependencies
-        uses: fossas/fossa-action@v2
-        with:
-          api-key: ${{ secrets.FOSSA_API_KEY }}
-
-      - name: Test license policy
+      - name: Analyze dependencies and test license policy
         uses: fossas/fossa-action@v2
         with:
           api-key: ${{ secrets.FOSSA_API_KEY }}

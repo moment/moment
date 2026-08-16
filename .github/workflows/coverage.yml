@@ -22,11 +22,9 @@ jobs:
           cache: true
 
       - name: Run coverage
-        run: pnpm run coverage
+        run: pnpm test:coverage
 
       - name: Report coverage to Coveralls
-        run: |
-          curl -fsSL https://github.com/coverallsapp/coverage-reporter/releases/latest/download/coveralls-linux-x86_64.tar.gz | tar -xz
-          ./coveralls report coverage/lcov.info
-        env:
-          COVERALLS_REPO_TOKEN: ${{ github.token }}
+        uses: coverallsapp/github-action@v2
+        with:
+          file: coverage/lcov.info

@@ -1,9 +1,11 @@
 {
     "name": "moment",
     "version": "2.30.1",
-    "packageManager": "pnpm@11.22.0",
     "description": "Parse, validate, manipulate, and display dates",
     "homepage": "https://momentjs.com",
+    "repository": "github:moment/moment",
+    "bugs": "https://github.com/moment/moment/issues",
+    "license": "MIT",
     "keywords": [
         "moment",
         "date",
@@ -14,6 +16,80 @@
     "main": "./moment.js",
     "jsnext:main": "./dist/moment.js",
     "typings": "./moment.d.ts",
+    "typesVersions": {
+        ">=3.1": {
+            "*": [
+                "ts3.1-typings/*"
+            ],
+            "min/moment-with-locales": [
+                "ts3.1-typings/moment.d.ts"
+            ]
+        }
+    },
+    "engines": {
+        "node": "*"
+    },
+    "devEngines": {
+        "runtime": {
+            "name": "node",
+            "version": "^22.22.2 || ^24.15.0 || >=26.0.0",
+            "onFail": "error"
+        }
+    },
+    "packageManager": "pnpm@11.22.0",
+    "scripts": {
+        "benchmark": "node scripts/benchmark.js",
+        "build": "node scripts/build.js",
+        "build:custom": "node scripts/build.js --locales",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "lint": "run-s lint:eslint lint:months-parse format:check",
+        "lint:eslint": "eslint scripts src test",
+        "lint:months-parse": "node scripts/check-months-parse.js",
+        "locale:authors": "node scripts/locales.js",
+        "release": "run-s lint test build release:update-index release:update-component release:minify",
+        "release:bump-version": "node scripts/bump-version.js",
+        "release:check-package": "node scripts/check-package.js",
+        "release:check-typescript": "node scripts/test-typescript-package.js",
+        "release:minify": "node scripts/minify.js",
+        "release:update-component": "node scripts/update-component.js",
+        "release:update-index": "node scripts/update-index.js",
+        "test": "vitest run",
+        "test:coverage": "vitest run --coverage",
+        "test:typescript": "run-p test:typescript:1 test:typescript:2 test:typescript:3.0 test:typescript:3.1 test:typescript:3.9 test:typescript:4 test:typescript:5 test:typescript:6 test:typescript:7",
+        "test:typescript:1": "node node_modules/typescript1/lib/tsc.js --project typing-tests/legacy",
+        "test:typescript:2": "node node_modules/typescript2/lib/tsc.js --project typing-tests/legacy --types empty --typeRoots typing-tests/legacy/types",
+        "test:typescript:3.0": "node node_modules/typescript3_0/lib/tsc.js --project typing-tests/legacy --types empty --typeRoots typing-tests/legacy/types",
+        "test:typescript:3.1": "node node_modules/typescript3_1/lib/tsc.js --project typing-tests/modern",
+        "test:typescript:3.9": "node node_modules/typescript3/lib/tsc.js --project typing-tests/modern",
+        "test:typescript:4": "node_modules/typescript4/bin/tsc --project typing-tests/modern",
+        "test:typescript:5": "node_modules/typescript5/bin/tsc --project typing-tests/modern",
+        "test:typescript:6": "node_modules/typescript6/bin/tsc --project typing-tests/modern",
+        "test:typescript:7": "node_modules/typescript/bin/tsc --project typing-tests/modern",
+        "test:watch": "vitest",
+        "validate": "run-s lint test"
+    },
+    "devDependencies": {
+        "@eslint/js": "^10.0.1",
+        "@vitest/coverage-v8": "^4.0.0",
+        "benchmark": "^2.1.4",
+        "eslint": "^10.8.1",
+        "globals": "^17.11.0",
+        "npm-run-all2": "^9.0.3",
+        "prettier": "^3.9.6",
+        "rollup": "^4.62.4",
+        "typescript": "^7.0.2",
+        "typescript1": "npm:typescript@^1.8.10",
+        "typescript2": "npm:typescript@^2.9.2",
+        "typescript3": "npm:typescript@^3.9.10",
+        "typescript3_0": "npm:typescript@3.0.3",
+        "typescript3_1": "npm:typescript@3.1.6",
+        "typescript4": "npm:typescript@^4.9.5",
+        "typescript5": "npm:typescript@^5.9.3",
+        "typescript6": "npm:typescript@^6.0.3",
+        "uglify-js": "^3.19.3",
+        "vitest": "^4.0.0"
+    },
     "files": [
         "dist/",
         "locale/",
@@ -35,54 +111,6 @@
         "moment.js",
         "dojo.profile.js"
     ],
-    "typesVersions": {
-        ">=3.1": {
-            "*": [
-                "ts3.1-typings/*"
-            ],
-            "min/moment-with-locales": [
-                "ts3.1-typings/moment.d.ts"
-            ]
-        }
-    },
-    "engines": {
-        "node": "*"
-    },
-    "devEngines": {
-        "runtime": {
-            "name": "node",
-            "version": ">=22.13.0",
-            "onFail": "error"
-        }
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/moment/moment.git"
-    },
-    "bugs": {
-        "url": "https://github.com/moment/moment/issues"
-    },
-    "license": "MIT",
-    "devDependencies": {
-        "@eslint/js": "^10.0.1",
-        "@vitest/coverage-v8": "^4.0.0",
-        "benchmark": "^2.1.4",
-        "eslint": "^10.8.1",
-        "globals": "^17.11.0",
-        "prettier": "^3.9.6",
-        "rollup": "^4.62.4",
-        "typescript": "^7.0.2",
-        "typescript1": "npm:typescript@^1.8.10",
-        "typescript2": "npm:typescript@^2.9.2",
-        "typescript3": "npm:typescript@^3.9.10",
-        "typescript3_0": "npm:typescript@3.0.3",
-        "typescript3_1": "npm:typescript@3.1.6",
-        "typescript4": "npm:typescript@^4.9.5",
-        "typescript5": "npm:typescript@^5.9.3",
-        "typescript6": "npm:typescript@^6.0.3",
-        "uglify-js": "^3.19.3",
-        "vitest": "^4.0.0"
-    },
     "ender": "./ender.js",
     "dojoBuild": "dojo.profile.js",
     "jspm": {
@@ -97,38 +125,6 @@
         "buildConfig": {
             "uglify": true
         }
-    },
-    "scripts": {
-        "typescript-test": "pnpm run typescript-test:1 && pnpm run typescript-test:2 && pnpm run typescript-test:3.0 && pnpm run typescript-test:3.1 && pnpm run typescript-test:3.9 && pnpm run typescript-test:4 && pnpm run typescript-test:5 && pnpm run typescript-test:6 && pnpm run typescript-test:7",
-        "typescript-test:package": "node scripts/test-typescript-package.js",
-        "typescript-test:1": "node node_modules/typescript1/lib/tsc.js --project typing-tests/legacy",
-        "typescript-test:2": "node node_modules/typescript2/lib/tsc.js --project typing-tests/legacy --types empty --typeRoots typing-tests/legacy/types",
-        "typescript-test:3.0": "node node_modules/typescript3_0/lib/tsc.js --project typing-tests/legacy --types empty --typeRoots typing-tests/legacy/types",
-        "typescript-test:3.1": "node node_modules/typescript3_1/lib/tsc.js --project typing-tests/modern",
-        "typescript-test:3.9": "node node_modules/typescript3/lib/tsc.js --project typing-tests/modern",
-        "typescript-test:4": "node_modules/typescript4/bin/tsc --project typing-tests/modern",
-        "typescript-test:5": "node_modules/typescript5/bin/tsc --project typing-tests/modern",
-        "typescript-test:6": "node_modules/typescript6/bin/tsc --project typing-tests/modern",
-        "typescript-test:7": "node_modules/typescript/bin/tsc --project typing-tests/modern",
-        "test": "vitest run",
-        "test:watch": "vitest",
-        "build": "node scripts/build.js",
-        "build:custom": "node scripts/build.js --locales",
-        "update-index": "node scripts/update-index.js",
-        "update-component": "node scripts/update-component.js",
-        "minify": "node scripts/minify.js",
-        "package": "pnpm pack",
-        "package:dry-run": "pnpm pack --dry-run",
-        "check-package": "node scripts/check-package.js",
-        "release": "pnpm run lint && pnpm test && pnpm run build && pnpm run update-index && pnpm run update-component && pnpm run minify",
-        "benchmark": "node scripts/benchmark.js",
-        "bump-version": "node scripts/bump-version.js",
-        "validate": "pnpm run lint && pnpm test",
-        "eslint": "eslint scripts src test",
-        "lint": "pnpm run eslint && pnpm run prettier-check && node scripts/check-months-parse.js",
-        "prettier-check": "prettier --check .",
-        "prettier-fmt": "prettier --write .",
-        "coverage": "vitest run --coverage"
     },
     "spm": {
         "main": "moment.js",

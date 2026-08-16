@@ -36,13 +36,13 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Lint
-        run: pnpm run lint
+        run: pnpm lint
 
       - name: Build
-        run: pnpm run build
+        run: pnpm build
 
       - name: Test
         run: pnpm test
 
       - name: Test TypeScript declarations
-        run: pnpm run typescript-test
+        run: pnpm test:typescript

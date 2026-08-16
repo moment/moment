@@ -23,7 +23,7 @@ jobs:
           cache: true
 
       - name: Build runtime artifacts
-        run: pnpm run build
+        run: pnpm build
 
       - name: Upload runtime artifacts
         uses: actions/upload-artifact@v6

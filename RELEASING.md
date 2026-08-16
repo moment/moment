@@ -2,8 +2,8 @@
 
 ## Preparing A Release
 
-1. Update the changelog and version with `pnpm run bump-version x.y.z`.
-2. Run `pnpm run release` to test the project and update the committed distribution files.
+1. Update the changelog and version with `pnpm release:bump-version x.y.z`.
+2. Run `pnpm release` to test the project and update the committed distribution files.
 3. Review and commit the source, metadata, and generated distribution changes.
 4. Ensure the protected source branch is green.
 5. Create and push the matching bare version tag, for example `2.31.0`.
@@ -23,8 +23,11 @@ The release workflow runs for version tags such as `2.31.0`. It:
 6. Uploads the tarball and checksum as workflow artifacts.
 7. Publishes the tested tarball to npm with provenance.
 
-For a transient workflow failure, use GitHub Actions to re-run the failed jobs
-or the complete workflow. The re-run retains the original tag context.
+For a transient failure before npm publication, use GitHub Actions to re-run
+the failed jobs or the complete workflow. The re-run retains the original tag
+context. If the publish step fails ambiguously, first check whether the version
+exists on npm. Do not rerun publication if npm already accepted that immutable
+version; investigate and record the completed publication instead.
 
 ## Recovering From A Stale Release Tag
 
@@ -39,7 +42,7 @@ For example, for `2.31.0`:
    git tag --delete 2.31.0
    ```
 
-2. Run `pnpm run release`, commit the resulting files, and push the corrected
+2. Run `pnpm release`, commit the resulting files, and push the corrected
    release commit to its source branch.
 3. Recreate and push the tag from the corrected commit:
 

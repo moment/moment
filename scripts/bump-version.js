@@ -3,7 +3,7 @@ const fs = require('fs');
 const version = process.argv[2];
 
 if (!/^\d+\.\d+\.\d+$/.test(version || '')) {
-    throw new Error('Usage: pnpm run bump-version 1.2.3');
+    throw new Error('Usage: pnpm release:bump-version 1.2.3');
 }
 
 function replace(file, pattern, replacement) {

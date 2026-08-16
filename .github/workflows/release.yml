@@ -33,7 +33,7 @@ jobs:
 
       - name: Validate release artifacts
         run: |
-          pnpm run release
+          pnpm release
           if test -n "$(git status --porcelain)"; then
             echo "::error title=Release artifacts are stale::Publication stopped because this tag does not contain the generated release files. See RELEASING.md#recovering-from-a-stale-release-tag for retagging instructions."
             git status --short
@@ -42,14 +42,14 @@ jobs:
           fi
 
       - name: Build package
-        run: pnpm run package
+        run: pnpm pack
 
       - name: Record package checksum
         run: sha256sum moment-*.tgz > build/package.sha256
 
       - name: Verify reproducible package
         run: |
-          pnpm run package
+          pnpm pack
           sha256sum --check build/package.sha256
 
       - name: Install package
@@ -58,10 +58,10 @@ jobs:
           pnpm --dir build/consumer add "$GITHUB_WORKSPACE"/moment-*.tgz
 
       - name: Test installed package
-        run: pnpm run check-package build/consumer/node_modules/moment
+        run: pnpm release:check-package build/consumer/node_modules/moment
 
       - name: Test installed TypeScript declarations
-        run: pnpm run typescript-test:package build/consumer/node_modules/moment
+        run: pnpm release:check-typescript build/consumer/node_modules/moment
 
       - name: Upload package
         uses: actions/upload-artifact@v6
