@@ -4,6 +4,46 @@
 
 import moment from '../moment';
 
+var relativeTime = {
+    ss: 'sekunde %d',
+    m: 'dakika moja',
+    mm: 'dakika %d',
+    h: 'saa moja',
+    hh: 'saa %d',
+    d: 'siku moja',
+    dd: 'siku %d',
+    M: 'mwezi mmoja',
+    MM: 'miezi %d',
+    y: 'mwaka mmoja',
+    yy: 'miaka %d',
+};
+
+function relativeTimeWithSuffix(number, withoutSuffix, key, isFuture) {
+    var output = relativeTime[key].replace(/%d/i, number);
+
+    if (withoutSuffix || isFuture) {
+        return output;
+    }
+
+    switch (key) {
+        case 'ss':
+        case 'mm':
+        case 'hh':
+        case 'dd':
+            return output + (number === 1 ? ' iliyopita' : ' zilizopita');
+        case 'm':
+        case 'h':
+        case 'd':
+            return output + ' iliyopita';
+        case 'M':
+        case 'y':
+            return output + ' uliopita';
+        case 'MM':
+        case 'yy':
+            return output + ' iliyopita';
+    }
+}
+
 export default moment.defineLocale('sw', {
     months: 'Januari_Februari_Machi_Aprili_Mei_Juni_Julai_Agosti_Septemba_Oktoba_Novemba_Desemba'.split(
         '_'
@@ -34,19 +74,21 @@ export default moment.defineLocale('sw', {
     },
     relativeTime: {
         future: '%s baadaye',
-        past: 'tokea %s',
+        past: function (output) {
+            return output === 'hivi punde' ? 'tokea ' + output : output;
+        },
         s: 'hivi punde',
-        ss: 'sekunde %d',
-        m: 'dakika moja',
-        mm: 'dakika %d',
-        h: 'saa limoja',
-        hh: 'masaa %d',
-        d: 'siku moja',
-        dd: 'siku %d',
-        M: 'mwezi mmoja',
-        MM: 'miezi %d',
-        y: 'mwaka mmoja',
-        yy: 'miaka %d',
+        ss: relativeTimeWithSuffix,
+        m: relativeTimeWithSuffix,
+        mm: relativeTimeWithSuffix,
+        h: relativeTimeWithSuffix,
+        hh: relativeTimeWithSuffix,
+        d: relativeTimeWithSuffix,
+        dd: relativeTimeWithSuffix,
+        M: relativeTimeWithSuffix,
+        MM: relativeTimeWithSuffix,
+        y: relativeTimeWithSuffix,
+        yy: relativeTimeWithSuffix,
     },
     week: {
         dow: 1, // Monday is the first day of the week.
