@@ -13,7 +13,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  runtime-compatibility:
+    uses: ./.github/workflows/runtime-compatibility.yml
+
   package:
+    needs: runtime-compatibility
     runs-on: ubuntu-latest
 
     steps:

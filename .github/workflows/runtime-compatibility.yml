@@ -1,0 +1,60 @@
+name: Runtime compatibility
+
+on:
+  workflow_call:
+  push:
+    branches: ['develop']
+  pull_request:
+    branches: ['develop']
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Use pnpm and Node.js
+        uses: pnpm/setup@v2
+        with:
+          cache: true
+
+      - name: Build runtime artifacts
+        run: pnpm run build
+
+      - name: Upload runtime artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          name: moment-runtime-${{ github.run_id }}
+          path: build/umd
+          if-no-files-found: error
+          retention-days: 1
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [8, 10, 12, 14, 16, 18, 20, 22, 24, latest]
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Download runtime artifacts
+        uses: actions/download-artifact@v7
+        with:
+          name: moment-runtime-${{ github.run_id }}
+          path: build/umd
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Test runtime compatibility
+        run: node scripts/test-runtime.js build/umd
