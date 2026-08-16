@@ -1,5 +1,10 @@
 # Contributing to Moment.js
 
+Moment.js has been a Linux Foundation-hosted project since joining the JS
+Foundation in October 2016. The JS Foundation later merged with the Node.js
+Foundation to form the [OpenJS Foundation](https://openjsf.org/), which hosts
+the project today.
+
 ## Submitting Issues
 
 Before submitting an issue, check the existing issues and make sure it has not
@@ -14,8 +19,9 @@ questions and other issue categories, follow the links in the issue chooser.
 
 - **Pull requests to the `master` branch will be closed.** Please submit all
   pull requests to the `develop` branch.
-- **You will be required to sign a JS Foundation CLA before your pull request
-  can be merged.** [Sign it right now](https://cla.js.foundation/moment/moment).
+- **You will be required to sign the OpenJS Foundation CLA before your pull
+  request can be merged.** The EasyCLA bot will prompt you, or you can
+  [sign it now](https://api.easycla.lfx.linuxfoundation.org/v2/repository-provider/github/sign/6354452/235430945/1).
 - **Locale translations will not be merged without unit tests.** See
   [the British English unit tests](https://github.com/moment/moment/blob/develop/test/locale/en-gb.test.js)
   for an example.

@@ -16,6 +16,9 @@ dates.
 
 _Thank you._
 
+Moment.js is a project of the [OpenJS Foundation](https://openjsf.org/), which
+is part of the [Linux Foundation](https://www.linuxfoundation.org/).
+
 ## Resources
 
 - [Documentation](https://momentjs.com/docs/)

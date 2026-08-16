@@ -28,6 +28,6 @@ We follow coordinated vulnerability disclosure:
 
 - We will acknowledge your report, assess impact, and work on a fix.
 - We aim to provide status updates at reasonable intervals until resolution.
-- We will publish a security advisory (and **CVE via the OpenJS CNA when
-  applicable**) once a fix or mitigation is available. We credit reporters by
-  default unless you request otherwise.
+- We will publish a security advisory (and **CVE via the OpenJS Foundation CNA
+  when applicable**) once a fix or mitigation is available. We credit reporters
+  by default unless you request otherwise.
