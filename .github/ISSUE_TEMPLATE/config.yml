@@ -1,0 +1,23 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Feature requests are not accepted
+    url: https://momentjs.com/docs/#/-project-status/
+    about: Moment.js is in maintenance mode and is not accepting new features.
+  - name: Ask a usage question
+    url: https://stackoverflow.com/questions/tagged/momentjs
+    about: Ask for help using Moment.js on Stack Overflow.
+  - name: Ask a question about the project
+    url: https://github.com/moment/moment/discussions
+    about: Ask about the Moment.js project, its maintenance status, or contributing.
+  - name: Report a Moment Timezone issue
+    url: https://github.com/moment/moment-timezone/issues
+    about: Report time zone data and Moment Timezone defects in its own repository.
+  - name: Report a Luxon issue
+    url: https://github.com/moment/luxon/issues
+    about: Report Luxon defects and requests in its own repository.
+  - name: Report a momentjs.com website issue
+    url: https://github.com/moment/momentjs.com/issues
+    about: Report documentation website content and functionality issues in its own repository.
+  - name: Report a security vulnerability
+    url: https://github.com/moment/moment/security/advisories/new
+    about: Privately report a security vulnerability to the maintainers.

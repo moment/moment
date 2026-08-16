@@ -2,10 +2,13 @@
 
 ## Submitting Issues
 
-If you are submitting a bug, please create a
-[jsfiddle](http://jsfiddle.net/) demonstrating the issue. Before raising a new
-issue, check the existing issues and make sure your issue does not already
-exist.
+Before submitting an issue, check the existing issues and make sure it has not
+already been reported. Bug reports should include a minimal reproduction with
+the exact actual and expected output.
+
+Moment.js is in maintenance mode and is not accepting new features. Use the
+provided issue forms for reproducible defects and locale corrections. For usage
+questions and other issue categories, follow the links in the issue chooser.
 
 ## Read Before Submitting Pull Requests
 

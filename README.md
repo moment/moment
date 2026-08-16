@@ -10,9 +10,9 @@ A JavaScript date library for parsing, validating, manipulating, and formatting
 dates.
 
 > ⚠️ Moment.js is a legacy project, now in **maintenance mode**. In most cases,
-> you should choose a different library. For more details and recommendations,
-> please see [Project Status](https://momentjs.com/docs/#/-project-status/) in the
-> docs.
+> you should choose a different library. New features are not being accepted.
+> For more details and recommendations, please see
+> [Project Status](https://momentjs.com/docs/#/-project-status/) in the docs.
 
 _Thank you._
 
