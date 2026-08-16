@@ -19,25 +19,17 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Use Node.js
-        uses: actions/setup-node@v7
+      - name: Use pnpm and Node.js
+        uses: pnpm/setup@v2
         with:
-          node-version: lts/*
-          cache: npm
-          registry-url: https://registry.npmjs.org
-
-      - name: Use npm
-        run: npm install --global npm@11.17.0
-
-      - name: Install dependencies
-        run: npm ci
+          cache: true
 
       - name: Verify tag version
         run: node -e "const expected = require('./package.json').version; if (process.env.GITHUB_REF_NAME !== expected) throw new Error('Expected tag ' + expected)"
 
       - name: Validate release artifacts
         run: |
-          npm run release
+          pnpm run release
           if test -n "$(git status --porcelain)"; then
             echo "::error title=Release artifacts are stale::Publication stopped because this tag does not contain the generated release files. See RELEASING.md#recovering-from-a-stale-release-tag for retagging instructions."
             git status --short
@@ -46,24 +38,26 @@ jobs:
           fi
 
       - name: Build package
-        run: npm run package
+        run: pnpm run package
 
       - name: Record package checksum
         run: sha256sum moment-*.tgz > build/package.sha256
 
       - name: Verify reproducible package
         run: |
-          npm run package
+          pnpm run package
           sha256sum --check build/package.sha256
 
       - name: Install package
-        run: npm install --prefix build/consumer ./moment-*.tgz
+        run: |
+          mkdir -p build/consumer
+          pnpm --dir build/consumer add "$GITHUB_WORKSPACE"/moment-*.tgz
 
       - name: Test installed package
-        run: npm run check-package -- build/consumer/node_modules/moment
+        run: pnpm run check-package build/consumer/node_modules/moment
 
       - name: Test installed TypeScript declarations
-        run: npm run typescript-test:package -- build/consumer/node_modules/moment
+        run: pnpm run typescript-test:package build/consumer/node_modules/moment
 
       - name: Upload package
         uses: actions/upload-artifact@v6
@@ -75,6 +69,8 @@ jobs:
           if-no-files-found: error
 
       - name: Publish npm package
-        run: npm publish ./moment-*.tgz --access public --provenance
+        run: |
+          pnpm config set //registry.npmjs.org/:_authToken "$NODE_AUTH_TOKEN"
+          pnpm publish ./moment-*.tgz --access public --provenance --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -45,10 +45,11 @@ To contribute, fork the library and install the dependencies. You need
 ```bash
 git clone https://github.com/moment/moment.git
 cd moment
-npm install
+npm install --global pnpm@11.22.0
+pnpm install
 git checkout develop  # all patches against develop branch, please!
-npm run validate         # this runs tests and lint checks
-npm run typescript-test  # this runs TypeScript declaration tests
+pnpm run validate         # this runs tests and lint checks
+pnpm run typescript-test  # this runs TypeScript declaration tests
 ```
 
 Changing locale files
@@ -66,17 +67,17 @@ author, or at least one other native speaker has to approve of the change
 Development scripts
 ===================
 
-The build and development commands are exposed as npm scripts:
+The build and development commands are exposed as package scripts:
 
-- `npm run validate` Lint the code and run the tests. You should make sure you do this before submitting a PR.
-- `npm test` Run the tests.
-- `npm run typescript-test` Run the TypeScript declaration tests.
-- `npm run lint` Perform syntax and code style checks.
-- `npm run package:dry-run` Preview the files included in the npm package.
-- `npm run check-package -- path/to/moment` Test an installed package's runtime artifacts.
-- `npm run release` Build everything, including minified files (do not include
+- `pnpm run validate` Lint the code and run the tests. You should make sure you do this before submitting a PR.
+- `pnpm test` Run the tests.
+- `pnpm run typescript-test` Run the TypeScript declaration tests.
+- `pnpm run lint` Perform syntax and code style checks.
+- `pnpm run package:dry-run` Preview the files included in the npm package.
+- `pnpm run check-package path/to/moment` Test an installed package's runtime artifacts.
+- `pnpm run release` Build everything, including minified files (do not include
   those in Pull Requests)
-- `npm run build:custom -- fr,ru` Build custom locale bundles `moment-with-locales.custom.js` and `locales.custom.js` inside `build/umd/min` containing just French and Russian.
-- `npm run benchmark -- compare` Run a benchmark, or omit the name to run all benchmarks.
+- `pnpm run build:custom fr,ru` Build custom locale bundles `moment-with-locales.custom.js` and `locales.custom.js` inside `build/umd/min` containing just French and Russian.
+- `pnpm run benchmark compare` Run a benchmark, or omit the name to run all benchmarks.
 
-**Note:** If the prompt message is `Code style issues found in the above file(s). Forgot to run Prettier?`, Please run `npm run prettier-fmt`.
+**Note:** If the prompt message is `Code style issues found in the above file(s). Forgot to run Prettier?`, Please run `pnpm run prettier-fmt`.

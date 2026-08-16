@@ -1,6 +1,7 @@
 {
     "name": "moment",
     "version": "2.30.1",
+    "packageManager": "pnpm@11.22.0",
     "description": "Parse, validate, manipulate, and display dates",
     "homepage": "https://momentjs.com",
     "keywords": [
@@ -98,7 +99,7 @@
         }
     },
     "scripts": {
-        "typescript-test": "npm run typescript-test:1 && npm run typescript-test:2 && npm run typescript-test:3.0 && npm run typescript-test:3.1 && npm run typescript-test:3.9 && npm run typescript-test:4 && npm run typescript-test:5 && npm run typescript-test:6 && npm run typescript-test:7",
+        "typescript-test": "pnpm run typescript-test:1 && pnpm run typescript-test:2 && pnpm run typescript-test:3.0 && pnpm run typescript-test:3.1 && pnpm run typescript-test:3.9 && pnpm run typescript-test:4 && pnpm run typescript-test:5 && pnpm run typescript-test:6 && pnpm run typescript-test:7",
         "typescript-test:package": "node scripts/test-typescript-package.js",
         "typescript-test:1": "node node_modules/typescript1/lib/tsc.js --project typing-tests/legacy",
         "typescript-test:2": "node node_modules/typescript2/lib/tsc.js --project typing-tests/legacy --types empty --typeRoots typing-tests/legacy/types",
@@ -116,15 +117,15 @@
         "update-index": "node scripts/update-index.js",
         "update-component": "node scripts/update-component.js",
         "minify": "node scripts/minify.js",
-        "package": "npm pack --ignore-scripts",
-        "package:dry-run": "npm pack --dry-run --ignore-scripts",
+        "package": "pnpm pack",
+        "package:dry-run": "pnpm pack --dry-run",
         "check-package": "node scripts/check-package.js",
-        "release": "npm run lint && npm test && npm run build && npm run update-index && npm run update-component && npm run minify",
+        "release": "pnpm run lint && pnpm test && pnpm run build && pnpm run update-index && pnpm run update-component && pnpm run minify",
         "benchmark": "node scripts/benchmark.js",
         "bump-version": "node scripts/bump-version.js",
-        "validate": "npm run lint && npm test",
+        "validate": "pnpm run lint && pnpm test",
         "eslint": "eslint scripts src test",
-        "lint": "npm run eslint && npm run prettier-check && node scripts/check-months-parse.js",
+        "lint": "pnpm run eslint && pnpm run prettier-check && node scripts/check-months-parse.js",
         "prettier-check": "prettier --check .",
         "prettier-fmt": "prettier --write .",
         "coverage": "vitest run --coverage"

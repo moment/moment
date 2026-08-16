@@ -3,6 +3,7 @@
 /locale/
 /min/
 /moment.js
+pnpm-lock.yaml
 
 # Must remain parseable by TypeScript 1.8; Prettier emits newer union syntax.
 moment.d.ts

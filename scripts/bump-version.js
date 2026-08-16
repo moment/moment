@@ -3,7 +3,7 @@ const fs = require('fs');
 const version = process.argv[2];
 
 if (!/^\d+\.\d+\.\d+$/.test(version || '')) {
-    throw new Error('Usage: npm run bump-version -- 1.2.3');
+    throw new Error('Usage: pnpm run bump-version 1.2.3');
 }
 
 function replace(file, pattern, replacement) {
@@ -14,9 +14,6 @@ function replace(file, pattern, replacement) {
 function updateJson(file) {
     const json = JSON.parse(fs.readFileSync(file, 'utf8'));
     json.version = version;
-    if (file === 'package-lock.json' && json.packages && json.packages['']) {
-        json.packages[''].version = version;
-    }
     fs.writeFileSync(file, JSON.stringify(json, null, 4) + '\n');
 }
 
@@ -27,5 +24,5 @@ replace(
     "moment.version = '" + version + "'"
 );
 
-['package.json', 'package-lock.json', 'component.json'].forEach(updateJson);
+['package.json', 'component.json'].forEach(updateJson);
 replace('meteor/package.js', /version: .*/, "version: '" + version + "',");

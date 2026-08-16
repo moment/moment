@@ -2,8 +2,8 @@
 
 ## Preparing A Release
 
-1. Update the changelog and version with `npm run bump-version -- x.y.z`.
-2. Run `npm run release` to test the project and update the committed distribution files.
+1. Update the changelog and version with `pnpm run bump-version x.y.z`.
+2. Run `pnpm run release` to test the project and update the committed distribution files.
 3. Review and commit the source, metadata, and generated distribution changes.
 4. Ensure the protected source branch is green.
 5. Create and push the matching bare version tag, for example `2.31.0`.
@@ -39,7 +39,7 @@ For example, for `2.31.0`:
    git tag --delete 2.31.0
    ```
 
-2. Run `npm run release`, commit the resulting files, and push the corrected
+2. Run `pnpm run release`, commit the resulting files, and push the corrected
    release commit to its source branch.
 3. Recreate and push the tag from the corrected commit:
 

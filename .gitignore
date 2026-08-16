@@ -5,6 +5,7 @@ min/moment+customlangs.min.js
 sauce_connect.log
 .sauce-labs.creds
 npm-debug.log
+pnpm-debug.log*
 .build*
 build
 coverage
