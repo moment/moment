@@ -16,14 +16,20 @@ legacy consumers install directly from Git tags.
 
 The release workflow runs for version tags such as `2.31.0`. It:
 
-1. Verifies that the tag matches `package.json`.
-2. Runs lint, runtime tests, and the release build.
-3. Verifies that rebuilding does not change the committed distribution files.
-4. Builds the npm tarball twice and verifies its SHA-256 reproducibility.
-5. Installs and tests the exact tarball, including declarations with TypeScript
+1. Verifies that the tag is valid SemVer and greater than the release on
+   `master`.
+2. Verifies that the tag matches `package.json`.
+3. Runs lint, runtime tests, and the release build.
+4. Verifies that rebuilding does not change the committed distribution files.
+5. Builds the npm tarball twice and verifies its SHA-256 reproducibility.
+6. Installs and tests the exact tarball, including declarations with TypeScript
    1.8 through 7.
-6. Uploads the tarball and checksum as workflow artifacts.
-7. Publishes the tested tarball to npm with provenance.
+7. Uploads the tarball and checksum as workflow artifacts.
+8. Publishes the tested tarball to npm with provenance.
+9. Updates the `master` branch to point at the release tag.
+
+Release runs are serialized so each tag is compared with the release that
+completed immediately before it.
 
 For a transient failure before npm publication, use GitHub Actions to re-run
 the failed jobs or the complete workflow. The re-run retains the original tag

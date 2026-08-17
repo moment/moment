@@ -9,7 +9,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: release-${{ github.ref }}
+  group: release
   cancel-in-progress: false
 
 jobs:
@@ -19,6 +19,9 @@ jobs:
   package:
     needs: runtime-compatibility
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
 
     steps:
       - uses: actions/checkout@v7
@@ -27,6 +30,29 @@ jobs:
         uses: pnpm/setup@v2
         with:
           cache: true
+
+      - name: Read previous release version
+        id: previous-version
+        run: |
+          git fetch origin master --depth=1
+          git show FETCH_HEAD:package.json | node -e "let data = ''; process.stdin.on('data', (chunk) => data += chunk).on('end', () => console.log('version=' + JSON.parse(data).version))" >> "$GITHUB_OUTPUT"
+
+      - name: Compare release version
+        id: semver
+        uses: madhead/semver-utils@4cf918affe9106ea59f86c6250e5ec4570ac4389 # v5.0.0
+        with:
+          version: ${{ github.ref_name }}
+          compare-to: ${{ steps.previous-version.outputs.version }}
+          lenient: false
+
+      - name: Require a newer release version
+        if: steps.semver.outputs.comparison-result != '>'
+        run: |
+          echo "::error title=Release version did not advance::Expected $RELEASE_VERSION to be greater than $PREVIOUS_VERSION."
+          exit 1
+        env:
+          PREVIOUS_VERSION: ${{ steps.previous-version.outputs.version }}
+          RELEASE_VERSION: ${{ github.ref_name }}
 
       - name: Verify tag version
         run: node -e "const expected = require('./package.json').version; if (process.env.GITHUB_REF_NAME !== expected) throw new Error('Expected tag ' + expected)"
@@ -78,3 +104,6 @@ jobs:
           pnpm publish ./moment-*.tgz --access public --provenance --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Update master to release tag
+        run: git push origin HEAD:refs/heads/master
