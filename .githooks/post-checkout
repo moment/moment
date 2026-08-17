@@ -1,0 +1,8 @@
+#!/bin/sh
+
+branch=$(git symbolic-ref --quiet --short HEAD) || exit 0
+
+if test "$branch" = master; then
+    printf '%s\n' \
+        'WARNING: master tracks the latest release; new work belongs on develop.' >&2
+fi

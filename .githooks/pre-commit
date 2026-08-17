@@ -1,0 +1,9 @@
+#!/bin/sh
+
+branch=$(git symbolic-ref --quiet --short HEAD) || exit 0
+
+if test "$branch" = master; then
+    printf '%s\n' \
+        'ERROR: commits on master are not allowed; switch to develop first.' >&2
+    exit 1
+fi

@@ -112,6 +112,7 @@ Common build and development commands are exposed as package scripts:
 - `pnpm test:typescript` Run the TypeScript declaration tests.
 - `pnpm lint` Perform syntax and code style checks.
 - `pnpm format` Format supported files with Prettier.
+- `pnpm hooks:install` Install safeguards against development on `master`.
 - `pnpm build` Build the development artifacts in `build/`.
 - `pnpm build:custom fr,ru` Build custom locale bundles
   `moment-with-locales.custom.js` and `locales.custom.js` inside `build/umd/min`
