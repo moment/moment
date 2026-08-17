@@ -3,7 +3,5 @@
 This package provides [Moment](https://momentjs.com/) for
 [Meteor.js](https://www.meteor.com/).
 
-## Issues
-
-If you encounter an issue while using this package, please CC @dandv when you
-file it in this repository.
+It gets published to
+[`momentjs:moment`](https://atmospherejs.com/momentjs/moment) on Atmosphere.
