@@ -1,7 +1,7 @@
 blank_issues_enabled: false
 contact_links:
   - name: Feature requests are not accepted
-    url: https://momentjs.com/docs/#/-project-status/
+    url: https://momentjs.com/news/
     about: Moment.js is in maintenance mode and is not accepting new features.
   - name: Ask a usage question
     url: https://stackoverflow.com/questions/tagged/momentjs

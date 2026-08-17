@@ -42,7 +42,7 @@ New locales (es-mx, bn-bd).
 Minor bugfixes and locale improvements.
 More tests.
 Moment is in maintenance mode. Read more at this link:
-https://momentjs.com/docs/#/-project-status/
+https://momentjs.com/news/
 
 ### 2.28.0 [See full changelog](https://gist.github.com/marwahaha/028fd6c2b2470b2804857cfd63c0e94f)
 

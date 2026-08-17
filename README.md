@@ -10,8 +10,8 @@ A JavaScript date library for parsing, validating, manipulating, and formatting
 dates.
 
 > ⚠️ Moment.js is a legacy project, now in **maintenance mode**. New features
-> are not being accepted. For more details, please see
-> [Project Status](https://momentjs.com/docs/#/-project-status/) in the docs.
+> are not being accepted. For more details, see the
+> [latest project status update](https://momentjs.com/news/).
 
 _Thank you._
 
