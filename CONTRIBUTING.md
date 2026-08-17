@@ -15,6 +15,12 @@ Moment.js is in maintenance mode and is not accepting new features. Use the
 provided issue forms for reproducible defects and locale corrections. For usage
 questions and other issue categories, follow the links in the issue chooser.
 
+Maintainers assess reports individually and may choose not to fix a valid defect
+when compatibility risk, established behavior, severity, or available capacity
+outweighs the benefit of a change. Submitting a report does not guarantee that a
+code change will be made. Technical modernization is planned and initiated by
+maintainers; unsolicited modernization proposals may be closed.
+
 ## Read Before Submitting Pull Requests
 
 - **Pull requests to the `master` branch will be closed.** Please submit all
@@ -46,6 +52,10 @@ Source files use ES modules, which the build bundles but does not otherwise
 transpile for legacy runtimes. Follow the compatibility-oriented style of the
 surrounding code, and do not introduce newer JavaScript syntax or built-ins
 without confirming that the supported runtimes can execute them.
+
+Moment 2 retains broad runtime compatibility, including best-effort support for
+Internet Explorer 8. This is a compatibility goal rather than a guarantee for
+every environment; test changes in affected runtimes when practical.
 
 ## Setting Up the Development Environment
 
@@ -80,6 +90,10 @@ required; maintainers will independently validate the proposed behavior.
 Maintainers are not necessarily native speakers, so AI-assisted research and
 review should be expected. AI output is not treated as evidence; review
 conclusions remain grounded in CLDR and authoritative external sources.
+
+If the same behavior was previously discussed or a similar change was declined,
+address the prior decision and explain what new context or evidence supports
+reconsidering it.
 
 Make locale changes in `src/locale/<locale>.js` and add or update the matching
 `test/locale/<locale>.test.js` for each distinct form affected. Do not edit the

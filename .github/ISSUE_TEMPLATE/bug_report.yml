@@ -7,6 +7,8 @@ body:
       value: |
         Moment.js is in maintenance mode and is not accepting new features.
         Use this form only for reproducible defects in Moment.js core.
+        Reports are assessed individually; submitting a valid defect does not
+        guarantee that a code change will be made.
 
   - type: checkboxes
     id: prerequisites

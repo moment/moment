@@ -51,8 +51,8 @@ must continue to pass the runtime compatibility workflow.
 Moment has no runtime dependencies; do not add one without an explicit design
 decision. Preserve CommonJS, browser, locale, declaration, and legacy package
 entry points when changing build or packaging behavior. Locale changes require
-locale-specific tests and should respect the native-speaker review expectations
-in `CONTRIBUTING.md`.
+locale-specific tests and the evidence-based review described in
+`CONTRIBUTING.md`.
 
 Keep `AGENTS.md` focused on durable instructions for agents. Contributor-facing
 guidance belongs in `CONTRIBUTING.md`, and release procedure belongs in

@@ -19,6 +19,8 @@ body:
           required: true
         - label: I reproduced the behavior with the latest Moment.js release.
           required: true
+        - label: If this behavior was previously discussed, I addressed the prior decision and explained what has changed.
+          required: true
 
   - type: input
     id: locale
@@ -57,7 +59,7 @@ body:
     id: sources
     attributes:
       label: Supporting sources
-      description: Optionally link to CLDR, standards, dictionaries, style guides, official calendars, or evidence of contemporary usage.
+      description: Optionally link to CLDR, standards, dictionaries, style guides, official calendars, or evidence of contemporary usage. For a repeated proposal, explain what new context or evidence supports reconsideration.
 
   - type: input
     id: moment-version

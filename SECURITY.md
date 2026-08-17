@@ -26,8 +26,13 @@ response or engagement within **14 days**, escalation is also appropriate.
 
 We follow coordinated vulnerability disclosure:
 
-- We will acknowledge your report, assess impact, and work on a fix.
-- We aim to provide status updates at reasonable intervals until resolution.
+- We will acknowledge and assess every report.
+- We will address critical security concerns affecting Moment.js. For other
+  reports, remediation depends on severity, impact, practical mitigations,
+  compatibility risk, and maintainer capacity. A report may result in a fix,
+  mitigation, documentation, or no code change.
+- We aim to provide status updates at reasonable intervals while a report is
+  under active review or remediation.
 - We will publish a security advisory (and **CVE via the OpenJS Foundation CNA
-  when applicable**) once a fix or mitigation is available. We credit reporters
-  by default unless you request otherwise.
+  when applicable**) when coordinated disclosure is warranted. We credit
+  reporters by default unless you request otherwise.

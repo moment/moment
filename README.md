@@ -9,9 +9,8 @@
 A JavaScript date library for parsing, validating, manipulating, and formatting
 dates.
 
-> ⚠️ Moment.js is a legacy project, now in **maintenance mode**. In most cases,
-> you should choose a different library. New features are not being accepted.
-> For more details and recommendations, please see
+> ⚠️ Moment.js is a legacy project, now in **maintenance mode**. New features
+> are not being accepted. For more details, please see
 > [Project Status](https://momentjs.com/docs/#/-project-status/) in the docs.
 
 _Thank you._
@@ -27,8 +26,7 @@ is part of the [Linux Foundation](https://www.linuxfoundation.org/).
 
 ## Installation
 
-If you still need to use Moment.js, you can install it using a package manager
-like npm, yarn, or bun.
+Install Moment.js using a package manager like npm, yarn, or bun.
 
 ```bash
 npm install moment
