@@ -34,9 +34,38 @@ npm install moment
 
 ## License
 
-Moment.js is freely distributable under the terms of the [MIT license][license-url].
+Moment.js is an OpenJS Foundation project and is freely distributable under the
+terms of the [MIT license][license-url].
 
-[![FOSSA Status][fossa-large-image]][fossa-large-url]
+<!-- markdownlint-disable MD033 -->
+<a href="https://openjsf.org/">
+  <img
+    src="https://momentjs.com/static/img/openjs-foundation.svg"
+    width="200"
+    alt="OpenJS Foundation">
+</a>
+<!-- markdownlint-enable MD033 -->
+
+Copyright [OpenJS Foundation](https://openjsf.org/) and Moment.js contributors.
+All rights reserved. The [OpenJS Foundation](https://openjsf.org/) has registered
+trademarks and uses trademarks. For a list of trademarks of the
+[OpenJS Foundation](https://openjsf.org/), please see our
+[Trademark Policy](https://trademark-policy.openjsf.org/) and
+[Trademark List](https://trademark-list.openjsf.org/). Trademarks and logos not
+indicated on the
+[list of OpenJS Foundation trademarks](https://trademark-list.openjsf.org/) are
+trademarks&trade; or registered&reg; trademarks of their respective holders. Use
+of them does not imply any affiliation with or endorsement by them.
+
+[The OpenJS Foundation](https://openjsf.org/) |
+[AI Coding Assistants Policy][ai-policy] |
+[Bylaws](https://bylaws.openjsf.org/) |
+[Code of Conduct](https://code-of-conduct.openjsf.org/) |
+[Cookie Policy](https://www.linuxfoundation.org/cookies/) |
+[Privacy Policy](https://privacy-policy.openjsf.org/) |
+[Terms of Use](https://terms-of-use.openjsf.org/) |
+[Trademark List](https://trademark-list.openjsf.org/) |
+[Trademark Policy](https://trademark-policy.openjsf.org/)
 
 [license-image]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat
 [license-url]: LICENSE
@@ -48,5 +77,4 @@ Moment.js is freely distributable under the terms of the [MIT license][license-u
 [coveralls-url]: https://coveralls.io/r/moment/moment?branch=develop
 [fossa-badge-image]: https://app.fossa.io/api/projects/custom%2B20126%2Fgithub.com%2Fmoment%2Fmoment.svg?type=shield
 [fossa-badge-url]: https://app.fossa.io/projects/custom%2B20126%2Fgithub.com%2Fmoment%2Fmoment?ref=badge_shield
-[fossa-large-image]: https://app.fossa.io/api/projects/custom%2B20126%2Fgithub.com%2Fmoment%2Fmoment.svg?type=large
-[fossa-large-url]: https://app.fossa.io/projects/custom%2B20126%2Fgithub.com%2Fmoment%2Fmoment?ref=badge_large
+[ai-policy]: https://ai-coding-assistants-policy.openjsf.org/
