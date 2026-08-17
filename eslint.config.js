@@ -4,7 +4,7 @@ const globals = require('globals');
 module.exports = [
     js.configs.recommended,
     {
-        files: ['scripts/**/*.js', 'src/**/*.js', 'test/**/*.js'],
+        files: ['scripts/**/*.js', 'src/**/*.js'],
         languageOptions: {
             ecmaVersion: 2015,
             sourceType: 'module',
@@ -30,12 +30,6 @@ module.exports = [
         },
         rules: {
             'one-var': 'off',
-        },
-    },
-    {
-        files: ['test/setup*.js'],
-        languageOptions: {
-            ecmaVersion: 2020,
         },
     },
 ];

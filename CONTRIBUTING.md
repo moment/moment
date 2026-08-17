@@ -29,7 +29,7 @@ maintainers; unsolicited modernization proposals may be closed.
   request can be merged.** The EasyCLA bot will prompt you, or you can
   [sign it now](https://api.easycla.lfx.linuxfoundation.org/v2/repository-provider/github/sign/6354452/235430945/1).
 - **Locale translations will not be merged without unit tests.** See
-  [the British English unit tests](https://github.com/moment/moment/blob/develop/test/locale/en-gb.test.js)
+  [the British English unit tests](https://github.com/moment/moment/blob/develop/src/test/locale/en-gb.js)
   for an example.
 - **Do not include the minified files in your pull request.** These are
   `moment.js`, `locale/*.js`, `min/*.js`. Don't worry, we'll build them when
@@ -45,8 +45,8 @@ and test files and run the tests.
 
 - `src/lib/**/*.js` moment core files
 - `src/locale/*.js` locale files
-- `test/moment/*.test.js` moment core tests
-- `test/locale/*.test.js` locale tests
+- `src/test/moment/*.js` moment core tests
+- `src/test/locale/*.js` locale tests
 
 Source files use ES modules, which the build bundles but does not otherwise
 transpile for legacy runtimes. Follow the compatibility-oriented style of the
@@ -96,7 +96,7 @@ address the prior decision and explain what new context or evidence supports
 reconsidering it.
 
 Make locale changes in `src/locale/<locale>.js` and add or update the matching
-`test/locale/<locale>.test.js` for each distinct form affected. Do not edit the
+`src/test/locale/<locale>.js` for each distinct form affected. Do not edit the
 generated copies under `locale/`, `dist/`, or `min/`; those are regenerated for
 releases.
 

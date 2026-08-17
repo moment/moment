@@ -18,8 +18,9 @@ Run `pnpm install` to set up the development dependencies.
 
 Authoritative implementation code lives under `src/`. Core behavior is split
 across `src/lib`, while locale definitions live in `src/locale`. Tests mirror
-that distinction under `test/moment` and `test/locale`. Add regression coverage
-near the behavior being changed and follow the style of neighboring tests.
+that distinction under `src/test/moment` and `src/test/locale`. Add regression
+coverage near the behavior being changed and follow the style of neighboring
+tests.
 
 The root `moment.js`, `locale/`, `dist/`, `min/`, and parts of legacy package
 metadata are generated release artifacts. Do not edit them by hand or include
@@ -34,11 +35,12 @@ declarations in `ts3.1-typings`.
 
 ## Validation
 
-Use focused Vitest runs while developing, then run `pnpm validate` before
-finishing. Run `pnpm test:typescript` whenever declarations, module resolution,
-package contents, or public APIs may be affected. Build and release tooling
-changes should also be checked with `pnpm build` and the relevant
-release-specific command; avoid a full release build merely as a generic test.
+Use `pnpm test -- --only=<test>` for focused test runs while developing, then
+run `pnpm validate` before finishing. Run `pnpm test:typescript` whenever
+declarations, module resolution, package contents, or public APIs may be
+affected. Build and release tooling changes should also be checked with
+`pnpm build` and the relevant release-specific command; avoid a full release
+build merely as a generic test.
 
 ## Code Conventions
 
