@@ -42,6 +42,15 @@ test('parse', function (assert) {
         equalTestStrict(tests[i][0].toLocaleLowerCase(), 'MMMM', i);
         equalTestStrict(tests[i][0].toLocaleUpperCase(), 'MMMM', i);
     }
+
+    // Previous releases emitted Agt, so keep accepting it when parsing.
+    equalTest('Agt', 'MMM', 7);
+    equalTest('Agt', 'MMMM', 7);
+    equalTest('agt', 'MMMM', 7);
+    equalTest('AGT', 'MMMM', 7);
+    equalTestStrict('Agt', 'MMM', 7);
+    equalTestStrict('agt', 'MMM', 7);
+    equalTestStrict('AGT', 'MMM', 7);
 });
 
 test('format', function (assert) {
