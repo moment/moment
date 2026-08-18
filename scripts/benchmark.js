@@ -13,12 +13,14 @@ const files = (requested.length ? requested : fs.readdirSync('benchmarks'))
 
 async function run(file) {
     const benchmark = require('../benchmarks/' + file);
-    const tests = Array.isArray(benchmark.tests)
-        ? benchmark.tests
-        : Object.keys(benchmark.tests).map(function (name) {
-              const test = benchmark.tests[name];
-              return Object.assign({ name: name }, test);
-          });
+    const tests = benchmark.tests
+        ? Array.isArray(benchmark.tests)
+            ? benchmark.tests
+            : Object.keys(benchmark.tests).map(function (name) {
+                  const test = benchmark.tests[name];
+                  return Object.assign({ name: name }, test);
+              })
+        : [benchmark];
     const suite = new Benchmark.Suite(benchmark.name);
 
     tests.forEach(function (test, index) {
