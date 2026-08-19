@@ -1,0 +1,39 @@
+name: Time zones
+
+on:
+  push:
+    branches: ['develop']
+  pull_request:
+    branches: ['develop']
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        timezone:
+          - America/New_York
+          - Australia/Lord_Howe
+          - Asia/Amman
+          - Africa/Casablanca
+          - Asia/Kathmandu
+          - Pacific/Apia
+
+    env:
+      TZ: ${{ matrix.timezone }}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Use pnpm and Node.js
+        uses: pnpm/setup@v2
+        with:
+          cache: true
+
+      - name: Test in ${{ matrix.timezone }}
+        run: pnpm test -- --only=moment/add_subtract,moment/create,moment/diff,moment/duration_from_moments,moment/start_end_of
