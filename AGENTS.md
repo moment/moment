@@ -62,24 +62,6 @@ guidance belongs in `CONTRIBUTING.md`, and release procedure belongs in
 
 ## Reviewing Locale Changes
 
-Validate locale changes first against the latest published Unicode CLDR data,
-including supplemental data when the change concerns calendars or week rules.
-Then verify the specific behavior with authoritative language or cultural
-references. Prefer primary sources such as government or institutional style
-guides, national standards, language-academy dictionaries, and official
-calendars; use independent evidence of contemporary practice when it helps
-establish how a convention is actually applied.
-
-Treat CLDR as the default unless the non-CLDR evidence overwhelmingly shows
-that it is stale, inaccurate, or inappropriate for the locale's documented
-convention. When sources conflict, explain the conflict and why one interpretation
-is better supported rather than merely choosing the proposed change. Check the
-exact context affected, including grammatical case, number, noun class,
-formatting notation, or year-boundary behavior, and require tests for each
-distinct form changed.
-
-When responding to a locale review, cite the CLDR data and external sources
-used, summarize what each source establishes, and state whether the tests and
-locale/style checks cover the verified behavior. Do not approve a locale change
-based only on intuition, machine translation, or an unsupported assertion from
-the contributor.
+When reviewing locale changes or locale pull requests, load and follow the
+`locale-review` skill in `.agents/skills/locale-review/SKILL.md`. Treat that
+skill as the authoritative locale-review workflow.

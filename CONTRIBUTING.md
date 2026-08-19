@@ -77,19 +77,22 @@ pnpm test:typescript  # this runs TypeScript declaration tests
 
 ## Changing Locale Files
 
-Locale changes are reviewed first against the latest published Unicode CLDR
-data, which is the project's preferred baseline. A change that differs from
-CLDR may still be accepted when strong evidence shows that CLDR is stale,
-inaccurate, or does not reflect the locale's documented convention.
+Locale changes are reviewed first against the latest available data in the
+official [Unicode CLDR repository](https://github.com/unicode-org/cldr), which is
+the project's preferred baseline. A change that differs from CLDR may still be
+accepted when strong evidence shows that CLDR is stale, inaccurate, or does not
+reflect the locale's documented convention.
 
 Please describe the convention behind the change and include supporting sources
 when available. Useful references include government or institutional style
 guides, national standards, language-academy dictionaries, official calendars,
 and other evidence of contemporary usage. Sources are requested but not
 required; maintainers will independently validate the proposed behavior.
-Maintainers are not necessarily native speakers, so AI-assisted research and
-review should be expected. AI output is not treated as evidence; review
-conclusions remain grounded in CLDR and authoritative external sources.
+Maintainers are not necessarily native speakers. Locale contributions are
+reviewed by a maintainer using the AI-assisted workflow defined in the
+[`locale-review` skill](.agents/skills/locale-review/SKILL.md). AI output is not
+treated as evidence; review conclusions remain grounded in CLDR and
+authoritative external sources.
 
 If the same behavior was previously discussed or a similar change was declined,
 address the prior decision and explain what new context or evidence supports
