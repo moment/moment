@@ -3,7 +3,13 @@
 branch=$(git symbolic-ref --quiet --short HEAD) || exit 0
 
 if test "$branch" = master; then
-    printf '%s\n' \
-        'ERROR: commits on master are not allowed; switch to develop first.' >&2
+    if test -z "${NO_COLOR+x}" &&
+        { test -n "${FORCE_COLOR+x}" || { test -t 2 && test "${TERM:-dumb}" != dumb; }; }; then
+        printf '\033[31m%s\033[0m\n' \
+            'ERROR: commits on master are not allowed; switch to develop first.' >&2
+    else
+        printf '%s\n' \
+            'ERROR: commits on master are not allowed; switch to develop first.' >&2
+    fi
     exit 1
 fi

@@ -3,6 +3,12 @@
 branch=$(git symbolic-ref --quiet --short HEAD) || exit 0
 
 if test "$branch" = master; then
-    printf '%s\n' \
-        'WARNING: master tracks the latest release; new work belongs on develop.' >&2
+    if test -z "${NO_COLOR+x}" &&
+        { test -n "${FORCE_COLOR+x}" || { test -t 2 && test "${TERM:-dumb}" != dumb; }; }; then
+        printf '\033[33m%s\033[0m\n' \
+            'WARNING: master tracks the latest release; new work belongs on develop.' >&2
+    else
+        printf '%s\n' \
+            'WARNING: master tracks the latest release; new work belongs on develop.' >&2
+    fi
 fi
