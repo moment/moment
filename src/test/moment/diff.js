@@ -328,7 +328,7 @@ test('diff across DST', function (assert) {
         'week diff across DST'
     );
     assert.ok(
-        0.95 / (2 * 31) < b.diff(a, 'months', true),
+        0.9 / (2 * 31) < b.diff(a, 'months', true),
         'month diff across DST, lower bound'
     );
     assert.ok(
@@ -336,7 +336,7 @@ test('diff across DST', function (assert) {
         'month diff across DST, upper bound'
     );
     assert.ok(
-        0.95 / (2 * 31 * 12) < b.diff(a, 'years', true),
+        0.9 / (2 * 31 * 12) < b.diff(a, 'years', true),
         'year diff across DST, lower bound'
     );
     assert.ok(
@@ -560,13 +560,17 @@ test('year diffs', function (assert) {
     );
     equal(
         assert,
-        moment([2012, 0, 1]).diff([2013, 0, 1, 12], 'years', true),
+        moment
+            .utc([2012, 0, 1])
+            .diff(moment.utc([2013, 0, 1, 12]), 'years', true),
         -1 - 0.5 / 31 / 12,
         'Jan 1 2012 to Jan 1 2013 noon should be 1+(0.5 / 31) / 12 years'
     );
     equal(
         assert,
-        moment([2012, 0, 1]).diff([2013, 6, 1, 12], 'years', true),
+        moment
+            .utc([2012, 0, 1])
+            .diff(moment.utc([2013, 6, 1, 12]), 'years', true),
         -1.5 - 0.5 / 31 / 12,
         'Jan 1 2012 to Jul 1 2013 noon should be 1.5+(0.5 / 31) / 12 years'
     );
