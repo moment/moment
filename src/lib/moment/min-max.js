@@ -45,19 +45,16 @@ function pickBy(fn, moments) {
     if (!moments.length) {
         return createLocal();
     }
-    res = createInvalid();
+    res = null;
     for (i = 0; i < moments.length; ++i) {
         if (!isMoment(moments[i])) {
             continue;
         }
-        if (!moments[i].isValid()) {
-            return moments[i];
-        }
-        if (!res.isValid() || moments[i][fn](res)) {
+        if (res === null || !moments[i].isValid() || moments[i][fn](res)) {
             res = moments[i];
         }
     }
-    return res;
+    return res === null ? createInvalid() : res;
 }
 
 // TODO: Use [].sort instead?
