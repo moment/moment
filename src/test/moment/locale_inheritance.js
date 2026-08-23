@@ -167,6 +167,46 @@ test('long date format', function (assert) {
     );
 });
 
+test('derived long date format', function (assert) {
+    moment.defineLocale('base-derived-ldf', {
+        longDateFormat: {
+            L: 'MM/DD/YYYY',
+            LL: 'MMMM D, YYYY',
+            LLL: 'MMMM D, YYYY h:mm A',
+            lll: '[parent] MMM D, YYYY h:mm A',
+        },
+    });
+
+    moment.localeData('base-derived-ldf').longDateFormat('l');
+    moment.localeData('base-derived-ldf').longDateFormat('ll');
+
+    moment.defineLocale('child-derived-ldf', {
+        parentLocale: 'base-derived-ldf',
+        longDateFormat: {
+            L: 'YYYY-MM-DD',
+            LL: 'D MMMM YYYY',
+            LLL: 'D MMMM YYYY HH:mm',
+        },
+    });
+
+    var anchor = moment.utc('2015-09-06T12:34:56', moment.ISO_8601);
+    assert.equal(
+        anchor.locale('child-derived-ldf').format('l'),
+        '2015-9-6',
+        'l is derived from the child format'
+    );
+    assert.equal(
+        anchor.locale('child-derived-ldf').format('ll'),
+        '6 Sep 2015',
+        'll is derived from the child format'
+    );
+    assert.equal(
+        anchor.locale('child-derived-ldf').format('lll'),
+        'parent Sep 6, 2015 12:34 PM',
+        'explicit parent lowercase format is inherited'
+    );
+});
+
 test('ordinal', function (assert) {
     moment.defineLocale('base-ordinal-1', {
         ordinal: '%dx',

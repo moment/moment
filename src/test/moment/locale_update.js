@@ -166,6 +166,36 @@ test('long date format', function (assert) {
     );
 });
 
+test('update derived long date format', function (assert) {
+    moment.defineLocale('updated-derived-ldf', null);
+    moment.defineLocale('updated-derived-ldf', {
+        longDateFormat: {
+            L: 'MM/DD/YYYY',
+            LL: 'MMMM D, YYYY',
+        },
+    });
+
+    moment.localeData('updated-derived-ldf').longDateFormat('l');
+    moment.localeData('updated-derived-ldf').longDateFormat('ll');
+
+    moment.updateLocale('updated-derived-ldf', {
+        longDateFormat: {
+            L: 'YYYY-MM-DD',
+            LL: 'D MMMM YYYY',
+        },
+    });
+
+    var anchor = moment
+        .utc('2015-09-06T12:34:56', moment.ISO_8601)
+        .locale('updated-derived-ldf');
+    assert.equal(anchor.format('l'), '2015-9-6', 'l uses the updated format');
+    assert.equal(
+        anchor.format('ll'),
+        '6 Sep 2015',
+        'll uses the updated format'
+    );
+});
+
 test('ordinal', function (assert) {
     moment.defineLocale('ordinal-1', null);
     moment.defineLocale('ordinal-1', {
