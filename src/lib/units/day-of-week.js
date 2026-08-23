@@ -119,13 +119,35 @@ var defaultLocaleWeekdays =
     defaultLocaleWeekdaysMin = 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
     defaultWeekdaysRegex = matchWord,
     defaultWeekdaysShortRegex = matchWord,
-    defaultWeekdaysMinRegex = matchWord;
+    defaultWeekdaysMinRegex = matchWord,
+    weekdaysParseProperties = [
+        'weekdaysParse',
+        'fullWeekdaysParse',
+        'shortWeekdaysParse',
+        'minWeekdaysParse',
+        'weekdaysRegex',
+        'weekdaysShortRegex',
+        'weekdaysMinRegex',
+        'weekdaysStrictRegex',
+        'weekdaysShortStrictRegex',
+        'weekdaysMinStrictRegex',
+    ];
 
 export {
     defaultLocaleWeekdays,
     defaultLocaleWeekdaysShort,
     defaultLocaleWeekdaysMin,
 };
+
+export function clearWeekdaysParseCache(locale, config) {
+    var i, prop;
+    for (i = 0; i < weekdaysParseProperties.length; i++) {
+        prop = weekdaysParseProperties[i];
+        if (!hasOwnProp(config, prop)) {
+            delete locale['_' + prop];
+        }
+    }
+}
 
 export function localeWeekdays(m, format) {
     var weekdays = isArray(this._weekdays)

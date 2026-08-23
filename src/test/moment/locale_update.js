@@ -3,6 +3,15 @@ import moment from '../../moment';
 
 module('locale update');
 
+function makeNames(prefix, count) {
+    var i,
+        names = [];
+    for (i = 0; i < count; i++) {
+        names.push(prefix + String.fromCharCode(65 + i));
+    }
+    return names;
+}
+
 test('calendar', function (assert) {
     moment.defineLocale('cal', null);
     moment.defineLocale('cal', {
@@ -194,6 +203,145 @@ test('update derived long date format', function (assert) {
         '6 Sep 2015',
         'll uses the updated format'
     );
+});
+
+test('update generated exact locale parsing', function (assert) {
+    var localeName = 'updated-exact-parse',
+        oldMonths = makeNames('OldMonth', 12),
+        oldMonthsShort = makeNames('OldMon', 12),
+        oldWeekdays = makeNames('OldWeekday', 7),
+        oldWeekdaysShort = makeNames('OldDay', 7),
+        oldWeekdaysMin = makeNames('OldD', 7),
+        newMonths = makeNames('NewMonth', 12),
+        newMonthsShort = makeNames('NewMon', 12),
+        newWeekdays = makeNames('NewWeekday', 7),
+        newWeekdaysShort = makeNames('NewDay', 7),
+        newWeekdaysMin = makeNames('NewD', 7);
+
+    moment.defineLocale(localeName, null);
+    moment.defineLocale(localeName, {
+        months: oldMonths,
+        monthsShort: oldMonthsShort,
+        monthsParseExact: true,
+        weekdays: oldWeekdays,
+        weekdaysShort: oldWeekdaysShort,
+        weekdaysMin: oldWeekdaysMin,
+        weekdaysParseExact: true,
+    });
+    moment.updateLocale(localeName, { week: { dow: 1 } });
+
+    assert.ok(moment(oldMonths[0], 'MMMM', localeName, true).isValid());
+    assert.ok(moment(oldMonthsShort[0], 'MMM', localeName, true).isValid());
+    assert.ok(moment(oldWeekdays[0], 'dddd', localeName, true).isValid());
+    assert.ok(moment(oldWeekdaysShort[0], 'ddd', localeName, true).isValid());
+    assert.ok(moment(oldWeekdaysMin[0], 'dd', localeName, true).isValid());
+
+    moment.updateLocale(localeName, {
+        months: newMonths,
+        monthsShort: newMonthsShort,
+        weekdays: newWeekdays,
+        weekdaysShort: newWeekdaysShort,
+        weekdaysMin: newWeekdaysMin,
+    });
+
+    assert.ok(moment(newMonths[0], 'MMMM', localeName, true).isValid());
+    assert.ok(moment(newMonthsShort[0], 'MMM', localeName, true).isValid());
+    assert.ok(moment(newWeekdays[0], 'dddd', localeName, true).isValid());
+    assert.ok(moment(newWeekdaysShort[0], 'ddd', localeName, true).isValid());
+    assert.ok(moment(newWeekdaysMin[0], 'dd', localeName, true).isValid());
+    assert.notOk(moment(oldMonths[0], 'MMMM', localeName, true).isValid());
+    assert.notOk(moment(oldMonthsShort[0], 'MMM', localeName, true).isValid());
+    assert.notOk(moment(oldWeekdays[0], 'dddd', localeName, true).isValid());
+    assert.notOk(
+        moment(oldWeekdaysShort[0], 'ddd', localeName, true).isValid()
+    );
+    assert.notOk(moment(oldWeekdaysMin[0], 'dd', localeName, true).isValid());
+
+    moment.defineLocale(localeName, null);
+});
+
+test('update generated inexact locale parsing to exact', function (assert) {
+    var localeName = 'updated-inexact-parse',
+        oldMonths = makeNames('OldMonth', 12),
+        oldMonthsShort = makeNames('OldMon', 12),
+        oldWeekdays = makeNames('OldWeekday', 7),
+        oldWeekdaysShort = makeNames('OldDay', 7),
+        oldWeekdaysMin = makeNames('OldD', 7),
+        newMonths = makeNames('NewMonth', 12),
+        newMonthsShort = makeNames('NewMon', 12),
+        newWeekdays = makeNames('NewWeekday', 7),
+        newWeekdaysShort = makeNames('NewDay', 7),
+        newWeekdaysMin = makeNames('NewD', 7);
+
+    moment.defineLocale(localeName, null);
+    moment.defineLocale(localeName, {
+        months: oldMonths,
+        monthsShort: oldMonthsShort,
+        weekdays: oldWeekdays,
+        weekdaysShort: oldWeekdaysShort,
+        weekdaysMin: oldWeekdaysMin,
+    });
+    moment.updateLocale(localeName, { week: { dow: 1 } });
+
+    assert.ok(moment(oldMonths[0], 'MMMM', localeName, true).isValid());
+    assert.ok(moment(oldMonthsShort[0], 'MMM', localeName, true).isValid());
+    assert.ok(moment(oldWeekdays[0], 'dddd', localeName, true).isValid());
+    assert.ok(moment(oldWeekdaysShort[0], 'ddd', localeName, true).isValid());
+    assert.ok(moment(oldWeekdaysMin[0], 'dd', localeName, true).isValid());
+    assert.ok(moment(oldMonths[0], 'MMMM', localeName).isValid());
+    assert.ok(moment(oldWeekdays[0], 'dddd', localeName).isValid());
+
+    moment.updateLocale(localeName, {
+        months: newMonths,
+        monthsShort: newMonthsShort,
+        monthsParseExact: true,
+        weekdays: newWeekdays,
+        weekdaysShort: newWeekdaysShort,
+        weekdaysMin: newWeekdaysMin,
+        weekdaysParseExact: true,
+    });
+
+    assert.ok(moment(newMonths[0], 'MMMM', localeName, true).isValid());
+    assert.ok(moment(newMonthsShort[0], 'MMM', localeName, true).isValid());
+    assert.ok(moment(newWeekdays[0], 'dddd', localeName, true).isValid());
+    assert.ok(moment(newWeekdaysShort[0], 'ddd', localeName, true).isValid());
+    assert.ok(moment(newWeekdaysMin[0], 'dd', localeName, true).isValid());
+    assert.notOk(moment(oldMonths[0], 'MMMM', localeName, true).isValid());
+    assert.notOk(moment(oldMonthsShort[0], 'MMM', localeName, true).isValid());
+    assert.notOk(moment(oldWeekdays[0], 'dddd', localeName, true).isValid());
+    assert.notOk(
+        moment(oldWeekdaysShort[0], 'ddd', localeName, true).isValid()
+    );
+    assert.notOk(moment(oldWeekdaysMin[0], 'dd', localeName, true).isValid());
+
+    moment.defineLocale(localeName, null);
+});
+
+test('preserve configured locale parsing', function (assert) {
+    var localeName = 'configured-parse',
+        monthsParse = [/^month$/i],
+        monthsRegex = /^month/i,
+        weekdaysParse = [/^weekday$/i],
+        weekdaysRegex = /^weekday/i,
+        locale;
+
+    moment.defineLocale(localeName, null);
+    moment.defineLocale(localeName, {
+        monthsParse: monthsParse,
+        monthsRegex: monthsRegex,
+        weekdaysParse: weekdaysParse,
+        weekdaysRegex: weekdaysRegex,
+    });
+    moment.updateLocale(localeName, { week: { dow: 1 } });
+    moment.updateLocale(localeName, { week: { doy: 4 } });
+
+    locale = moment.localeData(localeName);
+    assert.strictEqual(locale._monthsParse, monthsParse);
+    assert.strictEqual(locale._monthsRegex, monthsRegex);
+    assert.strictEqual(locale._weekdaysParse, weekdaysParse);
+    assert.strictEqual(locale._weekdaysRegex, weekdaysRegex);
+
+    moment.defineLocale(localeName, null);
 });
 
 test('ordinal', function (assert) {
