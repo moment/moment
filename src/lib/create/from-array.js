@@ -42,7 +42,8 @@ export function configFromArray(config) {
         input = [],
         currentDate,
         expectedWeekday,
-        yearToUse;
+        yearToUse,
+        dateIsDefaulted;
 
     if (config._d) {
         return;
@@ -70,6 +71,11 @@ export function configFromArray(config) {
         config._a[MONTH] = date.getUTCMonth();
         config._a[DATE] = date.getUTCDate();
     }
+
+    dateIsDefaulted =
+        config._a[YEAR] == null ||
+        config._a[MONTH] == null ||
+        config._a[DATE] == null;
 
     // Default to current date.
     // * if no year, month, day of month are given, default to today
@@ -119,6 +125,7 @@ export function configFromArray(config) {
     if (
         config._w &&
         typeof config._w.d !== 'undefined' &&
+        !dateIsDefaulted &&
         config._w.d !== expectedWeekday
     ) {
         getParsingFlags(config).weekdayMismatch = true;
