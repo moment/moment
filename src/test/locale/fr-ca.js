@@ -50,12 +50,12 @@ test('format', function (assert) {
     var a = [
             [
                 'dddd, MMMM Do YYYY, h:mm:ss a',
-                'dimanche, février 14e 2010, 3:25:50 pm',
+                'dimanche, février 14 2010, 3:25:50 pm',
             ],
             ['ddd, hA', 'dim., 3PM'],
             ['M Mo MM MMMM MMM', '2 2e 02 février févr.'],
             ['YYYY YY', '2010 10'],
-            ['D Do DD', '14 14e 14'],
+            ['D Do DD', '14 14 14'],
             ['d do dddd ddd dd', '0 0e dimanche dim. di'],
             ['DDD DDDo DDDD', '45 45e 045'],
             ['w wo ww', '8 8e 08'],
@@ -64,7 +64,7 @@ test('format', function (assert) {
             ['m mm', '25 25'],
             ['s ss', '50 50'],
             ['a A', 'pm PM'],
-            ['[le] Do [jour du mois]', 'le 14e jour du mois'],
+            ['[le] Do [jour du mois]', 'le 14 jour du mois'],
             ['[le] DDDo [jour de l’année]', 'le 45e jour de l’année'],
             ['LTS', '15:25:50'],
             ['L', '2010-02-14'],
@@ -92,7 +92,7 @@ test('format ordinal', function (assert) {
     assert.equal(moment([2017, 3, 1]).format('Qo'), '2e', '2e');
 
     assert.equal(moment([2017, 0, 1]).format('Do'), '1er', '1er');
-    assert.equal(moment([2017, 0, 2]).format('Do'), '2e', '2e');
+    assert.equal(moment([2017, 0, 2]).format('Do'), '2', '2');
 
     assert.equal(moment([2011, 0, 1]).format('DDDo'), '1er', '1er');
     assert.equal(moment([2011, 0, 2]).format('DDDo'), '2e', '2e');
