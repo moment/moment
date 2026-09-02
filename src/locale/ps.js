@@ -109,7 +109,7 @@ export default moment.defineLocale('ps', {
     monthsShortRegex: monthsRegex,
     monthsStrictRegex: monthsRegex,
     monthsShortStrictRegex: monthsRegex,
-    weekdays: 'یکشنبه_دوشنبه_سه شنبه_چهارشنبه_پنج شنبه_جمعه_اونۍ'.split('_'),
+    weekdays: 'یکشنبه_دوشنبه_سه شنبه_چهارشنبه_پنج شنبه_جمعه_شنبه'.split('_'),
     weekdaysShort: 'یکشنبه_دوشنبه_سه شنبه_چهارشنبه_پنج شنبه_جمعه_شنبه'.split(
         '_'
     ),
