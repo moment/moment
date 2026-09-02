@@ -952,10 +952,10 @@ test('does not modify original moment instance', function (assert) {
     );
 
     assert.deepEqual(
-        moment(new Date('2020-08-11 23:59:59'))
+        moment([2020, 7, 11, 23, 59, 59])
             .format('yyyy-MM-DD HH:mm:ss')
             .split(' '),
-        moment(new Date('2020-08-11 23:59:59'))
+        moment([2020, 7, 11, 23, 59, 59])
             .format('HH:mm:ss yyyy-MM-DD')
             .split(' ')
             .reverse(),
