@@ -1,5 +1,6 @@
 import isArray from '../utils/is-array';
 import isUndefined from '../utils/is-undefined';
+import hasOwnProp from '../utils/has-own-prop';
 import { deprecateSimple } from '../utils/deprecate';
 import { mergeConfigs } from './set';
 import { Locale } from './constructor';
@@ -73,12 +74,15 @@ function loadLocale(name) {
         normalizedName;
 
     // Preserve exact custom locale names before trying the canonical built-in name.
-    if (locales[name] !== undefined) {
+    // Use hasOwnProp rather than a plain lookup so that names like "__proto__",
+    // "constructor", or "prototype" can't resolve to an inherited Object.prototype
+    // property instead of a real (or missing) locale entry.
+    if (hasOwnProp(locales, name)) {
         return locales[name];
     }
 
     normalizedName = normalizeLocale(name);
-    if (locales[normalizedName] !== undefined) {
+    if (hasOwnProp(locales, normalizedName)) {
         return locales[normalizedName];
     }
 
