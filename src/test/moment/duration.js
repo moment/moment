@@ -1180,6 +1180,21 @@ test('humanize duration with thresholds', function (assert) {
     );
 });
 
+test('humanize duration with thresholds without Object.assign', function (assert) {
+    var objectAssign = Object.assign;
+
+    try {
+        Object.assign = undefined;
+        assert.equal(
+            moment.duration({ weeks: 3 }).humanize({ d: 7, w: 4 }),
+            '3 weeks',
+            'custom thresholds work without Object.assign'
+        );
+    } finally {
+        Object.assign = objectAssign;
+    }
+});
+
 test('bubble value up', function (assert) {
     assert.equal(
         moment.duration({ milliseconds: 61001 }).milliseconds(),
