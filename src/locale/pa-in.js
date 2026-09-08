@@ -1,6 +1,7 @@
 //! moment.js locale configuration
 //! locale : Punjabi (India) [pa-in]
 //! author : Harpreet Singh : https://github.com/harpreetkhalsagtbit
+//! author : Kuldeep Singh : https://github.com/kuldeepburjbhalaike
 
 import moment from '../moment';
 
@@ -38,11 +39,11 @@ export default moment.defineLocale('pa-in', {
         'ਜਨਵਰੀ_ਫ਼ਰਵਰੀ_ਮਾਰਚ_ਅਪ੍ਰੈਲ_ਮਈ_ਜੂਨ_ਜੁਲਾਈ_ਅਗਸਤ_ਸਤੰਬਰ_ਅਕਤੂਬਰ_ਨਵੰਬਰ_ਦਸੰਬਰ'.split(
             '_'
         ),
-    weekdays: 'ਐਤਵਾਰ_ਸੋਮਵਾਰ_ਮੰਗਲਵਾਰ_ਬੁਧਵਾਰ_ਵੀਰਵਾਰ_ਸ਼ੁੱਕਰਵਾਰ_ਸ਼ਨੀਚਰਵਾਰ'.split(
+    weekdays: 'ਐਤਵਾਰ_ਸੋਮਵਾਰ_ਮੰਗਲਵਾਰ_ਬੁੱਧਵਾਰ_ਵੀਰਵਾਰ_ਸ਼ੁੱਕਰਵਾਰ_ਸ਼ਨੀਵਾਰ'.split(
         '_'
     ),
-    weekdaysShort: 'ਐਤ_ਸੋਮ_ਮੰਗਲ_ਬੁਧ_ਵੀਰ_ਸ਼ੁਕਰ_ਸ਼ਨੀ'.split('_'),
-    weekdaysMin: 'ਐਤ_ਸੋਮ_ਮੰਗਲ_ਬੁਧ_ਵੀਰ_ਸ਼ੁਕਰ_ਸ਼ਨੀ'.split('_'),
+    weekdaysShort: 'ਐਤ_ਸੋਮ_ਮੰਗਲ_ਬੁੱਧ_ਵੀਰ_ਸ਼ੁਕਰ_ਸ਼ਨੀ'.split('_'),
+    weekdaysMin: 'ਐਤ_ਸੋਮ_ਮੰਗਲ_ਬੁੱਧ_ਵੀਰ_ਸ਼ੁਕਰ_ਸ਼ਨੀ'.split('_'),
     longDateFormat: {
         LT: 'A h:mm ਵਜੇ',
         LTS: 'A h:mm:ss ਵਜੇ',
@@ -52,19 +53,19 @@ export default moment.defineLocale('pa-in', {
         LLLL: 'dddd, D MMMM YYYY, A h:mm ਵਜੇ',
     },
     calendar: {
-        sameDay: '[ਅਜ] LT',
-        nextDay: '[ਕਲ] LT',
+        sameDay: '[ਅੱਜ] LT',
+        nextDay: '[ਕੱਲ੍ਹ] LT',
         nextWeek: '[ਅਗਲਾ] dddd, LT',
-        lastDay: '[ਕਲ] LT',
+        lastDay: '[ਕੱਲ੍ਹ] LT',
         lastWeek: '[ਪਿਛਲੇ] dddd, LT',
         sameElse: 'L',
     },
     relativeTime: {
         future: '%s ਵਿੱਚ',
-        past: '%s ਪਿਛਲੇ',
+        past: '%s ਪਹਿਲਾਂ',
         s: 'ਕੁਝ ਸਕਿੰਟ',
         ss: '%d ਸਕਿੰਟ',
-        m: 'ਇਕ ਮਿੰਟ',
+        m: 'ਇੱਕ ਮਿੰਟ',
         mm: '%d ਮਿੰਟ',
         h: 'ਇੱਕ ਘੰਟਾ',
         hh: '%d ਘੰਟੇ',
