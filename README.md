@@ -23,6 +23,8 @@ is part of the [Linux Foundation](https://www.linuxfoundation.org/).
 - [Documentation](https://momentjs.com/docs/)
 - [Changelog](CHANGELOG.md)
 - [Stack Overflow](https://stackoverflow.com/questions/tagged/momentjs)
+- [Security Policy](SECURITY.md)
+- [Threat Model](THREAT_MODEL.md)
 
 ## Installation
 
