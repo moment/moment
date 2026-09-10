@@ -432,3 +432,52 @@ test('weekday mismatch', function (assert) {
         'day of week matches date'
     );
 });
+
+test('weekday with partial date is not a mismatch', function (assert) {
+    var i,
+        weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        partialFormats = ['ddd DD', 'ddd MM', 'ddd MM-DD'],
+        j,
+        input;
+
+    for (i = 0; i < weekdays.length; i++) {
+        for (j = 0; j < partialFormats.length; j++) {
+            input = partialFormats[j]
+                .replace('ddd', weekdays[i])
+                .replace('MM', '01')
+                .replace('DD', '10');
+            assert.equal(
+                flags(input, partialFormats[j]).weekdayMismatch,
+                false,
+                input + ' with ' + partialFormats[j] + ' is not a mismatch'
+            );
+            assert.equal(
+                moment(input, partialFormats[j]).isValid(),
+                true,
+                input + ' with ' + partialFormats[j] + ' is valid'
+            );
+        }
+    }
+});
+
+test('weekday round trip through format', function (assert) {
+    var formats = [
+            'ddd',
+            'DD',
+            'ddd DD',
+            'ddd MM',
+            'ddd MM-DD',
+            'ddd MM-DD-YYYY',
+        ],
+        i,
+        formatted;
+
+    for (i = 0; i < formats.length; i++) {
+        formatted = moment.utc('2015-01-10T01:15Z').format(formats[i]);
+        assert.equal(
+            moment(formatted, formats[i]).isValid(),
+            true,
+            formats[i] + ' round trips to a valid moment'
+        );
+    }
+});
