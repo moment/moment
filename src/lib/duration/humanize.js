@@ -1,4 +1,5 @@
 import { createDuration } from './create';
+import extend from '../utils/extend';
 
 var round = Math.round,
     thresholds = {
@@ -97,7 +98,7 @@ export function humanize(argWithSuffix, argThresholds) {
         withSuffix = argWithSuffix;
     }
     if (typeof argThresholds === 'object') {
-        th = Object.assign({}, thresholds, argThresholds);
+        th = extend(extend({}, thresholds), argThresholds || {});
         if (argThresholds.s != null && argThresholds.ss == null) {
             th.ss = argThresholds.s - 1;
         }
