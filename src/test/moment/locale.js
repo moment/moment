@@ -1070,3 +1070,69 @@ test('when in strict mode with inexact parsing, treat periods in min-weekdays li
 //     assert.equal(moment('EE', 'MMMM').month(), 1, 'non-strict parse short month 1 with MMMM');
 //     assert.equal(moment('EEE', 'MMMM').month(), 2, 'non-strict parse short month 2 with MMMM');
 // });
+
+test('locale(name) with an Object.prototype property name does not corrupt the global locale', function (assert) {
+    var originalLocale = moment.locale();
+
+    each(
+        [
+            '__proto__',
+            'constructor',
+            'hasOwnProperty',
+            'isPrototypeOf',
+            'propertyIsEnumerable',
+            'prototype',
+            'toLocaleString',
+            'toString',
+            'valueOf',
+        ],
+        function (name) {
+            moment.locale('en');
+            moment.locale(name);
+            assert.equal(
+                moment.locale(),
+                'en',
+                'locale(' + name + ') should not change the current locale'
+            );
+            assert.equal(
+                typeof moment().format,
+                'function',
+                'formatting should still work after locale(' + name + ')'
+            );
+            assert.equal(
+                moment().format('LLLL'),
+                moment().locale('en').format('LLLL'),
+                'the global locale data should still behave like a real Locale after locale(' +
+                    name +
+                    ')'
+            );
+        }
+    );
+
+    moment.locale(originalLocale);
+});
+
+test('locale(name) ignores inherited entries when dynamic loading is skipped', function (assert) {
+    var inheritedName = 'invalid.locale',
+        originalLocale = moment.locale();
+
+    Object.prototype[inheritedName] = { _abbr: inheritedName };
+
+    try {
+        moment.locale('en');
+        moment.locale(inheritedName);
+        assert.equal(
+            moment.locale(),
+            'en',
+            'an inherited entry should not change the current locale'
+        );
+        assert.equal(
+            moment().format('LLLL'),
+            moment().locale('en').format('LLLL'),
+            'formatting should keep using the current locale'
+        );
+    } finally {
+        delete Object.prototype[inheritedName];
+        moment.locale(originalLocale);
+    }
+});
