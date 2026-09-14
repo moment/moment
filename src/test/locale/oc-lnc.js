@@ -33,21 +33,21 @@ test('format', function (assert) {
     var a = [
             [
                 'dddd, Do MMMM YYYY, h:mm:ss a',
-                'dimenge, 14è de febrièr 2010, 3:25:50 pm',
+                'dimenge, 14 de febrièr 2010, 3:25:50 pm',
             ],
             ['ddd, hA', 'dg., 3PM'],
             ['M Mo MM MMMM MMM', '2 2n 02 febrièr febr.'],
             ['YYYY YY', '2010 10'],
             ['D Do DD', '14 14è 14'],
             ['d do dddd ddd dd', '0 0è dimenge dg. dg'],
-            ['DDD DDDo DDDD', '45 45è 045'],
+            ['DDD DDDo DDDD', '45 45en 045'],
             ['w wo ww', '6 6a 06'],
             ['h hh', '3 03'],
             ['H HH', '15 15'],
             ['m mm', '25 25'],
             ['s ss', '50 50'],
             ['a A', 'pm PM'],
-            ['[the] DDDo [day of the year]', 'the 45è day of the year'],
+            ['[the] DDDo [day of the year]', 'the 45en day of the year'],
             ['LTS', '15:25:50'],
             ['L', '14/02/2010'],
             ['LL', '14 de febrièr de 2010'],
@@ -66,40 +66,40 @@ test('format', function (assert) {
 });
 
 test('format ordinal', function (assert) {
-    assert.equal(moment([2011, 0, 1]).format('DDDo'), '1r', '1r');
-    assert.equal(moment([2011, 0, 2]).format('DDDo'), '2n', '2n');
-    assert.equal(moment([2011, 0, 3]).format('DDDo'), '3r', '3r');
-    assert.equal(moment([2011, 0, 4]).format('DDDo'), '4t', '4t');
-    assert.equal(moment([2011, 0, 5]).format('DDDo'), '5è', '5è');
-    assert.equal(moment([2011, 0, 6]).format('DDDo'), '6è', '6è');
-    assert.equal(moment([2011, 0, 7]).format('DDDo'), '7è', '7è');
-    assert.equal(moment([2011, 0, 8]).format('DDDo'), '8è', '8è');
-    assert.equal(moment([2011, 0, 9]).format('DDDo'), '9è', '9è');
-    assert.equal(moment([2011, 0, 10]).format('DDDo'), '10è', '10è');
+    assert.equal(moment([2011, 0, 1]).format('DDDo'), '1èr', '1èr');
+    assert.equal(moment([2011, 0, 2]).format('DDDo'), '2nd', '2nd');
+    assert.equal(moment([2011, 0, 3]).format('DDDo'), '3en', '3en');
+    assert.equal(moment([2011, 0, 4]).format('DDDo'), '4en', '4en');
+    assert.equal(moment([2011, 0, 5]).format('DDDo'), '5en', '5en');
+    assert.equal(moment([2011, 0, 6]).format('DDDo'), '6en', '6en');
+    assert.equal(moment([2011, 0, 7]).format('DDDo'), '7en', '7en');
+    assert.equal(moment([2011, 0, 8]).format('DDDo'), '8en', '8en');
+    assert.equal(moment([2011, 0, 9]).format('DDDo'), '9en', '9en');
+    assert.equal(moment([2011, 0, 10]).format('DDDo'), '10en', '10en');
 
-    assert.equal(moment([2011, 0, 11]).format('DDDo'), '11è', '11è');
-    assert.equal(moment([2011, 0, 12]).format('DDDo'), '12è', '12è');
-    assert.equal(moment([2011, 0, 13]).format('DDDo'), '13è', '13è');
-    assert.equal(moment([2011, 0, 14]).format('DDDo'), '14è', '14è');
-    assert.equal(moment([2011, 0, 15]).format('DDDo'), '15è', '15è');
-    assert.equal(moment([2011, 0, 16]).format('DDDo'), '16è', '16è');
-    assert.equal(moment([2011, 0, 17]).format('DDDo'), '17è', '17è');
-    assert.equal(moment([2011, 0, 18]).format('DDDo'), '18è', '18è');
-    assert.equal(moment([2011, 0, 19]).format('DDDo'), '19è', '19è');
-    assert.equal(moment([2011, 0, 20]).format('DDDo'), '20è', '20è');
+    assert.equal(moment([2011, 0, 11]).format('DDDo'), '11en', '11en');
+    assert.equal(moment([2011, 0, 12]).format('DDDo'), '12en', '12en');
+    assert.equal(moment([2011, 0, 13]).format('DDDo'), '13en', '13en');
+    assert.equal(moment([2011, 0, 14]).format('DDDo'), '14en', '14en');
+    assert.equal(moment([2011, 0, 15]).format('DDDo'), '15en', '15en');
+    assert.equal(moment([2011, 0, 16]).format('DDDo'), '16en', '16en');
+    assert.equal(moment([2011, 0, 17]).format('DDDo'), '17en', '17en');
+    assert.equal(moment([2011, 0, 18]).format('DDDo'), '18en', '18en');
+    assert.equal(moment([2011, 0, 19]).format('DDDo'), '19en', '19en');
+    assert.equal(moment([2011, 0, 20]).format('DDDo'), '20en', '20en');
 
-    assert.equal(moment([2011, 0, 21]).format('DDDo'), '21è', '21è');
-    assert.equal(moment([2011, 0, 22]).format('DDDo'), '22è', '22è');
-    assert.equal(moment([2011, 0, 23]).format('DDDo'), '23è', '23è');
-    assert.equal(moment([2011, 0, 24]).format('DDDo'), '24è', '24è');
-    assert.equal(moment([2011, 0, 25]).format('DDDo'), '25è', '25è');
-    assert.equal(moment([2011, 0, 26]).format('DDDo'), '26è', '26è');
-    assert.equal(moment([2011, 0, 27]).format('DDDo'), '27è', '27è');
-    assert.equal(moment([2011, 0, 28]).format('DDDo'), '28è', '28è');
-    assert.equal(moment([2011, 0, 29]).format('DDDo'), '29è', '29è');
-    assert.equal(moment([2011, 0, 30]).format('DDDo'), '30è', '30è');
+    assert.equal(moment([2011, 0, 21]).format('DDDo'), '21en', '21en');
+    assert.equal(moment([2011, 0, 22]).format('DDDo'), '22en', '22en');
+    assert.equal(moment([2011, 0, 23]).format('DDDo'), '23en', '23en');
+    assert.equal(moment([2011, 0, 24]).format('DDDo'), '24en', '24en');
+    assert.equal(moment([2011, 0, 25]).format('DDDo'), '25en', '25en');
+    assert.equal(moment([2011, 0, 26]).format('DDDo'), '26en', '26en');
+    assert.equal(moment([2011, 0, 27]).format('DDDo'), '27en', '27en');
+    assert.equal(moment([2011, 0, 28]).format('DDDo'), '28en', '28en');
+    assert.equal(moment([2011, 0, 29]).format('DDDo'), '29en', '29en');
+    assert.equal(moment([2011, 0, 30]).format('DDDo'), '30en', '30en');
 
-    assert.equal(moment([2011, 0, 31]).format('DDDo'), '31è', '31è');
+    assert.equal(moment([2011, 0, 31]).format('DDDo'), '31en', '31en');
 });
 
 test('format month', function (assert) {
@@ -411,27 +411,27 @@ test('calendar all else', function (assert) {
 test('weeks year starting sunday formatted', function (assert) {
     assert.equal(
         moment([2012, 0, 1]).format('w ww wo'),
-        '52 52 52a',
+        '52 52 52ena',
         'Jan  1 2012 should be week 52'
     );
     assert.equal(
         moment([2012, 0, 2]).format('w ww wo'),
-        '1 01 1a',
+        '1 01 1ena',
         'Jan  2 2012 should be week 1'
     );
     assert.equal(
         moment([2012, 0, 8]).format('w ww wo'),
-        '1 01 1a',
+        '1 01 1èra',
         'Jan  8 2012 should be week 1'
     );
     assert.equal(
         moment([2012, 0, 9]).format('w ww wo'),
-        '2 02 2a',
+        '2 02 2nda',
         'Jan  9 2012 should be week 2'
     );
     assert.equal(
         moment([2012, 0, 15]).format('w ww wo'),
-        '2 02 2a',
+        '2 02 2nda',
         'Jan 15 2012 should be week 2'
     );
 });
