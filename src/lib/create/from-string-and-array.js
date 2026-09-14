@@ -13,6 +13,7 @@ export function configFromStringAndArray(config) {
         currentScore,
         validFormatFound,
         bestFormatIsValid = false,
+        defaultDatePartsNow = {},
         configfLen = config._f.length;
 
     if (configfLen === 0) {
@@ -28,6 +29,7 @@ export function configFromStringAndArray(config) {
         if (config._useUTC != null) {
             tempConfig._useUTC = config._useUTC;
         }
+        tempConfig._defaultDatePartsNow = defaultDatePartsNow;
         tempConfig._f = config._f[i];
         configFromStringAndFormat(tempConfig);
 
