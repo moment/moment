@@ -66,7 +66,19 @@ test('transform', function (assert) {
 });
 
 test('transform from', function (assert) {
-    var start = moment([2007, 1, 28]);
+    var start = moment([2007, 1, 28]),
+        locale = moment.localeData();
+
+    assert.equal(
+        locale.relativeTime(2, true, 'mm', false),
+        '@ minutes',
+        'postformat should work on locale relativeTime'
+    );
+    assert.equal(
+        locale.pastFuture(-1, '2 minutes'),
+        '@ minutes ago',
+        'postformat should work on locale pastFuture'
+    );
 
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ s: 90 }), true),
