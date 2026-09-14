@@ -41,6 +41,18 @@ if (!withLocales.moment || !withLocales.moment.locales().includes('fr')) {
 }
 
 const localeMetadata = /^\s*\/\/! locale :/gm;
+const momentMetadata = fs
+    .readFileSync(path.join(packageDir, 'src/moment.js'), 'utf8')
+    .split('\n\n')[0];
+for (const file of ['moment.js', 'min/moment-with-locales.js']) {
+    if (
+        !fs
+            .readFileSync(path.join(packageDir, file), 'utf8')
+            .startsWith(momentMetadata + '\n\n')
+    ) {
+        throw new Error(file + ' is missing Moment metadata');
+    }
+}
 if (
     (
         fs

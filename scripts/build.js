@@ -125,7 +125,7 @@ async function transpile(options) {
     }
     code = header + code.split('\n').slice(skipLines).join('\n');
     if (options.moveComments) {
-        code = collectComments(entry) + '\n\n' + code;
+        code = collectComments(options.commentSource || entry) + '\n\n' + code;
     }
     write(options.target, code);
 }
@@ -181,6 +181,8 @@ async function generateLocales(target, localeFiles, skipMoment) {
         headerFile: skipMoment
             ? 'templates/locale-header.js'
             : 'templates/default.js',
+        moveComments: !skipMoment,
+        commentSource: 'src/moment.js',
     });
 }
 
