@@ -1075,7 +1075,17 @@ test('locale(name) with an Object.prototype property name does not corrupt the g
     var originalLocale = moment.locale();
 
     each(
-        ['__proto__', 'constructor', 'prototype', 'toString'],
+        [
+            '__proto__',
+            'constructor',
+            'hasOwnProperty',
+            'isPrototypeOf',
+            'propertyIsEnumerable',
+            'prototype',
+            'toLocaleString',
+            'toString',
+            'valueOf',
+        ],
         function (name) {
             moment.locale('en');
             moment.locale(name);
@@ -1100,4 +1110,29 @@ test('locale(name) with an Object.prototype property name does not corrupt the g
     );
 
     moment.locale(originalLocale);
+});
+
+test('locale(name) ignores inherited entries when dynamic loading is skipped', function (assert) {
+    var inheritedName = 'invalid.locale',
+        originalLocale = moment.locale();
+
+    Object.prototype[inheritedName] = { _abbr: inheritedName };
+
+    try {
+        moment.locale('en');
+        moment.locale(inheritedName);
+        assert.equal(
+            moment.locale(),
+            'en',
+            'an inherited entry should not change the current locale'
+        );
+        assert.equal(
+            moment().format('LLLL'),
+            moment().locale('en').format('LLLL'),
+            'formatting should keep using the current locale'
+        );
+    } finally {
+        delete Object.prototype[inheritedName];
+        moment.locale(originalLocale);
+    }
 });

@@ -104,7 +104,9 @@ function loadLocale(name) {
             locales[normalizedName] = null; // null means not found
         }
     }
-    return locales[normalizedName];
+    if (hasOwnProp(locales, normalizedName)) {
+        return locales[normalizedName];
+    }
 }
 
 // This function will load locale and then set the global locale.  If
