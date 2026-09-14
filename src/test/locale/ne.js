@@ -291,6 +291,14 @@ test('from', function (assert) {
     );
 });
 
+test('relative time postformat', function (assert) {
+    assert.equal(
+        moment.localeData().relativeTime(2, true, 'yy', false),
+        '२ बर्ष',
+        'locale relativeTime applies the number symbol map'
+    );
+});
+
 test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'केही क्षणमा', 'prefix');
     assert.equal(moment(0).from(30000), 'केही क्षण अगाडि', 'suffix');
