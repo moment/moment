@@ -2,6 +2,7 @@
 //! locale : Ukrainian [uk]
 //! author : zemlanin : https://github.com/zemlanin
 //! Author : Menelion Elensúle : https://github.com/Oire
+//! Author : Oleksandr Trukhnii : https://github.com/JohnJunior
 
 import moment from '../moment';
 
@@ -33,15 +34,15 @@ function relativeTimeWithPlural(number, withoutSuffix, key) {
 function weekdaysCaseReplace(m, format) {
     var weekdays = {
             nominative:
-                'неділя_понеділок_вівторок_середа_четвер_п’ятниця_субота'.split(
+                'неділя_понеділок_вівторок_середа_четвер_пʼятниця_субота'.split(
                     '_'
                 ),
             accusative:
-                'неділю_понеділок_вівторок_середу_четвер_п’ятницю_суботу'.split(
+                'неділю_понеділок_вівторок_середу_четвер_пʼятницю_суботу'.split(
                     '_'
                 ),
             genitive:
-                'неділі_понеділка_вівторка_середи_четверга_п’ятниці_суботи'.split(
+                'неділі_понеділка_вівторка_середи_четверга_пʼятниці_суботи'.split(
                     '_'
                 ),
         },
@@ -162,6 +163,6 @@ export default moment.defineLocale('uk', {
     },
     week: {
         dow: 1, // Monday is the first day of the week.
-        doy: 7, // The week that contains Jan 7th is the first week of the year.
+        doy: 4, // The week that contains Jan 4th is the first week of the year.
     },
 });
