@@ -12,6 +12,7 @@ module.exports = [
                 ...globals.browser,
                 ...globals.node,
                 Symbol: 'readonly',
+                Proxy: 'readonly',
             },
         },
         rules: {
