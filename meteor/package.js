@@ -7,7 +7,7 @@ Package.describe({
     name: packageName,
     summary:
         'Moment.js (official): parse, validate, manipulate, and display dates - official Meteor packaging',
-    version: '2.30.1',
+    version: '2.31.0',
     git: 'https://github.com/moment/moment.git',
 });
 

@@ -55,7 +55,7 @@ export default moment.defineLocale('pl', {
     months: function (momentToFormat, format) {
         if (!momentToFormat) {
             return monthsNominative;
-        } else if (/D MMMM/.test(format)) {
+        } else if (/D\.? MMMM/.test(format)) {
             return monthsSubjective[momentToFormat.month()];
         } else {
             return monthsNominative[momentToFormat.month()];

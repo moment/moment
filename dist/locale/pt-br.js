@@ -25,14 +25,22 @@ export default moment.defineLocale('pt-br', {
         LLLL: 'dddd, D [de] MMMM [de] YYYY [às] HH:mm',
     },
     calendar: {
-        sameDay: '[Hoje às] LT',
-        nextDay: '[Amanhã às] LT',
-        nextWeek: 'dddd [às] LT',
-        lastDay: '[Ontem às] LT',
+        sameDay: function () {
+            return '[Hoje ' + (this.hours() >= 2 ? 'às' : 'à') + '] LT';
+        },
+        nextDay: function () {
+            return '[Amanhã ' + (this.hours() >= 2 ? 'às' : 'à') + '] LT';
+        },
+        nextWeek: function () {
+            return 'dddd [' + (this.hours() >= 2 ? 'às' : 'à') + '] LT';
+        },
+        lastDay: function () {
+            return '[Ontem ' + (this.hours() >= 2 ? 'às' : 'à') + '] LT';
+        },
         lastWeek: function () {
             return this.day() === 0 || this.day() === 6
-                ? '[Último] dddd [às] LT' // Saturday + Sunday
-                : '[Última] dddd [às] LT'; // Monday - Friday
+                ? '[Último] dddd [' + (this.hours() >= 2 ? 'às' : 'à') + '] LT' // Saturday + Sunday
+                : '[Última] dddd [' + (this.hours() >= 2 ? 'às' : 'à') + '] LT'; // Monday - Friday
         },
         sameElse: 'L',
     },
