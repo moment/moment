@@ -63,15 +63,15 @@ test('format', function (assert) {
             ['s ss', '50 50'],
             ['a A', 'sonten sonten'],
             ['[the] DDDo [day of the year]', 'the 45 day of the year'],
-            ['LTS', '15.25.50'],
+            ['LTS', '15:25:50'],
             ['L', '14/02/2010'],
             ['LL', '14 Februari 2010'],
-            ['LLL', '14 Februari 2010 pukul 15.25'],
-            ['LLLL', 'Minggu, 14 Februari 2010 pukul 15.25'],
+            ['LLL', '14 Februari 2010 pukul 15:25'],
+            ['LLLL', 'Minggu, 14 Februari 2010 pukul 15:25'],
             ['l', '14/2/2010'],
             ['ll', '14 Feb 2010'],
-            ['lll', '14 Feb 2010 pukul 15.25'],
-            ['llll', 'Min, 14 Feb 2010 pukul 15.25'],
+            ['lll', '14 Feb 2010 pukul 15:25'],
+            ['llll', 'Min, 14 Feb 2010 pukul 15:25'],
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -289,32 +289,32 @@ test('calendar day', function (assert) {
 
     assert.equal(
         moment(a).calendar(),
-        'Dinten puniko pukul 12.00',
+        'Dinten puniko pukul 12:00',
         'today at the same time'
     );
     assert.equal(
         moment(a).add({ m: 25 }).calendar(),
-        'Dinten puniko pukul 12.25',
+        'Dinten puniko pukul 12:25',
         'Now plus 25 min'
     );
     assert.equal(
         moment(a).add({ h: 1 }).calendar(),
-        'Dinten puniko pukul 13.00',
+        'Dinten puniko pukul 13:00',
         'Now plus 1 hour'
     );
     assert.equal(
         moment(a).add({ d: 1 }).calendar(),
-        'Mbenjang pukul 12.00',
+        'Mbenjang pukul 12:00',
         'tomorrow at the same time'
     );
     assert.equal(
         moment(a).subtract({ h: 1 }).calendar(),
-        'Dinten puniko pukul 11.00',
+        'Dinten puniko pukul 11:00',
         'Now minus 1 hour'
     );
     assert.equal(
         moment(a).subtract({ d: 1 }).calendar(),
-        'Kala wingi pukul 12.00',
+        'Kala wingi pukul 12:00',
         'yesterday at the same time'
     );
 });
