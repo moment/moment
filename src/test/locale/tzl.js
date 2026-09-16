@@ -48,8 +48,8 @@ test('parse', function (assert) {
 test('format', function (assert) {
     var a = [
             [
-                'dddd, MMMM Do YYYY, h.mm.ss a',
-                "Súladi, Fevraglh 14. 2010, 3.25.50 d'o",
+                'dddd, MMMM Do YYYY, h:mm:ss a',
+                "Súladi, Fevraglh 14. 2010, 3:25:50 d'o",
             ],
             ['ddd, hA', "Súl, 3D'O"],
             ['M Mo MM MMMM MMM', '2 2. 02 Fevraglh Fev'],
@@ -64,15 +64,15 @@ test('format', function (assert) {
             ['s ss', '50 50'],
             ['a A', "d'o D'O"],
             ['[the] DDDo [day of the year]', 'the 45. day of the year'],
-            ['LTS', '15.25.50'],
+            ['LTS', '15:25:50'],
             ['L', '14.02.2010'],
             ['LL', '14. Fevraglh dallas 2010'],
-            ['LLL', '14. Fevraglh dallas 2010 15.25'],
-            ['LLLL', 'Súladi, li 14. Fevraglh dallas 2010 15.25'],
+            ['LLL', '14. Fevraglh dallas 2010 15:25'],
+            ['LLLL', 'Súladi, li 14. Fevraglh dallas 2010 15:25'],
             ['l', '14.2.2010'],
             ['ll', '14. Fev dallas 2010'],
-            ['lll', '14. Fev dallas 2010 15.25'],
-            ['llll', 'Súl, li 14. Fev dallas 2010 15.25'],
+            ['lll', '14. Fev dallas 2010 15:25'],
+            ['llll', 'Súl, li 14. Fev dallas 2010 15:25'],
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -323,32 +323,32 @@ test('calendar day', function (assert) {
 
     assert.equal(
         moment(a).calendar(),
-        'oxhi à 12.00',
+        'oxhi à 12:00',
         'today at the same time'
     );
     assert.equal(
         moment(a).add({ m: 25 }).calendar(),
-        'oxhi à 12.25',
+        'oxhi à 12:25',
         'Now plus 25 min'
     );
     assert.equal(
         moment(a).add({ h: 1 }).calendar(),
-        'oxhi à 13.00',
+        'oxhi à 13:00',
         'Now plus 1 hour'
     );
     assert.equal(
         moment(a).add({ d: 1 }).calendar(),
-        'demà à 12.00',
+        'demà à 12:00',
         'tomorrow at the same time'
     );
     assert.equal(
         moment(a).subtract({ h: 1 }).calendar(),
-        'oxhi à 11.00',
+        'oxhi à 11:00',
         'Now minus 1 hour'
     );
     assert.equal(
         moment(a).subtract({ d: 1 }).calendar(),
-        'ieiri à 12.00',
+        'ieiri à 12:00',
         'yesterday at the same time'
     );
 });
