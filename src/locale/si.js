@@ -6,10 +6,10 @@ import moment from '../moment';
 
 /*jshint -W100*/
 export default moment.defineLocale('si', {
-    months: 'ජනවාරි_පෙබරවාරි_මාර්තු_අප්‍රේල්_මැයි_ජූනි_ජූලි_අගෝස්තු_සැප්තැම්බර්_ඔක්තෝබර්_නොවැම්බර්_දෙසැම්බර්'.split(
+    months: 'දුරුතු_නවම්_මැදින්_බක්_වෙසක්_පොසොන්_ඇසළ_නිකිණි_බිනර_වප්_ඉල්_උඳුවප්'.split(
         '_'
     ),
-    monthsShort: 'ජන_පෙබ_මාර්_අප්_මැයි_ජූනි_ජූලි_අගෝ_සැප්_ඔක්_නොවැ_දෙසැ'.split(
+    monthsShort: 'දුරුතු_නවම්_මැදින්_බක්_වෙසක්_පොසොන්_ඇසළ_නිකිණි_බිනර_වප්_ඉල්_උඳු'.split(
         '_'
     ),
     weekdays:
@@ -36,16 +36,16 @@ export default moment.defineLocale('si', {
         sameElse: 'L',
     },
     relativeTime: {
-        future: '%sකින්',
-        past: '%sකට පෙර',
+        future: '%s කින්',
+        past: '%s කට පෙර',
         s: 'තත්පර කිහිපය',
         ss: 'තත්පර %d',
-        m: 'මිනිත්තුව',
-        mm: 'මිනිත්තු %d',
+        m: 'විනාඩිය',
+        mm: 'විනාඩි %d',
         h: 'පැය',
         hh: 'පැය %d',
-        d: 'දිනය',
-        dd: 'දින %d',
+        d: 'දවස',
+        dd: 'දවස් %d',
         M: 'මාසය',
         MM: 'මාස %d',
         y: 'වසර',
@@ -55,15 +55,15 @@ export default moment.defineLocale('si', {
     ordinal: function (number) {
         return number + ' වැනි';
     },
-    meridiemParse: /පෙර වරු|පස් වරු|පෙ.ව|ප.ව./,
+    meridiemParse: /පෙරවරු|පස්වරු|පෙ.ව|ප.ව./,
     isPM: function (input) {
-        return input === 'ප.ව.' || input === 'පස් වරු';
+        return input === 'ප.ව.' || input === 'පස්වරු';
     },
     meridiem: function (hours, minutes, isLower) {
         if (hours > 11) {
-            return isLower ? 'ප.ව.' : 'පස් වරු';
+            return isLower ? 'ප.ව.' : 'පස්වරු';
         } else {
-            return isLower ? 'පෙ.ව.' : 'පෙර වරු';
+            return isLower ? 'පෙ.ව.' : 'පෙරවරු';
         }
     },
 });
