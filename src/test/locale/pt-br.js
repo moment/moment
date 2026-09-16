@@ -50,21 +50,21 @@ test('format', function (assert) {
     var a = [
             [
                 'dddd, MMMM Do YYYY, h:mm:ss a',
-                'domingo, fevereiro 14º 2010, 3:25:50 pm',
+                'domingo, fevereiro 14 2010, 3:25:50 pm',
             ],
             ['ddd, hA', 'dom, 3PM'],
-            ['M Mo MM MMMM MMM', '2 2º 02 fevereiro fev'],
+            ['M Mo MM MMMM MMM', '2 2 02 fevereiro fev'],
             ['YYYY YY', '2010 10'],
-            ['D Do DD', '14 14º 14'],
-            ['d do dddd ddd', '0 0º domingo dom'],
-            ['DDD DDDo DDDD', '45 45º 045'],
-            ['w wo ww', '8 8º 08'],
+            ['D Do DD', '14 14 14'],
+            ['d do dddd ddd', '0 0 domingo dom'],
+            ['DDD DDDo DDDD', '45 45 045'],
+            ['w wo ww', '8 8 08'],
             ['h hh', '3 03'],
             ['H HH', '15 15'],
             ['m mm', '25 25'],
             ['s ss', '50 50'],
             ['a A', 'pm PM'],
-            ['[the] DDDo [day of the year]', 'the 45º day of the year'],
+            ['[the] DDDo [day of the year]', 'the 45 day of the year'],
             ['LTS', '15:25:50'],
             ['L', '14/02/2010'],
             ['LL', '14 de fevereiro de 2010'],
@@ -84,39 +84,39 @@ test('format', function (assert) {
 
 test('format ordinal', function (assert) {
     assert.equal(moment([2011, 0, 1]).format('DDDo'), '1º', '1º');
-    assert.equal(moment([2011, 0, 2]).format('DDDo'), '2º', '2º');
-    assert.equal(moment([2011, 0, 3]).format('DDDo'), '3º', '3º');
-    assert.equal(moment([2011, 0, 4]).format('DDDo'), '4º', '4º');
-    assert.equal(moment([2011, 0, 5]).format('DDDo'), '5º', '5º');
-    assert.equal(moment([2011, 0, 6]).format('DDDo'), '6º', '6º');
-    assert.equal(moment([2011, 0, 7]).format('DDDo'), '7º', '7º');
-    assert.equal(moment([2011, 0, 8]).format('DDDo'), '8º', '8º');
-    assert.equal(moment([2011, 0, 9]).format('DDDo'), '9º', '9º');
-    assert.equal(moment([2011, 0, 10]).format('DDDo'), '10º', '10º');
+    assert.equal(moment([2011, 0, 2]).format('DDDo'), '2', '2');
+    assert.equal(moment([2011, 0, 3]).format('DDDo'), '3', '3');
+    assert.equal(moment([2011, 0, 4]).format('DDDo'), '4', '4');
+    assert.equal(moment([2011, 0, 5]).format('DDDo'), '5', '5');
+    assert.equal(moment([2011, 0, 6]).format('DDDo'), '6', '6');
+    assert.equal(moment([2011, 0, 7]).format('DDDo'), '7', '7');
+    assert.equal(moment([2011, 0, 8]).format('DDDo'), '8', '8');
+    assert.equal(moment([2011, 0, 9]).format('DDDo'), '9', '9');
+    assert.equal(moment([2011, 0, 10]).format('DDDo'), '10', '10');
 
-    assert.equal(moment([2011, 0, 11]).format('DDDo'), '11º', '11º');
-    assert.equal(moment([2011, 0, 12]).format('DDDo'), '12º', '12º');
-    assert.equal(moment([2011, 0, 13]).format('DDDo'), '13º', '13º');
-    assert.equal(moment([2011, 0, 14]).format('DDDo'), '14º', '14º');
-    assert.equal(moment([2011, 0, 15]).format('DDDo'), '15º', '15º');
-    assert.equal(moment([2011, 0, 16]).format('DDDo'), '16º', '16º');
-    assert.equal(moment([2011, 0, 17]).format('DDDo'), '17º', '17º');
-    assert.equal(moment([2011, 0, 18]).format('DDDo'), '18º', '18º');
-    assert.equal(moment([2011, 0, 19]).format('DDDo'), '19º', '19º');
-    assert.equal(moment([2011, 0, 20]).format('DDDo'), '20º', '20º');
+    assert.equal(moment([2011, 0, 11]).format('DDDo'), '11', '11');
+    assert.equal(moment([2011, 0, 12]).format('DDDo'), '12', '12');
+    assert.equal(moment([2011, 0, 13]).format('DDDo'), '13', '13');
+    assert.equal(moment([2011, 0, 14]).format('DDDo'), '14', '14');
+    assert.equal(moment([2011, 0, 15]).format('DDDo'), '15', '15');
+    assert.equal(moment([2011, 0, 16]).format('DDDo'), '16', '16');
+    assert.equal(moment([2011, 0, 17]).format('DDDo'), '17', '17');
+    assert.equal(moment([2011, 0, 18]).format('DDDo'), '18', '18');
+    assert.equal(moment([2011, 0, 19]).format('DDDo'), '19', '19');
+    assert.equal(moment([2011, 0, 20]).format('DDDo'), '20', '20');
 
-    assert.equal(moment([2011, 0, 21]).format('DDDo'), '21º', '21º');
-    assert.equal(moment([2011, 0, 22]).format('DDDo'), '22º', '22º');
-    assert.equal(moment([2011, 0, 23]).format('DDDo'), '23º', '23º');
-    assert.equal(moment([2011, 0, 24]).format('DDDo'), '24º', '24º');
-    assert.equal(moment([2011, 0, 25]).format('DDDo'), '25º', '25º');
-    assert.equal(moment([2011, 0, 26]).format('DDDo'), '26º', '26º');
-    assert.equal(moment([2011, 0, 27]).format('DDDo'), '27º', '27º');
-    assert.equal(moment([2011, 0, 28]).format('DDDo'), '28º', '28º');
-    assert.equal(moment([2011, 0, 29]).format('DDDo'), '29º', '29º');
-    assert.equal(moment([2011, 0, 30]).format('DDDo'), '30º', '30º');
+    assert.equal(moment([2011, 0, 21]).format('DDDo'), '21', '21');
+    assert.equal(moment([2011, 0, 22]).format('DDDo'), '22', '22');
+    assert.equal(moment([2011, 0, 23]).format('DDDo'), '23', '23');
+    assert.equal(moment([2011, 0, 24]).format('DDDo'), '24', '24');
+    assert.equal(moment([2011, 0, 25]).format('DDDo'), '25', '25');
+    assert.equal(moment([2011, 0, 26]).format('DDDo'), '26', '26');
+    assert.equal(moment([2011, 0, 27]).format('DDDo'), '27', '27');
+    assert.equal(moment([2011, 0, 28]).format('DDDo'), '28', '28');
+    assert.equal(moment([2011, 0, 29]).format('DDDo'), '29', '29');
+    assert.equal(moment([2011, 0, 30]).format('DDDo'), '30', '30');
 
-    assert.equal(moment([2011, 0, 31]).format('DDDo'), '31º', '31º');
+    assert.equal(moment([2011, 0, 31]).format('DDDo'), '31', '31');
 });
 
 test('format month', function (assert) {
@@ -455,17 +455,17 @@ test('weeks year starting sunday format', function (assert) {
     );
     assert.equal(
         moment([2012, 0, 8]).format('w ww wo'),
-        '2 02 2º',
+        '2 02 2',
         'Jan  8 2012 should be week 2'
     );
     assert.equal(
         moment([2012, 0, 14]).format('w ww wo'),
-        '2 02 2º',
+        '2 02 2',
         'Jan 14 2012 should be week 2'
     );
     assert.equal(
         moment([2012, 0, 15]).format('w ww wo'),
-        '3 03 3º',
+        '3 03 3',
         'Jan 15 2012 should be week 3'
     );
 });
