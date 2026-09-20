@@ -240,6 +240,67 @@ test('end of month diff with time behind', function (assert) {
         -1,
         'Feb 28 to March 31 should be 1 month'
     );
+    assert.equal(
+        moment([2017, 2, 31, 1]).diff([2017, 1, 28, 2], 'months'),
+        1,
+        'Feb 28 02:00 to March 31 01:00 should be 1 month'
+    );
+    assert.equal(
+        moment([2017, 1, 28, 2]).diff([2017, 2, 31, 1], 'months'),
+        -1,
+        'March 31 01:00 to Feb 28 02:00 should be -1 month'
+    );
+});
+
+test('month diff with time near end of month (#3980)', function (assert) {
+    var a = moment([2017, 1, 28, 1]), // 2017-02-28T01:00
+        b = moment([2017, 2, 29, 1]), // 2017-03-29T01:00
+        c = moment([2017, 2, 31]); // 2017-03-31T00:00
+
+    assert.equal(
+        b.diff(a, 'M'),
+        1,
+        'March 29 01:00 minus Feb 28 01:00 is 1 month'
+    );
+    assert.equal(
+        c.diff(a, 'M'),
+        1,
+        'March 31 00:00 minus Feb 28 01:00 is 1 month'
+    );
+    assert.ok(
+        c.diff(a, 'M', true) >= b.diff(a, 'M', true),
+        'later date should not have a smaller month diff'
+    );
+    assert.equal(
+        moment([2017, 2, 30]).diff(a, 'M'),
+        1,
+        'March 30 00:00 minus Feb 28 01:00 is 1 month'
+    );
+    assert.equal(
+        moment([2017, 2, 31, 1]).diff(a, 'M'),
+        1,
+        'March 31 01:00 minus Feb 28 01:00 is 1 month'
+    );
+    assert.equal(
+        a.diff(c, 'M'),
+        -1,
+        'reverse: Feb 28 01:00 minus March 31 00:00 is -1 month'
+    );
+    assert.equal(
+        moment([2017, 2, 28]).diff(a, 'M'),
+        0,
+        'March 28 00:00 minus Feb 28 01:00 is not a full month'
+    );
+    assert.equal(
+        moment([2016, 1, 29]).diff([2016, 0, 31, 1], 'months'),
+        1,
+        'Jan 31 01:00 to Feb 29 should be 1 month (#3029)'
+    );
+    assert.equal(
+        moment([2017, 10, 30, 14]).diff([2017, 4, 31, 15], 'months'),
+        6,
+        'May 31 15:00 to Nov 30 14:00 should be 6 months (#3029)'
+    );
 });
 
 test('diff across DST', function (assert) {
