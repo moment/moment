@@ -198,7 +198,7 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ h: 21 }), true),
-        '21 sati',
+        '21 sat',
         '21 hours = 21 hours'
     );
     assert.equal(
@@ -291,6 +291,49 @@ test('from', function (assert) {
         '5 godina',
         '5 years = 5 years'
     );
+    assert.equal(
+        start.from(moment([2007, 1, 28]).add({ y: 21 }), true),
+        '21 godina',
+        '21 years = 21 years'
+    );
+    assert.equal(
+        start.from(moment([2007, 1, 28]).add({ y: 22 }), true),
+        '22 godine',
+        '22 years = 22 years'
+    );
+    assert.equal(
+        start.from(moment([2007, 1, 28]).add({ y: 25 }), true),
+        '25 godina',
+        '25 years = 25 years'
+    );
+    assert.equal(
+        start.from(moment([2007, 1, 28]).add({ y: 112 }), true),
+        '112 godina',
+        '112 years = 112 years'
+    );
+});
+
+test('grammatical case of numbers', function (assert) {
+    var hoursThreshold = moment.relativeTimeThreshold('h'),
+        daysThreshold = moment.relativeTimeThreshold('d');
+    moment.relativeTimeThreshold('h', 1000);
+    moment.relativeTimeThreshold('d', 1000);
+
+    assert.equal(moment.duration(21, 'h').humanize(), '21 sat', '21 hours');
+    assert.equal(moment.duration(22, 'h').humanize(), '22 sata', '22 hours');
+    assert.equal(moment.duration(25, 'h').humanize(), '25 sati', '25 hours');
+    assert.equal(moment.duration(31, 'h').humanize(), '31 sat', '31 hours');
+    assert.equal(moment.duration(34, 'h').humanize(), '34 sata', '34 hours');
+    assert.equal(moment.duration(111, 'h').humanize(), '111 sati', '111 hours');
+    assert.equal(moment.duration(112, 'h').humanize(), '112 sati', '112 hours');
+    assert.equal(moment.duration(121, 'h').humanize(), '121 sat', '121 hours');
+    assert.equal(moment.duration(122, 'h').humanize(), '122 sata', '122 hours');
+
+    moment.relativeTimeThreshold('h', hoursThreshold);
+    assert.equal(moment.duration(21, 'd').humanize(), '21 dan', '21 days');
+    assert.equal(moment.duration(22, 'd').humanize(), '22 dana', '22 days');
+
+    moment.relativeTimeThreshold('d', daysThreshold);
 });
 
 test('suffix', function (assert) {

@@ -17,11 +17,14 @@ var translator = {
         yy: ['godina', 'godine', 'godina'],
     },
     correctGrammaticalCase: function (number, wordKey) {
-        return number === 1
-            ? wordKey[0]
-            : number >= 2 && number <= 4
-              ? wordKey[1]
-              : wordKey[2];
+        if (number % 10 === 1 && number % 100 !== 11) {
+            return wordKey[0];
+        }
+        return number % 10 >= 2 &&
+            number % 10 <= 4 &&
+            (number % 100 < 10 || number % 100 >= 20)
+            ? wordKey[1]
+            : wordKey[2];
     },
     translate: function (number, withoutSuffix, key) {
         var wordKey = translator.words[key];
