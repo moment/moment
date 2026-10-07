@@ -27,8 +27,10 @@ response or engagement within **14 days**, escalation is also appropriate.
 The [Moment.js Threat Model](THREAT_MODEL.md) defines what is and is not
 considered a security vulnerability in Moment. Please review it before reporting.
 Reports that fall outside the threat model, for example issues that require the
-application to pass untrusted input into Moment's global state setters, are
-handled as robustness improvements rather than security advisories.
+application to pass untrusted input into Moment's global state setters, or to
+pass unvalidated or unbounded locale names or format strings into Moment's
+resolution and formatting APIs, are handled as robustness improvements rather
+than security advisories.
 
 ## Coordination & Disclosure
 
