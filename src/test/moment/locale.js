@@ -120,6 +120,27 @@ test('preserve exact custom locale names', function (assert) {
     moment.defineLocale('Mixed_Custom', null);
 });
 
+test('bounds the locale resolution walk for excessively long names', function (assert) {
+    moment.locale('en');
+
+    // Excessively long hyphen-heavy name: must fall back to global, not hang.
+    var longName = 'en' + new Array(20001).join('-a');
+    assert.equal(
+        moment.locale(longName),
+        'en',
+        'excessively long locale name falls back to the global locale'
+    );
+
+    // A valid multi-subtag tag still resolves.
+    assert.equal(
+        moment.locale('en-gb'),
+        'en-gb',
+        'valid multi-subtag locale still resolves'
+    );
+
+    moment.locale('en');
+});
+
 test('do not load invalid built-in locale names', function (assert) {
     var invalidNames = ['.', '..', 'locale name', 'en@gb'];
 
