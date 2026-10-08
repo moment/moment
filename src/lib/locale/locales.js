@@ -11,7 +11,10 @@ import { baseConfig } from './base-config';
 // internal storage for locale config files
 var locales = {},
     localeFamilies = {},
-    globalLocale;
+    globalLocale,
+    // Cap chooseLocale's prefix walk: real tags have few subtags, so this bounds an
+    // excessively long, hyphen-heavy name without changing resolution for valid locales.
+    MAX_LOCALE_SUBTAGS = 50;
 
 function commonPrefix(arr1, arr2) {
     var i,
@@ -40,7 +43,7 @@ function chooseLocale(names) {
 
     while (i < names.length) {
         split = normalizeLocale(names[i]).split('-');
-        j = split.length;
+        j = Math.min(split.length, MAX_LOCALE_SUBTAGS);
         next = normalizeLocale(names[i + 1]);
         next = next ? next.split('-') : null;
         while (j > 0) {
