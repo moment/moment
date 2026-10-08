@@ -111,6 +111,15 @@ Applications using Moment are responsible for input validation. Passing attacker
 controlled data directly into Moment APIs, in particular into the global state
 setters described above, is an application bug, not a Moment vulnerability.
 
+Locale names and format strings are caller-validated identifiers, not free-form
+data. The application is responsible for validating them (for example against an
+allowlist of supported locales and a known set of format strings) before passing
+them to Moment's resolution and formatting APIs or global state setters. Cost
+from unvalidated identifiers, whether one oversized locale name or many distinct
+locale names or format strings accumulating in Moment's process-global caches, is
+an application responsibility, handled as robustness hardening rather than a
+security vulnerability.
+
 ### Prototype Chain Reads in Internal Registries
 
 Moment uses plain objects internally as registries and caches, for example for
