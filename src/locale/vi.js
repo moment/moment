@@ -44,13 +44,25 @@ export default moment.defineLocale('vi', {
         llll: 'ddd, D MMM YYYY HH:mm',
     },
     calendar: {
-        sameDay: '[Hôm nay lúc] LT',
-        nextDay: '[Ngày mai lúc] LT',
-        nextWeek: 'dddd [tuần tới lúc] LT',
-        lastDay: '[Hôm qua lúc] LT',
-        lastWeek: 'dddd [tuần trước lúc] LT',
-        sameElse: 'L',
+    sameDay: '[Hôm nay lúc] LT',
+    nextDay: '[Ngày mai lúc] LT',
+    nextWeek: function (now) {
+        if (now.week() !== this.week()) {
+            return '[tuần tới] dddd [lúc] LT';
+        } else {
+            return 'dddd [lúc] LT';
+        }
     },
+    lastDay: '[Hôm qua lúc] LT',
+    lastWeek: function (now) {
+        if (this.week() !== now.week()) {
+            return '[tuần trước] dddd [lúc] LT';
+        } else {
+            return 'dddd [lúc] LT';
+        }
+    },
+    sameElse: 'L',
+},
     relativeTime: {
         future: '%s tới',
         past: '%s trước',
