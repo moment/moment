@@ -64,6 +64,13 @@ function monthDiff(a, b) {
         anchor2,
         adjust;
 
+    // Adding months from a longer month clips the day (Mar 31 -> Feb 28).
+    // If the other date is on that clipped last day, time-of-day is not a
+    // remainder -- a later clock time must not shrink the whole-month count.
+    if (a.date() !== anchor.date() && b.date() === anchor.date()) {
+        return -wholeMonthDiff || 0;
+    }
+
     if (b - anchor < 0) {
         anchor2 = a.clone().add(wholeMonthDiff - 1, 'months');
         // linear across the month
