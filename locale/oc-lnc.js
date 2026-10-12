@@ -68,23 +68,24 @@
             y: 'un an',
             yy: '%d ans',
         },
-        dayOfMonthOrdinalParse: /\d{1,2}(r|n|t|è|a)/,
-        ordinal: function (number, period) {
-            var output =
-                number === 1
-                    ? 'r'
-                    : number === 2
-                      ? 'n'
-                      : number === 3
-                        ? 'r'
-                        : number === 4
-                          ? 't'
-                          : 'è';
-            if (period === 'w' || period === 'W') {
-                output = 'a';
+        dayOfMonthOrdinalParse: /\d{1,2}(èr|nd|en|a)/,
+        ordinal = (number, period = '') => {
+            let ordinalSuffix = 'en';  // Default suffix is 'en'
+        
+            // Special cases for 1 and 2
+            if (number  === 1) {
+                ordinalSuffix = 'èr';  // 1èr
+            } else if (number === 2) {
+                ordinalSuffix = 'nd';  // 2nd
             }
-            return number + output;
-        },
+        
+            // feminine with ending "a" for week, hour, minute and second
+            if (/^[wWhHgGis]$/.test(period)) {
+                ordinalSuffix += 'a';
+            }
+        
+            return number + ordinalSuffix;
+        };
         week: {
             dow: 1, // Monday is the first day of the week.
             doy: 4,
