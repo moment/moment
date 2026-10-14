@@ -49,17 +49,20 @@ export default moment.defineLocale('fr-ca', {
         y: 'un an',
         yy: '%d ans',
     },
-    dayOfMonthOrdinalParse: /\d{1,2}(er|e)/,
+    dayOfMonthOrdinalParse: /\d{1,2}(er|e|)/,
     ordinal: function (number, period) {
         switch (period) {
             // Words with masculine grammatical gender: mois, trimestre, jour
             default:
             case 'M':
             case 'Q':
-            case 'D':
             case 'DDD':
             case 'd':
                 return number + (number === 1 ? 'er' : 'e');
+
+            // Only the first day of a month uses an ordinal suffix
+            case 'D':
+                return number + (number === 1 ? 'er' : '');
 
             // Words with feminine grammatical gender: semaine
             case 'w':
