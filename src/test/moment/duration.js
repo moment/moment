@@ -1861,6 +1861,25 @@ test('as getters for small units', function (assert) {
     assert.equal(dm.asMinutes(), 13, 'asMinutes()');
 });
 
+test('as weeks for whole weeks', function (assert) {
+    // Tests for issue #5851.
+    // as('weeks') rounded the day part and the millisecond part separately, so
+    // durations that are exactly a whole number of weeks could come back short
+    // or long by one floating point step.
+    var mixed = moment.duration(1036800000).subtract(5, 'days'),
+        negative = moment.duration(1, 'day').subtract(8, 'days');
+
+    assert.equal(mixed.asWeeks(), 1, 'asWeeks() of a mixed whole week');
+    assert.equal(mixed.as('weeks'), 1, 'as("weeks") of a mixed whole week');
+    assert.equal(mixed.asDays(), 7, 'asDays() of a mixed whole week');
+    assert.equal(negative.asWeeks(), -1, 'asWeeks() of a negative whole week');
+    assert.equal(
+        moment.duration(1, 'day').asWeeks(),
+        1 / 7,
+        'asWeeks() of one day'
+    );
+});
+
 test('minutes getter for floating point hours', function (assert) {
     // Tests for issue #2978.
     // For certain floating point hours, .minutes() getter produced incorrect values due to the rounding errors
