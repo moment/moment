@@ -164,6 +164,24 @@ test('format week', function (assert) {
     }
 });
 
+test('parse week', function (assert) {
+    var expected =
+            'Pazar_Pazartesi_Salı_Çarşamba_Perşembe_Cuma_Cumartesi'.split('_'),
+        short = 'Paz_Pzt_Sal_Çar_Per_Cum_Cmt'.split('_'),
+        min = 'Pz_Pt_Sa_Ça_Pe_Cu_Ct'.split('_'),
+        i;
+    for (i = 0; i < expected.length; i++) {
+        assert.equal(moment(expected[i], 'dddd', 'tr').day(), i, expected[i]);
+        assert.equal(
+            moment(expected[i], 'dddd', 'tr', true).day(),
+            i,
+            expected[i] + ' strict'
+        );
+        assert.equal(moment(short[i], 'ddd', 'tr').day(), i, short[i]);
+        assert.equal(moment(min[i], 'dd', 'tr').day(), i, min[i]);
+    }
+});
+
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
     assert.equal(

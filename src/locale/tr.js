@@ -36,6 +36,7 @@ export default moment.defineLocale('tr', {
     ),
     weekdaysShort: 'Paz_Pzt_Sal_Çar_Per_Cum_Cmt'.split('_'),
     weekdaysMin: 'Pz_Pt_Sa_Ça_Pe_Cu_Ct'.split('_'),
+    weekdaysParseExact: true,
     meridiem: function (hours, minutes, isLower) {
         if (hours < 12) {
             return isLower ? 'öö' : 'ÖÖ';
