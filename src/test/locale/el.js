@@ -545,3 +545,89 @@ test('localeData months calls', function (assert) {
         'should return the genitive month name'
     );
 });
+
+test('parse the month names the locale formats', function (assert) {
+    var i,
+        monthsNominative =
+            'Ιανουάριος_Φεβρουάριος_Μάρτιος_Απρίλιος_Μάιος_Ιούνιος_Ιούλιος_Αύγουστος_Σεπτέμβριος_Οκτώβριος_Νοέμβριος_Δεκέμβριος'.split(
+                '_'
+            ),
+        monthsGenitive =
+            'Ιανουαρίου_Φεβρουαρίου_Μαρτίου_Απριλίου_Μαΐου_Ιουνίου_Ιουλίου_Αυγούστου_Σεπτεμβρίου_Οκτωβρίου_Νοεμβρίου_Δεκεμβρίου'.split(
+                '_'
+            ),
+        monthsShort = 'Ιαν_Φεβ_Μαρ_Απρ_Μαϊ_Ιουν_Ιουλ_Αυγ_Σεπ_Οκτ_Νοε_Δεκ'.split(
+            '_'
+        );
+
+    for (i = 0; i < 12; i++) {
+        assert.equal(
+            moment(monthsGenitive[i], 'MMMM', 'el').month(),
+            i,
+            monthsGenitive[i] + ' should be month ' + (i + 1)
+        );
+        assert.equal(
+            moment(monthsGenitive[i], 'MMMM', 'el', true).month(),
+            i,
+            'strict ' + monthsGenitive[i] + ' should be month ' + (i + 1)
+        );
+        assert.equal(
+            moment(
+                monthsGenitive[i].toLocaleLowerCase(),
+                'MMMM',
+                'el',
+                true
+            ).month(),
+            i,
+            'strict lower case ' +
+                monthsGenitive[i] +
+                ' should be month ' +
+                (i + 1)
+        );
+        assert.equal(
+            moment(monthsNominative[i], 'MMMM', 'el', true).month(),
+            i,
+            'strict nominative ' +
+                monthsNominative[i] +
+                ' should be month ' +
+                (i + 1)
+        );
+        assert.equal(
+            moment(monthsShort[i], 'MMM', 'el', true).month(),
+            i,
+            'strict short ' + monthsShort[i] + ' should be month ' + (i + 1)
+        );
+    }
+});
+
+test('long dates round trip through a strict parse', function (assert) {
+    var formats = ['LL', 'LLL', 'LLLL'],
+        dates = [
+            [2024, 1, 14, 15, 25, 50],
+            [2013, 11, 1, 0, 0, 0],
+            [2024, 0, 7, 23, 59, 59],
+        ],
+        i,
+        j,
+        output,
+        parsed;
+
+    for (i = 0; i < dates.length; i++) {
+        for (j = 0; j < formats.length; j++) {
+            output = moment(dates[i]).locale('el').format(formats[j]);
+            parsed = moment(output, formats[j], 'el', true);
+            assert.ok(
+                parsed.isValid(),
+                'el strict parse of ' +
+                    formats[j] +
+                    ': ' +
+                    JSON.stringify(output)
+            );
+            assert.equal(
+                parsed.format(formats[j]),
+                output,
+                'el round trip of ' + formats[j] + ': ' + JSON.stringify(output)
+            );
+        }
+    }
+});
