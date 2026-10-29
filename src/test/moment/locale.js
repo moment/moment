@@ -1157,3 +1157,120 @@ test('locale(name) ignores inherited entries when dynamic loading is skipped', f
         moment.locale(originalLocale);
     }
 });
+
+test('parse months that declare a format variant', function (assert) {
+    var standaloneLong =
+            'Alpha_Beta_Gamma_Delta_Epsilon_Zeta_Eta_Theta_Iota_Kappa_Lambda_Mu'.split(
+                '_'
+            ),
+        formatLong =
+            'Alphaez_Betaez_Gammaez_Deltaez_Epsilonez_Zetaez_Etaez_Theetaez_Iotaez_Kappaez_Lambdaez_Muez'.split(
+                '_'
+            ),
+        standaloneShort = 'Al_Be_Ga_De_Ep_Ze_Et_Th_Io_Ka_La_Mu'.split('_'),
+        formatShort = 'Alx_Btx_Gmx_Dlx_Epx_Zex_Etx_Thx_Iox_Kax_Lax_Mux'.split(
+            '_'
+        ),
+        configs = [
+            { name: 'test-months-format-exact', exact: true },
+            { name: 'test-months-format-inexact', exact: false },
+        ];
+
+    each(configs, function (config) {
+        moment.defineLocale(config.name, {
+            monthsParseExact: config.exact,
+            months: {
+                standalone: standaloneLong,
+                format: formatLong,
+                isFormat: /D[oD]?(\s)+MMMM/,
+            },
+            monthsShort: {
+                standalone: standaloneShort,
+                format: formatShort,
+            },
+            longDateFormat: {
+                LL: 'D MMMM',
+                ll: 'D MMM',
+            },
+        });
+    });
+
+    each(configs, function (config) {
+        var name = config.name;
+
+        moment.locale(name);
+        each(standaloneLong, function (standalone, i) {
+            var label = name + ' month ' + i,
+                shortStandalone = standaloneShort[i],
+                shortFormat = formatShort[i];
+
+            assert.equal(
+                moment(standalone, 'MMMM', name, true).month(),
+                i,
+                label + ': strict parse of the standalone long name'
+            );
+            assert.equal(
+                moment(formatLong[i], 'MMMM', name, true).month(),
+                i,
+                label + ': strict parse of the format long name'
+            );
+            assert.equal(
+                moment(formatLong[i], 'MMMM', name).month(),
+                i,
+                label + ': lenient parse of the format long name'
+            );
+            assert.equal(
+                moment(shortStandalone, 'MMM', name, true).month(),
+                i,
+                label + ': strict parse of the standalone short name'
+            );
+            assert.equal(
+                moment(shortFormat, 'MMM', name, true).month(),
+                i,
+                label + ': strict parse of the format short name'
+            );
+            assert.equal(
+                moment(shortFormat, 'MMM', name).month(),
+                i,
+                label + ': lenient parse of the format short name'
+            );
+
+            each(['LL', 'll'], function (format) {
+                var formatted = moment([2024, i, 14])
+                        .locale(name)
+                        .format(format),
+                    strict = moment(formatted, format, name, true),
+                    lenient = moment(formatted, format, name);
+
+                assert.ok(
+                    strict.isValid(),
+                    label +
+                        ': strict parse of formatted ' +
+                        format +
+                        ' ' +
+                        formatted
+                );
+                assert.equal(
+                    strict.month(),
+                    i,
+                    label +
+                        ': strict parsed month from ' +
+                        format +
+                        ' ' +
+                        formatted
+                );
+                assert.equal(
+                    lenient.month(),
+                    i,
+                    label +
+                        ': lenient parsed month from ' +
+                        format +
+                        ' ' +
+                        formatted
+                );
+            });
+        });
+    });
+
+    moment.locale('en');
+});

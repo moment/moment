@@ -88,6 +88,8 @@ var defaultLocaleMonths =
         'monthsParse',
         'longMonthsParse',
         'shortMonthsParse',
+        'longMonthsFormatParse',
+        'shortMonthsFormatParse',
         'monthsRegex',
         'monthsShortRegex',
         'monthsStrictRegex',
@@ -134,6 +136,48 @@ export function localeMonthsShort(m, format) {
           ][m.month()];
 }
 
+// The format variant of an object-shaped months list is what such a locale
+// writes out, so parsing has to accept it as well as the standalone name.
+function monthFormatVariant(isShort, index) {
+    var months = isShort ? this._monthsShort : this._months;
+
+    if (isArray(months) || !months || !isArray(months.format)) {
+        return null;
+    }
+
+    return months.format[index];
+}
+
+function lowerMonthFormatVariant(locale, isShort, index) {
+    var variant = monthFormatVariant.call(locale, isShort, index);
+
+    return variant == null ? variant : variant.toLocaleLowerCase();
+}
+
+function findMonthParseIndex(locale, isShort, name) {
+    var names = isShort ? locale._shortMonthsParse : locale._longMonthsParse,
+        variants = isShort
+            ? locale._shortMonthsFormatParse
+            : locale._longMonthsFormatParse,
+        i = indexOf.call(names, name);
+
+    if (i === -1 && variants) {
+        i = indexOf.call(variants, name);
+    }
+
+    return i;
+}
+
+function monthParseSource(name, variant) {
+    var source = '^' + name.replace('.', '') + '$';
+
+    if (variant != null) {
+        source += '|^' + variant.replace('.', '') + '$';
+    }
+
+    return source;
+}
+
 function handleStrictParse(monthName, format, strict) {
     var i,
         ii,
@@ -144,6 +188,8 @@ function handleStrictParse(monthName, format, strict) {
         this._monthsParse = [];
         this._longMonthsParse = [];
         this._shortMonthsParse = [];
+        this._longMonthsFormatParse = [];
+        this._shortMonthsFormatParse = [];
         for (i = 0; i < 12; ++i) {
             mom = createUTC([2000, i]);
             this._shortMonthsParse[i] = this.monthsShort(
@@ -151,38 +197,48 @@ function handleStrictParse(monthName, format, strict) {
                 ''
             ).toLocaleLowerCase();
             this._longMonthsParse[i] = this.months(mom, '').toLocaleLowerCase();
+            this._shortMonthsFormatParse[i] = lowerMonthFormatVariant(
+                this,
+                true,
+                i
+            );
+            this._longMonthsFormatParse[i] = lowerMonthFormatVariant(
+                this,
+                false,
+                i
+            );
         }
     }
 
     if (strict) {
         if (format === 'MMM') {
-            ii = indexOf.call(this._shortMonthsParse, llc);
+            ii = findMonthParseIndex(this, true, llc);
             return ii !== -1 ? ii : null;
         } else {
-            ii = indexOf.call(this._longMonthsParse, llc);
+            ii = findMonthParseIndex(this, false, llc);
             return ii !== -1 ? ii : null;
         }
     } else {
         if (format === 'MMM') {
-            ii = indexOf.call(this._shortMonthsParse, llc);
+            ii = findMonthParseIndex(this, true, llc);
             if (ii !== -1) {
                 return ii;
             }
-            ii = indexOf.call(this._longMonthsParse, llc);
+            ii = findMonthParseIndex(this, false, llc);
             return ii !== -1 ? ii : null;
         } else {
-            ii = indexOf.call(this._longMonthsParse, llc);
+            ii = findMonthParseIndex(this, false, llc);
             if (ii !== -1) {
                 return ii;
             }
-            ii = indexOf.call(this._shortMonthsParse, llc);
+            ii = findMonthParseIndex(this, true, llc);
             return ii !== -1 ? ii : null;
         }
     }
 }
 
 export function localeMonthsParse(monthName, format, strict) {
-    var i, mom, regex;
+    var i, mom, regex, longVariant, shortVariant;
 
     if (this._monthsParseExact) {
         return handleStrictParse.call(this, monthName, format, strict);
@@ -201,18 +257,28 @@ export function localeMonthsParse(monthName, format, strict) {
         // make the regex if we don't have it already
         mom = createUTC([2000, i]);
         if (strict && !this._longMonthsParse[i]) {
+            longVariant = monthFormatVariant.call(this, false, i);
+            shortVariant = monthFormatVariant.call(this, true, i);
             this._longMonthsParse[i] = new RegExp(
-                '^' + this.months(mom, '').replace('.', '') + '$',
+                monthParseSource(this.months(mom, ''), longVariant),
                 'i'
             );
             this._shortMonthsParse[i] = new RegExp(
-                '^' + this.monthsShort(mom, '').replace('.', '') + '$',
+                monthParseSource(this.monthsShort(mom, ''), shortVariant),
                 'i'
             );
         }
         if (!strict && !this._monthsParse[i]) {
+            longVariant = monthFormatVariant.call(this, false, i);
+            shortVariant = monthFormatVariant.call(this, true, i);
             regex =
                 '^' + this.months(mom, '') + '|^' + this.monthsShort(mom, '');
+            if (longVariant != null) {
+                regex += '|^' + longVariant;
+            }
+            if (shortVariant != null) {
+                regex += '|^' + shortVariant;
+            }
             this._monthsParse[i] = new RegExp(regex.replace('.', ''), 'i');
         }
         // test the regex
@@ -329,16 +395,28 @@ function computeMonthsParse() {
         i,
         mom,
         shortP,
-        longP;
+        longP,
+        shortFormatP,
+        longFormatP;
     for (i = 0; i < 12; i++) {
         // make the regex if we don't have it already
         mom = createUTC([2000, i]);
         shortP = regexEscape(this.monthsShort(mom, ''));
         longP = regexEscape(this.months(mom, ''));
+        shortFormatP = monthFormatVariant.call(this, true, i);
+        longFormatP = monthFormatVariant.call(this, false, i);
         shortPieces.push(shortP);
         longPieces.push(longP);
         mixedPieces.push(longP);
         mixedPieces.push(shortP);
+        if (shortFormatP != null) {
+            shortPieces.push(regexEscape(shortFormatP));
+            mixedPieces.push(regexEscape(shortFormatP));
+        }
+        if (longFormatP != null) {
+            longPieces.push(regexEscape(longFormatP));
+            mixedPieces.push(regexEscape(longFormatP));
+        }
     }
     // Sorting makes sure if one month (or abbr) is a prefix of another it
     // will match the longer piece.

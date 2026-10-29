@@ -580,3 +580,28 @@ test('calendar should format', function (assert) {
         'calendar should handle day of week'
     );
 });
+
+test('parse the long date with its own month form', function (assert) {
+    var i, formatted, strict, lenient;
+
+    for (i = 0; i < 12; i++) {
+        formatted = moment([2024, i, 14]).format('LL');
+        strict = moment(formatted, 'LL', true);
+        lenient = moment(formatted, 'LL');
+
+        assert.ok(
+            strict.isValid(),
+            'LL ' + formatted + ' should parse in strict mode'
+        );
+        assert.equal(
+            strict.month(),
+            i,
+            'LL ' + formatted + ' should round trip in strict mode'
+        );
+        assert.equal(
+            lenient.month(),
+            i,
+            'LL ' + formatted + ' should parse in lenient mode'
+        );
+    }
+});

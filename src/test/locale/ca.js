@@ -498,3 +498,28 @@ test('day and month', function (assert) {
     assert.equal(moment([2012, 9, 15]).format('D MMMM'), '15 d’octubre');
     assert.equal(moment([2012, 9, 15]).format('MMMM, D'), 'octubre, 15');
 });
+
+test('parse the long date with its own month form', function (assert) {
+    var i, formatted, strict, lenient;
+
+    for (i = 0; i < 12; i++) {
+        formatted = moment([2024, i, 14]).format('LL');
+        strict = moment(formatted, 'LL', true);
+        lenient = moment(formatted, 'LL');
+
+        assert.ok(
+            strict.isValid(),
+            'LL ' + formatted + ' should parse in strict mode'
+        );
+        assert.equal(
+            strict.format('YYYY-MM-DD'),
+            '2024-' + (i < 9 ? '0' : '') + (i + 1) + '-14',
+            'LL ' + formatted + ' should round trip'
+        );
+        assert.equal(
+            lenient.month(),
+            i,
+            'LL ' + formatted + ' should parse in lenient mode'
+        );
+    }
+});
