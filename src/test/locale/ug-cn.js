@@ -45,6 +45,47 @@ test('parse', function (assert) {
     }
 });
 
+test('parse meridiem', function (assert) {
+    var format = 'YYYY-MM-DD h:mm:ss a',
+        hours = [0, 3, 6, 9, 11, 12, 13, 15, 17, 18, 23],
+        i,
+        formatted,
+        strict,
+        lenient;
+
+    for (i = 0; i < hours.length; i++) {
+        formatted = moment([2010, 1, 14, hours[i], 15, 0])
+            .locale('ug-cn')
+            .format(format);
+        strict = moment(formatted, format, 'ug-cn', true);
+        lenient = moment(formatted, format, 'ug-cn');
+        assert.ok(strict.isValid(), formatted + ' is valid in strict mode');
+        assert.equal(
+            strict.hour(),
+            hours[i],
+            formatted + ' strictly parses to hour ' + hours[i]
+        );
+        assert.equal(
+            lenient.hour(),
+            hours[i],
+            formatted + ' leniently parses to hour ' + hours[i]
+        );
+    }
+
+    // The afternoon form starts with the noon form, so it must not be
+    // shadowed by it while parsing.
+    assert.equal(
+        moment('2010-02-14 3:15:00 چۈشتىن كېيىن', format, 'ug-cn', true).hour(),
+        15,
+        'afternoon parses strictly without leaving trailing text'
+    );
+    assert.equal(
+        moment('2010-02-14 12:15:00 چۈش', format, 'ug-cn', true).hour(),
+        12,
+        'noon parses strictly'
+    );
+});
+
 test('format', function (assert) {
     var a = [
             [
@@ -426,5 +467,53 @@ test('weeks year starting sunday format', function (assert) {
         moment([2012, 0, 9]).format('w ww wo'),
         '3 03 3-ھەپتە',
         'Jan  9 2012 should be week 3'
+    );
+});
+
+test('long dates round trip through a strict parse', function (assert) {
+    var arabicComma = String.fromCharCode(0x060c),
+        formats = ['LL', 'LLL', 'LLLL'],
+        dates = [
+            [2024, 1, 14, 15, 25, 50],
+            [2013, 11, 1, 0, 0, 0],
+            [2024, 0, 7, 23, 59, 59],
+        ],
+        i,
+        j,
+        output,
+        parsed;
+
+    for (i = 0; i < dates.length; i++) {
+        for (j = 0; j < formats.length; j++) {
+            output = moment(dates[i]).locale('ug-cn').format(formats[j]);
+            parsed = moment(output, formats[j], 'ug-cn', true);
+            assert.ok(
+                parsed.isValid(),
+                'ug-cn strict parse of ' +
+                    formats[j] +
+                    ': ' +
+                    JSON.stringify(output)
+            );
+            assert.equal(
+                parsed.format(formats[j]),
+                output,
+                'ug-cn round trip of ' +
+                    formats[j] +
+                    ': ' +
+                    JSON.stringify(output)
+            );
+        }
+    }
+
+    output = moment(dates[0]).locale('ug-cn').format('LLLL');
+    assert.notEqual(
+        output.indexOf(arabicComma),
+        -1,
+        'ug-cn LLLL keeps the Arabic comma: ' + JSON.stringify(output)
+    );
+    assert.equal(
+        output.indexOf(','),
+        -1,
+        'ug-cn LLLL does not write a plain comma: ' + JSON.stringify(output)
     );
 });
