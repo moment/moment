@@ -103,7 +103,11 @@ function parseWeekday(input, locale) {
 
 function parseIsoWeekday(input, locale) {
     if (typeof input === 'string') {
-        return locale.weekdaysParse(input) % 7 || 7;
+        input = locale.weekdaysParse(input);
+        if (typeof input !== 'number') {
+            return null;
+        }
+        return input % 7 || 7;
     }
     return isNaN(input) ? null : input;
 }
@@ -330,6 +334,10 @@ export function getSetDayOfWeek(input) {
     var day = get(this, 'Day');
     if (input != null) {
         input = parseWeekday(input, this.localeData());
+        if (input == null) {
+            // an unparsable name is not a Sunday, leave the moment alone
+            return this;
+        }
         return this.add(input - day, 'd');
     } else {
         return day;
@@ -355,6 +363,9 @@ export function getSetISODayOfWeek(input) {
 
     if (input != null) {
         var weekday = parseIsoWeekday(input, this.localeData());
+        if (weekday == null) {
+            return this;
+        }
         return this.day(this.day() % 7 ? weekday : weekday - 7);
     } else {
         return this.day() || 7;

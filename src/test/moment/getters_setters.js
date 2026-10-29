@@ -188,11 +188,38 @@ test('setters programatic with weeks ISO', function (assert) {
 });
 
 test('setters strings', function (assert) {
-    var a = moment([2012]).locale('en');
+    var a = moment([2012]).locale('en'),
+        // 2012-06-18 is a Monday, so an unparsable name cannot be accidentally right
+        monday = moment([2012, 5, 18]).locale('en');
     assert.equal(a.clone().day(0).day('Wednesday').day(), 3, 'day full name');
     assert.equal(a.clone().day(0).day('Wed').day(), 3, 'day short name');
     assert.equal(a.clone().day(0).day('We').day(), 3, 'day minimal name');
     assert.equal(a.clone().day(0).day('invalid').day(), 0, 'invalid day name');
+    assert.equal(
+        monday.clone().day('invalid').format('YYYY-MM-DD'),
+        '2012-06-18',
+        'invalid day name leaves the date alone'
+    );
+    assert.equal(
+        monday.clone().day('invalid').day(),
+        1,
+        'invalid day name does not change the day of week'
+    );
+    assert.equal(
+        monday.clone().isoWeekday('invalid').format('YYYY-MM-DD'),
+        '2012-06-18',
+        'invalid isoWeekday name leaves the date alone'
+    );
+    assert.equal(
+        monday.clone().isoWeekday('invalid').isoWeekday(),
+        1,
+        'invalid isoWeekday name does not change the day of week'
+    );
+    assert.equal(
+        monday.clone().isoWeekday(NaN).format('YYYY-MM-DD'),
+        '2012-06-18',
+        'isoWeekday(NaN) is a no-op that stays chainable'
+    );
     assert.equal(
         a.clone().month(0).month('April').month(),
         3,
