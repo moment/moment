@@ -1,18 +1,14 @@
-var mathAbs = Math.abs;
-
 export function abs() {
-    var data = this._data;
-
-    this._milliseconds = mathAbs(this._milliseconds);
-    this._days = mathAbs(this._days);
-    this._months = mathAbs(this._months);
-
-    data.milliseconds = mathAbs(data.milliseconds);
-    data.seconds = mathAbs(data.seconds);
-    data.minutes = mathAbs(data.minutes);
-    data.hours = mathAbs(data.hours);
-    data.months = mathAbs(data.months);
-    data.years = mathAbs(data.years);
+    // Flipping the sign of each component independently changes the length of
+    // a duration that mixes signs, e.g. 730.5 days minus 12 months would become
+    // 1095.5 days. Flip all components together only when the duration as a
+    // whole is negative, so the interval is preserved.
+    if (this.asMilliseconds() < 0) {
+        this._milliseconds = -this._milliseconds;
+        this._days = -this._days;
+        this._months = -this._months;
+        this._bubble();
+    }
 
     return this;
 }

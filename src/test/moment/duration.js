@@ -1880,6 +1880,56 @@ test('isDuration', function (assert) {
     );
 });
 
+test('abs updates day and week getters', function (assert) {
+    [-14, 0, 14].forEach(function (days) {
+        var duration = moment.duration(days, 'days'),
+            expected = Math.abs(days);
+
+        assert.strictEqual(duration.abs(), duration, 'returns the duration');
+        assert.equal(duration.days(), expected, 'days');
+        assert.equal(duration.get('days'), expected, 'get days');
+        assert.equal(duration.weeks(), expected / 7, 'weeks');
+        assert.equal(duration.asDays(), expected, 'as days');
+        assert.equal(duration.clone().days(), duration.days(), 'clone agrees');
+        assert.equal(duration.abs().days(), expected, 'abs is idempotent');
+    });
+});
+
+test('abs updates days bubbled from hours', function (assert) {
+    var duration = moment.duration(-49, 'hours').abs();
+
+    assert.equal(duration.days(), 2, 'days');
+    assert.equal(duration.hours(), 1, 'hours');
+    assert.equal(duration.asHours(), 49, 'as hours');
+    assert.equal(duration.clone().days(), duration.days(), 'clone agrees');
+});
+
+test('abs preserves a duration that mixes positive and negative units', function (assert) {
+    // Tests for issue #4641.
+    var positive = moment.duration(730.5, 'days').subtract(1, 'years'),
+        negative = moment.duration(1, 'years').subtract(730.5, 'days'),
+        small = moment.duration(-1, 'days').add(2, 'hours');
+
+    assert.equal(positive.asDays(), 365.5, 'mixed positive duration is a year');
+    assert.equal(positive.abs().asDays(), 365.5, 'abs keeps it a year');
+    assert.equal(positive.humanize(), 'a year', 'humanize is unchanged');
+
+    assert.equal(
+        negative.asDays(),
+        -365.5,
+        'mixed negative duration is -1 year'
+    );
+    assert.equal(
+        negative.abs().asDays(),
+        365.5,
+        'abs flips the whole duration'
+    );
+    assert.equal(negative.humanize(), 'a year', 'humanized abs is a year');
+
+    assert.equal(small.asHours(), -22, 'mixed negative duration is -22 hours');
+    assert.equal(small.abs().asHours(), 22, 'abs flips every unit');
+});
+
 test('add', function (assert) {
     var d = moment.duration({ months: 4, weeks: 3, days: 2 });
     // for some reason, d._data._months does not get updated; use d._months instead.
