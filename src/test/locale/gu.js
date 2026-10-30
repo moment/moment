@@ -5,7 +5,7 @@ localeModule('gu');
 
 test('parse', function (assert) {
     var tests =
-            'જાન્યુઆરી જાન્યુ._ફેબ્રુઆરી ફેબ્રુ._માર્ચ માર્ચ_એપ્રિલ એપ્રિ._મે મે_જૂન જૂન_જુલાઈ જુલા._ઑગસ્ટ ઑગ._સપ્ટેમ્બર સપ્ટે._ઑક્ટ્બર ઑક્ટ્._નવેમ્બર નવે._ડિસેમ્બર ડિસે..'.split(
+            'જાન્યુઆરી જાન્યુ._ફેબ્રુઆરી ફેબ્રુ._માર્ચ માર્ચ_એપ્રિલ એપ્રિ._મે મે_જૂન જૂન_જુલાઈ જુલા._ઑગસ્ટ ઑગ._સપ્ટેમ્બર સપ્ટે._ઑક્ટોબર ઑક્ટો._નવેમ્બર નવે._ડિસેમ્બર ડિસે..'.split(
                 '_'
             ),
         i;
@@ -121,7 +121,7 @@ test('format ordinal', function (assert) {
 
 test('format month', function (assert) {
     var expected =
-            'જાન્યુઆરી જાન્યુ._ફેબ્રુઆરી ફેબ્રુ._માર્ચ માર્ચ_એપ્રિલ એપ્રિ._મે મે_જૂન જૂન_જુલાઈ જુલા._ઑગસ્ટ ઑગ._સપ્ટેમ્બર સપ્ટે._ઑક્ટ્બર ઑક્ટ્._નવેમ્બર નવે._ડિસેમ્બર ડિસે.'.split(
+            'જાન્યુઆરી જાન્યુ._ફેબ્રુઆરી ફેબ્રુ._માર્ચ માર્ચ_એપ્રિલ એપ્રિ._મે મે_જૂન જૂન_જુલાઈ જુલા._ઑગસ્ટ ઑગ._સપ્ટેમ્બર સપ્ટે._ઑક્ટોબર ઑક્ટો._નવેમ્બર નવે._ડિસેમ્બર ડિસે.'.split(
                 '_'
             ),
         i;
@@ -136,7 +136,7 @@ test('format month', function (assert) {
 
 test('format week', function (assert) {
     var expected =
-            'રવિવાર રવિ ર_સોમવાર સોમ સો_મંગળવાર મંગળ મં_બુધ્વાર બુધ્ બુ_ગુરુવાર ગુરુ ગુ_શુક્રવાર શુક્ર શુ_શનિવાર શનિ શ'.split(
+            'રવિવાર રવિ ર_સોમવાર સોમ સો_મંગળવાર મંગળ મં_બુધવાર બુધ બુ_ગુરુવાર ગુરુ ગુ_શુક્રવાર શુક્ર શુ_શનિવાર શનિ શ'.split(
                 '_'
             ),
         i;
@@ -147,6 +147,37 @@ test('format week', function (assert) {
             expected[i]
         );
     }
+});
+
+test('October and Wednesday keep their vowel signs', function (assert) {
+    var october = moment([2024, 9, 15]),
+        wednesday = moment([2024, 9, 16]);
+
+    assert.equal(october.format('MMMM'), 'ઑક્ટોબર', 'October wide');
+    assert.equal(october.format('MMM'), 'ઑક્ટો.', 'October short');
+    assert.equal(wednesday.format('dddd'), 'બુધવાર', 'Wednesday wide');
+    assert.equal(wednesday.format('ddd'), 'બુધ', 'Wednesday short');
+
+    assert.equal(
+        moment('15 ઑક્ટોબર 2024', 'DD MMMM YYYY', true).month(),
+        9,
+        'parses the October name it formats'
+    );
+    assert.equal(
+        moment('15 ઑક્ટો. 2024', 'DD MMM YYYY', true).month(),
+        9,
+        'parses the October short name it formats'
+    );
+    assert.equal(
+        moment('બુધવાર', 'dddd', true).day(),
+        3,
+        'parses the Wednesday name it formats'
+    );
+    assert.equal(
+        moment('બુધ', 'ddd', true).day(),
+        3,
+        'parses the Wednesday short name it formats'
+    );
 });
 
 test('from', function (assert) {
