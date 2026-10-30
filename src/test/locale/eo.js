@@ -45,6 +45,76 @@ test('parse', function (assert) {
     }
 });
 
+test('parse meridiem', function (assert) {
+    var format = 'YYYY-MM-DD h:mm:ss a',
+        formatUpper = 'YYYY-MM-DD h:mm:ss A',
+        expected = '2010-02-14 15:25:50';
+
+    assert.equal(
+        moment('2010-02-14 3:25:50 p.t.m.', format, 'eo', true).format(
+            'YYYY-MM-DD HH:mm:ss'
+        ),
+        expected,
+        'strict parse of the dotted lowercase meridiem'
+    );
+    assert.equal(
+        moment('2010-02-14 3:25:50 P.T.M.', formatUpper, 'eo', true).format(
+            'YYYY-MM-DD HH:mm:ss'
+        ),
+        expected,
+        'strict parse of the dotted uppercase meridiem'
+    );
+    assert.equal(
+        moment('2010-02-14 3:25:50 ptm', format, 'eo', true).format(
+            'YYYY-MM-DD HH:mm:ss'
+        ),
+        expected,
+        'strict parse of the undotted CLDR abbreviation'
+    );
+    assert.equal(
+        moment('2010-02-14 2:25:50 a.t.m.', format, 'eo', true).format(
+            'YYYY-MM-DD HH:mm:ss'
+        ),
+        '2010-02-14 02:25:50',
+        'strict parse of the before-noon meridiem'
+    );
+    assert.equal(
+        moment('2010-02-14 15:25:50', 'YYYY-MM-DD HH:mm:ss', 'eo')
+            .locale('eo')
+            .format(format),
+        '2010-02-14 3:25:50 p.t.m.',
+        'formatting is unchanged'
+    );
+    assert.equal(
+        moment(
+            moment(new Date(2010, 1, 14, 15, 25, 50))
+                .locale('eo')
+                .format(format),
+            format,
+            'eo',
+            true
+        ).format('YYYY-MM-DD HH:mm:ss'),
+        expected,
+        'the formatted string parses back strictly'
+    );
+});
+
+test('parse weekday followed by a literal', function (assert) {
+    var i, formatted, parsed;
+    for (i = 0; i < 7; i++) {
+        formatted = moment([2024, 9, 13 + i]).format('dddd[n]');
+        parsed = moment(formatted, 'dddd[n]', 'eo', true);
+        assert.equal(parsed.day(), i, formatted + ' parses back');
+    }
+    formatted = moment([2024, 9, 15, 14, 25]).format('LLLL');
+    parsed = moment(formatted, 'LLLL', 'eo', true);
+    assert.equal(
+        parsed.format('YYYY-MM-DD HH:mm'),
+        '2024-10-15 14:25',
+        'LLLL output parses back'
+    );
+});
+
 test('format', function (assert) {
     var a = [
             [

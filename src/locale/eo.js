@@ -15,6 +15,7 @@ export default moment.defineLocale('eo', {
     weekdays: 'dimanĉo_lundo_mardo_merkredo_ĵaŭdo_vendredo_sabato'.split('_'),
     weekdaysShort: 'dim_lun_mard_merk_ĵaŭ_ven_sab'.split('_'),
     weekdaysMin: 'di_lu_ma_me_ĵa_ve_sa'.split('_'),
+    weekdaysParseExact: true,
     longDateFormat: {
         LT: 'HH:mm',
         LTS: 'HH:mm:ss',
@@ -24,7 +25,7 @@ export default moment.defineLocale('eo', {
         LLLL: 'dddd[n], [la] D[-an de] MMMM, YYYY HH:mm',
         llll: 'ddd, [la] D[-an de] MMM, YYYY HH:mm',
     },
-    meridiemParse: /[ap]\.t\.m/i,
+    meridiemParse: /[ap]\.?t\.?m\.?/i,
     isPM: function (input) {
         return input.charAt(0).toLowerCase() === 'p';
     },
