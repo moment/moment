@@ -144,6 +144,26 @@ test('format week', function (assert) {
     }
 });
 
+test('parse week', function (assert) {
+    var expected = [
+            'Dé Domhnaigh',
+            'Dé Luain',
+            'Dé Máirt',
+            'Dé Céadaoin',
+            'Déardaoin',
+            'Dé hAoine',
+            'Dé Sathairn',
+        ],
+        i;
+    for (i = 0; i < expected.length; i++) {
+        assert.equal(
+            moment(expected[i], 'dddd', 'ga', true).day(),
+            i,
+            expected[i]
+        );
+    }
+});
+
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
     assert.equal(

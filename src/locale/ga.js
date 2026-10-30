@@ -51,6 +51,7 @@ export default moment.defineLocale('ga', {
     weekdays: weekdays,
     weekdaysShort: weekdaysShort,
     weekdaysMin: weekdaysMin,
+    weekdaysParseExact: true,
     longDateFormat: {
         LT: 'HH:mm',
         LTS: 'HH:mm:ss',

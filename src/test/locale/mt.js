@@ -55,7 +55,7 @@ test('format', function (assert) {
             ['M Mo MM MMMM MMM', '2 2º 02 Frar Fra'],
             ['YYYY YY', '2010 10'],
             ['D Do DD', '14 14º 14'],
-            ['d do dddd ddd dd', '0 0º Il-Ħadd Ħad Ħa'],
+            ['d do dddd ddd dd', '0 0º Il-Ħadd Ħad Ħd'],
             ['DDD DDDo DDDD', '45 45º 045'],
             ['w wo ww', '6 6º 06'],
             ['h hh', '3 03'],
@@ -135,7 +135,7 @@ test('format month', function (assert) {
 
 test('format week', function (assert) {
     var expected =
-            'Il-Ħadd Ħad Ħa_It-Tnejn Tne Tn_It-Tlieta Tli Tl_L-Erbgħa Erb Er_Il-Ħamis Ħam Ħa_Il-Ġimgħa Ġim Ġi_Is-Sibt Sib Si'.split(
+            'Il-Ħadd Ħad Ħd_It-Tnejn Tne Tn_It-Tlieta Tli Tl_L-Erbgħa Erb Er_Il-Ħamis Ħam Ħm_Il-Ġimgħa Ġim Ġm_Is-Sibt Sib Sb'.split(
                 '_'
             ),
         i;
@@ -144,6 +144,38 @@ test('format week', function (assert) {
             moment([2011, 0, 2 + i]).format('dddd ddd dd'),
             expected[i],
             expected[i]
+        );
+    }
+});
+
+test('parse week', function (assert) {
+    var expected =
+            'Il-Ħadd_It-Tnejn_It-Tlieta_L-Erbgħa_Il-Ħamis_Il-Ġimgħa_Is-Sibt'.split(
+                '_'
+            ),
+        i;
+    for (i = 0; i < expected.length; i++) {
+        assert.equal(
+            moment(expected[i], 'dddd', 'mt', true).day(),
+            i,
+            expected[i]
+        );
+    }
+});
+
+test('format narrow week', function (assert) {
+    var expected = 'Ħd_Tn_Tl_Er_Ħm_Ġm_Sb'.split('_'),
+        i;
+    for (i = 0; i < expected.length; i++) {
+        assert.equal(
+            moment([2011, 0, 2 + i]).format('dd'),
+            expected[i],
+            expected[i]
+        );
+        assert.equal(
+            moment(expected[i], 'dd', 'mt', true).day(),
+            i,
+            'parse ' + expected[i]
         );
     }
 });
