@@ -115,6 +115,20 @@ test('format week', function (assert) {
     }
 });
 
+test('parse LLLL with the weekday next to the day period', function (assert) {
+    var i, formatted, parsed;
+    for (i = 0; i < 7; i++) {
+        formatted = moment([2024, 9, 13 + i, 14, 25]).format('LLLL');
+        parsed = moment(formatted, 'LLLL', 'zh-cn', true);
+        assert.equal(parsed.day(), i, formatted + ' parses back');
+        assert.equal(
+            parsed.format('YYYY-MM-DD HH:mm'),
+            '2024-10-' + (13 + i) + ' 14:25',
+            formatted + ' keeps the date'
+        );
+    }
+});
+
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
     assert.equal(
