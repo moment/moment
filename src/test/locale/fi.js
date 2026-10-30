@@ -45,6 +45,24 @@ test('parse', function (assert) {
     }
 });
 
+test('parse long date', function (assert) {
+    var i, formatted, parsed;
+    for (i = 0; i < 12; i++) {
+        formatted = moment([2024, i, 15]).format('LL');
+        parsed = moment(formatted, 'LL', 'fi', true);
+        assert.equal(parsed.month(), i, formatted + ' parses back');
+        assert.equal(parsed.date(), 15, formatted + ' keeps the day');
+    }
+
+    formatted = moment([2024, 9, 15, 14, 25]).format('LLLL');
+    parsed = moment(formatted, 'LLLL', 'fi', true);
+    assert.equal(
+        parsed.format('YYYY-MM-DD HH:mm'),
+        '2024-10-15 14:25',
+        formatted + ' parses back'
+    );
+});
+
 test('format', function (assert) {
     var a = [
             [

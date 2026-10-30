@@ -19,7 +19,13 @@ var numbersPast =
         numbersPast[7],
         numbersPast[8],
         numbersPast[9],
-    ];
+    ],
+    monthsRegex =
+        /^(tammikuu|helmikuu|maaliskuu|huhtikuu|toukokuu|kesäkuu|heinäkuu|elokuu|syyskuu|lokakuu|marraskuu|joulukuu|tammi|helmi|maalis|huhti|touko|kesä|heinä|elo|syys|loka|marras|joulu)/i,
+    monthsStrictRegex =
+        /^(tammikuu|helmikuu|maaliskuu|huhtikuu|toukokuu|kesäkuu|heinäkuu|elokuu|syyskuu|lokakuu|marraskuu|joulukuu)/i,
+    monthsShortStrictRegex =
+        /^(tammi|helmi|maalis|huhti|touko|kesä|heinä|elo|syys|loka|marras|joulu)/i;
 function translate(number, withoutSuffix, key, isFuture) {
     var result = '';
     switch (key) {
@@ -73,6 +79,12 @@ export default moment.defineLocale('fi', {
         'tammi_helmi_maalis_huhti_touko_kesä_heinä_elo_syys_loka_marras_joulu'.split(
             '_'
         ),
+    // The long formats append the partitive ending as a literal ([ta]), so
+    // the month token must stop before it instead of taking the whole word.
+    monthsRegex: monthsRegex,
+    monthsShortRegex: monthsRegex,
+    monthsStrictRegex: monthsStrictRegex,
+    monthsShortStrictRegex: monthsShortStrictRegex,
     weekdays:
         'sunnuntai_maanantai_tiistai_keskiviikko_torstai_perjantai_lauantai'.split(
             '_'
