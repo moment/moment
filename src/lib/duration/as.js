@@ -27,7 +27,10 @@ export function as(units) {
         days = this._days + Math.round(monthsToDays(this._months));
         switch (units) {
             case 'week':
-                return (days * 864e5 + milliseconds) / 6048e5;
+                // Compute days/7 + ms/week_ms separately so a very large
+                // days value does not overflow to Infinity in the intermediate
+                // (days * 864e5) before the division.
+                return days / 7 + milliseconds / 6048e5;
             case 'day':
                 return days + milliseconds / 864e5;
             case 'hour':
