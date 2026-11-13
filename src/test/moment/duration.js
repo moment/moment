@@ -1880,6 +1880,18 @@ test('as weeks for whole weeks', function (assert) {
     );
 });
 
+test('as weeks for very large durations', function (assert) {
+    // The previous implementation computed `days * 864e5` to convert the day
+    // part to milliseconds before adding the millisecond part. For a large
+    // enough `days` that intermediate product overflows to Infinity even when
+    // the final result in weeks is finite, so `asWeeks()` returned Infinity.
+    // Adding the millisecond part as a fraction of a day keeps the value
+    // finite for the whole representable range.
+    var huge = moment.duration(1e301, 'days');
+    assert.ok(isFinite(huge.asWeeks()), 'asWeeks() of 1e301 days is finite');
+    assert.ok(isFinite(huge.as('weeks')), 'as("weeks") of 1e301 days is finite');
+});
+
 test('minutes getter for floating point hours', function (assert) {
     // Tests for issue #2978.
     // For certain floating point hours, .minutes() getter produced incorrect values due to the rounding errors
