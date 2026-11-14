@@ -1,0 +1,109 @@
+name: Bug report
+description: Report a reproducible defect in Moment.js
+title: '[Bug] '
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Moment.js is in maintenance mode and is not accepting new features.
+        Use this form only for reproducible defects in Moment.js core.
+        Reports are assessed individually; submitting a valid defect does not
+        guarantee that a code change will be made.
+
+  - type: checkboxes
+    id: prerequisites
+    attributes:
+      label: Prerequisites
+      options:
+        - label: I searched existing issues for this problem.
+          required: true
+        - label: I read the applicable [documentation](https://momentjs.com/docs/) and [guides](https://momentjs.com/guides/).
+          required: true
+        - label: I reproduced the problem with the latest Moment.js release.
+          required: true
+        - label: I confirmed this belongs to Moment.js core, not [Moment Timezone](https://github.com/moment/moment-timezone/issues), [Luxon](https://github.com/moment/luxon/issues), or the [momentjs.com website](https://github.com/moment/momentjs.com/issues).
+          required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the defect and when it occurs.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Provide the smallest complete example that reproduces the problem.
+      render: javascript
+    validations:
+      required: true
+
+  - type: input
+    id: reproduction-link
+    attributes:
+      label: Reproduction link
+      description: Optionally link to a runnable reproduction.
+      placeholder: https://...
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include the exact output or error.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: Include the exact output you expected and why.
+    validations:
+      required: true
+
+  - type: input
+    id: moment-version
+    attributes:
+      label: Moment.js version
+      placeholder: 2.30.1
+    validations:
+      required: true
+
+  - type: input
+    id: runtime
+    attributes:
+      label: Runtime
+      description: Include the Node.js or browser name and version.
+      placeholder: Node.js 22.22.2 or Chrome 140
+    validations:
+      required: true
+
+  - type: input
+    id: loading
+    attributes:
+      label: Loading method
+      description: Describe how Moment.js is imported or loaded if it is not evident from the code sample.
+      placeholder: npm CommonJS, ESM bundle, or CDN script
+
+  - type: input
+    id: locale
+    attributes:
+      label: Locale
+      description: Include the active locale if it may affect the result.
+      placeholder: en, pt-br, or not applicable
+
+  - type: input
+    id: timezone
+    attributes:
+      label: Time zone
+      description: Include the system time zone or UTC offset if relevant.
+      placeholder: America/New_York, UTC-05:00, or not applicable
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Include relevant dates, dependencies, screenshots, or other details.

@@ -30,7 +30,7 @@ export default moment.defineLocale('uz', {
     },
     relativeTime: {
         future: 'Якин %s ичида',
-        past: 'Бир неча %s олдин',
+        past: '%s олдин',
         s: 'фурсат',
         ss: '%d фурсат',
         m: 'бир дакика',

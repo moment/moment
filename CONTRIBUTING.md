@@ -1,43 +1,65 @@
-Submitting Issues
-=================
+# Contributing to Moment.js
 
-If you are submitting a bug, please create a [jsfiddle](http://jsfiddle.net/) demonstrating the issue.
-Note: Before raising a new issue, please do check the existing issues and make sure your issue doesn’t exist.
+Moment.js has been a Linux Foundation-hosted project since joining the JS
+Foundation in October 2016. The JS Foundation later merged with the Node.js
+Foundation to form the [OpenJS Foundation](https://openjsf.org/), which hosts
+the project today.
 
+## Submitting Issues
 
-Read before submitting Pull Requests
-====================================
+Before submitting an issue, check the existing issues and make sure it has not
+already been reported. Bug reports should include a minimal reproduction with
+the exact actual and expected output.
 
- * **Pull requests to the `master` branch will be closed.** Please submit all pull requests to the `develop` branch.
- * **You will be required to sign a JS Foundation CLA before your pull request can be merged.** [Sign it right now](https://cla.js.foundation/moment/moment).
- * **Locale translations will not be merged without unit tests.** See [the British English unit tests](https://github.com/moment/moment/blob/develop/src/test/locale/en-gb.js) for an example.
- * **Do not include the minified files in your pull request.** These are
-   `moment.js`, `locale/*.js`, `min/*.js`. Don't worry, we'll build them when
-   we cut a release.
+Moment.js is in maintenance mode and is not accepting new features. Use the
+provided issue forms for reproducible defects and locale corrections. For usage
+questions and other issue categories, follow the links in the issue chooser.
 
-Code organization
-=================
+Maintainers assess reports individually and may choose not to fix a valid defect
+when compatibility risk, established behavior, severity, or available capacity
+outweighs the benefit of a change. Submitting a report does not guarantee that a
+code change will be made. Technical modernization is planned and initiated by
+maintainers; unsolicited modernization proposals may be closed.
+
+## Read Before Submitting Pull Requests
+
+- **Pull requests to the `master` branch will be closed.** Please submit all
+  pull requests to the `develop` branch.
+- **You will be required to sign the OpenJS Foundation CLA before your pull
+  request can be merged.** The EasyCLA bot will prompt you, or you can
+  [sign it now](https://api.easycla.lfx.linuxfoundation.org/v2/repository-provider/github/sign/6354452/235430945/1).
+- **Locale translations will not be merged without unit tests.** See
+  [the British English unit tests](https://github.com/moment/moment/blob/develop/src/test/locale/en-gb.js)
+  for an example.
+- **Do not include the minified files in your pull request.** These are
+  `moment.js`, `locale/*.js`, `min/*.js`. Don't worry, we'll build them when
+  we cut a release.
+
+## Code Organization
 
 Starting from version 2.10.0 the code is placed under `src/`.
 `moment.js`, `locale/*.js`, `min/*.js` are generated only on release.
 
-**DO NOT** submit changes to the generated files. Instead only change
-`src/**/*.js` and run the tests.
+**DO NOT** submit changes to the generated files. Instead, change the source
+and test files and run the tests.
 
-* `src/lib/**/*.js` moment core files
-* `src/locale/*.js` locale files
-* `src/test/moment/*.js` moment core tests
-* `src/test/locale/*.js` locale tests
+- `src/lib/**/*.js` moment core files
+- `src/locale/*.js` locale files
+- `src/test/moment/*.js` moment core tests
+- `src/test/locale/*.js` locale tests
 
-We're using ES6 module system, but nothing else ES6, because of performance
-considerations (added code by the transpiler, less than optimal translation to
-ES5). So please do not use that fancy new ES6 feature in your patch, it won't
-be accepted.
+Source files use ES modules, which the build bundles but does not otherwise
+transpile for legacy runtimes. Follow the compatibility-oriented style of the
+surrounding code, and do not introduce newer JavaScript syntax or built-ins
+without confirming that the supported runtimes can execute them.
 
-Setting up development environment
-==================================
+Moment 2 retains broad runtime compatibility, including best-effort support for
+Internet Explorer 8. This is a compatibility goal rather than a guarantee for
+every environment; test changes in affected runtimes when practical.
 
-To contribute, fork the library and install grunt and dependencies. You need
+## Setting Up the Development Environment
+
+To contribute, fork the library and install the dependencies. You need
 [git](http://git-scm.com/) and
 [node](http://nodejs.org/); you might use
 [nvm](https://github.com/creationix/nvm) or
@@ -46,60 +68,62 @@ To contribute, fork the library and install grunt and dependencies. You need
 ```bash
 git clone https://github.com/moment/moment.git
 cd moment
-npm install -g grunt-cli
-npm install
+npm install --global pnpm@11.22.0
+pnpm install
 git checkout develop  # all patches against develop branch, please!
-grunt                 # this runs tests, eslint and prettier-check
+pnpm validate         # this runs tests and lint checks
+pnpm test:typescript  # this runs TypeScript declaration tests
 ```
 
-Changing locale files
-=====================
+## Changing Locale Files
 
-If you have any changes to existing locale files, `@mention` the original
-author in the pull request (check the top of the language file), and ask if
-he/she approves of your changes. Because I don't know any languages I can't
-judge your locale changes, only the original author can :)
+Locale changes are reviewed first against the latest available data in the
+official [Unicode CLDR repository](https://github.com/unicode-org/cldr), which is
+the project's preferred baseline. A change that differs from CLDR may still be
+accepted when strong evidence shows that CLDR is stale, inaccurate, or does not
+reflect the locale's documented convention.
 
-In order for your pull request to get merged it must have approval of original
-author, or at least one other native speaker has to approve of the change
-(happens rarely).
+Please describe the convention behind the change and include supporting sources
+when available. Useful references include government or institutional style
+guides, national standards, language-academy dictionaries, official calendars,
+and other evidence of contemporary usage. Sources are requested but not
+required; maintainers will independently validate the proposed behavior.
+Maintainers are not necessarily native speakers. Locale contributions are
+reviewed by a maintainer using the AI-assisted workflow defined in the
+[`locale-review` skill](.agents/skills/locale-review/SKILL.md). AI output is not
+treated as evidence; review conclusions remain grounded in CLDR and
+authoritative external sources.
 
-Grunt tasks
-===========
+If the same behavior was previously discussed or a similar change was declined,
+address the prior decision and explain what new context or evidence supports
+reconsidering it.
 
-We use Grunt for managing the build. Here are some useful Grunt tasks:
+Make locale changes in `src/locale/<locale>.js` and add or update the matching
+`src/test/locale/<locale>.js` for each distinct form affected. Do not edit the
+generated copies under `locale/`, `dist/`, or `min/`; those are regenerated for
+releases.
 
-  * `grunt` The default task lints the code and runs the tests. You should make sure you do this before submitting a PR.
-  * `grunt test` Run the tests.
-  * `grunt lint` Perform syntax and code style checks.
-  * `grunt release` Build everything, including minified files (do not include
-    those in Pull Requests)
-  * `grunt transpile:fr,ru` Build custom locale bundles `moment-with-locales.custom.js` and `locales.custom.js` inside `build/umd/min` containing just French and Russian.
-  * `grunt size` Print size statistics.
+## Development Scripts
 
-**Note:** If the prompt message is `Code style issues found in the above file(s). Forgot to run Prettier?`, Please run `npm run prettier-fmt`. 
+Common build and development commands are exposed as package scripts:
 
-Becoming a moment team member
-=============================
+- `pnpm validate` Lint the code and run the tests. You should make sure you do
+  this before submitting a PR.
+- `pnpm test` Run the tests.
+- `pnpm test:watch` Run tests in watch mode.
+- `pnpm test:coverage` Run tests and generate a coverage report.
+- `pnpm test:typescript` Run the TypeScript declaration tests.
+- `pnpm lint` Perform syntax and code style checks.
+- `pnpm format` Format supported files with Prettier.
+- `pnpm hooks:install` Install safeguards against development on `master`.
+- `pnpm build` Build the development artifacts in `build/`.
+- `pnpm build:custom fr,ru` Build custom locale bundles
+  `moment-with-locales.custom.js` and `locales.custom.js` inside `build/umd/min`
+  containing just French and Russian.
+- `pnpm benchmark compare` Run a benchmark, or omit the name to run all
+  benchmarks.
+- `pnpm locale:authors list` List locale authors; `mention` formats mentions and
+  `find-commenters ISSUE` lists issue participants.
 
-Moment's team members have extra powers and responsibilities. If you want to
-become one -- be active in our repositories by answering issues, reviewing PRs,
-discussing changes, submitting PRs for open bugs. Any help on
-[moment/moment](https://github.com/moment/moment),
-[moment/momentjs.com](https://github.com/moment/momentjs.com),
-[moment/moment-timezone](https://github.com/moment/moment-timezone) will be
-noticed.
-
-Once you've proven to be trustworthy, submit your request to the
-[gitter chat](https://gitter.im/moment/moment), and it will be reviewed by the
-existing team.
-
-Once you become a member:
-* you can tell your friends
-* you can close issues submitted by others
-
-But also:
-* be active in the repositories
-* pick up work nobody else wants to
-* attend a monthly meeting
-* participate in the internal slack group
+Commands for release preparation and publication are documented in
+[RELEASING.md](RELEASING.md).

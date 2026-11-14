@@ -13,7 +13,12 @@
         "ender"
     ],
     "homepage": "https://github.com/moment/moment",
-    "authors": [{"name": "Tim Wood", "email": "washwithcare@gmail.com"}],
+    "authors": [
+        {
+            "name": "Tim Wood",
+            "email": "washwithcare@gmail.com"
+        }
+    ],
     "license": "MIT",
     "type": "component",
     "require": {
@@ -25,8 +30,8 @@
                 "moment.js"
             ],
             "files": [
-               "min/*.js",
-               "locale/*.js"
+                "min/*.js",
+                "locale/*.js"
             ]
         }
     }

@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "lib": ["ES2015"],
+        "types": []
+    },
+    "files": ["./moment-tests.ts"]
+}

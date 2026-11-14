@@ -715,35 +715,35 @@ test('hours alignment with other zone', function (assert) {
 });
 
 test('parse zone', function (assert) {
-    var m = moment('2013-01-01T00:00:00-13:00').parseZone();
-    assert.equal(m.zone(), 13 * 60);
+    var m = moment('2013-01-01T00:00:00-12:00').parseZone();
+    assert.equal(m.zone(), 12 * 60);
     assert.equal(m.hours(), 0);
 });
 
 test('parse zone static', function (assert) {
-    var m = moment.parseZone('2013-01-01T00:00:00-13:00');
-    assert.equal(m.zone(), 13 * 60);
+    var m = moment.parseZone('2013-01-01T00:00:00-12:00');
+    assert.equal(m.zone(), 12 * 60);
     assert.equal(m.hours(), 0);
 });
 
 test('parse zone with more arguments', function (assert) {
     test.expectedDeprecations();
     var m;
-    m = moment.parseZone('2013 01 01 05 -13:00', 'YYYY MM DD HH ZZ');
+    m = moment.parseZone('2013 01 01 05 -12:00', 'YYYY MM DD HH ZZ');
     assert.equal(
         m.format(),
-        '2013-01-01T05:00:00-13:00',
+        '2013-01-01T05:00:00-12:00',
         'accept input and format'
     );
-    m = moment.parseZone('2013-01-01-13:00', 'YYYY MM DD ZZ', true);
+    m = moment.parseZone('2013-01-01-12:00', 'YYYY MM DD ZZ', true);
     assert.equal(m.isValid(), false, 'accept input, format and strict flag');
-    m = moment.parseZone('2013-01-01-13:00', [
+    m = moment.parseZone('2013-01-01-12:00', [
         'DD MM YYYY ZZ',
         'YYYY MM DD ZZ',
     ]);
     assert.equal(
         m.format(),
-        '2013-01-01T00:00:00-13:00',
+        '2013-01-01T00:00:00-12:00',
         'accept input and array of formats'
     );
 });

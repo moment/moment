@@ -13,6 +13,7 @@ import toInt from '../utils/to-int';
 import isUndefined from '../utils/is-undefined';
 import compareArrays from '../utils/compare-arrays';
 import { hooks } from '../utils/hooks';
+import getParsingFlags from '../create/parsing-flags';
 
 // FORMATTING
 
@@ -41,8 +42,12 @@ offset('ZZ', '');
 addRegexToken('Z', matchShortOffset);
 addRegexToken('ZZ', matchShortOffset);
 addParseToken(['Z', 'ZZ'], function (input, array, config) {
+    var offset = offsetFromString(matchShortOffset, input);
     config._useUTC = true;
-    config._tzm = offsetFromString(matchShortOffset, input);
+    config._tzm = offset;
+    if (offset === null) {
+        getParsingFlags(config).invalidOffset = input;
+    }
 });
 
 // HELPERS
@@ -65,6 +70,13 @@ function offsetFromString(matcher, string) {
     chunk = matches[matches.length - 1] || [];
     parts = (chunk + '').match(chunkOffset) || ['-', 0, 0];
     minutes = +(parts[1] * 60) + toInt(parts[2]);
+
+    if (
+        toInt(parts[2]) > 59 ||
+        (parts[0] === '+' ? minutes > 14 * 60 : minutes > 12 * 60)
+    ) {
+        return null;
+    }
 
     return minutes === 0 ? 0 : parts[0] === '+' ? minutes : -minutes;
 }

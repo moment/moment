@@ -1,0 +1,29 @@
+name: Coverage
+
+on:
+  workflow_call:
+  push:
+    branches: ['develop']
+
+permissions:
+  contents: read
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Use pnpm and Node.js
+        uses: pnpm/setup@v2
+        with:
+          cache: true
+
+      - name: Run coverage
+        run: pnpm test:coverage
+
+      - name: Report coverage to Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          file: coverage/lcov.info

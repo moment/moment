@@ -17,6 +17,7 @@ export function isValid(m) {
             !flags.empty &&
             !flags.invalidEra &&
             !flags.invalidMonth &&
+            !flags.invalidOffset &&
             !flags.invalidWeekday &&
             !flags.weekdayMismatch &&
             !flags.nullInput &&

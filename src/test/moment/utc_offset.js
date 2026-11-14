@@ -106,6 +106,58 @@ test('utcOffset shorthand hours -> minutes', function (assert) {
     assert.equal(moment().utcOffset(16).utcOffset(), 16, '16 -> 16');
 });
 
+test('parsed offset range', function (assert) {
+    var validOffsets = [
+            '-12:00',
+            '-09:30',
+            '-00:00',
+            '+00:00',
+            '+12:45',
+            '+14:00',
+        ],
+        invalidOffsets = ['-12:01', '-13:00', '+14:01', '+15:00', '+99:99'],
+        i,
+        input;
+
+    for (i = 0; i < validOffsets.length; ++i) {
+        input = '2026-09-02T00:00:00' + validOffsets[i];
+        assert.ok(moment(input, moment.ISO_8601, true).isValid(), input);
+        assert.ok(moment.parseZone(input).isValid(), input + ' in parseZone');
+    }
+
+    assert.equal(
+        moment.parseZone('2026-09-02T00:00:00-00:00').format('Z'),
+        '+00:00',
+        '-00:00 normalizes to +00:00'
+    );
+
+    for (i = 0; i < invalidOffsets.length; ++i) {
+        input = '2026-09-02T00:00:00' + invalidOffsets[i];
+        assert.notOk(moment(input).isValid(), input);
+        assert.notOk(
+            moment(input, moment.ISO_8601, true).isValid(),
+            input + ' in strict mode'
+        );
+        assert.notOk(
+            moment.parseZone(input).isValid(),
+            input + ' in parseZone'
+        );
+    }
+});
+
+test('invalid string offset setter', function (assert) {
+    var m = moment.utc('2026-09-02T00:00:00Z');
+
+    m.utcOffset('+99:99');
+
+    assert.equal(m.utcOffset(), 0, 'invalid string offset is ignored');
+    assert.equal(
+        m.format('YYYY-MM-DDTHH:mm:ssZ'),
+        '2026-09-02T00:00:00+00:00',
+        'invalid string offset does not change the moment'
+    );
+});
+
 test('isLocal, isUtc, isUtcOffset', function (assert) {
     assert.ok(moment().isLocal(), 'moment() creates objects in local time');
     assert.ok(
@@ -825,8 +877,8 @@ test('hours alignment with other zone', function (assert) {
 });
 
 test('parse zone', function (assert) {
-    var m = moment('2013-01-01T00:00:00-13:00').parseZone();
-    assert.equal(m.utcOffset(), -13 * 60);
+    var m = moment('2013-01-01T00:00:00-12:00').parseZone();
+    assert.equal(m.utcOffset(), -12 * 60);
     assert.equal(m.hours(), 0);
 });
 
@@ -837,28 +889,28 @@ test('parse UTC zone', function (assert) {
 });
 
 test('parse zone static', function (assert) {
-    var m = moment.parseZone('2013-01-01T00:00:00-13:00');
-    assert.equal(m.utcOffset(), -13 * 60);
+    var m = moment.parseZone('2013-01-01T00:00:00-12:00');
+    assert.equal(m.utcOffset(), -12 * 60);
     assert.equal(m.hours(), 0);
 });
 
 test('parse zone with more arguments', function (assert) {
     var m;
-    m = moment.parseZone('2013 01 01 05 -13:00', 'YYYY MM DD HH ZZ');
+    m = moment.parseZone('2013 01 01 05 -12:00', 'YYYY MM DD HH ZZ');
     assert.equal(
         m.format(),
-        '2013-01-01T05:00:00-13:00',
+        '2013-01-01T05:00:00-12:00',
         'accept input and format'
     );
-    m = moment.parseZone('2013-01-01-13:00', 'YYYY MM DD ZZ', true);
+    m = moment.parseZone('2013-01-01-12:00', 'YYYY MM DD ZZ', true);
     assert.equal(m.isValid(), false, 'accept input, format and strict flag');
-    m = moment.parseZone('2013-01-01-13:00', [
+    m = moment.parseZone('2013-01-01-12:00', [
         'DD MM YYYY ZZ',
         'YYYY MM DD ZZ',
     ]);
     assert.equal(
         m.format(),
-        '2013-01-01T00:00:00-13:00',
+        '2013-01-01T00:00:00-12:00',
         'accept input and array of formats'
     );
 });

@@ -4,8 +4,8 @@ import moment from '../../moment';
 module('duration from moments');
 
 test('pure year diff', function (assert) {
-    var m1 = moment('2012-01-01T00:00:00.000Z'),
-        m2 = moment('2013-01-01T00:00:00.000Z');
+    var m1 = moment.utc('2012-01-01T00:00:00.000Z'),
+        m2 = moment.utc('2013-01-01T00:00:00.000Z');
 
     assert.equal(
         moment.duration({ from: m1, to: m2 }).as('years'),

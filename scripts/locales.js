@@ -10,14 +10,20 @@ function help() {
     console.log(process.argv[1], '[list|mention|find-commenters] ARGS');
     console.log();
     console.log('    list      show all authors in all locales');
-    console.log('    mention   show all authors in all locales, ready to copy-paste in github issue');
-    console.log('    find-commenters #ID  finds all people that participated in a github conversation');
+    console.log(
+        '    mention   show all authors in all locales, ready to copy-paste in github issue'
+    );
+    console.log(
+        '    find-commenters #ID  finds all people that participated in a github conversation'
+    );
 }
 
 function extract() {
     var authors = {};
     fs.readdirSync(localeDir).forEach(function (locale) {
-        var content = fs.readFileSync(path.join(localeDir, locale), {encoding: 'utf-8'}),
+        var content = fs.readFileSync(path.join(localeDir, locale), {
+                encoding: 'utf-8',
+            }),
             localeCode = locale.split('.')[0],
             localeAuthors = [];
         content.split('\n').forEach(function (line) {
@@ -53,27 +59,38 @@ function list() {
 function mention() {
     var authors = extract();
     Object.keys(authors).forEach(function (localeCode) {
-        console.log('- [ ]', localeCode, authors[localeCode].map(function (author) { return '@' + author; }).join(' '));
+        console.log(
+            '- [ ]',
+            localeCode,
+            authors[localeCode]
+                .map(function (author) {
+                    return '@' + author;
+                })
+                .join(' ')
+        );
     });
 }
 
 function findCommenters(postId) {
-
     function fetchComments(page, callback) {
         var options = {
                 hostname: 'api.github.com',
                 port: 443,
-                path: '/repos/moment/moment/issues/' + postId + '/comments?page=' + page,
+                path:
+                    '/repos/moment/moment/issues/' +
+                    postId +
+                    '/comments?page=' +
+                    page,
                 method: 'GET',
                 headers: {
-                    'User-Agent': 'node script'
-                }
+                    'User-Agent': 'node script',
+                },
             },
             links = {};
         console.log('fetching', options.path);
         https.get(options, function (res) {
             if ('link' in res.headers) {
-                res.headers.link.split(', ').forEach(function(linkStr) {
+                res.headers.link.split(', ').forEach(function (linkStr) {
                     var pieces = linkStr.split('; ');
                     var key = pieces[1].split('=')[1];
                     var link = pieces[0];
@@ -82,7 +99,8 @@ function findCommenters(postId) {
                     links[key] = link;
                 });
             }
-            var bodyChunks = [], body;
+            var bodyChunks = [],
+                body;
             res.on('data', function (chunk) {
                 bodyChunks.push(chunk);
             });

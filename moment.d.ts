@@ -1,3 +1,5 @@
+// TypeScript 1.x, 2.x, and 3.0 declarations. TypeScript 3.1+ uses ts3.1-typings/moment.d.ts.
+
 /**
  * @param strict Strict parsing disables the deprecated fallback to the native Date constructor when
  * parsing a string.

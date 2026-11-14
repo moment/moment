@@ -9,6 +9,7 @@ function defaultParsingFlags() {
         nullInput: false,
         invalidEra: null,
         invalidMonth: null,
+        invalidOffset: null,
         invalidFormat: false,
         userInvalidated: false,
         iso: false,

@@ -83,9 +83,28 @@ var defaultLocaleMonths =
         'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
     MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/,
     defaultMonthsShortRegex = matchWord,
-    defaultMonthsRegex = matchWord;
+    defaultMonthsRegex = matchWord,
+    monthsParseProperties = [
+        'monthsParse',
+        'longMonthsParse',
+        'shortMonthsParse',
+        'monthsRegex',
+        'monthsShortRegex',
+        'monthsStrictRegex',
+        'monthsShortStrictRegex',
+    ];
 
 export { defaultLocaleMonths, defaultLocaleMonthsShort };
+
+export function clearMonthsParseCache(locale, config) {
+    var i, prop;
+    for (i = 0; i < monthsParseProperties.length; i++) {
+        prop = monthsParseProperties[i];
+        if (!hasOwnProp(config, prop)) {
+            delete locale['_' + prop];
+        }
+    }
+}
 
 export function localeMonths(m, format) {
     if (!m) {

@@ -1,0 +1,3 @@
+{
+  "ignores": ["CHANGELOG.md", "node_modules/**", "build/**", "coverage/**"],
+}

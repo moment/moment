@@ -109,6 +109,7 @@ test('format', function (assert) {
             ['M Mo MM MMMM MMM', '2 2. 02 luty lut'],
             ['YYYY YY', '2010 10'],
             ['D Do DD', '14 14. 14'],
+            ['D. MMMM', '14. lutego'],
             ['d do dddd ddd dd', '0 0. niedziela ndz Nd'],
             ['DDD DDDo DDDD', '45 45. 045'],
             ['w wo ww', '6 6. 06'],

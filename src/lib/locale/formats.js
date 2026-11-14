@@ -11,13 +11,22 @@ export var defaultLongDateFormat = {
 
 export function longDateFormat(key) {
     var format = this._longDateFormat[key],
-        formatUpper = this._longDateFormat[key.toUpperCase()];
+        formatUpper = this._longDateFormat[key.toUpperCase()],
+        formatCache = this._longDateFormatCache;
 
     if (format || !formatUpper) {
         return format;
     }
 
-    this._longDateFormat[key] = formatUpper
+    if (
+        formatCache &&
+        formatCache[key] &&
+        formatCache[key].formatUpper === formatUpper
+    ) {
+        return formatCache[key].format;
+    }
+
+    format = formatUpper
         .match(formattingTokens)
         .map(function (tok) {
             if (
@@ -32,5 +41,12 @@ export function longDateFormat(key) {
         })
         .join('');
 
-    return this._longDateFormat[key];
+    if (!formatCache) {
+        formatCache = this._longDateFormatCache = {};
+    }
+    formatCache[key] = {
+        formatUpper: formatUpper,
+        format: format,
+    };
+    return format;
 }

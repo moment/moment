@@ -307,6 +307,33 @@ test('suffix', function (assert) {
     assert.equal(moment(0).from(30000), 'néhány másodperce', 'suffix');
 });
 
+test('from ss threshold set', function (assert) {
+    var start = moment([2007, 1, 28]),
+        s = moment.relativeTimeThreshold('s'),
+        ss = moment.relativeTimeThreshold('ss');
+    moment.relativeTimeThreshold('s', 45);
+    moment.relativeTimeThreshold('ss', 10);
+
+    assert.equal(
+        start.from(moment([2007, 1, 28]).add({ s: 11 }), true),
+        '11 másodperc',
+        '11 seconds = 11 seconds'
+    );
+    assert.equal(
+        moment(0).from(11000),
+        '11 másodperce',
+        '11 seconds ago with suffix'
+    );
+    assert.equal(
+        moment(11000).from(0),
+        '11 másodperc múlva',
+        '11 seconds future with suffix'
+    );
+
+    moment.relativeTimeThreshold('s', s);
+    moment.relativeTimeThreshold('ss', ss);
+});
+
 test('now from now', function (assert) {
     assert.equal(
         moment().fromNow(),

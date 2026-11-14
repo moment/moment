@@ -1266,6 +1266,7 @@ test('parsing iso', function (assert) {
                 : '-' + pad(-hourOffset) + ':' + pad(-minOffset);
         },
         tz = offStr(offset),
+        tzOct1 = offStr(moment([2011, 9, 1]).utcOffset()),
         tz0 = offStr(moment([2011, 0, 1]).utcOffset()),
         tz2 = tz.replace(':', ''),
         tz3 = tz2.slice(0, 3),
@@ -1278,7 +1279,7 @@ test('parsing iso', function (assert) {
 
         formats = [
             ['2011', '2011-01-01T00:00:00.000' + tz0],
-            ['2011-10', '2011-10-01T00:00:00.000' + tz],
+            ['2011-10', '2011-10-01T00:00:00.000' + tzOct1],
             ['2011-10-08', '2011-10-08T00:00:00.000' + tz],
             ['2011-10-08T18', '2011-10-08T18:00:00.000' + tz],
             ['2011-10-08T18:04', '2011-10-08T18:04:00.000' + tz],

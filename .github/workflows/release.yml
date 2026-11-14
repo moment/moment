@@ -1,0 +1,109 @@
+name: Release
+
+on:
+  push:
+    tags: ['[0-9]+.[0-9]+.[0-9]+']
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  runtime-compatibility:
+    uses: ./.github/workflows/runtime-compatibility.yml
+
+  package:
+    needs: runtime-compatibility
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Use pnpm and Node.js
+        uses: pnpm/setup@v2
+        with:
+          cache: true
+
+      - name: Read previous release version
+        id: previous-version
+        run: |
+          git fetch origin master --depth=1
+          git show FETCH_HEAD:package.json | node -e "let data = ''; process.stdin.on('data', (chunk) => data += chunk).on('end', () => console.log('version=' + JSON.parse(data).version))" >> "$GITHUB_OUTPUT"
+
+      - name: Compare release version
+        id: semver
+        uses: madhead/semver-utils@4cf918affe9106ea59f86c6250e5ec4570ac4389 # v5.0.0
+        with:
+          version: ${{ github.ref_name }}
+          compare-to: ${{ steps.previous-version.outputs.version }}
+          lenient: false
+
+      - name: Require a newer release version
+        if: steps.semver.outputs.comparison-result != '>'
+        run: |
+          echo "::error title=Release version did not advance::Expected $RELEASE_VERSION to be greater than $PREVIOUS_VERSION."
+          exit 1
+        env:
+          PREVIOUS_VERSION: ${{ steps.previous-version.outputs.version }}
+          RELEASE_VERSION: ${{ github.ref_name }}
+
+      - name: Verify tag version
+        run: node -e "const expected = require('./package.json').version; if (process.env.GITHUB_REF_NAME !== expected) throw new Error('Expected tag ' + expected)"
+
+      - name: Validate release artifacts
+        run: |
+          pnpm release
+          if test -n "$(git status --porcelain)"; then
+            echo "::error title=Release artifacts are stale::Publication stopped because this tag does not contain the generated release files. See RELEASING.md#recovering-from-a-stale-release-tag for retagging instructions."
+            git status --short
+            git diff --stat
+            exit 1
+          fi
+
+      - name: Build package
+        run: pnpm pack
+
+      - name: Record package checksum
+        run: sha256sum moment-*.tgz > build/package.sha256
+
+      - name: Verify reproducible package
+        run: |
+          pnpm pack
+          sha256sum --check build/package.sha256
+
+      - name: Install package
+        run: |
+          mkdir -p build/consumer
+          pnpm --dir build/consumer add "$GITHUB_WORKSPACE"/moment-*.tgz
+
+      - name: Test installed package
+        run: pnpm release:check-package build/consumer/node_modules/moment
+
+      - name: Test installed TypeScript declarations
+        run: pnpm release:check-typescript build/consumer/node_modules/moment
+
+      - name: Upload package
+        uses: actions/upload-artifact@v6
+        with:
+          name: moment-${{ github.run_id }}
+          path: |
+            moment-*.tgz
+            build/package.sha256
+          if-no-files-found: error
+
+      - name: Publish npm package
+        run: |
+          pnpm config set //registry.npmjs.org/:_authToken "$NODE_AUTH_TOKEN"
+          pnpm publish ./moment-*.tgz --access public --provenance --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Update master to release tag
+        run: git push origin HEAD:refs/heads/master

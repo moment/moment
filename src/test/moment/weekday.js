@@ -46,6 +46,26 @@ test('iso weekday', function (assert) {
     }
 });
 
+test('compact locale weekday and time parsing', function (assert) {
+    moment.locale('en');
+
+    [false, true].forEach(function (strict) {
+        var compact = moment('21530', 'eHHmm', strict),
+            padded = moment('021530', 'eHHmm', strict),
+            mode = strict ? 'strict' : 'non-strict';
+
+        assert.ok(compact.isValid(), mode + ' compact input is valid');
+        assert.equal(compact.weekday(), 2, mode + ' compact weekday');
+        assert.equal(compact.hour(), 15, mode + ' compact hour');
+        assert.equal(compact.minute(), 30, mode + ' compact minute');
+
+        assert.ok(padded.isValid(), mode + ' padded input remains valid');
+        assert.equal(padded.weekday(), 2, mode + ' padded weekday');
+        assert.equal(padded.hour(), 15, mode + ' padded hour');
+        assert.equal(padded.minute(), 30, mode + ' padded minute');
+    });
+});
+
 test('iso weekday setter', function (assert) {
     var a = moment([2011, 0, 10]);
     assert.equal(moment(a).isoWeekday(1).date(), 10, 'set from mon to mon');

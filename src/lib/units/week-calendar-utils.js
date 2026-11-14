@@ -36,20 +36,20 @@ export function dayOfYearFromWeeks(year, week, weekday, dow, doy) {
     };
 }
 
-export function weekOfYear(mom, dow, doy) {
-    var weekOffset = firstWeekOffset(mom.year(), dow, doy),
-        week = Math.floor((mom.dayOfYear() - weekOffset - 1) / 7) + 1,
+function weekOfYearFromDayOfYear(year, dayOfYear, dow, doy) {
+    var weekOffset = firstWeekOffset(year, dow, doy),
+        week = Math.floor((dayOfYear - weekOffset - 1) / 7) + 1,
         resWeek,
         resYear;
 
     if (week < 1) {
-        resYear = mom.year() - 1;
+        resYear = year - 1;
         resWeek = week + weeksInYear(resYear, dow, doy);
-    } else if (week > weeksInYear(mom.year(), dow, doy)) {
-        resWeek = week - weeksInYear(mom.year(), dow, doy);
-        resYear = mom.year() + 1;
+    } else if (week > weeksInYear(year, dow, doy)) {
+        resWeek = week - weeksInYear(year, dow, doy);
+        resYear = year + 1;
     } else {
-        resYear = mom.year();
+        resYear = year;
         resWeek = week;
     }
 
@@ -57,6 +57,20 @@ export function weekOfYear(mom, dow, doy) {
         week: resWeek,
         year: resYear,
     };
+}
+
+export function weekOfYear(mom, dow, doy) {
+    return weekOfYearFromDayOfYear(mom.year(), mom.dayOfYear(), dow, doy);
+}
+
+export function weekOfYearFromDate(year, month, date, dow, doy) {
+    var dayOfYear =
+        Math.round(
+            (createUTCDate(year, month, date) - createUTCDate(year, 0, 1)) /
+                864e5
+        ) + 1;
+
+    return weekOfYearFromDayOfYear(year, dayOfYear, dow, doy);
 }
 
 export function weeksInYear(year, dow, doy) {

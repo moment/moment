@@ -2,9 +2,13 @@ import isFunction from '../utils/is-function';
 import extend from '../utils/extend';
 import isObject from '../utils/is-object';
 import hasOwnProp from '../utils/has-own-prop';
+import { clearMonthsParseCache } from '../units/month';
+import { clearWeekdaysParseCache } from '../units/day-of-week';
 
 export function set(config) {
     var prop, i;
+    clearMonthsParseCache(this, config);
+    clearWeekdaysParseCache(this, config);
     for (i in config) {
         if (hasOwnProp(config, i)) {
             prop = config[i];

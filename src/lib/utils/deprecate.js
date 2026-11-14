@@ -60,7 +60,7 @@ export function deprecateSimple(name, msg) {
         hooks.deprecationHandler(name, msg);
     }
     if (!deprecations[name]) {
-        warn(msg);
+        warn(msg + '\n' + new Error().stack);
         deprecations[name] = true;
     }
 }

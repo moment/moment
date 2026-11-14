@@ -1,0 +1,44 @@
+name: Build and test
+
+on:
+  pull_request:
+    branches: ['develop']
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    name: CI
+    uses: ./.github/workflows/ci.yml
+
+  coverage:
+    name: Coverage
+    uses: ./.github/workflows/coverage.yml
+
+  runtime-compatibility:
+    name: Runtime compatibility
+    uses: ./.github/workflows/runtime-compatibility.yml
+
+  timezones:
+    name: Time zones
+    uses: ./.github/workflows/timezones.yml
+
+  required:
+    name: All passed
+    if: ${{ always() }}
+    needs: [ci, coverage, runtime-compatibility, timezones]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Verify build and test results
+        env:
+          CI_RESULT: ${{ needs.ci.result }}
+          COVERAGE_RESULT: ${{ needs.coverage.result }}
+          RUNTIME_COMPATIBILITY_RESULT: ${{ needs.runtime-compatibility.result }}
+          TIMEZONES_RESULT: ${{ needs.timezones.result }}
+        run: |
+          test "$CI_RESULT" = success
+          test "$COVERAGE_RESULT" = success
+          test "$RUNTIME_COMPATIBILITY_RESULT" = success
+          test "$TIMEZONES_RESULT" = success

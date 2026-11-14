@@ -2,5 +2,4 @@
 moment = this.moment;
 try {
     delete this.moment;
-} catch (e) {
-}
+} catch (e) {}

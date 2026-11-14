@@ -2,7 +2,7 @@ import { hooks } from '../utils/hooks';
 import { createDate, createUTCDate } from './date-from-array';
 import { daysInYear } from '../units/year';
 import {
-    weekOfYear,
+    weekOfYearFromDate,
     weeksInYear,
     dayOfYearFromWeeks,
 } from '../units/week-calendar-utils';
@@ -19,9 +19,46 @@ import { createLocal } from './local';
 import defaults from '../utils/defaults';
 import getParsingFlags from './parsing-flags';
 
-function currentDateArray(config) {
+function currentDateArray(config, now, forWeek) {
+    var hadWeekContext = Object.prototype.hasOwnProperty.call(
+            config,
+            '_isDefaultDatePartsForWeek'
+        ),
+        weekContext = config._isDefaultDatePartsForWeek;
+
     // hooks is actually the exported moment object
-    var nowValue = new Date(hooks.now());
+    config._isDefaultDatePartsForWeek = !!forWeek;
+    try {
+        return hooks._getDefaultDateParts(config, now, forWeek);
+    } finally {
+        if (hadWeekContext) {
+            config._isDefaultDatePartsForWeek = weekContext;
+        } else {
+            delete config._isDefaultDatePartsForWeek;
+        }
+    }
+}
+
+function currentDateNow(config) {
+    var now = config._defaultDatePartsNow;
+
+    if (!now) {
+        return hooks.now();
+    }
+    if (!now.hasValue) {
+        now.value = hooks.now();
+        now.hasValue = true;
+    }
+    return now.value;
+}
+
+// Internal hook for extensions that supply omitted calendar fields.
+function getDefaultDateParts(config, now, forWeek) {
+    var useWeekDefaults = forWeek || config._isDefaultDatePartsForWeek,
+        nowValue = useWeekDefaults ? createLocal(now) : new Date(now);
+    if (useWeekDefaults) {
+        return [nowValue.year(), nowValue.month(), nowValue.date()];
+    }
     if (config._useUTC) {
         return [
             nowValue.getUTCFullYear(),
@@ -32,6 +69,8 @@ function currentDateArray(config) {
     return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
 }
 
+hooks._getDefaultDateParts = getDefaultDateParts;
+
 // convert an array to a date.
 // the array should mirror the parameters below
 // note: all values past the year are optional and will default to the lowest possible value.
@@ -40,24 +79,34 @@ export function configFromArray(config) {
     var i,
         date,
         input = [],
+        now,
         currentDate,
         expectedWeekday,
-        yearToUse;
+        yearToUse,
+        dateIsDefaulted;
 
     if (config._d) {
         return;
     }
 
-    currentDate = currentDateArray(config);
+    if (
+        config._a[YEAR] == null ||
+        config._a[MONTH] == null ||
+        config._a[DATE] == null
+    ) {
+        now = currentDateNow(config);
+        currentDate = currentDateArray(config, now);
+    }
 
     //compute day of the year from weeks and weekdays
     if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
-        dayOfYearFromWeekInfo(config);
+        dayOfYearFromWeekInfo(config, currentDateArray(config, now, true));
     }
 
     //if the day of the year is set, figure out what it is
     if (config._dayOfYear != null) {
-        yearToUse = defaults(config._a[YEAR], currentDate[YEAR]);
+        yearToUse =
+            config._a[YEAR] != null ? config._a[YEAR] : currentDate[YEAR];
 
         if (
             config._dayOfYear > daysInYear(yearToUse) ||
@@ -70,6 +119,11 @@ export function configFromArray(config) {
         config._a[MONTH] = date.getUTCMonth();
         config._a[DATE] = date.getUTCDate();
     }
+
+    dateIsDefaulted =
+        config._a[YEAR] == null ||
+        config._a[MONTH] == null ||
+        config._a[DATE] == null;
 
     // Default to current date.
     // * if no year, month, day of month are given, default to today
@@ -119,13 +173,14 @@ export function configFromArray(config) {
     if (
         config._w &&
         typeof config._w.d !== 'undefined' &&
+        !dateIsDefaulted &&
         config._w.d !== expectedWeekday
     ) {
         getParsingFlags(config).weekdayMismatch = true;
     }
 }
 
-function dayOfYearFromWeekInfo(config) {
+function dayOfYearFromWeekInfo(config, currentDate) {
     var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow, curWeek;
 
     w = config._w;
@@ -140,7 +195,13 @@ function dayOfYearFromWeekInfo(config) {
         weekYear = defaults(
             w.GG,
             config._a[YEAR],
-            weekOfYear(createLocal(), 1, 4).year
+            weekOfYearFromDate(
+                currentDate[YEAR],
+                currentDate[MONTH],
+                currentDate[DATE],
+                1,
+                4
+            ).year
         );
         week = defaults(w.W, 1);
         weekday = defaults(w.E, 1);
@@ -151,7 +212,13 @@ function dayOfYearFromWeekInfo(config) {
         dow = config._locale._week.dow;
         doy = config._locale._week.doy;
 
-        curWeek = weekOfYear(createLocal(), dow, doy);
+        curWeek = weekOfYearFromDate(
+            currentDate[YEAR],
+            currentDate[MONTH],
+            currentDate[DATE],
+            dow,
+            doy
+        );
 
         weekYear = defaults(w.gg, config._a[YEAR], curWeek.year);
 

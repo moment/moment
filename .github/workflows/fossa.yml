@@ -1,0 +1,33 @@
+name: FOSSA
+
+on:
+  push:
+    branches: ['develop']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  license-scan:
+    name: License scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Use pnpm and Node.js
+        uses: pnpm/setup@v2
+        with:
+          cache: true
+
+      - name: Analyze dependencies
+        uses: fossas/fossa-action@v2
+        with:
+          api-key: ${{ secrets.FOSSA_API_KEY }}
+
+      - name: Test license policy
+        uses: fossas/fossa-action@v2
+        with:
+          api-key: ${{ secrets.FOSSA_API_KEY }}
+          run-tests: true

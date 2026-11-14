@@ -1,9 +1,9 @@
 var Benchmark = require('benchmark'),
-    moment = require("./../moment.js");
+    moment = require('./../moment.js');
 
-var isObjectEmpty_getOwnPropertyNames = function(obj) {
+var isObjectEmpty_getOwnPropertyNames = function (obj) {
     if (Object.getOwnPropertyNames) {
-        return (Object.getOwnPropertyNames(obj).length === 0);
+        return Object.getOwnPropertyNames(obj).length === 0;
     } else {
         var k;
         for (k in obj) {
@@ -15,9 +15,9 @@ var isObjectEmpty_getOwnPropertyNames = function(obj) {
     }
 };
 
-var isObjectEmpty_keys = function(obj) {
+var isObjectEmpty_keys = function (obj) {
     if (Object.keys) {
-        return (Object.keys(obj).length === 0);
+        return Object.keys(obj).length === 0;
     } else {
         var k;
         for (k in obj) {
@@ -29,7 +29,7 @@ var isObjectEmpty_keys = function(obj) {
     }
 };
 
-var isObjectEmpty_forIn = function(obj) {
+var isObjectEmpty_forIn = function (obj) {
     var k;
     for (k in obj) {
         if (obj.hasOwnProperty(k)) {
@@ -38,30 +38,30 @@ var isObjectEmpty_forIn = function(obj) {
     }
     return true;
 };
-    
+
 module.exports = {
     name: 'isObjectEmpty',
     tests: {
-        "isObjectEmpty -> for..in": {
-            onComplete: function(){},
-            fn: function(){        
+        'isObjectEmpty -> for..in': {
+            onComplete: function () {},
+            fn: function () {
                 isObjectEmpty_forIn(moment());
             },
-            async: false
+            async: false,
         },
-        "isObjectEmpty -> Object.keys": {
-            onComplete: function(){},
-            fn: function(){        
+        'isObjectEmpty -> Object.keys': {
+            onComplete: function () {},
+            fn: function () {
                 isObjectEmpty_keys(moment());
             },
-            async: false
+            async: false,
         },
-        "isObjectEmpty -> Object.getOwnPropertyNames": {
-            onComplete: function(){},
-            fn: function(){        
+        'isObjectEmpty -> Object.getOwnPropertyNames': {
+            onComplete: function () {},
+            fn: function () {
                 isObjectEmpty_getOwnPropertyNames(moment());
             },
-            async: false
-        }    
-    }
+            async: false,
+        },
+    },
 };

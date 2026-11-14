@@ -1,0 +1,76 @@
+name: Locale correction
+description: Report incorrect locale data or locale-specific behavior
+title: '[Locale] '
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Moment.js uses the latest published Unicode CLDR data as its preferred
+        baseline. Differences from CLDR can be accepted when strong evidence
+        shows that another convention is better supported. Sources are helpful
+        but are not required; maintainers will independently validate reports.
+
+  - type: checkboxes
+    id: prerequisites
+    attributes:
+      label: Prerequisites
+      options:
+        - label: I searched existing issues for this locale behavior.
+          required: true
+        - label: I reproduced the behavior with the latest Moment.js release.
+          required: true
+        - label: If this behavior was previously discussed, I addressed the prior decision and explained what has changed.
+          required: true
+
+  - type: input
+    id: locale
+    attributes:
+      label: Locale
+      description: Provide the Moment.js locale identifier.
+      placeholder: pt-br
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: Current behavior
+      description: Provide code or steps and the exact output Moment.js currently produces.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: Provide the exact expected output.
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Language or cultural context
+      description: Explain the relevant grammar, notation, calendar rule, or other convention.
+    validations:
+      required: true
+
+  - type: textarea
+    id: sources
+    attributes:
+      label: Supporting sources
+      description: Optionally link to CLDR, standards, dictionaries, style guides, official calendars, or evidence of contemporary usage. For a repeated proposal, explain what new context or evidence supports reconsideration.
+
+  - type: input
+    id: moment-version
+    attributes:
+      label: Moment.js version
+      placeholder: 2.30.1
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Include any other forms, dates, or boundary cases affected.

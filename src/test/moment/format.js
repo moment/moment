@@ -868,6 +868,19 @@ test('Hmm and Hmmss', function (assert) {
     assert.equal(moment('18:34:56', 'HH:mm:ss').format('Hmmss'), '183456');
 });
 
+test('eHHmm', function (assert) {
+    assert.equal(
+        moment('2026-08-18 15:30', 'YYYY-MM-DD HH:mm').format('eHHmm'),
+        '21530',
+        'locale weekday with compact time'
+    );
+    assert.equal(
+        moment('15:30', 'HH:mm').format('\\eHHmm'),
+        'e1530',
+        'escaped e remains separate from HHmm'
+    );
+});
+
 test('k and kk', function (assert) {
     assert.equal(moment('01:23:45', 'HH:mm:ss').format('k'), '1');
     assert.equal(moment('12:34:56', 'HH:mm:ss').format('k'), '12');
@@ -939,13 +952,33 @@ test('does not modify original moment instance', function (assert) {
     );
 
     assert.deepEqual(
-        moment(new Date('2020-08-11 23:59:59'))
+        moment([2020, 7, 11, 23, 59, 59])
             .format('yyyy-MM-DD HH:mm:ss')
             .split(' '),
-        moment(new Date('2020-08-11 23:59:59'))
+        moment([2020, 7, 11, 23, 59, 59])
             .format('HH:mm:ss yyyy-MM-DD')
             .split(' ')
             .reverse(),
         'issue #5681 regression'
+    );
+});
+
+test('format strings matching Object prototype keys', function (assert) {
+    var m = moment([2025, 2, 16, 12, 34, 56, 789]);
+
+    assert.equal(
+        m.format('constructor'),
+        'con56tructor',
+        'constructor is treated as a format string'
+    );
+    assert.equal(
+        m.format('toString'),
+        'to7tring',
+        'toString is treated as a format string'
+    );
+    assert.equal(
+        m.format('__proto__'),
+        '__proto__',
+        '__proto__ is treated as a format string'
     );
 });

@@ -33,7 +33,7 @@ export default moment.defineLocale('uz-latn', {
     },
     relativeTime: {
         future: 'Yaqin %s ichida',
-        past: 'Bir necha %s oldin',
+        past: '%s oldin',
         s: 'soniya',
         ss: '%d soniya',
         m: 'bir daqiqa',

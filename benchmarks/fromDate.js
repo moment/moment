@@ -3,10 +3,10 @@ var Benchmark = require('benchmark'),
     base = new Date();
 
 module.exports = {
-  name: 'fromDate',
-  onComplete: function(){},
-  fn: function(){
-      moment(base);
-  },
-  async: true
+    name: 'fromDate',
+    onComplete: function () {},
+    fn: function () {
+        moment(base);
+    },
+    async: true,
 };

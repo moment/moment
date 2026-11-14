@@ -1,5 +1,7 @@
-Packaging [Moment](momentjs.org) for [Meteor.js](http://meteor.com).
+# Moment for Meteor
 
-# Issues
+This package provides [Moment](https://momentjs.com/) for
+[Meteor.js](https://www.meteor.com/).
 
-If you encounter an issue while using this package, please CC @dandv when you file it in this repo.
+It gets published to
+[`momentjs:moment`](https://atmospherejs.com/momentjs/moment) on Atmosphere.

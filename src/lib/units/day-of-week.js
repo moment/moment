@@ -3,11 +3,14 @@ import { addFormatToken } from '../format/format';
 import {
     addRegexToken,
     match1to2,
+    match5to6,
     matchWord,
     regexEscape,
 } from '../parse/regex';
 import { addWeekParseToken } from '../parse/token';
+import { HOUR, MINUTE } from './constants';
 import toInt from '../utils/to-int';
+import zeroFill from '../utils/zero-fill';
 import isArray from '../utils/is-array';
 import indexOf from '../utils/index-of';
 import hasOwnProp from '../utils/has-own-prop';
@@ -32,12 +35,21 @@ addFormatToken('dddd', 0, 0, function (format) {
 
 addFormatToken('e', 0, 0, 'weekday');
 addFormatToken('E', 0, 0, 'isoWeekday');
+addFormatToken('eHHmm', 0, 0, function () {
+    return (
+        '' +
+        this.weekday() +
+        zeroFill(this.hours(), 2) +
+        zeroFill(this.minutes(), 2)
+    );
+});
 
 // PARSING
 
 addRegexToken('d', match1to2);
 addRegexToken('e', match1to2);
 addRegexToken('E', match1to2);
+addRegexToken('eHHmm', match5to6);
 addRegexToken('dd', function (isStrict, locale) {
     return locale.weekdaysMinRegex(isStrict);
 });
@@ -60,6 +72,14 @@ addWeekParseToken(['dd', 'ddd', 'dddd'], function (input, week, config, token) {
 
 addWeekParseToken(['d', 'e', 'E'], function (input, week, config, token) {
     week[token] = toInt(input);
+});
+
+addWeekParseToken('eHHmm', function (input, week, config) {
+    var weekdayEnd = input.length - 4;
+
+    week.e = toInt(input.substr(0, weekdayEnd));
+    config._a[HOUR] = toInt(input.substr(weekdayEnd, 2));
+    config._a[MINUTE] = toInt(input.substr(weekdayEnd + 2));
 });
 
 // HELPERS
@@ -99,13 +119,35 @@ var defaultLocaleWeekdays =
     defaultLocaleWeekdaysMin = 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
     defaultWeekdaysRegex = matchWord,
     defaultWeekdaysShortRegex = matchWord,
-    defaultWeekdaysMinRegex = matchWord;
+    defaultWeekdaysMinRegex = matchWord,
+    weekdaysParseProperties = [
+        'weekdaysParse',
+        'fullWeekdaysParse',
+        'shortWeekdaysParse',
+        'minWeekdaysParse',
+        'weekdaysRegex',
+        'weekdaysShortRegex',
+        'weekdaysMinRegex',
+        'weekdaysStrictRegex',
+        'weekdaysShortStrictRegex',
+        'weekdaysMinStrictRegex',
+    ];
 
 export {
     defaultLocaleWeekdays,
     defaultLocaleWeekdaysShort,
     defaultLocaleWeekdaysMin,
 };
+
+export function clearWeekdaysParseCache(locale, config) {
+    var i, prop;
+    for (i = 0; i < weekdaysParseProperties.length; i++) {
+        prop = weekdaysParseProperties[i];
+        if (!hasOwnProp(config, prop)) {
+            delete locale['_' + prop];
+        }
+    }
+}
 
 export function localeWeekdays(m, format) {
     var weekdays = isArray(this._weekdays)

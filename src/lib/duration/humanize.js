@@ -1,4 +1,9 @@
 import { createDuration } from './create';
+import extend from '../utils/extend';
+import {
+    relativeTimeWithoutPostformat,
+    pastFutureWithoutPostformat,
+} from '../locale/relative';
 
 var round = Math.round,
     thresholds = {
@@ -13,7 +18,13 @@ var round = Math.round,
 
 // helper function for moment.fn.from, moment.fn.fromNow, and moment.duration.fn.humanize
 function substituteTimeAgo(string, number, withoutSuffix, isFuture, locale) {
-    return locale.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
+    return relativeTimeWithoutPostformat.call(
+        locale,
+        number || 1,
+        !!withoutSuffix,
+        string,
+        isFuture
+    );
 }
 
 function relativeTime(posNegDuration, withoutSuffix, thresholds, locale) {
@@ -97,7 +108,7 @@ export function humanize(argWithSuffix, argThresholds) {
         withSuffix = argWithSuffix;
     }
     if (typeof argThresholds === 'object') {
-        th = Object.assign({}, thresholds, argThresholds);
+        th = extend(extend({}, thresholds), argThresholds || {});
         if (argThresholds.s != null && argThresholds.ss == null) {
             th.ss = argThresholds.s - 1;
         }
@@ -107,7 +118,7 @@ export function humanize(argWithSuffix, argThresholds) {
     output = relativeTime(this, !withSuffix, th, locale);
 
     if (withSuffix) {
-        output = locale.pastFuture(+this, output);
+        output = pastFutureWithoutPostformat.call(locale, +this, output);
     }
 
     return locale.postformat(output);

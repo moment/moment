@@ -1,5 +1,6 @@
 import isArray from '../utils/is-array';
 import isUndefined from '../utils/is-undefined';
+import hasOwnProp from '../utils/has-own-prop';
 import { deprecateSimple } from '../utils/deprecate';
 import { mergeConfigs } from './set';
 import { Locale } from './constructor';
@@ -10,7 +11,10 @@ import { baseConfig } from './base-config';
 // internal storage for locale config files
 var locales = {},
     localeFamilies = {},
-    globalLocale;
+    globalLocale,
+    // Cap chooseLocale's prefix walk: real tags have few subtags, so this bounds an
+    // excessively long, hyphen-heavy name without changing resolution for valid locales.
+    MAX_LOCALE_SUBTAGS = 50;
 
 function commonPrefix(arr1, arr2) {
     var i,
@@ -39,7 +43,7 @@ function chooseLocale(names) {
 
     while (i < names.length) {
         split = normalizeLocale(names[i]).split('-');
-        j = split.length;
+        j = Math.min(split.length, MAX_LOCALE_SUBTAGS);
         next = normalizeLocale(names[i + 1]);
         next = next ? next.split('-') : null;
         while (j > 0) {
@@ -63,34 +67,49 @@ function chooseLocale(names) {
 }
 
 function isLocaleNameSane(name) {
-    // Prevent names that look like filesystem paths, i.e contain '/' or '\'
-    // Ensure name is available and function returns boolean
-    return !!(name && name.match('^[^/\\\\]*$'));
+    // Only canonical locale module names are safe to append to the require path.
+    return typeof name === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(name);
 }
 
 function loadLocale(name) {
     var oldLocale = null,
-        aliasedRequire;
+        aliasedRequire,
+        normalizedName;
+
+    // Preserve exact custom locale names before trying the canonical built-in name.
+    // Use hasOwnProp rather than a plain lookup so that names like "__proto__",
+    // "constructor", or "prototype" can't resolve to an inherited Object.prototype
+    // property instead of a real (or missing) locale entry.
+    if (hasOwnProp(locales, name)) {
+        return locales[name];
+    }
+
+    normalizedName = normalizeLocale(name);
+    if (hasOwnProp(locales, normalizedName)) {
+        return locales[normalizedName];
+    }
+
     // TODO: Find a better way to register and load all the locales in Node
     if (
-        locales[name] === undefined &&
         typeof module !== 'undefined' &&
         module &&
         module.exports &&
-        isLocaleNameSane(name)
+        isLocaleNameSane(normalizedName)
     ) {
         try {
             oldLocale = globalLocale._abbr;
             aliasedRequire = require;
-            aliasedRequire('./locale/' + name);
+            aliasedRequire('./locale/' + normalizedName);
             getSetGlobalLocale(oldLocale);
         } catch (e) {
             // mark as not found to avoid repeating expensive file require call causing high CPU
             // when trying to find en-US, en_US, en-us for every format call
-            locales[name] = null; // null means not found
+            locales[normalizedName] = null; // null means not found
         }
     }
-    return locales[name];
+    if (hasOwnProp(locales, normalizedName)) {
+        return locales[normalizedName];
+    }
 }
 
 // This function will load locale and then set the global locale.  If
@@ -176,17 +195,20 @@ export function defineLocale(name, config) {
 }
 
 export function updateLocale(name, config) {
-    if (config != null) {
-        var locale,
-            tmpLocale,
-            parentConfig = baseConfig;
+    var locale,
+        tmpLocale = loadLocale(name),
+        parentConfig = baseConfig;
 
+    if (tmpLocale != null) {
+        name = tmpLocale._abbr;
+    }
+
+    if (config != null) {
         if (locales[name] != null && locales[name].parentLocale != null) {
             // Update existing child locale in-place to avoid memory-leaks
             locales[name].set(mergeConfigs(locales[name]._config, config));
         } else {
             // MERGE
-            tmpLocale = loadLocale(name);
             if (tmpLocale != null) {
                 parentConfig = tmpLocale._config;
             }

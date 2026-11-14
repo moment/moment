@@ -177,27 +177,27 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ m: 45 }), true),
-        'saa limoja',
+        'saa moja',
         '45 minutes = an hour'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ m: 89 }), true),
-        'saa limoja',
+        'saa moja',
         '89 minutes = an hour'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ m: 90 }), true),
-        'masaa 2',
+        'saa 2',
         '90 minutes = 2 hours'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ h: 5 }), true),
-        'masaa 5',
+        'saa 5',
         '5 hours = 5 hours'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ h: 21 }), true),
-        'masaa 21',
+        'saa 21',
         '21 hours = 21 hours'
     );
     assert.equal(
@@ -295,6 +295,37 @@ test('from', function (assert) {
 test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'hivi punde baadaye', 'prefix');
     assert.equal(moment(0).from(30000), 'tokea hivi punde', 'suffix');
+    assert.equal(
+        moment(0).from(35 * 60 * 1000),
+        'dakika 35 zilizopita',
+        'past relative suffix'
+    );
+});
+
+test('past relative time', function (assert) {
+    var locale = moment.localeData(),
+        expected = [
+            ['ss', 2, 'sekunde 2 zilizopita'],
+            ['m', 1, 'dakika moja iliyopita'],
+            ['mm', 2, 'dakika 2 zilizopita'],
+            ['h', 1, 'saa moja iliyopita'],
+            ['hh', 2, 'saa 2 zilizopita'],
+            ['d', 1, 'siku moja iliyopita'],
+            ['dd', 2, 'siku 2 zilizopita'],
+            ['M', 1, 'mwezi mmoja uliopita'],
+            ['MM', 2, 'miezi 2 iliyopita'],
+            ['y', 1, 'mwaka mmoja uliopita'],
+            ['yy', 2, 'miaka 2 iliyopita'],
+        ],
+        i;
+
+    for (i = 0; i < expected.length; i++) {
+        assert.equal(
+            locale.relativeTime(expected[i][1], false, expected[i][0], false),
+            expected[i][2],
+            expected[i][0]
+        );
+    }
 });
 
 test('now from now', function (assert) {
@@ -358,19 +389,19 @@ test('calendar next week', function (assert) {
         m = moment().add({ d: i });
         assert.equal(
             m.calendar(),
-            m.format('[wiki ijayo] dddd [saat] LT'),
+            m.format('dddd [ijayo saa] LT'),
             'Today + ' + i + ' days current time'
         );
         m.hours(0).minutes(0).seconds(0).milliseconds(0);
         assert.equal(
             m.calendar(),
-            m.format('[wiki ijayo] dddd [saat] LT'),
+            m.format('dddd [ijayo saa] LT'),
             'Today + ' + i + ' days beginning of day'
         );
         m.hours(23).minutes(59).seconds(59).milliseconds(999);
         assert.equal(
             m.calendar(),
-            m.format('[wiki ijayo] dddd [saat] LT'),
+            m.format('dddd [ijayo saa] LT'),
             'Today + ' + i + ' days end of day'
         );
     }
@@ -383,19 +414,19 @@ test('calendar last week', function (assert) {
         m = moment().subtract({ d: i });
         assert.equal(
             m.calendar(),
-            m.format('[wiki iliyopita] dddd [saat] LT'),
+            m.format('dddd [iliyopita saa] LT'),
             'Today - ' + i + ' days current time'
         );
         m.hours(0).minutes(0).seconds(0).milliseconds(0);
         assert.equal(
             m.calendar(),
-            m.format('[wiki iliyopita] dddd [saat] LT'),
+            m.format('dddd [iliyopita saa] LT'),
             'Today - ' + i + ' days beginning of day'
         );
         m.hours(23).minutes(59).seconds(59).milliseconds(999);
         assert.equal(
             m.calendar(),
-            m.format('[wiki iliyopita] dddd [saat] LT'),
+            m.format('dddd [iliyopita saa] LT'),
             'Today - ' + i + ' days end of day'
         );
     }

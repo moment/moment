@@ -14,12 +14,10 @@ export function bubble() {
 
     // if we have a mix of positive and negative values, bubble down first
     // check: https://github.com/moment/moment/issues/2166
-    if (
-        !(
-            (milliseconds >= 0 && days >= 0 && months >= 0) ||
-            (milliseconds <= 0 && days <= 0 && months <= 0)
-        )
-    ) {
+    if (!(
+        (milliseconds >= 0 && days >= 0 && months >= 0) ||
+        (milliseconds <= 0 && days <= 0 && months <= 0)
+    )) {
         milliseconds += absCeil(monthsToDays(months) + days) * 864e5;
         days = 0;
         months = 0;

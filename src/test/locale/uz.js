@@ -291,13 +291,14 @@ test('from', function (assert) {
 
 test('suffix', function (assert) {
     assert.equal(moment(30000).from(0), 'Якин фурсат ичида', 'prefix');
-    assert.equal(moment(0).from(30000), 'Бир неча фурсат олдин', 'suffix');
+    assert.equal(moment(0).from(30000), 'фурсат олдин', 'suffix');
+    assert.equal(moment(0).from(5 * 864e5), '5 кун олдин', 'suffix with count');
 });
 
 test('now from now', function (assert) {
     assert.equal(
         moment().fromNow(),
-        'Бир неча фурсат олдин',
+        'фурсат олдин',
         'now from now should display as in the past'
     );
 });

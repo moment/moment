@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  workflow_call:
+  push:
+    branches: ['develop']
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version:
+          - lts/*
+          - lts/-1
+          - latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Use pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Build
+        run: pnpm build
+
+      - name: Test
+        run: pnpm test
+
+      - name: Test TypeScript declarations
+        run: pnpm test:typescript

@@ -7,6 +7,23 @@
 
 import moment from '../moment';
 
+var monthsParse = [
+        /^jän/i,
+        /^feb/i,
+        /^mär/i,
+        /^apr/i,
+        /^mai/i,
+        /^jun/i,
+        /^jul/i,
+        /^aug/i,
+        /^sep/i,
+        /^okt/i,
+        /^nov/i,
+        /^dez/i,
+    ],
+    monthsRegex =
+        /^(Jänner|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember|Jän\.?|Feb\.?|Mär\.?|Apr\.?|Jun\.?|Jul\.?|Aug\.?|Sep\.?|Okt\.?|Nov\.?|Dez\.?)/i;
+
 function processRelativeTime(number, withoutSuffix, key, isFuture) {
     var format = {
         m: ['eine Minute', 'einer Minute'],
@@ -28,7 +45,18 @@ export default moment.defineLocale('de-at', {
     ),
     monthsShort:
         'Jän._Feb._März_Apr._Mai_Juni_Juli_Aug._Sep._Okt._Nov._Dez.'.split('_'),
-    monthsParseExact: true,
+
+    monthsRegex: monthsRegex,
+    monthsShortRegex: monthsRegex,
+    monthsStrictRegex:
+        /^(Jänner|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)/i,
+    monthsShortStrictRegex:
+        /^(Jän\.?|Feb\.?|März|Mär\.?|Apr\.?|Mai|Juni|Jun\.?|Juli|Jul\.?|Aug\.?|Sep\.?|Okt\.?|Nov\.?|Dez\.?)/i,
+
+    monthsParse: monthsParse,
+    longMonthsParse: monthsParse,
+    shortMonthsParse: monthsParse,
+
     weekdays:
         'Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag'.split(
             '_'

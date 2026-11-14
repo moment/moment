@@ -34,12 +34,12 @@ test('end of year', function (assert) {
 });
 
 test('start of quarter', function (assert) {
-    var m = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).startOf('quarter'),
-        ms = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).startOf('quarters'),
-        ma = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).startOf('Q');
+    var m = moment(new Date(2012, 4, 2, 3, 4, 5, 6)).startOf('quarter'),
+        ms = moment(new Date(2012, 4, 2, 3, 4, 5, 6)).startOf('quarters'),
+        ma = moment(new Date(2012, 4, 2, 3, 4, 5, 6)).startOf('Q');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
-    assert.equal(m.year(), 2011, 'keep the year');
+    assert.equal(m.year(), 2012, 'keep the year');
     assert.equal(m.quarter(), 2, 'keep the quarter');
     assert.equal(m.month(), 3, 'strip out the month');
     assert.equal(m.date(), 1, 'strip out the day');
@@ -50,12 +50,12 @@ test('start of quarter', function (assert) {
 });
 
 test('end of quarter', function (assert) {
-    var m = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).endOf('quarter'),
-        ms = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).endOf('quarters'),
-        ma = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).endOf('Q');
+    var m = moment(new Date(2012, 4, 2, 3, 4, 5, 6)).endOf('quarter'),
+        ms = moment(new Date(2012, 4, 2, 3, 4, 5, 6)).endOf('quarters'),
+        ma = moment(new Date(2012, 4, 2, 3, 4, 5, 6)).endOf('Q');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
-    assert.equal(m.year(), 2011, 'keep the year');
+    assert.equal(m.year(), 2012, 'keep the year');
     assert.equal(m.quarter(), 2, 'keep the quarter');
     assert.equal(m.month(), 5, 'set the month');
     assert.equal(m.date(), 30, 'set the day');
