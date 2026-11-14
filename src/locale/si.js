@@ -36,8 +36,8 @@ export default moment.defineLocale('si', {
         sameElse: 'L',
     },
     relativeTime: {
-        future: '%s කින්',
-        past: '%s කට පෙර',
+        future: '%sකින්',
+        past: '%sකට පෙර',
         s: 'තත්පර කිහිපය',
         ss: 'තත්පර %d',
         m: 'විනාඩිය',
@@ -55,15 +55,15 @@ export default moment.defineLocale('si', {
     ordinal: function (number) {
         return number + ' වැනි';
     },
-    meridiemParse: /පෙරවරු|පස්වරු|පෙ.ව|ප.ව./,
+    meridiemParse: /පෙර වරු|පස් වරු|පෙ.ව|ප.ව./,
     isPM: function (input) {
-        return input === 'ප.ව.' || input === 'පස්වරු';
+        return input === 'ප.ව.' || input === 'පස් වරු';
     },
     meridiem: function (hours, minutes, isLower) {
         if (hours > 11) {
-            return isLower ? 'ප.ව.' : 'පස්වරු';
+            return isLower ? 'ප.ව.' : 'පස් වරු';
         } else {
-            return isLower ? 'පෙ.ව.' : 'පෙරවරු';
+            return isLower ? 'පෙ.ව.' : 'පෙර වරු';
         }
     },
 });
