@@ -5,7 +5,7 @@ localeModule('si');
 
 test('parse', function (assert) {
     var tests =
-            'ජනවාරි ජන_පෙබරවාරි පෙබ_මාර්තු මාර්_අප්‍රේල් අප්_මැයි මැයි_ජූනි ජූනි_ජූලි ජූලි_අගෝස්තු අගෝ_සැප්තැම්බර් සැප්_ඔක්තෝබර් ඔක්_නොවැම්බර් නොවැ_දෙසැම්බර් දෙසැ'.split(
+            'දුරුතු දුරුතු_නවම් නවම්_මැදින් මැදින්_බක් බක්_වෙසක් වෙසක්_පොසොන් පොසොන්_ඇසළ ඇසළ_නිකිණි නිකිණි_බිනර බිනර_වප් වප්_ඉල් ඉල්_උඳුවප් උඳුවප්'.split(
                 '_'
             ),
         i;
@@ -49,14 +49,14 @@ test('format', function (assert) {
     var a = [
             [
                 'YYYY MMMM Do dddd, a h:mm:ss',
-                '2010 පෙබරවාරි 14 වැනි ඉරිදා, ප.ව. 3:25:50',
+                '2010 නවම් 14 වැනි ඉරිදා, ප.ව. 3:25:50',
             ],
             [
                 'YYYY MMMM Do dddd, a h:mm:ss',
-                '2010 පෙබරවාරි 14 වැනි ඉරිදා, ප.ව. 3:25:50',
+                '2010 නවම් 14 වැනි ඉරිදා, ප.ව. 3:25:50',
             ],
             ['ddd, A h', 'ඉරි, පස් වරු 3'],
-            ['M Mo MM MMMM MMM', '2 2 වැනි 02 පෙබරවාරි පෙබ'],
+            ['M Mo MM MMMM MMM', '2 2 වැනි 02 නවම් නවම්'],
             ['YYYY YY', '2010 10'],
             ['D Do DD', '14 14 වැනි 14'],
             ['d do dddd ddd dd', '0 0 වැනි ඉරිදා ඉරි ඉ'],
@@ -66,17 +66,17 @@ test('format', function (assert) {
             ['m mm', '25 25'],
             ['s ss', '50 50'],
             ['a A', 'ප.ව. පස් වරු'],
-            ['[වසරේ] DDDo [දිනය]', 'වසරේ 45 වැනි දිනය'],
+            ['[වසරේ] DDDo [දවස]', 'වසරේ 45 වැනි දවස'],
             ['LTS', 'ප.ව. 3:25:50'],
             ['LT', 'ප.ව. 3:25'],
             ['L', '2010/02/14'],
-            ['LL', '2010 පෙබරවාරි 14'],
-            ['LLL', '2010 පෙබරවාරි 14, ප.ව. 3:25'],
-            ['LLLL', '2010 පෙබරවාරි 14 වැනි ඉරිදා, ප.ව. 3:25:50'],
+            ['LL', '2010 නවම් 14'],
+            ['LLL', '2010 නවම් 14, ප.ව. 3:25'],
+            ['LLLL', '2010 නවම් 14 වැනි ඉරිදා, ප.ව. 3:25:50'],
             ['l', '2010/2/14'],
-            ['ll', '2010 පෙබ 14'],
-            ['lll', '2010 පෙබ 14, ප.ව. 3:25'],
-            ['llll', '2010 පෙබ 14 වැනි ඉරි, ප.ව. 3:25:50'],
+            ['ll', '2010 නවම් 14'],
+            ['lll', '2010 නවම් 14, ප.ව. 3:25'],
+            ['llll', '2010 නවම් 14 වැනි ඉරි, ප.ව. 3:25:50'],
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -124,7 +124,7 @@ test('format ordinal', function (assert) {
 
 test('format month', function (assert) {
     var expected =
-            'ජනවාරි ජන_පෙබරවාරි පෙබ_මාර්තු මාර්_අප්‍රේල් අප්_මැයි මැයි_ජූනි ජූනි_ජූලි ජූලි_අගෝස්තු අගෝ_සැප්තැම්බර් සැප්_ඔක්තෝබර් ඔක්_නොවැම්බර් නොවැ_දෙසැම්බර් දෙසැ'.split(
+            'දුරුතු දුරුතු_නවම් නවම්_මැදින් මැදින්_බක් බක්_වෙසක් වෙසක්_පොසොන් පොසොන්_ඇසළ ඇසළ_නිකිණි නිකිණි_බිනර බිනර_වප් වප්_ඉල් ඉල්_උඳුවප් උඳුවප්'.split(
                 '_'
             ),
         i;
@@ -161,22 +161,22 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ s: 45 }), true),
-        'මිනිත්තුව',
+        'විනාඩිය',
         '45 seconds = a minute'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ s: 89 }), true),
-        'මිනිත්තුව',
+        'විනාඩිය',
         '89 seconds = a minute'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ s: 90 }), true),
-        'මිනිත්තු 2',
+        'විනාඩි 2',
         '90 seconds = 2 minutes'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ m: 44 }), true),
-        'මිනිත්තු 44',
+        'විනාඩි 44',
         '44 minutes = 44 minutes'
     );
     assert.equal(
@@ -206,32 +206,32 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ h: 22 }), true),
-        'දිනය',
+        'දවස',
         '22 hours = a day'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ h: 35 }), true),
-        'දිනය',
+        'දවස',
         '35 hours = a day'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ h: 36 }), true),
-        'දින 2',
+        'දවස් 2',
         '36 hours = 2 days'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ d: 1 }), true),
-        'දිනය',
+        'දවස',
         '1 day = a day'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ d: 5 }), true),
-        'දින 5',
+        'දවස් 5',
         '5 days = 5 days'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ d: 25 }), true),
-        'දින 25',
+        'දවස් 25',
         '25 days = 25 days'
     );
     assert.equal(
@@ -315,7 +315,7 @@ test('fromNow', function (assert) {
         'තත්පර කිහිපයකින්',
         'in a few seconds'
     );
-    assert.equal(moment().add({ d: 5 }).fromNow(), 'දින 5කින්', 'in 5 days');
+    assert.equal(moment().add({ d: 5 }).fromNow(), 'දවස් 5කින්', 'in 5 days');
 });
 
 test('calendar day', function (assert) {
