@@ -55,7 +55,7 @@ test('format', function (assert) {
                 'YYYY MMMM Do dddd, a h:mm:ss',
                 '2010 නවම් 14 වැනි ඉරිදා, ප.ව. 3:25:50',
             ],
-            ['ddd, A h', 'ඉරි, පස්වරු 3'],
+            ['ddd, A h', 'ඉරි, පස් වරු 3'],
             ['M Mo MM MMMM MMM', '2 2 වැනි 02 නවම් නවම්'],
             ['YYYY YY', '2010 10'],
             ['D Do DD', '14 14 වැනි 14'],
@@ -65,7 +65,7 @@ test('format', function (assert) {
             ['H HH', '15 15'],
             ['m mm', '25 25'],
             ['s ss', '50 50'],
-            ['a A', 'ප.ව. පස්වරු'],
+            ['a A', 'ප.ව. පස් වරු'],
             ['[වසරේ] DDDo [දවස]', 'වසරේ 45 වැනි දවස'],
             ['LTS', 'ප.ව. 3:25:50'],
             ['LT', 'ප.ව. 3:25'],
@@ -315,7 +315,7 @@ test('fromNow', function (assert) {
         'තත්පර කිහිපයකින්',
         'in a few seconds'
     );
-    assert.equal(moment().add({ d: 5 }).fromNow(), 'දවස් 5 කින්', 'in 5 days');
+    assert.equal(moment().add({ d: 5 }).fromNow(), 'දවස් 5කින්', 'in 5 days');
 });
 
 test('calendar day', function (assert) {
@@ -323,32 +323,32 @@ test('calendar day', function (assert) {
 
     assert.equal(
         moment(a).calendar(),
-        'අද ප.ව. 12:00 ට',
+        'අද ප.ව. 12:00ට',
         'today at the same time'
     );
     assert.equal(
         moment(a).add({ m: 25 }).calendar(),
-        'අද ප.ව. 12:25 ට',
+        'අද ප.ව. 12:25ට',
         'Now plus 25 min'
     );
     assert.equal(
         moment(a).add({ h: 1 }).calendar(),
-        'අද ප.ව. 1:00 ට',
+        'අද ප.ව. 1:00ට',
         'Now plus 1 hour'
     );
     assert.equal(
         moment(a).add({ d: 1 }).calendar(),
-        'හෙට ප.ව. 12:00 ට',
+        'හෙට ප.ව. 12:00ට',
         'tomorrow at the same time'
     );
     assert.equal(
         moment(a).subtract({ h: 1 }).calendar(),
-        'අද පෙ.ව. 11:00 ට',
+        'අද පෙ.ව. 11:00ට',
         'Now minus 1 hour'
     );
     assert.equal(
         moment(a).subtract({ d: 1 }).calendar(),
-        'ඊයේ ප.ව. 12:00 ට',
+        'ඊයේ ප.ව. 12:00ට',
         'yesterday at the same time'
     );
 });
