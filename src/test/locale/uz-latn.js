@@ -5,7 +5,7 @@ localeModule('uz-latn');
 
 test('parse', function (assert) {
     var tests =
-            'Yanvar Yan_Fevral Fev_Mart Mar_Aprel Apr_May May_Iyun Iyun_Iyul Iyul_Avgust Avg_Sentabr Sen_Oktabr Okt_Noyabr Noy_Dekabr Dek'.split(
+            'yanvar yan_fevral fev_mart mar_aprel apr_may may_iyun iyun_iyul iyul_avgust avg_sentabr sen_oktabr okt_noyabr noy_dekabr dek'.split(
                 '_'
             ),
         i;
@@ -49,13 +49,13 @@ test('format', function (assert) {
     var a = [
             [
                 'dddd, Do-MMMM YYYY, h:mm:ss',
-                'Yakshanba, 14-Fevral 2010, 3:25:50',
+                'yakshanba, 14-fevral 2010, 3:25:50',
             ],
             ['ddd, h:mm', 'Yak, 3:25'],
-            ['M Mo MM MMMM MMM', '2 2 02 Fevral Fev'],
+            ['M Mo MM MMMM MMM', '2 2 02 fevral fev'],
             ['YYYY YY', '2010 10'],
             ['D Do DD', '14 14 14'],
-            ['d do dddd ddd dd', '0 0 Yakshanba Yak Ya'],
+            ['d do dddd ddd dd', '0 0 yakshanba Yak Ya'],
             ['DDD DDDo DDDD', '45 45 045'],
             ['w wo ww', '7 7 07'],
             ['h hh', '3 03'],
@@ -66,13 +66,13 @@ test('format', function (assert) {
             ['[yilning] DDDo-[kuni]', 'yilning 45-kuni'],
             ['LTS', '15:25:50'],
             ['L', '14/02/2010'],
-            ['LL', '14 Fevral 2010'],
-            ['LLL', '14 Fevral 2010 15:25'],
-            ['LLLL', '14 Fevral 2010, Yakshanba 15:25'],
+            ['LL', '14 fevral 2010'],
+            ['LLL', '14 fevral 2010 15:25'],
+            ['LLLL', '14 fevral 2010, yakshanba 15:25'],
             ['l', '14/2/2010'],
-            ['ll', '14 Fev 2010'],
-            ['lll', '14 Fev 2010 15:25'],
-            ['llll', '14 Fev 2010, Yak 15:25'],
+            ['ll', '14 fev 2010'],
+            ['lll', '14 fev 2010 15:25'],
+            ['llll', '14 fev 2010, Yak 15:25'],
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -120,7 +120,7 @@ test('format ordinal', function (assert) {
 
 test('format month', function (assert) {
     var expected =
-            'Yanvar Yan_Fevral Fev_Mart Mar_Aprel Apr_May May_Iyun Iyun_Iyul Iyul_Avgust Avg_Sentabr Sen_Oktabr Okt_Noyabr Noy_Dekabr Dek'.split(
+            'yanvar yan_fevral fev_mart mar_aprel apr_may may_iyun iyun_iyul iyul_avgust avg_sentabr sen_oktabr okt_noyabr noy_dekabr dek'.split(
                 '_'
             ),
         i;
@@ -135,7 +135,7 @@ test('format month', function (assert) {
 
 test('format week', function (assert) {
     var expected =
-            'Yakshanba Yak Ya_Dushanba Dush Du_Seshanba Sesh Se_Chorshanba Chor Cho_Payshanba Pay Pa_Juma Jum Ju_Shanba Shan Sha'.split(
+            'yakshanba Yak Ya_dushanba Dush Du_seshanba Sesh Se_chorshanba Chor Cho_payshanba Pay Pa_juma Jum Ju_shanba Shan Sha'.split(
                 '_'
             ),
         i;
@@ -293,7 +293,7 @@ test('from', function (assert) {
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), 'Yaqin soniya ichida', 'prefix');
+    assert.equal(moment(30000).from(0), 'soniyadan keyin', 'prefix');
     assert.equal(moment(0).from(30000), 'soniya oldin', 'suffix');
     assert.equal(moment(0).from(5 * 864e5), '5 kun oldin', 'suffix with count');
 });
@@ -309,12 +309,12 @@ test('now from now', function (assert) {
 test('fromNow', function (assert) {
     assert.equal(
         moment().add({ s: 30 }).fromNow(),
-        'Yaqin soniya ichida',
+        'soniyadan keyin',
         'in a few seconds'
     );
     assert.equal(
         moment().add({ d: 5 }).fromNow(),
-        'Yaqin 5 kun ichida',
+        '5 kundan keyin',
         'in 5 days'
     );
 });

@@ -47,12 +47,12 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, Do-MMMM YYYY, h:mm:ss', 'Якшанба, 14-феврал 2010, 3:25:50'],
-            ['ddd, h:mm', 'Якш, 3:25'],
+            ['dddd, Do-MMMM YYYY, h:mm:ss', 'якшанба, 14-феврал 2010, 3:25:50'],
+            ['ddd, h:mm', 'якш, 3:25'],
             ['M Mo MM MMMM MMM', '2 2 02 феврал фев'],
             ['YYYY YY', '2010 10'],
             ['D Do DD', '14 14 14'],
-            ['d do dddd ddd dd', '0 0 Якшанба Якш Як'],
+            ['d do dddd ddd dd', '0 0 якшанба якш як'],
             ['DDD DDDo DDDD', '45 45 045'],
             ['w wo ww', '7 7 07'],
             ['h hh', '3 03'],
@@ -65,11 +65,11 @@ test('format', function (assert) {
             ['L', '14/02/2010'],
             ['LL', '14 феврал 2010'],
             ['LLL', '14 феврал 2010 15:25'],
-            ['LLLL', '14 феврал 2010, Якшанба 15:25'],
+            ['LLLL', '14 феврал 2010, якшанба 15:25'],
             ['l', '14/2/2010'],
             ['ll', '14 фев 2010'],
             ['lll', '14 фев 2010 15:25'],
-            ['llll', '14 фев 2010, Якш 15:25'],
+            ['llll', '14 фев 2010, якш 15:25'],
         ],
         b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
@@ -132,7 +132,7 @@ test('format month', function (assert) {
 
 test('format week', function (assert) {
     var expected =
-            'Якшанба Якш Як_Душанба Душ Ду_Сешанба Сеш Се_Чоршанба Чор Чо_Пайшанба Пай Па_Жума Жум Жу_Шанба Шан Ша'.split(
+            'якшанба якш як_душанба душ ду_сешанба сеш се_чоршанба чор чо_пайшанба пай па_жума жум жу_шанба шан ша'.split(
                 '_'
             ),
         i;
@@ -149,28 +149,28 @@ test('from', function (assert) {
     var start = moment([2007, 1, 28]);
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ s: 44 }), true),
-        'фурсат',
-        '44 секунд = фурсат'
+        'сония',
+        '44 секунд = сония'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ s: 45 }), true),
-        'бир дакика',
-        '45 секунд = бир дакика'
+        'бир дақиқа',
+        '45 секунд = бир дақиқа'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ s: 89 }), true),
-        'бир дакика',
-        '89 секунд = бир дакика'
+        'бир дақиқа',
+        '89 секунд = бир дақиқа'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ s: 90 }), true),
-        '2 дакика',
-        '90 секунд = 2 дакика'
+        '2 дақиқа',
+        '90 секунд = 2 дақиқа'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ m: 44 }), true),
-        '44 дакика',
-        '44 дакика = 44 дакика'
+        '44 дақиқа',
+        '44 дақиқа = 44 дақиқа'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ m: 45 }), true),
@@ -290,15 +290,15 @@ test('from', function (assert) {
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), 'Якин фурсат ичида', 'prefix');
-    assert.equal(moment(0).from(30000), 'фурсат олдин', 'suffix');
+    assert.equal(moment(30000).from(0), 'сониядан сўнг', 'prefix');
+    assert.equal(moment(0).from(30000), 'сония олдин', 'suffix');
     assert.equal(moment(0).from(5 * 864e5), '5 кун олдин', 'suffix with count');
 });
 
 test('now from now', function (assert) {
     assert.equal(
         moment().fromNow(),
-        'фурсат олдин',
+        'сония олдин',
         'now from now should display as in the past'
     );
 });
@@ -306,12 +306,12 @@ test('now from now', function (assert) {
 test('fromNow', function (assert) {
     assert.equal(
         moment().add({ s: 30 }).fromNow(),
-        'Якин фурсат ичида',
+        'сониядан сўнг',
         'in a few seconds'
     );
     assert.equal(
         moment().add({ d: 5 }).fromNow(),
-        'Якин 5 кун ичида',
+        '5 кундан сўнг',
         'in 5 days'
     );
 });

@@ -5,12 +5,12 @@
 import moment from '../moment';
 
 export default moment.defineLocale('uz-latn', {
-    months: 'Yanvar_Fevral_Mart_Aprel_May_Iyun_Iyul_Avgust_Sentabr_Oktabr_Noyabr_Dekabr'.split(
+    months: 'yanvar_fevral_mart_aprel_may_iyun_iyul_avgust_sentabr_oktabr_noyabr_dekabr'.split(
         '_'
     ),
-    monthsShort: 'Yan_Fev_Mar_Apr_May_Iyun_Iyul_Avg_Sen_Okt_Noy_Dek'.split('_'),
+    monthsShort: 'yan_fev_mar_apr_may_iyun_iyul_avg_sen_okt_noy_dek'.split('_'),
     weekdays:
-        'Yakshanba_Dushanba_Seshanba_Chorshanba_Payshanba_Juma_Shanba'.split(
+        'yakshanba_dushanba_seshanba_chorshanba_payshanba_juma_shanba'.split(
             '_'
         ),
     weekdaysShort: 'Yak_Dush_Sesh_Chor_Pay_Jum_Shan'.split('_'),
@@ -32,7 +32,7 @@ export default moment.defineLocale('uz-latn', {
         sameElse: 'L',
     },
     relativeTime: {
-        future: 'Yaqin %s ichida',
+        future: '%sdan keyin',
         past: '%s oldin',
         s: 'soniya',
         ss: '%d soniya',
