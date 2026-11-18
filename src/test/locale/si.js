@@ -66,7 +66,7 @@ test('format', function (assert) {
             ['m mm', '25 25'],
             ['s ss', '50 50'],
             ['a A', 'ප.ව. පස් වරු'],
-            ['[වසරේ] DDDo [දවස]', 'වසරේ 45 වැනි දවස'],
+            ['[වසරේ] DDDo [දිනය]', 'වසරේ 45 වැනි දිනය'],
             ['LTS', 'ප.ව. 3:25:50'],
             ['LT', 'ප.ව. 3:25'],
             ['L', '2010/02/14'],
@@ -206,17 +206,17 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ h: 22 }), true),
-        'දවස',
+        'දිනය',
         '22 hours = a day'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ h: 35 }), true),
-        'දවස',
+        'දිනය',
         '35 hours = a day'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ h: 36 }), true),
-        'දවස් 2',
+        'දින 2',
         '36 hours = 2 days'
     );
     assert.equal(
@@ -226,12 +226,12 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ d: 5 }), true),
-        'දවස් 5',
+        'දින 5',
         '5 days = 5 days'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ d: 25 }), true),
-        'දවස් 25',
+        'දින 25',
         '25 days = 25 days'
     );
     assert.equal(
