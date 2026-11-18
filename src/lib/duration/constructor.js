@@ -26,7 +26,7 @@ export function Duration(duration) {
     // day when working around DST, we need to store them separately
     this._days = +days + weeks * 7;
     // It is impossible to translate months into days without knowing
-    // which months you are are talking about, so we have to store
+    // which months you are talking about, so we have to store
     // it separately.
     this._months = +months + quarters * 3 + years * 12;
 
