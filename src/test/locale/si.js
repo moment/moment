@@ -221,7 +221,7 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ d: 1 }), true),
-        'දවස',
+        'දිනය',
         '1 day = a day'
     );
     assert.equal(
@@ -315,7 +315,7 @@ test('fromNow', function (assert) {
         'තත්පර කිහිපයකින්',
         'in a few seconds'
     );
-    assert.equal(moment().add({ d: 5 }).fromNow(), 'දවස් 5කින්', 'in 5 days');
+    assert.equal(moment().add({ d: 5 }).fromNow(), 'දින 5කින්', 'in 5 days');
 });
 
 test('calendar day', function (assert) {
