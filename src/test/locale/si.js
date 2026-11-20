@@ -206,32 +206,32 @@ test('from', function (assert) {
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ h: 22 }), true),
-        'දිනය',
+        'දවස',
         '22 hours = a day'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ h: 35 }), true),
-        'දිනය',
+        'දවස',
         '35 hours = a day'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ h: 36 }), true),
-        'දින 2',
+        'දවස් 2',
         '36 hours = 2 days'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ d: 1 }), true),
-        'දිනය',
+        'දවස',
         '1 day = a day'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ d: 5 }), true),
-        'දින 5',
+        'දවස් 5',
         '5 days = 5 days'
     );
     assert.equal(
         start.from(moment([2007, 1, 28]).add({ d: 25 }), true),
-        'දින 25',
+        'දවස් 25',
         '25 days = 25 days'
     );
     assert.equal(
