@@ -1,6 +1,7 @@
 //! moment.js locale configuration
 //! locale : Sinhalese [si]
 //! author : Sampath Sitinamaluwa : https://github.com/sampathsris
+//! author : Dinithi Jayawardhana <dj@yalu.lk>
 
 import moment from '../moment';
 
@@ -44,8 +45,8 @@ export default moment.defineLocale('si', {
         mm: 'විනාඩි %d',
         h: 'පැය',
         hh: 'පැය %d',
-        d: 'දින',
-        dd: 'දින %d',
+        d: 'දවස',
+        dd: 'දවස් %d',
         M: 'මාසය',
         MM: 'මාස %d',
         y: 'වසර',
